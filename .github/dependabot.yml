@@ -15,3 +15,13 @@ updates:
   schedule:
     interval: weekly
   open-pull-requests-limit: 10
+  # vitest, its coverage provider, and the jsdom test environment move in
+  # lockstep (coverage-v8 has a hard peer dependency on the matching vitest
+  # version). Group them so Dependabot bumps the whole JS test stack in a
+  # single, self-consistent PR instead of separate ones that break `npm ci`.
+  groups:
+    js-test-stack:
+      patterns:
+      - "vitest"
+      - "@vitest/*"
+      - "jsdom"
