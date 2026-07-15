@@ -13,8 +13,8 @@ en:
         lang_toggle: "PT"
         lang_title: "Português / English"
       hint:
-        title_html: 'Also in<br>Português!'
-        cta: "tap PT ↑"
+        title_html: 'Também em<br>Português!'
+        cta: "toque em PT ↑"
       marquee:
         - "GEN 1 & 2 LIVE"
         - "SAVE-FILE PARSER"

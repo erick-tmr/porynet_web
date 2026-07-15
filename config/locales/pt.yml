@@ -13,8 +13,8 @@ pt:
         lang_toggle: "EN"
         lang_title: "Português / English"
       hint:
-        title_html: 'Também em<br>English!'
-        cta: "toque em EN ↑"
+        title_html: 'Also in<br>English!'
+        cta: "tap EN ↑"
       marquee:
         - "GEN 1 E 2 DISPONÍVEIS"
         - "LEITOR DE SAVE"
