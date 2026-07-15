@@ -1,0 +1,45 @@
+# Reek configuration — keeps the signal high on a small Rails app.
+# Reek runs advisory-only in CI (the `code_quality` job in
+# .github/workflows/ci.yml), on changed files. These overrides silence
+# Rails-idiomatic patterns that aren't real smells; the value is catching
+# genuine god-objects / over-long methods in new code.
+detectors:
+  IrresponsibleModule:
+    enabled: false        # don't demand a descriptive comment on every class/module
+  TooManyStatements:
+    max_statements: 8     # controller actions run a few lines; reek's default is 5
+  TooManyInstanceVariables:
+    max_instance_variables: 7
+    exclude:
+      - PagesController   # the landing action assembles cohesive page state (hero,
+                          # features, cities, roadmap...) — a view-model for one
+                          # template, not a god object.
+  TooManyConstants:
+    exclude:
+      - LandingData       # single source of truth for the page's demo content;
+                          # each constant is a distinct cohesive section, not a
+                          # god object.
+  UncommunicativeVariableName:
+    accept:
+      - i                 # plain loop index in the grid/box builders
+  UtilityFunction:
+    enabled: false        # stateless helpers/mappers are normal in Rails
+  FeatureEnvy:
+    enabled: false        # attribute mappers legitimately lean on a param
+  NilCheck:
+    enabled: false        # `return if x.nil?` guard clauses are idiomatic Ruby
+  DuplicateMethodCall:
+    enabled: false        # noisy on view/controller idioms
+  MissingSafeMethod:
+    enabled: false        # bang methods wrap AR update!/save! (no non-raising twin)
+  InstanceVariableAssumption:
+    enabled: false        # Rails action methods (`def home; @x = ...`) pass state to
+                          # the template — reek's "assumes too much" lint is
+                          # structurally wrong for every controller action.
+
+exclude_paths:
+  - bin
+  - config
+  - db
+  - tmp
+  - vendor
