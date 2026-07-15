@@ -1,0 +1,49 @@
+/* Neon logo tiles: pixel Porygon on a dark square with a glowing border and a
+   faint inner grid. Used in the nav and footer. (The larger identity-section
+   badges/swatches live in pages/landing.css.) */
+
+.pn-logo-tile {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border: 2px solid #ff3dae;
+  background: #080a16;
+  box-shadow: 0 0 18px #ff3daecc, inset 0 0 12px #ff3dae33;
+  overflow: hidden;
+}
+.pn-logo-tile__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#ff3dae1c 1px, transparent 1px),
+    linear-gradient(90deg, #ff3dae1c 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.pn-logo-tile__img {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 6px #ff3dae);
+}
+
+/* Footer mini logo tile. */
+.pn-footer__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #ff3dae;
+  background: #080a16;
+  box-shadow: 0 0 11px #ff3daecc;
+}
+.pn-footer__logo img {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 3px #ff3dae);
+}

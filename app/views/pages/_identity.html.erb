@@ -1,0 +1,42 @@
+<section class="pn-identity">
+  <div class="pn-identity__grid-floor"></div>
+  <div class="pn-identity__horizon"></div>
+  <div class="pn-identity__glow"></div>
+
+  <div class="pn-identity__inner">
+    <div class="pn-eyebrow-label pn-eyebrow-label--neon">06 · IDENTITY · NEON MODE</div>
+    <h2 class="pn-h2 pn-h2--light">The logo. Jacked into the grid.</h2>
+    <p class="pn-identity__lead">Same badge, lit up — neon tubes, glowing amber wordmark, digital-arcade energy. Porygon was always a creature of the net; now the branding looks the part.</p>
+
+    <div class="pn-lockup">
+      <div class="pn-neon-badge">
+        <div class="pn-neon-badge__grid"></div>
+        <div class="pn-neon-badge__stage">
+          <%= image_tag "porygon-pixel.png", alt: "Porygon", class: "pn-neon-badge__img" %>
+        </div>
+        <div class="pn-neon-badge__word">PORYNET</div>
+      </div>
+      <div class="pn-lockup__meta">
+        <div class="pn-lockup__eyebrow">PRIMARY MARK</div>
+        <div class="pn-lockup__word">PORYNET</div>
+        <div class="pn-lockup__rule">
+          <span class="pn-lockup__rule-line"></span>
+          <span class="pn-lockup__rule-text">OPEN-SOURCE DEX TRACKER</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pn-swatches">
+      <% [["cyan", "CYAN GRID"], ["magenta", "MAGENTA"], ["amber", "AMBER"]].each do |variant, label| %>
+        <div class="pn-swatch pn-swatch--<%= variant %>">
+          <div class="pn-swatch__badge">
+            <div class="pn-swatch__grid"></div>
+            <div class="pn-swatch__stage"><%= image_tag "porygon-pixel.png", alt: "", class: "pn-swatch__img" %></div>
+            <div class="pn-swatch__word">PORYNET</div>
+          </div>
+          <div class="pn-swatch__label"><%= label %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

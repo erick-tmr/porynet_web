@@ -1,0 +1,18 @@
+<% content_for :title, "PORYNET — Open-source Pokémon living-dex tracker" %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/landing", "data-turbo-track": "reload" %>
+<% end %>
+
+<div class="porynet" data-play="running">
+  <div class="pn-crt" aria-hidden="true"></div>
+
+  <%= render "header" %>
+  <%= render "hero" %>
+  <%= render "features" %>
+  <%= render "oak" %>
+  <%= render "tracker" %>
+  <%= render "pokehome" %>
+  <%= render "roadmap" %>
+  <%= render "identity" %>
+  <%= render "footer" %>
+</div>

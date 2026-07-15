@@ -1,0 +1,74 @@
+<% active = @cities[@city_index] %>
+<section id="oak" class="pn-oak">
+  <div class="pn-oak__inner"
+       data-controller="oak-toggle city-selector"
+       data-city-selector-cities-value="<%= @cities.map(&:to_h).to_json %>"
+       data-city-selector-index-value="<%= @city_index %>">
+    <div class="pn-oak__head">
+      <div>
+        <div class="pn-eyebrow-label pn-eyebrow-label--ink">02 · OAK CHALLENGE</div>
+        <h2 class="pn-h2">Catch 'em all — in the right order.</h2>
+        <p class="pn-oak__lead">Walk the route alongside the game. At each city we show what's catchable so far and tick your dex as you go. Pick your ruleset:</p>
+      </div>
+      <div class="pn-toggle">
+        <button type="button" class="pn-toggle__btn pn-toggle__btn--sep is-active"
+                data-oak-toggle-target="button" data-oak-mode="oak"
+                data-action="click->oak-toggle#select">OAK MODE</button>
+        <button type="button" class="pn-toggle__btn"
+                data-oak-toggle-target="button" data-oak-mode="dex"
+                data-action="click->oak-toggle#select">LIVING DEX</button>
+      </div>
+    </div>
+
+    <div class="pn-cities">
+      <% @cities.each_with_index do |city, i| %>
+        <div class="pn-cities__item">
+          <button type="button" class="pn-city-btn <%= "is-active" if i == @city_index %>"
+                  data-city-selector-target="button" data-city-index="<%= i %>"
+                  data-action="click->city-selector#select"><%= city.name %></button>
+          <% if i < @cities.length - 1 %>
+            <span class="pn-cities__sep">▶</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pn-oak__detail">
+      <div class="pn-oak-stat">
+        <div class="pn-oak-stat__city" data-city-selector-target="name"><%= active.name %></div>
+        <div class="pn-oak-stat__caption">OBTAINABLE UP TO HERE</div>
+        <div class="pn-oak-stat__total" data-city-selector-target="total"><%= active.total %></div>
+        <div class="pn-oak-stat__cards">
+          <div class="pn-oak-subcard pn-oak-subcard--oak is-active"
+               data-oak-toggle-target="statCard" data-oak-mode="oak">
+            <div class="pn-oak-subcard__label">OAK · REGISTERED</div>
+            <div class="pn-oak-subcard__num" data-city-selector-target="oak"><%= active.oak %></div>
+          </div>
+          <div class="pn-oak-subcard pn-oak-subcard--dex"
+               data-oak-toggle-target="statCard" data-oak-mode="dex">
+            <div class="pn-oak-subcard__label">LIVING DEX</div>
+            <div class="pn-oak-subcard__num" data-city-selector-target="dex"><%= active.dex %></div>
+          </div>
+        </div>
+        <div class="pn-oak-stat__note">// demo data · Kanto early route</div>
+      </div>
+
+      <div class="pn-oak-new">
+        <div class="pn-oak-new__title">NEW ON THIS ROUTE</div>
+        <div class="pn-oak-new__mons" data-city-selector-target="newMons">
+          <% active.new_mons.each do |mon| %>
+            <span class="pn-mon"><span class="pn-mon__dot"></span><%= mon %></span>
+          <% end %>
+        </div>
+        <div class="pn-oak-rules">
+          <div class="pn-oak-rules__title">HOW WE COUNT</div>
+          <ul class="pn-oak-rules__list">
+            <li>Line evolves in-game (Caterpie→Butterfree) — log the base <b>once</b>.</li>
+            <li>Evolution unobtainable this run — log <b>2–3</b> of the base to cover the family.</li>
+            <li>One-of-a-kind (fossils, legendaries) — log a <b>single</b> specimen.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

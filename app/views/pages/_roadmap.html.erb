@@ -1,0 +1,13 @@
+<section class="pn-roadmap">
+  <div class="pn-eyebrow-label">05 · ROADMAP</div>
+  <h2 class="pn-h2">Starting with Kanto &amp; Johto. All nine gens incoming.</h2>
+  <div class="pn-gens">
+    <% @gens.each do |gen| %>
+      <div class="pn-gen <%= "pn-gen--live" if gen.live %>">
+        <div class="pn-gen__num">GEN <%= gen.num %></div>
+        <div class="pn-gen__region"><%= gen.region %></div>
+        <div class="pn-gen__status"><%= gen.live ? "LIVE NOW" : "SOON" %></div>
+      </div>
+    <% end %>
+  </div>
+</section>

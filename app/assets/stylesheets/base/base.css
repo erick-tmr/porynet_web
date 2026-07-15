@@ -1,0 +1,17 @@
+/* Global resets + document defaults, ported verbatim from the handoff. */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: #FBF5E6;
+  color: #171622;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: none;
+}
+
+img { image-rendering: pixelated; }
+
+a { color: #FF5D8F; text-decoration: none; }
+a:hover { color: #171622; }
+
+::selection { background: #FF5D8F; color: #171622; }

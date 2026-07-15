@@ -1,0 +1,140 @@
+/* The "PC box" frame + cell grids used in the hero (8-col living-dex) and the
+   tracker (6-col storage box). */
+
+.pn-box {
+  border: 4px solid #171622;
+  background: #171622;
+  box-shadow: 10px 10px 0 rgba(23, 22, 34, 0.28);
+  padding: 12px;
+}
+.pn-box__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 6px 12px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #FBF5E6;
+}
+.pn-box__nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.pn-box__arrow { cursor: pointer; }
+.pn-box__dots { display: flex; gap: 5px; }
+.pn-box__dot { width: 9px; height: 9px; }
+.pn-box__dot--a { background: var(--accent); }
+.pn-box__dot--b { background: var(--accent2); }
+.pn-box__dot--c { background: #FBF5E6; }
+
+.pn-box__body { background: #FBF5E6; padding: 12px; }
+
+.pn-box__grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+.pn-box__grid--6 {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+/* Living-dex cell (hero). */
+.pn-cell {
+  aspect-ratio: 1;
+  border: 2px solid #171622;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pn-cell:hover { background: #ffe3ee; }
+.pn-cell__fill {
+  width: 66%;
+  height: 66%;
+  background: var(--accent);
+  border: 2px solid #171622;
+}
+.pn-cell__cursor {
+  width: 66%;
+  height: 66%;
+  background: var(--accent2);
+  border: 2px solid #171622;
+  animation: blink 1.1s steps(1) infinite;
+  animation-play-state: var(--play);
+}
+
+/* Meter row + progress bar under the hero grid. */
+.pn-box__meter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  color: #171622;
+}
+.pn-box__meter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pn-box__meter-swatch {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid #171622;
+}
+.pn-progress {
+  height: 12px;
+  border: 2px solid #171622;
+  background: #fff;
+  margin-top: 6px;
+  position: relative;
+}
+.pn-progress__fill {
+  position: absolute;
+  inset: 0;
+  width: 15%;
+  background: var(--accent);
+}
+
+/* Storage-box slot (tracker). */
+.pn-slot {
+  aspect-ratio: 1;
+  border: 2px solid #171622;
+  background: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-slot__hatch {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, #e9e2d0, #e9e2d0 4px, #d8cfb8 4px, #d8cfb8 8px);
+}
+.pn-slot__dex-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 3px;
+}
+.pn-slot__dex {
+  font-family: "VT323", monospace;
+  font-size: 14px;
+  line-height: 1;
+  color: #171622;
+  background: #FBF5E6;
+  border: 1px solid #171622;
+  padding: 0 3px;
+}
+.pn-slot__empty {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #c7bfa8;
+}

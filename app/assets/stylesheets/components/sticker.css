@@ -1,0 +1,13 @@
+/* Signature "sticker" card: white panel, ink border, hard offset shadow that
+   presses in on hover. Used by the feature cards and other bordered panels. */
+.pn-card {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 6px 6px 0 #171622;
+  padding: 24px;
+  transition: transform 0.05s linear, box-shadow 0.05s linear;
+}
+.pn-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #171622;
+}

@@ -1,0 +1,63 @@
+/* Small bordered labels/pills used across the page. */
+
+/* Hero eyebrow ("THE OPEN-SOURCE STORAGE SYSTEM — EVOLVED"). */
+.pn-eyebrow {
+  display: inline-block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #171622;
+  background: #fff;
+  border: 2px solid #171622;
+  padding: 9px 12px;
+  box-shadow: 3px 3px 0 #171622;
+}
+
+/* Hero stat chips (VT323). */
+.pn-stat-chip {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1;
+  color: #171622;
+  background: #fff;
+  border: 2px solid #171622;
+  padding: 7px 11px;
+}
+
+/* Tracker filter chips (with a small shadow). */
+.pn-filter {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  background: #fff;
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 #171622;
+  padding: 6px 11px;
+}
+
+/* Numbered badge on feature cards. */
+.pn-badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #171622;
+  background: var(--accent);
+  border: 2px solid #171622;
+  padding: 8px 9px;
+}
+
+/* "New on this route" mon pills. */
+.pn-mon {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  background: #FBF5E6;
+  border: 2px solid #171622;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.pn-mon__dot {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid #171622;
+}

@@ -1,0 +1,28 @@
+/* Design tokens for the PORYNET landing page.
+   Carried on the .porynet root wrapper so children can reference var(--accent)
+   etc. No inline style attributes (keeps the strict CSP style-src :self). */
+.porynet {
+  --accent: #FF5D8F;
+  --accent2: #2BB3E0;
+  --play: running;
+
+  --cream: #FBF5E6;
+  --ink: #171622;
+  --muted: #3a3850;
+  --neon-cyan: #2af0ff;
+  --neon-magenta: #ff3dae;
+  --neon-magenta2: #ff2e97;
+  --amber: #FFC23D;
+  --amber-glow: #ff8a00;
+  --ui-dark: #080a16;
+  --ui-dark2: #06070F;
+  --ui-dark3: #0f0e17;
+  --term-green: #7fe0a5;
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--cream);
+  background-image: radial-gradient(#17162212 1px, transparent 1px);
+  background-size: 22px 22px;
+}

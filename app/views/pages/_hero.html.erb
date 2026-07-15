@@ -1,0 +1,45 @@
+<section class="pn-hero">
+  <div>
+    <div class="pn-eyebrow">THE OPEN-SOURCE STORAGE SYSTEM — EVOLVED</div>
+    <h1 class="pn-hero__title">Your PC box,<br>on <span class="pn-accent">steroids.</span></h1>
+    <p class="pn-hero__lead">Bill's PC never looked this good. Track your living dex, run the Oak Challenge right inside the walkthroughs, and auto-catalog everything from your save file. Self-hosted, open source, yours.</p>
+    <div class="pn-hero__ctas">
+      <a href="#oak" class="pn-btn pn-btn--accent">START TRACKING</a>
+      <a href="#features" class="pn-btn pn-btn--white">SEE FEATURES</a>
+    </div>
+    <div class="pn-hero__stats">
+      <% @hero_stats.each do |stat| %>
+        <span class="pn-stat-chip">▪ <%= stat %></span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pn-hero__mock">
+    <%= image_tag "porygon.png", alt: "Porygon", class: "pn-hero__mascot" %>
+    <div class="pn-box">
+      <div class="pn-box__head">
+        <span>PORYNET · BOX 01</span>
+        <span class="pn-box__dots">
+          <span class="pn-box__dot pn-box__dot--a"></span>
+          <span class="pn-box__dot pn-box__dot--b"></span>
+          <span class="pn-box__dot pn-box__dot--c"></span>
+        </span>
+      </div>
+      <div class="pn-box__body">
+        <div class="pn-box__grid">
+          <% @hero_cells.each do |cell| %>
+            <div class="pn-cell">
+              <% if cell[:filled] %><div class="pn-cell__fill"></div><% end %>
+              <% if cell[:cursor] %><div class="pn-cell__cursor"></div><% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="pn-box__meter">
+          <span class="pn-box__meter-label"><span class="pn-box__meter-swatch"></span> CAUGHT</span>
+          <span>22 / 151</span>
+        </div>
+        <div class="pn-progress"><div class="pn-progress__fill"></div></div>
+      </div>
+    </div>
+  </div>
+</section>

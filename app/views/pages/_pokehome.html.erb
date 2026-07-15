@@ -1,0 +1,39 @@
+<section id="home" class="pn-pokehome">
+  <div class="pn-pokehome__inner">
+    <div class="pn-eyebrow-label">04 · SELF-HOSTED</div>
+    <h2 class="pn-h2 pn-h2--light">Your Pokémon. Your server. No cloud lock-in.</h2>
+    <p class="pn-pokehome__lead">PokéHome is an open-source, self-hostable storage companion. Run it in Docker, point the site at it, and everything stays in lockstep — catch, deposit, or trade and it's reflected everywhere.</p>
+
+    <div class="pn-sync">
+      <div class="pn-sync-card pn-sync-card--site">
+        <div class="pn-sync-card__label">THE SITE</div>
+        <div class="pn-sync-card__name">porynet.com</div>
+        <ul class="pn-sync-card__list">
+          <li>Guides &amp; Oak Challenge</li>
+          <li>Living-dex tracker UI</li>
+          <li>Team &amp; shiny logs</li>
+        </ul>
+      </div>
+      <div class="pn-sync__mid">
+        <span class="pn-sync__icon">⇄</span>
+        <span class="pn-sync__label">LIVE SYNC</span>
+      </div>
+      <div class="pn-sync-card pn-sync-card--home">
+        <div class="pn-sync-card__label">POKéHOME</div>
+        <div class="pn-sync-card__name">self-hosted · open source</div>
+        <ul class="pn-sync-card__list">
+          <li>Docker one-liner</li>
+          <li>Save-file parser (.sav)</li>
+          <li>Your data, your box</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pn-terminal">
+      <span class="pn-terminal__prompt">$</span> docker run -d -p 8080:8080 -v ./boxes:/data porynet/pokehome:latest<span class="pn-terminal__cursor"></span>
+    </div>
+    <div class="pn-pokehome__cta">
+      <a href="#" class="pn-btn pn-btn--cream">★ GET IT ON GITHUB</a>
+    </div>
+  </div>
+</section>
