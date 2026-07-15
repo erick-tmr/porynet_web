@@ -871,3 +871,43 @@
   font-size: 17px;
   color: #56536b;
 }
+
+/* ============================ RESPONSIVE ============================ */
+/* Breakpoints ported from the handoff: collapse the multi-column grids,
+   scale the display type, and wrap the nav. Desktop-first — these only
+   override at narrower widths. */
+@media (max-width: 900px) {
+  /* two- and three-column grids stack */
+  .pn-hero,
+  .pn-oak__detail,
+  .pn-tracker__grid,
+  .pn-features__grid,
+  .pn-swatches,
+  .pn-sync { grid-template-columns: 1fr; }
+
+  /* the live-sync arrow turns to point down between the stacked cards */
+  .pn-sync__mid { transform: rotate(90deg); }
+
+  .pn-hero__title { font-size: 44px; }
+  .pn-lockup__word { font-size: 30px; }
+  .pn-h2 { font-size: 28px; }
+
+  .pn-nav__bar { flex-wrap: wrap; row-gap: 12px; }
+  .pn-nav__links {
+    gap: 14px;
+    font-size: 13px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 620px) {
+  .pn-hero__title { font-size: 36px; }
+  .pn-lockup__word { font-size: 24px; }
+  .pn-wordmark { font-size: 15px; }
+
+  /* the hero living-dex grid drops from 8 to 6 columns */
+  .pn-hero .pn-box__grid { grid-template-columns: repeat(6, 1fr); }
+
+  .pn-hero { padding-left: 18px; padding-right: 18px; }
+}
