@@ -750,7 +750,8 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-  .pn-nav__lang-wrap { margin-left: auto; }
+  .pn-nav__cta { order: 1; margin-left: auto; }
+  .pn-nav__lang-wrap { order: 2; }
   .pn-nav__break { display: block; flex-basis: 100%; height: 0; }
 }
 
@@ -761,7 +762,4 @@
   .pn-hero .pn-box__grid { grid-template-columns: repeat(6, 1fr); }
 
   .pn-hero { padding-left: 18px; padding-right: 18px; }
-
-  .pn-lang-hint__pory { width: 72px; height: 72px; }
-  .pn-lang-hint__img { width: 56px; height: 56px; }
 }
