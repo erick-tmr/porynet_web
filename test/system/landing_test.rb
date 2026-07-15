@@ -9,9 +9,8 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "A collection tracker that finally does it all."
     assert_text "Catch 'em all"
     assert_text "Every box, every specimen."
-    assert_text "Your Pokémon. Your server. No cloud lock-in."
+    assert_text "Your Pokémon, saved on your computer, whenever you want."
     assert_text "All nine gens incoming."
-    assert_text "The logo. Jacked into the grid."
     assert_text "not affiliated with Nintendo, Game Freak or The Pokémon Company"
     assert_selector "img[src*='porygon']"
   end
@@ -46,5 +45,17 @@ class LandingTest < ApplicationSystemTestCase
     within ".pn-oak-new__mons" do
       assert_text "Psyduck"
     end
+  end
+
+  test "language toggle switches the whole page to Portuguese" do
+    visit root_path
+
+    assert_selector ".pn-hero__title", text: "steroids."
+    click_link "PT"
+
+    assert_current_path "/pt"
+    assert_selector ".pn-hero__title", text: "turbinada."
+    assert_selector "a.pn-nav__lang", text: "EN"
+    assert_text "Seus Pokémon, salvos no seu computador"
   end
 end

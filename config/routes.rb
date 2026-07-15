@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  root "pages#home"
+  # Defines the root path route ("/"). Wrapped in an optional locale scope so
+  # the default locale stays at "/" and Portuguese lives at "/pt". The regexp
+  # constraint means unknown locales 404 rather than reaching the controller.
+  scope "(:locale)", locale: /en|pt/ do
+    root "pages#home"
+  end
 end

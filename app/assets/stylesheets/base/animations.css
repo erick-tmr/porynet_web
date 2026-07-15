@@ -24,3 +24,31 @@
   from { background-position: 0 0; }
   to { background-position: 0 46px; }
 }
+
+/* Language toggle + hint (nav). langpulse breathes the amber toggle; the hint
+   peeks in (langPeek), its Porygon bobs (poryWave) and its tail nudges
+   (arrowPulse). */
+@keyframes langpulse {
+  0%, 100% { box-shadow: 0 0 12px #ffd23d88, inset 0 0 8px #ffd23d22; }
+  50% { box-shadow: 0 0 22px #ffd23dee, inset 0 0 13px #ffd23d55; }
+}
+
+@keyframes langPeek {
+  0% { opacity: 0; transform: translateY(-18px) scale(0.5); }
+  9% { opacity: 1; transform: translateY(0) scale(1); }
+  15% { transform: translateY(0) scale(1.07); }
+  22% { transform: translateY(0) scale(1); }
+  84% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-12px) scale(0.9); }
+}
+
+@keyframes poryWave {
+  0% { transform: translateY(2px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(2px); }
+}
+
+@keyframes arrowPulse {
+  0%, 100% { transform: rotate(-45deg) translateY(0); opacity: 0.85; }
+  50% { transform: rotate(-45deg) translateY(-3px); opacity: 1; }
+}

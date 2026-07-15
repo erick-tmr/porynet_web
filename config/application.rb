@@ -28,6 +28,13 @@ module PorynetWeb
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Internationalization: English is the default; Brazilian Portuguese is
+    # offered via the in-nav toggle and the "/pt" URL prefix. Fallbacks let a
+    # missing :pt key resolve to its :en value instead of raising.
+    config.i18n.available_locales = [ :en, :pt ]
+    config.i18n.default_locale = :en
+    config.i18n.fallbacks = true
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

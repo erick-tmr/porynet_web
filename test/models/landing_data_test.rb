@@ -25,17 +25,18 @@ class LandingDataTest < ActiveSupport::TestCase
   end
 
   test "content constants stay in sync with the landing page" do
-    assert_equal 4, LandingData::HERO_STATS.size
-    assert LandingData::HERO_STATS.frozen?
-
     assert_equal 6, LandingData::FEATURES.size
+    assert LandingData::FEATURES.frozen?
+    # feature keys map to config/locales/*.yml under pages.home.features.list
+    assert_equal %i[tracker oak guides parser porypc offline],
+      LandingData::FEATURES.map(&:key)
+
     assert_equal 6, LandingData::CITIES.size
     assert_equal "PEWTER CITY", LandingData::CITIES[LandingData::DEFAULT_CITY_INDEX].name
 
     assert_equal 9, LandingData::GENS.size
     assert_equal 2, LandingData::GENS.count(&:live)
 
-    assert_equal 5, LandingData::FILTERS.size
     assert_equal 18, LandingData::DEX_LABELS.size
   end
 end

@@ -1,31 +1,112 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
+# English (default locale). All user-facing copy for the PORYNET landing page.
+# Keys ending in `_html` carry markup and are rendered html_safe by Rails; they
+# reference existing CSS classes only — never inline styles (strict CSP).
+# Keep this file's key set in lockstep with pt.yml (see test/i18n_parity_test.rb).
 en:
-  hello: "Hello world"
+  pages:
+    home:
+      meta:
+        title: "PORYNET — Open-source Pokémon living-dex tracker"
+      nav:
+        features: "Features"
+        oak: "Oak Challenge"
+        tracker: "Tracker"
+        porypc: "PoryPC"
+        github: "GitHub"
+        start: "START"
+        lang_toggle: "PT"
+        lang_title: "Português / English"
+      hint:
+        title_html: 'Also in<br>Português!'
+        cta: "tap PT ↑"
+      marquee:
+        - "GEN 1 & 2 LIVE"
+        - "SAVE-FILE PARSER"
+        - "OAK CHALLENGE"
+        - "LIVING DEX MODE"
+        - "100% OPEN SOURCE"
+        - "SAVED ON YOUR PC"
+      hero:
+        badge: "THE OPEN-SOURCE STORAGE SYSTEM — EVOLVED"
+        title_html: 'Your PC box,<br>on <span class="pn-accent">steroids.</span>'
+        lead: "Bill's PC never looked this good. Track your living dex, run the Oak Challenge right inside the walkthroughs, and auto-catalog everything from your save file. Saved on your PC, open source, yours."
+        cta_track: "START TRACKING"
+        cta_features: "SEE FEATURES"
+        caught: "CAUGHT"
+        stats:
+          - "GEN 1 & 2"
+          - "ALL 9 GENS SOON"
+          - "OPEN SOURCE"
+          - "SAVED ON YOUR PC"
+      features:
+        eyebrow: "01 · THE KIT"
+        h2: "A collection tracker that finally does it all."
+        list:
+          tracker:
+            title: "Collection tracker"
+            desc: "See every box and every ’mon at a glance. Switch between Living Dex (one of each) and Oak mode (Pokédex seen/caught) in one tap."
+          oak:
+            title: "Oak Challenge"
+            desc: "Built into the walkthrough, not a separate page. Every city shows what you can catch so far and ticks your dex as you play."
+          guides:
+            title: "Guides & walkthroughs"
+            desc: "Step-by-step guides for the best place and way to catch every Pokémon, plus exactly what’s available at each point of the game."
+          parser:
+            title: "Save-file reader"
+            desc: "Drop your game save file into PoryPC and it reads your party and boxes, filling in your whole collection for you."
+          porypc:
+            title: "PoryPC desktop app"
+            desc: "A free app for Windows, Mac & Linux. Your collection saved on your own computer, ready to back up anywhere."
+          offline:
+            title: "PoryPC works offline"
+            desc: "The PoryPC app needs no internet to use. Everything you catch is saved to your PC the moment you sync your save file, and signing in syncs it all with porynet.com."
+      oak:
+        eyebrow: "02 · OAK CHALLENGE"
+        h2: "Catch 'em all — in the right order."
+        lead: "Walk the route alongside the game. At each city we show what's catchable so far and tick your dex as you go. Pick your ruleset:"
+        obtainable: "OBTAINABLE UP TO HERE"
+        registered: "OAK · REGISTERED"
+        demo_note: "// demo data · Kanto early route"
+        new_route: "NEW ON THIS ROUTE"
+        how_count: "HOW WE COUNT"
+        count1_html: 'Line evolves in-game (Caterpie→Butterfree) — log the base <b>once</b>.'
+        count2_html: 'Evolution unobtainable this run — log <b>2–3</b> of the base to cover the family.'
+        count3_html: 'One-of-a-kind (fossils, legendaries) — log a <b>single</b> specimen.'
+      tracker:
+        eyebrow: "03 · THE TRACKER"
+        h2: "Every box, every specimen."
+        lead: "Organize by box, region, type or shiny status. Filter what you're missing, flag a 'mon as boxed or in-party, and let the save-parser fill the grid in for you."
+        filters:
+          - "ALL"
+          - "MISSING"
+          - "SHINY ★"
+          - "BY TYPE"
+          - "IN PARTY"
+      porypc:
+        eyebrow: "04 · PORYPC APP · YOUR SAVE, YOUR WAY"
+        h2: "Your Pokémon, saved on your computer, whenever you want."
+        lead: "PoryPC is a free app for Windows, Mac and Linux. Your whole collection is kept on your own computer, so it works with no internet and no sign-up. Want it backed up or on another computer? Sync your collection with porynet.com by signing in, or with Google Drive, Dropbox or a USB stick yourself."
+        pc:
+          tag: "ON YOUR PC"
+          title: "One collection file, yours"
+          items:
+            - "Saved right on your computer"
+            - "No sign-up, works offline"
+            - "Nothing leaves your machine"
+        arrow: "BACK IT UP"
+        anywhere:
+          tag: "TAKE IT ANYWHERE"
+          title: "Sync & back up"
+          items:
+            - "Sign in to sync with porynet.com"
+            - "Google Drive, Dropbox or USB"
+            - "Move between computers"
+        soon_badge: "SOON"
+        soon_text: "iOS & Android apps are on the roadmap. Desktop stays the recommended home, since save files are best handled on PC."
+      roadmap:
+        eyebrow: "05 · ROADMAP"
+        h2: "Starting with Kanto & Johto. All nine gens incoming."
+        status_live: "LIVE NOW"
+        status_soon: "SOON"
+      footer:
+        legal: "Open source · MIT · A fan project — not affiliated with Nintendo, Game Freak or The Pokémon Company. All trademarks belong to their owners."
