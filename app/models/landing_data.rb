@@ -1,12 +1,3 @@
-# Structural demo content for the PORYNET landing page. Single source of truth
-# for the server-rendered view and the Stimulus controllers. Kept as a plain
-# top-level module (not namespaced under the PorynetWeb app module) so it reads
-# as page content rather than domain state.
-#
-# Only non-translatable structure lives here (numbers, tags, proper nouns like
-# city/region/Pokémon names). Human copy — feature titles/descriptions, hero
-# stats, tracker filters, gen statuses — lives in config/locales/*.yml and is
-# looked up by key from the views (feature keys below map to `features.list.*`).
 module LandingData
   Feature = Data.define(:num, :tag, :key)
   FEATURES = [
@@ -44,14 +35,11 @@ module LandingData
 
   DEX_LABELS = %w[016 019 010 013 129 021 041 074 092 063 066 096 027 043 056 054 039 052].freeze
 
-  # 48-cell living-dex grid: first 22 filled, minus a few gaps, with a blinking
-  # cursor on cell 22.
   def self.hero_cells
     skips = [ 7, 13, 19 ]
     (0...48).map { |i| { filled: i < 22 && !skips.include?(i), cursor: i == 22 } }
   end
 
-  # 30-slot storage box: first 18 filled with dex numbers, rest empty.
   def self.box_slots
     (0...30).map do |i|
       filled = i < 18

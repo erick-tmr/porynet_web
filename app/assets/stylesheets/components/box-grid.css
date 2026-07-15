@@ -1,6 +1,3 @@
-/* The "PC box" frame + cell grids used in the hero (8-col living-dex) and the
-   tracker (6-col storage box). */
-
 .pn-box {
   border: 4px solid #171622;
   background: #171622;
@@ -40,7 +37,6 @@
   gap: 8px;
 }
 
-/* Living-dex cell (hero). */
 .pn-cell {
   aspect-ratio: 1;
   border: 2px solid #171622;
@@ -65,7 +61,6 @@
   animation-play-state: var(--play);
 }
 
-/* Meter row + progress bar under the hero grid. */
 .pn-box__meter {
   display: flex;
   align-items: center;
@@ -100,7 +95,6 @@
   background: var(--accent);
 }
 
-/* Storage-box slot (tracker). */
 .pn-slot {
   aspect-ratio: 1;
   border: 2px solid #171622;

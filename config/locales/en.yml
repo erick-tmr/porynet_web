@@ -1,7 +1,3 @@
-# English (default locale). All user-facing copy for the PORYNET landing page.
-# Keys ending in `_html` carry markup and are rendered html_safe by Rails; they
-# reference existing CSS classes only — never inline styles (strict CSP).
-# Keep this file's key set in lockstep with pt.yml (see test/i18n_parity_test.rb).
 en:
   pages:
     home:

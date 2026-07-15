@@ -1,6 +1,3 @@
-# Brazilian Portuguese. Mirrors en.yml key-for-key (test/i18n_parity_test.rb
-# enforces parity). Copy sourced from the design handoff's PT translations.
-# `_html` keys carry markup and reference existing CSS classes only (strict CSP).
 pt:
   pages:
     home:

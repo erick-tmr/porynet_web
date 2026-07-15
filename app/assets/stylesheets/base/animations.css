@@ -1,5 +1,3 @@
-/* Keyframes ported verbatim from the handoff. Every animation honors the
-   --play switch (running | paused) set on the .porynet root wrapper. */
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -25,9 +23,6 @@
   to { background-position: 0 46px; }
 }
 
-/* Language toggle + hint (nav). langpulse breathes the amber toggle; the hint
-   peeks in (langPeek), its Porygon bobs (poryWave) and its tail nudges
-   (arrowPulse). */
 @keyframes langpulse {
   0%, 100% { box-shadow: 0 0 12px #ffd23d88, inset 0 0 8px #ffd23d22; }
   50% { box-shadow: 0 0 22px #ffd23dee, inset 0 0 13px #ffd23d55; }

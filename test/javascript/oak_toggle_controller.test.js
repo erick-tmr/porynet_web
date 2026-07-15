@@ -2,8 +2,6 @@ import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import OakToggleController from "../../app/javascript/controllers/oak_toggle_controller.js";
 
-// Stimulus writes value changes to the DOM and reacts via a MutationObserver, so
-// callbacks land on a later microtask — flush them before asserting.
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 let application;

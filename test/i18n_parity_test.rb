@@ -1,8 +1,5 @@
 require "test_helper"
 
-# Guards against locale drift: every translation key must exist in both en.yml
-# and pt.yml so neither page ever falls back mid-render. Compares the YAML files
-# directly (leaf keys only; array values count as a single leaf).
 class I18nParityTest < ActiveSupport::TestCase
   LOCALES = Rails.root.glob("config/locales/*.yml").freeze
 

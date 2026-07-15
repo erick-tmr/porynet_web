@@ -1,8 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Drives the Oak Challenge city stepper. The full city data is passed in via the
-// cities value (JSON), so clicking a city updates the stat panel without a
-// round-trip. The initial index is server-rendered and reconciled on connect.
 export default class extends Controller {
   static targets = ["button", "name", "total", "oak", "dex", "newMons"]
   static values = { cities: Array, index: { type: Number, default: 0 } }

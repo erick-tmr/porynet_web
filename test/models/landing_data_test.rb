@@ -27,7 +27,6 @@ class LandingDataTest < ActiveSupport::TestCase
   test "content constants stay in sync with the landing page" do
     assert_equal 6, LandingData::FEATURES.size
     assert LandingData::FEATURES.frozen?
-    # feature keys map to config/locales/*.yml under pages.home.features.list
     assert_equal %i[tracker oak guides parser porypc offline],
       LandingData::FEATURES.map(&:key)
 

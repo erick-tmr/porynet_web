@@ -1,6 +1,3 @@
-/* Design tokens for the PORYNET landing page.
-   Carried on the .porynet root wrapper so children can reference var(--accent)
-   etc. No inline style attributes (keeps the strict CSP style-src :self). */
 .porynet {
   --accent: #FF5D8F;
   --accent2: #2BB3E0;
