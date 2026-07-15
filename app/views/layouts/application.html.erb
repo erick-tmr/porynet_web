@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || "PORYNET" %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "base/fonts", "base/tokens", "base/base", "base/animations",
+                            "components/sticker", "components/button", "components/chip",
+                            "components/marquee", "components/neon-tile", "components/box-grid",
+                            "data-turbo-track": "reload" %>
+    <%= yield :head %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

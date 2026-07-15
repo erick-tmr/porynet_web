@@ -1,0 +1,35 @@
+<section id="tracker" class="pn-tracker">
+  <div class="pn-tracker__grid">
+    <div>
+      <div class="pn-eyebrow-label">03 · THE TRACKER</div>
+      <h2 class="pn-h2">Every box, every specimen.</h2>
+      <p class="pn-tracker__lead">Organize by box, region, type or shiny status. Filter what you're missing, flag a 'mon as boxed or in-party, and let the save-parser fill the grid in for you.</p>
+      <div class="pn-filters">
+        <% @filters.each do |filter| %>
+          <span class="pn-filter"><%= filter %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="pn-box">
+      <div class="pn-box__head">
+        <span class="pn-box__nav"><span class="pn-box__arrow">◀</span> BOX 01 · KANTO <span class="pn-box__arrow">▶</span></span>
+        <span>18 / 30</span>
+      </div>
+      <div class="pn-box__body">
+        <div class="pn-box__grid pn-box__grid--6">
+          <% @box_slots.each do |slot| %>
+            <div class="pn-slot">
+              <% if slot[:filled] %>
+                <div class="pn-slot__hatch"></div>
+                <div class="pn-slot__dex-wrap"><span class="pn-slot__dex"><%= slot[:dex] %></span></div>
+              <% else %>
+                <span class="pn-slot__empty">·</span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+/* Self-hosted webfonts (latin subset), served by Propshaft from
+   app/assets/fonts. The ../ climbs out of base/ to the stylesheets root; the
+   bare filename then resolves against the fonts asset load path. */
+
+@font-face {
+  font-family: "Press Start 2P";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../PressStart2P-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../PixelifySans-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../PixelifySans-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../PixelifySans-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../PixelifySans-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "VT323";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../VT323-Regular.woff2") format("woff2");
+}

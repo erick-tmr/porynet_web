@@ -1,0 +1,24 @@
+/* Scrolling neon ticker under the nav. Two identical rows translate -50% so the
+   loop is seamless. */
+.pn-marquee {
+  border-top: 2px solid #2af0ff;
+  border-bottom: 2px solid #2af0ff;
+  background: #080a16;
+  box-shadow: 0 0 16px #2af0ff55;
+  overflow: hidden;
+}
+.pn-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marq 22s linear infinite;
+  animation-play-state: var(--play);
+}
+.pn-marquee__row {
+  display: flex;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #2af0ff;
+  text-shadow: 0 0 8px #2af0ff;
+  padding: 9px 0;
+}
+.pn-marquee__item { padding: 0 22px; }

@@ -1,0 +1,25 @@
+<header class="pn-nav">
+  <div class="pn-nav__bar">
+    <div class="pn-nav__brand">
+      <span class="pn-logo-tile">
+        <span class="pn-logo-tile__grid"></span>
+        <%= image_tag "porygon-pixel.png", alt: "", class: "pn-logo-tile__img" %>
+      </span>
+      <span class="pn-wordmark">PORYNET</span>
+    </div>
+    <nav class="pn-nav__links">
+      <a href="#features" class="pn-nav__link">Features</a>
+      <a href="#oak" class="pn-nav__link">Oak Challenge</a>
+      <a href="#tracker" class="pn-nav__link">Tracker</a>
+      <a href="#home" class="pn-nav__link">PokéHome</a>
+      <a href="#" class="pn-nav__link"><span class="pn-nav__star">★</span> GitHub</a>
+      <a href="#" class="pn-nav__cta">START</a>
+    </nav>
+  </div>
+  <div class="pn-marquee">
+    <div class="pn-marquee__track">
+      <%= render "marquee_row" %>
+      <%= render "marquee_row" %>
+    </div>
+  </div>
+</header>
