@@ -241,8 +241,6 @@
 }
 .pn-hero__mock {
   position: relative;
-  animation: floaty 6s ease-in-out infinite;
-  animation-play-state: var(--play);
 }
 .pn-hero__mascot {
   position: absolute;
@@ -254,6 +252,8 @@
   z-index: 5;
   filter: drop-shadow(4px 4px 0 rgba(23, 22, 34, 0.35));
   transform: scaleX(-1);
+  animation: floatMon 6s ease-in-out infinite;
+  animation-play-state: var(--play);
 }
 
 .pn-features {

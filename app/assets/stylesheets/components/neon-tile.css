@@ -14,8 +14,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(#ff3dae1c 1px, transparent 1px),
-    linear-gradient(90deg, #ff3dae1c 1px, transparent 1px);
+    linear-gradient(#ff3dae4d 2px, transparent 2px),
+    linear-gradient(90deg, #ff3dae4d 2px, transparent 2px);
   background-size: 16px 16px;
 }
 .pn-logo-tile__img {
