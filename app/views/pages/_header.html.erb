@@ -13,6 +13,7 @@
       <a href="#tracker" class="pn-nav__link"><%= t("pages.home.nav.tracker") %></a>
       <a href="#home" class="pn-nav__link"><%= t("pages.home.nav.porypc") %></a>
       <a href="#" class="pn-nav__link"><span class="pn-nav__star">★</span> <%= t("pages.home.nav.github") %></a>
+      <span class="pn-nav__break" aria-hidden="true"></span>
       <span class="pn-nav__lang-wrap">
         <%= link_to t("pages.home.nav.lang_toggle"),
                     root_path(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
@@ -29,7 +30,6 @@
           </span>
         </span>
       </span>
-      <span class="pn-nav__break" aria-hidden="true"></span>
       <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
     </nav>
   </div>

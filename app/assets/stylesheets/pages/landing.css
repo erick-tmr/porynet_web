@@ -761,4 +761,7 @@
   .pn-hero .pn-box__grid { grid-template-columns: repeat(6, 1fr); }
 
   .pn-hero { padding-left: 18px; padding-right: 18px; }
+
+  .pn-lang-hint__pory { width: 72px; height: 72px; }
+  .pn-lang-hint__img { width: 56px; height: 56px; }
 }
