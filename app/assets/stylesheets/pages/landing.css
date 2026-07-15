@@ -46,7 +46,6 @@
   box-shadow: 0 0 18px #2af0ff44;
 }
 .pn-nav__bar {
-  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 14px 28px;
@@ -92,6 +91,11 @@
   text-shadow: 0 0 6px #2af0ff;
 }
 
+.pn-nav__lang-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
 .pn-nav__lang {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
@@ -112,7 +116,7 @@
 .pn-lang-hint {
   position: absolute;
   top: 100%;
-  right: 24px;
+  right: 0;
   z-index: 70;
   display: none;
   align-items: flex-start;
@@ -745,14 +749,6 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-  .pn-nav__cta {
-    flex-basis: 100%;
-    text-align: center;
-    font-size: 12px;
-    padding: 15px 15px;
-    margin-top: 4px;
-  }
-  .pn-lang-hint.is-shown { display: none; }
 }
 
 @media (max-width: 620px) {
