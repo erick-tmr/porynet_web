@@ -8,29 +8,32 @@
       <span class="pn-wordmark">PORYNET</span>
     </div>
     <nav class="pn-nav__links">
-      <a href="#features" class="pn-nav__link"><%= t("pages.home.nav.features") %></a>
-      <a href="#oak" class="pn-nav__link"><%= t("pages.home.nav.oak") %></a>
-      <a href="#tracker" class="pn-nav__link"><%= t("pages.home.nav.tracker") %></a>
-      <a href="#home" class="pn-nav__link"><%= t("pages.home.nav.porypc") %></a>
-      <a href="#" class="pn-nav__link"><span class="pn-nav__star">★</span> <%= t("pages.home.nav.github") %></a>
-      <span class="pn-nav__break" aria-hidden="true"></span>
-      <span class="pn-nav__lang-wrap">
-        <%= link_to t("pages.home.nav.lang_toggle"),
-                    root_path(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
-                    class: "pn-nav__lang", title: t("pages.home.nav.lang_title") %>
-        <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
-          <span class="pn-lang-hint__pory">
-            <span class="pn-lang-hint__grid"></span>
-            <%= image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
-          </span>
-          <span class="pn-lang-hint__bubble">
-            <span class="pn-lang-hint__tail"></span>
-            <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
-            <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
+      <span class="pn-nav__menu">
+        <a href="#features" class="pn-nav__link"><%= t("pages.home.nav.features") %></a>
+        <a href="#oak" class="pn-nav__link"><%= t("pages.home.nav.oak") %></a>
+        <a href="#tracker" class="pn-nav__link"><%= t("pages.home.nav.tracker") %></a>
+        <a href="#home" class="pn-nav__link"><%= t("pages.home.nav.porypc") %></a>
+        <a href="#" class="pn-nav__link"><span class="pn-nav__star">★</span> <%= t("pages.home.nav.github") %></a>
+      </span>
+      <span class="pn-nav__actions">
+        <span class="pn-nav__lang-wrap">
+          <%= link_to t("pages.home.nav.lang_toggle"),
+                      root_path(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
+                      class: "pn-nav__lang", title: t("pages.home.nav.lang_title") %>
+          <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
+            <span class="pn-lang-hint__pory">
+              <span class="pn-lang-hint__grid"></span>
+              <%= image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
+            </span>
+            <span class="pn-lang-hint__bubble">
+              <span class="pn-lang-hint__tail"></span>
+              <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
+              <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
+            </span>
           </span>
         </span>
+        <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
       </span>
-      <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
     </nav>
   </div>
   <div class="pn-marquee">
