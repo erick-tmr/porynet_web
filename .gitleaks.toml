@@ -1,0 +1,16 @@
+title = "porynet_web gitleaks config"
+
+# Inherit gitleaks' built-in ruleset, then layer our allowlist on top.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Committed-by-design placeholders are not real secrets"
+# .env.example ships intentionally and only holds local placeholder values
+# (e.g. DATABASE_PASSWORD=porynet_web). The real .env is gitignored.
+paths = [
+  '''(^|/)\.env\.example$''',
+]
+regexes = [
+  '''porynet_web''',
+]

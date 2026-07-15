@@ -52,6 +52,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Code-smell detector; runs advisory on changed files in CI [https://github.com/troessner/reek]
+  gem "reek", "~> 6.5", require: false
 end
 
 group :development do
@@ -67,4 +70,7 @@ group :test do
 
   # Test coverage reporting [https://github.com/simplecov-ruby/simplecov]
   gem "simplecov", require: false
+
+  # Changed-line coverage gate; reads SimpleCov's JSON output [https://github.com/grodowski/undercover]
+  gem "undercover", "~> 0.8.5", require: false
 end
