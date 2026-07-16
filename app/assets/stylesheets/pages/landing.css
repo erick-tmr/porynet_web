@@ -738,6 +738,13 @@
   .pn-features__grid,
   .pn-sync { grid-template-columns: 1fr; }
 
+  .pn-cities {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 10px;
+  }
+  .pn-cities__sep { display: none; }
+
   .pn-sync__mid { transform: rotate(90deg); }
 
   .pn-hero__title { font-size: 44px; }
