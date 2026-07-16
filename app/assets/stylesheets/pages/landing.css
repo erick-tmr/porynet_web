@@ -784,5 +784,7 @@
 
   .pn-hero .pn-box__grid { grid-template-columns: repeat(6, 1fr); }
 
+  .pn-tracker .pn-box__grid--6 { grid-template-columns: repeat(4, 1fr); }
+
   .pn-hero { padding-left: 18px; padding-right: 18px; }
 }
