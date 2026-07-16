@@ -257,6 +257,9 @@
   animation: floatMon 6s ease-in-out infinite;
   animation-play-state: var(--play);
 }
+.pn-hero .pn-box__grid {
+  grid-template-columns: repeat(5, 1fr);
+}
 
 .pn-features {
   max-width: 1200px;
@@ -782,7 +785,7 @@
   .pn-hero__title { font-size: 36px; }
   .pn-wordmark { font-size: 15px; }
 
-  .pn-hero .pn-box__grid { grid-template-columns: repeat(6, 1fr); }
+  .pn-hero .pn-box__grid { grid-template-columns: repeat(4, 1fr); }
 
   .pn-tracker .pn-box__grid--6 { grid-template-columns: repeat(4, 1fr); }
 

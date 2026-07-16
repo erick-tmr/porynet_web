@@ -53,12 +53,12 @@ module LandingData
   DEX_LABELS = %w[016 019 010 013 129 021 041 074 092 063 066 096 027 043 056 054 039 052].freeze
 
   def self.hero_cells
-    skips = [ 7, 13, 19 ]
-    (0...48).map { |i| { filled: i < 22 && !skips.include?(i), cursor: i == 22, sprite: format("%03d", i + 1) } }
+    skips = [ 7, 13 ]
+    (0...20).map { |i| { filled: i < 18 && !skips.include?(i), cursor: i == 18, sprite: format("%03d", i + 1) } }
   end
 
   def self.box_slots
-    (0...30).map do |i|
+    (0...20).map do |i|
       filled = i < 18
       { filled: filled, empty: !filled, dex: "#" + (DEX_LABELS[i] || "000"), sprite: (filled ? DEX_LABELS[i] : nil) }
     end

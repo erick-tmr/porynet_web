@@ -1,27 +1,28 @@
 require "test_helper"
 
 class LandingDataTest < ActiveSupport::TestCase
-  test "hero_cells builds a 48-cell grid with gaps, a cursor and sprites" do
+  test "hero_cells builds a 20-cell box with gaps, a cursor and sprites" do
     cells = LandingData.hero_cells
 
-    assert_equal 48, cells.size
+    assert_equal 20, cells.size
     assert_equal({ filled: true, cursor: false, sprite: "001" }, cells[0])
-    assert_equal({ filled: false, cursor: false, sprite: "008" }, cells[7])  # skipped
-    assert_equal({ filled: true, cursor: false, sprite: "022" }, cells[21])
-    assert_equal({ filled: false, cursor: true, sprite: "023" }, cells[22]) # blinking cursor
-    assert_equal({ filled: false, cursor: false, sprite: "031" }, cells[30])
+    assert_equal({ filled: false, cursor: false, sprite: "008" }, cells[7])  # gap
+    assert_equal({ filled: true, cursor: false, sprite: "017" }, cells[16])
+    assert_equal({ filled: false, cursor: true, sprite: "019" }, cells[18]) # blinking cursor
+    assert_equal({ filled: false, cursor: false, sprite: "020" }, cells[19]) # trailing empty
 
-    [ 7, 13, 19 ].each { |i| refute cells[i][:filled], "cell #{i} should be a gap" }
+    [ 7, 13 ].each { |i| refute cells[i][:filled], "cell #{i} should be a gap" }
+    refute cells[18][:filled], "cursor cell is not filled"
   end
 
-  test "box_slots fills the first 18 slots with dex numbers and sprites, rest empty" do
+  test "box_slots fills the first 18 of 20 slots with dex numbers and sprites, rest empty" do
     slots = LandingData.box_slots
 
-    assert_equal 30, slots.size
+    assert_equal 20, slots.size
     assert_equal({ filled: true, empty: false, dex: "#016", sprite: "016" }, slots[0])
     assert_equal({ filled: true, empty: false, dex: "#052", sprite: "052" }, slots[17])
     assert_equal({ filled: false, empty: true, dex: "#000", sprite: nil }, slots[18]) # fallback dex
-    assert_equal({ filled: false, empty: true, dex: "#000", sprite: nil }, slots[29])
+    assert_equal({ filled: false, empty: true, dex: "#000", sprite: nil }, slots[19])
   end
 
   test "content constants stay in sync with the landing page" do
