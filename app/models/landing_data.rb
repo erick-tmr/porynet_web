@@ -54,7 +54,10 @@ module LandingData
 
   def self.hero_cells
     skips = [ 7, 13 ]
-    (0...20).map { |i| { filled: i < 18 && !skips.include?(i), cursor: i == 18, sprite: format("%03d", i + 1) } }
+    (0...20).map do |i|
+      num = format("%03d", i + 1)
+      { filled: i < 18 && !skips.include?(i), cursor: i == 18, sprite: num, dex: "#" + num }
+    end
   end
 
   def self.box_slots

@@ -5,11 +5,11 @@ class LandingDataTest < ActiveSupport::TestCase
     cells = LandingData.hero_cells
 
     assert_equal 20, cells.size
-    assert_equal({ filled: true, cursor: false, sprite: "001" }, cells[0])
-    assert_equal({ filled: false, cursor: false, sprite: "008" }, cells[7])  # gap
-    assert_equal({ filled: true, cursor: false, sprite: "017" }, cells[16])
-    assert_equal({ filled: false, cursor: true, sprite: "019" }, cells[18]) # blinking cursor
-    assert_equal({ filled: false, cursor: false, sprite: "020" }, cells[19]) # trailing empty
+    assert_equal({ filled: true, cursor: false, sprite: "001", dex: "#001" }, cells[0])
+    assert_equal({ filled: false, cursor: false, sprite: "008", dex: "#008" }, cells[7])  # gap
+    assert_equal({ filled: true, cursor: false, sprite: "017", dex: "#017" }, cells[16])
+    assert_equal({ filled: false, cursor: true, sprite: "019", dex: "#019" }, cells[18]) # blinking cursor
+    assert_equal({ filled: false, cursor: false, sprite: "020", dex: "#020" }, cells[19]) # trailing empty
 
     [ 7, 13 ].each { |i| refute cells[i][:filled], "cell #{i} should be a gap" }
     refute cells[18][:filled], "cursor cell is not filled"

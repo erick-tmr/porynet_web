@@ -1,0 +1,11 @@
+<div class="pn-slot">
+  <% if slot[:filled] %>
+    <div class="pn-slot__fill"></div>
+    <%= image_tag "pokemon/#{slot[:sprite]}.png", alt: "", class: "pn-slot__sprite" %>
+    <div class="pn-slot__dex-wrap"><span class="pn-slot__dex"><%= slot[:dex] %></span></div>
+  <% elsif slot[:cursor] %>
+    <div class="pn-slot__cursor"></div>
+  <% else %>
+    <span class="pn-slot__empty">·</span>
+  <% end %>
+</div>

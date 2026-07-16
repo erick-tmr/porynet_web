@@ -29,43 +29,8 @@
 
 .pn-box__grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 6px;
-}
-.pn-box__grid--6 {
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-}
-
-.pn-cell {
-  aspect-ratio: 1;
-  border: 2px solid #171622;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pn-cell:hover { background: #ffe3ee; }
-.pn-cell__fill {
-  width: 100%;
-  height: 100%;
-  background: color-mix(in srgb, var(--accent) 24%, #fff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pn-cell__fill img {
-  width: 90%;
-  height: 90%;
-  object-fit: contain;
-}
-.pn-cell__cursor {
-  width: 66%;
-  height: 66%;
-  background: var(--accent2);
-  border: 2px solid #171622;
-  animation: blink 1.1s steps(1) infinite;
-  animation-play-state: var(--play);
 }
 
 .pn-box__meter {
@@ -98,9 +63,10 @@
 .pn-progress__fill {
   position: absolute;
   inset: 0;
-  width: 15%;
   background: var(--accent);
 }
+.pn-progress__fill--15 { width: 15%; }
+.pn-progress__fill--90 { width: 90%; }
 
 .pn-slot {
   aspect-ratio: 1;
@@ -112,6 +78,7 @@
   justify-content: center;
   overflow: hidden;
 }
+.pn-slot:hover { background: #ffe3ee; }
 .pn-slot__fill {
   position: absolute;
   inset: 0;
@@ -119,9 +86,17 @@
 }
 .pn-slot__sprite {
   position: relative;
-  width: 84%;
-  height: 84%;
+  width: 88%;
+  height: 88%;
   object-fit: contain;
+}
+.pn-slot__cursor {
+  width: 66%;
+  height: 66%;
+  background: var(--accent2);
+  border: 2px solid #171622;
+  animation: blink 1.1s steps(1) infinite;
+  animation-play-state: var(--play);
 }
 .pn-slot__dex-wrap {
   position: absolute;
