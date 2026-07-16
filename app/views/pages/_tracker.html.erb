@@ -21,7 +21,8 @@
           <% @box_slots.each do |slot| %>
             <div class="pn-slot">
               <% if slot[:filled] %>
-                <div class="pn-slot__hatch"></div>
+                <div class="pn-slot__fill"></div>
+                <%= image_tag "pokemon/#{slot[:sprite]}.png", alt: "", class: "pn-slot__sprite" %>
                 <div class="pn-slot__dex-wrap"><span class="pn-slot__dex"><%= slot[:dex] %></span></div>
               <% else %>
                 <span class="pn-slot__empty">·</span>

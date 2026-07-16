@@ -29,7 +29,7 @@
         <div class="pn-box__grid">
           <% @hero_cells.each do |cell| %>
             <div class="pn-cell">
-              <% if cell[:filled] %><div class="pn-cell__fill"></div><% end %>
+              <% if cell[:filled] %><div class="pn-cell__fill"><%= image_tag "pokemon/#{cell[:sprite]}.png", alt: "" %></div><% end %>
               <% if cell[:cursor] %><div class="pn-cell__cursor"></div><% end %>
             </div>
           <% end %>

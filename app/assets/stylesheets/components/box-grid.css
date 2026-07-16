@@ -47,10 +47,17 @@
 }
 .pn-cell:hover { background: #ffe3ee; }
 .pn-cell__fill {
-  width: 66%;
-  height: 66%;
-  background: var(--accent);
-  border: 2px solid #171622;
+  width: 100%;
+  height: 100%;
+  background: color-mix(in srgb, var(--accent) 24%, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pn-cell__fill img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
 }
 .pn-cell__cursor {
   width: 66%;
@@ -105,10 +112,16 @@
   justify-content: center;
   overflow: hidden;
 }
-.pn-slot__hatch {
+.pn-slot__fill {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(45deg, #e9e2d0, #e9e2d0 4px, #d8cfb8 4px, #d8cfb8 8px);
+  background: color-mix(in srgb, var(--accent) 22%, #fff);
+}
+.pn-slot__sprite {
+  position: relative;
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
 }
 .pn-slot__dex-wrap {
   position: absolute;

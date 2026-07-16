@@ -43,14 +43,23 @@
   font-size: 19px;
   background: #FBF5E6;
   border: 2px solid #171622;
-  padding: 6px 10px;
+  padding: 5px 12px 5px 5px;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
 }
-.pn-mon__dot {
-  width: 12px;
-  height: 12px;
-  background: var(--accent);
+.pn-mon__thumb {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--accent) 24%, #fff);
   border: 2px solid #171622;
+}
+.pn-mon__thumb img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
