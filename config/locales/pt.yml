@@ -16,7 +16,7 @@ pt:
         title_html: 'Also in<br>English!'
         cta: "tap EN ↑"
       marquee:
-        - "GEN 1 E 2 DISPONÍVEIS"
+        - "GEN 1 DISPONÍVEL"
         - "LEITOR DE SAVE"
         - "DESAFIO OAK"
         - "MODO LIVING DEX"
@@ -30,7 +30,7 @@ pt:
         cta_features: "VER RECURSOS"
         caught: "CAPTURADOS"
         stats:
-          - "GEN 1 & 2"
+          - "GEN 1"
           - "TODAS AS 9 GENS EM BREVE"
           - "OPEN SOURCE"
           - "SALVO NO SEU PC"
@@ -101,7 +101,7 @@ pt:
         soon_text: "Apps para iOS e Android estão no roadmap. O desktop continua sendo o lar recomendado, já que arquivos de save são melhor tratados no PC."
       roadmap:
         eyebrow: "05 · ROADMAP"
-        h2: "Começando por Kanto e Johto. Todas as nove gerações chegando."
+        h2: "Começando por Kanto. Todas as nove gerações chegando."
         status_live: "DISPONÍVEL"
         status_soon: "EM BREVE"
       footer:

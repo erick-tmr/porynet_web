@@ -40,7 +40,7 @@ module LandingData
   Gen = Data.define(:num, :region, :live)
   GENS = [
     Gen.new("1", "Kanto", true),
-    Gen.new("2", "Johto", true),
+    Gen.new("2", "Johto", false),
     Gen.new("3", "Hoenn", false),
     Gen.new("4", "Sinnoh", false),
     Gen.new("5", "Unova", false),

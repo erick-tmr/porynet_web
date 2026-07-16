@@ -5,6 +5,7 @@
 .pn-eyebrow-label {
   font-family: "Press Start 2P", monospace;
   font-size: 11px;
+  line-height: 1.7;
   color: var(--accent);
   letter-spacing: 1px;
 }
@@ -744,8 +745,6 @@
     gap: 10px;
   }
   .pn-cities__sep { display: none; }
-
-  .pn-sync__mid { transform: rotate(90deg); }
 
   .pn-hero__title { font-size: 44px; }
   .pn-h2 { font-size: 28px; }

@@ -16,7 +16,7 @@ en:
         title_html: 'Também em<br>Português!'
         cta: "toque em PT ↑"
       marquee:
-        - "GEN 1 & 2 LIVE"
+        - "GEN 1 LIVE"
         - "SAVE-FILE PARSER"
         - "OAK CHALLENGE"
         - "LIVING DEX MODE"
@@ -30,7 +30,7 @@ en:
         cta_features: "SEE FEATURES"
         caught: "CAUGHT"
         stats:
-          - "GEN 1 & 2"
+          - "GEN 1"
           - "ALL 9 GENS SOON"
           - "OPEN SOURCE"
           - "SAVED ON YOUR PC"
@@ -101,7 +101,7 @@ en:
         soon_text: "iOS & Android apps are on the roadmap. Desktop stays the recommended home, since save files are best handled on PC."
       roadmap:
         eyebrow: "05 · ROADMAP"
-        h2: "Starting with Kanto & Johto. All nine gens incoming."
+        h2: "Starting with Kanto. All nine gens incoming."
         status_live: "LIVE NOW"
         status_soon: "SOON"
       footer:

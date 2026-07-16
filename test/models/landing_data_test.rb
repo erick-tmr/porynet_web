@@ -42,7 +42,7 @@ class LandingDataTest < ActiveSupport::TestCase
     end
 
     assert_equal 9, LandingData::GENS.size
-    assert_equal 2, LandingData::GENS.count(&:live)
+    assert_equal 1, LandingData::GENS.count(&:live)
 
     assert_equal 18, LandingData::DEX_LABELS.size
   end
