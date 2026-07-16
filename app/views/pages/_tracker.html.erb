@@ -14,21 +14,23 @@
     <div class="pn-box">
       <div class="pn-box__head">
         <span class="pn-box__nav"><span class="pn-box__arrow">◀</span> BOX 01 · KANTO <span class="pn-box__arrow">▶</span></span>
-        <span>18 / 30</span>
+        <span class="pn-box__dots">
+          <span class="pn-box__dot pn-box__dot--a"></span>
+          <span class="pn-box__dot pn-box__dot--b"></span>
+          <span class="pn-box__dot pn-box__dot--c"></span>
+        </span>
       </div>
       <div class="pn-box__body">
-        <div class="pn-box__grid pn-box__grid--6">
+        <div class="pn-box__grid">
           <% @box_slots.each do |slot| %>
-            <div class="pn-slot">
-              <% if slot[:filled] %>
-                <div class="pn-slot__hatch"></div>
-                <div class="pn-slot__dex-wrap"><span class="pn-slot__dex"><%= slot[:dex] %></span></div>
-              <% else %>
-                <span class="pn-slot__empty">·</span>
-              <% end %>
-            </div>
+            <%= render "box_slot", slot: slot %>
           <% end %>
         </div>
+        <div class="pn-box__meter">
+          <span class="pn-box__meter-label"><span class="pn-box__meter-swatch"></span> <%= t("pages.home.hero.caught") %></span>
+          <span>18 / 20</span>
+        </div>
+        <div class="pn-progress"><div class="pn-progress__fill pn-progress__fill--90"></div></div>
       </div>
     </div>
   </div>

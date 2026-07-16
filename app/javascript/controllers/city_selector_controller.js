@@ -28,10 +28,14 @@ export default class extends Controller {
       ...mons.map((mon) => {
         const pill = document.createElement("span")
         pill.className = "pn-mon"
-        const dot = document.createElement("span")
-        dot.className = "pn-mon__dot"
-        pill.appendChild(dot)
-        pill.appendChild(document.createTextNode(mon))
+        const thumb = document.createElement("span")
+        thumb.className = "pn-mon__thumb"
+        const img = document.createElement("img")
+        img.src = mon.sprite
+        img.alt = ""
+        thumb.appendChild(img)
+        pill.appendChild(thumb)
+        pill.appendChild(document.createTextNode(mon.name))
         return pill
       })
     )

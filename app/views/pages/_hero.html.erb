@@ -28,17 +28,14 @@
       <div class="pn-box__body">
         <div class="pn-box__grid">
           <% @hero_cells.each do |cell| %>
-            <div class="pn-cell">
-              <% if cell[:filled] %><div class="pn-cell__fill"></div><% end %>
-              <% if cell[:cursor] %><div class="pn-cell__cursor"></div><% end %>
-            </div>
+            <%= render "box_slot", slot: cell %>
           <% end %>
         </div>
         <div class="pn-box__meter">
           <span class="pn-box__meter-label"><span class="pn-box__meter-swatch"></span> <%= t("pages.home.hero.caught") %></span>
           <span>22 / 151</span>
         </div>
-        <div class="pn-progress"><div class="pn-progress__fill"></div></div>
+        <div class="pn-progress"><div class="pn-progress__fill pn-progress__fill--15"></div></div>
       </div>
     </div>
   </div>

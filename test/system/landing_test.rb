@@ -13,6 +13,7 @@ class LandingTest < ApplicationSystemTestCase
     assert_text "All nine gens incoming."
     assert_text "not affiliated with Nintendo, Game Freak or The Pokémon Company"
     assert_selector "img[src*='porygon']"
+    assert_selector ".pn-slot__sprite[src*='pokemon/']"
   end
 
   test "Oak / Living Dex toggle flips the active mode" do

@@ -5,6 +5,7 @@
 .pn-eyebrow-label {
   font-family: "Press Start 2P", monospace;
   font-size: 11px;
+  line-height: 1.7;
   color: var(--accent);
   letter-spacing: 1px;
 }
@@ -738,7 +739,12 @@
   .pn-features__grid,
   .pn-sync { grid-template-columns: 1fr; }
 
-  .pn-sync__mid { transform: rotate(90deg); }
+  .pn-cities {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 10px;
+  }
+  .pn-cities__sep { display: none; }
 
   .pn-hero__title { font-size: 44px; }
   .pn-h2 { font-size: 28px; }
@@ -775,7 +781,7 @@
   .pn-hero__title { font-size: 36px; }
   .pn-wordmark { font-size: 15px; }
 
-  .pn-hero .pn-box__grid { grid-template-columns: repeat(6, 1fr); }
+  .pn-box__grid { grid-template-columns: repeat(4, 1fr); }
 
   .pn-hero { padding-left: 18px; padding-right: 18px; }
 }
