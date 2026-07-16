@@ -40,3 +40,6 @@
 
 # Ignore Node modules (Vitest JS unit tests; app JS still ships via importmap).
 /node_modules/
+
+# Ignore the local PokeAPI/sprites checkout (source for committed sprites; not tracked).
+/vendor/pokeapi-sprites/
