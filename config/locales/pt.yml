@@ -1,0 +1,108 @@
+pt:
+  pages:
+    home:
+      meta:
+        title: "PORYNET — Rastreador de living-dex de Pokémon open-source"
+      nav:
+        features: "Recursos"
+        oak: "Desafio Oak"
+        tracker: "Rastreador"
+        porypc: "PoryPC"
+        github: "GitHub"
+        start: "START"
+        lang_toggle: "EN"
+        lang_title: "Português / English"
+      hint:
+        title_html: 'Also in<br>English!'
+        cta: "tap EN ↑"
+      marquee:
+        - "GEN 1 E 2 DISPONÍVEIS"
+        - "LEITOR DE SAVE"
+        - "DESAFIO OAK"
+        - "MODO LIVING DEX"
+        - "100% OPEN SOURCE"
+        - "SALVO NO SEU PC"
+      hero:
+        badge: "SISTEMA DE ARMAZENAMENTO OPEN-SOURCE, EVOLUÍDO"
+        title_html: 'Sua Box do PC,<br><span class="pn-accent">turbinada.</span>'
+        lead: "A PC do Bill nunca foi tão bonita. Acompanhe sua living dex, jogue o Desafio Oak dentro dos guias e catalogue tudo automaticamente a partir do seu save. Salvo no seu PC, open source, seu."
+        cta_track: "COMEÇAR A RASTREAR"
+        cta_features: "VER RECURSOS"
+        caught: "CAPTURADOS"
+        stats:
+          - "GEN 1 & 2"
+          - "TODAS AS 9 GENS EM BREVE"
+          - "OPEN SOURCE"
+          - "SALVO NO SEU PC"
+      features:
+        eyebrow: "01 · O KIT"
+        h2: "Um rastreador de coleção que finalmente faz tudo."
+        list:
+          tracker:
+            title: "Rastreador de coleção"
+            desc: "Veja cada box e cada ’mon num relance. Alterne entre Living Dex (um de cada) e modo Oak (visto/capturado na Pokédex) num toque."
+          oak:
+            title: "Desafio Oak"
+            desc: "Embutido no guia, não é uma página à parte. Cada cidade mostra o que dá para capturar até ali e marca sua dex enquanto você joga."
+          guides:
+            title: "Guias e walkthroughs"
+            desc: "Guias passo a passo do melhor lugar e jeito de capturar cada Pokémon, além do que está disponível em cada ponto do jogo."
+          parser:
+            title: "Leitor de save"
+            desc: "Solte o arquivo de save do jogo no PoryPC e ele lê sua equipe e boxes, preenchendo toda a sua coleção para você."
+          porypc:
+            title: "App PoryPC"
+            desc: "Um app grátis para Windows, Mac e Linux. Sua coleção salva no seu próprio computador, pronta para backup em qualquer lugar."
+          offline:
+            title: "PoryPC funciona offline"
+            desc: "O app PoryPC não precisa de internet. Tudo que você captura é salvo no seu PC no momento em que você sincroniza o save, e o login sincroniza tudo com o porynet.com."
+      oak:
+        eyebrow: "02 · DESAFIO OAK"
+        h2: "Capture todos, na ordem certa."
+        lead: "Percorra a rota junto com o jogo. Em cada cidade mostramos o que dá para capturar até ali e marcamos sua dex conforme você avança. Escolha suas regras:"
+        obtainable: "OBTENÍVEIS ATÉ AQUI"
+        registered: "OAK · REGISTRADOS"
+        demo_note: "// dados de exemplo · início de Kanto"
+        new_route: "NOVOS NESTA ROTA"
+        how_count: "COMO CONTAMOS"
+        count1_html: 'A linha evolui no jogo (Caterpie→Butterfree) — registre a base <b>uma vez</b>.'
+        count2_html: 'Evolução indisponível nesta run — registre <b>2–3</b> da base para cobrir a família.'
+        count3_html: 'Únicos (fósseis, lendários) — registre um <b>único</b> espécime.'
+      tracker:
+        eyebrow: "03 · O RASTREADOR"
+        h2: "Cada box, cada espécime."
+        lead: "Organize por box, região, tipo ou status shiny. Filtre o que falta, marque um 'mon como guardado ou na equipe, e deixe o leitor de save preencher a grade para você."
+        filters:
+          - "TODOS"
+          - "FALTANDO"
+          - "SHINY ★"
+          - "POR TIPO"
+          - "NA EQUIPE"
+      porypc:
+        eyebrow: "04 · APP PORYPC · SEU SAVE, DO SEU JEITO"
+        h2: "Seus Pokémon, salvos no seu computador, quando você quiser."
+        lead: "O PoryPC é um app grátis para Windows, Mac e Linux. Toda a sua coleção fica no seu próprio computador, então funciona sem internet e sem cadastro. Quer um backup ou usar em outro computador? Sincronize sua coleção com o porynet.com fazendo login, ou com Google Drive, Dropbox ou um pen drive por conta própria."
+        pc:
+          tag: "NO SEU PC"
+          title: "Um arquivo de coleção, seu"
+          items:
+            - "Salvo direto no seu computador"
+            - "Sem cadastro, funciona offline"
+            - "Nada sai da sua máquina"
+        arrow: "FAÇA BACKUP"
+        anywhere:
+          tag: "LEVE PARA QUALQUER LUGAR"
+          title: "Sincronize e faça backup"
+          items:
+            - "Faça login para sincronizar com o porynet.com"
+            - "Google Drive, Dropbox ou pen drive"
+            - "Use entre computadores"
+        soon_badge: "EM BREVE"
+        soon_text: "Apps para iOS e Android estão no roadmap. O desktop continua sendo o lar recomendado, já que arquivos de save são melhor tratados no PC."
+      roadmap:
+        eyebrow: "05 · ROADMAP"
+        h2: "Começando por Kanto e Johto. Todas as nove gerações chegando."
+        status_live: "DISPONÍVEL"
+        status_soon: "EM BREVE"
+      footer:
+        legal: "Open source · MIT · Um projeto de fã — sem afiliação com Nintendo, Game Freak ou The Pokémon Company. Todas as marcas pertencem aos seus donos."

@@ -1,11 +1,11 @@
 <section id="tracker" class="pn-tracker">
   <div class="pn-tracker__grid">
     <div>
-      <div class="pn-eyebrow-label">03 · THE TRACKER</div>
-      <h2 class="pn-h2">Every box, every specimen.</h2>
-      <p class="pn-tracker__lead">Organize by box, region, type or shiny status. Filter what you're missing, flag a 'mon as boxed or in-party, and let the save-parser fill the grid in for you.</p>
+      <div class="pn-eyebrow-label"><%= t("pages.home.tracker.eyebrow") %></div>
+      <h2 class="pn-h2"><%= t("pages.home.tracker.h2") %></h2>
+      <p class="pn-tracker__lead"><%= t("pages.home.tracker.lead") %></p>
       <div class="pn-filters">
-        <% @filters.each do |filter| %>
+        <% t("pages.home.tracker.filters").each do |filter| %>
           <span class="pn-filter"><%= filter %></span>
         <% end %>
       </div>

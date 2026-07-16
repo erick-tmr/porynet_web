@@ -1,7 +1,3 @@
-/* Self-hosted webfonts (latin subset), served by Propshaft from
-   app/assets/fonts. The ../ climbs out of base/ to the stylesheets root; the
-   bare filename then resolves against the fonts asset load path. */
-
 @font-face {
   font-family: "Press Start 2P";
   font-style: normal;

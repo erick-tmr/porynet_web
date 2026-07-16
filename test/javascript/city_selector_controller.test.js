@@ -46,7 +46,6 @@ describe("city_selector_controller", () => {
     const total = document.querySelector("[data-city-selector-target='total']");
     const newMons = document.querySelector("[data-city-selector-target='newMons']");
 
-    // Initial index (0) is applied on connect.
     expect(name.textContent).toBe("PALLET TOWN");
     expect(total.textContent).toBe("1");
     expect(document.getElementById("c0").classList.contains("is-active")).toBe(true);
@@ -61,7 +60,6 @@ describe("city_selector_controller", () => {
     expect(document.getElementById("c1").classList.contains("is-active")).toBe(true);
     expect(document.getElementById("c0").classList.contains("is-active")).toBe(false);
 
-    // #renderMons builds a <span.pn-mon><span.pn-mon__dot></span>NAME</span> per mon.
     expect(newMons.children).toHaveLength(2);
     const pill = newMons.children[0];
     expect(pill.className).toBe("pn-mon");
@@ -78,8 +76,6 @@ describe("city_selector_controller", () => {
       </div>
     `);
 
-    // No name/total/oak/dex/newMons targets: the guarded writes are all skipped,
-    // but the button still gets toggled active.
     expect(document.getElementById("only").classList.contains("is-active")).toBe(true);
   });
 

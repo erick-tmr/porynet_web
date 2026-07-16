@@ -12,9 +12,6 @@ Rails.application.configure do
     policy.base_uri    :self
   end
 
-  # A per-request nonce authorizes the inline <script type="importmap"> block
-  # (and the module shim) that javascript_importmap_tags emits under script-src.
-  # No nonce on style-src: every inline style was flattened into CSS classes.
   config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
   config.content_security_policy_nonce_directives = %w[script-src]
 end

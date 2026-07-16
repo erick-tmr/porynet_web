@@ -1,0 +1,52 @@
+<section id="home" class="pn-porypc">
+  <div class="pn-porypc__inner">
+    <div class="pn-eyebrow-label"><%= t("pages.home.porypc.eyebrow") %></div>
+    <h2 class="pn-h2 pn-h2--light"><%= t("pages.home.porypc.h2") %></h2>
+    <p class="pn-porypc__lead"><%= t("pages.home.porypc.lead") %></p>
+
+    <div class="pn-sync">
+      <div class="pn-sync-card pn-sync-card--pc">
+        <div class="pn-sync-card__label"><%= t("pages.home.porypc.pc.tag") %></div>
+        <div class="pn-sync-card__name"><%= t("pages.home.porypc.pc.title") %></div>
+        <ul class="pn-sync-card__list">
+          <% t("pages.home.porypc.pc.items").each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="pn-sync__mid">
+        <span class="pn-sync__icon">⇄</span>
+        <span class="pn-sync__label"><%= t("pages.home.porypc.arrow") %></span>
+      </div>
+      <div class="pn-sync-card pn-sync-card--anywhere">
+        <div class="pn-sync-card__label"><%= t("pages.home.porypc.anywhere.tag") %></div>
+        <div class="pn-sync-card__name"><%= t("pages.home.porypc.anywhere.title") %></div>
+        <ul class="pn-sync-card__list">
+          <% t("pages.home.porypc.anywhere.items").each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pn-downloads">
+      <a href="#" class="pn-download">
+        <span class="pn-download__icon"><%= image_tag "icon-windows.png", alt: "" %></span> WINDOWS
+      </a>
+      <a href="#" class="pn-download">
+        <span class="pn-download__icon"><%= image_tag "icon-macos.png", alt: "" %></span> MACOS
+      </a>
+      <a href="#" class="pn-download">
+        <span class="pn-download__icon"><%= image_tag "icon-linux.png", alt: "" %></span> LINUX
+      </a>
+      <a href="#" class="pn-download pn-download--github">
+        <span class="pn-download__icon"><%= image_tag "icon-github.png", alt: "", class: "pn-download__github-img" %></span> GITHUB
+      </a>
+    </div>
+
+    <div class="pn-porypc__soon">
+      <span class="pn-soon-badge"><%= t("pages.home.porypc.soon_badge") %></span>
+      <span class="pn-porypc__soon-text"><%= t("pages.home.porypc.soon_text") %></span>
+    </div>
+  </div>
+</section>

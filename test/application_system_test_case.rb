@@ -6,8 +6,6 @@ Capybara.disable_animation     = true
 Capybara.save_path             = Rails.root.join("tmp/screenshots")
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  # Headless Chrome over CDP (Cuprite) — no Selenium/WebDriver. Run serial;
-  # HEADLESS=0 shows the browser.
   parallelize(workers: 1)
 
   driven_by :cuprite, screen_size: [ 1400, 1000 ], options: {

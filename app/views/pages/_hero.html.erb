@@ -1,14 +1,14 @@
 <section class="pn-hero">
   <div>
-    <div class="pn-eyebrow">THE OPEN-SOURCE STORAGE SYSTEM — EVOLVED</div>
-    <h1 class="pn-hero__title">Your PC box,<br>on <span class="pn-accent">steroids.</span></h1>
-    <p class="pn-hero__lead">Bill's PC never looked this good. Track your living dex, run the Oak Challenge right inside the walkthroughs, and auto-catalog everything from your save file. Self-hosted, open source, yours.</p>
+    <div class="pn-eyebrow"><%= t("pages.home.hero.badge") %></div>
+    <h1 class="pn-hero__title"><%= t("pages.home.hero.title_html") %></h1>
+    <p class="pn-hero__lead"><%= t("pages.home.hero.lead") %></p>
     <div class="pn-hero__ctas">
-      <a href="#oak" class="pn-btn pn-btn--accent">START TRACKING</a>
-      <a href="#features" class="pn-btn pn-btn--white">SEE FEATURES</a>
+      <a href="#oak" class="pn-btn pn-btn--accent"><%= t("pages.home.hero.cta_track") %></a>
+      <a href="#features" class="pn-btn pn-btn--white"><%= t("pages.home.hero.cta_features") %></a>
     </div>
     <div class="pn-hero__stats">
-      <% @hero_stats.each do |stat| %>
+      <% t("pages.home.hero.stats").each do |stat| %>
         <span class="pn-stat-chip">▪ <%= stat %></span>
       <% end %>
     </div>
@@ -35,7 +35,7 @@
           <% end %>
         </div>
         <div class="pn-box__meter">
-          <span class="pn-box__meter-label"><span class="pn-box__meter-swatch"></span> CAUGHT</span>
+          <span class="pn-box__meter-label"><span class="pn-box__meter-swatch"></span> <%= t("pages.home.hero.caught") %></span>
           <span>22 / 151</span>
         </div>
         <div class="pn-progress"><div class="pn-progress__fill"></div></div>

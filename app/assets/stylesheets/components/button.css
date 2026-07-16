@@ -1,5 +1,3 @@
-/* Sticker CTA buttons: Press Start 2P label on a bordered tile with a hard
-   offset shadow that presses in on hover. */
 .pn-btn {
   display: inline-block;
   font-family: "Press Start 2P", monospace;
@@ -19,7 +17,6 @@
 .pn-btn--accent { background: var(--accent); }
 .pn-btn--white { background: #fff; }
 
-/* Cream variant on the dark PokéHome band (cream border, black shadow). */
 .pn-btn--cream {
   background: #FBF5E6;
   border-color: #FBF5E6;
@@ -29,7 +26,6 @@
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
 }
 
-/* Neon START button in the nav. */
 .pn-nav__cta {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;

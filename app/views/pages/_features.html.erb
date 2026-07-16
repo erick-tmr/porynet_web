@@ -1,6 +1,6 @@
 <section id="features" class="pn-features">
-  <div class="pn-eyebrow-label">01 · THE KIT</div>
-  <h2 class="pn-h2">A collection tracker that finally does it all.</h2>
+  <div class="pn-eyebrow-label"><%= t("pages.home.features.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("pages.home.features.h2") %></h2>
   <div class="pn-features__grid">
     <% @features.each do |feature| %>
       <div class="pn-card">
@@ -8,8 +8,8 @@
           <span class="pn-badge"><%= feature.num %></span>
           <span class="pn-card__tag"><%= feature.tag %></span>
         </div>
-        <h3 class="pn-card__title"><%= feature.title %></h3>
-        <p class="pn-card__desc"><%= feature.desc %></p>
+        <h3 class="pn-card__title"><%= t("pages.home.features.list.#{feature.key}.title") %></h3>
+        <p class="pn-card__desc"><%= t("pages.home.features.list.#{feature.key}.desc") %></p>
       </div>
     <% end %>
   </div>
