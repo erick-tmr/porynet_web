@@ -14,7 +14,7 @@
           <div class="pn-wt-items">
             <% step.items.each do |item| %>
               <div class="pn-wt-item">
-                <span class="pn-wt-item__chip"><%= item.name.gsub(/[^A-Za-z]/, "")[0, 2].upcase %></span>
+                <span class="pn-wt-item__chip"><%= image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>
                 <div>
                   <div>
                     <span class="pn-wt-item__name"><%= item.name %></span>

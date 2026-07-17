@@ -23,17 +23,19 @@
           <%= link_to t("pages.home.nav.lang_toggle"),
                       url_for(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
                       class: "pn-nav__lang", title: t("pages.home.nav.lang_title") %>
-          <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
-            <span class="pn-lang-hint__pory">
-              <span class="pn-lang-hint__grid"></span>
-              <%= image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
+          <% if controller_name == "pages" %>
+            <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
+              <span class="pn-lang-hint__pory">
+                <span class="pn-lang-hint__grid"></span>
+                <%= image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
+              </span>
+              <span class="pn-lang-hint__bubble">
+                <span class="pn-lang-hint__tail"></span>
+                <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
+                <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
+              </span>
             </span>
-            <span class="pn-lang-hint__bubble">
-              <span class="pn-lang-hint__tail"></span>
-              <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
-              <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
-            </span>
-          </span>
+          <% end %>
         </span>
         <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
       </span>

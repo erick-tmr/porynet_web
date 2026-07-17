@@ -5,6 +5,6 @@ Rails.application.routes.draw do
     root "pages#home"
 
     get "walkthroughs/:game", to: "walkthroughs#show", as: :walkthrough
-    get "walkthroughs/:game/:location", to: "walkthroughs#location", as: :walkthrough_location
+    get "walkthroughs/:game/:leg", to: "walkthroughs#leg", as: :walkthrough_leg
   end
 end

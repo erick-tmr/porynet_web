@@ -1,0 +1,39 @@
+<div class="pn-wt-route is-built">
+  <div class="pn-wt-route__rail">
+    <div class="pn-wt-route__line pn-wt-route__line--top"></div>
+    <div class="<%= class_names("pn-wt-route__dot", "pn-wt-route__dot--special" => leg.special) %>"></div>
+    <div class="pn-wt-route__line pn-wt-route__line--bot"></div>
+  </div>
+  <%= link_to walkthrough_leg_path(game: game.slug, leg: leg.slug), class: "pn-wt-route__card" do %>
+    <div class="pn-wt-route__main">
+      <div class="pn-wt-route__meta">
+        <% if leg.special %>
+          <span class="pn-wt-route__kind"><%= leg.locations.first.kind %></span>
+          <span class="pn-wt-route__special"><%= t("walkthrough.ui.special_stop") %></span>
+        <% else %>
+          <span class="pn-wt-route__kind"><%= leg.slug.tr("-", " ").upcase %></span>
+          <span class="pn-wt-route__ready"><%= t("walkthrough.ui.stops_count", count: leg.locations.size) %></span>
+        <% end %>
+      </div>
+      <div class="pn-wt-route__name"><%= leg_title(leg) %></div>
+      <div class="pn-wt-route__note"><%= leg.special ? t(leg.locations.first.note_key) : t(leg.lead_key) %></div>
+    </div>
+    <div class="pn-wt-route__stats">
+      <div class="pn-wt-route__stat">
+        <div class="pn-wt-route__stat-num"><%= leg.catch_count %></div>
+        <div class="pn-wt-route__stat-label"><%= t("walkthrough.ui.catchable") %></div>
+      </div>
+      <div class="pn-wt-route__stat pn-wt-route__stat--new">
+        <div class="pn-wt-route__stat-num"><%= game.new_dex_for_leg(leg).size %></div>
+        <div class="pn-wt-route__stat-label"><%= t("walkthrough.ui.new") %></div>
+      </div>
+      <% if leg.gyms.any? %>
+        <div class="pn-wt-route__stat pn-wt-route__stat--gym">
+          <div class="pn-wt-route__stat-num"><%= t("walkthrough.ui.gym") %></div>
+          <div class="pn-wt-route__stat-label"><%= leg.gyms.first.badge %></div>
+        </div>
+      <% end %>
+      <span class="pn-wt-route__arrow">▶</span>
+    </div>
+  <% end %>
+</div>

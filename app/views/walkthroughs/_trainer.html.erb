@@ -12,7 +12,7 @@
   </div>
   <div class="pn-wt-trainer__shots">
     <div class="pn-wt-shot pn-wt-shot--vs">
-      <div class="pn-wt-shot__ph"><%= t("walkthrough.ui.shot_placeholder") %></div>
+      <%= image_tag "walkthrough/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img" %>
       <span class="pn-wt-shot__label"><%= t("walkthrough.ui.vs") %></span>
     </div>
     <div class="pn-wt-shot pn-wt-shot--where">

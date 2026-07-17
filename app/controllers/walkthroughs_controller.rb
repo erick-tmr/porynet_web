@@ -3,8 +3,14 @@ class WalkthroughsController < ApplicationController
     @game = Walkthrough.find!(params[:game])
   end
 
-  def location
+  def leg
     @game = Walkthrough.find!(params[:game])
-    @location = @game.location!(params[:location])
+    @leg = @game.leg!(params[:leg])
+    if @leg.special
+      @location = @leg.locations.first
+      render :special
+    else
+      render :leg
+    end
   end
 end

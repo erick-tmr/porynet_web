@@ -1,0 +1,68 @@
+<section class="pn-wt-band-head pn-wt-band-head--<%= loc.kind.downcase %>">
+  <div class="pn-wt-band-head__inner">
+    <div class="pn-wt-band__tags">
+      <span class="pn-wt-band__stop"><%= format("%02d", loc.order) %></span>
+      <span class="pn-wt-tag"><%= loc.kind %></span>
+      <% if loc.badge? %>
+        <span class="pn-wt-band__badge">GYM · <%= loc.badge %></span>
+      <% end %>
+    </div>
+    <h2 class="pn-wt-band__title"><%= loc.name %></h2>
+    <p class="pn-wt-band__lead"><%= t(loc.intro_key) %></p>
+  </div>
+</section>
+
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
+  <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
+  <div class="pn-wt-steps">
+    <% loc.steps.each do |step| %>
+      <%= render "step", step: step %>
+    <% end %>
+  </div>
+</section>
+
+<% if loc.encounters.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-wt-catch__head">
+      <div>
+        <div class="pn-eyebrow-label"><%= t("walkthrough.ui.catch_eyebrow", count: loc.encounters.size) %></div>
+        <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.catch_h2") %></h3>
+      </div>
+      <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: loc.catchable_count) %></div>
+    </div>
+    <div class="pn-wt-catch-grid">
+      <% loc.encounters.each do |enc| %>
+        <%= render "catch_card", enc: enc %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if loc.trainers.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: loc.trainers.size) %></div>
+    <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trainers_h2") %></h3>
+    <div class="pn-wt-trainers">
+      <% loc.trainers.each do |trainer| %>
+        <%= render "trainer", trainer: trainer %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if loc.oak_queue.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-wt-band-oak">
+      <div class="pn-wt-band-oak__head">
+        <span class="pn-wt-band-oak__badge"><%= t("walkthrough.ui.oak_here") %></span>
+        <span class="pn-wt-band-oak__title"><%= t("walkthrough.ui.oak_register_before") %></span>
+      </div>
+      <div class="pn-wt-oak__list">
+        <% loc.oak_queue.each do |entry| %>
+          <%= render "oak_row", entry: entry %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

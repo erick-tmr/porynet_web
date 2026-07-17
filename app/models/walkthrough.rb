@@ -4,8 +4,8 @@ module Walkthrough
     def wild? = !gift?
   end
 
-  Item = Data.define(:name, :where_key)
-  HiddenItem = Data.define(:name, :where_key, :image, :pin)
+  Item = Data.define(:name, :where_key, :sprite)
+  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite)
   Shot = Data.define(:image, :label)
 
   Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot) do
@@ -14,7 +14,7 @@ module Walkthrough
     def shot? = !shot.nil?
   end
 
-  Trainer = Data.define(:cls, :name, :reward, :team) # team: [{ dex:, name:, lvl: }]
+  Trainer = Data.define(:cls, :name, :reward, :team, :sprite) # team: [{ dex:, name:, lvl: }]
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
 
   Location = Data.define(
@@ -27,35 +27,45 @@ module Walkthrough
     def badge? = !badge.nil?
   end
 
-  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_queue, :locations) do
-    def location(slug) = locations.find { |loc| loc.slug == slug }
+  Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do
+    def single? = locations.one?
+    def from = locations.first.name
+    def to = locations.last.name
+    def catch_count = locations.sum(&:catchable_count)
+    def dex_list = locations.flat_map(&:dex_list).uniq
+    def gyms = locations.select(&:badge?)
+    def oak_queue = locations.flat_map(&:oak_queue).uniq(&:dex)
+  end
 
-    def location!(slug)
-      location(slug) || raise(ActiveRecord::RecordNotFound, "Unknown #{self.slug} location: #{slug}")
+  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_queue, :locations, :legs) do
+    def leg(slug) = legs.find { |l| l.slug == slug }
+
+    def leg!(slug)
+      leg(slug) || raise(ActiveRecord::RecordNotFound, "Unknown #{self.slug} leg: #{slug}")
     end
 
-    def previous(loc) = neighbor(loc, -1)
-    def following(loc) = neighbor(loc, 1)
+    def leg_before(current) = neighbor_leg(current, -1)
+    def leg_after(current) = neighbor_leg(current, 1)
 
     def obtainable_dex = locations.flat_map(&:dex_list).uniq
 
-    def obtainable_upto(loc)
-      idx = locations.index(loc)
+    def obtainable_upto_leg(current)
+      idx = locations.index(current.locations.last)
       locations.first(idx + 1).flat_map(&:dex_list).uniq
     end
 
-    def new_dex_for(loc)
-      idx = locations.index(loc)
-      loc.dex_list - locations.first(idx).flat_map(&:dex_list)
+    def new_dex_for_leg(current)
+      idx = locations.index(current.locations.first)
+      current.dex_list - locations.first(idx).flat_map(&:dex_list)
     end
 
     private
 
-    def neighbor(loc, delta)
-      pos = locations.index(loc) + delta
-      return nil if pos.negative? || pos >= locations.size
+    def neighbor_leg(current, delta)
+      pos = legs.index(current) + delta
+      return nil if pos.negative? || pos >= legs.size
 
-      locations[pos]
+      legs[pos]
     end
   end
 

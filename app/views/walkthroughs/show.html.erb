@@ -58,13 +58,13 @@
 </section>
 
 <section class="pn-wt-section">
-  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.route_eyebrow", count: @game.locations.size) %></div>
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.route_eyebrow", count: @game.legs.size) %></div>
   <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.route.h2") %></h2>
   <p class="pn-wt-lead"><%= t("#{Walkthrough::Yellow::K}.route.lead") %></p>
 
   <div class="pn-wt-steps">
-    <% @game.locations.each do |loc| %>
-      <%= render "route_stop", stop: loc, game: @game %>
+    <% @game.legs.each do |leg| %>
+      <%= render "leg_stop", leg: leg, game: @game %>
     <% end %>
   </div>
 </section>

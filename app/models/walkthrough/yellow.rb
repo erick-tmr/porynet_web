@@ -60,7 +60,37 @@ module Walkthrough
       OakEntry.new(dex: dex, name: NAMES.fetch(dex), qty: qty, why_key: "#{base(slug)}.oak.#{mon_key(dex)}")
     end
 
+    LEG_DEFS = [
+      { slug: "leg-01", special: false, locs: %w[pallet-town route-1] },
+      { slug: "leg-02", special: false, locs: %w[viridian-city route-22 route-2] },
+      { slug: "viridian-forest", special: true, locs: %w[viridian-forest] },
+      { slug: "leg-03", special: false, locs: %w[pewter-city route-3] },
+      { slug: "mt-moon", special: true, locs: %w[mt-moon] },
+      { slug: "leg-04", special: false, locs: %w[route-4 cerulean-city route-24 route-25] },
+      { slug: "leg-05", special: false, locs: %w[route-5 route-6 vermilion-city] },
+      { slug: "ss-anne", special: true, locs: %w[ss-anne] },
+      { slug: "leg-06", special: false, locs: %w[route-11] },
+      { slug: "digletts-cave", special: true, locs: %w[digletts-cave] },
+      { slug: "leg-07", special: false, locs: %w[route-9 route-10] },
+      { slug: "rock-tunnel", special: true, locs: %w[rock-tunnel] },
+      { slug: "leg-08", special: false, locs: %w[lavender-town route-8 route-7 celadon-city] },
+      { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
+      { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
+      { slug: "leg-09", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
+      { slug: "leg-10", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
+      { slug: "silph-co", special: true, locs: %w[silph-co] },
+      { slug: "leg-11", special: false, locs: %w[route-19 route-20] },
+      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
+      { slug: "leg-12", special: false, locs: %w[cinnabar-island pokemon-mansion viridian-gym] },
+      { slug: "victory-road", special: true, locs: %w[victory-road] },
+      { slug: "leg-13", special: false, locs: %w[route-23] },
+      { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
+      { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
+    ].freeze
+
     def self.game
+      locations = all_locations
+      by_slug = locations.to_h { |loc| [ loc.slug, loc ] }
       Game.new(
         slug: "yellow",
         name: "Pokémon Yellow",
@@ -74,15 +104,32 @@ module Walkthrough
           OakEntry.new(dex: "056", name: "Mankey", qty: 1, why_key: "#{K}.slice_oak.mankey"),
           OakEntry.new(dex: "021", name: "Spearow", qty: 1, why_key: "#{K}.slice_oak.spearow")
         ],
-        locations: [
-          pallet_town, route_1, viridian_city, route_22, route_2, viridian_forest, pewter_city,
-          route_3, mt_moon, route_4, cerulean_city, route_24, route_25,
-          route_5, route_6, vermilion_city, ss_anne, route_11, digletts_cave,
-          route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
-          pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
-          route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
-          cinnabar_island, pokemon_mansion, viridian_gym, victory_road, route_23, indigo_plateau, cerulean_cave
-        ]
+        locations: locations,
+        legs: build_legs(by_slug)
+      )
+    end
+
+    def self.all_locations
+      [
+        pallet_town, route_1, viridian_city, route_22, route_2, viridian_forest, pewter_city,
+        route_3, mt_moon, route_4, cerulean_city, route_24, route_25,
+        route_5, route_6, vermilion_city, ss_anne, route_11, digletts_cave,
+        route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
+        pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
+        route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
+        cinnabar_island, pokemon_mansion, viridian_gym, victory_road, route_23, indigo_plateau, cerulean_cave
+      ]
+    end
+
+    def self.build_legs(by_slug)
+      LEG_DEFS.each_with_index.map { |leg_def, i| build_leg(leg_def, i + 1, by_slug) }
+    end
+
+    def self.build_leg(leg_def, order, by_slug)
+      Leg.new(
+        slug: leg_def[:slug], order: order, special: leg_def[:special],
+        locations: leg_def[:locs].map { |s| by_slug.fetch(s) },
+        lead_key: (leg_def[:special] ? nil : "#{K}.legs.#{leg_def[:slug].tr('-', '_')}.lead")
       )
     end
 
@@ -97,8 +144,8 @@ module Walkthrough
           step(b, 3),
           step(b, 4, shot: shot("STEP 4"))
         ],
-        encounters: [ enc("pallet-town", "025", "STARTER", "—", "5", "GIFT", "025", "026", tip: true) ],
-        trainers: [ Trainer.new(cls: "RIVAL", name: "Blue", reward: 175, team: [ mon("133", 5) ]) ],
+        encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
+        trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1") ],
         oak_queue: []
       )
     end
@@ -154,7 +201,7 @@ module Walkthrough
           enc("route-22", "019", "GRASS", "10%", "3", "UNCOMMON", "019", "020", tip: true),
           enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true)
         ],
-        trainers: [ Trainer.new(cls: "RIVAL", name: "Blue", reward: 280, team: [ mon("021", 9), mon("133", 8) ]) ],
+        trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1") ],
         oak_queue: [
           oak("route-22", "029", 1), oak("route-22", "032", 1),
           oak("route-22", "056", 1), oak("route-22", "021", 1)
@@ -200,11 +247,11 @@ module Walkthrough
           enc("viridian-forest", "017", "GRASS", "1%", "9", "RARE", "016", "017", "018", tip: true)
         ],
         trainers: [
-          Trainer.new(cls: "LASS", name: nil, reward: 90, team: [ mon("029", 6), mon("032", 6) ]),
-          Trainer.new(cls: "BUG CATCHER", name: nil, reward: 70, team: [ mon("010", 7), mon("010", 7) ]),
-          Trainer.new(cls: "BUG CATCHER", name: nil, reward: 60, team: [ mon("011", 6), mon("010", 6), mon("011", 6) ]),
-          Trainer.new(cls: "BUG CATCHER", name: nil, reward: 80, team: [ mon("010", 8), mon("011", 8) ]),
-          Trainer.new(cls: "BUG CATCHER", name: nil, reward: 100, team: [ mon("010", 10) ])
+          tr("LASS", nil, 90, mon("029", 6), mon("032", 6)),
+          tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7)),
+          tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6)),
+          tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8)),
+          tr("BUG CATCHER", nil, 100, mon("010", 10))
         ],
         oak_queue: [ oak("viridian-forest", "010", 1) ]
       )
@@ -223,8 +270,8 @@ module Walkthrough
         ],
         encounters: [],
         trainers: [
-          Trainer.new(cls: "JR. TRAINER♂", name: nil, reward: 180, team: [ mon("050", 9), mon("027", 9) ]),
-          Trainer.new(cls: "LEADER", name: "Brock", reward: 1188, team: [ mon("074", 10), mon("095", 12) ])
+          tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9)),
+          leader("Brock", 1188, mon("074", 10), mon("095", 12))
         ],
         oak_queue: []
       )
@@ -240,9 +287,31 @@ module Walkthrough
       )
     end
 
-    def self.leader(name, reward, *team) = Trainer.new(cls: "LEADER", name: name, reward: reward, team: team)
+    NAME_SPRITES = {
+      "Brock" => "brock-gen1", "Misty" => "misty-gen1", "Lt. Surge" => "ltsurge-gen1",
+      "Erika" => "erika-gen1", "Koga" => "koga-gen1", "Sabrina" => "sabrina-gen1",
+      "Blaine" => "blaine-gen1", "Giovanni" => "giovanni-gen1",
+      "Lorelei" => "lorelei-gen1", "Bruno" => "bruno-gen1",
+      "Agatha" => "agatha-gen1", "Lance" => "lance-gen1",
+      "Jessie & James" => "jessiejames-gen1"
+    }.freeze
 
-    def self.rival(reward, *team) = Trainer.new(cls: "RIVAL", name: "Blue", reward: reward, team: team)
+    CLASS_SPRITES = {
+      "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1",
+      "JR. TRAINER♂" => "jrtrainer-gen1", "KARATE MASTER" => "blackbelt-gen1",
+      "TEAM ROCKET" => "rocket-gen1", "RIVAL" => "blue-gen1", "CHAMPION" => "blue-gen1champion"
+    }.freeze
+
+    def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
+
+    def self.tr(cls, name, reward, *team, sprite: nil)
+      Trainer.new(cls: cls, name: name, reward: reward, team: team,
+        sprite: sprite || trainer_sprite(cls, name))
+    end
+
+    def self.leader(name, reward, *team) = tr("LEADER", name, reward, *team)
+
+    def self.rival(reward, *team) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two")
 
     def self.route_3
       loc("route-3", "ROUTE", "Route 3", 8,
@@ -263,8 +332,8 @@ module Walkthrough
           enc("mt-moon", "046", "CAVE", "5%", "8", "RARE", "046", "047"),
           enc("mt-moon", "035", "CAVE", "1%", "11", "RARE", "035", "036", tip: true)
         ],
-        trainers: [ Trainer.new(cls: "TEAM ROCKET", name: "Jessie & James", reward: 420,
-          team: [ mon("023", 14), mon("052", 14), mon("109", 14) ]) ],
+        trainers: [ tr("TEAM ROCKET", "Jessie & James", 420,
+          mon("023", 14), mon("052", 14), mon("109", 14)) ],
         oak_queue: [ oak("mt-moon", "035", 1), oak("mt-moon", "074", 1) ])
     end
 
@@ -280,7 +349,7 @@ module Walkthrough
 
     def self.cerulean_city
       loc("cerulean-city", "CITY", "Cerulean City", 11, badge: "CASCADE",
-        encounters: [ enc("cerulean-city", "001", "GIFT", "—", "10", "GIFT", "001", "002", "003", tip: true) ],
+        encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
         trainers: [ leader("Misty", 2079, mon("120", 18), mon("121", 21)) ],
         oak_queue: [ oak("cerulean-city", "001", 1) ])
     end
@@ -288,7 +357,7 @@ module Walkthrough
     def self.route_24
       loc("route-24", "ROUTE", "Route 24", 12,
         encounters: [
-          enc("route-24", "004", "GIFT", "—", "10", "GIFT", "004", "005", "006", tip: true),
+          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true),
           enc("route-24", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-24", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
           enc("route-24", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
@@ -333,7 +402,7 @@ module Walkthrough
 
     def self.vermilion_city
       loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 4, badge: "THUNDER",
-        encounters: [ enc("vermilion-city", "007", "GIFT", "—", "10", "GIFT", "007", "008", "009", tip: true) ],
+        encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true) ],
         trainers: [ leader("Lt. Surge", 2772, mon("026", 28)) ],
         oak_queue: [ oak("vermilion-city", "007", 1) ])
     end
@@ -370,8 +439,8 @@ module Walkthrough
         ],
         trainers: [
           rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25)),
-          Trainer.new(cls: "TEAM ROCKET", name: "Jessie & James", reward: 810,
-            team: [ mon("052", 27), mon("024", 27), mon("110", 27) ])
+          tr("TEAM ROCKET", "Jessie & James", 810,
+            mon("052", 27), mon("024", 27), mon("110", 27))
         ],
         oak_queue: [ oak("pokemon-tower", "092", 1), oak("pokemon-tower", "104", 1) ])
     end
@@ -383,7 +452,7 @@ module Walkthrough
           enc("route-12", "069", "GRASS", "30%", "22–26", "COMMON", "069", "070", "071"),
           enc("route-12", "079", "SURF", "95%", "15", "COMMON", "079", "080"),
           enc("route-12", "083", "GRASS", "5%", "26–31", "RARE", "083", tip: true),
-          enc("route-12", "143", "STATIC", "—", "30", "STATIC", "143", tip: true)
+          enc("route-12", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
         ],
         oak_queue: [ oak("route-12", "079", 1), oak("route-12", "083", 1) ])
     end
@@ -451,7 +520,7 @@ module Walkthrough
           enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-16", "019", "GRASS", "30%", "23–24", "COMMON", "019", "020"),
           enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
-          enc("route-16", "143", "STATIC", "—", "30", "STATIC", "143", tip: true)
+          enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
         ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
     end
@@ -480,18 +549,18 @@ module Walkthrough
       loc("saffron-city", "CITY", "Saffron City", 38, steps: 4, badge: "MARSH",
         trainers: [
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50)),
-          Trainer.new(cls: "KARATE MASTER", name: nil, reward: 925, team: [ mon("106", 37), mon("107", 37) ])
+          tr("KARATE MASTER", nil, 925, mon("106", 37), mon("107", 37))
         ],
         oak_queue: [ oak("saffron-city", "106", 1) ])
     end
 
     def self.silph_co
       loc("silph-co", "BUILDING", "Silph Co.", 39, steps: 4,
-        encounters: [ enc("silph-co", "131", "GIFT", "—", "15", "GIFT", "131", tip: true) ],
+        encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true) ],
         trainers: [
           rival(0, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40)),
-          Trainer.new(cls: "TEAM ROCKET", name: "Giovanni", reward: 4059,
-            team: [ mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41) ])
+          tr("TEAM ROCKET", "Giovanni", 4059,
+            mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41))
         ],
         oak_queue: [ oak("silph-co", "131", 1) ])
     end
@@ -523,7 +592,7 @@ module Walkthrough
           enc("seafoam-islands", "098", "CAVE", "35%", "25–27", "COMMON", "098", "099"),
           enc("seafoam-islands", "054", "CAVE", "20%", "30", "UNCOMMON", "054", "055"),
           enc("seafoam-islands", "079", "CAVE", "15%", "28–30", "UNCOMMON", "079", "080"),
-          enc("seafoam-islands", "144", "STATIC", "—", "50", "STATIC", "144", tip: true)
+          enc("seafoam-islands", "144", "STATIC", "-", "50", "STATIC", "144", tip: true)
         ],
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
     end
@@ -531,9 +600,9 @@ module Walkthrough
     def self.cinnabar_island
       loc("cinnabar-island", "TOWN", "Cinnabar Island", 43, steps: 4, badge: "VOLCANO",
         encounters: [
-          enc("cinnabar-island", "138", "FOSSIL", "—", "30", "GIFT", "138", "139", tip: true),
-          enc("cinnabar-island", "140", "FOSSIL", "—", "30", "GIFT", "140", "141", tip: true),
-          enc("cinnabar-island", "142", "FOSSIL", "—", "30", "GIFT", "142", tip: true),
+          enc("cinnabar-island", "138", "FOSSIL", "-", "30", "GIFT", "138", "139", tip: true),
+          enc("cinnabar-island", "140", "FOSSIL", "-", "30", "GIFT", "140", "141", tip: true),
+          enc("cinnabar-island", "142", "FOSSIL", "-", "30", "GIFT", "142", tip: true),
           enc("cinnabar-island", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("cinnabar-island", "120", "SUPER ROD", "30%", "15–30", "UNCOMMON", "120", "121")
         ],
@@ -566,7 +635,7 @@ module Walkthrough
           enc("victory-road", "066", "CAVE", "20%", "22–24", "UNCOMMON", "066", "067", "068"),
           enc("victory-road", "095", "CAVE", "20%", "36–47", "UNCOMMON", "095"),
           enc("victory-road", "105", "CAVE", "4%", "40–43", "RARE", "104", "105"),
-          enc("victory-road", "146", "STATIC", "—", "50", "STATIC", "146", tip: true)
+          enc("victory-road", "146", "STATIC", "-", "50", "STATIC", "146", tip: true)
         ],
         oak_queue: [ oak("victory-road", "146", 1) ])
     end
@@ -584,16 +653,16 @@ module Walkthrough
     def self.indigo_plateau
       loc("indigo-plateau", "BUILDING", "Indigo Plateau", 48, steps: 3,
         trainers: [
-          Trainer.new(cls: "ELITE FOUR", name: "Lorelei", reward: 5544,
-            team: [ mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56) ]),
-          Trainer.new(cls: "ELITE FOUR", name: "Bruno", reward: 5742,
-            team: [ mon("095", 53), mon("107", 55), mon("106", 55), mon("095", 56), mon("068", 58) ]),
-          Trainer.new(cls: "ELITE FOUR", name: "Agatha", reward: 5940,
-            team: [ mon("094", 56), mon("042", 56), mon("093", 55), mon("024", 58), mon("094", 60) ]),
-          Trainer.new(cls: "ELITE FOUR", name: "Lance", reward: 6138,
-            team: [ mon("130", 58), mon("148", 56), mon("148", 56), mon("142", 60), mon("149", 62) ]),
-          Trainer.new(cls: "CHAMPION", name: "Blue", reward: 6435,
-            team: [ mon("028", 61), mon("065", 59), mon("103", 61), mon("091", 61), mon("038", 63), mon("135", 65) ])
+          tr("ELITE FOUR", "Lorelei", 5544,
+            mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56)),
+          tr("ELITE FOUR", "Bruno", 5742,
+            mon("095", 53), mon("107", 55), mon("106", 55), mon("095", 56), mon("068", 58)),
+          tr("ELITE FOUR", "Agatha", 5940,
+            mon("094", 56), mon("042", 56), mon("093", 55), mon("024", 58), mon("094", 60)),
+          tr("ELITE FOUR", "Lance", 6138,
+            mon("130", 58), mon("148", 56), mon("148", 56), mon("142", 60), mon("149", 62)),
+          tr("CHAMPION", "Blue", 6435,
+            mon("028", 61), mon("065", 59), mon("103", 61), mon("091", 61), mon("038", 63), mon("135", 65))
         ])
     end
 
@@ -605,7 +674,7 @@ module Walkthrough
           enc("cerulean-cave", "113", "CAVE", "10%", "55–60", "UNCOMMON", "113"),
           enc("cerulean-cave", "132", "CAVE", "15%", "55–65", "UNCOMMON", "132"),
           enc("cerulean-cave", "026", "CAVE", "4%", "53–64", "RARE", "025", "026"),
-          enc("cerulean-cave", "150", "STATIC", "—", "70", "STATIC", "150", tip: true)
+          enc("cerulean-cave", "150", "STATIC", "-", "70", "STATIC", "150", tip: true)
         ],
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])
     end
@@ -669,7 +738,7 @@ module Walkthrough
     def self.celadon_city
       loc("celadon-city", "CITY", "Celadon City", 26, steps: 4, badge: "RAINBOW",
         encounters: [
-          enc("celadon-city", "133", "GIFT", "—", "25", "GIFT", "133", tip: true),
+          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true),
           enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
           enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
         ],
@@ -680,10 +749,10 @@ module Walkthrough
     def self.rocket_hideout
       loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 27, steps: 4,
         trainers: [
-          Trainer.new(cls: "TEAM ROCKET", name: "Jessie & James", reward: 750,
-            team: [ mon("109", 25), mon("052", 25), mon("023", 25) ]),
-          Trainer.new(cls: "TEAM ROCKET", name: "Giovanni", reward: 2871,
-            team: [ mon("095", 25), mon("111", 24), mon("053", 29) ])
+          tr("TEAM ROCKET", "Jessie & James", 750,
+            mon("109", 25), mon("052", 25), mon("023", 25)),
+          tr("TEAM ROCKET", "Giovanni", 2871,
+            mon("095", 25), mon("111", 24), mon("053", 29))
         ])
     end
 
@@ -692,11 +761,19 @@ module Walkthrough
         items: items, hidden: hidden, shot: shot)
     end
 
-    def self.item(base, n, name, key) = Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}")
+    ITEM_SPRITES = { "TM34 Bide" => "tm-normal" }.freeze
+
+    def self.item_sprite(name)
+      ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
+    end
+
+    def self.item(base, n, name, key)
+      Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}", sprite: item_sprite(name))
+    end
 
     def self.hidden(base, n, name, key, image, pin)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",
-        image: "walkthrough/yellow/viridian-forest/#{image}", pin: pin)
+        image: "walkthrough/yellow/viridian-forest/#{image}", pin: pin, sprite: item_sprite(name))
     end
 
     def self.shot(label) = Shot.new(image: nil, label: label)

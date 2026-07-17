@@ -2,7 +2,7 @@ en:
   pages:
     home:
       meta:
-        title: "PORYNET — Open-source Pokémon living-dex tracker"
+        title: "PORYNET · Open-source Pokémon living-dex tracker"
       nav:
         home: "Home"
         walkthroughs: "Walkthroughs"
@@ -21,7 +21,7 @@ en:
         - "100% OPEN SOURCE"
         - "SAVED ON YOUR PC"
       hero:
-        badge: "THE OPEN-SOURCE STORAGE SYSTEM — EVOLVED"
+        badge: "THE OPEN-SOURCE STORAGE SYSTEM, EVOLVED"
         title_html: 'Your PC box,<br>on <span class="pn-accent">steroids.</span>'
         lead: "Bill's PC never looked this good. Track your living dex, run the Oak Challenge right inside the walkthroughs, and auto-catalog everything from your save file. Saved on your PC, open source, yours."
         cta_track: "START TRACKING"
@@ -56,16 +56,16 @@ en:
             desc: "The PoryPC app needs no internet to use. Everything you catch is saved to your PC the moment you sync your save file, and signing in syncs it all with porynet.com."
       oak:
         eyebrow: "02 · OAK CHALLENGE"
-        h2: "Catch 'em all — in the right order."
+        h2: "Catch 'em all, in the right order."
         lead: "Walk the route alongside the game. At each city we show what's catchable so far and tick your dex as you go. Pick your ruleset:"
         obtainable: "OBTAINABLE UP TO HERE"
         registered: "OAK · REGISTERED"
         demo_note: "// demo data · Kanto early route"
         new_route: "NEW ON THIS ROUTE"
         how_count: "HOW WE COUNT"
-        count1_html: 'Line evolves in-game (Caterpie→Butterfree) — log the base <b>once</b>.'
-        count2_html: 'Evolution unobtainable this run — log <b>2–3</b> of the base to cover the family.'
-        count3_html: 'One-of-a-kind (fossils, legendaries) — log a <b>single</b> specimen.'
+        count1_html: 'Line evolves in-game (Caterpie→Butterfree). Log the base <b>once</b>.'
+        count2_html: 'Evolution unobtainable this run. Log <b>2–3</b> of the base to cover the family.'
+        count3_html: 'One-of-a-kind (fossils, legendaries). Log a <b>single</b> specimen.'
       tracker:
         eyebrow: "03 · THE TRACKER"
         h2: "Every box, every specimen."
@@ -103,16 +103,16 @@ en:
         status_live: "LIVE NOW"
         status_soon: "SOON"
       footer:
-        legal: "Open source · MIT · A fan project — not affiliated with Nintendo, Game Freak or The Pokémon Company. All trademarks belong to their owners."
+        legal: "Open source · MIT · A fan project, not affiliated with Nintendo, Game Freak or The Pokémon Company. All trademarks belong to their owners."
   walkthrough:
     ui:
-      title_index: "%{name} Walkthrough — PORYNET"
+      title_index: "%{name} Walkthrough · PORYNET"
       title_location: "%{name} · %{game} Walkthrough"
       progress_title: "ROUTE PROGRESS"
       obtainable: "OBTAINABLE"
       caught: "CAUGHT"
       dex_goal: "LIVING DEX GOAL"
-      progress_note: "// tracker coming soon — numbers are catch targets, not saved yet"
+      progress_note: "// tracker coming soon. Numbers are catch targets, not saved yet"
       dex_mode: "DEX MODE"
       dex_mode_lead: "Which variants count toward your goals. Gen 1 has only the base forms."
       mode_living: "Living Dex"
@@ -122,14 +122,13 @@ en:
       mode_regional: "Regional forms"
       mode_none_tag: "0 IN GEN 1"
       route_eyebrow: "THE ROUTE · %{count} STOPS"
-      page_ready: "PAGE READY"
       catchable: "CATCHABLE"
       new: "NEW"
       gym: "GYM"
       how_we_count: "HOW WE COUNT"
-      count1_html: 'Line evolves in-game (Caterpie→Butterfree) — log the base <b>once</b>.'
-      count2_html: 'Evolution unobtainable this run — log <b>2–3</b> of the base to cover the family.'
-      count3_html: 'One-of-a-kind (fossils, gift, legendary) — log a <b>single</b> specimen.'
+      count1_html: 'Line evolves in-game (Caterpie→Butterfree). Log the base <b>once</b>.'
+      count2_html: 'Evolution unobtainable this run. Log <b>2–3</b> of the base to cover the family.'
+      count3_html: 'One-of-a-kind (fossils, gift, legendary). Log a <b>single</b> specimen.'
       catch_now_queue: "CATCH-NOW QUEUE"
       back: "◀ BACK"
       stop: "STOP %{n} · %{kind}"
@@ -160,6 +159,20 @@ en:
       previous: "◀ PREVIOUS"
       next: "NEXT ▶"
       lv: "Lv %{n}"
+      title_leg: "%{name} · %{game} Walkthrough"
+      leg_tag: "%{label} · %{count} STOPS"
+      leg_stops: "STOPS IN THIS LEG"
+      leg_catchable: "CATCHABLE HERE"
+      leg_new: "NEW TO DEX"
+      leg_obtainable: "OAK · OBTAINABLE"
+      jump_to: "JUMP TO"
+      stops_count: "%{count} STOPS"
+      special_stop: "SPECIAL"
+      oak_here: "OAK · REGISTER"
+      oak_register_before: "Register before you leave"
+      leg_oak_eyebrow: "OAK CHALLENGE · LEG TOTAL"
+      leg_oak_h2: "By the end of this leg, register these"
+      catch_queue_leg: "CATCH-NOW QUEUE · WHOLE LEG"
     yellow:
       marquee:
         - "PALLET → CHAMPION"
@@ -168,7 +181,7 @@ en:
         - "EVERY KANTO STOP"
       hero:
         badge: "GEN 1 · KANTO · WALKTHROUGH 01"
-        lead: "A no-fluff, catch-everything walkthrough for all of Kanto. Just what to do to progress — and exactly which Pokémon you can catch at every step."
+        lead: "A no-fluff, catch-everything walkthrough for all of Kanto. Just what to do to progress, and exactly which Pokémon you can catch at every step."
       route:
         h2: "Pallet Town → Indigo Plateau"
         lead: "Follow it in order. Each stop opens its own page with catch lists, trainers, items and hidden-item maps."
@@ -176,12 +189,39 @@ en:
         eyebrow: "OAK CHALLENGE · FIRST CATCHES"
         h2: "The families to register first."
       slice_oak:
-        caterpie: "Viridian Forest — evolves to Butterfree, a rare answer to Brock."
-        pidgey: "Routes 1–2 and the forest — common, evolves fully."
-        nidoranf: "Route 22 — a strong line that carries into Nidoqueen."
-        nidoranm: "Route 22 — Low Kick and full evolution to Nidoking."
-        mankey: "Route 22 — Low Kick shreds Brock's Rock types."
-        spearow: "Route 22 — early Normal/Flying, evolves to Fearow."
+        caterpie: "Viridian Forest. Evolves to Butterfree, a rare answer to Brock."
+        pidgey: "Routes 1–2 and the forest. Common, evolves fully."
+        nidoranf: "Route 22. A strong line that carries into Nidoqueen."
+        nidoranm: "Route 22. Low Kick and full evolution to Nidoking."
+        mankey: "Route 22. Low Kick shreds Brock's Rock types."
+        spearow: "Route 22. Early Normal/Flying, evolves to Fearow."
+      legs:
+        leg_01:
+          lead: "The opening stretch of Kanto. Your home town and first wild grass, merged so you can read the whole run start to finish."
+        leg_02:
+          lead: "Viridian's errands and the routes that ring it, right up to the gate of Viridian Forest."
+        leg_03:
+          lead: "Brock's Boulder Badge and the climb east toward Mt. Moon."
+        leg_04:
+          lead: "Out of Mt. Moon to Cerulean and Misty, then the Nugget Bridge routes up to Bill's cottage."
+        leg_05:
+          lead: "South from Cerulean to Vermilion City and Lt. Surge, via the Underground Path shortcut."
+        leg_06:
+          lead: "The grassy leg east of Vermilion, leading to the mouth of Diglett's Cave."
+        leg_07:
+          lead: "East and south from Cerulean toward the dark maze of Rock Tunnel."
+        leg_08:
+          lead: "Out of Rock Tunnel to Lavender, then west to Celadon's department store and Erika's gym."
+        leg_09:
+          lead: "The southern fishing routes down to Fuchsia, Koga's gym, and the Safari Zone."
+        leg_10:
+          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
+        leg_11:
+          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
+        leg_12:
+          lead: "Cinnabar's fossils and Blaine, then back to Viridian for Giovanni and the final badge."
+        leg_13:
+          lead: "The badge-gated road to the Pokémon League and Victory Road."
       locations:
         pallet_town:
           note: "Get Pikachu from Prof. Oak. No wild grass here."
@@ -194,18 +234,18 @@ en:
                 potion: "In the PC in your bedroom."
             "2":
               title: "Get Pikachu from Oak"
-              text: "Walk north; Oak stops you and takes you to his lab. Receive Pikachu — it walks behind you from now on."
+              text: "Walk north; Oak stops you and takes you to his lab. Receive Pikachu. It walks behind you from now on."
             "3":
               title: "Beat your rival"
-              text: "Blue challenges you in the lab with an Eevee (Lv 5). Win for ₽175 — Pikachu's Electric moves hit Eevee well."
+              text: "Blue challenges you in the lab with an Eevee (Lv 5). Win for ₽175. Pikachu's Electric moves hit Eevee well."
             "4":
               title: "Head north to Route 1"
               text: "Leave Pallet north onto Route 1. Come back later for the Town Map from Daisy once you have the Pokédex."
           tips:
-            pikachu: "Your forced partner and the only Pikachu in the game — it refuses the Thunder Stone, so it stays Pikachu."
+            pikachu: "Your forced partner and the only Pikachu in the game. It refuses the Thunder Stone, so it stays Pikachu."
         route_1:
           note: "First grass patch. Pidgey and Rattata."
-          intro: "The short road north to Viridian. Your first wild grass — level Pikachu on the way."
+          intro: "The short road north to Viridian. Your first wild grass. Level Pikachu on the way."
           steps:
             "1":
               title: "Sweep the tall grass"
@@ -219,14 +259,14 @@ en:
               title: "Enter Viridian City"
               text: "Continue north into Viridian City. On the way back, hop the ledges to skip the grass."
           tips:
-            pidgey: "Everywhere on Route 1 — a reliable Normal/Flying that evolves all the way to Pidgeot."
+            pidgey: "Everywhere on Route 1. A reliable Normal/Flying that evolves all the way to Pidgeot."
             rattata: "Fast and common. Evolves into Raticate, a solid early attacker."
           oak:
-            pidgey: "Common early flyer — evolves fully. One is enough."
-            rattata: "Everywhere here — grab one for the dex."
+            pidgey: "Common early flyer. Evolves fully. One is enough."
+            rattata: "Everywhere here. Grab one for the dex."
         viridian_city:
           note: "Catching tutorial, Oak's Parcel, stock up on Poké Balls."
-          intro: "The gateway city. No wild grass — run the errands, buy Poké Balls, then push into Route 2."
+          intro: "The gateway city. No wild grass. Run the errands, buy Poké Balls, then push into Route 2."
           steps:
             "1":
               title: "Heal and shop"
@@ -239,14 +279,14 @@ en:
               text: "The old man blocking the north exit gives a free catching tutorial. Watch it and he steps aside."
             "4":
               title: "Head to Route 2"
-              text: "The Gym is locked until much later — skip it and exit north onto Route 2."
+              text: "The Gym is locked until much later. Skip it and exit north onto Route 2."
         route_22:
-          note: "Optional west route. Nidoran♀/♂, Mankey, Spearow — plus the first rival battle."
+          note: "Optional west route. Nidoran♀/♂, Mankey, Spearow. Plus the first rival battle."
           intro: "A short detour west of Viridian. The best spot to catch answers for Brock before the forest."
           steps:
             "1":
               title: "Cross the grass"
-              text: "Head west from Viridian into the grass. Catch Nidoran♂/♀ and Mankey here — they beat Brock's Rock types."
+              text: "Head west from Viridian into the grass. Catch Nidoran♂/♀ and Mankey here. They beat Brock's Rock types."
             "2":
               title: "Beat the rival"
               text: "Blue challenges you near the water with Spearow (Lv 9) and Eevee (Lv 8). Win for ₽280."
@@ -254,15 +294,15 @@ en:
               title: "Turn back to Viridian"
               text: "The League gate further west is blocked until you have all badges. Head back east and up to Route 2."
           tips:
-            nidoranf: "Catch one — its line (Nidoqueen) is strong and covers Brock with Ground moves."
+            nidoranf: "Catch one. Its line (Nidoqueen) is strong and covers Brock with Ground moves."
             nidoranm: "Learns Low Kick early and evolves to Nidoking. A top Brock answer."
             mankey: "Low Kick is super-effective on Brock's Rock types. Grab one."
-            rattata: "Common filler here — evolves to Raticate."
+            rattata: "Common filler here. Evolves to Raticate."
             spearow: "Early Normal/Flying; evolves to Fearow. Aggressive and easy to find."
           oak:
-            nidoranf: "Its line reaches Nidoqueen — log the base once."
+            nidoranf: "Its line reaches Nidoqueen. Log the base once."
             nidoranm: "Evolves to Nidoking and helps vs Brock. Log one."
-            mankey: "Only easy spot for a while — grab it for Brock."
+            mankey: "Only easy spot for a while. Grab it for Brock."
             spearow: "Early Normal/Flying, evolves to Fearow."
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
@@ -276,23 +316,23 @@ en:
               text: "Step into the forest gate at the top and head straight through. The Cut-blocked east side comes much later."
           tips:
             pidgey: "The same reliable flyer as Route 1 if you still need one."
-            rattata: "Common again — skip it if you already caught one."
+            rattata: "Common again. Skip it if you already caught one."
             nidoranf: "A second shot at Nidoran♀ if you skipped Route 22."
-            nidoranm: "A second shot at Nidoran♂ — grab it for the Brock fight."
+            nidoranm: "A second shot at Nidoran♂. Grab it for the Brock fight."
         viridian_forest:
-          note: "Bug haven — Caterpie, Metapod, Pidgey. Hidden items inside. No wild Pikachu in Yellow."
+          note: "Bug haven. Caterpie, Metapod, Pidgey. Hidden items inside. No wild Pikachu in Yellow."
           intro: "The maze of trees between Route 2 and Pewter. Sweep the grass, grab the hidden items, and pick up a Caterpie for Brock."
           steps:
             "1":
               title: "Enter from the Route 2 gate"
-              text: "Step in from the south. Tall grass lines the way — your shot at Caterpie, Metapod and Pidgey. Grab the Poké Ball at the grassy dead-end to the northwest."
+              text: "Step in from the south. Tall grass lines the way. Your shot at Caterpie, Metapod and Pidgey. Grab the Poké Ball at the grassy dead-end to the northwest."
               items:
                 poke_ball: "End of the grassy dead-end path, northwest of the south entrance."
             "2":
               title: "Check the lone tree"
               text: "Just north of the south entrance stands a single tree. Press A on its southwest square for a hidden Antidote."
               hidden:
-                antidote: "Press A on the southwest square of the lone tree by the south entrance — nothing shows on-screen."
+                antidote: "Press A on the southwest square of the lone tree by the south entrance. Nothing shows on-screen."
             "3":
               title: "Climb the maze"
               text: "Wind north through the trees, battling the Lass and Bug Catchers for easy Pikachu XP. Grab the Potion in the northeast, by the Trainer Tips sign."
@@ -305,21 +345,21 @@ en:
                 potion: "One square west of the Bug Catcher standing south of the north exit."
             "5":
               title: "Leave for Pewter City"
-              text: "Catch a Caterpie or Metapod before you go — Butterfree's Confusion is a rare good answer to Brock. Exit north onto Route 2, then into Pewter City."
+              text: "Catch a Caterpie or Metapod before you go. Butterfree's Confusion is a rare good answer to Brock. Exit north onto Route 2, then into Pewter City."
           tips:
             caterpie: "Everywhere in the grass. Evolves fast into Butterfree, whose Confusion dents Brock."
-            metapod: "Or just evolve your Caterpie at Lv 7 — cheaper than hunting the 25% spawn."
+            metapod: "Or just evolve your Caterpie at Lv 7. Cheaper than hunting the 25% spawn."
             pidgey: "Common here too if you still need one for the dex."
-            pidgeotto: "A rare 1% spawn — a free evolved flyer if you're patient."
+            pidgeotto: "A rare 1% spawn. A free evolved flyer if you're patient."
           oak:
-            caterpie: "The forest's new family — evolves to Butterfree. Log the base once."
+            caterpie: "The forest's new family. Evolves to Butterfree. Log the base once."
         pewter_city:
-          note: "Brock — the first Gym. Rock types; Electric does nothing."
+          note: "Brock. The first Gym. Rock types; Electric does nothing."
           intro: "The first Gym city. Heal, prep a non-Electric attacker, and take the Boulder Badge from Brock."
           steps:
             "1":
               title: "Heal and prep"
-              text: "Enter from Route 2 and heal at the Poké Center. Pikachu is useless on Brock — lead with Mankey, a Nidoran, or Butterfree."
+              text: "Enter from Route 2 and heal at the Poké Center. Pikachu is useless on Brock. Lead with Mankey, a Nidoran, or Butterfree."
             "2":
               title: "Clear the Gym trainer"
               text: "Enter the Gym and beat the Jr. Trainer (Diglett Lv 9, Sandshrew Lv 9) on the way to Brock."
@@ -340,7 +380,7 @@ en:
               text: "Head east from Pewter, clearing the Bug Catchers, Youngsters and Lasses as you climb."
             "2":
               title: "Sweep the grass"
-              text: "Catch Spearow, Sandshrew or Mankey in the tall grass — Sandshrew and Mankey both help in the caves."
+              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves."
             "3":
               title: "Heal and enter Mt. Moon"
               text: "Heal at the Pokémon Center by the cave mouth, then step into Mt. Moon."
@@ -358,12 +398,12 @@ en:
               text: "Sweep 1F for the Moon Stone, TM12, Rare Candy and Potions as you fight the trainers."
             "3":
               title: "Beat the Rockets"
-              text: "Battle the Rocket Grunts on the lower floors — in Yellow, Jessie & James turn up too."
+              text: "Battle the Rocket Grunts on the lower floors. In Yellow, Jessie & James turn up too."
             "4":
               title: "Choose a fossil"
               text: "Beat the last Super Nerd and pick ONE fossil: Dome (→ Kabuto) or Helix (→ Omanyte). Exit to Route 4."
           tips:
-            clefairy: "A 1% cave spawn — grab one, then a Moon Stone turns it into Clefable."
+            clefairy: "A 1% cave spawn. Grab one, then a Moon Stone turns it into Clefable."
           oak:
             clefairy: "Rare Moon-cave catch. Evolve it with a Moon Stone into Clefable."
             geodude: "Everywhere in the rock. Evolves to Graveler, then Golem by trade."
@@ -378,7 +418,7 @@ en:
               title: "Drop into Cerulean"
               text: "Grab TM04 on the ledge and follow the route down into Cerulean City."
         cerulean_city:
-          note: "Misty's Gym — Cascade Badge. Free Bulbasaur too."
+          note: "Misty's Gym. Cascade Badge. Free Bulbasaur too."
           intro: "A water-gym city. Beat Misty, and if Pikachu likes you, claim a free Bulbasaur."
           steps:
             "1":
@@ -391,16 +431,16 @@ en:
               title: "Grab the extras"
               text: "Take TM28 from the robbed house, and the free Bulbasaur from the girl's house if Pikachu's friendship is high. Head north to Route 24."
           tips:
-            bulbasaur: "Free from the girl's house once Pikachu is happy — evolves all the way to Venusaur."
+            bulbasaur: "Free from the girl's house once Pikachu is happy. Evolves all the way to Venusaur."
           oak:
             bulbasaur: "Free gift from the girl's house → Venusaur. One is enough."
         route_24:
           note: "Nugget Bridge. Oddish, Bellsprout, and a free Charmander."
-          intro: "Five trainers back-to-back, a Rocket, your rival — and a free Charmander waiting at the end."
+          intro: "Five trainers back-to-back, a Rocket, your rival. And a free Charmander waiting at the end."
           steps:
             "1":
               title: "Cross Nugget Bridge"
-              text: "Beat the five trainers in a row, then the Rocket Grunt — take the Nugget and decline joining Team Rocket."
+              text: "Beat the five trainers in a row, then the Rocket Grunt. Take the Nugget and decline joining Team Rocket."
             "2":
               title: "Beat your rival"
               text: "Blue challenges you at the top of the bridge. Win, then grab TM45 in the grass."
@@ -408,7 +448,7 @@ en:
               title: "Take the free Charmander"
               text: "Accept the free Charmander from the boy on the route, then head north to Route 25."
           tips:
-            charmander: "Free from the boy here — a strong Fire line to Charizard, and a great answer to Erika later."
+            charmander: "Free from the boy here. A strong Fire line to Charizard, and a great answer to Erika later."
           oak:
             charmander: "Free gift → Charizard. Grab it for the dex and for Erika's grass gym."
             oddish: "Common in the grass. Evolves to Vileplume with a Leaf Stone."
@@ -422,19 +462,19 @@ en:
               text: "Clear the Hikers and Youngsters along the route; catch Venonat if you still need it."
             "2":
               title: "Free Bill"
-              text: "In the Sea Cottage, use Bill's machine to un-fuse him. He hands you the S.S. Ticket — head back to Vermilion via Cerulean."
+              text: "In the Sea Cottage, use Bill's machine to un-fuse him. He hands you the S.S. Ticket. Head back to Vermilion via Cerulean."
           oak:
             venonat: "A Bug/Poison catch → Venomoth. Log the base once."
         route_5:
           note: "South to Vermilion. Pidgey, Rattata and rare Abra."
-          intro: "A short leg south of Cerulean. Catch an Abra here — it becomes one of the best Pokémon in the game."
+          intro: "A short leg south of Cerulean. Catch an Abra here. It becomes one of the best Pokémon in the game."
           steps:
             "1":
               title: "Head south"
               text: "Leave Cerulean south; drop a Pokémon at the Day Care if you want it leveled."
             "2":
               title: "Take the Underground Path"
-              text: "Saffron's gates are blocked — duck into the Underground Path building and tunnel south to Route 6."
+              text: "Saffron's gates are blocked. Duck into the Underground Path building and tunnel south to Route 6."
           oak:
             abra: "Catch one fast (it only Teleports). Evolves to Kadabra, then Alakazam by trade."
         route_6:
@@ -448,7 +488,7 @@ en:
               title: "Enter Vermilion"
               text: "Continue south into Vermilion City."
         vermilion_city:
-          note: "Lt. Surge — Thunder Badge. Free Squirtle after."
+          note: "Lt. Surge. Thunder Badge. Free Squirtle after."
           intro: "A port city with a puzzle-box gym. Board the S.S. Anne first for Cut, then take on Surge."
           steps:
             "1":
@@ -456,15 +496,15 @@ en:
               text: "Heal, then collect the Bike Voucher (Fan Club) and the Old Rod (Fishing Guru)."
             "2":
               title: "Board the S.S. Anne"
-              text: "Visit the ship at the south dock first — you need its HM01 Cut to reach the gym."
+              text: "Visit the ship at the south dock first. You need its HM01 Cut to reach the gym."
             "3":
               title: "Solve Surge's trash cans"
-              text: "Cut the tree by the gym. Find the first switch in a can, then check an adjacent can for the second — a wrong pick resets both."
+              text: "Cut the tree by the gym. Find the first switch in a can, then check an adjacent can for the second. A wrong pick resets both."
             "4":
               title: "Beat Lt. Surge"
               text: "Surge fields a lone Raichu (Lv 28). Win for the Thunder Badge + TM24, then take the free Squirtle from Officer Jenny."
           tips:
-            squirtle: "Free from Officer Jenny after the Thunder Badge — the third Kanto starter, evolves to Blastoise."
+            squirtle: "Free from Officer Jenny after the Thunder Badge. The third Kanto starter, evolves to Blastoise."
           oak:
             squirtle: "Free gift after the badge → Blastoise. The last of the three starters."
         ss_anne:
@@ -479,7 +519,7 @@ en:
               text: "Blue ambushes you by the stern stairs on 2F (Spearow, Rattata, Sandshrew, Eevee)."
             "3":
               title: "Get HM01 Cut"
-              text: "Cure the seasick Captain in the top cabin for HM01 Cut, then disembark — the ship leaves permanently."
+              text: "Cure the seasick Captain in the top cabin for HM01 Cut, then disembark. The ship leaves permanently."
         route_11:
           note: "East of Vermilion. Pidgey, Rattata, and Drowzee."
           intro: "A wide grass route east of Vermilion, with a cave shortcut back toward Pewter."
@@ -494,7 +534,7 @@ en:
             drowzee: "The route's notable catch → Hypno, a strong early Psychic."
         digletts_cave:
           note: "A shortcut tunnel. Diglett and rare Dugtrio."
-          intro: "A one-tunnel cave of Diglett — a great place to grab a Dugtrio and shortcut back to Pewter."
+          intro: "A one-tunnel cave of Diglett. A great place to grab a Dugtrio and shortcut back to Pewter."
           steps:
             "1":
               title: "Enter from Route 11"
@@ -547,20 +587,20 @@ en:
               text: "Leave the south mouth onto lower Route 10 and walk into Lavender Town."
           oak:
             machop: "Cave-common → Machoke, then Machamp by trade. A strong Fighter."
-            onix: "Only appears on B1F — a bulky Rock/Ground catch worth the hunt."
+            onix: "Only appears on B1F. A bulky Rock/Ground catch worth the hunt."
         lavender_town:
           note: "The ghost town. Pokémon Tower looms."
           intro: "A quiet town shadowed by Pokémon Tower. You'll need the Silph Scope before you can clear it."
           steps:
             "1":
               title: "Try the Tower"
-              text: "Enter Pokémon Tower — you'll hit an unbeatable ghost on 6F and can't pass yet."
+              text: "Enter Pokémon Tower. You'll hit an unbeatable ghost on 6F and can't pass yet."
             "2":
               title: "Detour for the Silph Scope"
               text: "Head west via Route 8 to Celadon and take down the Rocket Hideout for the Silph Scope."
             "3":
               title: "Return for the Poké Flute"
-              text: "Come back, clear the Tower, and free Mr. Fuji — he gives the Poké Flute to wake the sleeping Snorlax."
+              text: "Come back, clear the Tower, and free Mr. Fuji. He gives the Poké Flute to wake the sleeping Snorlax."
         route_8:
           note: "West to Celadon. Pidgey, Abra, Jigglypuff."
           intro: "The road from Lavender toward Saffron and Celadon. Another shot at Abra."
@@ -570,7 +610,7 @@ en:
               text: "Clear the Lass, Gambler and Super Nerd as you head west toward Saffron's east gate."
             "2":
               title: "Take the Underground Path"
-              text: "The Saffron guards want a drink — skip them by tunnelling west under the city to Route 7."
+              text: "The Saffron guards want a drink. Skip them by tunnelling west under the city to Route 7."
         route_7:
           note: "Gate route into Celadon. Pidgey and Abra."
           intro: "A tiny connector between Saffron and Celadon. In and out."
@@ -582,7 +622,7 @@ en:
               title: "Enter Celadon"
               text: "Pass through the gate into Celadon City."
         celadon_city:
-          note: "Erika's Gym — Rainbow Badge. Dept. Store, Eevee and the Game Corner."
+          note: "Erika's Gym. Rainbow Badge. Dept. Store, Eevee and the Game Corner."
           intro: "The big city. Shop the department store, grab an Eevee, beat Erika, and raid the Rocket Game Corner."
           steps:
             "1":
@@ -598,12 +638,12 @@ en:
               title: "Hit the Game Corner"
               text: "Win coins for prizes like Porygon and Vulpix, then find the poster switch to enter the Rocket Hideout."
           tips:
-            eevee: "Free in the Condominiums — evolve it with a stone into Vaporeon, Jolteon or Flareon."
-            porygon: "The only Porygon in the game — 9999 Game Corner coins, but nowhere else to get it."
-            vulpix: "Trade-only in the wild in Yellow — the Game Corner (1000 coins) is your easy source."
+            eevee: "Free in the Condominiums. Evolve it with a stone into Vaporeon, Jolteon or Flareon."
+            porygon: "The only Porygon in the game. 9999 Game Corner coins, but nowhere else to get it."
+            vulpix: "Trade-only in the wild in Yellow. The Game Corner (1000 coins) is your easy source."
           oak:
             eevee: "Gift → one of Vaporeon / Jolteon / Flareon. Register the base once."
-            porygon: "Game Corner exclusive — the only Porygon you'll get. Grab one."
+            porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
         rocket_hideout:
           note: "Team Rocket's base. Get the Silph Scope."
           intro: "The maze under the Game Corner. Slide the spin tiles, beat Giovanni, and take the Silph Scope."
@@ -613,7 +653,7 @@ en:
               text: "In the Game Corner, press the switch behind the lone north-wall poster to open the way down."
             "2":
               title: "Ride the spin tiles"
-              text: "Arrow tiles slide you until you hit a stop — line up each entry to reach the item balls and stairs."
+              text: "Arrow tiles slide you until you hit a stop. Line up each entry to reach the item balls and stairs."
             "3":
               title: "Grab the Lift Key"
               text: "Find the Lift Key on B4F, then ride the elevator to Giovanni's room."
@@ -635,9 +675,9 @@ en:
               text: "On the upper floors, defeat the Lv 30 ghost Marowak blocking the way (it can't be caught)."
             "4":
               title: "Free Mr. Fuji"
-              text: "Beat Jessie & James on 7F and free Mr. Fuji — he gives the Poké Flute to wake sleeping Snorlax."
+              text: "Beat Jessie & James on 7F and free Mr. Fuji. He gives the Poké Flute to wake sleeping Snorlax."
           tips:
-            gastly: "The only Gengar line in the game — evolve Gastly to Haunter, then Gengar by trade."
+            gastly: "The only Gengar line in the game. Evolve Gastly to Haunter, then Gengar by trade."
           oak:
             gastly: "Ghost-heavy floors → Haunter, then Gengar by trade. The only line in-game."
             cubone: "A rare Tower catch → Marowak, a strong Ground type."
@@ -655,11 +695,11 @@ en:
               title: "Head to Route 13"
               text: "Surf the east water for TM16 if you have Surf, then continue south to Route 13."
           tips:
-            farfetchd: "A rare 5% grass catch — the only wild Farfetch'd around."
-            snorlax: "One of just two Snorlax in the game — a Lv 30 wall. Sleep or paralyze, then throw balls."
+            farfetchd: "A rare 5% grass catch. The only wild Farfetch'd around."
+            snorlax: "One of just two Snorlax in the game. A Lv 30 wall. Sleep or paralyze, then throw balls."
           oak:
             slowpoke: "Surf the water for Slowpoke → Slowbro, a bulky Water/Psychic."
-            farfetchd: "The rare duck of the grass — grab the single wild Farfetch'd here."
+            farfetchd: "The rare duck of the grass. Grab the single wild Farfetch'd here."
         route_13:
           note: "Ledge maze south. Oddish, Bellsprout, Ditto."
           intro: "A winding fenced maze of ledges. Watch for a wild Ditto."
@@ -671,16 +711,16 @@ en:
               title: "Head to Route 14"
               text: "Search near the Trainer-Tips sign for hidden items, then continue west."
           tips:
-            ditto: "A 5% catch that Transforms into whatever it faces — handy for the dex."
+            ditto: "A 5% catch that Transforms into whatever it faces. Handy for the dex."
           oak:
-            ditto: "Catch the Transforming blob here — a fun one and useful for breeding later gens."
+            ditto: "Catch the Transforming blob here. A fun one and useful for breeding later gens."
         route_14:
           note: "Bird-and-biker row. Oddish, Bellsprout, Venonat."
           intro: "A long diagonal of Bird Keepers and Bikers. A rare Venomoth flies here."
           steps:
             "1":
               title: "Cut through the ledges"
-              text: "Fight the Bird Keepers up top and the Bikers below — an Electric or Psychic type sweeps both."
+              text: "Fight the Bird Keepers up top and the Bikers below. An Electric or Psychic type sweeps both."
             "2":
               title: "Head to Route 15"
               text: "Follow the ledges southwest down to Route 15."
@@ -695,7 +735,7 @@ en:
               title: "Enter Fuchsia"
               text: "Cut into the NW pocket for TM20 if you like, then exit west into Fuchsia City."
         fuchsia_city:
-          note: "Koga's Gym — Soul Badge. Safari Zone next door."
+          note: "Koga's Gym. Soul Badge. Safari Zone next door."
           intro: "Home of the Safari Zone. Beat Koga, then fetch Surf and Strength from the Safari."
           steps:
             "1":
@@ -703,7 +743,7 @@ en:
               text: "His Bug/Poison team (three Venonat + Venomoth) leans on Toxic and Double Team. Bring a fast Psychic or Fire type and an Antidote."
             "2":
               title: "Fish the Warden's pond"
-              text: "Super Rod the pond for a wild Gyarados — Yellow-exclusive here."
+              text: "Super Rod the pond for a wild Gyarados. Yellow-exclusive here."
             "3":
               title: "Raid the Safari Zone"
               text: "Head north into the Safari Zone for HM03 Surf and the Gold Teeth."
@@ -711,19 +751,19 @@ en:
               title: "Trade for Strength"
               text: "Return the Gold Teeth to the Warden for HM04 Strength; grab the Rare Candy inside once you have it."
           tips:
-            gyarados: "Super Rod the Warden's pond for a wild Gyarados — no Magikarp grind needed."
+            gyarados: "Super Rod the Warden's pond for a wild Gyarados. No Magikarp grind needed."
           oak:
-            gyarados: "Fish one straight out of the Warden's pond — a rare Yellow shortcut to Gyarados."
+            gyarados: "Fish one straight out of the Warden's pond. A rare Yellow shortcut to Gyarados."
         safari_zone:
           note: "500-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
-          intro: "Pay in, get 30 Safari Balls, and grab the game's rarest catches — plus HM03 Surf and the Gold Teeth."
+          intro: "Pay in, get 30 Safari Balls, and grab the game's rarest catches. Plus HM03 Surf and the Gold Teeth."
           steps:
             "1":
               title: "Buy in"
               text: "Pay ₽500 at the gate for 30 Safari Balls; you get 500 steps per run."
             "2":
               title: "Hunt the rares"
-              text: "Sweep the areas for Scyther, Pinsir, Kangaskhan, Tauros, Chansey and Tangela — bait and rocks, no fainting."
+              text: "Sweep the areas for Scyther, Pinsir, Kangaskhan, Tauros, Chansey and Tangela. Bait and rocks, no fainting."
             "3":
               title: "Reach the Secret House"
               text: "In the far Area 3, grab HM03 Surf inside the Secret House and the Gold Teeth nearby."
@@ -732,12 +772,12 @@ en:
               text: "Super Rod the ponds for Dratini, then leave and hand the Gold Teeth to the Warden for Strength."
           tips:
             scyther: "One of Yellow's two big bug bruisers, here alongside Pinsir. Bait, then Safari Balls."
-            pinsir: "Yellow lets you catch both Pinsir and Scyther in the Safari — grab this one too."
-            kangaskhan: "A rare Safari-only Normal type — patient bait-and-ball or nothing."
+            pinsir: "Yellow lets you catch both Pinsir and Scyther in the Safari. Grab this one too."
+            kangaskhan: "A rare Safari-only Normal type. Patient bait-and-ball or nothing."
             chansey: "1% and flighty, but a huge EXP prize. Save a few balls for it."
-            dratini: "The only easy Dratini — Super Rod the Safari ponds for the Dragonite line."
+            dratini: "The only easy Dratini. Super Rod the Safari ponds for the Dragonite line."
           oak:
-            scyther: "Safari-exclusive bruiser. Grab one — no other easy source."
+            scyther: "Safari-exclusive bruiser. Grab one. No other easy source."
             pinsir: "The other Safari bug. Yellow lets you keep both Pinsir and Scyther."
             dratini: "Super Rod the ponds → Dragonair → Dragonite. Your one reliable shot."
             kangaskhan: "Rare and Safari-only. Bank one for the dex while you're here."
@@ -755,7 +795,7 @@ en:
               title: "Mount Cycling Road"
               text: "Ride the Bike through the north gate onto Route 17."
           tips:
-            snorlax: "The second and last Snorlax — same Lv 30 wall. Sleep it, then throw balls."
+            snorlax: "The second and last Snorlax. Same Lv 30 wall. Sleep it, then throw balls."
           oak:
             doduo: "The route's common catch → Dodrio, a fast Normal/Flying."
             snorlax: "The last of two Snorlax. Wake with the Poké Flute and catch it now."
@@ -765,7 +805,7 @@ en:
           steps:
             "1":
               title: "Ride south"
-              text: "Mount the Bike and coast south — you can't walk Cycling Road."
+              text: "Mount the Bike and coast south. You can't walk Cycling Road."
             "2":
               title: "Sweep the grass"
               text: "Stop in the grass strips for Ponyta, then exit the south gate to Route 18."
@@ -782,7 +822,7 @@ en:
               title: "Enter Fuchsia"
               text: "Continue east into Fuchsia City."
         saffron_city:
-          note: "Sabrina's Gym — Marsh Badge. Silph Co. and the Dojo."
+          note: "Sabrina's Gym. Marsh Badge. Silph Co. and the Dojo."
           intro: "A central city held by Rocket. Free Silph Co., beat Sabrina, and claim a fighter from the Dojo."
           steps:
             "1":
@@ -798,14 +838,14 @@ en:
               title: "Claim a fighter"
               text: "Beat the Karate Master at the Fighting Dojo to take a free Hitmonlee or Hitmonchan."
           oak:
-            hitmonlee: "Free from the Dojo — pick Hitmonlee or Hitmonchan (you only get one)."
+            hitmonlee: "Free from the Dojo. Pick Hitmonlee or Hitmonchan (you only get one)."
         silph_co:
           note: "Rocket HQ takeover. Lapras and the Master Ball."
           intro: "An 11-floor warp maze. Grab the Card Key, rescue Lapras, and beat Giovanni for the Master Ball."
           steps:
             "1":
               title: "Get the Card Key"
-              text: "Reach 5F and grab the Card Key — it opens the locked doors across the warp-tile maze."
+              text: "Reach 5F and grab the Card Key. It opens the locked doors across the warp-tile maze."
             "2":
               title: "Rescue Lapras"
               text: "On 7F, take the free Lapras from the employee (and fight your rival there)."
@@ -814,9 +854,9 @@ en:
               text: "Work up to 11F and defeat Giovanni (Nidorino, Rhyhorn, Persian, Nidoqueen) to break the takeover."
             "4":
               title: "Take the Master Ball"
-              text: "Talk to the Silph president for the Master Ball — save it for a legendary."
+              text: "Talk to the Silph president for the Master Ball. Save it for a legendary."
           tips:
-            lapras: "The only in-game Lapras — a superb Water/Ice tank. Don't miss it on 7F."
+            lapras: "The only in-game Lapras. A superb Water/Ice tank. Don't miss it on 7F."
           oak:
             lapras: "Free on 7F → a top Water/Ice tank. The only Lapras you'll get in-game."
         route_19:
@@ -831,7 +871,7 @@ en:
               text: "Continue to the beach that leads west into Route 20."
         route_20:
           note: "Water route to Seafoam. Tentacool, Staryu, Shellder."
-          intro: "The channel to Seafoam Islands — the only way west toward Cinnabar."
+          intro: "The channel to Seafoam Islands. The only way west toward Cinnabar."
           steps:
             "1":
               title: "Surf west"
@@ -851,7 +891,7 @@ en:
               text: "Drop boulders down the gaps floor to floor to open a Surf path down to B4F."
             "3":
               title: "Catch Articuno"
-              text: "On B4F, Surf to the sleeping Articuno (Lv 50). Save first — it's a great Master Ball target."
+              text: "On B4F, Surf to the sleeping Articuno (Lv 50). Save first. It's a great Master Ball target."
             "4":
               title: "Exit toward Cinnabar"
               text: "Leave the far west exit onto the open sea toward Cinnabar Island."
@@ -859,14 +899,14 @@ en:
             articuno: "A one-time Lv 50 legendary. Save first, sleep/paralyze it, and use the Master Ball or a lot of Ultra Balls."
           oak:
             seel: "A cave catch → Dewgong, a solid Water/Ice. Grab the base."
-            articuno: "The Ice legendary of Seafoam — one shot only. Catch it now."
+            articuno: "The Ice legendary of Seafoam. One shot only. Catch it now."
         cinnabar_island:
-          note: "Blaine's Gym — Volcano Badge. Fossil lab."
+          note: "Blaine's Gym. Volcano Badge. Fossil lab."
           intro: "A volcanic island. Revive your fossils at the lab, get the Secret Key from the Mansion, then beat Blaine."
           steps:
             "1":
               title: "Clear the Mansion first"
-              text: "Blaine's gym is locked — cross the street to the Pokémon Mansion and fetch the Secret Key."
+              text: "Blaine's gym is locked. Cross the street to the Pokémon Mansion and fetch the Secret Key."
             "2":
               title: "Revive a fossil"
               text: "Hand a fossil to the scientist at the Lab; return later to collect the revived Pokémon."
@@ -881,7 +921,7 @@ en:
             kabuto: "Revive the Dome Fossil → Kabuto, then Kabutops. The other fossil line."
             aerodactyl: "Revive the Old Amber (Pewter museum) → Aerodactyl, a rare Rock/Flying."
           oak:
-            omanyte: "Revive whichever fossil you chose in Mt. Moon — Helix → Omanyte."
+            omanyte: "Revive whichever fossil you chose in Mt. Moon. Helix → Omanyte."
             kabuto: "Dome Fossil → Kabuto. You can only revive the one fossil you kept."
             aerodactyl: "Old Amber from Pewter's museum → Aerodactyl. Register the single specimen."
         pokemon_mansion:
@@ -898,15 +938,15 @@ en:
               title: "Grab the Secret Key"
               text: "Take the Secret Key in the west of B1F (plus TM14 and TM22), then head to Blaine's gym."
           tips:
-            vulpix: "Yellow puts both Vulpix and Growlithe here — an easy wild Vulpix for once."
+            vulpix: "Yellow puts both Vulpix and Growlithe here. An easy wild Vulpix for once."
             growlithe: "The other Fire dog, here in the same mansion → Arcanine with a Fire Stone."
-            magmar: "A rare Fire catch on the lower floors — one of few Magmar sources."
+            magmar: "A rare Fire catch on the lower floors. One of few Magmar sources."
           oak:
             vulpix: "Wild here in Yellow (elsewhere trade-only) → Ninetales. Grab one."
             growlithe: "Also wild here → Arcanine with a Fire Stone. Log the base."
-            magmar: "A rare mansion catch — a strong Fire attacker. Bank one."
+            magmar: "A rare mansion catch. A strong Fire attacker. Bank one."
         viridian_gym:
-          note: "Giovanni's Gym — Earth Badge. The 8th badge."
+          note: "Giovanni's Gym. Earth Badge. The 8th badge."
           intro: "The final Kanto gym, back in Viridian. Beat Giovanni's Ground team for the last badge."
           steps:
             "1":
@@ -930,17 +970,17 @@ en:
               text: "Use Strength to shove boulders onto the floor switches, lowering the barriers on each floor."
             "3":
               title: "Catch Moltres"
-              text: "Detour to Moltres (Lv 50) and catch it — weaken with Water, Electric or Rock, then throw balls."
+              text: "Detour to Moltres (Lv 50) and catch it. Weaken with Water, Electric or Rock, then throw balls."
             "4":
               title: "Climb to the Plateau"
               text: "Grab the TMs and Max Revive on the way up and exit to Indigo Plateau."
           tips:
-            moltres: "The Fire legendary of Victory Road — a one-time Lv 50. Save first, then chip and ball it."
+            moltres: "The Fire legendary of Victory Road. A one-time Lv 50. Save first, then chip and ball it."
           oak:
-            moltres: "The Fire bird roosting in Victory Road — one shot only. Catch it on the way through."
+            moltres: "The Fire bird roosting in Victory Road. One shot only. Catch it on the way through."
         route_23:
           note: "Badge checkpoints to the League. High-level grass."
-          intro: "The gated road to the League — every guard checks a badge. Wild mons here are strong."
+          intro: "The gated road to the League. Every guard checks a badge. Wild mons here are strong."
           steps:
             "1":
               title: "Pass the checkpoints"
@@ -960,12 +1000,12 @@ en:
               text: "Heal and buy Full Restores, status heals and Ultra Balls in the lobby before you enter."
             "2":
               title: "Beat the Elite Four"
-              text: "Lorelei (Ice/Water), Bruno (Fighting/Rock), Agatha (Ghost/Poison), Lance (Dragon) — hit each with its weakness."
+              text: "Lorelei (Ice/Water), Bruno (Fighting/Rock), Agatha (Ghost/Poison), Lance (Dragon). Hit each with its weakness."
             "3":
               title: "Beat Champion Blue"
               text: "Your rival leads with Sandslash and fields Alakazam, Exeggutor and his Eeveelution. Win to enter the Hall of Fame."
         cerulean_cave:
-          note: "Post-game dungeon. The strongest wilds — and Mewtwo."
+          note: "Post-game dungeon. The strongest wilds. And Mewtwo."
           intro: "Unlocked after becoming Champion. The toughest wild Pokémon in Kanto, with Mewtwo waiting at the bottom."
           steps:
             "1":
@@ -973,7 +1013,7 @@ en:
               text: "After the Hall of Fame, Surf across the water from Cerulean City into the cave."
             "2":
               title: "Descend to B1F"
-              text: "Work down through Lv 45–65 wilds — Rhydon, Chansey, Ditto and more."
+              text: "Work down through Lv 45–65 wilds. Rhydon, Chansey, Ditto and more."
             "3":
               title: "Save before Mewtwo"
               text: "Reach the platform at the bottom and save before you touch Mewtwo."
@@ -981,7 +1021,7 @@ en:
               title: "Catch Mewtwo"
               text: "Weaken Mewtwo (Lv 70) with Sleep or paralysis, chip it low, and throw the Master Ball or a stack of Ultra Balls."
           tips:
-            mewtwo: "The strongest Pokémon in the game, a Lv 70 static. The Master Ball is made for this — or sleep it and pray."
+            mewtwo: "The strongest Pokémon in the game, a Lv 70 static. The Master Ball is made for this. Or sleep it and pray."
           oak:
             mewtwo: "The post-game legendary at the bottom of the cave. Save the Master Ball for it."
-            chansey: "Far more common here than the Safari — a great EXP catch while you're deep in the cave."
+            chansey: "Far more common here than the Safari. A great EXP catch while you're deep in the cave."

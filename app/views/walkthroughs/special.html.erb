@@ -46,7 +46,7 @@
 <% end %>
 
 <% if @location.oak_queue.any? %>
-  <% obtainable = @game.obtainable_upto(@location).size %>
+  <% obtainable = @game.obtainable_upto_leg(@leg).size %>
   <section class="pn-wt-oak">
     <div class="pn-wt-oak__inner">
       <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.oak_eyebrow") %></div>
@@ -71,14 +71,7 @@
           <div class="pn-wt-oak__list-title"><%= t("walkthrough.ui.catch_queue") %></div>
           <div class="pn-wt-oak__list">
             <% @location.oak_queue.each do |entry| %>
-              <div class="pn-wt-oak__row">
-                <span class="pn-wt-oak__row-sprite"><%= image_tag "pokemon/#{entry.dex}.png", alt: "" %></span>
-                <div class="pn-wt-oak__row-body">
-                  <div class="pn-wt-oak__row-name"><%= entry.name %></div>
-                  <div class="pn-wt-oak__row-why"><%= t(entry.why_key) %></div>
-                </div>
-                <span class="pn-wt-qty">×<%= entry.qty %></span>
-              </div>
+              <%= render "oak_row", entry: entry %>
             <% end %>
           </div>
         </div>
@@ -99,21 +92,4 @@
   </section>
 <% end %>
 
-<section class="pn-wt-section">
-  <div class="pn-wt-nav">
-    <% previous_stop = @game.previous(@location) %>
-    <% next_stop = @game.following(@location) %>
-    <% if previous_stop %>
-      <%= link_to walkthrough_location_path(game: @game.slug, location: previous_stop.slug), class: "pn-wt-nav__link" do %>
-        <div class="pn-wt-nav__dir"><%= t("walkthrough.ui.previous") %></div>
-        <div class="pn-wt-nav__where"><%= previous_stop.name %></div>
-      <% end %>
-    <% end %>
-    <% if next_stop %>
-      <%= link_to walkthrough_location_path(game: @game.slug, location: next_stop.slug), class: "pn-wt-nav__link pn-wt-nav__link--next" do %>
-        <div class="pn-wt-nav__dir"><%= t("walkthrough.ui.next") %></div>
-        <div class="pn-wt-nav__where"><%= next_stop.name %></div>
-      <% end %>
-    <% end %>
-  </div>
-</section>
+<%= render "leg_nav", game: @game, leg: @leg %>

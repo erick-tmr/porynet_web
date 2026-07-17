@@ -6,4 +6,8 @@ module ApplicationHelper
     head = words[0..-2].join(" ")
     safe_join([ head, " ", content_tag(:span, words.last, class: "pn-accent") ])
   end
+
+  def leg_title(leg)
+    leg.single? ? leg.from : "#{leg.from} → #{leg.to}"
+  end
 end
