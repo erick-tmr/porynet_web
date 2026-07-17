@@ -298,8 +298,14 @@ module Walkthrough
 
     CLASS_SPRITES = {
       "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1",
-      "JR. TRAINER♂" => "jrtrainer-gen1", "BLACK BELT" => "blackbelt-gen1",
-      "TEAM ROCKET" => "rocket-gen1", "RIVAL" => "blue-gen1", "CHAMPION" => "blue-gen1champion"
+      "JR. TRAINER♂" => "jrtrainer-gen1", "JR. TRAINER♀" => "jrtrainerf-gen1",
+      "BLACK BELT" => "blackbelt-gen1", "TEAM ROCKET" => "rocket-gen1",
+      "RIVAL" => "blue-gen1", "CHAMPION" => "blue-gen1champion",
+      "SWIMMER" => "swimmer-gen1", "SAILOR" => "sailor-gen1", "ROCKER" => "rocker-gen1",
+      "GENTLEMAN" => "gentleman-gen1", "BEAUTY" => "beauty-gen1",
+      "COOLTRAINER♂" => "acetrainer-gen1", "COOLTRAINER♀" => "acetrainerf-gen1",
+      "JUGGLER" => "juggler-gen1", "TAMER" => "tamer-gen1", "PSYCHIC" => "psychic-gen1",
+      "CHANNELER" => "channeler-gen1", "SUPER NERD" => "supernerd-gen1", "BURGLAR" => "burglar-gen1"
     }.freeze
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
@@ -365,7 +371,11 @@ module Walkthrough
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
-          leader("Misty", 2079, mon("120", 18), mon("121", 21))),
+          leader("Misty", 2079, mon("120", 18), mon("121", 21)),
+          trainers: [
+            tr("SWIMMER", nil, 80, mon("116", 16), mon("090", 16)),
+            tr("JR. TRAINER♀", nil, 380, mon("118", 19))
+          ]),
         oak_queue: [ oak("cerulean-city", "001", 1) ])
     end
 
@@ -421,7 +431,12 @@ module Walkthrough
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
           leader("Lt. Surge", 2772, mon("026", 28)),
-          puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ]),
+          puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ],
+          trainers: [
+            tr("SAILOR", nil, 720, mon("081", 24)),
+            tr("ROCKER", nil, 500, mon("100", 20), mon("100", 20), mon("100", 20)),
+            tr("GENTLEMAN", nil, 1540, mon("100", 22), mon("081", 22))
+          ]),
         oak_queue: [ oak("vermilion-city", "007", 1) ])
     end
 
@@ -513,7 +528,15 @@ module Walkthrough
         trainers: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
           leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50)),
-          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ]),
+          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ],
+          trainers: [
+            tr("JUGGLER", nil, 1190, mon("096", 34), mon("064", 34)),
+            tr("JUGGLER", nil, 1330, mon("097", 38)),
+            tr("JUGGLER", nil, 1085, mon("096", 31), mon("096", 31), mon("064", 31), mon("096", 31)),
+            tr("TAMER", nil, 1320, mon("024", 33), mon("028", 33), mon("024", 33)),
+            tr("TAMER", nil, 1360, mon("028", 34), mon("024", 34)),
+            tr("JUGGLER", nil, 1190, mon("096", 34), mon("097", 34))
+          ]),
         oak_queue: [ oak("fuchsia-city", "130", 1) ])
     end
 
@@ -571,7 +594,16 @@ module Walkthrough
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37)) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50)),
-          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ]),
+          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ],
+          trainers: [
+            tr("PSYCHIC", nil, 330, mon("079", 33), mon("079", 33), mon("080", 33)),
+            tr("PSYCHIC", nil, 340, mon("122", 34), mon("064", 34)),
+            tr("CHANNELER", nil, 1140, mon("093", 38)),
+            tr("PSYCHIC", nil, 380, mon("080", 38)),
+            tr("CHANNELER", nil, 1020, mon("092", 34), mon("093", 34)),
+            tr("CHANNELER", nil, 990, mon("092", 33), mon("092", 33), mon("093", 33)),
+            tr("PSYCHIC", nil, 310, mon("064", 31), mon("079", 31), mon("122", 31), mon("064", 31))
+          ]),
         oak_queue: [ oak("saffron-city", "106", 1) ])
     end
 
@@ -630,7 +662,14 @@ module Walkthrough
         trainers: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54)),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
+          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ],
+          trainers: [
+            tr("SUPER NERD", nil, 850, mon("077", 34), mon("004", 34), mon("037", 34), mon("058", 34)),
+            tr("BURGLAR", nil, 3690, mon("077", 41)),
+            tr("SUPER NERD", nil, 1025, mon("078", 41)),
+            tr("BURGLAR", nil, 3330, mon("037", 37), mon("058", 37)),
+            tr("SUPER NERD", nil, 925, mon("058", 37), mon("037", 37))
+          ]),
         oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
     end
 
@@ -651,7 +690,17 @@ module Walkthrough
       loc("viridian-gym", "GYM", "Viridian Gym", 45, steps: 3, badge: "EARTH",
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
           leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55)),
-          puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ]))
+          puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ],
+          trainers: [
+            tr("TAMER", nil, 1560, mon("024", 39), mon("128", 39)),
+            tr("BLACK BELT", nil, 1075, mon("067", 43)),
+            tr("COOLTRAINER♂", nil, 1365, mon("033", 39), mon("034", 39)),
+            tr("TAMER", nil, 1720, mon("111", 43)),
+            tr("BLACK BELT", nil, 1000, mon("066", 40), mon("067", 40)),
+            tr("COOLTRAINER♂", nil, 1365, mon("028", 39), mon("051", 39)),
+            tr("COOLTRAINER♂", nil, 1505, mon("111", 43)),
+            tr("BLACK BELT", nil, 950, mon("067", 38), mon("066", 38), mon("067", 38))
+          ]))
     end
 
     def self.victory_road
@@ -770,7 +819,15 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
-          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32))),
+          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32)),
+          trainers: [
+            tr("LASS", nil, 345, mon("043", 23), mon("044", 23)),
+            tr("BEAUTY", nil, 1470, mon("043", 21), mon("069", 21), mon("043", 21), mon("069", 21)),
+            tr("BEAUTY", nil, 1680, mon("069", 24), mon("069", 24)),
+            tr("JR. TRAINER♀", nil, 480, mon("001", 24), mon("002", 24)),
+            tr("BEAUTY", nil, 1820, mon("102", 26)),
+            tr("COOLTRAINER♀", nil, 840, mon("070", 24), mon("044", 24), mon("002", 24))
+          ]),
         oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
     end
 

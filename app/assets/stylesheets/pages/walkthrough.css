@@ -631,6 +631,12 @@ a.pn-wt-route__card:hover {
   height: 100%;
   object-fit: contain;
 }
+/* VS-frame sprite sits in the space above the corner label instead of under it */
+.pn-wt-shot__img--vs {
+  top: 8px;
+  bottom: auto;
+  height: calc(100% - 38px);
+}
 .pn-wt-shot__ph {
   position: absolute;
   inset: 0;
