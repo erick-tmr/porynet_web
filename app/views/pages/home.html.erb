@@ -2,16 +2,14 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "pages/landing", "data-turbo-track": "reload" %>
 <% end %>
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("pages.home.marquee") %>
+  <%= render "shared/marquee_row", items: t("pages.home.marquee") %>
+<% end %>
 
-<div class="porynet" data-play="running">
-  <div class="pn-crt" aria-hidden="true"></div>
-
-  <%= render "header" %>
-  <%= render "hero" %>
-  <%= render "features" %>
-  <%= render "oak" %>
-  <%= render "tracker" %>
-  <%= render "porypc" %>
-  <%= render "roadmap" %>
-  <%= render "footer" %>
-</div>
+<%= render "hero" %>
+<%= render "features" %>
+<%= render "oak" %>
+<%= render "tracker" %>
+<%= render "porypc" %>
+<%= render "roadmap" %>

@@ -43,6 +43,14 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "04 · APP PORYPC · SEU SAVE, DO SEU JEITO"
   end
 
+  test "the shared nav shows the cross-page menu with Home active on the landing page" do
+    get root_path
+
+    assert_select "a.pn-nav__link.is-active", text: "Home"
+    assert_select "a.pn-nav__link[href=?]", walkthrough_path(game: "yellow"), text: "Walkthroughs"
+    assert_select ".pn-footer__link", text: "Walkthroughs"
+  end
+
   test "the default locale keeps a clean URL and offers the Portuguese toggle" do
     get root_path
 

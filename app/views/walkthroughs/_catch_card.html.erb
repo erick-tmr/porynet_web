@@ -1,0 +1,45 @@
+<div class="pn-wt-catch">
+  <div class="pn-wt-catch__top">
+    <div class="pn-wt-catch__sprite"><%= image_tag "pokemon/#{enc.dex}.png", alt: "" %></div>
+    <div class="pn-wt-catch__info">
+      <div class="pn-wt-catch__id">
+        <span class="pn-wt-catch__num">#<%= enc.dex %></span>
+        <span class="pn-wt-catch__name"><%= enc.name %></span>
+      </div>
+      <div class="pn-wt-catch__chips">
+        <span class="pn-wt-tagpill pn-wt-tagpill--<%= enc.how.parameterize %>"><%= enc.how %></span>
+        <span class="pn-wt-tagpill pn-wt-tagpill--<%= enc.rarity.downcase %>"><%= enc.rarity %></span>
+      </div>
+      <div class="pn-wt-catch__stats">
+        <div>
+          <div class="pn-wt-catch__stat-label"><%= t("walkthrough.ui.rate") %></div>
+          <div class="pn-wt-catch__stat-val"><%= enc.rate %></div>
+        </div>
+        <div>
+          <div class="pn-wt-catch__stat-label"><%= t("walkthrough.ui.level") %></div>
+          <div class="pn-wt-catch__stat-val"><%= enc.level %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn-wt-evo">
+    <div class="pn-wt-evo__label"><%= t("walkthrough.ui.evo_line") %></div>
+    <div class="pn-wt-evo__line">
+      <% enc.evo_line.each_with_index do |stage, i| %>
+        <% if i.positive? %><span class="pn-wt-evo__arrow">▶</span><% end %>
+        <% current = stage[:dex] == enc.dex %>
+        <div class="<%= class_names("pn-wt-evo__stage", "is-current" => current) %>">
+          <div class="<%= class_names("pn-wt-evo__box", "is-current" => current) %>">
+            <%= image_tag "pokemon/#{stage[:dex]}.png", alt: "" %>
+          </div>
+          <span class="pn-wt-evo__name"><%= stage[:name] %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if enc.tip_key %>
+    <div class="pn-wt-catch__tip"><b><%= t("walkthrough.ui.tip") %></b> · <%= t(enc.tip_key) %></div>
+  <% end %>
+</div>

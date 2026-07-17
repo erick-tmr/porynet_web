@@ -1,0 +1,14 @@
+<div class="pn-wt-hidden">
+  <div class="pn-wt-hidden__head">
+    <span class="pn-wt-hidden__badge"><%= t("walkthrough.ui.hidden_item") %></span>
+    <div class="pn-wt-hidden__name"><%= hidden.name %></div>
+  </div>
+  <div class="pn-wt-shot pn-wt-shot--hidden">
+    <%= image_tag hidden.image, alt: "", class: "pn-wt-shot__img" %>
+    <span class="pn-wt-pin pn-wt-pin--<%= hidden.pin %>">
+      <span class="pn-wt-pin__ring"></span>
+      <span class="pn-wt-pin__x">✖</span>
+    </span>
+  </div>
+  <div class="pn-wt-hidden__where"><%= t(hidden.where_key) %></div>
+</div>
