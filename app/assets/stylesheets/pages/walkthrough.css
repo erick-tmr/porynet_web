@@ -662,7 +662,7 @@ a.pn-wt-route__card:hover {
   z-index: 3;
   pointer-events: none;
 }
-.pn-wt-pin--vf-antidote { left: calc(56% - 2px); top: 47%; }
+.pn-wt-pin--vf-antidote { left: 55.33%; top: 47%; }
 .pn-wt-pin--vf-potion { left: 45%; top: 35%; }
 .pn-wt-pin__ring {
   position: absolute;
