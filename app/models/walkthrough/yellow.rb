@@ -298,7 +298,7 @@ module Walkthrough
 
     CLASS_SPRITES = {
       "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1",
-      "JR. TRAINER♂" => "jrtrainer-gen1", "KARATE MASTER" => "blackbelt-gen1",
+      "JR. TRAINER♂" => "jrtrainer-gen1", "BLACK BELT" => "blackbelt-gen1",
       "TEAM ROCKET" => "rocket-gen1", "RIVAL" => "blue-gen1", "CHAMPION" => "blue-gen1champion"
     }.freeze
 
@@ -549,7 +549,7 @@ module Walkthrough
       loc("saffron-city", "CITY", "Saffron City", 38, steps: 4, badge: "MARSH",
         trainers: [
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50)),
-          tr("KARATE MASTER", nil, 925, mon("106", 37), mon("107", 37))
+          tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37))
         ],
         oak_queue: [ oak("saffron-city", "106", 1) ])
     end

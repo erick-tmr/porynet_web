@@ -672,10 +672,21 @@ a.pn-wt-route__card:hover {
   height: 44px;
   border: 2px solid #FF3DAE;
   border-radius: 50%;
+  transform: translate(-50%, -50%);
   animation: ring 1.6s ease-out infinite;
   animation-play-state: var(--play);
 }
 .pn-wt-pin__x {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: translate(-50%, -50%);
   font-family: "Press Start 2P", monospace;
   font-size: 20px;
   color: #FF3DAE;
