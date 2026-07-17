@@ -19,9 +19,12 @@ detectors:
       - LandingData       # single source of truth for the page's demo content;
                           # each constant is a distinct cohesive section, not a
                           # god object.
+      - Walkthrough::Yellow   # data source: dex names, leg defs, sprite maps —
+                              # each a distinct lookup table, not a god object.
   UncommunicativeVariableName:
     accept:
       - i                 # plain loop index in the grid/box builders
+      - l                 # plain element var in the legs/locations finders
     exclude:
       - Walkthrough::Yellow   # see the data-builder note below
   # Walkthrough::Yellow is a pure data source (like LandingData): terse builders

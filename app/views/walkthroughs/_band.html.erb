@@ -51,6 +51,10 @@
   </section>
 <% end %>
 
+<% if loc.gym? %>
+  <%= render "gym", gym: loc.gym %>
+<% end %>
+
 <% if loc.oak_queue.any? %>
   <section class="pn-wt-section">
     <div class="pn-wt-band-oak">

@@ -43,14 +43,38 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-loc__title", text: "Route 11"
   end
 
-  test "a leg renders in Portuguese with a gym band, fossils and a named trainer" do
+  test "a leg renders in Portuguese with a gym band, fossils and its leader" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-12", locale: :pt)
 
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
     assert_select ".pn-wt-tagpill--fossil"
-    assert_select ".pn-wt-trainer__name", text: "Blaine"
+    assert_select ".pn-wt-gym__leader-name", text: "Blaine"
     assert_select ".pn-wt-band-oak"
+  end
+
+  test "a no-maze gym renders a dedicated section with an inside trainer and badge" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-03")
+
+    assert_response :success
+    assert_select ".pn-wt-gym__name", text: "Pewter Gym"
+    assert_select ".pn-wt-gym__type", /ROCK/
+    assert_select ".pn-wt-gym-tr__cls", text: "JR. TRAINER♂"
+    assert_select ".pn-wt-gym__leader-name", text: "Brock"
+    assert_select ".pn-wt-gym__badge-name", text: "BOULDER"
+    assert_select "img.pn-wt-gym__badge-img[src*=?]", "badges/boulder"
+    assert_select ".pn-wt-gym__puzzle", false
+  end
+
+  test "a maze gym renders its puzzle solution steps" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-05")
+
+    assert_response :success
+    assert_select ".pn-wt-gym__name", text: "Vermilion Gym"
+    assert_select ".pn-wt-gym__leader-name", text: "Lt. Surge"
+    assert_select ".pn-wt-gym__puzzle"
+    assert_select ".pn-wt-gym__pstep", count: 3
+    assert_select ".pn-wt-shot--pstep"
   end
 
   test "a special stop renders its own dedicated page with hidden-item pins" do

@@ -141,6 +141,26 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "tm-normal", Walkthrough::Yellow.item_sprite("TM34 Bide")
   end
 
+  test "every gym city carries a dedicated gym with leader, badge and TM" do
+    g = game
+    assert_equal 8, g.locations.count(&:gym?)
+    assert_equal g.locations.select(&:badge?), g.locations.select(&:gym?)
+
+    brock = loc("pewter-city").gym
+    assert_equal "ROCK", brock.type
+    assert_equal "Brock", brock.leader.name
+    assert_equal "BOULDER", brock.badge
+    assert_equal "walkthrough/badges/boulder.png", brock.badge_img
+    assert brock.trainers?
+    refute brock.puzzle?
+
+    surge = loc("vermilion-city").gym
+    assert surge.puzzle?
+    assert_equal 3, surge.puzzle.size
+    assert surge.puzzle[1].shot?
+    refute surge.puzzle[0].shot?
+  end
+
   test "every content and leg key resolves in both locales" do
     keys = content_keys(game)
     %i[en pt].each do |locale|
@@ -164,6 +184,10 @@ class WalkthroughTest < ActiveSupport::TestCase
       end
       keys.concat loc.encounters.filter_map(&:tip_key)
       keys.concat loc.oak_queue.map(&:why_key)
+      if loc.gym?
+        keys << loc.gym.intro_key
+        keys.concat loc.gym.puzzle.map(&:text_key)
+      end
     end
     keys
   end

@@ -1,0 +1,91 @@
+<section class="pn-wt-section">
+  <div class="pn-wt-gym">
+    <div class="pn-wt-gym__grid" aria-hidden="true"></div>
+    <div class="pn-wt-gym__inner">
+      <div class="pn-wt-gym__head">
+        <div class="pn-wt-gym__headmain">
+          <div class="pn-wt-gym__tags">
+            <span class="pn-wt-gym__tag"><%= t("walkthrough.ui.gym_tag") %></span>
+            <span class="pn-wt-gym__type"><%= t("walkthrough.ui.gym_type", type: gym.type) %></span>
+          </div>
+          <h3 class="pn-wt-gym__name"><%= gym.name %></h3>
+          <p class="pn-wt-gym__intro"><%= t(gym.intro_key) %></p>
+        </div>
+        <div class="pn-wt-gym__shot-wrap">
+          <div class="pn-wt-shot pn-wt-shot--gym">
+            <div class="pn-wt-shot__ph pn-wt-shot__ph--gym"><%= t("walkthrough.ui.shot_placeholder") %></div>
+            <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.gym_short") %></span>
+          </div>
+        </div>
+      </div>
+
+      <% if gym.puzzle? %>
+        <div class="pn-wt-gym__puzzle">
+          <span class="pn-wt-gym__puzzle-badge"><%= t("walkthrough.ui.gym_puzzle") %></span>
+          <div class="pn-wt-gym__psteps">
+            <% gym.puzzle.each do |pstep| %>
+              <div class="pn-wt-gym__pstep">
+                <span class="pn-wt-gym__pstep-n"><%= pstep.n %></span>
+                <div class="pn-wt-gym__pstep-text"><%= t(pstep.text_key) %></div>
+                <% if pstep.shot? %>
+                  <div class="pn-wt-shot pn-wt-shot--pstep">
+                    <div class="pn-wt-shot__ph pn-wt-shot__ph--gym"><%= t("walkthrough.ui.shot_placeholder") %></div>
+                    <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= pstep.shot.label %></span>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if gym.trainers? %>
+        <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_trainers_inside", count: gym.trainers.size) %></div>
+        <div class="pn-wt-gym__trainers">
+          <% gym.trainers.each do |trainer| %>
+            <%= render "gym_trainer", trainer: trainer %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_leader_label") %></div>
+      <div class="pn-wt-gym__leader">
+        <div class="pn-wt-gym__leader-id">
+          <div class="pn-wt-shot pn-wt-shot--leadervs">
+            <%= image_tag "walkthrough/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img" %>
+            <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.vs") %></span>
+          </div>
+          <div class="pn-wt-gym__leader-meta">
+            <div class="pn-wt-gym__leader-role"><%= t("walkthrough.ui.gym_leader") %></div>
+            <div class="pn-wt-gym__leader-name"><%= gym.leader.name %></div>
+            <div class="pn-wt-gym__leader-pills">
+              <span class="pn-wt-gym__pill pn-wt-gym__pill--reward">₽<%= number_with_delimiter(gym.leader.reward) %></span>
+              <span class="pn-wt-gym__pill"><%= gym.tm %></span>
+            </div>
+          </div>
+          <div class="pn-wt-gym__badge">
+            <div class="pn-wt-gym__badge-frame">
+              <%= image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
+            </div>
+            <div>
+              <div class="pn-wt-gym__badge-name"><%= gym.badge %></div>
+              <div class="pn-wt-gym__badge-cap"><%= t("walkthrough.ui.badge") %></div>
+            </div>
+          </div>
+        </div>
+        <div class="pn-wt-gym__roster">
+          <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_roster") %></div>
+          <div class="pn-wt-gym__mons">
+            <% gym.leader.team.each do |member| %>
+              <div class="pn-wt-gym__mon">
+                <span class="pn-wt-gym__mon-sprite"><%= image_tag "pokemon/#{member[:dex]}.png", alt: "" %></span>
+                <div class="pn-wt-gym__mon-name"><%= member[:name] %></div>
+                <div class="pn-wt-gym__mon-lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

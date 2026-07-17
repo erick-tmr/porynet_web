@@ -269,21 +269,21 @@ module Walkthrough
           step(b, 4)
         ],
         encounters: [],
-        trainers: [
-          tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9)),
-          leader("Brock", 1188, mon("074", 10), mon("095", 12))
-        ],
+        trainers: [],
+        gym: gym("pewter-city", "Pewter Gym", "ROCK", "BOULDER", "TM34 · BIDE",
+          leader("Brock", 1188, mon("074", 10), mon("095", 12)),
+          trainers: [ tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9)) ]),
         oak_queue: []
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, encounters: [], trainers: [], oak_queue: [], badge: nil)
+    def self.loc(slug, kind, name, order, steps: 3, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: (1..steps).map { |i| step(b, i) },
-        encounters: encounters, trainers: trainers, oak_queue: oak_queue
+        encounters: encounters, trainers: trainers, oak_queue: oak_queue, gym: gym
       )
     end
 
@@ -312,6 +312,19 @@ module Walkthrough
     def self.leader(name, reward, *team) = tr("LEADER", name, reward, *team)
 
     def self.rival(reward, *team) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two")
+
+    def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [])
+      b = base(slug)
+      Gym.new(
+        type: type, name: name, intro_key: "#{b}.gym.intro",
+        shot: shot("GYM"), badge: badge, badge_img: "walkthrough/badges/#{badge.downcase}.png",
+        tm: tm, puzzle: puzzle, trainers: trainers, leader: leader
+      )
+    end
+
+    def self.gstep(slug, n, map: false)
+      GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}", shot: map ? shot("STEP #{n}") : nil)
+    end
 
     def self.route_3
       loc("route-3", "ROUTE", "Route 3", 8,
@@ -350,7 +363,9 @@ module Walkthrough
     def self.cerulean_city
       loc("cerulean-city", "CITY", "Cerulean City", 11, badge: "CASCADE",
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
-        trainers: [ leader("Misty", 2079, mon("120", 18), mon("121", 21)) ],
+        trainers: [],
+        gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
+          leader("Misty", 2079, mon("120", 18), mon("121", 21))),
         oak_queue: [ oak("cerulean-city", "001", 1) ])
     end
 
@@ -403,7 +418,10 @@ module Walkthrough
     def self.vermilion_city
       loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 4, badge: "THUNDER",
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true) ],
-        trainers: [ leader("Lt. Surge", 2772, mon("026", 28)) ],
+        trainers: [],
+        gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
+          leader("Lt. Surge", 2772, mon("026", 28)),
+          puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ]),
         oak_queue: [ oak("vermilion-city", "007", 1) ])
     end
 
@@ -492,7 +510,10 @@ module Walkthrough
         encounters: [
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
-        trainers: [ leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50)) ],
+        trainers: [],
+        gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
+          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50)),
+          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ]),
         oak_queue: [ oak("fuchsia-city", "130", 1) ])
     end
 
@@ -547,10 +568,10 @@ module Walkthrough
 
     def self.saffron_city
       loc("saffron-city", "CITY", "Saffron City", 38, steps: 4, badge: "MARSH",
-        trainers: [
+        trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37)) ],
+        gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50)),
-          tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37))
-        ],
+          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ]),
         oak_queue: [ oak("saffron-city", "106", 1) ])
     end
 
@@ -606,7 +627,10 @@ module Walkthrough
           enc("cinnabar-island", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("cinnabar-island", "120", "SUPER ROD", "30%", "15–30", "UNCOMMON", "120", "121")
         ],
-        trainers: [ leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54)) ],
+        trainers: [],
+        gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
+          leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54)),
+          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
         oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
     end
 
@@ -625,7 +649,9 @@ module Walkthrough
 
     def self.viridian_gym
       loc("viridian-gym", "GYM", "Viridian Gym", 45, steps: 3, badge: "EARTH",
-        trainers: [ leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55)) ])
+        gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
+          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55)),
+          puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ]))
     end
 
     def self.victory_road
@@ -742,7 +768,9 @@ module Walkthrough
           enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
           enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
         ],
-        trainers: [ leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32)) ],
+        trainers: [],
+        gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
+          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32))),
         oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
     end
 

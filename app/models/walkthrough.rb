@@ -17,14 +17,28 @@ module Walkthrough
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite) # team: [{ dex:, name:, lvl: }]
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
 
+  GymStep = Data.define(:n, :text_key, :shot) do
+    def shot? = !shot.nil?
+  end
+
+  Gym = Data.define(
+    :type, :name, :intro_key, :shot, :badge, :badge_img, :tm, :puzzle, :trainers, :leader
+  ) do
+    def puzzle? = puzzle.any?
+    def trainers? = trainers.any?
+  end
+
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
-    :steps, :encounters, :trainers, :oak_queue
+    :steps, :encounters, :trainers, :oak_queue, :gym
   ) do
+    def initialize(gym: nil, **rest) = super(gym: gym, **rest)
+
     def dex_list = encounters.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
     def badge? = !badge.nil?
+    def gym? = !gym.nil?
   end
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do

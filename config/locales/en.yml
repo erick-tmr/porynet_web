@@ -156,6 +156,17 @@ en:
       trainers_h2: "Trainers here"
       vs: "VS"
       where: "WHERE"
+      gym_tag: "◆ GYM"
+      gym_type: "%{type}-TYPE"
+      gym_short: "GYM"
+      gym_puzzle: "PUZZLE · SOLUTION"
+      gym_trainers_inside: "TRAINERS INSIDE · %{count}"
+      gym_trainer: "GYM TRAINER"
+      gym_leader: "GYM LEADER"
+      gym_leader_label: "LEADER"
+      gym_roster: "ROSTER"
+      badge: "BADGE"
+      badge_alt: "%{badge} Badge"
       previous: "◀ PREVIOUS"
       next: "NEXT ▶"
       lv: "Lv %{n}"
@@ -354,6 +365,8 @@ en:
           oak:
             caterpie: "The forest's new family. Evolves to Butterfree. Log the base once."
         pewter_city:
+          gym:
+            intro: "A short, straight gym with no maze. Beat the Jr. Trainer on the way in, then Brock at the back. His Rock and Ground team walls Pikachu, so lead with a Water or Grass attacker."
           note: "Brock. The first Gym. Rock types; Electric does nothing."
           intro: "The first Gym city. Heal, prep a non-Electric attacker, and take the Boulder Badge from Brock."
           steps:
@@ -418,6 +431,8 @@ en:
               title: "Drop into Cerulean"
               text: "Grab TM04 on the ledge and follow the route down into Cerulean City."
         cerulean_city:
+          gym:
+            intro: "One trainer and open floor, then Misty. Her Staryu and Starmie hit hard with Water moves, so bring an Electric or Grass attacker to close it fast."
           note: "Misty's Gym. Cascade Badge. Free Bulbasaur too."
           intro: "A water-gym city. Beat Misty, and if Pikachu likes you, claim a free Bulbasaur."
           steps:
@@ -488,6 +503,12 @@ en:
               title: "Enter Vermilion"
               text: "Continue south into Vermilion City."
         vermilion_city:
+          gym:
+            intro: "The door to Lt. Surge is locked behind two switches hidden in the trash cans. Find both, then face a leader whose Raichu can paralyze your whole team."
+            puzzle:
+              "1": "Check the trash cans along the walls to find the first switch. Its position is random on every visit."
+              "2": "The second switch is always in a can directly next to the first, up, down, left or right. Pick wrong and both reset, so search the neighbors."
+              "3": "With both switches flipped, the door to Lt. Surge opens. Bring a Ground type to shut his Electric team down."
           note: "Lt. Surge. Thunder Badge. Free Squirtle after."
           intro: "A port city with a puzzle-box gym. Board the S.S. Anne first for Cut, then take on Surge."
           steps:
@@ -622,6 +643,8 @@ en:
               title: "Enter Celadon"
               text: "Pass through the gate into Celadon City."
         celadon_city:
+          gym:
+            intro: "A garden of trees hiding several trainers, then Erika. Her Grass and Poison team folds to Fire, Flying or Psychic, so lead with one of those."
           note: "Erika's Gym. Rainbow Badge. Dept. Store, Eevee and the Game Corner."
           intro: "The big city. Shop the department store, grab an Eevee, beat Erika, and raid the Rocket Game Corner."
           steps:
@@ -735,6 +758,12 @@ en:
               title: "Enter Fuchsia"
               text: "Cut into the NW pocket for TM20 if you like, then exit west into Fuchsia City."
         fuchsia_city:
+          gym:
+            intro: "The gym floor is a maze of invisible walls. Feel your way through, clear the Juggler and Tamer inside, then take on Koga's poison team."
+            puzzle:
+              "1": "The whole room is blocked by invisible walls. Walk into open space until you hit one, then trace along it to find the gaps."
+              "2": "Weave up and around the barriers toward the top of the room, taking each optional trainer as the path lets you reach them."
+              "3": "The last opening leads to Koga. Bring a Psychic or Ground attacker and carry Antidotes for his Toxic."
           note: "Koga's Gym. Soul Badge. Safari Zone next door."
           intro: "Home of the Safari Zone. Beat Koga, then fetch Surf and Strength from the Safari."
           steps:
@@ -822,6 +851,12 @@ en:
               title: "Enter Fuchsia"
               text: "Continue east into Fuchsia City."
         saffron_city:
+          gym:
+            intro: "Warp pads teleport you around the gym in a fixed loop. Take the right pads to reach Sabrina, whose Psychic team hits like a truck."
+            puzzle:
+              "1": "Step onto a warp pad and it flings you to another room. Each room has one trainer and two pads: one loops back, one moves you on."
+              "2": "From the entrance, take the top-right pad, then keep choosing the pad that lands you in a new room, clearing trainers as you go."
+              "3": "The final warp drops you beside Sabrina. Psychic has no counters in Gen 1, so out-level her or lead with a strong Bug attacker."
           note: "Sabrina's Gym. Marsh Badge. Silph Co. and the Dojo."
           intro: "A central city held by Rocket. Free Silph Co., beat Sabrina, and claim a fighter from the Dojo."
           steps:
@@ -901,6 +936,12 @@ en:
             seel: "A cave catch → Dewgong, a solid Water/Ice. Grab the base."
             articuno: "The Ice legendary of Seafoam. One shot only. Catch it now."
         cinnabar_island:
+          gym:
+            intro: "Locked doors bar the way to Blaine, each opened by answering a quiz or beating the trainer behind it. Bring Water and out-speed his Fire team."
+            puzzle:
+              "1": "Each door poses a yes or no Pokemon quiz. Answer correctly and it opens; answer wrong and you battle the trainer behind it, which opens it anyway."
+              "2": "You can skip the quizzes entirely and just fight every trainer, doors open either way. Either route reaches the back of the gym."
+              "3": "The final door opens onto Blaine. A single strong Water move ends his Growlithe, Ponyta and Arcanine in a hurry."
           note: "Blaine's Gym. Volcano Badge. Fossil lab."
           intro: "A volcanic island. Revive your fossils at the lab, get the Secret Key from the Mansion, then beat Blaine."
           steps:
@@ -946,6 +987,12 @@ en:
             growlithe: "Also wild here → Arcanine with a Fire Stone. Log the base."
             magmar: "A rare mansion catch. A strong Fire attacker. Bank one."
         viridian_gym:
+          gym:
+            intro: "The last Kanto gym, a spinner-tile maze packed with eight trainers. Giovanni waits at the summit with a Ground team, so pack Water, Grass or Ice."
+            puzzle:
+              "1": "Spinner tiles fling you in a straight line until you hit a stop tile. Plan each launch so you land where you can reach the next trainer."
+              "2": "Clear trainers to open the northern path, then ride the spinners north and west, correcting your line at each stop toward Giovanni."
+              "3": "The final spinners drop you in front of Giovanni. Watch for Fissure and Horn Drill one-hit KOs and lead with a fast Water or Ice attacker."
           note: "Giovanni's Gym. Earth Badge. The 8th badge."
           intro: "The final Kanto gym, back in Viridian. Beat Giovanni's Ground team for the last badge."
           steps:

@@ -156,6 +156,17 @@ pt:
       trainers_h2: "Treinadores aqui"
       vs: "VS"
       where: "ONDE"
+      gym_tag: "◆ GINÁSIO"
+      gym_type: "TIPO %{type}"
+      gym_short: "GINÁSIO"
+      gym_puzzle: "PUZZLE · SOLUÇÃO"
+      gym_trainers_inside: "TREINADORES · %{count}"
+      gym_trainer: "TREINADOR DO GINÁSIO"
+      gym_leader: "LÍDER DE GINÁSIO"
+      gym_leader_label: "LÍDER"
+      gym_roster: "EQUIPE"
+      badge: "INSÍGNIA"
+      badge_alt: "Insígnia %{badge}"
       previous: "◀ ANTERIOR"
       next: "PRÓXIMO ▶"
       lv: "Nv %{n}"
@@ -354,6 +365,8 @@ pt:
           oak:
             caterpie: "A nova família da floresta. Evolui para Butterfree. Registre a base uma vez."
         pewter_city:
+          gym:
+            intro: "Um ginasio curto e reto, sem labirinto. Vença o Jr. Trainer na entrada e depois Brock no fundo. A equipe de Pedra e Terra dele ignora o Pikachu, entao lidere com um atacante de Agua ou Grama."
           note: "Brock. O primeiro Ginásio. Tipos Pedra; Elétrico não faz nada."
           intro: "A primeira cidade com Ginásio. Cure, prepare um atacante não-Elétrico e pegue a Boulder Badge com o Brock."
           steps:
@@ -418,6 +431,8 @@ pt:
               title: "Desça para Cerulean"
               text: "Pegue o TM04 no desnível e siga a rota até Cerulean City."
         cerulean_city:
+          gym:
+            intro: "Um treinador e chao livre, depois Misty. O Staryu e o Starmie dela batem forte com golpes de Agua, entao leve um atacante de Eletrico ou Grama para fechar rapido."
           note: "Ginásio da Misty. Cascade Badge. E um Bulbasaur grátis."
           intro: "Uma cidade de ginásio aquático. Vença a Misty e, se o Pikachu gostar de você, pegue um Bulbasaur grátis."
           steps:
@@ -488,6 +503,12 @@ pt:
               title: "Entre em Vermilion"
               text: "Continue ao sul até Vermilion City."
         vermilion_city:
+          gym:
+            intro: "A porta ate Lt. Surge esta trancada por dois interruptores escondidos nas latas de lixo. Ache os dois e depois encare um lider cujo Raichu pode paralisar toda a sua equipe."
+            puzzle:
+              "1": "Revise as latas de lixo ao longo das paredes para achar o primeiro interruptor. A posicao dele e aleatoria a cada visita."
+              "2": "O segundo interruptor fica sempre numa lata vizinha a primeira, acima, abaixo, a esquerda ou a direita. Se errar, os dois reiniciam, entao cheque as vizinhas."
+              "3": "Com os dois interruptores ativados, a porta ate Lt. Surge abre. Leve um tipo Terra para anular a equipe Eletrica dele."
           note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
           intro: "Uma cidade portuária com ginásio-quebra-cabeça. Suba no S.S. Anne primeiro pelo Cut, depois encare o Surge."
           steps:
@@ -622,6 +643,8 @@ pt:
               title: "Entre em Celadon"
               text: "Passe pelo portão até Celadon City."
         celadon_city:
+          gym:
+            intro: "Um jardim de arvores escondendo varios treinadores, depois Erika. A equipe de Grama e Veneno dela cai para Fogo, Voador ou Psiquico, entao lidere com um desses."
           note: "Ginásio da Erika. Rainbow Badge. Loja, Eevee e o Game Corner."
           intro: "A cidade grande. Compre na loja de departamentos, pegue um Eevee, vença a Erika e assalte o Rocket Game Corner."
           steps:
@@ -735,6 +758,12 @@ pt:
               title: "Entre em Fuchsia"
               text: "Corte no canto noroeste pelo TM20 se quiser, depois saia a oeste para Fuchsia City."
         fuchsia_city:
+          gym:
+            intro: "O chao do ginasio e um labirinto de paredes invisiveis. Va tateando, vença o Juggler e o Tamer la dentro e depois enfrente a equipe de veneno de Koga."
+            puzzle:
+              "1": "A sala toda e bloqueada por paredes invisiveis. Ande pelo espaco aberto ate esbarrar numa, depois siga ao longo dela para achar as passagens."
+              "2": "Serpenteie para cima e ao redor das barreiras rumo ao topo da sala, pegando cada treinador opcional conforme o caminho permitir."
+              "3": "A ultima abertura leva a Koga. Leve um atacante Psiquico ou Terra e carregue Antidotos para o Toxic dele."
           note: "Ginásio do Koga. Soul Badge. Safari Zone ao lado."
           intro: "Lar da Safari Zone. Vença o Koga, depois pegue Surf e Strength na Safari."
           steps:
@@ -822,6 +851,12 @@ pt:
               title: "Entre em Fuchsia"
               text: "Continue a leste até Fuchsia City."
         saffron_city:
+          gym:
+            intro: "Plataformas de teletransporte te levam pelo ginasio num circuito fixo. Pegue as plataformas certas para chegar a Sabrina, cuja equipe Psiquica bate como um caminhao."
+            puzzle:
+              "1": "Pise numa plataforma de teletransporte e ela te joga para outra sala. Cada sala tem um treinador e duas plataformas: uma volta, a outra avanca."
+              "2": "Da entrada, pegue a plataforma do canto superior direito e continue escolhendo a que te leva a uma sala nova, vencendo treinadores no caminho."
+              "3": "O ultimo teletransporte te deixa ao lado de Sabrina. Psiquico nao tem contra na 1a geracao, entao suba de nivel ou lidere com um forte atacante Inseto."
           note: "Ginásio da Sabrina. Marsh Badge. Silph Co. e o Dojo."
           intro: "Uma cidade central tomada pela Rocket. Liberte a Silph Co., vença a Sabrina e ganhe um lutador no Dojo."
           steps:
@@ -901,6 +936,12 @@ pt:
             seel: "Uma captura de caverna → Dewgong, um sólido Água/Gelo. Pegue a base."
             articuno: "O lendário de Gelo de Seafoam. Só uma chance. Capture agora."
         cinnabar_island:
+          gym:
+            intro: "Portas trancadas bloqueiam o caminho ate Blaine, cada uma aberta ao acertar um quiz ou vencer o treinador atras dela. Leve Agua e seja mais rapido que a equipe de Fogo dele."
+            puzzle:
+              "1": "Cada porta faz uma pergunta de sim ou nao sobre Pokemon. Acerte e ela abre; erre e voce batalha o treinador atras dela, o que tambem a abre."
+              "2": "Da para pular os quizzes e simplesmente lutar contra todos os treinadores, as portas abrem de qualquer jeito. Os dois caminhos chegam ao fundo do ginasio."
+              "3": "A ultima porta se abre para Blaine. Um unico golpe forte de Agua acaba com o Growlithe, o Ponyta e o Arcanine dele num piscar."
           note: "Ginásio do Blaine. Volcano Badge. Laboratório de fósseis."
           intro: "Uma ilha vulcânica. Reviva seus fósseis no lab, pegue a Secret Key na Mansão, depois vença o Blaine."
           steps:
@@ -946,6 +987,12 @@ pt:
             growlithe: "Também selvagem aqui → Arcanine com uma Fire Stone. Registre a base."
             magmar: "Uma captura rara da mansão. Um atacante de Fogo forte. Garanta um."
         viridian_gym:
+          gym:
+            intro: "O ultimo ginasio de Kanto, um labirinto de plataformas giratorias com oito treinadores. Giovanni espera no topo com uma equipe de Terra, entao leve Agua, Grama ou Gelo."
+            puzzle:
+              "1": "As plataformas giratorias te lançam em linha reta ate voce bater numa de parada. Planeje cada lançamento para parar onde alcance o proximo treinador."
+              "2": "Vença treinadores para abrir o caminho ao norte, depois use as giratorias para o norte e o oeste, corrigindo sua linha a cada parada rumo a Giovanni."
+              "3": "As giratorias finais te deixam diante de Giovanni. Cuidado com os nocautes de um golpe de Fissure e Horn Drill e lidere com um atacante rapido de Agua ou Gelo."
           note: "Ginásio do Giovanni. Earth Badge. A 8ª insígnia."
           intro: "O ginásio final de Kanto, de volta em Viridian. Vença o time Terra do Giovanni pela última insígnia."
           steps:
