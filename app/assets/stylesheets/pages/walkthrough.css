@@ -1608,7 +1608,10 @@ a.pn-wt-route__card:hover {
   width: 60px;
   height: 60px;
   object-fit: contain;
-  filter: drop-shadow(0 0 5px #FF5D8Faa);
+  /* crisp dark keyline hugging the badge, then the neon glow */
+  filter:
+    drop-shadow(0 0 1px #05060d) drop-shadow(0 0 1px #05060d)
+    drop-shadow(0 0 6px #FF5D8F99);
 }
 .pn-wt-gym__badge-name {
   font-family: "Pixelify Sans", system-ui, sans-serif;
