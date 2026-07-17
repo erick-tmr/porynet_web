@@ -30,15 +30,19 @@ module Walkthrough
 
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
-    :steps, :encounters, :trainers, :oak_queue, :gym
+    :steps, :encounters, :trainers, :oak_queue, :gym, :gym_after
   ) do
-    def initialize(gym: nil, **rest) = super(gym: gym, **rest)
+    def initialize(gym: nil, gym_after: nil, **rest) = super(gym: gym, gym_after: gym_after, **rest)
 
     def dex_list = encounters.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
     def badge? = !badge.nil?
     def gym? = !gym.nil?
+
+    # steps that lead up to the gym vs. the follow-up steps after it
+    def lead_steps = gym_after ? steps.first(gym_after) : steps
+    def after_steps = gym_after ? steps.drop(gym_after) : []
   end
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do

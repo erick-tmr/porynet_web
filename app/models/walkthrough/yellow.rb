@@ -264,10 +264,9 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
           step(b, 1, shot: shot("STEP 1")),
-          step(b, 2),
-          step(b, 3, items: [ item(b, 3, "TM34 Bide", "tm34") ]),
-          step(b, 4)
+          step(b, 2)
         ],
+        gym_after: 1,
         encounters: [],
         trainers: [],
         gym: gym("pewter-city", "Pewter Gym", "ROCK", "BOULDER", "TM34 · BIDE",
@@ -277,13 +276,13 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil)
+    def self.loc(slug, kind, name, order, steps: 3, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: (1..steps).map { |i| step(b, i) },
-        encounters: encounters, trainers: trainers, oak_queue: oak_queue, gym: gym
+        encounters: encounters, trainers: trainers, oak_queue: oak_queue, gym: gym, gym_after: gym_after
       )
     end
 
@@ -367,7 +366,7 @@ module Walkthrough
     end
 
     def self.cerulean_city
-      loc("cerulean-city", "CITY", "Cerulean City", 11, badge: "CASCADE",
+      loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 2, gym_after: 1, badge: "CASCADE",
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
@@ -426,7 +425,7 @@ module Walkthrough
     end
 
     def self.vermilion_city
-      loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 4, badge: "THUNDER",
+      loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 3, gym_after: 2, badge: "THUNDER",
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true) ],
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
@@ -521,7 +520,7 @@ module Walkthrough
     end
 
     def self.fuchsia_city
-      loc("fuchsia-city", "CITY", "Fuchsia City", 33, steps: 4, badge: "SOUL",
+      loc("fuchsia-city", "CITY", "Fuchsia City", 33, steps: 4, gym_after: 1, badge: "SOUL",
         encounters: [
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
@@ -590,7 +589,7 @@ module Walkthrough
     end
 
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 38, steps: 4, badge: "MARSH",
+      loc("saffron-city", "CITY", "Saffron City", 38, steps: 3, gym_after: 2, badge: "MARSH",
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37)) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50)),
@@ -651,7 +650,7 @@ module Walkthrough
     end
 
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 43, steps: 4, badge: "VOLCANO",
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 43, steps: 3, gym_after: 2, badge: "VOLCANO",
         encounters: [
           enc("cinnabar-island", "138", "FOSSIL", "-", "30", "GIFT", "138", "139", tip: true),
           enc("cinnabar-island", "140", "FOSSIL", "-", "30", "GIFT", "140", "141", tip: true),
@@ -687,7 +686,7 @@ module Walkthrough
     end
 
     def self.viridian_gym
-      loc("viridian-gym", "GYM", "Viridian Gym", 45, steps: 3, badge: "EARTH",
+      loc("viridian-gym", "GYM", "Viridian Gym", 45, steps: 2, gym_after: 1, badge: "EARTH",
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
           leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55)),
           puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ],
@@ -811,7 +810,7 @@ module Walkthrough
     end
 
     def self.celadon_city
-      loc("celadon-city", "CITY", "Celadon City", 26, steps: 4, badge: "RAINBOW",
+      loc("celadon-city", "CITY", "Celadon City", 26, steps: 3, gym_after: 2, badge: "RAINBOW",
         encounters: [
           enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true),
           enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),

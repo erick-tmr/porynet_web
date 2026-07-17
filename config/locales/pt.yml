@@ -135,6 +135,8 @@ pt:
       mode_tag: "MODO: LIVING DEX ⚙"
       steps_eyebrow: "GUIA · ENTRADA → SAÍDA"
       steps_h2: "Seu caminho, passo a passo"
+      steps_after_eyebrow: "APÓS O GINÁSIO · PARA ONDE IR"
+      steps_after_h2: "Para onde ir a seguir"
       item_kind: "· ITEM"
       hidden_item: "ITEM OCULTO"
       shot_placeholder: "Captura em breve"
@@ -371,19 +373,11 @@ pt:
           intro: "A primeira cidade com Ginásio. Cure, prepare um atacante não-Elétrico e pegue a Boulder Badge com o Brock."
           steps:
             "1":
-              title: "Cure e prepare"
-              text: "Entre pela Rota 2 e cure no Centro Pokémon. O Pikachu é inútil contra o Brock. Comece com Mankey, um Nidoran ou Butterfree."
+              title: "Cure, prepare e entre no Ginásio"
+              text: "Cure no Centro Pokémon e compre Potions no Mart. Pikachu nao faz nada contra Pedra, entao lidere com Mankey, um Nidoran ou Butterfree, depois entre no Ginásio no lado oeste."
             "2":
-              title: "Limpe o treinador do Ginásio"
-              text: "Entre no Ginásio e vença o Jr. Trainer (Diglett Nv 9, Sandshrew Nv 9) no caminho até o Brock."
-            "3":
-              title: "Vença o Brock"
-              text: "O Brock tem Geodude (Nv 10) e Onix (Nv 12). Vença para ganhar a Boulder Badge e o TM34 (Bide)."
-              items:
-                tm34: "Dado pelo Brock junto com a Boulder Badge."
-            "4":
-              title: "Siga ao leste para a Rota 3"
-              text: "Com a Boulder Badge, o garoto que bloqueia a saída leste sai do caminho. Siga ao leste para a Rota 3 rumo ao Mt. Moon."
+              title: "Siga para leste ate a Rota 3"
+              text: "Com a Insígnia Boulder, o garoto que bloqueia a saída leste sai do caminho. Siga para leste na Rota 3 rumo a Mt. Moon."
         route_3:
           note: "A subida até o Mt. Moon. Spearow, Sandshrew e Mankey."
           intro: "O corredor de treinadores a leste de Pewter. Pegue um tipo Terra para as cavernas e cure no centro do Mt. Moon."
@@ -437,14 +431,11 @@ pt:
           intro: "Uma cidade de ginásio aquático. Vença a Misty e, se o Pikachu gostar de você, pegue um Bulbasaur grátis."
           steps:
             "1":
-              title: "Cure e compre"
-              text: "Chegue pela Rota 4, cure no Centro e abasteça na loja."
+              title: "Cure, compre e entre no Ginásio"
+              text: "Chegando da Rota 4, cure no Centro e abasteça no Mart, depois entre no Ginásio. Lidere com Pikachu ou um tipo Grama contra a equipe de Agua de Misty."
             "2":
-              title: "Vença a Misty"
-              text: "Limpe os treinadores do ginásio e a Misty (Staryu, Starmie). Comece com Pikachu ou tipo Grama pela Cascade Badge + TM11."
-            "3":
-              title: "Pegue os extras"
-              text: "Pegue o TM28 na casa roubada e o Bulbasaur grátis na casa da garota se o Pikachu estiver feliz. Siga ao norte para a Rota 24."
+              title: "Pegue os extras e siga ao norte"
+              text: "Pegue o TM28 na casa roubada e o Bulbasaur gratis na casa da garota se a amizade do Pikachu estiver alta, depois siga ao norte para a Rota 24."
           tips:
             bulbasaur: "Grátis na casa da garota quando o Pikachu está feliz. Evolui até Venusaur."
           oak:
@@ -514,16 +505,13 @@ pt:
           steps:
             "1":
               title: "Pegue os itens"
-              text: "Cure, depois pegue o Bike Voucher (Fan Club) e o Old Rod (Fishing Guru)."
+              text: "Cure, depois pegue o Bike Voucher no Fan Club e o Old Rod com o Fishing Guru."
             "2":
-              title: "Suba no S.S. Anne"
-              text: "Visite o navio no cais sul primeiro. Você precisa do HM01 Cut dele para chegar ao ginásio."
+              title: "Entre no S.S. Anne pelo Cut"
+              text: "A arvore do ginasio precisa do HM01 Cut. Entre no navio na doca sul, limpe as cabines e cure o Capitao enjoado para receber o Cut antes de desafiar Surge."
             "3":
-              title: "Resolva as latas do Surge"
-              text: "Corte a árvore perto do ginásio. Ache o primeiro botão numa lata, depois cheque uma lata adjacente pelo segundo. Errar reseta os dois."
-            "4":
-              title: "Vença o Lt. Surge"
-              text: "O Surge usa só um Raichu (Nv 28). Vença pela Thunder Badge + TM24, depois pegue o Squirtle grátis da Officer Jenny."
+              title: "Pegue o Squirtle gratis"
+              text: "Apos a Insígnia Thunder, a Oficial Jenny te da um Squirtle gratis. Depois siga para leste ate a Rota 11 e a Diglett's Cave."
           tips:
             squirtle: "Grátis da Officer Jenny depois da Thunder Badge. O terceiro starter de Kanto, evolui para Blastoise."
           oak:
@@ -649,17 +637,14 @@ pt:
           intro: "A cidade grande. Compre na loja de departamentos, pegue um Eevee, vença a Erika e assalte o Rocket Game Corner."
           steps:
             "1":
-              title: "Compre na loja"
-              text: "Pegue o TM18 grátis no 3F e troque bebidas do terraço por TM13, TM48 e TM49. Compre pedras de evolução no 4F."
+              title: "Compre na Dept. Store"
+              text: "Pegue o TM18 gratis no 3F e troque bebidas do terraço por TM13, TM48 e TM49. Compre pedras de evolucao no 4F."
             "2":
-              title: "Pegue o Eevee"
-              text: "Pegue o Eevee de presente no Condominiums e a Coin Case no restaurante."
+              title: "Pegue o Eevee, depois o Ginásio"
+              text: "Pegue o Eevee de presente nos Condominios e a Coin Case no restaurante, depois entre no Ginásio atras das arvores. Fogo, Voador ou Psíquico vence a equipe de Grama e Veneno de Erika."
             "3":
-              title: "Vença a Erika"
-              text: "O time Grama/Veneno dela (Tangela, Weepinbell, Gloom) cai para Fogo ou Voador. Ganhe a Rainbow Badge + TM21."
-            "4":
-              title: "Vá ao Game Corner"
-              text: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o botão do pôster para entrar no Rocket Hideout."
+              title: "Va ao Game Corner"
+              text: "Ganhe fichas por premios como Porygon e Vulpix, depois ache o interruptor no poster para entrar no Esconderijo Rocket."
           tips:
             eevee: "Grátis no Condominiums. Evolua com uma pedra em Vaporeon, Jolteon ou Flareon."
             porygon: "O único Porygon do jogo. 9999 fichas do Game Corner, e não há outro jeito."
@@ -768,17 +753,17 @@ pt:
           intro: "Lar da Safari Zone. Vença o Koga, depois pegue Surf e Strength na Safari."
           steps:
             "1":
-              title: "Vença o Koga"
-              text: "O time Inseto/Veneno dele (três Venonat + Venomoth) abusa de Toxic e Double Team. Traga um Psíquico ou Fogo rápido e um Antidote."
+              title: "Cure e entre no Ginásio"
+              text: "Cure no Centro, depois tateie pelo labirinto de paredes invisíveis ate Koga. Leve um tipo Psíquico ou Fogo rapido e Antídotos para o Toxic dele."
             "2":
               title: "Pesque no lago do Warden"
-              text: "Super Rod no lago por um Gyarados selvagem. Exclusivo do Yellow aqui."
+              text: "Use o Super Rod no lago para um Gyarados selvagem, uma captura exclusiva do Yellow aqui."
             "3":
-              title: "Assalte a Safari Zone"
-              text: "Vá ao norte para a Safari Zone pelo HM03 Surf e o Gold Teeth."
+              title: "Explore a Safari Zone"
+              text: "Siga ao norte para a Safari Zone pelo HM03 Surf e os Gold Teeth."
             "4":
-              title: "Troque por Strength"
-              text: "Devolva o Gold Teeth ao Warden pelo HM04 Strength; pegue a Rare Candy lá dentro quando tiver."
+              title: "Troque pelo Strength"
+              text: "Devolva os Gold Teeth ao Warden pelo HM04 Strength; pegue o Rare Candy la dentro depois de te-lo."
           tips:
             gyarados: "Super Rod no lago do Warden por um Gyarados selvagem. Sem grind de Magikarp."
           oak:
@@ -862,16 +847,13 @@ pt:
           steps:
             "1":
               title: "Suborne os guardas"
-              text: "Traga uma bebida da loja de Celadon para passar por cada portão bloqueado da cidade."
+              text: "Leve uma bebida da Dept. Store de Celadon para passar por cada portao bloqueado da cidade."
             "2":
-              title: "Liberte a Silph Co."
-              text: "A Silph Co. está tomada pela Rocket e o ginásio fica trancado até você limpá-la (veja Silph Co.)."
+              title: "Liberte a Silph Co. primeiro"
+              text: "O ginasio fica trancado ate voce limpar a Silph Co. tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
             "3":
-              title: "Vença a Sabrina"
-              text: "Resolva o labirinto de placas de teletransporte até a Sabrina (Abra, Kadabra, Alakazam, todos Nv 50). Ganhe a Marsh Badge + TM46."
-            "4":
-              title: "Ganhe um lutador"
-              text: "Vença o Karate Master no Fighting Dojo para levar um Hitmonlee ou Hitmonchan grátis."
+              title: "Reivindique um lutador"
+              text: "Vença o Karate Master no Fighting Dojo para levar um Hitmonlee ou Hitmonchan gratis."
           oak:
             hitmonlee: "Grátis do Dojo. Escolha Hitmonlee ou Hitmonchan (só um)."
         silph_co:
@@ -946,17 +928,14 @@ pt:
           intro: "Uma ilha vulcânica. Reviva seus fósseis no lab, pegue a Secret Key na Mansão, depois vença o Blaine."
           steps:
             "1":
-              title: "Limpe a Mansão primeiro"
-              text: "O ginásio do Blaine está trancado. Atravesse a rua até a Pokémon Mansion pela Secret Key."
+              title: "Limpe a Mansao primeiro"
+              text: "O ginasio de Blaine esta trancado. Atravesse a rua ate a Pokémon Mansion e pegue a Secret Key."
             "2":
-              title: "Reviva um fóssil"
-              text: "Entregue um fóssil ao cientista no Lab; volte depois para pegar o Pokémon revivido."
+              title: "Entregue um fossil, depois o Ginásio"
+              text: "Da um fossil ao cientista no Lab, depois abra o ginasio com a Secret Key e resolva as portas de quiz ate Blaine. Agua, Terra ou Pedra derrete a equipe de Fogo dele."
             "3":
-              title: "Responda o quiz do Blaine"
-              text: "No ginásio, acerte cada porta-quiz por um atalho, ou lute com o treinador se errar."
-            "4":
-              title: "Vença o Blaine"
-              text: "O time de Fogo dele (Ninetales, Rapidash, Arcanine) derrete com Água, Terra ou Rocha. Ganhe a Volcano Badge + TM38."
+              title: "Pegue seu fossil e siga em frente"
+              text: "Volte ao Lab depois pelo Pokémon fossil revivido, depois use Surf rumo a ultima insígnia."
           tips:
             omanyte: "Reviva o Helix Fossil aqui → Omanyte, depois Omastar. Um Rocha/Água só assim."
             kabuto: "Reviva o Dome Fossil → Kabuto, depois Kabutops. A outra linha de fóssil."
@@ -997,14 +976,11 @@ pt:
           intro: "O ginásio final de Kanto, de volta em Viridian. Vença o time Terra do Giovanni pela última insígnia."
           steps:
             "1":
-              title: "Ande nas placas giratórias"
-              text: "Pegue as saídas de seta corretas para atravessar o ginásio; pegue o Revive ao norte."
+              title: "Prepare e entre no Ginásio"
+              text: "Abasteça Potions e Revives, depois use as plataformas giratorias pelos oito treinadores ate Giovanni. Leve Agua, Grama ou Gelo e cuidado com Fissure e Horn Drill."
             "2":
-              title: "Chegue ao Giovanni"
-              text: "Vá ao fundo do labirinto para encarar o chefe uma última vez."
-            "3":
-              title: "Vença o Giovanni"
-              text: "O time Terra/Rocha dele (Dugtrio, Persian, Nidoqueen, Nidoking, Rhydon) cai para Água, Grama ou Gelo. Ganhe a Earth Badge + TM27."
+              title: "Rumo a Victory Road"
+              text: "Com a Insígnia Earth e as oito em maos, volte a Rota 22 e avance para o oeste na Victory Road."
         victory_road:
           note: "O portão da Liga. Quebra-cabeças de pedra e Moltres."
           intro: "Um labirinto de pedras de três andares que exige as 8 insígnias e Strength. Moltres pousa lá dentro."

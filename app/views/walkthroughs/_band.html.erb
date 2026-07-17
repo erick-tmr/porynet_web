@@ -16,7 +16,7 @@
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
   <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
   <div class="pn-wt-steps">
-    <% loc.steps.each do |step| %>
+    <% loc.lead_steps.each do |step| %>
       <%= render "step", step: step %>
     <% end %>
   </div>
@@ -53,6 +53,18 @@
 
 <% if loc.gym? %>
   <%= render "gym", gym: loc.gym %>
+<% end %>
+
+<% if loc.after_steps.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_after_eyebrow") %></div>
+    <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_after_h2") %></h3>
+    <div class="pn-wt-steps">
+      <% loc.after_steps.each do |step| %>
+        <%= render "step", step: step %>
+      <% end %>
+    </div>
+  </section>
 <% end %>
 
 <% if loc.oak_queue.any? %>

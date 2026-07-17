@@ -64,6 +64,10 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym__badge-name", text: "BOULDER"
     assert_select "img.pn-wt-gym__badge-img[src*=?]", "badges/boulder"
     assert_select ".pn-wt-gym__puzzle", false
+    # lead-in step, then the gym, then the follow-up "where next" step
+    assert_select ".pn-wt-step__title", text: "Heal, prep, and enter the Gym"
+    assert_select ".pn-eyebrow-label", text: /AFTER THE GYM/
+    assert_select ".pn-wt-step__title", text: "Head east to Route 3"
   end
 
   test "a maze gym renders its puzzle solution steps" do

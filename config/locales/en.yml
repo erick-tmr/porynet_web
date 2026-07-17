@@ -135,6 +135,8 @@ en:
       mode_tag: "MODE: LIVING DEX ⚙"
       steps_eyebrow: "WALKTHROUGH · ENTRANCE → EXIT"
       steps_h2: "Your path, step by step"
+      steps_after_eyebrow: "AFTER THE GYM · WHERE NEXT"
+      steps_after_h2: "Where to go next"
       item_kind: "· ITEM"
       hidden_item: "HIDDEN ITEM"
       shot_placeholder: "Screenshot coming soon"
@@ -371,17 +373,9 @@ en:
           intro: "The first Gym city. Heal, prep a non-Electric attacker, and take the Boulder Badge from Brock."
           steps:
             "1":
-              title: "Heal and prep"
-              text: "Enter from Route 2 and heal at the Poké Center. Pikachu is useless on Brock. Lead with Mankey, a Nidoran, or Butterfree."
+              title: "Heal, prep, and enter the Gym"
+              text: "Heal at the Poke Center and stock Potions at the Mart. Pikachu does nothing to Rock, so lead with Mankey, a Nidoran or Butterfree, then step into the Gym on the west side."
             "2":
-              title: "Clear the Gym trainer"
-              text: "Enter the Gym and beat the Jr. Trainer (Diglett Lv 9, Sandshrew Lv 9) on the way to Brock."
-            "3":
-              title: "Beat Brock"
-              text: "Brock has Geodude (Lv 10) and Onix (Lv 12). Win to earn the Boulder Badge and TM34 (Bide)."
-              items:
-                tm34: "Given by Brock along with the Boulder Badge."
-            "4":
               title: "Head east to Route 3"
               text: "With the Boulder Badge, the boy blocking the east exit steps aside. Head east onto Route 3 toward Mt. Moon."
         route_3:
@@ -437,14 +431,11 @@ en:
           intro: "A water-gym city. Beat Misty, and if Pikachu likes you, claim a free Bulbasaur."
           steps:
             "1":
-              title: "Heal and shop"
-              text: "Arrive from Route 4, heal at the Center and stock up at the Mart."
+              title: "Heal, shop, and enter the Gym"
+              text: "Arrive from Route 4, heal at the Center and stock the Mart, then enter the Gym. Lead with Pikachu or a Grass type against Misty's Water team."
             "2":
-              title: "Beat Misty"
-              text: "Clear the gym trainers, then Misty (Staryu, Starmie). Lead with Pikachu or a Grass type for the Cascade Badge + TM11."
-            "3":
-              title: "Grab the extras"
-              text: "Take TM28 from the robbed house, and the free Bulbasaur from the girl's house if Pikachu's friendship is high. Head north to Route 24."
+              title: "Grab the extras, then head north"
+              text: "Take TM28 from the robbed house and the free Bulbasaur from the girl's house if Pikachu's friendship is high, then head north to Route 24."
           tips:
             bulbasaur: "Free from the girl's house once Pikachu is happy. Evolves all the way to Venusaur."
           oak:
@@ -514,16 +505,13 @@ en:
           steps:
             "1":
               title: "Grab the goodies"
-              text: "Heal, then collect the Bike Voucher (Fan Club) and the Old Rod (Fishing Guru)."
+              text: "Heal, then collect the Bike Voucher from the Fan Club and the Old Rod from the Fishing Guru."
             "2":
-              title: "Board the S.S. Anne"
-              text: "Visit the ship at the south dock first. You need its HM01 Cut to reach the gym."
+              title: "Board the S.S. Anne for Cut"
+              text: "The gym's tree needs HM01 Cut. Board the ship at the south dock, clear the cabins, and cure the seasick Captain for Cut before you challenge Surge."
             "3":
-              title: "Solve Surge's trash cans"
-              text: "Cut the tree by the gym. Find the first switch in a can, then check an adjacent can for the second. A wrong pick resets both."
-            "4":
-              title: "Beat Lt. Surge"
-              text: "Surge fields a lone Raichu (Lv 28). Win for the Thunder Badge + TM24, then take the free Squirtle from Officer Jenny."
+              title: "Take the free Squirtle"
+              text: "After the Thunder Badge, Officer Jenny hands you a free Squirtle. Then head east to Route 11 and Diglett's Cave."
           tips:
             squirtle: "Free from Officer Jenny after the Thunder Badge. The third Kanto starter, evolves to Blastoise."
           oak:
@@ -652,12 +640,9 @@ en:
               title: "Shop the Dept. Store"
               text: "Grab the free TM18 on 3F and trade roof drinks for TM13, TM48 and TM49. Buy evolution stones on 4F."
             "2":
-              title: "Take the Eevee"
-              text: "Pick up the gift Eevee in the Condominiums and the Coin Case from the restaurant."
+              title: "Take the Eevee, then the Gym"
+              text: "Pick up the gift Eevee in the Condominiums and the Coin Case from the restaurant, then enter the Gym behind the trees. Fire, Flying or Psychic beats Erika's Grass and Poison."
             "3":
-              title: "Beat Erika"
-              text: "Her Grass/Poison team (Tangela, Weepinbell, Gloom) folds to Fire or Flying. Win the Rainbow Badge + TM21."
-            "4":
               title: "Hit the Game Corner"
               text: "Win coins for prizes like Porygon and Vulpix, then find the poster switch to enter the Rocket Hideout."
           tips:
@@ -768,11 +753,11 @@ en:
           intro: "Home of the Safari Zone. Beat Koga, then fetch Surf and Strength from the Safari."
           steps:
             "1":
-              title: "Beat Koga"
-              text: "His Bug/Poison team (three Venonat + Venomoth) leans on Toxic and Double Team. Bring a fast Psychic or Fire type and an Antidote."
+              title: "Heal and enter the Gym"
+              text: "Heal at the Center, then feel through the gym's invisible-wall maze to reach Koga. Bring a fast Psychic or Fire type and Antidotes for his Toxic."
             "2":
               title: "Fish the Warden's pond"
-              text: "Super Rod the pond for a wild Gyarados. Yellow-exclusive here."
+              text: "Super Rod the pond for a wild Gyarados, a Yellow-exclusive catch here."
             "3":
               title: "Raid the Safari Zone"
               text: "Head north into the Safari Zone for HM03 Surf and the Gold Teeth."
@@ -864,12 +849,9 @@ en:
               title: "Bribe the guards"
               text: "Bring a drink from Celadon's Dept. Store to get past each blocked city gate."
             "2":
-              title: "Free Silph Co."
-              text: "Silph Co. is Rocket-held and the gym is locked until you clear it (see Silph Co.)."
+              title: "Free Silph Co. first"
+              text: "The gym stays locked until you clear Rocket-held Silph Co. (see Silph Co.), then enter and solve the teleport-pad maze to Sabrina."
             "3":
-              title: "Beat Sabrina"
-              text: "Solve the teleport-pad maze to reach Sabrina (Abra, Kadabra, Alakazam, all Lv 50). Win the Marsh Badge + TM46."
-            "4":
               title: "Claim a fighter"
               text: "Beat the Karate Master at the Fighting Dojo to take a free Hitmonlee or Hitmonchan."
           oak:
@@ -947,16 +929,13 @@ en:
           steps:
             "1":
               title: "Clear the Mansion first"
-              text: "Blaine's gym is locked. Cross the street to the Pokémon Mansion and fetch the Secret Key."
+              text: "Blaine's gym is locked. Cross the street to the Pokemon Mansion and fetch the Secret Key."
             "2":
-              title: "Revive a fossil"
-              text: "Hand a fossil to the scientist at the Lab; return later to collect the revived Pokémon."
+              title: "Hand in a fossil, then the Gym"
+              text: "Give a fossil to the scientist at the Lab, then open the gym with the Secret Key and work the quiz doors to Blaine. Water, Ground or Rock melts his Fire team."
             "3":
-              title: "Answer Blaine's quiz"
-              text: "In the gym, answer each quiz door right for a shortcut, or fight the trainer if you miss."
-            "4":
-              title: "Beat Blaine"
-              text: "His Fire team (Ninetales, Rapidash, Arcanine) melts to Water, Ground or Rock. Win the Volcano Badge + TM38."
+              title: "Collect your fossil and move on"
+              text: "Return to the Lab later for the revived fossil Pokemon, then Surf out toward the last badge."
           tips:
             omanyte: "Revive the Helix Fossil here → Omanyte, then Omastar. A Rock/Water only found this way."
             kabuto: "Revive the Dome Fossil → Kabuto, then Kabutops. The other fossil line."
@@ -997,14 +976,11 @@ en:
           intro: "The final Kanto gym, back in Viridian. Beat Giovanni's Ground team for the last badge."
           steps:
             "1":
-              title: "Ride the spin tiles"
-              text: "Take the correct arrow-tile exits to weave through the gym; grab the Revive up north."
+              title: "Prep and enter the Gym"
+              text: "Stock Potions and Revives, then ride the spinner tiles through the eight trainers to Giovanni. Bring Water, Grass or Ice and watch for Fissure and Horn Drill."
             "2":
-              title: "Reach Giovanni"
-              text: "Work to the back of the maze to face the boss one last time."
-            "3":
-              title: "Beat Giovanni"
-              text: "His Ground/Rock team (Dugtrio, Persian, Nidoqueen, Nidoking, Rhydon) folds to Water, Grass or Ice. Win the Earth Badge + TM27."
+              title: "On to Victory Road"
+              text: "With the Earth Badge and all eight in hand, head back to Route 22 and push west into Victory Road."
         victory_road:
           note: "The League gate. Boulder puzzles and Moltres."
           intro: "A three-floor boulder maze that needs all 8 badges and Strength. Moltres roosts inside."
