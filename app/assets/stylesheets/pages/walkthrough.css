@@ -736,6 +736,47 @@ a.pn-wt-route__card:hover {
   box-shadow: 5px 5px 0 #171622;
   padding: 16px;
 }
+
+.pn-wt-catch--best {
+  background: #fff7e6;
+}
+
+.pn-wt-best {
+  background: var(--amber);
+  border: 2px solid #171622;
+  box-shadow: 3px 3px 0 #171622;
+  padding: 9px 11px;
+  margin-bottom: 15px;
+}
+
+.pn-wt-best__head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.pn-wt-best__star {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #171622;
+  line-height: 1;
+}
+
+.pn-wt-best__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.pn-wt-best__reason {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #171622;
+  margin-top: 6px;
+  line-height: 1.25;
+}
 .pn-wt-catch__top {
   display: flex;
   gap: 14px;

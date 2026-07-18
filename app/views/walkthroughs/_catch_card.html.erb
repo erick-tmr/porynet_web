@@ -1,4 +1,14 @@
-<div class="pn-wt-catch">
+<% best = local_assigns[:best] %>
+<div class="<%= class_names("pn-wt-catch", "pn-wt-catch--best" => best) %>">
+  <% if best %>
+    <div class="pn-wt-best">
+      <div class="pn-wt-best__head">
+        <span class="pn-wt-best__star" aria-hidden="true">★</span>
+        <span class="pn-wt-best__label"><%= t("walkthrough.ui.best_badge") %></span>
+      </div>
+      <div class="pn-wt-best__reason"><%= best_catch_reason(best, enc) %></div>
+    </div>
+  <% end %>
   <div class="pn-wt-catch__top">
     <div class="pn-wt-catch__sprite"><%= r2_image_tag "pokemon/yellow/#{enc.dex}.png", alt: "" %></div>
     <div class="pn-wt-catch__info">

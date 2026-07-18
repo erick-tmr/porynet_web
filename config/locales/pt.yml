@@ -142,7 +142,10 @@ pt:
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
       catch_h2: "O que dá para capturar aqui"
-      catch_hint: "Assim que capturar um, clique no card dele para registrar na sua coleção."
+      catch_hint: "Assim que capturar um, clique no card dele para registrar na sua coleção. A tag ★ MELHOR LUGAR PARA CAPTURAR marca a rota mais fácil para cada espécie."
+      best_badge: "MELHOR LUGAR PARA CAPTURAR"
+      best_reason_beats: "%{rate} aqui contra %{alt_rate} em %{alt}, a melhor chance de %{name}."
+      best_reason_tie: "Melhor taxa com %{rate}, e o lugar mais cedo para capturar %{name}."
       catch_targets: "%{count} metas de captura"
       rate: "TAXA"
       level: "NÍVEL"
@@ -211,7 +214,7 @@ pt:
         spearow: "Rota 22. Normal/Voador cedo, evolui para Fearow."
       legs:
         leg_01:
-          lead: "O trecho inicial de Kanto. Sua cidade natal e a primeira grama selvagem, juntas para você ler a run do começo ao fim."
+          lead: "O trecho inicial de Kanto. Sua cidade natal e a primeira grama selvagem."
         leg_02:
           lead: "As tarefas de Viridian e as rotas ao redor dela, até o portão da Viridian Forest."
         leg_03:
@@ -242,19 +245,19 @@ pt:
           intro: "O lar. Pegue seu parceiro Pikachu, resolva a primeira batalha de rival e siga ao norte."
           steps:
             "1":
-              title: "Pegue a Potion grátis"
-              text: "Cheque a PC no seu quarto e retire a Potion grátis, depois desça e saia."
+              title: "Retire a Potion grátis"
+              text: "No seu quarto no andar de cima, cheque a PC e retire a Potion grátis, depois desça e saia pela porta da frente."
               items:
-                potion: "Na PC do seu quarto."
+                potion: "Quarto de cima, dentro da PC."
             "2":
               title: "Pegue o Pikachu com o Oak"
-              text: "Vá ao norte; o Oak te para e te leva ao laboratório. Receba o Pikachu. A partir daí ele anda atrás de você."
+              text: "Vá até a saída norte. No instante em que pisa na grama da Rota 1, o Oak te para e te leva de volta ao laboratório, onde te dá o Pikachu. Daí em diante ele anda ao seu lado, em vez de ficar na Ball."
             "3":
               title: "Vença seu rival"
-              text: "O Blue te desafia no laboratório com um Eevee (Nv 5). Vença por ₽175. Os golpes Elétricos do Pikachu acertam bem o Eevee."
+              text: "O Blue pega um Eevee e te enfrenta no laboratório. Ele é Nv 5 com Tackle e Tail Whip; lidere com o Pikachu e use ThunderShock. Vença por ₽175."
             "4":
               title: "Siga ao norte para a Rota 1"
-              text: "Saia de Pallet ao norte para a Rota 1. Volte depois para pegar o Town Map com a Daisy quando tiver a Pokédex."
+              text: "Saia de Pallet pela saída norte para a Rota 1. Quando tiver a Pokédex, volte para pegar o Town Map com a Daisy, irmã do Blue, na casa logo a leste da sua."
           tips:
             pikachu: "Seu parceiro obrigatório e o único Pikachu do jogo. Ele recusa a Thunder Stone, então continua Pikachu."
         route_1:
@@ -263,37 +266,34 @@ pt:
           steps:
             "1":
               title: "Varra a grama alta"
-              text: "Vá ao norte pela grama e batalhe Pidgey e Rattata para subir o nível do Pikachu."
+              text: "Vá ao norte pela grama alta, batalhando Pidgey e Rattata selvagens para subir o nível do Pikachu. Você ainda não tem Poké Balls, então só batalhe por enquanto; dá para capturar um Pidgey e um Rattata na volta, depois de comprar Balls na loja de Viridian."
             "2":
               title: "Pegue a Potion grátis"
-              text: "Um homem perto da saída de Viridian te dá uma Potion grátis. Pegue e siga."
+              text: "Perto da saída norte (Viridian), um homem parado ao lado da placa sai para demonstrar a loja e te dá uma Potion grátis. Pegue e siga ao norte."
               items:
-                potion: "Com o homem perto da saída norte (Viridian)."
+                potion: "Com o homem ao lado da placa perto da saída norte (Viridian)."
             "3":
               title: "Entre em Viridian City"
-              text: "Continue ao norte até Viridian City. Na volta, pule os desníveis para evitar a grama."
+              text: "Continue ao norte até Viridian City. Mais tarde, na volta, pule os desníveis do lado leste para evitar a grama no caminho de retorno."
           tips:
             pidgey: "Por toda a Rota 1. Um Normal/Voador confiável que evolui até Pidgeot."
             rattata: "Rápido e comum. Evolui para Raticate, um bom atacante inicial."
-          oak:
-            pidgey: "Voador inicial comum. Evolui por completo. Um basta."
-            rattata: "Por toda parte aqui. Pegue um para a dex."
         viridian_city:
           note: "Tutorial de captura, Oak's Parcel, estoque de Poké Balls."
           intro: "A cidade de passagem. Sem grama selvagem. Faça as tarefas, compre Poké Balls e siga para a Rota 2."
           steps:
             "1":
-              title: "Cure e compre"
-              text: "Cure no Centro Pokémon. Na loja, pegue o Oak's Parcel e compre um monte de Poké Balls, mais algumas Potions e Antidotes."
+              title: "Cure e pegue o Oak's Parcel"
+              text: "Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te entrega o Oak's Parcel para levar de volta. A saída norte fica bloqueada por um velho sonolento por ora."
             "2":
               title: "Entregue o Oak's Parcel"
-              text: "Leve o Oak's Parcel de volta a Pallet Town, entregue ao Oak e ganhe a Pokédex. Depois volte ao norte para Viridian."
+              text: "Leve o Parcel ao sul, ao laboratório do Oak em Pallet Town. Ele te dá a Pokédex; depois volte a pé para Viridian."
             "3":
-              title: "Faça o tutorial de captura"
-              text: "O velho que bloqueia a saída norte dá um tutorial de captura grátis. Assista e ele sai do caminho."
+              title: "Veja a demonstração de captura e abasteça"
+              text: "O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
             "4":
               title: "Siga para a Rota 2"
-              text: "O Ginásio fica trancado até muito depois. Pule ele e saia ao norte para a Rota 2."
+              text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele e pegue a saída norte para a Rota 2."
         route_22:
           note: "Rota oeste opcional. Nidoran♀/♂, Mankey, Spearow. Mais a primeira batalha de rival."
           intro: "Um desvio curto a oeste de Viridian. O melhor lugar para capturar respostas ao Brock antes da floresta."
@@ -333,6 +333,9 @@ pt:
             rattata: "Comum de novo. Pule se já capturou um."
             nidoranf: "Uma segunda chance de Nidoran♀ se pulou a Rota 22."
             nidoranm: "Uma segunda chance de Nidoran♂. Pegue para a luta contra o Brock."
+          oak:
+            pidgey: "Comum na grama daqui, e a esta altura você já tem Poké Balls. Registre um; evolui até Pidgeot."
+            rattata: "Por toda a Rota 2. Pegue um para a dex; evolui para Raticate."
         viridian_forest:
           note: "Paraíso dos Inseto. Caterpie, Metapod, Pidgey. Itens ocultos dentro. Sem Pikachu selvagem no Yellow."
           intro: "O labirinto de árvores entre a Rota 2 e Pewter. Varra a grama, pegue os itens ocultos e capture um Caterpie para o Brock."
@@ -369,7 +372,7 @@ pt:
             caterpie: "A nova família da floresta. Evolui para Butterfree. Registre a base uma vez."
         pewter_city:
           gym:
-            intro: "Um ginasio curto e reto, sem labirinto. Vença o Jr. Trainer na entrada e depois Brock no fundo. A equipe de Pedra e Terra dele ignora o Pikachu, entao lidere com um atacante de Agua ou Grama."
+            intro: "Um ginásio curto e reto, sem quebra-cabeça. Vença o Jr. Trainer solitário na entrada e depois o Brock no fundo. O Geodude (Nv 10) e o Onix (Nv 12) dele ignoram o Pikachu por completo, então lidere com Low Kick do Mankey, um Nidoran ou Confusion do Butterfree. Quando o Onix usar Bide, pare de atacar por dois turnos ou ele devolve todo o dano acumulado de uma vez."
           note: "Brock. O primeiro Ginásio. Tipos Pedra; Elétrico não faz nada."
           intro: "A primeira cidade com Ginásio. Cure, prepare um atacante não-Elétrico e pegue a Boulder Badge com o Brock."
           steps:
@@ -399,17 +402,17 @@ pt:
           intro: "Uma caverna escura cheia de Rockets. Pegue a Moon Stone, escolha um fóssil e siga até Cerulean."
           steps:
             "1":
-              title: "Entre e ilumine"
-              text: "Entre pela Rota 3; a caverna desce por três andares."
+              title: "Entre pela Rota 3"
+              text: "Entre pela entrada oeste (Rota 3). Logo dentro, varra a câmara oeste pelo TM12 (Water Gun) e uma Potion antes de o túnel se dividir e descer pelas escadas conectadas."
             "2":
-              title: "Pegue a Moon Stone"
-              text: "Varra o 1F pela Moon Stone, TM12, Rare Candy e Potions enquanto luta com os treinadores."
+              title: "Vasculhe os andares por itens"
+              text: "Enquanto desce, pegue o Rare Candy, o Escape Rope e a Potion no sudeste do 1F, o HP Up descendo a primeira escada sul e o TM01 (Mega Punch) no B2F. Um Ether oculto fica dentro da pedra grande ao lado desse TM."
             "3":
-              title: "Vença os Rockets"
-              text: "Batalhe os Rocket Grunts nos andares inferiores. No Yellow, Jessie & James também aparecem."
+              title: "Pegue a Moon Stone, vença os Rockets"
+              text: "Pegue a Moon Stone no canto noroeste do 1F; ela evolui Clefairy, Nidorina, Nidorino e mais. Limpe os Rocket Grunts nos andares inferiores e, no Yellow, Jessie & James também aparecem."
             "4":
-              title: "Escolha um fóssil"
-              text: "Vença o último Super Nerd e escolha UM fóssil: Dome (→ Kabuto) ou Helix (→ Omanyte). Saia para a Rota 4."
+              title: "Escolha um fóssil e saia"
+              text: "Vença o último Super Nerd e escolha UM fóssil: Dome (vira Kabuto) ou Helix (vira Omanyte). O que você deixar se perde para sempre. Lute contra Jessie & James perto da escada e suba para a Rota 4."
           tips:
             clefairy: "Um spawn de 1% na caverna. Pegue um, e uma Moon Stone o torna Clefable."
           oak:
@@ -421,13 +424,13 @@ pt:
           steps:
             "1":
               title: "Saia do Mt. Moon"
-              text: "Saia a leste; cure no Centro perto da caverna se pulou antes."
+              text: "Você sai na ponta oeste da Rota 4. Cure no Centro Pokémon bem na boca da caverna se pulou o de dentro, depois desça a leste pelos desníveis."
             "2":
-              title: "Desça para Cerulean"
-              text: "Pegue o TM04 no desnível e siga a rota até Cerulean City."
+              title: "Pegue o TM04, desça para Cerulean"
+              text: "Na descida, pegue o TM04 (Whirlwind) no segundo nível da colina leste e cheque a colina noroeste por uma Great Ball oculta. Os desníveis levam direto para baixo, até Cerulean City."
         cerulean_city:
           gym:
-            intro: "Um treinador e chao livre, depois Misty. O Staryu e o Starmie dela batem forte com golpes de Agua, entao leve um atacante de Eletrico ou Grama para fechar rapido."
+            intro: "Um Swimmer, uma Jr. Trainer e chão livre, depois a Misty. O Staryu (Nv 18) e o Starmie (Nv 21) dela batem forte com golpes de Água, e o Recover do Starmie arrasta a luta, então feche rápido com um atacante Elétrico ou Grama. O ThunderShock do Pikachu é ideal."
           note: "Ginásio da Misty. Cascade Badge. E um Bulbasaur grátis."
           intro: "Uma cidade de ginásio aquático. Vença a Misty e, se o Pikachu gostar de você, pegue um Bulbasaur grátis."
           steps:
@@ -436,7 +439,7 @@ pt:
               text: "Chegando da Rota 4, cure no Centro e abasteça no Mart, depois entre no Ginásio. Lidere com Pikachu ou um tipo Grama contra a equipe de Agua de Misty."
             "2":
               title: "Pegue os extras e siga ao norte"
-              text: "Pegue o TM28 na casa roubada e o Bulbasaur gratis na casa da garota se a amizade do Pikachu estiver alta, depois siga ao norte para a Rota 24."
+              text: "Pegue o Bulbasaur grátis na casa da garota se a amizade do Pikachu estiver alta. A casa assaltada perto do norte fica lacrada até mais tarde; quando a oficial sair, persiga o ladrão pelos fundos dela pelo TM28 (Dig). Depois siga ao norte para a Nugget Bridge (Rota 24)."
           tips:
             bulbasaur: "Grátis na casa da garota quando o Pikachu está feliz. Evolui até Venusaur."
           oak:
@@ -450,10 +453,10 @@ pt:
               text: "Vença os cinco treinadores em sequência, depois o Rocket Grunt. Pegue o Nugget e RECUSE entrar na Team Rocket."
             "2":
               title: "Vença seu rival"
-              text: "O Blue te desafia no topo da ponte. Vença e pegue o TM45 na grama."
+              text: "O Blue te desafia logo depois da ponta norte da ponte. Vença e pegue o TM45 (Thunder Wave), oculto na moita de grama ali perto."
             "3":
               title: "Pegue o Charmander grátis"
-              text: "Aceite o Charmander grátis do garoto na rota e siga ao norte para a Rota 25."
+              text: "Na colina de grama a noroeste, um garoto te dá um Charmander grátis (Nv 10). Pegue e siga ao norte para a Rota 25."
           tips:
             charmander: "Grátis do garoto aqui. Uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
           oak:
@@ -466,7 +469,7 @@ pt:
           steps:
             "1":
               title: "Lute até a cabana"
-              text: "Limpe os Hikers e Youngsters pela rota; capture Venonat se ainda precisar."
+              text: "Limpe os Hikers e Youngsters pela rota, e capture um Venonat se ainda precisar. O TM19 (Seismic Toss) fica escondido no canto nordeste do labirinto cercado."
             "2":
               title: "Solte o Bill"
               text: "Na Sea Cottage, use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
@@ -481,7 +484,7 @@ pt:
               text: "Saia de Cerulean ao sul; deixe um Pokémon na Day Care se quiser subir o nível."
             "2":
               title: "Pegue o Underground Path"
-              text: "Os portões de Saffron estão bloqueados. Entre no Underground Path e túnele ao sul para a Rota 6."
+              text: "Os portões de Saffron estão bloqueados, então entre no prédio do Underground Path e túnele ao sul até a Rota 6. Um Full Restore e um X Special ocultos ficam pelo chão do túnel."
           oak:
             abra: "Capture rápido (ele só usa Teleport). Evolui para Kadabra, depois Alakazam por troca."
         route_6:
@@ -496,7 +499,7 @@ pt:
               text: "Continue ao sul até Vermilion City."
         vermilion_city:
           gym:
-            intro: "A porta ate Lt. Surge esta trancada por dois interruptores escondidos nas latas de lixo. Ache os dois e depois encare um lider cujo Raichu pode paralisar toda a sua equipe."
+            intro: "A porta até o Lt. Surge fica trancada por dois interruptores escondidos nas latas de lixo. Ache os dois e depois encare o Raichu solitário do Surge (Nv 28), que bate forte na equipe toda e pode paralisar. Um tipo Terra usando Dig o anula com facilidade, então leve Diglett, Sandshrew ou a linha do Nidoran."
             puzzle:
               "1": "Revise as latas de lixo ao longo das paredes para achar o primeiro interruptor. A posicao dele e aleatoria a cada visita."
               "2": "O segundo interruptor fica sempre numa lata vizinha a primeira, acima, abaixo, a esquerda ou a direita. Se errar, os dois reiniciam, entao cheque as vizinhas."
@@ -522,14 +525,14 @@ pt:
           intro: "Um navio de uma vez só. Varra os itens, vença seu rival e pegue o Cut antes que ele parta para sempre."
           steps:
             "1":
-              title: "Limpe as cabines"
-              text: "Vasculhe as salas por TM08, Rare Candy e os Ethers, batalhando os Sailors e Gentlemen."
+              title: "Limpe as cabines por itens"
+              text: "Embarque na doca sul. As cabines do B1F têm uma Max Potion, um Ether e o TM44 (Rest); no 1F pegue o TM08 (Body Slam) e cheque a lata de lixo mais distante da cozinha por uma Great Ball oculta. No 2F, duas cabines dão um Max Ether e um Rare Candy. Batalhe os Sailors e Gentlemen enquanto varre."
             "2":
               title: "Vença seu rival"
-              text: "O Blue te embosca perto da escada da popa no 2F (Spearow, Rattata, Sandshrew, Eevee)."
+              text: "O Blue te embosca perto da escada da popa no 2F, logo antes da sala do capitão (Spearow Nv 19, Rattata Nv 16, Sandshrew Nv 18, Eevee Nv 20)."
             "3":
               title: "Pegue o HM01 Cut"
-              text: "Cure o Capitão enjoado na cabine de cima pelo HM01 Cut, depois desembarque. O navio parte de vez."
+              text: "Cure o Capitão enjoado na cabine da popa; ele te entrega o HM01 Cut e o TM24 (Thunderbolt). Ensine Cut, depois desembarque. No instante em que você sai, o navio parte de vez, então pegue tudo antes."
         route_11:
           note: "A leste de Vermilion. Pidgey, Rattata e Drowzee."
           intro: "Uma rota larga de grama a leste de Vermilion, com um atalho de caverna rumo a Pewter."
@@ -633,16 +636,16 @@ pt:
               text: "Passe pelo portão até Celadon City."
         celadon_city:
           gym:
-            intro: "Um jardim de arvores escondendo varios treinadores, depois Erika. A equipe de Grama e Veneno dela cai para Fogo, Voador ou Psiquico, entao lidere com um desses."
+            intro: "Um jardim de arvorezinhas escondendo vários treinadores, depois a Erika. O Tangela (Nv 30), o Weepinbell (Nv 32) e o Gloom (Nv 32) dela caem para Fogo, Voador, Psíquico ou Gelo, então lidere com um desses e carregue curas de status para o Sleep Powder e o Stun Spore deles. Corte as arvorezinhas para chegar mais rápido nela."
           note: "Ginásio da Erika. Rainbow Badge. Loja, Eevee e o Game Corner."
           intro: "A cidade grande. Compre na loja de departamentos, pegue um Eevee, vença a Erika e assalte o Rocket Game Corner."
           steps:
             "1":
               title: "Compre na Dept. Store"
-              text: "Pegue o TM18 gratis no 3F e troque bebidas do terraço por TM13, TM48 e TM49. Compre pedras de evolucao no 4F."
+              text: "Pegue o TM18 (Counter) grátis com o atendente no 3F. Compre três bebidas nas máquinas do terraço e dê à garota lá em cima por TM13 (Ice Beam), TM48 (Rock Slide) e TM49 (Tri Attack). Compre pedras de evolução no 4F, e guarde uma bebida extra para os guardas de Saffron."
             "2":
               title: "Pegue o Eevee, depois o Ginásio"
-              text: "Pegue o Eevee de presente nos Condominios e a Coin Case no restaurante, depois entre no Ginásio atras das arvores. Fogo, Voador ou Psíquico vence a equipe de Grama e Veneno de Erika."
+              text: "Pegue o Eevee de presente no último andar da Celadon Mansion (atrás do Centro Pokémon) e a Coin Case com o homem no restaurante, depois entre no Ginásio atrás das árvores. Fogo, Voador ou Psíquico vence a Grama e Veneno da Erika; corte as arvorezinhas de dentro para pular o labirinto."
             "3":
               title: "Va ao Game Corner"
               text: "Ganhe fichas por premios como Porygon e Vulpix, depois ache o interruptor no poster para entrar no Esconderijo Rocket."
@@ -659,32 +662,32 @@ pt:
           steps:
             "1":
               title: "Abra a escada"
-              text: "No Game Corner, aperte o botão atrás do pôster solitário na parede norte para abrir a passagem."
+              text: "No Game Corner, um homem de preto guarda o pôster solitário na parede norte. Vença ele, aperte o botão atrás do pôster e a escada para o B1F se abre."
             "2":
-              title: "Deslize pelas placas"
-              text: "As setas te deslizam até bater num ponto de parada. Alinhe cada entrada para alcançar os itens e as escadas."
+              title: "Deslize pelas placas por itens"
+              text: "As placas de seta te deslizam em linha reta até bater num ponto de parada, então alinhe cada lançamento. Espalhados pelos labirintos giratórios do B2F e B3F estão um Nugget, uma Moon Stone, o TM07 (Horn Drill), um Rare Candy e o TM10 (Double-Edge)."
             "3":
               title: "Pegue a Lift Key"
-              text: "Ache a Lift Key no B4F e pegue o elevador até a sala do Giovanni."
+              text: "No B4F, vença o Rocket Grunt que solta a Lift Key; um HP Up e o TM02 (Razor Wind) ficam na mesma sala a noroeste. Pegue o elevador para chegar ao escritório do Giovanni a sudeste."
             "4":
               title: "Vença o Giovanni"
-              text: "Limpe Jessie & James, depois o Giovanni (Onix, Rhyhorn, Persian). Ele entrega o Silph Scope para a Torre."
+              text: "Limpe Jessie & James, depois o Giovanni (Onix Nv 25, Rhyhorn Nv 24, Persian Nv 29); Água ou Grama resolve os dois primeiros. Ele solta o Silph Scope que você precisa para a Pokémon Tower."
         pokemon_tower:
           note: "A torre assombrada de Lavender. Fantasmas e o Poké Flute."
           intro: "Suba a torre com o Silph Scope para revelar os fantasmas, vencer seu rival e soltar o Mr. Fuji."
           steps:
             "1":
               title: "Suba com o Silph Scope"
-              text: "Entre e suba; com o Scope, os Gastly e Cubone selvagens finalmente aparecem."
+              text: "Entre e suba; com o Scope, os Gastly, Haunter e Cubone selvagens finalmente aparecem. Varra os andares por um Escape Rope (3F), um Elixir, Awakening e HP Up (4F), um Elixir oculto e um Nugget (5F), e um X Accuracy e Rare Candy (6F)."
             "2":
               title: "Vença seu rival"
-              text: "O Blue te enfrenta no 2F. O Eevee dele já evoluiu, conforme seu histórico anterior."
+              text: "O Blue te enfrenta no 2F, com a equipe por volta do Nv 25. O Eevee dele já evoluiu, conforme o histórico que você marcou nas batalhas anteriores."
             "3":
               title: "Limpe o Marowak fantasma"
-              text: "Nos andares de cima, derrote o Marowak fantasma Nv 30 que bloqueia o caminho (não dá para capturar)."
+              text: "Nos andares de cima, um Marowak fantasma Nv 30 bloqueia a escada. O Silph Scope deixa você batalhar e derrotá-lo, mas ele nunca pode ser capturado."
             "4":
               title: "Solte o Mr. Fuji"
-              text: "Vença Jessie & James no 7F e solte o Mr. Fuji. Ele dá o Poké Flute para acordar os Snorlax."
+              text: "Vença Jessie & James no 7F e solte o Mr. Fuji no topo. Ele te dá o Poké Flute, que acorda os Snorlax dorminhocos das Rotas 12 e 16."
           tips:
             gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar por troca."
           oak:
@@ -715,10 +718,10 @@ pt:
           steps:
             "1":
               title: "Serpenteie o labirinto"
-              text: "Siga os desníveis descendo da Rota 12, limpando os treinadores."
+              text: "A Rota 13 é um ziguezague de cercas e desníveis. Siga o caminho descendo da Rota 12, limpando os Bird Keepers e Beauties enquanto ele serpenteia a oeste e ao sul."
             "2":
-              title: "Siga para a Rota 14"
-              text: "Procure perto da placa Trainer Tips por itens ocultos, depois continue a oeste."
+              title: "Pegue os itens ocultos e siga"
+              text: "Dois itens ocultos ficam em vãos ao longo da cerca sul: um Calcium e um PP Up. Localize-os com o Itemfinder, depois continue rumo à Rota 14."
           tips:
             ditto: "Uma captura de 5% que Transforma no que enfrenta. Útil para a dex."
           oak:
@@ -745,7 +748,7 @@ pt:
               text: "Corte no canto noroeste pelo TM20 se quiser, depois saia a oeste para Fuchsia City."
         fuchsia_city:
           gym:
-            intro: "O chao do ginasio e um labirinto de paredes invisiveis. Va tateando, vença o Juggler e o Tamer la dentro e depois enfrente a equipe de veneno de Koga."
+            intro: "O chão do ginásio é um labirinto de paredes invisíveis. Vá tateando, vencendo os Jugglers e Tamers lá dentro, e depois enfrente o Koga. Os três Venonat (Nv 44, 46, 48) e o Venomoth (Nv 50) dele apostam em Toxic e Double Team, então leve um atacante Psíquico rápido e carregue Antidotes."
             puzzle:
               "1": "A sala toda e bloqueada por paredes invisiveis. Ande pelo espaco aberto ate esbarrar numa, depois siga ao longo dela para achar as passagens."
               "2": "Serpenteie para cima e ao redor das barreiras rumo ao topo da sala, pegando cada treinador opcional conforme o caminho permitir."
@@ -777,11 +780,11 @@ pt:
               title: "Pague a entrada"
               text: "Pague ₽500 no portão por 30 Safari Balls; você tem 500 passos por rodada."
             "2":
-              title: "Cace os raros"
-              text: "Varra as áreas por Scyther, Pinsir, Kangaskhan, Tauros, Chansey e Tangela. Isca e pedras, sem desmaiar."
+              title: "Cace os raros e pegue os TMs"
+              text: "Varra as áreas por Scyther, Pinsir, Kangaskhan, Tauros, Chansey e Tangela; use Bait para mantê-los parados, Rocks para facilitar a captura, e lembre que nada desmaia aqui. Pegue o TM37 (Egg Bomb) na Área 1, o TM40 (Skull Bash) na Área 2 e o TM32 (Double Team) na Área 3."
             "3":
               title: "Chegue à Secret House"
-              text: "Na longínqua Área 3, pegue o HM03 Surf na Secret House e o Gold Teeth por perto."
+              text: "No canto distante da Área 3, pegue o HM03 Surf com o oficial dentro da Secret House, com o Gold Teeth logo ali perto. Um Max Revive e algumas Max Potions também ficam por perto."
             "4":
               title: "Pegue o Dratini"
               text: "Super Rod nos lagos por Dratini, depois saia e entregue o Gold Teeth ao Warden por Strength."
@@ -820,10 +823,10 @@ pt:
           steps:
             "1":
               title: "Desça de bike"
-              text: "Monte a bike e desça. Não dá para andar na Cycling Road a pé."
+              text: "Monte a bike e desça a Cycling Road; não dá para cruzá-la a pé. Vença os Bikers e Cue Balls que ladeiam a descida enquanto passa."
             "2":
-              title: "Varra a grama"
-              text: "Pare nas faixas de grama por Ponyta, depois saia pelo portão sul para a Rota 18."
+              title: "Varra a grama, pegue os itens ocultos"
+              text: "Pare nas faixas de grama por Ponyta. Escondidos na grama e ao longo das cercas estão um Rare Candy, um Full Restore, um Max Revive, um PP Up e um Max Elixir; o Itemfinder ajuda a localizá-los. Saia pelo portão sul para a Rota 18."
           oak:
             ponyta: "Uma captura de fogo na grama → Rapidash. Um dos poucos tipos Fogo do Yellow."
         route_18:
@@ -838,10 +841,10 @@ pt:
               text: "Continue a leste até Fuchsia City."
         saffron_city:
           gym:
-            intro: "Plataformas de teletransporte te levam pelo ginasio num circuito fixo. Pegue as plataformas certas para chegar a Sabrina, cuja equipe Psiquica bate como um caminhao."
+            intro: "Plataformas de teletransporte te levam pelo ginásio num circuito fixo. Pegue as plataformas certas para chegar à Sabrina, cujos Abra, Kadabra e Alakazam (todos Nv 50) batem como um caminhão. Psíquico não tem contra de verdade na 1a geração, então suba de nível ou lidere com um forte atacante Inseto como Pinsir ou Scyther."
             puzzle:
               "1": "Pise numa plataforma de teletransporte e ela te joga para outra sala. Cada sala tem um treinador e duas plataformas: uma volta, a outra avanca."
-              "2": "Da entrada, pegue a plataforma do canto superior direito e continue escolhendo a que te leva a uma sala nova, vencendo treinadores no caminho."
+              "2": "A linha mais rápida: da entrada pegue a plataforma sudeste, depois a noroeste, depois a sudoeste, e a sudoeste de novo. Cada salto te deixa em cima de um treinador para vencer, e essa sequência te leva à sala da Sabrina."
               "3": "O ultimo teletransporte te deixa ao lado de Sabrina. Psiquico nao tem contra na 1a geracao, entao suba de nivel ou lidere com um forte atacante Inseto."
           note: "Ginásio da Sabrina. Marsh Badge. Silph Co. e o Dojo."
           intro: "Uma cidade central tomada pela Rocket. Liberte a Silph Co., vença a Sabrina e ganhe um lutador no Dojo."
@@ -869,7 +872,7 @@ pt:
               text: "No 7F, pegue a Lapras grátis do funcionário (e enfrente seu rival lá)."
             "3":
               title: "Vença o Giovanni"
-              text: "Suba até o 11F e derrote o Giovanni (Nidorino, Rhyhorn, Persian, Nidoqueen) para quebrar a tomada."
+              text: "Suba até o 11F e derrote o Giovanni (Nidorino Nv 37, Rhyhorn Nv 37, Persian Nv 35, Nidoqueen Nv 41); golpes de Terra como Dig e Earthquake resolvem a luta. Vencê-lo quebra a tomada."
             "4":
               title: "Pegue a Master Ball"
               text: "Fale com o presidente da Silph pela Master Ball. Guarde para um lendário."
@@ -918,13 +921,31 @@ pt:
           oak:
             seel: "Uma captura de caverna → Dewgong, um sólido Água/Gelo. Pegue a base."
             articuno: "O lendário de Gelo de Seafoam. Só uma chance. Capture agora."
+        power_plant:
+          note: "Desvio opcional de Surf. Mons Elétricos, um Muk raro e o Zapdos."
+          intro: "Uma usina abandonada saindo da Rota 10, acessível só com Surf. Tipos Elétrico e Veneno vagam pelos andares, e o lendário Zapdos espera lá no fundo."
+          steps:
+            "1":
+              title: "Surfe da Rota 10"
+              text: "Com o Surf, surfe pela água ao sul da entrada do Rock Tunnel na Rota 10 até a porta da usina. Leve Repels se só se importa com os itens e o Zapdos."
+            "2":
+              title: "Varra os andares, cuidado com os itens falsos"
+              text: "Pegue o TM25 (Thunder), o TM33 (Reflect), Carbos, HP Up, um Rare Candy, um PP Up e um Max Elixir enquanto percorre. Vários item balls são Voltorb ou Electrode disfarçados, então espere uma batalha ao pegar um."
+            "3":
+              title: "Capture o Zapdos"
+              text: "O Zapdos (Nv 50) espera perto do fundo da usina. Salve antes, enfraqueça com Rocha ou Gelo, faça dormir ou paralise, depois jogue Ultra Balls ou a Master Ball."
+          tips:
+            zapdos: "O lendário Elétrico, um Nv 50 estático de uma vez só. Salve antes de tocar nele, depois faça dormir ou paralise e capture."
+          oak:
+            zapdos: "A ave Elétrica da Power Plant. Só uma chance. Capture enquanto está aqui."
+            voltorb: "Por todos os andares (e disfarçado de itens) → Electrode. Pegue um para a dex."
         cinnabar_island:
           gym:
-            intro: "Portas trancadas bloqueiam o caminho ate Blaine, cada uma aberta ao acertar um quiz ou vencer o treinador atras dela. Leve Agua e seja mais rapido que a equipe de Fogo dele."
+            intro: "Portas trancadas bloqueiam o caminho até o Blaine, cada uma aberta ao acertar um quiz ou vencer o treinador atrás dela. O Ninetales (Nv 48), o Rapidash (Nv 50) e o Arcanine (Nv 54) dele batem forte e rápido, então leve um atacante de Água, Pedra ou Terra e carregue Burn Heals."
             puzzle:
-              "1": "Cada porta faz uma pergunta de sim ou nao sobre Pokemon. Acerte e ela abre; erre e voce batalha o treinador atras dela, o que tambem a abre."
-              "2": "Da para pular os quizzes e simplesmente lutar contra todos os treinadores, as portas abrem de qualquer jeito. Os dois caminhos chegam ao fundo do ginasio."
-              "3": "A ultima porta se abre para Blaine. Um unico golpe forte de Agua acaba com o Growlithe, o Ponyta e o Arcanine dele num piscar."
+              "1": "Cada porta faz uma pergunta de sim ou não sobre Pokémon. Acerte e ela abre; erre e você batalha o treinador atrás dela, o que também a abre."
+              "2": "Se preferir não chutar, as respostas na ordem são sim, não, não, não, sim, não. Ou pule os quizzes e lute contra todos os treinadores; as portas abrem de qualquer jeito e os dois caminhos chegam ao fundo."
+              "3": "A última porta se abre para o Blaine. Um único golpe forte de Água, Pedra ou Terra derruba o Ninetales, o Rapidash e o Arcanine dele num piscar."
           note: "Ginásio do Blaine. Volcano Badge. Laboratório de fósseis."
           intro: "Uma ilha vulcânica. Reviva seus fósseis no lab, pegue a Secret Key na Mansão, depois vença o Blaine."
           steps:
@@ -951,13 +972,13 @@ pt:
           steps:
             "1":
               title: "Aperte os botões-estátua"
-              text: "Interaja com os botões-estátua ocultos para abrir os caminhos barrados e revelar as escadas."
+              text: "A mansão é um labirinto de caminhos barrados abertos por botões ocultos dentro das estátuas. Inspecione as estátuas andar por andar para baixar as barreiras, pegando a Moon Stone oculta perto dos pilares do 1F e o Escape Rope, o Calcium e o Iron nos andares de cima conforme sobe."
             "2":
-              title: "Chegue ao B1F"
-              text: "Desça até o B1F e aperte botões para liberar o caminho à sala oeste distante."
+              title: "Desça até o B1F"
+              text: "Percorra o labirinto de botões descendo pelos andares até o B1F. Pelo subsolo, pegue o TM14 (Blizzard) e o TM22 (SolarBeam), um Full Restore e alguns Rare Candy."
             "3":
               title: "Pegue a Secret Key"
-              text: "Pegue a Secret Key a oeste do B1F (mais TM14 e TM22), depois vá ao ginásio do Blaine."
+              text: "A Secret Key fica no centro da sala centro-oeste do B1F, com um Rare Candy oculto no canto noroeste dessa sala. Pegue-a e atravesse a rua até o ginásio do Blaine."
           tips:
             vulpix: "O Yellow põe Vulpix e Growlithe aqui. Um Vulpix selvagem fácil, enfim."
             growlithe: "O outro cão de Fogo, na mesma mansão → Arcanine com uma Fire Stone."
@@ -966,9 +987,25 @@ pt:
             vulpix: "Selvagem aqui no Yellow (senão só por troca) → Ninetales. Pegue um."
             growlithe: "Também selvagem aqui → Arcanine com uma Fire Stone. Registre a base."
             magmar: "Uma captura rara da mansão. Um atacante de Fogo forte. Garanta um."
+        route_21:
+          note: "Rota aquática de volta a Pallet. Pesca e um trecho de grama perto de Pallet."
+          intro: "A rota marítima entre Cinnabar e Pallet. Surfe e pesque nela na volta para Viridian pela última insígnia; um pequeno trecho de grama perto de Pallet tem capturas em terra."
+          steps:
+            "1":
+              title: "Surfe ao norte rumo a Pallet"
+              text: "De Cinnabar, surfe ao norte pelo canal, limpando os Swimmers no caminho. Tentacool enche o mar aberto."
+            "2":
+              title: "Pesque e varra a grama"
+              text: "Use o Super Rod na água por Magikarp, Goldeen, Shellder e Staryu, depois cheque o trecho de grama logo ao sul de Pallet por Pidgey e Rattata, mais Pidgeotto e Raticate selvagens. Chegue em Pallet e suba para Viridian pela Earth Badge."
+          tips:
+            magikarp: "Pesque um aqui e suba até o Nv 20; ele vira Gyarados, um dos tipos Água mais fortes do jogo."
+            goldeen: "Uma captura confiável de Super Rod → Seaking. Um lugar fácil para registrar a linha."
+          oak:
+            magikarp: "Super Rod aqui → Gyarados. Fraco agora, monstruoso depois de evoluir."
+            goldeen: "Pesque um → Seaking. Registre a base já que está pescando mesmo."
         viridian_gym:
           gym:
-            intro: "O ultimo ginasio de Kanto, um labirinto de plataformas giratorias com oito treinadores. Giovanni espera no topo com uma equipe de Terra, entao leve Agua, Grama ou Gelo."
+            intro: "O último ginásio de Kanto, um labirinto de plataformas giratórias com oito treinadores. O Giovanni espera no topo com Dugtrio (Nv 50), Persian (Nv 53), Nidoqueen (Nv 53), Nidoking (Nv 55) e Rhydon (Nv 55). O Fissure do Dugtrio e o Horn Drill do Rhydon são nocautes de um golpe, então seja mais rápido que eles e leve Água, Grama ou Gelo."
             puzzle:
               "1": "As plataformas giratorias te lançam em linha reta ate voce bater numa de parada. Planeje cada lançamento para parar onde alcance o proximo treinador."
               "2": "Vença treinadores para abrir o caminho ao norte, depois use as giratorias para o norte e o oeste, corrigindo sua linha a cada parada rumo a Giovanni."
@@ -988,16 +1025,16 @@ pt:
           steps:
             "1":
               title: "Traga Strength"
-              text: "Você precisa das 8 insígnias para entrar, mais Strength (e Surf/Flash) para os quebra-cabeças."
+              text: "Você precisa das 8 insígnias para entrar, mais Strength para as pedras (e Surf e Flash para atravessar). A caverna sobe por três andares."
             "2":
-              title: "Empurre as pedras"
-              text: "Use Strength para empurrar pedras nos botões do chão, baixando as barreiras de cada andar."
+              title: "Empurre as pedras nos botões"
+              text: "Cada andar é travado por um quebra-cabeça de pedras: use Strength para empurrar uma pedra no botão do chão e a barreira baixa. Pegue o TM05 (Mega Kick), o TM17 (Submission), o TM43 (Sky Attack) e o TM47 (Explosion) espalhados pelos andares."
             "3":
               title: "Capture o Moltres"
-              text: "Desvie até o Moltres (Nv 50) e capture-o. Enfraqueça com Água, Elétrico ou Rocha, depois jogue balls."
+              text: "No lado oeste do 2F, o Moltres (Nv 50) está pousado. Salve antes, enfraqueça com Água, Elétrico ou Rocha, faça dormir ou paralise, depois jogue Ultra Balls."
             "4":
               title: "Suba ao Plateau"
-              text: "Pegue os TMs e o Max Revive na subida e saia para o Indigo Plateau."
+              text: "Recolha o Max Revive e um Full Restore na subida, depois saia pela saída de cima rumo à entrada do Indigo Plateau."
           tips:
             moltres: "O lendário de Fogo da Victory Road. Um Nv 50 de uma vez só. Salve antes, depois enfraqueça e capture."
           oak:
@@ -1027,23 +1064,23 @@ pt:
               text: "Lorelei (Gelo/Água), Bruno (Lutador/Rocha), Agatha (Fantasma/Veneno), Lance (Dragão). Acerte cada um com sua fraqueza."
             "3":
               title: "Vença o Campeão Blue"
-              text: "Seu rival começa com Sandslash e usa Alakazam, Exeggutor e sua Eeveelution. Vença para entrar no Hall da Fama."
+              text: "Seu rival começa com Sandslash (Nv 61) e usa Alakazam, Exeggutor, um Magneton ou Cloyster, Ninetales, e a Eeveelution que o Eevee dele virou (Nv 65). O Alakazam tem Recover, então quebre-o com golpes físicos. Vença para entrar no Hall da Fama."
         cerulean_cave:
           note: "Masmorra pós-jogo. Os selvagens mais fortes. E o Mewtwo."
           intro: "Liberada após virar Campeão. Os Pokémon selvagens mais fortes de Kanto, com o Mewtwo esperando no fundo."
           steps:
             "1":
               title: "Surfe para dentro"
-              text: "Depois do Hall da Fama, surfe pela água a partir de Cerulean City até a caverna."
+              text: "Depois do Hall da Fama, surfe a noroeste pela água a partir de Cerulean City até a boca da caverna."
             "2":
               title: "Desça até o B1F"
-              text: "Desça por selvagens Nv 45–65. Rhydon, Chansey, Ditto e mais."
+              text: "Desça pelos selvagens Nv 45-65 (Rhydon, Chansey, Ditto, Kadabra e mais). Os andares estão lotados de itens de ponta: várias Ultra Balls, Max Revives, Rare Candy, um Full Restore e Max Elixirs. Pegue-os enquanto espirala até o B1F."
             "3":
               title: "Salve antes do Mewtwo"
-              text: "Chegue à plataforma no fundo e salve antes de tocar no Mewtwo."
+              text: "Cruze o B1F e surfe até a pequena ilha bem ao sul. O Mewtwo espera lá; salve o jogo antes de pisar na plataforma, pois você tem uma única chance nele."
             "4":
               title: "Capture o Mewtwo"
-              text: "Enfraqueça o Mewtwo (Nv 70) com Sono ou paralisia, deixe-o baixo, e jogue a Master Ball ou uma pilha de Ultra Balls."
+              text: "O Mewtwo é Nv 70 e abusa de Recover, então faça-o dormir ou paralise primeiro, deixe-o baixo, e jogue a Master Ball, ou encare com uma pilha grande de Ultra Balls."
           tips:
             mewtwo: "O Pokémon mais forte do jogo, um Nv 70 estático. A Master Ball foi feita para isso. Ou faça dormir e reze."
           oak:

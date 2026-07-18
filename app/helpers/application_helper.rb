@@ -18,4 +18,9 @@ module ApplicationHelper
   def r2_image_tag(path, **options)
     image_tag(r2_asset_url(path), **options)
   end
+
+  def best_catch_reason(best, encounter)
+    key = best.tie ? "walkthrough.ui.best_reason_tie" : "walkthrough.ui.best_reason_beats"
+    t(key, name: encounter.name, rate: best.rate, alt: best.alt_name, alt_rate: best.alt_rate)
+  end
 end

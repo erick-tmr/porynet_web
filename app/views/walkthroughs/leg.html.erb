@@ -70,6 +70,7 @@
   </div>
 <% end %>
 
+<% if @leg.oak_queue.any? %>
 <section class="pn-wt-oak">
   <div class="pn-wt-oak__inner">
     <% obtainable = @game.obtainable_upto_leg(@leg).size %>
@@ -102,5 +103,6 @@
     </div>
   </div>
 </section>
+<% end %>
 
 <%= render "leg_nav", game: @game, leg: @leg %>
