@@ -1,0 +1,14 @@
+<footer class="pn-footer">
+  <div class="pn-footer__bar">
+    <div class="pn-footer__brand">
+      <span class="pn-footer__logo"><%= image_tag "porygon-pixel.png", alt: "" %></span>
+      <span class="pn-footer__wordmark">PORYNET</span>
+    </div>
+    <div class="pn-footer__links">
+      <%= link_to t("pages.home.nav.home"), root_path, class: "pn-footer__link" %>
+      <%= link_to t("pages.home.nav.walkthroughs"), walkthrough_path(game: "yellow"), class: "pn-footer__link" %>
+      <%= link_to t("pages.home.nav.tracker"), root_path(anchor: "tracker"), class: "pn-footer__link" %>
+    </div>
+  </div>
+  <div class="pn-footer__legal"><%= t("pages.home.footer.legal") %></div>
+</footer>

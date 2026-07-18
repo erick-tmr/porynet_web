@@ -52,6 +52,6 @@ One workflow (`.github/workflows/ci.yml`). **Blocking**: RuboCop (omakase), Brak
 
 - Rails checks pending migrations on every dev request → Postgres must be up (`docker compose up -d postgres`) before `bin/dev`.
 - Postgres is bound to `127.0.0.1` in `compose.yaml` (so a LAN-shared `bin/dev` doesn't expose the DB). Do not switch to `0.0.0.0`.
-- The handoff design copy uses em-dashes and typographic punctuation deliberately — keep locale strings faithful to the design; the "avoid em-dashes" habit applies to authored prose (commits, PR bodies), not UI copy.
+- **Never use em-dashes (the `—` character) anywhere.** Not in authored prose (commit messages, PR bodies, chat replies) and not in UI or locale copy. They read as AI-generated. Use commas, periods, parentheses, or colons instead. En-dashes in numeric ranges (e.g. `2–5` levels) are fine; this rule is about the `—` em-dash only.
 - Cuprite system tests need Chrome / Chromium installed locally.
 - `.env.example` is the only `.env*` that ships (`.gitignore` carves it out).

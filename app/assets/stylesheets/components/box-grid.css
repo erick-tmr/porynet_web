@@ -85,9 +85,12 @@
   background: color-mix(in srgb, var(--accent) 22%, #fff);
 }
 .pn-slot__sprite {
-  position: relative;
-  width: 88%;
-  height: 88%;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 100%;
+  /* sit in the space above the dex tag so the two never overlap */
+  height: calc(100% - 26px);
   object-fit: contain;
 }
 .pn-slot__cursor {

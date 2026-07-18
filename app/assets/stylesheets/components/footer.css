@@ -1,0 +1,40 @@
+.pn-footer {
+  border-top: 3px solid #171622;
+  background: #FBF5E6;
+}
+.pn-footer__bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.pn-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pn-footer__wordmark {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #ff2e97;
+  text-shadow: 0 0 8px #ff3dae99;
+}
+.pn-footer__links {
+  display: flex;
+  gap: 20px;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+}
+.pn-footer__link { color: #171622; }
+.pn-footer__legal {
+  border-top: 2px solid #171622;
+  padding: 16px 28px;
+  text-align: center;
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #56536b;
+}

@@ -1,0 +1,100 @@
+<% content_for :title, t("walkthrough.ui.title_index", name: @game.name) %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_crumb do %>
+  <span class="pn-nav__crumb-here"><%= @game.name.upcase %></span>
+<% end %>
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("#{Walkthrough::Yellow::K}.marquee") %>
+  <%= render "shared/marquee_row", items: t("#{Walkthrough::Yellow::K}.marquee") %>
+<% end %>
+
+<section class="pn-wt-hero">
+  <div class="pn-wt-badge"><%= t("#{Walkthrough::Yellow::K}.hero.badge") %></div>
+  <h1 class="pn-wt-hero__title"><%= accent_last(@game.name) %></h1>
+  <p class="pn-wt-hero__lead"><%= t("#{Walkthrough::Yellow::K}.hero.lead") %></p>
+
+  <div class="pn-wt-hero__grid">
+    <div class="pn-wt-prog">
+      <div class="pn-wt-prog__title"><%= t("walkthrough.ui.progress_title") %></div>
+      <div class="pn-wt-prog__stats">
+        <div>
+          <div class="pn-wt-prog__label"><%= t("walkthrough.ui.obtainable") %></div>
+          <div class="pn-wt-prog__num"><%= @game.obtainable_dex.size %></div>
+        </div>
+        <div>
+          <div class="pn-wt-prog__label"><%= t("walkthrough.ui.caught") %></div>
+          <div class="pn-wt-prog__num pn-wt-prog__num--caught">0</div>
+        </div>
+        <div>
+          <div class="pn-wt-prog__label"><%= t("walkthrough.ui.dex_goal") %></div>
+          <div class="pn-wt-prog__num pn-wt-prog__num--goal"><%= @game.dex_goal %></div>
+        </div>
+      </div>
+      <div class="pn-wt-prog__bar"><div class="pn-wt-prog__fill"></div></div>
+      <div class="pn-wt-prog__note"><%= t("walkthrough.ui.progress_note") %></div>
+    </div>
+
+    <div class="pn-wt-modes">
+      <div class="pn-wt-modes__title"><%= t("walkthrough.ui.dex_mode") %></div>
+      <p class="pn-wt-modes__lead"><%= t("walkthrough.ui.dex_mode_lead") %></p>
+      <div class="pn-wt-modes__list">
+        <div class="pn-wt-mode is-on">
+          <span class="pn-wt-mode__box">✓</span>
+          <span class="pn-wt-mode__name"><%= t("walkthrough.ui.mode_living") %></span>
+          <span class="pn-wt-mode__tag"><%= t("walkthrough.ui.mode_living_tag") %></span>
+        </div>
+        <% %w[gender cosmetic regional].each do |mode| %>
+          <div class="pn-wt-mode">
+            <span class="pn-wt-mode__box"></span>
+            <span class="pn-wt-mode__name"><%= t("walkthrough.ui.mode_#{mode}") %></span>
+            <span class="pn-wt-mode__tag pn-wt-mode__tag--none"><%= t("walkthrough.ui.mode_none_tag") %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.route_eyebrow", count: @game.legs.size) %></div>
+  <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.route.h2") %></h2>
+  <p class="pn-wt-lead"><%= t("#{Walkthrough::Yellow::K}.route.lead") %></p>
+
+  <div class="pn-wt-steps">
+    <% @game.legs.each do |leg| %>
+      <%= render "leg_stop", leg: leg, game: @game %>
+    <% end %>
+  </div>
+</section>
+
+<section class="pn-wt-oak-sum">
+  <div class="pn-wt-oak-sum__inner">
+    <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("#{Walkthrough::Yellow::K}.oak_sum.eyebrow") %></div>
+    <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.oak_sum.h2") %></h2>
+    <div class="pn-wt-oak-sum__grid">
+      <div class="pn-wt-rules">
+        <div class="pn-wt-rules__title"><%= t("walkthrough.ui.how_we_count") %></div>
+        <ul class="pn-wt-rules__list">
+          <li><%= t("walkthrough.ui.count1_html") %></li>
+          <li><%= t("walkthrough.ui.count2_html") %></li>
+          <li><%= t("walkthrough.ui.count3_html") %></li>
+        </ul>
+      </div>
+      <div class="pn-wt-queue">
+        <div class="pn-wt-queue__title"><%= t("walkthrough.ui.catch_now_queue") %></div>
+        <div class="pn-wt-queue__list">
+          <% @game.oak_queue.each do |entry| %>
+            <div class="pn-wt-queue__item">
+              <span class="pn-wt-queue__sprite"><%= image_tag "pokemon/yellow/#{entry.dex}.png", alt: "" %></span>
+              <span class="pn-wt-queue__name"><%= entry.name %></span>
+              <span class="pn-wt-queue__why"><%= t(entry.why_key) %></span>
+              <span class="pn-wt-qty">×<%= entry.qty %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

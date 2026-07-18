@@ -5,8 +5,8 @@ import CitySelectorController from "../../app/javascript/controllers/city_select
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const CITIES = [
-  { name: "PALLET TOWN", total: 1, oak: 1, dex: 1, new_mons: [ { name: "Bulbasaur", sprite: "/assets/pokemon/001.png" } ] },
-  { name: "ROUTE 1", total: 3, oak: 3, dex: 5, new_mons: [ { name: "Pidgey", sprite: "/assets/pokemon/016.png" }, { name: "Rattata", sprite: "/assets/pokemon/019.png" } ] },
+  { name: "PALLET TOWN", total: 1, oak: 1, dex: 1, new_mons: [ { name: "Bulbasaur", sprite: "/assets/pokemon/yellow/001.png" } ] },
+  { name: "ROUTE 1", total: 3, oak: 3, dex: 5, new_mons: [ { name: "Pidgey", sprite: "/assets/pokemon/yellow/016.png" }, { name: "Rattata", sprite: "/assets/pokemon/yellow/019.png" } ] },
 ];
 
 let application;
@@ -66,7 +66,7 @@ describe("city_selector_controller", () => {
     const thumb = pill.firstElementChild;
     expect(thumb.className).toBe("pn-mon__thumb");
     expect(thumb.firstElementChild.tagName).toBe("IMG");
-    expect(thumb.firstElementChild.getAttribute("src")).toBe("/assets/pokemon/016.png");
+    expect(thumb.firstElementChild.getAttribute("src")).toBe("/assets/pokemon/yellow/016.png");
     expect(pill.textContent).toBe("Pidgey");
   });
 

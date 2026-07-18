@@ -1,0 +1,96 @@
+<% content_for :title, t("walkthrough.ui.title_location", name: @location.name, game: @game.name) %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_crumb do %>
+  <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
+  <span class="pn-nav__crumb-sep">/</span>
+  <span class="pn-nav__crumb-here"><%= @location.name.upcase %></span>
+<% end %>
+
+<section class="pn-wt-section pn-wt-loc">
+  <div class="pn-wt-loc__tags">
+    <%= link_to t("walkthrough.ui.back"), walkthrough_path(game: @game.slug), class: "pn-wt-back" %>
+    <span class="pn-wt-tag"><%= t("walkthrough.ui.stop", n: format("%02d", @location.order), kind: @location.kind) %></span>
+    <span class="pn-wt-tag pn-wt-tag--mode"><%= t("walkthrough.ui.mode_tag") %></span>
+  </div>
+  <h1 class="pn-wt-loc__title"><%= accent_last(@location.name) %></h1>
+  <p class="pn-wt-loc__lead"><%= t(@location.intro_key) %></p>
+</section>
+
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("walkthrough.ui.steps_h2") %></h2>
+  <div class="pn-wt-steps">
+    <% @location.steps.each do |step| %>
+      <%= render "step", step: step %>
+    <% end %>
+  </div>
+</section>
+
+<% if @location.encounters.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-wt-catch__head">
+      <div>
+        <div class="pn-eyebrow-label"><%= t("walkthrough.ui.catch_eyebrow", count: @location.encounters.size) %></div>
+        <h2 class="pn-h2"><%= t("walkthrough.ui.catch_h2") %></h2>
+        <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.catch_hint") %></div>
+      </div>
+      <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: @location.catchable_count) %></div>
+    </div>
+    <div class="pn-wt-catch-grid">
+      <% @location.encounters.each do |enc| %>
+        <%= render "catch_card", enc: enc %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if @location.oak_queue.any? %>
+  <% obtainable = @game.obtainable_upto_leg(@leg).size %>
+  <section class="pn-wt-oak">
+    <div class="pn-wt-oak__inner">
+      <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.oak_eyebrow") %></div>
+      <h2 class="pn-h2"><%= t("walkthrough.ui.oak_h2") %></h2>
+      <div class="pn-wt-oak__grid">
+        <div class="pn-wt-oak__counter">
+          <div class="pn-wt-oak__caption"><%= t("walkthrough.ui.oak_obtainable") %></div>
+          <div class="pn-wt-oak__total"><%= obtainable %></div>
+          <div class="pn-wt-oak__cards">
+            <div class="pn-wt-oak__sub pn-wt-oak__sub--reg">
+              <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_registered") %></div>
+              <div class="pn-wt-oak__sub-num">0</div>
+            </div>
+            <div class="pn-wt-oak__sub">
+              <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_needed") %></div>
+              <div class="pn-wt-oak__sub-num pn-wt-oak__sub-num--need"><%= obtainable %></div>
+            </div>
+          </div>
+          <div class="pn-wt-oak__note"><%= t("walkthrough.ui.oak_note") %></div>
+        </div>
+        <div class="pn-wt-oak__list-card">
+          <div class="pn-wt-oak__list-title"><%= t("walkthrough.ui.catch_queue") %></div>
+          <div class="pn-wt-oak__list">
+            <% @location.oak_queue.each do |entry| %>
+              <%= render "oak_row", entry: entry %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @location.trainers.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: @location.trainers.size) %></div>
+    <h2 class="pn-h2"><%= t("walkthrough.ui.trainers_h2") %></h2>
+    <div class="pn-wt-trainers">
+      <% @location.trainers.each do |trainer| %>
+        <%= render "trainer", trainer: trainer %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<%= render "leg_nav", game: @game, leg: @leg %>

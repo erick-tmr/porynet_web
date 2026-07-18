@@ -1,0 +1,49 @@
+<header class="pn-nav">
+  <div class="pn-nav__bar">
+    <%= link_to root_path, class: "pn-nav__brand" do %>
+      <span class="pn-logo-tile">
+        <span class="pn-logo-tile__grid"></span>
+        <%= image_tag "porygon-pixel.png", alt: "", class: "pn-logo-tile__img" %>
+      </span>
+      <span class="pn-wordmark">PORYNET</span>
+    <% end %>
+    <nav class="pn-nav__links">
+      <span class="pn-nav__menu">
+        <%= link_to t("pages.home.nav.home"), root_path,
+                    class: class_names("pn-nav__link", "is-active" => controller_name == "pages") %>
+        <%= link_to t("pages.home.nav.walkthroughs"), walkthrough_path(game: "yellow"),
+                    class: class_names("pn-nav__link", "is-active" => controller_name == "walkthroughs") %>
+        <%= link_to t("pages.home.nav.tracker"), root_path(anchor: "tracker"), class: "pn-nav__link" %>
+      </span>
+      <span class="pn-nav__actions">
+        <% if content_for?(:nav_crumb) %>
+          <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
+        <% end %>
+        <span class="pn-nav__lang-wrap">
+          <%= link_to t("pages.home.nav.lang_toggle"),
+                      url_for(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
+                      class: "pn-nav__lang", title: t("pages.home.nav.lang_title") %>
+          <% if controller_name == "pages" %>
+            <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
+              <span class="pn-lang-hint__pory">
+                <span class="pn-lang-hint__grid"></span>
+                <%= image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
+              </span>
+              <span class="pn-lang-hint__bubble">
+                <span class="pn-lang-hint__tail"></span>
+                <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
+                <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
+              </span>
+            </span>
+          <% end %>
+        </span>
+        <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
+      </span>
+    </nav>
+  </div>
+  <% if content_for?(:nav_marquee) %>
+    <div class="pn-marquee">
+      <div class="pn-marquee__track"><%= yield :nav_marquee %></div>
+    </div>
+  <% end %>
+</header>

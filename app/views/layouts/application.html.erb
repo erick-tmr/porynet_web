@@ -12,6 +12,7 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%= stylesheet_link_tag "base/fonts", "base/tokens", "base/base", "base/animations",
+                            "components/layout", "components/nav", "components/footer",
                             "components/sticker", "components/button", "components/chip",
                             "components/marquee", "components/neon-tile", "components/box-grid",
                             "data-turbo-track": "reload" %>
@@ -20,6 +21,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="porynet" data-play="running">
+      <div class="pn-crt" aria-hidden="true"></div>
+      <%= render "shared/nav" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
+    </div>
   </body>
 </html>

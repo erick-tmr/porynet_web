@@ -1,0 +1,18 @@
+<section class="pn-wt-section">
+  <div class="pn-wt-nav">
+    <% before = game.leg_before(leg) %>
+    <% after = game.leg_after(leg) %>
+    <% if before %>
+      <%= link_to walkthrough_leg_path(game: game.slug, leg: before.slug), class: "pn-wt-nav__link" do %>
+        <div class="pn-wt-nav__dir"><%= t("walkthrough.ui.previous") %></div>
+        <div class="pn-wt-nav__where"><%= leg_title(before) %></div>
+      <% end %>
+    <% end %>
+    <% if after %>
+      <%= link_to walkthrough_leg_path(game: game.slug, leg: after.slug), class: "pn-wt-nav__link pn-wt-nav__link--next" do %>
+        <div class="pn-wt-nav__dir"><%= t("walkthrough.ui.next") %></div>
+        <div class="pn-wt-nav__where"><%= leg_title(after) %></div>
+      <% end %>
+    <% end %>
+  </div>
+</section>

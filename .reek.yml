@@ -19,9 +19,32 @@ detectors:
       - LandingData       # single source of truth for the page's demo content;
                           # each constant is a distinct cohesive section, not a
                           # god object.
+      - Walkthrough::Yellow   # data source: dex names, leg defs, sprite maps —
+                              # each a distinct lookup table, not a god object.
   UncommunicativeVariableName:
     accept:
       - i                 # plain loop index in the grid/box builders
+      - l                 # plain element var in the legs/locations finders
+    exclude:
+      - Walkthrough::Yellow   # see the data-builder note below
+  # Walkthrough::Yellow is a pure data source (like LandingData): terse builders
+  # whose positional args map 1:1 to Data struct fields, named for the game's own
+  # routes (route_1/2/22) and steps (n). Not real smells in a data-entry DSL.
+  LongParameterList:
+    exclude:
+      - Walkthrough::Yellow
+  BooleanParameter:
+    exclude:
+      - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder
+  ControlParameter:
+    exclude:
+      - Walkthrough::Yellow
+  UncommunicativeMethodName:
+    exclude:
+      - Walkthrough::Yellow
+  UncommunicativeParameterName:
+    exclude:
+      - Walkthrough::Yellow
   UtilityFunction:
     enabled: false        # stateless helpers/mappers are normal in Rails
   FeatureEnvy:

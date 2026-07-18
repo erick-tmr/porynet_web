@@ -47,3 +47,13 @@
   0%, 100% { transform: rotate(-45deg) translateY(0); opacity: 0.85; }
   50% { transform: rotate(-45deg) translateY(-3px); opacity: 1; }
 }
+
+@keyframes pinpulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.14); }
+}
+
+@keyframes ring {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}

@@ -1,0 +1,106 @@
+<% leg_label = @leg.slug.tr("-", " ").upcase %>
+<% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_crumb do %>
+  <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
+  <span class="pn-nav__crumb-sep">/</span>
+  <span class="pn-nav__crumb-here"><%= leg_label %></span>
+<% end %>
+
+<section class="pn-wt-section pn-wt-loc">
+  <div class="pn-wt-loc__tags">
+    <%= link_to t("walkthrough.ui.back"), walkthrough_path(game: @game.slug), class: "pn-wt-back" %>
+    <span class="pn-wt-tag"><%= t("walkthrough.ui.leg_tag", label: leg_label, count: @leg.locations.size) %></span>
+    <span class="pn-wt-tag pn-wt-tag--mode"><%= t("walkthrough.ui.mode_tag") %></span>
+  </div>
+  <h1 class="pn-wt-loc__title">
+    <% if @leg.single? %>
+      <%= accent_last(@leg.from) %>
+    <% else %>
+      <%= @leg.from %> <span class="pn-accent">→ <%= @leg.to %></span>
+    <% end %>
+  </h1>
+  <p class="pn-wt-loc__lead"><%= t(@leg.lead_key) %></p>
+
+  <div class="pn-wt-legstats">
+    <div class="pn-wt-legstat pn-wt-legstat--dark">
+      <div class="pn-wt-legstat__label"><%= t("walkthrough.ui.leg_stops") %></div>
+      <div class="pn-wt-legstat__num"><%= @leg.locations.size %></div>
+    </div>
+    <div class="pn-wt-legstat">
+      <div class="pn-wt-legstat__label"><%= t("walkthrough.ui.leg_catchable") %></div>
+      <div class="pn-wt-legstat__num"><%= @leg.catch_count %></div>
+    </div>
+    <div class="pn-wt-legstat">
+      <div class="pn-wt-legstat__label"><%= t("walkthrough.ui.leg_new") %></div>
+      <div class="pn-wt-legstat__num pn-wt-legstat__num--accent"><%= @game.new_dex_for_leg(@leg).size %></div>
+    </div>
+    <div class="pn-wt-legstat pn-wt-legstat--cyan">
+      <div class="pn-wt-legstat__label"><%= t("walkthrough.ui.leg_obtainable") %></div>
+      <div class="pn-wt-legstat__num"><%= @game.obtainable_upto_leg(@leg).size %></div>
+    </div>
+  </div>
+</section>
+
+<% if @leg.single? %>
+  <%= render "band", loc: @leg.locations.first %>
+<% else %>
+  <div data-controller="leg-switcher">
+    <div class="pn-wt-switchbar">
+      <div class="pn-wt-switchbar__inner">
+        <span class="pn-wt-switchbar__label"><%= t("walkthrough.ui.jump_to") %></span>
+        <div class="pn-wt-switchbar__chips">
+          <% @leg.locations.each do |loc| %>
+            <button type="button" class="pn-wt-chip" data-leg-switcher-target="chip" data-slug="<%= loc.slug %>" data-action="leg-switcher#jump">
+              <span class="pn-wt-chip__no"><%= format("%02d", loc.order) %></span>
+              <span class="pn-wt-chip__kind"><%= loc.kind %></span>
+              <%= loc.name %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% @leg.locations.each do |loc| %>
+      <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-slug="<%= loc.slug %>">
+        <%= render "band", loc: loc %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<section class="pn-wt-oak">
+  <div class="pn-wt-oak__inner">
+    <% obtainable = @game.obtainable_upto_leg(@leg).size %>
+    <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.leg_oak_eyebrow") %></div>
+    <h2 class="pn-h2"><%= t("walkthrough.ui.leg_oak_h2") %></h2>
+    <div class="pn-wt-oak__grid">
+      <div class="pn-wt-oak__counter">
+        <div class="pn-wt-oak__caption"><%= t("walkthrough.ui.oak_obtainable") %></div>
+        <div class="pn-wt-oak__total"><%= obtainable %></div>
+        <div class="pn-wt-oak__cards">
+          <div class="pn-wt-oak__sub pn-wt-oak__sub--reg">
+            <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_registered") %></div>
+            <div class="pn-wt-oak__sub-num">0</div>
+          </div>
+          <div class="pn-wt-oak__sub">
+            <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_needed") %></div>
+            <div class="pn-wt-oak__sub-num pn-wt-oak__sub-num--need"><%= obtainable %></div>
+          </div>
+        </div>
+        <div class="pn-wt-oak__note"><%= t("walkthrough.ui.oak_note") %></div>
+      </div>
+      <div class="pn-wt-oak__list-card">
+        <div class="pn-wt-oak__list-title"><%= t("walkthrough.ui.catch_queue_leg") %></div>
+        <div class="pn-wt-oak__list">
+          <% @leg.oak_queue.each do |entry| %>
+            <%= render "oak_row", entry: entry %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "leg_nav", game: @game, leg: @leg %>

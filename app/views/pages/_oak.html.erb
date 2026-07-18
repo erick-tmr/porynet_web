@@ -1,6 +1,6 @@
 <% active = @cities[@city_index] %>
 <% oak_cities = @cities.map do |city|
-     city.to_h.merge(new_mons: city.new_mons.map { |mon| { name: mon[:name], sprite: image_path("pokemon/#{mon[:dex]}.png") } })
+     city.to_h.merge(new_mons: city.new_mons.map { |mon| { name: mon[:name], sprite: image_path("pokemon/yellow/#{mon[:dex]}.png") } })
    end %>
 <section id="oak" class="pn-oak">
   <div class="pn-oak__inner"
@@ -60,7 +60,7 @@
         <div class="pn-oak-new__title"><%= t("pages.home.oak.new_route") %></div>
         <div class="pn-oak-new__mons" data-city-selector-target="newMons">
           <% active.new_mons.each do |mon| %>
-            <span class="pn-mon"><span class="pn-mon__thumb"><%= image_tag "pokemon/#{mon[:dex]}.png", alt: "" %></span><%= mon[:name] %></span>
+            <span class="pn-mon"><span class="pn-mon__thumb"><%= image_tag "pokemon/yellow/#{mon[:dex]}.png", alt: "" %></span><%= mon[:name] %></span>
           <% end %>
         </div>
         <div class="pn-oak-rules">
