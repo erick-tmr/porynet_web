@@ -55,6 +55,11 @@ group :development, :test do
 
   # Code-smell detector; runs advisory on changed files in CI [https://github.com/troessner/reek]
   gem "reek", "~> 6.5", require: false
+
+  # S3-compatible client for uploading static images to the Cloudflare R2 bucket
+  # (deploy/upload-images.sh). Serving R2 public URLs needs no SDK; only uploads do, so
+  # it stays out of production. Lazy-required in Assets::R2Uploader.client.
+  gem "aws-sdk-s3", "~> 1.228", require: false
 end
 
 group :development do

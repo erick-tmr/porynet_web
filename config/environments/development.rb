@@ -31,6 +31,12 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  # Serve static images from the Cloudflare R2 dev bucket (see ApplicationHelper#r2_image_tag).
+  # Bucket + endpoint are read by deploy/upload-images.sh; keys live in dev credentials.
+  config.x.r2_public_host = "https://pub-d1bb3d05858e4a1b8c72bf26884c91c9.r2.dev"
+  config.x.r2_bucket = "porynet-dev"
+  config.x.r2_endpoint = "https://ebd6066b8c5c56f2942edd6b4267b706.r2.cloudflarestorage.com"
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

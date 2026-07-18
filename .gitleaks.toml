@@ -8,8 +8,15 @@ useDefault = true
 description = "Committed-by-design placeholders are not real secrets"
 # .env.example ships intentionally and only holds local placeholder values
 # (e.g. DATABASE_PASSWORD=porynet_web). The real .env is gitignored.
+#
+# Rails encrypted credentials ship committed by design: they are ciphertext, and
+# the plaintext is only recoverable with the master key (config/*.key,
+# config/credentials/*.key), which is gitignored. The base64 blob trips the
+# generic-api-key rule, so allowlist the encrypted files (not the keys).
 paths = [
   '''(^|/)\.env\.example$''',
+  '''(^|/)config/credentials\.yml\.enc$''',
+  '''(^|/)config/credentials/[^/]+\.yml\.enc$''',
 ]
 regexes = [
   '''porynet_web''',

@@ -10,4 +10,12 @@ module ApplicationHelper
   def leg_title(leg)
     leg.single? ? leg.from : "#{leg.from} → #{leg.to}"
   end
+
+  def r2_asset_url(path)
+    "#{Rails.application.config.x.r2_public_host}/#{path}"
+  end
+
+  def r2_image_tag(path, **options)
+    image_tag(r2_asset_url(path), **options)
+  end
 end
