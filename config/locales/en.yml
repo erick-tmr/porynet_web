@@ -257,7 +257,7 @@ en:
               text: "Blue grabs an Eevee and battles you in the lab. It is Lv 5 with Tackle and Tail Whip; lead with Pikachu and use ThunderShock. Win for ₽175."
             "4":
               title: "Head north to Route 1"
-              text: "Leave Pallet by the north exit onto Route 1. Once you have the Pokédex, come back for the Town Map from Blue's sister Daisy, in the house just east of your own."
+              text: "Leave Pallet by the north exit onto Route 1, and press on toward Viridian City."
           tips:
             pikachu: "Your forced partner and the only Pikachu in the game. It refuses the Thunder Stone, so it stays Pikachu."
         route_1:
@@ -289,9 +289,14 @@ en:
               title: "Deliver Oak's Parcel"
               text: "Take the Parcel south to Oak's lab in Pallet Town. He gives you the Pokédex, then walk back up to Viridian."
             "3":
+              title: "Grab the Town Map"
+              text: "While you are in Pallet for the Pokédex, step into Blue's house next door. His sister Daisy stands by the table; talk to her and she hands you the Town Map, which lays out every route and town in Kanto."
+              items:
+                town_map: "From Blue's sister Daisy, in the house just east of your own in Pallet Town."
+            "4":
               title: "Watch the catching demo, then stock up"
               text: "The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go."
-            "4":
+            "5":
               title: "Head to Route 2"
               text: "The Viridian Gym stays locked until you hold the other seven badges, so skip it and take the north exit onto Route 2."
         route_22:

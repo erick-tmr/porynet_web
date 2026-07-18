@@ -257,7 +257,7 @@ pt:
               text: "O Blue pega um Eevee e te enfrenta no laboratório. Ele é Nv 5 com Tackle e Tail Whip; lidere com o Pikachu e use ThunderShock. Vença por ₽175."
             "4":
               title: "Siga ao norte para a Rota 1"
-              text: "Saia de Pallet pela saída norte para a Rota 1. Quando tiver a Pokédex, volte para pegar o Town Map com a Daisy, irmã do Blue, na casa logo a leste da sua."
+              text: "Saia de Pallet pela saída norte para a Rota 1, seguindo rumo a Viridian City."
           tips:
             pikachu: "Seu parceiro obrigatório e o único Pikachu do jogo. Ele recusa a Thunder Stone, então continua Pikachu."
         route_1:
@@ -289,9 +289,14 @@ pt:
               title: "Entregue o Oak's Parcel"
               text: "Leve o Parcel ao sul, ao laboratório do Oak em Pallet Town. Ele te dá a Pokédex; depois volte a pé para Viridian."
             "3":
+              title: "Pegue o Town Map"
+              text: "Enquanto está em Pallet pela Pokédex, entre na casa do Blue ao lado. A irmã dele, a Daisy, está perto da mesa; fale com ela e ela te dá o Town Map, que mostra cada rota e cidade de Kanto."
+              items:
+                town_map: "Com a Daisy, irmã do Blue, na casa logo a leste da sua em Pallet Town."
+            "4":
               title: "Veja a demonstração de captura e abasteça"
               text: "O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
-            "4":
+            "5":
               title: "Siga para a Rota 2"
               text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele e pegue a saída norte para a Rota 2."
         route_22:

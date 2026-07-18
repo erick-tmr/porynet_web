@@ -207,8 +207,9 @@ module Walkthrough
         steps: [
           step(b, 1, shot: shot("STEP 1")),
           step(b, 2),
-          step(b, 3),
-          step(b, 4)
+          step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ], shot: shot("STEP 3")),
+          step(b, 4),
+          step(b, 5)
         ],
         encounters: [], trainers: [], oak_queue: []
       )
