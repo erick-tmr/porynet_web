@@ -78,7 +78,7 @@
           <div class="pn-wt-gym__mons">
             <% gym.leader.team.each do |member| %>
               <div class="pn-wt-gym__mon">
-                <span class="pn-wt-gym__mon-sprite"><%= image_tag "pokemon/#{member[:dex]}.png", alt: "" %></span>
+                <span class="pn-wt-gym__mon-sprite"><%= image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
                 <div class="pn-wt-gym__mon-name"><%= member[:name] %></div>
                 <div class="pn-wt-gym__mon-lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>
               </div>

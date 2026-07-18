@@ -87,7 +87,7 @@
         <div class="pn-wt-queue__list">
           <% @game.oak_queue.each do |entry| %>
             <div class="pn-wt-queue__item">
-              <span class="pn-wt-queue__sprite"><%= image_tag "pokemon/#{entry.dex}.png", alt: "" %></span>
+              <span class="pn-wt-queue__sprite"><%= image_tag "pokemon/yellow/#{entry.dex}.png", alt: "" %></span>
               <span class="pn-wt-queue__name"><%= entry.name %></span>
               <span class="pn-wt-queue__why"><%= t(entry.why_key) %></span>
               <span class="pn-wt-qty">×<%= entry.qty %></span>
