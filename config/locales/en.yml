@@ -285,9 +285,11 @@ en:
             "1":
               title: "Heal and collect Oak's Parcel"
               text: "Heal at the Poké Center in the top-left, then step into the Mart just northeast of it. The clerk hands you Oak's Parcel to carry back. The north exit is blocked by a dozing old man for now."
+              items:
+                oaks_parcel: "From the clerk in the Viridian Mart; deliver it to Oak in Pallet Town."
             "2":
               title: "Deliver Oak's Parcel"
-              text: "Take the Parcel south to Oak's lab in Pallet Town. He gives you the Pokédex, then walk back up to Viridian."
+              text: "Take the Parcel south to Oak's lab in Pallet Town, where he gives you the Pokédex."
             "3":
               title: "Grab the Town Map"
               text: "While you are in Pallet for the Pokédex, step into Blue's house next door. His sister Daisy stands by the table; talk to her and she hands you the Town Map, which lays out every route and town in Kanto."
@@ -295,7 +297,7 @@ en:
                 town_map: "From Blue's sister Daisy, in the house just east of your own in Pallet Town."
             "4":
               title: "Watch the catching demo, then stock up"
-              text: "The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go."
+              text: "Head back up to Viridian. The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go."
             "5":
               title: "Head to Route 2"
               text: "The Viridian Gym stays locked until you hold the other seven badges, so skip it and take the north exit onto Route 2."

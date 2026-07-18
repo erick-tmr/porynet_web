@@ -285,9 +285,11 @@ pt:
             "1":
               title: "Cure e pegue o Oak's Parcel"
               text: "Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te entrega o Oak's Parcel para levar de volta. A saída norte fica bloqueada por um velho sonolento por ora."
+              items:
+                oaks_parcel: "Com o atendente da loja em Viridian; entregue ao Oak em Pallet Town."
             "2":
               title: "Entregue o Oak's Parcel"
-              text: "Leve o Parcel ao sul, ao laboratório do Oak em Pallet Town. Ele te dá a Pokédex; depois volte a pé para Viridian."
+              text: "Leve o Parcel ao sul, ao laboratório do Oak em Pallet Town, onde ele te dá a Pokédex."
             "3":
               title: "Pegue o Town Map"
               text: "Enquanto está em Pallet pela Pokédex, entre na casa do Blue ao lado. A irmã dele, a Daisy, está perto da mesa; fale com ela e ela te dá o Town Map, que mostra cada rota e cidade de Kanto."
@@ -295,7 +297,7 @@ pt:
                 town_map: "Com a Daisy, irmã do Blue, na casa logo a leste da sua em Pallet Town."
             "4":
               title: "Veja a demonstração de captura e abasteça"
-              text: "O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
+              text: "Volte a pé para Viridian. O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
             "5":
               title: "Siga para a Rota 2"
               text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele e pegue a saída norte para a Rota 2."

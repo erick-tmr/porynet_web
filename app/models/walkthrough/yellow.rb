@@ -205,7 +205,7 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ], shot: shot("STEP 1")),
           step(b, 2),
           step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ], shot: shot("STEP 3")),
           step(b, 4),
@@ -906,7 +906,7 @@ module Walkthrough
         items: items, hidden: hidden, shot: shot)
     end
 
-    ITEM_SPRITES = { "TM34 Bide" => "tm-normal" }.freeze
+    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel" }.freeze
 
     def self.item_sprite(name)
       ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
