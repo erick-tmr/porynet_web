@@ -139,6 +139,7 @@ en:
       steps_after_h2: "Where to go next"
       item_kind: "· ITEM"
       hidden_item: "HIDDEN ITEM"
+      map_eyebrow: "AREA MAP · HIDDEN ITEMS"
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
       catch_h2: "What you can catch here"

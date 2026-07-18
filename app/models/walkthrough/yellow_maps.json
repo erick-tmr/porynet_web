@@ -1,0 +1,1095 @@
+{
+  "source": "pret/pokeyellow",
+  "locations": {
+    "celadon-city": [
+      {
+        "image": "walkthrough/yellow/maps/celadon-city.png",
+        "width": 800,
+        "height": 576,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.97,
+            "y_pct": 0.43056,
+            "kind": "item",
+            "label": "PP Up"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/celadon-city-gym.png",
+        "width": 160,
+        "height": 288,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "cerulean-cave": [
+      {
+        "image": "walkthrough/yellow/maps/cerulean-cave-1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "1F",
+        "markers": [
+          {
+            "x_pct": 0.61667,
+            "y_pct": 0.41667,
+            "kind": "item",
+            "label": "PP Up"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/cerulean-cave-2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "2F",
+        "markers": [
+          {
+            "x_pct": 0.55,
+            "y_pct": 0.75,
+            "kind": "item",
+            "label": "PP Up"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/cerulean-cave-b1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B1F",
+        "markers": [
+          {
+            "x_pct": 0.28333,
+            "y_pct": 0.80556,
+            "kind": "item",
+            "label": "PP Up"
+          }
+        ]
+      }
+    ],
+    "cerulean-city": [
+      {
+        "image": "walkthrough/yellow/maps/cerulean-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.3875,
+            "y_pct": 0.23611,
+            "kind": "item",
+            "label": "Rare Candy"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/cerulean-city-gym.png",
+        "width": 160,
+        "height": 224,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "cinnabar-island": [
+      {
+        "image": "walkthrough/yellow/maps/cinnabar-island.png",
+        "width": 320,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/cinnabar-island-gym.png",
+        "width": 320,
+        "height": 288,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "digletts-cave": [
+      {
+        "image": "walkthrough/yellow/maps/digletts-cave.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "fuchsia-city": [
+      {
+        "image": "walkthrough/yellow/maps/fuchsia-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/fuchsia-city-gym.png",
+        "width": 160,
+        "height": 288,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "indigo-plateau": [
+      {
+        "image": "walkthrough/yellow/maps/indigo-plateau.png",
+        "width": 320,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "lavender-town": [
+      {
+        "image": "walkthrough/yellow/maps/lavender-town.png",
+        "width": 320,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "mt-moon": [
+      {
+        "image": "walkthrough/yellow/maps/mt-moon-1f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/mt-moon-b1f.png",
+        "width": 448,
+        "height": 448,
+        "floor": "B1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/mt-moon-b2f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "B2F",
+        "markers": [
+          {
+            "x_pct": 0.4625,
+            "y_pct": 0.34722,
+            "kind": "item",
+            "label": "Moon Stone"
+          },
+          {
+            "x_pct": 0.8375,
+            "y_pct": 0.26389,
+            "kind": "item",
+            "label": "Ether"
+          }
+        ]
+      }
+    ],
+    "pallet-town": [
+      {
+        "image": "walkthrough/yellow/maps/pallet-town.png",
+        "width": 320,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "pewter-city": [
+      {
+        "image": "walkthrough/yellow/maps/pewter-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pewter-city-gym.png",
+        "width": 160,
+        "height": 224,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "pokemon-mansion": [
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-1f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "1F",
+        "markers": [
+          {
+            "x_pct": 0.28333,
+            "y_pct": 0.58929,
+            "kind": "item",
+            "label": "Moon Stone"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-2f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "2F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "3F",
+        "markers": [
+          {
+            "x_pct": 0.05,
+            "y_pct": 0.52778,
+            "kind": "item",
+            "label": "Max Revive"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-b1f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B1F",
+        "markers": [
+          {
+            "x_pct": 0.05,
+            "y_pct": 0.33929,
+            "kind": "item",
+            "label": "Rare Candy"
+          }
+        ]
+      }
+    ],
+    "pokemon-tower": [
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-1f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-2f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "2F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-3f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "3F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-4f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "4F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-5f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "5F",
+        "markers": [
+          {
+            "x_pct": 0.225,
+            "y_pct": 0.69444,
+            "kind": "item",
+            "label": "Elixir"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-6f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "6F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-7f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "7F",
+        "markers": []
+      }
+    ],
+    "power-plant": [
+      {
+        "image": "walkthrough/yellow/maps/power-plant.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.4375,
+            "y_pct": 0.45833,
+            "kind": "item",
+            "label": "Max Elixir"
+          },
+          {
+            "x_pct": 0.3125,
+            "y_pct": 0.04167,
+            "kind": "item",
+            "label": "PP Up"
+          }
+        ]
+      }
+    ],
+    "rock-tunnel": [
+      {
+        "image": "walkthrough/yellow/maps/rock-tunnel-1f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/rock-tunnel-b1f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "B1F",
+        "markers": []
+      }
+    ],
+    "rocket-hideout": [
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b1f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B1F",
+        "markers": [
+          {
+            "x_pct": 0.71667,
+            "y_pct": 0.55357,
+            "kind": "item",
+            "label": "PP Up"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b2f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B2F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b3f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B3F",
+        "markers": [
+          {
+            "x_pct": 0.91667,
+            "y_pct": 0.625,
+            "kind": "item",
+            "label": "Nugget"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b4f.png",
+        "width": 480,
+        "height": 384,
+        "floor": "B4F",
+        "markers": [
+          {
+            "x_pct": 0.85,
+            "y_pct": 0.0625,
+            "kind": "item",
+            "label": "Super Potion"
+          }
+        ]
+      }
+    ],
+    "route-1": [
+      {
+        "image": "walkthrough/yellow/maps/route-1.png",
+        "width": 320,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-10": [
+      {
+        "image": "walkthrough/yellow/maps/route-10.png",
+        "width": 320,
+        "height": 1152,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.475,
+            "y_pct": 0.24306,
+            "kind": "item",
+            "label": "Super Potion"
+          },
+          {
+            "x_pct": 0.825,
+            "y_pct": 0.74306,
+            "kind": "item",
+            "label": "Max Ether"
+          }
+        ]
+      }
+    ],
+    "route-11": [
+      {
+        "image": "walkthrough/yellow/maps/route-11.png",
+        "width": 960,
+        "height": 288,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.80833,
+            "y_pct": 0.30556,
+            "kind": "item",
+            "label": "Escape Rope"
+          }
+        ]
+      }
+    ],
+    "route-12": [
+      {
+        "image": "walkthrough/yellow/maps/route-12.png",
+        "width": 320,
+        "height": 1728,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.125,
+            "y_pct": 0.58796,
+            "kind": "item",
+            "label": "Hyper Potion"
+          }
+        ]
+      }
+    ],
+    "route-13": [
+      {
+        "image": "walkthrough/yellow/maps/route-13.png",
+        "width": 960,
+        "height": 288,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.025,
+            "y_pct": 0.80556,
+            "kind": "item",
+            "label": "PP Up"
+          },
+          {
+            "x_pct": 0.275,
+            "y_pct": 0.75,
+            "kind": "item",
+            "label": "Calcium"
+          }
+        ]
+      }
+    ],
+    "route-14": [
+      {
+        "image": "walkthrough/yellow/maps/route-14.png",
+        "width": 320,
+        "height": 864,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-15": [
+      {
+        "image": "walkthrough/yellow/maps/route-15.png",
+        "width": 960,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-16": [
+      {
+        "image": "walkthrough/yellow/maps/route-16.png",
+        "width": 640,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-17": [
+      {
+        "image": "walkthrough/yellow/maps/route-17.png",
+        "width": 320,
+        "height": 2304,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.775,
+            "y_pct": 0.10069,
+            "kind": "item",
+            "label": "Rare Candy"
+          },
+          {
+            "x_pct": 0.425,
+            "y_pct": 0.31597,
+            "kind": "item",
+            "label": "Full Restore"
+          },
+          {
+            "x_pct": 0.875,
+            "y_pct": 0.50347,
+            "kind": "item",
+            "label": "PP Up"
+          },
+          {
+            "x_pct": 0.225,
+            "y_pct": 0.63542,
+            "kind": "item",
+            "label": "Max Revive"
+          },
+          {
+            "x_pct": 0.425,
+            "y_pct": 0.84375,
+            "kind": "item",
+            "label": "Max Elixir"
+          }
+        ]
+      }
+    ],
+    "route-18": [
+      {
+        "image": "walkthrough/yellow/maps/route-18.png",
+        "width": 800,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-19": [
+      {
+        "image": "walkthrough/yellow/maps/route-19.png",
+        "width": 320,
+        "height": 864,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-2": [
+      {
+        "image": "walkthrough/yellow/maps/route-2.png",
+        "width": 320,
+        "height": 1152,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-20": [
+      {
+        "image": "walkthrough/yellow/maps/route-20.png",
+        "width": 1600,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-21": [
+      {
+        "image": "walkthrough/yellow/maps/route-21.png",
+        "width": 320,
+        "height": 1440,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-22": [
+      {
+        "image": "walkthrough/yellow/maps/route-22.png",
+        "width": 640,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-23": [
+      {
+        "image": "walkthrough/yellow/maps/route-23.png",
+        "width": 320,
+        "height": 2304,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.475,
+            "y_pct": 0.30903,
+            "kind": "item",
+            "label": "Full Restore"
+          },
+          {
+            "x_pct": 0.975,
+            "y_pct": 0.48958,
+            "kind": "item",
+            "label": "Ultra Ball"
+          },
+          {
+            "x_pct": 0.425,
+            "y_pct": 0.62847,
+            "kind": "item",
+            "label": "Max Ether"
+          }
+        ]
+      }
+    ],
+    "route-24": [
+      {
+        "image": "walkthrough/yellow/maps/route-24.png",
+        "width": 320,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-25": [
+      {
+        "image": "walkthrough/yellow/maps/route-25.png",
+        "width": 960,
+        "height": 288,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.64167,
+            "y_pct": 0.19444,
+            "kind": "item",
+            "label": "Ether"
+          },
+          {
+            "x_pct": 0.175,
+            "y_pct": 0.08333,
+            "kind": "item",
+            "label": "Elixir"
+          }
+        ]
+      }
+    ],
+    "route-3": [
+      {
+        "image": "walkthrough/yellow/maps/route-3.png",
+        "width": 1120,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-4": [
+      {
+        "image": "walkthrough/yellow/maps/route-4.png",
+        "width": 1440,
+        "height": 288,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.45,
+            "y_pct": 0.19444,
+            "kind": "item",
+            "label": "Great Ball"
+          }
+        ]
+      }
+    ],
+    "route-5": [
+      {
+        "image": "walkthrough/yellow/maps/route-5.png",
+        "width": 320,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-6": [
+      {
+        "image": "walkthrough/yellow/maps/route-6.png",
+        "width": 320,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-7": [
+      {
+        "image": "walkthrough/yellow/maps/route-7.png",
+        "width": 320,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-8": [
+      {
+        "image": "walkthrough/yellow/maps/route-8.png",
+        "width": 960,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ],
+    "route-9": [
+      {
+        "image": "walkthrough/yellow/maps/route-9.png",
+        "width": 960,
+        "height": 288,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.24167,
+            "y_pct": 0.41667,
+            "kind": "item",
+            "label": "Ether"
+          }
+        ]
+      }
+    ],
+    "safari-zone": [
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-center.png",
+        "width": 480,
+        "height": 416,
+        "floor": "Center",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-east.png",
+        "width": 480,
+        "height": 416,
+        "floor": "East",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-north.png",
+        "width": 640,
+        "height": 576,
+        "floor": "North",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-west.png",
+        "width": 480,
+        "height": 416,
+        "floor": "West",
+        "markers": [
+          {
+            "x_pct": 0.21667,
+            "y_pct": 0.21154,
+            "kind": "item",
+            "label": "Revive"
+          }
+        ]
+      }
+    ],
+    "saffron-city": [
+      {
+        "image": "walkthrough/yellow/maps/saffron-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/saffron-city-gym.png",
+        "width": 320,
+        "height": 288,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "seafoam-islands": [
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B2F",
+        "markers": [
+          {
+            "x_pct": 0.51667,
+            "y_pct": 0.86111,
+            "kind": "item",
+            "label": "Nugget"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B3F",
+        "markers": [
+          {
+            "x_pct": 0.31667,
+            "y_pct": 0.91667,
+            "kind": "item",
+            "label": "Max Elixir"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b4f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B4F",
+        "markers": [
+          {
+            "x_pct": 0.85,
+            "y_pct": 0.97222,
+            "kind": "item",
+            "label": "Ultra Ball"
+          }
+        ]
+      }
+    ],
+    "silph-co": [
+      {
+        "image": "walkthrough/yellow/maps/silph-co-1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "2F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "3F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-4f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "4F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-5f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "5F",
+        "markers": [
+          {
+            "x_pct": 0.41667,
+            "y_pct": 0.19444,
+            "kind": "item",
+            "label": "Elixir"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-6f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "6F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-7f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "7F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-8f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "8F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-9f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "9F",
+        "markers": [
+          {
+            "x_pct": 0.09615,
+            "y_pct": 0.86111,
+            "kind": "item",
+            "label": "Max Potion"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-10f.png",
+        "width": 256,
+        "height": 288,
+        "floor": "10F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-11f.png",
+        "width": 288,
+        "height": 288,
+        "floor": "11F",
+        "markers": []
+      }
+    ],
+    "ss-anne": [
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-1f.png",
+        "width": 640,
+        "height": 288,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-2f.png",
+        "width": 640,
+        "height": 288,
+        "floor": "2F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-3f.png",
+        "width": 320,
+        "height": 96,
+        "floor": "3F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-b1f.png",
+        "width": 480,
+        "height": 128,
+        "floor": "B1F",
+        "markers": []
+      }
+    ],
+    "vermilion-city": [
+      {
+        "image": "walkthrough/yellow/maps/vermilion-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.3625,
+            "y_pct": 0.31944,
+            "kind": "item",
+            "label": "Max Ether"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/vermilion-city-gym.png",
+        "width": 160,
+        "height": 288,
+        "floor": "Gym",
+        "markers": []
+      }
+    ],
+    "victory-road": [
+      {
+        "image": "walkthrough/yellow/maps/victory-road-1f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "1F",
+        "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/victory-road-2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "2F",
+        "markers": [
+          {
+            "x_pct": 0.18333,
+            "y_pct": 0.13889,
+            "kind": "item",
+            "label": "Ultra Ball"
+          },
+          {
+            "x_pct": 0.88333,
+            "y_pct": 0.41667,
+            "kind": "item",
+            "label": "Full Restore"
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/victory-road-3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "3F",
+        "markers": []
+      }
+    ],
+    "viridian-city": [
+      {
+        "image": "walkthrough/yellow/maps/viridian-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.3625,
+            "y_pct": 0.125,
+            "kind": "item",
+            "label": "Potion"
+          }
+        ]
+      }
+    ],
+    "viridian-forest": [
+      {
+        "image": "walkthrough/yellow/maps/viridian-forest.png",
+        "width": 544,
+        "height": 768,
+        "floor": "",
+        "markers": [
+          {
+            "x_pct": 0.04412,
+            "y_pct": 0.38542,
+            "kind": "item",
+            "label": "Potion"
+          },
+          {
+            "x_pct": 0.48529,
+            "y_pct": 0.88542,
+            "kind": "item",
+            "label": "Antidote"
+          }
+        ]
+      }
+    ],
+    "viridian-gym": [
+      {
+        "image": "walkthrough/yellow/maps/viridian-gym.png",
+        "width": 320,
+        "height": 288,
+        "floor": "",
+        "markers": []
+      }
+    ]
+  }
+}

@@ -18,6 +18,8 @@
   <p class="pn-wt-loc__lead"><%= t(@location.intro_key) %></p>
 </section>
 
+<% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
+
 <section class="pn-wt-section">
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
   <h2 class="pn-h2"><%= t("walkthrough.ui.steps_h2") %></h2>
