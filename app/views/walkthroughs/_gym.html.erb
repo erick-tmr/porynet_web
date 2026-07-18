@@ -52,7 +52,7 @@
       <div class="pn-wt-gym__leader">
         <div class="pn-wt-gym__leader-id">
           <div class="pn-wt-shot pn-wt-shot--leadervs">
-            <%= image_tag "walkthrough/yellow/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs" %>
+            <%= r2_image_tag "walkthrough/yellow/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs" %>
             <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.vs") %></span>
           </div>
           <div class="pn-wt-gym__leader-meta">
@@ -65,7 +65,7 @@
           </div>
           <div class="pn-wt-gym__badge">
             <div class="pn-wt-gym__badge-frame">
-              <%= image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
+              <%= r2_image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
             </div>
             <div>
               <div class="pn-wt-gym__badge-name"><%= gym.badge %></div>
@@ -78,7 +78,7 @@
           <div class="pn-wt-gym__mons">
             <% gym.leader.team.each do |member| %>
               <div class="pn-wt-gym__mon">
-                <span class="pn-wt-gym__mon-sprite"><%= image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
+                <span class="pn-wt-gym__mon-sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
                 <div class="pn-wt-gym__mon-name"><%= member[:name] %></div>
                 <div class="pn-wt-gym__mon-lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>
               </div>

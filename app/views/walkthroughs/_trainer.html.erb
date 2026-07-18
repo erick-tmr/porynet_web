@@ -12,7 +12,7 @@
   </div>
   <div class="pn-wt-trainer__shots">
     <div class="pn-wt-shot pn-wt-shot--vs">
-      <%= image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs" %>
+      <%= r2_image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs" %>
       <span class="pn-wt-shot__label"><%= t("walkthrough.ui.vs") %></span>
     </div>
     <div class="pn-wt-shot pn-wt-shot--where">
@@ -23,7 +23,7 @@
   <div class="pn-wt-trainer__team">
     <% trainer.team.each do |member| %>
       <div class="pn-wt-team-mon">
-        <span class="pn-wt-team-mon__sprite"><%= image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
+        <span class="pn-wt-team-mon__sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
         <div>
           <div class="pn-wt-team-mon__name"><%= member[:name] %></div>
           <div class="pn-wt-team-mon__lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>

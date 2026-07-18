@@ -33,6 +33,7 @@
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key
+/config/credentials/*.key
 
 
 # Ignore SimpleCov coverage output.
@@ -43,3 +44,9 @@
 
 # Ignore the local PokeAPI/sprites checkout (source for committed sprites; not tracked).
 /vendor/pokeapi-sprites/
+
+# Images are served from Cloudflare R2, not committed. Keep them locally for uploads
+# (deploy/upload-images.sh); they're re-derivable from vendor/pokeapi-sprites. The dir
+# itself stays via .keep so Propshaft's image load path survives a fresh clone.
+/app/assets/images/*.png
+/app/assets/images/**/*.png

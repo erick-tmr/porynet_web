@@ -24,6 +24,11 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  # Static images are served from Cloudflare R2. Inject R2_PUBLIC_HOST via the host env
+  # (config/deploy.yml env.clear or the PaaS) and upload to the prod bucket before deploy,
+  # otherwise image URLs resolve empty. Not wired to a prod bucket yet.
+  config.x.r2_public_host = ENV["R2_PUBLIC_HOST"]
+
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # config.assume_ssl = true
 

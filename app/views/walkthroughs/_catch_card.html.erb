@@ -1,6 +1,6 @@
 <div class="pn-wt-catch">
   <div class="pn-wt-catch__top">
-    <div class="pn-wt-catch__sprite"><%= image_tag "pokemon/yellow/#{enc.dex}.png", alt: "" %></div>
+    <div class="pn-wt-catch__sprite"><%= r2_image_tag "pokemon/yellow/#{enc.dex}.png", alt: "" %></div>
     <div class="pn-wt-catch__info">
       <div class="pn-wt-catch__id">
         <span class="pn-wt-catch__num">#<%= enc.dex %></span>
@@ -31,7 +31,7 @@
         <% current = stage[:dex] == enc.dex %>
         <div class="<%= class_names("pn-wt-evo__stage", "is-current" => current) %>">
           <div class="<%= class_names("pn-wt-evo__box", "is-current" => current) %>">
-            <%= image_tag "pokemon/yellow/#{stage[:dex]}.png", alt: "" %>
+            <%= r2_image_tag "pokemon/yellow/#{stage[:dex]}.png", alt: "" %>
           </div>
           <span class="pn-wt-evo__name"><%= stage[:name] %></span>
         </div>

@@ -31,6 +31,11 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
+  # Image URLs resolve against the R2 dev host so views emit valid absolute src's
+  # without needing the (gitignored) image files present. Tests assert on the DOM,
+  # not on image loads, so no network round-trip happens.
+  config.x.r2_public_host = "https://pub-d1bb3d05858e4a1b8c72bf26884c91c9.r2.dev"
+
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
