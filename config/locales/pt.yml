@@ -142,6 +142,7 @@ pt:
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
       catch_h2: "O que dá para capturar aqui"
+      catch_hint: "Assim que capturar um, clique no card dele para registrar na sua coleção."
       catch_targets: "%{count} metas de captura"
       rate: "TAXA"
       level: "NÍVEL"

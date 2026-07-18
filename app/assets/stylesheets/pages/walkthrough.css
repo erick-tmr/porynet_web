@@ -709,6 +709,12 @@ a.pn-wt-route__card:hover {
   gap: 16px;
   flex-wrap: wrap;
 }
+.pn-wt-catch__hint {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #6b6880;
+  margin-top: 6px;
+}
 .pn-wt-catch__count {
   font-family: "VT323", monospace;
   font-size: 19px;
@@ -1089,7 +1095,9 @@ a.pn-wt-route__card:hover {
   justify-content: space-between;
 }
 .pn-wt-nav__link {
-  flex: 1;
+  /* half width even when it is the only button, so a lone next/prev
+     keeps the size it would have beside a sibling */
+  flex: 0 1 calc(50% - 8px);
   min-width: 220px;
   background: #fff;
   border: 3px solid #171622;
@@ -1106,6 +1114,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-nav__link--next {
   background: var(--accent);
   text-align: right;
+  margin-left: auto;
 }
 .pn-wt-nav__dir {
   font-family: "VT323", monospace;
@@ -1697,6 +1706,7 @@ a.pn-wt-route__card:hover {
 
   .pn-wt-legstats { grid-template-columns: 1fr 1fr; }
   .pn-wt-switchbar { top: 0; }
+  .pn-wt-nav__link { flex-basis: 100%; }
 
   .pn-wt-gym__badge { padding-left: 0; border-left: 0; }
 

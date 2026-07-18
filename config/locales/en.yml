@@ -142,6 +142,7 @@ en:
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
       catch_h2: "What you can catch here"
+      catch_hint: "Once you catch one, click its card to register it to your collection."
       catch_targets: "%{count} catch targets"
       rate: "RATE"
       level: "LEVEL"
