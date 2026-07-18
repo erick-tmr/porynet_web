@@ -139,6 +139,7 @@ pt:
       steps_after_h2: "Para onde ir a seguir"
       item_kind: "· ITEM"
       hidden_item: "ITEM OCULTO"
+      map_eyebrow: "MAPA DA ÁREA · ITENS OCULTOS"
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
       catch_h2: "O que dá para capturar aqui"

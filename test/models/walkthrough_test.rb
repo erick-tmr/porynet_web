@@ -199,6 +199,25 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil g.best_catch_here(r2, pidgey_r2), "Route 2 is not Pidgey's best spot"
   end
 
+  test "locations carry rendered area maps with hidden-item markers" do
+    g = game
+    vf = loc("viridian-forest")
+    assert_equal 1, vf.area_maps.size
+    map = vf.area_maps.first
+    assert_equal "walkthrough/yellow/maps/viridian-forest.png", map.image
+    refute map.floor?
+    assert_equal 2, map.markers.size
+    marker = map.markers.first
+    assert_operator marker.x_pct, :>=, 0
+    assert_operator marker.x_pct, :<=, 1
+    assert_includes %w[item coin], marker.kind
+
+    floors = loc("mt-moon").area_maps
+    assert_equal %w[1F B1F B2F], floors.map(&:floor)
+    assert floors.first.floor?
+    assert(g.locations.count(&:area_maps?) > 40)
+  end
+
   private
 
   def content_keys(game)

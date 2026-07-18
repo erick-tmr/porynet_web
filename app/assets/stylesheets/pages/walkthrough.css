@@ -1756,3 +1756,83 @@ a.pn-wt-route__card:hover {
   .pn-wt-band__title { font-size: 32px; }
   .pn-wt-gym__leader-name { font-size: 28px; }
 }
+
+/* area maps + hidden-item markers (rendered from pokeyellow) */
+.pn-wt-maps {
+  padding-top: 22px;
+}
+
+.pn-wt-map {
+  margin: 14px 0 0;
+}
+
+.pn-wt-map__floor {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+  background: var(--amber);
+  border: 2px solid #171622;
+  display: inline-block;
+  padding: 5px 8px;
+  margin-bottom: 8px;
+}
+
+.pn-wt-map__frame {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  line-height: 0;
+}
+
+.pn-wt-map__img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.pn-wt-map__marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: help;
+}
+
+.pn-wt-map__dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #171622;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.pn-wt-map__marker--item .pn-wt-map__dot {
+  background: var(--accent);
+}
+
+.pn-wt-map__marker--coin .pn-wt-map__dot {
+  background: var(--amber);
+}
+
+.pn-wt-map__label {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  line-height: 1;
+  color: #fff;
+  background: #171622;
+  padding: 3px 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s;
+}
+
+.pn-wt-map__marker:hover .pn-wt-map__label {
+  opacity: 1;
+}
