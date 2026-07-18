@@ -150,7 +150,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "ROCK", brock.type
     assert_equal "Brock", brock.leader.name
     assert_equal "BOULDER", brock.badge
-    assert_equal "walkthrough/badges/boulder.png", brock.badge_img
+    assert_equal "walkthrough/yellow/badges/boulder.png", brock.badge_img
     assert brock.trainers?
     refute brock.puzzle?
 

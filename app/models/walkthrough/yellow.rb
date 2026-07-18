@@ -322,7 +322,7 @@ module Walkthrough
       b = base(slug)
       Gym.new(
         type: type, name: name, intro_key: "#{b}.gym.intro",
-        shot: shot("GYM"), badge: badge, badge_img: "walkthrough/badges/#{badge.downcase}.png",
+        shot: shot("GYM"), badge: badge, badge_img: "walkthrough/yellow/badges/#{badge.downcase}.png",
         tm: tm, puzzle: puzzle, trainers: trainers, leader: leader
       )
     end
