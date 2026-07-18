@@ -299,8 +299,8 @@ pt:
               title: "Veja a demonstração de captura e abasteça"
               text: "Volte a pé para Viridian. O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
             "5":
-              title: "Siga para a Rota 2"
-              text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele e pegue a saída norte para a Rota 2."
+              title: "Siga a oeste para a Rota 22"
+              text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele. Siga a oeste para a Rota 22 primeiro, pelas melhores capturas contra o Brock e uma batalha de rival; de lá você volta por Viridian e sobe para a Rota 2."
         route_22:
           note: "Rota oeste opcional. Nidoran♀/♂, Mankey, Spearow. Mais a primeira batalha de rival."
           intro: "Um desvio curto a oeste de Viridian. O melhor lugar para capturar respostas ao Brock antes da floresta."

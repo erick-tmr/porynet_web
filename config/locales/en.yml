@@ -299,8 +299,8 @@ en:
               title: "Watch the catching demo, then stock up"
               text: "Head back up to Viridian. The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go."
             "5":
-              title: "Head to Route 2"
-              text: "The Viridian Gym stays locked until you hold the other seven badges, so skip it and take the north exit onto Route 2."
+              title: "Head west to Route 22"
+              text: "The Viridian Gym stays locked until you hold the other seven badges, so skip it. Head west to Route 22 first for the best Brock-ready catches and a rival battle; from there you loop back through Viridian and up to Route 2."
         route_22:
           note: "Optional west route. Nidoran♀/♂, Mankey, Spearow. Plus the first rival battle."
           intro: "A short detour west of Viridian. The best spot to catch answers for Brock before the forest."
