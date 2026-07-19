@@ -42,13 +42,13 @@
   },
   {
     "type": "screen", "slug": "viridian-forest", "step": 1, "name": "viridian-forest-poke-ball",
-    "map": "ViridianForest", "player": [1, 31], "player_dir": "UP",
-    "dialog": {"found_item": "POKé BALL"}
+    "map": "ViridianForest", "player": [2, 31], "player_dir": "LEFT", "focus": [3, 31],
+    "sprites": [{"sprite": "SPRITE_POKE_BALL", "grid": [1, 31], "dir": "DOWN"}]
   },
   {
     "type": "screen", "slug": "viridian-forest", "step": 3, "name": "viridian-forest-potion",
-    "map": "ViridianForest", "player": [12, 29], "player_dir": "UP",
-    "dialog": {"found_item": "POTION"}
+    "map": "ViridianForest", "player": [12, 28], "player_dir": "DOWN", "focus": [12, 29],
+    "sprites": [{"sprite": "SPRITE_POKE_BALL", "grid": [12, 29], "dir": "DOWN"}]
   },
   {
     "type": "screen", "slug": "viridian-forest", "step": 5, "name": "viridian-forest-north",
