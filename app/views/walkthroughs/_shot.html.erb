@@ -1,7 +1,7 @@
 <div class="pn-wt-shot <%= shot.map? ? "pn-wt-shot--map" : "pn-wt-shot--step" %>">
   <% if shot.map? %>
     <div class="pn-wt-shot__map" data-controller="map-markers">
-      <%= r2_image_tag shot.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+      <%= r2_image_tag shot.image, alt: "", class: "pn-wt-shot__map-img", loading: "lazy" %>
       <% shot.markers.each do |mk| %>
         <span class="pn-wt-map__marker pn-wt-map__marker--<%= mk.kind %>" data-map-markers-target="marker"
               data-x="<%= mk.x_pct %>" data-y="<%= mk.y_pct %>">
