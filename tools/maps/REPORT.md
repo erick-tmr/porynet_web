@@ -1,60 +1,10 @@
 # Map generation report
 
-- locations: **51**
-- maps rendered: **98**
-- markers placed: **47**
+- location maps: **97** across 51 locations
+- step shots: **1** (interior maps in a step slot)
+- points of interest placed: **1**
 - missing map labels: **0**
 
-## Locations
+## Step shots
 
-- `celadon-city`: main(1), Gym(0)
-- `cerulean-cave`: 1F(1), 2F(1), B1F(1)
-- `cerulean-city`: main(1), Gym(0)
-- `cinnabar-island`: main(0), Gym(0)
-- `digletts-cave`: main(0)
-- `fuchsia-city`: main(0), Gym(0)
-- `indigo-plateau`: main(0)
-- `lavender-town`: main(0)
-- `mt-moon`: 1F(0), B1F(0), B2F(2)
-- `pallet-town`: main(0), Your room(1)
-- `pewter-city`: main(0), Gym(0)
-- `pokemon-mansion`: 1F(1), 2F(0), 3F(1), B1F(1)
-- `pokemon-tower`: 1F(0), 2F(0), 3F(0), 4F(0), 5F(1), 6F(0), 7F(0)
-- `power-plant`: main(2)
-- `rock-tunnel`: 1F(0), B1F(0)
-- `rocket-hideout`: B1F(1), B2F(0), B3F(1), B4F(1)
-- `route-1`: main(0)
-- `route-10`: main(2)
-- `route-11`: main(1)
-- `route-12`: main(1)
-- `route-13`: main(2)
-- `route-14`: main(0)
-- `route-15`: main(0)
-- `route-16`: main(0)
-- `route-17`: main(5)
-- `route-18`: main(0)
-- `route-19`: main(0)
-- `route-2`: main(0)
-- `route-20`: main(0)
-- `route-21`: main(0)
-- `route-22`: main(0)
-- `route-23`: main(3)
-- `route-24`: main(0)
-- `route-25`: main(2)
-- `route-3`: main(0)
-- `route-4`: main(1)
-- `route-5`: main(0)
-- `route-6`: main(0)
-- `route-7`: main(0)
-- `route-8`: main(0)
-- `route-9`: main(1)
-- `safari-zone`: Center(0), East(0), North(0), West(1)
-- `saffron-city`: main(0), Gym(0)
-- `seafoam-islands`: 1F(0), B1F(0), B2F(1), B3F(1), B4F(1)
-- `silph-co`: 1F(0), 2F(0), 3F(0), 4F(0), 5F(1), 6F(0), 7F(0), 8F(0), 9F(1), 10F(0), 11F(0)
-- `ss-anne`: 1F(0), 2F(0), 3F(0), B1F(0)
-- `vermilion-city`: main(1), Gym(0)
-- `victory-road`: 1F(0), 2F(2), 3F(0)
-- `viridian-city`: main(1)
-- `viridian-forest`: main(2)
-- `viridian-gym`: main(0)
+- `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png (1 POI)

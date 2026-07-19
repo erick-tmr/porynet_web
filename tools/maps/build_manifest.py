@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-"""Render every walkthrough-location map from pokeyellow, join the hidden-item /
-coin markers, and emit the manifest + QA overlays the Rails app consumes.
+"""Render every walkthrough-location map from pokeyellow and emit the manifest the
+Rails app consumes.
+
+Two kinds of output:
+  - area maps: one plain colored map per location (shown in the location header). No markers.
+  - step shots: an interior map rendered into a specific walkthrough step's screenshot slot,
+    with hand-placed point-of-interest markers (e.g. the bedroom PC for the free Potion).
 
 Usage:
   python tools/maps/build_manifest.py --pokeyellow ~/Code/pokeyellow [--force]
 
-Outputs (paths relative to the porynet_web repo root):
+Outputs (relative to the porynet_web repo root):
   app/assets/images/walkthrough/yellow/maps/<name>.png   colored map (gitignored -> R2)
   app/models/walkthrough/yellow_maps.json                manifest (committed)
   tools/maps/qa/<name>.png                               marker-overlay preview (gitignored)
@@ -26,9 +31,9 @@ MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
 R2_PREFIX = "walkthrough/yellow/maps"
 
-# slug -> ordered [(map_label, floor_label, parent_map_const_or_None)]
-# parent is only needed for interiors that aren't cavern/cemetery (they inherit a town palette).
-_SIMPLE = {  # single overworld map, no parent
+# slug -> ordered [(map_label, floor_label, parent_map_const_or_None)]; parent is only needed for
+# interiors that aren't cavern/cemetery (they inherit a town palette).
+_SIMPLE = {
     "pallet-town": "PalletTown", "route-1": "Route1", "viridian-city": "ViridianCity",
     "route-22": "Route22", "route-2": "Route2", "viridian-forest": "ViridianForest",
     "route-3": "Route3", "route-4": "Route4", "route-24": "Route24", "route-25": "Route25",
@@ -39,7 +44,7 @@ _SIMPLE = {  # single overworld map, no parent
     "route-20": "Route20", "power-plant": "PowerPlant", "route-21": "Route21", "route-23": "Route23",
     "indigo-plateau": "IndigoPlateau", "digletts-cave": "DiglettsCave",
 }
-_GYM_CITIES = {  # town map + gym interior (gym inherits the city palette)
+_GYM_CITIES = {
     "pewter-city": ("PewterCity", "PewterGym", "PEWTER_CITY"),
     "cerulean-city": ("CeruleanCity", "CeruleanGym", "CERULEAN_CITY"),
     "vermilion-city": ("VermilionCity", "VermilionGym", "VERMILION_CITY"),
@@ -70,10 +75,9 @@ _DUNGEONS = {
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
 }
 
-
-# extra interior maps appended to a location (label, floor, parent_map_const)
-_INTERIORS = {
-    "pallet-town": [("RedsHouse2F", "Your room", "PALLET_TOWN")],
+# interior map rendered into a specific step's screenshot slot: slug -> {step_n: (map_label, parent)}
+_STEP_SHOTS = {
+    "pallet-town": {1: ("RedsHouse2F", "PALLET_TOWN")},
 }
 
 # hand-placed points of interest that aren't hidden-item events (grid coords, 16px cells)
@@ -89,13 +93,30 @@ def location_maps():
     for slug, (town, gym, parent) in _GYM_CITIES.items():
         out[slug] = [(town, "", None), (gym, "Gym", parent)]
     out.update(_DUNGEONS)
-    for slug, extras in _INTERIORS.items():
-        out[slug] = out.get(slug, []) + extras
     return out
 
 
 def image_name(slug, floor):
     return slug if not floor else f"{slug}-{floor.lower().replace(' ', '-')}"
+
+
+def annotation_markers(label, width, height):
+    unit = parse_hidden.UNIT_PX
+    out = []
+    for a in _ANNOTATIONS.get(label, []):
+        gx, gy = a["grid"]
+        out.append({"x_pct": round((gx * unit + unit // 2) / width, 5),
+                    "y_pct": round((gy * unit + unit // 2) / height, 5),
+                    "kind": a["kind"], "label": a["label"]})
+    return out
+
+
+def render_and_save(root, label, parent, name, force):
+    img = render_maps.render_map(root, label, parent)
+    png = IMG_DIR / f"{name}.png"
+    if force or not png.exists():
+        img.save(png)
+    return img
 
 
 def main():
@@ -106,47 +127,46 @@ def main():
     root = str(pathlib.Path(args.pokeyellow).expanduser())
 
     headers = render_maps.parse_headers(pathlib.Path(root))  # label -> (const, tileset)
-    markers = parse_hidden.markers_by_map(root)              # const -> [markers]
     IMG_DIR.mkdir(parents=True, exist_ok=True)
     QA_DIR.mkdir(parents=True, exist_ok=True)
 
-    manifest, missing, fallbacks, marker_total = {}, [], [], 0
+    locations, missing = {}, []
     for slug, maps in sorted(location_maps().items()):
         entries = []
         for label, floor, parent in maps:
             if label not in headers:
                 missing.append(f"{slug}: {label}")
                 continue
-            const, tileset = headers[label]
-            img = render_maps.render_map(root, label, parent)
             name = image_name(slug, floor)
-            png = IMG_DIR / f"{name}.png"
-            if args.force or not png.exists():
-                img.save(png)
-            mk = []
-            for m in markers.get(const, []):
-                mk.append({"x_pct": round(m["px"][0] / img.width, 5),
-                           "y_pct": round(m["px"][1] / img.height, 5),
-                           "kind": m["kind"], "label": m["label"]})
-            for a in _ANNOTATIONS.get(label, []):
-                gx, gy = a["grid"]
-                unit = parse_hidden.UNIT_PX
-                mk.append({"x_pct": round((gx * unit + unit // 2) / img.width, 5),
-                           "y_pct": round((gy * unit + unit // 2) / img.height, 5),
-                           "kind": a["kind"], "label": a["label"]})
-            marker_total += len(mk)
+            img = render_and_save(root, label, parent, name, args.force)
             entries.append({"image": f"{R2_PREFIX}/{name}.png", "width": img.width,
-                            "height": img.height, "floor": floor, "markers": mk})
-            _write_qa(img, mk, QA_DIR / f"{name}.png")
+                            "height": img.height, "floor": floor})
+            _write_qa(img, [], QA_DIR / f"{name}.png")
         if entries:
-            manifest[slug] = entries
+            locations[slug] = entries
 
-    MANIFEST.write_text(json.dumps({"source": "pret/pokeyellow", "locations": manifest}, indent=2))
-    _write_report(manifest, missing, marker_total)
-    print(f"locations: {len(manifest)}  maps: {sum(len(v) for v in manifest.values())}  "
-          f"markers: {marker_total}  missing: {len(missing)}")
+    step_shots, poi_total = {}, 0
+    for slug, steps in sorted(_STEP_SHOTS.items()):
+        for step_n, (label, parent) in steps.items():
+            if label not in headers:
+                missing.append(f"{slug} step {step_n}: {label}")
+                continue
+            const = headers[label][0]
+            name = const.lower().replace("_", "-")
+            img = render_and_save(root, label, parent, name, args.force)
+            mk = annotation_markers(label, img.width, img.height)
+            poi_total += len(mk)
+            step_shots.setdefault(slug, {})[str(step_n)] = {
+                "image": f"{R2_PREFIX}/{name}.png", "width": img.width, "height": img.height, "markers": mk}
+            _write_qa(img, mk, QA_DIR / f"{name}.png")
+
+    MANIFEST.write_text(json.dumps(
+        {"source": "pret/pokeyellow", "locations": locations, "step_shots": step_shots}, indent=2))
+    _write_report(locations, step_shots, missing, poi_total)
+    print(f"location maps: {sum(len(v) for v in locations.values())}  "
+          f"step shots: {sum(len(v) for v in step_shots.values())}  pois: {poi_total}  missing: {len(missing)}")
     if missing:
-        print("MISSING labels:", ", ".join(missing))
+        print("MISSING:", ", ".join(missing))
 
 
 def _write_qa(img, markers, path):
@@ -154,24 +174,23 @@ def _write_qa(img, markers, path):
     d = ImageDraw.Draw(qa)
     for m in markers:
         x, y = m["x_pct"] * img.width, m["y_pct"] * img.height
-        color = (255, 40, 90) if m["kind"] == "item" else (255, 194, 61)
-        d.ellipse([x - 4, y - 4, x + 4, y + 4], fill=color, outline=(0, 0, 0))
+        d.ellipse([x - 4, y - 4, x + 4, y + 4], fill=(43, 179, 224), outline=(0, 0, 0))
         d.text((x + 6, y - 6), m["label"], fill=(0, 0, 0))
     qa.save(path)
 
 
-def _write_report(manifest, missing, marker_total):
+def _write_report(locations, step_shots, missing, poi_total):
     lines = ["# Map generation report", "",
-             f"- locations: **{len(manifest)}**",
-             f"- maps rendered: **{sum(len(v) for v in manifest.values())}**",
-             f"- markers placed: **{marker_total}**",
+             f"- location maps: **{sum(len(v) for v in locations.values())}** across {len(locations)} locations",
+             f"- step shots: **{sum(len(v) for v in step_shots.values())}** (interior maps in a step slot)",
+             f"- points of interest placed: **{poi_total}**",
              f"- missing map labels: **{len(missing)}**", ""]
     if missing:
-        lines += ["## Missing labels (no pokeyellow header found)", ""] + [f"- {m}" for m in missing] + [""]
-    lines += ["## Locations", ""]
-    for slug, entries in sorted(manifest.items()):
-        floors = ", ".join(f"{e['floor'] or 'main'}({len(e['markers'])})" for e in entries)
-        lines.append(f"- `{slug}`: {floors}")
+        lines += ["## Missing labels", ""] + [f"- {m}" for m in missing] + [""]
+    lines += ["## Step shots", ""]
+    for slug, steps in sorted(step_shots.items()):
+        for n, s in sorted(steps.items()):
+            lines.append(f"- `{slug}` step {n}: {s['image']} ({len(s['markers'])} POI)")
     REPORT.write_text("\n".join(lines) + "\n")
 
 
