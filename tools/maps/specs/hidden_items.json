@@ -1,0 +1,7 @@
+[
+  {
+    "type": "dialog", "name": "viridian-forest-antidote",
+    "map": "ViridianForest", "player": [15, 42], "player_dir": "RIGHT", "auto_npcs": true,
+    "dialog": {"found_item": "ANTIDOTE"}
+  }
+]

@@ -699,5 +699,25 @@
         "height": 288
       }
     }
+  },
+  "scenes": {
+    "battle-rival-oaks-lab": {
+      "image": "walkthrough/yellow/battles/battle-rival-oaks-lab.png",
+      "width": 160,
+      "height": 144,
+      "type": "battle"
+    },
+    "battle-brock": {
+      "image": "walkthrough/yellow/battles/battle-brock.png",
+      "width": 160,
+      "height": 144,
+      "type": "battle"
+    },
+    "viridian-forest-antidote": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-antidote.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    }
   }
 }
