@@ -234,7 +234,8 @@ module Walkthrough
           step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ],
             shot: map_shot("viridian-city", 1, "STEP 1")),
           step(b, 2),
-          step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ], shot: shot("STEP 3")),
+          step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ],
+            shot: map_shot("viridian-city", 3, "STEP 3")),
           step(b, 4),
           step(b, 5)
         ],

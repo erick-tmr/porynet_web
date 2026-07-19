@@ -18,5 +18,11 @@
     "type": "screen", "slug": "viridian-city", "step": 1, "name": "viridian-mart-parcel",
     "map": "ViridianMart", "player": [2, 5], "player_dir": "LEFT", "auto_npcs": true,
     "dialog": {"lines": ["<PLAYER> got", "OAK's PARCEL!"]}
+  },
+  {
+    "type": "screen", "slug": "viridian-city", "step": 3, "name": "blues-house-town-map",
+    "map": "BluesHouse", "player": [2, 4], "player_dir": "UP",
+    "sprites": [{"sprite": "SPRITE_DAISY", "grid": [2, 3], "dir": "RIGHT"}],
+    "dialog": {"lines": ["<PLAYER> got a", "TOWN MAP!"]}
   }
 ]

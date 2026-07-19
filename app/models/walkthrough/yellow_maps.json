@@ -711,6 +711,11 @@
         "image": "walkthrough/yellow/scenes/viridian-mart-parcel.png",
         "width": 160,
         "height": 144
+      },
+      "3": {
+        "image": "walkthrough/yellow/scenes/blues-house-town-map.png",
+        "width": 160,
+        "height": 144
       }
     }
   },
