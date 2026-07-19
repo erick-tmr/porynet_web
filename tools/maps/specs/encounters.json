@@ -1,0 +1,13 @@
+[
+  {
+    "type": "screen", "name": "oaks-lab-rival",
+    "map": "OaksLab", "parent": "PALLET_TOWN",
+    "player": [4, 6], "player_dir": "UP", "focus": [4, 6],
+    "sprites": [
+      {"sprite": "SPRITE_BLUE", "grid": [4, 5], "dir": "DOWN"},
+      {"sprite": "SPRITE_OAK", "grid": [5, 2], "dir": "DOWN"},
+      {"sprite": "SPRITE_SCIENTIST", "grid": [2, 10], "dir": "DOWN"},
+      {"sprite": "SPRITE_SCIENTIST", "grid": [8, 10], "dir": "DOWN"}
+    ]
+  }
+]

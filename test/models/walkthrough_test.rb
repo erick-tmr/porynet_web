@@ -137,10 +137,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "blue-gen1champion", blues.last.sprite
   end
 
-  test "a battle scene fills the first rival fight's where slot" do
+  test "a location scene fills the first rival fight's where slot" do
     rival = loc("pallet-town").trainers.first
-    assert rival.where.map?, "the rival's where slot should carry a battle scene"
-    assert_equal "walkthrough/yellow/battles/battle-rival-oaks-lab.png", rival.where.image
+    assert rival.where.map?, "the rival's where slot should carry a location scene"
+    assert_equal "walkthrough/yellow/scenes/oaks-lab-rival.png", rival.where.image
 
     plain = loc("route-1").trainers
     assert_empty plain
