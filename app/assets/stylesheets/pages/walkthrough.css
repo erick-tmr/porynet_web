@@ -676,11 +676,11 @@ a.pn-wt-route__card:hover {
   position: absolute;
   left: 0;
   top: 0;
-  width: 11px;
-  height: 11px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 7px 2px #FF3DAE, 0 0 4px 1px #FF3DAE;
+  box-shadow: 0 0 5px 1px #FF3DAE, 0 0 3px 1px #FF3DAE;
   animation: pinpulse 1.3s ease-in-out infinite;
   animation-play-state: var(--play);
 }
@@ -688,8 +688,8 @@ a.pn-wt-route__card:hover {
   position: absolute;
   left: 0;
   top: 0;
-  width: 26px;
-  height: 26px;
+  width: 16px;
+  height: 16px;
   border: 2px solid #FF3DAE;
   border-radius: 50%;
   transform: translate(-50%, -50%);
