@@ -16,7 +16,7 @@
   },
   {
     "type": "screen", "slug": "viridian-city", "step": 1, "name": "viridian-mart-parcel",
-    "map": "ViridianMart", "player": [1, 5], "player_dir": "LEFT", "auto_npcs": true,
+    "map": "ViridianMart", "player": [2, 5], "player_dir": "LEFT", "auto_npcs": true,
     "dialog": {"lines": ["<PLAYER> got", "OAK's PARCEL!"]}
   }
 ]
