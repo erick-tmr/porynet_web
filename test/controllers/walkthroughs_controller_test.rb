@@ -119,7 +119,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__crumb-here", text: "VIRIDIAN FOREST"
     assert_select ".pn-wt-loc__title", /Forest/
     assert_select ".pn-wt-chip", false
-    assert_select "img.pn-wt-shot__img[src*=?]", "viridian-forest/antidote"
+    assert_select "img.pn-wt-shot__img[src*=?]", "scenes/viridian-forest-antidote"
     assert_select ".pn-wt-pin--vf-antidote"
   end
 

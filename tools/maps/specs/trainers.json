@@ -1,0 +1,32 @@
+[
+  {
+    "type": "screen", "name": "vf-bug-catcher-1", "map": "ViridianForest",
+    "player": [27, 33], "player_dir": "RIGHT", "focus": [28, 33],
+    "sprites": [{"sprite": "SPRITE_YOUNGSTER", "grid": [30, 33], "dir": "LEFT", "emote": "shock"}]
+  },
+  {
+    "type": "screen", "name": "vf-bug-catcher-2", "map": "ViridianForest",
+    "player": [27, 19], "player_dir": "RIGHT", "focus": [28, 19],
+    "sprites": [{"sprite": "SPRITE_YOUNGSTER", "grid": [30, 19], "dir": "LEFT", "emote": "shock"}]
+  },
+  {
+    "type": "screen", "name": "vf-bug-catcher-15", "map": "ViridianForest",
+    "player": [16, 17], "player_dir": "LEFT", "focus": [15, 17],
+    "sprites": [{"sprite": "SPRITE_YOUNGSTER", "grid": [13, 17], "dir": "RIGHT", "emote": "shock"}]
+  },
+  {
+    "type": "screen", "name": "vf-bug-catcher-3", "map": "ViridianForest",
+    "player": [1, 18], "player_dir": "RIGHT", "focus": [2, 18],
+    "sprites": [{"sprite": "SPRITE_YOUNGSTER", "grid": [2, 18], "dir": "LEFT", "emote": "shock"}]
+  },
+  {
+    "type": "screen", "name": "vf-lass", "map": "ViridianForest",
+    "player": [2, 43], "player_dir": "UP", "focus": [2, 42],
+    "sprites": [{"sprite": "SPRITE_COOLTRAINER_F", "grid": [2, 41], "dir": "DOWN", "emote": "shock"}]
+  },
+  {
+    "type": "screen", "name": "pewter-gym-trainer", "map": "PewterGym", "parent": "PEWTER_CITY",
+    "player": [6, 6], "player_dir": "LEFT", "focus": [4, 6],
+    "sprites": [{"sprite": "SPRITE_COOLTRAINER_M", "grid": [3, 6], "dir": "RIGHT", "emote": "shock"}]
+  }
+]

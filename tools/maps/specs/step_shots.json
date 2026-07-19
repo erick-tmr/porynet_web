@@ -13,5 +13,55 @@
     "type": "screen", "slug": "route-1", "step": 1, "name": "route-1-north",
     "map": "Route1", "player": [13, 24], "player_dir": "UP",
     "arrows": [{"dir": "up", "grid": [13, 22]}]
+  },
+  {
+    "type": "screen", "slug": "viridian-city", "step": 1, "name": "viridian-mart-parcel",
+    "map": "ViridianMart", "player": [2, 5], "player_dir": "LEFT", "auto_npcs": true,
+    "dialog": {"lines": ["<PLAYER> got", "OAK's PARCEL!"]}
+  },
+  {
+    "type": "screen", "slug": "viridian-city", "step": 3, "name": "blues-house-town-map",
+    "map": "BluesHouse", "player": [2, 4], "player_dir": "UP",
+    "sprites": [{"sprite": "SPRITE_DAISY", "grid": [2, 3], "dir": "DOWN"}],
+    "dialog": {"lines": ["<PLAYER> got a", "TOWN MAP!"]}
+  },
+  {
+    "type": "screen", "slug": "route-22", "step": 1, "name": "viridian-to-route-22",
+    "map": "ViridianCity", "player": [5, 17], "player_dir": "LEFT",
+    "arrows": [{"dir": "left", "grid": [3, 17]}]
+  },
+  {
+    "type": "screen", "slug": "route-22", "step": 3, "name": "viridian-to-route-2",
+    "map": "ViridianCity", "player": [18, 3], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [18, 1]}]
+  },
+  {
+    "type": "screen", "slug": "route-2", "step": 2, "name": "viridian-forest-south-gate",
+    "map": "ViridianForestSouthGate", "player": [4, 4], "player_dir": "UP",
+    "auto_npcs": true, "arrows": [{"dir": "up", "grid": [4, 2]}]
+  },
+  {
+    "type": "screen", "slug": "viridian-forest", "step": 1, "name": "viridian-forest-poke-ball",
+    "map": "ViridianForest", "player": [2, 31], "player_dir": "LEFT", "focus": [3, 31],
+    "sprites": [{"sprite": "SPRITE_POKE_BALL", "grid": [1, 31], "dir": "DOWN"}]
+  },
+  {
+    "type": "screen", "slug": "viridian-forest", "step": 3, "name": "viridian-forest-potion",
+    "map": "ViridianForest", "player": [12, 28], "player_dir": "DOWN", "focus": [12, 29],
+    "sprites": [{"sprite": "SPRITE_POKE_BALL", "grid": [12, 29], "dir": "DOWN"}]
+  },
+  {
+    "type": "screen", "slug": "viridian-forest", "step": 5, "name": "viridian-forest-north",
+    "map": "ViridianForest", "player": [2, 3], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [2, 1]}]
+  },
+  {
+    "type": "screen", "slug": "pewter-city", "step": 1, "name": "pewter-heal-prep",
+    "map": "PewterCity", "player": [16, 18], "player_dir": "UP", "focus": [16, 17]
+  },
+  {
+    "type": "screen", "slug": "route-3", "step": 3, "name": "route-3-mt-moon",
+    "map": "Route4", "player": [18, 7], "player_dir": "UP", "focus": [14, 6],
+    "arrows": [{"dir": "up", "grid": [18, 6]}]
   }
 ]

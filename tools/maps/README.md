@@ -78,21 +78,62 @@ Area maps come from the location tables in `build.py`. Everything else is a decl
 // map + real NPCs (standalone: goes in scenes[name])
 { "type": "npc", "name": "pallet-npcs", "map": "PalletTown", "auto_npcs": true }
 
-// hidden-item "found" dialog screen
+// hidden-item "found" dialog screen, with the baked pink locator dot on the item's tile
 { "type": "dialog", "name": "viridian-forest-antidote", "map": "ViridianForest",
-  "player": [16, 42], "auto_npcs": true, "dialog": { "found_item": "ANTIDOTE" } }
+  "player": [15, 42], "player_dir": "RIGHT", "auto_npcs": true,
+  "marker": [16, 42], "dialog": { "found_item": "ANTIDOTE" } }
+
+// trainer spotting the hero (the "!" bubble); the hero stands in the trainer's line of sight
+{ "type": "screen", "name": "vf-bug-catcher-1", "map": "ViridianForest",
+  "player": [27, 33], "player_dir": "RIGHT", "focus": [28, 33],
+  "sprites": [{ "sprite": "SPRITE_YOUNGSTER", "grid": [30, 33], "dir": "LEFT", "emote": "shock" }] }
 
 // battle face-off (rival names are substituted; others use the class name)
 { "type": "battle", "name": "battle-rival-oaks-lab", "opponent": "RIVAL1", "rival_name": "BLUE" }
 ```
 
-Sprites take a `SPRITE_*` id (or a raw `gfx/sprites` basename) plus a `grid` cell and a facing
-(`dir`: DOWN/UP/LEFT/RIGHT, or an explicit `frame`). `dialog.lines` is an explicit two-line list
-(with `<PLAYER>`/`<RIVAL>` substitution); `dialog.found_item` is shorthand for the found-item
-template. An entry with `slug` + `step` lands in `step_shots`; otherwise it lands in `scenes`.
+`screen` / `dialog` fields:
 
-A referenced image that isn't uploaded to R2 404s at render (not a test failure), so run
-`deploy/upload-images.sh` after generating.
+- `player` [gx,gy] + `player_dir` (DOWN/UP/LEFT/RIGHT): the hero sprite and facing.
+- `focus` [gx,gy]: camera center override (defaults to `player`). Use it to hold the framing
+  while moving the hero, e.g. lower the hero but keep a building's black ceiling in frame.
+- `sprites`: each takes a `SPRITE_*` id (or a raw `gfx/sprites` basename), a `grid` cell, a
+  facing (`dir`, or an explicit `frame`), optional `flip`, and optional `emote` (a
+  `gfx/emotes/*` name, e.g. `"shock"` for the spotted `!`) drawn one cell above it.
+- `auto_npcs`: also draw every real map object at its cell/facing (from the object events).
+- `arrows`: `[{ dir: up|down|left|right, grid:[gx,gy] }]` amber pointer overlays.
+- `dialog`: `{ found_item: "ITEM" }` for the `<PLAYER> found / ITEM!` box, or `{ lines: [a,b] }`
+  for two explicit lines (`<PLAYER>`/`<RIVAL>` substituted).
+- `marker` [gx,gy]: bakes a flat neon-magenta dot (`#FF3DAE`) on that cell for a hidden item;
+  the page adds only the pulsing glow in CSS, positioned to the dot's `%` (measure the dot
+  centroid in the PNG and set `.pn-wt-pin--<pin>`).
+- `parent`: a `*_CITY` / town const so an interior inherits that map's palette (see below).
+
+An entry with `slug` + `step` lands in `step_shots[slug][step]` (wire it with `map_shot`);
+otherwise it lands in `scenes[name]` (wire it with `scene_shot`, or `hidden` for hidden items).
+The camera pins the hero near center and fills past the map edge with the map's **border block**
+(grass/water outdoors, solid black inside buildings). A referenced image that isn't uploaded to
+R2 404s at render (not a test failure), so run `deploy/upload-images.sh` after generating.
+
+## Finding the data in pokeyellow
+
+Every position, facing and string is read straight from the disassembly. Grid cells in the specs
+are the game's own object/warp coordinates (16px tiles); `constants/map_constants.asm` gives map
+size in **blocks** (x2 for grid cells).
+
+- **NPCs / items / trainers on a map**: `data/maps/objects/<Map>.asm` (`object_event x, y, SPRITE_*,
+  movement, facing, TEXT_*[, item | OPP_*, party]`). The `db $X ; border block` line is the
+  edge-fill block. Warps and connections: same file plus `data/maps/headers/<Map>.asm`.
+- **Hidden items**: `data/events/hidden_events.asm` (`hidden_events_for <MAP>` -> coord + item).
+- **Item / sign / NPC text**: `text/<Map>.asm`; the generic pickup line is `_FoundItemText`
+  (`<PLAYER> found / <ITEM>!`) in `data/text/`.
+- **Matching a model trainer to its map object**: the object gives `OPP_<CLASS>, <party#>`; look up
+  that party in `data/trainers/parties.asm` and match it to the team in `yellow.rb`.
+- **The spotted `!` bubble**: `EXCLAMATION_BUBBLE` is index 0 of `EmotionBubbles`
+  (`engine/overworld/emotion_bubbles.asm`) = `gfx/emotes/shock.png`.
+- **Palette**: `SetPal_Overworld` (`engine/gfx/palettes.asm`). A building inherits the palette of
+  the town/route it sits in (`wLastMap`); pass that town const as `parent` for interiors that look
+  wrong with the default (caverns/cemeteries are handled automatically).
 
 ## Tests
 

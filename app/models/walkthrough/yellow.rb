@@ -149,7 +149,18 @@ module Walkthrough
         route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ].map { |loc| loc.with(area_maps: data.fetch(loc.slug, [])) }
+      ].map { |loc| attach_maps(loc, data.fetch(loc.slug, [])) }
+    end
+
+    # The gym's own map belongs in the gym section, not the location header, so pull the "Gym"
+    # floor out of the header maps and hand it to the gym as its shot.
+    def self.attach_maps(loc, maps)
+      gym_map = maps.find { |m| m.floor == "Gym" }
+      header = maps.reject { |m| m.floor == "Gym" }
+      return loc.with(area_maps: header) unless loc.gym && gym_map
+
+      loc.with(area_maps: header,
+        gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
     end
 
     def self.manifest
@@ -201,7 +212,8 @@ module Walkthrough
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
-          where: scene_shot("oaks-lab-rival", "WHERE")) ],
+          where: scene_shot("oaks-lab-rival", "WHERE"),
+          battle: scene_shot("battle-rival-oaks-lab", "BATTLE")) ],
         oak_queue: []
       )
     end
@@ -231,9 +243,11 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ], shot: shot("STEP 1")),
+          step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ],
+            shot: map_shot("viridian-city", 1, "STEP 1")),
           step(b, 2),
-          step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ], shot: shot("STEP 3")),
+          step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ],
+            shot: map_shot("viridian-city", 3, "STEP 3")),
           step(b, 4),
           step(b, 5)
         ],
@@ -247,9 +261,9 @@ module Walkthrough
         slug: "route-22", kind: "ROUTE", name: "Route 22", order: 4, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, shot: map_shot("route-22", 1, "STEP 1")),
           step(b, 2),
-          step(b, 3)
+          step(b, 3, shot: map_shot("route-22", 3, "STEP 3"))
         ],
         encounters: [
           enc("route-22", "029", "GRASS", "30%", "2–4", "COMMON", "029", "030", "031", tip: true),
@@ -258,7 +272,9 @@ module Walkthrough
           enc("route-22", "019", "GRASS", "10%", "3", "UNCOMMON", "019", "020", tip: true),
           enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true)
         ],
-        trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1") ],
+        trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1",
+          where: scene_shot("route-22-rival", "WHERE"),
+          battle: scene_shot("battle-rival-route-22", "BATTLE")) ],
         oak_queue: [
           oak("route-22", "029", 1), oak("route-22", "032", 1),
           oak("route-22", "056", 1), oak("route-22", "021", 1)
@@ -272,8 +288,8 @@ module Walkthrough
         slug: "route-2", kind: "ROUTE", name: "Route 2", order: 5, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
-          step(b, 2)
+          step(b, 1),
+          step(b, 2, shot: map_shot("route-2", 2, "STEP 2"))
         ],
         encounters: [
           enc("route-2", "016", "GRASS", "35%", "3–7", "COMMON", "016", "017", "018", tip: true),
@@ -291,11 +307,13 @@ module Walkthrough
         slug: "viridian-forest", kind: "FOREST", name: "Viridian Forest", order: 6, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Poké Ball", "poke_ball") ], shot: shot("STEP 1")),
-          step(b, 2, hidden: [ hidden(b, 2, "Antidote", "antidote", "antidote.png", "vf-antidote") ]),
-          step(b, 3, items: [ item(b, 3, "Potion", "potion") ], shot: shot("STEP 3")),
-          step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "potion.png", "vf-potion") ]),
-          step(b, 5, shot: shot("STEP 5"))
+          step(b, 1, items: [ item(b, 1, "Poké Ball", "poke_ball") ],
+            shot: map_shot("viridian-forest", 1, "STEP 1")),
+          step(b, 2, hidden: [ hidden(b, 2, "Antidote", "antidote", "viridian-forest-antidote", "vf-antidote") ]),
+          step(b, 3, items: [ item(b, 3, "Potion", "potion") ],
+            shot: map_shot("viridian-forest", 3, "STEP 3")),
+          step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "viridian-forest-hidden-potion", "vf-potion") ]),
+          step(b, 5, shot: map_shot("viridian-forest", 5, "STEP 5"))
         ],
         encounters: [
           enc("viridian-forest", "010", "GRASS", "50%", "3–6", "COMMON", "010", "011", "012", tip: true),
@@ -304,11 +322,15 @@ module Walkthrough
           enc("viridian-forest", "017", "GRASS", "1%", "9", "RARE", "016", "017", "018", tip: true)
         ],
         trainers: [
-          tr("LASS", nil, 90, mon("029", 6), mon("032", 6)),
-          tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7)),
-          tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6)),
-          tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8)),
-          tr("BUG CATCHER", nil, 100, mon("010", 10))
+          tr("LASS", nil, 90, mon("029", 6), mon("032", 6), where: scene_shot("vf-lass", "WHERE")),
+          tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7),
+            where: scene_shot("vf-bug-catcher-1", "WHERE")),
+          tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6),
+            where: scene_shot("vf-bug-catcher-2", "WHERE")),
+          tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8),
+            where: scene_shot("vf-bug-catcher-15", "WHERE")),
+          tr("BUG CATCHER", nil, 100, mon("010", 10),
+            where: scene_shot("vf-bug-catcher-3", "WHERE"))
         ],
         oak_queue: [ oak("viridian-forest", "010", 1) ]
       )
@@ -320,15 +342,17 @@ module Walkthrough
         slug: "pewter-city", kind: "CITY", name: "Pewter City", order: 7, badge: "BOULDER",
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, shot: map_shot("pewter-city", 1, "STEP 1")),
           step(b, 2)
         ],
         gym_after: 1,
         encounters: [],
         trainers: [],
         gym: gym("pewter-city", "Pewter Gym", "ROCK", "BOULDER", "TM34 · BIDE",
-          leader("Brock", 1188, mon("074", 10), mon("095", 12)),
-          trainers: [ tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9)) ]),
+          leader("Brock", 1188, mon("074", 10), mon("095", 12),
+            battle: scene_shot("battle-brock", "BATTLE")),
+          trainers: [ tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9),
+            where: scene_shot("pewter-gym-trainer", "WHERE")) ]),
         oak_queue: []
       )
     end
@@ -366,12 +390,12 @@ module Walkthrough
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
 
-    def self.tr(cls, name, reward, *team, sprite: nil, where: nil)
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
-        sprite: sprite || trainer_sprite(cls, name), where: where)
+        sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle)
     end
 
-    def self.leader(name, reward, *team) = tr("LEADER", name, reward, *team)
+    def self.leader(name, reward, *team, battle: nil) = tr("LEADER", name, reward, *team, battle: battle)
 
     def self.rival(reward, *team) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two")
 
@@ -389,14 +413,19 @@ module Walkthrough
     end
 
     def self.route_3
-      loc("route-3", "ROUTE", "Route 3", 8,
+      b = base("route-3")
+      Location.new(
+        slug: "route-3", kind: "ROUTE", name: "Route 3", order: 8, badge: nil,
+        note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1), step(b, 2), step(b, 3, shot: map_shot("route-3", 3, "STEP 3")) ],
         encounters: [
           enc("route-3", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
           enc("route-3", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
           enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
           enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
         ],
-        oak_queue: [ oak("route-3", "027", 1) ])
+        trainers: [], oak_queue: [ oak("route-3", "027", 1) ]
+      )
     end
 
     def self.mt_moon
@@ -942,9 +971,9 @@ module Walkthrough
       Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}", sprite: item_sprite(name))
     end
 
-    def self.hidden(base, n, name, key, image, pin)
+    def self.hidden(base, n, name, key, scene, pin)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",
-        image: "walkthrough/yellow/viridian-forest/#{image}", pin: pin, sprite: item_sprite(name))
+        image: scenes.dig(scene, "image"), pin: pin, sprite: item_sprite(name))
     end
 
     def self.shot(label) = Shot.new(image: nil, label: label)

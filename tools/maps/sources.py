@@ -197,12 +197,29 @@ def parse_sprite_table(root_str):
 
 
 @lru_cache(maxsize=None)
-def parse_object_events(root_str, map_label):
+@lru_cache(maxsize=None)
+def parse_border_block(root_str, map_label):
+    """The map's border block id (`db $X ; border block` in its object file); None if absent.
+
+    Gen 1 fills every on-screen cell beyond the map edge with this block (grass/water outdoors,
+    a solid black block inside buildings)."""
+    path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
+    if not path.exists():
+        return None
+    for line in path.read_text().splitlines():
+        m = re.match(r"\s*db\s+\$([0-9A-Fa-f]+)\s*;\s*border block", line)
+        if m:
+            return int(m.group(1), 16)
+    return None
+
+
+def parse_object_events(root_str, map_label, include_battlers=False):
     """Return the map's person objects as [{grid:(x,y), sprite_const, movement, direction}].
 
-    Reads data/maps/objects/<map_label>.asm. Only plain 6-arg object_events (people) are
-    returned; trainer/item objects carry extra args and are skipped. Source coords are the
-    raw 16px movement grid (the +4 border the macro adds is a binary detail we don't want)."""
+    Reads data/maps/objects/<map_label>.asm. Plain 6-arg object_events (people) are always
+    returned; trainer/item objects carry extra trailing args and are included only when
+    `include_battlers` is set (e.g. to show a gym's leader and trainers on its map). Source
+    coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop)."""
     path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
     if not path.exists():
         return ()
@@ -210,9 +227,9 @@ def parse_object_events(root_str, map_label):
     for line in path.read_text().splitlines():
         body = line.split(";", 1)[0]
         m = re.match(
-            r"\s*object_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(SPRITE_\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*$",
+            r"\s*object_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(SPRITE_\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*(,.*)?$",
             body)
-        if m:
+        if m and (include_battlers or not m.group(7)):
             out.append({"grid": (int(m.group(1)), int(m.group(2))), "sprite_const": m.group(3),
                         "movement": m.group(4), "direction": m.group(5)})
     return tuple(out)

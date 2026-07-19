@@ -638,6 +638,11 @@ a.pn-wt-route__card:hover {
   bottom: auto;
   height: calc(100% - 38px);
 }
+.pn-wt-shot__img--fill {
+  top: 0;
+  bottom: auto;
+  height: calc(100% - 22px);
+}
 .pn-wt-shot__ph {
   position: absolute;
   inset: 0;
@@ -669,36 +674,31 @@ a.pn-wt-route__card:hover {
   z-index: 3;
   pointer-events: none;
 }
-.pn-wt-pin--vf-antidote { left: 55.33%; top: 47%; }
-.pn-wt-pin--vf-potion { left: 45%; top: 35%; }
+/* the flat pink dot itself is baked into the screenshot; these layer the pulsing glow over it */
+.pn-wt-pin--vf-antidote { left: 60%; top: 44.4%; }
+.pn-wt-pin--vf-potion { left: 15%; top: 33.3%; }
+.pn-wt-pin__glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 5px 1px #FF3DAE, 0 0 3px 1px #FF3DAE;
+  animation: pinpulse 1.3s ease-in-out infinite;
+  animation-play-state: var(--play);
+}
 .pn-wt-pin__ring {
   position: absolute;
   left: 0;
   top: 0;
-  width: 44px;
-  height: 44px;
+  width: 16px;
+  height: 16px;
   border: 2px solid #FF3DAE;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: ring 1.6s ease-out infinite;
-  animation-play-state: var(--play);
-}
-.pn-wt-pin__x {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  transform: translate(-50%, -50%);
-  font-family: "Press Start 2P", monospace;
-  font-size: 20px;
-  color: #FF3DAE;
-  text-shadow: 0 0 6px #fff, 0 0 3px #fff;
-  animation: pinpulse 1.3s ease-in-out infinite;
   animation-play-state: var(--play);
 }
 
@@ -1091,6 +1091,29 @@ a.pn-wt-route__card:hover {
   top: 0;
   bottom: auto;
   background: #FFC23D;
+}
+.pn-wt-shot--battlescreen {
+  margin-top: 12px;
+  border: 3px solid #171622;
+  background: #0b1022;
+  aspect-ratio: 20 / 9;
+  box-shadow: inset 0 0 0 3px #FF5D8F, 0 0 18px #FF5D8F33;
+}
+.pn-wt-shot__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.15) 3px, rgba(0, 0, 0, 0) 4px);
+}
+.pn-wt-shot__label--battle {
+  top: 0;
+  bottom: auto;
+  color: #fff;
+  background: #FF5D8F;
+  font-size: 9px;
+  padding: 6px 9px;
+  box-shadow: 0 0 10px #FF5D8F88;
 }
 .pn-wt-trainer__team {
   display: flex;
@@ -1592,13 +1615,23 @@ a.pn-wt-route__card:hover {
   align-items: center;
   flex-wrap: wrap;
 }
-.pn-wt-shot--leadervs {
-  width: 150px;
+.pn-wt-shot--leadervs,
+.pn-wt-shot--leaderbattle {
+  height: clamp(170px, 26vw, 248px);
   flex: none;
-  aspect-ratio: 3 / 4;
+}
+.pn-wt-shot--leadervs {
+  aspect-ratio: 26 / 62;
   border-color: #FF5D8F;
   background: #141a2e;
   box-shadow: 0 0 12px #FF5D8F44;
+}
+.pn-wt-shot--leaderbattle {
+  aspect-ratio: 160 / 144;
+  max-width: 100%;
+  border: 3px solid #FF5D8F;
+  background: #0b1022;
+  box-shadow: inset 0 0 0 3px #0b1022, 0 0 22px #FF5D8F55;
 }
 .pn-wt-gym__leader-meta {
   display: flex;

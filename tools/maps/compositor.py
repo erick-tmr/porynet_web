@@ -21,6 +21,7 @@ SCREEN = (160, 144)                # native Game Boy screen
 
 ARROW_FILL = (248, 192, 32)        # amber pointer, matches the design system's --amber
 ARROW_OUTLINE = (23, 22, 34)       # the design system's near-black ink (#171622)
+MARKER_FILL = (255, 61, 174)       # a flat dot on a hidden-item tile; the site's --neon-magenta #FF3DAE
 
 # The GBC battle screen is colorized (colors sampled from the game). 4-color palettes,
 # lightest shade first; white becomes the paper background.
@@ -82,8 +83,10 @@ def _shade_to_ramp(value, ramp):
 
 # --- map ---------------------------------------------------------------------
 
-def render_map(root_str, label, parent_const=None):
-    """Render one pokeyellow map (by header label) to (RGB image, palette colors)."""
+def _map_painter(root_str, label, parent_const):
+    """Return (paint_block, colors, w, h, blk): paint_block(idx) colors one 32x32 block image.
+
+    Shared by render_map (the whole grid) and render_screen (the border block for edge fill)."""
     headers = sources.parse_headers(root_str)
     if label not in headers:
         raise KeyError(f"no map header for {label}")
@@ -96,10 +99,9 @@ def render_map(root_str, label, parent_const=None):
     blocks = sources.load_blockset(root_str, tileset_file)
     blk = sources.load_blueprint(root_str, label)
 
-    pal_id = sources.resolve_palette_id(root_str, const, tileset, parent_const)
-    colors = _map_colors(root_str, pal_id)                    # 4 RGB tuples, index 0 = lightest
+    colors = _map_colors(root_str, sources.resolve_palette_id(root_str, const, tileset, parent_const))
     shade_to_rgb = {255: colors[0], 170: colors[1], 85: colors[2], 0: colors[3]}
-    tile_cache = {}
+    tile_cache, block_cache = {}, {}
 
     def colored_tile(tile_idx):
         if tile_idx not in tile_cache:
@@ -109,14 +111,27 @@ def render_map(root_str, label, parent_const=None):
             tile_cache[tile_idx] = rgb
         return tile_cache[tile_idx]
 
+    def paint_block(block_idx):
+        if block_idx not in block_cache:
+            block = blocks[block_idx] if block_idx < len(blocks) else blocks[0]
+            img = Image.new("RGB", (BLOCK_PX, BLOCK_PX))
+            for ty in range(sources.BLOCK_TILES):
+                for tx in range(sources.BLOCK_TILES):
+                    img.paste(colored_tile(block[ty * sources.BLOCK_TILES + tx]),
+                              (tx * TILE_PX, ty * TILE_PX))
+            block_cache[block_idx] = img
+        return block_cache[block_idx]
+
+    return paint_block, colors, w, h, blk
+
+
+def render_map(root_str, label, parent_const=None):
+    """Render one pokeyellow map (by header label) to (RGB image, palette colors)."""
+    paint_block, colors, w, h, blk = _map_painter(root_str, label, parent_const)
     canvas = Image.new("RGB", (w * BLOCK_PX, h * BLOCK_PX))
     for by in range(h):
         for bx in range(w):
-            block = blocks[blk[by * w + bx]] if blk[by * w + bx] < len(blocks) else blocks[0]
-            for ty in range(sources.BLOCK_TILES):
-                for tx in range(sources.BLOCK_TILES):
-                    canvas.paste(colored_tile(block[ty * sources.BLOCK_TILES + tx]),
-                                 (bx * BLOCK_PX + tx * TILE_PX, by * BLOCK_PX + ty * TILE_PX))
+            canvas.paste(paint_block(blk[by * w + bx]), (bx * BLOCK_PX, by * BLOCK_PX))
     return canvas, colors
 
 
@@ -140,6 +155,34 @@ def overlay_sprites(canvas, root_str, sprites, colors):
         rgba.putdata([(0, 0, 0, 0) if shade.get(p) is None else (*shade[p], 255) for p in tile.getdata()])
         out.alpha_composite(rgba, (spr["grid"][0] * UNIT_PX, spr["grid"][1] * UNIT_PX))
     return out.convert("RGB")
+
+
+def overlay_emotes(canvas, root_str, emotes, colors):
+    """Composite emotion bubbles (gfx/emotes/*.png) one cell above a sprite, e.g. the '!' a
+    trainer flashes on spotting the player. Each emote: {name, grid:[gx,gy]}. The bubble is a
+    light fill (shade 170) with a dark outline and mark (shade 0); the corners are transparent."""
+    out = canvas.convert("RGBA")
+    shade = {255: None, 170: colors[0], 0: colors[3]}
+    for em in emotes:
+        sheet = Image.open(sources._root(root_str) / f"gfx/emotes/{em['name']}.png").convert("L")
+        rgba = Image.new("RGBA", (16, 16))
+        rgba.putdata([(0, 0, 0, 0) if shade.get(p) is None else (*shade[p], 255)
+                      for p in sheet.crop((0, 0, 16, 16)).getdata()])
+        gx, gy = em["grid"]
+        out.alpha_composite(rgba, (gx * UNIT_PX, (gy - 1) * UNIT_PX))
+    return out.convert("RGB")
+
+
+def overlay_markers(canvas, markers):
+    """Bake a flat brand-pink dot on the center of a cell (a hidden item's tile). The page layers
+    the pulsing glow on top in CSS. Each marker: {grid:[gx,gy], r?}."""
+    draw = ImageDraw.Draw(canvas)
+    for m in markers:
+        cx, cy = m["grid"][0] * UNIT_PX + UNIT_PX // 2, m["grid"][1] * UNIT_PX + UNIT_PX // 2
+        r = m.get("r", 2)
+        draw.ellipse([cx - r - 1, cy - r - 1, cx + r + 1, cy + r + 1], fill=ARROW_OUTLINE)
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=MARKER_FILL)
+    return canvas
 
 
 def _rotate90(points, direction):
@@ -181,25 +224,53 @@ def draw_dialog(canvas, root_str, lines, ink, paper):
     return canvas
 
 
-# where the hero's 16x16 sprite sits on the 160x144 screen (camera clamps at map edges)
+# where the hero's 16x16 sprite sits on the 160x144 screen (the fixed Gen 1 camera anchor)
 PLAYER_SCREEN = (72, 56)
 
 
-def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None):
-    """Render a native 160x144 GB screen: a viewport of the map centered on `focus_grid`
-    (the hero's cell), the given sprites and directional arrows composited, and an optional
-    bottom dialog box.
+def _camera(focus_px, anchor, full_size, screen_size):
+    """Gen 1 keeps the hero pinned to `anchor` on screen. When the map is wider/taller than the
+    screen on this axis we clamp so the camera never scrolls past a map edge; when it is smaller
+    we let it center on the hero, so the border block shows in the leftover space (see below)."""
+    if full_size < screen_size:
+        return focus_px - anchor
+    return min(max(focus_px - anchor, 0), full_size - screen_size)
 
-    The camera clamps to the map edges like the game; out-of-map area is filled with paper."""
+
+def _border_fill(root_str, label, parent_const):
+    """A 160x144 screen tiled with the map's border block (grass/water outdoors, black inside
+    buildings), the fill Gen 1 draws in any on-screen cell that falls outside the map."""
+    border = sources.parse_border_block(root_str, label)
+    paint_block, _, _, _, _ = _map_painter(root_str, label, parent_const)
+    tile = paint_block(border if border is not None else 0)
+    screen = Image.new("RGB", SCREEN)
+    for y in range(0, SCREEN[1], BLOCK_PX):
+        for x in range(0, SCREEN[0], BLOCK_PX):
+            screen.paste(tile, (x, y))
+    return screen
+
+
+def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None,
+                  emotes=(), markers=()):
+    """Render a native 160x144 GB screen: a viewport of the map with the hero pinned near the
+    center, the given sprites, emotion bubbles, hidden-item markers and directional arrows
+    composited, and an optional bottom dialog box.
+
+    Beyond the map edge the screen shows the map's border block, exactly like the game: on a small
+    interior map (a gate or shop) that block is solid black, so the empty space reads as black."""
     full, colors = render_map(root_str, label, parent_const)
     if sprites:
         full = overlay_sprites(full, root_str, sprites, colors)
+    if emotes:
+        full = overlay_emotes(full, root_str, emotes, colors)
+    if markers:
+        full = overlay_markers(full, markers)
     if arrows:
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
-    offx = min(max(fx - PLAYER_SCREEN[0], 0), max(full.width - SCREEN[0], 0))
-    offy = min(max(fy - PLAYER_SCREEN[1], 0), max(full.height - SCREEN[1], 0))
-    screen = Image.new("RGB", SCREEN, colors[0])
+    offx = _camera(fx, PLAYER_SCREEN[0], full.width, SCREEN[0])
+    offy = _camera(fy, PLAYER_SCREEN[1], full.height, SCREEN[1])
+    screen = _border_fill(root_str, label, parent_const)
     screen.paste(full, (-offx, -offy))
     if dialog:
         draw_dialog(screen, root_str, dialog, ink=colors[3], paper=colors[0])
