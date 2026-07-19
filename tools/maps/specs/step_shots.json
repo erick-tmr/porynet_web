@@ -13,5 +13,10 @@
     "type": "screen", "slug": "route-1", "step": 1, "name": "route-1-north",
     "map": "Route1", "player": [13, 24], "player_dir": "UP",
     "arrows": [{"dir": "up", "grid": [13, 22]}]
+  },
+  {
+    "type": "screen", "slug": "viridian-city", "step": 1, "name": "viridian-mart-parcel",
+    "map": "ViridianMart", "player": [1, 5], "player_dir": "LEFT", "auto_npcs": true,
+    "dialog": {"lines": ["<PLAYER> got", "OAK's PARCEL!"]}
   }
 ]

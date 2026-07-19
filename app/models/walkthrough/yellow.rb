@@ -231,7 +231,8 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ], shot: shot("STEP 1")),
+          step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ],
+            shot: map_shot("viridian-city", 1, "STEP 1")),
           step(b, 2),
           step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ], shot: shot("STEP 3")),
           step(b, 4),

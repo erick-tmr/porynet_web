@@ -705,6 +705,13 @@
         "width": 160,
         "height": 144
       }
+    },
+    "viridian-city": {
+      "1": {
+        "image": "walkthrough/yellow/scenes/viridian-mart-parcel.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {
