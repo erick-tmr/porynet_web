@@ -28,8 +28,15 @@ pip install -r tools/maps/requirements.txt   # Pillow (the only runtime dependen
 ## Run
 
 ```sh
-python tools/maps/build.py --pokeyellow ~/Code/pokeyellow [--force]
+python tools/maps/build.py --pokeyellow ~/Code/pokeyellow [--force] [--palette gbc|sgb|dmg]
 ```
+
+`--palette` picks which hardware's colors to render everything in (default **gbc**):
+
+- `gbc` — Game Boy Color, the game's `CGBBasePalettes` (saturated; e.g. Oak's Lab purple).
+- `sgb` — Super Game Boy, the paler `SuperPalettes`.
+- `dmg` — the original Game Boy's four greens (monochrome). Sprites, dialog scenes and battle
+  scenes all follow the chosen mode.
 
 This writes:
 

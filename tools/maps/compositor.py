@@ -32,6 +32,21 @@ BATTLE_INK = (16, 16, 16)
 # so an empty slot (drawn only in 170) is a yellow circle; a filled ball is green. 255 = bg.
 BALL_PALETTE = [None, (238, 210, 74), (43, 201, 32), (24, 24, 24)]
 
+# Which hardware's colors to render in. Set by build.py (--palette); default GBC.
+#   "gbc" -> the game's CGBBasePalettes (saturated Game Boy Color)
+#   "sgb" -> the paler Super Game Boy SuperPalettes
+#   "dmg" -> the original Game Boy's 4 greens (monochrome, one palette everywhere)
+PALETTE_MODE = "gbc"
+DMG_PALETTE = [(155, 188, 15), (139, 172, 15), (48, 98, 48), (15, 56, 15)]  # #9BBC0F .. #0F380F
+
+
+def _map_colors(root_str, pal_id):
+    """The map's 4 colors (lightest first) for the active PALETTE_MODE."""
+    if PALETTE_MODE == "dmg":
+        return DMG_PALETTE
+    table = sources.parse_super_palettes if PALETTE_MODE == "sgb" else sources.parse_cgb_palettes
+    return table(root_str)[pal_id]
+
 
 # party Poke balls: the game always shows PARTY_LENGTH slots (SetupPokeballs), filling the
 # first N with a real ball and the rest with the empty-slot tile. Screen positions are the
@@ -82,7 +97,7 @@ def render_map(root_str, label, parent_const=None):
     blk = sources.load_blueprint(root_str, label)
 
     pal_id = sources.resolve_palette_id(root_str, const, tileset, parent_const)
-    colors = sources.parse_cgb_palettes(root_str)[pal_id]     # 4 RGB tuples, index 0 = lightest
+    colors = _map_colors(root_str, pal_id)                    # 4 RGB tuples, index 0 = lightest
     shade_to_rgb = {255: colors[0], 170: colors[1], 85: colors[2], 0: colors[3]}
     tile_cache = {}
 
@@ -233,28 +248,36 @@ def _draw_hud(canvas, root_str, hud, ink):
         _blit_hud_tile(canvas, root_str, png, idx, tile_col, tile_row, ink)
 
 
-def render_battle(root_str, opponent_const, *, opponent_name=None, enemy_palette=RIVAL_PALETTE,
+def render_battle(root_str, opponent_const, *, opponent_name=None, enemy_palette=None,
                   enemy_balls=1, player_balls=1):
     """Render the pre-battle face-off frame: enemy trainer pic (top-right), player back
-    (bottom-left), each trainer's green party-count Poke balls on their HUD bracket, the
-    "<NAME> wants / to fight!" dialog and a continue prompt. 160x144, colorized GBC look."""
-    canvas = Image.new("RGB", SCREEN, BATTLE_PAPER)
+    (bottom-left), each trainer's party-count Poke balls on their HUD bracket, the
+    "<NAME> wants / to fight!" dialog and a continue prompt. 160x144. Colorized in GBC/SGB
+    mode; rendered in the Game Boy greens in DMG mode."""
+    if PALETTE_MODE == "dmg":
+        paper, ink = DMG_PALETTE[0], DMG_PALETTE[3]
+        player_pal = enemy_pal = DMG_PALETTE
+        ball_pal = [None, DMG_PALETTE[1], DMG_PALETTE[2], DMG_PALETTE[3]]
+    else:
+        paper, ink = BATTLE_PAPER, BATTLE_INK
+        player_pal, enemy_pal, ball_pal = PLAYER_PALETTE, enemy_palette or RIVAL_PALETTE, BALL_PALETTE
+    canvas = Image.new("RGB", SCREEN, paper)
 
     pic_file = sources.parse_trainer_pic_file(root_str, opponent_const)
-    enemy = _load_pic(sources._root(root_str) / f"gfx/trainers/{pic_file}.png", (56, 56), enemy_palette)
+    enemy = _load_pic(sources._root(root_str) / f"gfx/trainers/{pic_file}.png", (56, 56), enemy_pal)
     canvas.paste(enemy, (96, 0))                                 # hlcoord 12, 0
 
-    back = _load_pic(sources._root(root_str) / "gfx/player/redb.png", (64, 64), PLAYER_PALETTE)
+    back = _load_pic(sources._root(root_str) / "gfx/player/redb.png", (64, 64), player_pal)
     canvas.paste(back, (8, 40))                                  # hlcoord 1, 5: feet on the line at y=96
 
-    filled = _ball_image(root_str, BALL_PALETTE, BALL_FILLED_TILE)
-    empty = _ball_image(root_str, BALL_PALETTE, BALL_EMPTY_TILE)
+    filled = _ball_image(root_str, ball_pal, BALL_FILLED_TILE)
+    empty = _ball_image(root_str, ball_pal, BALL_EMPTY_TILE)
     _draw_ball_row(canvas, filled, empty, enemy_balls, ENEMY_BALLS_XY, -BALL_STEP)
     _draw_ball_row(canvas, filled, empty, player_balls, PLAYER_BALLS_XY, BALL_STEP)
-    _draw_hud(canvas, root_str, ENEMY_HUD, BATTLE_INK)
-    _draw_hud(canvas, root_str, PLAYER_HUD, BATTLE_INK)
+    _draw_hud(canvas, root_str, ENEMY_HUD, ink)
+    _draw_hud(canvas, root_str, PLAYER_HUD, ink)
 
     name = opponent_name or sources.parse_trainer_classes(root_str)[opponent_const][1]
-    draw_dialog(canvas, root_str, [f"{name} wants", "to fight!"], BATTLE_INK, BATTLE_PAPER)
-    text.draw_text(canvas, root_str, "▼", (18, 16), BATTLE_INK)  # continue prompt
+    draw_dialog(canvas, root_str, [f"{name} wants", "to fight!"], ink, paper)
+    text.draw_text(canvas, root_str, "▼", (18, 16), ink)        # continue prompt
     return canvas
