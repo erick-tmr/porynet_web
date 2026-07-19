@@ -8,7 +8,7 @@
 ## Step shots
 
 - `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png
-- `pallet-town` step 4: walkthrough/yellow/maps/pallet-town-exit.png
+- `pallet-town` step 4: walkthrough/yellow/scenes/pallet-town-exit.png
 - `route-1` step 1: walkthrough/yellow/scenes/route-1-north.png
 
 ## Scenes

@@ -694,9 +694,9 @@
         "height": 128
       },
       "4": {
-        "image": "walkthrough/yellow/maps/pallet-town-exit.png",
-        "width": 320,
-        "height": 288
+        "image": "walkthrough/yellow/scenes/pallet-town-exit.png",
+        "width": 160,
+        "height": 144
       }
     },
     "route-1": {

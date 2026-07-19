@@ -240,7 +240,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
     exit_shot = steps[3].shot
     assert exit_shot.map?
-    assert_equal "walkthrough/yellow/maps/pallet-town-exit.png", exit_shot.image
+    assert_equal "walkthrough/yellow/scenes/pallet-town-exit.png", exit_shot.image
 
     plain = Walkthrough::Yellow.map_shot("route-2", 1, "STEP 1")
     refute plain.map?
