@@ -64,7 +64,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select ".pn-wt-shot__map[data-controller=?]", "map-markers"
-    assert_select "img.pn-wt-shot__img[src*=?]", "walkthrough/yellow/maps/reds-house-2f.png"
+    assert_select "img.pn-wt-shot__map-img[src*=?]", "walkthrough/yellow/maps/reds-house-2f.png"
     assert_select ".pn-wt-map__marker--poi[data-map-markers-target=?]", "marker"
   end
 
