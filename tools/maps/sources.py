@@ -213,12 +213,13 @@ def parse_border_block(root_str, map_label):
     return None
 
 
-def parse_object_events(root_str, map_label):
+def parse_object_events(root_str, map_label, include_battlers=False):
     """Return the map's person objects as [{grid:(x,y), sprite_const, movement, direction}].
 
-    Reads data/maps/objects/<map_label>.asm. Only plain 6-arg object_events (people) are
-    returned; trainer/item objects carry extra args and are skipped. Source coords are the
-    raw 16px movement grid (the +4 border the macro adds is a binary detail we don't want)."""
+    Reads data/maps/objects/<map_label>.asm. Plain 6-arg object_events (people) are always
+    returned; trainer/item objects carry extra trailing args and are included only when
+    `include_battlers` is set (e.g. to show a gym's leader and trainers on its map). Source
+    coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop)."""
     path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
     if not path.exists():
         return ()
@@ -226,9 +227,9 @@ def parse_object_events(root_str, map_label):
     for line in path.read_text().splitlines():
         body = line.split(";", 1)[0]
         m = re.match(
-            r"\s*object_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(SPRITE_\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*$",
+            r"\s*object_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(SPRITE_\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*(,.*)?$",
             body)
-        if m:
+        if m and (include_battlers or not m.group(7)):
             out.append({"grid": (int(m.group(1)), int(m.group(2))), "sprite_const": m.group(3),
                         "movement": m.group(4), "direction": m.group(5)})
     return tuple(out)

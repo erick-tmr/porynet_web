@@ -14,7 +14,7 @@ def test_resolve_sprite_explicit_frame(root):
 
 
 def test_auto_npcs(root):
-    npcs = generators._auto_npcs(root, "PalletTown")
+    npcs = generators.auto_npcs(root, "PalletTown")
     assert {n["file"] for n in npcs} == {"oak", "girl", "fisher"}
 
 

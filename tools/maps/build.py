@@ -130,7 +130,9 @@ def main():
                 missing.append(f"{slug}: {label}")
                 continue
             name = image_name(slug, floor)
-            image = compositor.render_map(root, label, parent)[0]
+            image, colors = compositor.render_map(root, label, parent)
+            if floor == "Gym":     # show the gym's people: the guide, its trainers, and the leader
+                image = compositor.overlay_sprites(image, root, generators.auto_npcs(root, label, battlers=True), colors)
             key = save_png(image, "maps", name, args.force)
             entries.append({"image": key, "width": image.width, "height": image.height, "floor": floor})
         if entries:

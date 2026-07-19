@@ -35,10 +35,11 @@ def _resolve_sprite(root, entry):
     return {"file": file, "frame": frame, "grid": entry["grid"], "flip": flip}
 
 
-def _auto_npcs(root, map_label):
-    """Every person object on the map, at its real cell and facing."""
+def auto_npcs(root, map_label, battlers=False):
+    """Every person object on the map, at its real cell and facing. With `battlers`, also the
+    map's trainers and item balls (its leader / gym trainers / ground items)."""
     out = []
-    for obj in sources.parse_object_events(root, map_label):
+    for obj in sources.parse_object_events(root, map_label, include_battlers=battlers):
         frame, flip = compositor.DIR_TO_FRAME.get(obj["direction"], (0, False))
         file = sources.parse_sprite_table(root).get(obj["sprite_const"])
         if file:
@@ -60,7 +61,7 @@ def gen_map_scene(root, spec):
     image, colors = compositor.render_map(root, spec["map"], spec.get("parent"))
     sprites = [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
-        sprites += _auto_npcs(root, spec["map"])
+        sprites += auto_npcs(root, spec["map"])
     if sprites:
         image = compositor.overlay_sprites(image, root, sprites, colors)
     if spec.get("arrows"):
@@ -81,7 +82,7 @@ def gen_screen_scene(root, spec):
                                       "dir": spec.get("player_dir", "DOWN")})]
     sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
-        sprites += _auto_npcs(root, spec["map"])
+        sprites += auto_npcs(root, spec["map"])
     emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
     markers = [{"grid": spec["marker"]}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
