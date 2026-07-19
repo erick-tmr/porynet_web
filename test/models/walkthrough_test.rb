@@ -199,23 +199,30 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil g.best_catch_here(r2, pidgey_r2), "Route 2 is not Pidgey's best spot"
   end
 
-  test "locations carry rendered area maps with hidden-item markers" do
+  test "locations carry plain rendered area maps" do
     g = game
     vf = loc("viridian-forest")
     assert_equal 1, vf.area_maps.size
-    map = vf.area_maps.first
-    assert_equal "walkthrough/yellow/maps/viridian-forest.png", map.image
-    refute map.floor?
-    assert_equal 2, map.markers.size
-    marker = map.markers.first
-    assert_operator marker.x_pct, :>=, 0
-    assert_operator marker.x_pct, :<=, 1
-    assert_includes %w[item coin], marker.kind
+    assert_equal "walkthrough/yellow/maps/viridian-forest.png", vf.area_maps.first.image
+    refute vf.area_maps.first.floor?
 
     floors = loc("mt-moon").area_maps
     assert_equal %w[1F B1F B2F], floors.map(&:floor)
     assert floors.first.floor?
     assert(g.locations.count(&:area_maps?) > 40)
+  end
+
+  test "an interior map fills a step's screenshot slot with a marker" do
+    shot = loc("pallet-town").steps.first.shot
+    assert shot.map?
+    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", shot.image
+    assert_equal 1, shot.markers.size
+    assert_equal "poi", shot.markers.first.kind
+    assert_operator shot.markers.first.x_pct, :<=, 1
+
+    plain = Walkthrough::Yellow.map_shot("route-1", 1, "STEP 1")
+    refute plain.map?
+    assert_nil plain.image
   end
 
   private

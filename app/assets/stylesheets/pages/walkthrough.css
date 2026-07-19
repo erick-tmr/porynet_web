@@ -1808,14 +1808,6 @@ a.pn-wt-route__card:hover {
   box-shadow: 0 0 0 2px #fff;
 }
 
-.pn-wt-map__marker--item .pn-wt-map__dot {
-  background: var(--accent);
-}
-
-.pn-wt-map__marker--coin .pn-wt-map__dot {
-  background: var(--amber);
-}
-
 .pn-wt-map__label {
   position: absolute;
   left: 50%;
@@ -1839,4 +1831,20 @@ a.pn-wt-route__card:hover {
 
 .pn-wt-map__marker--poi .pn-wt-map__dot {
   background: var(--accent2);
+}
+
+/* an interior map rendered into a step's screenshot slot */
+.pn-wt-shot--map {
+  overflow: visible;
+  line-height: 0;
+}
+.pn-wt-shot__map {
+  position: relative;
+  line-height: 0;
+}
+.pn-wt-shot__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
 }

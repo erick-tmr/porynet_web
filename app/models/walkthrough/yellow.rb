@@ -152,16 +152,26 @@ module Walkthrough
       ].map { |loc| loc.with(area_maps: data.fetch(loc.slug, [])) }
     end
 
+    def self.manifest
+      JSON.parse(File.read(File.join(__dir__, "yellow_maps.json")))
+    end
+
     def self.map_data
-      JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).fetch("locations")
-        .transform_values do |maps|
-          maps.map do |m|
-            AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-              markers: m.fetch("markers").map do |k|
-                MapMarker.new(x_pct: k["x_pct"], y_pct: k["y_pct"], kind: k["kind"], label: k["label"])
-              end)
-          end
-        end
+      manifest.fetch("locations").transform_values do |maps|
+        maps.map { |m| AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"]) }
+      end
+    end
+
+    def self.step_shots = manifest.fetch("step_shots", {})
+
+    def self.map_shot(slug, step_n, label)
+      data = step_shots.dig(slug, step_n.to_s)
+      return shot(label) unless data
+
+      Shot.new(image: data["image"], label: label,
+        markers: data.fetch("markers").map do |k|
+          MapMarker.new(x_pct: k["x_pct"], y_pct: k["y_pct"], kind: k["kind"], label: k["label"])
+        end)
     end
 
     def self.build_legs(by_slug)
@@ -182,7 +192,7 @@ module Walkthrough
         slug: "pallet-town", kind: "TOWN", name: "Pallet Town", order: 1, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: shot("STEP 1")),
+          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1")),
           step(b, 2),
           step(b, 3),
           step(b, 4, shot: shot("STEP 4"))
@@ -934,6 +944,6 @@ module Walkthrough
         image: "walkthrough/yellow/viridian-forest/#{image}", pin: pin, sprite: item_sprite(name))
     end
 
-    def self.shot(label) = Shot.new(image: nil, label: label)
+    def self.shot(label) = Shot.new(image: nil, label: label, markers: [])
   end
 end
