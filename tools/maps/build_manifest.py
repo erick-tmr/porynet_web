@@ -71,15 +71,19 @@ _DUNGEONS = {
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
 }
 
-# interior map rendered into a specific step's screenshot slot: slug -> {step_n: (map_label, parent)}
+# maps rendered into a specific walkthrough step's screenshot slot:
+#   slug -> {step_n: {map, parent, name, sprites?, arrows?}}
+# name is the output basename and must not collide with an area-map slug. sprites composite
+# overworld frames for illustration (red.png frame 1 = the player facing up); arrows are
+# directional pointers (e.g. toward a map exit). See render_maps for the sprite/arrow specs.
 _STEP_SHOTS = {
-    "pallet-town": {1: ("RedsHouse2F", "PALLET_TOWN")},
-}
-
-# overworld sprites composited onto a step-shot map for illustration: map_label -> [{sprite, frame, grid}]
-# red.png frame 1 is the player facing up (back to camera); grid is in 16px cells.
-_STEP_SPRITES = {
-    "RedsHouse2F": [{"sprite": "red", "frame": 1, "grid": [0, 2]}],
+    "pallet-town": {
+        1: {"map": "RedsHouse2F", "parent": "PALLET_TOWN", "name": "reds-house-2f",
+            "sprites": [{"sprite": "red", "frame": 1, "grid": [0, 2]}]},
+        4: {"map": "PalletTown", "parent": None, "name": "pallet-town-exit",
+            "sprites": [{"sprite": "red", "frame": 1, "grid": [10, 2]}],
+            "arrows": [{"dir": "up", "px": [168, 18]}]},
+    },
 }
 
 
@@ -97,8 +101,8 @@ def image_name(slug, floor):
     return slug if not floor else f"{slug}-{floor.lower().replace(' ', '-')}"
 
 
-def render_and_save(root, label, parent, name, force, sprites=None):
-    img = render_maps.render_map(root, label, parent, sprites)
+def render_and_save(root, label, parent, name, force, sprites=None, arrows=None):
+    img = render_maps.render_map(root, label, parent, sprites, arrows)
     png = IMG_DIR / f"{name}.png"
     if force or not png.exists():
         img.save(png)
@@ -131,12 +135,14 @@ def main():
 
     step_shots = {}
     for slug, steps in sorted(_STEP_SHOTS.items()):
-        for step_n, (label, parent) in steps.items():
+        for step_n, spec in steps.items():
+            label = spec["map"]
             if label not in headers:
                 missing.append(f"{slug} step {step_n}: {label}")
                 continue
-            name = headers[label][0].lower().replace("_", "-")
-            img = render_and_save(root, label, parent, name, args.force, _STEP_SPRITES.get(label))
+            name = spec["name"]
+            img = render_and_save(root, label, spec.get("parent"), name, args.force,
+                                  spec.get("sprites"), spec.get("arrows"))
             step_shots.setdefault(slug, {})[str(step_n)] = {
                 "image": f"{R2_PREFIX}/{name}.png", "width": img.width, "height": img.height}
 

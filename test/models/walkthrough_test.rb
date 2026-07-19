@@ -213,9 +213,13 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "an interior map fills a step's screenshot slot" do
-    shot = loc("pallet-town").steps.first.shot
-    assert shot.map?
-    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", shot.image
+    steps = loc("pallet-town").steps
+    assert steps.first.shot.map?
+    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", steps.first.shot.image
+
+    exit_shot = steps[3].shot
+    assert exit_shot.map?
+    assert_equal "walkthrough/yellow/maps/pallet-town-exit.png", exit_shot.image
 
     plain = Walkthrough::Yellow.map_shot("route-1", 1, "STEP 1")
     refute plain.map?
