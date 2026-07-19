@@ -197,6 +197,22 @@ def parse_sprite_table(root_str):
 
 
 @lru_cache(maxsize=None)
+@lru_cache(maxsize=None)
+def parse_border_block(root_str, map_label):
+    """The map's border block id (`db $X ; border block` in its object file); None if absent.
+
+    Gen 1 fills every on-screen cell beyond the map edge with this block (grass/water outdoors,
+    a solid black block inside buildings)."""
+    path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
+    if not path.exists():
+        return None
+    for line in path.read_text().splitlines():
+        m = re.match(r"\s*db\s+\$([0-9A-Fa-f]+)\s*;\s*border block", line)
+        if m:
+            return int(m.group(1), 16)
+    return None
+
+
 def parse_object_events(root_str, map_label):
     """Return the map's person objects as [{grid:(x,y), sprite_const, movement, direction}].
 

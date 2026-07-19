@@ -82,8 +82,10 @@ def _shade_to_ramp(value, ramp):
 
 # --- map ---------------------------------------------------------------------
 
-def render_map(root_str, label, parent_const=None):
-    """Render one pokeyellow map (by header label) to (RGB image, palette colors)."""
+def _map_painter(root_str, label, parent_const):
+    """Return (paint_block, colors, w, h, blk): paint_block(idx) colors one 32x32 block image.
+
+    Shared by render_map (the whole grid) and render_screen (the border block for edge fill)."""
     headers = sources.parse_headers(root_str)
     if label not in headers:
         raise KeyError(f"no map header for {label}")
@@ -96,10 +98,9 @@ def render_map(root_str, label, parent_const=None):
     blocks = sources.load_blockset(root_str, tileset_file)
     blk = sources.load_blueprint(root_str, label)
 
-    pal_id = sources.resolve_palette_id(root_str, const, tileset, parent_const)
-    colors = _map_colors(root_str, pal_id)                    # 4 RGB tuples, index 0 = lightest
+    colors = _map_colors(root_str, sources.resolve_palette_id(root_str, const, tileset, parent_const))
     shade_to_rgb = {255: colors[0], 170: colors[1], 85: colors[2], 0: colors[3]}
-    tile_cache = {}
+    tile_cache, block_cache = {}, {}
 
     def colored_tile(tile_idx):
         if tile_idx not in tile_cache:
@@ -109,14 +110,27 @@ def render_map(root_str, label, parent_const=None):
             tile_cache[tile_idx] = rgb
         return tile_cache[tile_idx]
 
+    def paint_block(block_idx):
+        if block_idx not in block_cache:
+            block = blocks[block_idx] if block_idx < len(blocks) else blocks[0]
+            img = Image.new("RGB", (BLOCK_PX, BLOCK_PX))
+            for ty in range(sources.BLOCK_TILES):
+                for tx in range(sources.BLOCK_TILES):
+                    img.paste(colored_tile(block[ty * sources.BLOCK_TILES + tx]),
+                              (tx * TILE_PX, ty * TILE_PX))
+            block_cache[block_idx] = img
+        return block_cache[block_idx]
+
+    return paint_block, colors, w, h, blk
+
+
+def render_map(root_str, label, parent_const=None):
+    """Render one pokeyellow map (by header label) to (RGB image, palette colors)."""
+    paint_block, colors, w, h, blk = _map_painter(root_str, label, parent_const)
     canvas = Image.new("RGB", (w * BLOCK_PX, h * BLOCK_PX))
     for by in range(h):
         for bx in range(w):
-            block = blocks[blk[by * w + bx]] if blk[by * w + bx] < len(blocks) else blocks[0]
-            for ty in range(sources.BLOCK_TILES):
-                for tx in range(sources.BLOCK_TILES):
-                    canvas.paste(colored_tile(block[ty * sources.BLOCK_TILES + tx]),
-                                 (bx * BLOCK_PX + tx * TILE_PX, by * BLOCK_PX + ty * TILE_PX))
+            canvas.paste(paint_block(blk[by * w + bx]), (bx * BLOCK_PX, by * BLOCK_PX))
     return canvas, colors
 
 
@@ -181,25 +195,47 @@ def draw_dialog(canvas, root_str, lines, ink, paper):
     return canvas
 
 
-# where the hero's 16x16 sprite sits on the 160x144 screen (camera clamps at map edges)
+# where the hero's 16x16 sprite sits on the 160x144 screen (the fixed Gen 1 camera anchor)
 PLAYER_SCREEN = (72, 56)
 
 
-def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None):
-    """Render a native 160x144 GB screen: a viewport of the map centered on `focus_grid`
-    (the hero's cell), the given sprites and directional arrows composited, and an optional
-    bottom dialog box.
+def _camera(focus_px, anchor, full_size, screen_size):
+    """Gen 1 keeps the hero pinned to `anchor` on screen. When the map is wider/taller than the
+    screen on this axis we clamp so the camera never scrolls past a map edge; when it is smaller
+    we let it center on the hero, so the border block shows in the leftover space (see below)."""
+    if full_size < screen_size:
+        return focus_px - anchor
+    return min(max(focus_px - anchor, 0), full_size - screen_size)
 
-    The camera clamps to the map edges like the game; out-of-map area is filled with paper."""
+
+def _border_fill(root_str, label, parent_const):
+    """A 160x144 screen tiled with the map's border block (grass/water outdoors, black inside
+    buildings), the fill Gen 1 draws in any on-screen cell that falls outside the map."""
+    border = sources.parse_border_block(root_str, label)
+    paint_block, _, _, _, _ = _map_painter(root_str, label, parent_const)
+    tile = paint_block(border if border is not None else 0)
+    screen = Image.new("RGB", SCREEN)
+    for y in range(0, SCREEN[1], BLOCK_PX):
+        for x in range(0, SCREEN[0], BLOCK_PX):
+            screen.paste(tile, (x, y))
+    return screen
+
+
+def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None):
+    """Render a native 160x144 GB screen: a viewport of the map with the hero pinned near the
+    center, the given sprites and directional arrows composited, and an optional bottom dialog box.
+
+    Beyond the map edge the screen shows the map's border block, exactly like the game: on a small
+    interior map (a gate or shop) that block is solid black, so the empty space reads as black."""
     full, colors = render_map(root_str, label, parent_const)
     if sprites:
         full = overlay_sprites(full, root_str, sprites, colors)
     if arrows:
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
-    offx = min(max(fx - PLAYER_SCREEN[0], 0), max(full.width - SCREEN[0], 0))
-    offy = min(max(fy - PLAYER_SCREEN[1], 0), max(full.height - SCREEN[1], 0))
-    screen = Image.new("RGB", SCREEN, colors[0])
+    offx = _camera(fx, PLAYER_SCREEN[0], full.width, SCREEN[0])
+    offy = _camera(fy, PLAYER_SCREEN[1], full.height, SCREEN[1])
+    screen = _border_fill(root_str, label, parent_const)
     screen.paste(full, (-offx, -offy))
     if dialog:
         draw_dialog(screen, root_str, dialog, ink=colors[3], paper=colors[0])

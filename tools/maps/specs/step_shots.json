@@ -37,7 +37,7 @@
   },
   {
     "type": "screen", "slug": "route-2", "step": 2, "name": "viridian-forest-south-gate",
-    "map": "ViridianForestSouthGate", "player": [4, 5], "player_dir": "UP", "auto_npcs": true,
-    "arrows": [{"dir": "up", "grid": [4, 1]}]
+    "map": "ViridianForestSouthGate", "player": [4, 2], "player_dir": "UP", "auto_npcs": true,
+    "arrows": [{"dir": "up", "grid": [4, 0]}]
   }
 ]
