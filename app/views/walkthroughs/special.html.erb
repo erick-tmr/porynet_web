@@ -40,7 +40,7 @@
     </div>
     <div class="pn-wt-catch-grid">
       <% @location.encounters.each do |enc| %>
-        <%= render "catch_card", enc: enc %>
+        <%= render "catch_card", enc: enc, best: @game.best_catch_here(@location, enc) %>
       <% end %>
     </div>
   </section>

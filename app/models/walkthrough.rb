@@ -16,6 +16,7 @@ module Walkthrough
 
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite) # team: [{ dex:, name:, lvl: }]
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
+  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate)
 
   GymStep = Data.define(:n, :text_key, :shot) do
     def shot? = !shot.nil?
@@ -55,7 +56,7 @@ module Walkthrough
     def oak_queue = locations.flat_map(&:oak_queue).uniq(&:dex)
   end
 
-  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_queue, :locations, :legs) do
+  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_queue, :locations, :legs, :best_catches) do
     def leg(slug) = legs.find { |l| l.slug == slug }
 
     def leg!(slug)
@@ -64,6 +65,11 @@ module Walkthrough
 
     def leg_before(current) = neighbor_leg(current, -1)
     def leg_after(current) = neighbor_leg(current, 1)
+
+    def best_catch_here(location, encounter)
+      found = best_catches[encounter.dex]
+      found if found && found.slug == location.slug
+    end
 
     def obtainable_dex = locations.flat_map(&:dex_list).uniq
 

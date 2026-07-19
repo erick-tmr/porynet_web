@@ -18,7 +18,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 25 PARADAS"
+    assert_includes response.body, "A ROTA · 26 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -33,6 +33,22 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-band__title", text: "Route 1"
     assert_select ".pn-wt-catch__name", text: "Pidgey"
     assert_select ".pn-wt-nav__where", text: "Viridian City → Route 2"
+  end
+
+  test "the best place to catch tag flags the winning card with a reason" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select ".pn-wt-catch--best", 1
+    assert_select ".pn-wt-best__label", text: "BEST PLACE TO CATCH"
+    assert_includes response.body, "the best odds for Pidgey"
+  end
+
+  test "a tied best place reads as the earliest spot" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_response :success
+    assert_includes response.body, "Best rate at 35%, and the earliest place to catch Rattata"
   end
 
   test "a single-location leg drops the switcher" do

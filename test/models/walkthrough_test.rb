@@ -10,19 +10,19 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game spans all 49 Kanto locations in contiguous order" do
+  test "the game spans all 51 Kanto locations in contiguous order" do
     g = game
-    assert_equal 49, g.locations.size
+    assert_equal 51, g.locations.size
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
-    assert_equal (1..49).to_a, g.locations.map(&:order)
+    assert_equal (1..51).to_a, g.locations.map(&:order)
     assert_equal 151, g.dex_goal
   end
 
-  test "the 49 locations group into 25 ordered legs with no gaps or dupes" do
+  test "the 51 locations group into 26 ordered legs with no gaps or dupes" do
     g = game
-    assert_equal 25, g.legs.size
-    assert_equal (1..25).to_a, g.legs.map(&:order)
+    assert_equal 26, g.legs.size
+    assert_equal (1..26).to_a, g.legs.map(&:order)
     covered = g.legs.flat_map { |l| l.locations.map(&:slug) }
     assert_equal g.locations.map(&:slug).sort, covered.sort
     assert_equal covered.size, covered.uniq.size
@@ -64,12 +64,13 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 2, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 75, g.obtainable_dex.size
+    assert_equal 83, g.obtainable_dex.size
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
   test "a leg aggregates its locations' Oak queues without duplicates" do
-    assert_equal %w[016 019], game.leg!("leg-01").oak_queue.map(&:dex)
+    assert_empty game.leg!("leg-01").oak_queue, "leg 01 has nothing catchable yet (no Poke Balls)"
+    assert_equal %w[029 032 056 021 016 019], game.leg!("leg-02").oak_queue.map(&:dex)
   end
 
   test "the eight gym locations carry badges" do
@@ -168,6 +169,34 @@ class WalkthroughTest < ActiveSupport::TestCase
         keys.each { |key| assert I18n.exists?(key), "missing #{locale}: #{key}" }
       end
     end
+  end
+
+  test "best_catches picks the top rate and breaks ties by earliest location" do
+    bc = game.best_catches
+    pidgey = bc.fetch("016")
+    assert_equal "route-1", pidgey.slug
+    assert_equal "70%", pidgey.rate
+    refute pidgey.tie
+    assert_equal "Route 5", pidgey.alt_name
+    assert_equal "40%", pidgey.alt_rate
+
+    rattata = bc.fetch("019")
+    assert_equal "route-2", rattata.slug
+    assert rattata.tie, "Rattata's 35% is matched elsewhere, so the earliest location wins"
+
+    refute bc.key?("025"), "Pikachu is a gift, not a rated wild catch"
+    refute bc.key?("145"), "Zapdos is a lone static"
+    refute bc.key?("129"), "Magikarp only appears on Route 21, so there is no choice to rank"
+  end
+
+  test "best_catch_here flags only the winning location for a species" do
+    g = game
+    r1 = loc("route-1")
+    r2 = loc("route-2")
+    pidgey_r1 = r1.encounters.find { |e| e.dex == "016" }
+    pidgey_r2 = r2.encounters.find { |e| e.dex == "016" }
+    assert g.best_catch_here(r1, pidgey_r1), "Route 1 is Pidgey's best spot"
+    assert_nil g.best_catch_here(r2, pidgey_r2), "Route 2 is not Pidgey's best spot"
   end
 
   private

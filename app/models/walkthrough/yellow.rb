@@ -81,7 +81,8 @@ module Walkthrough
       { slug: "silph-co", special: true, locs: %w[silph-co] },
       { slug: "leg-11", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
-      { slug: "leg-12", special: false, locs: %w[cinnabar-island pokemon-mansion viridian-gym] },
+      { slug: "power-plant", special: true, locs: %w[power-plant] },
+      { slug: "leg-12", special: false, locs: %w[cinnabar-island pokemon-mansion route-21 viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "leg-13", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
@@ -105,8 +106,36 @@ module Walkthrough
           OakEntry.new(dex: "021", name: "Spearow", qty: 1, why_key: "#{K}.slice_oak.spearow")
         ],
         locations: locations,
-        legs: build_legs(by_slug)
+        legs: build_legs(by_slug),
+        best_catches: compute_best_catches(locations)
       )
+    end
+
+    def self.parse_rate(rate)
+      match = rate.match(/\A(\d+)%\z/)
+      match && match[1].to_i
+    end
+
+    def self.compute_best_catches(locations)
+      by_dex = Hash.new { |hash, dex| hash[dex] = [] }
+      locations.each do |loc|
+        loc.encounters.each do |enc|
+          pct = parse_rate(enc.rate)
+          by_dex[enc.dex] << { loc: loc, enc: enc, pct: pct } if enc.wild? && pct
+        end
+      end
+      by_dex.each_with_object({}) do |(dex, entries), best|
+        next if entries.size < 2
+
+        top = entries.map { |e| e[:pct] }.max
+        winner = entries.select { |e| e[:pct] == top }.min_by { |e| e[:loc].order }
+        runner = entries.reject { |e| e.equal?(winner) }.max_by { |e| e[:pct] }
+        best[dex] = BestCatch.new(
+          dex: dex, slug: winner[:loc].slug, rate: winner[:enc].rate,
+          tie: entries.count { |e| e[:pct] == top } > 1,
+          alt_name: runner[:loc].name, alt_rate: runner[:enc].rate
+        )
+      end
     end
 
     def self.all_locations
@@ -117,7 +146,8 @@ module Walkthrough
         route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
-        cinnabar_island, pokemon_mansion, viridian_gym, victory_road, route_23, indigo_plateau, cerulean_cave
+        power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
+        indigo_plateau, cerulean_cave
       ]
     end
 
@@ -165,7 +195,7 @@ module Walkthrough
           enc("route-1", "019", "GRASS", "30%", "2–4", "COMMON", "019", "020", tip: true)
         ],
         trainers: [],
-        oak_queue: [ oak("route-1", "016", 1), oak("route-1", "019", 1) ]
+        oak_queue: []
       )
     end
 
@@ -175,10 +205,11 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, items: [ item(b, 1, "Oak's Parcel", "oaks_parcel") ], shot: shot("STEP 1")),
           step(b, 2),
-          step(b, 3),
-          step(b, 4)
+          step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ], shot: shot("STEP 3")),
+          step(b, 4),
+          step(b, 5)
         ],
         encounters: [], trainers: [], oak_queue: []
       )
@@ -224,7 +255,7 @@ module Walkthrough
           enc("route-2", "029", "GRASS", "15%", "4–6", "UNCOMMON", "029", "030", "031", tip: true),
           enc("route-2", "032", "GRASS", "15%", "4–6", "UNCOMMON", "032", "033", "034", tip: true)
         ],
-        trainers: [], oak_queue: []
+        trainers: [], oak_queue: [ oak("route-2", "016", 1), oak("route-2", "019", 1) ]
       )
     end
 
@@ -650,7 +681,7 @@ module Walkthrough
     end
 
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 43, steps: 3, gym_after: 2, badge: "VOLCANO",
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 44, steps: 3, gym_after: 2, badge: "VOLCANO",
         encounters: [
           enc("cinnabar-island", "138", "FOSSIL", "-", "30", "GIFT", "138", "139", tip: true),
           enc("cinnabar-island", "140", "FOSSIL", "-", "30", "GIFT", "140", "141", tip: true),
@@ -673,7 +704,7 @@ module Walkthrough
     end
 
     def self.pokemon_mansion
-      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 44, steps: 3,
+      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 45, steps: 3,
         encounters: [
           enc("pokemon-mansion", "037", "FLOORS", "15%", "32–35", "UNCOMMON", "037", "038", tip: true),
           enc("pokemon-mansion", "058", "FLOORS", "15%", "32–35", "UNCOMMON", "058", "059", tip: true),
@@ -686,7 +717,7 @@ module Walkthrough
     end
 
     def self.viridian_gym
-      loc("viridian-gym", "GYM", "Viridian Gym", 45, steps: 2, gym_after: 1, badge: "EARTH",
+      loc("viridian-gym", "GYM", "Viridian Gym", 47, steps: 2, gym_after: 1, badge: "EARTH",
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
           leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55)),
           puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ],
@@ -703,7 +734,7 @@ module Walkthrough
     end
 
     def self.victory_road
-      loc("victory-road", "CAVE", "Victory Road", 46, steps: 4,
+      loc("victory-road", "CAVE", "Victory Road", 48, steps: 4,
         encounters: [
           enc("victory-road", "074", "CAVE", "30%", "26–46", "COMMON", "074", "075", "076"),
           enc("victory-road", "066", "CAVE", "20%", "22–24", "UNCOMMON", "066", "067", "068"),
@@ -715,7 +746,7 @@ module Walkthrough
     end
 
     def self.route_23
-      loc("route-23", "ROUTE", "Route 23", 47, steps: 3,
+      loc("route-23", "ROUTE", "Route 23", 49, steps: 3,
         encounters: [
           enc("route-23", "132", "GRASS", "35%", "33–43", "COMMON", "132"),
           enc("route-23", "056", "GRASS", "20%", "36–41", "UNCOMMON", "056", "057"),
@@ -725,7 +756,7 @@ module Walkthrough
     end
 
     def self.indigo_plateau
-      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 48, steps: 3,
+      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 50, steps: 3,
         trainers: [
           tr("ELITE FOUR", "Lorelei", 5544,
             mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56)),
@@ -741,7 +772,7 @@ module Walkthrough
     end
 
     def self.cerulean_cave
-      loc("cerulean-cave", "CAVE", "Cerulean Cave", 49, steps: 4,
+      loc("cerulean-cave", "CAVE", "Cerulean Cave", 51, steps: 4,
         encounters: [
           enc("cerulean-cave", "042", "CAVE", "40%", "50–55", "COMMON", "041", "042"),
           enc("cerulean-cave", "112", "CAVE", "15%", "58–62", "UNCOMMON", "111", "112"),
@@ -840,12 +871,42 @@ module Walkthrough
         ])
     end
 
+    def self.power_plant
+      loc("power-plant", "BUILDING", "Power Plant", 43, steps: 3,
+        encounters: [
+          enc("power-plant", "100", "FLOORS", "40%", "21–33", "COMMON", "100", "101"),
+          enc("power-plant", "081", "FLOORS", "25%", "20–33", "COMMON", "081", "082"),
+          enc("power-plant", "088", "FLOORS", "15%", "23–33", "UNCOMMON", "088", "089"),
+          enc("power-plant", "101", "FLOORS", "10%", "24–33", "UNCOMMON", "100", "101"),
+          enc("power-plant", "082", "FLOORS", "5%", "21–33", "RARE", "081", "082"),
+          enc("power-plant", "089", "FLOORS", "5%", "33", "RARE", "088", "089"),
+          enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
+        ],
+        oak_queue: [ oak("power-plant", "145", 1), oak("power-plant", "100", 1) ])
+    end
+
+    def self.route_21
+      loc("route-21", "ROUTE", "Route 21", 46, steps: 2,
+        encounters: [
+          enc("route-21", "016", "GRASS", "35%", "21–23", "COMMON", "016", "017", "018"),
+          enc("route-21", "019", "GRASS", "35%", "21–23", "COMMON", "019", "020"),
+          enc("route-21", "017", "GRASS", "15%", "25–29", "UNCOMMON", "016", "017", "018"),
+          enc("route-21", "020", "GRASS", "15%", "25–29", "UNCOMMON", "019", "020"),
+          enc("route-21", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
+          enc("route-21", "129", "SUPER ROD", "40%", "15–25", "COMMON", "129", "130", tip: true),
+          enc("route-21", "118", "SUPER ROD", "25%", "15–25", "UNCOMMON", "118", "119", tip: true),
+          enc("route-21", "090", "SUPER ROD", "20%", "15–25", "UNCOMMON", "090", "091"),
+          enc("route-21", "120", "SUPER ROD", "15%", "15–25", "UNCOMMON", "120", "121")
+        ],
+        oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
+    end
+
     def self.step(base, n, items: [], hidden: [], shot: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title", text_key: "#{base}.steps.#{n}.text",
         items: items, hidden: hidden, shot: shot)
     end
 
-    ITEM_SPRITES = { "TM34 Bide" => "tm-normal" }.freeze
+    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel" }.freeze
 
     def self.item_sprite(name)
       ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
