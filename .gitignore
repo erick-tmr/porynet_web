@@ -53,3 +53,7 @@
 
 # generated map QA previews (renders live in R2)
 /tools/maps/qa/
+
+# python bytecode
+__pycache__/
+*.pyc

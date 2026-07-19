@@ -1836,3 +1836,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-map__marker:hover .pn-wt-map__label {
   opacity: 1;
 }
+
+.pn-wt-map__marker--poi .pn-wt-map__dot {
+  background: var(--accent2);
+}

@@ -193,6 +193,20 @@
         "height": 288,
         "floor": "",
         "markers": []
+      },
+      {
+        "image": "walkthrough/yellow/maps/pallet-town-your-room.png",
+        "width": 128,
+        "height": 128,
+        "floor": "Your room",
+        "markers": [
+          {
+            "x_pct": 0.0625,
+            "y_pct": 0.0625,
+            "kind": "poi",
+            "label": "PC \u00b7 free Potion"
+          }
+        ]
       }
     ],
     "pewter-city": [

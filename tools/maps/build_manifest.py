@@ -71,6 +71,17 @@ _DUNGEONS = {
 }
 
 
+# extra interior maps appended to a location (label, floor, parent_map_const)
+_INTERIORS = {
+    "pallet-town": [("RedsHouse2F", "Your room", "PALLET_TOWN")],
+}
+
+# hand-placed points of interest that aren't hidden-item events (grid coords, 16px cells)
+_ANNOTATIONS = {
+    "RedsHouse2F": [{"grid": [0, 0], "kind": "poi", "label": "PC · free Potion"}],
+}
+
+
 def location_maps():
     out = {}
     for slug, label in _SIMPLE.items():
@@ -78,11 +89,13 @@ def location_maps():
     for slug, (town, gym, parent) in _GYM_CITIES.items():
         out[slug] = [(town, "", None), (gym, "Gym", parent)]
     out.update(_DUNGEONS)
+    for slug, extras in _INTERIORS.items():
+        out[slug] = out.get(slug, []) + extras
     return out
 
 
 def image_name(slug, floor):
-    return slug if not floor else f"{slug}-{floor.lower()}"
+    return slug if not floor else f"{slug}-{floor.lower().replace(' ', '-')}"
 
 
 def main():
@@ -115,6 +128,12 @@ def main():
                 mk.append({"x_pct": round(m["px"][0] / img.width, 5),
                            "y_pct": round(m["px"][1] / img.height, 5),
                            "kind": m["kind"], "label": m["label"]})
+            for a in _ANNOTATIONS.get(label, []):
+                gx, gy = a["grid"]
+                unit = parse_hidden.UNIT_PX
+                mk.append({"x_pct": round((gx * unit + unit // 2) / img.width, 5),
+                           "y_pct": round((gy * unit + unit // 2) / img.height, 5),
+                           "kind": a["kind"], "label": a["label"]})
             marker_total += len(mk)
             entries.append({"image": f"{R2_PREFIX}/{name}.png", "width": img.width,
                             "height": img.height, "floor": floor, "markers": mk})

@@ -1,8 +1,8 @@
 # Map generation report
 
 - locations: **51**
-- maps rendered: **97**
-- markers placed: **46**
+- maps rendered: **98**
+- markers placed: **47**
 - missing map labels: **0**
 
 ## Locations
@@ -16,7 +16,7 @@
 - `indigo-plateau`: main(0)
 - `lavender-town`: main(0)
 - `mt-moon`: 1F(0), B1F(0), B2F(2)
-- `pallet-town`: main(0)
+- `pallet-town`: main(0), Your room(1)
 - `pewter-city`: main(0), Gym(0)
 - `pokemon-mansion`: 1F(1), 2F(0), 3F(1), B1F(1)
 - `pokemon-tower`: 1F(0), 2F(0), 3F(0), 4F(0), 5F(1), 6F(0), 7F(0)
