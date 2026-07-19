@@ -630,6 +630,7 @@ a.pn-wt-route__card:hover {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  image-rendering: pixelated;
 }
 /* VS-frame sprite sits in the space above the corner label instead of under it */
 .pn-wt-shot__img--vs {

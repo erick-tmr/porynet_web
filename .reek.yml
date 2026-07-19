@@ -8,6 +8,14 @@ detectors:
     enabled: false        # don't demand a descriptive comment on every class/module
   TooManyStatements:
     max_statements: 8     # controller actions run a few lines; reek's default is 5
+    exclude:
+      - Walkthrough::Yellow   # data builders (e.g. compute_best_catches) assemble one
+                              # cohesive result in a linear pass; see the data-source note.
+  NestedIterators:
+    exclude:
+      - Walkthrough::Yellow   # iterating locations -> encounters, and transform_values
+                              # -> map over the manifest, are inherent 2-deep passes in a
+                              # data source, not a control-flow smell.
   TooManyInstanceVariables:
     max_instance_variables: 7
     exclude:

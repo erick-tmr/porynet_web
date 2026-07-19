@@ -1,0 +1,17 @@
+[
+  {
+    "type": "map", "slug": "pallet-town", "step": 1, "name": "reds-house-2f",
+    "map": "RedsHouse2F", "parent": "PALLET_TOWN",
+    "sprites": [{"sprite": "SPRITE_RED", "grid": [0, 2], "dir": "UP"}]
+  },
+  {
+    "type": "screen", "slug": "pallet-town", "step": 4, "name": "pallet-town-exit",
+    "map": "PalletTown", "player": [10, 3], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [10, 1]}]
+  },
+  {
+    "type": "screen", "slug": "route-1", "step": 1, "name": "route-1-north",
+    "map": "Route1", "player": [13, 24], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [13, 22]}]
+  }
+]

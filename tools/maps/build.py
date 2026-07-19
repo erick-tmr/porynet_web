@@ -1,31 +1,38 @@
 #!/usr/bin/env python3
-"""Render every walkthrough-location map from pokeyellow and emit the manifest the
-Rails app consumes.
+"""Render every walkthrough image from pokeyellow and emit the manifest the Rails app consumes.
 
-Two kinds of output:
-  - area maps: one plain colored map per location (shown in the location header). No markers.
-  - step shots: an interior map rendered into a specific walkthrough step's screenshot slot,
-    with hand-placed point-of-interest markers (e.g. the bedroom PC for the free Potion).
+Two input sources:
+  - the location tables below (`_SIMPLE` / `_GYM_CITIES` / `_DUNGEONS`) -> one plain area map
+    per walkthrough location, shown in the location header.
+  - declarative JSON specs under tools/maps/specs/*.json -> annotated maps, NPC maps, overworld
+    dialog scenes (e.g. the hidden-item "found" shot), and battle scenes. See generators.py for
+    the spec schema; positions are grid coordinates.
 
 Usage:
-  python tools/maps/build_manifest.py --pokeyellow ~/Code/pokeyellow [--force]
+  python tools/maps/build.py --pokeyellow ~/Code/pokeyellow [--force]
 
 Outputs (relative to the porynet_web repo root):
-  app/assets/images/walkthrough/yellow/maps/<name>.png   colored map (gitignored -> R2)
-  app/models/walkthrough/yellow_maps.json                manifest (committed)
-  tools/maps/REPORT.md                                   counts + anything to review
+  app/assets/images/walkthrough/yellow/{maps,scenes,battles}/<name>.png   (gitignored -> R2)
+  app/models/walkthrough/yellow_maps.json                                 manifest (committed)
+  tools/maps/REPORT.md                                                     counts + review notes
 """
 import argparse
 import json
 import pathlib
 
-import render_maps
+import compositor
+import generators
+import sources
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
-IMG_DIR = REPO / "app/assets/images/walkthrough/yellow/maps"
+IMG_ROOT = REPO / "app/assets/images/walkthrough/yellow"
+SPECS_DIR = pathlib.Path(__file__).resolve().parent / "specs"
 MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
-R2_PREFIX = "walkthrough/yellow/maps"
+
+# spec type -> output subdirectory (and R2 key prefix) under walkthrough/yellow/
+DIR_BY_TYPE = {"map": "maps", "arrows": "maps", "npc": "maps",
+               "dialog": "scenes", "screen": "scenes", "battle": "battles"}
 
 # slug -> ordered [(map_label, floor_label, parent_map_const_or_None)]; parent is only needed for
 # interiors that aren't cavern/cemetery (they inherit a town palette).
@@ -71,21 +78,6 @@ _DUNGEONS = {
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
 }
 
-# maps rendered into a specific walkthrough step's screenshot slot:
-#   slug -> {step_n: {map, parent, name, sprites?, arrows?}}
-# name is the output basename and must not collide with an area-map slug. sprites composite
-# overworld frames for illustration (red.png frame 1 = the player facing up); arrows are
-# directional pointers (e.g. toward a map exit). See render_maps for the sprite/arrow specs.
-_STEP_SHOTS = {
-    "pallet-town": {
-        1: {"map": "RedsHouse2F", "parent": "PALLET_TOWN", "name": "reds-house-2f",
-            "sprites": [{"sprite": "red", "frame": 1, "grid": [0, 2]}]},
-        4: {"map": "PalletTown", "parent": None, "name": "pallet-town-exit",
-            "sprites": [{"sprite": "red", "frame": 1, "grid": [10, 2]}],
-            "arrows": [{"dir": "up", "px": [168, 18]}]},
-    },
-}
-
 
 def location_maps():
     out = {}
@@ -101,12 +93,20 @@ def image_name(slug, floor):
     return slug if not floor else f"{slug}-{floor.lower().replace(' ', '-')}"
 
 
-def render_and_save(root, label, parent, name, force, sprites=None, arrows=None):
-    img = render_maps.render_map(root, label, parent, sprites, arrows)
-    png = IMG_DIR / f"{name}.png"
+def load_specs():
+    specs = []
+    for path in sorted(SPECS_DIR.glob("*.json")):
+        specs.extend(json.loads(path.read_text()))
+    return specs
+
+
+def save_png(image, subdir, name, force):
+    out_dir = IMG_ROOT / subdir
+    out_dir.mkdir(parents=True, exist_ok=True)
+    png = out_dir / f"{name}.png"
     if force or not png.exists():
-        img.save(png)
-    return img
+        image.save(png)
+    return f"walkthrough/yellow/{subdir}/{name}.png"
 
 
 def main():
@@ -116,10 +116,9 @@ def main():
     args = ap.parse_args()
     root = str(pathlib.Path(args.pokeyellow).expanduser())
 
-    headers = render_maps.parse_headers(pathlib.Path(root))  # label -> (const, tileset)
-    IMG_DIR.mkdir(parents=True, exist_ok=True)
-
+    headers = sources.parse_headers(root)
     locations, missing = {}, []
+
     for slug, maps in sorted(location_maps().items()):
         entries = []
         for label, floor, parent in maps:
@@ -127,38 +126,42 @@ def main():
                 missing.append(f"{slug}: {label}")
                 continue
             name = image_name(slug, floor)
-            img = render_and_save(root, label, parent, name, args.force)
-            entries.append({"image": f"{R2_PREFIX}/{name}.png", "width": img.width,
-                            "height": img.height, "floor": floor})
+            image = compositor.render_map(root, label, parent)[0]
+            key = save_png(image, "maps", name, args.force)
+            entries.append({"image": key, "width": image.width, "height": image.height, "floor": floor})
         if entries:
             locations[slug] = entries
 
-    step_shots = {}
-    for slug, steps in sorted(_STEP_SHOTS.items()):
-        for step_n, spec in steps.items():
-            label = spec["map"]
-            if label not in headers:
-                missing.append(f"{slug} step {step_n}: {label}")
-                continue
-            name = spec["name"]
-            img = render_and_save(root, label, spec.get("parent"), name, args.force,
-                                  spec.get("sprites"), spec.get("arrows"))
-            step_shots.setdefault(slug, {})[str(step_n)] = {
-                "image": f"{R2_PREFIX}/{name}.png", "width": img.width, "height": img.height}
+    step_shots, scenes = {}, {}
+    for spec in load_specs():
+        label = spec.get("map")
+        if label and label not in headers:
+            missing.append(f"{spec['name']}: {label}")
+            continue
+        image, name, extra = generators.generate(root, spec)
+        key = save_png(image, DIR_BY_TYPE[spec["type"]], name, args.force)
+        entry = {"image": key, "width": image.width, "height": image.height, **extra}
+        if spec.get("slug") and spec.get("step") is not None:
+            step_shots.setdefault(spec["slug"], {})[str(spec["step"])] = entry
+        else:
+            scenes[name] = {**entry, "type": spec["type"]}
 
     MANIFEST.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "locations": locations, "step_shots": step_shots}, indent=2))
-    _write_report(locations, step_shots, missing)
+        {"source": "pret/pokeyellow", "locations": locations,
+         "step_shots": step_shots, "scenes": scenes}, indent=2))
+    _write_report(locations, step_shots, scenes, missing)
     print(f"location maps: {sum(len(v) for v in locations.values())}  "
-          f"step shots: {sum(len(v) for v in step_shots.values())}  missing: {len(missing)}")
+          f"step shots: {sum(len(v) for v in step_shots.values())}  "
+          f"scenes: {len(scenes)}  missing: {len(missing)}")
     if missing:
         print("MISSING:", ", ".join(missing))
 
 
-def _write_report(locations, step_shots, missing):
-    lines = ["# Map generation report", "",
+def _write_report(locations, step_shots, scenes, missing):
+    lines = ["# Asset generation report", "",
              f"- location maps: **{sum(len(v) for v in locations.values())}** across {len(locations)} locations",
-             f"- step shots: **{sum(len(v) for v in step_shots.values())}** (interior maps in a step slot)",
+             f"- step shots: **{sum(len(v) for v in step_shots.values())}** (map/scene in a step slot)",
+             f"- standalone scenes: **{len(scenes)}** (dialog / battle / NPC, not step-bound)",
              f"- missing map labels: **{len(missing)}**", ""]
     if missing:
         lines += ["## Missing labels", ""] + [f"- {m}" for m in missing] + [""]
@@ -166,6 +169,9 @@ def _write_report(locations, step_shots, missing):
     for slug, steps in sorted(step_shots.items()):
         for n, s in sorted(steps.items()):
             lines.append(f"- `{slug}` step {n}: {s['image']}")
+    lines += ["", "## Scenes", ""]
+    for name, s in sorted(scenes.items()):
+        lines.append(f"- `{name}` ({s['type']}): {s['image']}")
     REPORT.write_text("\n".join(lines) + "\n")
 
 
