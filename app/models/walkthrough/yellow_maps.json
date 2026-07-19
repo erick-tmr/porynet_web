@@ -691,15 +691,7 @@
       "1": {
         "image": "walkthrough/yellow/maps/reds-house-2f.png",
         "width": 128,
-        "height": 128,
-        "markers": [
-          {
-            "x_pct": 0.0625,
-            "y_pct": 0.0625,
-            "kind": "poi",
-            "label": "PC \u00b7 free Potion"
-          }
-        ]
+        "height": 128
       }
     }
   }

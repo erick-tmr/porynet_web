@@ -51,21 +51,18 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Best rate at 35%, and the earliest place to catch Rattata"
   end
 
-  test "a location renders its plain area map without hidden-item markers" do
+  test "a location renders its plain area map" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 
     assert_response :success
     assert_select "img.pn-wt-map__img[src*=?]", "walkthrough/yellow/maps/route-1.png"
-    assert_select ".pn-wt-maps .pn-wt-map__marker", false
   end
 
-  test "an interior map fills a step screenshot slot with a positioned marker" do
+  test "an interior map fills a step screenshot slot" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 
     assert_response :success
-    assert_select ".pn-wt-shot__map[data-controller=?]", "map-markers"
-    assert_select "img.pn-wt-shot__map-img[src*=?]", "walkthrough/yellow/maps/reds-house-2f.png"
-    assert_select ".pn-wt-map__marker--poi[data-map-markers-target=?]", "marker"
+    assert_select ".pn-wt-shot--map img.pn-wt-shot__map-img[src*=?]", "walkthrough/yellow/maps/reds-house-2f.png"
   end
 
   test "a single-location leg drops the switcher" do

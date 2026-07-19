@@ -212,13 +212,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert(g.locations.count(&:area_maps?) > 40)
   end
 
-  test "an interior map fills a step's screenshot slot with a marker" do
+  test "an interior map fills a step's screenshot slot" do
     shot = loc("pallet-town").steps.first.shot
     assert shot.map?
     assert_equal "walkthrough/yellow/maps/reds-house-2f.png", shot.image
-    assert_equal 1, shot.markers.size
-    assert_equal "poi", shot.markers.first.kind
-    assert_operator shot.markers.first.x_pct, :<=, 1
 
     plain = Walkthrough::Yellow.map_shot("route-1", 1, "STEP 1")
     refute plain.map?

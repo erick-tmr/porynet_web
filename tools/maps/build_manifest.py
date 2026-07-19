@@ -13,20 +13,16 @@ Usage:
 Outputs (relative to the porynet_web repo root):
   app/assets/images/walkthrough/yellow/maps/<name>.png   colored map (gitignored -> R2)
   app/models/walkthrough/yellow_maps.json                manifest (committed)
-  tools/maps/qa/<name>.png                               marker-overlay preview (gitignored)
   tools/maps/REPORT.md                                   counts + anything to review
 """
 import argparse
 import json
 import pathlib
-from PIL import Image, ImageDraw
 
 import render_maps
-import parse_hidden
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 IMG_DIR = REPO / "app/assets/images/walkthrough/yellow/maps"
-QA_DIR = pathlib.Path(__file__).resolve().parent / "qa"
 MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
 R2_PREFIX = "walkthrough/yellow/maps"
@@ -80,9 +76,10 @@ _STEP_SHOTS = {
     "pallet-town": {1: ("RedsHouse2F", "PALLET_TOWN")},
 }
 
-# hand-placed points of interest that aren't hidden-item events (grid coords, 16px cells)
-_ANNOTATIONS = {
-    "RedsHouse2F": [{"grid": [0, 0], "kind": "poi", "label": "PC · free Potion"}],
+# overworld sprites composited onto a step-shot map for illustration: map_label -> [{sprite, frame, grid}]
+# red.png frame 1 is the player facing up (back to camera); grid is in 16px cells.
+_STEP_SPRITES = {
+    "RedsHouse2F": [{"sprite": "red", "frame": 1, "grid": [0, 2]}],
 }
 
 
@@ -100,19 +97,8 @@ def image_name(slug, floor):
     return slug if not floor else f"{slug}-{floor.lower().replace(' ', '-')}"
 
 
-def annotation_markers(label, width, height):
-    unit = parse_hidden.UNIT_PX
-    out = []
-    for a in _ANNOTATIONS.get(label, []):
-        gx, gy = a["grid"]
-        out.append({"x_pct": round((gx * unit + unit // 2) / width, 5),
-                    "y_pct": round((gy * unit + unit // 2) / height, 5),
-                    "kind": a["kind"], "label": a["label"]})
-    return out
-
-
-def render_and_save(root, label, parent, name, force):
-    img = render_maps.render_map(root, label, parent)
+def render_and_save(root, label, parent, name, force, sprites=None):
+    img = render_maps.render_map(root, label, parent, sprites)
     png = IMG_DIR / f"{name}.png"
     if force or not png.exists():
         img.save(png)
@@ -128,7 +114,6 @@ def main():
 
     headers = render_maps.parse_headers(pathlib.Path(root))  # label -> (const, tileset)
     IMG_DIR.mkdir(parents=True, exist_ok=True)
-    QA_DIR.mkdir(parents=True, exist_ok=True)
 
     locations, missing = {}, []
     for slug, maps in sorted(location_maps().items()):
@@ -141,56 +126,40 @@ def main():
             img = render_and_save(root, label, parent, name, args.force)
             entries.append({"image": f"{R2_PREFIX}/{name}.png", "width": img.width,
                             "height": img.height, "floor": floor})
-            _write_qa(img, [], QA_DIR / f"{name}.png")
         if entries:
             locations[slug] = entries
 
-    step_shots, poi_total = {}, 0
+    step_shots = {}
     for slug, steps in sorted(_STEP_SHOTS.items()):
         for step_n, (label, parent) in steps.items():
             if label not in headers:
                 missing.append(f"{slug} step {step_n}: {label}")
                 continue
-            const = headers[label][0]
-            name = const.lower().replace("_", "-")
-            img = render_and_save(root, label, parent, name, args.force)
-            mk = annotation_markers(label, img.width, img.height)
-            poi_total += len(mk)
+            name = headers[label][0].lower().replace("_", "-")
+            img = render_and_save(root, label, parent, name, args.force, _STEP_SPRITES.get(label))
             step_shots.setdefault(slug, {})[str(step_n)] = {
-                "image": f"{R2_PREFIX}/{name}.png", "width": img.width, "height": img.height, "markers": mk}
-            _write_qa(img, mk, QA_DIR / f"{name}.png")
+                "image": f"{R2_PREFIX}/{name}.png", "width": img.width, "height": img.height}
 
     MANIFEST.write_text(json.dumps(
         {"source": "pret/pokeyellow", "locations": locations, "step_shots": step_shots}, indent=2))
-    _write_report(locations, step_shots, missing, poi_total)
+    _write_report(locations, step_shots, missing)
     print(f"location maps: {sum(len(v) for v in locations.values())}  "
-          f"step shots: {sum(len(v) for v in step_shots.values())}  pois: {poi_total}  missing: {len(missing)}")
+          f"step shots: {sum(len(v) for v in step_shots.values())}  missing: {len(missing)}")
     if missing:
         print("MISSING:", ", ".join(missing))
 
 
-def _write_qa(img, markers, path):
-    qa = img.convert("RGB").copy()
-    d = ImageDraw.Draw(qa)
-    for m in markers:
-        x, y = m["x_pct"] * img.width, m["y_pct"] * img.height
-        d.ellipse([x - 4, y - 4, x + 4, y + 4], fill=(43, 179, 224), outline=(0, 0, 0))
-        d.text((x + 6, y - 6), m["label"], fill=(0, 0, 0))
-    qa.save(path)
-
-
-def _write_report(locations, step_shots, missing, poi_total):
+def _write_report(locations, step_shots, missing):
     lines = ["# Map generation report", "",
              f"- location maps: **{sum(len(v) for v in locations.values())}** across {len(locations)} locations",
              f"- step shots: **{sum(len(v) for v in step_shots.values())}** (interior maps in a step slot)",
-             f"- points of interest placed: **{poi_total}**",
              f"- missing map labels: **{len(missing)}**", ""]
     if missing:
         lines += ["## Missing labels", ""] + [f"- {m}" for m in missing] + [""]
     lines += ["## Step shots", ""]
     for slug, steps in sorted(step_shots.items()):
         for n, s in sorted(steps.items()):
-            lines.append(f"- `{slug}` step {n}: {s['image']} ({len(s['markers'])} POI)")
+            lines.append(f"- `{slug}` step {n}: {s['image']}")
     REPORT.write_text("\n".join(lines) + "\n")
 
 

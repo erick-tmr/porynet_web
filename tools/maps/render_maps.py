@@ -149,7 +149,21 @@ def resolve_palette_id(const, tileset, dims, num_city, first_indoor, parent_cons
     return PAL_ROUTE
 
 
-def render_map(root_str, label, parent_const=None):
+def _overlay_sprites(canvas, root_str, sprites, colors):
+    """Composite 16x16 overworld sprite frames (e.g. the player) onto the map, colored in
+    the map's palette; the sprite's white (255) pixels are transparent."""
+    out = canvas.convert("RGBA")
+    shade = {255: None, 170: colors[1], 85: colors[2], 0: colors[3]}
+    for s in sprites:
+        sheet = Image.open(_root(root_str) / f"gfx/sprites/{s['sprite']}.png").convert("L")
+        tile = sheet.crop((0, s["frame"] * 16, 16, s["frame"] * 16 + 16))
+        rgba = Image.new("RGBA", (16, 16))
+        rgba.putdata([(0, 0, 0, 0) if shade.get(p) is None else (*shade[p], 255) for p in tile.getdata()])
+        out.alpha_composite(rgba, (s["grid"][0] * TILE_PX * 2, s["grid"][1] * TILE_PX * 2))
+    return out.convert("RGB")
+
+
+def render_map(root_str, label, parent_const=None, sprites=None):
     """Render one pokeyellow map (by header label, e.g. 'PalletTown') to an RGB image."""
     root = _root(root_str)
     dims, num_city, first_indoor = parse_map_constants(root)
@@ -191,7 +205,7 @@ def render_map(root_str, label, parent_const=None):
                     canvas.paste(colored_tile(tile_idx),
                                  (bx * BLOCK_PX + tx * TILE_PX,
                                   by * BLOCK_PX + ty * TILE_PX))
-    return canvas
+    return _overlay_sprites(canvas, root_str, sprites, colors) if sprites else canvas
 
 
 if __name__ == "__main__":
