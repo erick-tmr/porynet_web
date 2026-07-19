@@ -149,7 +149,18 @@ module Walkthrough
         route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ].map { |loc| loc.with(area_maps: data.fetch(loc.slug, [])) }
+      ].map { |loc| attach_maps(loc, data.fetch(loc.slug, [])) }
+    end
+
+    # The gym's own map belongs in the gym section, not the location header, so pull the "Gym"
+    # floor out of the header maps and hand it to the gym as its shot.
+    def self.attach_maps(loc, maps)
+      gym_map = maps.find { |m| m.floor == "Gym" }
+      header = maps.reject { |m| m.floor == "Gym" }
+      return loc.with(area_maps: header) unless loc.gym && gym_map
+
+      loc.with(area_maps: header,
+        gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
     end
 
     def self.manifest
