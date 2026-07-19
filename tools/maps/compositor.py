@@ -22,6 +22,31 @@ SCREEN = (160, 144)                # native Game Boy screen
 ARROW_FILL = (248, 192, 32)        # amber pointer, matches the design system's --amber
 ARROW_OUTLINE = (23, 22, 34)       # the design system's near-black ink (#171622)
 
+# The GBC battle screen is colorized (colors sampled from the game). 4-color palettes,
+# lightest shade first; white becomes the paper background.
+BATTLE_PAPER = (248, 248, 248)
+PLAYER_PALETTE = [(248, 248, 248), (234, 183, 78), (206, 6, 53), (16, 16, 16)]   # white/tan/red/black
+RIVAL_PALETTE = [(248, 248, 248), (232, 186, 120), (206, 6, 53), (16, 16, 16)]   # white/skin/red/black
+BATTLE_INK = (16, 16, 16)
+# green party Poke balls (draw_hud_pokeball_gfx.asm); shade 255 (bg) is transparent
+BALL_PALETTE = [None, (168, 216, 120), (56, 168, 32), (16, 56, 16)]
+
+# party-count Poke balls: one per party member. Screen positions are the game's OAM coords
+# minus the hardware (8, 16) sprite offset; each row sits above a HUD bracket.
+ENEMY_BALLS_XY = (64, 16)          # first enemy ball, subsequent balls step left
+PLAYER_BALLS_XY = (88, 80)         # first player ball, subsequent balls step right
+BALL_STEP = 8
+
+# The HUD bracket under each ball row is the game's own tiles, placed exactly as PlaceHUDTiles
+# does (draw_hud_pokeball_gfx.asm): (gfx/battle png, tile index, tile_col, tile_row). Tile ids
+# come from LoadHudTilePatterns: $73=riser, $74/$77=corners, $76=line, $78/$6F=triangles.
+ENEMY_HUD = ([("battle_hud_2", 0, 1, 2), ("battle_hud_2", 1, 1, 3)] +
+             [("battle_hud_3", 0, cx, 3) for cx in range(2, 10)] +
+             [("battle_hud_3", 2, 10, 3)])
+PLAYER_HUD = ([("battle_hud_2", 0, 18, 10), ("battle_hud_3", 1, 18, 11)] +
+              [("battle_hud_3", 0, cx, 11) for cx in range(10, 18)] +
+              [("battle_hud_1", 2, 9, 11)])
+
 # overworld facing (object_event direction / sprite dir) -> (frame index, horizontal flip)
 DIR_TO_FRAME = {
     "DOWN": (0, False), "UP": (1, False), "LEFT": (2, False), "RIGHT": (2, True),
@@ -167,23 +192,51 @@ def _load_pic(path, size, ramp):
     return rgb if img.size == size else rgb.resize(size, Image.NEAREST)
 
 
-def render_battle(root_str, opponent_const, *, opponent_name=None, palette=sources.PAL_YELLOWMON):
-    """Render the pre-battle face-off frame: enemy trainer pic (top-right), player back
-    (bottom-left), and the "<NAME> wants / to fight!" dialog. 160x144, native GB pixels.
+def _ball_image(root_str, palette):
+    """The green party-ball tile (balls.png tile 0), colored via `palette` (255 = transparent)."""
+    tile = Image.open(sources._root(root_str) / "gfx/battle/balls.png").convert("L").crop((0, 0, 8, 8))
+    ball = Image.new("RGBA", (8, 8))
+    ball.putdata([(0, 0, 0, 0) if _shade_to_ramp(p, palette) is None else (*_shade_to_ramp(p, palette), 255)
+                  for p in tile.getdata()])
+    return ball
 
-    `palette` is a PAL_* super-palette id (default the Pikachu-yellow tint) applied to the
-    2-bit battle pics; white is the lightest shade (paper), not transparent."""
-    ramp = sources.parse_super_palettes(root_str)[palette]
-    ink, paper = ramp[3], ramp[0]
-    canvas = Image.new("RGB", SCREEN, paper)
+
+def _blit_hud_tile(canvas, root_str, png, idx, tile_col, tile_row, ink):
+    """Blit one 1bpp HUD tile (dark pixels = ink, light = transparent) at a tile coordinate."""
+    sheet = Image.open(sources._root(root_str) / f"gfx/battle/{png}.png").convert("L")
+    mask = sheet.crop((idx * 8, 0, idx * 8 + 8, 8)).point(lambda p: 255 if p < 128 else 0).convert("1")
+    canvas.paste(ink, (tile_col * 8, tile_row * 8), mask)
+
+
+def _draw_ball_row(canvas, root_str, ball, count, start, step, hud, ink):
+    """Draw a row of `count` balls above the HUD bracket, using the game's own bracket tiles."""
+    x, y = start
+    for _ in range(count):
+        canvas.paste(ball, (x, y), ball)
+        x += step
+    for png, idx, tile_col, tile_row in hud:
+        _blit_hud_tile(canvas, root_str, png, idx, tile_col, tile_row, ink)
+
+
+def render_battle(root_str, opponent_const, *, opponent_name=None, enemy_palette=RIVAL_PALETTE,
+                  enemy_balls=1, player_balls=1):
+    """Render the pre-battle face-off frame: enemy trainer pic (top-right), player back
+    (bottom-left), each trainer's green party-count Poke balls on their HUD bracket, the
+    "<NAME> wants / to fight!" dialog and a continue prompt. 160x144, colorized GBC look."""
+    canvas = Image.new("RGB", SCREEN, BATTLE_PAPER)
 
     pic_file = sources.parse_trainer_pic_file(root_str, opponent_const)
-    enemy = _load_pic(sources._root(root_str) / f"gfx/trainers/{pic_file}.png", (56, 56), ramp)
-    canvas.paste(enemy, (96, 0))                                  # hlcoord 12, 0
+    enemy = _load_pic(sources._root(root_str) / f"gfx/trainers/{pic_file}.png", (56, 56), enemy_palette)
+    canvas.paste(enemy, (96, 0))                                 # hlcoord 12, 0
 
-    back = _load_pic(sources._root(root_str) / "gfx/player/redb.png", (64, 64), ramp)
-    canvas.paste(back, (8, 32))                                   # full 2x sprite, feet flush at y=96
+    back = _load_pic(sources._root(root_str) / "gfx/player/redb.png", (64, 64), PLAYER_PALETTE)
+    canvas.paste(back, (8, 40))                                  # hlcoord 1, 5: feet on the line at y=96
+
+    ball = _ball_image(root_str, BALL_PALETTE)
+    _draw_ball_row(canvas, root_str, ball, enemy_balls, ENEMY_BALLS_XY, -BALL_STEP, ENEMY_HUD, BATTLE_INK)
+    _draw_ball_row(canvas, root_str, ball, player_balls, PLAYER_BALLS_XY, BALL_STEP, PLAYER_HUD, BATTLE_INK)
 
     name = opponent_name or sources.parse_trainer_classes(root_str)[opponent_const][1]
-    draw_dialog(canvas, root_str, [f"{name} wants", "to fight!"], ink, paper)
+    draw_dialog(canvas, root_str, [f"{name} wants", "to fight!"], BATTLE_INK, BATTLE_PAPER)
+    text.draw_text(canvas, root_str, "▼", (18, 16), BATTLE_INK)  # continue prompt
     return canvas

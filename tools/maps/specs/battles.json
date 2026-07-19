@@ -1,10 +1,12 @@
 [
   {
     "type": "battle", "name": "battle-rival-oaks-lab",
-    "opponent": "RIVAL1", "rival_name": "BLUE"
+    "opponent": "RIVAL1", "rival_name": "BLUE",
+    "enemy_balls": 1, "player_balls": 1
   },
   {
     "type": "battle", "name": "battle-brock",
-    "opponent": "BROCK"
+    "opponent": "BROCK",
+    "enemy_balls": 2, "player_balls": 2
   }
 ]

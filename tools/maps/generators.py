@@ -92,7 +92,7 @@ def gen_battle_scene(root, spec):
         name = spec.get("rival_name", RIVAL_NAME)
     else:
         name = spec.get("opponent_name")     # None -> the class name from the game
-    kwargs = {"palette": spec["palette"]} if "palette" in spec else {}
+    kwargs = {k: spec[k] for k in ("enemy_balls", "player_balls") if k in spec}
     image = compositor.render_battle(root, opponent, opponent_name=name, **kwargs)
     return image, spec["name"], {}
 
