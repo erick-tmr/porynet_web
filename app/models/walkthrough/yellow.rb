@@ -212,7 +212,8 @@ module Walkthrough
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
-          where: scene_shot("oaks-lab-rival", "WHERE")) ],
+          where: scene_shot("oaks-lab-rival", "WHERE"),
+          battle: scene_shot("battle-rival-oaks-lab", "BATTLE")) ],
         oak_queue: []
       )
     end
@@ -272,7 +273,8 @@ module Walkthrough
           enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true)
         ],
         trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1",
-          where: scene_shot("route-22-rival", "WHERE")) ],
+          where: scene_shot("route-22-rival", "WHERE"),
+          battle: scene_shot("battle-rival-route-22", "BATTLE")) ],
         oak_queue: [
           oak("route-22", "029", 1), oak("route-22", "032", 1),
           oak("route-22", "056", 1), oak("route-22", "021", 1)
@@ -340,15 +342,17 @@ module Walkthrough
         slug: "pewter-city", kind: "CITY", name: "Pewter City", order: 7, badge: "BOULDER",
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, shot: map_shot("pewter-city", 1, "STEP 1")),
           step(b, 2)
         ],
         gym_after: 1,
         encounters: [],
         trainers: [],
         gym: gym("pewter-city", "Pewter Gym", "ROCK", "BOULDER", "TM34 · BIDE",
-          leader("Brock", 1188, mon("074", 10), mon("095", 12)),
-          trainers: [ tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9)) ]),
+          leader("Brock", 1188, mon("074", 10), mon("095", 12),
+            battle: scene_shot("battle-brock", "BATTLE")),
+          trainers: [ tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9),
+            where: scene_shot("pewter-gym-trainer", "WHERE")) ]),
         oak_queue: []
       )
     end
@@ -386,12 +390,12 @@ module Walkthrough
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
 
-    def self.tr(cls, name, reward, *team, sprite: nil, where: nil)
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
-        sprite: sprite || trainer_sprite(cls, name), where: where)
+        sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle)
     end
 
-    def self.leader(name, reward, *team) = tr("LEADER", name, reward, *team)
+    def self.leader(name, reward, *team, battle: nil) = tr("LEADER", name, reward, *team, battle: battle)
 
     def self.rival(reward, *team) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two")
 
@@ -409,14 +413,19 @@ module Walkthrough
     end
 
     def self.route_3
-      loc("route-3", "ROUTE", "Route 3", 8,
+      b = base("route-3")
+      Location.new(
+        slug: "route-3", kind: "ROUTE", name: "Route 3", order: 8, badge: nil,
+        note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1), step(b, 2), step(b, 3, shot: map_shot("route-3", 3, "STEP 3")) ],
         encounters: [
           enc("route-3", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
           enc("route-3", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
           enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
           enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
         ],
-        oak_queue: [ oak("route-3", "027", 1) ])
+        trainers: [], oak_queue: [ oak("route-3", "027", 1) ]
+      )
     end
 
     def self.mt_moon

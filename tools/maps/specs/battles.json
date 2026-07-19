@@ -8,5 +8,10 @@
     "type": "battle", "name": "battle-brock",
     "opponent": "BROCK",
     "enemy_balls": 2, "player_balls": 2
+  },
+  {
+    "type": "battle", "name": "battle-rival-route-22",
+    "opponent": "RIVAL1", "rival_name": "BLUE",
+    "enemy_balls": 2, "player_balls": 1
   }
 ]

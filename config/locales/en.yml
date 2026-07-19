@@ -163,6 +163,7 @@ en:
       trainers_h2: "Trainers here"
       vs: "VS"
       where: "WHERE"
+      battle: "BATTLE"
       gym_tag: "◆ GYM"
       gym_type: "%{type}-TYPE"
       gym_short: "GYM"

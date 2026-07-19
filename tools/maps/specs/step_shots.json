@@ -54,5 +54,14 @@
     "type": "screen", "slug": "viridian-forest", "step": 5, "name": "viridian-forest-north",
     "map": "ViridianForest", "player": [2, 3], "player_dir": "UP",
     "arrows": [{"dir": "up", "grid": [2, 1]}]
+  },
+  {
+    "type": "screen", "slug": "pewter-city", "step": 1, "name": "pewter-heal-prep",
+    "map": "PewterCity", "player": [16, 18], "player_dir": "UP", "focus": [16, 17]
+  },
+  {
+    "type": "screen", "slug": "route-3", "step": 3, "name": "route-3-mt-moon",
+    "map": "Route4", "player": [18, 7], "player_dir": "UP", "focus": [14, 6],
+    "arrows": [{"dir": "up", "grid": [18, 6]}]
   }
 ]

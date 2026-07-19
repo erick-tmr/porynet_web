@@ -753,6 +753,20 @@
         "width": 160,
         "height": 144
       }
+    },
+    "pewter-city": {
+      "1": {
+        "image": "walkthrough/yellow/scenes/pewter-heal-prep.png",
+        "width": 160,
+        "height": 144
+      }
+    },
+    "route-3": {
+      "3": {
+        "image": "walkthrough/yellow/scenes/route-3-mt-moon.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {
@@ -764,6 +778,12 @@
     },
     "battle-brock": {
       "image": "walkthrough/yellow/battles/battle-brock.png",
+      "width": 160,
+      "height": 144,
+      "type": "battle"
+    },
+    "battle-rival-route-22": {
+      "image": "walkthrough/yellow/battles/battle-rival-route-22.png",
       "width": 160,
       "height": 144,
       "type": "battle"
@@ -818,6 +838,12 @@
     },
     "vf-lass": {
       "image": "walkthrough/yellow/scenes/vf-lass.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pewter-gym-trainer": {
+      "image": "walkthrough/yellow/scenes/pewter-gym-trainer.png",
       "width": 160,
       "height": 144,
       "type": "screen"

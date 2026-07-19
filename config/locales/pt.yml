@@ -163,6 +163,7 @@ pt:
       trainers_h2: "Treinadores aqui"
       vs: "VS"
       where: "ONDE"
+      battle: "BATALHA"
       gym_tag: "◆ GINÁSIO"
       gym_type: "TIPO %{type}"
       gym_short: "GINÁSIO"

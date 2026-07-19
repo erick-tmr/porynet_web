@@ -23,5 +23,10 @@
     "type": "screen", "name": "vf-lass", "map": "ViridianForest",
     "player": [2, 43], "player_dir": "UP", "focus": [2, 42],
     "sprites": [{"sprite": "SPRITE_COOLTRAINER_F", "grid": [2, 41], "dir": "DOWN", "emote": "shock"}]
+  },
+  {
+    "type": "screen", "name": "pewter-gym-trainer", "map": "PewterGym", "parent": "PEWTER_CITY",
+    "player": [6, 6], "player_dir": "LEFT", "focus": [4, 6],
+    "sprites": [{"sprite": "SPRITE_COOLTRAINER_M", "grid": [3, 6], "dir": "RIGHT", "emote": "shock"}]
   }
 ]

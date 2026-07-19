@@ -19,7 +19,7 @@ module Walkthrough
     def shot? = !shot.nil?
   end
 
-  Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where) # team: [{ dex:, name:, lvl: }]; where: Shot or nil
+  Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle) # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
   BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate)
 

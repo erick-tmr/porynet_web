@@ -1087,6 +1087,13 @@ a.pn-wt-route__card:hover {
   bottom: auto;
   background: #FFC23D;
 }
+.pn-wt-shot--battle {
+  flex: 1;
+  aspect-ratio: 10 / 9;
+}
+.pn-wt-shot__label--battle {
+  background: #FF5D8F;
+}
 .pn-wt-trainer__team {
   display: flex;
   flex-wrap: wrap;
@@ -1591,6 +1598,14 @@ a.pn-wt-route__card:hover {
   width: 150px;
   flex: none;
   aspect-ratio: 3 / 4;
+  border-color: #FF5D8F;
+  background: #141a2e;
+  box-shadow: 0 0 12px #FF5D8F44;
+}
+.pn-wt-shot--leaderbattle {
+  width: 180px;
+  flex: none;
+  aspect-ratio: 10 / 9;
   border-color: #FF5D8F;
   background: #141a2e;
   box-shadow: 0 0 12px #FF5D8F44;

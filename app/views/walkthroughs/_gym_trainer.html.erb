@@ -12,7 +12,11 @@
       <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.vs") %></span>
     </div>
     <div class="pn-wt-shot pn-wt-shot--gymwhere">
-      <div class="pn-wt-shot__ph pn-wt-shot__ph--gym"><%= t("walkthrough.ui.shot_placeholder") %></div>
+      <% if trainer.where&.map? %>
+        <%= r2_image_tag trainer.where.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+      <% else %>
+        <div class="pn-wt-shot__ph pn-wt-shot__ph--gym"><%= t("walkthrough.ui.shot_placeholder") %></div>
+      <% end %>
       <span class="pn-wt-shot__label pn-wt-shot__label--gym-where"><%= t("walkthrough.ui.where") %></span>
     </div>
   </div>
