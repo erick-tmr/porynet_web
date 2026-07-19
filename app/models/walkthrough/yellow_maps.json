@@ -698,6 +698,13 @@
         "width": 320,
         "height": 288
       }
+    },
+    "route-1": {
+      "1": {
+        "image": "walkthrough/yellow/scenes/route-1-north.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {

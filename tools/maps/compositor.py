@@ -136,14 +136,17 @@ def draw_dialog(canvas, root_str, lines, ink, paper):
 PLAYER_SCREEN = (72, 56)
 
 
-def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), dialog=None):
+def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None):
     """Render a native 160x144 GB screen: a viewport of the map centered on `focus_grid`
-    (the hero's cell), the given sprites composited, and an optional bottom dialog box.
+    (the hero's cell), the given sprites and directional arrows composited, and an optional
+    bottom dialog box.
 
     The camera clamps to the map edges like the game; out-of-map area is filled with paper."""
     full, colors = render_map(root_str, label, parent_const)
     if sprites:
         full = overlay_sprites(full, root_str, sprites, colors)
+    if arrows:
+        full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
     offx = min(max(fx - PLAYER_SCREEN[0], 0), max(full.width - SCREEN[0], 0))
     offy = min(max(fy - PLAYER_SCREEN[1], 0), max(full.height - SCREEN[1], 0))

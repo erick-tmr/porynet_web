@@ -137,6 +137,27 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "blue-gen1champion", blues.last.sprite
   end
 
+  test "a battle scene fills the first rival fight's where slot" do
+    rival = loc("pallet-town").trainers.first
+    assert rival.where.map?, "the rival's where slot should carry a battle scene"
+    assert_equal "walkthrough/yellow/battles/battle-rival-oaks-lab.png", rival.where.image
+
+    plain = loc("route-1").trainers
+    assert_empty plain
+  end
+
+  test "scene_shot returns a placeholder for an unknown scene key" do
+    missing = Walkthrough::Yellow.scene_shot("no-such-scene", "VS")
+    refute missing.map?
+    assert_nil missing.image
+  end
+
+  test "route 1 step 1 shows the tall-grass direction shot" do
+    shot = loc("route-1").steps.first.shot
+    assert shot.map?
+    assert_equal "walkthrough/yellow/scenes/route-1-north.png", shot.image
+  end
+
   test "item sprites derive from the name and override for TMs" do
     assert_equal "poke-ball", Walkthrough::Yellow.item_sprite("Poké Ball")
     assert_equal "tm-normal", Walkthrough::Yellow.item_sprite("TM34 Bide")
@@ -221,7 +242,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert exit_shot.map?
     assert_equal "walkthrough/yellow/maps/pallet-town-exit.png", exit_shot.image
 
-    plain = Walkthrough::Yellow.map_shot("route-1", 1, "STEP 1")
+    plain = Walkthrough::Yellow.map_shot("route-2", 1, "STEP 1")
     refute plain.map?
     assert_nil plain.image
   end

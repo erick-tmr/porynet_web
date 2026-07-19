@@ -69,7 +69,8 @@ def gen_map_scene(root, spec):
 
 
 def gen_screen_scene(root, spec):
-    """A 160x144 GB screen centered on the hero, with a bottom dialog box.
+    """A 160x144 GB screen centered on the hero, with optional directional arrows and a
+    bottom dialog box.
 
     `player` is the hero's grid cell (defaults to a marker location for hidden-item shots);
     the hero faces `player_dir` (default DOWN). auto NPCs are shown at their real cells."""
@@ -79,7 +80,8 @@ def gen_screen_scene(root, spec):
     if spec.get("auto_npcs"):
         sprites += _auto_npcs(root, spec["map"])
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
-    image, _ = compositor.render_screen(root, spec["map"], player, spec.get("parent"), sprites, lines)
+    image, _ = compositor.render_screen(root, spec["map"], player, spec.get("parent"),
+                                        sprites, spec.get("arrows", []), lines)
     return image, spec["name"], {}
 
 

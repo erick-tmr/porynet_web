@@ -9,5 +9,10 @@
     "map": "PalletTown",
     "sprites": [{"sprite": "SPRITE_RED", "grid": [10, 2], "dir": "UP"}],
     "arrows": [{"dir": "up", "grid": [10, 1]}]
+  },
+  {
+    "type": "screen", "slug": "route-1", "step": 1, "name": "route-1-north",
+    "map": "Route1", "player": [13, 24], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [13, 22]}]
   }
 ]

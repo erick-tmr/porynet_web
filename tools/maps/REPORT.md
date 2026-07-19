@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **97** across 51 locations
-- step shots: **2** (map/scene in a step slot)
+- step shots: **3** (map/scene in a step slot)
 - standalone scenes: **3** (dialog / battle / NPC, not step-bound)
 - missing map labels: **0**
 
@@ -9,6 +9,7 @@
 
 - `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png
 - `pallet-town` step 4: walkthrough/yellow/maps/pallet-town-exit.png
+- `route-1` step 1: walkthrough/yellow/scenes/route-1-north.png
 
 ## Scenes
 

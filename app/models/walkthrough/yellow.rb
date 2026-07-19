@@ -169,6 +169,13 @@ module Walkthrough
       data ? Shot.new(image: data["image"], label: label) : shot(label)
     end
 
+    def self.scenes = manifest.fetch("scenes", {})
+
+    def self.scene_shot(key, label)
+      data = scenes[key]
+      data ? Shot.new(image: data["image"], label: label) : shot(label)
+    end
+
     def self.build_legs(by_slug)
       LEG_DEFS.each_with_index.map { |leg_def, i| build_leg(leg_def, i + 1, by_slug) }
     end
@@ -193,7 +200,8 @@ module Walkthrough
           step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"))
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
-        trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1") ],
+        trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
+          where: scene_shot("battle-rival-oaks-lab", "VS")) ],
         oak_queue: []
       )
     end
@@ -204,7 +212,7 @@ module Walkthrough
         slug: "route-1", kind: "ROUTE", name: "Route 1", order: 2, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, shot: map_shot("route-1", 1, "STEP 1")),
           step(b, 2, items: [ item(b, 2, "Potion", "potion") ]),
           step(b, 3)
         ],
@@ -358,9 +366,9 @@ module Walkthrough
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
 
-    def self.tr(cls, name, reward, *team, sprite: nil)
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
-        sprite: sprite || trainer_sprite(cls, name))
+        sprite: sprite || trainer_sprite(cls, name), where: where)
     end
 
     def self.leader(name, reward, *team) = tr("LEADER", name, reward, *team)
