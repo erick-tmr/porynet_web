@@ -66,6 +66,32 @@ def parse_headers(root):
     return out
 
 
+def _snake_to_camel(name):
+    return "".join(part.capitalize() for part in name.split("_"))
+
+
+@lru_cache(maxsize=None)
+def parse_tileset_files(root_str):
+    """Map tileset name (CamelCase) -> its shared gfx/blockset basename via gfx/tilesets.asm.
+    Some tilesets (RedsHouse1/RedsHouse2, ...) share one file, so the const does not lowercase
+    straight to a filename."""
+    mapping, pending = {}, []
+    for line in (_root(root_str) / "gfx/tilesets.asm").read_text().splitlines():
+        m = re.match(r"\s*(\w+)_GFX::", line)
+        if m:
+            pending.append(m.group(1))
+        inc = re.search(r'INCBIN\s+"gfx/tilesets/([\w-]+)\.2bpp"', line)
+        if inc and pending:
+            for name in pending:
+                mapping[name] = inc.group(1)
+            pending = []
+    return mapping
+
+
+def tileset_basename(root_str, tileset_const):
+    return parse_tileset_files(root_str).get(_snake_to_camel(tileset_const), tileset_const.lower())
+
+
 def parse_super_palettes(root):
     """Return [ [ (r,g,b)*4 ], ... ] indexed by PAL_* id."""
     text = (root / "data/sgb/sgb_palettes.asm").read_text().splitlines()
@@ -131,7 +157,7 @@ def render_map(root_str, label, parent_const=None):
     if label not in headers:
         raise KeyError(f"no map header for {label}")
     const, tileset = headers[label]
-    tileset_file = tileset.lower()
+    tileset_file = tileset_basename(root_str, tileset)
     _, w, h = dims[const]
 
     tiles = load_tiles(root_str, tileset_file)
