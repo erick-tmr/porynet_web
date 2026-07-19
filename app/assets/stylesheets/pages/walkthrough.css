@@ -638,6 +638,11 @@ a.pn-wt-route__card:hover {
   bottom: auto;
   height: calc(100% - 38px);
 }
+.pn-wt-shot__img--fill {
+  top: 0;
+  bottom: auto;
+  height: calc(100% - 22px);
+}
 .pn-wt-shot__ph {
   position: absolute;
   inset: 0;
@@ -1091,7 +1096,7 @@ a.pn-wt-route__card:hover {
   margin-top: 12px;
   border: 3px solid #171622;
   background: #0b1022;
-  height: 250px;
+  aspect-ratio: 20 / 9;
   box-shadow: inset 0 0 0 3px #FF5D8F, 0 0 18px #FF5D8F33;
 }
 .pn-wt-shot__scan {
@@ -1610,19 +1615,20 @@ a.pn-wt-route__card:hover {
   align-items: center;
   flex-wrap: wrap;
 }
-.pn-wt-shot--leadervs {
-  width: 150px;
+.pn-wt-shot--leadervs,
+.pn-wt-shot--leaderbattle {
+  height: clamp(170px, 26vw, 248px);
   flex: none;
-  aspect-ratio: 3 / 4;
+}
+.pn-wt-shot--leadervs {
+  aspect-ratio: 26 / 62;
   border-color: #FF5D8F;
   background: #141a2e;
   box-shadow: 0 0 12px #FF5D8F44;
 }
 .pn-wt-shot--leaderbattle {
-  width: 296px;
+  aspect-ratio: 160 / 144;
   max-width: 100%;
-  height: 248px;
-  flex: none;
   border: 3px solid #FF5D8F;
   background: #0b1022;
   box-shadow: inset 0 0 0 3px #0b1022, 0 0 22px #FF5D8F55;

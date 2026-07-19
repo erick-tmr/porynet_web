@@ -37,8 +37,8 @@
   },
   {
     "type": "screen", "slug": "route-2", "step": 2, "name": "viridian-forest-south-gate",
-    "map": "ViridianForestSouthGate", "player": [4, 4], "player_dir": "UP", "focus": [4, 2],
-    "auto_npcs": true, "arrows": [{"dir": "up", "grid": [4, 0]}]
+    "map": "ViridianForestSouthGate", "player": [4, 4], "player_dir": "UP",
+    "auto_npcs": true, "arrows": [{"dir": "up", "grid": [4, 2]}]
   },
   {
     "type": "screen", "slug": "viridian-forest", "step": 1, "name": "viridian-forest-poke-ball",
