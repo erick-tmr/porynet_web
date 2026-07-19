@@ -139,6 +139,7 @@ module Walkthrough
     end
 
     def self.all_locations
+      data = map_data
       [
         pallet_town, route_1, viridian_city, route_22, route_2, viridian_forest, pewter_city,
         route_3, mt_moon, route_4, cerulean_city, route_24, route_25,
@@ -148,11 +149,11 @@ module Walkthrough
         route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ].map { |loc| loc.with(area_maps: map_data.fetch(loc.slug, [])) }
+      ].map { |loc| loc.with(area_maps: data.fetch(loc.slug, [])) }
     end
 
     def self.map_data
-      @map_data ||= JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).fetch("locations")
+      JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).fetch("locations")
         .transform_values do |maps|
           maps.map do |m|
             AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
