@@ -81,7 +81,7 @@ def render_map(root_str, label, parent_const=None):
     blk = sources.load_blueprint(root_str, label)
 
     pal_id = sources.resolve_palette_id(root_str, const, tileset, parent_const)
-    colors = sources.parse_super_palettes(root_str)[pal_id]   # 4 RGB tuples, index 0 = lightest
+    colors = sources.parse_cgb_palettes(root_str)[pal_id]     # 4 RGB tuples, index 0 = lightest
     shade_to_rgb = {255: colors[0], 170: colors[1], 85: colors[2], 0: colors[3]}
     tile_cache = {}
 
