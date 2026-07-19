@@ -83,10 +83,11 @@ def gen_screen_scene(root, spec):
     if spec.get("auto_npcs"):
         sprites += _auto_npcs(root, spec["map"])
     emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
+    markers = [{"grid": spec["marker"]}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
     image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", player),
                                         spec.get("parent"), sprites, spec.get("arrows", []), lines,
-                                        emotes=emotes)
+                                        emotes=emotes, markers=markers)
     return image, spec["name"], {}
 
 

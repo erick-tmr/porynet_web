@@ -21,6 +21,7 @@ SCREEN = (160, 144)                # native Game Boy screen
 
 ARROW_FILL = (248, 192, 32)        # amber pointer, matches the design system's --amber
 ARROW_OUTLINE = (23, 22, 34)       # the design system's near-black ink (#171622)
+MARKER_FILL = (255, 61, 174)       # a flat dot on a hidden-item tile; the site's --neon-magenta #FF3DAE
 
 # The GBC battle screen is colorized (colors sampled from the game). 4-color palettes,
 # lightest shade first; white becomes the paper background.
@@ -172,6 +173,18 @@ def overlay_emotes(canvas, root_str, emotes, colors):
     return out.convert("RGB")
 
 
+def overlay_markers(canvas, markers):
+    """Bake a flat brand-pink dot on the center of a cell (a hidden item's tile). The page layers
+    the pulsing glow on top in CSS. Each marker: {grid:[gx,gy], r?}."""
+    draw = ImageDraw.Draw(canvas)
+    for m in markers:
+        cx, cy = m["grid"][0] * UNIT_PX + UNIT_PX // 2, m["grid"][1] * UNIT_PX + UNIT_PX // 2
+        r = m.get("r", 6)
+        draw.ellipse([cx - r - 1, cy - r - 1, cx + r + 1, cy + r + 1], fill=ARROW_OUTLINE)
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=MARKER_FILL)
+    return canvas
+
+
 def _rotate90(points, direction):
     """Rotate points about the origin by 0/90/180/270 deg so an up-arrow can face any way."""
     for _ in range({"up": 0, "right": 1, "down": 2, "left": 3}[direction]):
@@ -238,10 +251,10 @@ def _border_fill(root_str, label, parent_const):
 
 
 def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None,
-                  emotes=()):
+                  emotes=(), markers=()):
     """Render a native 160x144 GB screen: a viewport of the map with the hero pinned near the
-    center, the given sprites, emotion bubbles and directional arrows composited, and an optional
-    bottom dialog box.
+    center, the given sprites, emotion bubbles, hidden-item markers and directional arrows
+    composited, and an optional bottom dialog box.
 
     Beyond the map edge the screen shows the map's border block, exactly like the game: on a small
     interior map (a gate or shop) that block is solid black, so the empty space reads as black."""
@@ -250,6 +263,8 @@ def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), ar
         full = overlay_sprites(full, root_str, sprites, colors)
     if emotes:
         full = overlay_emotes(full, root_str, emotes, colors)
+    if markers:
+        full = overlay_markers(full, markers)
     if arrows:
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
