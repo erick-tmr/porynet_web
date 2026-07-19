@@ -275,8 +275,8 @@ module Walkthrough
         slug: "route-2", kind: "ROUTE", name: "Route 2", order: 5, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
-          step(b, 2)
+          step(b, 1),
+          step(b, 2, shot: map_shot("route-2", 2, "STEP 2"))
         ],
         encounters: [
           enc("route-2", "016", "GRASS", "35%", "3–7", "COMMON", "016", "017", "018", tip: true),

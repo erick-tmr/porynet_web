@@ -729,6 +729,13 @@
         "width": 160,
         "height": 144
       }
+    },
+    "route-2": {
+      "2": {
+        "image": "walkthrough/yellow/scenes/viridian-forest-south-gate.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {

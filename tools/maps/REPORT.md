@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **97** across 51 locations
-- step shots: **7** (map/scene in a step slot)
+- step shots: **8** (map/scene in a step slot)
 - standalone scenes: **5** (dialog / battle / NPC, not step-bound)
 - missing map labels: **0**
 
@@ -10,6 +10,7 @@
 - `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png
 - `pallet-town` step 4: walkthrough/yellow/scenes/pallet-town-exit.png
 - `route-1` step 1: walkthrough/yellow/scenes/route-1-north.png
+- `route-2` step 2: walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `route-22` step 1: walkthrough/yellow/scenes/viridian-to-route-22.png
 - `route-22` step 3: walkthrough/yellow/scenes/viridian-to-route-2.png
 - `viridian-city` step 1: walkthrough/yellow/scenes/viridian-mart-parcel.png
