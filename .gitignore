@@ -50,3 +50,10 @@
 # itself stays via .keep so Propshaft's image load path survives a fresh clone.
 /app/assets/images/*.png
 /app/assets/images/**/*.png
+
+# generated map QA previews (renders live in R2)
+/tools/maps/qa/
+
+# python bytecode
+__pycache__/
+*.pyc

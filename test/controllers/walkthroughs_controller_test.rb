@@ -51,6 +51,21 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Best rate at 35%, and the earliest place to catch Rattata"
   end
 
+  test "a location renders its plain area map" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select "img.pn-wt-map__img[src*=?]", "walkthrough/yellow/maps/route-1.png"
+  end
+
+  test "an interior map fills a step screenshot slot" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select ".pn-wt-shot--map img.pn-wt-shot__map-img[src*=?]", "walkthrough/yellow/maps/reds-house-2f.png"
+    assert_select ".pn-wt-shot--map img.pn-wt-shot__map-img[src*=?]", "walkthrough/yellow/maps/pallet-town-exit.png"
+  end
+
   test "a single-location leg drops the switcher" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-06")
 

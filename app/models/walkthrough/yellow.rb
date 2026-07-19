@@ -139,6 +139,7 @@ module Walkthrough
     end
 
     def self.all_locations
+      data = map_data
       [
         pallet_town, route_1, viridian_city, route_22, route_2, viridian_forest, pewter_city,
         route_3, mt_moon, route_4, cerulean_city, route_24, route_25,
@@ -148,7 +149,24 @@ module Walkthrough
         route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ]
+      ].map { |loc| loc.with(area_maps: data.fetch(loc.slug, [])) }
+    end
+
+    def self.manifest
+      JSON.parse(File.read(File.join(__dir__, "yellow_maps.json")))
+    end
+
+    def self.map_data
+      manifest.fetch("locations").transform_values do |maps|
+        maps.map { |m| AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"]) }
+      end
+    end
+
+    def self.step_shots = manifest.fetch("step_shots", {})
+
+    def self.map_shot(slug, step_n, label)
+      data = step_shots.dig(slug, step_n.to_s)
+      data ? Shot.new(image: data["image"], label: label) : shot(label)
     end
 
     def self.build_legs(by_slug)
@@ -169,10 +187,10 @@ module Walkthrough
         slug: "pallet-town", kind: "TOWN", name: "Pallet Town", order: 1, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: shot("STEP 1")),
+          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1")),
           step(b, 2),
           step(b, 3),
-          step(b, 4, shot: shot("STEP 4"))
+          step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"))
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1") ],

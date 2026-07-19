@@ -1,0 +1,13 @@
+<section class="pn-wt-section pn-wt-maps">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.map_eyebrow") %></div>
+  <% loc.area_maps.each do |area| %>
+    <figure class="pn-wt-map">
+      <% if area.floor? %>
+        <figcaption class="pn-wt-map__floor"><%= area.floor %></figcaption>
+      <% end %>
+      <div class="pn-wt-map__frame">
+        <%= r2_image_tag area.image, alt: "", class: "pn-wt-map__img", loading: "lazy" %>
+      </div>
+    </figure>
+  <% end %>
+</section>

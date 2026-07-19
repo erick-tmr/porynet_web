@@ -199,6 +199,33 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil g.best_catch_here(r2, pidgey_r2), "Route 2 is not Pidgey's best spot"
   end
 
+  test "locations carry plain rendered area maps" do
+    g = game
+    vf = loc("viridian-forest")
+    assert_equal 1, vf.area_maps.size
+    assert_equal "walkthrough/yellow/maps/viridian-forest.png", vf.area_maps.first.image
+    refute vf.area_maps.first.floor?
+
+    floors = loc("mt-moon").area_maps
+    assert_equal %w[1F B1F B2F], floors.map(&:floor)
+    assert floors.first.floor?
+    assert(g.locations.count(&:area_maps?) > 40)
+  end
+
+  test "an interior map fills a step's screenshot slot" do
+    steps = loc("pallet-town").steps
+    assert steps.first.shot.map?
+    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", steps.first.shot.image
+
+    exit_shot = steps[3].shot
+    assert exit_shot.map?
+    assert_equal "walkthrough/yellow/maps/pallet-town-exit.png", exit_shot.image
+
+    plain = Walkthrough::Yellow.map_shot("route-1", 1, "STEP 1")
+    refute plain.map?
+    assert_nil plain.image
+  end
+
   private
 
   def content_keys(game)

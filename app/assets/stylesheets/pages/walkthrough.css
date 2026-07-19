@@ -1756,3 +1756,50 @@ a.pn-wt-route__card:hover {
   .pn-wt-band__title { font-size: 32px; }
   .pn-wt-gym__leader-name { font-size: 28px; }
 }
+
+/* area maps (rendered from pokeyellow) */
+.pn-wt-maps {
+  padding-top: 22px;
+}
+
+.pn-wt-map {
+  margin: 14px 0 0;
+}
+
+.pn-wt-map__floor {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+  background: var(--amber);
+  border: 2px solid #171622;
+  display: inline-block;
+  padding: 5px 8px;
+  margin-bottom: 8px;
+}
+
+.pn-wt-map__frame {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  line-height: 0;
+}
+
+.pn-wt-map__img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+/* an interior map rendered into a step's screenshot slot */
+.pn-wt-shot--map {
+  line-height: 0;
+}
+.pn-wt-shot__map-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}

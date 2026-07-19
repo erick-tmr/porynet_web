@@ -6,7 +6,12 @@ module Walkthrough
 
   Item = Data.define(:name, :where_key, :sprite)
   HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite)
-  Shot = Data.define(:image, :label)
+  Shot = Data.define(:image, :label) do
+    def map? = !image.nil?
+  end
+  AreaMap = Data.define(:image, :width, :height, :floor) do
+    def floor? = !floor.empty?
+  end
 
   Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot) do
     def items? = items.any?
@@ -31,9 +36,13 @@ module Walkthrough
 
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
-    :steps, :encounters, :trainers, :oak_queue, :gym, :gym_after
+    :steps, :encounters, :trainers, :oak_queue, :gym, :gym_after, :area_maps
   ) do
-    def initialize(gym: nil, gym_after: nil, **rest) = super(gym: gym, gym_after: gym_after, **rest)
+    def initialize(gym: nil, gym_after: nil, area_maps: [], **rest)
+      super(gym: gym, gym_after: gym_after, area_maps: area_maps, **rest)
+    end
+
+    def area_maps? = area_maps.any?
 
     def dex_list = encounters.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)

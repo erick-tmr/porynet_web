@@ -1,0 +1,703 @@
+{
+  "source": "pret/pokeyellow",
+  "locations": {
+    "celadon-city": [
+      {
+        "image": "walkthrough/yellow/maps/celadon-city.png",
+        "width": 800,
+        "height": 576,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/celadon-city-gym.png",
+        "width": 160,
+        "height": 288,
+        "floor": "Gym"
+      }
+    ],
+    "cerulean-cave": [
+      {
+        "image": "walkthrough/yellow/maps/cerulean-cave-1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/cerulean-cave-2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/cerulean-cave-b1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B1F"
+      }
+    ],
+    "cerulean-city": [
+      {
+        "image": "walkthrough/yellow/maps/cerulean-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/cerulean-city-gym.png",
+        "width": 160,
+        "height": 224,
+        "floor": "Gym"
+      }
+    ],
+    "cinnabar-island": [
+      {
+        "image": "walkthrough/yellow/maps/cinnabar-island.png",
+        "width": 320,
+        "height": 288,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/cinnabar-island-gym.png",
+        "width": 320,
+        "height": 288,
+        "floor": "Gym"
+      }
+    ],
+    "digletts-cave": [
+      {
+        "image": "walkthrough/yellow/maps/digletts-cave.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "fuchsia-city": [
+      {
+        "image": "walkthrough/yellow/maps/fuchsia-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/fuchsia-city-gym.png",
+        "width": 160,
+        "height": 288,
+        "floor": "Gym"
+      }
+    ],
+    "indigo-plateau": [
+      {
+        "image": "walkthrough/yellow/maps/indigo-plateau.png",
+        "width": 320,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "lavender-town": [
+      {
+        "image": "walkthrough/yellow/maps/lavender-town.png",
+        "width": 320,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "mt-moon": [
+      {
+        "image": "walkthrough/yellow/maps/mt-moon-1f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/mt-moon-b1f.png",
+        "width": 448,
+        "height": 448,
+        "floor": "B1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/mt-moon-b2f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "B2F"
+      }
+    ],
+    "pallet-town": [
+      {
+        "image": "walkthrough/yellow/maps/pallet-town.png",
+        "width": 320,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "pewter-city": [
+      {
+        "image": "walkthrough/yellow/maps/pewter-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/pewter-city-gym.png",
+        "width": 160,
+        "height": 224,
+        "floor": "Gym"
+      }
+    ],
+    "pokemon-mansion": [
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-1f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-2f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "3F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-mansion-b1f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B1F"
+      }
+    ],
+    "pokemon-tower": [
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-1f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-2f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-3f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "3F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-4f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "4F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-5f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "5F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-6f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "6F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/pokemon-tower-7f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "7F"
+      }
+    ],
+    "power-plant": [
+      {
+        "image": "walkthrough/yellow/maps/power-plant.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "rock-tunnel": [
+      {
+        "image": "walkthrough/yellow/maps/rock-tunnel-1f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/rock-tunnel-b1f.png",
+        "width": 640,
+        "height": 576,
+        "floor": "B1F"
+      }
+    ],
+    "rocket-hideout": [
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b1f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b2f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b3f.png",
+        "width": 480,
+        "height": 448,
+        "floor": "B3F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/rocket-hideout-b4f.png",
+        "width": 480,
+        "height": 384,
+        "floor": "B4F"
+      }
+    ],
+    "route-1": [
+      {
+        "image": "walkthrough/yellow/maps/route-1.png",
+        "width": 320,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "route-10": [
+      {
+        "image": "walkthrough/yellow/maps/route-10.png",
+        "width": 320,
+        "height": 1152,
+        "floor": ""
+      }
+    ],
+    "route-11": [
+      {
+        "image": "walkthrough/yellow/maps/route-11.png",
+        "width": 960,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-12": [
+      {
+        "image": "walkthrough/yellow/maps/route-12.png",
+        "width": 320,
+        "height": 1728,
+        "floor": ""
+      }
+    ],
+    "route-13": [
+      {
+        "image": "walkthrough/yellow/maps/route-13.png",
+        "width": 960,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-14": [
+      {
+        "image": "walkthrough/yellow/maps/route-14.png",
+        "width": 320,
+        "height": 864,
+        "floor": ""
+      }
+    ],
+    "route-15": [
+      {
+        "image": "walkthrough/yellow/maps/route-15.png",
+        "width": 960,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-16": [
+      {
+        "image": "walkthrough/yellow/maps/route-16.png",
+        "width": 640,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-17": [
+      {
+        "image": "walkthrough/yellow/maps/route-17.png",
+        "width": 320,
+        "height": 2304,
+        "floor": ""
+      }
+    ],
+    "route-18": [
+      {
+        "image": "walkthrough/yellow/maps/route-18.png",
+        "width": 800,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-19": [
+      {
+        "image": "walkthrough/yellow/maps/route-19.png",
+        "width": 320,
+        "height": 864,
+        "floor": ""
+      }
+    ],
+    "route-2": [
+      {
+        "image": "walkthrough/yellow/maps/route-2.png",
+        "width": 320,
+        "height": 1152,
+        "floor": ""
+      }
+    ],
+    "route-20": [
+      {
+        "image": "walkthrough/yellow/maps/route-20.png",
+        "width": 1600,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-21": [
+      {
+        "image": "walkthrough/yellow/maps/route-21.png",
+        "width": 320,
+        "height": 1440,
+        "floor": ""
+      }
+    ],
+    "route-22": [
+      {
+        "image": "walkthrough/yellow/maps/route-22.png",
+        "width": 640,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-23": [
+      {
+        "image": "walkthrough/yellow/maps/route-23.png",
+        "width": 320,
+        "height": 2304,
+        "floor": ""
+      }
+    ],
+    "route-24": [
+      {
+        "image": "walkthrough/yellow/maps/route-24.png",
+        "width": 320,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "route-25": [
+      {
+        "image": "walkthrough/yellow/maps/route-25.png",
+        "width": 960,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-3": [
+      {
+        "image": "walkthrough/yellow/maps/route-3.png",
+        "width": 1120,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-4": [
+      {
+        "image": "walkthrough/yellow/maps/route-4.png",
+        "width": 1440,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-5": [
+      {
+        "image": "walkthrough/yellow/maps/route-5.png",
+        "width": 320,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "route-6": [
+      {
+        "image": "walkthrough/yellow/maps/route-6.png",
+        "width": 320,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "route-7": [
+      {
+        "image": "walkthrough/yellow/maps/route-7.png",
+        "width": 320,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-8": [
+      {
+        "image": "walkthrough/yellow/maps/route-8.png",
+        "width": 960,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "route-9": [
+      {
+        "image": "walkthrough/yellow/maps/route-9.png",
+        "width": 960,
+        "height": 288,
+        "floor": ""
+      }
+    ],
+    "safari-zone": [
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-center.png",
+        "width": 480,
+        "height": 416,
+        "floor": "Center"
+      },
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-east.png",
+        "width": 480,
+        "height": 416,
+        "floor": "East"
+      },
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-north.png",
+        "width": 640,
+        "height": 576,
+        "floor": "North"
+      },
+      {
+        "image": "walkthrough/yellow/maps/safari-zone-west.png",
+        "width": 480,
+        "height": 416,
+        "floor": "West"
+      }
+    ],
+    "saffron-city": [
+      {
+        "image": "walkthrough/yellow/maps/saffron-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/saffron-city-gym.png",
+        "width": 320,
+        "height": 288,
+        "floor": "Gym"
+      }
+    ],
+    "seafoam-islands": [
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B3F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/seafoam-islands-b4f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "B4F"
+      }
+    ],
+    "silph-co": [
+      {
+        "image": "walkthrough/yellow/maps/silph-co-1f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "3F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-4f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "4F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-5f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "5F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-6f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "6F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-7f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "7F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-8f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "8F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-9f.png",
+        "width": 416,
+        "height": 288,
+        "floor": "9F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-10f.png",
+        "width": 256,
+        "height": 288,
+        "floor": "10F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/silph-co-11f.png",
+        "width": 288,
+        "height": 288,
+        "floor": "11F"
+      }
+    ],
+    "ss-anne": [
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-1f.png",
+        "width": 640,
+        "height": 288,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-2f.png",
+        "width": 640,
+        "height": 288,
+        "floor": "2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-3f.png",
+        "width": 320,
+        "height": 96,
+        "floor": "3F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-b1f.png",
+        "width": 480,
+        "height": 128,
+        "floor": "B1F"
+      }
+    ],
+    "vermilion-city": [
+      {
+        "image": "walkthrough/yellow/maps/vermilion-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      },
+      {
+        "image": "walkthrough/yellow/maps/vermilion-city-gym.png",
+        "width": 160,
+        "height": 288,
+        "floor": "Gym"
+      }
+    ],
+    "victory-road": [
+      {
+        "image": "walkthrough/yellow/maps/victory-road-1f.png",
+        "width": 320,
+        "height": 288,
+        "floor": "1F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/victory-road-2f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "2F"
+      },
+      {
+        "image": "walkthrough/yellow/maps/victory-road-3f.png",
+        "width": 480,
+        "height": 288,
+        "floor": "3F"
+      }
+    ],
+    "viridian-city": [
+      {
+        "image": "walkthrough/yellow/maps/viridian-city.png",
+        "width": 640,
+        "height": 576,
+        "floor": ""
+      }
+    ],
+    "viridian-forest": [
+      {
+        "image": "walkthrough/yellow/maps/viridian-forest.png",
+        "width": 544,
+        "height": 768,
+        "floor": ""
+      }
+    ],
+    "viridian-gym": [
+      {
+        "image": "walkthrough/yellow/maps/viridian-gym.png",
+        "width": 320,
+        "height": 288,
+        "floor": ""
+      }
+    ]
+  },
+  "step_shots": {
+    "pallet-town": {
+      "1": {
+        "image": "walkthrough/yellow/maps/reds-house-2f.png",
+        "width": 128,
+        "height": 128
+      },
+      "4": {
+        "image": "walkthrough/yellow/maps/pallet-town-exit.png",
+        "width": 320,
+        "height": 288
+      }
+    }
+  }
+}
