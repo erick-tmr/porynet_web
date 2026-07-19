@@ -24,5 +24,15 @@
     "map": "BluesHouse", "player": [2, 4], "player_dir": "UP",
     "sprites": [{"sprite": "SPRITE_DAISY", "grid": [2, 3], "dir": "DOWN"}],
     "dialog": {"lines": ["<PLAYER> got a", "TOWN MAP!"]}
+  },
+  {
+    "type": "screen", "slug": "route-22", "step": 1, "name": "viridian-to-route-22",
+    "map": "ViridianCity", "player": [5, 17], "player_dir": "LEFT",
+    "arrows": [{"dir": "left", "grid": [3, 17]}]
+  },
+  {
+    "type": "screen", "slug": "route-22", "step": 3, "name": "viridian-to-route-2",
+    "map": "ViridianCity", "player": [18, 3], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [18, 1]}]
   }
 ]

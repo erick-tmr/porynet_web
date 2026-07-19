@@ -9,5 +9,13 @@
       {"sprite": "SPRITE_SCIENTIST", "grid": [2, 10], "dir": "DOWN"},
       {"sprite": "SPRITE_SCIENTIST", "grid": [8, 10], "dir": "DOWN"}
     ]
+  },
+  {
+    "type": "screen", "name": "route-22-rival",
+    "map": "Route22",
+    "player": [26, 5], "player_dir": "LEFT", "focus": [25, 5],
+    "sprites": [
+      {"sprite": "SPRITE_BLUE", "grid": [25, 5], "dir": "RIGHT"}
+    ]
   }
 ]

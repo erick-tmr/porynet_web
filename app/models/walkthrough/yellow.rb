@@ -249,9 +249,9 @@ module Walkthrough
         slug: "route-22", kind: "ROUTE", name: "Route 22", order: 4, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: shot("STEP 1")),
+          step(b, 1, shot: map_shot("route-22", 1, "STEP 1")),
           step(b, 2),
-          step(b, 3)
+          step(b, 3, shot: map_shot("route-22", 3, "STEP 3"))
         ],
         encounters: [
           enc("route-22", "029", "GRASS", "30%", "2–4", "COMMON", "029", "030", "031", tip: true),
@@ -260,7 +260,8 @@ module Walkthrough
           enc("route-22", "019", "GRASS", "10%", "3", "UNCOMMON", "019", "020", tip: true),
           enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true)
         ],
-        trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1") ],
+        trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1",
+          where: scene_shot("route-22-rival", "WHERE")) ],
         oak_queue: [
           oak("route-22", "029", 1), oak("route-22", "032", 1),
           oak("route-22", "056", 1), oak("route-22", "021", 1)

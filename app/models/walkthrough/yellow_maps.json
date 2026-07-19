@@ -717,6 +717,18 @@
         "width": 160,
         "height": 144
       }
+    },
+    "route-22": {
+      "1": {
+        "image": "walkthrough/yellow/scenes/viridian-to-route-22.png",
+        "width": 160,
+        "height": 144
+      },
+      "3": {
+        "image": "walkthrough/yellow/scenes/viridian-to-route-2.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {
@@ -734,6 +746,12 @@
     },
     "oaks-lab-rival": {
       "image": "walkthrough/yellow/scenes/oaks-lab-rival.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-22-rival": {
+      "image": "walkthrough/yellow/scenes/route-22-rival.png",
       "width": 160,
       "height": 144,
       "type": "screen"
