@@ -294,11 +294,13 @@ module Walkthrough
         slug: "viridian-forest", kind: "FOREST", name: "Viridian Forest", order: 6, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Poké Ball", "poke_ball") ], shot: shot("STEP 1")),
-          step(b, 2, hidden: [ hidden(b, 2, "Antidote", "antidote", "antidote.png", "vf-antidote") ]),
-          step(b, 3, items: [ item(b, 3, "Potion", "potion") ], shot: shot("STEP 3")),
-          step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "potion.png", "vf-potion") ]),
-          step(b, 5, shot: shot("STEP 5"))
+          step(b, 1, items: [ item(b, 1, "Poké Ball", "poke_ball") ],
+            shot: map_shot("viridian-forest", 1, "STEP 1")),
+          step(b, 2, hidden: [ hidden(b, 2, "Antidote", "antidote", "viridian-forest-antidote", "vf-antidote") ]),
+          step(b, 3, items: [ item(b, 3, "Potion", "potion") ],
+            shot: map_shot("viridian-forest", 3, "STEP 3")),
+          step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "viridian-forest-hidden-potion", "vf-potion") ]),
+          step(b, 5, shot: map_shot("viridian-forest", 5, "STEP 5"))
         ],
         encounters: [
           enc("viridian-forest", "010", "GRASS", "50%", "3–6", "COMMON", "010", "011", "012", tip: true),
@@ -307,11 +309,15 @@ module Walkthrough
           enc("viridian-forest", "017", "GRASS", "1%", "9", "RARE", "016", "017", "018", tip: true)
         ],
         trainers: [
-          tr("LASS", nil, 90, mon("029", 6), mon("032", 6)),
-          tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7)),
-          tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6)),
-          tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8)),
-          tr("BUG CATCHER", nil, 100, mon("010", 10))
+          tr("LASS", nil, 90, mon("029", 6), mon("032", 6), where: scene_shot("vf-lass", "WHERE")),
+          tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7),
+            where: scene_shot("vf-bug-catcher-1", "WHERE")),
+          tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6),
+            where: scene_shot("vf-bug-catcher-2", "WHERE")),
+          tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8),
+            where: scene_shot("vf-bug-catcher-15", "WHERE")),
+          tr("BUG CATCHER", nil, 100, mon("010", 10),
+            where: scene_shot("vf-bug-catcher-3", "WHERE"))
         ],
         oak_queue: [ oak("viridian-forest", "010", 1) ]
       )
@@ -945,9 +951,9 @@ module Walkthrough
       Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}", sprite: item_sprite(name))
     end
 
-    def self.hidden(base, n, name, key, image, pin)
+    def self.hidden(base, n, name, key, scene, pin)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",
-        image: "walkthrough/yellow/viridian-forest/#{image}", pin: pin, sprite: item_sprite(name))
+        image: scenes.dig(scene, "image"), pin: pin, sprite: item_sprite(name))
     end
 
     def self.shot(label) = Shot.new(image: nil, label: label)

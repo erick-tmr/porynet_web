@@ -156,6 +156,22 @@ def overlay_sprites(canvas, root_str, sprites, colors):
     return out.convert("RGB")
 
 
+def overlay_emotes(canvas, root_str, emotes, colors):
+    """Composite emotion bubbles (gfx/emotes/*.png) one cell above a sprite, e.g. the '!' a
+    trainer flashes on spotting the player. Each emote: {name, grid:[gx,gy]}. The bubble is a
+    light fill (shade 170) with a dark outline and mark (shade 0); the corners are transparent."""
+    out = canvas.convert("RGBA")
+    shade = {255: None, 170: colors[0], 0: colors[3]}
+    for em in emotes:
+        sheet = Image.open(sources._root(root_str) / f"gfx/emotes/{em['name']}.png").convert("L")
+        rgba = Image.new("RGBA", (16, 16))
+        rgba.putdata([(0, 0, 0, 0) if shade.get(p) is None else (*shade[p], 255)
+                      for p in sheet.crop((0, 0, 16, 16)).getdata()])
+        gx, gy = em["grid"]
+        out.alpha_composite(rgba, (gx * UNIT_PX, (gy - 1) * UNIT_PX))
+    return out.convert("RGB")
+
+
 def _rotate90(points, direction):
     """Rotate points about the origin by 0/90/180/270 deg so an up-arrow can face any way."""
     for _ in range({"up": 0, "right": 1, "down": 2, "left": 3}[direction]):
@@ -221,15 +237,19 @@ def _border_fill(root_str, label, parent_const):
     return screen
 
 
-def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None):
+def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None,
+                  emotes=()):
     """Render a native 160x144 GB screen: a viewport of the map with the hero pinned near the
-    center, the given sprites and directional arrows composited, and an optional bottom dialog box.
+    center, the given sprites, emotion bubbles and directional arrows composited, and an optional
+    bottom dialog box.
 
     Beyond the map edge the screen shows the map's border block, exactly like the game: on a small
     interior map (a gate or shop) that block is solid black, so the empty space reads as black."""
     full, colors = render_map(root_str, label, parent_const)
     if sprites:
         full = overlay_sprites(full, root_str, sprites, colors)
+    if emotes:
+        full = overlay_emotes(full, root_str, emotes, colors)
     if arrows:
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX

@@ -736,6 +736,23 @@
         "width": 160,
         "height": 144
       }
+    },
+    "viridian-forest": {
+      "1": {
+        "image": "walkthrough/yellow/scenes/viridian-forest-poke-ball.png",
+        "width": 160,
+        "height": 144
+      },
+      "3": {
+        "image": "walkthrough/yellow/scenes/viridian-forest-potion.png",
+        "width": 160,
+        "height": 144
+      },
+      "5": {
+        "image": "walkthrough/yellow/scenes/viridian-forest-north.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {
@@ -768,6 +785,42 @@
       "width": 160,
       "height": 144,
       "type": "dialog"
+    },
+    "viridian-forest-hidden-potion": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-hidden-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "vf-bug-catcher-1": {
+      "image": "walkthrough/yellow/scenes/vf-bug-catcher-1.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "vf-bug-catcher-2": {
+      "image": "walkthrough/yellow/scenes/vf-bug-catcher-2.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "vf-bug-catcher-15": {
+      "image": "walkthrough/yellow/scenes/vf-bug-catcher-15.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "vf-bug-catcher-3": {
+      "image": "walkthrough/yellow/scenes/vf-bug-catcher-3.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "vf-lass": {
+      "image": "walkthrough/yellow/scenes/vf-lass.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
     }
   }
 }

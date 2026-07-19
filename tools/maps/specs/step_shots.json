@@ -39,5 +39,20 @@
     "type": "screen", "slug": "route-2", "step": 2, "name": "viridian-forest-south-gate",
     "map": "ViridianForestSouthGate", "player": [4, 4], "player_dir": "UP", "focus": [4, 2],
     "auto_npcs": true, "arrows": [{"dir": "up", "grid": [4, 0]}]
+  },
+  {
+    "type": "screen", "slug": "viridian-forest", "step": 1, "name": "viridian-forest-poke-ball",
+    "map": "ViridianForest", "player": [1, 31], "player_dir": "UP",
+    "dialog": {"found_item": "POKé BALL"}
+  },
+  {
+    "type": "screen", "slug": "viridian-forest", "step": 3, "name": "viridian-forest-potion",
+    "map": "ViridianForest", "player": [12, 29], "player_dir": "UP",
+    "dialog": {"found_item": "POTION"}
+  },
+  {
+    "type": "screen", "slug": "viridian-forest", "step": 5, "name": "viridian-forest-north",
+    "map": "ViridianForest", "player": [2, 3], "player_dir": "UP",
+    "arrows": [{"dir": "up", "grid": [2, 1]}]
   }
 ]
