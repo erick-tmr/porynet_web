@@ -62,7 +62,8 @@
           <% if gym.leader.battle&.map? %>
             <div class="pn-wt-shot pn-wt-shot--leaderbattle">
               <%= r2_image_tag gym.leader.battle.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
-              <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.battle") %></span>
+              <span class="pn-wt-shot__scan" aria-hidden="true"></span>
+              <span class="pn-wt-shot__label pn-wt-shot__label--battle"><%= t("walkthrough.ui.battle") %></span>
             </div>
           <% end %>
           <div class="pn-wt-gym__leader-meta">

@@ -23,13 +23,14 @@
       <% end %>
       <span class="pn-wt-shot__label pn-wt-shot__label--where"><%= t("walkthrough.ui.where") %></span>
     </div>
-    <% if trainer.battle&.map? %>
-      <div class="pn-wt-shot pn-wt-shot--battle">
-        <%= r2_image_tag trainer.battle.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
-        <span class="pn-wt-shot__label pn-wt-shot__label--battle"><%= t("walkthrough.ui.battle") %></span>
-      </div>
-    <% end %>
   </div>
+  <% if trainer.battle&.map? %>
+    <div class="pn-wt-shot pn-wt-shot--battlescreen">
+      <%= r2_image_tag trainer.battle.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+      <span class="pn-wt-shot__scan" aria-hidden="true"></span>
+      <span class="pn-wt-shot__label pn-wt-shot__label--battle"><%= t("walkthrough.ui.battle") %></span>
+    </div>
+  <% end %>
   <div class="pn-wt-trainer__team">
     <% trainer.team.each do |member| %>
       <div class="pn-wt-team-mon">

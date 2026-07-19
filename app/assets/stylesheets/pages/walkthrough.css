@@ -1087,12 +1087,28 @@ a.pn-wt-route__card:hover {
   bottom: auto;
   background: #FFC23D;
 }
-.pn-wt-shot--battle {
-  flex: 1;
-  aspect-ratio: 10 / 9;
+.pn-wt-shot--battlescreen {
+  margin-top: 12px;
+  border: 3px solid #171622;
+  background: #0b1022;
+  height: 250px;
+  box-shadow: inset 0 0 0 3px #FF5D8F, 0 0 18px #FF5D8F33;
+}
+.pn-wt-shot__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.15) 3px, rgba(0, 0, 0, 0) 4px);
 }
 .pn-wt-shot__label--battle {
+  top: 0;
+  bottom: auto;
+  color: #fff;
   background: #FF5D8F;
+  font-size: 9px;
+  padding: 6px 9px;
+  box-shadow: 0 0 10px #FF5D8F88;
 }
 .pn-wt-trainer__team {
   display: flex;
@@ -1603,12 +1619,13 @@ a.pn-wt-route__card:hover {
   box-shadow: 0 0 12px #FF5D8F44;
 }
 .pn-wt-shot--leaderbattle {
-  width: 180px;
+  width: 296px;
+  max-width: 100%;
+  height: 248px;
   flex: none;
-  aspect-ratio: 10 / 9;
-  border-color: #FF5D8F;
-  background: #141a2e;
-  box-shadow: 0 0 12px #FF5D8F44;
+  border: 3px solid #FF5D8F;
+  background: #0b1022;
+  box-shadow: inset 0 0 0 3px #0b1022, 0 0 22px #FF5D8F55;
 }
 .pn-wt-gym__leader-meta {
   display: flex;
