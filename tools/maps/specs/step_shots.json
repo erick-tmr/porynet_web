@@ -22,7 +22,7 @@
   {
     "type": "screen", "slug": "viridian-city", "step": 3, "name": "blues-house-town-map",
     "map": "BluesHouse", "player": [2, 4], "player_dir": "UP",
-    "sprites": [{"sprite": "SPRITE_DAISY", "grid": [2, 3], "dir": "RIGHT"}],
+    "sprites": [{"sprite": "SPRITE_DAISY", "grid": [2, 3], "dir": "DOWN"}],
     "dialog": {"lines": ["<PLAYER> got a", "TOWN MAP!"]}
   }
 ]
