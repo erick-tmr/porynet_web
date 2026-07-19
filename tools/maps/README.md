@@ -32,10 +32,12 @@ This writes:
 - `render_maps.py` — a map is a grid of blocks (4×4 tiles, 32×32 px). Reads `maps/*.blk` +
   `gfx/blocksets/*.bst` + `gfx/tilesets/*.png`; colors each map with its single super-palette
   (`data/sgb/sgb_palettes.asm`) per the game's `SetPal_Overworld` (city / route / cave / cemetery / interior-inherits-town).
-  Optionally composites 16×16 overworld sprite frames from `gfx/sprites/*.png` (colored in the map palette).
-- `build_manifest.py` — renders each walkthrough location's area map(s) plus any per-step interior
-  shots, and emits the manifest. Area maps come from `_SIMPLE` / `_GYM_CITIES` / `_DUNGEONS`;
-  step shots (with optional illustrative sprites) come from `_STEP_SHOTS` / `_STEP_SPRITES`.
+  Optionally composites 16×16 overworld sprite frames from `gfx/sprites/*.png` (colored in the map
+  palette) and draws directional pointer arrows as annotations (e.g. toward a map exit).
+- `build_manifest.py` — renders each walkthrough location's area map(s) plus any per-step
+  screenshot shots, and emits the manifest. Area maps come from `_SIMPLE` / `_GYM_CITIES` /
+  `_DUNGEONS`; step shots (each with an output name and optional illustrative sprites/arrows)
+  come from `_STEP_SHOTS`.
 - `parse_hidden.py` — standalone extractor for the game's hidden-item / Game Corner coin
   coordinates (`data/events/hidden_events.asm` where FUNC == HiddenItems, plus
   `data/events/hidden_coins.asm`). Not part of the map build; kept as the source-of-truth list

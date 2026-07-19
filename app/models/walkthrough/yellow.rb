@@ -190,7 +190,7 @@ module Walkthrough
           step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1")),
           step(b, 2),
           step(b, 3),
-          step(b, 4, shot: shot("STEP 4"))
+          step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"))
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1") ],

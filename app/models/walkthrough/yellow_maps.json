@@ -692,6 +692,11 @@
         "image": "walkthrough/yellow/maps/reds-house-2f.png",
         "width": 128,
         "height": 128
+      },
+      "4": {
+        "image": "walkthrough/yellow/maps/pallet-town-exit.png",
+        "width": 320,
+        "height": 288
       }
     }
   }

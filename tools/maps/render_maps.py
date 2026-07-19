@@ -17,7 +17,7 @@ Reads (relative to the pokeyellow root):
 import re
 import pathlib
 from functools import lru_cache
-from PIL import Image
+from PIL import Image, ImageDraw
 
 BLOCK_TILES = 4          # tiles per block side
 TILE_PX = 8
@@ -27,6 +27,9 @@ BLOCK_PX = BLOCK_TILES * TILE_PX   # 32
 PAL_ROUTE = 0
 PAL_GRAYMON = 0x19
 PAL_CAVE = 0x23
+
+ARROW_FILL = (248, 192, 32)     # amber pointer, matches the design system's --amber
+ARROW_OUTLINE = (23, 22, 34)    # the design system's near-black ink (#171622)
 
 
 def _rgb5_to_8(v):
@@ -163,7 +166,33 @@ def _overlay_sprites(canvas, root_str, sprites, colors):
     return out.convert("RGB")
 
 
-def render_map(root_str, label, parent_const=None, sprites=None):
+def _rotate90(points, direction):
+    """Rotate points about the origin by 0/90/180/270 deg so an up-arrow can face any way."""
+    for _ in range({"up": 0, "right": 1, "down": 2, "left": 3}[direction]):
+        points = [(-y, x) for x, y in points]
+    return points
+
+
+def _overlay_arrows(canvas, arrows):
+    """Draw directional pointer arrows (map annotations, not game art) onto the render. Each
+    arrow: {dir: up|down|left|right, px: [cx, cy], size?: [w, h]}, px = arrow center."""
+    draw = ImageDraw.Draw(canvas)
+    for a in arrows:
+        cx, cy = a["px"]
+        w, h = a.get("size", (16, 26))
+        hw, sw, hh = w // 2, max(2, w // 3), h // 2
+        head = _rotate90([(0, -h // 2), (-hw, -h // 2 + hh), (hw, -h // 2 + hh)], a["dir"])
+        shaft = _rotate90([(-sw, -h // 2 + hh), (sw, -h // 2 + hh), (sw, h // 2), (-sw, h // 2)], a["dir"])
+        for pts, fill in ((head, ARROW_OUTLINE), (shaft, ARROW_OUTLINE)):
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    draw.polygon([(cx + x + dx, cy + y + dy) for x, y in pts], fill=fill)
+        draw.polygon([(cx + x, cy + y) for x, y in head], fill=ARROW_FILL)
+        draw.polygon([(cx + x, cy + y) for x, y in shaft], fill=ARROW_FILL)
+    return canvas
+
+
+def render_map(root_str, label, parent_const=None, sprites=None, arrows=None):
     """Render one pokeyellow map (by header label, e.g. 'PalletTown') to an RGB image."""
     root = _root(root_str)
     dims, num_city, first_indoor = parse_map_constants(root)
@@ -205,7 +234,11 @@ def render_map(root_str, label, parent_const=None, sprites=None):
                     canvas.paste(colored_tile(tile_idx),
                                  (bx * BLOCK_PX + tx * TILE_PX,
                                   by * BLOCK_PX + ty * TILE_PX))
-    return _overlay_sprites(canvas, root_str, sprites, colors) if sprites else canvas
+    if sprites:
+        canvas = _overlay_sprites(canvas, root_str, sprites, colors)
+    if arrows:
+        canvas = _overlay_arrows(canvas, arrows)
+    return canvas
 
 
 if __name__ == "__main__":
