@@ -201,7 +201,7 @@ module Walkthrough
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
-          where: scene_shot("battle-rival-oaks-lab", "VS")) ],
+          where: scene_shot("oaks-lab-rival", "WHERE")) ],
         oak_queue: []
       )
     end

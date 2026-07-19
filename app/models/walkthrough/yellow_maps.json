@@ -720,6 +720,12 @@
       "height": 144,
       "type": "battle"
     },
+    "oaks-lab-rival": {
+      "image": "walkthrough/yellow/scenes/oaks-lab-rival.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "viridian-forest-antidote": {
       "image": "walkthrough/yellow/scenes/viridian-forest-antidote.png",
       "width": 160,

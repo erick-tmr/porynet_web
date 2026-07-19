@@ -29,3 +29,20 @@ def test_render_battle_dimensions(root):
 def test_render_screen_dimensions(root):
     image, _ = compositor.render_screen(root, "ViridianForest", [16, 42])
     assert image.size == (160, 144)
+
+
+def test_palette_modes(root):
+    original = compositor.PALETTE_MODE
+    try:
+        compositor.PALETTE_MODE = "gbc"
+        gbc = compositor._map_colors(root, 1)
+        compositor.PALETTE_MODE = "sgb"
+        sgb = compositor._map_colors(root, 1)
+        compositor.PALETTE_MODE = "dmg"
+        dmg = compositor._map_colors(root, 1)
+        assert len(gbc) == len(sgb) == len(dmg) == 4
+        assert gbc != sgb                                   # GBC is more saturated than SGB
+        assert dmg == compositor.DMG_PALETTE                # DMG is the fixed greens...
+        assert compositor._map_colors(root, 7) == compositor.DMG_PALETTE   # ...ignoring pal id
+    finally:
+        compositor.PALETTE_MODE = original

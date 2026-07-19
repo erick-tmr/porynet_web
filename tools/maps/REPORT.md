@@ -2,7 +2,7 @@
 
 - location maps: **97** across 51 locations
 - step shots: **3** (map/scene in a step slot)
-- standalone scenes: **3** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **4** (dialog / battle / NPC, not step-bound)
 - missing map labels: **0**
 
 ## Step shots
@@ -15,4 +15,5 @@
 
 - `battle-brock` (battle): walkthrough/yellow/battles/battle-brock.png
 - `battle-rival-oaks-lab` (battle): walkthrough/yellow/battles/battle-rival-oaks-lab.png
+- `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
 - `viridian-forest-antidote` (dialog): walkthrough/yellow/scenes/viridian-forest-antidote.png

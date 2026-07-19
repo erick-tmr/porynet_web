@@ -113,8 +113,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pokeyellow", required=True)
     ap.add_argument("--force", action="store_true", help="re-render PNGs that already exist")
+    ap.add_argument("--palette", choices=["gbc", "sgb", "dmg"], default="gbc",
+                    help="hardware color palette: gbc (Game Boy Color, default), "
+                         "sgb (Super Game Boy), dmg (original Game Boy greens)")
     args = ap.parse_args()
     root = str(pathlib.Path(args.pokeyellow).expanduser())
+    compositor.PALETTE_MODE = args.palette
 
     headers = sources.parse_headers(root)
     locations, missing = {}, []
@@ -150,7 +154,8 @@ def main():
         {"source": "pret/pokeyellow", "locations": locations,
          "step_shots": step_shots, "scenes": scenes}, indent=2))
     _write_report(locations, step_shots, scenes, missing)
-    print(f"location maps: {sum(len(v) for v in locations.values())}  "
+    print(f"palette: {args.palette}  "
+          f"location maps: {sum(len(v) for v in locations.values())}  "
           f"step shots: {sum(len(v) for v in step_shots.values())}  "
           f"scenes: {len(scenes)}  missing: {len(missing)}")
     if missing:

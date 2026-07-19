@@ -73,15 +73,18 @@ def gen_screen_scene(root, spec):
     bottom dialog box.
 
     `player` is the hero's grid cell (defaults to a marker location for hidden-item shots);
-    the hero faces `player_dir` (default DOWN). auto NPCs are shown at their real cells."""
+    the hero faces `player_dir` (default DOWN). `sprites` places extra NPCs manually (e.g. the
+    rival you meet), auto NPCs are shown at their real cells, and `focus` overrides the camera
+    center (defaults to the hero)."""
     player = spec["player"]
     sprites = [_resolve_sprite(root, {"sprite": HERO_SPRITE, "grid": player,
                                       "dir": spec.get("player_dir", "DOWN")})]
+    sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
         sprites += _auto_npcs(root, spec["map"])
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
-    image, _ = compositor.render_screen(root, spec["map"], player, spec.get("parent"),
-                                        sprites, spec.get("arrows", []), lines)
+    image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", player),
+                                        spec.get("parent"), sprites, spec.get("arrows", []), lines)
     return image, spec["name"], {}
 
 

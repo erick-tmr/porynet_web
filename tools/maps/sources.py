@@ -98,16 +98,16 @@ def tileset_basename(root_str, tileset_const):
     return parse_tileset_files(root_str).get(_snake_to_camel(tileset_const), tileset_const.lower())
 
 
-@lru_cache(maxsize=None)
-def parse_super_palettes(root_str):
-    """Return [ [ (r,g,b)*4 ], ... ] indexed by PAL_* id."""
+def _parse_rgb_palette_table(root_str, label):
+    """Return [ [ (r,g,b)*4 ], ... ] from an `RGB c,c,c, ...` table in sgb_palettes.asm,
+    indexed by PAL_* id. Reads from `label:` until the next label / assert_table_length."""
     pals, collecting = [], False
     for line in _read(root_str, "data/sgb/sgb_palettes.asm").splitlines():
-        if re.match(r"^SuperPalettes:", line):
+        if re.match(rf"^{label}:", line):
             collecting = True
             continue
         if collecting:
-            if re.match(r"^\w+:", line):          # next label ends the table
+            if re.match(r"^\w+:", line) or re.match(r"\s*assert_table_length", line):
                 break
             m = re.match(r"\s*RGB\s+(.+?)(?:;.*)?$", line)
             if not m:
@@ -117,6 +117,18 @@ def parse_super_palettes(root_str):
                 pals.append([tuple(_rgb5_to_8(nums[i + c]) for c in range(3))
                              for i in range(0, 12, 3)])
     return pals
+
+
+@lru_cache(maxsize=None)
+def parse_super_palettes(root_str):
+    """The Super Game Boy palettes (paler), indexed by PAL_* id."""
+    return _parse_rgb_palette_table(root_str, "SuperPalettes")
+
+
+@lru_cache(maxsize=None)
+def parse_cgb_palettes(root_str):
+    """The Game Boy Color base palettes (more saturated, the GBC look), indexed by PAL_* id."""
+    return _parse_rgb_palette_table(root_str, "CGBBasePalettes")
 
 
 @lru_cache(maxsize=None)
