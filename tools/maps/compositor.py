@@ -32,10 +32,6 @@ BATTLE_INK = (16, 16, 16)
 # so an empty slot (drawn only in 170) is a yellow circle; a filled ball is green. 255 = bg.
 BALL_PALETTE = [None, (238, 210, 74), (43, 201, 32), (24, 24, 24)]
 
-# overworld NPC/player sprites use their own grayscale object palette (sampled from the GBC
-# game), not the map palette: the figure's light fill (170) is white, its detail (85) gray, its
-# outline (0) black. Only the sprite's 255 corners are transparent (they show the map through).
-SPRITE_PALETTE = [None, (248, 248, 248), (112, 112, 112), (24, 24, 24)]
 
 # party Poke balls: the game always shows PARTY_LENGTH slots (SetupPokeballs), filling the
 # first N with a real ball and the rest with the empty-slot tile. Screen positions are the
@@ -111,14 +107,15 @@ def render_map(root_str, label, parent_const=None):
 
 # --- overlays ----------------------------------------------------------------
 
-def overlay_sprites(canvas, root_str, sprites):
-    """Composite 16x16 overworld sprite frames onto a map using the sprite object palette
-    (white fill / gray detail / black outline), independent of the map palette.
+def overlay_sprites(canvas, root_str, sprites, colors):
+    """Composite 16x16 overworld sprite frames onto a map in the game's CGB object palette.
 
-    Each sprite: {file, frame, grid:[gx,gy], flip?}. Only the sprite's 255 corners are
-    transparent; grid is the 16px movement cell, so pixel top-left = grid*16."""
+    Sprites share the map's base palette but through OBP0 (rOBP0 = %11010000): the figure's
+    fill (value 1) is base color 0 (white), its detail (value 2) is the map's accent (color 1),
+    its outline (value 3) is the dark color, and only the 255 corners are transparent.
+    Each sprite: {file, frame, grid:[gx,gy], flip?}; grid is the 16px cell (top-left = grid*16)."""
     out = canvas.convert("RGBA")
-    shade = {255: SPRITE_PALETTE[0], 170: SPRITE_PALETTE[1], 85: SPRITE_PALETTE[2], 0: SPRITE_PALETTE[3]}
+    shade = {255: None, 170: colors[0], 85: colors[1], 0: colors[3]}
     for spr in sprites:
         sheet = Image.open(sources._root(root_str) / f"gfx/sprites/{spr['file']}.png").convert("L")
         tile = sheet.crop((0, spr["frame"] * 16, 16, spr["frame"] * 16 + 16))
@@ -181,7 +178,7 @@ def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), ar
     The camera clamps to the map edges like the game; out-of-map area is filled with paper."""
     full, colors = render_map(root_str, label, parent_const)
     if sprites:
-        full = overlay_sprites(full, root_str, sprites)
+        full = overlay_sprites(full, root_str, sprites, colors)
     if arrows:
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX

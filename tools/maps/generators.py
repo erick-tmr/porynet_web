@@ -57,12 +57,12 @@ def _dialog_lines(spec_dialog):
 
 def gen_map_scene(root, spec):
     """A full map with manual sprites, auto NPCs, and/or directional arrows."""
-    image, _ = compositor.render_map(root, spec["map"], spec.get("parent"))
+    image, colors = compositor.render_map(root, spec["map"], spec.get("parent"))
     sprites = [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
         sprites += _auto_npcs(root, spec["map"])
     if sprites:
-        image = compositor.overlay_sprites(image, root, sprites)
+        image = compositor.overlay_sprites(image, root, sprites, colors)
     if spec.get("arrows"):
         image = compositor.overlay_arrows(image, spec["arrows"])
     return image, spec["name"], {}
