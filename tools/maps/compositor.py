@@ -28,11 +28,17 @@ BATTLE_PAPER = (248, 248, 248)
 PLAYER_PALETTE = [(248, 248, 248), (234, 183, 78), (206, 6, 53), (16, 16, 16)]   # white/tan/red/black
 RIVAL_PALETTE = [(248, 248, 248), (232, 186, 120), (206, 6, 53), (16, 16, 16)]   # white/skin/red/black
 BATTLE_INK = (16, 16, 16)
-# green party Poke balls (draw_hud_pokeball_gfx.asm); shade 255 (bg) is transparent
-BALL_PALETTE = [None, (168, 216, 120), (56, 168, 32), (16, 56, 16)]
+# party Poke balls use the game's PAL_GREENBAR (white/yellow/green/dark): shade 170 is yellow,
+# so an empty slot (drawn only in 170) is a yellow circle; a filled ball is green. 255 = bg.
+BALL_PALETTE = [None, (238, 210, 74), (43, 201, 32), (24, 24, 24)]
 
-# party-count Poke balls: one per party member. Screen positions are the game's OAM coords
-# minus the hardware (8, 16) sprite offset; each row sits above a HUD bracket.
+# party Poke balls: the game always shows PARTY_LENGTH slots (SetupPokeballs), filling the
+# first N with a real ball and the rest with the empty-slot tile. Screen positions are the
+# game's OAM coords minus the hardware (8, 16) offset; each row sits above a HUD bracket. The
+# party fills from the base end (enemy: right, stepping left; player: left, stepping right).
+PARTY_LENGTH = 6
+BALL_FILLED_TILE = 0               # balls.png tile $31: a mon in the slot
+BALL_EMPTY_TILE = 3               # balls.png tile $34: an empty slot (open circle)
 ENEMY_BALLS_XY = (64, 16)          # first enemy ball, subsequent balls step left
 PLAYER_BALLS_XY = (88, 80)         # first player ball, subsequent balls step right
 BALL_STEP = 8
@@ -192,9 +198,10 @@ def _load_pic(path, size, ramp):
     return rgb if img.size == size else rgb.resize(size, Image.NEAREST)
 
 
-def _ball_image(root_str, palette):
-    """The green party-ball tile (balls.png tile 0), colored via `palette` (255 = transparent)."""
-    tile = Image.open(sources._root(root_str) / "gfx/battle/balls.png").convert("L").crop((0, 0, 8, 8))
+def _ball_image(root_str, palette, tile_idx):
+    """A party-ball tile from balls.png, colored via `palette` (255 = transparent)."""
+    sheet = Image.open(sources._root(root_str) / "gfx/battle/balls.png").convert("L")
+    tile = sheet.crop((tile_idx * 8, 0, tile_idx * 8 + 8, 8))
     ball = Image.new("RGBA", (8, 8))
     ball.putdata([(0, 0, 0, 0) if _shade_to_ramp(p, palette) is None else (*_shade_to_ramp(p, palette), 255)
                   for p in tile.getdata()])
@@ -208,12 +215,17 @@ def _blit_hud_tile(canvas, root_str, png, idx, tile_col, tile_row, ink):
     canvas.paste(ink, (tile_col * 8, tile_row * 8), mask)
 
 
-def _draw_ball_row(canvas, root_str, ball, count, start, step, hud, ink):
-    """Draw a row of `count` balls above the HUD bracket, using the game's own bracket tiles."""
+def _draw_ball_row(canvas, filled, empty, count, start, step):
+    """Draw the party status: PARTY_LENGTH slots, the first `count` filled, the rest empty."""
     x, y = start
-    for _ in range(count):
+    for i in range(PARTY_LENGTH):
+        ball = filled if i < count else empty
         canvas.paste(ball, (x, y), ball)
         x += step
+
+
+def _draw_hud(canvas, root_str, hud, ink):
+    """Blit a HUD bracket (its game tiles) under a ball row."""
     for png, idx, tile_col, tile_row in hud:
         _blit_hud_tile(canvas, root_str, png, idx, tile_col, tile_row, ink)
 
@@ -232,9 +244,12 @@ def render_battle(root_str, opponent_const, *, opponent_name=None, enemy_palette
     back = _load_pic(sources._root(root_str) / "gfx/player/redb.png", (64, 64), PLAYER_PALETTE)
     canvas.paste(back, (8, 40))                                  # hlcoord 1, 5: feet on the line at y=96
 
-    ball = _ball_image(root_str, BALL_PALETTE)
-    _draw_ball_row(canvas, root_str, ball, enemy_balls, ENEMY_BALLS_XY, -BALL_STEP, ENEMY_HUD, BATTLE_INK)
-    _draw_ball_row(canvas, root_str, ball, player_balls, PLAYER_BALLS_XY, BALL_STEP, PLAYER_HUD, BATTLE_INK)
+    filled = _ball_image(root_str, BALL_PALETTE, BALL_FILLED_TILE)
+    empty = _ball_image(root_str, BALL_PALETTE, BALL_EMPTY_TILE)
+    _draw_ball_row(canvas, filled, empty, enemy_balls, ENEMY_BALLS_XY, -BALL_STEP)
+    _draw_ball_row(canvas, filled, empty, player_balls, PLAYER_BALLS_XY, BALL_STEP)
+    _draw_hud(canvas, root_str, ENEMY_HUD, BATTLE_INK)
+    _draw_hud(canvas, root_str, PLAYER_HUD, BATTLE_INK)
 
     name = opponent_name or sources.parse_trainer_classes(root_str)[opponent_const][1]
     draw_dialog(canvas, root_str, [f"{name} wants", "to fight!"], BATTLE_INK, BATTLE_PAPER)
