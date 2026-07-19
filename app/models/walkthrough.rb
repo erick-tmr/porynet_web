@@ -6,8 +6,7 @@ module Walkthrough
 
   Item = Data.define(:name, :where_key, :sprite)
   HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite)
-  MapMarker = Data.define(:x_pct, :y_pct, :kind, :label)
-  Shot = Data.define(:image, :label, :markers) do
+  Shot = Data.define(:image, :label) do
     def map? = !image.nil?
   end
   AreaMap = Data.define(:image, :width, :height, :floor) do

@@ -166,12 +166,7 @@ module Walkthrough
 
     def self.map_shot(slug, step_n, label)
       data = step_shots.dig(slug, step_n.to_s)
-      return shot(label) unless data
-
-      Shot.new(image: data["image"], label: label,
-        markers: data.fetch("markers").map do |k|
-          MapMarker.new(x_pct: k["x_pct"], y_pct: k["y_pct"], kind: k["kind"], label: k["label"])
-        end)
+      data ? Shot.new(image: data["image"], label: label) : shot(label)
     end
 
     def self.build_legs(by_slug)
@@ -944,6 +939,6 @@ module Walkthrough
         image: "walkthrough/yellow/viridian-forest/#{image}", pin: pin, sprite: item_sprite(name))
     end
 
-    def self.shot(label) = Shot.new(image: nil, label: label, markers: [])
+    def self.shot(label) = Shot.new(image: nil, label: label)
   end
 end
