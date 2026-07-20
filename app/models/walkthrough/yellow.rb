@@ -159,10 +159,21 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
+      loc = key_trainers(loc, header)
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
         gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
+    end
+
+    # Give every hand-authored trainer the letter its pin carries. Keys come only from the maps
+    # the location actually renders, so a card can never point at a pin the page never draws. A
+    # trainer with no `opp:` pair, or one whose pair names no marker, simply keeps no letter.
+    def self.key_trainers(loc, maps)
+      keys = maps.flat_map(&:markers).select(&:key?).to_h { |m| [ m.ref, m.key ] }
+      loc.with(trainers: loc.trainers.map { |t|
+        t.opp ? t.with(marker_key: keys[t.opp]) : t
+      })
     end
 
     def self.manifest
@@ -171,8 +182,17 @@ module Walkthrough
 
     def self.map_data
       manifest.fetch("locations").transform_values do |maps|
-        maps.map { |m| AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"]) }
+        maps.map do |m|
+          AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
+            name: m["name"], markers: m.fetch("markers", []).map { |k| map_marker(k) })
+        end
       end
+    end
+
+    def self.map_marker(data)
+      MapMarker.new(id: data["id"], cat: data["cat"], key: data["key"], name: data["name"],
+        x: data["x"], y: data["y"], align: data["align"], glyph: data["glyph"],
+        edge: data["edge"], ref: data["ref"])
     end
 
     def self.step_shots = manifest.fetch("step_shots", {})
@@ -332,15 +352,16 @@ module Walkthrough
           enc("viridian-forest", "017", "GRASS", "1%", "9", "RARE", "016", "017", "018", tip: true)
         ],
         trainers: [
-          tr("LASS", nil, 90, mon("029", 6), mon("032", 6), where: scene_shot("vf-lass", "WHERE")),
+          tr("LASS", nil, 90, mon("029", 6), mon("032", 6),
+            where: scene_shot("vf-lass", "WHERE"), opp: [ "LASS", 19 ]),
           tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7),
-            where: scene_shot("vf-bug-catcher-1", "WHERE")),
+            where: scene_shot("vf-bug-catcher-1", "WHERE"), opp: [ "BUG_CATCHER", 1 ]),
           tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6),
-            where: scene_shot("vf-bug-catcher-2", "WHERE")),
+            where: scene_shot("vf-bug-catcher-2", "WHERE"), opp: [ "BUG_CATCHER", 2 ]),
           tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8),
-            where: scene_shot("vf-bug-catcher-15", "WHERE")),
+            where: scene_shot("vf-bug-catcher-15", "WHERE"), opp: [ "BUG_CATCHER", 15 ]),
           tr("BUG CATCHER", nil, 100, mon("010", 10),
-            where: scene_shot("vf-bug-catcher-3", "WHERE"))
+            where: scene_shot("vf-bug-catcher-3", "WHERE"), opp: [ "BUG_CATCHER", 3 ])
         ],
         oak_queue: [ oak("viridian-forest", "010", 1) ]
       )
@@ -404,9 +425,12 @@ module Walkthrough
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
 
-    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil)
+    # `opp` is the map object's [OPP_CLASS, party] pair; it resolves the marker letter in
+    # attach_maps so the card and its pin agree. Omit it and the card just carries no letter.
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
-        sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle)
+        sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle,
+        opp: opp && "#{opp[0]}:#{opp[1]}")
     end
 
     def self.leader(name, reward, *team, battle: nil) = tr("LEADER", name, reward, *team, battle: battle)
