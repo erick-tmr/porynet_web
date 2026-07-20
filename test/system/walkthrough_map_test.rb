@@ -20,12 +20,14 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   test "markers are placed from their own coordinates, not stacked in a corner" do
     visit_forest
 
+    # the custom properties the controller writes, not the laid-out pixels: percentages resolve
+    # against the map image, so measuring those would only be testing whether it had loaded yet
     spots = page.all(".pn-mm").map do |marker|
-      marker.evaluate_script("[getComputedStyle(this).left, getComputedStyle(this).top]")
+      marker.evaluate_script("[this.style.getPropertyValue('--mx'), this.style.getPropertyValue('--my')]")
     end
 
     assert_equal 12, spots.uniq.size, "no two markers should share a spot"
-    assert(spots.flatten.none? { |offset| offset == "0px" || offset == "auto" })
+    assert(spots.flatten.all? { |offset| offset.end_with?("%") })
   end
 
   test "ticking a trainer survives a reload" do
