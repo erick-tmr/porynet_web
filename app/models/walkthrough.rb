@@ -6,6 +6,12 @@ module Walkthrough
 
   Item = Data.define(:name, :where_key, :sprite)
   HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite)
+  LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin) do
+    def image? = !image.nil?
+  end
+  TriviaCard = Data.define(:dex, :name, :tone, :rows)
+  Trivia = Data.define(:title_key, :intro_key, :note_key, :cards)
+  Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
   end
@@ -36,13 +42,17 @@ module Walkthrough
 
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
-    :steps, :encounters, :trainers, :oak_queue, :gym, :gym_after, :area_maps
+    :steps, :encounters, :trainers, :oak_queue, :gym, :gym_after, :area_maps, :later, :trivia, :missable
   ) do
-    def initialize(gym: nil, gym_after: nil, area_maps: [], **rest)
-      super(gym: gym, gym_after: gym_after, area_maps: area_maps, **rest)
+    def initialize(gym: nil, gym_after: nil, area_maps: [], later: [], trivia: nil, missable: nil, **rest)
+      super(gym: gym, gym_after: gym_after, area_maps: area_maps, later: later, trivia: trivia,
+        missable: missable, **rest)
     end
 
     def area_maps? = area_maps.any?
+    def later? = later.any?
+    def trivia? = !trivia.nil?
+    def missable_after?(step_n) = !missable.nil? && missable.after_step == step_n
 
     def dex_list = encounters.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)

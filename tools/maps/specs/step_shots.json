@@ -1,67 +1,818 @@
 [
   {
-    "type": "map", "slug": "pallet-town", "step": 1, "name": "reds-house-2f",
-    "map": "RedsHouse2F", "parent": "PALLET_TOWN",
-    "sprites": [{"sprite": "SPRITE_RED", "grid": [0, 2], "dir": "UP"}]
+    "type": "map",
+    "slug": "pallet-town",
+    "step": 1,
+    "name": "reds-house-2f",
+    "map": "RedsHouse2F",
+    "parent": "PALLET_TOWN",
+    "sprites": [
+      {
+        "sprite": "SPRITE_RED",
+        "grid": [
+          0,
+          2
+        ],
+        "dir": "UP"
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "pallet-town", "step": 4, "name": "pallet-town-exit",
-    "map": "PalletTown", "player": [10, 3], "player_dir": "UP",
-    "arrows": [{"dir": "up", "grid": [10, 1]}]
+    "type": "screen",
+    "slug": "pallet-town",
+    "step": 4,
+    "name": "pallet-town-exit",
+    "map": "PalletTown",
+    "player": [
+      10,
+      3
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          10,
+          1
+        ]
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "route-1", "step": 1, "name": "route-1-north",
-    "map": "Route1", "player": [13, 24], "player_dir": "UP",
-    "arrows": [{"dir": "up", "grid": [13, 22]}]
+    "type": "screen",
+    "slug": "route-1",
+    "step": 1,
+    "name": "route-1-north",
+    "map": "Route1",
+    "player": [
+      13,
+      24
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          13,
+          22
+        ]
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "viridian-city", "step": 1, "name": "viridian-mart-parcel",
-    "map": "ViridianMart", "player": [2, 5], "player_dir": "LEFT", "auto_npcs": true,
-    "dialog": {"lines": ["<PLAYER> got", "OAK's PARCEL!"]}
+    "type": "screen",
+    "slug": "viridian-city",
+    "step": 1,
+    "name": "viridian-mart-parcel",
+    "map": "ViridianMart",
+    "player": [
+      2,
+      5
+    ],
+    "player_dir": "LEFT",
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "OAK's PARCEL!"
+      ]
+    }
   },
   {
-    "type": "screen", "slug": "viridian-city", "step": 3, "name": "blues-house-town-map",
-    "map": "BluesHouse", "player": [2, 4], "player_dir": "UP",
-    "sprites": [{"sprite": "SPRITE_DAISY", "grid": [2, 3], "dir": "DOWN"}],
-    "dialog": {"lines": ["<PLAYER> got a", "TOWN MAP!"]}
+    "type": "screen",
+    "slug": "viridian-city",
+    "step": 3,
+    "name": "blues-house-town-map",
+    "map": "BluesHouse",
+    "player": [
+      2,
+      4
+    ],
+    "player_dir": "UP",
+    "sprites": [
+      {
+        "sprite": "SPRITE_DAISY",
+        "grid": [
+          2,
+          3
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got a",
+        "TOWN MAP!"
+      ]
+    }
   },
   {
-    "type": "screen", "slug": "route-22", "step": 1, "name": "viridian-to-route-22",
-    "map": "ViridianCity", "player": [5, 17], "player_dir": "LEFT",
-    "arrows": [{"dir": "left", "grid": [3, 17]}]
+    "type": "screen",
+    "slug": "route-22",
+    "step": 1,
+    "name": "viridian-to-route-22",
+    "map": "ViridianCity",
+    "player": [
+      5,
+      17
+    ],
+    "player_dir": "LEFT",
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          3,
+          17
+        ]
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "route-22", "step": 3, "name": "viridian-to-route-2",
-    "map": "ViridianCity", "player": [18, 3], "player_dir": "UP",
-    "arrows": [{"dir": "up", "grid": [18, 1]}]
+    "type": "screen",
+    "slug": "route-22",
+    "step": 4,
+    "name": "viridian-to-route-2",
+    "map": "ViridianCity",
+    "player": [
+      18,
+      3
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          18,
+          1
+        ]
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "route-2", "step": 2, "name": "viridian-forest-south-gate",
-    "map": "ViridianForestSouthGate", "player": [4, 4], "player_dir": "UP",
-    "auto_npcs": true, "arrows": [{"dir": "up", "grid": [4, 2]}]
+    "type": "screen",
+    "slug": "route-2",
+    "step": 2,
+    "name": "viridian-forest-south-gate",
+    "map": "ViridianForestSouthGate",
+    "player": [
+      4,
+      4
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          4,
+          2
+        ]
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "viridian-forest", "step": 1, "name": "viridian-forest-poke-ball",
-    "map": "ViridianForest", "player": [2, 31], "player_dir": "LEFT", "focus": [3, 31],
-    "sprites": [{"sprite": "SPRITE_POKE_BALL", "grid": [1, 31], "dir": "DOWN"}]
+    "type": "screen",
+    "slug": "viridian-forest",
+    "step": 1,
+    "name": "viridian-forest-poke-ball",
+    "map": "ViridianForest",
+    "player": [
+      2,
+      31
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      31
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_POKE_BALL",
+        "grid": [
+          1,
+          31
+        ],
+        "dir": "DOWN"
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "viridian-forest", "step": 3, "name": "viridian-forest-potion",
-    "map": "ViridianForest", "player": [12, 28], "player_dir": "DOWN", "focus": [12, 29],
-    "sprites": [{"sprite": "SPRITE_POKE_BALL", "grid": [12, 29], "dir": "DOWN"}]
+    "type": "screen",
+    "slug": "viridian-forest",
+    "step": 3,
+    "name": "viridian-forest-potion",
+    "map": "ViridianForest",
+    "player": [
+      12,
+      28
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      12,
+      29
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_POKE_BALL",
+        "grid": [
+          12,
+          29
+        ],
+        "dir": "DOWN"
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "viridian-forest", "step": 5, "name": "viridian-forest-north",
-    "map": "ViridianForest", "player": [2, 3], "player_dir": "UP",
-    "arrows": [{"dir": "up", "grid": [2, 1]}]
+    "type": "screen",
+    "slug": "viridian-forest",
+    "step": 5,
+    "name": "viridian-forest-north",
+    "map": "ViridianForest",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
   },
   {
-    "type": "screen", "slug": "pewter-city", "step": 1, "name": "pewter-heal-prep",
-    "map": "PewterCity", "player": [16, 18], "player_dir": "UP", "focus": [16, 17]
+    "type": "screen",
+    "slug": "pewter-city",
+    "step": 1,
+    "name": "pewter-heal-prep",
+    "map": "PewterCity",
+    "player": [
+      16,
+      18
+    ],
+    "player_dir": "UP",
+    "focus": [
+      16,
+      17
+    ]
   },
   {
-    "type": "screen", "slug": "route-3", "step": 3, "name": "route-3-mt-moon",
-    "map": "Route4", "player": [18, 7], "player_dir": "UP", "focus": [14, 6],
-    "arrows": [{"dir": "up", "grid": [18, 6]}]
+    "type": "screen",
+    "slug": "route-3",
+    "step": 3,
+    "name": "route-3-mt-moon",
+    "map": "Route4",
+    "player": [
+      18,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      14,
+      6
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          18,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "mt-moon",
+    "step": 3,
+    "name": "mt-moon-moon-stone",
+    "map": "MtMoon1F",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      2,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_POKE_BALL",
+        "grid": [
+          2,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "mt-moon",
+    "step": 4,
+    "name": "mt-moon-fossils",
+    "map": "MtMoonB2F",
+    "player": [
+      13,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      12,
+      7
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_FOSSIL",
+        "grid": [
+          12,
+          6
+        ],
+        "dir": "DOWN"
+      },
+      {
+        "sprite": "SPRITE_FOSSIL",
+        "grid": [
+          13,
+          6
+        ],
+        "dir": "DOWN"
+      },
+      {
+        "sprite": "SPRITE_SUPER_NERD",
+        "grid": [
+          12,
+          8
+        ],
+        "dir": "RIGHT"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4",
+    "step": 1,
+    "name": "route-4-exit",
+    "map": "Route4",
+    "player": [
+      18,
+      6
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      16,
+      6
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          18,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "cerulean-city",
+    "step": 1,
+    "name": "cerulean-gym-entrance",
+    "map": "CeruleanCity",
+    "player": [
+      30,
+      20
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          30,
+          18
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "cerulean-city",
+    "step": 2,
+    "name": "cerulean-north-nugget",
+    "map": "CeruleanCity",
+    "player": [
+      20,
+      6
+    ],
+    "player_dir": "UP",
+    "focus": [
+      20,
+      7
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          20,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-24",
+    "step": 3,
+    "name": "route-24-charmander",
+    "map": "Route24",
+    "player": [
+      6,
+      6
+    ],
+    "player_dir": "UP",
+    "focus": [
+      6,
+      6
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "CHARMANDER!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "route-25",
+    "step": 2,
+    "name": "route-25-bill",
+    "map": "Route25",
+    "player": [
+      45,
+      5
+    ],
+    "player_dir": "UP",
+    "focus": [
+      44,
+      5
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          45,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-5",
+    "step": 2,
+    "name": "route-5-underground",
+    "map": "Route5",
+    "player": [
+      17,
+      28
+    ],
+    "player_dir": "UP",
+    "focus": [
+      17,
+      27
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          17,
+          26
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "vermilion-city",
+    "step": 2,
+    "name": "vermilion-ss-anne-dock",
+    "map": "VermilionCity",
+    "player": [
+      18,
+      30
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      18,
+      28
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          18,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "vermilion-city",
+    "step": 3,
+    "name": "vermilion-squirtle",
+    "map": "VermilionCity",
+    "player": [
+      19,
+      16
+    ],
+    "player_dir": "UP",
+    "focus": [
+      19,
+      16
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "SQUIRTLE!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "ss-anne",
+    "step": 3,
+    "name": "ss-anne-cut",
+    "map": "SSAnneCaptainsRoom",
+    "player": [
+      4,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      4,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_CAPTAIN",
+        "grid": [
+          4,
+          2
+        ],
+        "dir": "UP"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "HM01 CUT!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "route-10",
+    "step": 1,
+    "name": "route-10-rock-tunnel",
+    "map": "Route10",
+    "player": [
+      8,
+      19
+    ],
+    "player_dir": "UP",
+    "focus": [
+      9,
+      19
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          8,
+          17
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "rock-tunnel",
+    "step": 1,
+    "name": "rock-tunnel-flash",
+    "map": "RockTunnel1F",
+    "player": [
+      15,
+      4
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      15,
+      5
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          15,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "seafoam-islands",
+    "step": 3,
+    "name": "seafoam-articuno",
+    "map": "SeafoamIslandsB4F",
+    "player": [
+      6,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      6,
+      2
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BIRD",
+        "grid": [
+          6,
+          1
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "power-plant",
+    "step": 3,
+    "name": "power-plant-zapdos",
+    "map": "PowerPlant",
+    "player": [
+      4,
+      7
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      4,
+      8
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BIRD",
+        "grid": [
+          4,
+          9
+        ],
+        "dir": "UP"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "victory-road",
+    "step": 3,
+    "name": "victory-road-moltres",
+    "map": "VictoryRoad2F",
+    "player": [
+      11,
+      3
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      11,
+      4
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BIRD",
+        "grid": [
+          11,
+          5
+        ],
+        "dir": "UP"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "cerulean-cave",
+    "step": 4,
+    "name": "cerulean-cave-mewtwo",
+    "map": "CeruleanCaveB1F",
+    "player": [
+      27,
+      15
+    ],
+    "player_dir": "UP",
+    "focus": [
+      27,
+      14
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_MONSTER",
+        "grid": [
+          27,
+          13
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-16",
+    "step": 2,
+    "name": "route-16-snorlax",
+    "map": "Route16",
+    "player": [
+      26,
+      12
+    ],
+    "player_dir": "UP",
+    "focus": [
+      26,
+      11
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_SNORLAX",
+        "grid": [
+          26,
+          10
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-12",
+    "step": 1,
+    "name": "route-12-snorlax",
+    "map": "Route12",
+    "player": [
+      10,
+      64
+    ],
+    "player_dir": "UP",
+    "focus": [
+      10,
+      63
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_SNORLAX",
+        "grid": [
+          10,
+          62
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-22",
+    "step": 3,
+    "name": "oaks-lab-poke-balls",
+    "map": "OaksLab",
+    "parent": "PALLET_TOWN",
+    "player": [
+      5,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_OAK",
+        "grid": [
+          5,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got 5",
+        "POK\u00e9 BALLs!"
+      ]
+    }
   }
 ]

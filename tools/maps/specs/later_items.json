@@ -1,0 +1,7 @@
+[
+  {
+    "type": "screen", "name": "viridian-city-tm42",
+    "map": "ViridianCity", "player": [9, 22], "player_dir": "LEFT", "focus": [7, 22],
+    "sprites": [{"sprite": "SPRITE_FISHER", "grid": [6, 23], "dir": "DOWN"}]
+  }
+]

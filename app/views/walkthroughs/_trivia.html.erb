@@ -1,0 +1,27 @@
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trivia_eyebrow") %></div>
+  <h3 class="pn-wt-band__h3"><%= t(trivia.title_key) %></h3>
+  <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
+  <div class="pn-wt-trivia-grid">
+    <% trivia.cards.each do |card| %>
+      <div class="pn-wt-trivia-card pn-wt-trivia-card--<%= card.tone %>">
+        <div class="pn-wt-trivia-card__head">
+          <span class="pn-wt-trivia-card__sprite"><%= r2_image_tag "pokemon/yellow/#{card.dex}.png", alt: "" %></span>
+          <div>
+            <div class="pn-wt-trivia-card__num">#<%= card.dex %></div>
+            <div class="pn-wt-trivia-card__name"><%= card.name %></div>
+          </div>
+        </div>
+        <div class="pn-wt-trivia-card__rows">
+          <% card.rows.each do |row| %>
+            <div class="pn-wt-trivia-row">
+              <span class="pn-wt-trivia-mark pn-wt-trivia-mark--<%= row[:state] %>"><%= row[:mark] %></span>
+              <span class="pn-wt-trivia-row__text"><%= t(row[:text_key]) %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="pn-wt-trivia__note"><%= t(trivia.note_key) %></div>
+</section>

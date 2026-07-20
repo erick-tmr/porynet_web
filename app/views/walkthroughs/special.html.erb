@@ -26,9 +26,12 @@
   <div class="pn-wt-steps">
     <% @location.steps.each do |step| %>
       <%= render "step", step: step %>
+      <% if @location.missable_after?(step.n) %><%= render "missable", missable: @location.missable %><% end %>
     <% end %>
   </div>
 </section>
+
+<% if @location.later? %><%= render "later_section", loc: @location %><% end %>
 
 <% if @location.encounters.any? %>
   <section class="pn-wt-section">
@@ -82,6 +85,8 @@
     </div>
   </section>
 <% end %>
+
+<% if @location.trivia? %><%= render "trivia", trivia: @location.trivia %><% end %>
 
 <% if @location.trainers.any? %>
   <section class="pn-wt-section">

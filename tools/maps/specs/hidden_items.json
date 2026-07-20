@@ -8,5 +8,20 @@
     "type": "dialog", "name": "viridian-forest-hidden-potion",
     "map": "ViridianForest", "player": [1, 19], "player_dir": "UP",
     "marker": [1, 18], "dialog": {"found_item": "POTION"}
+  },
+  {
+    "type": "dialog", "name": "mt-moon-hidden-moon-stone",
+    "map": "MtMoonB2F", "player": [18, 13], "player_dir": "UP",
+    "marker": [18, 12], "dialog": {"found_item": "MOON STONE"}
+  },
+  {
+    "type": "dialog", "name": "mt-moon-hidden-ether",
+    "map": "MtMoonB2F", "player": [33, 10], "player_dir": "UP",
+    "marker": [33, 9], "dialog": {"found_item": "ETHER"}
+  },
+  {
+    "type": "dialog", "name": "viridian-city-hidden-potion",
+    "map": "ViridianCity", "player": [15, 4], "player_dir": "LEFT", "focus": [14, 4],
+    "marker": [14, 4], "dialog": {"found_item": "POTION"}
   }
 ]
