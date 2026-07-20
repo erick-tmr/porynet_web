@@ -1,20 +1,40 @@
 # Asset generation report
 
 - location maps: **97** across 51 locations
-- step shots: **13** (map/scene in a step slot)
-- standalone scenes: **13** (dialog / battle / NPC, not step-bound)
+- step shots: **33** (map/scene in a step slot)
+- standalone scenes: **90** (dialog / battle / NPC, not step-bound)
 - missing map labels: **0**
 
 ## Step shots
 
+- `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
+- `cerulean-city` step 1: walkthrough/yellow/scenes/cerulean-gym-entrance.png
+- `cerulean-city` step 2: walkthrough/yellow/scenes/cerulean-north-nugget.png
+- `mt-moon` step 3: walkthrough/yellow/scenes/mt-moon-moon-stone.png
+- `mt-moon` step 4: walkthrough/yellow/scenes/mt-moon-fossils.png
 - `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png
 - `pallet-town` step 4: walkthrough/yellow/scenes/pallet-town-exit.png
 - `pewter-city` step 1: walkthrough/yellow/scenes/pewter-heal-prep.png
+- `power-plant` step 3: walkthrough/yellow/scenes/power-plant-zapdos.png
+- `rock-tunnel` step 1: walkthrough/yellow/scenes/rock-tunnel-flash.png
 - `route-1` step 1: walkthrough/yellow/scenes/route-1-north.png
+- `route-10` step 1: walkthrough/yellow/scenes/route-10-rock-tunnel.png
+- `route-12` step 1: walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-16` step 2: walkthrough/yellow/scenes/route-16-snorlax.png
 - `route-2` step 2: walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `route-22` step 1: walkthrough/yellow/scenes/viridian-to-route-22.png
-- `route-22` step 3: walkthrough/yellow/scenes/viridian-to-route-2.png
+- `route-22` step 3: walkthrough/yellow/scenes/oaks-lab-poke-balls.png
+- `route-22` step 4: walkthrough/yellow/scenes/viridian-to-route-2.png
+- `route-24` step 3: walkthrough/yellow/scenes/route-24-charmander.png
+- `route-25` step 2: walkthrough/yellow/scenes/route-25-bill.png
 - `route-3` step 3: walkthrough/yellow/scenes/route-3-mt-moon.png
+- `route-4` step 1: walkthrough/yellow/scenes/route-4-exit.png
+- `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png
+- `seafoam-islands` step 3: walkthrough/yellow/scenes/seafoam-articuno.png
+- `ss-anne` step 3: walkthrough/yellow/scenes/ss-anne-cut.png
+- `vermilion-city` step 2: walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
+- `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png
+- `victory-road` step 3: walkthrough/yellow/scenes/victory-road-moltres.png
 - `viridian-city` step 1: walkthrough/yellow/scenes/viridian-mart-parcel.png
 - `viridian-city` step 3: walkthrough/yellow/scenes/blues-house-town-map.png
 - `viridian-forest` step 1: walkthrough/yellow/scenes/viridian-forest-poke-ball.png
@@ -23,16 +43,93 @@
 
 ## Scenes
 
+- `battle-agatha` (battle): walkthrough/yellow/battles/battle-agatha.png
+- `battle-blaine` (battle): walkthrough/yellow/battles/battle-blaine.png
 - `battle-brock` (battle): walkthrough/yellow/battles/battle-brock.png
+- `battle-bruno` (battle): walkthrough/yellow/battles/battle-bruno.png
+- `battle-champion` (battle): walkthrough/yellow/battles/battle-champion.png
+- `battle-erika` (battle): walkthrough/yellow/battles/battle-erika.png
+- `battle-giovanni-viridian` (battle): walkthrough/yellow/battles/battle-giovanni-viridian.png
+- `battle-koga` (battle): walkthrough/yellow/battles/battle-koga.png
+- `battle-lance` (battle): walkthrough/yellow/battles/battle-lance.png
+- `battle-lorelei` (battle): walkthrough/yellow/battles/battle-lorelei.png
+- `battle-lt-surge` (battle): walkthrough/yellow/battles/battle-lt-surge.png
+- `battle-misty` (battle): walkthrough/yellow/battles/battle-misty.png
+- `battle-mt-moon-jessie-james` (battle): walkthrough/yellow/battles/battle-mt-moon-jessie-james.png
+- `battle-pokemon-tower-jessie-james` (battle): walkthrough/yellow/battles/battle-pokemon-tower-jessie-james.png
+- `battle-pokemon-tower-rival` (battle): walkthrough/yellow/battles/battle-pokemon-tower-rival.png
+- `battle-rival-cerulean` (battle): walkthrough/yellow/battles/battle-rival-cerulean.png
 - `battle-rival-oaks-lab` (battle): walkthrough/yellow/battles/battle-rival-oaks-lab.png
 - `battle-rival-route-22` (battle): walkthrough/yellow/battles/battle-rival-route-22.png
+- `battle-rival-ss-anne` (battle): walkthrough/yellow/battles/battle-rival-ss-anne.png
+- `battle-rocket-hideout-giovanni` (battle): walkthrough/yellow/battles/battle-rocket-hideout-giovanni.png
+- `battle-rocket-hideout-jessie-james` (battle): walkthrough/yellow/battles/battle-rocket-hideout-jessie-james.png
+- `battle-sabrina` (battle): walkthrough/yellow/battles/battle-sabrina.png
+- `battle-silph-giovanni` (battle): walkthrough/yellow/battles/battle-silph-giovanni.png
+- `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
+- `celadon-gym-t1` (screen): walkthrough/yellow/scenes/celadon-gym-t1.png
+- `celadon-gym-t2` (screen): walkthrough/yellow/scenes/celadon-gym-t2.png
+- `celadon-gym-t3` (screen): walkthrough/yellow/scenes/celadon-gym-t3.png
+- `celadon-gym-t4` (screen): walkthrough/yellow/scenes/celadon-gym-t4.png
+- `celadon-gym-t5` (screen): walkthrough/yellow/scenes/celadon-gym-t5.png
+- `celadon-gym-t6` (screen): walkthrough/yellow/scenes/celadon-gym-t6.png
+- `cerulean-gym-jr-trainer` (screen): walkthrough/yellow/scenes/cerulean-gym-jr-trainer.png
+- `cerulean-gym-swimmer` (screen): walkthrough/yellow/scenes/cerulean-gym-swimmer.png
+- `cinnabar-gym-t1` (screen): walkthrough/yellow/scenes/cinnabar-gym-t1.png
+- `cinnabar-gym-t2` (screen): walkthrough/yellow/scenes/cinnabar-gym-t2.png
+- `cinnabar-gym-t3` (screen): walkthrough/yellow/scenes/cinnabar-gym-t3.png
+- `cinnabar-gym-t4` (screen): walkthrough/yellow/scenes/cinnabar-gym-t4.png
+- `cinnabar-gym-t5` (screen): walkthrough/yellow/scenes/cinnabar-gym-t5.png
+- `fuchsia-gym-t1` (screen): walkthrough/yellow/scenes/fuchsia-gym-t1.png
+- `fuchsia-gym-t2` (screen): walkthrough/yellow/scenes/fuchsia-gym-t2.png
+- `fuchsia-gym-t3` (screen): walkthrough/yellow/scenes/fuchsia-gym-t3.png
+- `fuchsia-gym-t4` (screen): walkthrough/yellow/scenes/fuchsia-gym-t4.png
+- `fuchsia-gym-t5` (screen): walkthrough/yellow/scenes/fuchsia-gym-t5.png
+- `fuchsia-gym-t6` (screen): walkthrough/yellow/scenes/fuchsia-gym-t6.png
+- `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png
+- `indigo-bruno` (screen): walkthrough/yellow/scenes/indigo-bruno.png
+- `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
+- `indigo-lance` (screen): walkthrough/yellow/scenes/indigo-lance.png
+- `indigo-lorelei` (screen): walkthrough/yellow/scenes/indigo-lorelei.png
+- `mt-moon-hidden-ether` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-ether.png
+- `mt-moon-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png
+- `mt-moon-jessie-james` (screen): walkthrough/yellow/scenes/mt-moon-jessie-james.png
 - `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
 - `pewter-gym-trainer` (screen): walkthrough/yellow/scenes/pewter-gym-trainer.png
+- `pokemon-tower-jessie-james` (screen): walkthrough/yellow/scenes/pokemon-tower-jessie-james.png
+- `pokemon-tower-rival` (screen): walkthrough/yellow/scenes/pokemon-tower-rival.png
+- `rocket-hideout-giovanni` (screen): walkthrough/yellow/scenes/rocket-hideout-giovanni.png
+- `rocket-hideout-jessie-james` (screen): walkthrough/yellow/scenes/rocket-hideout-jessie-james.png
 - `route-22-rival` (screen): walkthrough/yellow/scenes/route-22-rival.png
+- `route-24-rival` (screen): walkthrough/yellow/scenes/route-24-rival.png
+- `saffron-dojo-master` (screen): walkthrough/yellow/scenes/saffron-dojo-master.png
+- `saffron-gym-t1` (screen): walkthrough/yellow/scenes/saffron-gym-t1.png
+- `saffron-gym-t2` (screen): walkthrough/yellow/scenes/saffron-gym-t2.png
+- `saffron-gym-t3` (screen): walkthrough/yellow/scenes/saffron-gym-t3.png
+- `saffron-gym-t4` (screen): walkthrough/yellow/scenes/saffron-gym-t4.png
+- `saffron-gym-t5` (screen): walkthrough/yellow/scenes/saffron-gym-t5.png
+- `saffron-gym-t6` (screen): walkthrough/yellow/scenes/saffron-gym-t6.png
+- `saffron-gym-t7` (screen): walkthrough/yellow/scenes/saffron-gym-t7.png
+- `silph-co-giovanni` (screen): walkthrough/yellow/scenes/silph-co-giovanni.png
+- `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png
+- `ss-anne-rival` (screen): walkthrough/yellow/scenes/ss-anne-rival.png
+- `vermilion-gym-gentleman` (screen): walkthrough/yellow/scenes/vermilion-gym-gentleman.png
+- `vermilion-gym-rocker` (screen): walkthrough/yellow/scenes/vermilion-gym-rocker.png
+- `vermilion-gym-sailor` (screen): walkthrough/yellow/scenes/vermilion-gym-sailor.png
 - `vf-bug-catcher-1` (screen): walkthrough/yellow/scenes/vf-bug-catcher-1.png
 - `vf-bug-catcher-15` (screen): walkthrough/yellow/scenes/vf-bug-catcher-15.png
 - `vf-bug-catcher-2` (screen): walkthrough/yellow/scenes/vf-bug-catcher-2.png
 - `vf-bug-catcher-3` (screen): walkthrough/yellow/scenes/vf-bug-catcher-3.png
 - `vf-lass` (screen): walkthrough/yellow/scenes/vf-lass.png
+- `viridian-city-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-city-hidden-potion.png
+- `viridian-city-tm42` (screen): walkthrough/yellow/scenes/viridian-city-tm42.png
 - `viridian-forest-antidote` (dialog): walkthrough/yellow/scenes/viridian-forest-antidote.png
 - `viridian-forest-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-potion.png
+- `viridian-gym-t1` (screen): walkthrough/yellow/scenes/viridian-gym-t1.png
+- `viridian-gym-t2` (screen): walkthrough/yellow/scenes/viridian-gym-t2.png
+- `viridian-gym-t3` (screen): walkthrough/yellow/scenes/viridian-gym-t3.png
+- `viridian-gym-t4` (screen): walkthrough/yellow/scenes/viridian-gym-t4.png
+- `viridian-gym-t5` (screen): walkthrough/yellow/scenes/viridian-gym-t5.png
+- `viridian-gym-t6` (screen): walkthrough/yellow/scenes/viridian-gym-t6.png
+- `viridian-gym-t7` (screen): walkthrough/yellow/scenes/viridian-gym-t7.png
+- `viridian-gym-t8` (screen): walkthrough/yellow/scenes/viridian-gym-t8.png

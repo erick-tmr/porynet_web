@@ -20,9 +20,12 @@
   <div class="pn-wt-steps">
     <% loc.lead_steps.each do |step| %>
       <%= render "step", step: step %>
+      <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
     <% end %>
   </div>
 </section>
+
+<% if loc.later? %><%= render "later_section", loc: loc %><% end %>
 
 <% if loc.encounters.any? %>
   <section class="pn-wt-section">
@@ -41,6 +44,8 @@
     </div>
   </section>
 <% end %>
+
+<% if loc.trivia? %><%= render "trivia", trivia: loc.trivia %><% end %>
 
 <% if loc.trainers.any? %>
   <section class="pn-wt-section">
@@ -65,6 +70,7 @@
     <div class="pn-wt-steps">
       <% loc.after_steps.each do |step| %>
         <%= render "step", step: step %>
+        <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
       <% end %>
     </div>
   </section>

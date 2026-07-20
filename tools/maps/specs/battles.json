@@ -13,5 +13,110 @@
     "type": "battle", "name": "battle-rival-route-22",
     "opponent": "RIVAL1", "rival_name": "BLUE",
     "enemy_balls": 2, "player_balls": 1
+  },
+  {
+    "type": "battle", "name": "battle-mt-moon-jessie-james",
+    "opponent": "ROCKET", "pic": "jessiejames", "opponent_name": "JESSIE·JAMES",
+    "enemy_balls": 3, "player_balls": 4
+  },
+  {
+    "type": "battle", "name": "battle-misty",
+    "opponent": "MISTY",
+    "enemy_balls": 2, "player_balls": 4
+  },
+  {
+    "type": "battle", "name": "battle-rival-cerulean",
+    "opponent": "RIVAL1", "rival_name": "BLUE",
+    "enemy_balls": 4, "player_balls": 4
+  },
+  {
+    "type": "battle", "name": "battle-lt-surge",
+    "opponent": "LT_SURGE",
+    "enemy_balls": 1, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-rival-ss-anne",
+    "opponent": "RIVAL1", "rival_name": "BLUE",
+    "enemy_balls": 4, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-erika",
+    "opponent": "ERIKA",
+    "enemy_balls": 3, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-koga",
+    "opponent": "KOGA",
+    "enemy_balls": 4, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-sabrina",
+    "opponent": "SABRINA",
+    "enemy_balls": 3, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-blaine",
+    "opponent": "BLAINE",
+    "enemy_balls": 3, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-giovanni-viridian",
+    "opponent": "GIOVANNI",
+    "enemy_balls": 5, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-rocket-hideout-giovanni",
+    "opponent": "GIOVANNI",
+    "enemy_balls": 3, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-rocket-hideout-jessie-james",
+    "opponent": "ROCKET", "pic": "jessiejames", "opponent_name": "JESSIE·JAMES",
+    "enemy_balls": 3, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-pokemon-tower-rival",
+    "opponent": "RIVAL2", "rival_name": "BLUE",
+    "enemy_balls": 5, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-pokemon-tower-jessie-james",
+    "opponent": "ROCKET", "pic": "jessiejames", "opponent_name": "JESSIE·JAMES",
+    "enemy_balls": 3, "player_balls": 5
+  },
+  {
+    "type": "battle", "name": "battle-silph-rival",
+    "opponent": "RIVAL2", "rival_name": "BLUE",
+    "enemy_balls": 4, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-silph-giovanni",
+    "opponent": "GIOVANNI",
+    "enemy_balls": 4, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-lorelei",
+    "opponent": "LORELEI",
+    "enemy_balls": 5, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-bruno",
+    "opponent": "BRUNO",
+    "enemy_balls": 5, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-agatha",
+    "opponent": "AGATHA",
+    "enemy_balls": 5, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-lance",
+    "opponent": "LANCE",
+    "enemy_balls": 5, "player_balls": 6
+  },
+  {
+    "type": "battle", "name": "battle-champion",
+    "opponent": "RIVAL3", "rival_name": "BLUE",
+    "enemy_balls": 6, "player_balls": 6
   }
 ]

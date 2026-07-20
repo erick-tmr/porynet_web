@@ -677,6 +677,9 @@ a.pn-wt-route__card:hover {
 /* the flat pink dot itself is baked into the screenshot; these layer the pulsing glow over it */
 .pn-wt-pin--vf-antidote { left: 60%; top: 44.4%; }
 .pn-wt-pin--vf-potion { left: 15%; top: 33.3%; }
+.pn-wt-pin--mt-moon-moon-stone { left: 50%; top: 33.3%; }
+.pn-wt-pin--mt-moon-ether { left: 50%; top: 33.3%; }
+.pn-wt-pin--viridian-potion { left: 50%; top: 44.4%; }
 .pn-wt-pin__glow {
   position: absolute;
   left: 0;
@@ -701,6 +704,290 @@ a.pn-wt-route__card:hover {
   animation: ring 1.6s ease-out infinite;
   animation-play-state: var(--play);
 }
+.pn-wt-pin--locked .pn-wt-pin__glow {
+  box-shadow: 0 0 5px 1px #7a5cff, 0 0 3px 1px #7a5cff;
+}
+.pn-wt-pin--locked .pn-wt-pin__ring {
+  border-color: #7a5cff;
+}
+
+/* ---- out of reach ---- */
+.pn-eyebrow-label--later { color: #7a5cff; }
+.pn-wt-later__intro {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #3a3850;
+  max-width: 680px;
+  margin: 8px 0 0;
+}
+.pn-wt-later-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+@media (max-width: 760px) {
+  .pn-wt-later-grid { grid-template-columns: 1fr; }
+}
+.pn-wt-later {
+  position: relative;
+  background: #f5f1ff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  padding: 18px;
+}
+.pn-wt-later__lock {
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: #7a5cff;
+  border: 2px solid #171622;
+  padding: 6px 8px;
+  box-shadow: 2px 2px 0 #171622;
+  transform: rotate(6deg);
+}
+.pn-wt-later__body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.pn-wt-later__shot-wrap {
+  width: 210px;
+  max-width: 100%;
+  flex: none;
+}
+.pn-wt-shot--later {
+  position: relative;
+  border: 2px solid #171622;
+  width: 100%;
+  aspect-ratio: 10 / 9;
+  overflow: hidden;
+  background: #FBF5E6;
+}
+.pn-wt-later__main {
+  flex: 1;
+  min-width: 220px;
+}
+.pn-wt-later__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pn-wt-later__icon {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border: 2px solid #171622;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-wt-later__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+}
+.pn-wt-later__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.pn-wt-later__need,
+.pn-wt-later__kind {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #171622;
+  border: 2px solid #171622;
+  padding: 2px 9px;
+}
+.pn-wt-later__need { background: #e2d9ff; }
+.pn-wt-later__kind { background: #fff; }
+.pn-wt-later__where {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #3a3850;
+  margin-top: 12px;
+}
+.pn-wt-later__after {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+  border-top: 2px dashed #171622;
+  margin-top: 12px;
+  padding-top: 10px;
+}
+.pn-wt-later__after-label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #7a5cff;
+}
+
+/* ---- trivia ---- */
+.pn-wt-trivia__intro {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #3a3850;
+  max-width: 720px;
+  margin: 8px 0 0;
+  text-wrap: pretty;
+}
+.pn-wt-trivia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+.pn-wt-trivia-card {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  padding: 18px;
+}
+.pn-wt-trivia-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pn-wt-trivia-card__sprite {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border: 2px solid #171622;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-wt-trivia-card__sprite img { width: 100%; height: 100%; object-fit: contain; }
+.pn-wt-trivia-card--water .pn-wt-trivia-card__sprite { background: #ddf1fa; }
+.pn-wt-trivia-card--electric .pn-wt-trivia-card__sprite { background: #fff2d4; }
+.pn-wt-trivia-card--fire .pn-wt-trivia-card__sprite { background: #ffe5ed; }
+.pn-wt-trivia-card__num {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #3a3850;
+}
+.pn-wt-trivia-card__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 23px;
+}
+.pn-wt-trivia-card--water .pn-wt-trivia-card__name { color: #2bb3e0; }
+.pn-wt-trivia-card--electric .pn-wt-trivia-card__name { color: #c9a227; }
+.pn-wt-trivia-card--fire .pn-wt-trivia-card__name { color: #e0592b; }
+.pn-wt-trivia-card__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.pn-wt-trivia-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.pn-wt-trivia-mark {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border: 2px solid #171622;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+}
+.pn-wt-trivia-mark--yes { background: #d8f5df; }
+.pn-wt-trivia-mark--no { background: #ffd0e0; }
+.pn-wt-trivia-mark--na { background: #eeeeee; }
+.pn-wt-trivia-row__text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #3a3850;
+}
+.pn-wt-trivia__note {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #6b6880;
+  margin-top: 16px;
+}
+
+/* ---- missable step ---- */
+.pn-wt-step__node--missable { background: #FFC23D; }
+.pn-wt-step__warn polygon { fill: #171622; }
+.pn-wt-step__warn rect { fill: #FFC23D; }
+.pn-wt-step__card--missable {
+  background: #fffbee;
+  border-left: 14px solid #FFC23D;
+}
+.pn-wt-missable__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pn-wt-missable__badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  background: #FFC23D;
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 #171622;
+  padding: 7px 9px;
+  white-space: nowrap;
+}
+.pn-wt-missable__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+}
+.pn-wt-missable__body {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #3a3850;
+  margin-top: 12px;
+  text-wrap: pretty;
+}
+.pn-wt-missable__tip {
+  border-top: 2px dashed #171622;
+  margin-top: 14px;
+  padding-top: 10px;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+}
+.pn-wt-missable__tip-label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--accent);
+}
+.pn-wt-missable__tip-label::after { content: " · "; }
+.pn-wt-step__text a {
+  color: #FF5D8F;
+  text-decoration: underline;
+}
+.pn-wt-step__text a:hover { color: #171622; }
 
 /* ---- catchable grid ---- */
 .pn-wt-catch__head {
@@ -1096,8 +1383,13 @@ a.pn-wt-route__card:hover {
   margin-top: 12px;
   border: 3px solid #171622;
   background: #0b1022;
-  aspect-ratio: 20 / 9;
+  aspect-ratio: 2 / 1;
   box-shadow: inset 0 0 0 3px #FF5D8F, 0 0 18px #FF5D8F33;
+}
+.pn-wt-shot--battlescreen .pn-wt-shot__img {
+  inset: 9px;
+  width: calc(100% - 18px);
+  height: calc(100% - 18px);
 }
 .pn-wt-shot__scan {
   position: absolute;
@@ -1575,8 +1867,8 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   color: #171622;
-  background: #FF5D8F;
-  border: 2px solid #FF5D8F;
+  background: #FFC23D;
+  border: 2px solid #171622;
   padding: 6px 9px;
 }
 .pn-wt-gym-tr__shots {
@@ -1668,7 +1960,8 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-gym__pill--reward {
   color: #171622;
-  background: #FF5D8F;
+  background: #FFC23D;
+  border-color: #171622;
 }
 .pn-wt-gym__badge {
   display: flex;

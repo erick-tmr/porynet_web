@@ -139,6 +139,15 @@ en:
       steps_after_h2: "Where to go next"
       item_kind: "· ITEM"
       hidden_item: "HIDDEN ITEM"
+      later_eyebrow: "COME BACK LATER · %{count}"
+      later_h2: "Out of reach for now"
+      later_intro: "You can't grab these on your first pass, they need an HM, item or event you don't have yet. Note the spot, then swing back once you're kitted out."
+      later_locked: "LOCKED 🔒"
+      later_need: "NEED"
+      later_return: "RETURN AFTER"
+      trivia_eyebrow: "TRIVIA · YELLOW ONLY"
+      missable_badge: "MISSABLE"
+      missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
@@ -245,6 +254,20 @@ en:
         pallet_town:
           note: "Get Pikachu from Prof. Oak. No wild grass here."
           intro: "Home. Grab your partner Pikachu, settle the first rival battle, and head north."
+          trivia:
+            title: "This battle decides your rival's Eevee"
+            intro: "In Pokémon Yellow, the outcome of this battle, plus an optional rematch on Route 22, locks in which evolution your rival's Eevee takes. Play it how you like, but here's the recipe for each."
+            note: "// The Route 22 rematch only matters if you win here first; lose, and it's Vaporeon regardless."
+            cards:
+              vaporeon:
+                this: "Lose this battle"
+                rt22: "Route 22 result ignored"
+              jolteon:
+                this: "Win this battle"
+                rt22: "Win the Route 22 battle too"
+              flareon:
+                this: "Win this battle"
+                rt22: "Skip the Route 22 battle"
           steps:
             "1":
               title: "Withdraw the free Potion"
@@ -283,6 +306,14 @@ en:
         viridian_city:
           note: "Catching tutorial, Oak's Parcel, stock up on Poké Balls."
           intro: "The gateway city. No wild grass. Run the errands, buy Poké Balls, then push into Route 2."
+          later:
+            tm42:
+              where: "The Fisher who hands over TM42 (Dream Eater) sits on a fenced patch in the southwest corner, walled off by a cuttable tree and the pond. You can't cross to him on the first pass."
+              after: "Chop the tree with HM01 Cut (from the S.S. Anne in Vermilion), or Surf across once you have HM03. Cut comes first."
+          missable:
+            title: "Five free Poké Balls"
+            body_html: "Oak hands you <b>five Poké Balls</b> if you beat the Route 22 rival while carrying <b>none</b> and having caught <b>nothing but Pikachu</b>. Small prize, but if you want it, skip the Mart until after that fight."
+            tip: "Pikachu goes in alone against his Spearow and Eevee, so grab a few levels in the Route 22 grass first."
           steps:
             "1":
               title: "Heal and collect Oak's Parcel"
@@ -300,6 +331,8 @@ en:
             "4":
               title: "Watch the catching demo, then stock up"
               text: "Head back up to Viridian. The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go."
+              hidden:
+                potion: "On the tree just left of the north gate. Stand to its right and press A."
             "5":
               title: "Head west to Route 22"
               text: "The Viridian Gym stays locked until you hold the other seven badges, so skip it. Head west to Route 22 first for the best Brock-ready catches and a rival battle; from there you loop back through Viridian and up to Route 2."
@@ -314,6 +347,9 @@ en:
               title: "Beat the rival"
               text: "Blue challenges you near the water with Spearow (Lv 9) and Eevee (Lv 8). Win for ₽280."
             "3":
+              title: "Optional: Oak's five Poké Balls"
+              text_html: "Still carrying no Poké Balls, with only Pikachu caught? Walk back to Oak's Lab in Pallet Town and talk to him for <b>five free Poké Balls</b>. See the <a href=\"#missable-poke-balls\">missable note</a>."
+            "4":
               title: "Turn back to Viridian"
               text: "The League gate further west is blocked until you have all badges. Head back east and up to Route 2."
           tips:
@@ -415,7 +451,10 @@ en:
               text: "Step in from the west (Route 3) entrance. Just inside, sweep the western chamber for TM12 (Water Gun) and a Potion before the tunnel splits and drops through its connected ladders."
             "2":
               title: "Work the floors for items"
-              text: "As you wind down, grab the Rare Candy, Escape Rope and Potion in the southeast of 1F, the HP Up down the first south ladder, and TM01 (Mega Punch) on B2F. A hidden Ether sits inside the large rock beside that TM."
+              text: "As you wind down, grab the Rare Candy, Escape Rope and Potion in the southeast of 1F, the HP Up down the first south ladder, and TM01 (Mega Punch) on B2F. Two more items sit hidden in the rocks of B2F."
+              hidden:
+                moon_stone: "A second Moon Stone, hidden in the boulders near the middle of B2F. Press A on the rock just south of the ladder as you cross; nothing shows on-screen."
+                ether: "Tucked inside the large rock beside TM01 (Mega Punch), in the northeast of B2F. Press A against the rock; nothing shows on-screen."
             "3":
               title: "Take the Moon Stone, beat the Rockets"
               text: "Pick up the Moon Stone in the northwest corner of 1F; it evolves Clefairy, Nidorina, Nidorino and more. Clear the Rocket Grunts on the lower floors, and in Yellow, Jessie & James turn up too."

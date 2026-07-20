@@ -84,7 +84,7 @@ def gen_screen_scene(root, spec):
     if spec.get("auto_npcs"):
         sprites += auto_npcs(root, spec["map"])
     emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
-    markers = [{"grid": spec["marker"]}] if spec.get("marker") else []
+    markers = [{"grid": spec["marker"], "fill": spec.get("marker_color")}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
     image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", player),
                                         spec.get("parent"), sprites, spec.get("arrows", []), lines,
@@ -99,7 +99,7 @@ def gen_battle_scene(root, spec):
         name = spec.get("rival_name", RIVAL_NAME)
     else:
         name = spec.get("opponent_name")     # None -> the class name from the game
-    kwargs = {k: spec[k] for k in ("enemy_balls", "player_balls") if k in spec}
+    kwargs = {k: spec[k] for k in ("enemy_balls", "player_balls", "pic") if k in spec}
     image = compositor.render_battle(root, opponent, opponent_name=name, **kwargs)
     return image, spec["name"], {}
 

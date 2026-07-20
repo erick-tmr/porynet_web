@@ -139,6 +139,15 @@ pt:
       steps_after_h2: "Para onde ir a seguir"
       item_kind: "· ITEM"
       hidden_item: "ITEM OCULTO"
+      later_eyebrow: "VOLTE DEPOIS · %{count}"
+      later_h2: "Fora de alcance por enquanto"
+      later_intro: "Você não consegue pegar estes na primeira passagem, eles precisam de um HM, item ou evento que você ainda não tem. Anote o lugar e volte quando estiver equipado."
+      later_locked: "TRANCADO 🔒"
+      later_need: "PRECISA"
+      later_return: "VOLTE APÓS"
+      trivia_eyebrow: "CURIOSIDADE · SÓ NO YELLOW"
+      missable_badge: "PERDÍVEL"
+      missable_tip: "DICA DE NÍVEL"
       map_eyebrow: "MAPA DA ÁREA"
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
@@ -245,6 +254,20 @@ pt:
         pallet_town:
           note: "Pegue o Pikachu com o Prof. Oak. Sem grama selvagem aqui."
           intro: "O lar. Pegue seu parceiro Pikachu, resolva a primeira batalha de rival e siga ao norte."
+          trivia:
+            title: "Esta batalha decide o Eevee do seu rival"
+            intro: "No Pokémon Yellow, o resultado desta batalha, mais uma revanche opcional na Rota 22, define em qual evolução o Eevee do seu rival se transforma. Jogue como quiser, mas aqui está a receita de cada uma."
+            note: "// A revanche da Rota 22 só importa se você vencer aqui primeiro; se perder, vira Vaporeon de qualquer jeito."
+            cards:
+              vaporeon:
+                this: "Perca esta batalha"
+                rt22: "Resultado da Rota 22 ignorado"
+              jolteon:
+                this: "Vença esta batalha"
+                rt22: "Vença também a batalha da Rota 22"
+              flareon:
+                this: "Vença esta batalha"
+                rt22: "Pule a batalha da Rota 22"
           steps:
             "1":
               title: "Retire a Potion grátis"
@@ -283,6 +306,14 @@ pt:
         viridian_city:
           note: "Tutorial de captura, Oak's Parcel, estoque de Poké Balls."
           intro: "A cidade de passagem. Sem grama selvagem. Faça as tarefas, compre Poké Balls e siga para a Rota 2."
+          later:
+            tm42:
+              where: "O Pescador que entrega o TM42 (Dream Eater) fica numa faixa cercada no canto sudoeste, isolada por uma árvore cortável e pelo laguinho. Você não consegue chegar até ele na primeira passagem."
+              after: "Corte a árvore com o HM01 Cut (do S.S. Anne, em Vermilion), ou use Surf com o HM03. O Cut vem primeiro."
+          missable:
+            title: "Cinco Poké Balls grátis"
+            body_html: "O Oak te dá <b>cinco Poké Balls</b> se você vencer o rival da Rota 22 sem carregar <b>nenhuma</b> e tendo capturado <b>só o Pikachu</b>. É pouca coisa, mas se quiser, deixe a loja para depois dessa luta."
+            tip: "O Pikachu entra sozinho contra o Spearow e o Eevee dele, então pegue alguns níveis no mato da Rota 22 antes."
           steps:
             "1":
               title: "Cure e pegue o Oak's Parcel"
@@ -300,6 +331,8 @@ pt:
             "4":
               title: "Veja a demonstração de captura e abasteça"
               text: "Volte a pé para Viridian. O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
+              hidden:
+                potion: "Na árvore logo à esquerda do portão norte. Fique à direita dela e aperte A."
             "5":
               title: "Siga a oeste para a Rota 22"
               text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele. Siga a oeste para a Rota 22 primeiro, pelas melhores capturas contra o Brock e uma batalha de rival; de lá você volta por Viridian e sobe para a Rota 2."
@@ -314,6 +347,9 @@ pt:
               title: "Vença o rival"
               text: "O Blue te desafia perto da água com Spearow (Nv 9) e Eevee (Nv 8). Vença por ₽280."
             "3":
+              title: "Opcional: as cinco Poké Balls do Oak"
+              text_html: "Ainda sem nenhuma Poké Ball e só com o Pikachu capturado? Volte ao Laboratório do Oak em Pallet Town e fale com ele para ganhar <b>cinco Poké Balls</b>. Veja a <a href=\"#missable-poke-balls\">nota de perdível</a>."
+            "4":
               title: "Volte para Viridian"
               text: "O portão da Liga mais a oeste fica bloqueado até você ter todas as insígnias. Volte ao leste e suba para a Rota 2."
           tips:
@@ -415,7 +451,10 @@ pt:
               text: "Entre pela entrada oeste (Rota 3). Logo dentro, varra a câmara oeste pelo TM12 (Water Gun) e uma Potion antes de o túnel se dividir e descer pelas escadas conectadas."
             "2":
               title: "Vasculhe os andares por itens"
-              text: "Enquanto desce, pegue o Rare Candy, o Escape Rope e a Potion no sudeste do 1F, o HP Up descendo a primeira escada sul e o TM01 (Mega Punch) no B2F. Um Ether oculto fica dentro da pedra grande ao lado desse TM."
+              text: "Enquanto desce, pegue o Rare Candy, o Escape Rope e a Potion no sudeste do 1F, o HP Up descendo a primeira escada sul e o TM01 (Mega Punch) no B2F. Mais dois itens ficam ocultos nas rochas do B2F."
+              hidden:
+                moon_stone: "Uma segunda Moon Stone, escondida entre as pedras no meio do B2F. Aperte A na rocha logo ao sul da escada ao atravessar; nada aparece na tela."
+                ether: "Guardado dentro da pedra grande ao lado do TM01 (Mega Punch), no nordeste do B2F. Aperte A contra a rocha; nada aparece na tela."
             "3":
               title: "Pegue a Moon Stone, vença os Rockets"
               text: "Pegue a Moon Stone no canto noroeste do 1F; ela evolui Clefairy, Nidorina, Nidorino e mais. Limpe os Rocket Grunts nos andares inferiores e, no Yellow, Jessie & James também aparecem."

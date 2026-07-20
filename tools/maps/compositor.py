@@ -181,7 +181,7 @@ def overlay_markers(canvas, markers):
         cx, cy = m["grid"][0] * UNIT_PX + UNIT_PX // 2, m["grid"][1] * UNIT_PX + UNIT_PX // 2
         r = m.get("r", 2)
         draw.ellipse([cx - r - 1, cy - r - 1, cx + r + 1, cy + r + 1], fill=ARROW_OUTLINE)
-        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=MARKER_FILL)
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=tuple(m["fill"]) if m.get("fill") else MARKER_FILL)
     return canvas
 
 
@@ -319,12 +319,13 @@ def _draw_hud(canvas, root_str, hud, ink):
         _blit_hud_tile(canvas, root_str, png, idx, tile_col, tile_row, ink)
 
 
-def render_battle(root_str, opponent_const, *, opponent_name=None, enemy_palette=None,
+def render_battle(root_str, opponent_const, *, opponent_name=None, pic=None, enemy_palette=None,
                   enemy_balls=1, player_balls=1):
     """Render the pre-battle face-off frame: enemy trainer pic (top-right), player back
     (bottom-left), each trainer's party-count Poke balls on their HUD bracket, the
     "<NAME> wants / to fight!" dialog and a continue prompt. 160x144. Colorized in GBC/SGB
-    mode; rendered in the Game Boy greens in DMG mode."""
+    mode; rendered in the Game Boy greens in DMG mode. `pic` overrides the trainer pic basename,
+    for pics that sit outside the trainer-class table (the Yellow Jessie & James duo)."""
     if PALETTE_MODE == "dmg":
         paper, ink = DMG_PALETTE[0], DMG_PALETTE[3]
         player_pal = enemy_pal = DMG_PALETTE
@@ -334,7 +335,7 @@ def render_battle(root_str, opponent_const, *, opponent_name=None, enemy_palette
         player_pal, enemy_pal, ball_pal = PLAYER_PALETTE, enemy_palette or RIVAL_PALETTE, BALL_PALETTE
     canvas = Image.new("RGB", SCREEN, paper)
 
-    pic_file = sources.parse_trainer_pic_file(root_str, opponent_const)
+    pic_file = pic or sources.parse_trainer_pic_file(root_str, opponent_const)
     enemy = _load_pic(sources._root(root_str) / f"gfx/trainers/{pic_file}.png", (56, 56), enemy_pal)
     canvas.paste(enemy, (96, 0))                                 # hlcoord 12, 0
 

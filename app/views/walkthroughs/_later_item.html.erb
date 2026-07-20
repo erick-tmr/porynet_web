@@ -1,0 +1,34 @@
+<div class="pn-wt-later">
+  <span class="pn-wt-later__lock"><%= t("walkthrough.ui.later_locked") %></span>
+  <div class="pn-wt-later__body">
+    <div class="pn-wt-later__shot-wrap">
+      <div class="pn-wt-shot pn-wt-shot--later">
+        <% if item.image? %>
+          <%= r2_image_tag item.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+          <% if item.pin %>
+            <span class="pn-wt-pin pn-wt-pin--locked pn-wt-pin--<%= item.pin %>">
+              <span class="pn-wt-pin__glow"></span>
+              <span class="pn-wt-pin__ring"></span>
+            </span>
+          <% end %>
+        <% else %>
+          <div class="pn-wt-shot__ph"><%= t("walkthrough.ui.shot_placeholder") %></div>
+        <% end %>
+      </div>
+    </div>
+    <div class="pn-wt-later__main">
+      <div class="pn-wt-later__head">
+        <span class="pn-wt-later__icon"><%= r2_image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>
+        <div class="pn-wt-later__name"><%= item.name %></div>
+      </div>
+      <div class="pn-wt-later__tags">
+        <span class="pn-wt-later__need"><%= t("walkthrough.ui.later_need") %> · <%= item.need %></span>
+        <span class="pn-wt-later__kind"><%= item.kind %></span>
+      </div>
+      <div class="pn-wt-later__where"><%= t(item.where_key) %></div>
+      <div class="pn-wt-later__after">
+        <span class="pn-wt-later__after-label"><%= t("walkthrough.ui.later_return") %></span> · <%= t(item.after_key) %>
+      </div>
+    </div>
+  </div>
+</div>

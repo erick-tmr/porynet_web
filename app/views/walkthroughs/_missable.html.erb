@@ -1,0 +1,24 @@
+<div class="pn-wt-step pn-wt-step--missable" id="<%= missable.anchor %>">
+  <div class="pn-wt-step__rail">
+    <div class="pn-wt-step__line pn-wt-step__line--top"></div>
+    <div class="pn-wt-step__node pn-wt-step__node--missable">
+      <svg class="pn-wt-step__warn" width="24" height="21" viewBox="0 0 24 21" aria-hidden="true">
+        <polygon points="12,1 23,20 1,20"></polygon>
+        <rect x="10.5" y="7" width="3" height="6"></rect>
+        <rect x="10.5" y="15" width="3" height="3"></rect>
+      </svg>
+    </div>
+    <div class="pn-wt-step__line pn-wt-step__line--bot"></div>
+  </div>
+  <div class="pn-wt-step__card pn-wt-step__card--missable">
+    <div class="pn-wt-missable__head">
+      <span class="pn-wt-missable__badge"><%= t("walkthrough.ui.missable_badge") %></span>
+      <div class="pn-wt-missable__title"><%= t(missable.title_key) %></div>
+    </div>
+    <div class="pn-wt-missable__body"><%= t(missable.body_key) %></div>
+    <div class="pn-wt-missable__tip">
+      <b class="pn-wt-missable__tip-label"><%= t("walkthrough.ui.missable_tip") %></b>
+      <%= t(missable.tip_key) %>
+    </div>
+  </div>
+</div>

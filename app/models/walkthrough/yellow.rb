@@ -214,7 +214,12 @@ module Walkthrough
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
           where: scene_shot("oaks-lab-rival", "WHERE"),
           battle: scene_shot("battle-rival-oaks-lab", "BATTLE")) ],
-        oak_queue: []
+        oak_queue: [],
+        trivia: trivia(b, cards: [
+          trivia_card(b, "vaporeon", "134", "water", "no", "na"),
+          trivia_card(b, "jolteon", "135", "electric", "yes", "yes"),
+          trivia_card(b, "flareon", "136", "fire", "yes", "no")
+        ])
       )
     end
 
@@ -248,10 +253,12 @@ module Walkthrough
           step(b, 2),
           step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ],
             shot: map_shot("viridian-city", 3, "STEP 3")),
-          step(b, 4),
+          step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "viridian-city-hidden-potion", "viridian-potion") ]),
           step(b, 5)
         ],
-        encounters: [], trainers: [], oak_queue: []
+        encounters: [], trainers: [], oak_queue: [],
+        later: [ later(b, "tm42", "TM42 Dream Eater", "ITEM", "Cut or Surf", "viridian-city-tm42") ],
+        missable: missable(b, anchor: "missable-poke-balls", after_step: 3)
       )
     end
 
@@ -263,7 +270,8 @@ module Walkthrough
         steps: [
           step(b, 1, shot: map_shot("route-22", 1, "STEP 1")),
           step(b, 2),
-          step(b, 3, shot: map_shot("route-22", 3, "STEP 3"))
+          step(b, 3, html: true, shot: map_shot("route-22", 3, "STEP 3")),
+          step(b, 4, shot: map_shot("route-22", 4, "STEP 4"))
         ],
         encounters: [
           enc("route-22", "029", "GRASS", "30%", "2–4", "COMMON", "029", "030", "031", tip: true),
@@ -357,12 +365,15 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], hidden_items: {}, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
-        steps: (1..steps).map { |i| step(b, i) },
+        steps: (1..steps).map { |i|
+          step(b, i, shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
+            hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
+        },
         encounters: encounters, trainers: trainers, oak_queue: oak_queue, gym: gym, gym_after: gym_after
       )
     end
@@ -397,7 +408,7 @@ module Walkthrough
 
     def self.leader(name, reward, *team, battle: nil) = tr("LEADER", name, reward, *team, battle: battle)
 
-    def self.rival(reward, *team) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two")
+    def self.rival(reward, *team, where: nil, battle: nil) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle)
 
     def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [])
       b = base(slug)
@@ -429,7 +440,11 @@ module Walkthrough
     end
 
     def self.mt_moon
-      loc("mt-moon", "CAVE", "Mt. Moon", 9, steps: 4,
+      loc("mt-moon", "CAVE", "Mt. Moon", 9, steps: 4, shots: [ 3, 4 ],
+        hidden_items: { 2 => [
+          [ "Moon Stone", "moon_stone", "mt-moon-hidden-moon-stone", "mt-moon-moon-stone" ],
+          [ "Ether", "ether", "mt-moon-hidden-ether", "mt-moon-ether" ]
+        ] },
         encounters: [
           enc("mt-moon", "041", "CAVE", "75%", "6–11", "COMMON", "041", "042"),
           enc("mt-moon", "074", "CAVE", "15%", "8–10", "UNCOMMON", "074", "075", "076"),
@@ -437,12 +452,14 @@ module Walkthrough
           enc("mt-moon", "035", "CAVE", "1%", "11", "RARE", "035", "036", tip: true)
         ],
         trainers: [ tr("TEAM ROCKET", "Jessie & James", 420,
-          mon("023", 14), mon("052", 14), mon("109", 14)) ],
+          mon("023", 14), mon("052", 14), mon("109", 14),
+          where: scene_shot("mt-moon-jessie-james", "WHERE"),
+          battle: scene_shot("battle-mt-moon-jessie-james", "BATTLE")) ],
         oak_queue: [ oak("mt-moon", "035", 1), oak("mt-moon", "074", 1) ])
     end
 
     def self.route_4
-      loc("route-4", "ROUTE", "Route 4", 10, steps: 2,
+      loc("route-4", "ROUTE", "Route 4", 10, steps: 2, shots: [ 1 ],
         encounters: [
           enc("route-4", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
           enc("route-4", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
@@ -452,20 +469,22 @@ module Walkthrough
     end
 
     def self.cerulean_city
-      loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 2, gym_after: 1, badge: "CASCADE",
+      loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 2, shots: [ 1, 2 ], gym_after: 1, badge: "CASCADE",
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
-          leader("Misty", 2079, mon("120", 18), mon("121", 21)),
+          leader("Misty", 2079, mon("120", 18), mon("121", 21), battle: scene_shot("battle-misty", "BATTLE")),
           trainers: [
-            tr("SWIMMER", nil, 80, mon("116", 16), mon("090", 16)),
-            tr("JR. TRAINER♀", nil, 380, mon("118", 19))
+            tr("SWIMMER", nil, 80, mon("116", 16), mon("090", 16),
+              where: scene_shot("cerulean-gym-swimmer", "WHERE")),
+            tr("JR. TRAINER♀", nil, 380, mon("118", 19),
+              where: scene_shot("cerulean-gym-jr-trainer", "WHERE"))
           ]),
         oak_queue: [ oak("cerulean-city", "001", 1) ])
     end
 
     def self.route_24
-      loc("route-24", "ROUTE", "Route 24", 12,
+      loc("route-24", "ROUTE", "Route 24", 12, shots: [ 3 ],
         encounters: [
           enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true),
           enc("route-24", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
@@ -473,12 +492,14 @@ module Walkthrough
           enc("route-24", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
           enc("route-24", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049")
         ],
-        trainers: [ rival(595, mon("021", 18), mon("027", 15), mon("019", 15), mon("133", 17)) ],
+        trainers: [ rival(595, mon("021", 18), mon("027", 15), mon("019", 15), mon("133", 17),
+          where: scene_shot("route-24-rival", "WHERE"),
+          battle: scene_shot("battle-rival-cerulean", "BATTLE")) ],
         oak_queue: [ oak("route-24", "004", 1), oak("route-24", "043", 1), oak("route-24", "069", 1) ])
     end
 
     def self.route_25
-      loc("route-25", "ROUTE", "Route 25", 13, steps: 2,
+      loc("route-25", "ROUTE", "Route 25", 13, steps: 2, shots: [ 2 ],
         encounters: [
           enc("route-25", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-25", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
@@ -489,7 +510,7 @@ module Walkthrough
     end
 
     def self.route_5
-      loc("route-5", "ROUTE", "Route 5", 14, steps: 2,
+      loc("route-5", "ROUTE", "Route 5", 14, steps: 2, shots: [ 2 ],
         encounters: [
           enc("route-5", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
           enc("route-5", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
@@ -511,23 +532,28 @@ module Walkthrough
     end
 
     def self.vermilion_city
-      loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 3, gym_after: 2, badge: "THUNDER",
+      loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 3, shots: [ 2, 3 ], gym_after: 2, badge: "THUNDER",
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true) ],
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
-          leader("Lt. Surge", 2772, mon("026", 28)),
+          leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE")),
           puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ],
           trainers: [
-            tr("SAILOR", nil, 720, mon("081", 24)),
-            tr("ROCKER", nil, 500, mon("100", 20), mon("100", 20), mon("100", 20)),
-            tr("GENTLEMAN", nil, 1540, mon("100", 22), mon("081", 22))
+            tr("SAILOR", nil, 720, mon("081", 24),
+              where: scene_shot("vermilion-gym-sailor", "WHERE")),
+            tr("ROCKER", nil, 500, mon("100", 20), mon("100", 20), mon("100", 20),
+              where: scene_shot("vermilion-gym-rocker", "WHERE")),
+            tr("GENTLEMAN", nil, 1540, mon("100", 22), mon("081", 22),
+              where: scene_shot("vermilion-gym-gentleman", "WHERE"))
           ]),
         oak_queue: [ oak("vermilion-city", "007", 1) ])
     end
 
     def self.ss_anne
-      loc("ss-anne", "BUILDING", "S.S. Anne", 17, steps: 3,
-        trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20)) ])
+      loc("ss-anne", "BUILDING", "S.S. Anne", 17, steps: 3, shots: [ 3 ],
+        trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),
+          where: scene_shot("ss-anne-rival", "WHERE"),
+          battle: scene_shot("battle-rival-ss-anne", "BATTLE")) ])
     end
 
     def self.route_11
@@ -556,15 +582,19 @@ module Walkthrough
           enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105")
         ],
         trainers: [
-          rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25)),
+          rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25),
+            where: scene_shot("pokemon-tower-rival", "WHERE"),
+            battle: scene_shot("battle-pokemon-tower-rival", "BATTLE")),
           tr("TEAM ROCKET", "Jessie & James", 810,
-            mon("052", 27), mon("024", 27), mon("110", 27))
+            mon("052", 27), mon("024", 27), mon("110", 27),
+            where: scene_shot("pokemon-tower-jessie-james", "WHERE"),
+            battle: scene_shot("battle-pokemon-tower-jessie-james", "BATTLE"))
         ],
         oak_queue: [ oak("pokemon-tower", "092", 1), oak("pokemon-tower", "104", 1) ])
     end
 
     def self.route_12
-      loc("route-12", "ROUTE", "Route 12", 29, steps: 3,
+      loc("route-12", "ROUTE", "Route 12", 29, steps: 3, shots: [ 1 ],
         encounters: [
           enc("route-12", "043", "GRASS", "30%", "22–26", "COMMON", "043", "044", "045"),
           enc("route-12", "069", "GRASS", "30%", "22–26", "COMMON", "069", "070", "071"),
@@ -612,15 +642,15 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
-          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50)),
+          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE")),
           puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ],
           trainers: [
-            tr("JUGGLER", nil, 1190, mon("096", 34), mon("064", 34)),
-            tr("JUGGLER", nil, 1330, mon("097", 38)),
-            tr("JUGGLER", nil, 1085, mon("096", 31), mon("096", 31), mon("064", 31), mon("096", 31)),
-            tr("TAMER", nil, 1320, mon("024", 33), mon("028", 33), mon("024", 33)),
-            tr("TAMER", nil, 1360, mon("028", 34), mon("024", 34)),
-            tr("JUGGLER", nil, 1190, mon("096", 34), mon("097", 34))
+            tr("JUGGLER", nil, 1190, mon("096", 34), mon("064", 34), where: scene_shot("fuchsia-gym-t1", "WHERE")),
+            tr("JUGGLER", nil, 1330, mon("097", 38), where: scene_shot("fuchsia-gym-t2", "WHERE")),
+            tr("JUGGLER", nil, 1085, mon("096", 31), mon("096", 31), mon("064", 31), mon("096", 31), where: scene_shot("fuchsia-gym-t3", "WHERE")),
+            tr("TAMER", nil, 1320, mon("024", 33), mon("028", 33), mon("024", 33), where: scene_shot("fuchsia-gym-t4", "WHERE")),
+            tr("TAMER", nil, 1360, mon("028", 34), mon("024", 34), where: scene_shot("fuchsia-gym-t5", "WHERE")),
+            tr("JUGGLER", nil, 1190, mon("096", 34), mon("097", 34), where: scene_shot("fuchsia-gym-t6", "WHERE"))
           ]),
         oak_queue: [ oak("fuchsia-city", "130", 1) ])
     end
@@ -644,7 +674,7 @@ module Walkthrough
     end
 
     def self.route_16
-      loc("route-16", "ROUTE", "Route 16", 35, steps: 3,
+      loc("route-16", "ROUTE", "Route 16", 35, steps: 3, shots: [ 2 ],
         encounters: [
           enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-16", "019", "GRASS", "30%", "23–24", "COMMON", "019", "020"),
@@ -676,18 +706,19 @@ module Walkthrough
 
     def self.saffron_city
       loc("saffron-city", "CITY", "Saffron City", 38, steps: 3, gym_after: 2, badge: "MARSH",
-        trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37)) ],
+        trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
+          where: scene_shot("saffron-dojo-master", "WHERE")) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
-          leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50)),
+          leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE")),
           puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ],
           trainers: [
-            tr("PSYCHIC", nil, 330, mon("079", 33), mon("079", 33), mon("080", 33)),
-            tr("PSYCHIC", nil, 340, mon("122", 34), mon("064", 34)),
-            tr("CHANNELER", nil, 1140, mon("093", 38)),
-            tr("PSYCHIC", nil, 380, mon("080", 38)),
-            tr("CHANNELER", nil, 1020, mon("092", 34), mon("093", 34)),
-            tr("CHANNELER", nil, 990, mon("092", 33), mon("092", 33), mon("093", 33)),
-            tr("PSYCHIC", nil, 310, mon("064", 31), mon("079", 31), mon("122", 31), mon("064", 31))
+            tr("PSYCHIC", nil, 330, mon("079", 33), mon("079", 33), mon("080", 33), where: scene_shot("saffron-gym-t1", "WHERE")),
+            tr("PSYCHIC", nil, 340, mon("122", 34), mon("064", 34), where: scene_shot("saffron-gym-t2", "WHERE")),
+            tr("CHANNELER", nil, 1140, mon("093", 38), where: scene_shot("saffron-gym-t3", "WHERE")),
+            tr("PSYCHIC", nil, 380, mon("080", 38), where: scene_shot("saffron-gym-t4", "WHERE")),
+            tr("CHANNELER", nil, 1020, mon("092", 34), mon("093", 34), where: scene_shot("saffron-gym-t5", "WHERE")),
+            tr("CHANNELER", nil, 990, mon("092", 33), mon("092", 33), mon("093", 33), where: scene_shot("saffron-gym-t6", "WHERE")),
+            tr("PSYCHIC", nil, 310, mon("064", 31), mon("079", 31), mon("122", 31), mon("064", 31), where: scene_shot("saffron-gym-t7", "WHERE"))
           ]),
         oak_queue: [ oak("saffron-city", "106", 1) ])
     end
@@ -696,9 +727,13 @@ module Walkthrough
       loc("silph-co", "BUILDING", "Silph Co.", 39, steps: 4,
         encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true) ],
         trainers: [
-          rival(0, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40)),
+          rival(0, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40),
+            where: scene_shot("silph-co-rival", "WHERE"),
+            battle: scene_shot("battle-silph-rival", "BATTLE")),
           tr("TEAM ROCKET", "Giovanni", 4059,
-            mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41))
+            mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41),
+            where: scene_shot("silph-co-giovanni", "WHERE"),
+            battle: scene_shot("battle-silph-giovanni", "BATTLE"))
         ],
         oak_queue: [ oak("silph-co", "131", 1) ])
     end
@@ -723,7 +758,7 @@ module Walkthrough
     end
 
     def self.seafoam_islands
-      loc("seafoam-islands", "CAVE", "Seafoam Islands", 42, steps: 4,
+      loc("seafoam-islands", "CAVE", "Seafoam Islands", 42, steps: 4, shots: [ 3 ],
         encounters: [
           enc("seafoam-islands", "086", "CAVE", "15%", "28–30", "UNCOMMON", "086", "087"),
           enc("seafoam-islands", "090", "CAVE", "19%", "28–30", "UNCOMMON", "090", "091"),
@@ -746,14 +781,14 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
-          leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54)),
+          leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE")),
           puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ],
           trainers: [
-            tr("SUPER NERD", nil, 850, mon("077", 34), mon("004", 34), mon("037", 34), mon("058", 34)),
-            tr("BURGLAR", nil, 3690, mon("077", 41)),
-            tr("SUPER NERD", nil, 1025, mon("078", 41)),
-            tr("BURGLAR", nil, 3330, mon("037", 37), mon("058", 37)),
-            tr("SUPER NERD", nil, 925, mon("058", 37), mon("037", 37))
+            tr("SUPER NERD", nil, 850, mon("077", 34), mon("004", 34), mon("037", 34), mon("058", 34), where: scene_shot("cinnabar-gym-t1", "WHERE")),
+            tr("BURGLAR", nil, 3690, mon("077", 41), where: scene_shot("cinnabar-gym-t2", "WHERE")),
+            tr("SUPER NERD", nil, 1025, mon("078", 41), where: scene_shot("cinnabar-gym-t3", "WHERE")),
+            tr("BURGLAR", nil, 3330, mon("037", 37), mon("058", 37), where: scene_shot("cinnabar-gym-t4", "WHERE")),
+            tr("SUPER NERD", nil, 925, mon("058", 37), mon("037", 37), where: scene_shot("cinnabar-gym-t5", "WHERE"))
           ]),
         oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
     end
@@ -774,22 +809,22 @@ module Walkthrough
     def self.viridian_gym
       loc("viridian-gym", "GYM", "Viridian Gym", 47, steps: 2, gym_after: 1, badge: "EARTH",
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
-          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55)),
+          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE")),
           puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ],
           trainers: [
-            tr("TAMER", nil, 1560, mon("024", 39), mon("128", 39)),
-            tr("BLACK BELT", nil, 1075, mon("067", 43)),
-            tr("COOLTRAINER♂", nil, 1365, mon("033", 39), mon("034", 39)),
-            tr("TAMER", nil, 1720, mon("111", 43)),
-            tr("BLACK BELT", nil, 1000, mon("066", 40), mon("067", 40)),
-            tr("COOLTRAINER♂", nil, 1365, mon("028", 39), mon("051", 39)),
-            tr("COOLTRAINER♂", nil, 1505, mon("111", 43)),
-            tr("BLACK BELT", nil, 950, mon("067", 38), mon("066", 38), mon("067", 38))
+            tr("TAMER", nil, 1560, mon("024", 39), mon("128", 39), where: scene_shot("viridian-gym-t1", "WHERE")),
+            tr("BLACK BELT", nil, 1075, mon("067", 43), where: scene_shot("viridian-gym-t2", "WHERE")),
+            tr("COOLTRAINER♂", nil, 1365, mon("033", 39), mon("034", 39), where: scene_shot("viridian-gym-t3", "WHERE")),
+            tr("TAMER", nil, 1720, mon("111", 43), where: scene_shot("viridian-gym-t4", "WHERE")),
+            tr("BLACK BELT", nil, 1000, mon("066", 40), mon("067", 40), where: scene_shot("viridian-gym-t5", "WHERE")),
+            tr("COOLTRAINER♂", nil, 1365, mon("028", 39), mon("051", 39), where: scene_shot("viridian-gym-t6", "WHERE")),
+            tr("COOLTRAINER♂", nil, 1505, mon("111", 43), where: scene_shot("viridian-gym-t7", "WHERE")),
+            tr("BLACK BELT", nil, 950, mon("067", 38), mon("066", 38), mon("067", 38), where: scene_shot("viridian-gym-t8", "WHERE"))
           ]))
     end
 
     def self.victory_road
-      loc("victory-road", "CAVE", "Victory Road", 48, steps: 4,
+      loc("victory-road", "CAVE", "Victory Road", 48, steps: 4, shots: [ 3 ],
         encounters: [
           enc("victory-road", "074", "CAVE", "30%", "26–46", "COMMON", "074", "075", "076"),
           enc("victory-road", "066", "CAVE", "20%", "22–24", "UNCOMMON", "066", "067", "068"),
@@ -814,20 +849,25 @@ module Walkthrough
       loc("indigo-plateau", "BUILDING", "Indigo Plateau", 50, steps: 3,
         trainers: [
           tr("ELITE FOUR", "Lorelei", 5544,
-            mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56)),
+            mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56),
+            where: scene_shot("indigo-lorelei", "WHERE"), battle: scene_shot("battle-lorelei", "BATTLE")),
           tr("ELITE FOUR", "Bruno", 5742,
-            mon("095", 53), mon("107", 55), mon("106", 55), mon("095", 56), mon("068", 58)),
+            mon("095", 53), mon("107", 55), mon("106", 55), mon("095", 56), mon("068", 58),
+            where: scene_shot("indigo-bruno", "WHERE"), battle: scene_shot("battle-bruno", "BATTLE")),
           tr("ELITE FOUR", "Agatha", 5940,
-            mon("094", 56), mon("042", 56), mon("093", 55), mon("024", 58), mon("094", 60)),
+            mon("094", 56), mon("042", 56), mon("093", 55), mon("024", 58), mon("094", 60),
+            where: scene_shot("indigo-agatha", "WHERE"), battle: scene_shot("battle-agatha", "BATTLE")),
           tr("ELITE FOUR", "Lance", 6138,
-            mon("130", 58), mon("148", 56), mon("148", 56), mon("142", 60), mon("149", 62)),
+            mon("130", 58), mon("148", 56), mon("148", 56), mon("142", 60), mon("149", 62),
+            where: scene_shot("indigo-lance", "WHERE"), battle: scene_shot("battle-lance", "BATTLE")),
           tr("CHAMPION", "Blue", 6435,
-            mon("028", 61), mon("065", 59), mon("103", 61), mon("091", 61), mon("038", 63), mon("135", 65))
+            mon("028", 61), mon("065", 59), mon("103", 61), mon("091", 61), mon("038", 63), mon("135", 65),
+            where: scene_shot("indigo-champion", "WHERE"), battle: scene_shot("battle-champion", "BATTLE"))
         ])
     end
 
     def self.cerulean_cave
-      loc("cerulean-cave", "CAVE", "Cerulean Cave", 51, steps: 4,
+      loc("cerulean-cave", "CAVE", "Cerulean Cave", 51, steps: 4, shots: [ 4 ],
         encounters: [
           enc("cerulean-cave", "042", "CAVE", "40%", "50–55", "COMMON", "041", "042"),
           enc("cerulean-cave", "112", "CAVE", "15%", "58–62", "UNCOMMON", "111", "112"),
@@ -850,7 +890,7 @@ module Walkthrough
     end
 
     def self.route_10
-      loc("route-10", "ROUTE", "Route 10", 21, steps: 3,
+      loc("route-10", "ROUTE", "Route 10", 21, steps: 3, shots: [ 1 ],
         encounters: [
           enc("route-10", "081", "GRASS", "50%", "16–22", "COMMON", "081", "082"),
           enc("route-10", "019", "GRASS", "20%", "18", "UNCOMMON", "019", "020"),
@@ -861,7 +901,7 @@ module Walkthrough
     end
 
     def self.rock_tunnel
-      loc("rock-tunnel", "CAVE", "Rock Tunnel", 22, steps: 3,
+      loc("rock-tunnel", "CAVE", "Rock Tunnel", 22, steps: 3, shots: [ 1 ],
         encounters: [
           enc("rock-tunnel", "041", "CAVE", "50%", "15–21", "COMMON", "041", "042"),
           enc("rock-tunnel", "074", "CAVE", "40%", "16–20", "COMMON", "074", "075", "076"),
@@ -904,14 +944,14 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
-          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32)),
+          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32), battle: scene_shot("battle-erika", "BATTLE")),
           trainers: [
-            tr("LASS", nil, 345, mon("043", 23), mon("044", 23)),
-            tr("BEAUTY", nil, 1470, mon("043", 21), mon("069", 21), mon("043", 21), mon("069", 21)),
-            tr("BEAUTY", nil, 1680, mon("069", 24), mon("069", 24)),
-            tr("JR. TRAINER♀", nil, 480, mon("001", 24), mon("002", 24)),
-            tr("BEAUTY", nil, 1820, mon("102", 26)),
-            tr("COOLTRAINER♀", nil, 840, mon("070", 24), mon("044", 24), mon("002", 24))
+            tr("LASS", nil, 345, mon("043", 23), mon("044", 23), where: scene_shot("celadon-gym-t1", "WHERE")),
+            tr("BEAUTY", nil, 1470, mon("043", 21), mon("069", 21), mon("043", 21), mon("069", 21), where: scene_shot("celadon-gym-t2", "WHERE")),
+            tr("BEAUTY", nil, 1680, mon("069", 24), mon("069", 24), where: scene_shot("celadon-gym-t3", "WHERE")),
+            tr("JR. TRAINER♀", nil, 480, mon("001", 24), mon("002", 24), where: scene_shot("celadon-gym-t4", "WHERE")),
+            tr("BEAUTY", nil, 1820, mon("102", 26), where: scene_shot("celadon-gym-t5", "WHERE")),
+            tr("COOLTRAINER♀", nil, 840, mon("070", 24), mon("044", 24), mon("002", 24), where: scene_shot("celadon-gym-t6", "WHERE"))
           ]),
         oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
     end
@@ -920,14 +960,18 @@ module Walkthrough
       loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 27, steps: 4,
         trainers: [
           tr("TEAM ROCKET", "Jessie & James", 750,
-            mon("109", 25), mon("052", 25), mon("023", 25)),
+            mon("109", 25), mon("052", 25), mon("023", 25),
+            where: scene_shot("rocket-hideout-jessie-james", "WHERE"),
+            battle: scene_shot("battle-rocket-hideout-jessie-james", "BATTLE")),
           tr("TEAM ROCKET", "Giovanni", 2871,
-            mon("095", 25), mon("111", 24), mon("053", 29))
+            mon("095", 25), mon("111", 24), mon("053", 29),
+            where: scene_shot("rocket-hideout-giovanni", "WHERE"),
+            battle: scene_shot("battle-rocket-hideout-giovanni", "BATTLE"))
         ])
     end
 
     def self.power_plant
-      loc("power-plant", "BUILDING", "Power Plant", 43, steps: 3,
+      loc("power-plant", "BUILDING", "Power Plant", 43, steps: 3, shots: [ 3 ],
         encounters: [
           enc("power-plant", "100", "FLOORS", "40%", "21–33", "COMMON", "100", "101"),
           enc("power-plant", "081", "FLOORS", "25%", "20–33", "COMMON", "081", "082"),
@@ -956,12 +1000,13 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil)
-      Step.new(n: n, title_key: "#{base}.steps.#{n}.title", text_key: "#{base}.steps.#{n}.text",
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false)
+      Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
+        text_key: "#{base}.steps.#{n}.#{html ? 'text_html' : 'text'}",
         items: items, hidden: hidden, shot: shot)
     end
 
-    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel" }.freeze
+    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic" }.freeze
 
     def self.item_sprite(name)
       ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
@@ -974,6 +1019,31 @@ module Walkthrough
     def self.hidden(base, n, name, key, scene, pin)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",
         image: scenes.dig(scene, "image"), pin: pin, sprite: item_sprite(name))
+    end
+
+    def self.later(base, key, name, kind, need, scene, pin = nil)
+      LaterItem.new(name: name, sprite: item_sprite(name), kind: kind, need: need,
+        where_key: "#{base}.later.#{key}.where", after_key: "#{base}.later.#{key}.after",
+        image: scenes.dig(scene, "image"), pin: pin)
+    end
+
+    TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
+
+    def self.trivia(base, cards:)
+      Trivia.new(title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
+        note_key: "#{base}.trivia.note", cards: cards)
+    end
+
+    def self.missable(base, anchor:, after_step:)
+      Missable.new(anchor: anchor, title_key: "#{base}.missable.title",
+        body_key: "#{base}.missable.body_html", tip_key: "#{base}.missable.tip", after_step: after_step)
+    end
+
+    def self.trivia_card(base, key, dex, tone, this_state, rt22_state)
+      rows = { "this" => this_state, "rt22" => rt22_state }.map do |slot, state|
+        { state: state, mark: TRIVIA_MARKS.fetch(state), text_key: "#{base}.trivia.cards.#{key}.#{slot}" }
+      end
+      TriviaCard.new(dex: dex, name: NAMES.fetch(dex), tone: tone, rows: rows)
     end
 
     def self.shot(label) = Shot.new(image: nil, label: label)
