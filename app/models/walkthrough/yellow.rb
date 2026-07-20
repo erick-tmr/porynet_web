@@ -412,7 +412,7 @@ module Walkthrough
     }.freeze
 
     CLASS_SPRITES = {
-      "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1",
+      "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1", "YOUNGSTER" => "youngster-gen1",
       "JR. TRAINER♂" => "jrtrainer-gen1", "JR. TRAINER♀" => "jrtrainerf-gen1",
       "BLACK BELT" => "blackbelt-gen1", "TEAM ROCKET" => "rocket-gen1",
       "RIVAL" => "blue-gen1", "CHAMPION" => "blue-gen1champion",
@@ -462,7 +462,19 @@ module Walkthrough
           enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
           enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
         ],
-        trainers: [], oak_queue: [ oak("route-3", "027", 1) ]
+        trainers: [
+          tr("BUG CATCHER", nil, 100, mon("010", 10), mon("013", 10), mon("010", 10),
+            opp: [ "BUG_CATCHER", 4 ]),
+          tr("YOUNGSTER", nil, 165, mon("019", 11), mon("023", 11), opp: [ "YOUNGSTER", 1 ]),
+          tr("LASS", nil, 135, mon("016", 9), mon("016", 9), opp: [ "LASS", 1 ]),
+          tr("BUG CATCHER", nil, 90, mon("013", 9), mon("014", 9), mon("010", 9), mon("011", 9),
+            opp: [ "BUG_CATCHER", 5 ]),
+          tr("LASS", nil, 150, mon("019", 10), mon("032", 10), opp: [ "LASS", 2 ]),
+          tr("YOUNGSTER", nil, 210, mon("021", 14), opp: [ "YOUNGSTER", 2 ]),
+          tr("BUG CATCHER", nil, 110, mon("010", 11), mon("011", 11), opp: [ "BUG_CATCHER", 6 ]),
+          tr("LASS", nil, 210, mon("039", 14), opp: [ "LASS", 3 ])
+        ],
+        oak_queue: [ oak("route-3", "027", 1) ]
       )
     end
 
