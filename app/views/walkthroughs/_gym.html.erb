@@ -46,8 +46,8 @@
       <% if gym.trainers? %>
         <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_trainers_inside", count: gym.trainers.size) %></div>
         <div class="pn-wt-gym__trainers">
-          <% gym.trainers.each do |trainer| %>
-            <%= render "gym_trainer", trainer: trainer %>
+          <% gym.trainers.each_with_index do |trainer, i| %>
+            <%= render "gym_trainer", trainer: trainer, id: "#{slug}/gym-trainer-#{i}" %>
           <% end %>
         </div>
       <% end %>

@@ -11,7 +11,7 @@ const ACTIONS =
   "click->progress-toggle#toggle keydown.enter->progress-toggle#toggle keydown.space->progress-toggle#toggle";
 
 const FIXTURE = `
-  <div data-controller="progress-toggle" data-progress-toggle-game-value="yellow">
+  <div data-controller="progress-toggle" data-progress-toggle-game-value="yellow" data-progress-toggle-hint-ms-value="20">
     <div id="item" role="button" tabindex="0" aria-pressed="false"
          data-progress-toggle-target="item" data-kind="collected"
          data-progress-id="viridian-forest/step-1/item-0" data-action="${ACTIONS}"></div>
@@ -113,6 +113,44 @@ describe("ticking", () => {
     await flush();
 
     expect(el("caught-count").textContent).toBe("1");
+  });
+});
+
+describe("toast", () => {
+  it("confirms the click, then gets out of the way", async () => {
+    await mount();
+
+    el("item").click();
+    await flush();
+    expect(el("item").classList.contains("is-hinting")).toBe(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(el("item").classList.contains("is-hinting")).toBe(false);
+  });
+
+  it("moves to whichever card was touched last", async () => {
+    await mount();
+
+    el("item").click();
+    await flush();
+    el("hidden").click();
+    await flush();
+
+    expect(el("item").classList.contains("is-hinting")).toBe(false);
+    expect(el("hidden").classList.contains("is-hinting")).toBe(true);
+  });
+
+  it("cancels a pending toast when the controller goes away", async () => {
+    await mount();
+    const block = document.querySelector("[data-controller]");
+
+    el("item").click();
+    await flush();
+    block.remove();
+    await flush();
+    await new Promise((resolve) => setTimeout(resolve, 40));
+
+    expect(block.querySelector("#item").classList.contains("is-hinting")).toBe(true);
   });
 });
 

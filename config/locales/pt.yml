@@ -160,6 +160,8 @@ pt:
       map_howto_body: "Toque em qualquer pino, ou numa linha da legenda, para marcar. Uma dica aparece para confirmar; toque de novo para desfazer."
       map_legend: "LEGENDA"
       caught_badge: "CAPTURADO ✓"
+      tap_when_collected: "Toque ao coletar"
+      tap_to_undo: "Toque para desfazer"
       map_marker_named: "%{name} (%{key})"
       map_filter_all: "TUDO"
       map_cat_trainer: "TREINADORES"

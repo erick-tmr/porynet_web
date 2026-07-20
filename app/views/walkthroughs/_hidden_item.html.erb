@@ -1,16 +1,21 @@
 <div class="pn-wt-hidden" <%= tag.attributes(tickable("collected", id)) %>>
-  <span class="pn-wt-hidden__check" aria-hidden="true">✓</span>
+  <%= progress_toast("item") %>
   <div class="pn-wt-hidden__head">
-    <span class="pn-wt-hidden__badge"><%= t("walkthrough.ui.hidden_item") %></span>
+    <span class="pn-wt-hidden__badge pn-wt-hidden__badge--todo"><%= t("walkthrough.ui.hidden_item") %></span>
+    <span class="pn-wt-hidden__badge pn-wt-hidden__badge--done"><%= t("walkthrough.ui.map_status_item_done") %></span>
     <span class="pn-wt-hidden__icon"><%= r2_image_tag "walkthrough/items/#{hidden.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>
     <div class="pn-wt-hidden__name"><%= hidden.name %></div>
   </div>
   <div class="pn-wt-shot pn-wt-shot--hidden">
     <%= r2_image_tag hidden.image, alt: "", class: "pn-wt-shot__img" %>
     <span class="pn-wt-pin pn-wt-pin--<%= hidden.pin %>">
-      <span class="pn-wt-pin__glow"></span>
       <span class="pn-wt-pin__ring"></span>
+      <span class="pn-wt-pin__glow"></span>
     </span>
   </div>
   <div class="pn-wt-hidden__where"><%= t(hidden.where_key) %></div>
+  <div class="pn-wt-hidden__tap">
+    <span class="pn-wt-hidden__tap-todo"><%= t("walkthrough.ui.tap_when_collected") %></span>
+    <span class="pn-wt-hidden__tap-done"><%= t("walkthrough.ui.tap_to_undo") %></span>
+  </div>
 </div>

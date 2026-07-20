@@ -44,6 +44,16 @@ module ApplicationHelper
                       "keydown.space->progress-toggle#toggle" } }
   end
 
+  # Both captions render up front and CSS picks one, so no user-visible string lives in JS and
+  # the toast cannot get stuck showing the wrong half of the pair.
+  def progress_toast(flavor)
+    tag.span(class: "pn-wt-toast", aria: { live: "polite" }) do
+      safe_join(%w[todo done].map do |state|
+        tag.span(t("walkthrough.ui.map_status_#{flavor}_#{state}"), class: "pn-wt-toast__#{state}")
+      end)
+    end
+  end
+
   def progress_count(kind, ids)
     tag.span(0, data: { progress_toggle_target: "count", kind: kind, progress_ids: ids.join(" ") })
   end

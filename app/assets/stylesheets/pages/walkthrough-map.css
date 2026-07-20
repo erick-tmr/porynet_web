@@ -279,9 +279,6 @@
   animation-play-state: var(--play);
 }
 
-/* A collected item has stopped asking for attention. */
-.pn-mm.is-done .pn-mm__ring { display: none; }
-
 .pn-mm.is-selected .pn-mm__pin { border-color: var(--amber); }
 
 .pn-mm__hit:focus-visible { outline: none; }
@@ -523,15 +520,20 @@
   .pn-mm__label { font-size: 7px; }
 }
 
+
 /* --- tickable cards ------------------------------------------------------ */
-/* Items, hidden items, come-back-later cards and catchable Pokemon all tick into the same
-   store the map markers use, so they carry the same done treatment: pressed in, faded back,
-   and stamped. */
+/* Items, hidden items, come-back-later cards, trainers and catchable Pokemon all tick into the
+   same store the map markers use.
+   Nothing here uses opacity on a card root. Opacity forms a group, so a faded root drags its
+   own status badge and toast down with it and there is no way for a child to climb back out.
+   The done state is a background tint, and anything that must stay legible keeps full contrast. */
 
 .pn-wt-item,
 .pn-wt-hidden,
 .pn-wt-later,
-.pn-wt-catch {
+.pn-wt-catch,
+.pn-wt-trainer,
+.pn-wt-gym-tr {
   position: relative;
   cursor: pointer;
 }
@@ -539,29 +541,110 @@
 .pn-wt-item:focus-visible,
 .pn-wt-hidden:focus-visible,
 .pn-wt-later:focus-visible,
-.pn-wt-catch:focus-visible {
+.pn-wt-catch:focus-visible,
+.pn-wt-trainer:focus-visible,
+.pn-wt-gym-tr:focus-visible {
   outline: 3px solid var(--amber);
   outline-offset: 3px;
 }
 
-.pn-wt-item__check,
-.pn-wt-hidden__check,
-.pn-wt-later__check {
+.pn-wt-item.is-done,
+.pn-wt-later.is-done,
+.pn-wt-catch.is-done,
+.pn-wt-trainer.is-done,
+.pn-wt-gym-tr.is-done { background: #E8F2EA; }
+
+.pn-wt-hidden.is-done { background: #EFF3DF; }
+
+/* --- the click toast ----------------------------------------------------- */
+/* Both captions ship in the markup and CSS picks one, so the toast never has to be written
+   from JavaScript and stays translatable. */
+
+.pn-wt-toast {
   position: absolute;
-  top: -9px;
-  right: -9px;
-  z-index: 2;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  z-index: 41;
   display: none;
+  transform: translateX(-50%);
+  white-space: nowrap;
   font-family: "Press Start 2P", monospace;
-  font-size: 9px;
+  font-size: 8px;
+  color: #fff;
+  background: #2a3350;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 6px 8px;
+}
+
+.is-hinting > .pn-wt-toast { display: block; }
+.is-done > .pn-wt-toast { background: var(--done-green); }
+.pn-wt-toast__done { display: none; }
+.is-done > .pn-wt-toast .pn-wt-toast__todo { display: none; }
+.is-done > .pn-wt-toast .pn-wt-toast__done { display: inline; }
+
+/* --- item chips ---------------------------------------------------------- */
+/* A collected item keeps its sprite: the well takes a half-strength green wash so you can still
+   see what it was you picked up, and the check itself is the site's usual solid disc with an ink
+   border, the same one the map markers wear. */
+
+.pn-wt-item__chip { position: relative; }
+
+.pn-wt-item.is-done .pn-wt-item__chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(63 143 79 / 50%);
+}
+
+.pn-wt-item__check {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
   color: #fff;
   background: var(--done-green);
   border: 2px solid var(--ink);
-  box-shadow: 2px 2px 0 var(--ink);
-  padding: 5px 6px;
+  border-radius: 50%;
 }
 
-.pn-wt-catch__caught {
+.pn-wt-item.is-done .pn-wt-item__check { display: flex; }
+
+/* --- hidden item cards --------------------------------------------------- */
+
+.pn-wt-hidden__badge--done {
+  display: none;
+  color: #fff;
+  background: var(--done-green);
+}
+
+.pn-wt-hidden.is-done .pn-wt-hidden__badge--todo { display: none; }
+.pn-wt-hidden.is-done .pn-wt-hidden__badge--done { display: inline-block; }
+
+.pn-wt-hidden__tap {
+  margin-top: 8px;
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  color: #a07a00;
+}
+
+.pn-wt-hidden__tap-done { display: none; }
+.pn-wt-hidden.is-done .pn-wt-hidden__tap-todo { display: none; }
+.pn-wt-hidden.is-done .pn-wt-hidden__tap-done { display: inline; }
+
+/* --- corner status badges ------------------------------------------------ */
+/* Solid, always: these are the one thing that has to read at a glance on a tinted card. */
+
+.pn-wt-catch__caught,
+.pn-wt-trainer__beaten {
   position: absolute;
   top: -11px;
   right: -11px;
@@ -577,16 +660,25 @@
   transform: rotate(6deg);
 }
 
-.pn-wt-item.is-done .pn-wt-item__check,
-.pn-wt-hidden.is-done .pn-wt-hidden__check,
-.pn-wt-later.is-done .pn-wt-later__check,
-.pn-wt-catch.is-done .pn-wt-catch__caught { display: block; }
+.pn-wt-catch.is-done .pn-wt-catch__caught,
+.pn-wt-trainer.is-done .pn-wt-trainer__beaten,
+.pn-wt-gym-tr.is-done .pn-wt-trainer__beaten { display: block; }
 
-.pn-wt-item.is-done,
-.pn-wt-hidden.is-done,
-.pn-wt-later.is-done { background: #E8F2EA; }
+.pn-wt-later__check {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  z-index: 2;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: var(--done-green);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 5px 6px;
+}
 
-.pn-wt-catch.is-done { background: #E8F2EA; opacity: 0.72; }
+.pn-wt-later.is-done .pn-wt-later__check { display: block; }
 
-/* A collected hidden item stops pulsing for attention on its own screenshot too. */
-.pn-wt-hidden.is-done .pn-wt-pin__ring { display: none; }
+.pn-wt-trainer__key { color: var(--accent2); }

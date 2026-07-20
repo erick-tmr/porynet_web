@@ -9,7 +9,11 @@ import { countSet, isSet, load, save, subscribe, toggle } from "lib/progress_sto
 // page stays server-rendered and translatable.
 export default class extends Controller {
   static targets = ["item", "count"]
-  static values = { game: { type: String, default: "yellow" } }
+  static values = {
+    game: { type: String, default: "yellow" },
+    hint: { type: String, default: "" },
+    hintMs: { type: Number, default: 2200 },
+  }
 
   connect() {
     this.state = load()
@@ -21,6 +25,7 @@ export default class extends Controller {
   }
 
   disconnect() {
+    clearTimeout(this.hintTimer)
     this.unsubscribe()
   }
 
@@ -31,6 +36,18 @@ export default class extends Controller {
     this.state = toggle(this.state, kind, this.gameValue, progressId)
     save(this.state)
     this.#render()
+    this.hintValue = progressId
+  }
+
+  // The toast confirms what the click did, then gets out of the way.
+  hintValueChanged() {
+    clearTimeout(this.hintTimer)
+    this.itemTargets.forEach((item) => {
+      item.classList.toggle("is-hinting", item.dataset.progressId === this.hintValue)
+    })
+    if (this.hintValue) {
+      this.hintTimer = setTimeout(() => { this.hintValue = "" }, this.hintMsValue)
+    }
   }
 
   #render() {

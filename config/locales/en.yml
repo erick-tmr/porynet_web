@@ -160,6 +160,8 @@ en:
       map_howto_body: "Tap any pin, or a legend row, to tick it off. A hint pops up to confirm; tap again to undo."
       map_legend: "LEGEND"
       caught_badge: "CAUGHT ✓"
+      tap_when_collected: "Tap when collected"
+      tap_to_undo: "Tap to undo"
       map_marker_named: "%{name} (%{key})"
       map_filter_all: "ALL"
       map_cat_trainer: "TRAINERS"
