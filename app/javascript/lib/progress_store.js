@@ -35,9 +35,12 @@ export function load() {
   }
 }
 
+export const CHANGE_EVENT = "porynet:progress"
+
 export function save(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    window.dispatchEvent(new CustomEvent(CHANGE_EVENT))
     return true
   } catch {
     return false
@@ -75,12 +78,15 @@ export function importJson(raw) {
   }
 }
 
-// Fires when another tab writes the store, so two open walkthrough pages stay in step.
 export function subscribe(onChange) {
   const listener = (event) => {
-    if (event.key !== STORAGE_KEY) return
+    if (event.type === "storage" && event.key !== STORAGE_KEY) return
     onChange(load())
   }
   window.addEventListener("storage", listener)
-  return () => window.removeEventListener("storage", listener)
+  window.addEventListener(CHANGE_EVENT, listener)
+  return () => {
+    window.removeEventListener("storage", listener)
+    window.removeEventListener(CHANGE_EVENT, listener)
+  }
 }

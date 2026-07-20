@@ -155,6 +155,16 @@ describe("subscribe", () => {
     expect(seen).toHaveLength(1);
   });
 
+  it("reports a write from elsewhere on this page, which no storage event would carry", () => {
+    const seen = [];
+    subscribe((state) => seen.push(state));
+
+    save(toggle(load(), "collected", "yellow", "route-11/trainer-10-14"));
+
+    expect(seen).toHaveLength(1);
+    expect(seen[0].collected.yellow["route-11/trainer-10-14"]).toBe(true);
+  });
+
   it("ignores writes to somebody else's key", () => {
     const seen = [];
     subscribe((state) => seen.push(state));

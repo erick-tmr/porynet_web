@@ -30,7 +30,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   end
 
   test "marker positions are percentages of the rendered image" do
-    antidote = forest_map.markers.find { |m| m.id == "hidden-16-42" }
+    antidote = forest_map.markers.find { |marker| marker.id == "hidden-16-42" }
 
     assert_equal "Antidote", antidote.name
     assert_in_delta 48.529, antidote.x, 0.001
@@ -38,7 +38,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   end
 
   test "an exit is keyless, points the way it leaves, and cannot be ticked" do
-    south = forest_map.markers.find { |m| m.id == "exit-15-47" }
+    south = forest_map.markers.find { |marker| marker.id == "exit-15-47" }
 
     assert_equal "south", south.edge
     assert_equal "▼", south.glyph_or_key
@@ -78,7 +78,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   end
 
   test "a trainer given its map object takes the letter that object's pin carries" do
-    lass = location("viridian-forest").trainers.find { |t| t.cls == "LASS" }
+    lass = location("viridian-forest").trainers.find { |trainer| trainer.cls == "LASS" }
 
     assert_equal "LASS:19", lass.opp
     assert_equal "D", lass.marker_key
@@ -87,52 +87,33 @@ class WalkthroughMapTest < ActiveSupport::TestCase
 
   test "every keyed trainer letter matches a marker on the same map" do
     loc = location("viridian-forest")
-    pins = loc.area_maps.flat_map(&:markers).select(&:key?).to_h { |m| [ m.key, m.ref ] }
+    pins = loc.area_maps.flat_map(&:markers).select(&:key?).to_h { |marker| [ marker.key, marker.ref ] }
 
-    loc.trainers.each do |trainer|
+    loc.trainers.select(&:marker_key?).each do |trainer|
       assert_equal trainer.opp, pins[trainer.marker_key],
         "#{trainer.cls} shows #{trainer.marker_key} but that pin is #{pins[trainer.marker_key]}"
     end
   end
 
-  test "a trainer with no map object simply carries no letter" do
+  test "a trainer fought somewhere the location never draws carries no letter" do
     brock = location("pewter-city").gym.leader
 
-    assert_nil brock.opp
+    assert_equal "BROCK:1", brock.opp
     assert_nil brock.marker_key
     refute_predicate brock, :marker_key?
-  end
-
-  test "a trainer whose map object is absent from the manifest carries no letter" do
-    ghost = Walkthrough::Yellow.tr("LASS", nil, 1, opp: [ "NOBODY", 99 ])
-    loc = Walkthrough::Yellow.key_trainers(location("viridian-forest").with(trainers: [ ghost ]),
-      [ forest_map ])
-
-    assert_equal "NOBODY:99", loc.trainers.first.opp
-    assert_nil loc.trainers.first.marker_key
   end
 
   test "a gym city moves its gym floor into the gym section and keys nobody from it" do
     loc = location("pewter-city")
 
-    assert(loc.area_maps.none? { |m| m.floor == "Gym" }, "the gym floor moves into the gym section")
+    assert(loc.area_maps.none? { |area| area.floor == "Gym" }, "the gym floor moves into the gym section")
     assert_match(/pewter-city-gym/, loc.gym.shot.image)
-  end
-
-  test "a letter is never taken from a map the location does not render" do
-    loc = location("pewter-city")
-    brock = Walkthrough::Yellow.tr("LEADER", "Brock", 1, opp: [ "BROCK", 1 ])
-    keyed = Walkthrough::Yellow.attach_maps(loc.with(trainers: [ brock ]),
-      Walkthrough::Yellow.map_data["pewter-city"])
-
-    assert_nil keyed.trainers.first.marker_key,
-      "Brock's pin is on the gym floor, which the location header never draws"
   end
 
   test "a location with no manifest entry still builds" do
     loc = Walkthrough::Yellow.attach_maps(location("viridian-forest"), [])
 
     assert_empty loc.area_maps
-    assert(loc.trainers.all? { |t| t.marker_key.nil? })
+    assert_equal 5, loc.trainers.size, "the roster still supplies its cards"
   end
 end

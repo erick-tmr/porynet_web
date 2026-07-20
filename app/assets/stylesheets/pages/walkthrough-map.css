@@ -693,3 +693,12 @@
 .pn-wt-later.is-done .pn-wt-later__check { display: block; }
 
 .pn-wt-trainer__key { color: var(--accent2); }
+
+
+@media (min-width: 1200px) {
+  .pn-wt-trainers--dense { grid-template-columns: repeat(3, 1fr); }
+}
+
+.pn-wt-trainer--compact { padding: 12px 14px; }
+.pn-wt-trainer--compact .pn-wt-trainer__shots { gap: 8px; }
+.pn-wt-trainer--compact .pn-wt-team-mon { gap: 6px; }

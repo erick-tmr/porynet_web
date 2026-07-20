@@ -2,13 +2,20 @@ module Walkthrough
   # Marker categories in the order the map legend lists them.
   MAP_CATEGORIES = %w[trainer item hidden exit].freeze
 
+  DENSE_TRAINERS = 6
+
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line) do
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
   end
 
-  Item = Data.define(:name, :where_key, :sprite)
-  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite)
+  Item = Data.define(:name, :where_key, :sprite, :at, :tick) do
+    def initialize(at: nil, tick: nil, **rest) = super
+  end
+
+  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite, :at, :tick) do
+    def initialize(at: nil, tick: nil, **rest) = super
+  end
   LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin) do
     def image? = !image.nil?
   end
@@ -47,8 +54,9 @@ module Walkthrough
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
   # the map object, which resolves `marker_key` so the card and its pin show the same letter.
-  Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key) do
-    def initialize(opp: nil, marker_key: nil, **rest) = super
+  Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key,
+    :tick) do
+    def initialize(opp: nil, marker_key: nil, tick: nil, **rest) = super
     def marker_key? = !marker_key.nil?
   end
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
@@ -87,6 +95,8 @@ module Walkthrough
     def catchable_count = wild_encounters.size
     def badge? = !badge.nil?
     def gym? = !gym.nil?
+
+    def dense_trainers? = trainers.size > DENSE_TRAINERS
 
     # steps that lead up to the gym vs. the follow-up steps after it
     def lead_steps = gym_after ? steps.first(gym_after) : steps

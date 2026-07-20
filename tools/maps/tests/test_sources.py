@@ -1,3 +1,5 @@
+import pytest
+
 import sources
 
 
@@ -20,11 +22,26 @@ def test_sprite_table(root):
 
 def test_object_events(root):
     objs = sources.parse_object_events(root, "PalletTown")
-    assert len(objs) == 3
-    oak = objs[0]
-    assert oak["sprite_const"] == "SPRITE_OAK"
-    assert oak["grid"] == (10, 4)
-    assert oak["direction"] == "NONE"
+    assert len(objs) == 2
+    girl = objs[0]
+    assert girl["sprite_const"] == "SPRITE_GIRL"
+    assert girl["const"] == "PALLETTOWN_GIRL"
+
+
+def test_object_events_leave_out_the_cutscene_only(root):
+    """Oak stands in Pallet Town only long enough to stop you walking into the grass. The game
+    ships him switched off, so a map drawn from the object list alone would strand him there."""
+    assert "PALLETTOWN_OAK" in sources.parse_hidden_objects(root)["PALLET_TOWN"]
+
+    drawn = sources.parse_object_events(root, "PalletTown", include_battlers=True)
+    assert "SPRITE_OAK" not in {o["sprite_const"] for o in drawn}
+    assert "PALLETTOWN_OAK" in {o["const"] for o in sources._object_events(root, "PalletTown")}
+
+
+def test_the_rival_does_not_wait_on_route_22_forever(root):
+    """Both Route 22 rivals are switched off until the fight is due."""
+    assert not [o for o in sources.parse_object_events(root, "Route22", include_battlers=True)
+                if o["kind"] == "trainer"]
 
 
 def test_object_events_missing_map(root):
@@ -89,6 +106,66 @@ def test_item_display_name():
     assert sources.item_display_name("TM_BLIZZARD") == "TM Blizzard"
     assert sources.item_display_name("HM_SURF") == "HM Surf"
     assert sources.item_display_name("MOON_STONE") == "Moon Stone"
+
+
+def test_trainer_parties_plain_form(root):
+    """`db <level>, <SPECIES>, ..., 0` gives the whole team one level."""
+    assert sources.parse_trainer_parties(root)["BUG_CATCHER"][3] == (
+        (10, "CATERPIE"), (10, "WEEDLE"), (10, "CATERPIE"))
+
+
+def test_trainer_parties_per_mon_levels(root):
+    """`db $FF, <level>, <SPECIES>, ...` gives each mon its own level."""
+    assert sources.parse_trainer_parties(root)["RIVAL1"][2] == (
+        (18, "SPEAROW"), (15, "SANDSHREW"), (15, "RATTATA"), (17, "EEVEE"))
+
+
+def test_every_trainer_class_has_a_party_block(root):
+    """UNUSED_JUGGLER and CHIEF are the two classes the game never fields; their blocks read
+    `; none`. Every other class has at least one party."""
+    parties = sources.parse_trainer_parties(root)
+
+    assert set(parties) == set(sources._trainer_const_order(root)[1:])
+    assert {k for k, v in parties.items() if not v} == {"UNUSED_JUGGLER", "CHIEF"}
+
+
+def test_trainer_data_labels_are_not_camel_cased_consts(root):
+    """Reading the pointer table is what gets these three right."""
+    labels = sources._trainer_data_labels(root)
+
+    assert labels["BLACKBELT"] == "Blackbelt"
+    assert labels["JR_TRAINER_M"] == "JrTrainerM"
+    assert labels["PSYCHIC_TR"] == "Psychic"
+
+
+def test_trainer_money(root):
+    money = sources.parse_trainer_money(root)
+
+    assert money["BUG_CATCHER"] == 1000
+    assert money["MISTY"] == 9900
+    assert money["JUGGLER"] == money["UNUSED_JUGGLER"] == 3500
+
+
+def test_trainer_reward_matches_the_hand_authored_numbers(root):
+    """Base money over 100, times the last mon's level. These five were verified by hand."""
+    for const, party_no, want in [("BUG_CATCHER", 4, 100), ("LASS", 19, 90),
+                                  ("YOUNGSTER", 1, 165), ("BROCK", 1, 1188), ("MISTY", 1, 2079)]:
+        party = sources.trainer_party(root, const, party_no)
+        assert sources.trainer_reward(root, const, party) == want, f"{const}:{party_no}"
+
+
+def test_trainer_party_out_of_range(root):
+    with pytest.raises(KeyError):
+        sources.trainer_party(root, "BUG_CATCHER", 99)
+
+
+def test_dex_numbers(root):
+    dex = sources.parse_dex_numbers(root)
+
+    assert len(dex) == 151
+    assert dex["BULBASAUR"] == 1
+    assert dex["NIDORAN_M"] == 32
+    assert dex["MEW"] == 151
 
 
 def test_place_display_name():

@@ -63,7 +63,8 @@ def gen_map_scene(root, spec):
     if spec.get("auto_npcs"):
         sprites += auto_npcs(root, spec["map"])
     if sprites:
-        image = compositor.overlay_sprites(image, root, sprites, colors)
+        image = compositor.overlay_sprites(image, root, sprites, colors,
+                                           compositor.grass_cells(root, spec["map"]))
     if spec.get("arrows"):
         image = compositor.overlay_arrows(image, spec["arrows"])
     return image, spec["name"], {}

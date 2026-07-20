@@ -123,7 +123,7 @@
             "name": "Celadon Gym",
             "ref": "CELADON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -140,7 +140,7 @@
             "name": "Game Corner",
             "ref": "GAME_CORNER",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -157,7 +157,7 @@
             "name": "Celadon Mart 5F",
             "ref": "CELADON_MART_5F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -174,7 +174,7 @@
             "name": "Game Corner Prize Room",
             "ref": "GAME_CORNER_PRIZE_ROOM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -191,7 +191,7 @@
             "name": "Celadon Diner",
             "ref": "CELADON_DINER",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -208,7 +208,7 @@
             "name": "Celadon Chief House",
             "ref": "CELADON_CHIEF_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -225,7 +225,41 @@
             "name": "Celadon Hotel",
             "ref": "CELADON_HOTEL",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 1.0,
+            "y": 51.389,
+            "grid": [
+              0,
+              18
+            ],
+            "align": "r",
+            "name": "Route 16",
+            "ref": "ROUTE_16",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.0,
+            "y": 31.944,
+            "grid": [
+              49,
+              11
+            ],
+            "align": "l",
+            "name": "Route 7",
+            "ref": "ROUTE_7",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -525,7 +559,7 @@
             "name": "Cerulean Cave 2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -576,7 +610,7 @@
             "name": "Cerulean Cave 2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -593,7 +627,7 @@
             "name": "Cerulean Cave B1F",
             "ref": "CERULEAN_CAVE_B1F",
             "edge": "west",
-            "glyph": "\u25b2",
+            "glyph": "\u25c0",
             "lane": 0
           }
         ]
@@ -694,7 +728,7 @@
             "name": "Cerulean Cave 1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "east",
-            "glyph": "\u25b2",
+            "glyph": "\u25b6",
             "lane": 1
           },
           {
@@ -779,7 +813,7 @@
             "name": "Cerulean Cave 1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -1004,7 +1038,7 @@
             "name": "Cerulean Gym",
             "ref": "CERULEAN_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1021,7 +1055,7 @@
             "name": "Bike Shop",
             "ref": "BIKE_SHOP",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1038,7 +1072,7 @@
             "name": "Cerulean Mart",
             "ref": "CERULEAN_MART",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -1108,6 +1142,74 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 78.75,
+            "y": 1.389,
+            "grid": [
+              31,
+              0
+            ],
+            "align": "l",
+            "name": "Route 24",
+            "ref": "ROUTE_24",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 51.25,
+            "y": 98.611,
+            "grid": [
+              20,
+              35
+            ],
+            "align": "r",
+            "name": "Route 5",
+            "ref": "ROUTE_5",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 1.25,
+            "y": 45.833,
+            "grid": [
+              0,
+              16
+            ],
+            "align": "r",
+            "name": "Route 4",
+            "ref": "ROUTE_4",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 9.722,
+            "grid": [
+              39,
+              3
+            ],
+            "align": "l",
+            "name": "Route 9",
+            "ref": "ROUTE_9",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       },
@@ -1239,7 +1341,7 @@
             "name": "Cinnabar Lab",
             "ref": "CINNABAR_LAB",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1256,7 +1358,7 @@
             "name": "Cinnabar Pokecenter",
             "ref": "CINNABAR_POKECENTER",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1273,8 +1375,42 @@
             "name": "Cinnabar Mart",
             "ref": "CINNABAR_MART",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 12.5,
+            "y": 2.778,
+            "grid": [
+              2,
+              0
+            ],
+            "align": "r",
+            "name": "Route 21",
+            "ref": "ROUTE_21",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 97.5,
+            "y": 91.667,
+            "grid": [
+              19,
+              16
+            ],
+            "align": "l",
+            "name": "Route 20",
+            "ref": "ROUTE_20",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       },
@@ -1464,7 +1600,7 @@
             "name": "Digletts Cave Route 11",
             "ref": "DIGLETTS_CAVE_ROUTE_11",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -1509,7 +1645,7 @@
             "name": "Fuchsia Bills Grandpas House",
             "ref": "FUCHSIA_BILLS_GRANDPAS_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -1526,7 +1662,7 @@
             "name": "Fuchsia Pokecenter",
             "ref": "FUCHSIA_POKECENTER",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1543,7 +1679,7 @@
             "name": "Wardens House",
             "ref": "WARDENS_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -1577,7 +1713,7 @@
             "name": "Fuchsia Gym",
             "ref": "FUCHSIA_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1611,7 +1747,7 @@
             "name": "Fuchsia Good Rod House",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 3
           },
           {
@@ -1628,7 +1764,58 @@
             "name": "Fuchsia Good Rod House",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 23.75,
+            "y": 98.611,
+            "grid": [
+              9,
+              35
+            ],
+            "align": "r",
+            "name": "Route 19",
+            "ref": "ROUTE_19",
+            "edge": "south",
             "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 1.25,
+            "y": 95.833,
+            "grid": [
+              0,
+              34
+            ],
+            "align": "r",
+            "name": "Route 18",
+            "ref": "ROUTE_18",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 48.611,
+            "grid": [
+              39,
+              17
+            ],
+            "align": "l",
+            "name": "Route 15",
+            "ref": "ROUTE_15",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -1789,6 +1976,23 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 97.222,
+            "grid": [
+              10,
+              17
+            ],
+            "align": "r",
+            "name": "Route 23",
+            "ref": "ROUTE_23",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
           }
         ]
       }
@@ -1849,7 +2053,7 @@
             "name": "Mr Fujis House",
             "ref": "MR_FUJIS_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1866,7 +2070,7 @@
             "name": "Lavender Mart",
             "ref": "LAVENDER_MART",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -1883,7 +2087,7 @@
             "name": "Lavender Cubone House",
             "ref": "LAVENDER_CUBONE_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -1900,8 +2104,59 @@
             "name": "Name Raters House",
             "ref": "NAME_RATERS_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 42.5,
+            "y": 2.778,
+            "grid": [
+              8,
+              0
+            ],
+            "align": "r",
+            "name": "Route 10",
+            "ref": "ROUTE_10",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 47.5,
+            "y": 97.222,
+            "grid": [
+              9,
+              17
+            ],
+            "align": "r",
+            "name": "Route 12",
+            "ref": "ROUTE_12",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 2.5,
+            "y": 52.778,
+            "grid": [
+              0,
+              9
+            ],
+            "align": "r",
+            "name": "Route 8",
+            "ref": "ROUTE_8",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
           }
         ]
       }
@@ -2251,7 +2506,7 @@
             "name": "Mt. Moon 1F",
             "ref": "MT_MOON_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -2268,7 +2523,7 @@
             "name": "Mt. Moon B2F",
             "ref": "MT_MOON_B2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -2319,7 +2574,7 @@
             "name": "Back outside",
             "ref": "LAST_MAP",
             "edge": "east",
-            "glyph": "\u25b2",
+            "glyph": "\u25b6",
             "lane": 1
           }
         ]
@@ -2499,7 +2754,7 @@
             "name": "Mt. Moon B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -2578,6 +2833,40 @@
             "name": "Oaks Lab",
             "ref": "OAKS_LAB",
             "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 2.778,
+            "grid": [
+              10,
+              0
+            ],
+            "align": "r",
+            "name": "Route 1",
+            "ref": "ROUTE_1",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 32.5,
+            "y": 97.222,
+            "grid": [
+              6,
+              17
+            ],
+            "align": "r",
+            "name": "Route 21",
+            "ref": "ROUTE_21",
+            "edge": "south",
             "glyph": "\u25bc",
             "lane": 0
           }
@@ -2691,7 +2980,7 @@
             "name": "Pewter Speech House",
             "ref": "PEWTER_SPEECH_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -2708,7 +2997,41 @@
             "name": "Pewter Pokecenter",
             "ref": "PEWTER_POKECENTER",
             "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 66.25,
+            "y": 98.611,
+            "grid": [
+              26,
+              35
+            ],
+            "align": "l",
+            "name": "Route 2",
+            "ref": "ROUTE_2",
+            "edge": "south",
             "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 79.167,
+            "grid": [
+              39,
+              28
+            ],
+            "align": "l",
+            "name": "Route 3",
+            "ref": "ROUTE_3",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -2886,7 +3209,7 @@
             "name": "Pokemon Mansion B1F",
             "ref": "POKEMON_MANSION_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -2993,7 +3316,7 @@
             "name": "Pokemon Mansion 3F",
             "ref": "POKEMON_MANSION_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -3111,7 +3434,7 @@
             "name": "Pokemon Mansion 2F",
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -3145,7 +3468,7 @@
             "name": "Pokemon Mansion 2F",
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -3291,7 +3614,7 @@
             "name": "Pokemon Mansion 1F",
             "ref": "POKEMON_MANSION_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -3336,7 +3659,7 @@
             "name": "Pokemon Tower 2F",
             "ref": "POKEMON_TOWER_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -3362,7 +3685,7 @@
             "name": "Pokemon Tower 3F",
             "ref": "POKEMON_TOWER_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -3379,7 +3702,7 @@
             "name": "Pokemon Tower 1F",
             "ref": "POKEMON_TOWER_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -3465,7 +3788,7 @@
             "name": "Pokemon Tower 2F",
             "ref": "POKEMON_TOWER_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -3482,7 +3805,7 @@
             "name": "Pokemon Tower 4F",
             "ref": "POKEMON_TOWER_4F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           }
         ]
@@ -3598,7 +3921,7 @@
             "name": "Pokemon Tower 5F",
             "ref": "POKEMON_TOWER_5F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -3615,7 +3938,7 @@
             "name": "Pokemon Tower 3F",
             "ref": "POKEMON_TOWER_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -3731,7 +4054,7 @@
             "name": "Pokemon Tower 4F",
             "ref": "POKEMON_TOWER_4F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -3748,7 +4071,7 @@
             "name": "Pokemon Tower 6F",
             "ref": "POKEMON_TOWER_6F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -3849,7 +4172,7 @@
             "name": "Pokemon Tower 5F",
             "ref": "POKEMON_TOWER_5F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -3866,7 +4189,7 @@
             "name": "Pokemon Tower 7F",
             "ref": "POKEMON_TOWER_7F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -3892,7 +4215,7 @@
             "name": "Pokemon Tower 6F",
             "ref": "POKEMON_TOWER_6F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -4177,7 +4500,7 @@
             "name": "Back outside",
             "ref": "LAST_MAP",
             "edge": "west",
-            "glyph": "\u25b2",
+            "glyph": "\u25c0",
             "lane": 0
           }
         ]
@@ -4344,7 +4667,7 @@
             "name": "Back outside",
             "ref": "LAST_MAP",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -4575,7 +4898,7 @@
             "name": "Rock Tunnel 1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -4808,7 +5131,7 @@
             "name": "Rocket Hideout Elevator",
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -4825,7 +5148,7 @@
             "name": "Rocket Hideout B2F",
             "ref": "ROCKET_HIDEOUT_B2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -4960,7 +5283,7 @@
             "name": "Rocket Hideout Elevator",
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -4977,7 +5300,7 @@
             "name": "Rocket Hideout B1F",
             "ref": "ROCKET_HIDEOUT_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -5095,7 +5418,7 @@
             "name": "Rocket Hideout B4F",
             "ref": "ROCKET_HIDEOUT_B4F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -5258,7 +5581,7 @@
             "name": "Rocket Hideout Elevator",
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -5271,7 +5594,42 @@
         "height": 576,
         "floor": "",
         "name": "route-1",
-        "markers": []
+        "markers": [
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 1.389,
+            "grid": [
+              10,
+              0
+            ],
+            "align": "r",
+            "name": "Viridian City",
+            "ref": "VIRIDIAN_CITY",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 98.611,
+            "grid": [
+              10,
+              35
+            ],
+            "align": "r",
+            "name": "Pallet Town",
+            "ref": "PALLET_TOWN",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          }
+        ]
       }
     ],
     "route-10": [
@@ -5450,7 +5808,7 @@
             "name": "Rock Tunnel 1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -5467,7 +5825,41 @@
             "name": "Power Plant",
             "ref": "POWER_PLANT",
             "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 42.5,
+            "y": 99.306,
+            "grid": [
+              8,
+              71
+            ],
+            "align": "r",
+            "name": "Lavender Town",
+            "ref": "LAVENDER_TOWN",
+            "edge": "south",
             "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 2.5,
+            "y": 4.861,
+            "grid": [
+              0,
+              3
+            ],
+            "align": "r",
+            "name": "Route 9",
+            "ref": "ROUTE_9",
+            "edge": "west",
+            "glyph": "\u25c0",
             "lane": 0
           }
         ]
@@ -5660,7 +6052,7 @@
             "name": "Route 11 Gate 1F",
             "ref": "ROUTE_11_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -5677,7 +6069,7 @@
             "name": "Route 11 Gate 1F",
             "ref": "ROUTE_11_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -5696,6 +6088,40 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.833,
+            "y": 63.889,
+            "grid": [
+              0,
+              11
+            ],
+            "align": "r",
+            "name": "Vermilion City",
+            "ref": "VERMILION_CITY",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.167,
+            "y": 52.778,
+            "grid": [
+              59,
+              9
+            ],
+            "align": "l",
+            "name": "Route 12",
+            "ref": "ROUTE_12",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 1
           }
         ]
       }
@@ -5841,7 +6267,7 @@
             "align": "r",
             "name": "Iron",
             "ref": "IRON",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "hidden-2-63",
@@ -5906,8 +6332,59 @@
             "name": "Route 12 Super Rod House",
             "ref": "ROUTE_12_SUPER_ROD_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 47.5,
+            "y": 0.463,
+            "grid": [
+              9,
+              0
+            ],
+            "align": "r",
+            "name": "Lavender Town",
+            "ref": "LAVENDER_TOWN",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 77.5,
+            "y": 99.537,
+            "grid": [
+              15,
+              107
+            ],
+            "align": "l",
+            "name": "Route 13",
+            "ref": "ROUTE_13",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 2.5,
+            "y": 82.87,
+            "grid": [
+              0,
+              89
+            ],
+            "align": "r",
+            "name": "Route 11",
+            "ref": "ROUTE_11",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
           }
         ]
       }
@@ -6099,6 +6576,40 @@
             "name": "Calcium",
             "ref": "CALCIUM",
             "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 92.5,
+            "y": 2.778,
+            "grid": [
+              55,
+              0
+            ],
+            "align": "l",
+            "name": "Route 12",
+            "ref": "ROUTE_12",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.833,
+            "y": 25.0,
+            "grid": [
+              0,
+              4
+            ],
+            "align": "r",
+            "name": "Route 14",
+            "ref": "ROUTE_14",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
           }
         ]
       }
@@ -6260,6 +6771,40 @@
             "name": "Biker",
             "ref": "BIKER:2",
             "lane": 2
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 2.5,
+            "y": 45.37,
+            "grid": [
+              0,
+              24
+            ],
+            "align": "r",
+            "name": "Route 15",
+            "ref": "ROUTE_15",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 97.5,
+            "y": 69.444,
+            "grid": [
+              19,
+              37
+            ],
+            "align": "l",
+            "name": "Route 13",
+            "ref": "ROUTE_13",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       }
@@ -6451,7 +6996,7 @@
             "name": "Route 15 Gate 1F",
             "ref": "ROUTE_15_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -6468,8 +7013,42 @@
             "name": "Route 15 Gate 1F",
             "ref": "ROUTE_15_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.833,
+            "y": 52.778,
+            "grid": [
+              0,
+              9
+            ],
+            "align": "r",
+            "name": "Fuchsia City",
+            "ref": "FUCHSIA_CITY",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 1
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.167,
+            "y": 58.333,
+            "grid": [
+              59,
+              10
+            ],
+            "align": "l",
+            "name": "Route 14",
+            "ref": "ROUTE_14",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       }
@@ -6586,7 +7165,7 @@
             "name": "Route 16 Gate 1F",
             "ref": "ROUTE_16_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -6603,7 +7182,7 @@
             "name": "Route 16 Gate 1F",
             "ref": "ROUTE_16_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -6656,6 +7235,40 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 48.75,
+            "y": 97.222,
+            "grid": [
+              19,
+              17
+            ],
+            "align": "r",
+            "name": "Route 17",
+            "ref": "ROUTE_17",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 58.333,
+            "grid": [
+              39,
+              10
+            ],
+            "align": "l",
+            "name": "Celadon City",
+            "ref": "CELADON_CITY",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       }
@@ -6892,6 +7505,40 @@
             "name": "Max Elixir",
             "ref": "MAX_ELIXER",
             "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 87.5,
+            "y": 0.347,
+            "grid": [
+              17,
+              0
+            ],
+            "align": "l",
+            "name": "Route 16",
+            "ref": "ROUTE_16",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 77.5,
+            "y": 99.653,
+            "grid": [
+              15,
+              143
+            ],
+            "align": "l",
+            "name": "Route 18",
+            "ref": "ROUTE_18",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
           }
         ]
       }
@@ -6963,7 +7610,7 @@
             "name": "Route 18 Gate 1F",
             "ref": "ROUTE_18_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -6980,8 +7627,42 @@
             "name": "Route 18 Gate 1F",
             "ref": "ROUTE_18_GATE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 35.0,
+            "y": 2.778,
+            "grid": [
+              17,
+              0
+            ],
+            "align": "r",
+            "name": "Route 17",
+            "ref": "ROUTE_17",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.0,
+            "y": 25.0,
+            "grid": [
+              49,
+              4
+            ],
+            "align": "l",
+            "name": "Fuchsia City",
+            "ref": "FUCHSIA_CITY",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       }
@@ -7160,6 +7841,40 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 47.5,
+            "y": 0.926,
+            "grid": [
+              9,
+              0
+            ],
+            "align": "r",
+            "name": "Fuchsia City",
+            "ref": "FUCHSIA_CITY",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 2.5,
+            "y": 82.407,
+            "grid": [
+              0,
+              44
+            ],
+            "align": "r",
+            "name": "Route 20",
+            "ref": "ROUTE_20",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
           }
         ]
       }
@@ -7284,7 +7999,7 @@
             "name": "Route 2 Gate",
             "ref": "ROUTE_2_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -7301,6 +8016,40 @@
             "name": "Viridian Forest South Gate",
             "ref": "VIRIDIAN_FOREST_SOUTH_GATE",
             "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 47.5,
+            "y": 0.694,
+            "grid": [
+              9,
+              0
+            ],
+            "align": "r",
+            "name": "Pewter City",
+            "ref": "PEWTER_CITY",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 42.5,
+            "y": 99.306,
+            "grid": [
+              8,
+              71
+            ],
+            "align": "r",
+            "name": "Viridian City",
+            "ref": "VIRIDIAN_CITY",
+            "edge": "south",
             "glyph": "\u25bc",
             "lane": 0
           }
@@ -7496,7 +8245,41 @@
             "name": "Seafoam Islands 1F",
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.5,
+            "y": 86.111,
+            "grid": [
+              0,
+              15
+            ],
+            "align": "r",
+            "name": "Cinnabar Island",
+            "ref": "CINNABAR_ISLAND",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.5,
+            "y": 52.778,
+            "grid": [
+              99,
+              9
+            ],
+            "align": "l",
+            "name": "Route 19",
+            "ref": "ROUTE_19",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -7644,6 +8427,40 @@
             "name": "Fisherman",
             "ref": "FISHER:10",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 32.5,
+            "y": 0.556,
+            "grid": [
+              6,
+              0
+            ],
+            "align": "r",
+            "name": "Pallet Town",
+            "ref": "PALLET_TOWN",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 47.5,
+            "y": 99.444,
+            "grid": [
+              9,
+              89
+            ],
+            "align": "r",
+            "name": "Cinnabar Island",
+            "ref": "CINNABAR_ISLAND",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
           }
         ]
       }
@@ -7671,6 +8488,40 @@
             "ref": "ROUTE_22_GATE",
             "edge": "inner",
             "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 51.25,
+            "y": 2.778,
+            "grid": [
+              20,
+              0
+            ],
+            "align": "r",
+            "name": "Route 23",
+            "ref": "ROUTE_23",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 47.222,
+            "grid": [
+              39,
+              8
+            ],
+            "align": "l",
+            "name": "Viridian City",
+            "ref": "VIRIDIAN_CITY",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -7743,7 +8594,7 @@
             "name": "Route 22 Gate",
             "ref": "ROUTE_22_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -7779,6 +8630,40 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 0.347,
+            "grid": [
+              10,
+              0
+            ],
+            "align": "r",
+            "name": "Indigo Plateau",
+            "ref": "INDIGO_PLATEAU",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 82.5,
+            "y": 99.653,
+            "grid": [
+              16,
+              143
+            ],
+            "align": "l",
+            "name": "Route 22",
+            "ref": "ROUTE_22",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
           }
         ]
       }
@@ -7910,6 +8795,40 @@
             "name": "TM Thunder Wave",
             "ref": "TM_THUNDER_WAVE",
             "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 42.5,
+            "y": 98.611,
+            "grid": [
+              8,
+              35
+            ],
+            "align": "r",
+            "name": "Cerulean City",
+            "ref": "CERULEAN_CITY",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 97.5,
+            "y": 81.944,
+            "grid": [
+              19,
+              29
+            ],
+            "align": "l",
+            "name": "Route 25",
+            "ref": "ROUTE_25",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 1
           }
         ]
       }
@@ -8118,6 +9037,23 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.833,
+            "y": 41.667,
+            "grid": [
+              0,
+              7
+            ],
+            "align": "r",
+            "name": "Route 24",
+            "ref": "ROUTE_24",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
           }
         ]
       }
@@ -8249,6 +9185,40 @@
             "name": "Lass",
             "ref": "LASS:3",
             "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 86.429,
+            "y": 2.778,
+            "grid": [
+              60,
+              0
+            ],
+            "align": "l",
+            "name": "Route 4",
+            "ref": "ROUTE_4",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.714,
+            "y": 58.333,
+            "grid": [
+              0,
+              10
+            ],
+            "align": "r",
+            "name": "Pewter City",
+            "ref": "PEWTER_CITY",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
           }
         ]
       }
@@ -8356,6 +9326,40 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 13.889,
+            "y": 97.222,
+            "grid": [
+              12,
+              17
+            ],
+            "align": "r",
+            "name": "Route 3",
+            "ref": "ROUTE_3",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.444,
+            "y": 47.222,
+            "grid": [
+              89,
+              8
+            ],
+            "align": "l",
+            "name": "Cerulean City",
+            "ref": "CERULEAN_CITY",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       }
@@ -8382,7 +9386,7 @@
             "name": "Route 5 Gate",
             "ref": "ROUTE_5_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -8399,7 +9403,7 @@
             "name": "Route 5 Gate",
             "ref": "ROUTE_5_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -8416,7 +9420,7 @@
             "name": "Underground Path Route 5",
             "ref": "UNDERGROUND_PATH_ROUTE_5",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -8433,6 +9437,40 @@
             "name": "Daycare",
             "ref": "DAYCARE",
             "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 1.389,
+            "grid": [
+              10,
+              0
+            ],
+            "align": "r",
+            "name": "Cerulean City",
+            "ref": "CERULEAN_CITY",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 98.611,
+            "grid": [
+              10,
+              35
+            ],
+            "align": "r",
+            "name": "Saffron City",
+            "ref": "SAFFRON_CITY",
+            "edge": "south",
             "glyph": "\u25bc",
             "lane": 0
           }
@@ -8552,7 +9590,7 @@
             "ref": "ROUTE_6_GATE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-10-7",
@@ -8587,6 +9625,40 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 52.5,
+            "y": 1.389,
+            "grid": [
+              10,
+              0
+            ],
+            "align": "r",
+            "name": "Saffron City",
+            "ref": "SAFFRON_CITY",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 17.5,
+            "y": 98.611,
+            "grid": [
+              3,
+              35
+            ],
+            "align": "r",
+            "name": "Vermilion City",
+            "ref": "VERMILION_CITY",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
           }
         ]
       }
@@ -8613,8 +9685,8 @@
             "name": "Route 7 Gate",
             "ref": "ROUTE_7_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
-            "lane": 1
+            "glyph": "\u25b2",
+            "lane": 2
           },
           {
             "id": "exit-11-9",
@@ -8630,8 +9702,8 @@
             "name": "Route 7 Gate",
             "ref": "ROUTE_7_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
-            "lane": 0
+            "glyph": "\u25b2",
+            "lane": 1
           },
           {
             "id": "exit-5-13",
@@ -8647,7 +9719,41 @@
             "name": "Underground Path Route 7",
             "ref": "UNDERGROUND_PATH_ROUTE_7",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 2.5,
+            "y": 19.444,
+            "grid": [
+              0,
+              3
+            ],
+            "align": "r",
+            "name": "Celadon City",
+            "ref": "CELADON_CITY",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 97.5,
+            "y": 47.222,
+            "grid": [
+              19,
+              8
+            ],
+            "align": "l",
+            "name": "Saffron City",
+            "ref": "SAFFRON_CITY",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -8810,8 +9916,8 @@
             "name": "Route 8 Gate",
             "ref": "ROUTE_8_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
-            "lane": 0
+            "glyph": "\u25b2",
+            "lane": 1
           },
           {
             "id": "exit-8-9",
@@ -8827,8 +9933,8 @@
             "name": "Route 8 Gate",
             "ref": "ROUTE_8_GATE",
             "edge": "inner",
-            "glyph": "\u25bc",
-            "lane": 1
+            "glyph": "\u25b2",
+            "lane": 2
           },
           {
             "id": "exit-13-3",
@@ -8845,6 +9951,40 @@
             "ref": "UNDERGROUND_PATH_ROUTE_8",
             "edge": "inner",
             "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.833,
+            "y": 52.778,
+            "grid": [
+              0,
+              9
+            ],
+            "align": "r",
+            "name": "Saffron City",
+            "ref": "SAFFRON_CITY",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.167,
+            "y": 58.333,
+            "grid": [
+              59,
+              10
+            ],
+            "align": "l",
+            "name": "Lavender Town",
+            "ref": "LAVENDER_TOWN",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -9022,6 +10162,40 @@
             "name": "Ether",
             "ref": "ETHER",
             "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 0.833,
+            "y": 63.889,
+            "grid": [
+              0,
+              11
+            ],
+            "align": "r",
+            "name": "Cerulean City",
+            "ref": "CERULEAN_CITY",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 99.167,
+            "y": 52.778,
+            "grid": [
+              59,
+              9
+            ],
+            "align": "l",
+            "name": "Route 10",
+            "ref": "ROUTE_10",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       }
@@ -9080,7 +10254,7 @@
             "name": "Safari Zone West",
             "ref": "SAFARI_ZONE_WEST",
             "edge": "west",
-            "glyph": "\u25b2",
+            "glyph": "\u25c0",
             "lane": 0
           },
           {
@@ -9114,7 +10288,7 @@
             "name": "Safari Zone East",
             "ref": "SAFARI_ZONE_EAST",
             "edge": "east",
-            "glyph": "\u25b2",
+            "glyph": "\u25b6",
             "lane": 1
           },
           {
@@ -9131,7 +10305,7 @@
             "name": "Safari Zone Center Rest House",
             "ref": "SAFARI_ZONE_CENTER_REST_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -9217,7 +10391,7 @@
             "name": "Safari Zone North",
             "ref": "SAFARI_ZONE_NORTH",
             "edge": "west",
-            "glyph": "\u25b2",
+            "glyph": "\u25c0",
             "lane": 0
           },
           {
@@ -9234,7 +10408,7 @@
             "name": "Safari Zone Center",
             "ref": "SAFARI_ZONE_CENTER",
             "edge": "west",
-            "glyph": "\u25bc",
+            "glyph": "\u25c0",
             "lane": 0
           },
           {
@@ -9358,7 +10532,7 @@
             "name": "Safari Zone East",
             "ref": "SAFARI_ZONE_EAST",
             "edge": "east",
-            "glyph": "\u25bc",
+            "glyph": "\u25b6",
             "lane": 0
           },
           {
@@ -9510,7 +10684,7 @@
             "name": "Safari Zone Center",
             "ref": "SAFARI_ZONE_CENTER",
             "edge": "east",
-            "glyph": "\u25bc",
+            "glyph": "\u25b6",
             "lane": 0
           },
           {
@@ -9657,7 +10831,7 @@
             "name": "Silph Co 1F",
             "ref": "SILPH_CO_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -9674,7 +10848,7 @@
             "name": "Saffron Pokecenter",
             "ref": "SAFFRON_POKECENTER",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -9691,8 +10865,76 @@
             "name": "Mr Psychics House",
             "ref": "MR_PSYCHICS_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 33.75,
+            "y": 1.389,
+            "grid": [
+              13,
+              0
+            ],
+            "align": "r",
+            "name": "Route 5",
+            "ref": "ROUTE_5",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 53.75,
+            "y": 98.611,
+            "grid": [
+              21,
+              35
+            ],
+            "align": "r",
+            "name": "Route 6",
+            "ref": "ROUTE_6",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 1.25,
+            "y": 45.833,
+            "grid": [
+              0,
+              16
+            ],
+            "align": "r",
+            "name": "Route 7",
+            "ref": "ROUTE_7",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 48.611,
+            "grid": [
+              39,
+              17
+            ],
+            "align": "l",
+            "name": "Route 8",
+            "ref": "ROUTE_8",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 0
           }
         ]
       },
@@ -9922,7 +11164,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -9939,7 +11181,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -9956,7 +11198,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -9973,7 +11215,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -9990,7 +11232,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10007,7 +11249,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -10126,7 +11368,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10143,7 +11385,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10177,7 +11419,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "east",
-            "glyph": "\u25b2",
+            "glyph": "\u25b6",
             "lane": 4
           },
           {
@@ -10211,7 +11453,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "east",
-            "glyph": "\u25b2",
+            "glyph": "\u25b6",
             "lane": 4
           },
           {
@@ -10228,7 +11470,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 3
           },
           {
@@ -10245,7 +11487,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "east",
-            "glyph": "\u25bc",
+            "glyph": "\u25b6",
             "lane": 0
           },
           {
@@ -10262,7 +11504,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -10279,7 +11521,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "east",
-            "glyph": "\u25bc",
+            "glyph": "\u25b6",
             "lane": 3
           },
           {
@@ -10296,7 +11538,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -10313,7 +11555,7 @@
             "name": "Saffron Gym",
             "ref": "SAFFRON_GYM",
             "edge": "east",
-            "glyph": "\u25bc",
+            "glyph": "\u25b6",
             "lane": 3
           },
           {
@@ -10443,7 +11685,7 @@
             "name": "Seafoam Islands B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -10520,7 +11762,7 @@
             "name": "Seafoam Islands B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10537,7 +11779,7 @@
             "name": "Seafoam Islands 1F",
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -10554,7 +11796,7 @@
             "name": "Seafoam Islands B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10629,7 +11871,7 @@
             "name": "Seafoam Islands B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10663,7 +11905,7 @@
             "name": "Seafoam Islands B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -10697,7 +11939,7 @@
             "name": "Seafoam Islands B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10714,7 +11956,7 @@
             "name": "Seafoam Islands B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -10755,7 +11997,7 @@
             "name": "Seafoam Islands B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -10823,7 +12065,7 @@
             "name": "Seafoam Islands B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -11009,7 +12251,7 @@
             "name": "Silph Co 3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -11180,7 +12422,7 @@
             "name": "Silph Co 8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -11197,7 +12439,7 @@
             "name": "Silph Co 6F",
             "ref": "SILPH_CO_6F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -11319,7 +12561,7 @@
             "name": "Silph Co 3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -11353,7 +12595,7 @@
             "name": "Silph Co 5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -11387,7 +12629,7 @@
             "name": "Silph Co 9F",
             "ref": "SILPH_CO_9F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -11404,7 +12646,7 @@
             "name": "Silph Co 7F",
             "ref": "SILPH_CO_7F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -11421,7 +12663,7 @@
             "name": "Silph Co 3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -11622,7 +12864,7 @@
             "name": "Silph Co 10F",
             "ref": "SILPH_CO_10F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -11639,7 +12881,7 @@
             "name": "Silph Co 10F",
             "ref": "SILPH_CO_10F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -11853,7 +13095,7 @@
             "name": "Silph Co 9F",
             "ref": "SILPH_CO_9F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -11887,7 +13129,7 @@
             "name": "Silph Co 3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -12257,7 +13499,7 @@
             "name": "Silph Co 5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -12379,7 +13621,7 @@
             "name": "Silph Co 8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -12396,7 +13638,7 @@
             "name": "Silph Co 2F",
             "ref": "SILPH_CO_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -12430,7 +13672,7 @@
             "name": "Silph Co 8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -12584,7 +13826,7 @@
             "name": "Silph Co 5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           }
         ]
@@ -12736,7 +13978,7 @@
             "name": "Silph Co 4F",
             "ref": "SILPH_CO_4F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -12753,7 +13995,7 @@
             "name": "Silph Co 4F",
             "ref": "SILPH_CO_4F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -13041,7 +14283,7 @@
             "name": "S.S. Anne B1F",
             "ref": "SS_ANNE_B1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -13058,7 +14300,7 @@
             "name": "S.S. Anne Kitchen",
             "ref": "SS_ANNE_KITCHEN",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -13099,7 +14341,7 @@
             "name": "S.S. Anne 2F Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -13116,7 +14358,7 @@
             "name": "S.S. Anne 2F Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -13133,7 +14375,7 @@
             "name": "S.S. Anne 2F Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 2
           },
           {
@@ -13150,7 +14392,7 @@
             "name": "S.S. Anne 2F Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -13167,7 +14409,7 @@
             "name": "S.S. Anne 2F Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 3
           },
           {
@@ -13184,7 +14426,7 @@
             "name": "S.S. Anne 2F Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 4
           },
           {
@@ -13218,7 +14460,7 @@
             "name": "S.S. Anne 3F",
             "ref": "SS_ANNE_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -13261,7 +14503,7 @@
             "name": "S.S. Anne Bow",
             "ref": "SS_ANNE_BOW",
             "edge": "west",
-            "glyph": "\u25bc",
+            "glyph": "\u25c0",
             "lane": 0
           },
           {
@@ -13278,7 +14520,7 @@
             "name": "S.S. Anne 2F",
             "ref": "SS_ANNE_2F",
             "edge": "east",
-            "glyph": "\u25bc",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -13389,7 +14631,7 @@
             "name": "S.S. Anne 1F",
             "ref": "SS_ANNE_1F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]
@@ -13483,7 +14725,7 @@
             "name": "Vermilion Gym",
             "ref": "VERMILION_GYM",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -13500,7 +14742,7 @@
             "name": "Vermilion Pidgey House",
             "ref": "VERMILION_PIDGEY_HOUSE",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -13517,7 +14759,7 @@
             "name": "Vermilion Dock",
             "ref": "VERMILION_DOCK",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -13552,6 +14794,40 @@
             "ref": "VERMILION_OLD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 8.75,
+            "y": 1.389,
+            "grid": [
+              3,
+              0
+            ],
+            "align": "r",
+            "name": "Route 6",
+            "ref": "ROUTE_6",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-east",
+            "cat": "exit",
+            "key": null,
+            "x": 98.75,
+            "y": 81.944,
+            "grid": [
+              39,
+              29
+            ],
+            "align": "l",
+            "name": "Route 11",
+            "ref": "ROUTE_11",
+            "edge": "east",
+            "glyph": "\u25b6",
             "lane": 0
           }
         ]
@@ -13948,7 +15224,7 @@
             "name": "Victory Road 1F",
             "ref": "VICTORY_ROAD_1F",
             "edge": "west",
-            "glyph": "\u25b2",
+            "glyph": "\u25c0",
             "lane": 0
           },
           {
@@ -13965,7 +15241,7 @@
             "name": "Back outside",
             "ref": "LAST_MAP",
             "edge": "east",
-            "glyph": "\u25b2",
+            "glyph": "\u25b6",
             "lane": 3
           },
           {
@@ -13999,7 +15275,7 @@
             "name": "Victory Road 3F",
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 1
           },
           {
@@ -14183,7 +15459,7 @@
             "name": "Victory Road 2F",
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -14243,7 +15519,7 @@
             "name": "Viridian Pokecenter",
             "ref": "VIRIDIAN_POKECENTER",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -14260,7 +15536,7 @@
             "name": "Viridian Mart",
             "ref": "VIRIDIAN_MART",
             "edge": "inner",
-            "glyph": "\u25bc",
+            "glyph": "\u25b2",
             "lane": 0
           },
           {
@@ -14312,6 +15588,57 @@
             "ref": "VIRIDIAN_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-north",
+            "cat": "exit",
+            "key": null,
+            "x": 46.25,
+            "y": 1.389,
+            "grid": [
+              18,
+              0
+            ],
+            "align": "r",
+            "name": "Route 2",
+            "ref": "ROUTE_2",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-south",
+            "cat": "exit",
+            "key": null,
+            "x": 51.25,
+            "y": 98.611,
+            "grid": [
+              20,
+              35
+            ],
+            "align": "r",
+            "name": "Route 1",
+            "ref": "ROUTE_1",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-west",
+            "cat": "exit",
+            "key": null,
+            "x": 1.25,
+            "y": 84.722,
+            "grid": [
+              0,
+              30
+            ],
+            "align": "r",
+            "name": "Route 22",
+            "ref": "ROUTE_22",
+            "edge": "west",
+            "glyph": "\u25c0",
             "lane": 0
           }
         ]
@@ -15099,56 +16426,8 @@
       "height": 144,
       "type": "screen"
     },
-    "vf-bug-catcher-1": {
-      "image": "walkthrough/yellow/scenes/vf-bug-catcher-1.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "vf-bug-catcher-2": {
-      "image": "walkthrough/yellow/scenes/vf-bug-catcher-2.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "vf-bug-catcher-15": {
-      "image": "walkthrough/yellow/scenes/vf-bug-catcher-15.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "vf-bug-catcher-3": {
-      "image": "walkthrough/yellow/scenes/vf-bug-catcher-3.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "vf-lass": {
-      "image": "walkthrough/yellow/scenes/vf-lass.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "pewter-gym-trainer": {
-      "image": "walkthrough/yellow/scenes/pewter-gym-trainer.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
     "mt-moon-jessie-james": {
       "image": "walkthrough/yellow/scenes/mt-moon-jessie-james.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cerulean-gym-swimmer": {
-      "image": "walkthrough/yellow/scenes/cerulean-gym-swimmer.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cerulean-gym-jr-trainer": {
-      "image": "walkthrough/yellow/scenes/cerulean-gym-jr-trainer.png",
       "width": 160,
       "height": 144,
       "type": "screen"
@@ -15159,218 +16438,8 @@
       "height": 144,
       "type": "screen"
     },
-    "vermilion-gym-sailor": {
-      "image": "walkthrough/yellow/scenes/vermilion-gym-sailor.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "vermilion-gym-rocker": {
-      "image": "walkthrough/yellow/scenes/vermilion-gym-rocker.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "vermilion-gym-gentleman": {
-      "image": "walkthrough/yellow/scenes/vermilion-gym-gentleman.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
     "ss-anne-rival": {
       "image": "walkthrough/yellow/scenes/ss-anne-rival.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "celadon-gym-t1": {
-      "image": "walkthrough/yellow/scenes/celadon-gym-t1.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "celadon-gym-t2": {
-      "image": "walkthrough/yellow/scenes/celadon-gym-t2.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "celadon-gym-t3": {
-      "image": "walkthrough/yellow/scenes/celadon-gym-t3.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "celadon-gym-t4": {
-      "image": "walkthrough/yellow/scenes/celadon-gym-t4.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "celadon-gym-t5": {
-      "image": "walkthrough/yellow/scenes/celadon-gym-t5.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "celadon-gym-t6": {
-      "image": "walkthrough/yellow/scenes/celadon-gym-t6.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "fuchsia-gym-t1": {
-      "image": "walkthrough/yellow/scenes/fuchsia-gym-t1.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "fuchsia-gym-t2": {
-      "image": "walkthrough/yellow/scenes/fuchsia-gym-t2.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "fuchsia-gym-t3": {
-      "image": "walkthrough/yellow/scenes/fuchsia-gym-t3.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "fuchsia-gym-t4": {
-      "image": "walkthrough/yellow/scenes/fuchsia-gym-t4.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "fuchsia-gym-t5": {
-      "image": "walkthrough/yellow/scenes/fuchsia-gym-t5.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "fuchsia-gym-t6": {
-      "image": "walkthrough/yellow/scenes/fuchsia-gym-t6.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t1": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t1.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t2": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t2.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t3": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t3.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t4": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t4.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t5": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t5.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t6": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t6.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-gym-t7": {
-      "image": "walkthrough/yellow/scenes/saffron-gym-t7.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cinnabar-gym-t1": {
-      "image": "walkthrough/yellow/scenes/cinnabar-gym-t1.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cinnabar-gym-t2": {
-      "image": "walkthrough/yellow/scenes/cinnabar-gym-t2.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cinnabar-gym-t3": {
-      "image": "walkthrough/yellow/scenes/cinnabar-gym-t3.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cinnabar-gym-t4": {
-      "image": "walkthrough/yellow/scenes/cinnabar-gym-t4.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "cinnabar-gym-t5": {
-      "image": "walkthrough/yellow/scenes/cinnabar-gym-t5.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t1": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t1.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t2": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t2.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t3": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t3.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t4": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t4.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t5": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t5.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t6": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t6.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t7": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t7.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "viridian-gym-t8": {
-      "image": "walkthrough/yellow/scenes/viridian-gym-t8.png",
       "width": 160,
       "height": 144,
       "type": "screen"

@@ -46,3 +46,41 @@ def test_palette_modes(root):
         assert compositor._map_colors(root, 7) == compositor.DMG_PALETTE   # ...ignoring pal id
     finally:
         compositor.PALETTE_MODE = original
+
+
+def test_grass_cells_only_exist_where_the_tileset_has_grass(root):
+    assert len(compositor.grass_cells(root, "ViridianForest")) == 137
+    assert compositor.grass_cells(root, "MtMoon1F") == frozenset()
+
+
+def test_a_sprite_standing_in_grass_is_covered_from_the_waist_down(root):
+    """The game drops the lower half of the sprite behind the background, so the blades hide the
+    legs. The top half must be untouched."""
+    cell = (2, 18)
+    grass = compositor.grass_cells(root, "ViridianForest")
+    assert cell in grass
+
+    canvas, colors = compositor.render_map(root, "ViridianForest")
+    sprite = [{"file": "youngster", "frame": 0, "grid": list(cell), "flip": False}]
+    plain = compositor.overlay_sprites(canvas.copy(), root, sprite, colors)
+    blended = compositor.overlay_sprites(canvas.copy(), root, sprite, colors, grass)
+
+    left, top = cell[0] * 16, cell[1] * 16
+    head = (left, top, left + 16, top + 8)
+    legs = (left, top + 8, left + 16, top + 16)
+
+    assert plain.crop(head).tobytes() == blended.crop(head).tobytes()
+    assert plain.crop(legs).tobytes() != blended.crop(legs).tobytes()
+
+
+def test_a_sprite_off_the_grass_is_drawn_whole(root):
+    canvas, colors = compositor.render_map(root, "ViridianForest")
+    grass = compositor.grass_cells(root, "ViridianForest")
+    cell = (16, 43)   # the forest's south-entrance NPC, standing on a path
+    assert cell not in grass
+
+    sprite = [{"file": "youngster", "frame": 0, "grid": list(cell), "flip": False}]
+    plain = compositor.overlay_sprites(canvas.copy(), root, sprite, colors)
+    blended = compositor.overlay_sprites(canvas.copy(), root, sprite, colors, grass)
+
+    assert plain.tobytes() == blended.tobytes()

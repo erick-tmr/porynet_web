@@ -21,11 +21,11 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     visit_forest
 
     spots = page.all(".pn-mm").map do |marker|
-      marker.evaluate_script("[getComputedStyle(this).left, getComputedStyle(this).top]")
+      marker.evaluate_script("[this.style.getPropertyValue('--mx'), this.style.getPropertyValue('--my')]")
     end
 
     assert_equal 12, spots.uniq.size, "no two markers should share a spot"
-    assert(spots.flatten.none? { |offset| offset == "0px" || offset == "auto" })
+    assert(spots.flatten.all? { |offset| offset.end_with?("%") })
   end
 
   test "ticking a trainer survives a reload" do
@@ -98,12 +98,26 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     within first(".pn-wt-oak__sub--reg") { assert_text "1" }
   end
 
-  # Route 1 has no trainers, no items, and reaches its neighbours by scrolling rather than
-  # through a gate, so it is the one map with nothing to mark.
-  test "a map with nothing to mark still renders plainly" do
-    visit "/walkthroughs/yellow/leg-01"
+  test "a trainer card and its pin are one tick, from either side" do
+    visit "/walkthroughs/yellow/leg-06"
+    assert_selector ".pn-mm-layer.is-ready"
+    card = ".pn-wt-trainer[data-progress-id='route-11/trainer-10-14']"
+    pin = ".pn-mm[data-marker-id='trainer-10-14']"
 
-    assert_selector ".pn-wt-map__img"   # route-1, the only bare map on the leg
-    assert_selector ".pn-mm-layer"      # its neighbours still get their overlay
+    find(card).click
+    assert_selector "#{card}.is-done"
+    assert_selector "#{pin}.is-done"
+
+    find("#{pin} .pn-mm__hit").click
+    assert_no_selector "#{card}.is-done"
+  end
+
+  test "a route that only connects still shows the way out" do
+    visit "/walkthroughs/yellow/leg-01"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 2
+
+    within "[data-map-markers-map-value='route-1']" do
+      assert_selector ".pn-mm[data-cat='exit']", count: 2
+    end
   end
 end

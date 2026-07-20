@@ -1,32 +1,33 @@
 # Asset generation report
 
 - location maps: **97** across 51 locations
-- markers: **861** (302 trainer, 113 item, 46 hidden, 400 exit)
+- markers: **939** (302 trainer, 113 item, 46 hidden, 478 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **90** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **47** (dialog / battle / NPC, not step-bound)
+- trainers: **323** across 36 locations
 - missing map labels: **0**
 
 ## Markers per map
 
-- `celadon-city`: 1 hidden, 12 exit
+- `celadon-city`: 1 hidden, 14 exit
 - `celadon-city-gym`: 8 trainer, 1 exit
 - `cerulean-cave-1f`: 4 item, 1 hidden, 8 exit
 - `cerulean-cave-2f`: 4 item, 1 hidden, 6 exit
 - `cerulean-cave-b1f`: 5 item, 1 hidden, 1 exit
-- `cerulean-city`: 1 trainer, 1 hidden, 10 exit
+- `cerulean-city`: 1 trainer, 1 hidden, 14 exit
 - `cerulean-city-gym`: 3 trainer, 1 exit
-- `cinnabar-island`: 5 exit
+- `cinnabar-island`: 7 exit
 - `cinnabar-island-gym`: 8 trainer, 1 exit
 - `digletts-cave`: 2 exit
-- `fuchsia-city`: 9 exit
+- `fuchsia-city`: 12 exit
 - `fuchsia-city-gym`: 7 trainer, 1 exit
-- `indigo-plateau`: 1 exit
-- `lavender-town`: 6 exit
+- `indigo-plateau`: 2 exit
+- `lavender-town`: 9 exit
 - `mt-moon-1f`: 7 trainer, 6 item, 4 exit
 - `mt-moon-b1f`: 8 exit
 - `mt-moon-b2f`: 4 trainer, 2 item, 2 hidden, 4 exit
-- `pallet-town`: 3 exit
-- `pewter-city`: 7 exit
+- `pallet-town`: 5 exit
+- `pewter-city`: 9 exit
 - `pewter-city-gym`: 2 trainer, 1 exit
 - `pokemon-mansion-1f`: 1 trainer, 2 item, 1 hidden, 4 exit
 - `pokemon-mansion-2f`: 1 trainer, 1 item, 4 exit
@@ -46,36 +47,36 @@
 - `rocket-hideout-b2f`: 1 trainer, 4 item, 4 exit
 - `rocket-hideout-b3f`: 2 trainer, 2 item, 1 hidden, 2 exit
 - `rocket-hideout-b4f`: 2 trainer, 5 item, 1 hidden, 2 exit
-- `route-1`: none
-- `route-10`: 6 trainer, 2 hidden, 4 exit
-- `route-11`: 10 trainer, 1 hidden, 3 exit
-- `route-12`: 7 trainer, 2 item, 1 hidden, 3 exit
-- `route-13`: 10 trainer, 2 hidden
-- `route-14`: 10 trainer
-- `route-15`: 10 trainer, 1 item, 2 exit
-- `route-16`: 6 trainer, 5 exit
-- `route-17`: 10 trainer, 5 hidden
-- `route-18`: 3 trainer, 2 exit
-- `route-19`: 10 trainer, 1 exit
-- `route-2`: 2 item, 6 exit
-- `route-20`: 10 trainer, 2 exit
-- `route-21`: 9 trainer
-- `route-22`: 1 exit
-- `route-23`: 3 hidden, 3 exit
-- `route-24`: 7 trainer, 1 item
-- `route-25`: 9 trainer, 1 item, 2 hidden, 1 exit
-- `route-3`: 8 trainer
-- `route-4`: 1 trainer, 1 item, 1 hidden, 3 exit
-- `route-5`: 4 exit
-- `route-6`: 6 trainer, 3 exit
-- `route-7`: 3 exit
-- `route-8`: 9 trainer, 3 exit
-- `route-9`: 9 trainer, 1 item, 1 hidden
+- `route-1`: 2 exit
+- `route-10`: 6 trainer, 2 hidden, 6 exit
+- `route-11`: 10 trainer, 1 hidden, 5 exit
+- `route-12`: 7 trainer, 2 item, 1 hidden, 6 exit
+- `route-13`: 10 trainer, 2 hidden, 2 exit
+- `route-14`: 10 trainer, 2 exit
+- `route-15`: 10 trainer, 1 item, 4 exit
+- `route-16`: 6 trainer, 7 exit
+- `route-17`: 10 trainer, 5 hidden, 2 exit
+- `route-18`: 3 trainer, 4 exit
+- `route-19`: 10 trainer, 3 exit
+- `route-2`: 2 item, 8 exit
+- `route-20`: 10 trainer, 4 exit
+- `route-21`: 9 trainer, 2 exit
+- `route-22`: 3 exit
+- `route-23`: 3 hidden, 5 exit
+- `route-24`: 7 trainer, 1 item, 2 exit
+- `route-25`: 9 trainer, 1 item, 2 hidden, 2 exit
+- `route-3`: 8 trainer, 2 exit
+- `route-4`: 1 trainer, 1 item, 1 hidden, 5 exit
+- `route-5`: 6 exit
+- `route-6`: 6 trainer, 5 exit
+- `route-7`: 5 exit
+- `route-8`: 9 trainer, 5 exit
+- `route-9`: 9 trainer, 1 item, 1 hidden, 2 exit
 - `safari-zone-center`: 1 item, 5 exit
 - `safari-zone-east`: 4 item, 3 exit
 - `safari-zone-north`: 2 item, 5 exit
 - `safari-zone-west`: 4 item, 1 hidden, 5 exit
-- `saffron-city`: 8 exit
+- `saffron-city`: 12 exit
 - `saffron-city-gym`: 8 trainer, 31 exit
 - `seafoam-islands-1f`: 5 exit
 - `seafoam-islands-b1f`: 7 exit
@@ -97,12 +98,12 @@
 - `ss-anne-2f`: 1 trainer, 9 exit
 - `ss-anne-3f`: 2 exit
 - `ss-anne-b1f`: 6 exit
-- `vermilion-city`: 1 hidden, 8 exit
+- `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit
 - `victory-road-1f`: 2 trainer, 2 item, 2 exit
 - `victory-road-2f`: 5 trainer, 5 item, 2 hidden, 6 exit
 - `victory-road-3f`: 4 trainer, 2 item, 4 exit
-- `viridian-city`: 1 hidden, 5 exit
+- `viridian-city`: 1 hidden, 8 exit
 - `viridian-forest`: 5 trainer, 3 item, 2 hidden, 2 exit
 - `viridian-gym`: 9 trainer, 1 item, 1 exit
 
@@ -168,25 +169,6 @@
 - `battle-sabrina` (battle): walkthrough/yellow/battles/battle-sabrina.png
 - `battle-silph-giovanni` (battle): walkthrough/yellow/battles/battle-silph-giovanni.png
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
-- `celadon-gym-t1` (screen): walkthrough/yellow/scenes/celadon-gym-t1.png
-- `celadon-gym-t2` (screen): walkthrough/yellow/scenes/celadon-gym-t2.png
-- `celadon-gym-t3` (screen): walkthrough/yellow/scenes/celadon-gym-t3.png
-- `celadon-gym-t4` (screen): walkthrough/yellow/scenes/celadon-gym-t4.png
-- `celadon-gym-t5` (screen): walkthrough/yellow/scenes/celadon-gym-t5.png
-- `celadon-gym-t6` (screen): walkthrough/yellow/scenes/celadon-gym-t6.png
-- `cerulean-gym-jr-trainer` (screen): walkthrough/yellow/scenes/cerulean-gym-jr-trainer.png
-- `cerulean-gym-swimmer` (screen): walkthrough/yellow/scenes/cerulean-gym-swimmer.png
-- `cinnabar-gym-t1` (screen): walkthrough/yellow/scenes/cinnabar-gym-t1.png
-- `cinnabar-gym-t2` (screen): walkthrough/yellow/scenes/cinnabar-gym-t2.png
-- `cinnabar-gym-t3` (screen): walkthrough/yellow/scenes/cinnabar-gym-t3.png
-- `cinnabar-gym-t4` (screen): walkthrough/yellow/scenes/cinnabar-gym-t4.png
-- `cinnabar-gym-t5` (screen): walkthrough/yellow/scenes/cinnabar-gym-t5.png
-- `fuchsia-gym-t1` (screen): walkthrough/yellow/scenes/fuchsia-gym-t1.png
-- `fuchsia-gym-t2` (screen): walkthrough/yellow/scenes/fuchsia-gym-t2.png
-- `fuchsia-gym-t3` (screen): walkthrough/yellow/scenes/fuchsia-gym-t3.png
-- `fuchsia-gym-t4` (screen): walkthrough/yellow/scenes/fuchsia-gym-t4.png
-- `fuchsia-gym-t5` (screen): walkthrough/yellow/scenes/fuchsia-gym-t5.png
-- `fuchsia-gym-t6` (screen): walkthrough/yellow/scenes/fuchsia-gym-t6.png
 - `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png
 - `indigo-bruno` (screen): walkthrough/yellow/scenes/indigo-bruno.png
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
@@ -196,7 +178,6 @@
 - `mt-moon-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png
 - `mt-moon-jessie-james` (screen): walkthrough/yellow/scenes/mt-moon-jessie-james.png
 - `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
-- `pewter-gym-trainer` (screen): walkthrough/yellow/scenes/pewter-gym-trainer.png
 - `pokemon-tower-jessie-james` (screen): walkthrough/yellow/scenes/pokemon-tower-jessie-james.png
 - `pokemon-tower-rival` (screen): walkthrough/yellow/scenes/pokemon-tower-rival.png
 - `rocket-hideout-giovanni` (screen): walkthrough/yellow/scenes/rocket-hideout-giovanni.png
@@ -204,33 +185,10 @@
 - `route-22-rival` (screen): walkthrough/yellow/scenes/route-22-rival.png
 - `route-24-rival` (screen): walkthrough/yellow/scenes/route-24-rival.png
 - `saffron-dojo-master` (screen): walkthrough/yellow/scenes/saffron-dojo-master.png
-- `saffron-gym-t1` (screen): walkthrough/yellow/scenes/saffron-gym-t1.png
-- `saffron-gym-t2` (screen): walkthrough/yellow/scenes/saffron-gym-t2.png
-- `saffron-gym-t3` (screen): walkthrough/yellow/scenes/saffron-gym-t3.png
-- `saffron-gym-t4` (screen): walkthrough/yellow/scenes/saffron-gym-t4.png
-- `saffron-gym-t5` (screen): walkthrough/yellow/scenes/saffron-gym-t5.png
-- `saffron-gym-t6` (screen): walkthrough/yellow/scenes/saffron-gym-t6.png
-- `saffron-gym-t7` (screen): walkthrough/yellow/scenes/saffron-gym-t7.png
 - `silph-co-giovanni` (screen): walkthrough/yellow/scenes/silph-co-giovanni.png
 - `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png
 - `ss-anne-rival` (screen): walkthrough/yellow/scenes/ss-anne-rival.png
-- `vermilion-gym-gentleman` (screen): walkthrough/yellow/scenes/vermilion-gym-gentleman.png
-- `vermilion-gym-rocker` (screen): walkthrough/yellow/scenes/vermilion-gym-rocker.png
-- `vermilion-gym-sailor` (screen): walkthrough/yellow/scenes/vermilion-gym-sailor.png
-- `vf-bug-catcher-1` (screen): walkthrough/yellow/scenes/vf-bug-catcher-1.png
-- `vf-bug-catcher-15` (screen): walkthrough/yellow/scenes/vf-bug-catcher-15.png
-- `vf-bug-catcher-2` (screen): walkthrough/yellow/scenes/vf-bug-catcher-2.png
-- `vf-bug-catcher-3` (screen): walkthrough/yellow/scenes/vf-bug-catcher-3.png
-- `vf-lass` (screen): walkthrough/yellow/scenes/vf-lass.png
 - `viridian-city-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-city-hidden-potion.png
 - `viridian-city-tm42` (screen): walkthrough/yellow/scenes/viridian-city-tm42.png
 - `viridian-forest-antidote` (dialog): walkthrough/yellow/scenes/viridian-forest-antidote.png
 - `viridian-forest-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-potion.png
-- `viridian-gym-t1` (screen): walkthrough/yellow/scenes/viridian-gym-t1.png
-- `viridian-gym-t2` (screen): walkthrough/yellow/scenes/viridian-gym-t2.png
-- `viridian-gym-t3` (screen): walkthrough/yellow/scenes/viridian-gym-t3.png
-- `viridian-gym-t4` (screen): walkthrough/yellow/scenes/viridian-gym-t4.png
-- `viridian-gym-t5` (screen): walkthrough/yellow/scenes/viridian-gym-t5.png
-- `viridian-gym-t6` (screen): walkthrough/yellow/scenes/viridian-gym-t6.png
-- `viridian-gym-t7` (screen): walkthrough/yellow/scenes/viridian-gym-t7.png
-- `viridian-gym-t8` (screen): walkthrough/yellow/scenes/viridian-gym-t8.png

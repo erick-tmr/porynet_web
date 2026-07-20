@@ -78,6 +78,9 @@ def _warp_group(cells):
             "anchor": (anchor[1], anchor[0])}
 
 
+EXIT_GLYPHS = {"north": "▲", "south": "▼", "west": "◀", "east": "▶", "inner": "▲"}
+
+
 def map_edge(grid_x, grid_y, width_cells, height_cells):
     """Which map edge a cell sits on, or 'inner' for a doorway inside the map."""
     if grid_y <= 0:
@@ -128,9 +131,57 @@ def build_markers(root_str, map_label, map_const, width_px, height_px):
         edge = map_edge(anchor[0], anchor[1], width_cells, height_cells)
         entry = _marker("exit", anchor, group["center"], width_px, height_px,
                         name=sources.place_display_name(group["dest"]), ref=group["dest"])
-        out.append({**entry, "edge": edge, "glyph": "▲" if entry["y"] < 50 else "▼"})
+        out.append({**entry, "edge": edge, "glyph": EXIT_GLYPHS[edge]})
+
+    tileset = sources.parse_headers(root_str)[map_label][1]
+    out += connection_exits(root_str, map_label, tileset, width_px // sources.BLOCK_PX,
+                            width_cells, height_cells, width_px, height_px)
 
     return assign_label_lanes(out, width_px, height_px)
+
+
+def edge_cells(direction, width_cells, height_cells):
+    """Every cell along one edge of the map, in order."""
+    if direction == "north":
+        return [(x, 0) for x in range(width_cells)]
+    if direction == "south":
+        return [(x, height_cells - 1) for x in range(width_cells)]
+    if direction == "west":
+        return [(0, y) for y in range(height_cells)]
+    return [(width_cells - 1, y) for y in range(height_cells)]
+
+
+def crossing_cell(root_str, map_label, tileset, width_blocks, cells):
+    """Where along this edge you actually leave the map.
+
+    A connection spans the whole edge, but only part of it is ground you can cross, so the middle
+    of the edge is often a wall or a fence. Pallet Town's way south is open water, four cells left
+    of the edge's midpoint, and pointing at the midpoint would point at the beach.
+
+    Water wins when there is any, because an edge with water on it is crossed by Surf."""
+    tileset_file = sources.tileset_basename(root_str, tileset)
+    walkable = sources.parse_collision_tiles(root_str, tileset)
+
+    def tiles(cell):
+        return sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell)
+
+    water = [c for c in cells if all(t in sources.WATER_TILES for t in tiles(c))]
+    span = water or [c for c in cells if any(t in walkable for t in tiles(c))] or cells
+    return span[(len(span) - 1) // 2 + (1 if len(span) % 2 == 0 else 0)]
+
+
+def connection_exits(root_str, map_label, tileset, width_blocks, width_cells, height_cells,
+                     width_px, height_px):
+    """One marker per map this one scrolls into, on the part of the edge you can cross."""
+    out = []
+    for direction, dest in sources.parse_connections(root_str, map_label):
+        cells = edge_cells(direction, width_cells, height_cells)
+        cell = crossing_cell(root_str, map_label, tileset, width_blocks, cells)
+        entry = _marker("exit", cell, cell, width_px, height_px,
+                        name=sources.place_display_name(dest), ref=dest)
+        out.append({**entry, "id": f"exit-{direction}", "edge": direction,
+                    "glyph": EXIT_GLYPHS[direction]})
+    return out
 
 
 # A label is Press Start 2P at 9px in a bordered box, offset from its marker. Close enough to

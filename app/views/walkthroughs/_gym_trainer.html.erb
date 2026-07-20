@@ -1,4 +1,4 @@
-<div class="pn-wt-gym-tr" <%= tag.attributes(tickable("collected", id)) %>>
+<div class="pn-wt-gym-tr" <%= tag.attributes(tickable("collected", trainer.tick || id)) %>>
   <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
   <%= progress_toast("trainer") %>
   <div class="pn-wt-gym-tr__head">
@@ -10,7 +10,7 @@
   </div>
   <div class="pn-wt-gym-tr__shots">
     <div class="pn-wt-shot pn-wt-shot--gymvs">
-      <%= r2_image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs" %>
+      <%= r2_image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs", loading: "lazy" %>
       <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.vs") %></span>
     </div>
     <div class="pn-wt-shot pn-wt-shot--gymwhere">
@@ -25,7 +25,7 @@
   <div class="pn-wt-gym__mons">
     <% trainer.team.each do |member| %>
       <div class="pn-wt-gym__mon">
-        <span class="pn-wt-gym__mon-sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
+        <span class="pn-wt-gym__mon-sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "", loading: "lazy" %></span>
         <div class="pn-wt-gym__mon-name"><%= member[:name] %></div>
         <div class="pn-wt-gym__mon-lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>
       </div>
