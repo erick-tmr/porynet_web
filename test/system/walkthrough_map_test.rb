@@ -98,6 +98,20 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     within first(".pn-wt-oak__sub--reg") { assert_text "1" }
   end
 
+  test "a trainer card and its pin are one tick, from either side" do
+    visit "/walkthroughs/yellow/leg-06"
+    assert_selector ".pn-mm-layer.is-ready"
+    card = ".pn-wt-trainer[data-progress-id='route-11/trainer-10-14']"
+    pin = ".pn-mm[data-marker-id='trainer-10-14']"
+
+    find(card).click
+    assert_selector "#{card}.is-done"
+    assert_selector "#{pin}.is-done"   # ticking the card lights its pin
+
+    find("#{pin} .pn-mm__hit").click
+    assert_no_selector "#{card}.is-done"   # and unticking the pin clears the card
+  end
+
   # Route 1 has no trainers, no items, and reaches its neighbours by scrolling rather than
   # through a gate, so it is the one map with nothing to mark.
   test "a map with nothing to mark still renders plainly" do

@@ -93,9 +93,9 @@
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: @location.trainers.size) %></div>
     <h2 class="pn-h2"><%= t("walkthrough.ui.trainers_h2") %></h2>
-    <div class="pn-wt-trainers">
+    <div class="<%= class_names("pn-wt-trainers", "pn-wt-trainers--dense" => @location.dense_trainers?) %>">
       <% @location.trainers.each_with_index do |trainer, i| %>
-        <%= render "trainer", trainer: trainer, id: "#{@location.slug}/trainer-#{i}" %>
+        <%= render "trainer", trainer: trainer, id: "#{@location.slug}/trainer-#{i}", compact: @location.dense_trainers? %>
       <% end %>
     </div>
   </section>

@@ -89,27 +89,19 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     loc = location("viridian-forest")
     pins = loc.area_maps.flat_map(&:markers).select(&:key?).to_h { |m| [ m.key, m.ref ] }
 
-    loc.trainers.each do |trainer|
+    loc.trainers.select(&:marker_key?).each do |trainer|
       assert_equal trainer.opp, pins[trainer.marker_key],
         "#{trainer.cls} shows #{trainer.marker_key} but that pin is #{pins[trainer.marker_key]}"
     end
   end
 
-  test "a trainer with no map object simply carries no letter" do
+  test "a trainer fought somewhere the location never draws carries no letter" do
+    # Brock's pin is on the gym floor, which the location header does not render.
     brock = location("pewter-city").gym.leader
 
-    assert_nil brock.opp
+    assert_equal "BROCK:1", brock.opp
     assert_nil brock.marker_key
     refute_predicate brock, :marker_key?
-  end
-
-  test "a trainer whose map object is absent from the manifest carries no letter" do
-    ghost = Walkthrough::Yellow.tr("LASS", nil, 1, opp: [ "NOBODY", 99 ])
-    loc = Walkthrough::Yellow.key_trainers(location("viridian-forest").with(trainers: [ ghost ]),
-      [ forest_map ])
-
-    assert_equal "NOBODY:99", loc.trainers.first.opp
-    assert_nil loc.trainers.first.marker_key
   end
 
   test "a gym city moves its gym floor into the gym section and keys nobody from it" do
@@ -119,20 +111,10 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_match(/pewter-city-gym/, loc.gym.shot.image)
   end
 
-  test "a letter is never taken from a map the location does not render" do
-    loc = location("pewter-city")
-    brock = Walkthrough::Yellow.tr("LEADER", "Brock", 1, opp: [ "BROCK", 1 ])
-    keyed = Walkthrough::Yellow.attach_maps(loc.with(trainers: [ brock ]),
-      Walkthrough::Yellow.map_data["pewter-city"])
-
-    assert_nil keyed.trainers.first.marker_key,
-      "Brock's pin is on the gym floor, which the location header never draws"
-  end
-
   test "a location with no manifest entry still builds" do
     loc = Walkthrough::Yellow.attach_maps(location("viridian-forest"), [])
 
     assert_empty loc.area_maps
-    assert(loc.trainers.all? { |t| t.marker_key.nil? })
+    assert_equal 5, loc.trainers.size, "the roster still supplies its cards"
   end
 end

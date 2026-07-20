@@ -56,7 +56,7 @@
       <div class="pn-wt-gym__leader">
         <div class="pn-wt-gym__leader-id">
           <div class="pn-wt-shot pn-wt-shot--leadervs">
-            <%= r2_image_tag "walkthrough/yellow/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--fill" %>
+            <%= r2_image_tag "walkthrough/yellow/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--fill", loading: "lazy" %>
             <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.vs") %></span>
           </div>
           <% if gym.leader.battle&.map? %>

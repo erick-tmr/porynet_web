@@ -35,9 +35,15 @@ export function load() {
   }
 }
 
+// Saving announces itself, because a trainer can be ticked from its card or from its pin and the
+// two are separate controllers on the same page. The browser's own storage event only reaches
+// other tabs, so it cannot do this job alone.
+export const CHANGE_EVENT = "porynet:progress"
+
 export function save(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    window.dispatchEvent(new CustomEvent(CHANGE_EVENT))
     return true
   } catch {
     return false
@@ -75,12 +81,16 @@ export function importJson(raw) {
   }
 }
 
-// Fires when another tab writes the store, so two open walkthrough pages stay in step.
+// Fires when anything writes the store: another tab, or another controller on this page.
 export function subscribe(onChange) {
   const listener = (event) => {
-    if (event.key !== STORAGE_KEY) return
+    if (event.type === "storage" && event.key !== STORAGE_KEY) return
     onChange(load())
   }
   window.addEventListener("storage", listener)
-  return () => window.removeEventListener("storage", listener)
+  window.addEventListener(CHANGE_EVENT, listener)
+  return () => {
+    window.removeEventListener("storage", listener)
+    window.removeEventListener(CHANGE_EVENT, listener)
+  }
 }

@@ -1,4 +1,6 @@
-<div class="pn-wt-trainer" <%= tag.attributes(tickable("collected", id)) %>>
+<% compact = local_assigns.fetch(:compact, false) %>
+<div class="<%= class_names("pn-wt-trainer", "pn-wt-trainer--compact" => compact) %>"
+     <%= tag.attributes(tickable("collected", trainer.tick || id)) %>>
   <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
   <%= progress_toast("trainer") %>
   <div class="pn-wt-trainer__head">
@@ -19,12 +21,12 @@
   </div>
   <div class="pn-wt-trainer__shots">
     <div class="pn-wt-shot pn-wt-shot--vs">
-      <%= r2_image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs" %>
+      <%= r2_image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs", loading: "lazy" %>
       <span class="pn-wt-shot__label"><%= t("walkthrough.ui.vs") %></span>
     </div>
     <div class="pn-wt-shot pn-wt-shot--where">
       <% if trainer.where&.map? %>
-        <%= r2_image_tag trainer.where.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+        <%= r2_image_tag trainer.where.image, alt: "", class: "pn-wt-shot__img", loading: "lazy", width: 160, height: 144 %>
       <% else %>
         <div class="pn-wt-shot__ph"><%= t("walkthrough.ui.shot_placeholder") %></div>
       <% end %>
@@ -33,7 +35,7 @@
   </div>
   <% if trainer.battle&.map? %>
     <div class="pn-wt-shot pn-wt-shot--battlescreen">
-      <%= r2_image_tag trainer.battle.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+      <%= r2_image_tag trainer.battle.image, alt: "", class: "pn-wt-shot__img", loading: "lazy", width: 160, height: 144 %>
       <span class="pn-wt-shot__scan" aria-hidden="true"></span>
       <span class="pn-wt-shot__label pn-wt-shot__label--battle"><%= t("walkthrough.ui.battle") %></span>
     </div>
@@ -41,9 +43,11 @@
   <div class="pn-wt-trainer__team">
     <% trainer.team.each do |member| %>
       <div class="pn-wt-team-mon">
-        <span class="pn-wt-team-mon__sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
+        <span class="pn-wt-team-mon__sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "", loading: "lazy" %></span>
         <div>
-          <div class="pn-wt-team-mon__name"><%= member[:name] %></div>
+          <% unless compact %>
+            <div class="pn-wt-team-mon__name"><%= member[:name] %></div>
+          <% end %>
           <div class="pn-wt-team-mon__lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>
         </div>
       </div>

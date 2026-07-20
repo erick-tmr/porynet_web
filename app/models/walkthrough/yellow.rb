@@ -171,21 +171,73 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
-      loc = key_trainers(loc, header)
+      loc = merge_trainers(loc)
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
         gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
     end
 
-    # Give every hand-authored trainer the letter its pin carries. Keys come only from the maps
-    # the location actually renders, so a card can never point at a pin the page never draws. A
-    # trainer with no `opp:` pair, or one whose pair names no marker, simply keeps no letter.
-    def self.key_trainers(loc, maps)
-      keys = maps.flat_map(&:markers).select(&:key?).to_h { |m| [ m.ref, m.key ] }
-      loc.with(trainers: loc.trainers.map { |t|
-        t.opp ? t.with(marker_key: keys[t.opp]) : t
-      })
+    # Fill the location from the generated roster, letting a hand-authored card stand in for its
+    # generated twin. The match is on the map object's OPP_CLASS:party pair, scoped to this
+    # location: five of those pairs appear on two maps apiece, so a global match would swap the
+    # wrong cards. An authored card that matches nothing is a battle the map never declares, like
+    # the rival or the Elite Four, and is appended after the rest.
+    def self.merge_trainers(loc)
+      claimed = {}
+      fresh = roster_for(loc.slug).reject do |entry|
+        card = authored_cards(loc).find { |t| t.opp == entry["opp"] }
+        claimed[entry["opp"]] = enrich(card, entry) if card
+        card
+      end
+      place_trainers(loc, fresh, claimed)
+    end
+
+    def self.authored_cards(loc)
+      loc.trainers + (loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : [])
+    end
+
+    # Viridian Gym is the one gym whose map carries no floor label, so for a GYM-kind location
+    # every entry belongs to the gym section rather than the location's own list.
+    def self.gym_entry?(loc, entry) = entry["floor"] == "Gym" || loc.kind == "GYM"
+
+    def self.place_trainers(loc, fresh, claimed)
+      gym_fresh, loc_fresh = fresh.partition { |e| gym_entry?(loc, e) }
+      loc = loc.with(trainers: settle(loc.trainers, loc_fresh, claimed))
+      return loc unless loc.gym
+
+      loc.with(gym: loc.gym.with(trainers: settle(loc.gym.trainers, gym_fresh, claimed),
+        leader: claimed.fetch(loc.gym.leader.opp, loc.gym.leader)))
+    end
+
+    # Authored cards keep their place and their enrichment; whatever the game declares and nobody
+    # wrote follows them.
+    def self.settle(authored, fresh, claimed)
+      authored.map { |t| claimed.fetch(t.opp, t) } + fresh.map { |e| roster_trainer(e) }
+    end
+
+    def self.enrich(card, entry)
+      card.with(where: card.where || Shot.new(image: entry["where"], label: WHERE_LABEL),
+        marker_key: card.marker_key || entry["key"], tick: card.tick || tick_for(entry))
+    end
+
+    def self.roster_trainer(entry)
+      label = class_label(entry["cls"])
+      Trainer.new(cls: label, name: nil, reward: entry["reward"],
+        team: entry["team"].map { |m| mon(m["dex"], m["lvl"]) },
+        sprite: trainer_sprite(label, nil),
+        where: Shot.new(image: entry["where"], label: WHERE_LABEL), battle: nil,
+        opp: entry["opp"], marker_key: entry["key"], tick: tick_for(entry))
+    end
+
+    # The same key the map overlay writes for this trainer's pin, so ticking the card lights the
+    # pin and ticking the pin lights the card.
+    def self.tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
+
+    def self.roster_for(slug) = roster.fetch("trainers", {}).fetch(slug, [])
+
+    def self.roster
+      @roster ||= JSON.parse(File.read(File.join(__dir__, "yellow_trainers.json"))).freeze
     end
 
     def self.manifest
@@ -363,18 +415,7 @@ module Walkthrough
           enc("viridian-forest", "016", "GRASS", "24%", "4–8", "UNCOMMON", "016", "017", "018", tip: true),
           enc("viridian-forest", "017", "GRASS", "1%", "9", "RARE", "016", "017", "018", tip: true)
         ],
-        trainers: [
-          tr("LASS", nil, 90, mon("029", 6), mon("032", 6),
-            where: scene_shot("vf-lass", "WHERE"), opp: [ "LASS", 19 ]),
-          tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7),
-            where: scene_shot("vf-bug-catcher-1", "WHERE"), opp: [ "BUG_CATCHER", 1 ]),
-          tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6),
-            where: scene_shot("vf-bug-catcher-2", "WHERE"), opp: [ "BUG_CATCHER", 2 ]),
-          tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8),
-            where: scene_shot("vf-bug-catcher-15", "WHERE"), opp: [ "BUG_CATCHER", 15 ]),
-          tr("BUG CATCHER", nil, 100, mon("010", 10),
-            where: scene_shot("vf-bug-catcher-3", "WHERE"), opp: [ "BUG_CATCHER", 3 ])
-        ],
+        trainers: [],
         oak_queue: [ oak("viridian-forest", "010", 1) ]
       )
     end
@@ -393,9 +434,7 @@ module Walkthrough
         trainers: [],
         gym: gym("pewter-city", "Pewter Gym", "ROCK", "BOULDER", "TM34 · BIDE",
           leader("Brock", 1188, mon("074", 10), mon("095", 12),
-            battle: scene_shot("battle-brock", "BATTLE")),
-          trainers: [ tr("JR. TRAINER♂", nil, 180, mon("050", 9), mon("027", 9),
-            where: scene_shot("pewter-gym-trainer", "WHERE")) ]),
+            battle: scene_shot("battle-brock", "BATTLE"), opp: [ "BROCK", 1 ])),
         oak_queue: []
       )
     end
@@ -432,22 +471,39 @@ module Walkthrough
       "GENTLEMAN" => "gentleman-gen1", "BEAUTY" => "beauty-gen1",
       "COOLTRAINER♂" => "acetrainer-gen1", "COOLTRAINER♀" => "acetrainerf-gen1",
       "JUGGLER" => "juggler-gen1", "TAMER" => "tamer-gen1", "PSYCHIC" => "psychic-gen1",
-      "CHANNELER" => "channeler-gen1", "SUPER NERD" => "supernerd-gen1", "BURGLAR" => "burglar-gen1"
+      "CHANNELER" => "channeler-gen1", "SUPER NERD" => "supernerd-gen1", "BURGLAR" => "burglar-gen1",
+      "HIKER" => "hiker-gen1", "BIRD KEEPER" => "birdkeeper-gen1", "BIKER" => "biker-gen1",
+      "SCIENTIST" => "scientist-gen1", "FISHERMAN" => "fisherman-gen1", "CUE BALL" => "cueball-gen1",
+      "POKéMANIAC" => "pokemaniac-gen1", "GAMBLER" => "gambler-gen1", "ENGINEER" => "engineer-gen1"
     }.freeze
+
+    # The game spells a class differently from the card. Only the exceptions live here; every
+    # other const just loses its underscores.
+    CLASS_LABELS = {
+      "BUG_CATCHER" => "BUG CATCHER", "SUPER_NERD" => "SUPER NERD", "CUE_BALL" => "CUE BALL",
+      "BIRD_KEEPER" => "BIRD KEEPER", "JR_TRAINER_M" => "JR. TRAINER♂",
+      "JR_TRAINER_F" => "JR. TRAINER♀", "COOLTRAINER_M" => "COOLTRAINER♂",
+      "COOLTRAINER_F" => "COOLTRAINER♀", "BLACKBELT" => "BLACK BELT", "ROCKET" => "TEAM ROCKET",
+      "PSYCHIC_TR" => "PSYCHIC", "FISHER" => "FISHERMAN", "POKEMANIAC" => "POKéMANIAC"
+    }.freeze
+
+    WHERE_LABEL = "WHERE".freeze
+
+    def self.class_label(const) = CLASS_LABELS.fetch(const) { const.tr("_", " ") }
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
 
     # `opp` is the map object's [OPP_CLASS, party] pair; it resolves the marker letter in
     # attach_maps so the card and its pin agree. Omit it and the card just carries no letter.
-    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil)
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil, tick: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
         sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle,
-        opp: opp && "#{opp[0]}:#{opp[1]}")
+        opp: opp && "#{opp[0]}:#{opp[1]}", tick: tick)
     end
 
-    def self.leader(name, reward, *team, battle: nil) = tr("LEADER", name, reward, *team, battle: battle)
+    def self.leader(name, reward, *team, battle: nil, opp: nil) = tr("LEADER", name, reward, *team, battle: battle, opp: opp)
 
-    def self.rival(reward, *team, where: nil, battle: nil) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle)
+    def self.rival(reward, *team, where: nil, battle: nil, opp: nil) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle, opp: opp)
 
     def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [])
       b = base(slug)
@@ -474,18 +530,7 @@ module Walkthrough
           enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
           enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
         ],
-        trainers: [
-          tr("BUG CATCHER", nil, 100, mon("010", 10), mon("013", 10), mon("010", 10),
-            opp: [ "BUG_CATCHER", 4 ]),
-          tr("YOUNGSTER", nil, 165, mon("019", 11), mon("023", 11), opp: [ "YOUNGSTER", 1 ]),
-          tr("LASS", nil, 135, mon("016", 9), mon("016", 9), opp: [ "LASS", 1 ]),
-          tr("BUG CATCHER", nil, 90, mon("013", 9), mon("014", 9), mon("010", 9), mon("011", 9),
-            opp: [ "BUG_CATCHER", 5 ]),
-          tr("LASS", nil, 150, mon("019", 10), mon("032", 10), opp: [ "LASS", 2 ]),
-          tr("YOUNGSTER", nil, 210, mon("021", 14), opp: [ "YOUNGSTER", 2 ]),
-          tr("BUG CATCHER", nil, 110, mon("010", 11), mon("011", 11), opp: [ "BUG_CATCHER", 6 ]),
-          tr("LASS", nil, 210, mon("039", 14), opp: [ "LASS", 3 ])
-        ],
+        trainers: [],
         oak_queue: [ oak("route-3", "027", 1) ]
       )
     end
@@ -524,13 +569,7 @@ module Walkthrough
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
-          leader("Misty", 2079, mon("120", 18), mon("121", 21), battle: scene_shot("battle-misty", "BATTLE")),
-          trainers: [
-            tr("SWIMMER", nil, 80, mon("116", 16), mon("090", 16),
-              where: scene_shot("cerulean-gym-swimmer", "WHERE")),
-            tr("JR. TRAINER♀", nil, 380, mon("118", 19),
-              where: scene_shot("cerulean-gym-jr-trainer", "WHERE"))
-          ]),
+          leader("Misty", 2079, mon("120", 18), mon("121", 21), battle: scene_shot("battle-misty", "BATTLE"), opp: [ "MISTY", 1 ])),
         oak_queue: [ oak("cerulean-city", "001", 1) ])
     end
 
@@ -587,16 +626,8 @@ module Walkthrough
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true) ],
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
-          leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE")),
-          puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ],
-          trainers: [
-            tr("SAILOR", nil, 720, mon("081", 24),
-              where: scene_shot("vermilion-gym-sailor", "WHERE")),
-            tr("ROCKER", nil, 500, mon("100", 20), mon("100", 20), mon("100", 20),
-              where: scene_shot("vermilion-gym-rocker", "WHERE")),
-            tr("GENTLEMAN", nil, 1540, mon("100", 22), mon("081", 22),
-              where: scene_shot("vermilion-gym-gentleman", "WHERE"))
-          ]),
+          leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE"), opp: [ "LT_SURGE", 1 ]),
+          puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ]),
         oak_queue: [ oak("vermilion-city", "007", 1) ])
     end
 
@@ -604,7 +635,7 @@ module Walkthrough
       loc("ss-anne", "BUILDING", "S.S. Anne", 17, steps: 3, shots: [ 3 ],
         trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),
           where: scene_shot("ss-anne-rival", "WHERE"),
-          battle: scene_shot("battle-rival-ss-anne", "BATTLE")) ])
+          battle: scene_shot("battle-rival-ss-anne", "BATTLE"), opp: [ "RIVAL1", 1 ]) ])
     end
 
     def self.route_11
@@ -693,16 +724,8 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
-          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE")),
-          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ],
-          trainers: [
-            tr("JUGGLER", nil, 1190, mon("096", 34), mon("064", 34), where: scene_shot("fuchsia-gym-t1", "WHERE")),
-            tr("JUGGLER", nil, 1330, mon("097", 38), where: scene_shot("fuchsia-gym-t2", "WHERE")),
-            tr("JUGGLER", nil, 1085, mon("096", 31), mon("096", 31), mon("064", 31), mon("096", 31), where: scene_shot("fuchsia-gym-t3", "WHERE")),
-            tr("TAMER", nil, 1320, mon("024", 33), mon("028", 33), mon("024", 33), where: scene_shot("fuchsia-gym-t4", "WHERE")),
-            tr("TAMER", nil, 1360, mon("028", 34), mon("024", 34), where: scene_shot("fuchsia-gym-t5", "WHERE")),
-            tr("JUGGLER", nil, 1190, mon("096", 34), mon("097", 34), where: scene_shot("fuchsia-gym-t6", "WHERE"))
-          ]),
+          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE"), opp: [ "KOGA", 1 ]),
+          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ]),
         oak_queue: [ oak("fuchsia-city", "130", 1) ])
     end
 
@@ -760,17 +783,8 @@ module Walkthrough
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
-          leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE")),
-          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ],
-          trainers: [
-            tr("PSYCHIC", nil, 330, mon("079", 33), mon("079", 33), mon("080", 33), where: scene_shot("saffron-gym-t1", "WHERE")),
-            tr("PSYCHIC", nil, 340, mon("122", 34), mon("064", 34), where: scene_shot("saffron-gym-t2", "WHERE")),
-            tr("CHANNELER", nil, 1140, mon("093", 38), where: scene_shot("saffron-gym-t3", "WHERE")),
-            tr("PSYCHIC", nil, 380, mon("080", 38), where: scene_shot("saffron-gym-t4", "WHERE")),
-            tr("CHANNELER", nil, 1020, mon("092", 34), mon("093", 34), where: scene_shot("saffron-gym-t5", "WHERE")),
-            tr("CHANNELER", nil, 990, mon("092", 33), mon("092", 33), mon("093", 33), where: scene_shot("saffron-gym-t6", "WHERE")),
-            tr("PSYCHIC", nil, 310, mon("064", 31), mon("079", 31), mon("122", 31), mon("064", 31), where: scene_shot("saffron-gym-t7", "WHERE"))
-          ]),
+          leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE"), opp: [ "SABRINA", 1 ]),
+          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ]),
         oak_queue: [ oak("saffron-city", "106", 1) ])
     end
 
@@ -778,13 +792,13 @@ module Walkthrough
       loc("silph-co", "BUILDING", "Silph Co.", 39, steps: 4,
         encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true) ],
         trainers: [
-          rival(0, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40),
+          rival(2600, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40),
             where: scene_shot("silph-co-rival", "WHERE"),
             battle: scene_shot("battle-silph-rival", "BATTLE")),
           tr("TEAM ROCKET", "Giovanni", 4059,
             mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41),
             where: scene_shot("silph-co-giovanni", "WHERE"),
-            battle: scene_shot("battle-silph-giovanni", "BATTLE"))
+            battle: scene_shot("battle-silph-giovanni", "BATTLE"), opp: [ "GIOVANNI", 2 ])
         ],
         oak_queue: [ oak("silph-co", "131", 1) ])
     end
@@ -832,15 +846,8 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
-          leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE")),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ],
-          trainers: [
-            tr("SUPER NERD", nil, 850, mon("077", 34), mon("004", 34), mon("037", 34), mon("058", 34), where: scene_shot("cinnabar-gym-t1", "WHERE")),
-            tr("BURGLAR", nil, 3690, mon("077", 41), where: scene_shot("cinnabar-gym-t2", "WHERE")),
-            tr("SUPER NERD", nil, 1025, mon("078", 41), where: scene_shot("cinnabar-gym-t3", "WHERE")),
-            tr("BURGLAR", nil, 3330, mon("037", 37), mon("058", 37), where: scene_shot("cinnabar-gym-t4", "WHERE")),
-            tr("SUPER NERD", nil, 925, mon("058", 37), mon("037", 37), where: scene_shot("cinnabar-gym-t5", "WHERE"))
-          ]),
+          leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
+          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
         oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
     end
 
@@ -860,18 +867,8 @@ module Walkthrough
     def self.viridian_gym
       loc("viridian-gym", "GYM", "Viridian Gym", 47, steps: 2, gym_after: 1, badge: "EARTH",
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
-          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE")),
-          puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ],
-          trainers: [
-            tr("TAMER", nil, 1560, mon("024", 39), mon("128", 39), where: scene_shot("viridian-gym-t1", "WHERE")),
-            tr("BLACK BELT", nil, 1075, mon("067", 43), where: scene_shot("viridian-gym-t2", "WHERE")),
-            tr("COOLTRAINER♂", nil, 1365, mon("033", 39), mon("034", 39), where: scene_shot("viridian-gym-t3", "WHERE")),
-            tr("TAMER", nil, 1720, mon("111", 43), where: scene_shot("viridian-gym-t4", "WHERE")),
-            tr("BLACK BELT", nil, 1000, mon("066", 40), mon("067", 40), where: scene_shot("viridian-gym-t5", "WHERE")),
-            tr("COOLTRAINER♂", nil, 1365, mon("028", 39), mon("051", 39), where: scene_shot("viridian-gym-t6", "WHERE")),
-            tr("COOLTRAINER♂", nil, 1505, mon("111", 43), where: scene_shot("viridian-gym-t7", "WHERE")),
-            tr("BLACK BELT", nil, 950, mon("067", 38), mon("066", 38), mon("067", 38), where: scene_shot("viridian-gym-t8", "WHERE"))
-          ]))
+          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE"), opp: [ "GIOVANNI", 3 ]),
+          puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ]))
     end
 
     def self.victory_road
@@ -995,15 +992,7 @@ module Walkthrough
         ],
         trainers: [],
         gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
-          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32), battle: scene_shot("battle-erika", "BATTLE")),
-          trainers: [
-            tr("LASS", nil, 345, mon("043", 23), mon("044", 23), where: scene_shot("celadon-gym-t1", "WHERE")),
-            tr("BEAUTY", nil, 1470, mon("043", 21), mon("069", 21), mon("043", 21), mon("069", 21), where: scene_shot("celadon-gym-t2", "WHERE")),
-            tr("BEAUTY", nil, 1680, mon("069", 24), mon("069", 24), where: scene_shot("celadon-gym-t3", "WHERE")),
-            tr("JR. TRAINER♀", nil, 480, mon("001", 24), mon("002", 24), where: scene_shot("celadon-gym-t4", "WHERE")),
-            tr("BEAUTY", nil, 1820, mon("102", 26), where: scene_shot("celadon-gym-t5", "WHERE")),
-            tr("COOLTRAINER♀", nil, 840, mon("070", 24), mon("044", 24), mon("002", 24), where: scene_shot("celadon-gym-t6", "WHERE"))
-          ]),
+          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32), battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ])),
         oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
     end
 
@@ -1017,7 +1006,7 @@ module Walkthrough
           tr("TEAM ROCKET", "Giovanni", 2871,
             mon("095", 25), mon("111", 24), mon("053", 29),
             where: scene_shot("rocket-hideout-giovanni", "WHERE"),
-            battle: scene_shot("battle-rocket-hideout-giovanni", "BATTLE"))
+            battle: scene_shot("battle-rocket-hideout-giovanni", "BATTLE"), opp: [ "GIOVANNI", 1 ])
         ])
     end
 
