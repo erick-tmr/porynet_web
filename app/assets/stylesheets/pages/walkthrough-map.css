@@ -629,6 +629,17 @@
 .pn-wt-hidden.is-done .pn-wt-hidden__badge--todo { display: none; }
 .pn-wt-hidden.is-done .pn-wt-hidden__badge--done { display: inline-block; }
 
+.pn-wt-hidden__icon { position: relative; }
+
+.pn-wt-hidden.is-done .pn-wt-hidden__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(63 143 79 / 50%);
+}
+
+.pn-wt-hidden.is-done .pn-wt-item__check { display: flex; }
+
 .pn-wt-hidden__tap {
   margin-top: 8px;
   font-family: "VT323", monospace;

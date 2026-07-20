@@ -3,7 +3,10 @@
   <div class="pn-wt-hidden__head">
     <span class="pn-wt-hidden__badge pn-wt-hidden__badge--todo"><%= t("walkthrough.ui.hidden_item") %></span>
     <span class="pn-wt-hidden__badge pn-wt-hidden__badge--done"><%= t("walkthrough.ui.map_status_item_done") %></span>
-    <span class="pn-wt-hidden__icon"><%= r2_image_tag "walkthrough/items/#{hidden.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>
+    <span class="pn-wt-hidden__icon">
+      <%= r2_image_tag "walkthrough/items/#{hidden.sprite}.png", alt: "", class: "pn-wt-item__icon" %>
+      <span class="pn-wt-item__check" aria-hidden="true">✓</span>
+    </span>
     <div class="pn-wt-hidden__name"><%= hidden.name %></div>
   </div>
   <div class="pn-wt-shot pn-wt-shot--hidden">
