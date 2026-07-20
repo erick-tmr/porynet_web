@@ -1,0 +1,109 @@
+require "application_system_test_case"
+
+class WalkthroughMapTest < ApplicationSystemTestCase
+  FOREST = "/walkthroughs/yellow/viridian-forest".freeze
+  TRAINER = ".pn-mm[data-marker-id='trainer-30-33']".freeze
+
+  def visit_forest
+    visit FOREST
+    assert_selector ".pn-mm-layer.is-ready"
+  end
+
+  test "the map draws a marker for everything the game data holds" do
+    visit_forest
+
+    assert_selector ".pn-mm", count: 12
+    assert_selector ".pn-mm-legend__row", count: 12
+    assert_selector ".pn-mm-legend__chip", text: "A"
+  end
+
+  test "markers are placed from their own coordinates, not stacked in a corner" do
+    visit_forest
+
+    spots = page.all(".pn-mm").map do |marker|
+      marker.evaluate_script("[getComputedStyle(this).left, getComputedStyle(this).top]")
+    end
+
+    assert_equal 12, spots.uniq.size, "no two markers should share a spot"
+    assert(spots.flatten.none? { |offset| offset == "0px" || offset == "auto" })
+  end
+
+  test "ticking a trainer survives a reload" do
+    visit_forest
+    find("#{TRAINER} .pn-mm__hit").click
+
+    assert_selector "#{TRAINER}.is-done"
+    assert_selector ".pn-mm-legend__row[data-marker-id='trainer-30-33'].is-done"
+    assert_selector "[data-map-markers-target='counterDone']", text: "1"
+
+    visit FOREST
+
+    assert_selector "#{TRAINER}.is-done"
+    assert_selector "[data-map-markers-target='counterDone']", text: "1"
+  end
+
+  test "a legend row ticks the pin it names" do
+    visit_forest
+    find(".pn-mm-legend__row[data-marker-id='item-25-11']").click
+
+    assert_selector ".pn-mm[data-marker-id='item-25-11'].is-done"
+  end
+
+  test "an exit raises its hint without becoming a chore" do
+    visit_forest
+    find(".pn-mm[data-marker-id='exit-15-47'] .pn-mm__hit").click
+
+    assert_selector ".pn-mm[data-marker-id='exit-15-47'].is-selected"
+    assert_no_selector ".pn-mm[data-marker-id='exit-15-47'].is-done"
+    assert_selector "[data-map-markers-target='counterDone']", text: "0"
+  end
+
+  test "filtering shows one category and the toggle hides the labels" do
+    visit_forest
+
+    find(".pn-mm-pill[data-cat='hidden']").click
+    assert_selector ".pn-mm:not(.is-filtered)", count: 2
+
+    find(".pn-mm-pill[data-cat='all']").click
+    assert_selector ".pn-mm:not(.is-filtered)", count: 12
+
+    find(".pn-mm-toggle").click
+    assert_no_selector "[data-controller='map-markers'].is-labelled"
+  end
+
+  test "a step item, a hidden item and a catchable Pokemon all tick and survive a reload" do
+    visit_forest
+
+    first(".pn-wt-item[data-progress-id]").click
+    first(".pn-wt-hidden[data-progress-id]").click
+    first(".pn-wt-catch[data-progress-id]").click
+
+    assert_selector ".pn-wt-item.is-done"
+    assert_selector ".pn-wt-hidden.is-done"
+    assert_selector ".pn-wt-catch.is-done"
+
+    visit FOREST
+
+    assert_selector ".pn-wt-item.is-done"
+    assert_selector ".pn-wt-hidden.is-done"
+    assert_selector ".pn-wt-catch.is-done"
+  end
+
+  test "catching a Pokemon counts toward the leg's registered total" do
+    visit "/walkthroughs/yellow/leg-04"
+    within first(".pn-wt-oak__sub--reg") { assert_text "0" }
+
+    first(".pn-wt-catch[data-progress-id]").click
+
+    within first(".pn-wt-oak__sub--reg") { assert_text "1" }
+  end
+
+  # Route 1 has no trainers, no items, and reaches its neighbours by scrolling rather than
+  # through a gate, so it is the one map with nothing to mark.
+  test "a map with nothing to mark still renders plainly" do
+    visit "/walkthroughs/yellow/leg-01"
+
+    assert_selector ".pn-wt-map__img"   # route-1, the only bare map on the leg
+    assert_selector ".pn-mm-layer"      # its neighbours still get their overlay
+  end
+end

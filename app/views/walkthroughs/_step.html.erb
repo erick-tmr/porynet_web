@@ -12,8 +12,9 @@
 
         <% if step.items? %>
           <div class="pn-wt-items">
-            <% step.items.each do |item| %>
-              <div class="pn-wt-item">
+            <% step.items.each_with_index do |item, i| %>
+              <div class="pn-wt-item" <%= tag.attributes(tickable("collected", "#{slug}/step-#{step.n}/item-#{i}")) %>>
+                <span class="pn-wt-item__check" aria-hidden="true">✓</span>
                 <span class="pn-wt-item__chip"><%= r2_image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>
                 <div>
                   <div>
@@ -29,8 +30,8 @@
 
         <% if step.hidden? %>
           <div class="pn-wt-hidden-grid">
-            <% step.hidden.each do |hidden| %>
-              <%= render "hidden_item", hidden: hidden %>
+            <% step.hidden.each_with_index do |hidden, i| %>
+              <%= render "hidden_item", hidden: hidden, id: "#{slug}/step-#{step.n}/hidden-#{i}" %>
             <% end %>
           </div>
         <% end %>

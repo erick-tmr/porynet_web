@@ -99,10 +99,53 @@ def test_viridian_forest_exits(root):
     assert north["glyph"] == "▲"
 
 
-def test_label_alignment_flips_past_the_threshold(root):
+def test_label_alignment_follows_the_marker_side(root):
     entries = build(root)
-    assert all(m["align"] == ("l" if m["x"] > markers.LABEL_FLIP_PCT else "r") for m in entries)
     assert {m["align"] for m in entries} == {"l", "r"}
+    assert all(m["align"] == "l" for m in entries if m["x"] > markers.LABEL_FLIP_PCT)
+
+
+def test_neighbours_on_one_row_take_separate_lanes(root):
+    """The hidden Potion and the Bug Catcher beside it sit one cell apart on the same row, and
+    both hug the left edge, so they can only be separated vertically."""
+    entries = {m["id"]: m for m in build(root)}
+    potion, catcher = entries["hidden-1-18"], entries["trainer-2-18"]
+
+    assert potion["y"] == catcher["y"]
+    assert potion["align"] == catcher["align"] == "r"
+    assert {potion["lane"], catcher["lane"]} == {0, 1}
+
+
+def test_every_label_stays_on_the_side_its_marker_is_on(root):
+    for entry in build(root):
+        assert entry["align"] == ("l" if entry["x"] > markers.LABEL_FLIP_PCT else "r")
+
+
+def lanes(rows):
+    return [e["lane"] for e in markers.assign_label_lanes(rows, 544, 768)]
+
+
+def row(y, x, name="Potion", align="r"):
+    return {"y": y, "x": x, "name": name, "align": align}
+
+
+def test_lanes_stay_flat_on_a_clear_column():
+    assert lanes([ row(10.0, 5), row(80.0, 5) ]) == [ 0, 0 ]
+
+
+def test_lanes_stay_flat_when_labels_share_a_row_but_sit_far_apart():
+    """Same row, opposite ends of the map: the labels never meet, so neither moves."""
+    assert lanes([ row(10.0, 2), row(10.0, 55) ]) == [ 0, 0 ]
+
+
+def test_lanes_keep_stacking_past_two():
+    assert lanes([ row(10.0, 5), row(10.1, 6), row(10.2, 7) ]) == [ 0, 1, 2 ]
+
+
+def test_a_longer_name_reserves_more_room():
+    """A short name clears its neighbour; the same pair collides once the name grows."""
+    assert lanes([ row(10.0, 2, "TM"), row(10.0, 12) ]) == [ 0, 0 ]
+    assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 0, 1 ]
 
 
 def test_marker_ids_are_unique(root):

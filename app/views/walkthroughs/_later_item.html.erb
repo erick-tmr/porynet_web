@@ -1,5 +1,6 @@
-<div class="pn-wt-later">
+<div class="pn-wt-later" <%= tag.attributes(tickable("collected", id)) %>>
   <span class="pn-wt-later__lock"><%= t("walkthrough.ui.later_locked") %></span>
+  <span class="pn-wt-later__check" aria-hidden="true">✓</span>
   <div class="pn-wt-later__body">
     <div class="pn-wt-later__shot-wrap">
       <div class="pn-wt-shot pn-wt-shot--later">

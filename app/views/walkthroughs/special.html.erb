@@ -1,6 +1,7 @@
+<% content_for :page_controller do %>data-controller="progress-toggle" data-progress-toggle-game-value="<%= @game.slug %>"<% end %>
 <% content_for :title, t("walkthrough.ui.title_location", name: @location.name, game: @game.name) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -25,7 +26,7 @@
   <h2 class="pn-h2"><%= t("walkthrough.ui.steps_h2") %></h2>
   <div class="pn-wt-steps">
     <% @location.steps.each do |step| %>
-      <%= render "step", step: step %>
+      <%= render "step", step: step, slug: @location.slug %>
       <% if @location.missable_after?(step.n) %><%= render "missable", missable: @location.missable %><% end %>
     <% end %>
   </div>

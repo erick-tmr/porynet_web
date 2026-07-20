@@ -34,6 +34,31 @@ module ApplicationHelper
     t(step.text_key, href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
+  # Attributes that make an element a tick target for progress_toggle_controller. Ids are built
+  # from where a thing sits in the walkthrough, so they survive copy edits to its description.
+  def tickable(kind, id)
+    { role: "button", tabindex: 0, "aria-pressed": "false",
+      data: { progress_toggle_target: "item", kind: kind, progress_id: id,
+              action: "click->progress-toggle#toggle " \
+                      "keydown.enter->progress-toggle#toggle " \
+                      "keydown.space->progress-toggle#toggle" } }
+  end
+
+  def progress_count(kind, ids)
+    tag.span(0, data: { progress_toggle_target: "count", kind: kind, progress_ids: ids.join(" ") })
+  end
+
+  # A trainer is beaten, everything else is collected, so the two tick categories read differently.
+  def marker_status_key(marker, state)
+    "walkthrough.ui.map_status_#{marker.cat == 'trainer' ? 'trainer' : 'item'}_#{state}"
+  end
+
+  def marker_detail(marker)
+    return t("walkthrough.ui.map_exit_#{marker.edge}") if marker.cat == "exit"
+
+    t("walkthrough.ui.map_cat_#{marker.cat}")
+  end
+
   def best_catch_reason(best, encounter)
     key = best.tie ? "walkthrough.ui.best_reason_tie" : "walkthrough.ui.best_reason_beats"
     t(key, name: encounter.name, rate: best.rate, alt: best.alt_name, alt_rate: best.alt_rate)

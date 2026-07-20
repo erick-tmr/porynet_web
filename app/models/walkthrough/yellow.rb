@@ -191,8 +191,8 @@ module Walkthrough
 
     def self.map_marker(data)
       MapMarker.new(id: data["id"], cat: data["cat"], key: data["key"], name: data["name"],
-        x: data["x"], y: data["y"], align: data["align"], glyph: data["glyph"],
-        edge: data["edge"], ref: data["ref"])
+        x: data["x"], y: data["y"], align: data["align"], lane: data["lane"],
+        glyph: data["glyph"], edge: data["edge"], ref: data["ref"])
     end
 
     def self.step_shots = manifest.fetch("step_shots", {})

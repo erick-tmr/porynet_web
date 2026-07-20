@@ -16,6 +16,7 @@ import sources
 
 CELL_PX = sources.UNIT_PX          # 16; one overworld movement cell
 LABEL_FLIP_PCT = 62.0              # past this x the label reads better to the marker's left
+LABEL_PX = 26                      # a label's own height, the closest two can sit before they touch
 
 
 def key_letters(index):
@@ -129,4 +130,41 @@ def build_markers(root_str, map_label, map_const, width_px, height_px):
                         name=sources.place_display_name(group["dest"]), ref=group["dest"])
         out.append({**entry, "edge": edge, "glyph": "▲" if entry["y"] < 50 else "▼"})
 
-    return out
+    return assign_label_lanes(out, width_px, height_px)
+
+
+# A label is Press Start 2P at 9px in a bordered box, offset from its marker. Close enough to
+# reserve the right amount of room without measuring text we cannot measure here.
+LABEL_CHAR_PX = 8
+LABEL_PAD_PX = 18
+LABEL_OFFSET_PX = 22
+LABEL_KEY_PX = 20
+
+
+def label_span(entry, width_px):
+    """The horizontal band a label occupies, in percent, on whichever side of its marker it sits."""
+    text = len(entry["name"]) * LABEL_CHAR_PX + LABEL_PAD_PX + (LABEL_KEY_PX if entry.get("key") else 0)
+    width, offset = text / width_px * 100, LABEL_OFFSET_PX / width_px * 100
+    if entry["align"] == "r":
+        return (entry["x"] + offset, entry["x"] + offset + width)
+    return (entry["x"] - offset - width, entry["x"] - offset)
+
+
+def assign_label_lanes(entries, width_px, height_px):
+    """Stack labels that would print over each other into lanes, nudging the later one down.
+
+    Viridian Forest's hidden Potion and the Bug Catcher one cell to its right would otherwise
+    write their names on the same pixels. Nudging one down always works, where flipping it to
+    the marker's other side does not: both of those hug the left edge, so a flipped label would
+    hang off the map. Labels that merely share a row but sit far apart are left flat."""
+    row_pct = LABEL_PX / height_px * 100
+    taken = []
+    for entry in sorted(entries, key=lambda e: (e["y"], e["x"])):
+        span = label_span(entry, width_px)
+        lane = 0
+        while any(t["lane"] == lane and abs(t["y"] - entry["y"]) < row_pct
+                  and t["span"][0] < span[1] and span[0] < t["span"][1] for t in taken):
+            lane += 1
+        entry["lane"] = lane
+        taken.append({**entry, "span": span})
+    return entries

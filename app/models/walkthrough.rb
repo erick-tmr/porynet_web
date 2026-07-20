@@ -1,4 +1,7 @@
 module Walkthrough
+  # Marker categories in the order the map legend lists them.
+  MAP_CATEGORIES = %w[trainer item hidden exit].freeze
+
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line) do
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
@@ -17,8 +20,8 @@ module Walkthrough
   end
   # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
   # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
-  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :glyph, :edge, :ref) do
-    def initialize(key: nil, glyph: nil, edge: nil, **rest) = super
+  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref) do
+    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, **rest) = super
     def key? = !key.nil?
     def tickable? = cat != "exit"
     def glyph_or_key = glyph || key

@@ -1,4 +1,5 @@
-<div class="pn-wt-hidden">
+<div class="pn-wt-hidden" <%= tag.attributes(tickable("collected", id)) %>>
+  <span class="pn-wt-hidden__check" aria-hidden="true">✓</span>
   <div class="pn-wt-hidden__head">
     <span class="pn-wt-hidden__badge"><%= t("walkthrough.ui.hidden_item") %></span>
     <span class="pn-wt-hidden__icon"><%= r2_image_tag "walkthrough/items/#{hidden.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>

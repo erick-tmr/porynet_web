@@ -1,0 +1,27 @@
+<div class="pn-mm" data-map-markers-target="marker" data-role="marker"
+     data-marker-id="<%= marker.id %>" data-cat="<%= marker.cat %>"
+     data-x="<%= marker.x %>" data-y="<%= marker.y %>" data-align="<%= marker.align %>"
+     data-lane="<%= marker.lane %>">
+  <button type="button" class="pn-mm__hit" data-action="click->map-markers#hit"
+          <%= tag.attributes("aria-pressed": "false") if marker.tickable? %>>
+    <span class="pn-mm__pin pn-mm__pin--<%= marker.cat %>">
+      <% if marker.cat == "hidden" %><span class="pn-mm__ring" aria-hidden="true"></span><% end %>
+      <span class="pn-mm__glyph"><%= marker.glyph_or_key %></span>
+      <span class="pn-mm__check" aria-hidden="true">✓</span>
+    </span>
+    <span class="pn-mm__label">
+      <% if marker.key? %><span class="pn-mm__label-key"><%= marker.key %></span><% end %>
+      <%= marker.name %>
+    </span>
+  </button>
+  <div class="pn-mm__hint" role="status">
+    <div class="pn-mm__hint-name">
+      <%= marker.key? ? t("walkthrough.ui.map_marker_named", name: marker.name, key: marker.key) : marker.name %>
+    </div>
+    <div class="pn-mm__hint-detail"><%= marker_detail(marker) %></div>
+    <% if marker.tickable? %>
+      <span class="pn-mm__status pn-mm__status--todo"><%= t(marker_status_key(marker, "todo")) %></span>
+      <span class="pn-mm__status pn-mm__status--done"><%= t(marker_status_key(marker, "done")) %></span>
+    <% end %>
+  </div>
+</div>

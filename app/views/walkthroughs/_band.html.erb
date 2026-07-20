@@ -19,7 +19,7 @@
   <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
   <div class="pn-wt-steps">
     <% loc.lead_steps.each do |step| %>
-      <%= render "step", step: step %>
+      <%= render "step", step: step, slug: loc.slug %>
       <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
     <% end %>
   </div>
@@ -69,7 +69,7 @@
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_after_h2") %></h3>
     <div class="pn-wt-steps">
       <% loc.after_steps.each do |step| %>
-        <%= render "step", step: step %>
+        <%= render "step", step: step, slug: loc.slug %>
         <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
       <% end %>
     </div>
