@@ -109,6 +109,7 @@ pt:
       title_index: "Guia de %{name} · PORYNET"
       title_location: "%{name} · Guia de %{game}"
       progress_title: "PROGRESSO DA ROTA"
+      poke_dollar: "Poké Dólar"
       obtainable: "OBTENÍVEIS"
       caught: "CAPTURADOS"
       dex_goal: "META LIVING DEX"
@@ -256,7 +257,7 @@ pt:
           intro: "O lar. Pegue seu parceiro Pikachu, resolva a primeira batalha de rival e siga ao norte."
           trivia:
             title: "Esta batalha decide o Eevee do seu rival"
-            intro: "No Pokémon Yellow, o resultado desta batalha, mais uma revanche opcional na Rota 22, define em qual evolução o Eevee do seu rival se transforma. Jogue como quiser, mas aqui está a receita de cada uma."
+            intro: "O resultado desta batalha, mais uma revanche opcional na Rota 22, define em qual evolução o Eevee do seu rival se transforma. Jogue como quiser, mas aqui está a receita de cada uma."
             note: "// A revanche da Rota 22 só importa se você vencer aqui primeiro; se perder, vira Vaporeon de qualquer jeito."
             cards:
               vaporeon:
@@ -279,7 +280,7 @@ pt:
               text: "Vá até a saída norte. No instante em que pisa na grama da Rota 1, o Oak te para e te leva de volta ao laboratório, onde te dá o Pikachu. Daí em diante ele anda ao seu lado, em vez de ficar na Ball."
             "3":
               title: "Vença seu rival"
-              text: "O Blue pega um Eevee e te enfrenta no laboratório. Ele é Nv 5 com Tackle e Tail Whip; lidere com o Pikachu e use ThunderShock. Vença por ₽175."
+              text_html: "O Blue pega um Eevee e te enfrenta no laboratório. Ele é Nv 5 com Tackle e Tail Whip; lidere com o Pikachu e use ThunderShock. Vença por <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dólar\"></span>175</span>. Atenção: esse resultado é metade do que define <a href=\"%{href}\">em qual evolução o Eevee dele vira</a>, então escolha o desfecho de propósito."
             "4":
               title: "Siga ao norte para a Rota 1"
               text: "Saia de Pallet pela saída norte para a Rota 1, seguindo rumo a Viridian City."
@@ -330,7 +331,7 @@ pt:
                 town_map: "Com a Daisy, irmã do Blue, na casa logo a leste da sua em Pallet Town."
             "4":
               title: "Veja a demonstração de captura e abasteça"
-              text: "Volte a pé para Viridian. O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir."
+              text_html: "Volte a pé para Viridian. O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir. Ou deixe as Poké Balls para depois se quiser <a href=\"#missable-poke-balls\">as cinco grátis do Oak</a>."
               hidden:
                 potion: "Na árvore logo à esquerda do portão norte. Fique à direita dela e aperte A."
             "5":
@@ -345,7 +346,7 @@ pt:
               text: "Vá a oeste de Viridian até a grama. Capture Nidoran♂/♀ e Mankey aqui. Eles vencem os tipos Pedra do Brock."
             "2":
               title: "Vença o rival"
-              text: "O Blue te desafia perto da água com Spearow (Nv 9) e Eevee (Nv 8). Vença por ₽280."
+              text_html: "O Blue te desafia perto da água com Spearow (Nv 9) e Eevee (Nv 8). Vença por <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dólar\"></span>280</span>. Esta é a outra metade da <a href=\"%{href}\">receita do Eevee</a>: se você venceu em Pallet, vencer aqui trava o Jolteon e pular esta luta trava o Flareon."
             "3":
               title: "Opcional: as cinco Poké Balls do Oak"
               text_html: "Ainda sem nenhuma Poké Ball e só com o Pikachu capturado? Volte ao Laboratório do Oak em Pallet Town e fale com ele para ganhar <b>cinco Poké Balls</b>. Veja a <a href=\"#missable-poke-balls\">nota de perdível</a>."
@@ -826,7 +827,7 @@ pt:
           steps:
             "1":
               title: "Pague a entrada"
-              text: "Pague ₽500 no portão por 30 Safari Balls; você tem 500 passos por rodada."
+              text_html: "Pague <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dólar\"></span>500</span> no portão por 30 Safari Balls; você tem 500 passos por rodada."
             "2":
               title: "Cace os raros e pegue os TMs"
               text: "Varra as áreas por Scyther, Pinsir, Kangaskhan, Tauros, Chansey e Tangela; use Bait para mantê-los parados, Rocks para facilitar a captura, e lembre que nada desmaia aqui. Pegue o TM37 (Egg Bomb) na Área 1, o TM40 (Skull Bash) na Área 2 e o TM32 (Double Team) na Área 3."

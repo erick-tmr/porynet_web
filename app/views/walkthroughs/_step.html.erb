@@ -8,7 +8,7 @@
     <div class="pn-wt-step__body">
       <div class="pn-wt-step__main">
         <div class="pn-wt-step__title"><%= t(step.title_key) %></div>
-        <div class="pn-wt-step__text"><%= t(step.text_key) %></div>
+        <div class="pn-wt-step__text"><%= step_text(step) %></div>
 
         <% if step.items? %>
           <div class="pn-wt-items">

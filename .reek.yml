@@ -41,6 +41,11 @@ detectors:
   LongParameterList:
     exclude:
       - Walkthrough::Yellow
+      - Walkthrough::Location   # Data.define cannot declare default values, so this
+                                # initialize is a defaults shim that forwards to super.
+                                # Its keywords are the optional subset of the struct's
+                                # own members, not a call signature; collapsing them
+                                # would force all 17 fields at every call site.
   BooleanParameter:
     exclude:
       - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder

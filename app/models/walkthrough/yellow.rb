@@ -51,6 +51,8 @@ module Walkthrough
 
     def self.base(slug) = "#{K}.locations.#{slug.tr('-', '_')}"
 
+    RIVAL_EEVEE_ANCHOR = "rival-eevee"
+
     def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false)
       Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: rate, level: level,
         rarity: rarity, tip_key: (tip ? "#{base(slug)}.tips.#{mon_key(dex)}" : nil), evo_line: line(*chain))
@@ -207,7 +209,7 @@ module Walkthrough
         steps: [
           step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1")),
           step(b, 2),
-          step(b, 3),
+          step(b, 3, html: true, link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)),
           step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"))
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
@@ -215,7 +217,7 @@ module Walkthrough
           where: scene_shot("oaks-lab-rival", "WHERE"),
           battle: scene_shot("battle-rival-oaks-lab", "BATTLE")) ],
         oak_queue: [],
-        trivia: trivia(b, cards: [
+        trivia: trivia(b, anchor: RIVAL_EEVEE_ANCHOR, cards: [
           trivia_card(b, "vaporeon", "134", "water", "no", "na"),
           trivia_card(b, "jolteon", "135", "electric", "yes", "yes"),
           trivia_card(b, "flareon", "136", "fire", "yes", "no")
@@ -253,7 +255,7 @@ module Walkthrough
           step(b, 2),
           step(b, 3, items: [ item(b, 3, "Town Map", "town_map") ],
             shot: map_shot("viridian-city", 3, "STEP 3")),
-          step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "viridian-city-hidden-potion", "viridian-potion") ]),
+          step(b, 4, html: true, hidden: [ hidden(b, 4, "Potion", "potion", "viridian-city-hidden-potion", "viridian-potion") ]),
           step(b, 5)
         ],
         encounters: [], trainers: [], oak_queue: [],
@@ -269,7 +271,7 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
           step(b, 1, shot: map_shot("route-22", 1, "STEP 1")),
-          step(b, 2),
+          step(b, 2, html: true, link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)),
           step(b, 3, html: true, shot: map_shot("route-22", 3, "STEP 3")),
           step(b, 4, shot: map_shot("route-22", 4, "STEP 4"))
         ],
@@ -365,13 +367,14 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], hidden_items: {}, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: (1..steps).map { |i|
-          step(b, i, shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
+          step(b, i, html: html_steps.include?(i),
+            shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, oak_queue: oak_queue, gym: gym, gym_after: gym_after
@@ -656,7 +659,7 @@ module Walkthrough
     end
 
     def self.safari_zone
-      loc("safari-zone", "DUNGEON", "Safari Zone", 34, steps: 4,
+      loc("safari-zone", "DUNGEON", "Safari Zone", 34, steps: 4, html_steps: [ 1 ],
         encounters: [
           enc("safari-zone", "123", "SAFARI", "4%", "23", "RARE", "123", tip: true),
           enc("safari-zone", "127", "SAFARI", "4%", "23", "RARE", "127", tip: true),
@@ -1000,10 +1003,10 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false)
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{html ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot)
+        items: items, hidden: hidden, shot: shot, link: link)
     end
 
     ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic" }.freeze
@@ -1029,8 +1032,8 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, cards:)
-      Trivia.new(title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
+    def self.trivia(base, anchor:, cards:)
+      Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
         note_key: "#{base}.trivia.note", cards: cards)
     end
 
