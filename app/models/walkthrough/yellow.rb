@@ -166,7 +166,7 @@ module Walkthrough
     end
 
     def self.manifest
-      JSON.parse(File.read(File.join(__dir__, "yellow_maps.json")))
+      @manifest ||= JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).freeze
     end
 
     def self.map_data

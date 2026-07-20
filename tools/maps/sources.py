@@ -152,6 +152,21 @@ def load_blueprint(root_str, label):
     return (_root(root_str) / f"maps/{label}.blk").read_bytes()
 
 
+@lru_cache(maxsize=None)
+def load_sprite_sheet(root_str, name):
+    """The 'L'-mode overworld sprite sheet gfx/sprites/<name>.png.
+
+    Cached because a full build composites hundreds of sprites drawn from a few dozen sheets.
+    Callers must only crop/transpose it, which return new images and leave the cache intact."""
+    return Image.open(_root(root_str) / f"gfx/sprites/{name}.png").convert("L")
+
+
+@lru_cache(maxsize=None)
+def load_emote_sheet(root_str, name):
+    """The 'L'-mode emotion-bubble sheet gfx/emotes/<name>.png. Cached like load_sprite_sheet."""
+    return Image.open(_root(root_str) / f"gfx/emotes/{name}.png").convert("L")
+
+
 def resolve_palette_id(root_str, const, tileset, parent_const):
     """Mirror SetPal_Overworld: pick the map's super-palette id."""
     if tileset == "CEMETERY":
@@ -196,7 +211,6 @@ def parse_sprite_table(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
 @lru_cache(maxsize=None)
 def parse_border_block(root_str, map_label):
     """The map's border block id (`db $X ; border block` in its object file); None if absent.

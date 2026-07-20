@@ -147,7 +147,7 @@ def overlay_sprites(canvas, root_str, sprites, colors):
     out = canvas.convert("RGBA")
     shade = {255: None, 170: colors[0], 85: colors[1], 0: colors[3]}
     for spr in sprites:
-        sheet = Image.open(sources._root(root_str) / f"gfx/sprites/{spr['file']}.png").convert("L")
+        sheet = sources.load_sprite_sheet(root_str, spr["file"])
         tile = sheet.crop((0, spr["frame"] * 16, 16, spr["frame"] * 16 + 16))
         if spr.get("flip"):
             tile = tile.transpose(Image.FLIP_LEFT_RIGHT)
@@ -164,7 +164,7 @@ def overlay_emotes(canvas, root_str, emotes, colors):
     out = canvas.convert("RGBA")
     shade = {255: None, 170: colors[0], 0: colors[3]}
     for em in emotes:
-        sheet = Image.open(sources._root(root_str) / f"gfx/emotes/{em['name']}.png").convert("L")
+        sheet = sources.load_emote_sheet(root_str, em["name"])
         rgba = Image.new("RGBA", (16, 16))
         rgba.putdata([(0, 0, 0, 0) if shade.get(p) is None else (*shade[p], 255)
                       for p in sheet.crop((0, 0, 16, 16)).getdata()])
