@@ -143,7 +143,6 @@ def test_trainer_money(root):
 
     assert money["BUG_CATCHER"] == 1000
     assert money["MISTY"] == 9900
-    # JugglerPic serves both of these, so a label-keyed table would lose one
     assert money["JUGGLER"] == money["UNUSED_JUGGLER"] == 3500
 
 

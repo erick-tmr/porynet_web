@@ -318,8 +318,6 @@ def parse_object_events(root_str, map_label, include_battlers=False):
     return tuple(o for o in objects if o["kind"] == "person")
 
 
-# The tiles Surf and fishing accept (data/tilesets/water_tilesets.asm): open water, plus the two
-# shore tiles you can step off from.
 WATER_TILES = frozenset({0x14})
 SHORE_TILES = frozenset({0x48, 0x32})
 
@@ -454,7 +452,7 @@ def _trainer_data_labels(root_str):
     assert_table_length guarantees it stays aligned to the const order."""
     text = _read(root_str, "data/trainers/parties.asm")
     labels = re.findall(r"^\s*dw\s+(\w+)Data\s*$", text, re.M)
-    consts = _trainer_const_order(root_str)[1:]      # skip NOBODY
+    consts = _trainer_const_order(root_str)[1:]
     if len(labels) != len(consts):
         raise ValueError(f"{len(labels)} party pointers for {len(consts)} trainer classes")
     return dict(zip(consts, labels))

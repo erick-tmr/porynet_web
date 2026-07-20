@@ -2,7 +2,6 @@ module Walkthrough
   # Marker categories in the order the map legend lists them.
   MAP_CATEGORIES = %w[trainer item hidden exit].freeze
 
-  # How many trainer cards a location can show before they switch to the denser layout.
   DENSE_TRAINERS = 6
 
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line) do
@@ -10,9 +9,6 @@ module Walkthrough
     def wild? = !gift?
   end
 
-  # `at` is the map cell, needed only when a location holds two of the same item and the name
-  # alone cannot say which one a step means. `tick` is the progress key the item shares with its
-  # pin, resolved from the map once the markers are known.
   Item = Data.define(:name, :where_key, :sprite, :at, :tick) do
     def initialize(at: nil, tick: nil, **rest) = super
   end
@@ -58,8 +54,6 @@ module Walkthrough
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
   # the map object, which resolves `marker_key` so the card and its pin show the same letter.
-  # `tick` is the progress-store key this card shares with its pin on the map, so beating a
-  # trainer can be recorded from either surface.
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key,
     :tick) do
     def initialize(opp: nil, marker_key: nil, tick: nil, **rest) = super
@@ -102,7 +96,6 @@ module Walkthrough
     def badge? = !badge.nil?
     def gym? = !gym.nil?
 
-    # Some routes field ten trainers. Past a handful the cards want to be smaller and denser.
     def dense_trainers? = trainers.size > DENSE_TRAINERS
 
     # steps that lead up to the gym vs. the follow-up steps after it

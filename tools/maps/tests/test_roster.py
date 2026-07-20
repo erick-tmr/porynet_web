@@ -3,7 +3,6 @@ import markers
 import roster
 import sources
 
-# The eight Route 3 trainers, verified by hand against parties.asm before the generator existed.
 ROUTE_3 = [
     ("A", "BUG_CATCHER:4", 100, [("010", 10), ("013", 10), ("010", 10)]),
     ("B", "YOUNGSTER:1", 165, [("019", 11), ("023", 11)]),
@@ -94,7 +93,6 @@ def test_extra_maps_contribute_cards_without_pins(root):
     entries, _ = built(root)
     ship = entries["ss-anne"]
 
-    # the rival is not aboard until the plot puts him there, so none of these carry a pin
     assert len(ship) == 16
     assert all(e["key"] is None for e in ship)
 

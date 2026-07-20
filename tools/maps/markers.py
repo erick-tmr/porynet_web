@@ -78,8 +78,6 @@ def _warp_group(cells):
             "anchor": (anchor[1], anchor[0])}
 
 
-# Which way you walk to use an exit. A door in a building's front wall is always stepped up
-# into, whichever half of the map the building sits in.
 EXIT_GLYPHS = {"north": "▲", "south": "▼", "west": "◀", "east": "▶", "inner": "▲"}
 
 

@@ -694,10 +694,6 @@
 
 .pn-wt-trainer__key { color: var(--accent2); }
 
-/* --- dense trainer grids -------------------------------------------------- */
-/* Some routes field ten trainers and Silph Co thirty. Past a handful the cards go three across
-   and drop the team member's name, keeping the sprite and the level, which is what the gym
-   trainer cards have always shown. */
 
 @media (min-width: 1200px) {
   .pn-wt-trainers--dense { grid-template-columns: repeat(3, 1fr); }

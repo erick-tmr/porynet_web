@@ -94,7 +94,6 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "img.pn-mm-canvas__img[src*=?]", "walkthrough/yellow/maps/route-1.png"
-    # Route 1 has no trainers, items or gates; its two connections are the whole overlay
     assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit]", "route-1", 2
   end
 

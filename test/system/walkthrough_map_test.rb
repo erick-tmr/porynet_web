@@ -20,8 +20,6 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   test "markers are placed from their own coordinates, not stacked in a corner" do
     visit_forest
 
-    # the custom properties the controller writes, not the laid-out pixels: percentages resolve
-    # against the map image, so measuring those would only be testing whether it had loaded yet
     spots = page.all(".pn-mm").map do |marker|
       marker.evaluate_script("[this.style.getPropertyValue('--mx'), this.style.getPropertyValue('--my')]")
     end
@@ -108,14 +106,12 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
     find(card).click
     assert_selector "#{card}.is-done"
-    assert_selector "#{pin}.is-done"   # ticking the card lights its pin
+    assert_selector "#{pin}.is-done"
 
     find("#{pin} .pn-mm__hit").click
-    assert_no_selector "#{card}.is-done"   # and unticking the pin clears the card
+    assert_no_selector "#{card}.is-done"
   end
 
-  # Route 1 has no trainers, no items and no gates. It reaches its neighbours by scrolling, and
-  # those connections are the only thing it has to mark.
   test "a route that only connects still shows the way out" do
     visit "/walkthroughs/yellow/leg-01"
     assert_selector ".pn-mm-layer.is-ready", minimum: 2

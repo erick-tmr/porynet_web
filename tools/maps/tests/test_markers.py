@@ -193,8 +193,6 @@ def test_connections_become_exits(root):
     assert by_id["exit-north"]["glyph"] == "▲"
     assert by_id["exit-south"]["name"] == "Route 21"
     assert by_id["exit-south"]["glyph"] == "▼"
-    # you leave Pallet Town southward by Surf, so the marker sits on the water rather than on
-    # the midpoint of the edge, which is beach
     assert by_id["exit-south"]["grid"] == [6, 17]
     assert len([m for m in exits if m["edge"] == "inner"]) == 3
 

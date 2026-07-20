@@ -96,7 +96,6 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   end
 
   test "a trainer fought somewhere the location never draws carries no letter" do
-    # Brock's pin is on the gym floor, which the location header does not render.
     brock = location("pewter-city").gym.leader
 
     assert_equal "BROCK:1", brock.opp

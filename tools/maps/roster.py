@@ -13,14 +13,9 @@ import locations
 import markers
 import sources
 
-# Where the hero stands relative to the trainer, in cells along the trainer's facing. Measured
-# from the hand-authored scenes this replaces: 53 of 58 put the player at 2 and the camera at 1.
 PLAYER_CELLS = 2
 FOCUS_CELLS = 1
 
-# A trainer with no facing, or one that paces a range rather than holding a direction, is drawn
-# looking at the player. The one hand-authored scene for such a trainer (Viridian Forest's Lass)
-# made the same choice.
 FACINGS = {"DOWN": (0, 1), "UP": (0, -1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
 DEFAULT_FACING = "DOWN"
 OPPOSITE = {"DOWN": "UP", "UP": "DOWN", "LEFT": "RIGHT", "RIGHT": "LEFT"}
@@ -93,8 +88,6 @@ def build_roster(root_str):
                 continue
             area = locations.image_name(slug, floor)
             for index, obj in enumerate(_map_trainers(root_str, label)):
-                # a gym floor is shown as a plain screenshot with no pins, so its cards get no
-                # letter either: a letter naming a pin the page never draws would be a lie
                 key = None if floor == "Gym" else markers.key_letters(index)
                 name = scene_name(area, obj)
                 specs.append(where_spec(label, parent, obj, name))

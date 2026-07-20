@@ -1,9 +1,6 @@
 require "test_helper"
 
 class WalkthroughTrainersTest < ActiveSupport::TestCase
-  # Battles the game picks a party for at run time, so the map object's party number is a
-  # placeholder and the card must stay hand-authored. The SS Anne rival's object points at Rival1
-  # party 1, which is a single level 5 Eevee: the Oak's Lab fight, not the one on the ship.
   SCRIPTED = { "ss-anne" => "RIVAL1:1", "rocket-hideout" => "GIOVANNI:1",
                "silph-co" => "GIOVANNI:2" }.freeze
 
@@ -109,10 +106,9 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
   test "the SS Anne counts the trainers in its cabins, which its own map never draws" do
     ship = location("ss-anne")
 
-    # sixteen from the cabins, plus the rival, who is only aboard when the plot puts him there
     assert_equal 17, ship.trainers.size
     assert(ship.trainers.all? { |t| t.marker_key.nil? })
-    assert_equal "Blue", ship.trainers.first.name   # the authored fight keeps its place, ahead of the cabins
+    assert_equal "Blue", ship.trainers.first.name
   end
 
   test "a card ticks under the same key as its pin on the map" do

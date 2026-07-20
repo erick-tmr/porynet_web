@@ -2,14 +2,10 @@
   white-space: nowrap;
 }
 
-/* The coin and the digits are both centred on the line's middle, so they sit centred on each
-   other at any font size. Sizing the coin in em keeps it in step with the text it follows. */
 .pn-money-value__n {
   vertical-align: middle;
 }
 
-/* The coin follows the text it sits beside, but never shrinks below the size it is drawn at:
-   the reward badges set 11px type and a coin that small loses its detail. */
 .pn-money {
   display: inline-block;
   width: max(1em, 16px);

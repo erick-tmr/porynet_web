@@ -50,10 +50,6 @@ _DUNGEONS = {
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
 }
 
-# Maps a location owns that get no area map of their own, but whose trainers the player still
-# fights there. The SS Anne's cabins hold sixteen of them; without these the ship's page would
-# claim one trainer where the player meets seventeen. Their cards carry no pin, since there is
-# no drawn map to pin them to.
 _EXTRA_TRAINER_MAPS = {
     "ss-anne": [("SSAnne1FRooms", "VERMILION_CITY"), ("SSAnne2FRooms", "VERMILION_CITY"),
                 ("SSAnneB1FRooms", "VERMILION_CITY"), ("SSAnneBow", "VERMILION_CITY")],

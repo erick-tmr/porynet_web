@@ -178,11 +178,6 @@ module Walkthrough
         gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
     end
 
-    # Fill the location from the generated roster, letting a hand-authored card stand in for its
-    # generated twin. The match is on the map object's OPP_CLASS:party pair, scoped to this
-    # location: five of those pairs appear on two maps apiece, so a global match would swap the
-    # wrong cards. An authored card that matches nothing is a battle the map never declares, like
-    # the rival or the Elite Four, and is appended after the rest.
     def self.merge_trainers(loc)
       claimed = {}
       fresh = roster_for(loc.slug).reject do |entry|
@@ -193,9 +188,6 @@ module Walkthrough
       place_trainers(loc, fresh, claimed)
     end
 
-    # A step's item and its pin on the map are the same thing in the game, so give them the same
-    # progress key and picking one up is recorded once. Story items like Oak's Parcel have no map
-    # object and keep their positional key.
     def self.tick_items(loc, maps)
       pins = maps.flat_map { |m| m.markers.map { |k| [ m.name, k ] } }
       loc.with(steps: loc.steps.map do |step|
@@ -204,8 +196,6 @@ module Walkthrough
       end)
     end
 
-    # Matched on the item's own name within the location. Where a map holds two of the same item
-    # the name cannot say which one a step means, so the step names the cell itself.
     def self.pin_tick(pins, cat, item)
       found = pins.select { |_name, pin| pin.cat == cat && pin.name == item.name }
       found = found.select { |_name, pin| pin.id.end_with?("-#{item.at[0]}-#{item.at[1]}") } if item.at
@@ -219,8 +209,6 @@ module Walkthrough
       loc.trainers + (loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : [])
     end
 
-    # Viridian Gym is the one gym whose map carries no floor label, so for a GYM-kind location
-    # every entry belongs to the gym section rather than the location's own list.
     def self.gym_entry?(loc, entry) = entry["floor"] == "Gym" || loc.kind == "GYM"
 
     def self.place_trainers(loc, fresh, claimed)
@@ -232,8 +220,6 @@ module Walkthrough
         leader: claimed.fetch(loc.gym.leader.opp, loc.gym.leader)))
     end
 
-    # Authored cards keep their place and their enrichment; whatever the game declares and nobody
-    # wrote follows them.
     def self.settle(authored, fresh, claimed)
       authored.map { |t| claimed.fetch(t.opp, t) } + fresh.map { |e| roster_trainer(e) }
     end
@@ -252,8 +238,6 @@ module Walkthrough
         opp: entry["opp"], marker_key: entry["key"], tick: tick_for(entry))
     end
 
-    # The same key the map overlay writes for this trainer's pin, so ticking the card lights the
-    # pin and ticking the pin lights the card.
     def self.tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
 
     def self.roster_for(slug) = roster.fetch("trainers", {}).fetch(slug, [])
@@ -499,8 +483,6 @@ module Walkthrough
       "POKéMANIAC" => "pokemaniac-gen1", "GAMBLER" => "gambler-gen1", "ENGINEER" => "engineer-gen1"
     }.freeze
 
-    # The game spells a class differently from the card. Only the exceptions live here; every
-    # other const just loses its underscores.
     CLASS_LABELS = {
       "BUG_CATCHER" => "BUG CATCHER", "SUPER_NERD" => "SUPER NERD", "CUE_BALL" => "CUE BALL",
       "BIRD_KEEPER" => "BIRD KEEPER", "JR_TRAINER_M" => "JR. TRAINER♂",

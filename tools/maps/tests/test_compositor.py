@@ -50,7 +50,7 @@ def test_palette_modes(root):
 
 def test_grass_cells_only_exist_where_the_tileset_has_grass(root):
     assert len(compositor.grass_cells(root, "ViridianForest")) == 137
-    assert compositor.grass_cells(root, "MtMoon1F") == frozenset()   # caverns have no grass tile
+    assert compositor.grass_cells(root, "MtMoon1F") == frozenset()
 
 
 def test_a_sprite_standing_in_grass_is_covered_from_the_waist_down(root):
