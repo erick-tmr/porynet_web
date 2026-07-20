@@ -1,11 +1,18 @@
-<div class="pn-wt-trainer">
+<div class="pn-wt-trainer" <%= tag.attributes(tickable("collected", id)) %>>
+  <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
+  <%= progress_toast("trainer") %>
   <div class="pn-wt-trainer__head">
     <div>
       <% if trainer.name %>
         <div class="pn-wt-trainer__cls"><%= trainer.cls %></div>
         <div class="pn-wt-trainer__name"><%= trainer.name %></div>
       <% else %>
-        <div class="pn-wt-trainer__name"><%= trainer.cls %></div>
+        <div class="pn-wt-trainer__name">
+          <%= trainer.cls %>
+          <% if trainer.marker_key? %>
+            <span class="pn-wt-trainer__key">(<%= trainer.marker_key %>)</span>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div class="pn-wt-trainer__reward"><%= poke_dollar(trainer.reward) %></div>

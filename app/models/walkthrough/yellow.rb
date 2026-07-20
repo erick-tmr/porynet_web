@@ -122,22 +122,34 @@ module Walkthrough
       by_dex = Hash.new { |hash, dex| hash[dex] = [] }
       locations.each do |loc|
         loc.encounters.each do |enc|
-          pct = parse_rate(enc.rate)
-          by_dex[enc.dex] << { loc: loc, enc: enc, pct: pct } if enc.wild? && pct
+          by_dex[enc.dex] << { loc: loc, enc: enc, pct: parse_rate(enc.rate) } if enc.wild?
         end
       end
       by_dex.each_with_object({}) do |(dex, entries), best|
-        next if entries.size < 2
-
-        top = entries.map { |e| e[:pct] }.max
-        winner = entries.select { |e| e[:pct] == top }.min_by { |e| e[:loc].order }
-        runner = entries.reject { |e| e.equal?(winner) }.max_by { |e| e[:pct] }
-        best[dex] = BestCatch.new(
-          dex: dex, slug: winner[:loc].slug, rate: winner[:enc].rate,
-          tie: entries.count { |e| e[:pct] == top } > 1,
-          alt_name: runner[:loc].name, alt_rate: runner[:enc].rate
-        )
+        found = entries.one? ? sole_catch(dex, entries.first) : ranked_catch(dex, entries)
+        best[dex] = found if found
       end
+    end
+
+    def self.sole_catch(dex, entry)
+      BestCatch.new(
+        dex: dex, slug: entry[:loc].slug, only: true,
+        rate: entry[:pct] ? entry[:enc].rate : nil
+      )
+    end
+
+    def self.ranked_catch(dex, entries)
+      rated = entries.select { |e| e[:pct] }
+      top = rated.map { |e| e[:pct] }.max
+      winner = rated.select { |e| e[:pct] == top }.min_by { |e| e[:loc].order }
+      runner = rated.reject { |e| e.equal?(winner) }.max_by { |e| e[:pct] }
+      return nil unless runner
+
+      BestCatch.new(
+        dex: dex, slug: winner[:loc].slug, rate: winner[:enc].rate,
+        tie: rated.count { |e| e[:pct] == top } > 1,
+        alt_name: runner[:loc].name, alt_rate: runner[:enc].rate
+      )
     end
 
     def self.all_locations
@@ -159,20 +171,40 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
+      loc = key_trainers(loc, header)
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
         gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
     end
 
+    # Give every hand-authored trainer the letter its pin carries. Keys come only from the maps
+    # the location actually renders, so a card can never point at a pin the page never draws. A
+    # trainer with no `opp:` pair, or one whose pair names no marker, simply keeps no letter.
+    def self.key_trainers(loc, maps)
+      keys = maps.flat_map(&:markers).select(&:key?).to_h { |m| [ m.ref, m.key ] }
+      loc.with(trainers: loc.trainers.map { |t|
+        t.opp ? t.with(marker_key: keys[t.opp]) : t
+      })
+    end
+
     def self.manifest
-      JSON.parse(File.read(File.join(__dir__, "yellow_maps.json")))
+      @manifest ||= JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).freeze
     end
 
     def self.map_data
       manifest.fetch("locations").transform_values do |maps|
-        maps.map { |m| AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"]) }
+        maps.map do |m|
+          AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
+            name: m["name"], markers: m.fetch("markers", []).map { |k| map_marker(k) })
+        end
       end
+    end
+
+    def self.map_marker(data)
+      MapMarker.new(id: data["id"], cat: data["cat"], key: data["key"], name: data["name"],
+        x: data["x"], y: data["y"], align: data["align"], lane: data["lane"],
+        glyph: data["glyph"], edge: data["edge"], ref: data["ref"])
     end
 
     def self.step_shots = manifest.fetch("step_shots", {})
@@ -332,15 +364,16 @@ module Walkthrough
           enc("viridian-forest", "017", "GRASS", "1%", "9", "RARE", "016", "017", "018", tip: true)
         ],
         trainers: [
-          tr("LASS", nil, 90, mon("029", 6), mon("032", 6), where: scene_shot("vf-lass", "WHERE")),
+          tr("LASS", nil, 90, mon("029", 6), mon("032", 6),
+            where: scene_shot("vf-lass", "WHERE"), opp: [ "LASS", 19 ]),
           tr("BUG CATCHER", nil, 70, mon("010", 7), mon("010", 7),
-            where: scene_shot("vf-bug-catcher-1", "WHERE")),
+            where: scene_shot("vf-bug-catcher-1", "WHERE"), opp: [ "BUG_CATCHER", 1 ]),
           tr("BUG CATCHER", nil, 60, mon("011", 6), mon("010", 6), mon("011", 6),
-            where: scene_shot("vf-bug-catcher-2", "WHERE")),
+            where: scene_shot("vf-bug-catcher-2", "WHERE"), opp: [ "BUG_CATCHER", 2 ]),
           tr("BUG CATCHER", nil, 80, mon("010", 8), mon("011", 8),
-            where: scene_shot("vf-bug-catcher-15", "WHERE")),
+            where: scene_shot("vf-bug-catcher-15", "WHERE"), opp: [ "BUG_CATCHER", 15 ]),
           tr("BUG CATCHER", nil, 100, mon("010", 10),
-            where: scene_shot("vf-bug-catcher-3", "WHERE"))
+            where: scene_shot("vf-bug-catcher-3", "WHERE"), opp: [ "BUG_CATCHER", 3 ])
         ],
         oak_queue: [ oak("viridian-forest", "010", 1) ]
       )
@@ -391,7 +424,7 @@ module Walkthrough
     }.freeze
 
     CLASS_SPRITES = {
-      "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1",
+      "BUG CATCHER" => "bugcatcher-gen1", "LASS" => "lass-gen1", "YOUNGSTER" => "youngster-gen1",
       "JR. TRAINER♂" => "jrtrainer-gen1", "JR. TRAINER♀" => "jrtrainerf-gen1",
       "BLACK BELT" => "blackbelt-gen1", "TEAM ROCKET" => "rocket-gen1",
       "RIVAL" => "blue-gen1", "CHAMPION" => "blue-gen1champion",
@@ -404,9 +437,12 @@ module Walkthrough
 
     def self.trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || CLASS_SPRITES.fetch(cls)
 
-    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil)
+    # `opp` is the map object's [OPP_CLASS, party] pair; it resolves the marker letter in
+    # attach_maps so the card and its pin agree. Omit it and the card just carries no letter.
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
-        sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle)
+        sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle,
+        opp: opp && "#{opp[0]}:#{opp[1]}")
     end
 
     def self.leader(name, reward, *team, battle: nil) = tr("LEADER", name, reward, *team, battle: battle)
@@ -438,7 +474,19 @@ module Walkthrough
           enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
           enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
         ],
-        trainers: [], oak_queue: [ oak("route-3", "027", 1) ]
+        trainers: [
+          tr("BUG CATCHER", nil, 100, mon("010", 10), mon("013", 10), mon("010", 10),
+            opp: [ "BUG_CATCHER", 4 ]),
+          tr("YOUNGSTER", nil, 165, mon("019", 11), mon("023", 11), opp: [ "YOUNGSTER", 1 ]),
+          tr("LASS", nil, 135, mon("016", 9), mon("016", 9), opp: [ "LASS", 1 ]),
+          tr("BUG CATCHER", nil, 90, mon("013", 9), mon("014", 9), mon("010", 9), mon("011", 9),
+            opp: [ "BUG_CATCHER", 5 ]),
+          tr("LASS", nil, 150, mon("019", 10), mon("032", 10), opp: [ "LASS", 2 ]),
+          tr("YOUNGSTER", nil, 210, mon("021", 14), opp: [ "YOUNGSTER", 2 ]),
+          tr("BUG CATCHER", nil, 110, mon("010", 11), mon("011", 11), opp: [ "BUG_CATCHER", 6 ]),
+          tr("LASS", nil, 210, mon("039", 14), opp: [ "LASS", 3 ])
+        ],
+        oak_queue: [ oak("route-3", "027", 1) ]
       )
     end
 

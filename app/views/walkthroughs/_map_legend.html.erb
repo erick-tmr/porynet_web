@@ -1,0 +1,28 @@
+<div class="pn-mm-legend">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.map_legend") %></div>
+  <% Walkthrough::MAP_CATEGORIES.each do |cat| %>
+    <% entries = area.markers_in(cat) %>
+    <% next if entries.empty? %>
+    <div class="pn-mm-legend__group">
+      <div class="pn-mm-legend__head">
+        <span class="pn-mm-legend__swatch pn-mm-legend__swatch--<%= cat %>" aria-hidden="true"></span>
+        <span class="pn-mm-legend__title"><%= t("walkthrough.ui.map_cat_#{cat}") %></span>
+      </div>
+      <% entries.each do |marker| %>
+        <button type="button" class="pn-mm-legend__row" data-map-markers-target="legendRow"
+                data-marker-id="<%= marker.id %>" data-cat="<%= marker.cat %>"
+                data-action="click->map-markers#hit">
+          <% if marker.key? %>
+            <span class="pn-mm-legend__chip pn-mm-legend__chip--<%= cat %>"><%= marker.key %></span>
+          <% else %>
+            <span class="pn-mm-legend__dot pn-mm-legend__dot--<%= cat %>" aria-hidden="true"></span>
+          <% end %>
+          <span class="pn-mm-legend__name"><%= marker.name %></span>
+          <% if marker.tickable? %>
+            <span class="pn-mm-legend__done"><%= t("walkthrough.ui.map_done_#{cat}") %></span>
+          <% end %>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+</div>

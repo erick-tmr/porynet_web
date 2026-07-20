@@ -1,4 +1,6 @@
-<div class="pn-wt-gym-tr">
+<div class="pn-wt-gym-tr" <%= tag.attributes(tickable("collected", id)) %>>
+  <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
+  <%= progress_toast("trainer") %>
   <div class="pn-wt-gym-tr__head">
     <div>
       <div class="pn-wt-gym-tr__role"><%= t("walkthrough.ui.gym_trainer") %></div>

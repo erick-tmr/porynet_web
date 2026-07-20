@@ -44,10 +44,19 @@ This writes:
   (gitignored; ship with `deploy/upload-images.sh`).
 - `app/models/walkthrough/yellow_maps.json` — the manifest the Rails model loads
   (`Walkthrough::Yellow.map_data` / `map_shot`). Sections: `locations`, `step_shots`
-  (step-attached images), `scenes` (standalone dialog/battle/NPC images).
+  (step-attached images), `scenes` (standalone dialog/battle/NPC images). Each `locations`
+  entry carries its `markers`: the trainers, item balls, hidden items and exits the page
+  overlays, positioned as percentages of the PNG so the layer survives any render width.
 - `tools/maps/REPORT.md` — counts + anything to review.
 
 `--force` re-renders PNGs that already exist (default: skip existing).
+
+`Walkthrough::Yellow.manifest` is memoized, and Rails only reloads it when the Ruby file
+changes. After a rebuild that touches only the JSON, restart `bin/dev`.
+
+The area-map PNGs keep their object keys across rebuilds, so a forgotten
+`deploy/upload-images.sh` does not 404 the way a brand-new sprite would. It silently serves the
+previous render instead, with nothing in the logs. Upload every time the images change.
 
 ## Modules
 
@@ -59,6 +68,8 @@ This writes:
 - `compositor.py` — builds images: `render_map`, `render_battle`, `render_screen` (viewport),
   and the sprite / arrow / dialog overlays.
 - `generators.py` — one generator per spec type; returns `(image, name, meta)`.
+- `markers.py` — the clickable overlay data for an area map: trainers, item balls, hidden items
+  and exits, as percentages of the rendered PNG.
 - `build.py` — the location tables (`_SIMPLE` / `_GYM_CITIES` / `_DUNGEONS`) for area maps, plus
   the spec dispatch, PNG saving, and manifest/report emission.
 - `parse_hidden.py` — thin CLI over `sources.markers_by_map` to dump hidden items + coins.
@@ -128,7 +139,11 @@ size in **blocks** (x2 for grid cells).
 - **Item / sign / NPC text**: `text/<Map>.asm`; the generic pickup line is `_FoundItemText`
   (`<PLAYER> found / <ITEM>!`) in `data/text/`.
 - **Matching a model trainer to its map object**: the object gives `OPP_<CLASS>, <party#>`; look up
-  that party in `data/trainers/parties.asm` and match it to the team in `yellow.rb`.
+  that party in `data/trainers/parties.asm` and match it to the team in `yellow.rb`. Pass the pair
+  to `tr(..., opp: ["BUG_CATCHER", 1])` and the trainer card picks up the same key letter its pin
+  carries on the map.
+- **Conditional assembly**: `RedsHouse2F.asm` guards four playtest warps behind `IF DEF(_DEBUG)`.
+  They are not in the retail ROM, so `sources._map_object_lines` strips them before any parse.
 - **The spotted `!` bubble**: `EXCLAMATION_BUBBLE` is index 0 of `EmotionBubbles`
   (`engine/overworld/emotion_bubbles.asm`) = `gfx/emotes/shock.png`.
 - **Palette**: `SetPal_Overworld` (`engine/gfx/palettes.asm`). A building inherits the palette of

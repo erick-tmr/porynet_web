@@ -22,6 +22,7 @@ import pathlib
 
 import compositor
 import generators
+import markers
 import sources
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
@@ -131,10 +132,14 @@ def main():
                 continue
             name = image_name(slug, floor)
             image, colors = compositor.render_map(root, label, parent)
-            if floor == "Gym":     # show the gym's people: the guide, its trainers, and the leader
-                image = compositor.overlay_sprites(image, root, generators.auto_npcs(root, label, battlers=True), colors)
+            # every map shows its people and its item balls, exactly where the game puts them
+            image = compositor.overlay_sprites(
+                image, root, generators.auto_npcs(root, label, battlers=True), colors)
             key = save_png(image, "maps", name, args.force)
-            entries.append({"image": key, "width": image.width, "height": image.height, "floor": floor})
+            entries.append({"image": key, "width": image.width, "height": image.height,
+                            "floor": floor, "name": name,
+                            "markers": markers.build_markers(root, label, headers[label][0],
+                                                             image.width, image.height)})
         if entries:
             locations[slug] = entries
 
@@ -158,21 +163,37 @@ def main():
     _write_report(locations, step_shots, scenes, missing)
     print(f"palette: {args.palette}  "
           f"location maps: {sum(len(v) for v in locations.values())}  "
+          f"markers: {_marker_total(locations)}  "
           f"step shots: {sum(len(v) for v in step_shots.values())}  "
           f"scenes: {len(scenes)}  missing: {len(missing)}")
     if missing:
         print("MISSING:", ", ".join(missing))
 
 
+def _marker_total(locations, cat=None):
+    return sum(len([m for m in e["markers"] if cat is None or m["cat"] == cat])
+               for maps in locations.values() for e in maps)
+
+
 def _write_report(locations, step_shots, scenes, missing):
     lines = ["# Asset generation report", "",
              f"- location maps: **{sum(len(v) for v in locations.values())}** across {len(locations)} locations",
+             f"- markers: **{_marker_total(locations)}** "
+             f"({_marker_total(locations, 'trainer')} trainer, {_marker_total(locations, 'item')} item, "
+             f"{_marker_total(locations, 'hidden')} hidden, {_marker_total(locations, 'exit')} exit)",
              f"- step shots: **{sum(len(v) for v in step_shots.values())}** (map/scene in a step slot)",
              f"- standalone scenes: **{len(scenes)}** (dialog / battle / NPC, not step-bound)",
              f"- missing map labels: **{len(missing)}**", ""]
     if missing:
         lines += ["## Missing labels", ""] + [f"- {m}" for m in missing] + [""]
-    lines += ["## Step shots", ""]
+    lines += ["## Markers per map", ""]
+    for slug, maps in sorted(locations.items()):
+        for entry in maps:
+            counts = {c: len([m for m in entry["markers"] if m["cat"] == c])
+                      for c in ("trainer", "item", "hidden", "exit")}
+            summary = ", ".join(f"{n} {c}" for c, n in counts.items() if n)
+            lines.append(f"- `{entry['name']}`: {summary or 'none'}")
+    lines += ["", "## Step shots", ""]
     for slug, steps in sorted(step_shots.items()):
         for n, s in sorted(steps.items()):
             lines.append(f"- `{slug}` step {n}: {s['image']}")

@@ -19,7 +19,7 @@
   <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
   <div class="pn-wt-steps">
     <% loc.lead_steps.each do |step| %>
-      <%= render "step", step: step %>
+      <%= render "step", step: step, slug: loc.slug %>
       <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
     <% end %>
   </div>
@@ -52,15 +52,15 @@
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: loc.trainers.size) %></div>
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trainers_h2") %></h3>
     <div class="pn-wt-trainers">
-      <% loc.trainers.each do |trainer| %>
-        <%= render "trainer", trainer: trainer %>
+      <% loc.trainers.each_with_index do |trainer, i| %>
+        <%= render "trainer", trainer: trainer, id: "#{loc.slug}/trainer-#{i}" %>
       <% end %>
     </div>
   </section>
 <% end %>
 
 <% if loc.gym? %>
-  <%= render "gym", gym: loc.gym %>
+  <%= render "gym", gym: loc.gym, slug: loc.slug %>
 <% end %>
 
 <% if loc.after_steps.any? %>
@@ -69,7 +69,7 @@
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_after_h2") %></h3>
     <div class="pn-wt-steps">
       <% loc.after_steps.each do |step| %>
-        <%= render "step", step: step %>
+        <%= render "step", step: step, slug: loc.slug %>
         <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
       <% end %>
     </div>

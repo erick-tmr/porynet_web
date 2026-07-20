@@ -1,4 +1,7 @@
 module Walkthrough
+  # Marker categories in the order the map legend lists them.
+  MAP_CATEGORIES = %w[trainer item hidden exit].freeze
+
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line) do
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
@@ -15,8 +18,22 @@ module Walkthrough
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
   end
-  AreaMap = Data.define(:image, :width, :height, :floor) do
+  # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
+  # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
+  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref) do
+    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, **rest) = super
+    def key? = !key.nil?
+    def tickable? = cat != "exit"
+    def glyph_or_key = glyph || key
+  end
+
+  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers) do
+    def initialize(name: "", markers: [], **rest) = super
     def floor? = !floor.empty?
+    def markers? = markers.any?
+    def marker_counts = markers.group_by(&:cat).transform_values(&:size)
+    def tickable_count = markers.count(&:tickable?)
+    def markers_in(cat) = markers.select { |marker| marker.cat == cat }
   end
 
   StepLink = Data.define(:leg, :anchor)
@@ -28,9 +45,17 @@ module Walkthrough
     def link? = !link.nil?
   end
 
-  Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle) # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil
+  # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
+  # the map object, which resolves `marker_key` so the card and its pin show the same letter.
+  Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key) do
+    def initialize(opp: nil, marker_key: nil, **rest) = super
+    def marker_key? = !marker_key.nil?
+  end
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
-  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate)
+  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
+    def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, **rest) = super
+    def rate? = !rate.nil?
+  end
 
   GymStep = Data.define(:n, :text_key, :shot) do
     def shot? = !shot.nil?

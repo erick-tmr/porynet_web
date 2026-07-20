@@ -3,8 +3,8 @@
   <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.later_h2") %></h3>
   <p class="pn-wt-later__intro"><%= t("walkthrough.ui.later_intro") %></p>
   <div class="pn-wt-later-grid">
-    <% loc.later.each do |item| %>
-      <%= render "later_item", item: item %>
+    <% loc.later.each_with_index do |item, i| %>
+      <%= render "later_item", item: item, id: "#{loc.slug}/later-#{i}" %>
     <% end %>
   </div>
 </section>

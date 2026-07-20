@@ -1,0 +1,695 @@
+/* Annotated area map: the clickable marker layer, its controls, and the legend panel.
+   Marker coordinates arrive as --mx / --my, written by the Stimulus controller through the
+   CSSOM because the page forbids inline styles. */
+
+.pn-mm-block {
+  --mm-trainer: var(--accent2);
+  --mm-item: var(--accent);
+  --mm-hidden: var(--neon-magenta);
+  --mm-exit: var(--ink);
+  --mm-done: var(--done-green);
+  --mm-row-done: #E8F2EA;
+  --mm-row-selected: #FFEDC5;
+  margin-top: 10px;
+}
+
+.pn-mm-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pn-mm-head__floor {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: var(--muted);
+}
+
+.pn-mm-counter {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: var(--muted);
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 6px 12px;
+}
+
+/* --- controls ------------------------------------------------------------ */
+
+.pn-mm-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.pn-mm-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pn-mm-pill,
+.pn-mm-toggle {
+  cursor: pointer;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  background: #fff;
+  color: var(--ink);
+}
+
+.pn-mm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  padding: 9px 11px;
+}
+
+.pn-mm-pill:hover,
+.pn-mm-toggle:hover,
+.pn-mm-legend__row:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.pn-mm-pill.is-active {
+  color: #fff;
+  background: var(--ink);
+  box-shadow: 2px 2px 0 var(--accent);
+}
+
+.pn-mm-pill__count {
+  font-family: "VT323", monospace;
+  font-size: 13px;
+}
+
+.pn-mm-pill__swatch {
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+}
+
+.pn-mm-pill.is-active .pn-mm-pill__swatch { border-color: #fff; }
+
+.pn-mm-pill__swatch--all { background: var(--ink); }
+.pn-mm-pill__swatch--trainer { background: var(--mm-trainer); }
+.pn-mm-pill__swatch--exit { background: var(--mm-exit); }
+
+.pn-mm-pill__swatch--item,
+.pn-mm-pill__swatch--hidden {
+  border-radius: 50%;
+}
+
+.pn-mm-pill__swatch--item { background: var(--mm-item); }
+.pn-mm-pill__swatch--hidden { background: var(--mm-hidden); }
+
+.pn-mm-toggle {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  padding: 5px 13px;
+}
+
+.pn-mm-toggle.is-on { background: var(--neon-cyan); }
+.pn-mm-toggle__on { display: none; }
+.pn-mm-toggle.is-on .pn-mm-toggle__on { display: inline; }
+.pn-mm-toggle.is-on .pn-mm-toggle__off { display: none; }
+
+/* --- layout -------------------------------------------------------------- */
+
+.pn-mm-split {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+.pn-mm-frame {
+  margin: 0;
+  border: 3px solid var(--ink);
+  background: var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.pn-mm-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  background: var(--ui-dark);
+}
+
+.pn-mm-titlebar__name {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px #2af0ff88;
+}
+
+.pn-mm-titlebar__note {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #8fa6c8;
+}
+
+.pn-mm-canvas {
+  position: relative;
+  line-height: 0;
+}
+
+.pn-mm-canvas__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+/* Markers render server-side but stay dark until the controller has placed them, so nothing
+   piles up in the top-left corner on a slow connection. Without JS the legend still lists
+   everything, so the map degrades to what it was before. */
+.pn-mm-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  visibility: hidden;
+  line-height: 1;
+}
+
+.pn-mm-layer.is-ready { visibility: visible; }
+
+/* --- markers ------------------------------------------------------------- */
+
+.pn-mm {
+  position: absolute;
+  left: var(--mx);
+  top: var(--my);
+  width: 0;
+  height: 0;
+  z-index: 10;
+}
+
+.pn-mm[data-cat="hidden"] { z-index: 20; }
+.pn-mm.is-selected { z-index: 40; }
+.pn-mm.is-filtered { display: none; }
+
+.pn-mm__hit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.pn-mm__pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--ink);
+}
+
+/* A trainer and an item ball are drawn into the map itself, so a pin on top would just cover
+   the sprite the player is looking for. They get a bare hit area over that sprite and rely on
+   their label; only their ticked check draws anything. */
+.pn-mm__pin--trainer,
+.pn-mm__pin--item {
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.pn-mm__pin--trainer .pn-mm__glyph,
+.pn-mm__pin--item .pn-mm__glyph {
+  display: none;
+}
+
+.pn-mm__pin--exit {
+  background: var(--mm-exit);
+  color: #fff;
+  box-shadow: 0 0 11px #171622bb, 2px 2px 0 var(--ink);
+}
+
+/* The hidden-item pin is the one that moves: it marks a tile the game shows nothing on. It stays
+   small, at the size the walkthrough's own hidden-item pins have always been, because it sits on
+   a single 16px map cell and a bigger dot would swallow the tiles around it. */
+.pn-mm__pin--hidden {
+  width: 9px;
+  height: 9px;
+  border-width: 2px;
+  background: var(--mm-hidden);
+  border-radius: 50%;
+  box-shadow: 0 0 6px 1px #ff3daebb, 0 0 3px 1px var(--mm-hidden);
+  animation: pinpulse 1.3s ease-in-out infinite;
+  animation-play-state: var(--play);
+}
+
+.pn-mm__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--mm-hidden);
+  border-radius: 50%;
+  animation: ring 1.6s ease-out infinite;
+  animation-play-state: var(--play);
+}
+
+.pn-mm.is-selected .pn-mm__pin { border-color: var(--amber); }
+
+.pn-mm__hit:focus-visible { outline: none; }
+
+.pn-mm__hit:focus-visible .pn-mm__pin {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* Ticked markers fade back and take a check, so what is left to do stands out. The check keeps
+   its full contrast: on a trainer or an item ball it is the only thing marking the sprite. */
+.pn-mm__check {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  background: var(--mm-done);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+
+.pn-mm.is-done .pn-mm__check { display: flex; }
+.pn-mm.is-done .pn-mm__glyph { display: none; }
+.pn-mm.is-done .pn-mm__label { opacity: 0.55; }
+.pn-mm.is-done .pn-mm__pin--hidden,
+.pn-mm.is-done .pn-mm__pin--exit { opacity: 0.45; }
+
+.pn-mm__label {
+  position: absolute;
+  top: 0;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  /* Labels that would print over a neighbour are dealt a lane to drop into. */
+  transform: translateY(calc(-50% + var(--lane, 0) * 26px));
+  white-space: nowrap;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 5px 7px;
+}
+
+.is-labelled .pn-mm__label { display: flex; }
+.pn-mm[data-align="r"] .pn-mm__label { left: 22px; }
+.pn-mm[data-align="l"] .pn-mm__label { right: 22px; }
+.pn-mm.is-selected .pn-mm__label { border-color: var(--amber); }
+
+.pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
+
+/* --- hint popover -------------------------------------------------------- */
+
+.pn-mm__hint {
+  position: absolute;
+  left: 0;
+  bottom: 26px;
+  z-index: 41;
+  display: none;
+  width: max-content;
+  max-width: 230px;
+  transform: translateX(-50%);
+  text-align: left;
+  background: var(--ui-dark);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 14px #2af0ff66, 3px 3px 0 var(--ink);
+  padding: 9px 11px;
+}
+
+.pn-mm.is-selected .pn-mm__hint { display: block; }
+
+/* A marker near the top edge has no room above it, so its hint drops below instead. */
+.pn-mm__hint-name {
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+}
+
+.pn-mm__hint-detail {
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #9fb6d6;
+  margin-top: 3px;
+}
+
+.pn-mm__status {
+  display: none;
+  margin-top: 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  border: 2px solid var(--ink);
+  padding: 5px 7px;
+}
+
+.pn-mm__status--todo { background: #2a3350; }
+.pn-mm__status--done { background: var(--mm-done); }
+.pn-mm .pn-mm__status--todo { display: inline-block; }
+.pn-mm.is-done .pn-mm__status--todo { display: none; }
+.pn-mm.is-done .pn-mm__status--done { display: inline-block; }
+
+/* --- side panel ---------------------------------------------------------- */
+
+.pn-mm-side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pn-mm-howto {
+  background: var(--ui-dark);
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 18px #2af0ff44, 5px 5px 0 var(--ink);
+  padding: 16px 18px;
+}
+
+.pn-mm-howto__title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px #2af0ff88;
+}
+
+.pn-mm-howto__body {
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #9fb6d6;
+  margin: 9px 0 0;
+}
+
+.pn-mm-legend {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 18px;
+}
+
+.pn-mm-legend__group { margin-top: 16px; }
+
+.pn-mm-legend__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pn-mm-legend__title {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: #6b6880;
+}
+
+.pn-mm-legend__swatch {
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+}
+
+.pn-mm-legend__swatch--trainer { background: var(--mm-trainer); }
+.pn-mm-legend__swatch--exit { background: var(--mm-exit); }
+.pn-mm-legend__swatch--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__swatch--hidden { background: var(--mm-hidden); border-radius: 50%; }
+
+.pn-mm-legend__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  text-align: left;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+}
+
+.pn-mm-legend__row.is-done { background: var(--mm-row-done); }
+.pn-mm-legend__row.is-selected { background: var(--mm-row-selected); }
+
+.pn-mm-legend__chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  border: 2px solid var(--ink);
+}
+
+.pn-mm-legend__chip--trainer { background: var(--mm-trainer); }
+
+.pn-mm-legend__dot {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ink);
+}
+
+.pn-mm-legend__dot--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__dot--hidden { background: var(--mm-hidden); border-radius: 50%; }
+.pn-mm-legend__dot--exit { background: var(--mm-exit); border-radius: 4px; }
+
+.pn-mm-legend__name {
+  flex: 1;
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.pn-mm-legend__done {
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--mm-done);
+}
+
+.pn-mm-legend__row.is-done .pn-mm-legend__done { display: inline; }
+
+@media (max-width: 900px) {
+  .pn-mm-split { grid-template-columns: 1fr; }
+  .pn-mm__label { font-size: 7px; }
+}
+
+
+/* --- tickable cards ------------------------------------------------------ */
+/* Items, hidden items, come-back-later cards, trainers and catchable Pokemon all tick into the
+   same store the map markers use.
+   Nothing here uses opacity on a card root. Opacity forms a group, so a faded root drags its
+   own status badge and toast down with it and there is no way for a child to climb back out.
+   The done state is a background tint, and anything that must stay legible keeps full contrast. */
+
+.pn-wt-item,
+.pn-wt-hidden,
+.pn-wt-later,
+.pn-wt-catch,
+.pn-wt-trainer,
+.pn-wt-gym-tr {
+  position: relative;
+  cursor: pointer;
+}
+
+.pn-wt-item:focus-visible,
+.pn-wt-hidden:focus-visible,
+.pn-wt-later:focus-visible,
+.pn-wt-catch:focus-visible,
+.pn-wt-trainer:focus-visible,
+.pn-wt-gym-tr:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.pn-wt-item.is-done,
+.pn-wt-later.is-done,
+.pn-wt-catch.is-done,
+.pn-wt-trainer.is-done,
+.pn-wt-gym-tr.is-done { background: #E8F2EA; }
+
+.pn-wt-hidden.is-done { background: #EFF3DF; }
+
+/* --- the click toast ----------------------------------------------------- */
+/* Both captions ship in the markup and CSS picks one, so the toast never has to be written
+   from JavaScript and stays translatable. */
+
+.pn-wt-toast {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  z-index: 41;
+  display: none;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  background: #2a3350;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 6px 8px;
+}
+
+.is-hinting > .pn-wt-toast { display: block; }
+.is-done > .pn-wt-toast { background: var(--done-green); }
+.pn-wt-toast__done { display: none; }
+.is-done > .pn-wt-toast .pn-wt-toast__todo { display: none; }
+.is-done > .pn-wt-toast .pn-wt-toast__done { display: inline; }
+
+/* --- item chips ---------------------------------------------------------- */
+/* A collected item keeps its sprite: the well takes a half-strength green wash so you can still
+   see what it was you picked up, and the check itself is the site's usual solid disc with an ink
+   border, the same one the map markers wear. */
+
+.pn-wt-item__chip { position: relative; }
+
+.pn-wt-item.is-done .pn-wt-item__chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(63 143 79 / 50%);
+}
+
+.pn-wt-item__check {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  background: var(--done-green);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+
+.pn-wt-item.is-done .pn-wt-item__check { display: flex; }
+
+/* --- hidden item cards --------------------------------------------------- */
+
+.pn-wt-hidden__badge--done {
+  display: none;
+  color: #fff;
+  background: var(--done-green);
+}
+
+.pn-wt-hidden.is-done .pn-wt-hidden__badge--todo { display: none; }
+.pn-wt-hidden.is-done .pn-wt-hidden__badge--done { display: inline-block; }
+
+.pn-wt-hidden__icon { position: relative; }
+
+.pn-wt-hidden.is-done .pn-wt-hidden__icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(63 143 79 / 50%);
+}
+
+.pn-wt-hidden.is-done .pn-wt-item__check { display: flex; }
+
+.pn-wt-hidden__tap {
+  margin-top: 8px;
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  color: #a07a00;
+}
+
+.pn-wt-hidden__tap-done { display: none; }
+.pn-wt-hidden.is-done .pn-wt-hidden__tap-todo { display: none; }
+.pn-wt-hidden.is-done .pn-wt-hidden__tap-done { display: inline; }
+
+/* --- corner status badges ------------------------------------------------ */
+/* Solid, always: these are the one thing that has to read at a glance on a tinted card. */
+
+.pn-wt-catch__caught,
+.pn-wt-trainer__beaten {
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  z-index: 2;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: var(--done-green);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 6px 8px;
+  transform: rotate(6deg);
+}
+
+.pn-wt-catch.is-done .pn-wt-catch__caught,
+.pn-wt-trainer.is-done .pn-wt-trainer__beaten,
+.pn-wt-gym-tr.is-done .pn-wt-trainer__beaten { display: block; }
+
+.pn-wt-later__check {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  z-index: 2;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: var(--done-green);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 5px 6px;
+}
+
+.pn-wt-later.is-done .pn-wt-later__check { display: block; }
+
+.pn-wt-trainer__key { color: var(--accent2); }

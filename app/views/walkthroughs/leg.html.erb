@@ -1,7 +1,8 @@
+<% content_for :page_controller do %>data-controller="progress-toggle" data-progress-toggle-game-value="<%= @game.slug %>"<% end %>
 <% leg_label = @leg.slug.tr("-", " ").upcase %>
 <% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -83,7 +84,9 @@
         <div class="pn-wt-oak__cards">
           <div class="pn-wt-oak__sub pn-wt-oak__sub--reg">
             <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_registered") %></div>
-            <div class="pn-wt-oak__sub-num">0</div>
+            <div class="pn-wt-oak__sub-num">
+              <%= progress_count("caught", @game.obtainable_upto_leg(@leg)) %>
+            </div>
           </div>
           <div class="pn-wt-oak__sub">
             <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_needed") %></div>

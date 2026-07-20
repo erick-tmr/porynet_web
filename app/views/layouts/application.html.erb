@@ -22,7 +22,7 @@
   </head>
 
   <body>
-    <div class="porynet" data-play="running">
+    <div class="porynet" data-play="running" <%= yield :page_controller %>>
       <div class="pn-crt" aria-hidden="true"></div>
       <%= render "shared/nav" %>
       <%= yield %>

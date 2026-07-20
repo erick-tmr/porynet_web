@@ -206,8 +206,30 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert rattata.tie, "Rattata's 35% is matched elsewhere, so the earliest location wins"
 
     refute bc.key?("025"), "Pikachu is a gift, not a rated wild catch"
-    refute bc.key?("145"), "Zapdos is a lone static"
-    refute bc.key?("129"), "Magikarp only appears on Route 21, so there is no choice to rank"
+    refute pidgey.only, "Pidgey turns up in more than one place, so it is a ranked win"
+  end
+
+  test "best_catches tags a species with a single location as the only place to catch it" do
+    bc = game.best_catches
+
+    magikarp = bc.fetch("129")
+    assert magikarp.only, "Magikarp only appears on Route 21"
+    assert_equal "route-21", magikarp.slug
+    assert_equal "40%", magikarp.rate
+    assert_nil magikarp.alt_name, "there is no rival spot to compare against"
+
+    zapdos = bc.fetch("145")
+    assert zapdos.only, "Zapdos is a lone static"
+    assert_equal "power-plant", zapdos.slug
+    assert_nil zapdos.rate, "a static has no encounter percentage to quote"
+    refute zapdos.rate?
+  end
+
+  test "best_catches skips a species whose spots cannot be ranked or called the only one" do
+    bc = game.best_catches
+
+    refute bc.key?("037"), "Vulpix is sold at the Game Corner as well as the Mansion, and coins do not rank against a rate"
+    refute bc.key?("143"), "Snorlax blocks two routes, so neither one is the only place"
   end
 
   test "best_catch_here flags only the winning location for a species" do

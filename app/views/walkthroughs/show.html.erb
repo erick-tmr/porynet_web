@@ -1,6 +1,7 @@
+<% content_for :page_controller do %>data-controller="progress-toggle" data-progress-toggle-game-value="<%= @game.slug %>"<% end %>
 <% content_for :title, t("walkthrough.ui.title_index", name: @game.name) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <span class="pn-nav__crumb-here"><%= @game.name.upcase %></span>
