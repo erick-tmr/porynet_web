@@ -355,6 +355,90 @@ def _trainer_pic_files(root_str):
     return out
 
 
+@lru_cache(maxsize=None)
+def _trainer_data_labels(root_str):
+    """The party-block label for each trainer const, from the TrainerDataPointers table.
+
+    The label is not the const CamelCased: BLACKBELT is Blackbelt, JR_TRAINER_M is JrTrainerM,
+    PSYCHIC_TR is Psychic. Reading the table gives all three for free, and its
+    assert_table_length guarantees it stays aligned to the const order."""
+    text = _read(root_str, "data/trainers/parties.asm")
+    labels = re.findall(r"^\s*dw\s+(\w+)Data\s*$", text, re.M)
+    consts = _trainer_const_order(root_str)[1:]      # skip NOBODY
+    if len(labels) != len(consts):
+        raise ValueError(f"{len(labels)} party pointers for {len(consts)} trainer classes")
+    return dict(zip(consts, labels))
+
+
+@lru_cache(maxsize=None)
+def parse_trainer_parties(root_str):
+    """Return {trainer_const: ((level, species_const), ...) per party}.
+
+    A map object's party number is a 1-based index into its class's tuple. Two line forms, both
+    spelled out at the top of parties.asm: `db <level>, <SPECIES>, ..., 0` gives the whole team
+    one level, `db $FF, <level>, <SPECIES>, ..., 0` gives each mon its own."""
+    blocks = {}
+    label = None
+    for line in _read(root_str, "data/trainers/parties.asm").splitlines():
+        head = re.match(r"^(\w+)Data:", line)
+        if head:
+            label = head.group(1)
+            blocks[label] = []
+            continue
+        body = re.match(r"\s*db\s+(.+?)\s*$", line.split(";", 1)[0])
+        if label and body:
+            blocks[label].append(_party(body.group(1)))
+
+    labels = _trainer_data_labels(root_str)
+    missing = set(labels.values()) - set(blocks)
+    if missing:
+        raise ValueError(f"party pointers with no block: {sorted(missing)}")
+    return {const: tuple(blocks[label]) for const, label in labels.items()}
+
+
+def _party(fields):
+    """One party line -> ((level, species), ...). The trailing 0 terminates the list."""
+    parts = [p.strip() for p in fields.split(",") if p.strip() and p.strip() != "0"]
+    if parts[0] == "$FF":
+        pairs = parts[1:]
+        return tuple((int(pairs[i]), pairs[i + 1]) for i in range(0, len(pairs), 2))
+    level = int(parts[0])
+    return tuple((level, species) for species in parts[1:])
+
+
+@lru_cache(maxsize=None)
+def parse_trainer_money(root_str):
+    """Return {trainer_const: base money}. Keyed by const rather than by pic label, because
+    JugglerPic serves both JUGGLER and UNUSED_JUGGLER and a label-keyed dict would drop one."""
+    amounts = re.findall(r"^\s*pic_money\s+\w+\s*,\s*(\d+)",
+                         _read(root_str, "data/trainers/pic_pointers_money.asm"), re.M)
+    consts = _trainer_const_order(root_str)[1:]
+    if len(amounts) != len(consts):
+        raise ValueError(f"{len(amounts)} money rows for {len(consts)} trainer classes")
+    return {const: int(amount) for const, amount in zip(consts, amounts)}
+
+
+def trainer_reward(root_str, trainer_const, party):
+    """Prize money for beating this party: the class's base times the last mon's level."""
+    return parse_trainer_money(root_str)[trainer_const] // 100 * party[-1][0]
+
+
+def trainer_party(root_str, trainer_const, party_no):
+    parties = parse_trainer_parties(root_str)[trainer_const]
+    if not 1 <= party_no <= len(parties):
+        raise KeyError(f"{trainer_const} has {len(parties)} parties, asked for {party_no}")
+    return parties[party_no - 1]
+
+
+@lru_cache(maxsize=None)
+def parse_dex_numbers(root_str):
+    """Return {species_const: pokedex number}. Every species has a DEX_ twin numbered from 1,
+    so the whole mapping is one file; dex_order.asm and the internal indices are not needed."""
+    names = re.findall(r"^\s*const\s+DEX_(\w+)",
+                       _read(root_str, "constants/pokedex_constants.asm"), re.M)
+    return {name: i for i, name in enumerate(names, start=1)}
+
+
 def parse_trainer_pic_file(root_str, trainer_const):
     """Return the gfx/trainers basename for a trainer class const (e.g. RIVAL1 -> rival1)."""
     classes = parse_trainer_classes(root_str)

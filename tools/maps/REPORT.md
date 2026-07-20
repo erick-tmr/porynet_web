@@ -4,6 +4,7 @@
 - markers: **861** (302 trainer, 113 item, 46 hidden, 400 exit)
 - step shots: **33** (map/scene in a step slot)
 - standalone scenes: **90** (dialog / battle / NPC, not step-bound)
+- trainers: **324** across 36 locations
 - missing map labels: **0**
 
 ## Markers per map

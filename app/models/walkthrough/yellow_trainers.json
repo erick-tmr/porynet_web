@@ -1,0 +1,7050 @@
+{
+  "source": "pret/pokeyellow",
+  "count": 324,
+  "trainers": {
+    "celadon-city": [
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-4-3",
+        "key": null,
+        "opp": "ERIKA:1",
+        "cls": "ERIKA",
+        "reward": 3168,
+        "team": [
+          {
+            "dex": "114",
+            "lvl": 30
+          },
+          {
+            "dex": "070",
+            "lvl": 32
+          },
+          {
+            "dex": "044",
+            "lvl": 32
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-4-3.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-2-11",
+        "key": null,
+        "opp": "LASS:17",
+        "cls": "LASS",
+        "reward": 345,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 23
+          },
+          {
+            "dex": "070",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-2-11.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-7-10",
+        "key": null,
+        "opp": "BEAUTY:1",
+        "cls": "BEAUTY",
+        "reward": 1470,
+        "team": [
+          {
+            "dex": "043",
+            "lvl": 21
+          },
+          {
+            "dex": "069",
+            "lvl": 21
+          },
+          {
+            "dex": "043",
+            "lvl": 21
+          },
+          {
+            "dex": "069",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-7-10.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-9-5",
+        "key": null,
+        "opp": "JR_TRAINER_F:11",
+        "cls": "JR_TRAINER_F",
+        "reward": 480,
+        "team": [
+          {
+            "dex": "001",
+            "lvl": 24
+          },
+          {
+            "dex": "002",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-9-5.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-1-5",
+        "key": null,
+        "opp": "BEAUTY:2",
+        "cls": "BEAUTY",
+        "reward": 1680,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 24
+          },
+          {
+            "dex": "069",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-1-5.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-6-3",
+        "key": null,
+        "opp": "LASS:18",
+        "cls": "LASS",
+        "reward": 345,
+        "team": [
+          {
+            "dex": "043",
+            "lvl": 23
+          },
+          {
+            "dex": "044",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-6-3.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-3",
+        "key": null,
+        "opp": "BEAUTY:3",
+        "cls": "BEAUTY",
+        "reward": 1820,
+        "team": [
+          {
+            "dex": "102",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-3-3.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-5-3",
+        "key": null,
+        "opp": "COOLTRAINER_F:1",
+        "cls": "COOLTRAINER_F",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "070",
+            "lvl": 24
+          },
+          {
+            "dex": "044",
+            "lvl": 24
+          },
+          {
+            "dex": "002",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-5-3.png"
+      },
+      {
+        "map": "celadon-city-gamecorner",
+        "floor": "",
+        "marker": "trainer-9-5",
+        "key": null,
+        "opp": "ROCKET:7",
+        "cls": "ROCKET",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 20
+          },
+          {
+            "dex": "041",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gamecorner-trainer-9-5.png"
+      }
+    ],
+    "cerulean-city": [
+      {
+        "map": "cerulean-city",
+        "floor": "",
+        "marker": "trainer-30-8",
+        "key": "A",
+        "opp": "ROCKET:5",
+        "cls": "ROCKET",
+        "reward": 510,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 17
+          },
+          {
+            "dex": "096",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cerulean-city-trainer-30-8.png"
+      },
+      {
+        "map": "cerulean-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-4-2",
+        "key": null,
+        "opp": "MISTY:1",
+        "cls": "MISTY",
+        "reward": 2079,
+        "team": [
+          {
+            "dex": "120",
+            "lvl": 18
+          },
+          {
+            "dex": "121",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cerulean-city-gym-trainer-4-2.png"
+      },
+      {
+        "map": "cerulean-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-2-3",
+        "key": null,
+        "opp": "JR_TRAINER_F:1",
+        "cls": "JR_TRAINER_F",
+        "reward": 380,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cerulean-city-gym-trainer-2-3.png"
+      },
+      {
+        "map": "cerulean-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-8-7",
+        "key": null,
+        "opp": "SWIMMER:1",
+        "cls": "SWIMMER",
+        "reward": 80,
+        "team": [
+          {
+            "dex": "116",
+            "lvl": 16
+          },
+          {
+            "dex": "090",
+            "lvl": 16
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cerulean-city-gym-trainer-8-7.png"
+      }
+    ],
+    "cinnabar-island": [
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-3",
+        "key": null,
+        "opp": "BLAINE:1",
+        "cls": "BLAINE",
+        "reward": 5346,
+        "team": [
+          {
+            "dex": "038",
+            "lvl": 48
+          },
+          {
+            "dex": "078",
+            "lvl": 50
+          },
+          {
+            "dex": "059",
+            "lvl": 54
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-3-3.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-17-2",
+        "key": null,
+        "opp": "SUPER_NERD:9",
+        "cls": "SUPER_NERD",
+        "reward": 900,
+        "team": [
+          {
+            "dex": "037",
+            "lvl": 36
+          },
+          {
+            "dex": "037",
+            "lvl": 36
+          },
+          {
+            "dex": "038",
+            "lvl": 36
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-17-2.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-17-8",
+        "key": null,
+        "opp": "BURGLAR:4",
+        "cls": "BURGLAR",
+        "reward": 3240,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 36
+          },
+          {
+            "dex": "037",
+            "lvl": 36
+          },
+          {
+            "dex": "038",
+            "lvl": 36
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-17-8.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-11-4",
+        "key": null,
+        "opp": "SUPER_NERD:10",
+        "cls": "SUPER_NERD",
+        "reward": 850,
+        "team": [
+          {
+            "dex": "077",
+            "lvl": 34
+          },
+          {
+            "dex": "004",
+            "lvl": 34
+          },
+          {
+            "dex": "037",
+            "lvl": 34
+          },
+          {
+            "dex": "058",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-11-4.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-11-8",
+        "key": null,
+        "opp": "BURGLAR:5",
+        "cls": "BURGLAR",
+        "reward": 3690,
+        "team": [
+          {
+            "dex": "077",
+            "lvl": 41
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-11-8.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-11-14",
+        "key": null,
+        "opp": "SUPER_NERD:11",
+        "cls": "SUPER_NERD",
+        "reward": 1025,
+        "team": [
+          {
+            "dex": "078",
+            "lvl": 41
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-11-14.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-14",
+        "key": null,
+        "opp": "BURGLAR:6",
+        "cls": "BURGLAR",
+        "reward": 3330,
+        "team": [
+          {
+            "dex": "037",
+            "lvl": 37
+          },
+          {
+            "dex": "058",
+            "lvl": 37
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-3-14.png"
+      },
+      {
+        "map": "cinnabar-island-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-8",
+        "key": null,
+        "opp": "SUPER_NERD:12",
+        "cls": "SUPER_NERD",
+        "reward": 925,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 37
+          },
+          {
+            "dex": "037",
+            "lvl": 37
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/cinnabar-island-gym-trainer-3-8.png"
+      }
+    ],
+    "fuchsia-city": [
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-4-10",
+        "key": null,
+        "opp": "KOGA:1",
+        "cls": "KOGA",
+        "reward": 4950,
+        "team": [
+          {
+            "dex": "048",
+            "lvl": 44
+          },
+          {
+            "dex": "048",
+            "lvl": 46
+          },
+          {
+            "dex": "048",
+            "lvl": 48
+          },
+          {
+            "dex": "049",
+            "lvl": 50
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-4-10.png"
+      },
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-8-13",
+        "key": null,
+        "opp": "JUGGLER:7",
+        "cls": "JUGGLER",
+        "reward": 1330,
+        "team": [
+          {
+            "dex": "097",
+            "lvl": 38
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-8-13.png"
+      },
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-7-8",
+        "key": null,
+        "opp": "JUGGLER:3",
+        "cls": "JUGGLER",
+        "reward": 1085,
+        "team": [
+          {
+            "dex": "096",
+            "lvl": 31
+          },
+          {
+            "dex": "096",
+            "lvl": 31
+          },
+          {
+            "dex": "064",
+            "lvl": 31
+          },
+          {
+            "dex": "096",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-7-8.png"
+      },
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-1-12",
+        "key": null,
+        "opp": "JUGGLER:8",
+        "cls": "JUGGLER",
+        "reward": 1190,
+        "team": [
+          {
+            "dex": "096",
+            "lvl": 34
+          },
+          {
+            "dex": "064",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-1-12.png"
+      },
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-5",
+        "key": null,
+        "opp": "TAMER:1",
+        "cls": "TAMER",
+        "reward": 1360,
+        "team": [
+          {
+            "dex": "028",
+            "lvl": 34
+          },
+          {
+            "dex": "024",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-3-5.png"
+      },
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-8-2",
+        "key": null,
+        "opp": "TAMER:2",
+        "cls": "TAMER",
+        "reward": 1320,
+        "team": [
+          {
+            "dex": "024",
+            "lvl": 33
+          },
+          {
+            "dex": "028",
+            "lvl": 33
+          },
+          {
+            "dex": "024",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-8-2.png"
+      },
+      {
+        "map": "fuchsia-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-2-7",
+        "key": null,
+        "opp": "JUGGLER:4",
+        "cls": "JUGGLER",
+        "reward": 1190,
+        "team": [
+          {
+            "dex": "096",
+            "lvl": 34
+          },
+          {
+            "dex": "097",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/fuchsia-city-gym-trainer-2-7.png"
+      }
+    ],
+    "mt-moon": [
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-5-6",
+        "key": "A",
+        "opp": "HIKER:1",
+        "cls": "HIKER",
+        "reward": 350,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 10
+          },
+          {
+            "dex": "074",
+            "lvl": 10
+          },
+          {
+            "dex": "095",
+            "lvl": 10
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-5-6.png"
+      },
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-12-16",
+        "key": "B",
+        "opp": "YOUNGSTER:3",
+        "cls": "YOUNGSTER",
+        "reward": 150,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 10
+          },
+          {
+            "dex": "019",
+            "lvl": 10
+          },
+          {
+            "dex": "041",
+            "lvl": 10
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-12-16.png"
+      },
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-30-4",
+        "key": "C",
+        "opp": "LASS:5",
+        "cls": "LASS",
+        "reward": 165,
+        "team": [
+          {
+            "dex": "043",
+            "lvl": 11
+          },
+          {
+            "dex": "069",
+            "lvl": 11
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-30-4.png"
+      },
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-24-31",
+        "key": "D",
+        "opp": "SUPER_NERD:1",
+        "cls": "SUPER_NERD",
+        "reward": 275,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 11
+          },
+          {
+            "dex": "100",
+            "lvl": 11
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-24-31.png"
+      },
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-16-23",
+        "key": "E",
+        "opp": "LASS:6",
+        "cls": "LASS",
+        "reward": 210,
+        "team": [
+          {
+            "dex": "035",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-16-23.png"
+      },
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-7-22",
+        "key": "F",
+        "opp": "BUG_CATCHER:7",
+        "cls": "BUG_CATCHER",
+        "reward": 110,
+        "team": [
+          {
+            "dex": "013",
+            "lvl": 11
+          },
+          {
+            "dex": "014",
+            "lvl": 11
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-7-22.png"
+      },
+      {
+        "map": "mt-moon-1f",
+        "floor": "1F",
+        "marker": "trainer-30-27",
+        "key": "G",
+        "opp": "BUG_CATCHER:8",
+        "cls": "BUG_CATCHER",
+        "reward": 100,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 10
+          },
+          {
+            "dex": "011",
+            "lvl": 10
+          },
+          {
+            "dex": "010",
+            "lvl": 10
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-1f-trainer-30-27.png"
+      },
+      {
+        "map": "mt-moon-b2f",
+        "floor": "B2F",
+        "marker": "trainer-12-8",
+        "key": "A",
+        "opp": "SUPER_NERD:2",
+        "cls": "SUPER_NERD",
+        "reward": 300,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 12
+          },
+          {
+            "dex": "100",
+            "lvl": 12
+          },
+          {
+            "dex": "109",
+            "lvl": 12
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-b2f-trainer-12-8.png"
+      },
+      {
+        "map": "mt-moon-b2f",
+        "floor": "B2F",
+        "marker": "trainer-15-22",
+        "key": "B",
+        "opp": "ROCKET:2",
+        "cls": "ROCKET",
+        "reward": 330,
+        "team": [
+          {
+            "dex": "027",
+            "lvl": 11
+          },
+          {
+            "dex": "019",
+            "lvl": 11
+          },
+          {
+            "dex": "041",
+            "lvl": 11
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-b2f-trainer-15-22.png"
+      },
+      {
+        "map": "mt-moon-b2f",
+        "floor": "B2F",
+        "marker": "trainer-29-11",
+        "key": "C",
+        "opp": "ROCKET:3",
+        "cls": "ROCKET",
+        "reward": 360,
+        "team": [
+          {
+            "dex": "041",
+            "lvl": 12
+          },
+          {
+            "dex": "023",
+            "lvl": 12
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-b2f-trainer-29-11.png"
+      },
+      {
+        "map": "mt-moon-b2f",
+        "floor": "B2F",
+        "marker": "trainer-29-17",
+        "key": "D",
+        "opp": "ROCKET:1",
+        "cls": "ROCKET",
+        "reward": 390,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 13
+          },
+          {
+            "dex": "041",
+            "lvl": 13
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/mt-moon-b2f-trainer-29-17.png"
+      }
+    ],
+    "pewter-city": [
+      {
+        "map": "pewter-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-4-1",
+        "key": null,
+        "opp": "BROCK:1",
+        "cls": "BROCK",
+        "reward": 1188,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 10
+          },
+          {
+            "dex": "095",
+            "lvl": 12
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pewter-city-gym-trainer-4-1.png"
+      },
+      {
+        "map": "pewter-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-6",
+        "key": null,
+        "opp": "JR_TRAINER_M:1",
+        "cls": "JR_TRAINER_M",
+        "reward": 180,
+        "team": [
+          {
+            "dex": "050",
+            "lvl": 9
+          },
+          {
+            "dex": "027",
+            "lvl": 9
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pewter-city-gym-trainer-3-6.png"
+      }
+    ],
+    "pokemon-mansion": [
+      {
+        "map": "pokemon-mansion-1f",
+        "floor": "1F",
+        "marker": "trainer-17-17",
+        "key": "A",
+        "opp": "SCIENTIST:4",
+        "cls": "SCIENTIST",
+        "reward": 1450,
+        "team": [
+          {
+            "dex": "101",
+            "lvl": 29
+          },
+          {
+            "dex": "110",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-1f-trainer-17-17.png"
+      },
+      {
+        "map": "pokemon-mansion-2f",
+        "floor": "2F",
+        "marker": "trainer-3-17",
+        "key": "A",
+        "opp": "BURGLAR:7",
+        "cls": "BURGLAR",
+        "reward": 3060,
+        "team": [
+          {
+            "dex": "004",
+            "lvl": 34
+          },
+          {
+            "dex": "005",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-2f-trainer-3-17.png"
+      },
+      {
+        "map": "pokemon-mansion-3f",
+        "floor": "3F",
+        "marker": "trainer-5-11",
+        "key": "A",
+        "opp": "BURGLAR:8",
+        "cls": "BURGLAR",
+        "reward": 3420,
+        "team": [
+          {
+            "dex": "038",
+            "lvl": 38
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-3f-trainer-5-11.png"
+      },
+      {
+        "map": "pokemon-mansion-3f",
+        "floor": "3F",
+        "marker": "trainer-20-11",
+        "key": "B",
+        "opp": "SCIENTIST:12",
+        "cls": "SCIENTIST",
+        "reward": 1650,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 33
+          },
+          {
+            "dex": "082",
+            "lvl": 33
+          },
+          {
+            "dex": "100",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-3f-trainer-20-11.png"
+      },
+      {
+        "map": "pokemon-mansion-b1f",
+        "floor": "B1F",
+        "marker": "trainer-16-23",
+        "key": "A",
+        "opp": "BURGLAR:9",
+        "cls": "BURGLAR",
+        "reward": 3060,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 34
+          },
+          {
+            "dex": "077",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-b1f-trainer-16-23.png"
+      },
+      {
+        "map": "pokemon-mansion-b1f",
+        "floor": "B1F",
+        "marker": "trainer-27-11",
+        "key": "B",
+        "opp": "SCIENTIST:13",
+        "cls": "SCIENTIST",
+        "reward": 1700,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 34
+          },
+          {
+            "dex": "101",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-b1f-trainer-27-11.png"
+      }
+    ],
+    "pokemon-tower": [
+      {
+        "map": "pokemon-tower-3f",
+        "floor": "3F",
+        "marker": "trainer-12-3",
+        "key": "A",
+        "opp": "CHANNELER:5",
+        "cls": "CHANNELER",
+        "reward": 690,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-3f-trainer-12-3.png"
+      },
+      {
+        "map": "pokemon-tower-3f",
+        "floor": "3F",
+        "marker": "trainer-9-8",
+        "key": "B",
+        "opp": "CHANNELER:6",
+        "cls": "CHANNELER",
+        "reward": 720,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-3f-trainer-9-8.png"
+      },
+      {
+        "map": "pokemon-tower-3f",
+        "floor": "3F",
+        "marker": "trainer-10-13",
+        "key": "C",
+        "opp": "CHANNELER:8",
+        "cls": "CHANNELER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-3f-trainer-10-13.png"
+      },
+      {
+        "map": "pokemon-tower-4f",
+        "floor": "4F",
+        "marker": "trainer-5-10",
+        "key": "A",
+        "opp": "CHANNELER:9",
+        "cls": "CHANNELER",
+        "reward": 720,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-4f-trainer-5-10.png"
+      },
+      {
+        "map": "pokemon-tower-4f",
+        "floor": "4F",
+        "marker": "trainer-15-7",
+        "key": "B",
+        "opp": "CHANNELER:10",
+        "cls": "CHANNELER",
+        "reward": 690,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 23
+          },
+          {
+            "dex": "092",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-4f-trainer-15-7.png"
+      },
+      {
+        "map": "pokemon-tower-4f",
+        "floor": "4F",
+        "marker": "trainer-14-12",
+        "key": "C",
+        "opp": "CHANNELER:12",
+        "cls": "CHANNELER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-4f-trainer-14-12.png"
+      },
+      {
+        "map": "pokemon-tower-5f",
+        "floor": "5F",
+        "marker": "trainer-17-7",
+        "key": "A",
+        "opp": "CHANNELER:14",
+        "cls": "CHANNELER",
+        "reward": 690,
+        "team": [
+          {
+            "dex": "093",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-5f-trainer-17-7.png"
+      },
+      {
+        "map": "pokemon-tower-5f",
+        "floor": "5F",
+        "marker": "trainer-14-3",
+        "key": "B",
+        "opp": "CHANNELER:16",
+        "cls": "CHANNELER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-5f-trainer-14-3.png"
+      },
+      {
+        "map": "pokemon-tower-5f",
+        "floor": "5F",
+        "marker": "trainer-6-10",
+        "key": "C",
+        "opp": "CHANNELER:17",
+        "cls": "CHANNELER",
+        "reward": 720,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-5f-trainer-6-10.png"
+      },
+      {
+        "map": "pokemon-tower-5f",
+        "floor": "5F",
+        "marker": "trainer-9-16",
+        "key": "D",
+        "opp": "CHANNELER:18",
+        "cls": "CHANNELER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "093",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-5f-trainer-9-16.png"
+      },
+      {
+        "map": "pokemon-tower-6f",
+        "floor": "6F",
+        "marker": "trainer-12-10",
+        "key": "A",
+        "opp": "CHANNELER:19",
+        "cls": "CHANNELER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 22
+          },
+          {
+            "dex": "092",
+            "lvl": 22
+          },
+          {
+            "dex": "092",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-6f-trainer-12-10.png"
+      },
+      {
+        "map": "pokemon-tower-6f",
+        "floor": "6F",
+        "marker": "trainer-9-5",
+        "key": "B",
+        "opp": "CHANNELER:20",
+        "cls": "CHANNELER",
+        "reward": 720,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-6f-trainer-9-5.png"
+      },
+      {
+        "map": "pokemon-tower-6f",
+        "floor": "6F",
+        "marker": "trainer-16-5",
+        "key": "C",
+        "opp": "CHANNELER:21",
+        "cls": "CHANNELER",
+        "reward": 720,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-6f-trainer-16-5.png"
+      }
+    ],
+    "rock-tunnel": [
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-7-5",
+        "key": "A",
+        "opp": "HIKER:12",
+        "cls": "HIKER",
+        "reward": 665,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 19
+          },
+          {
+            "dex": "066",
+            "lvl": 19
+          },
+          {
+            "dex": "074",
+            "lvl": 19
+          },
+          {
+            "dex": "074",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-7-5.png"
+      },
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-5-16",
+        "key": "B",
+        "opp": "HIKER:13",
+        "cls": "HIKER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "095",
+            "lvl": 20
+          },
+          {
+            "dex": "095",
+            "lvl": 20
+          },
+          {
+            "dex": "074",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-5-16.png"
+      },
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-17-15",
+        "key": "C",
+        "opp": "HIKER:14",
+        "cls": "HIKER",
+        "reward": 735,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 21
+          },
+          {
+            "dex": "075",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-17-15.png"
+      },
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-23-8",
+        "key": "D",
+        "opp": "POKEMANIAC:7",
+        "cls": "POKEMANIAC",
+        "reward": 1150,
+        "team": [
+          {
+            "dex": "104",
+            "lvl": 23
+          },
+          {
+            "dex": "079",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-23-8.png"
+      },
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-37-21",
+        "key": "E",
+        "opp": "JR_TRAINER_F:17",
+        "cls": "JR_TRAINER_F",
+        "reward": 440,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 22
+          },
+          {
+            "dex": "035",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-37-21.png"
+      },
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-22-24",
+        "key": "F",
+        "opp": "JR_TRAINER_F:18",
+        "cls": "JR_TRAINER_F",
+        "reward": 400,
+        "team": [
+          {
+            "dex": "052",
+            "lvl": 20
+          },
+          {
+            "dex": "043",
+            "lvl": 20
+          },
+          {
+            "dex": "016",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-22-24.png"
+      },
+      {
+        "map": "rock-tunnel-1f",
+        "floor": "1F",
+        "marker": "trainer-32-24",
+        "key": "G",
+        "opp": "JR_TRAINER_F:19",
+        "cls": "JR_TRAINER_F",
+        "reward": 380,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 19
+          },
+          {
+            "dex": "019",
+            "lvl": 19
+          },
+          {
+            "dex": "019",
+            "lvl": 19
+          },
+          {
+            "dex": "069",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-1f-trainer-32-24.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-11-13",
+        "key": "A",
+        "opp": "JR_TRAINER_F:9",
+        "cls": "JR_TRAINER_F",
+        "reward": 420,
+        "team": [
+          {
+            "dex": "039",
+            "lvl": 21
+          },
+          {
+            "dex": "016",
+            "lvl": 21
+          },
+          {
+            "dex": "052",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-11-13.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-6-10",
+        "key": "B",
+        "opp": "HIKER:9",
+        "cls": "HIKER",
+        "reward": 735,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 21
+          },
+          {
+            "dex": "074",
+            "lvl": 21
+          },
+          {
+            "dex": "075",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-6-10.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-3-5",
+        "key": "C",
+        "opp": "POKEMANIAC:3",
+        "cls": "POKEMANIAC",
+        "reward": 1000,
+        "team": [
+          {
+            "dex": "079",
+            "lvl": 20
+          },
+          {
+            "dex": "079",
+            "lvl": 20
+          },
+          {
+            "dex": "079",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-3-5.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-20-21",
+        "key": "D",
+        "opp": "POKEMANIAC:4",
+        "cls": "POKEMANIAC",
+        "reward": 1100,
+        "team": [
+          {
+            "dex": "004",
+            "lvl": 22
+          },
+          {
+            "dex": "104",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-20-21.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-30-10",
+        "key": "E",
+        "opp": "HIKER:10",
+        "cls": "HIKER",
+        "reward": 875,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-30-10.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-14-28",
+        "key": "F",
+        "opp": "JR_TRAINER_F:10",
+        "cls": "JR_TRAINER_F",
+        "reward": 440,
+        "team": [
+          {
+            "dex": "043",
+            "lvl": 22
+          },
+          {
+            "dex": "001",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-14-28.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-33-5",
+        "key": "G",
+        "opp": "HIKER:11",
+        "cls": "HIKER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 20
+          },
+          {
+            "dex": "095",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-33-5.png"
+      },
+      {
+        "map": "rock-tunnel-b1f",
+        "floor": "B1F",
+        "marker": "trainer-26-30",
+        "key": "H",
+        "opp": "POKEMANIAC:5",
+        "cls": "POKEMANIAC",
+        "reward": 1250,
+        "team": [
+          {
+            "dex": "079",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rock-tunnel-b1f-trainer-26-30.png"
+      }
+    ],
+    "rocket-hideout": [
+      {
+        "map": "rocket-hideout-b1f",
+        "floor": "B1F",
+        "marker": "trainer-26-8",
+        "key": "A",
+        "opp": "ROCKET:8",
+        "cls": "ROCKET",
+        "reward": 630,
+        "team": [
+          {
+            "dex": "096",
+            "lvl": 21
+          },
+          {
+            "dex": "066",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b1f-trainer-26-8.png"
+      },
+      {
+        "map": "rocket-hideout-b1f",
+        "floor": "B1F",
+        "marker": "trainer-12-6",
+        "key": "B",
+        "opp": "ROCKET:9",
+        "cls": "ROCKET",
+        "reward": 630,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 21
+          },
+          {
+            "dex": "020",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b1f-trainer-12-6.png"
+      },
+      {
+        "map": "rocket-hideout-b1f",
+        "floor": "B1F",
+        "marker": "trainer-18-17",
+        "key": "C",
+        "opp": "ROCKET:10",
+        "cls": "ROCKET",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 20
+          },
+          {
+            "dex": "109",
+            "lvl": 20
+          },
+          {
+            "dex": "109",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b1f-trainer-18-17.png"
+      },
+      {
+        "map": "rocket-hideout-b1f",
+        "floor": "B1F",
+        "marker": "trainer-15-25",
+        "key": "D",
+        "opp": "ROCKET:11",
+        "cls": "ROCKET",
+        "reward": 570,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 19
+          },
+          {
+            "dex": "020",
+            "lvl": 19
+          },
+          {
+            "dex": "020",
+            "lvl": 19
+          },
+          {
+            "dex": "019",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b1f-trainer-15-25.png"
+      },
+      {
+        "map": "rocket-hideout-b1f",
+        "floor": "B1F",
+        "marker": "trainer-28-18",
+        "key": "E",
+        "opp": "ROCKET:12",
+        "cls": "ROCKET",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 22
+          },
+          {
+            "dex": "109",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b1f-trainer-28-18.png"
+      },
+      {
+        "map": "rocket-hideout-b2f",
+        "floor": "B2F",
+        "marker": "trainer-20-12",
+        "key": "A",
+        "opp": "ROCKET:13",
+        "cls": "ROCKET",
+        "reward": 510,
+        "team": [
+          {
+            "dex": "041",
+            "lvl": 17
+          },
+          {
+            "dex": "109",
+            "lvl": 17
+          },
+          {
+            "dex": "088",
+            "lvl": 17
+          },
+          {
+            "dex": "041",
+            "lvl": 17
+          },
+          {
+            "dex": "020",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b2f-trainer-20-12.png"
+      },
+      {
+        "map": "rocket-hideout-b3f",
+        "floor": "B3F",
+        "marker": "trainer-10-22",
+        "key": "A",
+        "opp": "ROCKET:14",
+        "cls": "ROCKET",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 20
+          },
+          {
+            "dex": "020",
+            "lvl": 20
+          },
+          {
+            "dex": "096",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b3f-trainer-10-22.png"
+      },
+      {
+        "map": "rocket-hideout-b3f",
+        "floor": "B3F",
+        "marker": "trainer-26-12",
+        "key": "B",
+        "opp": "ROCKET:15",
+        "cls": "ROCKET",
+        "reward": 630,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 21
+          },
+          {
+            "dex": "066",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b3f-trainer-26-12.png"
+      },
+      {
+        "map": "rocket-hideout-b4f",
+        "floor": "B4F",
+        "marker": "trainer-25-3",
+        "key": "A",
+        "opp": "GIOVANNI:1",
+        "cls": "GIOVANNI",
+        "reward": 2871,
+        "team": [
+          {
+            "dex": "095",
+            "lvl": 25
+          },
+          {
+            "dex": "111",
+            "lvl": 24
+          },
+          {
+            "dex": "053",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b4f-trainer-25-3.png"
+      },
+      {
+        "map": "rocket-hideout-b4f",
+        "floor": "B4F",
+        "marker": "trainer-11-2",
+        "key": "B",
+        "opp": "ROCKET:18",
+        "cls": "ROCKET",
+        "reward": 630,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 21
+          },
+          {
+            "dex": "041",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-b4f-trainer-11-2.png"
+      }
+    ],
+    "route-10": [
+      {
+        "map": "route-10",
+        "floor": "",
+        "marker": "trainer-10-44",
+        "key": "A",
+        "opp": "POKEMANIAC:1",
+        "cls": "POKEMANIAC",
+        "reward": 1500,
+        "team": [
+          {
+            "dex": "111",
+            "lvl": 30
+          },
+          {
+            "dex": "108",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-10-trainer-10-44.png"
+      },
+      {
+        "map": "route-10",
+        "floor": "",
+        "marker": "trainer-3-57",
+        "key": "B",
+        "opp": "HIKER:7",
+        "cls": "HIKER",
+        "reward": 735,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 21
+          },
+          {
+            "dex": "095",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-10-trainer-3-57.png"
+      },
+      {
+        "map": "route-10",
+        "floor": "",
+        "marker": "trainer-14-64",
+        "key": "C",
+        "opp": "POKEMANIAC:2",
+        "cls": "POKEMANIAC",
+        "reward": 1000,
+        "team": [
+          {
+            "dex": "104",
+            "lvl": 20
+          },
+          {
+            "dex": "079",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-10-trainer-14-64.png"
+      },
+      {
+        "map": "route-10",
+        "floor": "",
+        "marker": "trainer-7-25",
+        "key": "D",
+        "opp": "JR_TRAINER_F:7",
+        "cls": "JR_TRAINER_F",
+        "reward": 400,
+        "team": [
+          {
+            "dex": "039",
+            "lvl": 20
+          },
+          {
+            "dex": "035",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-10-trainer-7-25.png"
+      },
+      {
+        "map": "route-10",
+        "floor": "",
+        "marker": "trainer-3-61",
+        "key": "E",
+        "opp": "HIKER:8",
+        "cls": "HIKER",
+        "reward": 665,
+        "team": [
+          {
+            "dex": "095",
+            "lvl": 19
+          },
+          {
+            "dex": "075",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-10-trainer-3-61.png"
+      },
+      {
+        "map": "route-10",
+        "floor": "",
+        "marker": "trainer-7-54",
+        "key": "F",
+        "opp": "JR_TRAINER_F:8",
+        "cls": "JR_TRAINER_F",
+        "reward": 420,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 21
+          },
+          {
+            "dex": "017",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-10-trainer-7-54.png"
+      }
+    ],
+    "route-11": [
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-10-14",
+        "key": "A",
+        "opp": "GAMBLER:1",
+        "cls": "GAMBLER",
+        "reward": 1260,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 18
+          },
+          {
+            "dex": "116",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-10-14.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-26-9",
+        "key": "B",
+        "opp": "GAMBLER:2",
+        "cls": "GAMBLER",
+        "reward": 1260,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 18
+          },
+          {
+            "dex": "043",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-26-9.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-13-5",
+        "key": "C",
+        "opp": "YOUNGSTER:9",
+        "cls": "YOUNGSTER",
+        "reward": 315,
+        "team": [
+          {
+            "dex": "023",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-13-5.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-36-11",
+        "key": "D",
+        "opp": "ENGINEER:2",
+        "cls": "ENGINEER",
+        "reward": 1050,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-36-11.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-22-4",
+        "key": "E",
+        "opp": "YOUNGSTER:10",
+        "cls": "YOUNGSTER",
+        "reward": 285,
+        "team": [
+          {
+            "dex": "027",
+            "lvl": 19
+          },
+          {
+            "dex": "041",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-22-4.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-45-7",
+        "key": "F",
+        "opp": "GAMBLER:3",
+        "cls": "GAMBLER",
+        "reward": 1260,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 18
+          },
+          {
+            "dex": "081",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-45-7.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-33-3",
+        "key": "G",
+        "opp": "GAMBLER:4",
+        "cls": "GAMBLER",
+        "reward": 1260,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 18
+          },
+          {
+            "dex": "037",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-33-3.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-43-5",
+        "key": "H",
+        "opp": "YOUNGSTER:11",
+        "cls": "YOUNGSTER",
+        "reward": 255,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 17
+          },
+          {
+            "dex": "019",
+            "lvl": 17
+          },
+          {
+            "dex": "020",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-43-5.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-45-16",
+        "key": "I",
+        "opp": "ENGINEER:3",
+        "cls": "ENGINEER",
+        "reward": 900,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 18
+          },
+          {
+            "dex": "081",
+            "lvl": 18
+          },
+          {
+            "dex": "082",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-45-16.png"
+      },
+      {
+        "map": "route-11",
+        "floor": "",
+        "marker": "trainer-22-12",
+        "key": "J",
+        "opp": "YOUNGSTER:12",
+        "cls": "YOUNGSTER",
+        "reward": 270,
+        "team": [
+          {
+            "dex": "032",
+            "lvl": 18
+          },
+          {
+            "dex": "033",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-11-trainer-22-12.png"
+      }
+    ],
+    "route-12": [
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-14-31",
+        "key": "A",
+        "opp": "FISHER:3",
+        "cls": "FISHER",
+        "reward": 770,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 22
+          },
+          {
+            "dex": "060",
+            "lvl": 22
+          },
+          {
+            "dex": "118",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-14-31.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-5-39",
+        "key": "B",
+        "opp": "FISHER:4",
+        "cls": "FISHER",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 24
+          },
+          {
+            "dex": "118",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-5-39.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-11-92",
+        "key": "C",
+        "opp": "JR_TRAINER_M:9",
+        "cls": "JR_TRAINER_M",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "032",
+            "lvl": 29
+          },
+          {
+            "dex": "033",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-11-92.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-14-76",
+        "key": "D",
+        "opp": "ROCKER:2",
+        "cls": "ROCKER",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 29
+          },
+          {
+            "dex": "101",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-14-76.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-12-40",
+        "key": "E",
+        "opp": "FISHER:5",
+        "cls": "FISHER",
+        "reward": 945,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-12-40.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-9-52",
+        "key": "F",
+        "opp": "FISHER:6",
+        "cls": "FISHER",
+        "reward": 735,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 21
+          },
+          {
+            "dex": "090",
+            "lvl": 21
+          },
+          {
+            "dex": "118",
+            "lvl": 21
+          },
+          {
+            "dex": "116",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-9-52.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-6-87",
+        "key": "G",
+        "opp": "FISHER:11",
+        "cls": "FISHER",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "129",
+            "lvl": 24
+          },
+          {
+            "dex": "129",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-6-87.png"
+      }
+    ],
+    "route-13": [
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-49-10",
+        "key": "A",
+        "opp": "BIRD_KEEPER:1",
+        "cls": "BIRD_KEEPER",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 29
+          },
+          {
+            "dex": "017",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-49-10.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-48-10",
+        "key": "B",
+        "opp": "JR_TRAINER_F:12",
+        "cls": "JR_TRAINER_F",
+        "reward": 480,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 24
+          },
+          {
+            "dex": "052",
+            "lvl": 24
+          },
+          {
+            "dex": "019",
+            "lvl": 24
+          },
+          {
+            "dex": "016",
+            "lvl": 24
+          },
+          {
+            "dex": "052",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-48-10.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-27-9",
+        "key": "C",
+        "opp": "JR_TRAINER_F:13",
+        "cls": "JR_TRAINER_F",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 30
+          },
+          {
+            "dex": "060",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-27-9.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-23-10",
+        "key": "D",
+        "opp": "JR_TRAINER_F:14",
+        "cls": "JR_TRAINER_F",
+        "reward": 540,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 27
+          },
+          {
+            "dex": "052",
+            "lvl": 27
+          },
+          {
+            "dex": "016",
+            "lvl": 27
+          },
+          {
+            "dex": "017",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-23-10.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-50-5",
+        "key": "E",
+        "opp": "JR_TRAINER_F:15",
+        "cls": "JR_TRAINER_F",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 28
+          },
+          {
+            "dex": "060",
+            "lvl": 28
+          },
+          {
+            "dex": "116",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-50-5.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-12-4",
+        "key": "F",
+        "opp": "BIRD_KEEPER:2",
+        "cls": "BIRD_KEEPER",
+        "reward": 625,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 25
+          },
+          {
+            "dex": "016",
+            "lvl": 25
+          },
+          {
+            "dex": "016",
+            "lvl": 25
+          },
+          {
+            "dex": "021",
+            "lvl": 25
+          },
+          {
+            "dex": "021",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-12-4.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-33-6",
+        "key": "G",
+        "opp": "BEAUTY:4",
+        "cls": "BEAUTY",
+        "reward": 1890,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 27
+          },
+          {
+            "dex": "037",
+            "lvl": 27
+          },
+          {
+            "dex": "019",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-33-6.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-32-6",
+        "key": "H",
+        "opp": "BEAUTY:5",
+        "cls": "BEAUTY",
+        "reward": 2030,
+        "team": [
+          {
+            "dex": "035",
+            "lvl": 29
+          },
+          {
+            "dex": "052",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-32-6.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-10-7",
+        "key": "I",
+        "opp": "BIKER:1",
+        "cls": "BIKER",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-10-7.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-7-13",
+        "key": "J",
+        "opp": "BIRD_KEEPER:3",
+        "cls": "BIRD_KEEPER",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 26
+          },
+          {
+            "dex": "017",
+            "lvl": 26
+          },
+          {
+            "dex": "021",
+            "lvl": 26
+          },
+          {
+            "dex": "022",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-7-13.png"
+      }
+    ],
+    "route-14": [
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-4-4",
+        "key": "A",
+        "opp": "BIRD_KEEPER:14",
+        "cls": "BIRD_KEEPER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 28
+          },
+          {
+            "dex": "084",
+            "lvl": 28
+          },
+          {
+            "dex": "017",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-4-4.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-15-6",
+        "key": "B",
+        "opp": "BIRD_KEEPER:15",
+        "cls": "BIRD_KEEPER",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 26
+          },
+          {
+            "dex": "021",
+            "lvl": 26
+          },
+          {
+            "dex": "016",
+            "lvl": 26
+          },
+          {
+            "dex": "022",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-15-6.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-12-11",
+        "key": "C",
+        "opp": "BIRD_KEEPER:16",
+        "cls": "BIRD_KEEPER",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "017",
+            "lvl": 29
+          },
+          {
+            "dex": "022",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-12-11.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-14-15",
+        "key": "D",
+        "opp": "BIRD_KEEPER:17",
+        "cls": "BIRD_KEEPER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 28
+          },
+          {
+            "dex": "084",
+            "lvl": 28
+          },
+          {
+            "dex": "022",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-14-15.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-15-31",
+        "key": "E",
+        "opp": "BIRD_KEEPER:4",
+        "cls": "BIRD_KEEPER",
+        "reward": 825,
+        "team": [
+          {
+            "dex": "083",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-15-31.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-6-49",
+        "key": "F",
+        "opp": "BIRD_KEEPER:5",
+        "cls": "BIRD_KEEPER",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 29
+          },
+          {
+            "dex": "022",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-6-49.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-5-39",
+        "key": "G",
+        "opp": "BIKER:13",
+        "cls": "BIKER",
+        "reward": 520,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 26
+          },
+          {
+            "dex": "109",
+            "lvl": 26
+          },
+          {
+            "dex": "088",
+            "lvl": 26
+          },
+          {
+            "dex": "109",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-5-39.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-4-30",
+        "key": "H",
+        "opp": "BIKER:14",
+        "cls": "BIKER",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 28
+          },
+          {
+            "dex": "088",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-4-30.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-15-30",
+        "key": "I",
+        "opp": "BIKER:15",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 29
+          },
+          {
+            "dex": "089",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-15-30.png"
+      },
+      {
+        "map": "route-14",
+        "floor": "",
+        "marker": "trainer-4-31",
+        "key": "J",
+        "opp": "BIKER:2",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 29
+          },
+          {
+            "dex": "088",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-14-trainer-4-31.png"
+      }
+    ],
+    "route-15": [
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-41-11",
+        "key": "A",
+        "opp": "JR_TRAINER_F:20",
+        "cls": "JR_TRAINER_F",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "044",
+            "lvl": 28
+          },
+          {
+            "dex": "043",
+            "lvl": 28
+          },
+          {
+            "dex": "043",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-41-11.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-53-10",
+        "key": "B",
+        "opp": "JR_TRAINER_F:21",
+        "cls": "JR_TRAINER_F",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 29
+          },
+          {
+            "dex": "017",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-53-10.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-31-13",
+        "key": "C",
+        "opp": "BIRD_KEEPER:6",
+        "cls": "BIRD_KEEPER",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "017",
+            "lvl": 26
+          },
+          {
+            "dex": "083",
+            "lvl": 26
+          },
+          {
+            "dex": "084",
+            "lvl": 26
+          },
+          {
+            "dex": "016",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-31-13.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-35-13",
+        "key": "D",
+        "opp": "BIRD_KEEPER:7",
+        "cls": "BIRD_KEEPER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "085",
+            "lvl": 28
+          },
+          {
+            "dex": "084",
+            "lvl": 28
+          },
+          {
+            "dex": "084",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-35-13.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-53-11",
+        "key": "E",
+        "opp": "BEAUTY:9",
+        "cls": "BEAUTY",
+        "reward": 2030,
+        "team": [
+          {
+            "dex": "017",
+            "lvl": 29
+          },
+          {
+            "dex": "040",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-53-11.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-41-10",
+        "key": "F",
+        "opp": "BEAUTY:10",
+        "cls": "BEAUTY",
+        "reward": 2030,
+        "team": [
+          {
+            "dex": "001",
+            "lvl": 29
+          },
+          {
+            "dex": "002",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-41-10.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-48-10",
+        "key": "G",
+        "opp": "BIKER:3",
+        "cls": "BIKER",
+        "reward": 500,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "110",
+            "lvl": 25
+          },
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "088",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-48-10.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-46-10",
+        "key": "H",
+        "opp": "BIKER:4",
+        "cls": "BIKER",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "088",
+            "lvl": 28
+          },
+          {
+            "dex": "110",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-46-10.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-37-5",
+        "key": "I",
+        "opp": "JR_TRAINER_F:22",
+        "cls": "JR_TRAINER_F",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "035",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-37-5.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-18-13",
+        "key": "J",
+        "opp": "JR_TRAINER_F:23",
+        "cls": "JR_TRAINER_F",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 29
+          },
+          {
+            "dex": "043",
+            "lvl": 29
+          },
+          {
+            "dex": "114",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-18-13.png"
+      }
+    ],
+    "route-16": [
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-17-12",
+        "key": "A",
+        "opp": "BIKER:5",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 29
+          },
+          {
+            "dex": "109",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-17-12.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-14-13",
+        "key": "B",
+        "opp": "CUE_BALL:1",
+        "cls": "CUE_BALL",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 28
+          },
+          {
+            "dex": "056",
+            "lvl": 28
+          },
+          {
+            "dex": "066",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-14-13.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-11-12",
+        "key": "C",
+        "opp": "CUE_BALL:2",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 29
+          },
+          {
+            "dex": "066",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-11-12.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-9-11",
+        "key": "D",
+        "opp": "BIKER:6",
+        "cls": "BIKER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-9-11.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-6-10",
+        "key": "E",
+        "opp": "CUE_BALL:3",
+        "cls": "CUE_BALL",
+        "reward": 825,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-6-10.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-3-12",
+        "key": "F",
+        "opp": "BIKER:7",
+        "cls": "BIKER",
+        "reward": 520,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 26
+          },
+          {
+            "dex": "088",
+            "lvl": 26
+          },
+          {
+            "dex": "088",
+            "lvl": 26
+          },
+          {
+            "dex": "088",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-3-12.png"
+      }
+    ],
+    "route-17": [
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-12-19",
+        "key": "A",
+        "opp": "CUE_BALL:4",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 29
+          },
+          {
+            "dex": "057",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-12-19.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-11-16",
+        "key": "B",
+        "opp": "CUE_BALL:5",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 29
+          },
+          {
+            "dex": "067",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-11-16.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-4-18",
+        "key": "C",
+        "opp": "BIKER:8",
+        "cls": "BIKER",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "110",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-4-18.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-7-32",
+        "key": "D",
+        "opp": "BIKER:9",
+        "cls": "BIKER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "089",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-7-32.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-14-34",
+        "key": "E",
+        "opp": "BIKER:10",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 29
+          },
+          {
+            "dex": "100",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-14-34.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-17-58",
+        "key": "F",
+        "opp": "CUE_BALL:6",
+        "cls": "CUE_BALL",
+        "reward": 825,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-17-58.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-2-68",
+        "key": "G",
+        "opp": "CUE_BALL:7",
+        "cls": "CUE_BALL",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 26
+          },
+          {
+            "dex": "056",
+            "lvl": 26
+          },
+          {
+            "dex": "067",
+            "lvl": 26
+          },
+          {
+            "dex": "066",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-2-68.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-14-98",
+        "key": "H",
+        "opp": "CUE_BALL:8",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "057",
+            "lvl": 29
+          },
+          {
+            "dex": "067",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-14-98.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-5-98",
+        "key": "I",
+        "opp": "BIKER:11",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 29
+          },
+          {
+            "dex": "089",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-5-98.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-10-118",
+        "key": "J",
+        "opp": "BIKER:12",
+        "cls": "BIKER",
+        "reward": 500,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "110",
+            "lvl": 25
+          },
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "110",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-10-118.png"
+      }
+    ],
+    "route-18": [
+      {
+        "map": "route-18",
+        "floor": "",
+        "marker": "trainer-36-11",
+        "key": "A",
+        "opp": "BIRD_KEEPER:8",
+        "cls": "BIRD_KEEPER",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 29
+          },
+          {
+            "dex": "022",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-18-trainer-36-11.png"
+      },
+      {
+        "map": "route-18",
+        "floor": "",
+        "marker": "trainer-40-15",
+        "key": "B",
+        "opp": "BIRD_KEEPER:9",
+        "cls": "BIRD_KEEPER",
+        "reward": 850,
+        "team": [
+          {
+            "dex": "085",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-18-trainer-40-15.png"
+      },
+      {
+        "map": "route-18",
+        "floor": "",
+        "marker": "trainer-42-13",
+        "key": "C",
+        "opp": "BIRD_KEEPER:10",
+        "cls": "BIRD_KEEPER",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 26
+          },
+          {
+            "dex": "021",
+            "lvl": 26
+          },
+          {
+            "dex": "022",
+            "lvl": 26
+          },
+          {
+            "dex": "021",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-18-trainer-42-13.png"
+      }
+    ],
+    "route-19": [
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-9-7",
+        "key": "A",
+        "opp": "SWIMMER:2",
+        "cls": "SWIMMER",
+        "reward": 150,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 30
+          },
+          {
+            "dex": "090",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-9-7.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-12-9",
+        "key": "B",
+        "opp": "SWIMMER:3",
+        "cls": "SWIMMER",
+        "reward": 145,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 29
+          },
+          {
+            "dex": "116",
+            "lvl": 29
+          },
+          {
+            "dex": "120",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-12-9.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-13-25",
+        "key": "C",
+        "opp": "SWIMMER:4",
+        "cls": "SWIMMER",
+        "reward": 150,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 30
+          },
+          {
+            "dex": "061",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-13-25.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-4-27",
+        "key": "D",
+        "opp": "SWIMMER:5",
+        "cls": "SWIMMER",
+        "reward": 135,
+        "team": [
+          {
+            "dex": "116",
+            "lvl": 27
+          },
+          {
+            "dex": "072",
+            "lvl": 27
+          },
+          {
+            "dex": "072",
+            "lvl": 27
+          },
+          {
+            "dex": "118",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-4-27.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-16-31",
+        "key": "E",
+        "opp": "SWIMMER:6",
+        "cls": "SWIMMER",
+        "reward": 145,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 29
+          },
+          {
+            "dex": "090",
+            "lvl": 29
+          },
+          {
+            "dex": "119",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-16-31.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-9-13",
+        "key": "F",
+        "opp": "SWIMMER:7",
+        "cls": "SWIMMER",
+        "reward": 150,
+        "team": [
+          {
+            "dex": "116",
+            "lvl": 30
+          },
+          {
+            "dex": "116",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-9-13.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-8-43",
+        "key": "G",
+        "opp": "BEAUTY:12",
+        "cls": "BEAUTY",
+        "reward": 1890,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 27
+          },
+          {
+            "dex": "118",
+            "lvl": 27
+          },
+          {
+            "dex": "119",
+            "lvl": 27
+          },
+          {
+            "dex": "118",
+            "lvl": 27
+          },
+          {
+            "dex": "060",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-8-43.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-11-43",
+        "key": "H",
+        "opp": "BEAUTY:13",
+        "cls": "BEAUTY",
+        "reward": 2100,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 30
+          },
+          {
+            "dex": "119",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-11-43.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-9-42",
+        "key": "I",
+        "opp": "SWIMMER:8",
+        "cls": "SWIMMER",
+        "reward": 135,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 27
+          },
+          {
+            "dex": "072",
+            "lvl": 27
+          },
+          {
+            "dex": "120",
+            "lvl": 27
+          },
+          {
+            "dex": "116",
+            "lvl": 27
+          },
+          {
+            "dex": "073",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-9-42.png"
+      },
+      {
+        "map": "route-19",
+        "floor": "",
+        "marker": "trainer-10-44",
+        "key": "J",
+        "opp": "BEAUTY:14",
+        "cls": "BEAUTY",
+        "reward": 2030,
+        "team": [
+          {
+            "dex": "120",
+            "lvl": 29
+          },
+          {
+            "dex": "120",
+            "lvl": 29
+          },
+          {
+            "dex": "120",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-19-trainer-10-44.png"
+      }
+    ],
+    "route-20": [
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-87-8",
+        "key": "A",
+        "opp": "SWIMMER:9",
+        "cls": "SWIMMER",
+        "reward": 155,
+        "team": [
+          {
+            "dex": "090",
+            "lvl": 31
+          },
+          {
+            "dex": "091",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-87-8.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-68-11",
+        "key": "B",
+        "opp": "BEAUTY:15",
+        "cls": "BEAUTY",
+        "reward": 2100,
+        "team": [
+          {
+            "dex": "117",
+            "lvl": 30
+          },
+          {
+            "dex": "116",
+            "lvl": 30
+          },
+          {
+            "dex": "117",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-68-11.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-45-10",
+        "key": "C",
+        "opp": "BEAUTY:6",
+        "cls": "BEAUTY",
+        "reward": 2450,
+        "team": [
+          {
+            "dex": "119",
+            "lvl": 35
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-45-10.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-55-14",
+        "key": "D",
+        "opp": "JR_TRAINER_F:24",
+        "cls": "JR_TRAINER_F",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 30
+          },
+          {
+            "dex": "116",
+            "lvl": 30
+          },
+          {
+            "dex": "086",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-55-14.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-38-13",
+        "key": "E",
+        "opp": "SWIMMER:10",
+        "cls": "SWIMMER",
+        "reward": 175,
+        "team": [
+          {
+            "dex": "120",
+            "lvl": 35
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-38-13.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-87-13",
+        "key": "F",
+        "opp": "SWIMMER:11",
+        "cls": "SWIMMER",
+        "reward": 140,
+        "team": [
+          {
+            "dex": "116",
+            "lvl": 28
+          },
+          {
+            "dex": "116",
+            "lvl": 28
+          },
+          {
+            "dex": "117",
+            "lvl": 28
+          },
+          {
+            "dex": "116",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-87-13.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-34-9",
+        "key": "G",
+        "opp": "BIRD_KEEPER:11",
+        "cls": "BIRD_KEEPER",
+        "reward": 750,
+        "team": [
+          {
+            "dex": "022",
+            "lvl": 30
+          },
+          {
+            "dex": "022",
+            "lvl": 30
+          },
+          {
+            "dex": "017",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-34-9.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-25-7",
+        "key": "H",
+        "opp": "BEAUTY:7",
+        "cls": "BEAUTY",
+        "reward": 2100,
+        "team": [
+          {
+            "dex": "090",
+            "lvl": 30
+          },
+          {
+            "dex": "090",
+            "lvl": 30
+          },
+          {
+            "dex": "091",
+            "lvl": 30
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-25-7.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-24-12",
+        "key": "I",
+        "opp": "JR_TRAINER_F:16",
+        "cls": "JR_TRAINER_F",
+        "reward": 620,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 31
+          },
+          {
+            "dex": "119",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-24-12.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-15-8",
+        "key": "J",
+        "opp": "BEAUTY:8",
+        "cls": "BEAUTY",
+        "reward": 2170,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 31
+          },
+          {
+            "dex": "119",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-15-8.png"
+      }
+    ],
+    "route-21": [
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-4-24",
+        "key": "A",
+        "opp": "FISHER:7",
+        "cls": "FISHER",
+        "reward": 980,
+        "team": [
+          {
+            "dex": "119",
+            "lvl": 28
+          },
+          {
+            "dex": "118",
+            "lvl": 28
+          },
+          {
+            "dex": "119",
+            "lvl": 28
+          },
+          {
+            "dex": "119",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-4-24.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-6-25",
+        "key": "B",
+        "opp": "FISHER:9",
+        "cls": "FISHER",
+        "reward": 945,
+        "team": [
+          {
+            "dex": "129",
+            "lvl": 27
+          },
+          {
+            "dex": "129",
+            "lvl": 27
+          },
+          {
+            "dex": "129",
+            "lvl": 27
+          },
+          {
+            "dex": "129",
+            "lvl": 27
+          },
+          {
+            "dex": "129",
+            "lvl": 27
+          },
+          {
+            "dex": "129",
+            "lvl": 27
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-6-25.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-10-31",
+        "key": "C",
+        "opp": "SWIMMER:12",
+        "cls": "SWIMMER",
+        "reward": 165,
+        "team": [
+          {
+            "dex": "117",
+            "lvl": 33
+          },
+          {
+            "dex": "073",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-10-31.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-12-30",
+        "key": "D",
+        "opp": "CUE_BALL:9",
+        "cls": "CUE_BALL",
+        "reward": 775,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 31
+          },
+          {
+            "dex": "072",
+            "lvl": 31
+          },
+          {
+            "dex": "073",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-12-30.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-16-63",
+        "key": "E",
+        "opp": "SWIMMER:13",
+        "cls": "SWIMMER",
+        "reward": 185,
+        "team": [
+          {
+            "dex": "121",
+            "lvl": 37
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-16-63.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-5-71",
+        "key": "F",
+        "opp": "SWIMMER:14",
+        "cls": "SWIMMER",
+        "reward": 165,
+        "team": [
+          {
+            "dex": "120",
+            "lvl": 33
+          },
+          {
+            "dex": "008",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-5-71.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-15-71",
+        "key": "G",
+        "opp": "SWIMMER:15",
+        "cls": "SWIMMER",
+        "reward": 160,
+        "team": [
+          {
+            "dex": "061",
+            "lvl": 32
+          },
+          {
+            "dex": "072",
+            "lvl": 32
+          },
+          {
+            "dex": "117",
+            "lvl": 32
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-15-71.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-14-56",
+        "key": "H",
+        "opp": "FISHER:8",
+        "cls": "FISHER",
+        "reward": 1085,
+        "team": [
+          {
+            "dex": "090",
+            "lvl": 31
+          },
+          {
+            "dex": "091",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-14-56.png"
+      },
+      {
+        "map": "route-21",
+        "floor": "",
+        "marker": "trainer-17-57",
+        "key": "I",
+        "opp": "FISHER:10",
+        "cls": "FISHER",
+        "reward": 1155,
+        "team": [
+          {
+            "dex": "119",
+            "lvl": 33
+          },
+          {
+            "dex": "118",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-21-trainer-17-57.png"
+      }
+    ],
+    "route-24": [
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-11-15",
+        "key": "A",
+        "opp": "ROCKET:6",
+        "cls": "ROCKET",
+        "reward": 450,
+        "team": [
+          {
+            "dex": "023",
+            "lvl": 15
+          },
+          {
+            "dex": "041",
+            "lvl": 15
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-11-15.png"
+      },
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-5-20",
+        "key": "B",
+        "opp": "JR_TRAINER_M:2",
+        "cls": "JR_TRAINER_M",
+        "reward": 280,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 14
+          },
+          {
+            "dex": "023",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-5-20.png"
+      },
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-11-19",
+        "key": "C",
+        "opp": "JR_TRAINER_M:3",
+        "cls": "JR_TRAINER_M",
+        "reward": 360,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-11-19.png"
+      },
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-10-22",
+        "key": "D",
+        "opp": "LASS:7",
+        "cls": "LASS",
+        "reward": 240,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 16
+          },
+          {
+            "dex": "029",
+            "lvl": 16
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-10-22.png"
+      },
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-11-25",
+        "key": "E",
+        "opp": "YOUNGSTER:4",
+        "cls": "YOUNGSTER",
+        "reward": 210,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 14
+          },
+          {
+            "dex": "023",
+            "lvl": 14
+          },
+          {
+            "dex": "041",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-11-25.png"
+      },
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-10-28",
+        "key": "F",
+        "opp": "LASS:8",
+        "cls": "LASS",
+        "reward": 210,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 14
+          },
+          {
+            "dex": "029",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-10-28.png"
+      },
+      {
+        "map": "route-24",
+        "floor": "",
+        "marker": "trainer-11-31",
+        "key": "G",
+        "opp": "BUG_CATCHER:9",
+        "cls": "BUG_CATCHER",
+        "reward": 140,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 14
+          },
+          {
+            "dex": "013",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-24-trainer-11-31.png"
+      }
+    ],
+    "route-25": [
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-14-2",
+        "key": "A",
+        "opp": "YOUNGSTER:5",
+        "cls": "YOUNGSTER",
+        "reward": 225,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 15
+          },
+          {
+            "dex": "021",
+            "lvl": 15
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-14-2.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-18-5",
+        "key": "B",
+        "opp": "YOUNGSTER:6",
+        "cls": "YOUNGSTER",
+        "reward": 255,
+        "team": [
+          {
+            "dex": "079",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-18-5.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-24-4",
+        "key": "C",
+        "opp": "JR_TRAINER_M:2",
+        "cls": "JR_TRAINER_M",
+        "reward": 280,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 14
+          },
+          {
+            "dex": "023",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-24-4.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-18-8",
+        "key": "D",
+        "opp": "LASS:9",
+        "cls": "LASS",
+        "reward": 225,
+        "team": [
+          {
+            "dex": "032",
+            "lvl": 15
+          },
+          {
+            "dex": "029",
+            "lvl": 15
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-18-8.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-32-3",
+        "key": "E",
+        "opp": "YOUNGSTER:7",
+        "cls": "YOUNGSTER",
+        "reward": 210,
+        "team": [
+          {
+            "dex": "023",
+            "lvl": 14
+          },
+          {
+            "dex": "027",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-32-3.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-37-4",
+        "key": "F",
+        "opp": "LASS:10",
+        "cls": "LASS",
+        "reward": 195,
+        "team": [
+          {
+            "dex": "043",
+            "lvl": 13
+          },
+          {
+            "dex": "016",
+            "lvl": 13
+          },
+          {
+            "dex": "043",
+            "lvl": 13
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-37-4.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-8-4",
+        "key": "G",
+        "opp": "HIKER:2",
+        "cls": "HIKER",
+        "reward": 525,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 15
+          },
+          {
+            "dex": "074",
+            "lvl": 15
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-8-4.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-23-9",
+        "key": "H",
+        "opp": "HIKER:3",
+        "cls": "HIKER",
+        "reward": 455,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 13
+          },
+          {
+            "dex": "074",
+            "lvl": 13
+          },
+          {
+            "dex": "066",
+            "lvl": 13
+          },
+          {
+            "dex": "074",
+            "lvl": 13
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-23-9.png"
+      },
+      {
+        "map": "route-25",
+        "floor": "",
+        "marker": "trainer-13-7",
+        "key": "I",
+        "opp": "HIKER:4",
+        "cls": "HIKER",
+        "reward": 595,
+        "team": [
+          {
+            "dex": "095",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-25-trainer-13-7.png"
+      }
+    ],
+    "route-3": [
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-10-6",
+        "key": "A",
+        "opp": "BUG_CATCHER:4",
+        "cls": "BUG_CATCHER",
+        "reward": 100,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 10
+          },
+          {
+            "dex": "013",
+            "lvl": 10
+          },
+          {
+            "dex": "010",
+            "lvl": 10
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-10-6.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-14-4",
+        "key": "B",
+        "opp": "YOUNGSTER:1",
+        "cls": "YOUNGSTER",
+        "reward": 165,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 11
+          },
+          {
+            "dex": "023",
+            "lvl": 11
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-14-4.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-16-9",
+        "key": "C",
+        "opp": "LASS:1",
+        "cls": "LASS",
+        "reward": 135,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 9
+          },
+          {
+            "dex": "016",
+            "lvl": 9
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-16-9.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-19-5",
+        "key": "D",
+        "opp": "BUG_CATCHER:5",
+        "cls": "BUG_CATCHER",
+        "reward": 90,
+        "team": [
+          {
+            "dex": "013",
+            "lvl": 9
+          },
+          {
+            "dex": "014",
+            "lvl": 9
+          },
+          {
+            "dex": "010",
+            "lvl": 9
+          },
+          {
+            "dex": "011",
+            "lvl": 9
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-19-5.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-23-4",
+        "key": "E",
+        "opp": "LASS:2",
+        "cls": "LASS",
+        "reward": 150,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 10
+          },
+          {
+            "dex": "032",
+            "lvl": 10
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-23-4.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-22-9",
+        "key": "F",
+        "opp": "YOUNGSTER:2",
+        "cls": "YOUNGSTER",
+        "reward": 210,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-22-9.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-24-6",
+        "key": "G",
+        "opp": "BUG_CATCHER:6",
+        "cls": "BUG_CATCHER",
+        "reward": 110,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 11
+          },
+          {
+            "dex": "011",
+            "lvl": 11
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-24-6.png"
+      },
+      {
+        "map": "route-3",
+        "floor": "",
+        "marker": "trainer-33-10",
+        "key": "H",
+        "opp": "LASS:3",
+        "cls": "LASS",
+        "reward": 210,
+        "team": [
+          {
+            "dex": "039",
+            "lvl": 14
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-3-trainer-33-10.png"
+      }
+    ],
+    "route-4": [
+      {
+        "map": "route-4",
+        "floor": "",
+        "marker": "trainer-63-3",
+        "key": "A",
+        "opp": "LASS:4",
+        "cls": "LASS",
+        "reward": 465,
+        "team": [
+          {
+            "dex": "046",
+            "lvl": 31
+          },
+          {
+            "dex": "046",
+            "lvl": 31
+          },
+          {
+            "dex": "047",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-4-trainer-63-3.png"
+      }
+    ],
+    "route-6": [
+      {
+        "map": "route-6",
+        "floor": "",
+        "marker": "trainer-10-21",
+        "key": "A",
+        "opp": "JR_TRAINER_M:10",
+        "cls": "JR_TRAINER_M",
+        "reward": 320,
+        "team": [
+          {
+            "dex": "070",
+            "lvl": 16
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-6-trainer-10-21.png"
+      },
+      {
+        "map": "route-6",
+        "floor": "",
+        "marker": "trainer-11-21",
+        "key": "B",
+        "opp": "JR_TRAINER_F:25",
+        "cls": "JR_TRAINER_F",
+        "reward": 400,
+        "team": [
+          {
+            "dex": "104",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-6-trainer-11-21.png"
+      },
+      {
+        "map": "route-6",
+        "floor": "",
+        "marker": "trainer-0-15",
+        "key": "C",
+        "opp": "BUG_CATCHER:10",
+        "cls": "BUG_CATCHER",
+        "reward": 160,
+        "team": [
+          {
+            "dex": "013",
+            "lvl": 16
+          },
+          {
+            "dex": "010",
+            "lvl": 16
+          },
+          {
+            "dex": "013",
+            "lvl": 16
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-6-trainer-0-15.png"
+      },
+      {
+        "map": "route-6",
+        "floor": "",
+        "marker": "trainer-11-31",
+        "key": "D",
+        "opp": "JR_TRAINER_M:5",
+        "cls": "JR_TRAINER_M",
+        "reward": 320,
+        "team": [
+          {
+            "dex": "021",
+            "lvl": 16
+          },
+          {
+            "dex": "020",
+            "lvl": 16
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-6-trainer-11-31.png"
+      },
+      {
+        "map": "route-6",
+        "floor": "",
+        "marker": "trainer-11-30",
+        "key": "E",
+        "opp": "JR_TRAINER_F:3",
+        "cls": "JR_TRAINER_F",
+        "reward": 320,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 16
+          },
+          {
+            "dex": "016",
+            "lvl": 16
+          },
+          {
+            "dex": "016",
+            "lvl": 16
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-6-trainer-11-30.png"
+      },
+      {
+        "map": "route-6",
+        "floor": "",
+        "marker": "trainer-19-26",
+        "key": "F",
+        "opp": "BUG_CATCHER:11",
+        "cls": "BUG_CATCHER",
+        "reward": 200,
+        "team": [
+          {
+            "dex": "012",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-6-trainer-19-26.png"
+      }
+    ],
+    "route-8": [
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-8-5",
+        "key": "A",
+        "opp": "SUPER_NERD:3",
+        "cls": "SUPER_NERD",
+        "reward": 500,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 20
+          },
+          {
+            "dex": "109",
+            "lvl": 20
+          },
+          {
+            "dex": "100",
+            "lvl": 20
+          },
+          {
+            "dex": "081",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-8-5.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-13-9",
+        "key": "B",
+        "opp": "GAMBLER:5",
+        "cls": "GAMBLER",
+        "reward": 1540,
+        "team": [
+          {
+            "dex": "060",
+            "lvl": 22
+          },
+          {
+            "dex": "060",
+            "lvl": 22
+          },
+          {
+            "dex": "061",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-13-9.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-42-6",
+        "key": "C",
+        "opp": "SUPER_NERD:4",
+        "cls": "SUPER_NERD",
+        "reward": 550,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 22
+          },
+          {
+            "dex": "089",
+            "lvl": 22
+          },
+          {
+            "dex": "088",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-42-6.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-3",
+        "key": "D",
+        "opp": "LASS:13",
+        "cls": "LASS",
+        "reward": 345,
+        "team": [
+          {
+            "dex": "029",
+            "lvl": 23
+          },
+          {
+            "dex": "030",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-3.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-4",
+        "key": "E",
+        "opp": "SUPER_NERD:5",
+        "cls": "SUPER_NERD",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-4.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-5",
+        "key": "F",
+        "opp": "LASS:14",
+        "cls": "LASS",
+        "reward": 360,
+        "team": [
+          {
+            "dex": "052",
+            "lvl": 24
+          },
+          {
+            "dex": "052",
+            "lvl": 24
+          },
+          {
+            "dex": "052",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-5.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-6",
+        "key": "G",
+        "opp": "LASS:15",
+        "cls": "LASS",
+        "reward": 285,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 19
+          },
+          {
+            "dex": "019",
+            "lvl": 19
+          },
+          {
+            "dex": "029",
+            "lvl": 19
+          },
+          {
+            "dex": "052",
+            "lvl": 19
+          },
+          {
+            "dex": "032",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-6.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-46-13",
+        "key": "H",
+        "opp": "GAMBLER:7",
+        "cls": "GAMBLER",
+        "reward": 1680,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 24
+          },
+          {
+            "dex": "037",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-46-13.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-51-12",
+        "key": "I",
+        "opp": "LASS:16",
+        "cls": "LASS",
+        "reward": 330,
+        "team": [
+          {
+            "dex": "035",
+            "lvl": 22
+          },
+          {
+            "dex": "035",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-51-12.png"
+      }
+    ],
+    "route-9": [
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-13-10",
+        "key": "A",
+        "opp": "JR_TRAINER_F:5",
+        "cls": "JR_TRAINER_F",
+        "reward": 360,
+        "team": [
+          {
+            "dex": "043",
+            "lvl": 18
+          },
+          {
+            "dex": "069",
+            "lvl": 18
+          },
+          {
+            "dex": "043",
+            "lvl": 18
+          },
+          {
+            "dex": "069",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-13-10.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-24-7",
+        "key": "B",
+        "opp": "YOUNGSTER:14",
+        "cls": "YOUNGSTER",
+        "reward": 360,
+        "team": [
+          {
+            "dex": "027",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-24-7.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-31-7",
+        "key": "C",
+        "opp": "JR_TRAINER_M:8",
+        "cls": "JR_TRAINER_M",
+        "reward": 380,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 19
+          },
+          {
+            "dex": "050",
+            "lvl": 19
+          },
+          {
+            "dex": "023",
+            "lvl": 19
+          },
+          {
+            "dex": "027",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-31-7.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-48-8",
+        "key": "D",
+        "opp": "JR_TRAINER_F:6",
+        "cls": "JR_TRAINER_F",
+        "reward": 460,
+        "team": [
+          {
+            "dex": "052",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-48-8.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-16-15",
+        "key": "E",
+        "opp": "HIKER:11",
+        "cls": "HIKER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 20
+          },
+          {
+            "dex": "095",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-16-15.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-43-3",
+        "key": "F",
+        "opp": "HIKER:6",
+        "cls": "HIKER",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 20
+          },
+          {
+            "dex": "066",
+            "lvl": 20
+          },
+          {
+            "dex": "074",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-43-3.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-22-2",
+        "key": "G",
+        "opp": "BUG_CATCHER:13",
+        "cls": "BUG_CATCHER",
+        "reward": 190,
+        "team": [
+          {
+            "dex": "015",
+            "lvl": 19
+          },
+          {
+            "dex": "015",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-22-2.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-45-15",
+        "key": "H",
+        "opp": "HIKER:5",
+        "cls": "HIKER",
+        "reward": 735,
+        "team": [
+          {
+            "dex": "074",
+            "lvl": 21
+          },
+          {
+            "dex": "095",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-45-15.png"
+      },
+      {
+        "map": "route-9",
+        "floor": "",
+        "marker": "trainer-40-8",
+        "key": "I",
+        "opp": "BUG_CATCHER:14",
+        "cls": "BUG_CATCHER",
+        "reward": 200,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 20
+          },
+          {
+            "dex": "013",
+            "lvl": 20
+          },
+          {
+            "dex": "048",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-9-trainer-40-8.png"
+      }
+    ],
+    "saffron-city": [
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-9-8",
+        "key": null,
+        "opp": "SABRINA:1",
+        "cls": "SABRINA",
+        "reward": 4950,
+        "team": [
+          {
+            "dex": "063",
+            "lvl": 50
+          },
+          {
+            "dex": "064",
+            "lvl": 50
+          },
+          {
+            "dex": "065",
+            "lvl": 50
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-9-8.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-10-1",
+        "key": null,
+        "opp": "CHANNELER:22",
+        "cls": "CHANNELER",
+        "reward": 1020,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 34
+          },
+          {
+            "dex": "093",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-10-1.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-17-1",
+        "key": null,
+        "opp": "PSYCHIC_TR:1",
+        "cls": "PSYCHIC_TR",
+        "reward": 310,
+        "team": [
+          {
+            "dex": "064",
+            "lvl": 31
+          },
+          {
+            "dex": "079",
+            "lvl": 31
+          },
+          {
+            "dex": "122",
+            "lvl": 31
+          },
+          {
+            "dex": "064",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-17-1.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-7",
+        "key": null,
+        "opp": "CHANNELER:23",
+        "cls": "CHANNELER",
+        "reward": 1140,
+        "team": [
+          {
+            "dex": "093",
+            "lvl": 38
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-7.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-17-7",
+        "key": null,
+        "opp": "PSYCHIC_TR:2",
+        "cls": "PSYCHIC_TR",
+        "reward": 340,
+        "team": [
+          {
+            "dex": "122",
+            "lvl": 34
+          },
+          {
+            "dex": "064",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-17-7.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-13",
+        "key": null,
+        "opp": "CHANNELER:24",
+        "cls": "CHANNELER",
+        "reward": 990,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 33
+          },
+          {
+            "dex": "092",
+            "lvl": 33
+          },
+          {
+            "dex": "093",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-13.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-17-13",
+        "key": null,
+        "opp": "PSYCHIC_TR:3",
+        "cls": "PSYCHIC_TR",
+        "reward": 330,
+        "team": [
+          {
+            "dex": "079",
+            "lvl": 33
+          },
+          {
+            "dex": "079",
+            "lvl": 33
+          },
+          {
+            "dex": "080",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-17-13.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-1",
+        "key": null,
+        "opp": "PSYCHIC_TR:4",
+        "cls": "PSYCHIC_TR",
+        "reward": 380,
+        "team": [
+          {
+            "dex": "080",
+            "lvl": 38
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-1.png"
+      },
+      {
+        "map": "saffron-city-fightingdojo",
+        "floor": "",
+        "marker": "trainer-5-3",
+        "key": null,
+        "opp": "BLACKBELT:1",
+        "cls": "BLACKBELT",
+        "reward": 925,
+        "team": [
+          {
+            "dex": "106",
+            "lvl": 37
+          },
+          {
+            "dex": "107",
+            "lvl": 37
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-5-3.png"
+      },
+      {
+        "map": "saffron-city-fightingdojo",
+        "floor": "",
+        "marker": "trainer-3-4",
+        "key": null,
+        "opp": "BLACKBELT:2",
+        "cls": "BLACKBELT",
+        "reward": 775,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 31
+          },
+          {
+            "dex": "056",
+            "lvl": 31
+          },
+          {
+            "dex": "057",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-3-4.png"
+      },
+      {
+        "map": "saffron-city-fightingdojo",
+        "floor": "",
+        "marker": "trainer-3-6",
+        "key": null,
+        "opp": "BLACKBELT:3",
+        "cls": "BLACKBELT",
+        "reward": 800,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 32
+          },
+          {
+            "dex": "067",
+            "lvl": 32
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-3-6.png"
+      },
+      {
+        "map": "saffron-city-fightingdojo",
+        "floor": "",
+        "marker": "trainer-5-5",
+        "key": null,
+        "opp": "BLACKBELT:4",
+        "cls": "BLACKBELT",
+        "reward": 900,
+        "team": [
+          {
+            "dex": "057",
+            "lvl": 36
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-5-5.png"
+      },
+      {
+        "map": "saffron-city-fightingdojo",
+        "floor": "",
+        "marker": "trainer-5-7",
+        "key": null,
+        "opp": "BLACKBELT:5",
+        "cls": "BLACKBELT",
+        "reward": 775,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 31
+          },
+          {
+            "dex": "056",
+            "lvl": 31
+          },
+          {
+            "dex": "057",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-5-7.png"
+      }
+    ],
+    "silph-co": [
+      {
+        "map": "silph-co-2f",
+        "floor": "2F",
+        "marker": "trainer-5-12",
+        "key": "A",
+        "opp": "SCIENTIST:2",
+        "cls": "SCIENTIST",
+        "reward": 1300,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 26
+          },
+          {
+            "dex": "110",
+            "lvl": 26
+          },
+          {
+            "dex": "109",
+            "lvl": 26
+          },
+          {
+            "dex": "110",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-5-12.png"
+      },
+      {
+        "map": "silph-co-2f",
+        "floor": "2F",
+        "marker": "trainer-24-13",
+        "key": "B",
+        "opp": "SCIENTIST:3",
+        "cls": "SCIENTIST",
+        "reward": 1400,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 28
+          },
+          {
+            "dex": "100",
+            "lvl": 28
+          },
+          {
+            "dex": "082",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-24-13.png"
+      },
+      {
+        "map": "silph-co-2f",
+        "floor": "2F",
+        "marker": "trainer-16-11",
+        "key": "C",
+        "opp": "ROCKET:23",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "104",
+            "lvl": 29
+          },
+          {
+            "dex": "041",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-16-11.png"
+      },
+      {
+        "map": "silph-co-2f",
+        "floor": "2F",
+        "marker": "trainer-24-7",
+        "key": "D",
+        "opp": "ROCKET:24",
+        "cls": "ROCKET",
+        "reward": 750,
+        "team": [
+          {
+            "dex": "042",
+            "lvl": 25
+          },
+          {
+            "dex": "041",
+            "lvl": 25
+          },
+          {
+            "dex": "041",
+            "lvl": 25
+          },
+          {
+            "dex": "020",
+            "lvl": 25
+          },
+          {
+            "dex": "041",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-24-7.png"
+      },
+      {
+        "map": "silph-co-3f",
+        "floor": "3F",
+        "marker": "trainer-20-7",
+        "key": "A",
+        "opp": "ROCKET:25",
+        "cls": "ROCKET",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 28
+          },
+          {
+            "dex": "097",
+            "lvl": 28
+          },
+          {
+            "dex": "020",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-3f-trainer-20-7.png"
+      },
+      {
+        "map": "silph-co-3f",
+        "floor": "3F",
+        "marker": "trainer-7-9",
+        "key": "B",
+        "opp": "SCIENTIST:4",
+        "cls": "SCIENTIST",
+        "reward": 1450,
+        "team": [
+          {
+            "dex": "101",
+            "lvl": 29
+          },
+          {
+            "dex": "110",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-3f-trainer-7-9.png"
+      },
+      {
+        "map": "silph-co-4f",
+        "floor": "4F",
+        "marker": "trainer-9-14",
+        "key": "A",
+        "opp": "ROCKET:26",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 29
+          },
+          {
+            "dex": "096",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-4f-trainer-9-14.png"
+      },
+      {
+        "map": "silph-co-4f",
+        "floor": "4F",
+        "marker": "trainer-14-6",
+        "key": "B",
+        "opp": "SCIENTIST:5",
+        "cls": "SCIENTIST",
+        "reward": 1650,
+        "team": [
+          {
+            "dex": "101",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-4f-trainer-14-6.png"
+      },
+      {
+        "map": "silph-co-4f",
+        "floor": "4F",
+        "marker": "trainer-26-10",
+        "key": "C",
+        "opp": "ROCKET:27",
+        "cls": "ROCKET",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "023",
+            "lvl": 28
+          },
+          {
+            "dex": "041",
+            "lvl": 28
+          },
+          {
+            "dex": "104",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-4f-trainer-26-10.png"
+      },
+      {
+        "map": "silph-co-5f",
+        "floor": "5F",
+        "marker": "trainer-8-16",
+        "key": "A",
+        "opp": "ROCKET:28",
+        "cls": "ROCKET",
+        "reward": 990,
+        "team": [
+          {
+            "dex": "024",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-8-16.png"
+      },
+      {
+        "map": "silph-co-5f",
+        "floor": "5F",
+        "marker": "trainer-8-3",
+        "key": "B",
+        "opp": "SCIENTIST:6",
+        "cls": "SCIENTIST",
+        "reward": 1300,
+        "team": [
+          {
+            "dex": "082",
+            "lvl": 26
+          },
+          {
+            "dex": "109",
+            "lvl": 26
+          },
+          {
+            "dex": "110",
+            "lvl": 26
+          },
+          {
+            "dex": "081",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-8-3.png"
+      },
+      {
+        "map": "silph-co-5f",
+        "floor": "5F",
+        "marker": "trainer-18-10",
+        "key": "C",
+        "opp": "JUGGLER:1",
+        "cls": "JUGGLER",
+        "reward": 1015,
+        "team": [
+          {
+            "dex": "064",
+            "lvl": 29
+          },
+          {
+            "dex": "122",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-18-10.png"
+      },
+      {
+        "map": "silph-co-5f",
+        "floor": "5F",
+        "marker": "trainer-28-4",
+        "key": "D",
+        "opp": "ROCKET:29",
+        "cls": "ROCKET",
+        "reward": 990,
+        "team": [
+          {
+            "dex": "097",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-28-4.png"
+      },
+      {
+        "map": "silph-co-6f",
+        "floor": "6F",
+        "marker": "trainer-17-3",
+        "key": "A",
+        "opp": "ROCKET:30",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 29
+          },
+          {
+            "dex": "067",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-6f-trainer-17-3.png"
+      },
+      {
+        "map": "silph-co-6f",
+        "floor": "6F",
+        "marker": "trainer-7-8",
+        "key": "B",
+        "opp": "SCIENTIST:7",
+        "cls": "SCIENTIST",
+        "reward": 1250,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 25
+          },
+          {
+            "dex": "109",
+            "lvl": 25
+          },
+          {
+            "dex": "082",
+            "lvl": 25
+          },
+          {
+            "dex": "081",
+            "lvl": 25
+          },
+          {
+            "dex": "109",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-6f-trainer-7-8.png"
+      },
+      {
+        "map": "silph-co-6f",
+        "floor": "6F",
+        "marker": "trainer-14-15",
+        "key": "C",
+        "opp": "ROCKET:31",
+        "cls": "ROCKET",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "041",
+            "lvl": 28
+          },
+          {
+            "dex": "041",
+            "lvl": 28
+          },
+          {
+            "dex": "042",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-6f-trainer-14-15.png"
+      },
+      {
+        "map": "silph-co-7f",
+        "floor": "7F",
+        "marker": "trainer-13-1",
+        "key": "A",
+        "opp": "ROCKET:32",
+        "cls": "ROCKET",
+        "reward": 780,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 26
+          },
+          {
+            "dex": "024",
+            "lvl": 26
+          },
+          {
+            "dex": "109",
+            "lvl": 26
+          },
+          {
+            "dex": "042",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-13-1.png"
+      },
+      {
+        "map": "silph-co-7f",
+        "floor": "7F",
+        "marker": "trainer-2-13",
+        "key": "B",
+        "opp": "SCIENTIST:8",
+        "cls": "SCIENTIST",
+        "reward": 1450,
+        "team": [
+          {
+            "dex": "101",
+            "lvl": 29
+          },
+          {
+            "dex": "089",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-2-13.png"
+      },
+      {
+        "map": "silph-co-7f",
+        "floor": "7F",
+        "marker": "trainer-20-2",
+        "key": "C",
+        "opp": "ROCKET:33",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "104",
+            "lvl": 29
+          },
+          {
+            "dex": "104",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-20-2.png"
+      },
+      {
+        "map": "silph-co-7f",
+        "floor": "7F",
+        "marker": "trainer-19-14",
+        "key": "D",
+        "opp": "ROCKET:34",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "027",
+            "lvl": 29
+          },
+          {
+            "dex": "028",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-19-14.png"
+      },
+      {
+        "map": "silph-co-8f",
+        "floor": "8F",
+        "marker": "trainer-19-2",
+        "key": "A",
+        "opp": "ROCKET:35",
+        "cls": "ROCKET",
+        "reward": 780,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 26
+          },
+          {
+            "dex": "041",
+            "lvl": 26
+          },
+          {
+            "dex": "042",
+            "lvl": 26
+          },
+          {
+            "dex": "019",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-8f-trainer-19-2.png"
+      },
+      {
+        "map": "silph-co-8f",
+        "floor": "8F",
+        "marker": "trainer-10-2",
+        "key": "B",
+        "opp": "SCIENTIST:9",
+        "cls": "SCIENTIST",
+        "reward": 1450,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 29
+          },
+          {
+            "dex": "101",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-8f-trainer-10-2.png"
+      },
+      {
+        "map": "silph-co-8f",
+        "floor": "8F",
+        "marker": "trainer-12-15",
+        "key": "C",
+        "opp": "ROCKET:36",
+        "cls": "ROCKET",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 28
+          },
+          {
+            "dex": "042",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-8f-trainer-12-15.png"
+      },
+      {
+        "map": "silph-co-9f",
+        "floor": "9F",
+        "marker": "trainer-2-4",
+        "key": "A",
+        "opp": "ROCKET:37",
+        "cls": "ROCKET",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "096",
+            "lvl": 28
+          },
+          {
+            "dex": "088",
+            "lvl": 28
+          },
+          {
+            "dex": "066",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-9f-trainer-2-4.png"
+      },
+      {
+        "map": "silph-co-9f",
+        "floor": "9F",
+        "marker": "trainer-21-13",
+        "key": "B",
+        "opp": "SCIENTIST:10",
+        "cls": "SCIENTIST",
+        "reward": 1400,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "082",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-9f-trainer-21-13.png"
+      },
+      {
+        "map": "silph-co-9f",
+        "floor": "9F",
+        "marker": "trainer-13-16",
+        "key": "C",
+        "opp": "ROCKET:38",
+        "cls": "ROCKET",
+        "reward": 840,
+        "team": [
+          {
+            "dex": "042",
+            "lvl": 28
+          },
+          {
+            "dex": "096",
+            "lvl": 28
+          },
+          {
+            "dex": "097",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-9f-trainer-13-16.png"
+      },
+      {
+        "map": "silph-co-10f",
+        "floor": "10F",
+        "marker": "trainer-1-9",
+        "key": "A",
+        "opp": "ROCKET:39",
+        "cls": "ROCKET",
+        "reward": 990,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-10f-trainer-1-9.png"
+      },
+      {
+        "map": "silph-co-10f",
+        "floor": "10F",
+        "marker": "trainer-10-2",
+        "key": "B",
+        "opp": "SCIENTIST:11",
+        "cls": "SCIENTIST",
+        "reward": 1450,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 29
+          },
+          {
+            "dex": "109",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-10f-trainer-10-2.png"
+      },
+      {
+        "map": "silph-co-11f",
+        "floor": "11F",
+        "marker": "trainer-6-9",
+        "key": "A",
+        "opp": "GIOVANNI:2",
+        "cls": "GIOVANNI",
+        "reward": 4059,
+        "team": [
+          {
+            "dex": "033",
+            "lvl": 37
+          },
+          {
+            "dex": "053",
+            "lvl": 35
+          },
+          {
+            "dex": "111",
+            "lvl": 37
+          },
+          {
+            "dex": "031",
+            "lvl": 41
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-11f-trainer-6-9.png"
+      },
+      {
+        "map": "silph-co-11f",
+        "floor": "11F",
+        "marker": "trainer-15-9",
+        "key": "B",
+        "opp": "ROCKET:40",
+        "cls": "ROCKET",
+        "reward": 750,
+        "team": [
+          {
+            "dex": "019",
+            "lvl": 25
+          },
+          {
+            "dex": "019",
+            "lvl": 25
+          },
+          {
+            "dex": "041",
+            "lvl": 25
+          },
+          {
+            "dex": "019",
+            "lvl": 25
+          },
+          {
+            "dex": "023",
+            "lvl": 25
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-11f-trainer-15-9.png"
+      }
+    ],
+    "ss-anne": [
+      {
+        "map": "ss-anne-2f",
+        "floor": "2F",
+        "marker": "trainer-36-4",
+        "key": "A",
+        "opp": "RIVAL1:1",
+        "cls": "RIVAL1",
+        "reward": 175,
+        "team": [
+          {
+            "dex": "133",
+            "lvl": 5
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-2f-trainer-36-4.png"
+      },
+      {
+        "map": "ss-anne-ssanne1frooms",
+        "floor": "",
+        "marker": "trainer-2-3",
+        "key": null,
+        "opp": "GENTLEMAN:1",
+        "cls": "GENTLEMAN",
+        "reward": 1260,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 18
+          },
+          {
+            "dex": "058",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-2-3.png"
+      },
+      {
+        "map": "ss-anne-ssanne1frooms",
+        "floor": "",
+        "marker": "trainer-11-4",
+        "key": null,
+        "opp": "GENTLEMAN:2",
+        "cls": "GENTLEMAN",
+        "reward": 1330,
+        "team": [
+          {
+            "dex": "032",
+            "lvl": 19
+          },
+          {
+            "dex": "029",
+            "lvl": 19
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-11-4.png"
+      },
+      {
+        "map": "ss-anne-ssanne1frooms",
+        "floor": "",
+        "marker": "trainer-11-14",
+        "key": null,
+        "opp": "YOUNGSTER:8",
+        "cls": "YOUNGSTER",
+        "reward": 315,
+        "team": [
+          {
+            "dex": "032",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-11-14.png"
+      },
+      {
+        "map": "ss-anne-ssanne1frooms",
+        "floor": "",
+        "marker": "trainer-13-11",
+        "key": null,
+        "opp": "LASS:11",
+        "cls": "LASS",
+        "reward": 270,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 18
+          },
+          {
+            "dex": "029",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-13-11.png"
+      },
+      {
+        "map": "ss-anne-ssanne2frooms",
+        "floor": "",
+        "marker": "trainer-10-2",
+        "key": null,
+        "opp": "GENTLEMAN:3",
+        "cls": "GENTLEMAN",
+        "reward": 1540,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 22
+          },
+          {
+            "dex": "081",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-10-2.png"
+      },
+      {
+        "map": "ss-anne-ssanne2frooms",
+        "floor": "",
+        "marker": "trainer-13-4",
+        "key": null,
+        "opp": "FISHER:1",
+        "cls": "FISHER",
+        "reward": 595,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 17
+          },
+          {
+            "dex": "072",
+            "lvl": 17
+          },
+          {
+            "dex": "118",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-13-4.png"
+      },
+      {
+        "map": "ss-anne-ssanne2frooms",
+        "floor": "",
+        "marker": "trainer-0-14",
+        "key": null,
+        "opp": "GENTLEMAN:5",
+        "cls": "GENTLEMAN",
+        "reward": 1190,
+        "team": [
+          {
+            "dex": "058",
+            "lvl": 17
+          },
+          {
+            "dex": "077",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-0-14.png"
+      },
+      {
+        "map": "ss-anne-ssanne2frooms",
+        "floor": "",
+        "marker": "trainer-2-11",
+        "key": null,
+        "opp": "LASS:12",
+        "cls": "LASS",
+        "reward": 300,
+        "team": [
+          {
+            "dex": "039",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-2-11.png"
+      },
+      {
+        "map": "ss-anne-ssanneb1frooms",
+        "floor": "",
+        "marker": "trainer-0-13",
+        "key": null,
+        "opp": "SAILOR:3",
+        "cls": "SAILOR",
+        "reward": 630,
+        "team": [
+          {
+            "dex": "090",
+            "lvl": 21
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-0-13.png"
+      },
+      {
+        "map": "ss-anne-ssanneb1frooms",
+        "floor": "",
+        "marker": "trainer-2-11",
+        "key": null,
+        "opp": "SAILOR:4",
+        "cls": "SAILOR",
+        "reward": 510,
+        "team": [
+          {
+            "dex": "116",
+            "lvl": 17
+          },
+          {
+            "dex": "090",
+            "lvl": 17
+          },
+          {
+            "dex": "072",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-2-11.png"
+      },
+      {
+        "map": "ss-anne-ssanneb1frooms",
+        "floor": "",
+        "marker": "trainer-12-3",
+        "key": null,
+        "opp": "SAILOR:5",
+        "cls": "SAILOR",
+        "reward": 540,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 18
+          },
+          {
+            "dex": "120",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-12-3.png"
+      },
+      {
+        "map": "ss-anne-ssanneb1frooms",
+        "floor": "",
+        "marker": "trainer-22-2",
+        "key": null,
+        "opp": "SAILOR:6",
+        "cls": "SAILOR",
+        "reward": 510,
+        "team": [
+          {
+            "dex": "116",
+            "lvl": 17
+          },
+          {
+            "dex": "116",
+            "lvl": 17
+          },
+          {
+            "dex": "116",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-22-2.png"
+      },
+      {
+        "map": "ss-anne-ssanneb1frooms",
+        "floor": "",
+        "marker": "trainer-0-2",
+        "key": null,
+        "opp": "SAILOR:7",
+        "cls": "SAILOR",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-0-2.png"
+      },
+      {
+        "map": "ss-anne-ssanneb1frooms",
+        "floor": "",
+        "marker": "trainer-0-4",
+        "key": null,
+        "opp": "FISHER:2",
+        "cls": "FISHER",
+        "reward": 595,
+        "team": [
+          {
+            "dex": "072",
+            "lvl": 17
+          },
+          {
+            "dex": "120",
+            "lvl": 17
+          },
+          {
+            "dex": "090",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-0-4.png"
+      },
+      {
+        "map": "ss-anne-ssannebow",
+        "floor": "",
+        "marker": "trainer-4-4",
+        "key": null,
+        "opp": "SAILOR:1",
+        "cls": "SAILOR",
+        "reward": 540,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 18
+          },
+          {
+            "dex": "090",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssannebow-trainer-4-4.png"
+      },
+      {
+        "map": "ss-anne-ssannebow",
+        "floor": "",
+        "marker": "trainer-10-8",
+        "key": null,
+        "opp": "SAILOR:2",
+        "cls": "SAILOR",
+        "reward": 510,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 17
+          },
+          {
+            "dex": "072",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-ssannebow-trainer-10-8.png"
+      }
+    ],
+    "vermilion-city": [
+      {
+        "map": "vermilion-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-5-1",
+        "key": null,
+        "opp": "LT_SURGE:1",
+        "cls": "LT_SURGE",
+        "reward": 2772,
+        "team": [
+          {
+            "dex": "026",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/vermilion-city-gym-trainer-5-1.png"
+      },
+      {
+        "map": "vermilion-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-9-6",
+        "key": null,
+        "opp": "GENTLEMAN:3",
+        "cls": "GENTLEMAN",
+        "reward": 1540,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 22
+          },
+          {
+            "dex": "081",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/vermilion-city-gym-trainer-9-6.png"
+      },
+      {
+        "map": "vermilion-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-8",
+        "key": null,
+        "opp": "ROCKER:1",
+        "cls": "ROCKER",
+        "reward": 500,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 20
+          },
+          {
+            "dex": "100",
+            "lvl": 20
+          },
+          {
+            "dex": "100",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/vermilion-city-gym-trainer-3-8.png"
+      },
+      {
+        "map": "vermilion-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-0-10",
+        "key": null,
+        "opp": "SAILOR:8",
+        "cls": "SAILOR",
+        "reward": 720,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/vermilion-city-gym-trainer-0-10.png"
+      }
+    ],
+    "victory-road": [
+      {
+        "map": "victory-road-1f",
+        "floor": "1F",
+        "marker": "trainer-7-5",
+        "key": "A",
+        "opp": "COOLTRAINER_F:5",
+        "cls": "COOLTRAINER_F",
+        "reward": 1540,
+        "team": [
+          {
+            "dex": "053",
+            "lvl": 44
+          },
+          {
+            "dex": "038",
+            "lvl": 44
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-1f-trainer-7-5.png"
+      },
+      {
+        "map": "victory-road-1f",
+        "floor": "1F",
+        "marker": "trainer-3-2",
+        "key": "B",
+        "opp": "COOLTRAINER_M:5",
+        "cls": "COOLTRAINER_M",
+        "reward": 1470,
+        "team": [
+          {
+            "dex": "002",
+            "lvl": 42
+          },
+          {
+            "dex": "008",
+            "lvl": 42
+          },
+          {
+            "dex": "005",
+            "lvl": 42
+          },
+          {
+            "dex": "006",
+            "lvl": 42
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-1f-trainer-3-2.png"
+      },
+      {
+        "map": "victory-road-2f",
+        "floor": "2F",
+        "marker": "trainer-12-9",
+        "key": "A",
+        "opp": "BLACKBELT:9",
+        "cls": "BLACKBELT",
+        "reward": 1075,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 43
+          },
+          {
+            "dex": "066",
+            "lvl": 43
+          },
+          {
+            "dex": "067",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-12-9.png"
+      },
+      {
+        "map": "victory-road-2f",
+        "floor": "2F",
+        "marker": "trainer-21-13",
+        "key": "B",
+        "opp": "JUGGLER:2",
+        "cls": "JUGGLER",
+        "reward": 1435,
+        "team": [
+          {
+            "dex": "096",
+            "lvl": 41
+          },
+          {
+            "dex": "097",
+            "lvl": 41
+          },
+          {
+            "dex": "064",
+            "lvl": 41
+          },
+          {
+            "dex": "064",
+            "lvl": 41
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-21-13.png"
+      },
+      {
+        "map": "victory-road-2f",
+        "floor": "2F",
+        "marker": "trainer-19-8",
+        "key": "C",
+        "opp": "TAMER:5",
+        "cls": "TAMER",
+        "reward": 1760,
+        "team": [
+          {
+            "dex": "053",
+            "lvl": 44
+          },
+          {
+            "dex": "055",
+            "lvl": 44
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-19-8.png"
+      },
+      {
+        "map": "victory-road-2f",
+        "floor": "2F",
+        "marker": "trainer-4-2",
+        "key": "D",
+        "opp": "POKEMANIAC:6",
+        "cls": "POKEMANIAC",
+        "reward": 2000,
+        "team": [
+          {
+            "dex": "005",
+            "lvl": 40
+          },
+          {
+            "dex": "131",
+            "lvl": 40
+          },
+          {
+            "dex": "108",
+            "lvl": 40
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-4-2.png"
+      },
+      {
+        "map": "victory-road-2f",
+        "floor": "2F",
+        "marker": "trainer-26-3",
+        "key": "E",
+        "opp": "JUGGLER:5",
+        "cls": "JUGGLER",
+        "reward": 1680,
+        "team": [
+          {
+            "dex": "122",
+            "lvl": 48
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-26-3.png"
+      },
+      {
+        "map": "victory-road-3f",
+        "floor": "3F",
+        "marker": "trainer-28-5",
+        "key": "A",
+        "opp": "COOLTRAINER_M:2",
+        "cls": "COOLTRAINER_M",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "103",
+            "lvl": 43
+          },
+          {
+            "dex": "091",
+            "lvl": 43
+          },
+          {
+            "dex": "059",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-28-5.png"
+      },
+      {
+        "map": "victory-road-3f",
+        "floor": "3F",
+        "marker": "trainer-7-13",
+        "key": "B",
+        "opp": "COOLTRAINER_F:2",
+        "cls": "COOLTRAINER_F",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 43
+          },
+          {
+            "dex": "070",
+            "lvl": 43
+          },
+          {
+            "dex": "071",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-7-13.png"
+      },
+      {
+        "map": "victory-road-3f",
+        "floor": "3F",
+        "marker": "trainer-6-14",
+        "key": "C",
+        "opp": "COOLTRAINER_M:3",
+        "cls": "COOLTRAINER_M",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "099",
+            "lvl": 43
+          },
+          {
+            "dex": "073",
+            "lvl": 43
+          },
+          {
+            "dex": "009",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-6-14.png"
+      },
+      {
+        "map": "victory-road-3f",
+        "floor": "3F",
+        "marker": "trainer-13-3",
+        "key": "D",
+        "opp": "COOLTRAINER_F:3",
+        "cls": "COOLTRAINER_F",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "047",
+            "lvl": 43
+          },
+          {
+            "dex": "087",
+            "lvl": 43
+          },
+          {
+            "dex": "113",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-13-3.png"
+      }
+    ],
+    "viridian-forest": [
+      {
+        "map": "viridian-forest",
+        "floor": "",
+        "marker": "trainer-30-33",
+        "key": "A",
+        "opp": "BUG_CATCHER:1",
+        "cls": "BUG_CATCHER",
+        "reward": 70,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 7
+          },
+          {
+            "dex": "010",
+            "lvl": 7
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-forest-trainer-30-33.png"
+      },
+      {
+        "map": "viridian-forest",
+        "floor": "",
+        "marker": "trainer-30-19",
+        "key": "B",
+        "opp": "BUG_CATCHER:2",
+        "cls": "BUG_CATCHER",
+        "reward": 60,
+        "team": [
+          {
+            "dex": "011",
+            "lvl": 6
+          },
+          {
+            "dex": "010",
+            "lvl": 6
+          },
+          {
+            "dex": "011",
+            "lvl": 6
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-forest-trainer-30-19.png"
+      },
+      {
+        "map": "viridian-forest",
+        "floor": "",
+        "marker": "trainer-2-18",
+        "key": "C",
+        "opp": "BUG_CATCHER:3",
+        "cls": "BUG_CATCHER",
+        "reward": 100,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 10
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-forest-trainer-2-18.png"
+      },
+      {
+        "map": "viridian-forest",
+        "floor": "",
+        "marker": "trainer-2-41",
+        "key": "D",
+        "opp": "LASS:19",
+        "cls": "LASS",
+        "reward": 90,
+        "team": [
+          {
+            "dex": "029",
+            "lvl": 6
+          },
+          {
+            "dex": "032",
+            "lvl": 6
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-forest-trainer-2-41.png"
+      },
+      {
+        "map": "viridian-forest",
+        "floor": "",
+        "marker": "trainer-13-17",
+        "key": "E",
+        "opp": "BUG_CATCHER:15",
+        "cls": "BUG_CATCHER",
+        "reward": 80,
+        "team": [
+          {
+            "dex": "010",
+            "lvl": 8
+          },
+          {
+            "dex": "011",
+            "lvl": 8
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-forest-trainer-13-17.png"
+      }
+    ],
+    "viridian-gym": [
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-2-1",
+        "key": "A",
+        "opp": "GIOVANNI:3",
+        "cls": "GIOVANNI",
+        "reward": 5445,
+        "team": [
+          {
+            "dex": "051",
+            "lvl": 50
+          },
+          {
+            "dex": "053",
+            "lvl": 53
+          },
+          {
+            "dex": "031",
+            "lvl": 53
+          },
+          {
+            "dex": "034",
+            "lvl": 55
+          },
+          {
+            "dex": "112",
+            "lvl": 55
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-2-1.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-12-7",
+        "key": "B",
+        "opp": "COOLTRAINER_M:9",
+        "cls": "COOLTRAINER_M",
+        "reward": 1365,
+        "team": [
+          {
+            "dex": "028",
+            "lvl": 39
+          },
+          {
+            "dex": "051",
+            "lvl": 39
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-12-7.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-11-11",
+        "key": "C",
+        "opp": "BLACKBELT:6",
+        "cls": "BLACKBELT",
+        "reward": 1000,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 40
+          },
+          {
+            "dex": "067",
+            "lvl": 40
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-11-11.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-10-7",
+        "key": "D",
+        "opp": "TAMER:3",
+        "cls": "TAMER",
+        "reward": 1720,
+        "team": [
+          {
+            "dex": "111",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-10-7.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-3-7",
+        "key": "E",
+        "opp": "BLACKBELT:7",
+        "cls": "BLACKBELT",
+        "reward": 1075,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-3-7.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-13-5",
+        "key": "F",
+        "opp": "COOLTRAINER_M:10",
+        "cls": "COOLTRAINER_M",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "111",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-13-5.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-10-1",
+        "key": "G",
+        "opp": "BLACKBELT:8",
+        "cls": "BLACKBELT",
+        "reward": 950,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 38
+          },
+          {
+            "dex": "066",
+            "lvl": 38
+          },
+          {
+            "dex": "067",
+            "lvl": 38
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-10-1.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-2-16",
+        "key": "H",
+        "opp": "TAMER:4",
+        "cls": "TAMER",
+        "reward": 1560,
+        "team": [
+          {
+            "dex": "024",
+            "lvl": 39
+          },
+          {
+            "dex": "128",
+            "lvl": 39
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-2-16.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-6-5",
+        "key": "I",
+        "opp": "COOLTRAINER_M:1",
+        "cls": "COOLTRAINER_M",
+        "reward": 1365,
+        "team": [
+          {
+            "dex": "033",
+            "lvl": 39
+          },
+          {
+            "dex": "034",
+            "lvl": 39
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-6-5.png"
+      }
+    ]
+  }
+}
