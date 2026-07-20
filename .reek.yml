@@ -49,6 +49,15 @@ detectors:
   BooleanParameter:
     exclude:
       - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder
+      - Walkthrough::BestCatch   # `tie:` / `only:` describe the record, they steer nothing;
+                                 # same defaults shim as Walkthrough::Location below.
+  DataClump:
+    exclude:
+      - Walkthrough   # Data.define cannot declare defaults, so a struct with optional members
+                      # needs an initialize that names them and forwards **rest. Item,
+                      # HiddenItem and Trainer are all tickable, so all three shims carry
+                      # `tick:`; that shared keyword is the struct's own member, not an
+                      # argument list crying out to be an object.
   ControlParameter:
     exclude:
       - Walkthrough::Yellow

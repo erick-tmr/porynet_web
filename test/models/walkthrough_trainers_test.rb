@@ -31,7 +31,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
       assert_operator card.reward, :>, 0, card.cls
       assert_includes 1..6, card.team.size, card.cls
       assert card.sprite.present?, card.cls
-      assert card.team.all? { |m| m[:dex].match?(/\A\d{3}\z/) && m[:lvl].positive? }, card.cls
+      assert card.team.all? { |mon| mon[:dex].match?(/\A\d{3}\z/) && mon[:lvl].positive? }, card.cls
     end
   end
 
@@ -40,19 +40,19 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
 
     assert_equal 10, route.trainers.size
     assert_equal %w[A B C D E F G H I J], route.trainers.map(&:marker_key)
-    assert(route.trainers.all? { |t| t.where.map? })
+    assert(route.trainers.all? { |card| card.where.map? })
   end
 
   test "an authored card replaces its generated twin rather than joining it" do
     forest = location("viridian-forest")
-    pins = forest.area_maps.flat_map(&:markers).count { |m| m.cat == "trainer" }
+    pins = forest.area_maps.flat_map(&:markers).count { |marker| marker.cat == "trainer" }
 
     assert_equal pins, forest.trainers.size
   end
 
   test "a scripted battle keeps the team a human wrote, not the one its map object names" do
     SCRIPTED.each do |slug, opp|
-      card = (location(slug).trainers + gym_cards(location(slug))).find { |t| t.opp == opp }
+      card = (location(slug).trainers + gym_cards(location(slug))).find { |card| card.opp == opp }
       assert card, "#{slug} lost its override for #{opp}"
       assert card.name.present?, "#{opp} should be a named story battle"
       assert card.battle&.map?, "#{opp} should keep its hand-framed battle shot"
@@ -60,7 +60,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
   end
 
   test "the SS Anne rival is not the level five Eevee its map object points at" do
-    rival = location("ss-anne").trainers.find { |t| t.opp == "RIVAL1:1" }
+    rival = location("ss-anne").trainers.find { |card| card.opp == "RIVAL1:1" }
 
     assert_equal 4, rival.team.size
     assert_equal 1300, rival.reward
@@ -70,7 +70,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     plateau = location("indigo-plateau")
 
     assert_equal 5, plateau.trainers.size
-    assert(plateau.trainers.all? { |t| t.marker_key.nil? })
+    assert(plateau.trainers.all? { |card| card.marker_key.nil? })
     assert_equal [ "Lorelei", "Bruno", "Agatha", "Lance", "Blue" ], plateau.trainers.map(&:name)
   end
 
@@ -82,7 +82,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     gym = location("celadon-city").gym
 
     assert_equal 7, gym.trainers.size
-    assert(gym.trainers.all? { |t| t.marker_key.nil? })
+    assert(gym.trainers.all? { |card| card.marker_key.nil? })
     assert_equal "Erika", gym.leader.name
     assert_equal "ERIKA:1", gym.leader.opp
   end
@@ -107,14 +107,14 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     ship = location("ss-anne")
 
     assert_equal 17, ship.trainers.size
-    assert(ship.trainers.all? { |t| t.marker_key.nil? })
+    assert(ship.trainers.all? { |card| card.marker_key.nil? })
     assert_equal "Blue", ship.trainers.first.name
   end
 
   test "a card ticks under the same key as its pin on the map" do
     route = location("route-3")
     card = route.trainers.first
-    pin = route.area_maps.flat_map(&:markers).find { |m| m.ref == card.opp }
+    pin = route.area_maps.flat_map(&:markers).find { |marker| marker.ref == card.opp }
 
     assert_equal "route-3/#{pin.id}", card.tick
   end
