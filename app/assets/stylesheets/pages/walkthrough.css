@@ -1382,7 +1382,11 @@ a.pn-wt-route__card:hover {
 .pn-wt-shot--battlescreen {
   margin-top: 12px;
   border: 3px solid #171622;
-  background: #0b1022;
+  background-color: #0b1022;
+  background-image:
+    linear-gradient(#FF5D8F4d 2px, transparent 2px),
+    linear-gradient(90deg, #FF5D8F4d 2px, transparent 2px);
+  background-size: 16px 16px;
   aspect-ratio: 2 / 1;
   box-shadow: inset 0 0 0 3px #FF5D8F, 0 0 18px #FF5D8F33;
 }
@@ -1695,9 +1699,9 @@ a.pn-wt-route__card:hover {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(#FF5D8F10 2px, transparent 2px),
-    linear-gradient(90deg, #FF5D8F10 2px, transparent 2px);
-  background-size: 24px 24px;
+    linear-gradient(#FF5D8F4d 2px, transparent 2px),
+    linear-gradient(90deg, #FF5D8F4d 2px, transparent 2px);
+  background-size: 16px 16px;
 }
 .pn-wt-gym__inner {
   position: relative;
@@ -1867,8 +1871,8 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   color: #171622;
-  background: #FFC23D;
-  border: 2px solid #171622;
+  background: #FF5D8F;
+  border: 2px solid #FF5D8F;
   padding: 6px 9px;
 }
 .pn-wt-gym-tr__shots {
@@ -1960,8 +1964,8 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-gym__pill--reward {
   color: #171622;
-  background: #FFC23D;
-  border-color: #171622;
+  background: #FF5D8F;
+  border-color: #FF5D8F;
 }
 .pn-wt-gym__badge {
   display: flex;

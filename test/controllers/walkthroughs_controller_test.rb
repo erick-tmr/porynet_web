@@ -35,6 +35,44 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-nav__where", text: "Viridian City → Route 2"
   end
 
+  test "reward amounts carry the drawn Poke Dollar sign instead of a currency character" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select ".pn-wt-trainer__reward span.pn-money-value" do
+      assert_select "span.pn-money[role=img][aria-label=?]", "Poké Dollar"
+    end
+    assert_select ".pn-wt-trainer__reward", text: /\A175\z/
+    assert_not_includes response.body, "₽"
+  end
+
+  test "step prose renders the Poke Dollar through the same component" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select ".pn-wt-step__text span.pn-money-value span.pn-money[aria-label=?]", "Poké Dollar"
+  end
+
+  test "the rival battles link to the trivia that explains the Eevee outcome" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select "#rival-eevee .pn-wt-band__h3", text: "This battle decides your rival's Eevee"
+    assert_select ".pn-wt-step__text a[href=?]", "/walkthroughs/yellow/leg-01#rival-eevee"
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_response :success
+    assert_select ".pn-wt-step__text a[href=?]", "/walkthroughs/yellow/leg-01#rival-eevee"
+  end
+
+  test "a step link keeps the locale prefix" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02", locale: "pt")
+
+    assert_response :success
+    assert_select ".pn-wt-step__text a[href=?]", "/pt/walkthroughs/yellow/leg-01#rival-eevee"
+  end
+
   test "the best place to catch tag flags the winning card with a reason" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 

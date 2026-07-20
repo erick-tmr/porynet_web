@@ -4,7 +4,7 @@
       <div class="pn-wt-gym-tr__role"><%= t("walkthrough.ui.gym_trainer") %></div>
       <div class="pn-wt-gym-tr__cls"><%= trainer.cls %></div>
     </div>
-    <div class="pn-wt-gym-tr__reward">₽<%= number_with_delimiter(trainer.reward) %></div>
+    <div class="pn-wt-gym-tr__reward"><%= poke_dollar(trainer.reward) %></div>
   </div>
   <div class="pn-wt-gym-tr__shots">
     <div class="pn-wt-shot pn-wt-shot--gymvs">

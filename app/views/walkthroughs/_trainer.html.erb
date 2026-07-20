@@ -8,7 +8,7 @@
         <div class="pn-wt-trainer__name"><%= trainer.cls %></div>
       <% end %>
     </div>
-    <div class="pn-wt-trainer__reward">₽<%= number_with_delimiter(trainer.reward) %></div>
+    <div class="pn-wt-trainer__reward"><%= poke_dollar(trainer.reward) %></div>
   </div>
   <div class="pn-wt-trainer__shots">
     <div class="pn-wt-shot pn-wt-shot--vs">

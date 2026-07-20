@@ -70,7 +70,7 @@
             <div class="pn-wt-gym__leader-role"><%= t("walkthrough.ui.gym_leader") %></div>
             <div class="pn-wt-gym__leader-name"><%= gym.leader.name %></div>
             <div class="pn-wt-gym__leader-pills">
-              <span class="pn-wt-gym__pill pn-wt-gym__pill--reward">₽<%= number_with_delimiter(gym.leader.reward) %></span>
+              <span class="pn-wt-gym__pill pn-wt-gym__pill--reward"><%= poke_dollar(gym.leader.reward) %></span>
               <span class="pn-wt-gym__pill"><%= gym.tm %></span>
             </div>
           </div>

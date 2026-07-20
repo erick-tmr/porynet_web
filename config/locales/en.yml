@@ -109,6 +109,7 @@ en:
       title_index: "%{name} Walkthrough · PORYNET"
       title_location: "%{name} · %{game} Walkthrough"
       progress_title: "ROUTE PROGRESS"
+      poke_dollar: "Poké Dollar"
       obtainable: "OBTAINABLE"
       caught: "CAUGHT"
       dex_goal: "LIVING DEX GOAL"
@@ -256,7 +257,7 @@ en:
           intro: "Home. Grab your partner Pikachu, settle the first rival battle, and head north."
           trivia:
             title: "This battle decides your rival's Eevee"
-            intro: "In Pokémon Yellow, the outcome of this battle, plus an optional rematch on Route 22, locks in which evolution your rival's Eevee takes. Play it how you like, but here's the recipe for each."
+            intro: "The outcome of this battle, plus an optional rematch on Route 22, locks in which evolution your rival's Eevee takes. Play it how you like, but here's the recipe for each."
             note: "// The Route 22 rematch only matters if you win here first; lose, and it's Vaporeon regardless."
             cards:
               vaporeon:
@@ -279,7 +280,7 @@ en:
               text: "Head for the north exit. The moment you step into the Route 1 grass, Oak stops you and walks you back to his lab, where he hands you Pikachu. From here it walks beside you instead of riding in a Ball."
             "3":
               title: "Beat your rival"
-              text: "Blue grabs an Eevee and battles you in the lab. It is Lv 5 with Tackle and Tail Whip; lead with Pikachu and use ThunderShock. Win for ₽175."
+              text_html: "Blue grabs an Eevee and battles you in the lab. It is Lv 5 with Tackle and Tail Whip; lead with Pikachu and use ThunderShock. Win for <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dollar\"></span>175</span>. Heads up: this result is half of what decides <a href=\"%{href}\">which evolution his Eevee takes</a>, so pick your outcome on purpose."
             "4":
               title: "Head north to Route 1"
               text: "Leave Pallet by the north exit onto Route 1, and press on toward Viridian City."
@@ -330,7 +331,7 @@ en:
                 town_map: "From Blue's sister Daisy, in the house just east of your own in Pallet Town."
             "4":
               title: "Watch the catching demo, then stock up"
-              text: "Head back up to Viridian. The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go."
+              text_html: "Head back up to Viridian. The old man at the north exit is awake now; sit through his catching demo and he steps aside. Buy a stack of Poké Balls plus a few Potions and Antidotes at the Mart before you go. Or skip the Poké Balls for now if you want <a href=\"#missable-poke-balls\">Oak's five free ones</a>."
               hidden:
                 potion: "On the tree just left of the north gate. Stand to its right and press A."
             "5":
@@ -345,7 +346,7 @@ en:
               text: "Head west from Viridian into the grass. Catch Nidoran♂/♀ and Mankey here. They beat Brock's Rock types."
             "2":
               title: "Beat the rival"
-              text: "Blue challenges you near the water with Spearow (Lv 9) and Eevee (Lv 8). Win for ₽280."
+              text_html: "Blue challenges you near the water with Spearow (Lv 9) and Eevee (Lv 8). Win for <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dollar\"></span>280</span>. This is the other half of <a href=\"%{href}\">the Eevee recipe</a>: if you won in Pallet, winning here locks Jolteon and skipping this fight locks Flareon."
             "3":
               title: "Optional: Oak's five Poké Balls"
               text_html: "Still carrying no Poké Balls, with only Pikachu caught? Walk back to Oak's Lab in Pallet Town and talk to him for <b>five free Poké Balls</b>. See the <a href=\"#missable-poke-balls\">missable note</a>."
@@ -826,7 +827,7 @@ en:
           steps:
             "1":
               title: "Buy in"
-              text: "Pay ₽500 at the gate for 30 Safari Balls; you get 500 steps per run."
+              text_html: "Pay <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dollar\"></span>500</span> at the gate for 30 Safari Balls; you get 500 steps per run."
             "2":
               title: "Hunt the rares and grab the TMs"
               text: "Sweep the areas for Scyther, Pinsir, Kangaskhan, Tauros, Chansey and Tangela; use Bait to keep them still, Rocks to make them easier to catch, and note that nothing faints here. Pick up TM37 (Egg Bomb) in Area 1, TM40 (Skull Bash) in Area 2, and TM32 (Double Team) in Area 3."

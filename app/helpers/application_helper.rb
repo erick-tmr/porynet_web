@@ -19,6 +19,21 @@ module ApplicationHelper
     image_tag(r2_asset_url(path), **options)
   end
 
+  def poke_dollar(amount)
+    tag.span(class: "pn-money-value") do
+      safe_join([
+        tag.span(nil, class: "pn-money", role: "img", "aria-label": t("walkthrough.ui.poke_dollar")),
+        number_with_delimiter(amount)
+      ])
+    end
+  end
+
+  def step_text(step)
+    return t(step.text_key) unless step.link?
+
+    t(step.text_key, href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
+  end
+
   def best_catch_reason(best, encounter)
     key = best.tie ? "walkthrough.ui.best_reason_tie" : "walkthrough.ui.best_reason_beats"
     t(key, name: encounter.name, rate: best.rate, alt: best.alt_name, alt_rate: best.alt_rate)

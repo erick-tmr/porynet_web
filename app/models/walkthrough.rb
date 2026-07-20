@@ -10,7 +10,7 @@ module Walkthrough
     def image? = !image.nil?
   end
   TriviaCard = Data.define(:dex, :name, :tone, :rows)
-  Trivia = Data.define(:title_key, :intro_key, :note_key, :cards)
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards)
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -19,10 +19,13 @@ module Walkthrough
     def floor? = !floor.empty?
   end
 
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot) do
+  StepLink = Data.define(:leg, :anchor)
+
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link) do
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?
+    def link? = !link.nil?
   end
 
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle) # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil
