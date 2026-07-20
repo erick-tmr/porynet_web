@@ -171,7 +171,7 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
-      loc = merge_trainers(loc)
+      loc = tick_items(merge_trainers(loc), header)
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
@@ -191,6 +191,28 @@ module Walkthrough
         card
       end
       place_trainers(loc, fresh, claimed)
+    end
+
+    # A step's item and its pin on the map are the same thing in the game, so give them the same
+    # progress key and picking one up is recorded once. Story items like Oak's Parcel have no map
+    # object and keep their positional key.
+    def self.tick_items(loc, maps)
+      pins = maps.flat_map { |m| m.markers.map { |k| [ m.name, k ] } }
+      loc.with(steps: loc.steps.map do |step|
+        step.with(items: step.items.map { |i| i.with(tick: pin_tick(pins, "item", i)) },
+          hidden: step.hidden.map { |h| h.with(tick: pin_tick(pins, "hidden", h)) })
+      end)
+    end
+
+    # Matched on the item's own name within the location. Where a map holds two of the same item
+    # the name cannot say which one a step means, so the step names the cell itself.
+    def self.pin_tick(pins, cat, item)
+      found = pins.select { |_name, pin| pin.cat == cat && pin.name == item.name }
+      found = found.select { |_name, pin| pin.id.end_with?("-#{item.at[0]}-#{item.at[1]}") } if item.at
+      return nil unless found.one?
+
+      map_name, pin = found.first
+      "#{map_name}/#{pin.id}"
     end
 
     def self.authored_cards(loc)
@@ -404,7 +426,7 @@ module Walkthrough
           step(b, 1, items: [ item(b, 1, "Poké Ball", "poke_ball") ],
             shot: map_shot("viridian-forest", 1, "STEP 1")),
           step(b, 2, hidden: [ hidden(b, 2, "Antidote", "antidote", "viridian-forest-antidote", "vf-antidote") ]),
-          step(b, 3, items: [ item(b, 3, "Potion", "potion") ],
+          step(b, 3, items: [ item(b, 3, "Potion", "potion", at: [ 25, 11 ]) ],
             shot: map_shot("viridian-forest", 3, "STEP 3")),
           step(b, 4, hidden: [ hidden(b, 4, "Potion", "potion", "viridian-forest-hidden-potion", "vf-potion") ]),
           step(b, 5, shot: map_shot("viridian-forest", 5, "STEP 5"))
@@ -1052,13 +1074,14 @@ module Walkthrough
       ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
     end
 
-    def self.item(base, n, name, key)
-      Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}", sprite: item_sprite(name))
+    def self.item(base, n, name, key, at: nil)
+      Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}",
+        sprite: item_sprite(name), at: at)
     end
 
-    def self.hidden(base, n, name, key, scene, pin)
+    def self.hidden(base, n, name, key, scene, pin, at: nil)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",
-        image: scenes.dig(scene, "image"), pin: pin, sprite: item_sprite(name))
+        image: scenes.dig(scene, "image"), pin: pin, sprite: item_sprite(name), at: at)
     end
 
     def self.later(base, key, name, kind, need, scene, pin = nil)

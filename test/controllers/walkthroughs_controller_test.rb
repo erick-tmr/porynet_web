@@ -89,11 +89,13 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Best rate at 35%, and the earliest place to catch Rattata"
   end
 
-  test "a location renders its plain area map" do
+  test "a location renders its area map with a marker overlay" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 
     assert_response :success
-    assert_select "img.pn-wt-map__img[src*=?]", "walkthrough/yellow/maps/route-1.png"
+    assert_select "img.pn-mm-canvas__img[src*=?]", "walkthrough/yellow/maps/route-1.png"
+    # Route 1 has no trainers, items or gates; its two connections are the whole overlay
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit]", "route-1", 2
   end
 
   test "an interior map fills a step screenshot slot" do

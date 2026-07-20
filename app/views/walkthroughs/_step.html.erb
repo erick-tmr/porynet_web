@@ -13,7 +13,7 @@
         <% if step.items? %>
           <div class="pn-wt-items">
             <% step.items.each_with_index do |item, i| %>
-              <div class="pn-wt-item" <%= tag.attributes(tickable("collected", "#{slug}/step-#{step.n}/item-#{i}")) %>>
+              <div class="pn-wt-item" <%= tag.attributes(tickable("collected", item.tick || "#{slug}/step-#{step.n}/item-#{i}")) %>>
                 <%= progress_toast("item") %>
                 <span class="pn-wt-item__chip">
                   <%= r2_image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-item__icon" %>
@@ -34,7 +34,7 @@
         <% if step.hidden? %>
           <div class="pn-wt-hidden-grid">
             <% step.hidden.each_with_index do |hidden, i| %>
-              <%= render "hidden_item", hidden: hidden, id: "#{slug}/step-#{step.n}/hidden-#{i}" %>
+              <%= render "hidden_item", hidden: hidden, id: hidden.tick || "#{slug}/step-#{step.n}/hidden-#{i}" %>
             <% end %>
           </div>
         <% end %>

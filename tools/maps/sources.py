@@ -245,6 +245,33 @@ def parse_border_block(root_str, map_label):
 
 
 @lru_cache(maxsize=None)
+def parse_hidden_objects(root_str):
+    """Return {map_const: {object_const, ...}} for objects the game starts with switched off.
+
+    Some people are only on a map during a cutscene: Professor Oak stands in Pallet Town just
+    long enough to stop you walking into the grass, and the rival waits on Route 22 only when
+    he is due to challenge you. The game ships them switched off and a script shows them, so a
+    map drawn from the object list alone would leave them standing there forever."""
+    out, current = {}, None
+    for line in _read(root_str, "data/maps/toggleable_objects.asm").splitlines():
+        head = re.match(r"\s*toggleable_objects_for\s+(\w+)", line)
+        if head:
+            current = head.group(1)
+            continue
+        state = re.match(r"\s*toggle_object_state\s+(\w+)\s*,\s*OFF\s*$", line)
+        if state and current:
+            out.setdefault(current, set()).add(state.group(1))
+    return out
+
+
+@lru_cache(maxsize=None)
+def _object_consts(root_str, map_label):
+    """The map's object constants in declaration order, which is the order of its object_events."""
+    return tuple(m.group(1) for line in _map_object_lines(root_str, map_label)
+                 if (m := re.match(r"\s*const_export\s+(\w+)", line)))
+
+
+@lru_cache(maxsize=None)
 def _object_events(root_str, map_label):
     """Every object_event on the map, classified by its trailing args.
 
@@ -253,6 +280,7 @@ def _object_events(root_str, map_label):
     is a pickup, and nothing at all is a plain person. Note the scripted-encounter balls (the
     Oak's Lab Eevee, the Fighting Dojo pair) take the 6-arg form, so they read as people: the
     ball sprite still draws but no item is on offer, which is exactly right."""
+    consts = _object_consts(root_str, map_label)
     out = []
     for line in _map_object_lines(root_str, map_label):
         body = line.split(";", 1)[0]
@@ -261,8 +289,10 @@ def _object_events(root_str, map_label):
             body)
         if not m:
             continue
+        index = len(out)
         obj = {"grid": (int(m.group(1)), int(m.group(2))), "sprite_const": m.group(3),
                "movement": m.group(4), "direction": m.group(5), "text_const": m.group(6),
+               "const": consts[index] if index < len(consts) else None,
                "kind": "person", "opp_class": None, "party": None, "item_const": None}
         extra = m.group(7)
         if extra and extra.startswith("OPP_"):
@@ -280,10 +310,52 @@ def parse_object_events(root_str, map_label, include_battlers=False):
     Plain people are always returned; trainers and item balls are included only when
     `include_battlers` is set (e.g. to show a gym's leader and trainers on its map). Source
     coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop)."""
-    objects = _object_events(root_str, map_label)
+    const, _tileset = parse_headers(root_str).get(map_label, (None, None))
+    hidden = parse_hidden_objects(root_str).get(const, set())
+    objects = tuple(o for o in _object_events(root_str, map_label) if o["const"] not in hidden)
     if include_battlers:
         return objects
     return tuple(o for o in objects if o["kind"] == "person")
+
+
+# The tiles Surf and fishing accept (data/tilesets/water_tilesets.asm): open water, plus the two
+# shore tiles you can step off from.
+WATER_TILES = frozenset({0x14})
+SHORE_TILES = frozenset({0x48, 0x32})
+
+
+@lru_cache(maxsize=None)
+def parse_collision_tiles(root_str, tileset_const):
+    """The tile ids you can walk on in this tileset, from data/tilesets/collision_tile_ids.asm."""
+    label = _snake_to_camel(tileset_const)
+    match = re.search(rf"^{label}_Coll::\s*\n\s*coll_tiles ([^\n]+)",
+                      _read(root_str, "data/tilesets/collision_tile_ids.asm"), re.M)
+    if not match:
+        return frozenset()
+    return frozenset(int(t.strip().lstrip("$"), 16) for t in match.group(1).split(","))
+
+
+def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y):
+    """The four 8px tiles making up one 16px movement cell."""
+    blocks = load_blockset(root_str, tileset_file)
+    blueprint = load_blueprint(root_str, map_label)
+    block = blocks[blueprint[(cell_y // 2) * width_blocks + (cell_x // 2)]]
+    top, left = (cell_y % 2) * 2, (cell_x % 2) * 2
+    return [block[(top + dy) * BLOCK_TILES + left + dx] for dy in range(2) for dx in range(2)]
+
+
+@lru_cache(maxsize=None)
+def parse_connections(root_str, map_label):
+    """Return ((direction, dest_map_const), ...) for the maps this one scrolls into.
+
+    Doorways are warp_events, but a route flows into its neighbour by walking off the edge, and
+    that link lives in the map header instead. Reading only warps leaves Pallet Town with three
+    house doors and no way out of town."""
+    path = _root(root_str) / f"data/maps/headers/{map_label}.asm"
+    if not path.exists():
+        return ()
+    return tuple((m.group(1), m.group(3)) for line in path.read_text().splitlines()
+                 if (m := re.match(r"\s*connection\s+(\w+)\s*,\s*(\w+)\s*,\s*(\w+)", line)))
 
 
 @lru_cache(maxsize=None)

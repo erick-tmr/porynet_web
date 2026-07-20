@@ -22,11 +22,26 @@ def test_sprite_table(root):
 
 def test_object_events(root):
     objs = sources.parse_object_events(root, "PalletTown")
-    assert len(objs) == 3
-    oak = objs[0]
-    assert oak["sprite_const"] == "SPRITE_OAK"
-    assert oak["grid"] == (10, 4)
-    assert oak["direction"] == "NONE"
+    assert len(objs) == 2
+    girl = objs[0]
+    assert girl["sprite_const"] == "SPRITE_GIRL"
+    assert girl["const"] == "PALLETTOWN_GIRL"
+
+
+def test_object_events_leave_out_the_cutscene_only(root):
+    """Oak stands in Pallet Town only long enough to stop you walking into the grass. The game
+    ships him switched off, so a map drawn from the object list alone would strand him there."""
+    assert "PALLETTOWN_OAK" in sources.parse_hidden_objects(root)["PALLET_TOWN"]
+
+    drawn = sources.parse_object_events(root, "PalletTown", include_battlers=True)
+    assert "SPRITE_OAK" not in {o["sprite_const"] for o in drawn}
+    assert "PALLETTOWN_OAK" in {o["const"] for o in sources._object_events(root, "PalletTown")}
+
+
+def test_the_rival_does_not_wait_on_route_22_forever(root):
+    """Both Route 22 rivals are switched off until the fight is due."""
+    assert not [o for o in sources.parse_object_events(root, "Route22", include_battlers=True)
+                if o["kind"] == "trainer"]
 
 
 def test_object_events_missing_map(root):

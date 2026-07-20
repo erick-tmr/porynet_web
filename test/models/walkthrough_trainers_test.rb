@@ -109,8 +109,10 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
   test "the SS Anne counts the trainers in its cabins, which its own map never draws" do
     ship = location("ss-anne")
 
+    # sixteen from the cabins, plus the rival, who is only aboard when the plot puts him there
     assert_equal 17, ship.trainers.size
-    assert_equal 16, ship.trainers.count { |t| t.marker_key.nil? }
+    assert(ship.trainers.all? { |t| t.marker_key.nil? })
+    assert_equal "Blue", ship.trainers.first.name   # the authored fight keeps its place, ahead of the cabins
   end
 
   test "a card ticks under the same key as its pin on the map" do

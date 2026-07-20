@@ -99,6 +99,22 @@ def test_viridian_forest_exits(root):
     assert north["glyph"] == "▲"
 
 
+def test_a_door_always_points_up_wherever_the_building_stands(root):
+    """A door is walked up into. Oak's Lab sits in the lower half of Pallet Town, so a rule based
+    on which half of the map an exit falls in would send you down into it."""
+    doors = [m for m in markers.build_markers(root, "PalletTown", "PALLET_TOWN", 320, 288)
+             if m["cat"] == "exit" and m["edge"] == "inner"]
+
+    assert doors, "Pallet Town's houses are all inner doors"
+    assert all(d["glyph"] == "▲" for d in doors)
+    assert any(d["y"] > 50 for d in doors), "and at least one of them is in the lower half"
+
+
+def test_exit_glyphs_follow_the_way_you_walk(root):
+    for entry in by_cat(build(root), "exit"):
+        assert entry["glyph"] == markers.EXIT_GLYPHS[entry["edge"]]
+
+
 def test_label_alignment_follows_the_marker_side(root):
     entries = build(root)
     assert {m["align"] for m in entries} == {"l", "r"}
@@ -164,3 +180,44 @@ def test_map_with_no_markers(root):
     """A one-room house has a warp and nothing else; it must not blow up."""
     entries = markers.build_markers(root, "RedsHouse2F", "REDS_HOUSE_2F", 128, 128)
     assert [m["cat"] for m in entries] == ["exit"]
+
+
+def test_connections_become_exits(root):
+    """Pallet Town's three doors are warps, but the ways out of town are map connections: north
+    to Route 1 and south, by Surf, to Route 21."""
+    exits = [m for m in markers.build_markers(root, "PalletTown", "PALLET_TOWN", 320, 288)
+             if m["cat"] == "exit"]
+    by_id = {m["id"]: m for m in exits}
+
+    assert by_id["exit-north"]["name"] == "Route 1"
+    assert by_id["exit-north"]["glyph"] == "▲"
+    assert by_id["exit-south"]["name"] == "Route 21"
+    assert by_id["exit-south"]["glyph"] == "▼"
+    # you leave Pallet Town southward by Surf, so the marker sits on the water rather than on
+    # the midpoint of the edge, which is beach
+    assert by_id["exit-south"]["grid"] == [6, 17]
+    assert len([m for m in exits if m["edge"] == "inner"]) == 3
+
+
+def test_a_route_that_only_connects_still_has_exits(root):
+    """Route 1 has no gates at all; without its connections it would show no way off the map."""
+    exits = [m for m in markers.build_markers(root, "Route1", "ROUTE_1", 320, 576)
+             if m["cat"] == "exit"]
+
+    assert {m["name"] for m in exits} == {"Viridian City", "Pallet Town"}
+
+
+def test_the_two_sides_of_a_crossing_agree(root):
+    """Pallet Town's way south and Route 21's way north are the same stretch of water."""
+    pallet = {m["id"]: m for m in markers.build_markers(root, "PalletTown", "PALLET_TOWN", 320, 288)}
+    route21 = {m["id"]: m for m in markers.build_markers(root, "Route21", "ROUTE_21", 320, 1440)}
+
+    assert pallet["exit-south"]["grid"][0] == route21["exit-north"]["grid"][0]
+
+
+def test_a_dry_edge_uses_the_walkable_span(root):
+    """Route 1 has no water; its exits sit where the path leaves the map, not in a corner."""
+    exits = [m for m in markers.build_markers(root, "Route1", "ROUTE_1", 320, 576)
+             if m["cat"] == "exit"]
+
+    assert all(0 < m["grid"][0] < 19 for m in exits)

@@ -10,8 +10,16 @@ module Walkthrough
     def wild? = !gift?
   end
 
-  Item = Data.define(:name, :where_key, :sprite)
-  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite)
+  # `at` is the map cell, needed only when a location holds two of the same item and the name
+  # alone cannot say which one a step means. `tick` is the progress key the item shares with its
+  # pin, resolved from the map once the markers are known.
+  Item = Data.define(:name, :where_key, :sprite, :at, :tick) do
+    def initialize(at: nil, tick: nil, **rest) = super
+  end
+
+  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite, :at, :tick) do
+    def initialize(at: nil, tick: nil, **rest) = super
+  end
   LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin) do
     def image? = !image.nil?
   end

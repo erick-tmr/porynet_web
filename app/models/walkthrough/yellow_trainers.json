@@ -1,6 +1,6 @@
 {
   "source": "pret/pokeyellow",
-  "count": 324,
+  "count": 323,
   "trainers": {
     "celadon-city": [
       {
@@ -6085,22 +6085,6 @@
       }
     ],
     "ss-anne": [
-      {
-        "map": "ss-anne-2f",
-        "floor": "2F",
-        "marker": "trainer-36-4",
-        "key": "A",
-        "opp": "RIVAL1:1",
-        "cls": "RIVAL1",
-        "reward": 175,
-        "team": [
-          {
-            "dex": "133",
-            "lvl": 5
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/ss-anne-2f-trainer-36-4.png"
-      },
       {
         "map": "ss-anne-ssanne1frooms",
         "floor": "",

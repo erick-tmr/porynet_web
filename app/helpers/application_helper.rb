@@ -23,7 +23,7 @@ module ApplicationHelper
     tag.span(class: "pn-money-value") do
       safe_join([
         tag.span(nil, class: "pn-money", role: "img", "aria-label": t("walkthrough.ui.poke_dollar")),
-        number_with_delimiter(amount)
+        tag.span(number_with_delimiter(amount), class: "pn-money-value__n")
       ])
     end
   end

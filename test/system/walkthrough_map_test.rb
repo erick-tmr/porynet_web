@@ -112,12 +112,14 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_no_selector "#{card}.is-done"   # and unticking the pin clears the card
   end
 
-  # Route 1 has no trainers, no items, and reaches its neighbours by scrolling rather than
-  # through a gate, so it is the one map with nothing to mark.
-  test "a map with nothing to mark still renders plainly" do
+  # Route 1 has no trainers, no items and no gates. It reaches its neighbours by scrolling, and
+  # those connections are the only thing it has to mark.
+  test "a route that only connects still shows the way out" do
     visit "/walkthroughs/yellow/leg-01"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 2
 
-    assert_selector ".pn-wt-map__img"   # route-1, the only bare map on the leg
-    assert_selector ".pn-mm-layer"      # its neighbours still get their overlay
+    within "[data-map-markers-map-value='route-1']" do
+      assert_selector ".pn-mm[data-cat='exit']", count: 2
+    end
   end
 end

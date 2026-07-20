@@ -36,7 +36,7 @@ def test_roster_covers_every_trainer_on_every_map(root):
     entries, specs = built(root)
     total = sum(len(v) for v in entries.values())
 
-    assert total == 324
+    assert total == 323
     assert len(specs) == total
 
 
@@ -78,7 +78,7 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
                     assert pin["key"] == entry["key"]
                 checked += 1
 
-    assert checked == 302
+    assert checked == 301
 
 
 def test_gym_floors_are_lettered_nothing(root):
@@ -94,8 +94,9 @@ def test_extra_maps_contribute_cards_without_pins(root):
     entries, _ = built(root)
     ship = entries["ss-anne"]
 
-    assert len(ship) == 17
-    assert sum(1 for e in ship if e["key"] is None) == 16
+    # the rival is not aboard until the plot puts him there, so none of these carry a pin
+    assert len(ship) == 16
+    assert all(e["key"] is None for e in ship)
 
 
 def test_where_geometry_puts_the_player_in_front_facing_back(root):
