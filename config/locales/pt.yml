@@ -187,6 +187,8 @@ pt:
       best_badge: "MELHOR LUGAR PARA CAPTURAR"
       best_reason_beats: "%{rate} aqui contra %{alt_rate} em %{alt}, a melhor chance de %{name}."
       best_reason_tie: "Melhor taxa com %{rate}, e o lugar mais cedo para capturar %{name}."
+      best_reason_only: "O único lugar do jogo para capturar %{name}. Se perder aqui, perdeu de vez."
+      best_reason_only_rate: "O único lugar do jogo para capturar %{name}, com %{rate}."
       catch_targets: "%{count} metas de captura"
       rate: "TAXA"
       level: "NÍVEL"

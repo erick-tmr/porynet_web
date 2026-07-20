@@ -187,6 +187,8 @@ en:
       best_badge: "BEST PLACE TO CATCH"
       best_reason_beats: "%{rate} here versus %{alt_rate} at %{alt}, the best odds for %{name}."
       best_reason_tie: "Best rate at %{rate}, and the earliest place to catch %{name}."
+      best_reason_only: "The only place in the game to catch %{name}. Miss it here and you miss it."
+      best_reason_only_rate: "The only place in the game to catch %{name}, at %{rate}."
       catch_targets: "%{count} catch targets"
       rate: "RATE"
       level: "LEVEL"

@@ -70,7 +70,15 @@ module ApplicationHelper
   end
 
   def best_catch_reason(best, encounter)
+    return sole_catch_reason(best, encounter) if best.only
+
     key = best.tie ? "walkthrough.ui.best_reason_tie" : "walkthrough.ui.best_reason_beats"
     t(key, name: encounter.name, rate: best.rate, alt: best.alt_name, alt_rate: best.alt_rate)
+  end
+
+  def sole_catch_reason(best, encounter)
+    return t("walkthrough.ui.best_reason_only", name: encounter.name) unless best.rate?
+
+    t("walkthrough.ui.best_reason_only_rate", name: encounter.name, rate: best.rate)
   end
 end

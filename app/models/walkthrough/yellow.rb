@@ -122,22 +122,34 @@ module Walkthrough
       by_dex = Hash.new { |hash, dex| hash[dex] = [] }
       locations.each do |loc|
         loc.encounters.each do |enc|
-          pct = parse_rate(enc.rate)
-          by_dex[enc.dex] << { loc: loc, enc: enc, pct: pct } if enc.wild? && pct
+          by_dex[enc.dex] << { loc: loc, enc: enc, pct: parse_rate(enc.rate) } if enc.wild?
         end
       end
       by_dex.each_with_object({}) do |(dex, entries), best|
-        next if entries.size < 2
-
-        top = entries.map { |e| e[:pct] }.max
-        winner = entries.select { |e| e[:pct] == top }.min_by { |e| e[:loc].order }
-        runner = entries.reject { |e| e.equal?(winner) }.max_by { |e| e[:pct] }
-        best[dex] = BestCatch.new(
-          dex: dex, slug: winner[:loc].slug, rate: winner[:enc].rate,
-          tie: entries.count { |e| e[:pct] == top } > 1,
-          alt_name: runner[:loc].name, alt_rate: runner[:enc].rate
-        )
+        found = entries.one? ? sole_catch(dex, entries.first) : ranked_catch(dex, entries)
+        best[dex] = found if found
       end
+    end
+
+    def self.sole_catch(dex, entry)
+      BestCatch.new(
+        dex: dex, slug: entry[:loc].slug, only: true,
+        rate: entry[:pct] ? entry[:enc].rate : nil
+      )
+    end
+
+    def self.ranked_catch(dex, entries)
+      rated = entries.select { |e| e[:pct] }
+      top = rated.map { |e| e[:pct] }.max
+      winner = rated.select { |e| e[:pct] == top }.min_by { |e| e[:loc].order }
+      runner = rated.reject { |e| e.equal?(winner) }.max_by { |e| e[:pct] }
+      return nil unless runner
+
+      BestCatch.new(
+        dex: dex, slug: winner[:loc].slug, rate: winner[:enc].rate,
+        tie: rated.count { |e| e[:pct] == top } > 1,
+        alt_name: runner[:loc].name, alt_rate: runner[:enc].rate
+      )
     end
 
     def self.all_locations

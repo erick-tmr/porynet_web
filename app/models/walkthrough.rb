@@ -52,7 +52,10 @@ module Walkthrough
     def marker_key? = !marker_key.nil?
   end
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
-  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate)
+  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
+    def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, **rest) = super
+    def rate? = !rate.nil?
+  end
 
   GymStep = Data.define(:n, :text_key, :shot) do
     def shot? = !shot.nil?
