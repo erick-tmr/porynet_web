@@ -325,6 +325,24 @@ SHORE_TILES = frozenset({0x48, 0x32})
 
 
 @lru_cache(maxsize=None)
+def parse_grass_tiles(root_str):
+    """Return {tileset_const: grass tile id} from the tileset headers.
+
+    Only three tilesets have one (Overworld $52, Forest $20, Plateau $45); everywhere else the
+    field is -1, meaning nothing on the map is tall grass."""
+    out = {}
+    for line in _read(root_str, "data/tilesets/tileset_headers.asm").splitlines():
+        m = re.match(r"\s*tileset\s+(\w+)\s*,(?:[^,]+,){3}\s*(-1|\$[0-9A-Fa-f]+)", line)
+        if m and m.group(2) != "-1":
+            out[m.group(1)] = int(m.group(2).lstrip("$"), 16)
+    return out
+
+
+def grass_tile(root_str, tileset_const):
+    return parse_grass_tiles(root_str).get(_snake_to_camel(tileset_const))
+
+
+@lru_cache(maxsize=None)
 def parse_collision_tiles(root_str, tileset_const):
     """The tile ids you can walk on in this tileset, from data/tilesets/collision_tile_ids.asm."""
     label = _snake_to_camel(tileset_const)

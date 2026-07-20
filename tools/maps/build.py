@@ -78,7 +78,8 @@ def main():
             image, colors = compositor.render_map(root, label, parent)
             # every map shows its people and its item balls, exactly where the game puts them
             image = compositor.overlay_sprites(
-                image, root, generators.auto_npcs(root, label, battlers=True), colors)
+                image, root, generators.auto_npcs(root, label, battlers=True), colors,
+                compositor.grass_cells(root, label))
             key = save_png(image, "maps", name, args.force)
             entries.append({"image": key, "width": image.width, "height": image.height,
                             "floor": floor, "name": name,

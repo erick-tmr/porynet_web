@@ -137,13 +137,50 @@ def render_map(root_str, label, parent_const=None):
 
 # --- overlays ----------------------------------------------------------------
 
-def overlay_sprites(canvas, root_str, sprites, colors):
+def grass_cells(root_str, map_label):
+    """The cells of tall grass on this map, as (gx, gy).
+
+    Only three tilesets have a grass tile at all; on the rest nothing qualifies and standing
+    anywhere leaves the sprite whole."""
+    headers = sources.parse_headers(root_str)
+    if map_label not in headers:
+        return frozenset()
+    const, tileset = headers[map_label]
+    tile = sources.grass_tile(root_str, tileset)
+    if tile is None:
+        return frozenset()
+
+    tileset_file = sources.tileset_basename(root_str, tileset)
+    dims, _num_city, _first_indoor = sources.parse_map_constants(root_str)
+    _index, width, height = dims[const]
+    return frozenset(
+        (cx, cy)
+        for cy in range(height * 2) for cx in range(width * 2)
+        if all(t == tile for t in sources.cell_tiles(root_str, map_label, tileset_file, width, cx, cy))
+    )
+
+
+def _behind_grass(region, front_color):
+    """A mask of the background pixels that outrank a sprite standing in grass.
+
+    On a grass tile the game gives the sprite's lower half OAM priority, which puts it behind
+    every background color except 0. So the blades drawn in the darker shades cover the legs,
+    and the pale gaps between them let the legs through."""
+    mask = Image.new("L", region.size)
+    mask.putdata([0 if px[:3] == front_color else 255 for px in region.getdata()])
+    return mask
+
+
+def overlay_sprites(canvas, root_str, sprites, colors, grass=frozenset()):
     """Composite 16x16 overworld sprite frames onto a map in the game's CGB object palette.
 
     Sprites share the map's base palette but through OBP0 (rOBP0 = %11010000): the figure's
     fill (value 1) is base color 0 (white), its detail (value 2) is the map's accent (color 1),
     its outline (value 3) is the dark color, and only the 255 corners are transparent.
-    Each sprite: {file, frame, grid:[gx,gy], flip?}; grid is the 16px cell (top-left = grid*16)."""
+    Each sprite: {file, frame, grid:[gx,gy], flip?}; grid is the 16px cell (top-left = grid*16).
+
+    A sprite standing on one of the `grass` cells is planted in it: the game drops the lower half
+    of the sprite behind the background so the blades cover the legs."""
     out = canvas.convert("RGBA")
     shade = {255: None, 170: colors[0], 85: colors[1], 0: colors[3]}
     for spr in sprites:
@@ -153,7 +190,13 @@ def overlay_sprites(canvas, root_str, sprites, colors):
             tile = tile.transpose(Image.FLIP_LEFT_RIGHT)
         rgba = Image.new("RGBA", (16, 16))
         rgba.putdata([(0, 0, 0, 0) if shade.get(p) is None else (*shade[p], 255) for p in tile.getdata()])
-        out.alpha_composite(rgba, (spr["grid"][0] * UNIT_PX, spr["grid"][1] * UNIT_PX))
+
+        left, top = spr["grid"][0] * UNIT_PX, spr["grid"][1] * UNIT_PX
+        legs = (left, top + UNIT_PX // 2, left + UNIT_PX, top + UNIT_PX)
+        blades = out.crop(legs) if tuple(spr["grid"]) in grass else None
+        out.alpha_composite(rgba, (left, top))
+        if blades is not None:
+            out.paste(blades, legs[:2], _behind_grass(blades, colors[0]))
     return out.convert("RGB")
 
 
@@ -260,7 +303,7 @@ def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), ar
     interior map (a gate or shop) that block is solid black, so the empty space reads as black."""
     full, colors = render_map(root_str, label, parent_const)
     if sprites:
-        full = overlay_sprites(full, root_str, sprites, colors)
+        full = overlay_sprites(full, root_str, sprites, colors, grass_cells(root_str, label))
     if emotes:
         full = overlay_emotes(full, root_str, emotes, colors)
     if markers:
