@@ -212,40 +212,91 @@ def parse_sprite_table(root_str):
 
 
 @lru_cache(maxsize=None)
+def _map_object_lines(root_str, map_label):
+    """The lines of data/maps/objects/<map_label>.asm that the retail ROM actually assembles.
+
+    Red's bedroom keeps four `IF DEF(_DEBUG)` warps to Mt. Moon and Silph Co. for playtesting;
+    they are not in the shipped game, so reading them would put bogus exits on the map."""
+    path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
+    if not path.exists():
+        return ()
+    out, skipping = [], False
+    for line in path.read_text().splitlines():
+        if re.match(r"\s*IF\s+DEF\(_DEBUG\)", line):
+            skipping = True
+        elif re.match(r"\s*ENDC\b", line):
+            skipping = False
+        elif not skipping:
+            out.append(line)
+    return tuple(out)
+
+
+@lru_cache(maxsize=None)
 def parse_border_block(root_str, map_label):
     """The map's border block id (`db $X ; border block` in its object file); None if absent.
 
     Gen 1 fills every on-screen cell beyond the map edge with this block (grass/water outdoors,
     a solid black block inside buildings)."""
-    path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
-    if not path.exists():
-        return None
-    for line in path.read_text().splitlines():
+    for line in _map_object_lines(root_str, map_label):
         m = re.match(r"\s*db\s+\$([0-9A-Fa-f]+)\s*;\s*border block", line)
         if m:
             return int(m.group(1), 16)
     return None
 
 
-def parse_object_events(root_str, map_label, include_battlers=False):
-    """Return the map's person objects as [{grid:(x,y), sprite_const, movement, direction}].
+@lru_cache(maxsize=None)
+def _object_events(root_str, map_label):
+    """Every object_event on the map, classified by its trailing args.
 
-    Reads data/maps/objects/<map_label>.asm. Plain 6-arg object_events (people) are always
-    returned; trainer/item objects carry extra trailing args and are included only when
-    `include_battlers` is set (e.g. to show a gym's leader and trainers on its map). Source
-    coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop)."""
-    path = _root(root_str) / f"data/maps/objects/{map_label}.asm"
-    if not path.exists():
-        return ()
+    The macro is `object_event x, y, SPRITE_*, movement, facing, TEXT_*[, extra]`, and the
+    extra decides what the object is: `OPP_<CLASS>, <party#>` is a trainer, a bare item const
+    is a pickup, and nothing at all is a plain person. Note the scripted-encounter balls (the
+    Oak's Lab Eevee, the Fighting Dojo pair) take the 6-arg form, so they read as people: the
+    ball sprite still draws but no item is on offer, which is exactly right."""
     out = []
-    for line in path.read_text().splitlines():
+    for line in _map_object_lines(root_str, map_label):
         body = line.split(";", 1)[0]
         m = re.match(
-            r"\s*object_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(SPRITE_\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*(,.*)?$",
+            r"\s*object_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(SPRITE_\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*(?:,\s*(.+?))?\s*$",
             body)
-        if m and (include_battlers or not m.group(7)):
-            out.append({"grid": (int(m.group(1)), int(m.group(2))), "sprite_const": m.group(3),
-                        "movement": m.group(4), "direction": m.group(5)})
+        if not m:
+            continue
+        obj = {"grid": (int(m.group(1)), int(m.group(2))), "sprite_const": m.group(3),
+               "movement": m.group(4), "direction": m.group(5), "text_const": m.group(6),
+               "kind": "person", "opp_class": None, "party": None, "item_const": None}
+        extra = m.group(7)
+        if extra and extra.startswith("OPP_"):
+            opp, party = (p.strip() for p in extra.split(",", 1))
+            obj.update(kind="trainer", opp_class=opp[len("OPP_"):], party=int(party))
+        elif extra:
+            obj.update(kind="item", item_const=extra.strip())
+        out.append(obj)
+    return tuple(out)
+
+
+def parse_object_events(root_str, map_label, include_battlers=False):
+    """Return the map's objects as [{grid:(x,y), sprite_const, movement, direction, kind, ...}].
+
+    Plain people are always returned; trainers and item balls are included only when
+    `include_battlers` is set (e.g. to show a gym's leader and trainers on its map). Source
+    coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop)."""
+    objects = _object_events(root_str, map_label)
+    if include_battlers:
+        return objects
+    return tuple(o for o in objects if o["kind"] == "person")
+
+
+@lru_cache(maxsize=None)
+def parse_warp_events(root_str, map_label):
+    """Return the map's warps as ((x, y, dest_map_const, dest_warp_id), ...).
+
+    A doorway or gate is several adjacent warp_events, one per walkable tile, all pointing at
+    the same destination; markers.group_warps collapses them back into one exit."""
+    out = []
+    for line in _map_object_lines(root_str, map_label):
+        m = re.match(r"\s*warp_event\s+(\d+)\s*,\s*(\d+)\s*,\s*(\w+)\s*,\s*(\d+)", line.split(";", 1)[0])
+        if m:
+            out.append((int(m.group(1)), int(m.group(2)), m.group(3), int(m.group(4))))
     return tuple(out)
 
 
@@ -320,15 +371,38 @@ def parse_trainer_pic_file(root_str, trainer_const):
 
 # item constants pokeyellow spells differently from the display name
 _ITEM_FIXUPS = {"ELIXER": "Elixir", "MAX_ELIXER": "Max Elixir", "HP_UP": "HP Up",
-                "PP_UP": "PP Up", "TM": "TM"}
+                "PP_UP": "PP Up", "TM": "TM", "POKE_BALL": "Poké Ball",
+                "GREAT_BALL": "Great Ball", "ULTRA_BALL": "Ultra Ball",
+                "MASTER_BALL": "Master Ball", "SAFARI_BALL": "Safari Ball"}
+
+# map constants whose title-cased name reads wrong
+_PLACE_FIXUPS = {"LAST_MAP": "Back outside"}
+_PLACE_PREFIXES = (("SS_ANNE", "S.S. Anne"), ("MT_MOON", "Mt. Moon"))
 
 
 def item_display_name(const):
     if const in _ITEM_FIXUPS:
         return _ITEM_FIXUPS[const]
     if const.startswith("TM_") or const.startswith("HM_"):
-        return const.replace("_", " ")
+        kind, _, move = const.partition("_")
+        return f"{kind} {move.replace('_', ' ').title()}"
     return const.replace("_", " ").title()
+
+
+def place_display_name(const):
+    """A warp destination map const as a readable place name (VIRIDIAN_FOREST_NORTH_GATE ->
+    'Viridian Forest North Gate'). Floor suffixes stay upper-case (B1F, not B1f)."""
+    if const in _PLACE_FIXUPS:
+        return _PLACE_FIXUPS[const]
+    for prefix, label in _PLACE_PREFIXES:
+        if const == prefix or const.startswith(f"{prefix}_"):
+            return " ".join([label, *(w.title() for w in const[len(prefix):].split("_") if w)]).strip()
+    return " ".join(_place_word(w) for w in const.split("_") if w)
+
+
+def _place_word(word):
+    """Floor labels (1F, B2F, 5F) are already correctly cased; everything else title-cases."""
+    return word if re.fullmatch(r"B?\d+F", word) else word.title()
 
 
 def _cell_px(x, y):
