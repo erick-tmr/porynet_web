@@ -1147,13 +1147,13 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 78.75,
+            "x": 46.25,
             "y": 1.389,
             "grid": [
-              31,
+              18,
               0
             ],
-            "align": "l",
+            "align": "r",
             "name": "Route 24",
             "ref": "ROUTE_24",
             "edge": "north",
@@ -1199,10 +1199,10 @@
             "cat": "exit",
             "key": null,
             "x": 98.75,
-            "y": 9.722,
+            "y": 48.611,
             "grid": [
               39,
-              3
+              17
             ],
             "align": "l",
             "name": "Route 9",
@@ -1400,10 +1400,10 @@
             "cat": "exit",
             "key": null,
             "x": 97.5,
-            "y": 91.667,
+            "y": 86.111,
             "grid": [
               19,
-              16
+              15
             ],
             "align": "l",
             "name": "Route 20",
@@ -1771,10 +1771,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 23.75,
+            "x": 51.25,
             "y": 98.611,
             "grid": [
-              9,
+              20,
               35
             ],
             "align": "r",
@@ -1789,10 +1789,10 @@
             "cat": "exit",
             "key": null,
             "x": 1.25,
-            "y": 95.833,
+            "y": 48.611,
             "grid": [
               0,
-              34
+              17
             ],
             "align": "r",
             "name": "Route 18",
@@ -2111,10 +2111,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 42.5,
+            "x": 47.5,
             "y": 2.778,
             "grid": [
-              8,
+              9,
               0
             ],
             "align": "r",
@@ -3004,13 +3004,13 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 66.25,
+            "x": 48.75,
             "y": 98.611,
             "grid": [
-              26,
+              19,
               35
             ],
-            "align": "l",
+            "align": "r",
             "name": "Route 2",
             "ref": "ROUTE_2",
             "edge": "south",
@@ -3022,10 +3022,10 @@
             "cat": "exit",
             "key": null,
             "x": 98.75,
-            "y": 79.167,
+            "y": 48.611,
             "grid": [
               39,
-              28
+              17
             ],
             "align": "l",
             "name": "Route 3",
@@ -5832,10 +5832,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 42.5,
+            "x": 47.5,
             "y": 99.306,
             "grid": [
-              8,
+              9,
               71
             ],
             "align": "r",
@@ -6094,10 +6094,10 @@
             "cat": "exit",
             "key": null,
             "x": 0.833,
-            "y": 63.889,
+            "y": 52.778,
             "grid": [
               0,
-              11
+              9
             ],
             "align": "r",
             "name": "Vermilion City",
@@ -6267,7 +6267,7 @@
             "align": "r",
             "name": "Iron",
             "ref": "IRON",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "hidden-2-63",
@@ -6282,7 +6282,7 @@
             "align": "r",
             "name": "Hyper Potion",
             "ref": "HYPER_POTION",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-10-15",
@@ -6356,10 +6356,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 77.5,
+            "x": 62.5,
             "y": 99.537,
             "grid": [
-              15,
+              12,
               107
             ],
             "align": "l",
@@ -6374,10 +6374,10 @@
             "cat": "exit",
             "key": null,
             "x": 2.5,
-            "y": 82.87,
+            "y": 57.87,
             "grid": [
               0,
-              89
+              62
             ],
             "align": "r",
             "name": "Route 11",
@@ -6581,10 +6581,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 92.5,
+            "x": 87.5,
             "y": 2.778,
             "grid": [
-              55,
+              52,
               0
             ],
             "align": "l",
@@ -6599,10 +6599,10 @@
             "cat": "exit",
             "key": null,
             "x": 0.833,
-            "y": 25.0,
+            "y": 47.222,
             "grid": [
               0,
-              4
+              8
             ],
             "align": "r",
             "name": "Route 14",
@@ -6777,10 +6777,10 @@
             "cat": "exit",
             "key": null,
             "x": 2.5,
-            "y": 45.37,
+            "y": 84.259,
             "grid": [
               0,
-              24
+              45
             ],
             "align": "r",
             "name": "Route 15",
@@ -6794,10 +6794,10 @@
             "cat": "exit",
             "key": null,
             "x": 97.5,
-            "y": 69.444,
+            "y": 15.741,
             "grid": [
               19,
-              37
+              8
             ],
             "align": "l",
             "name": "Route 13",
@@ -7038,10 +7038,10 @@
             "cat": "exit",
             "key": null,
             "x": 99.167,
-            "y": 58.333,
+            "y": 52.778,
             "grid": [
               59,
-              10
+              9
             ],
             "align": "l",
             "name": "Route 14",
@@ -7240,10 +7240,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 48.75,
+            "x": 38.75,
             "y": 97.222,
             "grid": [
-              19,
+              15,
               17
             ],
             "align": "r",
@@ -7510,10 +7510,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 87.5,
+            "x": 77.5,
             "y": 0.347,
             "grid": [
-              17,
+              15,
               0
             ],
             "align": "l",
@@ -7634,10 +7634,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 35.0,
+            "x": 31.0,
             "y": 2.778,
             "grid": [
-              17,
+              15,
               0
             ],
             "align": "r",
@@ -7652,10 +7652,10 @@
             "cat": "exit",
             "key": null,
             "x": 99.0,
-            "y": 25.0,
+            "y": 52.778,
             "grid": [
               49,
-              4
+              9
             ],
             "align": "l",
             "name": "Fuchsia City",
@@ -7846,10 +7846,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 47.5,
+            "x": 52.5,
             "y": 0.926,
             "grid": [
-              9,
+              10,
               0
             ],
             "align": "r",
@@ -7864,10 +7864,10 @@
             "cat": "exit",
             "key": null,
             "x": 2.5,
-            "y": 82.407,
+            "y": 84.259,
             "grid": [
               0,
-              44
+              45
             ],
             "align": "r",
             "name": "Route 20",
@@ -8040,10 +8040,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 42.5,
+            "x": 47.5,
             "y": 99.306,
             "grid": [
-              8,
+              9,
               71
             ],
             "align": "r",
@@ -8494,10 +8494,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 51.25,
+            "x": 26.25,
             "y": 2.778,
             "grid": [
-              20,
+              10,
               0
             ],
             "align": "r",
@@ -8512,10 +8512,10 @@
             "cat": "exit",
             "key": null,
             "x": 98.75,
-            "y": 47.222,
+            "y": 52.778,
             "grid": [
               39,
-              8
+              9
             ],
             "align": "l",
             "name": "Viridian City",
@@ -8652,10 +8652,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 82.5,
+            "x": 72.5,
             "y": 99.653,
             "grid": [
-              16,
+              14,
               143
             ],
             "align": "l",
@@ -8818,17 +8818,17 @@
             "cat": "exit",
             "key": null,
             "x": 97.5,
-            "y": 81.944,
+            "y": 26.389,
             "grid": [
               19,
-              29
+              9
             ],
             "align": "l",
             "name": "Route 25",
             "ref": "ROUTE_25",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 1
+            "lane": 0
           }
         ]
       }
@@ -9043,10 +9043,10 @@
             "cat": "exit",
             "key": null,
             "x": 0.833,
-            "y": 41.667,
+            "y": 52.778,
             "grid": [
               0,
-              7
+              9
             ],
             "align": "r",
             "name": "Route 24",
@@ -9208,10 +9208,10 @@
             "cat": "exit",
             "key": null,
             "x": 0.714,
-            "y": 58.333,
+            "y": 52.778,
             "grid": [
               0,
-              10
+              9
             ],
             "align": "r",
             "name": "Pewter City",
@@ -9331,10 +9331,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 13.889,
+            "x": 11.667,
             "y": 97.222,
             "grid": [
-              12,
+              10,
               17
             ],
             "align": "r",
@@ -9647,10 +9647,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 17.5,
+            "x": 32.5,
             "y": 98.611,
             "grid": [
-              3,
+              6,
               35
             ],
             "align": "r",
@@ -9744,10 +9744,10 @@
             "cat": "exit",
             "key": null,
             "x": 97.5,
-            "y": 47.222,
+            "y": 52.778,
             "grid": [
               19,
-              8
+              9
             ],
             "align": "l",
             "name": "Saffron City",
@@ -9975,10 +9975,10 @@
             "cat": "exit",
             "key": null,
             "x": 99.167,
-            "y": 58.333,
+            "y": 47.222,
             "grid": [
               59,
-              10
+              8
             ],
             "align": "l",
             "name": "Lavender Town",
@@ -10168,10 +10168,10 @@
             "cat": "exit",
             "key": null,
             "x": 0.833,
-            "y": 63.889,
+            "y": 52.778,
             "grid": [
               0,
-              11
+              9
             ],
             "align": "r",
             "name": "Cerulean City",
@@ -10872,10 +10872,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 33.75,
+            "x": 51.25,
             "y": 1.389,
             "grid": [
-              13,
+              20,
               0
             ],
             "align": "r",
@@ -10889,10 +10889,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 53.75,
+            "x": 51.25,
             "y": 98.611,
             "grid": [
-              21,
+              20,
               35
             ],
             "align": "r",
@@ -10907,10 +10907,10 @@
             "cat": "exit",
             "key": null,
             "x": 1.25,
-            "y": 45.833,
+            "y": 48.611,
             "grid": [
               0,
-              16
+              17
             ],
             "align": "r",
             "name": "Route 7",
@@ -14800,10 +14800,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 8.75,
+            "x": 48.75,
             "y": 1.389,
             "grid": [
-              3,
+              19,
               0
             ],
             "align": "r",
@@ -14818,10 +14818,10 @@
             "cat": "exit",
             "key": null,
             "x": 98.75,
-            "y": 81.944,
+            "y": 48.611,
             "grid": [
               39,
-              29
+              17
             ],
             "align": "l",
             "name": "Route 11",
@@ -15594,10 +15594,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 46.25,
+            "x": 48.75,
             "y": 1.389,
             "grid": [
-              18,
+              19,
               0
             ],
             "align": "r",
@@ -15629,10 +15629,10 @@
             "cat": "exit",
             "key": null,
             "x": 1.25,
-            "y": 84.722,
+            "y": 48.611,
             "grid": [
               0,
-              30
+              17
             ],
             "align": "r",
             "name": "Route 22",

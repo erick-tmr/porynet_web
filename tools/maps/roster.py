@@ -14,7 +14,6 @@ import markers
 import sources
 
 PLAYER_CELLS = 2
-FOCUS_CELLS = 1
 
 FACINGS = {"DOWN": (0, 1), "UP": (0, -1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
 DEFAULT_FACING = "DOWN"
@@ -31,17 +30,49 @@ def scene_name(area, obj):
     return f"{area}-trainer-{obj['grid'][0]}-{obj['grid'][1]}"
 
 
-def where_spec(map_label, parent, obj, name):
-    """The 'where' shot: the hero two cells in front of the trainer, both facing each other, with
-    the trainer flashing the '!' it shows on spotting you."""
+def hero_cell(root_str, map_label, grid, step):
+    """Where the hero stands to face the trainer: never a tile it could not actually stand on.
+
+    First choice is its line of sight, two cells in front for a clean framing, then one nearer,
+    then one farther, so a tree or wall the trainer spots you through is skipped. A trainer boxed
+    against the wall it faces has nothing walkable in front at all (a Game Corner Rocket), so the
+    last resort is the nearest walkable tile in any direction: off a solid tile beats in-frame."""
+    const, tileset = sources.parse_headers(root_str)[map_label]
+    _idx, w_blocks, h_blocks = sources.parse_map_constants(root_str)[0][const]
+    w_cells, h_cells = w_blocks * 2, h_blocks * 2
+
+    def standable(x, y):
+        return 0 <= x < w_cells and 0 <= y < h_cells and \
+            markers.cell_is_walkable(root_str, map_label, tileset, w_blocks, (x, y))
+
+    for dist in (PLAYER_CELLS, PLAYER_CELLS - 1, PLAYER_CELLS + 1):
+        x, y = grid[0] + step[0] * dist, grid[1] + step[1] * dist
+        if standable(x, y):
+            return [x, y]
+
+    for radius in range(1, max(w_cells, h_cells)):
+        ring = [(grid[0] + dx, grid[1] + dy)
+                for dx in range(-radius, radius + 1) for dy in range(-radius, radius + 1)
+                if max(abs(dx), abs(dy)) == radius and standable(grid[0] + dx, grid[1] + dy)]
+        if ring:
+            return list(min(ring, key=lambda c: (abs(c[0] - grid[0]) + abs(c[1] - grid[1]), c)))
+
+    return [grid[0] + step[0] * PLAYER_CELLS, grid[1] + step[1] * PLAYER_CELLS]
+
+
+def where_spec(root_str, map_label, parent, obj, name):
+    """The 'where' shot: the hero on a walkable tile in front of the trainer, both facing each
+    other, with the trainer flashing the '!' it shows on spotting you. The camera sits midway
+    between them so both stay framed however near the hero ends up."""
     facing = facing_of(obj)
-    step_x, step_y = FACINGS[facing]
+    step = FACINGS[facing]
     grid = obj["grid"]
+    player = hero_cell(root_str, map_label, grid, step)
     spec = {
         "type": "screen", "name": name, "map": map_label,
-        "player": [grid[0] + step_x * PLAYER_CELLS, grid[1] + step_y * PLAYER_CELLS],
+        "player": player,
         "player_dir": OPPOSITE[facing],
-        "focus": [grid[0] + step_x * FOCUS_CELLS, grid[1] + step_y * FOCUS_CELLS],
+        "focus": [(grid[0] + player[0]) // 2, (grid[1] + player[1]) // 2],
         "sprites": [{"sprite": obj["sprite_const"], "grid": list(grid),
                      "dir": facing, "emote": "shock"}],
     }
@@ -90,14 +121,14 @@ def build_roster(root_str):
             for index, obj in enumerate(_map_trainers(root_str, label)):
                 key = None if floor == "Gym" else markers.key_letters(index)
                 name = scene_name(area, obj)
-                specs.append(where_spec(label, parent, obj, name))
+                specs.append(where_spec(root_str, label, parent, obj, name))
                 entries.append(entry_for(root_str, area, floor, obj, key, name))
 
         for label, parent in locations.extra_trainer_maps(slug):
             area = locations.image_name(slug, label.lower())
             for obj in _map_trainers(root_str, label):
                 name = scene_name(area, obj)
-                specs.append(where_spec(label, parent, obj, name))
+                specs.append(where_spec(root_str, label, parent, obj, name))
                 entries.append(entry_for(root_str, area, "", obj, None, name))
 
         if entries:

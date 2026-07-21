@@ -168,6 +168,17 @@ def test_dex_numbers(root):
     assert dex["MEW"] == 151
 
 
+def test_collision_tiles_reads_a_stacked_label(root):
+    """Dojo and Gym share one `coll_tiles` line under stacked labels. The first label must resolve
+    to that shared set; before, it read as nothing walkable and the whole Fighting Dojo looked
+    solid, so the where-scene hero had no floor to stand on."""
+    dojo = sources.parse_collision_tiles(root, "DOJO")
+    mart = sources.parse_collision_tiles(root, "MART")
+
+    assert dojo and dojo == sources.parse_collision_tiles(root, "GYM")
+    assert mart and mart == sources.parse_collision_tiles(root, "POKECENTER")
+
+
 def test_place_display_name():
     assert sources.place_display_name("VIRIDIAN_FOREST_NORTH_GATE") == "Viridian Forest North Gate"
     assert sources.place_display_name("SS_ANNE_1F") == "S.S. Anne 1F"

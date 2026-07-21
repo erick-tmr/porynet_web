@@ -45,6 +45,44 @@ def test_gen_screen_scene_dims(root):
     assert image.size == (160, 144)
 
 
+def test_auto_npcs_includes_trainers_when_asked(root):
+    plain = generators.auto_npcs(root, "ViridianForest")
+    withtrainers = generators.auto_npcs(root, "ViridianForest", battlers=True)
+    assert len(withtrainers) > len(plain), "battlers=True adds the map's trainers"
+
+
+def test_a_scene_draws_the_trainer_its_caption_points_at(root):
+    """Regression: the hidden-Potion shot reads 'one square west of the Bug Catcher', so the Bug
+    Catcher (a trainer at [2, 18], the tile east of the Potion at [1, 18]) has to be on screen."""
+    spec = {"type": "dialog", "name": "d", "map": "ViridianForest", "player": [1, 19],
+            "marker": [1, 18], "dialog": {"found_item": "POTION"}}
+    grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
+
+    assert [1, 19] in grids, "the hero is drawn"
+    assert [2, 18] in grids, "the Bug Catcher landmark is drawn"
+
+
+def test_a_hand_composed_scene_keeps_only_its_own_cast(root):
+    """A rival face-off places its rival by hand; the map's other people must not crowd in."""
+    hero, rival = [7, 5], [7, 3]
+    spec = {"type": "screen", "name": "r", "map": "CeruleanCity", "player": hero,
+            "sprites": [{"sprite": "SPRITE_BLUE", "grid": rival, "dir": "DOWN"}]}
+    grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
+
+    assert sorted(grids) == sorted([hero, rival]), "only the hero and the placed rival"
+
+
+def test_a_scene_never_double_draws_an_npc_under_a_placed_sprite(root):
+    """Opting a hand-composed scene into auto NPCs must still not stack a second sprite on a cell
+    the scene already placed one on."""
+    fisher = [11, 14]  # Pallet Town's fisher object
+    spec = {"type": "screen", "name": "p", "map": "PalletTown", "player": [10, 4],
+            "auto_npcs": True, "sprites": [{"sprite": "SPRITE_FISHER", "grid": fisher}]}
+    grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
+
+    assert grids.count(fisher) == 1, "the placed sprite wins its cell; the auto one is dropped"
+
+
 def test_unknown_type_raises(root):
     with pytest.raises(ValueError):
         generators.generate(root, {"type": "bogus", "name": "x"})
