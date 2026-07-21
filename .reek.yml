@@ -46,11 +46,16 @@ detectors:
                                 # Its keywords are the optional subset of the struct's
                                 # own members, not a call signature; collapsing them
                                 # would force all 17 fields at every call site.
+      - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
+                                # optional members (key/glyph/edge/lane/note), each named
+                                # so a caller can omit it, not a call signature.
   BooleanParameter:
     exclude:
       - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder
       - Walkthrough::BestCatch   # `tie:` / `only:` describe the record, they steer nothing;
                                  # same defaults shim as Walkthrough::Location below.
+      - Assets::R2Uploader#call   # `force:` is an intended optional switch on the upload API
+                                  # (re-send everything vs only changed), defaulting off.
   DataClump:
     exclude:
       - Walkthrough   # Data.define cannot declare defaults, so a struct with optional members
@@ -61,6 +66,9 @@ detectors:
   ControlParameter:
     exclude:
       - Walkthrough::Yellow
+      - Assets::R2Uploader#call   # `force` is a caller-facing switch on the upload API (re-send
+                                  # every image vs only the changed ones), an intended option, not
+                                  # a hidden flag threaded through to pick a private branch.
   UncommunicativeMethodName:
     exclude:
       - Walkthrough::Yellow
