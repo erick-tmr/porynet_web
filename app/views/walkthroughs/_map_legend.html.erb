@@ -1,5 +1,6 @@
 <div class="pn-mm-legend">
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.map_legend") %></div>
+  <div class="pn-mm-legend__groups">
   <% Walkthrough::MAP_CATEGORIES.each do |cat| %>
     <% entries = area.markers_in(cat) %>
     <% next if entries.empty? %>
@@ -25,4 +26,5 @@
       <% end %>
     </div>
   <% end %>
+  </div>
 </div>

@@ -66,6 +66,61 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "▲", marker(key: "X", glyph: "▲").glyph_or_key, "a glyph wins over a letter"
   end
 
+  test "a map wider than half again its height takes the landscape template" do
+    assert_predicate location("route-3").area_maps.first, :landscape?, "1120x288 is a horizontal strip"
+    refute_predicate forest_map, :landscape?, "544x768 is taller than wide"
+
+    square = location("silph-co").area_maps.find { |area| area.name == "silph-co-11f" }
+    refute_predicate square, :landscape?, "a square floor stays in the side-by-side split"
+  end
+
+  test "the NPC overlay joins item-givers and easter eggs onto the map they stand on" do
+    fisher = location("pallet-town").area_maps.first.markers.find { |m| m.id == "npc-technology" }
+
+    assert_equal "npc", fisher.cat
+    assert_equal "Technology!", fisher.name
+    assert_equal "A", fisher.key, "a map with no trainers starts its people at A"
+    assert_in_delta 57.5, fisher.x, 0.001, "grid (11,14) centred on the 320px-wide map"
+    assert_in_delta 80.556, fisher.y, 0.001
+    assert_predicate fisher, :key?
+    assert_predicate fisher, :note?
+    refute_predicate fisher, :tickable?, "an NPC is a signpost, not a chore"
+  end
+
+  test "an NPC's letter carries on from the trainers so the two never collide" do
+    map = location("route-24").area_maps.first
+    trainers = map.markers_in("trainer")
+    npc = map.markers.find { |m| m.cat == "npc" }
+
+    assert_equal 7, trainers.size
+    assert_equal %w[A B C D E F G], trainers.map(&:key)
+    assert_equal "H", npc.key, "the Nugget giver takes the letter after the last trainer"
+  end
+
+  test "an NPC pin is left out of the tickable count and carries a note only it and exits have" do
+    map = location("route-24").area_maps.first
+    npc = map.markers.find { |m| m.cat == "npc" }
+
+    assert_not_nil npc, "the Nugget Bridge giver sits on the route"
+    assert_equal map.markers.count(&:tickable?), map.tickable_count
+    refute_predicate map.markers_in("trainer").first, :note?
+    refute_predicate marker, :note?
+  end
+
+  test "an NPC on the right half of the map flips its label to the left" do
+    right = Walkthrough::Yellow.npc_marker({ "grid" => [ 18, 2 ] }, 320, 288, "A")  # x = 92.5%
+    left = Walkthrough::Yellow.npc_marker({ "grid" => [ 2, 2 ] }, 320, 288, "A")     # x = 12.5%
+
+    assert_equal "l", right.align
+    assert_equal "r", left.align
+  end
+
+  test "NPC letters run past Z the way the generator's do" do
+    assert_equal "A", Walkthrough::Yellow.key_letter(0)
+    assert_equal "Z", Walkthrough::Yellow.key_letter(25)
+    assert_equal "AA", Walkthrough::Yellow.key_letter(26)
+  end
+
   test "an area map defaults to no name and no markers" do
     bare = Walkthrough::AreaMap.new(image: "a.png", width: 1, height: 1, floor: "")
 

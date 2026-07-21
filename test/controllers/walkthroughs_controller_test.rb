@@ -97,6 +97,16 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit]", "route-1", 2
   end
 
+  test "an important NPC joins the map as an un-tickable, lettered label" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-01")
+
+    assert_response :success
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=npc] .pn-mm__label-key", "pallet-town", text: "A"
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=npc] [aria-pressed]", "pallet-town", false
+    assert_select ".pn-mm-legend__title", text: "IMPORTANT NPCS"
+    assert_includes response.body, "Technology is incredible"
+  end
+
   test "an interior map fills a step screenshot slot" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 

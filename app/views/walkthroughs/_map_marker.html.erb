@@ -1,5 +1,5 @@
-<div class="pn-mm" data-map-markers-target="marker" data-role="marker"
-     data-marker-id="<%= marker.id %>" data-cat="<%= marker.cat %>"
+<div class="pn-mm<%= " pn-mm--hint-below" if marker.y < 12 %>" data-map-markers-target="marker"
+     data-role="marker" data-marker-id="<%= marker.id %>" data-cat="<%= marker.cat %>"
      data-x="<%= marker.x %>" data-y="<%= marker.y %>" data-align="<%= marker.align %>"
      data-lane="<%= marker.lane %>">
   <button type="button" class="pn-mm__hit" data-action="click->map-markers#hit"

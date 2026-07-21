@@ -2,7 +2,9 @@
   <% loc.area_maps.each do |area| %>
     <div class="pn-mm-block" data-controller="map-markers"
          data-map-markers-game-value="<%= @game.slug %>"
-         data-map-markers-map-value="<%= area.name %>">
+         data-map-markers-map-value="<%= area.name %>"
+         data-map-markers-native-w-value="<%= area.width %>"
+         data-map-orient="<%= area.landscape? ? "landscape" : "portrait" %>">
       <div class="pn-mm-head">
         <div>
           <div class="pn-eyebrow-label">
@@ -43,29 +45,31 @@
         </button>
       </div>
 
+      <%= render "map_howto", place: "top" %>
+
       <div class="pn-mm-split">
         <figure class="pn-mm-frame">
           <figcaption class="pn-mm-titlebar">
             <span class="pn-mm-titlebar__name">◈ <%= loc.name.upcase %></span>
             <span class="pn-mm-titlebar__note"><%= t("walkthrough.ui.map_note") %></span>
           </figcaption>
-          <div class="pn-mm-canvas">
-            <%= r2_image_tag area.image, alt: "", class: "pn-mm-canvas__img", loading: "lazy" %>
-            <div class="pn-mm-layer" data-map-markers-target="layer">
-              <% area.markers.each do |marker| %>
-                <%= render "map_marker", marker: marker %>
-              <% end %>
+          <div class="pn-mm-viewport">
+            <div class="pn-mm-canvas" data-map-markers-target="canvas">
+              <%= r2_image_tag area.image, alt: "", class: "pn-mm-canvas__img", loading: "lazy" %>
+              <div class="pn-mm-layer" data-map-markers-target="layer">
+                <% area.markers.each do |marker| %>
+                  <%= render "map_marker", marker: marker %>
+                <% end %>
+              </div>
             </div>
           </div>
         </figure>
 
         <aside class="pn-mm-side">
-          <div class="pn-mm-howto">
-            <div class="pn-mm-howto__title"><%= t("walkthrough.ui.map_howto") %></div>
-            <p class="pn-mm-howto__body"><%= t("walkthrough.ui.map_howto_body") %></p>
-          </div>
+          <%= render "map_howto", place: "side" %>
           <%= render "map_legend", area: area %>
         </aside>
       </div>
+    </div>
   <% end %>
 </section>

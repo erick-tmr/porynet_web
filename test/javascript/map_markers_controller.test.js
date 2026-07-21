@@ -7,12 +7,13 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 let application;
 
-// One of each shape: a lettered trainer, an un-tickable exit, and a hidden item that also has a
-// legend row, so the row and the pin can be checked against the same id.
+// One of each shape: a lettered trainer, an un-tickable NPC, an un-tickable exit, and a hidden
+// item that also has a legend row, so the row and the pin can be checked against the same id.
 const FIXTURE = `
   <div id="block" data-controller="map-markers"
        data-map-markers-game-value="yellow"
        data-map-markers-map-value="viridian-forest"
+       data-map-markers-native-w-value="544"
        data-map-markers-hint-ms-value="20">
     <button id="pill-all" class="pn-mm-pill" data-cat="all"
             data-map-markers-target="filter" data-action="click->map-markers#filter"></button>
@@ -22,18 +23,24 @@ const FIXTURE = `
             data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels"></button>
     <span id="counter" data-map-markers-target="counterDone">0</span>
 
-    <div id="layer" data-map-markers-target="layer">
-      <div id="m-trainer" class="pn-mm" data-map-markers-target="marker" data-role="marker"
-           data-marker-id="trainer-30-33" data-cat="trainer" data-x="89.7" data-y="69.8" data-lane="0">
-        <button id="hit-trainer" data-action="click->map-markers#hit" aria-pressed="false"></button>
-      </div>
-      <div id="m-hidden" class="pn-mm" data-map-markers-target="marker" data-role="marker"
-           data-marker-id="hidden-16-42" data-cat="hidden" data-x="48.5" data-y="88.5" data-lane="1">
-        <button id="hit-hidden" data-action="click->map-markers#hit" aria-pressed="false"></button>
-      </div>
-      <div id="m-exit" class="pn-mm" data-map-markers-target="marker" data-role="marker"
-           data-marker-id="exit-15-47" data-cat="exit" data-x="50" data-y="99" data-lane="0">
-        <button id="hit-exit" data-action="click->map-markers#hit"></button>
+    <div id="canvas" data-map-markers-target="canvas">
+      <div id="layer" data-map-markers-target="layer">
+        <div id="m-trainer" class="pn-mm" data-map-markers-target="marker" data-role="marker"
+             data-marker-id="trainer-30-33" data-cat="trainer" data-x="89.7" data-y="69.8" data-lane="0">
+          <button id="hit-trainer" data-action="click->map-markers#hit" aria-pressed="false"></button>
+        </div>
+        <div id="m-npc" class="pn-mm" data-map-markers-target="marker" data-role="marker"
+             data-marker-id="npc-technology" data-cat="npc" data-x="57.5" data-y="80.5" data-lane="0">
+          <button id="hit-npc" data-action="click->map-markers#hit"></button>
+        </div>
+        <div id="m-hidden" class="pn-mm" data-map-markers-target="marker" data-role="marker"
+             data-marker-id="hidden-16-42" data-cat="hidden" data-x="48.5" data-y="88.5" data-lane="1">
+          <button id="hit-hidden" data-action="click->map-markers#hit" aria-pressed="false"></button>
+        </div>
+        <div id="m-exit" class="pn-mm" data-map-markers-target="marker" data-role="marker"
+             data-marker-id="exit-15-47" data-cat="exit" data-x="50" data-y="99" data-lane="0">
+          <button id="hit-exit" data-action="click->map-markers#hit"></button>
+        </div>
       </div>
     </div>
 
@@ -76,6 +83,12 @@ describe("placement", () => {
     await mount();
 
     expect(has("layer", "is-ready")).toBe(true);
+  });
+
+  it("carries the map's native pixel width to the canvas", async () => {
+    await mount();
+
+    expect(el("canvas").style.getPropertyValue("--mm-native-w")).toBe("544px");
   });
 
   it("coexists with a map that has no marker layer", async () => {
@@ -128,6 +141,18 @@ describe("ticking", () => {
     await flush();
 
     expect(has("m-exit", "is-done")).toBe(false);
+    expect(el("counter").textContent).toBe("0");
+    expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
+  });
+
+  it("leaves an NPC alone too: it raises a hint but never ticks", async () => {
+    await mount();
+
+    el("hit-npc").click();
+    await flush();
+
+    expect(has("m-npc", "is-selected")).toBe(true);
+    expect(has("m-npc", "is-done")).toBe(false);
     expect(el("counter").textContent).toBe("0");
     expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
   });

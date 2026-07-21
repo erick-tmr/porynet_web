@@ -1,17 +1,24 @@
 import { Controller } from "@hotwired/stimulus"
 import { isSet, load, save, subscribe, toggle } from "lib/progress_store"
 
-// The clickable marker layer over an area map: trainers, item balls, hidden items and exits.
+// The clickable marker layer over an area map: trainers, important NPCs, item balls, hidden
+// items and exits.
 //
 // Two rules shape this controller. Positions arrive as data attributes and are written through
 // the CSSOM, because the page forbids inline styles and a percentage per marker cannot be a
 // static class. And no user-visible string lives here: every label, status and toggle caption is
 // rendered server-side in both locales, and this only ever moves classes around.
+
+// Signposts, not chores: NPCs and exits raise a hint but never tick off, so they are skipped
+// wherever progress is counted or stored. Kept in sync with Walkthrough::NON_TICKABLE.
+const NON_TICKABLE = new Set(["exit", "npc"])
+
 export default class extends Controller {
-  static targets = ["layer", "marker", "legendRow", "filter", "labelToggle", "counterDone"]
+  static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle", "counterDone"]
   static values = {
     game: { type: String, default: "yellow" },
     map: String,
+    nativeW: Number,
     filter: { type: String, default: "all" },
     labels: { type: Boolean, default: true },
     hint: { type: String, default: "" },
@@ -24,6 +31,11 @@ export default class extends Controller {
       marker.style.setProperty("--my", `${marker.dataset.y}%`)
       marker.style.setProperty("--lane", marker.dataset.lane)
     })
+    // A landscape map holds its own native pixel width so its CSS never scales the pixel art
+    // below 1x; the frame scrolls instead. Portrait maps ignore the property.
+    if (this.hasCanvasTarget) {
+      this.canvasTarget.style.setProperty("--mm-native-w", `${this.nativeWValue}px`)
+    }
     this.state = load()
     this.unsubscribe = subscribe((state) => {
       this.state = state
@@ -38,11 +50,11 @@ export default class extends Controller {
     this.unsubscribe()
   }
 
-  // Every pin and every legend row lands here. Exits are signposts rather than chores, so they
-  // raise their hint without ticking anything.
+  // Every pin and every legend row lands here. NPCs and exits are signposts rather than chores,
+  // so they raise their hint without ticking anything.
   hit(event) {
     const { markerId, cat } = event.currentTarget.closest("[data-marker-id]").dataset
-    if (cat !== "exit") {
+    if (!NON_TICKABLE.has(cat)) {
       this.state = toggle(this.state, "collected", this.gameValue, this.#key(markerId))
       save(this.state)
       this.#renderProgress()
@@ -96,7 +108,7 @@ export default class extends Controller {
   #renderProgress() {
     let done = 0
     this.#eachAnchored((element, id, cat) => {
-      if (cat === "exit") return
+      if (NON_TICKABLE.has(cat)) return
       const ticked = isSet(this.state, "collected", this.gameValue, this.#key(id))
       element.classList.toggle("is-done", ticked)
       const button = element.querySelector("[aria-pressed]")

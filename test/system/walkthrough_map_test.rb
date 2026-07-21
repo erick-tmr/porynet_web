@@ -120,4 +120,33 @@ class WalkthroughMapTest < ApplicationSystemTestCase
       assert_selector ".pn-mm[data-cat='exit']", count: 2
     end
   end
+
+  test "a wide route takes the landscape template and holds its map at native width" do
+    visit "/walkthroughs/yellow/leg-03"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 2
+
+    assert_selector ".pn-mm-block[data-map-markers-map-value='route-3'][data-map-orient='landscape']"
+    assert_selector ".pn-mm-block[data-map-markers-map-value='pewter-city'][data-map-orient='portrait']"
+
+    within ".pn-mm-block[data-map-markers-map-value='route-3']" do
+      assert_selector ".pn-mm-howto--top"                    # the how-to moves above the map
+      assert_selector ".pn-mm-howto--side", visible: :hidden # its side copy is hidden
+      assert_equal "1120px",
+        find(".pn-mm-canvas").evaluate_script("this.style.getPropertyValue('--mm-native-w')")
+    end
+  end
+
+  test "an important NPC raises a hint but never becomes a chore" do
+    visit "/walkthroughs/yellow/leg-01"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 2
+    npc = ".pn-mm[data-marker-id='npc-technology']"
+
+    within ".pn-mm-block[data-map-markers-map-value='pallet-town']" do
+      assert_selector ".pn-mm-legend__chip--npc", text: "A"
+      find("#{npc} .pn-mm__hit").click
+
+      assert_selector "#{npc}.is-selected"
+      assert_no_selector "#{npc}.is-done"
+    end
+  end
 end
