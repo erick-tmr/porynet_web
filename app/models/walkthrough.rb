@@ -1,6 +1,9 @@
 module Walkthrough
   # Marker categories in the order the map legend lists them.
-  MAP_CATEGORIES = %w[trainer item hidden exit].freeze
+  MAP_CATEGORIES = %w[trainer npc item hidden exit].freeze
+
+  # Categories that are signposts, not chores: they raise a hint but never tick off.
+  NON_TICKABLE = %w[exit npc].freeze
 
   DENSE_TRAINERS = 6
 
@@ -27,11 +30,12 @@ module Walkthrough
   end
   # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
   # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
-  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref) do
-    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, **rest) = super
+  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref, :note) do
+    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, **rest) = super
     def key? = !key.nil?
-    def tickable? = cat != "exit"
+    def tickable? = !NON_TICKABLE.include?(cat)
     def glyph_or_key = glyph || key
+    def note? = !note.nil?
   end
 
   AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers) do
@@ -41,6 +45,9 @@ module Walkthrough
     def marker_counts = markers.group_by(&:cat).transform_values(&:size)
     def tickable_count = markers.count(&:tickable?)
     def markers_in(cat) = markers.select { |marker| marker.cat == cat }
+    # A map half-again wider than it is tall reads as a horizontal strip; it gets the full-width
+    # landscape template (map on top, legend spread beneath) instead of the side-by-side split.
+    def landscape? = width * 2 >= height * 3
   end
 
   StepLink = Data.define(:leg, :anchor)

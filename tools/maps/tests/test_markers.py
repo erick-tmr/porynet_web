@@ -219,3 +219,33 @@ def test_a_dry_edge_uses_the_walkable_span(root):
              if m["cat"] == "exit"]
 
     assert all(0 < m["grid"][0] < 19 for m in exits)
+
+
+def test_a_connection_exit_lands_on_the_strip_it_shares_not_a_far_corner(root):
+    """Regression: Viridian City's west edge opens in more than one place, but Route 22 only
+    connects along the strip the header offsets it to (`connection west, Route22, ROUTE_22, 4`,
+    so blocks 4..12, cells 8..25). The exit used to land at the far bottom corner (cell 30);
+    it belongs on the shared strip, near its middle."""
+    viridian = {m["id"]: m for m in
+                markers.build_markers(root, "ViridianCity", "VIRIDIAN_CITY", 640, 576)}
+    west = viridian["exit-west"]
+
+    assert (west["name"], west["edge"]) == ("Route 22", "west")
+    assert 8 <= west["grid"][1] <= 25, "the Route 22 exit sits on the strip Route 22 shares"
+
+
+def test_cell_is_walkable_tells_grass_from_trees(root):
+    """Viridian Forest is 17 blocks wide: the Potion tile is grass you can stand on, the tree
+    column at the very edge is not."""
+    assert markers.cell_is_walkable(root, "ViridianForest", "FOREST", 17, (1, 18))
+    assert not markers.cell_is_walkable(root, "ViridianForest", "FOREST", 17, (0, 18))
+
+
+def test_connection_span_narrows_an_edge_to_the_shared_strip():
+    """A west edge, a neighbour 9 blocks tall offset 2 blocks: the strip is cells 4..21, the
+    neighbour's own height of cells (18) starting two blocks (4 cells) down."""
+    edge = markers.edge_cells("west", 20, 30)
+    strip = markers.connection_span(edge, "west", 2, (0, 5, 9), 20, 30)
+
+    assert strip[0] == (0, 4) and strip[-1] == (0, 21)
+    assert markers.connection_span(edge, "west", 2, None, 20, 30) == edge  # unknown dims: whole edge

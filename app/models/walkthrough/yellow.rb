@@ -250,11 +250,26 @@ module Walkthrough
       @manifest ||= JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).freeze
     end
 
+    # Item-givers and easter-egg NPCs are curated, not derivable from the map data the way
+    # trainers and item balls are, so they live in a hand-authored overlay keyed by map name
+    # and join onto the generated markers at load. Positions are the game's own object
+    # coordinates, turned into percentages here the same way the generator does.
+    def self.npc_overlay
+      @npc_overlay ||= JSON.parse(File.read(File.join(__dir__, "yellow_npcs.json"))).freeze
+    end
+
     def self.map_data
       manifest.fetch("locations").transform_values do |maps|
         maps.map do |m|
+          base = m.fetch("markers", []).map { |k| map_marker(k) }
+          # NPC letters carry on from the map's trainers so a person is one A, B, C... sequence and
+          # no NPC ever wears the same letter as a trainer standing on the same map.
+          trainers = base.count { |marker| marker.cat == "trainer" }
+          npcs = npc_overlay.fetch(m["name"], []).each_with_index.map do |n, i|
+            npc_marker(n, m["width"], m["height"], key_letter(trainers + i))
+          end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-            name: m["name"], markers: m.fetch("markers", []).map { |k| map_marker(k) })
+            name: m["name"], markers: base + npcs)
         end
       end
     end
@@ -263,6 +278,29 @@ module Walkthrough
       MapMarker.new(id: data["id"], cat: data["cat"], key: data["key"], name: data["name"],
         x: data["x"], y: data["y"], align: data["align"], lane: data["lane"],
         glyph: data["glyph"], edge: data["edge"], ref: data["ref"])
+    end
+
+    CELL_PX = 16
+
+    def self.npc_marker(data, width, height, key)
+      gx, gy = data["grid"]
+      x = ((gx * CELL_PX + CELL_PX / 2).to_f / width * 100).round(3)
+      y = ((gy * CELL_PX + CELL_PX / 2).to_f / height * 100).round(3)
+      MapMarker.new(id: data["id"], cat: "npc", key: key, name: data["name"],
+        x: x, y: y, align: data.fetch("align") { x > 62 ? "l" : "r" }, lane: data.fetch("lane", 0),
+        note: data["note"], ref: data["ref"])
+    end
+
+    # 0 -> A, 25 -> Z, 26 -> AA, mirroring the generator's key_letters so map and overlay agree.
+    def self.key_letter(index)
+      out = ("A".ord + index % 26).chr
+      index /= 26
+      while index.positive?
+        index -= 1
+        out = ("A".ord + index % 26).chr + out
+        index /= 26
+      end
+      out
     end
 
     def self.step_shots = manifest.fetch("step_shots", {})

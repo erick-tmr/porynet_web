@@ -50,6 +50,8 @@
 # itself stays via .keep so Propshaft's image load path survives a fresh clone.
 /app/assets/images/*.png
 /app/assets/images/**/*.png
+# fingerprint cache for the incremental R2 upload (deploy/upload-images.sh)
+/app/assets/images/.r2-upload-cache.json
 
 # generated map QA previews (renders live in R2)
 /tools/maps/qa/

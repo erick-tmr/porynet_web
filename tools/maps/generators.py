@@ -70,6 +70,25 @@ def gen_map_scene(root, spec):
     return image, spec["name"], {}
 
 
+def _screen_sprites(root, spec):
+    """The cast a screen scene draws: the hero, any hand-placed sprites, and (unless the scene
+    composes its own cast) the map's real people and trainers as landmarks.
+
+    Drawing the NPCs is what lets a caption like "one square west of the Bug Catcher" point at
+    something: without them the reference tile has no anchor on screen. A hand-composed scene (one
+    that places its own `sprites`, e.g. a rival face-off) keeps exactly that cast unless it sets
+    `auto_npcs`; every other scene shows its NPCs by default. An NPC on the hero's or a placed
+    sprite's cell is dropped so nothing double-draws."""
+    sprites = [_resolve_sprite(root, {"sprite": HERO_SPRITE, "grid": spec["player"],
+                                      "dir": spec.get("player_dir", "DOWN")})]
+    sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
+    if spec.get("auto_npcs", not spec.get("sprites")):
+        taken = {tuple(s["grid"]) for s in sprites}
+        sprites += [npc for npc in auto_npcs(root, spec["map"], battlers=True)
+                    if tuple(npc["grid"]) not in taken]
+    return sprites
+
+
 def gen_screen_scene(root, spec):
     """A 160x144 GB screen centered on the hero, with optional directional arrows and a
     bottom dialog box.
@@ -78,16 +97,11 @@ def gen_screen_scene(root, spec):
     the hero faces `player_dir` (default DOWN). `sprites` places extra NPCs manually (e.g. the
     rival you meet), auto NPCs are shown at their real cells, and `focus` overrides the camera
     center (defaults to the hero)."""
-    player = spec["player"]
-    sprites = [_resolve_sprite(root, {"sprite": HERO_SPRITE, "grid": player,
-                                      "dir": spec.get("player_dir", "DOWN")})]
-    sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
-    if spec.get("auto_npcs"):
-        sprites += auto_npcs(root, spec["map"])
+    sprites = _screen_sprites(root, spec)
     emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
     markers = [{"grid": spec["marker"], "fill": spec.get("marker_color")}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
-    image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", player),
+    image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", spec["player"]),
                                         spec.get("parent"), sprites, spec.get("arrows", []), lines,
                                         emotes=emotes, markers=markers)
     return image, spec["name"], {}

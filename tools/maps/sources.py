@@ -342,9 +342,13 @@ def grass_tile(root_str, tileset_const):
 
 @lru_cache(maxsize=None)
 def parse_collision_tiles(root_str, tileset_const):
-    """The tile ids you can walk on in this tileset, from data/tilesets/collision_tile_ids.asm."""
+    """The tile ids you can walk on in this tileset, from data/tilesets/collision_tile_ids.asm.
+
+    Tilesets that share a walkable set are stacked labels over one `coll_tiles` line (Dojo/Gym,
+    Mart/Pokecenter), so the match skips any intervening `*_Coll::` labels; without that the first
+    label of a pair reads as nothing walkable and its whole map looks solid."""
     label = _snake_to_camel(tileset_const)
-    match = re.search(rf"^{label}_Coll::\s*\n\s*coll_tiles ([^\n]+)",
+    match = re.search(rf"^{label}_Coll::\s*\n(?:\s*\w+_Coll::\s*\n)*\s*coll_tiles ([^\n]+)",
                       _read(root_str, "data/tilesets/collision_tile_ids.asm"), re.M)
     if not match:
         return frozenset()
@@ -362,16 +366,18 @@ def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y):
 
 @lru_cache(maxsize=None)
 def parse_connections(root_str, map_label):
-    """Return ((direction, dest_map_const), ...) for the maps this one scrolls into.
+    """Return ((direction, dest_map_const, offset), ...) for the maps this one scrolls into.
 
     Doorways are warp_events, but a route flows into its neighbour by walking off the edge, and
     that link lives in the map header instead. Reading only warps leaves Pallet Town with three
-    house doors and no way out of town."""
+    house doors and no way out of town. The offset is the header's fourth argument: how many
+    blocks along the shared edge the neighbour is shifted, which is what fixes an exit to the
+    stretch of edge the two maps really share."""
     path = _root(root_str) / f"data/maps/headers/{map_label}.asm"
     if not path.exists():
         return ()
-    return tuple((m.group(1), m.group(3)) for line in path.read_text().splitlines()
-                 if (m := re.match(r"\s*connection\s+(\w+)\s*,\s*(\w+)\s*,\s*(\w+)", line)))
+    return tuple((m.group(1), m.group(3), int(m.group(4))) for line in path.read_text().splitlines()
+                 if (m := re.match(r"\s*connection\s+(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(-?\d+)", line)))
 
 
 @lru_cache(maxsize=None)

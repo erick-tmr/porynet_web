@@ -65,6 +65,7 @@ module ApplicationHelper
 
   def marker_detail(marker)
     return t("walkthrough.ui.map_exit_#{marker.edge}") if marker.cat == "exit"
+    return t("walkthrough.ui.#{marker.note}") if marker.note?
 
     t("walkthrough.ui.map_cat_#{marker.cat}")
   end

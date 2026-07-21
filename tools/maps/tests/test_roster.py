@@ -129,6 +129,37 @@ def test_every_player_cell_lands_inside_its_map(root):
         assert 0 <= y < blocks_h * 2, spec["name"]
 
 
+def test_no_where_scene_stands_the_hero_on_a_solid_tile(root):
+    """The invariant the Viridian Forest Bug Catcher shot broke: a where-scene never draws the
+    hero inside a tree or a wall. Every one stands on a tile it could occupy, land or water."""
+    _, specs = built(root)
+    headers = sources.parse_headers(root)
+    dims, _n, _f = sources.parse_map_constants(root)
+
+    for spec in specs:
+        const, tileset = headers[spec["map"]]
+        _i, blocks_w, _h = dims[const]
+        assert markers.cell_is_walkable(root, spec["map"], tileset, blocks_w, spec["player"]), \
+            f"{spec['name']} stands the hero on a solid tile at {spec['player']}"
+
+
+def test_the_hero_steps_off_a_tree_into_the_trainers_line(root):
+    """Regression: the Bug Catcher by the north-exit Potion faces a tree, so two cells in front is
+    unstandable; the hero falls back one cell to the grass it can actually reach, not [0, 18]."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "viridian-forest-trainer-2-18")
+
+    assert spec["player"] == [1, 18]
+
+
+def test_a_boxed_in_trainer_gets_a_hero_on_the_nearest_floor(root):
+    """The Game Corner Rocket faces the wall behind its poster; nothing in its sightline is
+    walkable, so the hero stands on the nearest floor tile beside it, not inside the wall."""
+    hero = roster.hero_cell(root, "GameCorner", [9, 5], roster.FACINGS["UP"])
+
+    assert hero == [8, 5]
+
+
 def test_every_entry_is_complete(root):
     entries, _ = built(root)
 

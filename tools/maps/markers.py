@@ -151,6 +151,17 @@ def edge_cells(direction, width_cells, height_cells):
     return [(width_cells - 1, y) for y in range(height_cells)]
 
 
+def cell_is_walkable(root_str, map_label, tileset, width_blocks, cell):
+    """True when a cell is one the player can occupy: land you can stand on (grass, path, floor),
+    or open water you can Surf across, which is where a swimmer trainer is fought. A tree, wall,
+    fence or ledge is solid. Callers pass in-bounds cells; `cell_tiles` indexes the blueprint
+    directly and does not bound-check."""
+    walkable = sources.parse_collision_tiles(root_str, tileset)
+    tileset_file = sources.tileset_basename(root_str, tileset)
+    tiles = sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell)
+    return any(tile in walkable for tile in tiles) or all(tile in sources.WATER_TILES for tile in tiles)
+
+
 def crossing_cell(root_str, map_label, tileset, width_blocks, cells):
     """Where along this edge you actually leave the map.
 
@@ -167,15 +178,38 @@ def crossing_cell(root_str, map_label, tileset, width_blocks, cells):
 
     water = [c for c in cells if all(t in sources.WATER_TILES for t in tiles(c))]
     span = water or [c for c in cells if any(t in walkable for t in tiles(c))] or cells
-    return span[(len(span) - 1) // 2 + (1 if len(span) % 2 == 0 else 0)]
+    # The neighbour aligns its centre with the centre of this strip, so anchor to the strip's
+    # midpoint and take the crossable cell nearest it. Both sides then settle on the same seam,
+    # where taking the middle of each side's own open span drifts them apart on a broad edge.
+    mid = cells[len(cells) // 2]
+    return min(span, key=lambda cell: (abs(cell[0] - mid[0]) + abs(cell[1] - mid[1]), cell))
+
+
+def connection_span(cells, direction, offset, dest_dims, width_cells, height_cells):
+    """Narrow an edge to the stretch the neighbouring map actually overlaps.
+
+    A connection spans a strip of the edge, not the whole thing: the header offsets the neighbour
+    by `offset` blocks (two cells each) along the shared edge, and it reaches for its own width or
+    height of blocks from there. The crossing has to fall inside that overlap. Without this a wide
+    city edge picks the middle of every open tile along it, which can land the marker on a beach or
+    a field nowhere near the road that actually leaves the map (Viridian's way to Route 22)."""
+    if not dest_dims:
+        return cells
+    _idx, dest_w, dest_h = dest_dims
+    vertical = direction in ("west", "east")
+    perp, limit = (dest_h, height_cells) if vertical else (dest_w, width_cells)
+    start, end = max(0, offset) * 2, min(limit, (offset + perp) * 2)
+    return cells[start:end] or cells
 
 
 def connection_exits(root_str, map_label, tileset, width_blocks, width_cells, height_cells,
                      width_px, height_px):
     """One marker per map this one scrolls into, on the part of the edge you can cross."""
     out = []
-    for direction, dest in sources.parse_connections(root_str, map_label):
+    dims, _num_city, _first_indoor = sources.parse_map_constants(root_str)
+    for direction, dest, offset in sources.parse_connections(root_str, map_label):
         cells = edge_cells(direction, width_cells, height_cells)
+        cells = connection_span(cells, direction, offset, dims.get(dest), width_cells, height_cells)
         cell = crossing_cell(root_str, map_label, tileset, width_blocks, cells)
         entry = _marker("exit", cell, cell, width_px, height_px,
                         name=sources.place_display_name(dest), ref=dest)

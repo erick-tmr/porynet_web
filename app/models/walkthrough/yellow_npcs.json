@@ -1,0 +1,18 @@
+{
+  "pallet-town": [
+    { "id": "npc-technology", "name": "Technology!", "grid": [11, 14],
+      "note": "map_npc_pallet_technology", "ref": "SPRITE_FISHER" }
+  ],
+  "route-1": [
+    { "id": "npc-potion-sample", "name": "Free Potion", "grid": [5, 24],
+      "note": "map_npc_route1_potion", "ref": "POTION" }
+  ],
+  "route-24": [
+    { "id": "npc-nugget", "name": "Nugget", "grid": [6, 5],
+      "note": "map_npc_route24_nugget", "ref": "NUGGET" }
+  ],
+  "silph-co-11f": [
+    { "id": "npc-master-ball", "name": "Master Ball", "grid": [7, 5],
+      "note": "map_npc_silph_master_ball", "ref": "MASTER_BALL" }
+  ]
+}

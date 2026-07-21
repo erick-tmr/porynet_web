@@ -4,6 +4,7 @@
 
 .pn-mm-block {
   --mm-trainer: var(--accent2);
+  --mm-npc: var(--amber);
   --mm-item: var(--accent);
   --mm-hidden: var(--neon-magenta);
   --mm-exit: var(--ink);
@@ -100,6 +101,7 @@
 
 .pn-mm-pill__swatch--all { background: var(--ink); }
 .pn-mm-pill__swatch--trainer { background: var(--mm-trainer); }
+.pn-mm-pill__swatch--npc { background: var(--mm-npc); }
 .pn-mm-pill__swatch--exit { background: var(--mm-exit); }
 
 .pn-mm-pill__swatch--item,
@@ -159,6 +161,12 @@
   font-family: "VT323", monospace;
   font-size: 16px;
   color: #8fa6c8;
+}
+
+/* Wraps the canvas so a landscape map can scroll sideways without the border box moving. In
+   portrait it does nothing. */
+.pn-mm-viewport {
+  min-width: 0;
 }
 
 .pn-mm-canvas {
@@ -230,11 +238,12 @@
   color: var(--ink);
 }
 
-/* A trainer and an item ball are drawn into the map itself, so a pin on top would just cover
-   the sprite the player is looking for. They get a bare hit area over that sprite and rely on
-   their label; only their ticked check draws anything. */
+/* A trainer, an item ball and an important NPC are all drawn into the map itself, so a pin on top
+   would just cover the sprite the player is looking for. They get a bare hit area over that sprite
+   and rely on their label; only a trainer's or item's ticked check draws anything. */
 .pn-mm__pin--trainer,
-.pn-mm__pin--item {
+.pn-mm__pin--item,
+.pn-mm__pin--npc {
   width: 22px;
   height: 22px;
   background: none;
@@ -243,7 +252,8 @@
 }
 
 .pn-mm__pin--trainer .pn-mm__glyph,
-.pn-mm__pin--item .pn-mm__glyph {
+.pn-mm__pin--item .pn-mm__glyph,
+.pn-mm__pin--npc .pn-mm__glyph {
   display: none;
 }
 
@@ -338,6 +348,7 @@
 .pn-mm.is-selected .pn-mm__label { border-color: var(--amber); }
 
 .pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
+.pn-mm[data-cat="npc"] .pn-mm__label-key { color: var(--mm-npc); }
 
 /* --- hint popover -------------------------------------------------------- */
 
@@ -359,7 +370,13 @@
 
 .pn-mm.is-selected .pn-mm__hint { display: block; }
 
-/* A marker near the top edge has no room above it, so its hint drops below instead. */
+/* A marker near the top edge has no room above it, so its hint drops below instead. This also
+   keeps top-row hints inside a landscape map's scroll frame, which clips what leaves it. */
+.pn-mm--hint-below .pn-mm__hint {
+  top: 26px;
+  bottom: auto;
+}
+
 .pn-mm__hint-name {
   font-family: "Pixelify Sans", sans-serif;
   font-weight: 700;
@@ -405,6 +422,10 @@
   box-shadow: 0 0 18px #2af0ff44, 5px 5px 0 var(--ink);
   padding: 16px 18px;
 }
+
+/* The how-to sits in the side panel in portrait and moves above the map in landscape; each
+   template shows one copy and hides the other. */
+.pn-mm-howto--top { display: none; }
 
 .pn-mm-howto__title {
   font-family: "Press Start 2P", monospace;
@@ -452,6 +473,7 @@
 }
 
 .pn-mm-legend__swatch--trainer { background: var(--mm-trainer); }
+.pn-mm-legend__swatch--npc { background: var(--mm-npc); }
 .pn-mm-legend__swatch--exit { background: var(--mm-exit); }
 .pn-mm-legend__swatch--item { background: var(--mm-item); border-radius: 50%; }
 .pn-mm-legend__swatch--hidden { background: var(--mm-hidden); border-radius: 50%; }
@@ -486,6 +508,7 @@
 }
 
 .pn-mm-legend__chip--trainer { background: var(--mm-trainer); }
+.pn-mm-legend__chip--npc { background: var(--mm-npc); color: var(--ink); }
 
 .pn-mm-legend__dot {
   flex: none;
@@ -514,6 +537,52 @@
 }
 
 .pn-mm-legend__row.is-done .pn-mm-legend__done { display: inline; }
+
+/* --- landscape template --------------------------------------------------- */
+/* A wide, short map (a route) reads badly squeezed into the side-by-side column, so it takes the
+   full page width: the how-to moves above the map and the legend spreads out beneath it. The map
+   keeps its native pixel width (never scaled below 1x) and the frame scrolls sideways when the
+   map is wider than the page; the vertical padding gives a tapped marker's hint room to sit
+   inside the scroll frame, which clips whatever leaves it. */
+
+[data-map-orient="landscape"] .pn-mm-split { grid-template-columns: 1fr; }
+[data-map-orient="landscape"] .pn-mm-howto--side { display: none; }
+
+[data-map-orient="landscape"] .pn-mm-howto--top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+[data-map-orient="landscape"] .pn-mm-howto--top .pn-mm-howto__title { white-space: nowrap; }
+[data-map-orient="landscape"] .pn-mm-howto--top .pn-mm-howto__body { flex: 1; min-width: 220px; margin: 0; }
+
+[data-map-orient="landscape"] .pn-mm-viewport {
+  overflow-x: auto;
+  padding-block: 40px;
+}
+
+[data-map-orient="landscape"] .pn-mm-canvas {
+  width: max(100%, var(--mm-native-w, 100%));
+}
+
+/* The legend groups lay out as fixed-size columns: ~200px each, as many as fit. On the full-width
+   page that lands the design's five (trainer, NPC, item, hidden, exit) side by side, and it reflows
+   to fewer columns as the screen narrows, down to a single stacked column on a phone. Columns keep
+   their size rather than stretching, so a map with only one group (an exits-only connector) shows a
+   tidy 200px column instead of one row stretched across the whole card. */
+[data-map-orient="landscape"] .pn-mm-legend__groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 22px;
+  margin-top: 14px;
+}
+
+[data-map-orient="landscape"] .pn-mm-legend__group {
+  margin-top: 0;
+}
 
 @media (max-width: 900px) {
   .pn-mm-split { grid-template-columns: 1fr; }
