@@ -22,7 +22,8 @@ The default hero name is **PORYNET** (all caps, like a standard Pokémon name); 
 
 ```sh
 git clone --depth 1 https://github.com/pret/pokeyellow ~/Code/pokeyellow
-pip install -r tools/maps/requirements.txt   # Pillow (the only runtime dependency)
+pip install -r tools/maps/requirements.txt       # Pillow (the only runtime dependency)
+pip install -r tools/maps/requirements-dev.txt   # + pytest, pytest-cov, ruff (to run the tests)
 ```
 
 ## Run
@@ -161,13 +162,62 @@ size in **blocks** (x2 for grid cells).
 
 ## Tests
 
-`pytest` is a dev-only tool (kept out of `requirements.txt`, which is just the generator's
-runtime dep), so install it before running the tests:
+The test tools are dev-only (kept out of `requirements.txt`, which is just the generator's
+runtime dep), so install them before running the tests:
 
 ```sh
-pip install pytest
-python -m pytest tools/maps        # needs the pokeyellow checkout (POKEYELLOW=<path> to override)
+pip install -r tools/maps/requirements-dev.txt   # pytest, pytest-cov, ruff
+cd tools/maps && python -m pytest -q             # needs the pokeyellow checkout (POKEYELLOW=<path>)
+ruff check tools/maps                            # lint config: tools/maps/ruff.toml
 ```
 
-The suite skips (does not fail) if the disassembly isn't present, so it's safe where pokeyellow
-isn't cloned.
+Run pytest from `tools/maps` so `.coveragerc` and `pytest.ini` resolve; `--cov` then reports the
+generator modules only (tests and the `parse_hidden.py` debug CLI are omitted).
+
+The suite **skips** (does not fail) if the disassembly isn't present, so it's safe where
+pokeyellow isn't cloned. That is also why CI cannot just run it blind:
+
+- the `Python tool (map generator)` job clones the commit pinned in `.pokeyellow-ref`, then fails
+  the run if pytest reported *any* skip, since a missing checkout would otherwise leave the job
+  green while testing nothing;
+- bumping pokeyellow means editing `.pokeyellow-ref`, rebuilding with `build.py --force`, and
+  reviewing the manifest diff, in one deliberate commit.
+
+## Manifest diff
+
+`manifest_diff.py` compares two `yellow_maps.json` files and reports, per map, the markers added,
+removed, or moved:
+
+```sh
+python tools/maps/manifest_diff.py <(git show origin/main:app/models/walkthrough/yellow_maps.json) \
+                                   app/models/walkthrough/yellow_maps.json
+```
+
+The golden test proves the manifest still matches the game data; this says *which* maps a change
+moved, so a fix for one map that drags another along is visible. `bin/pre-push-check` prints it
+locally and CI posts it to the sticky `ci-quality` PR comment.
+
+### Declared drift
+
+The report alone is easy to skim past, and the golden test cannot help: it goes green as soon as
+you regenerate, no matter how many maps moved. Since a moved marker is usually the point of the
+change, "the manifest changed" cannot be the failure condition either. So intent comes from you,
+as a commit trailer:
+
+```
+fix(maps): put Route 22's west exit inside its shared strip
+
+Manifest-drift: route-22
+```
+
+CI collects those trailers from every commit on the branch, computes the real moved set, and
+fails when the two disagree:
+
+- **moved but not declared**: collateral damage you did not notice. Fix the change, or add the
+  maps to the trailer if they were meant to move.
+- **declared but unmoved**: your change did not do what you thought. Drop them.
+
+`Manifest-drift: all` is the escape hatch for a wholesale regeneration (a `.pokeyellow-ref` bump).
+Names are comma or space separated and case-insensitive; trailers on separate commits are unioned.
+Run the same check by hand with `--expect route-22,viridian-city` or
+`--expect-commits <file>` (`-` reads stdin).

@@ -59,3 +59,8 @@
 # python bytecode
 __pycache__/
 *.pyc
+
+# pytest / coverage output from the map generator suite (tools/maps)
+.pytest_cache/
+.coverage
+htmlcov/

@@ -72,7 +72,7 @@ def _warp_group(cells):
     """A doorway's display position is the centroid of its tiles, so a four-tile gate sits at
     its middle; its id anchors to the min cell, which survives the group growing or shrinking."""
     xs, ys = [c[0] for c in cells], [c[1] for c in cells]
-    anchor = min((y, x) for x, y in zip(xs, ys))
+    anchor = min((y, x) for x, y in zip(xs, ys, strict=True))
     return {"dest": cells[0][2],
             "center": (sum(xs) / len(xs), sum(ys) / len(ys)),
             "anchor": (anchor[1], anchor[0])}

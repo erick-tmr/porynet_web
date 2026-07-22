@@ -3,8 +3,9 @@
 # Pre-push gate: mirrors the CI gates locally so nothing red lands on
 # origin/main. Runs rubocop, brakeman, bundler-audit, importmap audit, reek
 # (advisory), gitleaks (when installed), semgrep diff-mode (when semgrep or
-# docker is available), the Rails suite, undercover changed-line coverage, then
-# the Vitest JS suite. Run this manually before `git push`.
+# docker is available), the Rails suite, undercover changed-line coverage, the
+# Vitest JS suite, then the Python map-generator suite (ruff + pytest, when a
+# pokeyellow checkout is present). Run this manually before `git push`.
 #
 # Usage:        bin/pre-push-check
 # Skip tests:   SKIP_TESTS=1 bin/pre-push-check   (faster — useful for docs-only;
@@ -103,6 +104,52 @@ else
   else
     printf '  (skipped — npm not installed)\n'
   fi
+
+  # Mirrors CI's "Python tool (map generator)" job. The suite reads the pokeyellow disassembly
+  # and silently skips itself when that is absent, so this reports the skip rather than passing
+  # quietly. CI clones the pinned tools/maps/.pokeyellow-ref, so green here matches green there.
+  step "python map generator (ruff + pytest)"
+  PY_ROOT="${POKEYELLOW:-$HOME/Code/pokeyellow}"
+  if ! command -v python3 >/dev/null 2>&1; then
+    printf '  (skipped: python3 not installed)\n'
+  elif ! python3 -c 'import pytest' >/dev/null 2>&1; then
+    printf '  (skipped: `pip install -r tools/maps/requirements-dev.txt`)\n'
+  elif [ ! -f "$PY_ROOT/constants/map_constants.asm" ]; then
+    printf '  (skipped: no pokeyellow checkout at %s; `git clone --depth 1 https://github.com/pret/pokeyellow ~/Code/pokeyellow`)\n' "$PY_ROOT"
+  else
+    if python3 -c 'import ruff' >/dev/null 2>&1 || command -v ruff >/dev/null 2>&1; then
+      python3 -m ruff check tools/maps
+    else
+      printf '  (ruff not installed, lint skipped)\n'
+    fi
+    PY_COV=""
+    if python3 -c 'import pytest_cov' >/dev/null 2>&1; then
+      PY_COV="--cov --cov-report=term --cov-fail-under=87"
+    fi
+    (cd tools/maps && POKEYELLOW="$PY_ROOT" python3 -m pytest -q -rs $PY_COV)
+    ok "python map generator"
+  fi
 fi
+
+# The golden test above proves the manifest still matches the game data, but it goes green again
+# the moment you regenerate, however many maps moved. This says *which* maps moved and holds them
+# to the `Manifest-drift:` trailer on this branch, so collateral damage cannot ride along.
+step "generator regression (declared drift vs origin/main)"
+MANIFEST="app/models/walkthrough/yellow_maps.json"
+CHANGED_PY="$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps "$MANIFEST" | tr '\n' ' ')"
+if [ -z "$CHANGED_PY" ]; then
+  printf '  (no generator or manifest changes vs origin/main)\n'
+else
+  printf '  changed: %s\n\n' "$CHANGED_PY"
+  mkdir -p tmp
+  git show "origin/main:$MANIFEST" > tmp/base-manifest.json
+  git log origin/main..HEAD --format=%B > tmp/branch-commits.txt
+  if ! python3 tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
+       --expect-commits tmp/branch-commits.txt; then
+    printf '\n\033[1;31m✗ manifest drift does not match the `Manifest-drift:` trailer on this branch\033[0m\n'
+    exit 1
+  fi
+fi
+ok "generator regression"
 
 printf '\n\033[1;32m✓ All pre-push checks passed — safe to push.\033[0m\n'

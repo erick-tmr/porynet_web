@@ -1,0 +1,9 @@
+[run]
+source = .
+branch = true
+omit =
+    tests/*
+    parse_hidden.py
+
+[report]
+skip_covered = false

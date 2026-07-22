@@ -9,9 +9,9 @@ Covers: map dimensions/headers, tilesets/blocksets/palettes (the map render inpu
 overworld sprite ids, map object events (NPCs), the text charmap, trainer classes and
 their battle pics, and the game's hidden-item / Game Corner coin coordinates.
 """
-import re
 import pathlib
-from functools import lru_cache
+import re
+from functools import cache
 
 from PIL import Image
 
@@ -27,7 +27,7 @@ PAL_CAVE = 0x23
 PAL_YELLOWMON = 0x18   # the Pikachu-yellow palette; our default battle tint
 
 
-@lru_cache(maxsize=None)
+@cache
 def _root(root_str):
     return pathlib.Path(root_str)
 
@@ -46,7 +46,7 @@ def _snake_to_camel(name):
 
 # --- maps -------------------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@cache
 def parse_map_constants(root_str):
     """Return ({const: (index, width, height)}, num_city_maps, first_indoor_map)."""
     dims, idx = {}, 0
@@ -64,7 +64,7 @@ def parse_map_constants(root_str):
     return dims, num_city, first_indoor
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_headers(root_str):
     """Return {label: (const, tileset)} for every map header."""
     out = {}
@@ -76,7 +76,7 @@ def parse_headers(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_tileset_files(root_str):
     """Map tileset name (CamelCase) -> its shared gfx/blockset basename via gfx/tilesets.asm.
     Some tilesets (RedsHouse1/RedsHouse2, ...) share one file, so the const does not lowercase
@@ -119,19 +119,19 @@ def _parse_rgb_palette_table(root_str, label):
     return pals
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_super_palettes(root_str):
     """The Super Game Boy palettes (paler), indexed by PAL_* id."""
     return _parse_rgb_palette_table(root_str, "SuperPalettes")
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_cgb_palettes(root_str):
     """The Game Boy Color base palettes (more saturated, the GBC look), indexed by PAL_* id."""
     return _parse_rgb_palette_table(root_str, "CGBBasePalettes")
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_tiles(root_str, tileset_file):
     """Return a list of 8x8 'L'-mode tiles from gfx/tilesets/<file>.png (row-major)."""
     png = Image.open(_root(root_str) / f"gfx/tilesets/{tileset_file}.png").convert("L")
@@ -140,7 +140,7 @@ def load_tiles(root_str, tileset_file):
             for ty in range(rows) for tx in range(cols)]
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_blockset(root_str, tileset_file):
     """Return a list of blocks; each block is 16 tile indices (4x4 row-major)."""
     data = (_root(root_str) / f"gfx/blocksets/{tileset_file}.bst").read_bytes()
@@ -152,7 +152,7 @@ def load_blueprint(root_str, label):
     return (_root(root_str) / f"maps/{label}.blk").read_bytes()
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_sprite_sheet(root_str, name):
     """The 'L'-mode overworld sprite sheet gfx/sprites/<name>.png.
 
@@ -161,7 +161,7 @@ def load_sprite_sheet(root_str, name):
     return Image.open(_root(root_str) / f"gfx/sprites/{name}.png").convert("L")
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_emote_sheet(root_str, name):
     """The 'L'-mode emotion-bubble sheet gfx/emotes/<name>.png. Cached like load_sprite_sheet."""
     return Image.open(_root(root_str) / f"gfx/emotes/{name}.png").convert("L")
@@ -184,7 +184,7 @@ def resolve_palette_id(root_str, const, tileset, parent_const):
 
 # --- overworld sprites + NPCs ----------------------------------------------
 
-@lru_cache(maxsize=None)
+@cache
 def _sprite_label_files(root_str):
     """Map an overworld sprite label (e.g. RedSprite) -> gfx/sprites basename (red)."""
     out = {}
@@ -195,7 +195,7 @@ def _sprite_label_files(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_sprite_table(root_str):
     """Map a sprite id constant (SPRITE_RED) -> its gfx/sprites basename (red).
 
@@ -211,7 +211,7 @@ def parse_sprite_table(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def _map_object_lines(root_str, map_label):
     """The lines of data/maps/objects/<map_label>.asm that the retail ROM actually assembles.
 
@@ -231,7 +231,7 @@ def _map_object_lines(root_str, map_label):
     return tuple(out)
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_border_block(root_str, map_label):
     """The map's border block id (`db $X ; border block` in its object file); None if absent.
 
@@ -244,7 +244,7 @@ def parse_border_block(root_str, map_label):
     return None
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_hidden_objects(root_str):
     """Return {map_const: {object_const, ...}} for objects the game starts with switched off.
 
@@ -264,14 +264,14 @@ def parse_hidden_objects(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def _object_consts(root_str, map_label):
     """The map's object constants in declaration order, which is the order of its object_events."""
     return tuple(m.group(1) for line in _map_object_lines(root_str, map_label)
                  if (m := re.match(r"\s*const_export\s+(\w+)", line)))
 
 
-@lru_cache(maxsize=None)
+@cache
 def _object_events(root_str, map_label):
     """Every object_event on the map, classified by its trailing args.
 
@@ -322,7 +322,7 @@ WATER_TILES = frozenset({0x14})
 SHORE_TILES = frozenset({0x48, 0x32})
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_grass_tiles(root_str):
     """Return {tileset_const: grass tile id} from the tileset headers.
 
@@ -340,7 +340,7 @@ def grass_tile(root_str, tileset_const):
     return parse_grass_tiles(root_str).get(_snake_to_camel(tileset_const))
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_collision_tiles(root_str, tileset_const):
     """The tile ids you can walk on in this tileset, from data/tilesets/collision_tile_ids.asm.
 
@@ -364,7 +364,7 @@ def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y):
     return [block[(top + dy) * BLOCK_TILES + left + dx] for dy in range(2) for dx in range(2)]
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_connections(root_str, map_label):
     """Return ((direction, dest_map_const, offset), ...) for the maps this one scrolls into.
 
@@ -380,7 +380,7 @@ def parse_connections(root_str, map_label):
                  if (m := re.match(r"\s*connection\s+(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(-?\d+)", line)))
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_warp_events(root_str, map_label):
     """Return the map's warps as ((x, y, dest_map_const, dest_warp_id), ...).
 
@@ -396,7 +396,7 @@ def parse_warp_events(root_str, map_label):
 
 # --- text / charmap ---------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@cache
 def parse_charmap(root_str):
     """Return {token: byte} from constants/charmap.asm (e.g. 'A'->0x80, ' '->0x7f, '<PLAYER>'->0x52)."""
     out = {}
@@ -409,14 +409,14 @@ def parse_charmap(root_str):
 
 # --- trainers / battle ------------------------------------------------------
 
-@lru_cache(maxsize=None)
+@cache
 def _trainer_const_order(root_str):
     """Ordered trainer class consts from constants/trainer_constants.asm (NOBODY first)."""
     return tuple(m.group(1) for line in _read(root_str, "constants/trainer_constants.asm").splitlines()
                  if (m := re.match(r"\s*trainer_const\s+(\w+)", line)))
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_trainer_classes(root_str):
     """Map trainer class const -> (index, display name).
 
@@ -431,14 +431,14 @@ def parse_trainer_classes(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def _trainer_pic_labels(root_str):
     """Ordered pic labels from pic_pointers_money.asm, aligned to consts minus NOBODY."""
     return tuple(m.group(1) for line in _read(root_str, "data/trainers/pic_pointers_money.asm").splitlines()
                  if (m := re.match(r"\s*pic_money\s+(\w+)", line)))
 
 
-@lru_cache(maxsize=None)
+@cache
 def _trainer_pic_files(root_str):
     """Map a trainer pic label (Rival1Pic) -> gfx/trainers basename (rival1)."""
     out = {}
@@ -449,7 +449,7 @@ def _trainer_pic_files(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def _trainer_data_labels(root_str):
     """The party-block label for each trainer const, from the TrainerDataPointers table.
 
@@ -461,10 +461,10 @@ def _trainer_data_labels(root_str):
     consts = _trainer_const_order(root_str)[1:]
     if len(labels) != len(consts):
         raise ValueError(f"{len(labels)} party pointers for {len(consts)} trainer classes")
-    return dict(zip(consts, labels))
+    return dict(zip(consts, labels, strict=True))
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_trainer_parties(root_str):
     """Return {trainer_const: ((level, species_const), ...) per party}.
 
@@ -500,7 +500,7 @@ def _party(fields):
     return tuple((level, species) for species in parts[1:])
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_trainer_money(root_str):
     """Return {trainer_const: base money}. Keyed by const rather than by pic label, because
     JugglerPic serves both JUGGLER and UNUSED_JUGGLER and a label-keyed dict would drop one."""
@@ -509,7 +509,7 @@ def parse_trainer_money(root_str):
     consts = _trainer_const_order(root_str)[1:]
     if len(amounts) != len(consts):
         raise ValueError(f"{len(amounts)} money rows for {len(consts)} trainer classes")
-    return {const: int(amount) for const, amount in zip(consts, amounts)}
+    return {const: int(amount) for const, amount in zip(consts, amounts, strict=True)}
 
 
 def trainer_reward(root_str, trainer_const, party):
@@ -524,7 +524,7 @@ def trainer_party(root_str, trainer_const, party_no):
     return parties[party_no - 1]
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_dex_numbers(root_str):
     """Return {species_const: pokedex number}. Every species has a DEX_ twin numbered from 1,
     so the whole mapping is one file; dex_order.asm and the internal indices are not needed."""
@@ -587,7 +587,7 @@ def _cell_px(x, y):
     return [x * UNIT_PX + UNIT_PX // 2, y * UNIT_PX + UNIT_PX // 2]
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_hidden_events(root_str):
     """Return [(map_const, x, y, item_const)] for FUNC == HiddenItems only."""
     out, cur = [], None
@@ -602,7 +602,7 @@ def parse_hidden_events(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def parse_coins(root_str):
     """Return [(map_const, x, y)] for hidden coins."""
     out = []
@@ -613,7 +613,7 @@ def parse_coins(root_str):
     return out
 
 
-@lru_cache(maxsize=None)
+@cache
 def markers_by_map(root_str):
     """Return {map_const: [ {kind, item_const, label, grid:[x,y], px:[x,y]} ]}."""
     out = {}

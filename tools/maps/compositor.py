@@ -224,7 +224,8 @@ def overlay_markers(canvas, markers):
         cx, cy = m["grid"][0] * UNIT_PX + UNIT_PX // 2, m["grid"][1] * UNIT_PX + UNIT_PX // 2
         r = m.get("r", 2)
         draw.ellipse([cx - r - 1, cy - r - 1, cx + r + 1, cy + r + 1], fill=ARROW_OUTLINE)
-        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=tuple(m["fill"]) if m.get("fill") else MARKER_FILL)
+        draw.ellipse([cx - r, cy - r, cx + r, cy + r],
+                     fill=tuple(m["fill"]) if m.get("fill") else MARKER_FILL)
     return canvas
 
 
