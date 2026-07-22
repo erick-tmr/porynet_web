@@ -210,7 +210,14 @@ en:
       trainers_h2: "Trainers here"
       vs: "VS"
       where: "WHERE"
+      inside: "INSIDE"
       battle: "BATTLE"
+      trades_eyebrow: "IN-GAME TRADES · %{count}"
+      trades_h2: "Trades here"
+      trades_hint: "Hand an NPC the Pokémon they want and they give you one back. The only way to register some species without a link cable."
+      trade_tag: "TRADE"
+      trade_give: "YOU GIVE"
+      trade_get: "YOU GET"
       gym_tag: "◆ GYM"
       gym_type: "%{type}-TYPE"
       gym_short: "GYM"
@@ -404,6 +411,12 @@ en:
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
           intro: "The stretch between Viridian and the forest gate. Same catches as before, plus wild Nidoran."
+          trades:
+            mr_mime:
+              npc: "SCIENTIST"
+              title: "Mr. Mime"
+              where: "The trade house on Route 2"
+              note: "Yellow has no wild Mr. Mime, so this trade is the only way to add it. You need a spare Clefairy from Mt. Moon, so most players come back for it later."
           steps:
             "1":
               title: "Cross the south grass"
@@ -564,6 +577,12 @@ en:
         route_5:
           note: "South to Vermilion. Pidgey, Rattata and rare Abra."
           intro: "A short leg south of Cerulean. Catch an Abra here. It becomes one of the best Pokémon in the game."
+          trades:
+            machoke:
+              npc: "LITTLE GIRL"
+              title: "Machoke"
+              where: "The Underground Path house at the north end of Route 5"
+              note: "A fully evolved Machoke for a Cubone, and traded Pokémon earn boosted XP. Cubone comes from Pokémon Tower, so this is another return trip."
           steps:
             "1":
               title: "Head south"
@@ -622,6 +641,12 @@ en:
         route_11:
           note: "East of Vermilion. Pidgey, Rattata, and Drowzee."
           intro: "A wide grass route east of Vermilion, with a cave shortcut back toward Pewter."
+          trades:
+            dugtrio:
+              npc: "YOUNGSTER"
+              title: "Dugtrio"
+              where: "Upstairs in the Route 11 gate"
+              note: "Hands you a Dugtrio so you can skip the 5% spawn in Diglett's Cave, and the trade gives it boosted XP."
           steps:
             "1":
               title: "Fight east"
@@ -918,6 +943,12 @@ en:
         route_18:
           note: "East to Fuchsia. Spearow, Rattata, Doduo."
           intro: "A short strip of Bird Keepers bridging Cycling Road to Fuchsia."
+          trades:
+            parasect:
+              npc: "COOK"
+              title: "Parasect"
+              where: "Upstairs in the Route 18 gate"
+              note: "A ready-made Parasect that levels fast thanks to the traded-XP bonus. Tangela is a Safari Zone catch."
           steps:
             "1":
               title: "Cross east"
@@ -1034,6 +1065,22 @@ en:
               "3": "The final door opens onto Blaine. A single strong Water, Rock or Ground move drops his Ninetales, Rapidash and Arcanine in a hurry."
           note: "Blaine's Gym. Volcano Badge. Fossil lab."
           intro: "A volcanic island. Revive your fossils at the lab, get the Secret Key from the Mansion, then beat Blaine."
+          trades:
+            muk:
+              npc: "SCIENTIST"
+              title: "Muk"
+              where: "The fossil room of the Pokémon Lab"
+              note: "A high-level Muk with no grinding. Kangaskhan is a Safari Zone catch."
+            rhydon:
+              npc: "OLD MAN"
+              title: "Rhydon"
+              where: "The trade room of the Pokémon Lab"
+              note: "A traded Rhydon comes in strong and gains boosted XP."
+            dewgong:
+              npc: "BEAUTY"
+              title: "Dewgong"
+              where: "The trade room of the Pokémon Lab"
+              note: "Dewgong for a Growlithe, plus the traded-XP bonus. Growlithe roams the Pokémon Mansion next door."
           steps:
             "1":
               title: "Clear the Mansion first"

@@ -131,6 +131,27 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-tagpill--fossil"
     assert_select ".pn-wt-gym__leader-name", text: "Blaine"
     assert_select ".pn-wt-band-oak"
+    assert_select ".pn-wt-trade__tag", text: "TROCA"
+  end
+
+  test "a location renders its in-game trades with give and receive sprites" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+
+    assert_response :success
+    assert_select ".pn-eyebrow-label", text: /IN-GAME TRADES/
+    assert_select ".pn-wt-trades .pn-wt-trade", 3
+    assert_select ".pn-wt-trade__title", text: "Muk"
+    assert_select ".pn-wt-trade__nick", text: /STICKY/
+    assert_select ".pn-wt-trade__mon--give img[src*=?]", "pokemon/yellow/115.png"
+    assert_select ".pn-wt-trade__mon--get img[src*=?]", "pokemon/yellow/089.png"
+  end
+
+  test "trades render on a single-location leg between the map and the oak queue" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-06")
+
+    assert_response :success
+    assert_select ".pn-wt-trades .pn-wt-trade", 1
+    assert_select ".pn-wt-trade__title", text: "Dugtrio"
   end
 
   test "a no-maze gym renders a dedicated section with an inside trainer and badge" do

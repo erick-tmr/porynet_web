@@ -1453,6 +1453,146 @@ a.pn-wt-route__card:hover {
   color: #3a3850;
 }
 
+/* ---- in-game trades ---- */
+.pn-wt-trades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+.pn-wt-trade {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  padding: 18px;
+}
+.pn-wt-trade__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pn-wt-trade__npc {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #3a3850;
+}
+.pn-wt-trade__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+}
+.pn-wt-trade__tag {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #171622;
+  background: #e6dcff;
+  border: 2px solid #171622;
+  padding: 2px 10px;
+}
+.pn-wt-trade__where {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #3a3850;
+  margin-top: 6px;
+}
+.pn-wt-trade__swap {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.pn-wt-trade__mon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 116px;
+  border: 2px solid #171622;
+  background: #FBF5E6;
+  padding: 10px 8px;
+}
+.pn-wt-trade__mon--get {
+  background: color-mix(in srgb, var(--accent) 15%, #fff);
+}
+.pn-wt-trade__slot {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #8a2b46;
+}
+.pn-wt-trade__slot--get { color: var(--accent); }
+.pn-wt-trade__sprite {
+  width: 100%;
+  height: 92px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pn-wt-trade__sprite img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-trade__mon-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+}
+.pn-wt-trade__nick {
+  font-family: "VT323", monospace;
+  font-size: 14px;
+  color: #3a3850;
+}
+.pn-wt-trade__arrow {
+  align-self: center;
+  width: 54px;
+  height: 54px;
+  flex: none;
+  border: 3px solid #171622;
+  box-shadow: 3px 3px 0 #171622;
+  image-rendering: pixelated;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' shape-rendering='crispEdges'%3E%3Crect x='18' y='0' width='1' height='1' fill='%23171622'/%3E%3Crect x='18' y='1' width='2' height='1' fill='%23171622'/%3E%3Crect x='18' y='2' width='3' height='1' fill='%23171622'/%3E%3Crect x='2' y='3' width='20' height='1' fill='%23171622'/%3E%3Crect x='2' y='4' width='20' height='1' fill='%23171622'/%3E%3Crect x='2' y='5' width='20' height='1' fill='%23171622'/%3E%3Crect x='18' y='6' width='3' height='1' fill='%23171622'/%3E%3Crect x='11' y='7' width='3' height='1' fill='%23171622'/%3E%3Crect x='18' y='7' width='2' height='1' fill='%23171622'/%3E%3Crect x='9' y='8' width='7' height='1' fill='%23171622'/%3E%3Crect x='18' y='8' width='1' height='1' fill='%23171622'/%3E%3Crect x='8' y='9' width='2' height='1' fill='%23171622'/%3E%3Crect x='10' y='9' width='5' height='1' fill='%23FF5D8F'/%3E%3Crect x='15' y='9' width='2' height='1' fill='%23171622'/%3E%3Crect x='8' y='10' width='1' height='1' fill='%23171622'/%3E%3Crect x='9' y='10' width='2' height='1' fill='%23FF5D8F'/%3E%3Crect x='11' y='10' width='3' height='1' fill='%23171622'/%3E%3Crect x='14' y='10' width='2' height='1' fill='%23FF5D8F'/%3E%3Crect x='16' y='10' width='1' height='1' fill='%23171622'/%3E%3Crect x='7' y='11' width='5' height='1' fill='%23171622'/%3E%3Crect x='12' y='11' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='13' y='11' width='5' height='1' fill='%23171622'/%3E%3Crect x='7' y='12' width='4' height='1' fill='%23171622'/%3E%3Crect x='11' y='12' width='3' height='1' fill='%23ffffff'/%3E%3Crect x='14' y='12' width='4' height='1' fill='%23171622'/%3E%3Crect x='7' y='13' width='2' height='1' fill='%23171622'/%3E%3Crect x='9' y='13' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='10' y='13' width='2' height='1' fill='%23171622'/%3E%3Crect x='12' y='13' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='13' y='13' width='2' height='1' fill='%23171622'/%3E%3Crect x='15' y='13' width='1' height='1' fill='%23ffffff'/%3E%3Crect x='16' y='13' width='2' height='1' fill='%23171622'/%3E%3Crect x='8' y='14' width='1' height='1' fill='%23171622'/%3E%3Crect x='9' y='14' width='2' height='1' fill='%23ffffff'/%3E%3Crect x='11' y='14' width='3' height='1' fill='%23171622'/%3E%3Crect x='14' y='14' width='2' height='1' fill='%23ffffff'/%3E%3Crect x='16' y='14' width='1' height='1' fill='%23171622'/%3E%3Crect x='8' y='15' width='2' height='1' fill='%23171622'/%3E%3Crect x='10' y='15' width='5' height='1' fill='%23ffffff'/%3E%3Crect x='15' y='15' width='2' height='1' fill='%23171622'/%3E%3Crect x='5' y='16' width='1' height='1' fill='%23171622'/%3E%3Crect x='9' y='16' width='7' height='1' fill='%23171622'/%3E%3Crect x='4' y='17' width='2' height='1' fill='%23171622'/%3E%3Crect x='11' y='17' width='3' height='1' fill='%23171622'/%3E%3Crect x='3' y='18' width='3' height='1' fill='%23171622'/%3E%3Crect x='2' y='19' width='20' height='1' fill='%23171622'/%3E%3Crect x='2' y='20' width='20' height='1' fill='%23171622'/%3E%3Crect x='2' y='21' width='20' height='1' fill='%23171622'/%3E%3Crect x='3' y='22' width='3' height='1' fill='%23171622'/%3E%3Crect x='4' y='23' width='2' height='1' fill='%23171622'/%3E%3C/svg%3E")
+      no-repeat center / 80%,
+    #e6dcff;
+}
+.pn-wt-trade__shots {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.pn-wt-shot--tradewhere,
+.pn-wt-shot--tradeinside {
+  flex: 1 1 0;
+  min-width: 200px;
+  aspect-ratio: 4 / 3;
+}
+.pn-wt-shot__label--inside {
+  top: 0;
+  bottom: auto;
+}
+.pn-wt-trade__tip {
+  border-top: 2px dashed #171622;
+  margin-top: 14px;
+  padding-top: 11px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #3a3850;
+}
+.pn-wt-trade__tip b { color: var(--accent); }
+
 /* ---- prev / next ---- */
 .pn-wt-nav {
   display: flex;
@@ -2079,6 +2219,7 @@ a.pn-wt-route__card:hover {
   .pn-wt-oak-sum__grid,
   .pn-wt-oak__grid,
   .pn-wt-trainers,
+  .pn-wt-trades,
   .pn-wt-gym__trainers { grid-template-columns: 1fr; }
 
   .pn-wt-legstats { grid-template-columns: 1fr 1fr; }

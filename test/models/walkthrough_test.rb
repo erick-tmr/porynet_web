@@ -146,6 +146,29 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty plain
   end
 
+  test "the seven usable in-game trades sit at their real locations" do
+    by_slug = game.locations.to_h { |l| [ l.slug, l.trades ] }
+    assert_equal 7, by_slug.values.sum(&:size), "Yellow has 7 usable NPC trades"
+    assert_empty game.leg!("leg-01").locations.flat_map(&:trades), "leg 01 has no trades"
+
+    mime = loc("route-2").trades.sole
+    assert_equal "035", mime.give[:dex]
+    assert_equal "Mr. Mime", mime.receive[:name]
+    assert_equal "MILES", mime.nick
+
+    cinnabar = loc("cinnabar-island").trades
+    assert_equal %w[STICKY BUFFY CEZANNE], cinnabar.map(&:nick)
+    assert_equal %w[089 112 087], cinnabar.map { |t| t.receive[:dex] }
+    assert cinnabar.all? { |t| t.house.label == "WHERE" && t.inside.label == "INSIDE" }
+  end
+
+  test "every trade give and receive sprite dex is a three-digit string" do
+    trades = game.locations.flat_map(&:trades)
+    dexes = trades.flat_map { |t| [ t.give[:dex], t.receive[:dex] ] }
+    assert_equal 14, dexes.size
+    dexes.each { |dex| assert_match(/\A\d{3}\z/, dex) }
+  end
+
   test "scene_shot returns a placeholder for an unknown scene key" do
     missing = Walkthrough::Yellow.scene_shot("no-such-scene", "VS")
     refute missing.map?
@@ -282,6 +305,7 @@ class WalkthroughTest < ActiveSupport::TestCase
         keys.concat step.hidden.map(&:where_key)
       end
       keys.concat loc.encounters.filter_map(&:tip_key)
+      loc.trades.each { |trade| keys.push(trade.npc_key, trade.title_key, trade.where_key, trade.note_key) }
       keys.concat loc.oak_queue.map(&:why_key)
       if loc.gym?
         keys << loc.gym.intro_key

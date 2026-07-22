@@ -3,7 +3,7 @@
 - location maps: **97** across 51 locations
 - markers: **939** (302 trainer, 113 item, 46 hidden, 478 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **47** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **59** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -169,6 +169,10 @@
 - `battle-sabrina` (battle): walkthrough/yellow/battles/battle-sabrina.png
 - `battle-silph-giovanni` (battle): walkthrough/yellow/battles/battle-silph-giovanni.png
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
+- `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
+- `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
+- `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png
+- `cinnabar-lab-trade-cezanne` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png
 - `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png
 - `indigo-bruno` (screen): walkthrough/yellow/scenes/indigo-bruno.png
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
@@ -182,8 +186,16 @@
 - `pokemon-tower-rival` (screen): walkthrough/yellow/scenes/pokemon-tower-rival.png
 - `rocket-hideout-giovanni` (screen): walkthrough/yellow/scenes/rocket-hideout-giovanni.png
 - `rocket-hideout-jessie-james` (screen): walkthrough/yellow/scenes/rocket-hideout-jessie-james.png
+- `route-11-gate` (screen): walkthrough/yellow/scenes/route-11-gate.png
+- `route-11-gate-inside` (screen): walkthrough/yellow/scenes/route-11-gate-inside.png
+- `route-18-gate` (screen): walkthrough/yellow/scenes/route-18-gate.png
+- `route-18-gate-inside` (screen): walkthrough/yellow/scenes/route-18-gate-inside.png
+- `route-2-trade-house` (screen): walkthrough/yellow/scenes/route-2-trade-house.png
+- `route-2-trade-house-inside` (screen): walkthrough/yellow/scenes/route-2-trade-house-inside.png
 - `route-22-rival` (screen): walkthrough/yellow/scenes/route-22-rival.png
 - `route-24-rival` (screen): walkthrough/yellow/scenes/route-24-rival.png
+- `route-5-underground-house` (screen): walkthrough/yellow/scenes/route-5-underground-house.png
+- `route-5-underground-house-inside` (screen): walkthrough/yellow/scenes/route-5-underground-house-inside.png
 - `saffron-dojo-master` (screen): walkthrough/yellow/scenes/saffron-dojo-master.png
 - `silph-co-giovanni` (screen): walkthrough/yellow/scenes/silph-co-giovanni.png
 - `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png

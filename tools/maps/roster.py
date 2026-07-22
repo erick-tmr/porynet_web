@@ -34,28 +34,31 @@ def hero_cell(root_str, map_label, grid, step):
     """Where the hero stands to face the trainer: never a tile it could not actually stand on.
 
     First choice is its line of sight, two cells in front for a clean framing, then one nearer,
-    then one farther, so a tree or wall the trainer spots you through is skipped. A trainer boxed
-    against the wall it faces has nothing walkable in front at all (a Game Corner Rocket), so the
-    last resort is the nearest walkable tile in any direction: off a solid tile beats in-frame."""
+    then one farther, so a tree or wall the trainer spots you through is skipped. Dry land wins
+    over water at every step, so a gym swimmer's shot stands the hero on the poolside rather than
+    floating mid-pool; open water is still allowed (a route swimmer is fought while surfing). A
+    trainer boxed against the wall it faces has nothing in front at all (a Game Corner Rocket), so
+    the last resort is the nearest standable tile in any direction: off a solid tile beats in-frame."""
     const, tileset = sources.parse_headers(root_str)[map_label]
     _idx, w_blocks, h_blocks = sources.parse_map_constants(root_str)[0][const]
     w_cells, h_cells = w_blocks * 2, h_blocks * 2
 
-    def standable(x, y):
+    def on(predicate, x, y):
         return 0 <= x < w_cells and 0 <= y < h_cells and \
-            markers.cell_is_walkable(root_str, map_label, tileset, w_blocks, (x, y))
+            predicate(root_str, map_label, tileset, w_blocks, (x, y))
 
-    for dist in (PLAYER_CELLS, PLAYER_CELLS - 1, PLAYER_CELLS + 1):
-        x, y = grid[0] + step[0] * dist, grid[1] + step[1] * dist
-        if standable(x, y):
-            return [x, y]
-
-    for radius in range(1, max(w_cells, h_cells)):
-        ring = [(grid[0] + dx, grid[1] + dy)
-                for dx in range(-radius, radius + 1) for dy in range(-radius, radius + 1)
-                if max(abs(dx), abs(dy)) == radius and standable(grid[0] + dx, grid[1] + dy)]
-        if ring:
-            return list(min(ring, key=lambda c: (abs(c[0] - grid[0]) + abs(c[1] - grid[1]), c)))
+    line = [(grid[0] + step[0] * d, grid[1] + step[1] * d)
+            for d in (PLAYER_CELLS, PLAYER_CELLS - 1, PLAYER_CELLS + 1)]
+    for predicate in (markers.cell_is_land, markers.cell_is_walkable):
+        for x, y in line:
+            if on(predicate, x, y):
+                return [x, y]
+        for radius in range(1, max(w_cells, h_cells)):
+            ring = [(grid[0] + dx, grid[1] + dy)
+                    for dx in range(-radius, radius + 1) for dy in range(-radius, radius + 1)
+                    if max(abs(dx), abs(dy)) == radius and on(predicate, grid[0] + dx, grid[1] + dy)]
+            if ring:
+                return list(min(ring, key=lambda c: (abs(c[0] - grid[0]) + abs(c[1] - grid[1]), c)))
 
     return [grid[0] + step[0] * PLAYER_CELLS, grid[1] + step[1] * PLAYER_CELLS]
 
@@ -63,7 +66,11 @@ def hero_cell(root_str, map_label, grid, step):
 def where_spec(root_str, map_label, parent, obj, name):
     """The 'where' shot: the hero on a walkable tile in front of the trainer, both facing each
     other, with the trainer flashing the '!' it shows on spotting you. The camera sits midway
-    between them so both stay framed however near the hero ends up."""
+    between them so both stay framed however near the hero ends up.
+
+    `auto_npcs` keeps the map's other real people in frame as landmarks (only the spotting trainer
+    flashes the '!'), so a gym trainer's shot still shows the leader standing behind them the way
+    the room really looks from that angle."""
     facing = facing_of(obj)
     step = FACINGS[facing]
     grid = obj["grid"]
@@ -73,6 +80,7 @@ def where_spec(root_str, map_label, parent, obj, name):
         "player": player,
         "player_dir": OPPOSITE[facing],
         "focus": [(grid[0] + player[0]) // 2, (grid[1] + player[1]) // 2],
+        "auto_npcs": True,
         "sprites": [{"sprite": obj["sprite_const"], "grid": list(grid),
                      "dir": facing, "emote": "shock"}],
     }

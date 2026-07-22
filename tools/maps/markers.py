@@ -162,6 +162,15 @@ def cell_is_walkable(root_str, map_label, tileset, width_blocks, cell):
     return any(tile in walkable for tile in tiles) or all(tile in sources.WATER_TILES for tile in tiles)
 
 
+def cell_is_land(root_str, map_label, tileset, width_blocks, cell):
+    """True when a cell is dry ground the player can stand on without Surf. This is `cell_is_walkable`
+    minus open water, so a shot can keep the hero on the poolside instead of floating mid-water."""
+    walkable = sources.parse_collision_tiles(root_str, tileset)
+    tileset_file = sources.tileset_basename(root_str, tileset)
+    tiles = sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell)
+    return any(tile in walkable for tile in tiles)
+
+
 def crossing_cell(root_str, map_label, tileset, width_blocks, cells):
     """Where along this edge you actually leave the map.
 

@@ -62,6 +62,17 @@ module Walkthrough
       OakEntry.new(dex: dex, name: NAMES.fetch(dex), qty: qty, why_key: "#{base(slug)}.oak.#{mon_key(dex)}")
     end
 
+    def self.trade(slug, key, give, receive, nick, house:, inside:)
+      b = base(slug)
+      Trade.new(
+        give: { dex: give, name: NAMES.fetch(give) },
+        receive: { dex: receive, name: NAMES.fetch(receive) },
+        nick: nick, npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
+        where_key: "#{b}.trades.#{key}.where", note_key: "#{b}.trades.#{key}.note",
+        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL)
+      )
+    end
+
     LEG_DEFS = [
       { slug: "leg-01", special: false, locs: %w[pallet-town route-1] },
       { slug: "leg-02", special: false, locs: %w[viridian-city route-22 route-2] },
@@ -435,7 +446,9 @@ module Walkthrough
           enc("route-2", "029", "GRASS", "15%", "4–6", "UNCOMMON", "029", "030", "031", tip: true),
           enc("route-2", "032", "GRASS", "15%", "4–6", "UNCOMMON", "032", "033", "034", tip: true)
         ],
-        trainers: [], oak_queue: [ oak("route-2", "016", 1), oak("route-2", "019", 1) ]
+        trainers: [], oak_queue: [ oak("route-2", "016", 1), oak("route-2", "019", 1) ],
+        trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
+          house: "route-2-trade-house", inside: "route-2-trade-house-inside") ]
       )
     end
 
@@ -483,7 +496,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, encounters: [], trainers: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
@@ -493,7 +506,8 @@ module Walkthrough
             shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
-        encounters: encounters, trainers: trainers, oak_queue: oak_queue, gym: gym, gym_after: gym_after
+        encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
+        gym: gym, gym_after: gym_after
       )
     end
 
@@ -530,6 +544,7 @@ module Walkthrough
     }.freeze
 
     WHERE_LABEL = "WHERE".freeze
+    INSIDE_LABEL = "INSIDE".freeze
 
     def self.class_label(const) = CLASS_LABELS.fetch(const) { const.tr("_", " ") }
 
@@ -649,6 +664,8 @@ module Walkthrough
           enc("route-5", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
           enc("route-5", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040")
         ],
+        trades: [ trade("route-5", "machoke", "104", "067", "RICKY",
+          house: "route-5-underground-house", inside: "route-5-underground-house-inside") ],
         oak_queue: [ oak("route-5", "063", 1) ])
     end
 
@@ -687,6 +704,8 @@ module Walkthrough
           enc("route-11", "019", "GRASS", "25%", "15–17", "UNCOMMON", "019", "020"),
           enc("route-11", "096", "GRASS", "24%", "15–19", "UNCOMMON", "096", "097")
         ],
+        trades: [ trade("route-11", "dugtrio", "108", "051", "GURIO",
+          house: "route-11-gate", inside: "route-11-gate-inside") ],
         oak_queue: [ oak("route-11", "096", 1) ])
     end
 
@@ -817,7 +836,9 @@ module Walkthrough
           enc("route-18", "021", "GRASS", "40%", "20–22", "COMMON", "021", "022"),
           enc("route-18", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
           enc("route-18", "084", "GRASS", "25%", "24–28", "UNCOMMON", "084", "085")
-        ])
+        ],
+        trades: [ trade("route-18", "parasect", "114", "047", "SPIKE",
+          house: "route-18-gate", inside: "route-18-gate-inside") ])
     end
 
     def self.saffron_city
@@ -887,6 +908,14 @@ module Walkthrough
           enc("cinnabar-island", "120", "SUPER ROD", "30%", "15–30", "UNCOMMON", "120", "121")
         ],
         trainers: [],
+        trades: [
+          trade("cinnabar-island", "muk", "115", "089", "STICKY",
+            house: "cinnabar-lab", inside: "cinnabar-lab-fossil-inside"),
+          trade("cinnabar-island", "rhydon", "055", "112", "BUFFY",
+            house: "cinnabar-lab", inside: "cinnabar-lab-trade-buffy"),
+          trade("cinnabar-island", "dewgong", "058", "087", "CEZANNE",
+            house: "cinnabar-lab", inside: "cinnabar-lab-trade-cezanne")
+        ],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
           puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
