@@ -285,10 +285,37 @@ module Walkthrough
       end
     end
 
+    # What is behind each door, generated from the disassembly next to the map manifest.
+    def self.place_facts
+      @place_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_places.json")))
+        .fetch("places").transform_values { |facts| place(facts) }.freeze
+    end
+
+    def self.place(facts)
+      Place.new(kind: facts["kind"], gym: gym_facts(facts["gym"]),
+        stock: facts.fetch("stock", []),
+        gift_item: facts.fetch("gift_item", []).map { |i| GiftItem.new(name: i["name"], qty: i["qty"]) },
+        gift_mon: facts.fetch("gift_mon", []).map { |g| gift(g) },
+        trainers: facts.fetch("trainers", 0), items: facts.fetch("items", 0))
+    end
+
+    def self.gift(data)
+      Gift.new(dex: data["dex"], name: NAMES.fetch(data["dex"]), level: data["level"],
+        sold: data["sold"])
+    end
+
+    def self.gym_facts(data)
+      return nil if data.nil?
+
+      GymFacts.new(leader: data["leader"], types: data["types"], badge: data["badge"],
+        tm: data["tm"])
+    end
+
     def self.map_marker(data)
       MapMarker.new(id: data["id"], cat: data["cat"], key: data["key"], name: data["name"],
         x: data["x"], y: data["y"], align: data["align"], lane: data["lane"],
-        glyph: data["glyph"], edge: data["edge"], ref: data["ref"])
+        glyph: data["glyph"], edge: data["edge"], ref: data["ref"],
+        place: (place_facts[data["ref"]] if data["cat"] == "exit"))
     end
 
     CELL_PX = 16

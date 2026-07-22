@@ -46,6 +46,9 @@ detectors:
                                 # Its keywords are the optional subset of the struct's
                                 # own members, not a call signature; collapsing them
                                 # would force all 17 fields at every call site.
+      - Walkthrough::Place      # same defaults shim: its keywords are the place's own
+                                # optional members, each defaulting to "the game says nothing
+                                # about this", so a caller states only the facts it has.
       - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
                                 # optional members (key/glyph/edge/lane/note), each named
                                 # so a caller can omit it, not a call signature.

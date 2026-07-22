@@ -551,7 +551,10 @@ def parse_trainer_pic_file(root_str, trainer_const):
 _ITEM_FIXUPS = {"ELIXER": "Elixir", "MAX_ELIXER": "Max Elixir", "HP_UP": "HP Up",
                 "PP_UP": "PP Up", "TM": "TM", "POKE_BALL": "Poké Ball",
                 "GREAT_BALL": "Great Ball", "ULTRA_BALL": "Ultra Ball",
-                "MASTER_BALL": "Master Ball", "SAFARI_BALL": "Safari Ball"}
+                "MASTER_BALL": "Master Ball", "SAFARI_BALL": "Safari Ball",
+                "POKE_DOLL": "Poké Doll", "POKE_FLUTE": "Poké Flute", "POKEDEX": "Pokédex",
+                "S_S_TICKET": "S.S. Ticket", "OAKS_PARCEL": "Oak's Parcel",
+                "EXP_ALL": "Exp. All", "ITEMFINDER": "Itemfinder"}
 
 # map constants whose title-cased name reads wrong
 _PLACE_FIXUPS = {"LAST_MAP": "Back outside"}

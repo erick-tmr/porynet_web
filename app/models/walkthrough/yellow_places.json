@@ -1,0 +1,1048 @@
+{
+  "source": "pret/pokeyellow",
+  "places": {
+    "AGATHAS_ROOM": {
+      "kind": "league",
+      "trainers": 1
+    },
+    "BIKE_SHOP": {
+      "kind": "facility",
+      "gift_item": [
+        {
+          "name": "Bicycle",
+          "qty": 1
+        }
+      ]
+    },
+    "BILLS_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "S.S. Ticket",
+          "qty": 1
+        }
+      ]
+    },
+    "BLUES_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "Town Map",
+          "qty": 1
+        }
+      ],
+      "items": 2
+    },
+    "BRUNOS_ROOM": {
+      "kind": "league",
+      "trainers": 1
+    },
+    "CELADON_CHIEF_HOUSE": {
+      "kind": "house"
+    },
+    "CELADON_DINER": {
+      "kind": "facility",
+      "gift_item": [
+        {
+          "name": "Coin Case",
+          "qty": 1
+        }
+      ]
+    },
+    "CELADON_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Rainbow",
+        "tm": "TM21 Mega Drain",
+        "leader": "Erika",
+        "types": [
+          "Grass"
+        ]
+      },
+      "trainers": 7
+    },
+    "CELADON_HOTEL": {
+      "kind": "hotel"
+    },
+    "CELADON_MANSION_1F": {
+      "kind": "facility"
+    },
+    "CELADON_MANSION_2F": {
+      "kind": "facility"
+    },
+    "CELADON_MANSION_3F": {
+      "kind": "facility"
+    },
+    "CELADON_MANSION_ROOF": {
+      "kind": "facility"
+    },
+    "CELADON_MANSION_ROOF_HOUSE": {
+      "kind": "house",
+      "gift_mon": [
+        {
+          "dex": "133",
+          "level": 25,
+          "sold": false
+        }
+      ]
+    },
+    "CELADON_MART_1F": {
+      "kind": "mart"
+    },
+    "CELADON_MART_2F": {
+      "kind": "mart",
+      "stock": [
+        "Great Ball",
+        "Super Potion",
+        "Revive",
+        "Super Repel",
+        "Antidote",
+        "Burn Heal",
+        "Ice Heal",
+        "Awakening",
+        "Parlyz Heal",
+        "TM Double Team",
+        "TM Reflect",
+        "TM Razor Wind",
+        "TM Horn Drill",
+        "TM Egg Bomb",
+        "TM Mega Punch",
+        "TM Mega Kick",
+        "TM Take Down",
+        "TM Submission"
+      ]
+    },
+    "CELADON_MART_3F": {
+      "kind": "mart",
+      "gift_item": [
+        {
+          "name": "TM18 Counter",
+          "qty": 1
+        }
+      ]
+    },
+    "CELADON_MART_4F": {
+      "kind": "mart",
+      "stock": [
+        "Pok\u00e9 Doll",
+        "Fire Stone",
+        "Thunder Stone",
+        "Water Stone",
+        "Leaf Stone"
+      ]
+    },
+    "CELADON_MART_5F": {
+      "kind": "mart",
+      "stock": [
+        "X Accuracy",
+        "Guard Spec",
+        "Dire Hit",
+        "X Attack",
+        "X Defend",
+        "X Speed",
+        "X Special",
+        "HP Up",
+        "Protein",
+        "Iron",
+        "Carbos",
+        "Calcium"
+      ]
+    },
+    "CELADON_MART_ELEVATOR": {
+      "kind": "mart"
+    },
+    "CELADON_MART_ROOF": {
+      "kind": "mart",
+      "gift_item": [
+        {
+          "name": "TM49 Tri Attack",
+          "qty": 1
+        },
+        {
+          "name": "TM48 Rock Slide",
+          "qty": 1
+        },
+        {
+          "name": "TM13 Ice Beam",
+          "qty": 1
+        }
+      ]
+    },
+    "CELADON_POKECENTER": {
+      "kind": "center"
+    },
+    "CERULEAN_BADGE_HOUSE": {
+      "kind": "house"
+    },
+    "CERULEAN_CAVE_1F": {
+      "kind": "dungeon",
+      "items": 4
+    },
+    "CERULEAN_CAVE_2F": {
+      "kind": "dungeon",
+      "items": 4
+    },
+    "CERULEAN_CAVE_B1F": {
+      "kind": "dungeon",
+      "items": 5
+    },
+    "CERULEAN_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Cascade",
+        "tm": "TM11 Bubblebeam",
+        "leader": "Misty",
+        "types": [
+          "Water"
+        ]
+      },
+      "trainers": 2
+    },
+    "CERULEAN_MART": {
+      "kind": "mart",
+      "stock": [
+        "Pok\u00e9 Ball",
+        "Potion",
+        "Escape Rope",
+        "Repel",
+        "Antidote",
+        "Burn Heal",
+        "Awakening",
+        "Parlyz Heal"
+      ]
+    },
+    "CERULEAN_MELANIES_HOUSE": {
+      "kind": "house",
+      "gift_mon": [
+        {
+          "dex": "001",
+          "level": 10,
+          "sold": false
+        }
+      ]
+    },
+    "CERULEAN_POKECENTER": {
+      "kind": "center"
+    },
+    "CERULEAN_TRASHED_HOUSE": {
+      "kind": "house"
+    },
+    "CHAMPIONS_ROOM": {
+      "kind": "league"
+    },
+    "CINNABAR_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Volcano",
+        "tm": "TM38 Fire Blast",
+        "leader": "Blaine",
+        "types": [
+          "Fire"
+        ]
+      },
+      "trainers": 7
+    },
+    "CINNABAR_LAB": {
+      "kind": "lab"
+    },
+    "CINNABAR_LAB_FOSSIL_ROOM": {
+      "kind": "lab"
+    },
+    "CINNABAR_LAB_METRONOME_ROOM": {
+      "kind": "lab",
+      "gift_item": [
+        {
+          "name": "TM35 Metronome",
+          "qty": 1
+        }
+      ]
+    },
+    "CINNABAR_LAB_TRADE_ROOM": {
+      "kind": "lab"
+    },
+    "CINNABAR_MART": {
+      "kind": "mart",
+      "stock": [
+        "Ultra Ball",
+        "Great Ball",
+        "Hyper Potion",
+        "Max Repel",
+        "Escape Rope",
+        "Full Heal",
+        "Revive"
+      ]
+    },
+    "CINNABAR_POKECENTER": {
+      "kind": "center"
+    },
+    "COLOSSEUM": {
+      "kind": "facility"
+    },
+    "COPYCATS_HOUSE_1F": {
+      "kind": "house"
+    },
+    "COPYCATS_HOUSE_2F": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "TM31 Mimic",
+          "qty": 1
+        }
+      ]
+    },
+    "DAYCARE": {
+      "kind": "house"
+    },
+    "DIGLETTS_CAVE": {
+      "kind": "dungeon"
+    },
+    "DIGLETTS_CAVE_ROUTE_11": {
+      "kind": "dungeon"
+    },
+    "DIGLETTS_CAVE_ROUTE_2": {
+      "kind": "dungeon"
+    },
+    "FIGHTING_DOJO": {
+      "kind": "dojo",
+      "gift_mon": [
+        {
+          "dex": "106",
+          "level": 30,
+          "sold": false
+        },
+        {
+          "dex": "107",
+          "level": 30,
+          "sold": false
+        }
+      ],
+      "trainers": 5
+    },
+    "FUCHSIA_BILLS_GRANDPAS_HOUSE": {
+      "kind": "house"
+    },
+    "FUCHSIA_GOOD_ROD_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "Good Rod",
+          "qty": 1
+        }
+      ]
+    },
+    "FUCHSIA_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Soul",
+        "tm": "TM06 Toxic",
+        "leader": "Koga",
+        "types": [
+          "Bug",
+          "Poison"
+        ]
+      },
+      "trainers": 6
+    },
+    "FUCHSIA_MART": {
+      "kind": "mart",
+      "stock": [
+        "Ultra Ball",
+        "Great Ball",
+        "Hyper Potion",
+        "Revive",
+        "Full Heal",
+        "Super Repel"
+      ]
+    },
+    "FUCHSIA_MEETING_ROOM": {
+      "kind": "lab"
+    },
+    "FUCHSIA_POKECENTER": {
+      "kind": "center"
+    },
+    "GAME_CORNER": {
+      "kind": "facility",
+      "trainers": 1
+    },
+    "GAME_CORNER_PRIZE_ROOM": {
+      "kind": "facility"
+    },
+    "HALL_OF_FAME": {
+      "kind": "league"
+    },
+    "INDIGO_PLATEAU": {
+      "kind": "league"
+    },
+    "INDIGO_PLATEAU_LOBBY": {
+      "kind": "league",
+      "stock": [
+        "Ultra Ball",
+        "Great Ball",
+        "Full Restore",
+        "Max Potion",
+        "Full Heal",
+        "Revive",
+        "Max Repel"
+      ]
+    },
+    "LANCES_ROOM": {
+      "kind": "league",
+      "trainers": 1
+    },
+    "LAVENDER_CUBONE_HOUSE": {
+      "kind": "house"
+    },
+    "LAVENDER_MART": {
+      "kind": "mart",
+      "stock": [
+        "Great Ball",
+        "Super Potion",
+        "Revive",
+        "Escape Rope",
+        "Super Repel",
+        "Antidote",
+        "Burn Heal",
+        "Ice Heal",
+        "Parlyz Heal"
+      ]
+    },
+    "LAVENDER_POKECENTER": {
+      "kind": "center"
+    },
+    "LORELEIS_ROOM": {
+      "kind": "league",
+      "trainers": 1
+    },
+    "MR_FUJIS_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "Pok\u00e9 Flute",
+          "qty": 1
+        }
+      ]
+    },
+    "MR_PSYCHICS_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "TM29 Psychic",
+          "qty": 1
+        }
+      ]
+    },
+    "MT_MOON_1F": {
+      "kind": "dungeon",
+      "trainers": 7,
+      "items": 6
+    },
+    "MT_MOON_B1F": {
+      "kind": "dungeon"
+    },
+    "MT_MOON_B2F": {
+      "kind": "dungeon",
+      "gift_item": [
+        {
+          "name": "Dome Fossil",
+          "qty": 1
+        },
+        {
+          "name": "Helix Fossil",
+          "qty": 1
+        }
+      ],
+      "trainers": 4,
+      "items": 2
+    },
+    "MT_MOON_POKECENTER": {
+      "kind": "center",
+      "gift_mon": [
+        {
+          "dex": "129",
+          "level": 5,
+          "sold": true
+        }
+      ]
+    },
+    "MUSEUM_1F": {
+      "kind": "facility",
+      "gift_item": [
+        {
+          "name": "Old Amber",
+          "qty": 1
+        }
+      ]
+    },
+    "MUSEUM_2F": {
+      "kind": "facility"
+    },
+    "NAME_RATERS_HOUSE": {
+      "kind": "house"
+    },
+    "OAKS_LAB": {
+      "kind": "lab",
+      "gift_item": [
+        {
+          "name": "Pok\u00e9 Ball",
+          "qty": 5
+        }
+      ],
+      "trainers": 1
+    },
+    "PEWTER_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Boulder",
+        "tm": "TM34 Bide",
+        "leader": "Brock",
+        "types": [
+          "Rock",
+          "Ground"
+        ]
+      },
+      "trainers": 1
+    },
+    "PEWTER_MART": {
+      "kind": "mart",
+      "stock": [
+        "Pok\u00e9 Ball",
+        "Potion",
+        "Escape Rope",
+        "Antidote",
+        "Burn Heal",
+        "Awakening",
+        "Parlyz Heal"
+      ]
+    },
+    "PEWTER_NIDORAN_HOUSE": {
+      "kind": "house"
+    },
+    "PEWTER_POKECENTER": {
+      "kind": "center"
+    },
+    "PEWTER_SPEECH_HOUSE": {
+      "kind": "house"
+    },
+    "POKEMON_FAN_CLUB": {
+      "kind": "facility",
+      "gift_item": [
+        {
+          "name": "Bike Voucher",
+          "qty": 1
+        }
+      ]
+    },
+    "POKEMON_MANSION_1F": {
+      "kind": "facility",
+      "trainers": 1,
+      "items": 2
+    },
+    "POKEMON_MANSION_2F": {
+      "kind": "facility",
+      "trainers": 1,
+      "items": 1
+    },
+    "POKEMON_MANSION_3F": {
+      "kind": "facility",
+      "trainers": 2,
+      "items": 2
+    },
+    "POKEMON_MANSION_B1F": {
+      "kind": "facility",
+      "trainers": 2,
+      "items": 5
+    },
+    "POKEMON_TOWER_1F": {
+      "kind": "tower"
+    },
+    "POKEMON_TOWER_2F": {
+      "kind": "tower"
+    },
+    "POKEMON_TOWER_3F": {
+      "kind": "tower",
+      "trainers": 3,
+      "items": 1
+    },
+    "POKEMON_TOWER_4F": {
+      "kind": "tower",
+      "trainers": 3,
+      "items": 3
+    },
+    "POKEMON_TOWER_5F": {
+      "kind": "tower",
+      "trainers": 4,
+      "items": 1
+    },
+    "POKEMON_TOWER_6F": {
+      "kind": "tower",
+      "trainers": 3,
+      "items": 2
+    },
+    "POKEMON_TOWER_7F": {
+      "kind": "tower"
+    },
+    "POWER_PLANT": {
+      "kind": "facility",
+      "items": 14
+    },
+    "REDS_HOUSE_1F": {
+      "kind": "house"
+    },
+    "REDS_HOUSE_2F": {
+      "kind": "house"
+    },
+    "ROCK_TUNNEL_1F": {
+      "kind": "dungeon",
+      "trainers": 7
+    },
+    "ROCK_TUNNEL_B1F": {
+      "kind": "dungeon",
+      "trainers": 8
+    },
+    "ROCK_TUNNEL_POKECENTER": {
+      "kind": "center"
+    },
+    "ROCKET_HIDEOUT_B1F": {
+      "kind": "facility",
+      "trainers": 5,
+      "items": 2
+    },
+    "ROCKET_HIDEOUT_B2F": {
+      "kind": "facility",
+      "trainers": 1,
+      "items": 4
+    },
+    "ROCKET_HIDEOUT_B3F": {
+      "kind": "facility",
+      "trainers": 2,
+      "items": 2
+    },
+    "ROCKET_HIDEOUT_B4F": {
+      "kind": "facility",
+      "trainers": 2,
+      "items": 3
+    },
+    "ROCKET_HIDEOUT_ELEVATOR": {
+      "kind": "facility"
+    },
+    "ROUTE_11_GATE_1F": {
+      "kind": "gate"
+    },
+    "ROUTE_11_GATE_2F": {
+      "kind": "gate"
+    },
+    "ROUTE_12_GATE_1F": {
+      "kind": "gate"
+    },
+    "ROUTE_12_GATE_2F": {
+      "kind": "gate",
+      "gift_item": [
+        {
+          "name": "TM39 Swift",
+          "qty": 1
+        }
+      ]
+    },
+    "ROUTE_12_SUPER_ROD_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "Super Rod",
+          "qty": 1
+        }
+      ]
+    },
+    "ROUTE_15_GATE_1F": {
+      "kind": "gate"
+    },
+    "ROUTE_15_GATE_2F": {
+      "kind": "gate"
+    },
+    "ROUTE_16_FLY_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "HM Fly",
+          "qty": 1
+        }
+      ]
+    },
+    "ROUTE_16_GATE_1F": {
+      "kind": "gate"
+    },
+    "ROUTE_16_GATE_2F": {
+      "kind": "gate"
+    },
+    "ROUTE_18_GATE_1F": {
+      "kind": "gate"
+    },
+    "ROUTE_18_GATE_2F": {
+      "kind": "gate"
+    },
+    "ROUTE_22_GATE": {
+      "kind": "gate"
+    },
+    "ROUTE_23": {
+      "kind": "facility"
+    },
+    "ROUTE_2_GATE": {
+      "kind": "gate"
+    },
+    "ROUTE_2_TRADE_HOUSE": {
+      "kind": "house"
+    },
+    "ROUTE_5_GATE": {
+      "kind": "gate"
+    },
+    "ROUTE_6_GATE": {
+      "kind": "gate"
+    },
+    "ROUTE_7_GATE": {
+      "kind": "gate"
+    },
+    "ROUTE_8_GATE": {
+      "kind": "gate"
+    },
+    "SS_ANNE_1F": {
+      "kind": "ship"
+    },
+    "SS_ANNE_1F_ROOMS": {
+      "kind": "ship",
+      "trainers": 4,
+      "items": 1
+    },
+    "SS_ANNE_2F": {
+      "kind": "ship"
+    },
+    "SS_ANNE_2F_ROOMS": {
+      "kind": "ship",
+      "trainers": 4,
+      "items": 2
+    },
+    "SS_ANNE_3F": {
+      "kind": "ship"
+    },
+    "SS_ANNE_B1F": {
+      "kind": "ship"
+    },
+    "SS_ANNE_B1F_ROOMS": {
+      "kind": "ship",
+      "trainers": 6,
+      "items": 3
+    },
+    "SS_ANNE_BOW": {
+      "kind": "ship",
+      "trainers": 2
+    },
+    "SS_ANNE_CAPTAINS_ROOM": {
+      "kind": "ship",
+      "gift_item": [
+        {
+          "name": "HM Cut",
+          "qty": 1
+        }
+      ]
+    },
+    "SS_ANNE_KITCHEN": {
+      "kind": "ship"
+    },
+    "SAFARI_ZONE_CENTER": {
+      "kind": "dungeon",
+      "items": 1
+    },
+    "SAFARI_ZONE_CENTER_REST_HOUSE": {
+      "kind": "house"
+    },
+    "SAFARI_ZONE_EAST": {
+      "kind": "dungeon",
+      "items": 4
+    },
+    "SAFARI_ZONE_EAST_REST_HOUSE": {
+      "kind": "house"
+    },
+    "SAFARI_ZONE_GATE": {
+      "kind": "gate"
+    },
+    "SAFARI_ZONE_NORTH": {
+      "kind": "dungeon",
+      "items": 2
+    },
+    "SAFARI_ZONE_NORTH_REST_HOUSE": {
+      "kind": "house"
+    },
+    "SAFARI_ZONE_SECRET_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "HM Surf",
+          "qty": 1
+        }
+      ]
+    },
+    "SAFARI_ZONE_WEST": {
+      "kind": "dungeon",
+      "items": 4
+    },
+    "SAFARI_ZONE_WEST_REST_HOUSE": {
+      "kind": "house"
+    },
+    "SAFFRON_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Marsh",
+        "tm": "TM46 Psywave",
+        "leader": "Sabrina",
+        "types": [
+          "Psychic"
+        ]
+      },
+      "trainers": 7
+    },
+    "SAFFRON_MART": {
+      "kind": "mart",
+      "stock": [
+        "Great Ball",
+        "Hyper Potion",
+        "Max Repel",
+        "Escape Rope",
+        "Full Heal",
+        "Revive"
+      ]
+    },
+    "SAFFRON_PIDGEY_HOUSE": {
+      "kind": "house"
+    },
+    "SAFFRON_POKECENTER": {
+      "kind": "center"
+    },
+    "SEAFOAM_ISLANDS_1F": {
+      "kind": "dungeon"
+    },
+    "SEAFOAM_ISLANDS_B1F": {
+      "kind": "dungeon"
+    },
+    "SEAFOAM_ISLANDS_B2F": {
+      "kind": "dungeon"
+    },
+    "SEAFOAM_ISLANDS_B3F": {
+      "kind": "dungeon"
+    },
+    "SEAFOAM_ISLANDS_B4F": {
+      "kind": "dungeon",
+      "items": 1
+    },
+    "SILPH_CO_10F": {
+      "kind": "facility",
+      "trainers": 2,
+      "items": 3
+    },
+    "SILPH_CO_11F": {
+      "kind": "facility",
+      "gift_item": [
+        {
+          "name": "Master Ball",
+          "qty": 1
+        }
+      ],
+      "trainers": 2
+    },
+    "SILPH_CO_1F": {
+      "kind": "facility"
+    },
+    "SILPH_CO_2F": {
+      "kind": "facility",
+      "gift_item": [
+        {
+          "name": "TM36 Selfdestruct",
+          "qty": 1
+        }
+      ],
+      "trainers": 4
+    },
+    "SILPH_CO_3F": {
+      "kind": "facility",
+      "trainers": 2,
+      "items": 1
+    },
+    "SILPH_CO_4F": {
+      "kind": "facility",
+      "trainers": 3,
+      "items": 3
+    },
+    "SILPH_CO_5F": {
+      "kind": "facility",
+      "trainers": 4,
+      "items": 3
+    },
+    "SILPH_CO_6F": {
+      "kind": "facility",
+      "trainers": 3,
+      "items": 2
+    },
+    "SILPH_CO_7F": {
+      "kind": "facility",
+      "gift_mon": [
+        {
+          "dex": "131",
+          "level": 15,
+          "sold": false
+        }
+      ],
+      "trainers": 4,
+      "items": 2
+    },
+    "SILPH_CO_8F": {
+      "kind": "facility",
+      "trainers": 3
+    },
+    "SILPH_CO_9F": {
+      "kind": "facility",
+      "trainers": 3
+    },
+    "SILPH_CO_ELEVATOR": {
+      "kind": "facility"
+    },
+    "SUMMER_BEACH_HOUSE": {
+      "kind": "house"
+    },
+    "TRADE_CENTER": {
+      "kind": "facility"
+    },
+    "UNDERGROUND_PATH_NORTH_SOUTH": {
+      "kind": "dungeon"
+    },
+    "UNDERGROUND_PATH_ROUTE_5": {
+      "kind": "gate"
+    },
+    "UNDERGROUND_PATH_ROUTE_6": {
+      "kind": "gate"
+    },
+    "UNDERGROUND_PATH_ROUTE_7": {
+      "kind": "gate"
+    },
+    "UNDERGROUND_PATH_ROUTE_8": {
+      "kind": "gate"
+    },
+    "UNDERGROUND_PATH_WEST_EAST": {
+      "kind": "dungeon"
+    },
+    "VERMILION_DOCK": {
+      "kind": "ship"
+    },
+    "VERMILION_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Thunder",
+        "tm": "TM24 Thunderbolt",
+        "leader": "Lt. Surge",
+        "types": [
+          "Electric"
+        ]
+      },
+      "trainers": 3
+    },
+    "VERMILION_MART": {
+      "kind": "mart",
+      "stock": [
+        "Pok\u00e9 Ball",
+        "Super Potion",
+        "Ice Heal",
+        "Awakening",
+        "Parlyz Heal",
+        "Repel"
+      ]
+    },
+    "VERMILION_OLD_ROD_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "Old Rod",
+          "qty": 1
+        }
+      ]
+    },
+    "VERMILION_PIDGEY_HOUSE": {
+      "kind": "house"
+    },
+    "VERMILION_POKECENTER": {
+      "kind": "center"
+    },
+    "VERMILION_TRADE_HOUSE": {
+      "kind": "house"
+    },
+    "VICTORY_ROAD_1F": {
+      "kind": "dungeon",
+      "trainers": 2,
+      "items": 2
+    },
+    "VICTORY_ROAD_2F": {
+      "kind": "dungeon",
+      "trainers": 5,
+      "items": 5
+    },
+    "VICTORY_ROAD_3F": {
+      "kind": "dungeon",
+      "trainers": 4,
+      "items": 2
+    },
+    "VIRIDIAN_FOREST": {
+      "kind": "dungeon",
+      "trainers": 5,
+      "items": 3
+    },
+    "VIRIDIAN_FOREST_NORTH_GATE": {
+      "kind": "gate"
+    },
+    "VIRIDIAN_FOREST_SOUTH_GATE": {
+      "kind": "gate"
+    },
+    "VIRIDIAN_GYM": {
+      "kind": "gym",
+      "gym": {
+        "badge": "Earth",
+        "tm": "TM27 Fissure",
+        "leader": "Giovanni",
+        "types": [
+          "Ground"
+        ]
+      },
+      "trainers": 8,
+      "items": 1
+    },
+    "VIRIDIAN_MART": {
+      "kind": "mart",
+      "stock": [
+        "Pok\u00e9 Ball",
+        "Potion",
+        "Antidote",
+        "Parlyz Heal",
+        "Burn Heal"
+      ],
+      "gift_item": [
+        {
+          "name": "Oak's Parcel",
+          "qty": 1
+        }
+      ]
+    },
+    "VIRIDIAN_NICKNAME_HOUSE": {
+      "kind": "house"
+    },
+    "VIRIDIAN_POKECENTER": {
+      "kind": "center"
+    },
+    "VIRIDIAN_SCHOOL_HOUSE": {
+      "kind": "house"
+    },
+    "WARDENS_HOUSE": {
+      "kind": "house",
+      "gift_item": [
+        {
+          "name": "HM Strength",
+          "qty": 1
+        }
+      ],
+      "items": 1
+    }
+  }
+}

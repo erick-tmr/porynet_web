@@ -28,14 +28,40 @@ module Walkthrough
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
   end
+  # What the game says about a place you can walk into, generated into yellow_places.json from
+  # the disassembly: the kind of building, a Gym's leader and prize, a Mart's stock, whatever
+  # someone inside hands over, and how many trainers and item balls wait in there.
+  Gift = Data.define(:dex, :name, :level, :sold) do
+    def sold? = sold
+  end
+  GymFacts = Data.define(:leader, :types, :badge, :tm)
+  GiftItem = Data.define(:name, :qty) do
+    def stack? = qty > 1
+  end
+  Place = Data.define(:kind, :gym, :stock, :gift_mon, :gift_item, :trainers, :items) do
+    def initialize(gym: nil, stock: [], gift_mon: [], gift_item: [], trainers: 0, items: 0, **rest)
+      super(gym: gym, stock: stock, gift_mon: gift_mon, gift_item: gift_item,
+        trainers: trainers, items: items, **rest)
+    end
+
+    def gym? = !gym.nil?
+    def stock? = stock.any?
+    def gift_item? = gift_item.any?
+    def trainers? = trainers.positive?
+    def items? = items.positive?
+  end
+
   # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
   # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
-  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref, :note) do
-    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, **rest) = super
+  # An exit also carries the `place` its door leads to, when the game states anything about it.
+  MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref,
+    :note, :place) do
+    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, place: nil, **rest) = super
     def key? = !key.nil?
     def tickable? = !NON_TICKABLE.include?(cat)
     def glyph_or_key = glyph || key
     def note? = !note.nil?
+    def place? = !place.nil?
   end
 
   AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers) do

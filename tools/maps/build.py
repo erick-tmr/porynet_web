@@ -14,6 +14,7 @@ Usage:
 Outputs (relative to the porynet_web repo root):
   app/assets/images/walkthrough/yellow/{maps,scenes,battles}/<name>.png   (gitignored -> R2)
   app/models/walkthrough/yellow_maps.json                                 manifest (committed)
+  app/models/walkthrough/yellow_places.json                               place facts (committed)
   tools/maps/REPORT.md                                                     counts + review notes
 """
 import argparse
@@ -24,6 +25,7 @@ import compositor
 import generators
 import locations
 import markers
+import places
 import roster
 import sources
 
@@ -31,6 +33,7 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 IMG_ROOT = REPO / "app/assets/images/walkthrough/yellow"
 SPECS_DIR = pathlib.Path(__file__).resolve().parent / "specs"
 MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
+PLACES = REPO / "app/models/walkthrough/yellow_places.json"
 ROSTER = REPO / "app/models/walkthrough/yellow_trainers.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
 
@@ -110,6 +113,9 @@ def main():
     MANIFEST.write_text(json.dumps(
         {"source": "pret/pokeyellow", "locations": areas,
          "step_shots": step_shots, "scenes": scenes}, indent=2))
+    place_facts = places.build_places(root)
+    PLACES.write_text(json.dumps(
+        {"source": "pret/pokeyellow", "places": place_facts}, indent=2) + "\n")
     ROSTER.write_text(json.dumps(
         {"source": "pret/pokeyellow", "count": sum(len(v) for v in trainers.values()),
          "trainers": trainers}, indent=2))
@@ -119,7 +125,8 @@ def main():
           f"markers: {_marker_total(areas)}  "
           f"step shots: {sum(len(v) for v in step_shots.values())}  "
           f"scenes: {len(scenes)}+{len(where_specs)}  "
-          f"trainers: {sum(len(v) for v in trainers.values())}  missing: {len(missing)}")
+          f"trainers: {sum(len(v) for v in trainers.values())}  "
+          f"places: {len(place_facts)}  missing: {len(missing)}")
     if missing:
         print("MISSING:", ", ".join(missing))
 
