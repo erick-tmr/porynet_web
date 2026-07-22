@@ -52,6 +52,15 @@ This writes:
   Each entry carries the class const, the `OPP_CLASS:party` pair, the prize, the team and the R2
   key of its generated "where" shot. The Rails model turns these into trainer cards, with
   hand-authored cards overriding by matching `opp:` within the same location.
+- `app/models/walkthrough/yellow_places.json` — what waits behind each door, keyed by map const
+  (`places.py`). Per place: its `kind` (center, mart, gym, house, lab, gate, dungeon, tower,
+  ship, dojo, hotel, league, facility), a gym's `leader` / `types` / `badge` / `tm`, a mart's
+  `stock`, the `gift_mon` and `gift_item` someone inside hands over, and how many `trainers` and
+  item balls (`items`) are in there. `Walkthrough::PlaceHint` turns those facts into the
+  sentences an exit marker's hint shows, so a door reads "a free Eevee at Lv 25 waits inside"
+  instead of "a door inside the map". Nothing here is authored: every field is parsed from the
+  disassembly (map headers, `data/items/marts.asm`, `GivePokemon` / `GiveItem` in the map's
+  script or text, the gym script's badge bit and TM, the map's own object events).
 - `tools/maps/REPORT.md` — counts + anything to review.
 
 `--force` re-renders PNGs that already exist (default: skip existing).

@@ -64,6 +64,7 @@ module ApplicationHelper
   end
 
   def marker_detail(marker)
+    return Walkthrough::PlaceHint.new(marker.place).to_s if marker.place?
     return t("walkthrough.ui.map_exit_#{marker.edge}") if marker.cat == "exit"
     return t("walkthrough.ui.#{marker.note}") if marker.note?
 

@@ -65,4 +65,22 @@ class ApplicationHelperTest < ActionView::TestCase
       rarity: "COMMON", tip_key: nil, evo_line: []
     )
   end
+
+  test "an exit hint speaks about the place behind the door, not the door" do
+    door = Walkthrough::MapMarker.new(
+      id: "exit-5-5", cat: "exit", name: "Reds House 1F", x: 1.0, y: 2.0, align: "r",
+      edge: "inner", ref: "REDS_HOUSE_1F", place: Walkthrough::Place.new(kind: "house")
+    )
+
+    assert_equal I18n.t("walkthrough.ui.map_place_kind_house"), marker_detail(door)
+  end
+
+  test "an exit the game says nothing about still says which way it leaves" do
+    edge = Walkthrough::MapMarker.new(
+      id: "exit-north", cat: "exit", name: "Route 1", x: 1.0, y: 2.0, align: "r",
+      edge: "north", ref: "ROUTE_1"
+    )
+
+    assert_equal I18n.t("walkthrough.ui.map_exit_north"), marker_detail(edge)
+  end
 end
