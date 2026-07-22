@@ -7,7 +7,7 @@ punctuation), bytes 0x60..0x7f from gfx/font/font_extra.png (32 glyphs, box-draw
 Both atlases are normalized to an ink mask (a dark source pixel is ink) so the caller can
 paint the text in any color, which is how we render the classic bottom dialog box.
 """
-from functools import lru_cache
+from functools import cache
 
 from PIL import Image, ImageDraw
 
@@ -26,7 +26,7 @@ def _slice_tiles(img):
             for r in range(rows) for c in range(cols)]
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_font_atlas(root_str):
     """Return (main, extra): lists of 8x8 'L' glyph tiles for font.png / font_extra.png."""
     root = sources._root(root_str)
@@ -50,7 +50,7 @@ def _glyph_mask(atlas, b):
     return byte_to_glyph(atlas, b).point(lambda p: 255 if p < _INK_THRESHOLD else 0).convert("1")
 
 
-@lru_cache(maxsize=None)
+@cache
 def _max_token_len(root_str):
     return max(len(k) for k in sources.parse_charmap(root_str))
 

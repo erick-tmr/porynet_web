@@ -142,7 +142,7 @@ def _write_report(areas, step_shots, scenes, trainers, missing):
     if missing:
         lines += ["## Missing labels", ""] + [f"- {m}" for m in missing] + [""]
     lines += ["## Markers per map", ""]
-    for slug, maps in sorted(areas.items()):
+    for _slug, maps in sorted(areas.items()):
         for entry in maps:
             counts = {c: len([m for m in entry["markers"] if m["cat"] == c])
                       for c in ("trainer", "item", "hidden", "exit")}
