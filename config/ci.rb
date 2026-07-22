@@ -11,7 +11,7 @@ CI.run do
   step "Tests: Rails", "bin/rails test"
   step "Tests: JS unit (Vitest)", "npm ci && npm run test:js"
   step "Style: Python (map generator)", "ruff check tools/maps"
-  step "Tests: Python (map generator)", "cd tools/maps && python -m pytest -q -rs --cov --cov-fail-under=86"
+  step "Tests: Python (map generator)", "cd tools/maps && python -m pytest -q -rs --cov --cov-fail-under=87"
   step "Tests: Seeds", "env RAILS_ENV=test bin/rails db:seed:replant"
 
   # Optional: Run system tests

@@ -196,3 +196,28 @@ python tools/maps/manifest_diff.py <(git show origin/main:app/models/walkthrough
 The golden test proves the manifest still matches the game data; this says *which* maps a change
 moved, so a fix for one map that drags another along is visible. `bin/pre-push-check` prints it
 locally and CI posts it to the sticky `ci-quality` PR comment.
+
+### Declared drift
+
+The report alone is easy to skim past, and the golden test cannot help: it goes green as soon as
+you regenerate, no matter how many maps moved. Since a moved marker is usually the point of the
+change, "the manifest changed" cannot be the failure condition either. So intent comes from you,
+as a commit trailer:
+
+```
+fix(maps): put Route 22's west exit inside its shared strip
+
+Manifest-drift: route-22
+```
+
+CI collects those trailers from every commit on the branch, computes the real moved set, and
+fails when the two disagree:
+
+- **moved but not declared**: collateral damage you did not notice. Fix the change, or add the
+  maps to the trailer if they were meant to move.
+- **declared but unmoved**: your change did not do what you thought. Drop them.
+
+`Manifest-drift: all` is the escape hatch for a wholesale regeneration (a `.pokeyellow-ref` bump).
+Names are comma or space separated and case-insensitive; trailers on separate commits are unioned.
+Run the same check by hand with `--expect route-22,viridian-city` or
+`--expect-commits <file>` (`-` reads stdin).

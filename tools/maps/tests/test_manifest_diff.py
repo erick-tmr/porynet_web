@@ -3,6 +3,9 @@
 These build their manifests by hand, so unlike the rest of the suite they need no pokeyellow
 checkout.
 """
+import io
+import json
+
 import manifest_diff
 
 
@@ -128,3 +131,113 @@ def test_render_markdown_omits_the_size_line_when_only_markers_changed():
 def test_describe_marker_without_grid_or_name():
     bare = {"id": "hidden-0-0", "cat": "hidden", "ref": None, "name": None}
     assert manifest_diff._describe(bare) == "`hidden-0-0` ?"
+
+
+def test_parse_declared_reads_every_trailer_in_a_log():
+    log = """fix(maps): put Route 22's west exit inside its strip
+
+Manifest-drift: route-22, viridian-city
+
+Co-Authored-By: someone <a@b.c>
+
+chore(maps): rebuild after the fix
+
+  manifest-drift:  route-2
+"""
+    assert manifest_diff.parse_declared(log) == {"route-22", "viridian-city", "route-2"}
+
+
+def test_parse_declared_ignores_a_log_without_trailers():
+    assert manifest_diff.parse_declared("fix: something unrelated\n\nBody text.") == set()
+    assert manifest_diff.parse_declared("") == set()
+    assert manifest_diff.parse_declared(None) == set()
+
+
+def test_parse_declared_ignores_a_mid_line_mention():
+    """Only a real trailer counts, so prose about the convention cannot declare a map."""
+    assert manifest_diff.parse_declared("We should add a Manifest-drift: trailer someday.") == set()
+
+
+def test_check_drift_agrees_when_the_sets_match():
+    deltas = [manifest_diff.MapDelta(name="route-22")]
+    assert manifest_diff.check_drift(deltas, {"route-22"}) == ([], [])
+
+
+def test_check_drift_reports_undeclared_movement():
+    deltas = [manifest_diff.MapDelta(name="route-22"), manifest_diff.MapDelta(name="viridian-city")]
+    undeclared, unmoved = manifest_diff.check_drift(deltas, {"route-22"})
+    assert undeclared == ["viridian-city"] and unmoved == []
+
+
+def test_check_drift_reports_a_declaration_that_did_not_move():
+    deltas = [manifest_diff.MapDelta(name="route-22")]
+    undeclared, unmoved = manifest_diff.check_drift(deltas, {"route-22", "pallet-town"})
+    assert undeclared == [] and unmoved == ["pallet-town"]
+
+
+def test_check_drift_accepts_all_as_a_wholesale_regeneration():
+    deltas = [manifest_diff.MapDelta(name=f"map-{n}") for n in range(97)]
+    assert manifest_diff.check_drift(deltas, {"all"}) == ([], [])
+
+
+def test_render_verdict_wording():
+    assert "matches" in manifest_diff.render_verdict([], [])
+    assert "moved without being declared" in manifest_diff.render_verdict(["route-2"], [])
+    assert "declared but unchanged" in manifest_diff.render_verdict([], ["pallet-town"])
+
+
+def _write(tmp_path, name, payload):
+    path = tmp_path / name
+    path.write_text(json.dumps(payload))
+    return str(path)
+
+
+def test_main_without_expectations_only_reports(tmp_path, capsys):
+    old = _write(tmp_path, "base.json", manifest(entry(markers=[marker("hidden-4-5")])))
+    new = _write(tmp_path, "head.json", manifest(entry(markers=[])))
+
+    assert manifest_diff.main([old, new]) == 0
+    assert "Declared drift" not in capsys.readouterr().out
+
+
+def test_main_passes_when_the_declared_set_matches(tmp_path, capsys):
+    old = _write(tmp_path, "base.json", manifest(entry(markers=[marker("hidden-4-5")])))
+    new = _write(tmp_path, "head.json", manifest(entry(markers=[])))
+
+    assert manifest_diff.main([old, new, "--expect", "pallet-town"]) == 0
+    assert "Declared drift (`pallet-town`)" in capsys.readouterr().out
+
+
+def test_main_fails_on_undeclared_movement(tmp_path, capsys):
+    old = _write(tmp_path, "base.json", manifest(entry(markers=[marker("hidden-4-5")])))
+    new = _write(tmp_path, "head.json", manifest(entry(markers=[])))
+
+    assert manifest_diff.main([old, new, "--expect", "route-22"]) == 1
+    out = capsys.readouterr().out
+    assert "moved without being declared" in out and "`pallet-town`" in out
+
+
+def test_main_reads_trailers_from_a_commit_log_file(tmp_path):
+    old = _write(tmp_path, "base.json", manifest(entry(markers=[marker("hidden-4-5")])))
+    new = _write(tmp_path, "head.json", manifest(entry(markers=[])))
+    log = tmp_path / "commits.txt"
+    log.write_text("fix(maps): drop a stale marker\n\nManifest-drift: pallet-town\n")
+
+    assert manifest_diff.main([old, new, "--expect-commits", str(log)]) == 0
+
+
+def test_main_reads_trailers_from_stdin(tmp_path, monkeypatch):
+    old = _write(tmp_path, "base.json", manifest(entry(markers=[marker("hidden-4-5")])))
+    new = _write(tmp_path, "head.json", manifest(entry(markers=[])))
+    monkeypatch.setattr("sys.stdin", io.StringIO("Manifest-drift: pallet-town\n"))
+
+    assert manifest_diff.main([old, new, "--expect-commits", "-"]) == 0
+
+
+def test_main_fails_when_a_trailer_names_a_map_that_did_not_move(tmp_path, capsys):
+    same = manifest(entry(markers=[marker("hidden-4-5")]))
+    old = _write(tmp_path, "base.json", same)
+    new = _write(tmp_path, "head.json", same)
+
+    assert manifest_diff.main([old, new, "--expect", "pallet-town"]) == 1
+    assert "declared but unchanged" in capsys.readouterr().out

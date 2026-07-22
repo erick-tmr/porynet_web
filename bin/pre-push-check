@@ -124,16 +124,17 @@ else
     fi
     PY_COV=""
     if python3 -c 'import pytest_cov' >/dev/null 2>&1; then
-      PY_COV="--cov --cov-report=term --cov-fail-under=86"
+      PY_COV="--cov --cov-report=term --cov-fail-under=87"
     fi
     (cd tools/maps && POKEYELLOW="$PY_ROOT" python3 -m pytest -q -rs $PY_COV)
     ok "python map generator"
   fi
 fi
 
-# The golden test above proves the manifest still matches the game data; this says *which* maps
-# a generator change moved, so collateral damage shows up before the push, not in review.
-step "generator regression (maps that moved vs origin/main)"
+# The golden test above proves the manifest still matches the game data, but it goes green again
+# the moment you regenerate, however many maps moved. This says *which* maps moved and holds them
+# to the `Manifest-drift:` trailer on this branch, so collateral damage cannot ride along.
+step "generator regression (declared drift vs origin/main)"
 MANIFEST="app/models/walkthrough/yellow_maps.json"
 CHANGED_PY="$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps "$MANIFEST" | tr '\n' ' ')"
 if [ -z "$CHANGED_PY" ]; then
@@ -142,7 +143,12 @@ else
   printf '  changed: %s\n\n' "$CHANGED_PY"
   mkdir -p tmp
   git show "origin/main:$MANIFEST" > tmp/base-manifest.json
-  python3 tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST"
+  git log origin/main..HEAD --format=%B > tmp/branch-commits.txt
+  if ! python3 tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
+       --expect-commits tmp/branch-commits.txt; then
+    printf '\n\033[1;31m✗ manifest drift does not match the `Manifest-drift:` trailer on this branch\033[0m\n'
+    exit 1
+  fi
 fi
 ok "generator regression"
 

@@ -2,16 +2,27 @@
 """Compare two yellow_maps.json manifests and report, per map, which markers moved.
 
 The golden test in tests/test_manifest.py proves the committed manifest still matches the game
-data; it cannot say *which* maps a generator change shifted. This does, so a fix for one map that
-silently drags another along is visible in the PR instead of in production.
+data; it cannot say *which* maps a generator change shifted, and it goes green again the moment
+you regenerate, however many maps moved. This says which, and can hold you to a declared set.
+
+A moved marker is usually the point of the change, so "the manifest changed" cannot be the
+failure condition. Intent has to come from the author, as a `Manifest-drift:` commit trailer
+listing the maps the change is meant to move (or `all` for a wholesale regeneration). Comparing
+that against the real set turns collateral damage from a report into a failure.
 
   python tools/maps/manifest_diff.py <base.json> <head.json>
+  python tools/maps/manifest_diff.py <base.json> <head.json> --expect route-22,viridian-city
+  git log origin/main..HEAD --format=%B | python tools/maps/manifest_diff.py a.json b.json --expect-commits -
 """
+import argparse
 import json
+import re
 import sys
 from dataclasses import dataclass, field
 
 POSITION_KEYS = ("grid", "x", "y")
+TRAILER = re.compile(r"^[ \t]*Manifest-drift:[ \t]*(.+)$", re.MULTILINE | re.IGNORECASE)
+DECLARE_ALL = "all"
 
 
 @dataclass
@@ -132,6 +143,75 @@ def render_markdown(deltas):
     return "\n".join(lines)
 
 
+def parse_names(value):
+    """Split a comma or space separated list of map names."""
+    return {name.lower() for name in (value or "").replace(",", " ").split()}
+
+
+def parse_declared(text):
+    """Collect the map names from every `Manifest-drift:` trailer in a blob of commit messages."""
+    names = set()
+    for value in TRAILER.findall(text or ""):
+        names |= parse_names(value)
+    return names
+
+
+def check_drift(deltas, declared):
+    """Return (moved but undeclared, declared but unmoved). Both empty means the sets agree."""
+    moved = {delta.name for delta in deltas}
+    if DECLARE_ALL in declared:
+        return [], []
+    return sorted(moved - declared), sorted(declared - moved)
+
+
+def render_verdict(undeclared, unmoved):
+    if not undeclared and not unmoved:
+        return "Declared drift matches the manifest."
+    lines = []
+    if undeclared:
+        lines.append(f"**{len(undeclared)} map(s) moved without being declared:** "
+                     + ", ".join(f"`{n}`" for n in undeclared))
+        lines.append("")
+        lines.append("Either this is collateral damage from your change (fix it), or it is "
+                     "intended, in which case add these to the `Manifest-drift:` trailer.")
+    if unmoved:
+        lines.append(f"**{len(unmoved)} map(s) declared but unchanged:** "
+                     + ", ".join(f"`{n}`" for n in unmoved))
+        lines.append("")
+        lines.append("Your change did not move these. Drop them from the trailer.")
+    return "\n".join(lines)
+
+
+def main(argv):
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("base")
+    parser.add_argument("head")
+    parser.add_argument("--expect", default="",
+                        help="comma or space separated map names this change is meant to move")
+    parser.add_argument("--expect-commits", default=None, metavar="PATH",
+                        help="file of commit messages to read Manifest-drift: trailers from "
+                             "('-' for stdin)")
+    args = parser.parse_args(argv)
+
+    with open(args.base) as base_file, open(args.head) as head_file:
+        deltas = diff_manifests(json.load(base_file), json.load(head_file))
+    print(render_markdown(deltas))
+
+    if args.expect_commits is None and not args.expect:
+        return 0
+
+    declared = parse_names(args.expect)
+    if args.expect_commits:
+        text = (sys.stdin.read() if args.expect_commits == "-"
+                else open(args.expect_commits).read())
+        declared |= parse_declared(text)
+
+    undeclared, unmoved = check_drift(deltas, declared)
+    listed = ", ".join(f"`{name}`" for name in sorted(declared)) or "none"
+    print(f"\n### Declared drift ({listed})\n")
+    print(render_verdict(undeclared, unmoved))
+    return 1 if undeclared or unmoved else 0
+
+
 if __name__ == "__main__":  # pragma: no cover
-    base, head = (json.loads(open(path).read()) for path in sys.argv[1:3])
-    print(render_markdown(diff_manifests(base, head)))
+    sys.exit(main(sys.argv[1:]))

@@ -289,7 +289,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POKEYELLOW: ${{ github.workspace }}/tmp/pokeyellow
-      PY_COVERAGE_FLOOR: "86"
+      PY_COVERAGE_FLOOR: "87"
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -372,27 +372,31 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Generator regression report
+      - name: Generator regression report and declared-drift gate
         if: ${{ !cancelled() && github.event_name == 'pull_request' }}
         run: |
           mkdir -p tmp
           MANIFEST=app/models/walkthrough/yellow_maps.json
           git fetch --no-tags origin main:refs/remotes/origin/main || true
           CHANGED=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps "$MANIFEST")
+          STATUS=0
           if [ -z "$CHANGED" ]; then
             echo "The map generator and its manifest are untouched on this branch." > tmp/python-regression.md
           else
             git show "origin/main:$MANIFEST" > tmp/base-manifest.json
-            {
-              echo "Changed: $(echo "$CHANGED" | tr '\n' ' ')"
-              echo ""
-              python tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST"
-            } > tmp/python-regression.md
+            git log origin/main..HEAD --format=%B > tmp/branch-commits.txt
+            printf 'Changed: %s\n\n' "$(echo "$CHANGED" | tr '\n' ' ')" > tmp/python-regression.md
+            python tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
+              --expect-commits tmp/branch-commits.txt >> tmp/python-regression.md || STATUS=$?
           fi
           {
             echo "## Generator regression (tools/maps)"
             cat tmp/python-regression.md
           } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$STATUS" -ne 0 ]; then
+            echo "::error::Manifest drift does not match the 'Manifest-drift:' trailer on this branch. See the job summary for the maps involved."
+          fi
+          exit "$STATUS"
 
       - name: Upload generator regression report
         if: ${{ !cancelled() && github.event_name == 'pull_request' }}
