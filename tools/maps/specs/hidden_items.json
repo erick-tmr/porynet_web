@@ -11,7 +11,7 @@
   },
   {
     "type": "dialog", "name": "mt-moon-hidden-moon-stone",
-    "map": "MtMoonB2F", "player": [18, 13], "player_dir": "UP",
+    "map": "MtMoonB2F", "player": [17, 12], "player_dir": "RIGHT", "focus": [18, 13],
     "marker": [18, 12], "dialog": {"found_item": "MOON STONE"}
   },
   {

@@ -16426,6 +16426,78 @@
       "height": 144,
       "type": "screen"
     },
+    "route-2-trade-house": {
+      "image": "walkthrough/yellow/scenes/route-2-trade-house.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-2-trade-house-inside": {
+      "image": "walkthrough/yellow/scenes/route-2-trade-house-inside.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-5-underground-house": {
+      "image": "walkthrough/yellow/scenes/route-5-underground-house.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-5-underground-house-inside": {
+      "image": "walkthrough/yellow/scenes/route-5-underground-house-inside.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-11-gate": {
+      "image": "walkthrough/yellow/scenes/route-11-gate.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-11-gate-inside": {
+      "image": "walkthrough/yellow/scenes/route-11-gate-inside.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-18-gate": {
+      "image": "walkthrough/yellow/scenes/route-18-gate.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-18-gate-inside": {
+      "image": "walkthrough/yellow/scenes/route-18-gate-inside.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cinnabar-lab": {
+      "image": "walkthrough/yellow/scenes/cinnabar-lab.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cinnabar-lab-fossil-inside": {
+      "image": "walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cinnabar-lab-trade-buffy": {
+      "image": "walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cinnabar-lab-trade-cezanne": {
+      "image": "walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "mt-moon-jessie-james": {
       "image": "walkthrough/yellow/scenes/mt-moon-jessie-james.png",
       "width": 160,

@@ -1,0 +1,46 @@
+<div class="pn-wt-trade">
+  <div class="pn-wt-trade__head">
+    <div>
+      <div class="pn-wt-trade__npc"><%= t(trade.npc_key) %></div>
+      <div class="pn-wt-trade__title"><%= t(trade.title_key) %></div>
+    </div>
+    <span class="pn-wt-trade__tag"><%= t("walkthrough.ui.trade_tag") %></span>
+  </div>
+  <div class="pn-wt-trade__where"><%= t(trade.where_key) %></div>
+
+  <div class="pn-wt-trade__swap">
+    <div class="pn-wt-trade__mon pn-wt-trade__mon--give">
+      <span class="pn-wt-trade__slot"><%= t("walkthrough.ui.trade_give") %></span>
+      <span class="pn-wt-trade__sprite"><%= r2_image_tag "pokemon/yellow/#{trade.give[:dex]}.png", alt: "", loading: "lazy" %></span>
+      <div class="pn-wt-trade__mon-name"><%= trade.give[:name] %></div>
+    </div>
+    <span class="pn-wt-trade__arrow" aria-hidden="true"></span>
+    <div class="pn-wt-trade__mon pn-wt-trade__mon--get">
+      <span class="pn-wt-trade__slot pn-wt-trade__slot--get"><%= t("walkthrough.ui.trade_get") %></span>
+      <span class="pn-wt-trade__sprite"><%= r2_image_tag "pokemon/yellow/#{trade.receive[:dex]}.png", alt: "", loading: "lazy" %></span>
+      <div class="pn-wt-trade__mon-name"><%= trade.receive[:name] %></div>
+      <div class="pn-wt-trade__nick">&ldquo;<%= trade.nick %>&rdquo;</div>
+    </div>
+  </div>
+
+  <div class="pn-wt-trade__shots">
+    <div class="pn-wt-shot pn-wt-shot--tradewhere">
+      <% if trade.house&.map? %>
+        <%= r2_image_tag trade.house.image, alt: "", class: "pn-wt-shot__img", loading: "lazy", width: 160, height: 144 %>
+      <% else %>
+        <div class="pn-wt-shot__ph"><%= t("walkthrough.ui.shot_placeholder") %></div>
+      <% end %>
+      <span class="pn-wt-shot__label pn-wt-shot__label--where"><%= t("walkthrough.ui.where") %></span>
+    </div>
+    <div class="pn-wt-shot pn-wt-shot--tradeinside">
+      <% if trade.inside&.map? %>
+        <%= r2_image_tag trade.inside.image, alt: "", class: "pn-wt-shot__img", loading: "lazy", width: 160, height: 144 %>
+      <% else %>
+        <div class="pn-wt-shot__ph"><%= t("walkthrough.ui.shot_placeholder") %></div>
+      <% end %>
+      <span class="pn-wt-shot__label pn-wt-shot__label--inside"><%= t("walkthrough.ui.inside") %></span>
+    </div>
+  </div>
+
+  <div class="pn-wt-trade__tip"><b><%= t("walkthrough.ui.tip") %></b> · <%= t(trade.note_key) %></div>
+</div>

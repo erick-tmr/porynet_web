@@ -59,6 +59,19 @@
   </section>
 <% end %>
 
+<% if loc.trades.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trades_eyebrow", count: loc.trades.size) %></div>
+    <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trades_h2") %></h3>
+    <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
+    <div class="pn-wt-trades">
+      <% loc.trades.each do |trade| %>
+        <%= render "trade", trade: trade %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
 <% if loc.gym? %>
   <%= render "gym", gym: loc.gym, slug: loc.slug %>
 <% end %>

@@ -1,0 +1,30 @@
+[
+  { "type": "screen", "name": "route-2-trade-house", "map": "Route2",
+    "player": [15, 20], "player_dir": "UP", "focus": [15, 19] },
+  { "type": "screen", "name": "route-2-trade-house-inside", "map": "Route2TradeHouse",
+    "player": [5, 4], "player_dir": "LEFT", "focus": [3, 4], "auto_npcs": true },
+
+  { "type": "screen", "name": "route-5-underground-house", "map": "Route5",
+    "player": [17, 28], "player_dir": "UP", "focus": [17, 27] },
+  { "type": "screen", "name": "route-5-underground-house-inside", "map": "UndergroundPathRoute5",
+    "player": [3, 3], "player_dir": "LEFT", "focus": [2, 3], "auto_npcs": true },
+
+  { "type": "screen", "name": "route-11-gate", "map": "Route11",
+    "player": [48, 9], "player_dir": "RIGHT", "focus": [49, 9] },
+  { "type": "screen", "name": "route-11-gate-inside", "map": "Route11Gate2F",
+    "player": [4, 3], "player_dir": "UP", "focus": [4, 3], "auto_npcs": true },
+
+  { "type": "screen", "name": "route-18-gate", "map": "Route18",
+    "player": [32, 9], "player_dir": "RIGHT", "focus": [33, 9] },
+  { "type": "screen", "name": "route-18-gate-inside", "map": "Route18Gate2F",
+    "player": [4, 3], "player_dir": "UP", "focus": [4, 3], "auto_npcs": true },
+
+  { "type": "screen", "name": "cinnabar-lab", "map": "CinnabarIsland",
+    "player": [6, 10], "player_dir": "UP", "focus": [6, 9] },
+  { "type": "screen", "name": "cinnabar-lab-fossil-inside", "map": "CinnabarLabFossilRoom",
+    "player": [6, 6], "player_dir": "RIGHT", "focus": [7, 5], "auto_npcs": true, "parent": "CINNABAR_ISLAND" },
+  { "type": "screen", "name": "cinnabar-lab-trade-buffy", "map": "CinnabarLabTradeRoom",
+    "player": [2, 4], "player_dir": "LEFT", "focus": [2, 4], "auto_npcs": true, "parent": "CINNABAR_ISLAND" },
+  { "type": "screen", "name": "cinnabar-lab-trade-cezanne", "map": "CinnabarLabTradeRoom",
+    "player": [4, 5], "player_dir": "RIGHT", "focus": [5, 5], "auto_npcs": true, "parent": "CINNABAR_ISLAND" }
+]

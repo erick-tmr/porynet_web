@@ -66,6 +66,11 @@ module Walkthrough
     def initialize(opp: nil, marker_key: nil, tick: nil, **rest) = super
     def marker_key? = !marker_key.nil?
   end
+  # An in-game trade: give one species, receive another with a fixed nickname. give/receive are
+  # { dex:, name: }; house/inside are Shots (the building on the overworld, the NPC inside).
+  Trade = Data.define(:give, :receive, :nick, :npc_key, :title_key, :where_key, :note_key, :house,
+    :inside)
+
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
   BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
     def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, **rest) = super
@@ -85,11 +90,13 @@ module Walkthrough
 
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
-    :steps, :encounters, :trainers, :oak_queue, :gym, :gym_after, :area_maps, :later, :trivia, :missable
+    :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :area_maps, :later,
+    :trivia, :missable
   ) do
-    def initialize(gym: nil, gym_after: nil, area_maps: [], later: [], trivia: nil, missable: nil, **rest)
+    def initialize(gym: nil, gym_after: nil, area_maps: [], later: [], trivia: nil, missable: nil,
+      trades: [], **rest)
       super(gym: gym, gym_after: gym_after, area_maps: area_maps, later: later, trivia: trivia,
-        missable: missable, **rest)
+        missable: missable, trades: trades, **rest)
     end
 
     def area_maps? = area_maps.any?

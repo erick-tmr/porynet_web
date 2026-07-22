@@ -210,7 +210,14 @@ pt:
       trainers_h2: "Treinadores aqui"
       vs: "VS"
       where: "ONDE"
+      inside: "DENTRO"
       battle: "BATALHA"
+      trades_eyebrow: "TROCAS NO JOGO · %{count}"
+      trades_h2: "Trocas aqui"
+      trades_hint: "Entregue a um NPC o Pokémon que ele quer e ganhe um de volta. É o único jeito de registrar algumas espécies sem cabo de link."
+      trade_tag: "TROCA"
+      trade_give: "VOCÊ DÁ"
+      trade_get: "VOCÊ RECEBE"
       gym_tag: "◆ GINÁSIO"
       gym_type: "TIPO %{type}"
       gym_short: "GINÁSIO"
@@ -404,6 +411,12 @@ pt:
         route_2:
           note: "Trecho curto até a floresta. Pidgey, Rattata e Nidoran."
           intro: "O trecho entre Viridian e o portão da floresta. As mesmas capturas de antes, mais Nidoran selvagem."
+          trades:
+            mr_mime:
+              npc: "CIENTISTA"
+              title: "Mr. Mime"
+              where: "A casa de troca na Rota 2"
+              note: "Yellow não tem Mr. Mime selvagem, então esta troca é o único jeito de obtê-lo. Você precisa de um Clefairy extra do Monte da Lua, então a maioria volta aqui depois."
           steps:
             "1":
               title: "Atravesse a grama sul"
@@ -564,6 +577,12 @@ pt:
         route_5:
           note: "Ao sul até Vermilion. Pidgey, Rattata e Abra raro."
           intro: "Um trecho curto ao sul de Cerulean. Capture um Abra aqui. Vira um dos melhores Pokémon do jogo."
+          trades:
+            machoke:
+              npc: "MENINA"
+              title: "Machoke"
+              where: "A casa do Túnel Subterrâneo no norte da Rota 5"
+              note: "Um Machoke totalmente evoluído por um Cubone, e Pokémon trocados ganham mais XP. Cubone vem da Torre Pokémon, então é outra volta para depois."
           steps:
             "1":
               title: "Vá ao sul"
@@ -622,6 +641,12 @@ pt:
         route_11:
           note: "A leste de Vermilion. Pidgey, Rattata e Drowzee."
           intro: "Uma rota larga de grama a leste de Vermilion, com um atalho de caverna rumo a Pewter."
+          trades:
+            dugtrio:
+              npc: "GAROTO"
+              title: "Dugtrio"
+              where: "No andar de cima do portão da Rota 11"
+              note: "Te dá um Dugtrio para pular o spawn de 5% na Caverna Diglett, e a troca ainda o deixa com XP turbinado."
           steps:
             "1":
               title: "Lute a leste"
@@ -918,6 +943,12 @@ pt:
         route_18:
           note: "A leste até Fuchsia. Spearow, Rattata, Doduo."
           intro: "Um trecho curto de Bird Keepers ligando a Cycling Road a Fuchsia."
+          trades:
+            parasect:
+              npc: "COZINHEIRO"
+              title: "Parasect"
+              where: "No andar de cima do portão da Rota 18"
+              note: "Um Parasect pronto que sobe de nível rápido pelo bônus de XP de troca. Tangela é uma captura na Zona Safári."
           steps:
             "1":
               title: "Cruze a leste"
@@ -1034,6 +1065,22 @@ pt:
               "3": "A última porta se abre para o Blaine. Um único golpe forte de Água, Pedra ou Terra derruba o Ninetales, o Rapidash e o Arcanine dele num piscar."
           note: "Ginásio do Blaine. Volcano Badge. Laboratório de fósseis."
           intro: "Uma ilha vulcânica. Reviva seus fósseis no lab, pegue a Secret Key na Mansão, depois vença o Blaine."
+          trades:
+            muk:
+              npc: "CIENTISTA"
+              title: "Muk"
+              where: "A sala dos fósseis do Laboratório Pokémon"
+              note: "Um Muk de nível alto sem grinding. Kangaskhan é uma captura na Zona Safári."
+            rhydon:
+              npc: "VELHINHO"
+              title: "Rhydon"
+              where: "A sala de trocas do Laboratório Pokémon"
+              note: "Um Rhydon trocado chega forte e ganha XP turbinado."
+            dewgong:
+              npc: "BELDADE"
+              title: "Dewgong"
+              where: "A sala de trocas do Laboratório Pokémon"
+              note: "Dewgong por um Growlithe, com o bônus de XP de troca. Growlithe aparece na Mansão Pokémon ao lado."
           steps:
             "1":
               title: "Limpe a Mansao primeiro"
