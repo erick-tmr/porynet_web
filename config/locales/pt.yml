@@ -209,6 +209,8 @@ pt:
       map_place_kind_league: "Uma sala da Liga Pokémon. Entrou, não tem volta."
       map_place_kind_hotel: "Um hotel. Ninguém se hospeda ali, é só cenário."
       map_place_kind_facility: "Um prédio em que você pode entrar."
+      map_place_note_viridian_nickname: "Não é onde se troca o apelido, só uma casa-dica com um Spearow de estimação chamado SPEARY. Quem renomeia é o Avaliador de Nomes em Lavender Town."
+      map_place_note_name_rater: "Aqui mora o Avaliador de Nomes. Traga qualquer Pokémon para dar um novo apelido, quantas vezes quiser."
       map_npc_pallet_technology: "\"A tecnologia é incrível!\" O pescador que explica o armazenamento de itens no PC, um clássico de Kanto."
       map_npc_route1_potion: "Fale com ele para ganhar uma Potion grátis, uma amostra do Mercado de Viridian. Útil antes da floresta."
       map_npc_route24_nugget: "No topo da Ponte da Pepita ele te dá uma Nugget e convida você para a Equipe Rocket. Recuse."

@@ -18,6 +18,7 @@ module Walkthrough
     def lead
       return gym_line if place.gym?
       return phrase("map_place_mart", stock: stock_list) if place.kind == "mart" && place.stock?
+      return phrase(place.note) if place.note?
 
       phrase("map_place_kind_#{place.kind}")
     end

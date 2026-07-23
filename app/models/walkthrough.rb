@@ -38,12 +38,17 @@ module Walkthrough
   GiftItem = Data.define(:name, :qty) do
     def stack? = qty > 1
   end
-  Place = Data.define(:kind, :gym, :stock, :gift_mon, :gift_item, :trainers, :items) do
-    def initialize(gym: nil, stock: [], gift_mon: [], gift_item: [], trainers: 0, items: 0, **rest)
-      super(gym: gym, stock: stock, gift_mon: gift_mon, gift_item: gift_item,
+  # `note` is a locale key for a hand-authored line about places the game data cannot describe,
+  # e.g. the Name Rater (renames a Pokémon but hands over nothing) or a flavor house; it leads
+  # the hint in place of the generic "a house" line.
+  Place = Data.define(:kind, :note, :gym, :stock, :gift_mon, :gift_item, :trainers, :items) do
+    def initialize(note: nil, gym: nil, stock: [], gift_mon: [], gift_item: [], trainers: 0,
+      items: 0, **rest)
+      super(note: note, gym: gym, stock: stock, gift_mon: gift_mon, gift_item: gift_item,
         trainers: trainers, items: items, **rest)
     end
 
+    def note? = !note.nil?
     def gym? = !gym.nil?
     def stock? = stock.any?
     def gift_item? = gift_item.any?
