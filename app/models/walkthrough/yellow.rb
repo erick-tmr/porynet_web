@@ -285,14 +285,21 @@ module Walkthrough
       end
     end
 
+    # A few places do something the map data cannot state (the Name Rater renames a Pokémon but
+    # gives nothing; the Viridian house is pure flavor), so a hand-authored overlay keyed by map
+    # const pins a locale key onto them, the same curated-overlay pattern as the NPC markers.
+    def self.place_notes
+      @place_notes ||= JSON.parse(File.read(File.join(__dir__, "yellow_place_notes.json"))).freeze
+    end
+
     # What is behind each door, generated from the disassembly next to the map manifest.
     def self.place_facts
       @place_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_places.json")))
-        .fetch("places").transform_values { |facts| place(facts) }.freeze
+        .fetch("places").to_h { |const, facts| [ const, place(const, facts) ] }.freeze
     end
 
-    def self.place(facts)
-      Place.new(kind: facts["kind"], gym: gym_facts(facts["gym"]),
+    def self.place(const, facts)
+      Place.new(kind: facts["kind"], note: place_notes[const], gym: gym_facts(facts["gym"]),
         stock: facts.fetch("stock", []),
         gift_item: facts.fetch("gift_item", []).map { |i| GiftItem.new(name: i["name"], qty: i["qty"]) },
         gift_mon: facts.fetch("gift_mon", []).map { |g| gift(g) },

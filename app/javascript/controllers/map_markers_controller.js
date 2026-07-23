@@ -22,7 +22,6 @@ export default class extends Controller {
     filter: { type: String, default: "all" },
     labels: { type: Boolean, default: true },
     hint: { type: String, default: "" },
-    hintMs: { type: Number, default: 2200 },
   }
 
   connect() {
@@ -46,7 +45,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    clearTimeout(this.hintTimer)
     this.unsubscribe()
   }
 
@@ -59,7 +57,16 @@ export default class extends Controller {
       save(this.state)
       this.#renderProgress()
     }
-    this.hintValue = markerId
+    // Clicking the marker whose hint is already up closes it; any other marker opens its own.
+    this.hintValue = this.hintValue === markerId ? "" : markerId
+  }
+
+  // A hint stays up until it is dismissed: clicking another marker moves it there (through #hit),
+  // and clicking the bare map or the hint itself clears it. Only a click on a pin's own hit button
+  // is left to #hit, so a pin click never wipes the hint that same click just raised.
+  dismiss(event) {
+    if (event.target.closest(".pn-mm__hit")) return
+    this.hintValue = ""
   }
 
   filter(event) {
@@ -89,11 +96,7 @@ export default class extends Controller {
   }
 
   hintValueChanged() {
-    clearTimeout(this.hintTimer)
     this.#eachAnchored((element, id) => element.classList.toggle("is-selected", id === this.hintValue))
-    if (this.hintValue) {
-      this.hintTimer = setTimeout(() => { this.hintValue = "" }, this.hintMsValue)
-    }
   }
 
   #matchesFilter(cat) {

@@ -38,6 +38,47 @@ class WalkthroughPlaceTest < ActiveSupport::TestCase
     refute_predicate potion, :place?
   end
 
+  test "a curated note leads the hint where the game data has nothing to say" do
+    nickname = exit_marker("Viridian Nickname House").place
+
+    assert_predicate nickname, :note?
+    assert_equal I18n.t("walkthrough.ui.map_place_note_viridian_nickname"),
+      Walkthrough::PlaceHint.new(nickname).to_s
+  end
+
+  test "the note clears up which nickname house actually renames a Pokémon" do
+    assert_match(/Name Rater in Lavender Town/,
+      Walkthrough::PlaceHint.new(exit_marker("Viridian Nickname House").place).to_s)
+    assert_match(/give it a new nickname/,
+      Walkthrough::PlaceHint.new(exit_marker("Name Raters House").place).to_s)
+  end
+
+  test "the vague school house now reads as a trainer's school" do
+    assert_equal I18n.t("walkthrough.ui.map_place_note_viridian_school"),
+      Walkthrough::PlaceHint.new(exit_marker("Viridian School House").place).to_s
+  end
+
+  test "every note in the overlay lands on a real place and has copy in both locales" do
+    overlay = JSON.parse(File.read(Rails.root.join("app/models/walkthrough/yellow_place_notes.json")))
+    noted = Walkthrough::Yellow.place_facts.values.select(&:note?).map(&:note).uniq
+
+    assert_equal overlay.values.uniq.sort, noted.sort,
+      "a note key is set on a map const that is not a known place (a typo in the overlay)"
+    I18n.available_locales.each do |locale|
+      I18n.with_locale(locale) do
+        noted.each { |key| assert_not_empty I18n.t("walkthrough.ui.#{key}") }
+      end
+    end
+  end
+
+  test "a note leads but the mechanical facts still trail it" do
+    noted = place(kind: "house", note: "map_place_note_name_rater", items: 1)
+
+    assert_equal "#{I18n.t('walkthrough.ui.map_place_note_name_rater')} " \
+                 "#{I18n.t('walkthrough.ui.map_place_items', count: 1)}",
+      Walkthrough::PlaceHint.new(noted).to_s
+  end
+
   test "a gym hint names the leader, the team, the badge and the TM" do
     assert_equal "Erika's Gym, a Grass team. Win the Rainbow Badge and TM21 Mega Drain. " \
                  "7 trainers inside.",

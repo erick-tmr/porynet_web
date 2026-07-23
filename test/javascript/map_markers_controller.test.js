@@ -1,7 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import MapMarkersController from "../../app/javascript/controllers/map_markers_controller.js";
-import { STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
+import { STORAGE_KEY, load, save, toggle } from "../../app/javascript/lib/progress_store.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -13,8 +13,7 @@ const FIXTURE = `
   <div id="block" data-controller="map-markers"
        data-map-markers-game-value="yellow"
        data-map-markers-map-value="viridian-forest"
-       data-map-markers-native-w-value="544"
-       data-map-markers-hint-ms-value="20">
+       data-map-markers-native-w-value="544">
     <button id="pill-all" class="pn-mm-pill" data-cat="all"
             data-map-markers-target="filter" data-action="click->map-markers#filter"></button>
     <button id="pill-trainer" class="pn-mm-pill" data-cat="trainer"
@@ -23,23 +22,24 @@ const FIXTURE = `
             data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels"></button>
     <span id="counter" data-map-markers-target="counterDone">0</span>
 
-    <div id="canvas" data-map-markers-target="canvas">
+    <div id="canvas" data-map-markers-target="canvas" data-action="click->map-markers#dismiss">
       <div id="layer" data-map-markers-target="layer">
         <div id="m-trainer" class="pn-mm" data-map-markers-target="marker" data-role="marker"
              data-marker-id="trainer-30-33" data-cat="trainer" data-x="89.7" data-y="69.8" data-lane="0">
-          <button id="hit-trainer" data-action="click->map-markers#hit" aria-pressed="false"></button>
+          <button id="hit-trainer" class="pn-mm__hit" data-action="click->map-markers#hit" aria-pressed="false"></button>
         </div>
         <div id="m-npc" class="pn-mm" data-map-markers-target="marker" data-role="marker"
              data-marker-id="npc-technology" data-cat="npc" data-x="57.5" data-y="80.5" data-lane="0">
-          <button id="hit-npc" data-action="click->map-markers#hit"></button>
+          <button id="hit-npc" class="pn-mm__hit" data-action="click->map-markers#hit"></button>
         </div>
         <div id="m-hidden" class="pn-mm" data-map-markers-target="marker" data-role="marker"
              data-marker-id="hidden-16-42" data-cat="hidden" data-x="48.5" data-y="88.5" data-lane="1">
-          <button id="hit-hidden" data-action="click->map-markers#hit" aria-pressed="false"></button>
+          <button id="hit-hidden" class="pn-mm__hit" data-action="click->map-markers#hit" aria-pressed="false"></button>
         </div>
         <div id="m-exit" class="pn-mm" data-map-markers-target="marker" data-role="marker"
              data-marker-id="exit-15-47" data-cat="exit" data-x="50" data-y="99" data-lane="0">
-          <button id="hit-exit" data-action="click->map-markers#hit"></button>
+          <button id="hit-exit" class="pn-mm__hit" data-action="click->map-markers#hit"></button>
+          <div id="hint-exit" class="pn-mm__hint"></div>
         </div>
       </div>
     </div>
@@ -184,15 +184,16 @@ describe("ticking", () => {
 });
 
 describe("hint", () => {
-  it("raises a hint on click and drops it again on its own", async () => {
+  it("raises a hint on click and keeps it up on its own", async () => {
     await mount();
 
     el("hit-exit").click();
     await flush();
     expect(has("m-exit", "is-selected")).toBe(true);
 
+    // No timer: the hint stays until something dismisses it.
     await new Promise((resolve) => setTimeout(resolve, 40));
-    expect(has("m-exit", "is-selected")).toBe(false);
+    expect(has("m-exit", "is-selected")).toBe(true);
   });
 
   it("moves the hint to whichever marker was touched last", async () => {
@@ -207,20 +208,64 @@ describe("hint", () => {
     expect(has("m-hidden", "is-selected")).toBe(true);
   });
 
-  it("cancels a pending hint when the controller goes away", async () => {
+  it("closes the hint when the same marker is clicked again", async () => {
     await mount();
-    const block = el("block");
 
     el("hit-exit").click();
     await flush();
-    expect(block.querySelector("#m-exit").classList.contains("is-selected")).toBe(true);
+    expect(has("m-exit", "is-selected")).toBe(true);
 
-    block.remove();
+    el("hit-exit").click();
     await flush();
-    await new Promise((resolve) => setTimeout(resolve, 40));
+    expect(has("m-exit", "is-selected")).toBe(false);
+  });
 
-    // The timer would have cleared the class had it survived teardown.
-    expect(block.querySelector("#m-exit").classList.contains("is-selected")).toBe(true);
+  it("dismisses the hint when the bare map is clicked", async () => {
+    await mount();
+
+    el("hit-exit").click();
+    await flush();
+    expect(has("m-exit", "is-selected")).toBe(true);
+
+    el("layer").click();
+    await flush();
+    expect(has("m-exit", "is-selected")).toBe(false);
+  });
+
+  it("dismisses the hint when the hint popup itself is clicked", async () => {
+    await mount();
+
+    el("hit-exit").click();
+    await flush();
+    expect(has("m-exit", "is-selected")).toBe(true);
+
+    el("hint-exit").click();
+    await flush();
+    expect(has("m-exit", "is-selected")).toBe(false);
+  });
+
+  it("keeps the hint up when the pin that raised it is what got clicked", async () => {
+    await mount();
+
+    // The click on a pin bubbles to the canvas dismiss handler too, but a pin is left to #hit,
+    // so opening a hint never immediately clears itself.
+    el("hit-exit").click();
+    await flush();
+
+    expect(has("m-exit", "is-selected")).toBe(true);
+  });
+
+  it("stops reacting to stored progress once the controller disconnects", async () => {
+    await mount();
+    const pin = el("m-trainer");
+
+    el("block").remove(); // triggers disconnect -> unsubscribe
+    await flush();
+
+    // A later store write must not reach the detached, no-longer-subscribed marker.
+    save(toggle(load(), "collected", "yellow", "viridian-forest/trainer-30-33"));
+    await flush();
+    expect(pin.classList.contains("is-done")).toBe(false);
   });
 });
 
