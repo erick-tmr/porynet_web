@@ -57,14 +57,15 @@ export default class extends Controller {
       save(this.state)
       this.#renderProgress()
     }
-    this.hintValue = markerId
+    // Clicking the marker whose hint is already up closes it; any other marker opens its own.
+    this.hintValue = this.hintValue === markerId ? "" : markerId
   }
 
   // A hint stays up until it is dismissed: clicking another marker moves it there (through #hit),
-  // and clicking the bare map anywhere off a pin clears it. A click that lands on a marker or its
-  // own hint is left to #hit, so this only ever fires for the empty map behind the pins.
+  // and clicking the bare map or the hint itself clears it. Only a click on a pin's own hit button
+  // is left to #hit, so a pin click never wipes the hint that same click just raised.
   dismiss(event) {
-    if (event.target.closest("[data-role='marker']")) return
+    if (event.target.closest(".pn-mm__hit")) return
     this.hintValue = ""
   }
 
