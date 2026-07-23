@@ -54,7 +54,8 @@
             <span class="pn-mm-titlebar__note"><%= t("walkthrough.ui.map_note") %></span>
           </figcaption>
           <div class="pn-mm-viewport">
-            <div class="pn-mm-canvas" data-map-markers-target="canvas">
+            <div class="pn-mm-canvas" data-map-markers-target="canvas"
+                 data-action="click->map-markers#dismiss">
               <%= r2_image_tag area.image, alt: "", class: "pn-mm-canvas__img", loading: "lazy" %>
               <div class="pn-mm-layer" data-map-markers-target="layer">
                 <% area.markers.each do |marker| %>
