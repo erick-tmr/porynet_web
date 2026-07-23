@@ -209,6 +209,8 @@ en:
       map_place_kind_league: "A Pokémon League room. No turning back once you enter."
       map_place_kind_hotel: "A hotel. Nobody ever checks in, it is scenery."
       map_place_kind_facility: "A building you can walk into."
+      map_place_note_viridian_nickname: "Not where you rename Pokémon, just a tip house with a pet Spearow called SPEARY. The Name Rater in Lavender Town does the renaming."
+      map_place_note_name_rater: "The Name Rater lives here. Bring any Pokémon to give it a new nickname, as often as you like."
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
       map_npc_route1_potion: "Talk to him for a free Potion, a sample from the Viridian Mart. Handy before the forest."
       map_npc_route24_nugget: "At the top of Nugget Bridge he hands you a Nugget, then asks you to join Team Rocket. Say no."
