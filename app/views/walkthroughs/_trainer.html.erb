@@ -2,7 +2,7 @@
 <div class="<%= class_names("pn-wt-trainer", "pn-wt-trainer--compact" => compact) %>"
      <%= tag.attributes(tickable("collected", trainer.tick || id)) %>>
   <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
-  <%= progress_toast("trainer") %>
+  <%= progress_toast("trainer", name: trainer.name || trainer.cls) %>
   <div class="pn-wt-trainer__head">
     <div>
       <% if trainer.name %>

@@ -14,7 +14,7 @@
           <div class="pn-wt-items">
             <% step.items.each_with_index do |item, i| %>
               <div class="pn-wt-item" <%= tag.attributes(tickable("collected", item.tick || "#{slug}/step-#{step.n}/item-#{i}")) %>>
-                <%= progress_toast("item") %>
+                <%= progress_toast("item", name: item.name) %>
                 <span class="pn-wt-item__chip">
                   <%= r2_image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-item__icon" %>
                   <span class="pn-wt-item__check" aria-hidden="true">✓</span>

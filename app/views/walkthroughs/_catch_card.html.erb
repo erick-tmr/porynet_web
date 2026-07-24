@@ -2,6 +2,7 @@
 <div class="<%= class_names("pn-wt-catch", "pn-wt-catch--best" => best) %>"
      <%= tag.attributes(tickable("caught", enc.dex)) %>>
   <span class="pn-wt-catch__caught"><%= t("walkthrough.ui.caught_badge") %></span>
+  <%= progress_toast("caught", name: enc.name) %>
   <% if best %>
     <div class="pn-wt-best">
       <div class="pn-wt-best__head">

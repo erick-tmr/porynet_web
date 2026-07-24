@@ -158,6 +158,16 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-trade__mon--get img[src*=?]", "pokemon/yellow/089.png"
   end
 
+  test "each trade card is a tick target that carries a toast and a traded badge" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+
+    assert_response :success
+    assert_select ".pn-wt-trade[role='button'][data-kind='collected'][data-progress-id]", 3
+    assert_select ".pn-wt-trade .pn-wt-toast .pn-wt-toast__retry", 3
+    assert_select ".pn-wt-trade__done", text: /TRADED/
+    assert_select ".pn-wt-trade__tag--done", text: "TRADED"
+  end
+
   test "trades render on a single-location leg between the map and the oak queue" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-06")
 
@@ -174,6 +184,9 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym__type", /ROCK/
     assert_select ".pn-wt-gym-tr__cls", text: "JR. TRAINER♂"
     assert_select ".pn-wt-gym__leader-name", text: "Brock"
+    assert_select ".pn-wt-gym__leader[role='button'][data-kind='collected'][data-progress-id$='gym-leader']"
+    assert_select ".pn-wt-gym__leader .pn-wt-toast__retry"
+    assert_select ".pn-wt-gym__leader-cleared", text: /GYM CLEARED/
     assert_select ".pn-wt-gym__badge-name", text: "BOULDER"
     assert_select "img.pn-wt-gym__badge-img[src*=?]", "badges/boulder"
     assert_select ".pn-wt-gym__puzzle", false
