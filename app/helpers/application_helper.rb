@@ -19,6 +19,14 @@ module ApplicationHelper
     image_tag(r2_asset_url(path), **options)
   end
 
+  # A mart item's blurb: its own localized description, or for a plain sold TM the type of move
+  # it teaches (the game gives Gen 1 TMs no description of their own).
+  def mart_item_desc(item)
+    return t(item.desc_key) if item.desc?
+
+    t("walkthrough.ui.tm_type_desc", type: t("walkthrough.ui.types.#{item.mtype}"))
+  end
+
   def poke_dollar(amount)
     tag.span(class: "pn-money-value") do
       safe_join([

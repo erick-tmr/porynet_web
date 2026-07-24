@@ -101,3 +101,44 @@ def test_a_gym_does_not_repeat_its_own_tm_as_a_gift(root):
 
     assert "gift_item" not in built["FUCHSIA_GYM"]
     assert built["FUCHSIA_GYM"]["gym"]["tm"] == "TM06 Toxic"
+
+
+def test_item_prices_are_read_from_the_price_tables(root):
+    assert places.item_price(root, "POKE_BALL") == 200
+    assert places.item_price(root, "HP_UP") == 9800
+    assert places.item_price(root, "FRESH_WATER") == 200
+    # a TM's price is its nybble in tm_prices.asm, in thousands
+    assert places.item_price(root, "TM_TAKE_DOWN") == 3000
+    assert places.item_price(root, "TM_ICE_BEAM") == 4000
+    # a key item cannot be bought
+    assert places.item_price(root, "OAKS_PARCEL") == 0
+
+
+def test_move_types_name_the_tm_sprite(root):
+    types = places.parse_move_types(root)
+
+    assert types["DOUBLE_TEAM"] == "normal"
+    assert types["SUBMISSION"] == "fighting"
+    assert types["ICE_BEAM"] == "ice"
+    # PSYCHIC_TYPE keeps only the type word, so it names an item sprite
+    assert types["REFLECT"] == "psychic"
+
+
+def test_item_catalog_prices_and_pictures_every_shop_item(root):
+    catalog = places.build_item_catalog(root)
+
+    # keyed by the same display name a place's stock uses, so the app joins on it directly
+    assert catalog["Poké Ball"] == {"const": "POKE_BALL", "price": 200}
+    assert catalog["Super Potion"]["price"] == 700
+    # a stocked TM carries its number, move and type so the card can label and picture it
+    assert catalog["TM Take Down"] == {"const": "TM_TAKE_DOWN", "price": 3000, "tm": 9,
+                                       "move": "Take Down", "type": "normal"}
+    # gift TMs are keyed by their numbered name, the form gift_item uses
+    assert catalog["TM18 Counter"]["type"] == "fighting"
+    # vending drinks are stocked nowhere, but the rooftop sells them
+    assert catalog["Fresh Water"] == {"const": "FRESH_WATER", "price": 200}
+    # every item any mart or gift offers has a catalog entry to join back to
+    built = places.build_places(root)
+    referenced = {name for facts in built.values() for name in facts.get("stock", [])}
+    referenced |= {gift["name"] for facts in built.values() for gift in facts.get("gift_item", [])}
+    assert referenced <= set(catalog)

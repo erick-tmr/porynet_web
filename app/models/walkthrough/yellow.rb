@@ -174,7 +174,7 @@ module Walkthrough
         route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ].map { |loc| attach_maps(loc, data.fetch(loc.slug, [])) }
+      ].map { |loc| attach_mart(attach_maps(loc, data.fetch(loc.slug, []))) }
     end
 
     # The gym's own map belongs in the gym section, not the location header, so pull the "Gym"
@@ -296,6 +296,13 @@ module Walkthrough
     def self.place_facts
       @place_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_places.json")))
         .fetch("places").to_h { |const, facts| [ const, place(const, facts) ] }.freeze
+    end
+
+    # Price + sprite-picking facts for every shop item, generated alongside the place facts and
+    # keyed by the display name a mart's stock uses, so a stock line joins straight onto it.
+    def self.item_catalog
+      @item_catalog ||= JSON.parse(File.read(File.join(__dir__, "yellow_places.json")))
+        .fetch("items").freeze
     end
 
     def self.place(const, facts)
@@ -1151,10 +1158,137 @@ module Walkthrough
         items: items, hidden: hidden, shot: shot, link: link)
     end
 
-    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic" }.freeze
+    # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
+    # every other name kebab-cases straight onto its sprite.
+    ITEM_SPRITES = {
+      "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic",
+      "Parlyz Heal" => "paralyze-heal", "X Defend" => "x-defense"
+    }.freeze
 
     def self.item_sprite(name)
       ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
+    end
+
+    # Cities (and Lavender Town) with a Poké Mart, mapped to the map const whose generated stock
+    # the section lists. Celadon is the Dept. Store, built floor by floor below.
+    MART_CONSTS = {
+      "viridian-city" => "VIRIDIAN_MART", "pewter-city" => "PEWTER_MART",
+      "cerulean-city" => "CERULEAN_MART", "vermilion-city" => "VERMILION_MART",
+      "lavender-town" => "LAVENDER_MART", "fuchsia-city" => "FUCHSIA_MART",
+      "saffron-city" => "SAFFRON_MART", "cinnabar-island" => "CINNABAR_MART"
+    }.freeze
+
+    # The items each mart flags as worth stocking up on (the ★ rows), by display name.
+    MART_RECS = {
+      "viridian-city" => [ "Poké Ball", "Antidote" ], "pewter-city" => [ "Poké Ball", "Escape Rope" ],
+      "cerulean-city" => [ "Poké Ball", "Repel" ], "vermilion-city" => [ "Super Potion", "Repel" ],
+      "lavender-town" => [ "Great Ball", "Super Repel" ], "fuchsia-city" => [ "Ultra Ball", "Hyper Potion" ],
+      "saffron-city" => [ "Hyper Potion", "Max Repel" ], "cinnabar-island" => [ "Ultra Ball", "Full Heal" ]
+    }.freeze
+
+    # The Celadon floors whose stock the game states; the rest (services, the rooftop drinks) are
+    # arranged by hand in celadon_dept_store.
+    CELADON_FLOOR_CONSTS = {
+      "2F" => "CELADON_MART_2F", "4F" => "CELADON_MART_4F", "5F" => "CELADON_MART_5F"
+    }.freeze
+
+    VITAMINS = [ "HP Up", "Protein", "Iron", "Carbos", "Calcium" ].freeze
+
+    def self.item_key(name)
+      facts = item_catalog.fetch(name)
+      return facts["move"].downcase.gsub(/[^a-z0-9]+/, "_") if facts["tm"]
+
+      item_sprite(name).tr("-", "_")
+    end
+
+    def self.mart_item(name, rec: false, rec_key: nil, desc_key: nil)
+      facts = item_catalog.fetch(name)
+      tm = facts["tm"]
+      MartItem.new(name: name, sprite: (tm ? "tm-#{facts['type']}" : item_sprite(name)),
+        price: facts["price"], desc_key: mart_desc_key(name, tm, desc_key),
+        tm_no: tm, move: facts["move"], mtype: facts["type"],
+        rec: (rec || !rec_key.nil?), rec_key: rec_key)
+    end
+
+    # A TM's own description would be a lie (Gen 1 gives them none), so a sold TM shows the type of
+    # move it teaches instead; the free TM18 gift passes its own written blurb.
+    def self.mart_desc_key(name, tm, given)
+      return given if given
+      return nil if tm
+
+      "walkthrough.ui.mart_items.#{item_key(name)}"
+    end
+
+    def self.mart(slug)
+      b = base(slug)
+      recs = MART_RECS.fetch(slug, [])
+      items = place_facts.fetch(MART_CONSTS.fetch(slug)).stock.map do |name|
+        mart_item(name, rec: recs.include?(name))
+      end
+      Mart.new(slug: slug, count: items.size, blurb_key: "#{b}.mart.blurb",
+        buy_key: "#{b}.mart.buy", counters: [ MartCounter.new(items: items) ])
+    end
+
+    def self.attach_mart(loc)
+      return loc.with(mart: celadon_dept_store) if loc.slug == "celadon-city"
+      return loc.with(mart: mart(loc.slug)) if MART_CONSTS.key?(loc.slug)
+
+      loc
+    end
+
+    def self.celadon_stock(id) = place_facts.fetch(CELADON_FLOOR_CONSTS.fetch(id)).stock
+
+    def self.celadon_dept_store
+      shop, tms = celadon_stock("2F").partition { |name| item_catalog.fetch(name)["tm"].nil? }
+      vitamins, battle = celadon_stock("5F").partition { |name| VITAMINS.include?(name) }
+      b = base("celadon-city")
+      floors = [
+        dept_floor("1F", "service", note: true),
+        dept_floor("2F", "shop", counters: [
+          dept_counter("2F", "mart_item_counter", shop, rec: [ "Great Ball", "Super Potion" ]),
+          dept_counter("2F", "mart_tm_counter", tms, rec: [ "TM Take Down" ])
+        ]),
+        dept_floor("3F", "free_tm", note: true,
+          gift: mart_item("TM18 Counter", desc_key: "#{b}.store.floors.3F.gift_desc")),
+        dept_floor("4F", "shop", counters: [
+          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Water Stone" ])
+        ]),
+        dept_floor("5F", "shop", counters: [
+          dept_counter("5F", "mart_vitamins", vitamins),
+          dept_counter("5F", "mart_battle_items", battle)
+        ]),
+        dept_floor("ROOF", "vending", note: true,
+          counters: [ dept_counter("ROOF", "mart_vending",
+            [ "Fresh Water", "Soda Pop", "Lemonade" ], rec: [ "Fresh Water", "Soda Pop", "Lemonade" ]) ],
+          trades: celadon_trades)
+      ]
+      Mart.new(slug: "celadon-city", blurb_key: "#{b}.store.blurb", floors: floors,
+        count: floors.sum { |floor| floor.counters.sum { |counter| counter.items.size } })
+    end
+
+    def self.dept_floor(id, kind, counters: [], gift: nil, trades: [], note: false)
+      b = base("celadon-city")
+      MartFloor.new(id: id, label: id, kind: kind,
+        name_key: "#{b}.store.floors.#{id}.name", motto_key: "#{b}.store.floors.#{id}.motto",
+        note_key: (note ? "#{b}.store.floors.#{id}.note" : nil),
+        gift: gift, counters: counters, trades: trades)
+    end
+
+    def self.dept_counter(floor_id, title, names, rec: [])
+      b = base("celadon-city")
+      MartCounter.new(title_key: "walkthrough.ui.#{title}", items: names.map do |name|
+        mart_item(name, rec_key: (rec.include?(name) ? "#{b}.store.floors.#{floor_id}.rec.#{item_key(name)}" : nil))
+      end)
+    end
+
+    def self.celadon_trades
+      [ [ "Fresh Water", "TM13 Ice Beam" ], [ "Soda Pop", "TM48 Rock Slide" ],
+        [ "Lemonade", "TM49 Tri Attack" ] ].map do |drink, tm|
+        facts = item_catalog.fetch(tm)
+        MartTrade.new(drink: drink, drink_sprite: item_sprite(drink),
+          tm_short: "TM#{format('%02d', facts['tm'])}", tm_sprite: "tm-#{facts['type']}",
+          move: facts["move"])
+      end
     end
 
     def self.item(base, n, name, key, at: nil)

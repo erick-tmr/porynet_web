@@ -56,6 +56,64 @@ module Walkthrough
     def items? = items.positive?
   end
 
+  # What a place sells, one row per item. Its price and (for a TM) number/move/type come from the
+  # generated item catalog in yellow_places.json; `desc_key` is a shared localized blurb, `rec_key`
+  # the note behind a ★ recommended pick. `mtype` names a TM's sprite (tm-<type>).
+  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key) do
+    def initialize(price: nil, desc_key: nil, tm_no: nil, move: nil, mtype: nil, rec: false,
+      rec_key: nil, **rest)
+      super(price: price, desc_key: desc_key, tm_no: tm_no, move: move, mtype: mtype, rec: rec,
+        rec_key: rec_key, **rest)
+    end
+
+    def price? = !price.nil?
+    def desc? = !desc_key.nil?
+    def tm? = !tm_no.nil?
+    def rec? = rec
+    def rec_key? = !rec_key.nil?
+    def label = tm? ? "TM#{format('%02d', tm_no)} · #{move}" : name
+  end
+
+  # A labelled group of items on a shop counter. A plain city Mart has a single unlabelled counter;
+  # a Celadon floor can split its stock across several (an item counter and a TM counter).
+  MartCounter = Data.define(:title_key, :items) do
+    def initialize(title_key: nil, **rest) = super
+  end
+
+  # A Celadon rooftop drink the thirsty girl swaps for a TM.
+  MartTrade = Data.define(:drink, :drink_sprite, :tm_short, :tm_sprite, :move)
+
+  # One floor of the Celadon Dept. Store: its label, what kind of counter it is, an optional free
+  # TM gift, its item counters, and (rooftop only) the drink -> TM trades.
+  MartFloor = Data.define(:id, :label, :kind, :name_key, :motto_key, :note_key, :gift, :counters,
+    :trades) do
+    def initialize(motto_key: nil, note_key: nil, gift: nil, counters: [], trades: [], **rest)
+      super(motto_key: motto_key, note_key: note_key, gift: gift, counters: counters,
+        trades: trades, **rest)
+    end
+
+    def note? = !note_key.nil?
+    def motto? = !motto_key.nil?
+    def gift? = !gift.nil?
+    def trades? = trades.any?
+  end
+
+  # A place you can shop. A city Mart carries `counters`; the Celadon Dept. Store carries `floors`
+  # and the store-header stats read off them.
+  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors) do
+    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], **rest)
+      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors, **rest)
+    end
+
+    def multi? = floors.any?
+    def blurb? = !blurb_key.nil?
+    def buy? = !buy_key.nil?
+    def floor_items = floors.flat_map(&:counters).flat_map(&:items)
+    def tm_count = floor_items.count { |item| item.tm? && item.price? }
+    def stone_count = floor_items.count { |item| item.name.end_with?(" Stone") }
+    def priciest = floor_items.filter_map(&:price).max
+  end
+
   # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
   # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
   # An exit also carries the `place` its door leads to, when the game states anything about it.
@@ -122,14 +180,15 @@ module Walkthrough
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :area_maps, :later,
-    :trivia, :missable
+    :trivia, :missable, :mart
   ) do
     def initialize(gym: nil, gym_after: nil, area_maps: [], later: [], trivia: nil, missable: nil,
-      trades: [], **rest)
+      trades: [], mart: nil, **rest)
       super(gym: gym, gym_after: gym_after, area_maps: area_maps, later: later, trivia: trivia,
-        missable: missable, trades: trades, **rest)
+        missable: missable, trades: trades, mart: mart, **rest)
     end
 
+    def mart? = !mart.nil?
     def area_maps? = area_maps.any?
     def later? = later.any?
     def trivia? = !trivia.nil?

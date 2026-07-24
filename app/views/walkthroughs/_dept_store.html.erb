@@ -1,0 +1,129 @@
+<% mart = loc.mart %>
+<section class="pn-wt-section pn-wt-store" data-controller="dept-store" data-dept-store-start-value="2F">
+  <div class="pn-eyebrow-label pn-eyebrow-label--cyan"><%= t("walkthrough.ui.store_eyebrow") %></div>
+  <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.store_h3") %></h3>
+  <% if mart.blurb? %><div class="pn-wt-catch__hint pn-wt-store__lead"><%= t(mart.blurb_key) %></div><% end %>
+
+  <div class="pn-wt-store__stats">
+    <div class="pn-wt-store__stat pn-wt-store__stat--dark">
+      <div class="pn-wt-store__stat-label"><%= t("walkthrough.ui.store_floors") %></div>
+      <div class="pn-wt-store__stat-num"><%= mart.floors.size %></div>
+    </div>
+    <div class="pn-wt-store__stat">
+      <div class="pn-wt-store__stat-label"><%= t("walkthrough.ui.store_tms") %></div>
+      <div class="pn-wt-store__stat-num"><%= mart.tm_count %></div>
+    </div>
+    <div class="pn-wt-store__stat">
+      <div class="pn-wt-store__stat-label"><%= t("walkthrough.ui.store_stones") %></div>
+      <div class="pn-wt-store__stat-num pn-wt-store__stat-num--accent"><%= mart.stone_count %></div>
+    </div>
+    <div class="pn-wt-store__stat pn-wt-store__stat--cyan">
+      <div class="pn-wt-store__stat-label"><%= t("walkthrough.ui.store_priciest") %></div>
+      <div class="pn-wt-store__stat-num"><%= poke_dollar(mart.priciest) %></div>
+    </div>
+  </div>
+
+  <div class="pn-wt-store__body">
+    <aside class="pn-wt-store__elevator">
+      <div class="pn-wt-store__elevator-head">
+        <span class="pn-wt-store__elevator-dot"></span>
+        <div class="pn-wt-store__elevator-title"><%= t("walkthrough.ui.elevator") %></div>
+      </div>
+      <div class="pn-wt-store__elevator-list">
+        <% mart.floors.reverse_each do |floor| %>
+          <button type="button" class="pn-wt-store__entry" data-dept-store-target="entry" data-floor="<%= floor.id %>" data-action="dept-store#select">
+            <span class="pn-wt-store__entry-num"><%= floor.label %></span>
+            <span class="pn-wt-store__entry-text">
+              <span class="pn-wt-store__entry-name"><%= t(floor.name_key) %></span>
+              <span class="pn-wt-store__entry-kind"><%= t("walkthrough.ui.mart_kind_#{floor.kind}") %></span>
+            </span>
+          </button>
+        <% end %>
+      </div>
+      <div class="pn-wt-store__elevator-foot"><%= t("walkthrough.ui.elevator_hint") %></div>
+    </aside>
+
+    <div class="pn-wt-store__floors">
+      <% mart.floors.each do |floor| %>
+        <div class="pn-wt-store__floor" data-dept-store-target="floor" data-floor="<%= floor.id %>" hidden>
+          <div class="pn-wt-store__floor-head">
+            <span class="pn-wt-store__floor-badge"><%= floor.label %></span>
+            <div class="pn-wt-store__floor-heading">
+              <div class="pn-wt-store__floor-titles">
+                <h4 class="pn-wt-store__floor-name"><%= t(floor.name_key) %></h4>
+                <span class="pn-wt-store__floor-kind pn-wt-store__floor-kind--<%= floor.kind %>"><%= t("walkthrough.ui.mart_kind_#{floor.kind}") %></span>
+              </div>
+              <% if floor.motto? %><div class="pn-wt-store__floor-motto"><%= t(floor.motto_key) %></div><% end %>
+            </div>
+          </div>
+
+          <div class="pn-wt-store__floor-body">
+            <% if floor.note? %>
+              <div class="pn-wt-store__note">
+                <span class="pn-wt-store__note-tag"><%= t("walkthrough.ui.note") %></span>
+                <div class="pn-wt-store__note-text"><%= t(floor.note_key) %></div>
+              </div>
+            <% end %>
+
+            <% if floor.gift? %>
+              <div class="pn-wt-store__gift">
+                <span class="pn-wt-store__gift-flag"><%= t("walkthrough.ui.free_won") %></span>
+                <span class="pn-wt-mart__tile pn-wt-store__gift-tile">
+                  <%= r2_image_tag "walkthrough/items/#{floor.gift.sprite}.png", alt: "", class: "pn-wt-mart__icon" %>
+                </span>
+                <div class="pn-wt-mart__info">
+                  <div class="pn-wt-mart__name"><%= floor.gift.label %></div>
+                  <div class="pn-wt-mart__desc"><%= mart_item_desc(floor.gift) %></div>
+                </div>
+                <span class="pn-wt-store__gift-price"><%= t("walkthrough.ui.free") %></span>
+              </div>
+            <% end %>
+
+            <% floor.counters.each do |counter| %>
+              <div class="pn-wt-store__counter">
+                <div class="pn-wt-store__counter-title">
+                  <span class="pn-wt-store__counter-dot"></span><%= t(counter.title_key) %>
+                </div>
+                <div class="pn-wt-mart__grid">
+                  <% counter.items.each do |item| %>
+                    <%= render "mart_item", item: item, rec_label: t("walkthrough.ui.pick") %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+
+            <% if floor.trades? %>
+              <div class="pn-wt-store__counter">
+                <div class="pn-wt-store__counter-title">
+                  <span class="pn-wt-store__counter-dot pn-wt-store__counter-dot--accent"></span><%= t("walkthrough.ui.drink_trades") %>
+                </div>
+                <div class="pn-wt-store__trade-grid">
+                  <% floor.trades.each do |trade| %>
+                    <div class="pn-wt-store__trade">
+                      <div class="pn-wt-store__trade-row">
+                        <span class="pn-wt-store__trade-side">
+                          <span class="pn-wt-mart__tile">
+                            <%= r2_image_tag "walkthrough/items/#{trade.drink_sprite}.png", alt: "", class: "pn-wt-mart__icon" %>
+                          </span>
+                          <span class="pn-wt-store__trade-label"><%= trade.drink %></span>
+                        </span>
+                        <span class="pn-wt-store__trade-arrow" aria-hidden="true">▶</span>
+                        <span class="pn-wt-store__trade-side">
+                          <span class="pn-wt-mart__tile pn-wt-store__trade-tile">
+                            <%= r2_image_tag "walkthrough/items/#{trade.tm_sprite}.png", alt: "", class: "pn-wt-mart__icon" %>
+                          </span>
+                          <span class="pn-wt-store__trade-label"><%= trade.tm_short %></span>
+                        </span>
+                      </div>
+                      <div class="pn-wt-store__trade-move"><%= trade.move %></div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
