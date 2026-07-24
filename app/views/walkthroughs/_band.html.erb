@@ -76,6 +76,8 @@
   <%= render "gym", gym: loc.gym, slug: loc.slug %>
 <% end %>
 
+<% if loc.mart? %><%= render "mart", loc: loc %><% end %>
+
 <% if loc.after_steps.any? %>
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_after_eyebrow") %></div>

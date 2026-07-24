@@ -115,7 +115,8 @@ def main():
          "step_shots": step_shots, "scenes": scenes}, indent=2))
     place_facts = places.build_places(root)
     PLACES.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "places": place_facts}, indent=2) + "\n")
+        {"source": "pret/pokeyellow", "places": place_facts,
+         "items": places.build_item_catalog(root)}, indent=2) + "\n")
     ROSTER.write_text(json.dumps(
         {"source": "pret/pokeyellow", "count": sum(len(v) for v in trainers.values()),
          "trainers": trainers}, indent=2))

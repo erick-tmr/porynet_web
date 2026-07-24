@@ -212,6 +212,40 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-nav__link--next", false
   end
 
+  test "a city renders a Poké Mart section listing its priced stock" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_response :success
+    assert_select ".pn-wt-mart"
+    assert_select ".pn-eyebrow-label", text: "POKÉ MART · 5 ITEMS"
+    assert_select ".pn-wt-mart__row", 5
+    assert_select ".pn-wt-mart__name", text: "Poké Ball"
+    assert_select ".pn-wt-mart__price span.pn-money[aria-label=?]", "Poké Dollar"
+    assert_select ".pn-wt-mart__buy-tag", text: "BUY LIST"
+    assert_not_includes response.body, "₽"
+  end
+
+  test "the mart section renders in Portuguese" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02", locale: :pt)
+
+    assert_response :success
+    assert_select ".pn-wt-band__h3", text: "O que o Mart vende"
+  end
+
+  test "Celadon renders the multi-floor department store with an elevator" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-08")
+
+    assert_response :success
+    assert_select "[data-controller='dept-store']"
+    assert_select ".pn-wt-store__entry", 6
+    assert_select ".pn-wt-store__stat-num", text: "9"
+    # a sold TM shows its number and move, the rooftop trades a drink for one
+    assert_select ".pn-wt-mart__name", text: "TM09 · Take Down"
+    assert_select ".pn-wt-store__trade-move", text: "Ice Beam"
+    # Lavender's plain mart sits in the same leg, so both mart shapes render together
+    assert_select ".pn-wt-mart"
+  end
+
   test "an unknown game, leg, or a merged location returns 404" do
     get "/walkthroughs/red"
     assert_response :not_found

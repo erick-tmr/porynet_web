@@ -2280,3 +2280,488 @@ a.pn-wt-route__card:hover {
   height: auto;
   image-rendering: pixelated;
 }
+
+/* ==== Poké Mart ==== */
+.pn-eyebrow-label--cyan { color: var(--accent2); }
+
+.pn-wt-mart__card {
+  margin-top: 20px;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: #fff;
+}
+.pn-wt-mart__counter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--ui-dark);
+  border-bottom: 3px solid var(--ink);
+  padding: 12px 16px;
+}
+.pn-wt-mart__counter-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px #2af0ff88;
+  letter-spacing: 1px;
+}
+.pn-wt-mart__counter-sub {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #8fa6c8;
+  letter-spacing: 1px;
+}
+.pn-wt-mart__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+.pn-wt-mart__buy {
+  border-top: 3px solid var(--ink);
+  background: #fffbee;
+  padding: 13px 16px;
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.pn-wt-mart__buy-tag {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  padding: 6px 8px;
+}
+.pn-wt-mart__buy-text {
+  flex: 1;
+  min-width: 200px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* one item row, shared by the city mart and the dept-store counters */
+.pn-wt-mart__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 11px 13px;
+}
+.pn-wt-mart__row--rec { background: color-mix(in srgb, var(--accent2) 15%, #fff); }
+.pn-wt-mart__ribbon {
+  position: absolute;
+  top: -9px;
+  left: 11px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 4px 6px;
+  letter-spacing: 0.5px;
+}
+.pn-wt-mart__tile {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-wt-mart__row--rec .pn-wt-mart__tile { background: color-mix(in srgb, var(--accent2) 24%, var(--cream)); }
+.pn-wt-mart__icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-mart__info { flex: 1; min-width: 0; }
+.pn-wt-mart__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.1;
+}
+.pn-wt-mart__desc {
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.2;
+  margin-top: 2px;
+  text-wrap: pretty;
+}
+.pn-wt-mart__rec {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #a07a00;
+  line-height: 1.25;
+  margin-top: 4px;
+}
+.pn-wt-mart__price {
+  flex: none;
+  align-self: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 8px 9px;
+  white-space: nowrap;
+}
+
+/* ==== Celadon Dept. Store ==== */
+.pn-wt-store__lead { max-width: 700px; }
+.pn-wt-store__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+.pn-wt-store__stat {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 16px 18px;
+}
+.pn-wt-store__stat--dark { background: var(--ink); color: var(--cream); }
+.pn-wt-store__stat--cyan { background: var(--accent2); }
+.pn-wt-store__stat-label {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+}
+.pn-wt-store__stat--dark .pn-wt-store__stat-label { color: #8fa6c8; }
+.pn-wt-store__stat--cyan .pn-wt-store__stat-label { color: #0c3a48; }
+.pn-wt-store__stat-num {
+  font-family: "Press Start 2P", monospace;
+  font-size: 22px;
+  margin-top: 8px;
+}
+.pn-wt-store__stat-num--accent { color: var(--accent); }
+
+.pn-wt-store__body {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 22px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.pn-wt-store__elevator {
+  position: sticky;
+  top: 96px;
+  background: var(--ui-dark);
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 18px #2af0ff44, 5px 5px 0 var(--ink);
+}
+.pn-wt-store__elevator-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 15px;
+  border-bottom: 2px solid #2af0ff33;
+}
+.pn-wt-store__elevator-dot {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--neon-cyan);
+  background: #0c1226;
+  box-shadow: 0 0 8px #2af0ff88;
+}
+.pn-wt-store__elevator-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px #2af0ff88;
+  letter-spacing: 1px;
+}
+.pn-wt-store__elevator-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+}
+.pn-wt-store__elevator-foot {
+  padding: 11px 15px;
+  border-top: 2px solid #2af0ff33;
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  color: #8fa6c8;
+}
+.pn-wt-store__entry {
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 2px solid #28324e;
+  background: #0c1226;
+}
+.pn-wt-store__entry:hover { transform: translate(1px, 1px); }
+.pn-wt-store__entry.is-active {
+  border-color: var(--neon-cyan);
+  background: #0c1a2e;
+  box-shadow: 0 0 12px #2af0ff66;
+}
+.pn-wt-store__entry-num {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #8fa6c8;
+  background: #141a2e;
+  border: 2px solid #28324e;
+}
+.pn-wt-store__entry.is-active .pn-wt-store__entry-num {
+  color: var(--ink);
+  background: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+}
+.pn-wt-store__entry-text { flex: 1; min-width: 0; }
+.pn-wt-store__entry-name {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.1;
+  color: #cfe1f5;
+}
+.pn-wt-store__entry.is-active .pn-wt-store__entry-name { color: #fff; }
+.pn-wt-store__entry-kind {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 14px;
+  line-height: 1.1;
+  color: #6b7ba0;
+}
+.pn-wt-store__entry.is-active .pn-wt-store__entry-kind { color: var(--neon-cyan); }
+
+.pn-wt-store__floor {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.pn-wt-store__floor-head {
+  background: var(--ink);
+  padding: 20px 22px;
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.pn-wt-store__floor-badge {
+  width: 58px;
+  height: 58px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--neon-cyan);
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 14px #2af0ff88;
+}
+.pn-wt-store__floor-heading { flex: 1; min-width: 0; }
+.pn-wt-store__floor-titles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pn-wt-store__floor-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  margin: 0;
+}
+.pn-wt-store__floor-kind {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  padding: 5px 7px;
+  border: 2px solid;
+}
+.pn-wt-store__floor-kind--service { color: #cfe1f5; background: #3a4668; border-color: #cfe1f5; }
+.pn-wt-store__floor-kind--shop { color: var(--ink); background: var(--neon-cyan); border-color: var(--ink); }
+.pn-wt-store__floor-kind--free_tm { color: #08110b; background: #37e88f; border-color: #08110b; }
+.pn-wt-store__floor-kind--vending { color: var(--ink); background: var(--amber); border-color: var(--ink); }
+.pn-wt-store__floor-motto {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #56536b;
+  margin-top: 7px;
+}
+.pn-wt-store__floor-body { padding: 18px 20px; }
+
+.pn-wt-store__note {
+  background: #fffbee;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 13px 15px;
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.pn-wt-store__note-tag {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  padding: 6px 8px;
+}
+.pn-wt-store__note-text {
+  flex: 1;
+  min-width: 200px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.pn-wt-store__gift {
+  position: relative;
+  margin-top: 16px;
+  background: color-mix(in srgb, var(--done-green) 12%, #fff);
+  border: 3px solid var(--done-green);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.pn-wt-store__gift-flag {
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: var(--done-green);
+  border: 2px solid var(--ink);
+  padding: 6px 8px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.pn-wt-store__gift-tile {
+  width: 56px;
+  height: 56px;
+}
+.pn-wt-store__gift-price {
+  flex: none;
+  align-self: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #fff;
+  background: var(--done-green);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 9px 11px;
+}
+
+.pn-wt-store__counter { margin-top: 20px; }
+.pn-wt-store__counter-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--ink);
+  letter-spacing: 0.5px;
+}
+.pn-wt-store__counter-dot {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  background: var(--accent2);
+  border: 2px solid var(--ink);
+}
+.pn-wt-store__counter-dot--accent { background: var(--accent); }
+.pn-wt-store__counter .pn-wt-mart__grid { padding: 13px 0 0; }
+
+.pn-wt-store__trade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 13px;
+}
+.pn-wt-store__trade {
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 13px;
+}
+.pn-wt-store__trade-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+}
+.pn-wt-store__trade-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 82px;
+}
+.pn-wt-store__trade-tile { background: color-mix(in srgb, var(--accent) 14%, #fff); }
+.pn-wt-store__trade-label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  text-align: center;
+}
+.pn-wt-store__trade-arrow {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: var(--ink);
+}
+.pn-wt-store__trade-move {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 9px;
+}
+
+@media (max-width: 900px) {
+  .pn-wt-store__stats { grid-template-columns: 1fr 1fr; }
+  .pn-wt-store__body { grid-template-columns: 1fr; }
+  .pn-wt-store__elevator { position: static; }
+  .pn-wt-store__elevator-list {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .pn-wt-store__entry { flex: none; min-width: 150px; }
+}

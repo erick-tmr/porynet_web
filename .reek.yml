@@ -52,11 +52,19 @@ detectors:
       - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
                                 # optional members (key/glyph/edge/lane/note), each named
                                 # so a caller can omit it, not a call signature.
+      - Walkthrough::MartItem   # same defaults shim: an item states only the facts it has
+                                # (a TM its number/move/type, a pick its rec note), each
+                                # keyword the struct's own optional member.
+      - Walkthrough::MartFloor  # same defaults shim: a store floor omits what it lacks
+                                # (a note, a gift, trades), so its keywords are the floor's
+                                # own optional members, not a call signature.
   BooleanParameter:
     exclude:
       - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder
       - Walkthrough::BestCatch   # `tie:` / `only:` describe the record, they steer nothing;
                                  # same defaults shim as Walkthrough::Location below.
+      - Walkthrough::MartItem    # `rec:` describes the item (is it a flagged pick), it steers
+                                 # nothing; same record-describing flag as BestCatch above.
       - Assets::R2Uploader#call   # `force:` is an intended optional switch on the upload API
                                   # (re-send everything vs only changed), defaulting off.
   DataClump:

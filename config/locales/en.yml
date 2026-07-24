@@ -139,6 +139,80 @@ en:
       steps_after_eyebrow: "AFTER THE GYM · WHERE NEXT"
       steps_after_h2: "Where to go next"
       item_kind: "· ITEM"
+      mart_eyebrow: "POKÉ MART · %{count} ITEMS"
+      mart_h3: "What the Mart sells"
+      clerks_counter: "◈ CLERK'S COUNTER"
+      prices_in: "PRICES IN POKÉ$"
+      buy_list: "BUY LIST"
+      stock_up: "★ STOCK UP"
+      pick: "★ PICK"
+      note: "NOTE"
+      free: "FREE"
+      free_won: "FREE ✓"
+      store_eyebrow: "6 FLOORS · 1 ELEVATOR"
+      store_h3: "Celadon Dept. Store"
+      store_floors: "FLOORS"
+      store_tms: "TMs FOR SALE"
+      store_stones: "EVO STONES"
+      store_priciest: "PRICIEST ITEM"
+      elevator: "ELEVATOR"
+      elevator_hint: "// tap a floor to browse it"
+      drink_trades: "THIRSTY GIRL · DRINK → TM TRADES"
+      mart_item_counter: "ITEM COUNTER"
+      mart_tm_counter: "TM COUNTER"
+      mart_gift_counter: "GIFT COUNTER"
+      mart_vitamins: "VITAMINS · PERMANENT STAT BOOSTS"
+      mart_battle_items: "BATTLE ITEMS · ONE BATTLE ONLY"
+      mart_vending: "VENDING MACHINES"
+      mart_kind_service: "SERVICE"
+      mart_kind_shop: "SHOP"
+      mart_kind_free_tm: "FREE TM"
+      mart_kind_vending: "VENDING"
+      tm_type_desc: "%{type}-type move."
+      types:
+        normal: "Normal"
+        psychic: "Psychic"
+        fighting: "Fighting"
+        ice: "Ice"
+        rock: "Rock"
+      mart_items:
+        poke_ball: "Standard ball for catching wild Pokémon."
+        great_ball: "Higher catch rate than a Poké Ball."
+        ultra_ball: "The best standard ball you can buy."
+        potion: "Restores 20 HP."
+        super_potion: "Restores 50 HP."
+        hyper_potion: "Restores 200 HP."
+        revive: "Revives a fainted Pokémon to half HP."
+        repel: "Blocks weak wild encounters for 100 steps."
+        super_repel: "Blocks weak wild encounters for 200 steps."
+        max_repel: "Blocks weak wild encounters for 250 steps."
+        escape_rope: "Warps you out of a cave instantly."
+        antidote: "Cures poison."
+        burn_heal: "Cures a burn."
+        ice_heal: "Thaws out a frozen Pokémon."
+        awakening: "Wakes a sleeping Pokémon."
+        paralyze_heal: "Cures paralysis."
+        full_heal: "Cures any status condition."
+        poke_doll: "Throw to flee any wild battle instantly."
+        fire_stone: "Evolves Vulpix, Growlithe and Eevee into Flareon."
+        thunder_stone: "Evolves Eevee into Jolteon. Yellow's Pikachu refuses it."
+        water_stone: "Evolves Poliwhirl, Shellder, Staryu and Eevee into Vaporeon."
+        leaf_stone: "Evolves Gloom, Weepinbell and Exeggcute."
+        hp_up: "Permanently raises a Pokémon's HP."
+        protein: "Permanently raises Attack."
+        iron: "Permanently raises Defense."
+        carbos: "Permanently raises Speed."
+        calcium: "Permanently raises Special."
+        x_accuracy: "Raises accuracy for one battle."
+        guard_spec: "Blocks stat drops for one battle."
+        dire_hit: "Boosts critical-hit rate for one battle."
+        x_attack: "Raises Attack for one battle."
+        x_defense: "Raises Defense for one battle."
+        x_speed: "Raises Speed for one battle."
+        x_special: "Raises Special for one battle."
+        fresh_water: "Restores 50 HP."
+        soda_pop: "Restores 60 HP."
+        lemonade: "Restores 80 HP."
       hidden_item: "HIDDEN ITEM"
       later_eyebrow: "COME BACK LATER · %{count}"
       later_h2: "Out of reach for now"
@@ -403,6 +477,9 @@ en:
             pidgey: "Everywhere on Route 1. A reliable Normal/Flying that evolves all the way to Pidgeot."
             rattata: "Fast and common. Evolves into Raticate, a solid early attacker."
         viridian_city:
+          mart:
+            blurb: "The first Mart in the game. It only starts selling once you deliver Oak's Parcel from Pallet Town."
+            buy: "Buy a handful of Poké Balls for Route 1–2 and Viridian Forest. Antidote covers the Weedle line's Poison Sting."
           note: "Catching tutorial, Oak's Parcel, stock up on Poké Balls."
           intro: "The gateway city. No wild grass. Run the errands, buy Poké Balls, then push into Route 2."
           later:
@@ -521,6 +598,9 @@ en:
           oak:
             caterpie: "The forest's new family. Evolves to Butterfree. Log the base once."
         pewter_city:
+          mart:
+            blurb: "Right beside the Pokémon Center. Restock here before Mt. Moon, a long cave with no shops inside."
+            buy: "Poké Balls for Mt. Moon's Clefairy and a few Potions. An Escape Rope bails you out if you get lost."
           gym:
             intro: "A short, straight gym, no puzzle. Beat the lone Jr. Trainer on the way in, then Brock at the back. His Geodude (Lv 10) and Onix (Lv 12) shrug off Pikachu completely, so lead with Mankey's Low Kick, a Nidoran, or Butterfree's Confusion. When Onix uses Bide, stop attacking for two turns or it fires all the stored damage back at once."
           note: "Brock. The first Gym. Rock types; Electric does nothing."
@@ -582,6 +662,9 @@ en:
               title: "Grab TM04, drop into Cerulean"
               text: "On the way down, take TM04 (Whirlwind) on the second tier of the eastern hill, and check the northwest hill for a hidden Great Ball. The ledges feed straight down into Cerulean City."
         cerulean_city:
+          mart:
+            blurb: "Cerulean's Mart adds Repel to the shelf, handy for the trainer-packed routes north to Bill."
+            buy: "Poké Balls for Route 24–25 plus a Repel or two to walk the tall grass in peace."
           gym:
             intro: "One Swimmer, a Jr. Trainer, and open floor, then Misty. Her Staryu (Lv 18) and Starmie (Lv 21) hit hard with Water moves, and Starmie's Recover drags the fight out, so close fast with an Electric or Grass attacker. Pikachu's ThunderShock is ideal."
           note: "Misty's Gym. Cascade Badge. Free Bulbasaur too."
@@ -657,6 +740,9 @@ en:
               title: "Enter Vermilion"
               text: "Continue south into Vermilion City."
         vermilion_city:
+          mart:
+            blurb: "Now stocking Super Potions. Load up before the S.S. Anne and Lt. Surge's gym."
+            buy: "Super Potions carry you through the S.S. Anne. Repel keeps Diglett's Cave quiet on the way out."
           gym:
             intro: "The door to Lt. Surge is locked behind two switches hidden in the trash cans. Find both, then face Surge's lone Raichu (Lv 28), which hits the whole team hard and can paralyze. A Ground type using Dig shuts it down cleanly, so bring Diglett, Sandshrew or a Nidoran line."
             puzzle:
@@ -767,6 +853,9 @@ en:
             machop: "Cave-common → Machoke, then Machamp by trade. A strong Fighter."
             onix: "Only appears on B1F. A bulky Rock/Ground catch worth the hunt."
         lavender_town:
+          mart:
+            blurb: "Lavender's Mart jumps to Great Balls and Revives, gear for the Pokémon Tower next door."
+            buy: "Great Balls for the Tower's Gastly line and a couple of Revives. Super Repel thins the ghosts."
           note: "The ghost town. Pokémon Tower looms."
           intro: "A quiet town shadowed by Pokémon Tower. You'll need the Silph Scope before you can clear it."
           steps:
@@ -800,6 +889,41 @@ en:
               title: "Enter Celadon"
               text: "Pass through the gate into Celadon City."
         celadon_city:
+          store:
+            blurb: "The biggest shop in Kanto: six floors of Poké Balls, TMs, evolution stones, vitamins and vending drinks. Ride the elevator to any floor to see what it sells and for how much."
+            floors:
+              "1F":
+                name: "Service Counter"
+                motto: '"Find what you need at the Celadon Dept. Store!"'
+                note: "Reception and the store directory. The Poké Mart deliveryman waits here once you clear the Rocket Hideout. Nothing to buy on this floor, so take the elevator up."
+              "2F":
+                name: "Trainer's Market"
+                motto: '"Top-Grade Items for Trainers!"'
+                rec:
+                  great_ball: "Cheap catch-rate upgrade, buy a stack for the mid-game routes."
+                  super_potion: "Your main heal until Hyper Potions show up."
+                  take_down: "Reliable physical STAB for a lot of early Pokémon."
+              "3F":
+                name: "TV Game Shop"
+                motto: '"Video games on display, and a free TM."'
+                note: "No sales counter, but the man behind the desk hands you a TM for free."
+                gift_desc: "Teaches Counter: returns double the damage from a physical hit. A neat answer to Normal and Fighting attackers."
+              "4F":
+                name: "Wiseman Gifts"
+                motto: '"Evolution special: every stone in stock!"'
+                rec:
+                  water_stone: "The only Water Stone shop in Kanto. Evolve your Eevee into Vaporeon here."
+              "5F":
+                name: "Pharmacy"
+                motto: '"Boost your Pokémon to the max."'
+              "ROOF":
+                name: "Rooftop Square"
+                motto: '"Vending machines and a very thirsty kid."'
+                note: "Buy one of each drink for the thirsty girl and she trades each for a TM. Grab an extra Fresh Water for the Saffron gate guards while you are here."
+                rec:
+                  fresh_water: "Trade one to the girl for TM13 Ice Beam."
+                  soda_pop: "Trade one for TM48 Rock Slide."
+                  lemonade: "Trade one for TM49 Tri Attack."
           gym:
             intro: "A garden of small trees hiding several trainers, then Erika. Her Tangela (Lv 30), Weepinbell (Lv 32) and Gloom (Lv 32) fold to Fire, Flying, Psychic or Ice, so lead with one of those and carry status heals for their Sleep Powder and Stun Spore. Cut the small trees to reach her faster."
           note: "Erika's Gym. Rainbow Badge. Dept. Store, Eevee and the Game Corner."
@@ -912,6 +1036,9 @@ en:
               title: "Enter Fuchsia"
               text: "Cut into the NW pocket for TM20 if you like, then exit west into Fuchsia City."
         fuchsia_city:
+          mart:
+            blurb: "Fuchsia sells Ultra Balls and Hyper Potions, the kit for the Safari Zone and Koga's gym."
+            buy: "Ultra Balls raise your odds on rare late catches. Hyper Potions and a Revive see you through Koga."
           gym:
             intro: "The gym floor is a maze of invisible walls. Feel your way through, clearing the Jugglers and Tamers inside, then take on Koga. His three Venonat (Lv 44, 46, 48) and Venomoth (Lv 50) lean on Toxic and Double Team, so bring a fast Psychic attacker and carry Antidotes."
             puzzle:
@@ -1011,6 +1138,9 @@ en:
               title: "Enter Fuchsia"
               text: "Continue east into Fuchsia City."
         saffron_city:
+          mart:
+            blurb: "Saffron's Mart stocks Max Repel and Full Heal, open once Team Rocket clears out of the city."
+            buy: "Hyper Potions and a Full Heal ready you for Sabrina. Max Repel makes Silph Co.'s floors bearable."
           gym:
             intro: "Warp pads teleport you around the gym in a fixed loop. Take the right pads to reach Sabrina, whose Abra, Kadabra and Alakazam (all Lv 50) hit like a truck. Psychic has no true counter in Gen 1, so out-level her or lead with a strong Bug attacker like Pinsir or Scyther."
             puzzle:
@@ -1111,6 +1241,9 @@ en:
             zapdos: "The Electric bird of the Power Plant. One shot only. Catch it while you are here."
             voltorb: "All over the floors (and disguised as items) → Electrode. Grab one for the dex."
         cinnabar_island:
+          mart:
+            blurb: "The island Mart carries the full late-game shelf: Ultra Balls, Hyper Potions and Full Heals."
+            buy: "Ultra Balls for the Mansion's rare spawns, plus Hyper Potions and Revives for Blaine's fire types."
           gym:
             intro: "Locked doors bar the way to Blaine, each opened by answering a quiz or beating the trainer behind it. His Ninetales (Lv 48), Rapidash (Lv 50) and Arcanine (Lv 54) hit hard and fast, so bring a Water, Rock or Ground attacker and pack Burn Heals."
             puzzle:
