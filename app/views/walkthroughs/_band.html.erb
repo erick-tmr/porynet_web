@@ -65,8 +65,8 @@
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trades_h2") %></h3>
     <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
     <div class="pn-wt-trades">
-      <% loc.trades.each do |trade| %>
-        <%= render "trade", trade: trade %>
+      <% loc.trades.each_with_index do |trade, i| %>
+        <%= render "trade", trade: trade, id: "#{loc.slug}/trade-#{i}" %>
       <% end %>
     </div>
   </section>

@@ -616,7 +616,9 @@
 .pn-wt-later,
 .pn-wt-catch,
 .pn-wt-trainer,
-.pn-wt-gym-tr {
+.pn-wt-gym-tr,
+.pn-wt-trade,
+.pn-wt-gym__leader {
   position: relative;
   cursor: pointer;
 }
@@ -626,7 +628,9 @@
 .pn-wt-later:focus-visible,
 .pn-wt-catch:focus-visible,
 .pn-wt-trainer:focus-visible,
-.pn-wt-gym-tr:focus-visible {
+.pn-wt-gym-tr:focus-visible,
+.pn-wt-trade:focus-visible,
+.pn-wt-gym__leader:focus-visible {
   outline: 3px solid var(--amber);
   outline-offset: 3px;
 }
@@ -639,32 +643,77 @@
 
 .pn-wt-hidden.is-done { background: #EFF3DF; }
 
+/* A trade reads in the design's purple; the leader sits on the dark gym panel, so it takes a
+   faint magenta wash instead of the green tint the light cards use. */
+.pn-wt-trade.is-done { background: color-mix(in srgb, var(--trade-purple) 12%, #fff); }
+.pn-wt-gym__leader.is-done { background: color-mix(in srgb, var(--gym-neon) 10%, #0b1022); }
+
 /* --- the click toast ----------------------------------------------------- */
-/* Both captions ship in the markup and CSS picks one, so the toast never has to be written
-   from JavaScript and stays translatable. */
+/* Every caption ships in the markup and CSS picks one, so the toast never has to be written
+   from JavaScript and stays translatable. A pill pops above the card and its colour reflects
+   the save outcome (green on success, red on failure) rather than the tick state. */
+
+@keyframes pnToastPop {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
 
 .pn-wt-toast {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 9px);
   z-index: 41;
   display: none;
+  align-items: center;
+  gap: 9px;
   transform: translateX(-50%);
   white-space: nowrap;
   font-family: "Press Start 2P", monospace;
   font-size: 8px;
+  line-height: 1.4;
   color: #fff;
   background: #2a3350;
   border: 2px solid var(--ink);
   box-shadow: 2px 2px 0 var(--ink);
-  padding: 6px 8px;
+  padding: 7px 9px;
 }
 
-.is-hinting > .pn-wt-toast { display: block; }
-.is-done > .pn-wt-toast { background: var(--done-green); }
-.pn-wt-toast__done { display: none; }
-.is-done > .pn-wt-toast .pn-wt-toast__todo { display: none; }
-.is-done > .pn-wt-toast .pn-wt-toast__done { display: inline; }
+.is-hinting > .pn-wt-toast,
+.is-error > .pn-wt-toast {
+  display: flex;
+  animation: pnToastPop 0.18s ease-out;
+}
+
+.is-hinting > .pn-wt-toast { background: var(--done-green); }
+.is-error > .pn-wt-toast { background: var(--toast-error); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-toast { animation: none !important; }
+}
+
+/* Message picking: default caption is the todo half, is-done flips to the done half, and an
+   error overrides both and reveals RETRY. */
+.pn-wt-toast__msg--done,
+.pn-wt-toast__msg--error { display: none; }
+.pn-wt-toast__retry { display: none; }
+
+.is-done > .pn-wt-toast .pn-wt-toast__msg--todo { display: none; }
+.is-done > .pn-wt-toast .pn-wt-toast__msg--done { display: inline; }
+
+.is-error > .pn-wt-toast .pn-wt-toast__msg--todo,
+.is-error > .pn-wt-toast .pn-wt-toast__msg--done { display: none; }
+.is-error > .pn-wt-toast .pn-wt-toast__msg--error { display: inline; }
+.is-error > .pn-wt-toast .pn-wt-toast__retry { display: inline-block; }
+
+.pn-wt-toast__retry {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  padding: 4px 6px;
+  cursor: pointer;
+}
 
 /* --- item chips ---------------------------------------------------------- */
 /* A collected item keeps its sprite: the well takes a half-strength green wash so you can still
@@ -776,6 +825,53 @@
 .pn-wt-later.is-done .pn-wt-later__check { display: block; }
 
 .pn-wt-trainer__key { color: var(--accent2); }
+
+/* --- trade card: traded state -------------------------------------------- */
+/* The TRADE tag flips to a solid purple TRADED, and a corner badge confirms the swap, the same
+   way a caught Pokemon wears its CAUGHT badge. */
+.pn-wt-trade__tag--done {
+  display: none;
+  color: #fff;
+  background: var(--trade-purple);
+}
+.pn-wt-trade.is-done .pn-wt-trade__tag--todo { display: none; }
+.pn-wt-trade.is-done .pn-wt-trade__tag--done { display: inline-block; }
+
+.pn-wt-trade__done {
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  z-index: 2;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: var(--trade-purple);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 6px 8px;
+  transform: rotate(6deg);
+}
+.pn-wt-trade.is-done .pn-wt-trade__done { display: block; }
+
+/* --- gym leader: cleared state ------------------------------------------- */
+/* Neon on the dark gym panel, echoing the design's GYM CLEARED stamp. */
+.pn-wt-gym__leader-cleared {
+  position: absolute;
+  top: -13px;
+  right: -13px;
+  z-index: 8;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #08110b;
+  background: var(--gym-neon);
+  border: 3px solid #08110b;
+  box-shadow: 3px 3px 0 #08110b, 0 0 18px color-mix(in srgb, var(--gym-neon) 66%, transparent);
+  padding: 7px 10px;
+  transform: rotate(6deg);
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__leader-cleared { display: block; }
 
 
 @media (min-width: 1200px) {

@@ -53,7 +53,9 @@
       <% end %>
 
       <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_leader_label") %></div>
-      <div class="pn-wt-gym__leader">
+      <div class="pn-wt-gym__leader" <%= tag.attributes(tickable("collected", "#{slug}/gym-leader")) %>>
+        <span class="pn-wt-gym__leader-cleared"><%= t("walkthrough.ui.gym_cleared") %></span>
+        <%= progress_toast("trainer", name: gym.leader.name) %>
         <div class="pn-wt-gym__leader-id">
           <div class="pn-wt-shot pn-wt-shot--leadervs">
             <%= r2_image_tag "walkthrough/yellow/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--fill", loading: "lazy" %>

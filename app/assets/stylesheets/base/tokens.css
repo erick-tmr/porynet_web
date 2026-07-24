@@ -16,6 +16,9 @@
   --ui-dark3: #0f0e17;
   --term-green: #7fe0a5;
   --done-green: #3f8f4f;
+  --toast-error: #b23b3b;
+  --trade-purple: #6f4ce6;
+  --gym-neon: #37e88f;
 
   position: relative;
   min-height: 100vh;

@@ -44,13 +44,19 @@ module ApplicationHelper
                       "keydown.space->progress-toggle#toggle" } }
   end
 
-  # Both captions render up front and CSS picks one, so no user-visible string lives in JS and
-  # the toast cannot get stuck showing the wrong half of the pair.
-  def progress_toast(flavor)
-    tag.span(class: "pn-wt-toast", aria: { live: "polite" }) do
-      safe_join(%w[todo done].map do |state|
-        tag.span(t("walkthrough.ui.map_status_#{flavor}_#{state}"), class: "pn-wt-toast__#{state}")
-      end)
+  # Every caption renders up front and CSS picks one, so no user-visible string lives in JS and
+  # the toast cannot get stuck showing the wrong state. The done/todo pair is personalized with
+  # the subject name; the error caption and RETRY only surface when a localStorage save fails.
+  def progress_toast(flavor, name:)
+    tag.span(class: "pn-wt-toast", aria: { live: "polite" },
+             data: { action: "click->progress-toggle#stop" }) do
+      safe_join([
+        tag.span(t("walkthrough.ui.toast_#{flavor}_on", name: name), class: "pn-wt-toast__msg pn-wt-toast__msg--done"),
+        tag.span(t("walkthrough.ui.toast_#{flavor}_off", name: name), class: "pn-wt-toast__msg pn-wt-toast__msg--todo"),
+        tag.span(t("walkthrough.ui.toast_error"), class: "pn-wt-toast__msg pn-wt-toast__msg--error"),
+        tag.button(t("walkthrough.ui.toast_retry"), type: "button", class: "pn-wt-toast__retry",
+                   data: { action: "click->progress-toggle#retry" })
+      ])
     end
   end
 

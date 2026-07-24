@@ -1,10 +1,13 @@
-<div class="pn-wt-trade">
+<div class="pn-wt-trade" <%= tag.attributes(tickable("collected", id)) %>>
+  <span class="pn-wt-trade__done"><%= t("walkthrough.ui.trade_traded_badge") %></span>
+  <%= progress_toast("trade", name: t(trade.title_key)) %>
   <div class="pn-wt-trade__head">
     <div>
       <div class="pn-wt-trade__npc"><%= t(trade.npc_key) %></div>
       <div class="pn-wt-trade__title"><%= t(trade.title_key) %></div>
     </div>
-    <span class="pn-wt-trade__tag"><%= t("walkthrough.ui.trade_tag") %></span>
+    <span class="pn-wt-trade__tag pn-wt-trade__tag--todo"><%= t("walkthrough.ui.trade_tag") %></span>
+    <span class="pn-wt-trade__tag pn-wt-trade__tag--done"><%= t("walkthrough.ui.trade_traded_tag") %></span>
   </div>
   <div class="pn-wt-trade__where"><%= t(trade.where_key) %></div>
 
