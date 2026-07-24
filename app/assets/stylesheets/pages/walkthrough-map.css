@@ -377,6 +377,20 @@
   bottom: auto;
 }
 
+/* Same idea sideways: a marker near the left or right edge would push its centred hint past the
+   map edge, which on a landscape map's scroll frame shows up as a stray horizontal scrollbar. So
+   an edge marker's hint opens inward (anchored to the marker) instead of straddling the border. */
+.pn-mm--hint-left .pn-mm__hint {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+.pn-mm--hint-right .pn-mm__hint {
+  left: 0;
+  right: auto;
+  transform: none;
+}
+
 .pn-mm__hint-name {
   font-family: "Pixelify Sans", sans-serif;
   font-weight: 700;
