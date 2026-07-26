@@ -147,6 +147,7 @@ en:
       later_need: "NEED"
       later_return: "RETURN AFTER"
       trivia_eyebrow: "TRIVIA · YELLOW ONLY"
+      trivia_eyebrow_general: "TRIVIA"
       missable_badge: "MISSABLE"
       missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
@@ -481,6 +482,16 @@ en:
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
           intro: "On this pass you only walk the western strip up to the forest gate, with the same catches as before plus wild Nidoran. Route 2 is much larger than that: its eastern half is sealed behind cuttable trees, so the map's east markers (the Moon Stone and HP Up, HM05 Flash, the Mr. Mime trade and the north exit of Diglett's Cave) all wait there until you have Cut, or loop back up through Diglett's Cave from Vermilion."
+          later:
+            moon_stone:
+              where: "A Poké Ball low in the tree-walled plot on the eastern side of Route 2. Cuttable trees fence the whole east half off on your first pass, so you can't reach it yet."
+              after: "Come back with HM01 Cut (from the S.S. Anne in Vermilion) to chop through, or drop into this side from the north exit of Diglett's Cave once you reach Vermilion."
+            hp_up:
+              where: "A second Poké Ball just north of the Moon Stone, in the same Cut-blocked eastern plot. Both sit behind the same wall of cuttable trees."
+              after: "Same trip: bring HM01 Cut back to Route 2, or reach this side through Diglett's Cave from Vermilion."
+            flash:
+              where: "Prof. Oak's Aide hands over HM05 Flash inside the Route 2 gate, on the same Cut-blocked eastern side. He only gives it once you have caught at least 10 kinds of Pokémon (the count in your Pokédex, not how many you own)."
+              after: "Get to the gate with HM01 Cut (or up through Diglett's Cave from Vermilion), and have 10 species caught. Flash is what lights Rock Tunnel later, so it is worth the detour."
           trades:
             mr_mime:
               npc: "SCIENTIST"
@@ -548,6 +559,10 @@ en:
             "2":
               title: "Head east to Route 3"
               text: "With the Boulder Badge, the boy blocking the east exit steps aside. Head east onto Route 3 toward Mt. Moon."
+          trivia:
+            title: "Jigglypuff sings Pikachu to sleep"
+            intro: "A Jigglypuff stands against the wall inside the Pewter City Poke Center. Talk to it and it breaks into its \"Puu pupuu!\" song, and if your Pikachu is out walking behind you the lullaby knocks it out cold, so it stops following you, just like being sung to sleep in a battle."
+            note: "It only fires when Pikachu is your partner out following you and has no status condition. Any other time the Jigglypuff simply sings. A little wink at how its Sing move works in a real battle."
         route_3:
           note: "The climb to Mt. Moon. Spearow, Sandshrew and Mankey."
           intro: "The trainer gauntlet east of Pewter. Grab a Ground type for the caves ahead, then heal at the Mt. Moon center."
@@ -557,12 +572,23 @@ en:
               text: "Head east from Pewter, clearing the Bug Catchers, Youngsters and Lasses as you climb."
             "2":
               title: "Sweep the grass"
-              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves."
-            "3":
-              title: "Heal and enter Mt. Moon"
-              text: "Heal at the Pokémon Center by the cave mouth, then step into Mt. Moon."
+              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves, then follow the route to its end at the Mt. Moon Poké Center on Route 4."
           oak:
             sandshrew: "Ground type, evolves to Sandslash. Handy against the coming caves."
+        route_4_mt_moon:
+          note: "The Mt. Moon approach: heal, then into the cave."
+          intro: "The west tip of Route 4, where Route 3 meets the Mt. Moon Poke Center. Heal, run any last errands, then head into the cave. The east half of Route 4 and its items come after you break through."
+          steps:
+            "1":
+              title: "Heal at the Mt. Moon Poke Center"
+              text: "Step off Route 3 onto the west tip of Route 4 and heal at the Mt. Moon Poke Center by the cave mouth. This is your last stop before the cave, so top up and stock Poke Balls."
+            "2":
+              title: "Enter Mt. Moon"
+              text: "Head into Mt. Moon through the entrance beside the center. You come out on the east half of Route 4, covered on the next leg."
+          trivia:
+            title: "The man selling a Magikarp"
+            intro: "Inside the Mt. Moon Poke Center a man will sell you a Magikarp for ¥500. On its own it just Splashes about, but it evolves into Gyarados, a real powerhouse. Buying it here is worth it if you want to start growing it immediately, since reaching Gyarados takes a good while."
+            note: "If you only need it for the Pokedex there is no rush: Magikarp is catchable later on the Old Rod, so you can wait and save the money. He sells a single level 5 Magikarp and gives no refunds."
         mt_moon:
           note: "Cave crawl. Zubat, Geodude, rare Clefairy, and a fossil."
           intro: "A dark cave full of Rockets. Grab the Moon Stone, pick a fossil, and push through to Cerulean."
@@ -772,7 +798,7 @@ en:
           steps:
             "1":
               title: "Use Flash"
-              text: "Teach HM05 Flash (girl on Route 2) before entering, then light each screen inside."
+              text: "Teach HM05 Flash (Oak's Aide in the Route 2 gate) before entering, then light each screen inside."
             "2":
               title: "Wind down and back up"
               text: "Take the ladders to B1F, cross past the Hikers, and climb back to 1F on the far side."

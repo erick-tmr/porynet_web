@@ -147,6 +147,7 @@ pt:
       later_need: "PRECISA"
       later_return: "VOLTE APÓS"
       trivia_eyebrow: "CURIOSIDADE · SÓ NO YELLOW"
+      trivia_eyebrow_general: "CURIOSIDADE"
       missable_badge: "PERDÍVEL"
       missable_tip: "DICA DE NÍVEL"
       map_eyebrow: "MAPA DA ÁREA"
@@ -481,6 +482,16 @@ pt:
         route_2:
           note: "Trecho curto até a floresta. Pidgey, Rattata e Nidoran."
           intro: "Nesta passagem você só anda pela faixa oeste até o portão da floresta, com as mesmas capturas de antes mais Nidoran selvagem. A Route 2 é bem maior que isso: sua metade leste fica trancada atrás de árvores que precisam de Cut, então os marcadores do lado leste do mapa (a Moon Stone e o HP Up, o HM05 Flash, a troca do Mr. Mime e a saída norte da Diglett's Cave) só ficam acessíveis quando você tiver Cut, ou voltando pela Diglett's Cave a partir de Vermilion."
+          later:
+            moon_stone:
+              where: "Uma Poké Ball no fundo do terreno cercado de árvores no lado leste da Route 2. As árvores cortáveis isolam toda a metade leste na primeira passagem, então você ainda não chega lá."
+              after: "Volte com o HM01 Cut (do S.S. Anne, em Vermilion) para cortar a árvore, ou entre por esse lado pela saída norte da Diglett's Cave assim que chegar a Vermilion."
+            hp_up:
+              where: "Uma segunda Poké Ball logo ao norte da Moon Stone, no mesmo terreno leste bloqueado por Cut. As duas ficam atrás da mesma parede de árvores cortáveis."
+              after: "Mesma ida: leve o HM01 Cut de volta à Route 2, ou chegue por esse lado pela Diglett's Cave a partir de Vermilion."
+            flash:
+              where: "O Assistente do Prof. Carvalho entrega o HM05 Flash dentro do portão da Route 2, no mesmo lado leste bloqueado por Cut. Ele só dá quando você tiver capturado pelo menos 10 tipos de Pokémon (a contagem na Pokédex, não quantos você tem)."
+              after: "Chegue ao portão com o HM01 Cut (ou subindo pela Diglett's Cave a partir de Vermilion) e tenha 10 espécies capturadas. É o Flash que ilumina a Rock Tunnel mais tarde, então vale o desvio."
           trades:
             mr_mime:
               npc: "CIENTISTA"
@@ -548,6 +559,10 @@ pt:
             "2":
               title: "Siga para leste ate a Rota 3"
               text: "Com a Insígnia Boulder, o garoto que bloqueia a saída leste sai do caminho. Siga para leste na Rota 3 rumo a Mt. Moon."
+          trivia:
+            title: "Jigglypuff faz seu Pikachu dormir"
+            intro: "Um Jigglypuff fica encostado na parede dentro do Centro Pokémon de Pewter City. Fale com ele e ele solta a cantiga \"Puu pupuu!\": se o seu Pikachu estiver andando atrás de você, a canção apaga ele na hora e ele para de te seguir, igualzinho a ser posto para dormir numa batalha."
+            note: "Só acontece quando o Pikachu é seu parceiro te seguindo e está sem nenhuma condição de status. Fora isso, o Jigglypuff apenas canta. Uma piscadela para como o golpe Sing dele funciona numa batalha de verdade."
         route_3:
           note: "A subida até o Mt. Moon. Spearow, Sandshrew e Mankey."
           intro: "O corredor de treinadores a leste de Pewter. Pegue um tipo Terra para as cavernas e cure no centro do Mt. Moon."
@@ -557,12 +572,23 @@ pt:
               text: "Vá a leste de Pewter, limpando os Bug Catchers, Youngsters e Lasses conforme sobe."
             "2":
               title: "Varra a grama"
-              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas."
-            "3":
-              title: "Cure e entre no Mt. Moon"
-              text: "Cure no Centro Pokémon perto da boca da caverna e entre no Mt. Moon."
+              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas; depois siga a rota até o fim, no Centro Pokémon do Mt. Moon, na Route 4."
           oak:
             sandshrew: "Tipo Terra, evolui para Sandslash. Útil nas cavernas à frente."
+        route_4_mt_moon:
+          note: "A entrada do Mt. Moon: cure e entre na caverna."
+          intro: "A ponta oeste da Route 4, onde a Rota 3 encontra o Centro Pokémon do Mt. Moon. Cure, resolva o que faltar e entre na caverna. A metade leste da Route 4 e seus itens vêm depois que você atravessa."
+          steps:
+            "1":
+              title: "Cure no Centro Pokémon do Mt. Moon"
+              text: "Saia da Rota 3 para a ponta oeste da Route 4 e cure no Centro Pokémon do Mt. Moon perto da boca da caverna. É a última parada antes da caverna, então recupere tudo e compre Poke Balls."
+            "2":
+              title: "Entre no Mt. Moon"
+              text: "Entre no Mt. Moon pela porta ao lado do centro. Você sai na metade leste da Route 4, coberta no próximo trecho."
+          trivia:
+            title: "O homem que vende um Magikarp"
+            intro: "Dentro do Centro Pokémon do Mt. Moon um homem vende um Magikarp por ¥500. Sozinho ele só usa Splash, mas evolui para Gyarados, um verdadeiro monstro. Comprar aqui vale a pena se você quer começar a treiná-lo imediatamente, já que chegar até o Gyarados leva um bom tempo."
+            note: "Se você só precisa dele para a Pokédex, não tem pressa: dá para pescar Magikarp depois com o Old Rod, então pode esperar e economizar. Ele vende um único Magikarp nível 5 e não dá reembolso."
         mt_moon:
           note: "Travessia de caverna. Zubat, Geodude, Clefairy rara e um fóssil."
           intro: "Uma caverna escura cheia de Rockets. Pegue a Moon Stone, escolha um fóssil e siga até Cerulean."
@@ -772,7 +798,7 @@ pt:
           steps:
             "1":
               title: "Use Flash"
-              text: "Ensine HM05 Flash (garota na Rota 2) antes de entrar e ilumine cada tela lá dentro."
+              text: "Ensine HM05 Flash (Assistente do Prof. Carvalho no portão da Rota 2) antes de entrar e ilumine cada tela lá dentro."
             "2":
               title: "Desça e suba"
               text: "Pegue as escadas até o B1F, cruze pelos Hikers e suba de volta ao 1F do outro lado."
