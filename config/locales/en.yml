@@ -481,6 +481,16 @@ en:
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
           intro: "On this pass you only walk the western strip up to the forest gate, with the same catches as before plus wild Nidoran. Route 2 is much larger than that: its eastern half is sealed behind cuttable trees, so the map's east markers (the Moon Stone and HP Up, HM05 Flash, the Mr. Mime trade and the north exit of Diglett's Cave) all wait there until you have Cut, or loop back up through Diglett's Cave from Vermilion."
+          later:
+            moon_stone:
+              where: "A Poké Ball low in the tree-walled plot on the eastern side of Route 2. Cuttable trees fence the whole east half off on your first pass, so you can't reach it yet."
+              after: "Come back with HM01 Cut (from the S.S. Anne in Vermilion) to chop through, or drop into this side from the north exit of Diglett's Cave once you reach Vermilion."
+            hp_up:
+              where: "A second Poké Ball just north of the Moon Stone, in the same Cut-blocked eastern plot. Both sit behind the same wall of cuttable trees."
+              after: "Same trip: bring HM01 Cut back to Route 2, or reach this side through Diglett's Cave from Vermilion."
+            flash:
+              where: "Prof. Oak's Aide hands over HM05 Flash inside the Route 2 gate, on the same Cut-blocked eastern side. He only gives it once you have caught at least 10 kinds of Pokémon (the count in your Pokédex, not how many you own)."
+              after: "Get to the gate with HM01 Cut (or up through Diglett's Cave from Vermilion), and have 10 species caught. Flash is what lights Rock Tunnel later, so it is worth the detour."
           trades:
             mr_mime:
               npc: "SCIENTIST"
@@ -772,7 +782,7 @@ en:
           steps:
             "1":
               title: "Use Flash"
-              text: "Teach HM05 Flash (girl on Route 2) before entering, then light each screen inside."
+              text: "Teach HM05 Flash (Oak's Aide in the Route 2 gate) before entering, then light each screen inside."
             "2":
               title: "Wind down and back up"
               text: "Take the ladders to B1F, cross past the Hikers, and climb back to 1F on the far side."

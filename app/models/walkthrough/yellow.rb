@@ -483,7 +483,12 @@ module Walkthrough
         ],
         trainers: [], oak_queue: [ oak("route-2", "016", 1), oak("route-2", "019", 1) ],
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
-          house: "route-2-trade-house", inside: "route-2-trade-house-inside") ]
+          house: "route-2-trade-house", inside: "route-2-trade-house-inside") ],
+        later: [
+          later(b, "moon_stone", "Moon Stone", "ITEM", "Cut", "route-2-moon-stone"),
+          later(b, "hp_up", "HP Up", "ITEM", "Cut", "route-2-hp-up"),
+          later(b, "flash", "HM05 Flash", "HM", "Cut · 10 caught", "route-2-flash")
+        ]
       )
     end
 
@@ -1152,7 +1157,7 @@ module Walkthrough
         items: items, hidden: hidden, shot: shot, link: link)
     end
 
-    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic" }.freeze
+    ITEM_SPRITES = { "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic", "HM05 Flash" => "tm-normal" }.freeze
 
     def self.item_sprite(name)
       ITEM_SPRITES.fetch(name) { name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }

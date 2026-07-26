@@ -16426,6 +16426,24 @@
       "height": 144,
       "type": "screen"
     },
+    "route-2-moon-stone": {
+      "image": "walkthrough/yellow/scenes/route-2-moon-stone.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-2-hp-up": {
+      "image": "walkthrough/yellow/scenes/route-2-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-2-flash": {
+      "image": "walkthrough/yellow/scenes/route-2-flash.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "route-2-trade-house": {
       "image": "walkthrough/yellow/scenes/route-2-trade-house.png",
       "width": 160,

@@ -481,6 +481,16 @@ pt:
         route_2:
           note: "Trecho curto até a floresta. Pidgey, Rattata e Nidoran."
           intro: "Nesta passagem você só anda pela faixa oeste até o portão da floresta, com as mesmas capturas de antes mais Nidoran selvagem. A Route 2 é bem maior que isso: sua metade leste fica trancada atrás de árvores que precisam de Cut, então os marcadores do lado leste do mapa (a Moon Stone e o HP Up, o HM05 Flash, a troca do Mr. Mime e a saída norte da Diglett's Cave) só ficam acessíveis quando você tiver Cut, ou voltando pela Diglett's Cave a partir de Vermilion."
+          later:
+            moon_stone:
+              where: "Uma Poké Ball no fundo do terreno cercado de árvores no lado leste da Route 2. As árvores cortáveis isolam toda a metade leste na primeira passagem, então você ainda não chega lá."
+              after: "Volte com o HM01 Cut (do S.S. Anne, em Vermilion) para cortar a árvore, ou entre por esse lado pela saída norte da Diglett's Cave assim que chegar a Vermilion."
+            hp_up:
+              where: "Uma segunda Poké Ball logo ao norte da Moon Stone, no mesmo terreno leste bloqueado por Cut. As duas ficam atrás da mesma parede de árvores cortáveis."
+              after: "Mesma ida: leve o HM01 Cut de volta à Route 2, ou chegue por esse lado pela Diglett's Cave a partir de Vermilion."
+            flash:
+              where: "O Assistente do Prof. Carvalho entrega o HM05 Flash dentro do portão da Route 2, no mesmo lado leste bloqueado por Cut. Ele só dá quando você tiver capturado pelo menos 10 tipos de Pokémon (a contagem na Pokédex, não quantos você tem)."
+              after: "Chegue ao portão com o HM01 Cut (ou subindo pela Diglett's Cave a partir de Vermilion) e tenha 10 espécies capturadas. É o Flash que ilumina a Rock Tunnel mais tarde, então vale o desvio."
           trades:
             mr_mime:
               npc: "CIENTISTA"
@@ -772,7 +782,7 @@ pt:
           steps:
             "1":
               title: "Use Flash"
-              text: "Ensine HM05 Flash (garota na Rota 2) antes de entrar e ilumine cada tela lá dentro."
+              text: "Ensine HM05 Flash (Assistente do Prof. Carvalho no portão da Rota 2) antes de entrar e ilumine cada tela lá dentro."
             "2":
               title: "Desça e suba"
               text: "Pegue as escadas até o B1F, cruze pelos Hikers e suba de volta ao 1F do outro lado."

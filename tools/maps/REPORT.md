@@ -3,7 +3,7 @@
 - location maps: **97** across 51 locations
 - markers: **939** (302 trainer, 113 item, 46 hidden, 478 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **59** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **62** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -190,6 +190,9 @@
 - `route-11-gate-inside` (screen): walkthrough/yellow/scenes/route-11-gate-inside.png
 - `route-18-gate` (screen): walkthrough/yellow/scenes/route-18-gate.png
 - `route-18-gate-inside` (screen): walkthrough/yellow/scenes/route-18-gate-inside.png
+- `route-2-flash` (screen): walkthrough/yellow/scenes/route-2-flash.png
+- `route-2-hp-up` (screen): walkthrough/yellow/scenes/route-2-hp-up.png
+- `route-2-moon-stone` (screen): walkthrough/yellow/scenes/route-2-moon-stone.png
 - `route-2-trade-house` (screen): walkthrough/yellow/scenes/route-2-trade-house.png
 - `route-2-trade-house-inside` (screen): walkthrough/yellow/scenes/route-2-trade-house-inside.png
 - `route-22-rival` (screen): walkthrough/yellow/scenes/route-22-rival.png
