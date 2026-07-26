@@ -1,0 +1,16 @@
+<%# Boss trainers (rival, Team Rocket) get a full-width feature row each; the rest fill the grid.
+    Indexes keep their position in loc.trainers so the tick id stays stable. %>
+<% indexed = trainers.each_with_index.to_a %>
+<% indexed.select { |trainer, _i| trainer.feature? }.each do |trainer, i| %>
+  <div class="pn-wt-trainers pn-wt-trainers--feature">
+    <%= render "trainer", trainer: trainer, id: "#{slug}/trainer-#{i}", feature: true %>
+  </div>
+<% end %>
+<% regular = indexed.reject { |trainer, _i| trainer.feature? } %>
+<% if regular.any? %>
+  <div class="<%= class_names("pn-wt-trainers", "pn-wt-trainers--dense" => dense) %>">
+    <% regular.each do |trainer, i| %>
+      <%= render "trainer", trainer: trainer, id: "#{slug}/trainer-#{i}", compact: dense %>
+    <% end %>
+  </div>
+<% end %>

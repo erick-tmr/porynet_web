@@ -227,6 +227,18 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-trainer__name", text: "Blue"
   end
 
+  test "a boss trainer gets its own full-width feature card, apart from the trainer grid" do
+    get walkthrough_leg_path(game: "yellow", leg: "mt-moon")
+
+    assert_response :success
+    # Jessie & James (the only trainer here with a battle shot) is pulled into a feature row that
+    # carries the battle screen; the rest of Mt. Moon's trainers stay in the plain grid.
+    assert_select ".pn-wt-trainers--feature .pn-wt-trainer__name", text: "Jessie & James"
+    assert_select ".pn-wt-trainers--feature .pn-wt-shot--battlescreen"
+    assert_select ".pn-wt-trainers--feature .pn-wt-trainer", count: 1
+    assert_select ".pn-wt-trainers:not(.pn-wt-trainers--feature) .pn-wt-trainer", minimum: 2
+  end
+
   test "the first and last stops omit prev and next respectively" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
     assert_response :success

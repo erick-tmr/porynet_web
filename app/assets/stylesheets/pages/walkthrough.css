@@ -1420,6 +1420,16 @@ a.pn-wt-route__card:hover {
   padding: 6px 9px;
   box-shadow: 0 0 10px #FF5D8F88;
 }
+/* Feature (boss) card: the rival and the Team Rocket duo get a larger card on a row of their own,
+   built to the standard trainer-card design (VS + WHERE side by side stretched to the same height,
+   then the BATTLE screen on its own row beneath, then the team). It just sits alone on its line at
+   a comfortable width rather than sharing a grid row with the rank-and-file trainers. */
+.pn-wt-trainers.pn-wt-trainers--feature { grid-template-columns: 1fr; }
+.pn-wt-trainer--feature .pn-wt-trainer__card { max-width: 680px; }
+.pn-wt-trainer--feature .pn-wt-trainer__name { font-size: 24px; }
+.pn-wt-trainer--feature .pn-wt-trainer__shots { align-items: stretch; }
+.pn-wt-trainer--feature .pn-wt-shot--vs { width: 172px; aspect-ratio: 16 / 9; }
+.pn-wt-trainer--feature .pn-wt-shot--battlescreen { aspect-ratio: auto; height: 250px; }
 .pn-wt-trainer__team {
   display: flex;
   flex-wrap: wrap;
