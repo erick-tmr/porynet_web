@@ -532,7 +532,8 @@ module Walkthrough
         gym: gym("pewter-city", "Pewter Gym", "ROCK", "BOULDER", "TM34 · BIDE",
           leader("Brock", 1188, mon("074", 10), mon("095", 12),
             battle: scene_shot("battle-brock", "BATTLE"), opp: [ "BROCK", 1 ])),
-        oak_queue: []
+        oak_queue: [],
+        trivia: trivia(b, anchor: "pewter-jigglypuff", shot: scene_shot("pewter-jigglypuff", "PIKACHU"))
       )
     end
 
@@ -1181,9 +1182,9 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards:)
+    def self.trivia(base, anchor:, cards: [], shot: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot)
     end
 
     def self.missable(base, anchor:, after_step:)

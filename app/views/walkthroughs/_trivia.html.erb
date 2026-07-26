@@ -2,6 +2,10 @@
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trivia_eyebrow") %></div>
   <h3 class="pn-wt-band__h3"><%= t(trivia.title_key) %></h3>
   <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
+  <% if trivia.shot&.map? %>
+    <div class="pn-wt-trivia__shot"><%= render "shot", shot: trivia.shot %></div>
+  <% end %>
+  <% if trivia.cards.any? %>
   <div class="pn-wt-trivia-grid">
     <% trivia.cards.each do |card| %>
       <div class="pn-wt-trivia-card pn-wt-trivia-card--<%= card.tone %>">
@@ -23,5 +27,6 @@
       </div>
     <% end %>
   </div>
+  <% end %>
   <div class="pn-wt-trivia__note"><%= t(trivia.note_key) %></div>
 </section>

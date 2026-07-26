@@ -852,6 +852,10 @@ a.pn-wt-route__card:hover {
   margin: 8px 0 0;
   text-wrap: pretty;
 }
+.pn-wt-trivia__shot {
+  max-width: 360px;
+  margin-top: 22px;
+}
 .pn-wt-trivia-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

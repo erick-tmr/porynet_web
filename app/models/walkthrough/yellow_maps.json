@@ -16605,6 +16605,12 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "pewter-jigglypuff": {
+      "image": "walkthrough/yellow/scenes/pewter-jigglypuff.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
     }
   }
 }

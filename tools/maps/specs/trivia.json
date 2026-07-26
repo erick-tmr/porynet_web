@@ -1,0 +1,11 @@
+[
+  {
+    "type": "screen", "name": "pewter-jigglypuff",
+    "map": "PewterPokecenter", "parent": "PEWTER_CITY",
+    "player": [2, 3], "player_dir": "LEFT", "focus": [2, 3],
+    "sprites": [
+      {"sprite": "SPRITE_JIGGLYPUFF", "grid": [1, 3], "dir": "DOWN"},
+      {"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN", "emote": "zzz"}
+    ]
+  }
+]

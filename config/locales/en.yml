@@ -558,6 +558,10 @@ en:
             "2":
               title: "Head east to Route 3"
               text: "With the Boulder Badge, the boy blocking the east exit steps aside. Head east onto Route 3 toward Mt. Moon."
+          trivia:
+            title: "Jigglypuff sings Pikachu to sleep"
+            intro: "A Jigglypuff stands against the wall inside the Pewter City Poke Center. Talk to it and it breaks into its \"Puu pupuu!\" song, and if your Pikachu is out walking behind you the lullaby knocks it out cold, so it stops following you, just like being sung to sleep in a battle."
+            note: "It only fires when Pikachu is your partner out following you and has no status condition. Any other time the Jigglypuff simply sings. A little wink at how its Sing move works in a real battle."
         route_3:
           note: "The climb to Mt. Moon. Spearow, Sandshrew and Mankey."
           intro: "The trainer gauntlet east of Pewter. Grab a Ground type for the caves ahead, then heal at the Mt. Moon center."

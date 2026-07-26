@@ -3,7 +3,7 @@
 - location maps: **97** across 51 locations
 - markers: **939** (302 trainer, 113 item, 46 hidden, 478 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **62** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **63** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -182,6 +182,7 @@
 - `mt-moon-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png
 - `mt-moon-jessie-james` (screen): walkthrough/yellow/scenes/mt-moon-jessie-james.png
 - `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
+- `pewter-jigglypuff` (screen): walkthrough/yellow/scenes/pewter-jigglypuff.png
 - `pokemon-tower-jessie-james` (screen): walkthrough/yellow/scenes/pokemon-tower-jessie-james.png
 - `pokemon-tower-rival` (screen): walkthrough/yellow/scenes/pokemon-tower-rival.png
 - `rocket-hideout-giovanni` (screen): walkthrough/yellow/scenes/rocket-hideout-giovanni.png

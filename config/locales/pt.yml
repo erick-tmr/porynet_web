@@ -558,6 +558,10 @@ pt:
             "2":
               title: "Siga para leste ate a Rota 3"
               text: "Com a Insígnia Boulder, o garoto que bloqueia a saída leste sai do caminho. Siga para leste na Rota 3 rumo a Mt. Moon."
+          trivia:
+            title: "Jigglypuff faz seu Pikachu dormir"
+            intro: "Um Jigglypuff fica encostado na parede dentro do Centro Pokémon de Pewter City. Fale com ele e ele solta a cantiga \"Puu pupuu!\": se o seu Pikachu estiver andando atrás de você, a canção apaga ele na hora e ele para de te seguir, igualzinho a ser posto para dormir numa batalha."
+            note: "Só acontece quando o Pikachu é seu parceiro te seguindo e está sem nenhuma condição de status. Fora isso, o Jigglypuff apenas canta. Uma piscadela para como o golpe Sing dele funciona numa batalha de verdade."
         route_3:
           note: "A subida até o Mt. Moon. Spearow, Sandshrew e Mankey."
           intro: "O corredor de treinadores a leste de Pewter. Pegue um tipo Terra para as cavernas e cure no centro do Mt. Moon."
