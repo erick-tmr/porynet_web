@@ -609,8 +609,9 @@
    same store the map markers use.
    The collectible cards (items, hidden, later, catch, trade) mark "done" with a background tint,
    not opacity: opacity forms a group, so a faded root would drag its own status badge and toast
-   down with it. The trainer cards are the deliberate exception, done to match the design handover:
-   a beaten trainer dims its whole card as one ("lights out"), badge and all (see below). */
+   down with it. The trainer cards dim ("lights out") to match the design handover, but confine the
+   opacity to an inner card wrapper so the corner stamp and toast, which sit outside it, keep their
+   full colour (see below). */
 
 .pn-wt-item,
 .pn-wt-hidden,
@@ -645,15 +646,17 @@
 /* A trade reads in the design's purple. */
 .pn-wt-trade.is-done { background: color-mix(in srgb, var(--trade-purple) 12%, #fff); }
 
-/* Beaten trainers go "lights out": the whole card dims as one, straight from the design handover,
-   which fades the card root (border, sprites, text and its corner stamp all together) rather than
-   swapping the background. The green wash the collectible cards use would read as "lit up white"
-   on the dark gym panel, so trainers dim instead. Values are the handover's: 0.62 for the gym
-   trainers, 0.82 for the leader (it also lights its badge gold), and 0.62 for an overworld
-   trainer. This is the one deliberate use of opacity on a card root (see note above). */
-.pn-wt-trainer.is-done,
-.pn-wt-gym-tr.is-done { opacity: 0.62; }
-.pn-wt-gym__leader.is-done { opacity: 0.82; }
+/* Beaten trainers go "lights out": the card dims as one, straight from the design handover, which
+   fades the frame (border, background), sprites and text rather than swapping the background. The
+   green wash the collectible cards use would read as "lit up white" on the dark gym panel, so
+   trainers dim instead. The dim lands on an inner card wrapper, not the tick root: the corner stamp
+   and toast are the root's own children, and opacity forms a group that would drag them down with
+   it, so they stay outside the wrapper and keep their full colour. Values are the handover's: 0.62
+   for the gym trainers, 0.82 for the leader (it also lights its badge gold), and 0.62 for an
+   overworld trainer. */
+.pn-wt-trainer.is-done .pn-wt-trainer__card,
+.pn-wt-gym-tr.is-done .pn-wt-gym-tr__card { opacity: 0.62; }
+.pn-wt-gym__leader.is-done .pn-wt-gym__leader-card { opacity: 0.82; }
 
 /* --- the click toast ----------------------------------------------------- */
 /* Every caption ships in the markup and CSS picks one, so the toast never has to be written
@@ -923,6 +926,6 @@
   .pn-wt-trainers--dense { grid-template-columns: repeat(3, 1fr); }
 }
 
-.pn-wt-trainer--compact { padding: 12px 14px; }
+.pn-wt-trainer--compact .pn-wt-trainer__card { padding: 12px 14px; }
 .pn-wt-trainer--compact .pn-wt-trainer__shots { gap: 8px; }
 .pn-wt-trainer--compact .pn-wt-team-mon { gap: 6px; }
