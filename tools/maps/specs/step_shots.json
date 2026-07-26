@@ -261,9 +261,9 @@
   },
   {
     "type": "screen",
-    "slug": "route-3",
-    "step": 3,
-    "name": "route-3-mt-moon",
+    "slug": "route-4-mt-moon",
+    "step": 2,
+    "name": "route-4-mt-moon-enter",
     "map": "Route4",
     "player": [
       18,

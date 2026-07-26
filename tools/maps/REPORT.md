@@ -3,7 +3,7 @@
 - location maps: **97** across 51 locations
 - markers: **939** (302 trainer, 113 item, 46 hidden, 478 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **63** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **64** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -129,8 +129,8 @@
 - `route-22` step 4: walkthrough/yellow/scenes/viridian-to-route-2.png
 - `route-24` step 3: walkthrough/yellow/scenes/route-24-charmander.png
 - `route-25` step 2: walkthrough/yellow/scenes/route-25-bill.png
-- `route-3` step 3: walkthrough/yellow/scenes/route-3-mt-moon.png
 - `route-4` step 1: walkthrough/yellow/scenes/route-4-exit.png
+- `route-4-mt-moon` step 2: walkthrough/yellow/scenes/route-4-mt-moon-enter.png
 - `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png
 - `seafoam-islands` step 3: walkthrough/yellow/scenes/seafoam-articuno.png
 - `ss-anne` step 3: walkthrough/yellow/scenes/ss-anne-cut.png
@@ -181,6 +181,7 @@
 - `mt-moon-hidden-ether` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-ether.png
 - `mt-moon-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png
 - `mt-moon-jessie-james` (screen): walkthrough/yellow/scenes/mt-moon-jessie-james.png
+- `mt-moon-magikarp` (dialog): walkthrough/yellow/scenes/mt-moon-magikarp.png
 - `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
 - `pewter-jigglypuff` (screen): walkthrough/yellow/scenes/pewter-jigglypuff.png
 - `pokemon-tower-jessie-james` (screen): walkthrough/yellow/scenes/pokemon-tower-jessie-james.png

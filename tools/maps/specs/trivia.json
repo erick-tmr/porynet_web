@@ -7,5 +7,13 @@
       {"sprite": "SPRITE_JIGGLYPUFF", "grid": [1, 3], "dir": "DOWN"},
       {"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN", "emote": "zzz"}
     ]
+  },
+  {
+    "type": "dialog", "name": "mt-moon-magikarp",
+    "map": "MtMoonPokecenter", "player": [9, 6], "player_dir": "RIGHT",
+    "sprites": [
+      {"sprite": "SPRITE_MIDDLE_AGED_MAN", "grid": [10, 6], "dir": "LEFT"}
+    ],
+    "dialog": {"lines": ["A swell MAGIKARP", "for just ¥500!"]}
   }
 ]

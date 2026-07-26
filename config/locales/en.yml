@@ -147,6 +147,7 @@ en:
       later_need: "NEED"
       later_return: "RETURN AFTER"
       trivia_eyebrow: "TRIVIA · YELLOW ONLY"
+      trivia_eyebrow_general: "TRIVIA"
       missable_badge: "MISSABLE"
       missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
@@ -571,12 +572,23 @@ en:
               text: "Head east from Pewter, clearing the Bug Catchers, Youngsters and Lasses as you climb."
             "2":
               title: "Sweep the grass"
-              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves."
-            "3":
-              title: "Heal and enter Mt. Moon"
-              text: "Heal at the Pokémon Center by the cave mouth, then step into Mt. Moon."
+              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves, then follow the route to its end at the Mt. Moon Poké Center on Route 4."
           oak:
             sandshrew: "Ground type, evolves to Sandslash. Handy against the coming caves."
+        route_4_mt_moon:
+          note: "The Mt. Moon approach: heal, then into the cave."
+          intro: "The west tip of Route 4, where Route 3 meets the Mt. Moon Poke Center. Heal, run any last errands, then head into the cave. The east half of Route 4 and its items come after you break through."
+          steps:
+            "1":
+              title: "Heal at the Mt. Moon Poke Center"
+              text: "Step off Route 3 onto the west tip of Route 4 and heal at the Mt. Moon Poke Center by the cave mouth. This is your last stop before the cave, so top up and stock Poke Balls."
+            "2":
+              title: "Enter Mt. Moon"
+              text: "Head into Mt. Moon through the entrance beside the center. You come out on the east half of Route 4, covered on the next leg."
+          trivia:
+            title: "The man selling a Magikarp"
+            intro: "Inside the Mt. Moon Poke Center a man will sell you a Magikarp for ¥500. On its own it just Splashes about, but it evolves into Gyarados, a real powerhouse. Buying it here is worth it if you want to start growing it immediately, since reaching Gyarados takes a good while."
+            note: "If you only need it for the Pokedex there is no rush: Magikarp is catchable later on the Old Rod, so you can wait and save the money. He sells a single level 5 Magikarp and gives no refunds."
         mt_moon:
           note: "Cave crawl. Zubat, Geodude, rare Clefairy, and a fossil."
           intro: "A dark cave full of Rockets. Grab the Moon Stone, pick a fossil, and push through to Cerulean."

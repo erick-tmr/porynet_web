@@ -1,5 +1,5 @@
 <section class="pn-wt-section" id="<%= trivia.anchor %>">
-  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trivia_eyebrow") %></div>
+  <div class="pn-eyebrow-label"><%= t(trivia.yellow_only ? "walkthrough.ui.trivia_eyebrow" : "walkthrough.ui.trivia_eyebrow_general") %></div>
   <h3 class="pn-wt-band__h3"><%= t(trivia.title_key) %></h3>
   <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
   <% if trivia.shot&.map? %>

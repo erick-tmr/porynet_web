@@ -147,6 +147,7 @@ pt:
       later_need: "PRECISA"
       later_return: "VOLTE APÓS"
       trivia_eyebrow: "CURIOSIDADE · SÓ NO YELLOW"
+      trivia_eyebrow_general: "CURIOSIDADE"
       missable_badge: "PERDÍVEL"
       missable_tip: "DICA DE NÍVEL"
       map_eyebrow: "MAPA DA ÁREA"
@@ -571,12 +572,23 @@ pt:
               text: "Vá a leste de Pewter, limpando os Bug Catchers, Youngsters e Lasses conforme sobe."
             "2":
               title: "Varra a grama"
-              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas."
-            "3":
-              title: "Cure e entre no Mt. Moon"
-              text: "Cure no Centro Pokémon perto da boca da caverna e entre no Mt. Moon."
+              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas; depois siga a rota até o fim, no Centro Pokémon do Mt. Moon, na Route 4."
           oak:
             sandshrew: "Tipo Terra, evolui para Sandslash. Útil nas cavernas à frente."
+        route_4_mt_moon:
+          note: "A entrada do Mt. Moon: cure e entre na caverna."
+          intro: "A ponta oeste da Route 4, onde a Rota 3 encontra o Centro Pokémon do Mt. Moon. Cure, resolva o que faltar e entre na caverna. A metade leste da Route 4 e seus itens vêm depois que você atravessa."
+          steps:
+            "1":
+              title: "Cure no Centro Pokémon do Mt. Moon"
+              text: "Saia da Rota 3 para a ponta oeste da Route 4 e cure no Centro Pokémon do Mt. Moon perto da boca da caverna. É a última parada antes da caverna, então recupere tudo e compre Poke Balls."
+            "2":
+              title: "Entre no Mt. Moon"
+              text: "Entre no Mt. Moon pela porta ao lado do centro. Você sai na metade leste da Route 4, coberta no próximo trecho."
+          trivia:
+            title: "O homem que vende um Magikarp"
+            intro: "Dentro do Centro Pokémon do Mt. Moon um homem vende um Magikarp por ¥500. Sozinho ele só usa Splash, mas evolui para Gyarados, um verdadeiro monstro. Comprar aqui vale a pena se você quer começar a treiná-lo imediatamente, já que chegar até o Gyarados leva um bom tempo."
+            note: "Se você só precisa dele para a Pokédex, não tem pressa: dá para pescar Magikarp depois com o Old Rod, então pode esperar e economizar. Ele vende um único Magikarp nível 5 e não dá reembolso."
         mt_moon:
           note: "Travessia de caverna. Zubat, Geodude, Clefairy rara e um fóssil."
           intro: "Uma caverna escura cheia de Rockets. Pegue a Moon Stone, escolha um fóssil e siga até Cerulean."

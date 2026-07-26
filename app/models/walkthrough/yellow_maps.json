@@ -16098,9 +16098,9 @@
         "height": 144
       }
     },
-    "route-3": {
-      "3": {
-        "image": "walkthrough/yellow/scenes/route-3-mt-moon.png",
+    "route-4-mt-moon": {
+      "2": {
+        "image": "walkthrough/yellow/scenes/route-4-mt-moon-enter.png",
         "width": 160,
         "height": 144
       }
@@ -16611,6 +16611,12 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "mt-moon-magikarp": {
+      "image": "walkthrough/yellow/scenes/mt-moon-magikarp.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     }
   }
 }
