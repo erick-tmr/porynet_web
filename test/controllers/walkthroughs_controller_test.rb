@@ -18,7 +18,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 26 PARADAS"
+    assert_includes response.body, "A ROTA · 27 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do

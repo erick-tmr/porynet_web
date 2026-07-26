@@ -607,9 +607,10 @@
 /* --- tickable cards ------------------------------------------------------ */
 /* Items, hidden items, come-back-later cards, trainers and catchable Pokemon all tick into the
    same store the map markers use.
-   Nothing here uses opacity on a card root. Opacity forms a group, so a faded root drags its
-   own status badge and toast down with it and there is no way for a child to climb back out.
-   The done state is a background tint, and anything that must stay legible keeps full contrast. */
+   The collectible cards (items, hidden, later, catch, trade) mark "done" with a background tint,
+   not opacity: opacity forms a group, so a faded root would drag its own status badge and toast
+   down with it. The trainer cards are the deliberate exception, done to match the design handover:
+   a beaten trainer dims its whole card as one ("lights out"), badge and all (see below). */
 
 .pn-wt-item,
 .pn-wt-hidden,
@@ -637,16 +638,22 @@
 
 .pn-wt-item.is-done,
 .pn-wt-later.is-done,
-.pn-wt-catch.is-done,
-.pn-wt-trainer.is-done,
-.pn-wt-gym-tr.is-done { background: #E8F2EA; }
+.pn-wt-catch.is-done { background: #E8F2EA; }
 
 .pn-wt-hidden.is-done { background: #EFF3DF; }
 
-/* A trade reads in the design's purple; the leader sits on the dark gym panel, so it takes a
-   faint magenta wash instead of the green tint the light cards use. */
+/* A trade reads in the design's purple. */
 .pn-wt-trade.is-done { background: color-mix(in srgb, var(--trade-purple) 12%, #fff); }
-.pn-wt-gym__leader.is-done { background: color-mix(in srgb, var(--gym-neon) 10%, #0b1022); }
+
+/* Beaten trainers go "lights out": the whole card dims as one, straight from the design handover,
+   which fades the card root (border, sprites, text and its corner stamp all together) rather than
+   swapping the background. The green wash the collectible cards use would read as "lit up white"
+   on the dark gym panel, so trainers dim instead. Values are the handover's: 0.62 for the gym
+   trainers, 0.82 for the leader (it also lights its badge gold), and 0.62 for an overworld
+   trainer. This is the one deliberate use of opacity on a card root (see note above). */
+.pn-wt-trainer.is-done,
+.pn-wt-gym-tr.is-done { opacity: 0.62; }
+.pn-wt-gym__leader.is-done { opacity: 0.82; }
 
 /* --- the click toast ----------------------------------------------------- */
 /* Every caption ships in the markup and CSS picks one, so the toast never has to be written
@@ -871,7 +878,45 @@
   padding: 7px 10px;
   transform: rotate(6deg);
 }
-.pn-wt-gym__leader.is-done .pn-wt-gym__leader-cleared { display: block; }
+.pn-wt-gym__leader.is-done .pn-wt-gym__leader-cleared {
+  display: block;
+  animation: pnBeatIn 0.28s ease-out;
+}
+
+/* Badge trophy: clearing the gym lights the dashed grey slot up gold and starts it pulsing, and
+   swaps NOT EARNED for COLLECTED. The default (unearned) look lives in walkthrough.css. */
+@keyframes pnBadgeGlow {
+  0%, 100% { box-shadow: 0 0 16px #FFC23D88, inset 0 0 10px #FFC23D33; }
+  50% { box-shadow: 0 0 30px #FFC23Ddd, inset 0 0 14px #FFC23D55; }
+}
+@keyframes pnBeatIn {
+  0% { transform: scale(0.6) rotate(6deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(6deg); }
+  100% { transform: scale(1) rotate(6deg); opacity: 1; }
+}
+
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-frame {
+  border: 2px solid var(--amber);
+  background: #1c1607;
+  animation: pnBadgeGlow 1.7s ease-in-out infinite;
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-img {
+  width: 62px;
+  height: 62px;
+  filter: drop-shadow(0 0 7px var(--amber));
+  opacity: 1;
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-name {
+  color: #fff;
+  text-shadow: 0 0 10px #FFC23Daa;
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-cap--todo { display: none; }
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-cap--done { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-gym__leader.is-done .pn-wt-gym__leader-cleared,
+  .pn-wt-gym__leader.is-done .pn-wt-gym__badge-frame { animation: none !important; }
+}
 
 
 @media (min-width: 1200px) {

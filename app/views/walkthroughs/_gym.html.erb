@@ -75,14 +75,15 @@
               <span class="pn-wt-gym__pill pn-wt-gym__pill--reward"><%= poke_dollar(gym.leader.reward) %></span>
               <span class="pn-wt-gym__pill"><%= gym.tm %></span>
             </div>
-          </div>
-          <div class="pn-wt-gym__badge">
-            <div class="pn-wt-gym__badge-frame">
-              <%= r2_image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
-            </div>
-            <div>
-              <div class="pn-wt-gym__badge-name"><%= gym.badge %></div>
-              <div class="pn-wt-gym__badge-cap"><%= t("walkthrough.ui.badge") %></div>
+            <div class="pn-wt-gym__badge">
+              <div class="pn-wt-gym__badge-frame">
+                <%= r2_image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
+              </div>
+              <div class="pn-wt-gym__badge-meta">
+                <div class="pn-wt-gym__badge-name"><%= gym.badge %></div>
+                <div class="pn-wt-gym__badge-cap pn-wt-gym__badge-cap--todo"><%= t("walkthrough.ui.badge_not_earned") %></div>
+                <div class="pn-wt-gym__badge-cap pn-wt-gym__badge-cap--done"><%= t("walkthrough.ui.badge_collected") %></div>
+              </div>
             </div>
           </div>
         </div>
