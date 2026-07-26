@@ -136,6 +136,16 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     end
   end
 
+  test "a section with several floor maps shows the how-to only on the first" do
+    visit "/walkthroughs/yellow/mt-moon"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 2
+    assert_operator all(".pn-mm-block").size, :>, 1, "Mt. Moon has several floor maps"
+
+    assert_selector ".pn-mm-howto--top", count: 1, visible: :all
+    assert_selector ".pn-mm-howto--side", count: 1, visible: :all
+    assert_no_selector ".pn-mm-block:not(:first-child) .pn-mm-howto", visible: :all
+  end
+
   test "an important NPC raises a hint but never becomes a chore" do
     visit "/walkthroughs/yellow/leg-01"
     assert_selector ".pn-mm-layer.is-ready", minimum: 2
