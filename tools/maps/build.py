@@ -22,6 +22,7 @@ import json
 import pathlib
 
 import compositor
+import follower
 import generators
 import locations
 import markers
@@ -64,9 +65,13 @@ def main():
     ap.add_argument("--palette", choices=["gbc", "sgb", "dmg"], default="gbc",
                     help="hardware color palette: gbc (Game Boy Color, default), "
                          "sgb (Super Game Boy), dmg (original Game Boy greens)")
+    ap.add_argument("--follower", default="SPRITE_PIKACHU",
+                    help="overworld sprite that trails the hero (Yellow's Pikachu by default); "
+                         "pass 'none' for a game with no follower (Red/Blue)")
     args = ap.parse_args()
     root = str(pathlib.Path(args.pokeyellow).expanduser())
     compositor.PALETTE_MODE = args.palette
+    follower.FOLLOWER_SPRITE = None if args.follower.lower() == "none" else args.follower
 
     headers = sources.parse_headers(root)
     areas, missing = {}, []

@@ -13,6 +13,7 @@ Spec types:
 (the `arrows` and `npc` types are aliases for `map`; the fields present decide what is drawn.)
 """
 import compositor
+import follower
 import sources
 
 PLAYER_NAME = "PORYNET"    # our default hero name, all caps like a standard Pokemon name
@@ -56,12 +57,37 @@ def _dialog_lines(spec_dialog):
     return [line.replace("<PLAYER>", PLAYER_NAME).replace("<RIVAL>", RIVAL_NAME) for line in lines]
 
 
+def _follower(root, spec, hero_grid, hero_dir, sprites):
+    """The overlay sprite for an overworld follower trailing the hero, or None.
+
+    Generic across Gen 1: a follower is drawn only when the game configures one
+    (follower.FOLLOWER_SPRITE, e.g. Yellow's SPRITE_PIKACHU), so Red/Blue draw none. A scene's
+    `follower` field overrides per shot: false opts out (a pre-follower cutscene, a surf shot beside
+    a shore), and a `SPRITE_*` string names a different follower for that scene. A scene that
+    hand-places the follower species itself (the sleeping Pikachu in the Jigglypuff trivia) composes
+    its own, so we do not trail a second one."""
+    override = spec.get("follower", True)
+    if override is False:
+        return None
+    sprite = override if isinstance(override, str) else follower.FOLLOWER_SPRITE
+    if sprite is None or any(s.get("sprite") == sprite for s in spec.get("sprites", [])):
+        return None
+    placed = follower.follower_sprite(root, spec["map"], hero_grid, hero_dir, sprite,
+                                      taken=[s["grid"] for s in sprites])
+    return _resolve_sprite(root, placed) if placed else None
+
+
 def gen_map_scene(root, spec):
     """A full map with manual sprites, auto NPCs, and/or directional arrows."""
     image, colors = compositor.render_map(root, spec["map"], spec.get("parent"))
     sprites = [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
         sprites += auto_npcs(root, spec["map"])
+    hero = next((s for s in spec.get("sprites", []) if s.get("sprite") == HERO_SPRITE), None)
+    if hero:
+        trailing = _follower(root, spec, hero["grid"], hero.get("dir", "DOWN"), sprites)
+        if trailing:
+            sprites.append(trailing)
     if sprites:
         image = compositor.overlay_sprites(image, root, sprites, colors,
                                            compositor.grass_cells(root, spec["map"]))
@@ -98,6 +124,9 @@ def gen_screen_scene(root, spec):
     rival you meet), auto NPCs are shown at their real cells, and `focus` overrides the camera
     center (defaults to the hero)."""
     sprites = _screen_sprites(root, spec)
+    trailing = _follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"), sprites)
+    if trailing:
+        sprites = [*sprites, trailing]
     emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
     markers = [{"grid": spec["marker"], "fill": spec.get("marker_color")}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
