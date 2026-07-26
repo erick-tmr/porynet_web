@@ -2,7 +2,7 @@
   { "type": "screen", "name": "route-2-trade-house", "map": "Route2",
     "player": [15, 20], "player_dir": "UP", "focus": [15, 19] },
   { "type": "screen", "name": "route-2-trade-house-inside", "map": "Route2TradeHouse",
-    "player": [5, 4], "player_dir": "LEFT", "focus": [3, 4], "auto_npcs": true },
+    "player": [2, 5], "player_dir": "UP", "focus": [2, 4], "auto_npcs": true },
 
   { "type": "screen", "name": "route-5-underground-house", "map": "Route5",
     "player": [17, 28], "player_dir": "UP", "focus": [17, 27] },
