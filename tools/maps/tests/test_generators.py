@@ -110,6 +110,18 @@ def test_trade_inside_scene_draws_its_trade_npc(root):
     assert [2, 4] in grids, "the trade SCIENTIST is drawn as the scene's subject"
 
 
+def test_route_2_trade_hero_stands_below_the_scientist_not_across_the_table(root):
+    # Regression: the hero used to sit on the far chair at [5, 4] and talk to the SCIENTIST
+    # (object_event 2, 4) across the counter table, which no one can walk through. The trade is
+    # face-to-face from the plain floor tile directly below the scientist (the one adjacent side
+    # this room leaves open), facing up. [2, 4] and [5, 4] are both chair tiles anyway.
+    spec = _trade_spec("route-2-trade-house-inside")
+    hero, scientist = tuple(spec["player"]), (2, 4)
+    assert _cell_walkable(root, spec["map"], hero), "the hero stands on real floor"
+    assert (hero[0] - scientist[0], hero[1] - scientist[1]) == (0, 1), "one tile below the scientist"
+    assert spec["player_dir"] == "UP", "facing up to talk to the scientist, no table between them"
+
+
 def test_trade_house_scene_places_the_hero_at_the_door(root):
     # The overworld "where" shot for the trade house stands the hero at its door on Route 2
     # (warp_event 15, 19 in data/maps/objects/Route2.asm). The route's own people ride along
