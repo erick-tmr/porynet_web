@@ -95,9 +95,10 @@ module Walkthrough
       { slug: "leg-11", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "power-plant", special: true, locs: %w[power-plant] },
-      { slug: "leg-12", special: false, locs: %w[cinnabar-island pokemon-mansion route-21 viridian-gym] },
+      { slug: "leg-12", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
+      { slug: "leg-13", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-13", special: false, locs: %w[route-23] },
+      { slug: "leg-14", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze

@@ -294,7 +294,8 @@ pt:
       gym_leader_label: "LÍDER"
       gym_cleared: "GINÁSIO VENCIDO ✓"
       gym_roster: "EQUIPE"
-      badge: "INSÍGNIA"
+      badge_collected: "✓ OBTIDA"
+      badge_not_earned: "◻ NÃO OBTIDA"
       badge_alt: "Insígnia %{badge}"
       previous: "◀ ANTERIOR"
       next: "PRÓXIMO ▶"
@@ -359,8 +360,10 @@ pt:
         leg_11:
           lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_12:
-          lead: "Os fósseis de Cinnabar e o Blaine, depois de volta a Viridian pelo Giovanni e a insígnia final."
+          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
         leg_13:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_14:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
       locations:
         pallet_town:
@@ -477,7 +480,7 @@ pt:
             spearow: "Normal/Voador cedo, evolui para Fearow."
         route_2:
           note: "Trecho curto até a floresta. Pidgey, Rattata e Nidoran."
-          intro: "O trecho entre Viridian e o portão da floresta. As mesmas capturas de antes, mais Nidoran selvagem."
+          intro: "Nesta passagem você só anda pela faixa oeste até o portão da floresta, com as mesmas capturas de antes mais Nidoran selvagem. A Route 2 é bem maior que isso: sua metade leste fica trancada atrás de árvores que precisam de Cut, então os marcadores do lado leste do mapa (a Moon Stone e o HP Up, o HM05 Flash, a troca do Mr. Mime e a saída norte da Diglett's Cave) só ficam acessíveis quando você tiver Cut, ou voltando pela Diglett's Cave a partir de Vermilion."
           trades:
             mr_mime:
               npc: "CIENTISTA"

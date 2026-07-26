@@ -294,7 +294,8 @@ en:
       gym_leader_label: "LEADER"
       gym_cleared: "GYM CLEARED ✓"
       gym_roster: "ROSTER"
-      badge: "BADGE"
+      badge_collected: "✓ COLLECTED"
+      badge_not_earned: "◻ NOT EARNED"
       badge_alt: "%{badge} Badge"
       previous: "◀ PREVIOUS"
       next: "NEXT ▶"
@@ -359,8 +360,10 @@ en:
         leg_11:
           lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_12:
-          lead: "Cinnabar's fossils and Blaine, then back to Viridian for Giovanni and the final badge."
+          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
         leg_13:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_14:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
       locations:
         pallet_town:
@@ -477,7 +480,7 @@ en:
             spearow: "Early Normal/Flying, evolves to Fearow."
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
-          intro: "The stretch between Viridian and the forest gate. Same catches as before, plus wild Nidoran."
+          intro: "On this pass you only walk the western strip up to the forest gate, with the same catches as before plus wild Nidoran. Route 2 is much larger than that: its eastern half is sealed behind cuttable trees, so the map's east markers (the Moon Stone and HP Up, HM05 Flash, the Mr. Mime trade and the north exit of Diglett's Cave) all wait there until you have Cut, or loop back up through Diglett's Cave from Vermilion."
           trades:
             mr_mime:
               npc: "SCIENTIST"

@@ -1422,29 +1422,34 @@ a.pn-wt-route__card:hover {
   gap: 9px;
   margin-top: 14px;
 }
+/* A trainer's team reads as big roster tiles, the same treatment the gym leader and gym trainers
+   get: sprite on top, name and level stacked under it. The compact variant (dense routes with a
+   3-up grid) keeps the small side-by-side chip so the rows stay tight. */
 .pn-wt-team-mon {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  width: 106px;
   border: 2px solid #171622;
   background: #FBF5E6;
-  padding: 4px 10px 4px 4px;
+  padding: 8px;
+  text-align: center;
 }
 .pn-wt-team-mon__sprite {
-  width: 38px;
-  height: 38px;
+  width: 84px;
+  height: 84px;
   flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border: 1px solid #171622;
+  overflow: hidden;
 }
-.pn-wt-team-mon__sprite img { width: 34px; height: 34px; object-fit: contain; }
+.pn-wt-team-mon__sprite img { width: 160%; height: 160%; object-fit: contain; }
 .pn-wt-team-mon__name {
   font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 16px;
   line-height: 1;
 }
 .pn-wt-team-mon__lvl {
@@ -1452,6 +1457,23 @@ a.pn-wt-route__card:hover {
   font-size: 15px;
   color: #3a3850;
 }
+
+.pn-wt-trainer--compact .pn-wt-team-mon {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  padding: 4px 10px 4px 4px;
+  text-align: left;
+}
+.pn-wt-trainer--compact .pn-wt-team-mon__sprite {
+  width: 38px;
+  height: 38px;
+  background: #fff;
+  border: 1px solid #171622;
+  overflow: visible;
+}
+.pn-wt-trainer--compact .pn-wt-team-mon__sprite img { width: 34px; height: 34px; }
 
 /* ---- in-game trades ---- */
 .pn-wt-trades {
@@ -2112,47 +2134,50 @@ a.pn-wt-route__card:hover {
   background: #FF5D8F;
   border-color: #FF5D8F;
 }
+/* The badge sits under the leader's name/pills and reads as a trophy slot: dashed and greyed out
+   until you clear the gym, then it lights up gold. The lit state and its pulse live with the
+   other tick states in walkthrough-map.css, keyed off the leader card's .is-done. */
 .pn-wt-gym__badge {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding-left: 22px;
-  border-left: 2px solid #FF5D8F44;
+  margin-top: 4px;
 }
 .pn-wt-gym__badge-frame {
   width: 82px;
   height: 82px;
   flex: none;
-  border: 2px solid #FF5D8F;
-  background: #141a2e;
-  box-shadow: 0 0 14px #FF5D8F55;
+  border: 2px dashed #3a4668;
+  background: #0c1226;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .pn-wt-gym__badge-img {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  /* crisp dark keyline hugging the badge, then the neon glow */
-  filter:
-    drop-shadow(0 0 1px #05060d) drop-shadow(0 0 1px #05060d)
-    drop-shadow(0 0 6px #FF5D8F99);
+  filter: grayscale(1) brightness(0.7);
+  opacity: 0.4;
 }
 .pn-wt-gym__badge-name {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 700;
   font-size: 22px;
   line-height: 1;
-  color: #fff;
-  text-shadow: 0 0 8px #FF5D8F88;
+  color: #6b7ba0;
 }
 .pn-wt-gym__badge-cap {
   font-family: "Press Start 2P", monospace;
   font-size: 8px;
   letter-spacing: 2px;
-  color: #FF5D8F;
   margin-top: 7px;
+}
+.pn-wt-gym__badge-cap--todo { color: #6b7ba0; }
+.pn-wt-gym__badge-cap--done {
+  display: none;
+  color: var(--amber);
+  text-shadow: 0 0 8px #FFC23D88;
 }
 
 .pn-wt-gym__mons {
@@ -2225,8 +2250,6 @@ a.pn-wt-route__card:hover {
   .pn-wt-legstats { grid-template-columns: 1fr 1fr; }
   .pn-wt-switchbar { top: 0; }
   .pn-wt-nav__link { flex-basis: 100%; }
-
-  .pn-wt-gym__badge { padding-left: 0; border-left: 0; }
 
   .pn-wt-hero__title { font-size: 40px; }
   .pn-wt-loc__title { font-size: 38px; }

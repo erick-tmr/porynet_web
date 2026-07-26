@@ -19,10 +19,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 151, g.dex_goal
   end
 
-  test "the 51 locations group into 26 ordered legs with no gaps or dupes" do
+  test "the 51 locations group into 27 ordered legs with no gaps or dupes" do
     g = game
-    assert_equal 26, g.legs.size
-    assert_equal (1..26).to_a, g.legs.map(&:order)
+    assert_equal 27, g.legs.size
+    assert_equal (1..27).to_a, g.legs.map(&:order)
     covered = g.legs.flat_map { |l| l.locations.map(&:slug) }
     assert_equal g.locations.map(&:slug).sort, covered.sort
     assert_equal covered.size, covered.uniq.size
@@ -76,7 +76,8 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "the eight gym locations carry badges" do
     assert_equal %w[pewter-city cerulean-city vermilion-city celadon-city fuchsia-city saffron-city cinnabar-island viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
-    assert_equal %w[cinnabar-island viridian-gym], game.leg!("leg-12").gyms.map(&:slug)
+    assert_equal %w[cinnabar-island], game.leg!("leg-12").gyms.map(&:slug)
+    assert_equal %w[viridian-gym], game.leg!("leg-13").gyms.map(&:slug)
   end
 
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do
