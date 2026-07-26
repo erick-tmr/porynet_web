@@ -152,6 +152,30 @@ def test_the_hero_steps_off_a_tree_into_the_trainers_line(root):
     assert spec["player"] == [1, 18]
 
 
+def test_no_where_scene_straddles_the_hero_across_a_hedge(root):
+    """The Route 3 Bug Catcher (D) used to stand the hero at [19, 7], a cell open above but with
+    its feet on the hedge; every where-scene now stands the hero on the tile the game would, its
+    lower-left really walkable."""
+    _, specs = built(root)
+    headers = sources.parse_headers(root)
+    dims, _n, _f = sources.parse_map_constants(root)
+
+    for spec in specs:
+        const, tileset = headers[spec["map"]]
+        _i, blocks_w, _h = dims[const]
+        assert markers.cell_is_standable(root, spec["map"], tileset, blocks_w, spec["player"]), \
+            f"{spec['name']} straddles the hero at {spec['player']}"
+
+
+def test_the_bug_catcher_hero_steps_off_the_hedge_row(root):
+    """Regression for the impossible-tile card: the Route 3 Bug Catcher hero moved off [19, 7]
+    (feet on the hedge) up onto [19, 6], the grass row it can actually stand on."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "route-3-trainer-19-5")
+
+    assert spec["player"] == [19, 6]
+
+
 def test_a_boxed_in_trainer_gets_a_hero_on_the_nearest_floor(root):
     """The Game Corner Rocket faces the wall behind its poster; nothing in its sightline is
     walkable, so the hero stands on the nearest floor tile beside it, not inside the wall."""

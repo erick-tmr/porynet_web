@@ -3,11 +3,24 @@ import pathlib
 
 import pytest
 
+import follower
 import generators
 import markers
 import sources
 
 SPECS = pathlib.Path(__file__).resolve().parents[1] / "specs"
+
+
+@pytest.fixture
+def pikachu_follower():
+    """Configure the tool with Yellow's Pikachu follower for the duration of a test, then restore
+    the default (no follower), so these tests do not leak the setting into the rest of the suite."""
+    saved = follower.FOLLOWER_SPRITE
+    follower.FOLLOWER_SPRITE = "SPRITE_PIKACHU"
+    try:
+        yield
+    finally:
+        follower.FOLLOWER_SPRITE = saved
 
 
 def _trade_spec(name):
@@ -164,6 +177,69 @@ def test_every_trade_scene_is_a_uniquely_named_screen():
     assert all(s["type"] == "screen" for s in entries)
     names = [s["name"] for s in entries]
     assert len(names) == len(set(names)), "scene names are unique keys in the manifest"
+
+
+def test_screen_scene_gets_the_configured_follower_behind_the_hero(root, pikachu_follower):
+    # With Yellow's Pikachu configured, a plain overworld screen trails it one tile behind the
+    # hero (the hero at [13, 24] faces up -> Pikachu on [13, 25]).
+    spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "player_dir": "UP"}
+    trailing = generators._follower(root, spec, spec["player"], "UP",
+                                    generators._screen_sprites(root, spec))
+    assert trailing == {"file": "pikachu", "frame": 1, "grid": [13, 25], "flip": False}
+
+
+def test_no_follower_when_the_game_configures_none(root):
+    # The default is no follower (Red/Blue), so the same hero scene draws nobody trailing.
+    spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "player_dir": "UP"}
+    assert follower.FOLLOWER_SPRITE is None
+    assert generators._follower(root, spec, spec["player"], "UP", []) is None
+
+
+def test_a_scene_can_opt_out_of_the_follower(root, pikachu_follower):
+    spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "follower": False}
+    assert generators._follower(root, spec, spec["player"], "UP", []) is None
+
+
+def test_a_scene_can_name_its_own_follower(root):
+    # `follower` as a sprite id overrides the game default (even when it is None), so a scene can
+    # trail any Gen 1 overworld sprite it likes.
+    spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24],
+            "follower": "SPRITE_OAK"}
+    trailing = generators._follower(root, spec, spec["player"], "UP", [])
+    assert trailing["file"] == "oak"
+
+
+def test_a_scene_that_stages_the_follower_itself_gets_no_second_one(root, pikachu_follower):
+    # The Jigglypuff trivia hand-places a sleeping Pikachu, so the auto-follower must stand down
+    # rather than trail a duplicate behind the hero.
+    spec = {"type": "screen", "name": "t", "map": "PewterPokecenter", "player": [2, 3],
+            "player_dir": "LEFT",
+            "sprites": [{"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN"}]}
+    assert generators._follower(root, spec, spec["player"], "LEFT", []) is None
+
+
+def test_the_follower_changes_what_a_screen_scene_draws(root, pikachu_follower):
+    base = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "player_dir": "UP"}
+    with_pika, _, _ = generators.generate(root, base)
+    without_pika, _, _ = generators.generate(root, {**base, "follower": False})
+    assert list(with_pika.getdata()) != list(without_pika.getdata()), "the follower is composited"
+
+
+def test_a_map_scene_trails_the_follower_behind_the_hero_sprite(root, pikachu_follower):
+    # A full-map scene that places the hero as a SPRITE_RED sprite trails the follower behind it too.
+    base = {"type": "map", "name": "m", "map": "PalletTown",
+            "sprites": [{"sprite": "SPRITE_RED", "grid": [10, 3], "dir": "UP"}]}
+    with_pika, _, _ = generators.generate(root, base)
+    without_pika, _, _ = generators.generate(root, {**base, "follower": False})
+    assert list(with_pika.getdata()) != list(without_pika.getdata())
+
+
+def test_a_map_scene_without_a_hero_draws_no_follower(root, pikachu_follower):
+    # No SPRITE_RED on the map means no hero to follow, so nothing changes with the flag off.
+    base = {"type": "npc", "name": "m", "map": "PalletTown", "auto_npcs": True}
+    with_flag, _, _ = generators.generate(root, base)
+    without_flag, _, _ = generators.generate(root, {**base, "follower": False})
+    assert list(with_flag.getdata()) == list(without_flag.getdata())
 
 
 def test_unknown_type_raises(root):

@@ -96,6 +96,9 @@ module Walkthrough
     :tick) do
     def initialize(opp: nil, marker_key: nil, tick: nil, **rest) = super
     def marker_key? = !marker_key.nil?
+    # A boss (the rival, a Team Rocket duo) carries a battle face-off shot; those get their own
+    # full-width feature row rather than a cell in the trainer grid.
+    def feature? = battle&.map? == true
   end
   # An in-game trade: give one species, receive another with a fixed nickname. give/receive are
   # { dex:, name: }; house/inside are Shots (the building on the overworld, the NPC inside).

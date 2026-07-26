@@ -1,5 +1,6 @@
 <section class="pn-wt-section pn-wt-maps">
-  <% loc.area_maps.each do |area| %>
+  <% loc.area_maps.each_with_index do |area, index| %>
+    <% show_howto = index.zero? %>
     <div class="pn-mm-block" data-controller="map-markers"
          data-map-markers-game-value="<%= @game.slug %>"
          data-map-markers-map-value="<%= area.name %>"
@@ -45,7 +46,7 @@
         </button>
       </div>
 
-      <%= render "map_howto", place: "top" %>
+      <% if show_howto %><%= render "map_howto", place: "top" %><% end %>
 
       <div class="pn-mm-split">
         <figure class="pn-mm-frame">
@@ -67,7 +68,7 @@
         </figure>
 
         <aside class="pn-mm-side">
-          <%= render "map_howto", place: "side" %>
+          <% if show_howto %><%= render "map_howto", place: "side" %><% end %>
           <%= render "map_legend", area: area %>
         </aside>
       </div>

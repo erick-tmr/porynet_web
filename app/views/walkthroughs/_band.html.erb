@@ -51,11 +51,7 @@
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: loc.trainers.size) %></div>
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trainers_h2") %></h3>
-    <div class="<%= class_names("pn-wt-trainers", "pn-wt-trainers--dense" => loc.dense_trainers?) %>">
-      <% loc.trainers.each_with_index do |trainer, i| %>
-        <%= render "trainer", trainer: trainer, id: "#{loc.slug}/trainer-#{i}", compact: loc.dense_trainers? %>
-      <% end %>
-    </div>
+    <%= render "trainers", trainers: loc.trainers, slug: loc.slug, dense: loc.dense_trainers? %>
   </section>
 <% end %>
 

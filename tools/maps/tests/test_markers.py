@@ -1,4 +1,5 @@
 import markers
+import sources
 
 # ViridianForest is 17x24 blocks, so 544x768 px and a 34x48 grid.
 VF = ("ViridianForest", "VIRIDIAN_FOREST", 544, 768)
@@ -239,6 +240,25 @@ def test_cell_is_walkable_tells_grass_from_trees(root):
     column at the very edge is not."""
     assert markers.cell_is_walkable(root, "ViridianForest", "FOREST", 17, (1, 18))
     assert not markers.cell_is_walkable(root, "ViridianForest", "FOREST", 17, (0, 18))
+
+
+def test_cell_is_standable_rejects_a_hedge_row_cell_is_land_would_pass(root):
+    """Route 3's [19, 7] is open across its top (grass) but its lower-left tile is the hedge
+    beneath, the exact tile the game stands you on. cell_is_land passes it (some sub-tile is open),
+    so a sprite planted there straddles the hedge; cell_is_standable rejects it as the game would."""
+    const, tileset = sources.parse_headers(root)["Route3"]
+    width = sources.parse_map_constants(root)[0][const][1]
+    assert markers.cell_is_land(root, "Route3", tileset, width, (19, 7)), "top is open, so 'land'"
+    assert not markers.cell_is_standable(root, "Route3", tileset, width, (19, 7)), "feet on the hedge"
+    assert markers.cell_is_standable(root, "Route3", tileset, width, (19, 6)), "the grass a row up is clean"
+
+
+def test_cell_is_standable_accepts_an_interior_floor(root):
+    """An interior floor cell's lower-left is the walkable tile even when its lower-right is a
+    decorative shadow, so the follower still stands on a Poke Center / gate floor."""
+    const, tileset = sources.parse_headers(root)["PewterPokecenter"]
+    width = sources.parse_map_constants(root)[0][const][1]
+    assert markers.cell_is_standable(root, "PewterPokecenter", tileset, width, (2, 3))
 
 
 def test_connection_span_narrows_an_edge_to_the_shared_strip():
