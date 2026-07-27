@@ -360,19 +360,19 @@
     "name": "route-4-exit",
     "map": "Route4",
     "player": [
-      18,
+      24,
       6
     ],
     "player_dir": "DOWN",
     "focus": [
-      16,
-      6
+      25,
+      7
     ],
     "arrows": [
       {
         "dir": "down",
         "grid": [
-          18,
+          24,
           8
         ]
       }
