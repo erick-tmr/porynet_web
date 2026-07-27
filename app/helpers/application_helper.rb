@@ -69,6 +69,22 @@ module ApplicationHelper
     "walkthrough.ui.map_status_#{marker.cat == 'trainer' ? 'trainer' : 'item'}_#{state}"
   end
 
+  # Each gym's background grid takes one of the three identity neon colours, cycling in badge order
+  # (Brock magenta, Misty cyan, Lt. Surge amber, then repeat).
+  GYM_BADGE_ORDER = %w[BOULDER CASCADE THUNDER RAINBOW SOUL MARSH VOLCANO EARTH].freeze
+  GYM_GRID_TONES = %w[magenta cyan amber].freeze
+
+  def gym_grid_tone(badge)
+    GYM_GRID_TONES[GYM_BADGE_ORDER.index(badge).to_i % GYM_GRID_TONES.size]
+  end
+
+  # A signed friendship-change cell: "+5", "0", or "−5" (a real minus sign, not a hyphen).
+  def friendship_delta(value)
+    return "0" if value.zero?
+
+    value.positive? ? "+#{value}" : "−#{value.abs}"
+  end
+
   def marker_detail(marker)
     return Walkthrough::PlaceHint.new(marker.place).to_s if marker.place?
     return t("walkthrough.ui.map_exit_#{marker.edge}") if marker.cat == "exit"

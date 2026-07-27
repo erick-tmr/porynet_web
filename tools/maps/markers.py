@@ -11,6 +11,7 @@ Positions come out as percentages of the rendered PNG, so the page can lay marke
 image scaled to any width without knowing the tile size.
 """
 import string
+from collections import defaultdict
 
 import sources
 
@@ -80,6 +81,50 @@ def _warp_group(cells):
 
 EXIT_GLYPHS = {"north": "▲", "south": "▼", "west": "◀", "east": "▶", "inner": "▲"}
 
+# A pass-through building (a cut-through house, a route gate) is small, so its front and back
+# doors sit within a few cells of each other. Two same-column doors farther apart than this are a
+# cave's separate mouths or a tower's stairwells, not one building.
+PASS_THROUGH_MAX_GAP = 8
+
+
+def label_pass_through_doors(exits):
+    """A building you walk straight through has a front door onto the street and a back door behind
+    it, both warping to the same interior; left alone the two doors print the same name twice. Tag
+    the door facing the street (larger grid y) 'enter' and the one behind it 'exit'. A pass-through
+    is a destination reached by exactly two doors in the same column and close together, which
+    excludes a cave's far-apart mouths or a multi-floor stairwell."""
+    by_dest = defaultdict(list)
+    for marker in exits:
+        by_dest[marker["ref"]].append(marker)
+    for doors in by_dest.values():
+        if len(doors) != 2:
+            continue
+        back, front = sorted(doors, key=lambda m: m["grid"][1])
+        same_column = back["grid"][0] == front["grid"][0]
+        close = front["grid"][1] - back["grid"][1] <= PASS_THROUGH_MAX_GAP
+        if same_column and close:
+            front["name"] += " (enter)"
+            back["name"] += " (exit)"
+
+
+# Town and city maps whose own doorways repeat the town name.
+TOWN_MAPS = frozenset({
+    "PALLET_TOWN", "VIRIDIAN_CITY", "PEWTER_CITY", "CERULEAN_CITY", "VERMILION_CITY",
+    "LAVENDER_TOWN", "CELADON_CITY", "FUCHSIA_CITY", "SAFFRON_CITY", "CINNABAR_ISLAND",
+})
+
+
+def strip_town_prefix(exits, map_const):
+    """On a town's own map a doorway repeats the town name ('Cerulean Gym', 'Cerulean Mart'); the
+    prefix is redundant there and only bloats the label layer, so drop it. Routes, gates and
+    dungeons keep their full names. Done before lanes are assigned so they pack the shorter label."""
+    if map_const not in TOWN_MAPS:
+        return
+    prefix = sources.place_display_name(map_const).split()[0] + " "  # 'Cerulean City' -> 'Cerulean '
+    for marker in exits:
+        if marker["name"].startswith(prefix):
+            marker["name"] = marker["name"][len(prefix):]
+
 
 def map_edge(grid_x, grid_y, width_cells, height_cells):
     """Which map edge a cell sits on, or 'inner' for a doorway inside the map."""
@@ -126,15 +171,19 @@ def build_markers(root_str, map_label, map_const, width_px, height_px):
                            name=marker["label"], ref=marker["item_const"]))
 
     width_cells, height_cells = width_px // CELL_PX, height_px // CELL_PX
+    warp_markers = []
     for group in group_warps(sources.parse_warp_events(root_str, map_label)):
         anchor = group["anchor"]
         edge = map_edge(anchor[0], anchor[1], width_cells, height_cells)
         entry = _marker("exit", anchor, group["center"], width_px, height_px,
                         name=sources.place_display_name(group["dest"]), ref=group["dest"])
-        out.append({**entry, "edge": edge, "glyph": EXIT_GLYPHS[edge]})
+        warp_markers.append({**entry, "edge": edge, "glyph": EXIT_GLYPHS[edge]})
+    label_pass_through_doors(warp_markers)
+    strip_town_prefix(warp_markers, map_const)
+    out += warp_markers
 
     tileset = sources.parse_headers(root_str)[map_label][1]
-    out += connection_exits(root_str, map_label, tileset, width_px // sources.BLOCK_PX,
+    out += connection_exits(root_str, map_label, map_const, tileset, width_px // sources.BLOCK_PX,
                             width_cells, height_cells, width_px, height_px)
 
     return assign_label_lanes(out, width_px, height_px)
@@ -225,15 +274,40 @@ def connection_span(cells, direction, offset, dest_dims, width_cells, height_cel
     return cells[start:end] or cells
 
 
-def connection_exits(root_str, map_label, tileset, width_blocks, width_cells, height_cells,
-                     width_px, height_px):
+# Connections whose seam carries a land road but also touches a decorative pond, so the generic
+# "water is crossed by Surf" rule would anchor the marker to the water instead of the road. Cerulean
+# reaches Route 24 over the Nugget Bridge and Route 4 down a road, both flanked by its pond; each end
+# is listed so the two sides agree. Keyed by (this map's const, direction).
+LAND_CROSSINGS = frozenset({
+    ("CERULEAN_CITY", "north"), ("CERULEAN_CITY", "west"),
+    ("ROUTE_24", "south"), ("ROUTE_4", "east"),
+})
+
+
+def nearest_land_crossing(root_str, map_label, tileset, width_blocks, cells):
+    """The walkable cell nearest the seam, ignoring water: the road across an edge, not the pond
+    beside it."""
+    tileset_file = sources.tileset_basename(root_str, tileset)
+    walkable = sources.parse_collision_tiles(root_str, tileset)
+    land = [c for c in cells
+            if any(t in walkable for t in sources.cell_tiles(root_str, map_label, tileset_file,
+                                                             width_blocks, *c))] or cells
+    mid = cells[len(cells) // 2]
+    return min(land, key=lambda cell: (abs(cell[0] - mid[0]) + abs(cell[1] - mid[1]), cell))
+
+
+def connection_exits(root_str, map_label, map_const, tileset, width_blocks, width_cells,
+                     height_cells, width_px, height_px):
     """One marker per map this one scrolls into, on the part of the edge you can cross."""
     out = []
     dims, _num_city, _first_indoor = sources.parse_map_constants(root_str)
     for direction, dest, offset in sources.parse_connections(root_str, map_label):
         cells = edge_cells(direction, width_cells, height_cells)
         cells = connection_span(cells, direction, offset, dims.get(dest), width_cells, height_cells)
-        cell = crossing_cell(root_str, map_label, tileset, width_blocks, cells)
+        if (map_const, direction) in LAND_CROSSINGS:
+            cell = nearest_land_crossing(root_str, map_label, tileset, width_blocks, cells)
+        else:
+            cell = crossing_cell(root_str, map_label, tileset, width_blocks, cells)
         entry = _marker("exit", cell, cell, width_px, height_px,
                         name=sources.place_display_name(dest), ref=dest)
         out.append({**entry, "id": f"exit-{direction}", "edge": direction,

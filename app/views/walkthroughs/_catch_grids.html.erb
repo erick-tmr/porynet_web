@@ -1,0 +1,15 @@
+<% gifts, wilds = loc.encounters.partition(&:gift?) %>
+<% if gifts.any? %>
+  <div class="pn-wt-catch-grid pn-wt-catch-grid--gifts">
+    <% gifts.each do |enc| %>
+      <%= render "catch_card", enc: enc, best: @game.best_catch_here(loc, enc) %>
+    <% end %>
+  </div>
+<% end %>
+<% if wilds.any? %>
+  <div class="pn-wt-catch-grid">
+    <% wilds.each do |enc| %>
+      <%= render "catch_card", enc: enc, best: @game.best_catch_here(loc, enc) %>
+    <% end %>
+  </div>
+<% end %>

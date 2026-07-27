@@ -1,0 +1,21 @@
+<% mg = "#{Walkthrough::Yellow::K}.mew_glitch" %>
+<section class="pn-wt-section" id="mew">
+  <div class="pn-mew-teaser">
+    <div class="pn-mew-teaser__grid" aria-hidden="true"></div>
+    <div class="pn-mew-teaser__body">
+      <div class="pn-mew-teaser__tags">
+        <span class="pn-mew-tag pn-mew-tag--glitch"><%= t("#{mg}.teaser.tag") %></span>
+        <span class="pn-mew-teaser__window"><%= t("#{mg}.teaser.window") %></span>
+      </div>
+      <h2 class="pn-mew-teaser__title"><%= t("#{mg}.teaser.title_html") %></h2>
+      <p class="pn-mew-teaser__lead"><%= t("#{mg}.teaser.lead") %></p>
+      <div class="pn-mew-teaser__cta-row">
+        <%= link_to t("#{mg}.teaser.cta"), walkthrough_mew_glitch_path(game: @game.slug), class: "pn-mew-teaser__cta" %>
+        <span class="pn-mew-teaser__meta"><%= t("#{mg}.teaser.meta") %></span>
+      </div>
+    </div>
+    <div class="pn-mew-teaser__art">
+      <%= r2_image_tag "walkthrough/yellow/art/mew-sugimori.png", alt: t("#{mg}.hero.art_alt"), class: "pn-mew-teaser__img" %>
+    </div>
+  </div>
+</section>

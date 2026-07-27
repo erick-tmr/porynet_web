@@ -44,11 +44,7 @@
       </div>
       <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: @location.catchable_count) %></div>
     </div>
-    <div class="pn-wt-catch-grid">
-      <% @location.encounters.each do |enc| %>
-        <%= render "catch_card", enc: enc, best: @game.best_catch_here(@location, enc) %>
-      <% end %>
-    </div>
+    <%= render "catch_grids", loc: @location %>
   </section>
 <% end %>
 

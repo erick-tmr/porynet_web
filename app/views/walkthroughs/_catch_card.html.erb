@@ -1,6 +1,14 @@
 <% best = local_assigns[:best] %>
-<div class="<%= class_names("pn-wt-catch", "pn-wt-catch--best" => best) %>"
+<div class="<%= class_names("pn-wt-catch", "pn-wt-catch--best" => best, "pn-wt-catch--gift" => enc.from?) %>"
      <%= tag.attributes(tickable("caught", enc.dex)) %>>
+  <% if enc.from? %>
+    <div class="pn-wt-catch__gift">
+      <span class="pn-wt-catch__gift-dot" aria-hidden="true"></span>
+      <span class="pn-wt-catch__gift-label"><%= t("walkthrough.ui.gift_badge") %></span>
+      <span class="pn-wt-catch__gift-sep" aria-hidden="true"></span>
+      <span class="pn-wt-catch__gift-from"><%= t(enc.from_key) %></span>
+    </div>
+  <% end %>
   <span class="pn-wt-catch__caught"><%= t("walkthrough.ui.caught_badge") %></span>
   <%= progress_toast("caught", name: enc.name) %>
   <% if best %>
@@ -35,6 +43,16 @@
       </div>
     </div>
   </div>
+
+  <% if enc.unlock? %>
+    <div class="pn-wt-catch__unlock">
+      <%= r2_image_tag enc.unlock_icon, alt: "", class: "pn-wt-catch__unlock-sprite" %>
+      <div>
+        <div class="pn-wt-catch__unlock-label"><%= t("walkthrough.ui.unlock_condition") %></div>
+        <div class="pn-wt-catch__unlock-text"><%= t(enc.unlock_key) %></div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="pn-wt-evo">
     <div class="pn-wt-evo__label"><%= t("walkthrough.ui.evo_line") %></div>

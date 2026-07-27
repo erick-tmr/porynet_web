@@ -37,12 +37,9 @@
       </div>
       <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: loc.catchable_count) %></div>
     </div>
-    <div class="pn-wt-catch-grid">
-      <% loc.encounters.each do |enc| %>
-        <%= render "catch_card", enc: enc, best: @game.best_catch_here(loc, enc) %>
-      <% end %>
-    </div>
+    <%= render "catch_grids", loc: loc %>
   </section>
+  <% if loc.slug == "cerulean-city" %><%= render "pikachu_friendship" %><% end %>
 <% end %>
 
 <% if loc.trivia? %><%= render "trivia", trivia: loc.trivia %><% end %>
@@ -67,6 +64,8 @@
     </div>
   </section>
 <% end %>
+
+<% if loc.slug == "cerulean-city" %><%= render "mew_teaser" %><% end %>
 
 <% if loc.gym? %>
   <%= render "gym", gym: loc.gym, slug: loc.slug %>

@@ -79,6 +79,13 @@ describe("placement", () => {
     expect(el("m-hidden").style.getPropertyValue("--lane")).toBe("1");
   });
 
+  it("flags a nudged label so it gets a leader line back to its pin", async () => {
+    await mount();
+
+    expect(has("m-hidden", "has-lane")).toBe(true); // lane 1
+    expect(has("m-trainer", "has-lane")).toBe(false); // lane 0
+  });
+
   it("reveals the layer only once the markers have been placed", async () => {
     await mount();
 

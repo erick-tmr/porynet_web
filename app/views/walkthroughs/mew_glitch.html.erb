@@ -1,0 +1,261 @@
+<% mg = "#{Walkthrough::Yellow::K}.mew_glitch" %>
+<% content_for :page_controller do %>data-controller="progress-toggle" data-progress-toggle-game-value="<%= @game.slug %>"<% end %>
+<% content_for :title, t("#{mg}.meta_title", game: @game.name) %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/walkthrough", "pages/mew-glitch", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_crumb do %>
+  <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
+  <span class="pn-nav__crumb-sep">/</span>
+  <%= link_to t("#{mg}.crumb_cerulean"), walkthrough_leg_path(game: @game.slug, leg: "leg-04") %>
+  <span class="pn-nav__crumb-sep">/</span>
+  <span class="pn-nav__crumb-here pn-nav__crumb-here--glitch"><%= t("#{mg}.crumb_here") %></span>
+<% end %>
+
+<%# ---- HERO ---- %>
+<section class="pn-mew-hero">
+  <div class="pn-mew-scan" aria-hidden="true"></div>
+  <div class="pn-mew-tear" aria-hidden="true"></div>
+  <div class="pn-mew-hero__inner">
+    <div class="pn-mew-hero__lead-col">
+      <div class="pn-mew-hero__tags">
+        <%= link_to t("#{mg}.hero.back"), walkthrough_leg_path(game: @game.slug, leg: "leg-04"), class: "pn-mew-hero__back" %>
+        <span class="pn-mew-tag pn-mew-tag--glitch"><%= t("#{mg}.hero.tag") %></span>
+        <span class="pn-mew-hero__games"><%= t("#{mg}.hero.games") %></span>
+      </div>
+      <h1 class="pn-mew-hero__title"><%= t("#{mg}.hero.title_html") %></h1>
+      <p class="pn-mew-hero__lead"><%= t("#{mg}.hero.lead") %></p>
+      <div class="pn-mew-facts">
+        <% @guide.facts.each do |fact| %>
+          <div class="pn-mew-fact pn-mew-fact--<%= fact.tone %>">
+            <div class="pn-mew-fact__label"><%= t(fact.label_key) %></div>
+            <div class="pn-mew-fact__value"><%= t(fact.value_key) %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="pn-mew-hero__card">
+      <div class="pn-mew-card__bar">
+        <span class="pn-mew-card__no"><%= t("#{mg}.hero.card_no") %></span>
+        <span class="pn-mew-card__species"><%= t("#{mg}.hero.card_species") %></span>
+      </div>
+      <div class="pn-mew-card__art">
+        <div class="pn-mew-card__grid" aria-hidden="true"></div>
+        <%= r2_image_tag "walkthrough/yellow/art/mew-sugimori.png", alt: t("#{mg}.hero.art_alt"), class: "pn-mew-card__img" %>
+        <%= r2_image_tag "walkthrough/yellow/art/mew-sugimori.png", alt: "", aria: { hidden: true }, class: "pn-mew-card__img pn-mew-card__img--glitch" %>
+        <div class="pn-mew-card__tear" aria-hidden="true"></div>
+      </div>
+      <div class="pn-mew-card__credit"><%= t("#{mg}.hero.credit") %></div>
+      <div class="pn-mew-card__foot">
+        <%= r2_image_tag "pokemon/yellow/151.png", alt: "", class: "pn-mew-card__sprite" %>
+        <div>
+          <div class="pn-mew-card__name"><%= t("#{mg}.hero.card_name") %></div>
+          <div class="pn-mew-card__meta"><%= t("#{mg}.hero.card_meta") %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ---- IN SHORT ---- %>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("#{mg}.short.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{mg}.short.h2") %></h2>
+  <p class="pn-wt-lead pn-wt-lead--wide"><%= t("#{mg}.short.lead") %></p>
+  <div class="pn-mew-tldr">
+    <% @guide.tldr.each do |card| %>
+      <div class="pn-mew-tldr__card pn-mew-tldr__card--<%= card.phase %>">
+        <div class="pn-mew-tldr__head">
+          <span class="pn-mew-tldr__n"><%= card.n %></span>
+          <div class="pn-mew-tldr__title"><%= t(card.title_key) %></div>
+        </div>
+        <div class="pn-mew-tldr__text"><%= t(card.text_key) %></div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%# ---- WARNING ---- %>
+<section class="pn-wt-section">
+  <div class="pn-mew-warn">
+    <div class="pn-mew-warn__head">
+      <span class="pn-mew-warn__badge"><%= t("#{mg}.warn.badge") %></span>
+      <h2 class="pn-mew-warn__title"><%= t("#{mg}.warn.title") %></h2>
+    </div>
+    <p class="pn-mew-warn__lead"><%= t("#{mg}.warn.lead") %></p>
+    <div class="pn-mew-warn__cols">
+      <div class="pn-mew-warn__col pn-mew-warn__col--safe">
+        <div class="pn-mew-warn__col-label"><%= t("#{mg}.warn.safe.label") %></div>
+        <p class="pn-mew-warn__col-text"><%= t("#{mg}.warn.safe.text") %></p>
+      </div>
+      <div class="pn-mew-warn__col pn-mew-warn__col--perm">
+        <div class="pn-mew-warn__col-label"><%= t("#{mg}.warn.perm.label") %></div>
+        <p class="pn-mew-warn__col-text"><%= t("#{mg}.warn.perm.text") %></p>
+      </div>
+    </div>
+    <div class="pn-mew-warn__around">
+      <span class="pn-mew-warn__around-badge"><%= t("#{mg}.warn.workaround.badge") %></span>
+      <span class="pn-mew-warn__around-text"><%= t("#{mg}.warn.workaround.text") %></span>
+    </div>
+    <div class="pn-mew-warn__deep"><%= t("#{mg}.warn.deep_html") %></div>
+  </div>
+</section>
+
+<%# ---- PREREQS ---- %>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("#{mg}.prereq.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{mg}.prereq.h2") %></h2>
+  <p class="pn-wt-lead"><%= t("#{mg}.prereq.lead") %></p>
+  <div class="pn-mew-prereq">
+    <div class="pn-mew-untouched">
+      <% @guide.untouched.each do |tr| %>
+        <div class="pn-mew-untouched__row">
+          <span class="pn-mew-untouched__x" aria-hidden="true">&times;</span>
+          <%= r2_image_tag "walkthrough/yellow/trainers/#{tr.sprite}.png", alt: "", class: "pn-mew-untouched__sprite", loading: "lazy" %>
+          <div class="pn-mew-untouched__main">
+            <div class="pn-mew-untouched__name"><%= t(tr.name_key) %></div>
+            <div class="pn-mew-untouched__where"><%= t(tr.where_key) %></div>
+          </div>
+          <span class="pn-mew-untouched__role pn-mew-untouched__role--<%= tr.role_tone %>"><%= t(tr.role_key) %></span>
+        </div>
+      <% end %>
+    </div>
+    <div class="pn-mew-prereq__side">
+      <div class="pn-mew-pack">
+        <div class="pn-mew-pack__label"><%= t("#{mg}.pack.label") %></div>
+        <% @guide.packlist.each do |item| %>
+          <div class="pn-mew-pack__row">
+            <% if item.pokemon? %>
+              <%= r2_image_tag "pokemon/yellow/#{item.dex}.png", alt: "", class: "pn-mew-pack__sprite" %>
+            <% else %>
+              <span class="pn-mew-pack__glyph"><%= item.glyph %></span>
+            <% end %>
+            <div>
+              <div class="pn-mew-pack__name"><%= t(item.name_key) %></div>
+              <div class="pn-mew-pack__note"><%= t(item.note_key) %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="pn-mew-sleepers">
+        <div class="pn-mew-sleepers__label"><%= t("#{mg}.sleepers.label") %></div>
+        <div class="pn-mew-sleepers__lead"><%= t("#{mg}.sleepers.lead") %></div>
+        <div class="pn-mew-sleepers__grid">
+          <% @guide.sleepers.each do |mon| %>
+            <div class="pn-mew-sleeper">
+              <%= r2_image_tag "pokemon/yellow/#{mon.dex}.png", alt: "", class: "pn-mew-sleeper__sprite", loading: "lazy" %>
+              <span class="pn-mew-sleeper__name"><%= mon.name %></span>
+              <span class="pn-mew-sleeper__move"><%= t(mon.move_key) %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ---- STEPS ---- %>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("#{mg}.steps.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{mg}.steps.h2") %></h2>
+  <p class="pn-wt-lead"><%= t("#{mg}.steps.lead") %></p>
+  <% @guide.phases.each do |phase| %>
+    <%= render "mew_phase", phase: phase %>
+  <% end %>
+</section>
+
+<%# ---- LEVEL CALCULATOR ---- %>
+<section class="pn-mew-calc-sec">
+  <div class="pn-mew-calc-sec__inner">
+    <div class="pn-eyebrow-label pn-eyebrow-label--cyan"><%= t("#{mg}.calc.eyebrow") %></div>
+    <h2 class="pn-h2 pn-h2--light"><%= t("#{mg}.calc.h2") %></h2>
+    <p class="pn-mew-calc__lead"><%= t("#{mg}.calc.lead") %></p>
+    <div class="pn-mew-calc__grid">
+      <div class="pn-mew-calc__panel" data-controller="mew-level" data-mew-level-baseline-value="<%= @guide.baseline %>">
+        <div class="pn-mew-calc__caption"><%= t("#{mg}.calc.caption") %></div>
+        <div class="pn-mew-calc__stages">
+          <% @guide.stages.each do |stage| %>
+            <button type="button" class="pn-mew-stage<%= " is-active" if stage.default? %>" data-mew-level-target="button" data-stage="<%= stage.stage %>" data-action="mew-level#pick"><%= stage.label %></button>
+          <% end %>
+        </div>
+        <div class="pn-mew-calc__readout">
+          <%= r2_image_tag "pokemon/yellow/151.png", alt: "Mew", class: "pn-mew-calc__mew" %>
+          <div>
+            <div class="pn-mew-calc__spawns"><%= t("#{mg}.calc.spawns") %></div>
+            <div class="pn-mew-calc__level"><span class="pn-mew-calc__lv"><%= t("#{mg}.calc.lv_label") %></span> <span data-mew-level-target="level"><%= @guide.baseline %></span></div>
+          </div>
+        </div>
+        <% @guide.stages.each do |stage| %>
+          <div class="pn-mew-recipe" data-mew-level-target="recipe" data-stage="<%= stage.stage %>" <%= "hidden" unless stage.default? %>>
+            <div class="pn-mew-recipe__line"><%= t("#{mg}.calc.recipe.#{stage.kind}", n: stage.n, count: stage.n) %></div>
+            <div class="pn-mew-recipe__internal"><%= t("#{mg}.calc.internal", value: stage.level, stage: stage.label, level: stage.level) %></div>
+          </div>
+        <% end %>
+      </div>
+      <div class="pn-mew-calc__side">
+        <div class="pn-mew-info pn-mew-info--light">
+          <div class="pn-mew-info__label pn-mew-info__label--pink"><%= t("#{mg}.calc.lv100.label") %></div>
+          <p class="pn-mew-info__text"><%= t("#{mg}.calc.lv100.text") %></p>
+        </div>
+        <div class="pn-mew-info pn-mew-info--dark">
+          <div class="pn-mew-info__label pn-mew-info__label--gold"><%= t("#{mg}.calc.vc.label") %></div>
+          <p class="pn-mew-info__text"><%= t("#{mg}.calc.vc.text") %></p>
+          <div class="pn-mew-info__pairs">
+            <div class="pn-mew-info__pair">
+              <div class="pn-mew-info__pair-label"><%= t("#{mg}.calc.vc.ot_label") %></div>
+              <div class="pn-mew-info__pair-value"><%= @guide.vc_ot %></div>
+            </div>
+            <div class="pn-mew-info__pair">
+              <div class="pn-mew-info__pair-label"><%= t("#{mg}.calc.vc.tid_label") %></div>
+              <div class="pn-mew-info__pair-value"><%= @guide.vc_tid %></div>
+            </div>
+          </div>
+          <p class="pn-mew-info__foot"><%= t("#{mg}.calc.vc.foot") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ---- SECOND MEW ---- %>
+<section class="pn-wt-section">
+  <div class="pn-mew-second__head">
+    <div>
+      <div class="pn-eyebrow-label pn-eyebrow-label--purple"><%= t("#{mg}.second.eyebrow") %></div>
+      <h2 class="pn-h2"><%= t("#{mg}.second.h2") %></h2>
+    </div>
+    <div class="pn-mew-second__note"><%= t("#{mg}.second.note") %></div>
+  </div>
+  <p class="pn-wt-lead"><%= t("#{mg}.second.lead") %></p>
+  <div class="pn-mew-second__grid">
+    <% @guide.second.each do |step| %>
+      <div class="pn-mew-second__card">
+        <div class="pn-mew-second__card-head">
+          <span class="pn-mew-second__n"><%= step.n %></span>
+          <div class="pn-mew-second__title"><%= t(step.title_key) %></div>
+        </div>
+        <div class="pn-mew-second__text"><%= t(step.text_key) %></div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%# ---- AFTERWORD ---- %>
+<section class="pn-wt-section">
+  <div class="pn-mew-after">
+    <div class="pn-mew-after__art">
+      <div class="pn-mew-after__grid" aria-hidden="true"></div>
+      <%= r2_image_tag "walkthrough/yellow/art/red-and-mew.png", alt: t("#{mg}.after.art_alt"), class: "pn-mew-after__img" %>
+      <div class="pn-mew-after__tag"><%= t("#{mg}.after.art_tag") %></div>
+    </div>
+    <div class="pn-mew-after__body">
+      <div class="pn-eyebrow-label"><%= t("#{mg}.after.eyebrow") %></div>
+      <h2 class="pn-h2"><%= t("#{mg}.after.h2") %></h2>
+      <p class="pn-mew-after__text"><%= t("#{mg}.after.text") %></p>
+      <div class="pn-mew-after__actions">
+        <%= link_to t("#{mg}.after.back"), walkthrough_leg_path(game: @game.slug, leg: "leg-04"), class: "pn-mew-after__btn" %>
+        <span class="pn-mew-after__credit"><%= t("#{mg}.after.credit") %></span>
+      </div>
+    </div>
+  </div>
+</section>

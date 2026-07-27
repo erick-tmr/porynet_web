@@ -1,0 +1,27 @@
+<div class="pn-wt-step pn-mew-step<%= " pn-mew-step--warn" if step.tag_tone == "danger" %>">
+  <div class="pn-wt-step__rail">
+    <div class="pn-wt-step__line pn-wt-step__line--top"></div>
+    <div class="pn-wt-step__node"><%= step.n %></div>
+    <div class="pn-wt-step__line pn-wt-step__line--bot"></div>
+  </div>
+  <div class="pn-wt-step__card">
+    <div class="pn-wt-step__body">
+      <div class="pn-wt-step__main">
+        <div class="pn-mew-step__titlerow">
+          <div class="pn-wt-step__title"><%= t(step.title_key) %></div>
+          <% if step.tag? %>
+            <span class="pn-mew-step__tag pn-mew-step__tag--<%= step.tag_tone %>"><%= t(step.tag_key) %></span>
+          <% end %>
+        </div>
+        <div class="pn-wt-step__text"><%= t(step.text_key) %></div>
+        <% if step.note? %>
+          <div class="pn-mew-step__note">
+            <b class="pn-mew-step__note-label"><%= t(step.note_label_key) %></b>
+            <span><%= t(step.note_key) %></span>
+          </div>
+        <% end %>
+      </div>
+      <div class="pn-wt-shot__side"><%= render "shot", shot: step.shot %></div>
+    </div>
+  </div>
+</div>

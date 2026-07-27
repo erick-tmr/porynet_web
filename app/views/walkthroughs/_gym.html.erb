@@ -1,5 +1,5 @@
 <section class="pn-wt-section">
-  <div class="pn-wt-gym">
+  <div class="pn-wt-gym pn-wt-gym--<%= gym_grid_tone(gym.badge) %>">
     <div class="pn-wt-gym__grid" aria-hidden="true"></div>
     <div class="pn-wt-gym__inner">
       <div class="pn-wt-gym__head">
@@ -100,6 +100,12 @@
             <% end %>
           </div>
         </div>
+        <% if gym.leader.note_key? %>
+          <div class="pn-wt-gym__leader-note">
+            <b class="pn-wt-gym-tr__note-label"><%= t("walkthrough.ui.mew_glitch_label") %></b>
+            <span><%= t(gym.leader.note_key) %></span>
+          </div>
+        <% end %>
         </div>
       </div>
     </div>

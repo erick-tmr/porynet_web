@@ -53,9 +53,30 @@ module Walkthrough
 
     RIVAL_EEVEE_ANCHOR = "rival-eevee"
 
-    def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false)
+    # `from: true` adds the gift-source badge; `unlock:` is the icon (an R2 path) a gift's unlock
+    # condition shows, or nil for an unconditional gift.
+    def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil)
+      b = base(slug)
+      key = mon_key(dex)
       Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: rate, level: level,
-        rarity: rarity, tip_key: (tip ? "#{base(slug)}.tips.#{mon_key(dex)}" : nil), evo_line: line(*chain))
+        rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
+        from_key: (from ? "#{b}.gifts.#{key}.from" : nil),
+        unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock)
+    end
+
+    # Verbatim from HappinessChangeTable in engine/events/pikachu_happiness.asm: each action's
+    # friendship change at current value bands 0-99 / 100-199 / 200-255.
+    FRIENDSHIP_TABLE = [
+      [ "levelup", [ 5, 3, 2 ] ], [ "hp_item", [ 5, 3, 2 ] ], [ "x_item", [ 1, 1, 0 ] ],
+      [ "gym_leader", [ 3, 2, 1 ] ], [ "tm_hm", [ 1, 1, 0 ] ], [ "walking", [ 2, 1, 1 ] ],
+      [ "deposit", [ -3, -3, -5 ] ], [ "faint", [ -1, -1, -1 ] ], [ "poison_faint", [ -5, -5, -10 ] ],
+      [ "careless", [ -5, -5, -10 ] ], [ "trade", [ -10, -10, -20 ] ]
+    ].freeze
+
+    def self.pikachu_friendship
+      b = "#{K}.pikachu_friendship"
+      PikachuFriendship.new(start: 90, threshold: 147, max: 255,
+        rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
     end
 
     def self.oak(slug, dex, qty)
@@ -123,6 +144,110 @@ module Walkthrough
         legs: build_legs(by_slug),
         best_catches: compute_best_catches(locations)
       )
+    end
+
+    MEW_GLITCH_K = "#{K}.mew_glitch".freeze
+
+    # The Cerulean Mew-glitch guide. Trainer identities and the level formula here are verified
+    # against the pokeyellow disassembly (Swimmer #1 = Lv16 Horsea/Shellder, the trigger is the
+    # Jr. Trainer in the grass west of Nugget Bridge, the second-Mew setter is the lone-Slowpoke
+    # Youngster on Route 25, and an untouched opponent's neutral Attack stage 7 gives a Lv 7 Mew).
+    def self.mew_glitch
+      MewGlitch.new(
+        facts: mew_facts, tldr: mew_tldr, untouched: mew_untouched, packlist: mew_packlist,
+        sleepers: mew_sleepers, phases: mew_phases, second: mew_second,
+        stages: mew_stages, baseline: 7, vc_ot: "GF", vc_tid: "22796"
+      )
+    end
+
+    def self.mew_facts
+      b = "#{MEW_GLITCH_K}.facts"
+      %w[where earliest level risk].zip(%w[cyan cyan magenta gold]).map do |key, tone|
+        MewFact.new("#{b}.#{key}.label", "#{b}.#{key}.value", tone)
+      end
+    end
+
+    def self.mew_tldr
+      tones = %w[setup setup glitch glitch catch]
+      (1..5).map { |n| MewTldr.new(n, "#{MEW_GLITCH_K}.tldr.#{n}.title", "#{MEW_GLITCH_K}.tldr.#{n}.text", tones[n - 1]) }
+    end
+
+    def self.mew_untouched
+      [ [ "trigger", "JR. TRAINER♂", "pink" ], [ "swimmer", "SWIMMER", "cyan" ],
+        [ "misty", "Misty", "cyan" ], [ "youngster", "YOUNGSTER", "purple" ] ].map do |key, id, tone|
+        b = "#{MEW_GLITCH_K}.untouched.#{key}"
+        MewTrainer.new("#{b}.name", "#{b}.where", "#{b}.role", tone,
+          NAME_SPRITES[id] || CLASS_SPRITES.fetch(id))
+      end
+    end
+
+    def self.mew_packlist
+      b = "#{MEW_GLITCH_K}.pack"
+      [ MewPackItem.new(dex: "063", name_key: "#{b}.abra.name", note_key: "#{b}.abra.note"),
+        MewPackItem.new(glyph: "x20", name_key: "#{b}.balls.name", note_key: "#{b}.balls.note") ]
+    end
+
+    def self.mew_sleepers
+      { "012" => "sleep_powder", "035" => "sing", "039" => "sing",
+        "043" => "sleep_powder", "069" => "sleep_powder" }.map do |dex, move|
+        MewSleeper.new(dex, NAMES.fetch(dex), "#{MEW_GLITCH_K}.moves.#{move}")
+      end
+    end
+
+    MEW_PHASE_DEFS = [
+      { key: "setup", tone: "cyan", steps: [
+        { key: "route24", shot: "SETUP 1" },
+        { key: "bridge", tag: "danger", note: true, shot: "SETUP 2" },
+        { key: "abra", tag: "info", note: true, shot: "SETUP 3" }
+      ] },
+      { key: "glitch", tone: "pink", steps: [
+        { key: "center", shot: "GLITCH 1" },
+        { key: "lineup", note: true, shot: "GLITCH 2" },
+        { key: "start", tag: "info", shot: "GLITCH 3" },
+        { key: "teleport", note: true, shot: "GLITCH 4" },
+        { key: "swimmer", tag: "danger", note: true, shot: "GLITCH 5" }
+      ] },
+      { key: "catch", tone: "gold", steps: [
+        { key: "return", tag: "caution", shot: "CATCH 1" },
+        { key: "encounter", shot: "CATCH 2" },
+        { key: "catch", note: true, shot: "CATCH 3" }
+      ] }
+    ].freeze
+
+    def self.mew_phases = MEW_PHASE_DEFS.map { |p| mew_phase(p) }
+
+    def self.mew_phase(phase)
+      b = "#{MEW_GLITCH_K}.phases.#{phase[:key]}"
+      MewPhase.new("#{b}.label", "#{b}.title", "#{b}.meta", phase[:tone],
+        phase[:steps].each_with_index.map { |step, i| mew_step(b, step, i + 1) })
+    end
+
+    def self.mew_step(phase_base, step, n)
+      b = "#{phase_base}.steps.#{step[:key]}"
+      MewStep.new(n: n, title_key: "#{b}.title", text_key: "#{b}.text",
+        tag_key: (step[:tag] && "#{b}.tag"), tag_tone: step[:tag],
+        note_key: (step[:note] && "#{b}.note"), note_label_key: (step[:note] && "#{b}.note_label"),
+        shot: shot(step[:shot]))
+    end
+
+    def self.mew_second
+      (1..6).map { |n| MewSecondStep.new(n, "#{MEW_GLITCH_K}.second.#{n}.title", "#{MEW_GLITCH_K}.second.#{n}.text") }
+    end
+
+    def self.mew_stages
+      (-6..6).map do |stage|
+        level = stage + 7
+        kind = mew_stage_kind(stage, level)
+        MewStage.new(stage: stage, level: level, n: stage.abs, kind: kind,
+          label: (stage.positive? ? "+#{stage}" : stage.to_s))
+      end
+    end
+
+    def self.mew_stage_kind(stage, level)
+      return "untouched" if stage.zero?
+      return "raised" if stage.positive?
+
+      level == 1 ? "growl_underflow" : "growl"
     end
 
     def self.parse_rate(rate)
@@ -194,7 +319,7 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
-      loc = tick_items(merge_trainers(loc), header)
+      loc = apply_gym_notes(tick_items(merge_trainers(loc), header))
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
@@ -230,6 +355,29 @@ module Walkthrough
 
     def self.authored_cards(loc)
       loc.trainers + (loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : [])
+    end
+
+    # Curated captions stamped onto specific gym trainers by their OPP_CLASS:party id, keyed by
+    # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings.
+    def self.gym_trainer_notes(slug)
+      return {} unless slug == "cerulean-city"
+
+      b = base(slug)
+      { "SWIMMER:1" => "#{b}.gym.notes.swimmer", "MISTY:1" => "#{b}.gym.notes.misty" }
+    end
+
+    def self.apply_gym_notes(loc)
+      notes = gym_trainer_notes(loc.slug)
+      return loc if notes.empty? || loc.gym.nil?
+
+      gym = loc.gym
+      loc.with(gym: gym.with(trainers: gym.trainers.map { |t| note_trainer(t, notes) },
+        leader: note_trainer(gym.leader, notes)))
+    end
+
+    def self.note_trainer(trainer, notes)
+      key = notes[trainer.opp]
+      key ? trainer.with(note_key: key) : trainer
     end
 
     def self.gym_entry?(loc, entry) = entry["floor"] == "Gym" || loc.kind == "GYM"
@@ -685,7 +833,7 @@ module Walkthrough
 
     def self.cerulean_city
       loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 2, shots: [ 1, 2 ], gym_after: 1, badge: "CASCADE",
-        encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true) ],
+        encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png") ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
           leader("Misty", 2079, mon("120", 18), mon("121", 21), battle: scene_shot("battle-misty", "BATTLE"), opp: [ "MISTY", 1 ])),
@@ -695,7 +843,7 @@ module Walkthrough
     def self.route_24
       loc("route-24", "ROUTE", "Route 24", 12, shots: [ 3 ],
         encounters: [
-          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true),
+          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true, from: true),
           enc("route-24", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-24", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
           enc("route-24", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
@@ -744,7 +892,7 @@ module Walkthrough
 
     def self.vermilion_city
       loc("vermilion-city", "CITY", "Vermilion City", 16, steps: 3, shots: [ 2, 3 ], gym_after: 2, badge: "THUNDER",
-        encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true) ],
+        encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ],
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
           leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE"), opp: [ "LT_SURGE", 1 ]),
@@ -915,7 +1063,7 @@ module Walkthrough
 
     def self.silph_co
       loc("silph-co", "BUILDING", "Silph Co.", 39, steps: 4,
-        encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true) ],
+        encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true, from: true) ],
         trainers: [
           rival(2600, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40),
             where: scene_shot("silph-co-rival", "WHERE"),
@@ -1119,7 +1267,7 @@ module Walkthrough
     def self.celadon_city
       loc("celadon-city", "CITY", "Celadon City", 26, steps: 3, gym_after: 2, badge: "RAINBOW",
         encounters: [
-          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true),
+          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true),
           enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
           enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
         ],

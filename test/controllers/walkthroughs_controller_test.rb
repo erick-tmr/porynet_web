@@ -249,6 +249,111 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-nav__link--next", false
   end
 
+  test "the Mew glitch page renders its hero, phases, and level calculator" do
+    get walkthrough_mew_glitch_path(game: "yellow")
+
+    assert_response :success
+    assert_select "title", /The Mew Glitch/
+    assert_select ".pn-nav__crumb-here--glitch", text: "MEW GLITCH"
+    assert_select ".pn-mew-hero__word", text: "Mew"
+    assert_select ".pn-mew-tldr__card", count: 5
+    assert_select ".pn-mew-phase", count: 3
+    assert_select ".pn-mew-untouched__row", count: 4
+    # the calculator wires 13 stage buttons to the Stimulus controller, default stage 0 = Lv 7
+    assert_select "[data-controller='mew-level'] .pn-mew-stage", count: 13
+    assert_select ".pn-mew-stage.is-active", text: "0"
+    assert_select "[data-mew-level-target='level']", text: "7"
+    assert_select ".pn-mew-recipe", count: 13
+    assert_select "img[src*=?]", "walkthrough/yellow/art/mew-sugimori.png"
+    assert_select "img[src*=?]", "walkthrough/yellow/art/red-and-mew.png"
+  end
+
+  test "the Mew glitch page renders in Portuguese" do
+    get walkthrough_mew_glitch_path(game: "yellow", locale: :pt)
+
+    assert_response :success
+    assert_select "html[lang=?]", "pt"
+    assert_select ".pn-nav__crumb-here--glitch", text: "GLITCH DO MEW"
+  end
+
+  test "the Cerulean Mew section teases the glitch guide and warns on the Swimmer and Misty" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select ".pn-mew-teaser a[href*=?]", "/walkthroughs/yellow/mew-glitch"
+    # the Swimmer and Misty carry the Mew-glitch caption; the Jr. Trainer does not
+    assert_select ".pn-wt-gym-tr__note", text: /Shellder's Attack stage sets Mew's level/
+    assert_select ".pn-wt-gym__leader-note", text: /locks the Swimmer behind her/
+  end
+
+  test "the Cerulean Bulbasaur is a gift card with a Pikachu-friendship unlock condition" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select ".pn-wt-catch--gift .pn-wt-catch__gift-from", text: "FROM MELANIE'S HOUSE"
+    assert_select ".pn-wt-catch__unlock-text", text: "Pikachu friendship 147 or higher"
+  end
+
+  test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select "#friendship .pn-fs[data-controller='disclosure']"
+    assert_select ".pn-fs__body[hidden]"
+    # the game-verified friendship table: a header row plus 11 action rows
+    assert_select ".pn-fs__table .pn-fs__row", count: 12
+    assert_select ".pn-fs__meter-num--goal", text: /147/
+    assert_select ".pn-fs__cell--action", text: "Deposit Pikachu in the PC"
+    assert_select ".pn-fs__row--gain .pn-fs__cell--val", text: "+5"
+    assert_select ".pn-fs__row--loss .pn-fs__cell--val", text: "−20"
+  end
+
+  test "a gift Pokemon sits in its own row above the wild grid, as a gift card" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    # Route 24's Charmander is a gift: badge + source, in the gifts row, and unconditional (no box)
+    assert_select ".pn-wt-catch-grid--gifts .pn-wt-catch__gift-from", text: "FROM THE HILLTOP BOY"
+    assert_select ".pn-wt-catch-grid--gifts .pn-wt-catch--gift .pn-wt-catch__name", text: "Charmander"
+    # the wild grass mons stay in the separate wild grid
+    assert_select ".pn-wt-catch-grid:not(.pn-wt-catch-grid--gifts) .pn-wt-catch__name", text: "Oddish"
+  end
+
+  test "a gift gated by a badge (Squirtle) shows that badge as its unlock icon" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-05")
+
+    assert_response :success
+    assert_select ".pn-wt-catch--gift .pn-wt-catch__gift-from", text: "FROM OFFICER JENNY"
+    assert_select ".pn-wt-catch__unlock-text", text: "Beat Lt. Surge for the Thunder Badge"
+    assert_select "img.pn-wt-catch__unlock-sprite[src*=?]", "badges/thunder.png"
+  end
+
+  test "each gym's grid takes an identity colour, cycling by badge order" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-03")
+    assert_response :success
+    assert_select ".pn-wt-gym.pn-wt-gym--magenta" # Brock, gym 1
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+    assert_response :success
+    assert_select ".pn-wt-gym.pn-wt-gym--cyan" # Misty, gym 2
+  end
+
+  test "the walkthrough index surfaces the Mew glitch as an optional special card" do
+    get walkthrough_path(game: "yellow")
+
+    assert_response :success
+    assert_select "a.pn-wt-route__card[href*=?]", "/walkthroughs/yellow/mew-glitch"
+    assert_select ".pn-wt-route__name", text: "The Mew Glitch"
+  end
+
+  test "the Mew glitch route is recognized and 404s for an unknown game" do
+    assert_equal({ controller: "walkthroughs", action: "mew_glitch", game: "yellow" },
+      Rails.application.routes.recognize_path("/walkthroughs/yellow/mew-glitch"))
+
+    get "/walkthroughs/red/mew-glitch"
+    assert_response :not_found
+  end
+
   test "an unknown game, leg, or a merged location returns 404" do
     get "/walkthroughs/red"
     assert_response :not_found

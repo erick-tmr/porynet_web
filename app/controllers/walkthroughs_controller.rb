@@ -13,4 +13,9 @@ class WalkthroughsController < ApplicationController
       render :leg
     end
   end
+
+  def mew_glitch
+    @game = Walkthrough.find!(params[:game])
+    @guide = Walkthrough::Yellow.mew_glitch
+  end
 end
