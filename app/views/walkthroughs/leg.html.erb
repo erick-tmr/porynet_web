@@ -2,7 +2,9 @@
 <% leg_label = @leg.slug.tr("-", " ").upcase %>
 <% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "data-turbo-track": "reload" %>
+  <% sheets = %w[pages/walkthrough pages/walkthrough-map] %>
+  <% sheets << "pages/mew-glitch" if @leg.locations.any? { |loc| loc.slug == "cerulean-city" } %>
+  <%= stylesheet_link_tag(*sheets, "data-turbo-track": "reload") %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>

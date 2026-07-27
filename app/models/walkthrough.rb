@@ -7,9 +7,16 @@ module Walkthrough
 
   DENSE_TRAINERS = 6
 
-  Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line) do
+  # `from_key`/`unlock_key` are optional locale keys for a gift Pokémon: who hands it over and any
+  # condition to unlock it (Bulbasaur needs Pikachu's friendship at 147+, Squirtle the Thunder
+  # Badge). `unlock_icon` is the R2 image that condition shows (a Pikachu, a badge).
+  Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line,
+    :from_key, :unlock_key, :unlock_icon) do
+    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
+    def from? = !from_key.nil?
+    def unlock? = !unlock_key.nil?
   end
 
   Item = Data.define(:name, :where_key, :sprite, :at, :tick) do
@@ -23,7 +30,7 @@ module Walkthrough
     def image? = !image.nil?
   end
   TriviaCard = Data.define(:dex, :name, :tone, :rows)
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards)
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :yellow_only)
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -150,10 +157,16 @@ module Walkthrough
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
   # the map object, which resolves `marker_key` so the card and its pin show the same letter.
+  # `note_key` is an optional locale key for a hand-authored caption on the card (e.g. the Mew
+  # glitch warnings on the Cerulean Swimmer and Misty).
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key,
-    :tick) do
-    def initialize(opp: nil, marker_key: nil, tick: nil, **rest) = super
+    :tick, :note_key) do
+    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, **rest) = super
     def marker_key? = !marker_key.nil?
+    def note_key? = !note_key.nil?
+    # A boss (the rival, a Team Rocket duo) carries a battle face-off shot; those get their own
+    # full-width feature row rather than a cell in the trainer grid.
+    def feature? = battle&.map? == true
   end
   # An in-game trade: give one species, receive another with a fixed nickname. give/receive are
   # { dex:, name: }; house/inside are Shots (the building on the overworld, the NPC inside).
@@ -253,6 +266,43 @@ module Walkthrough
       legs[pos]
     end
   end
+
+  # The Mew glitch guide is a bespoke page, not a location: it carries curated, game-verified
+  # structured content (trainer identities and parties, the level formula) alongside locale keys
+  # for its prose. `tone` values name a card accent the stylesheet resolves.
+  MewFact = Data.define(:label_key, :value_key, :tone)
+  MewTldr = Data.define(:n, :title_key, :text_key, :phase)
+  # A trainer to leave standing, identified by class + spot (no battle needed for the card).
+  # `sprite` is a trainer-sprite basename (walkthrough/yellow/trainers/<sprite>.png).
+  MewTrainer = Data.define(:name_key, :where_key, :role_key, :role_tone, :sprite)
+  MewSleeper = Data.define(:dex, :name, :move_key)
+  # One pack-list row: either a Pokémon (`dex` set) or a plain tile with a `glyph` like "x20".
+  MewPackItem = Data.define(:dex, :glyph, :name_key, :note_key) do
+    def initialize(dex: nil, glyph: nil, **rest) = super
+    def pokemon? = !dex.nil?
+  end
+  MewStep = Data.define(:n, :title_key, :text_key, :tag_key, :tag_tone, :note_key, :note_label_key,
+    :shot) do
+    def initialize(tag_key: nil, tag_tone: nil, note_key: nil, note_label_key: nil, **rest) = super
+    def tag? = !tag_key.nil?
+    def note? = !note_key.nil?
+  end
+  MewPhase = Data.define(:label_key, :title_key, :meta_key, :tone, :steps)
+  MewSecondStep = Data.define(:n, :title_key, :text_key)
+  # One row of the level calculator. `kind` picks the recipe locale key; `n` fills its count.
+  MewStage = Data.define(:stage, :level, :n, :kind, :label) do
+    def default? = stage.zero?
+  end
+  MewGlitch = Data.define(:facts, :tldr, :untouched, :packlist, :sleepers, :phases, :second,
+    :stages, :baseline, :vc_ot, :vc_tid)
+
+  # Yellow's Pikachu carries a hidden friendship value (0-255, starts at 90); the Cerulean
+  # Bulbasaur unlocks at 147. `values` is the game's per-band change [0-99, 100-199, 200-255],
+  # taken verbatim from HappinessChangeTable in the disassembly.
+  FriendshipRow = Data.define(:action_key, :values) do
+    def gain? = values.first.positive?
+  end
+  PikachuFriendship = Data.define(:start, :threshold, :max, :rows)
 
   def self.games = { "yellow" => Yellow.game }
 

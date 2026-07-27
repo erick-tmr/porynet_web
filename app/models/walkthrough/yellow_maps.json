@@ -35,7 +35,7 @@
               13
             ],
             "align": "r",
-            "name": "Celadon Mart 1F",
+            "name": "Mart 1F",
             "ref": "CELADON_MART_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -52,7 +52,7 @@
               13
             ],
             "align": "r",
-            "name": "Celadon Mart 1F",
+            "name": "Mart 1F",
             "ref": "CELADON_MART_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -69,7 +69,7 @@
               9
             ],
             "align": "r",
-            "name": "Celadon Mansion 1F",
+            "name": "Mansion 1F (enter)",
             "ref": "CELADON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -86,7 +86,7 @@
               3
             ],
             "align": "r",
-            "name": "Celadon Mansion 1F",
+            "name": "Mansion 1F (exit)",
             "ref": "CELADON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -103,7 +103,7 @@
               9
             ],
             "align": "l",
-            "name": "Celadon Pokecenter",
+            "name": "Pokecenter",
             "ref": "CELADON_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -120,7 +120,7 @@
               27
             ],
             "align": "r",
-            "name": "Celadon Gym",
+            "name": "Gym",
             "ref": "CELADON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -154,11 +154,11 @@
               19
             ],
             "align": "l",
-            "name": "Celadon Mart 5F",
+            "name": "Mart 5F",
             "ref": "CELADON_MART_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-33-19",
@@ -188,7 +188,7 @@
               27
             ],
             "align": "l",
-            "name": "Celadon Diner",
+            "name": "Diner",
             "ref": "CELADON_DINER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -205,7 +205,7 @@
               27
             ],
             "align": "l",
-            "name": "Celadon Chief House",
+            "name": "Chief House",
             "ref": "CELADON_CHIEF_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -222,7 +222,7 @@
               27
             ],
             "align": "l",
-            "name": "Celadon Hotel",
+            "name": "Hotel",
             "ref": "CELADON_HOTEL",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -984,11 +984,11 @@
               11
             ],
             "align": "l",
-            "name": "Cerulean Trashed House",
+            "name": "Trashed House (enter)",
             "ref": "CERULEAN_TRASHED_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-13-15",
@@ -1001,7 +1001,7 @@
               15
             ],
             "align": "r",
-            "name": "Cerulean Melanies House",
+            "name": "Melanies House",
             "ref": "CERULEAN_MELANIES_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1018,7 +1018,7 @@
               17
             ],
             "align": "r",
-            "name": "Cerulean Pokecenter",
+            "name": "Pokecenter",
             "ref": "CERULEAN_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1035,7 +1035,7 @@
               19
             ],
             "align": "l",
-            "name": "Cerulean Gym",
+            "name": "Gym",
             "ref": "CERULEAN_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1069,11 +1069,11 @@
               25
             ],
             "align": "l",
-            "name": "Cerulean Mart",
+            "name": "Mart",
             "ref": "CERULEAN_MART",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-4-11",
@@ -1086,7 +1086,7 @@
               11
             ],
             "align": "r",
-            "name": "Cerulean Cave 1F",
+            "name": "Cave 1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1103,7 +1103,7 @@
               9
             ],
             "align": "l",
-            "name": "Cerulean Trashed House",
+            "name": "Trashed House (exit)",
             "ref": "CERULEAN_TRASHED_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1120,11 +1120,11 @@
               11
             ],
             "align": "r",
-            "name": "Cerulean Badge House",
+            "name": "Badge House (enter)",
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-9-9",
@@ -1137,7 +1137,7 @@
               9
             ],
             "align": "r",
-            "name": "Cerulean Badge House",
+            "name": "Badge House (exit)",
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1147,10 +1147,10 @@
             "id": "exit-north",
             "cat": "exit",
             "key": null,
-            "x": 46.25,
+            "x": 51.25,
             "y": 1.389,
             "grid": [
-              18,
+              20,
               0
             ],
             "align": "r",
@@ -1182,10 +1182,10 @@
             "cat": "exit",
             "key": null,
             "x": 1.25,
-            "y": 45.833,
+            "y": 51.389,
             "grid": [
               0,
-              16
+              18
             ],
             "align": "r",
             "name": "Route 4",
@@ -1321,7 +1321,7 @@
               3
             ],
             "align": "l",
-            "name": "Cinnabar Gym",
+            "name": "Gym",
             "ref": "CINNABAR_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1338,7 +1338,7 @@
               9
             ],
             "align": "r",
-            "name": "Cinnabar Lab",
+            "name": "Lab",
             "ref": "CINNABAR_LAB",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1355,7 +1355,7 @@
               11
             ],
             "align": "r",
-            "name": "Cinnabar Pokecenter",
+            "name": "Pokecenter",
             "ref": "CINNABAR_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1372,7 +1372,7 @@
               11
             ],
             "align": "l",
-            "name": "Cinnabar Mart",
+            "name": "Mart",
             "ref": "CINNABAR_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1625,7 +1625,7 @@
               13
             ],
             "align": "r",
-            "name": "Fuchsia Mart",
+            "name": "Mart",
             "ref": "FUCHSIA_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1642,11 +1642,11 @@
               27
             ],
             "align": "r",
-            "name": "Fuchsia Bills Grandpas House",
+            "name": "Bills Grandpas House",
             "ref": "FUCHSIA_BILLS_GRANDPAS_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-19-27",
@@ -1659,11 +1659,11 @@
               27
             ],
             "align": "r",
-            "name": "Fuchsia Pokecenter",
+            "name": "Pokecenter",
             "ref": "FUCHSIA_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-27-27",
@@ -1710,7 +1710,7 @@
               27
             ],
             "align": "r",
-            "name": "Fuchsia Gym",
+            "name": "Gym",
             "ref": "FUCHSIA_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1727,7 +1727,7 @@
               13
             ],
             "align": "r",
-            "name": "Fuchsia Meeting Room",
+            "name": "Meeting Room",
             "ref": "FUCHSIA_MEETING_ROOM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1744,7 +1744,7 @@
               27
             ],
             "align": "l",
-            "name": "Fuchsia Good Rod House",
+            "name": "Good Rod House (enter)",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1761,7 +1761,7 @@
               24
             ],
             "align": "l",
-            "name": "Fuchsia Good Rod House",
+            "name": "Good Rod House (exit)",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2016,7 +2016,7 @@
               5
             ],
             "align": "r",
-            "name": "Lavender Pokecenter",
+            "name": "Pokecenter",
             "ref": "LAVENDER_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2067,7 +2067,7 @@
               13
             ],
             "align": "l",
-            "name": "Lavender Mart",
+            "name": "Mart",
             "ref": "LAVENDER_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2084,7 +2084,7 @@
               13
             ],
             "align": "r",
-            "name": "Lavender Cubone House",
+            "name": "Cubone House",
             "ref": "LAVENDER_CUBONE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2926,7 +2926,7 @@
               17
             ],
             "align": "r",
-            "name": "Pewter Gym",
+            "name": "Gym",
             "ref": "PEWTER_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2943,7 +2943,7 @@
               13
             ],
             "align": "l",
-            "name": "Pewter Nidoran House",
+            "name": "Nidoran House",
             "ref": "PEWTER_NIDORAN_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2960,7 +2960,7 @@
               17
             ],
             "align": "r",
-            "name": "Pewter Mart",
+            "name": "Mart",
             "ref": "PEWTER_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2977,7 +2977,7 @@
               29
             ],
             "align": "r",
-            "name": "Pewter Speech House",
+            "name": "Speech House",
             "ref": "PEWTER_SPEECH_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2994,7 +2994,7 @@
               25
             ],
             "align": "r",
-            "name": "Pewter Pokecenter",
+            "name": "Pokecenter",
             "ref": "PEWTER_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6295,7 +6295,7 @@
               15
             ],
             "align": "r",
-            "name": "Route 12 Gate 1F",
+            "name": "Route 12 Gate 1F (exit)",
             "ref": "ROUTE_12_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6312,7 +6312,7 @@
               21
             ],
             "align": "r",
-            "name": "Route 12 Gate 1F",
+            "name": "Route 12 Gate 1F (enter)",
             "ref": "ROUTE_12_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -8800,10 +8800,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 42.5,
+            "x": 52.5,
             "y": 98.611,
             "grid": [
-              8,
+              10,
               35
             ],
             "align": "r",
@@ -9349,10 +9349,10 @@
             "cat": "exit",
             "key": null,
             "x": 99.444,
-            "y": 47.222,
+            "y": 58.333,
             "grid": [
               89,
-              8
+              10
             ],
             "align": "l",
             "name": "Cerulean City",
@@ -10777,7 +10777,7 @@
               3
             ],
             "align": "l",
-            "name": "Saffron Gym",
+            "name": "Gym",
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -10794,7 +10794,7 @@
               11
             ],
             "align": "r",
-            "name": "Saffron Pidgey House",
+            "name": "Pidgey House",
             "ref": "SAFFRON_PIDGEY_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -10811,7 +10811,7 @@
               11
             ],
             "align": "l",
-            "name": "Saffron Mart",
+            "name": "Mart",
             "ref": "SAFFRON_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -10845,7 +10845,7 @@
               29
             ],
             "align": "r",
-            "name": "Saffron Pokecenter",
+            "name": "Pokecenter",
             "ref": "SAFFRON_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -10866,7 +10866,7 @@
             "ref": "MR_PSYCHICS_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-north",
@@ -14671,7 +14671,7 @@
               3
             ],
             "align": "r",
-            "name": "Vermilion Pokecenter",
+            "name": "Pokecenter",
             "ref": "VERMILION_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14705,7 +14705,7 @@
               13
             ],
             "align": "r",
-            "name": "Vermilion Mart",
+            "name": "Mart",
             "ref": "VERMILION_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14722,7 +14722,7 @@
               19
             ],
             "align": "r",
-            "name": "Vermilion Gym",
+            "name": "Gym",
             "ref": "VERMILION_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14739,7 +14739,7 @@
               19
             ],
             "align": "r",
-            "name": "Vermilion Pidgey House",
+            "name": "Pidgey House",
             "ref": "VERMILION_PIDGEY_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14756,7 +14756,7 @@
               31
             ],
             "align": "r",
-            "name": "Vermilion Dock",
+            "name": "Dock",
             "ref": "VERMILION_DOCK",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14773,7 +14773,7 @@
               13
             ],
             "align": "r",
-            "name": "Vermilion Trade House",
+            "name": "Trade House",
             "ref": "VERMILION_TRADE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14790,7 +14790,7 @@
               3
             ],
             "align": "r",
-            "name": "Vermilion Old Rod House",
+            "name": "Old Rod House",
             "ref": "VERMILION_OLD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15516,7 +15516,7 @@
               25
             ],
             "align": "r",
-            "name": "Viridian Pokecenter",
+            "name": "Pokecenter",
             "ref": "VIRIDIAN_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15533,7 +15533,7 @@
               19
             ],
             "align": "l",
-            "name": "Viridian Mart",
+            "name": "Mart",
             "ref": "VIRIDIAN_MART",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15550,7 +15550,7 @@
               15
             ],
             "align": "r",
-            "name": "Viridian School House",
+            "name": "School House",
             "ref": "VIRIDIAN_SCHOOL_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15567,7 +15567,7 @@
               9
             ],
             "align": "r",
-            "name": "Viridian Nickname House",
+            "name": "Nickname House",
             "ref": "VIRIDIAN_NICKNAME_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15584,7 +15584,7 @@
               7
             ],
             "align": "l",
-            "name": "Viridian Gym",
+            "name": "Gym",
             "ref": "VIRIDIAN_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -16098,9 +16098,9 @@
         "height": 144
       }
     },
-    "route-3": {
-      "3": {
-        "image": "walkthrough/yellow/scenes/route-3-mt-moon.png",
+    "route-4-mt-moon": {
+      "2": {
+        "image": "walkthrough/yellow/scenes/route-4-mt-moon-enter.png",
         "width": 160,
         "height": 144
       }
@@ -16426,6 +16426,24 @@
       "height": 144,
       "type": "screen"
     },
+    "route-2-moon-stone": {
+      "image": "walkthrough/yellow/scenes/route-2-moon-stone.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-2-hp-up": {
+      "image": "walkthrough/yellow/scenes/route-2-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-2-flash": {
+      "image": "walkthrough/yellow/scenes/route-2-flash.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "route-2-trade-house": {
       "image": "walkthrough/yellow/scenes/route-2-trade-house.png",
       "width": 160,
@@ -16587,6 +16605,18 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "pewter-jigglypuff": {
+      "image": "walkthrough/yellow/scenes/pewter-jigglypuff.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-magikarp": {
+      "image": "walkthrough/yellow/scenes/mt-moon-magikarp.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     }
   }
 }

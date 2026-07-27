@@ -1,0 +1,54 @@
+import { Application } from "@hotwired/stimulus";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import DisclosureController from "../../app/javascript/controllers/disclosure_controller.js";
+
+const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
+
+let application;
+
+async function mount(html) {
+  document.body.innerHTML = html;
+  application = Application.start();
+  application.register("disclosure", DisclosureController);
+  await flush();
+}
+
+const FIXTURE = `
+  <div data-controller="disclosure">
+    <button id="toggle" data-disclosure-target="toggle" data-action="disclosure#toggle" aria-expanded="false">Show</button>
+    <div id="body" data-disclosure-target="body" hidden>secret</div>
+  </div>
+`;
+
+const root = () => document.querySelector("[data-controller='disclosure']");
+
+beforeEach(() => {
+  document.body.innerHTML = "";
+});
+
+afterEach(() => {
+  application?.stop();
+});
+
+describe("disclosure_controller", () => {
+  it("starts hidden, then opens and closes on toggle", async () => {
+    await mount(FIXTURE);
+
+    expect(document.getElementById("body").hidden).toBe(true);
+    expect(root().classList.contains("is-open")).toBe(false);
+    expect(document.getElementById("toggle").getAttribute("aria-expanded")).toBe("false");
+
+    document.getElementById("toggle").click();
+    await flush();
+
+    expect(document.getElementById("body").hidden).toBe(false);
+    expect(root().classList.contains("is-open")).toBe(true);
+    expect(document.getElementById("toggle").getAttribute("aria-expanded")).toBe("true");
+
+    document.getElementById("toggle").click();
+    await flush();
+
+    expect(document.getElementById("body").hidden).toBe(true);
+    expect(root().classList.contains("is-open")).toBe(false);
+  });
+});

@@ -66,6 +66,7 @@
   <div class="pn-wt-steps">
     <% @game.legs.each do |leg| %>
       <%= render "leg_stop", leg: leg, game: @game %>
+      <% if leg.slug == "leg-04" %><%= render "mew_index_card", game: @game %><% end %>
     <% end %>
   </div>
 </section>

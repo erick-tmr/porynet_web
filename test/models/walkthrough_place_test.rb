@@ -11,8 +11,11 @@ class WalkthroughPlaceTest < ActiveSupport::TestCase
     Walkthrough::Gift.new(dex: dex, name: name, level: level, sold: sold)
   end
 
-  def exit_marker(name)
-    game.locations.flat_map(&:area_maps).flat_map(&:markers).find { |marker| marker.name == name }
+  # Town maps drop the redundant town name from a doorway ("Cerulean Gym" -> "Gym"), so a bare
+  # "Gym" now recurs across towns; scope the lookup to one location when the name is not unique.
+  def exit_marker(name, slug: nil)
+    locations = slug ? game.locations.select { |loc| loc.slug == slug } : game.locations
+    locations.flat_map(&:area_maps).flat_map(&:markers).find { |marker| marker.name == name }
   end
 
   test "place facts are parsed once and handed back frozen" do
@@ -39,7 +42,7 @@ class WalkthroughPlaceTest < ActiveSupport::TestCase
   end
 
   test "a curated note leads the hint where the game data has nothing to say" do
-    nickname = exit_marker("Viridian Nickname House").place
+    nickname = exit_marker("Nickname House", slug: "viridian-city").place
 
     assert_predicate nickname, :note?
     assert_equal I18n.t("walkthrough.ui.map_place_note_viridian_nickname"),
@@ -48,14 +51,14 @@ class WalkthroughPlaceTest < ActiveSupport::TestCase
 
   test "the note clears up which nickname house actually renames a Pokémon" do
     assert_match(/Name Rater in Lavender Town/,
-      Walkthrough::PlaceHint.new(exit_marker("Viridian Nickname House").place).to_s)
+      Walkthrough::PlaceHint.new(exit_marker("Nickname House", slug: "viridian-city").place).to_s)
     assert_match(/give it a new nickname/,
       Walkthrough::PlaceHint.new(exit_marker("Name Raters House").place).to_s)
   end
 
   test "the vague school house now reads as a trainer's school" do
     assert_equal I18n.t("walkthrough.ui.map_place_note_viridian_school"),
-      Walkthrough::PlaceHint.new(exit_marker("Viridian School House").place).to_s
+      Walkthrough::PlaceHint.new(exit_marker("School House", slug: "viridian-city").place).to_s
   end
 
   test "every note in the overlay lands on a real place and has copy in both locales" do
@@ -82,12 +85,21 @@ class WalkthroughPlaceTest < ActiveSupport::TestCase
   test "a gym hint names the leader, the team, the badge and the TM" do
     assert_equal "Erika's Gym, a Grass team. Win the Rainbow Badge and TM21 Mega Drain. " \
                  "7 trainers inside.",
-      Walkthrough::PlaceHint.new(exit_marker("Celadon Gym").place).to_s
+      Walkthrough::PlaceHint.new(exit_marker("Gym", slug: "celadon-city").place).to_s
   end
 
   test "a gym whose party shares two types names both" do
-    assert_includes Walkthrough::PlaceHint.new(exit_marker("Pewter Gym").place).to_s,
+    assert_includes Walkthrough::PlaceHint.new(exit_marker("Gym", slug: "pewter-city").place).to_s,
       "a Rock/Ground team"
+  end
+
+  test "a pass-through house marks both doors, each carrying the same interior facts" do
+    enter = exit_marker("Trashed House (enter)", slug: "cerulean-city")
+    back = exit_marker("Trashed House (exit)", slug: "cerulean-city")
+
+    assert enter && back, "the Trashed House shows a front door and a back door"
+    assert_equal "CERULEAN_TRASHED_HOUSE", enter.ref
+    assert_equal enter.place, back.place, "both doors lead to the same interior"
   end
 
   test "a mart hint lists its stock and counts the rest away" do

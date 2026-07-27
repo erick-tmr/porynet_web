@@ -347,6 +347,26 @@
 .pn-mm[data-align="l"] .pn-mm__label { right: 22px; }
 .pn-mm.is-selected .pn-mm__label { border-color: var(--amber); }
 
+/* Labels off means a clean map: hide the pins (arrows, rings, ticks) too, not just their names.
+   The legend beside the map stays fully interactive, so nothing becomes unreachable. */
+.pn-mm-block:not(.is-labelled) .pn-mm__pin { display: none; }
+
+/* Leader line: when a crowded row nudges a label down into a lower lane, an elbow runs from the
+   pin down to it, so the label still reads as part of its marker instead of floating free. Drawn
+   on ::before, behind the pin and label; emerges from under the pin. */
+.is-labelled .pn-mm.has-lane .pn-mm__hit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: calc(var(--lane, 0) * 26px);
+  border-bottom: 2px solid #7a8199;
+  pointer-events: none;
+}
+.pn-mm[data-align="r"].has-lane .pn-mm__hit::before { left: 0; border-left: 2px solid #7a8199; }
+.pn-mm[data-align="l"].has-lane .pn-mm__hit::before { right: 0; border-right: 2px solid #7a8199; }
+.pn-mm.is-selected.has-lane .pn-mm__hit::before { border-color: var(--amber); }
+
 .pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
 .pn-mm[data-cat="npc"] .pn-mm__label-key { color: var(--mm-npc); }
 
@@ -375,6 +395,20 @@
 .pn-mm--hint-below .pn-mm__hint {
   top: 26px;
   bottom: auto;
+}
+
+/* Same idea sideways: a marker near the left or right edge would push its centred hint past the
+   map edge, which on a landscape map's scroll frame shows up as a stray horizontal scrollbar. So
+   an edge marker's hint opens inward (anchored to the marker) instead of straddling the border. */
+.pn-mm--hint-left .pn-mm__hint {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+.pn-mm--hint-right .pn-mm__hint {
+  left: 0;
+  right: auto;
+  transform: none;
 }
 
 .pn-mm__hint-name {
@@ -593,16 +627,20 @@
 /* --- tickable cards ------------------------------------------------------ */
 /* Items, hidden items, come-back-later cards, trainers and catchable Pokemon all tick into the
    same store the map markers use.
-   Nothing here uses opacity on a card root. Opacity forms a group, so a faded root drags its
-   own status badge and toast down with it and there is no way for a child to climb back out.
-   The done state is a background tint, and anything that must stay legible keeps full contrast. */
+   The collectible cards (items, hidden, later, catch, trade) mark "done" with a background tint,
+   not opacity: opacity forms a group, so a faded root would drag its own status badge and toast
+   down with it. The trainer cards dim ("lights out") to match the design handover, but confine the
+   opacity to an inner card wrapper so the corner stamp and toast, which sit outside it, keep their
+   full colour (see below). */
 
 .pn-wt-item,
 .pn-wt-hidden,
 .pn-wt-later,
 .pn-wt-catch,
 .pn-wt-trainer,
-.pn-wt-gym-tr {
+.pn-wt-gym-tr,
+.pn-wt-trade,
+.pn-wt-gym__leader {
   position: relative;
   cursor: pointer;
 }
@@ -612,45 +650,100 @@
 .pn-wt-later:focus-visible,
 .pn-wt-catch:focus-visible,
 .pn-wt-trainer:focus-visible,
-.pn-wt-gym-tr:focus-visible {
+.pn-wt-gym-tr:focus-visible,
+.pn-wt-trade:focus-visible,
+.pn-wt-gym__leader:focus-visible {
   outline: 3px solid var(--amber);
   outline-offset: 3px;
 }
 
 .pn-wt-item.is-done,
 .pn-wt-later.is-done,
-.pn-wt-catch.is-done,
-.pn-wt-trainer.is-done,
-.pn-wt-gym-tr.is-done { background: #E8F2EA; }
+.pn-wt-catch.is-done { background: #E8F2EA; }
 
 .pn-wt-hidden.is-done { background: #EFF3DF; }
 
+/* A trade reads in the design's purple. */
+.pn-wt-trade.is-done { background: color-mix(in srgb, var(--trade-purple) 12%, #fff); }
+
+/* Beaten trainers go "lights out": the card dims as one, straight from the design handover, which
+   fades the frame (border, background), sprites and text rather than swapping the background. The
+   green wash the collectible cards use would read as "lit up white" on the dark gym panel, so
+   trainers dim instead. The dim lands on an inner card wrapper, not the tick root: the corner stamp
+   and toast are the root's own children, and opacity forms a group that would drag them down with
+   it, so they stay outside the wrapper and keep their full colour. Values are the handover's: 0.62
+   for the gym trainers, 0.82 for the leader (it also lights its badge gold), and 0.62 for an
+   overworld trainer. */
+.pn-wt-trainer.is-done .pn-wt-trainer__card,
+.pn-wt-gym-tr.is-done .pn-wt-gym-tr__card { opacity: 0.62; }
+.pn-wt-gym__leader.is-done .pn-wt-gym__leader-card { opacity: 0.82; }
+
 /* --- the click toast ----------------------------------------------------- */
-/* Both captions ship in the markup and CSS picks one, so the toast never has to be written
-   from JavaScript and stays translatable. */
+/* Every caption ships in the markup and CSS picks one, so the toast never has to be written
+   from JavaScript and stays translatable. A pill pops above the card and its colour reflects
+   the save outcome (green on success, red on failure) rather than the tick state. */
+
+@keyframes pnToastPop {
+  from { opacity: 0; transform: translate(-50%, 6px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
 
 .pn-wt-toast {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 9px);
   z-index: 41;
   display: none;
+  align-items: center;
+  gap: 9px;
   transform: translateX(-50%);
   white-space: nowrap;
   font-family: "Press Start 2P", monospace;
   font-size: 8px;
+  line-height: 1.4;
   color: #fff;
   background: #2a3350;
   border: 2px solid var(--ink);
   box-shadow: 2px 2px 0 var(--ink);
-  padding: 6px 8px;
+  padding: 7px 9px;
 }
 
-.is-hinting > .pn-wt-toast { display: block; }
-.is-done > .pn-wt-toast { background: var(--done-green); }
-.pn-wt-toast__done { display: none; }
-.is-done > .pn-wt-toast .pn-wt-toast__todo { display: none; }
-.is-done > .pn-wt-toast .pn-wt-toast__done { display: inline; }
+.is-hinting > .pn-wt-toast,
+.is-error > .pn-wt-toast {
+  display: flex;
+  animation: pnToastPop 0.18s ease-out;
+}
+
+.is-hinting > .pn-wt-toast { background: var(--done-green); }
+.is-error > .pn-wt-toast { background: var(--toast-error); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-toast { animation: none !important; }
+}
+
+/* Message picking: default caption is the todo half, is-done flips to the done half, and an
+   error overrides both and reveals RETRY. */
+.pn-wt-toast__msg--done,
+.pn-wt-toast__msg--error { display: none; }
+.pn-wt-toast__retry { display: none; }
+
+.is-done > .pn-wt-toast .pn-wt-toast__msg--todo { display: none; }
+.is-done > .pn-wt-toast .pn-wt-toast__msg--done { display: inline; }
+
+.is-error > .pn-wt-toast .pn-wt-toast__msg--todo,
+.is-error > .pn-wt-toast .pn-wt-toast__msg--done { display: none; }
+.is-error > .pn-wt-toast .pn-wt-toast__msg--error { display: inline; }
+.is-error > .pn-wt-toast .pn-wt-toast__retry { display: inline-block; }
+
+.pn-wt-toast__retry {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  padding: 4px 6px;
+  cursor: pointer;
+}
 
 /* --- item chips ---------------------------------------------------------- */
 /* A collected item keeps its sprite: the well takes a half-strength green wash so you can still
@@ -763,11 +856,96 @@
 
 .pn-wt-trainer__key { color: var(--accent2); }
 
+/* --- trade card: traded state -------------------------------------------- */
+/* The TRADE tag flips to a solid purple TRADED, and a corner badge confirms the swap, the same
+   way a caught Pokemon wears its CAUGHT badge. */
+.pn-wt-trade__tag--done {
+  display: none;
+  color: #fff;
+  background: var(--trade-purple);
+}
+.pn-wt-trade.is-done .pn-wt-trade__tag--todo { display: none; }
+.pn-wt-trade.is-done .pn-wt-trade__tag--done { display: inline-block; }
+
+.pn-wt-trade__done {
+  position: absolute;
+  top: -11px;
+  right: -11px;
+  z-index: 2;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: var(--trade-purple);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 6px 8px;
+  transform: rotate(6deg);
+}
+.pn-wt-trade.is-done .pn-wt-trade__done { display: block; }
+
+/* --- gym leader: cleared state ------------------------------------------- */
+/* Neon on the dark gym panel, echoing the design's GYM CLEARED stamp. */
+.pn-wt-gym__leader-cleared {
+  position: absolute;
+  top: -13px;
+  right: -13px;
+  z-index: 8;
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #08110b;
+  background: var(--gym-neon);
+  border: 3px solid #08110b;
+  box-shadow: 3px 3px 0 #08110b, 0 0 18px color-mix(in srgb, var(--gym-neon) 66%, transparent);
+  padding: 7px 10px;
+  transform: rotate(6deg);
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__leader-cleared {
+  display: block;
+  animation: pnBeatIn 0.28s ease-out;
+}
+
+/* Badge trophy: clearing the gym lights the dashed grey slot up gold and starts it pulsing, and
+   swaps NOT EARNED for COLLECTED. The default (unearned) look lives in walkthrough.css. */
+@keyframes pnBadgeGlow {
+  0%, 100% { box-shadow: 0 0 16px #FFC23D88, inset 0 0 10px #FFC23D33; }
+  50% { box-shadow: 0 0 30px #FFC23Ddd, inset 0 0 14px #FFC23D55; }
+}
+@keyframes pnBeatIn {
+  0% { transform: scale(0.6) rotate(6deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(6deg); }
+  100% { transform: scale(1) rotate(6deg); opacity: 1; }
+}
+
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-frame {
+  border: 2px solid var(--amber);
+  background: #1c1607;
+  animation: pnBadgeGlow 1.7s ease-in-out infinite;
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-img {
+  width: 62px;
+  height: 62px;
+  filter: drop-shadow(0 0 7px var(--amber));
+  opacity: 1;
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-name {
+  color: #fff;
+  text-shadow: 0 0 10px #FFC23Daa;
+}
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-cap--todo { display: none; }
+.pn-wt-gym__leader.is-done .pn-wt-gym__badge-cap--done { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-gym__leader.is-done .pn-wt-gym__leader-cleared,
+  .pn-wt-gym__leader.is-done .pn-wt-gym__badge-frame { animation: none !important; }
+}
+
 
 @media (min-width: 1200px) {
   .pn-wt-trainers--dense { grid-template-columns: repeat(3, 1fr); }
 }
 
-.pn-wt-trainer--compact { padding: 12px 14px; }
+.pn-wt-trainer--compact .pn-wt-trainer__card { padding: 12px 14px; }
 .pn-wt-trainer--compact .pn-wt-trainer__shots { gap: 8px; }
 .pn-wt-trainer--compact .pn-wt-team-mon { gap: 6px; }

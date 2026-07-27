@@ -6,6 +6,7 @@
     "name": "reds-house-2f",
     "map": "RedsHouse2F",
     "parent": "PALLET_TOWN",
+    "follower": false,
     "sprites": [
       {
         "sprite": "SPRITE_RED",
@@ -261,9 +262,9 @@
   },
   {
     "type": "screen",
-    "slug": "route-3",
-    "step": 3,
-    "name": "route-3-mt-moon",
+    "slug": "route-4-mt-moon",
+    "step": 2,
+    "name": "route-4-mt-moon-enter",
     "map": "Route4",
     "player": [
       18,
@@ -359,19 +360,19 @@
     "name": "route-4-exit",
     "map": "Route4",
     "player": [
-      18,
+      24,
       6
     ],
     "player_dir": "DOWN",
     "focus": [
-      16,
-      6
+      25,
+      7
     ],
     "arrows": [
       {
         "dir": "down",
         "grid": [
-          18,
+          24,
           8
         ]
       }
@@ -632,6 +633,7 @@
     "step": 3,
     "name": "seafoam-articuno",
     "map": "SeafoamIslandsB4F",
+    "follower": false,
     "player": [
       6,
       3
@@ -789,6 +791,7 @@
     "name": "oaks-lab-poke-balls",
     "map": "OaksLab",
     "parent": "PALLET_TOWN",
+    "follower": false,
     "player": [
       5,
       3

@@ -1,4 +1,5 @@
 <div class="pn-wt-later" <%= tag.attributes(tickable("collected", id)) %>>
+  <%= progress_toast("item", name: item.name) %>
   <span class="pn-wt-later__lock"><%= t("walkthrough.ui.later_locked") %></span>
   <span class="pn-wt-later__check" aria-hidden="true">✓</span>
   <div class="pn-wt-later__body">

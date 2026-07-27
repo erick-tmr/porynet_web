@@ -1,4 +1,6 @@
-<div class="pn-mm<%= " pn-mm--hint-below" if marker.y < 12 %>" data-map-markers-target="marker"
+<div class="<%= class_names("pn-mm", "pn-mm--hint-below" => marker.y < 12,
+       "pn-mm--hint-left" => marker.x > 80, "pn-mm--hint-right" => marker.x < 20) %>"
+     data-map-markers-target="marker"
      data-role="marker" data-marker-id="<%= marker.id %>" data-cat="<%= marker.cat %>"
      data-x="<%= marker.x %>" data-y="<%= marker.y %>" data-align="<%= marker.align %>"
      data-lane="<%= marker.lane %>">

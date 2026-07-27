@@ -52,13 +52,19 @@ module ApplicationHelper
                       "keydown.space->progress-toggle#toggle" } }
   end
 
-  # Both captions render up front and CSS picks one, so no user-visible string lives in JS and
-  # the toast cannot get stuck showing the wrong half of the pair.
-  def progress_toast(flavor)
-    tag.span(class: "pn-wt-toast", aria: { live: "polite" }) do
-      safe_join(%w[todo done].map do |state|
-        tag.span(t("walkthrough.ui.map_status_#{flavor}_#{state}"), class: "pn-wt-toast__#{state}")
-      end)
+  # Every caption renders up front and CSS picks one, so no user-visible string lives in JS and
+  # the toast cannot get stuck showing the wrong state. The done/todo pair is personalized with
+  # the subject name; the error caption and RETRY only surface when a localStorage save fails.
+  def progress_toast(flavor, name:)
+    tag.span(class: "pn-wt-toast", aria: { live: "polite" },
+             data: { action: "click->progress-toggle#stop" }) do
+      safe_join([
+        tag.span(t("walkthrough.ui.toast_#{flavor}_on", name: name), class: "pn-wt-toast__msg pn-wt-toast__msg--done"),
+        tag.span(t("walkthrough.ui.toast_#{flavor}_off", name: name), class: "pn-wt-toast__msg pn-wt-toast__msg--todo"),
+        tag.span(t("walkthrough.ui.toast_error"), class: "pn-wt-toast__msg pn-wt-toast__msg--error"),
+        tag.button(t("walkthrough.ui.toast_retry"), type: "button", class: "pn-wt-toast__retry",
+                   data: { action: "click->progress-toggle#retry" })
+      ])
     end
   end
 
@@ -69,6 +75,22 @@ module ApplicationHelper
   # A trainer is beaten, everything else is collected, so the two tick categories read differently.
   def marker_status_key(marker, state)
     "walkthrough.ui.map_status_#{marker.cat == 'trainer' ? 'trainer' : 'item'}_#{state}"
+  end
+
+  # Each gym's background grid takes one of the three identity neon colours, cycling in badge order
+  # (Brock magenta, Misty cyan, Lt. Surge amber, then repeat).
+  GYM_BADGE_ORDER = %w[BOULDER CASCADE THUNDER RAINBOW SOUL MARSH VOLCANO EARTH].freeze
+  GYM_GRID_TONES = %w[magenta cyan amber].freeze
+
+  def gym_grid_tone(badge)
+    GYM_GRID_TONES[GYM_BADGE_ORDER.index(badge).to_i % GYM_GRID_TONES.size]
+  end
+
+  # A signed friendship-change cell: "+5", "0", or "−5" (a real minus sign, not a hyphen).
+  def friendship_delta(value)
+    return "0" if value.zero?
+
+    value.positive? ? "+#{value}" : "−#{value.abs}"
   end
 
   def marker_detail(marker)

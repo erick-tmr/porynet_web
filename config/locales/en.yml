@@ -213,6 +213,7 @@ en:
         fresh_water: "Restores 50 HP."
         soda_pop: "Restores 60 HP."
         lemonade: "Restores 80 HP."
+      mew_glitch_label: "MEW GLITCH"
       hidden_item: "HIDDEN ITEM"
       later_eyebrow: "COME BACK LATER · %{count}"
       later_h2: "Out of reach for now"
@@ -221,6 +222,7 @@ en:
       later_need: "NEED"
       later_return: "RETURN AFTER"
       trivia_eyebrow: "TRIVIA · YELLOW ONLY"
+      trivia_eyebrow_general: "TRIVIA"
       missable_badge: "MISSABLE"
       missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
@@ -250,6 +252,16 @@ en:
       map_status_trainer_todo: "NOT BEATEN"
       map_status_item_done: "GOT IT ✓"
       map_status_item_todo: "NOT COLLECTED"
+      toast_caught_on: "%{name} registered"
+      toast_caught_off: "%{name} released"
+      toast_trainer_on: "%{name} defeated"
+      toast_trainer_off: "%{name} reset"
+      toast_item_on: "%{name} collected"
+      toast_item_off: "%{name} un-ticked"
+      toast_trade_on: "%{name} traded"
+      toast_trade_off: "%{name} cleared"
+      toast_error: "Couldn't save"
+      toast_retry: "↻ RETRY"
       map_exit_north: "Leaves from the north edge."
       map_exit_south: "Leaves from the south edge."
       map_exit_east: "Leaves from the east edge."
@@ -327,6 +339,8 @@ en:
       level: "LEVEL"
       evo_line: "EVOLUTION LINE"
       tip: "TIP"
+      gift_badge: "GIFT"
+      unlock_condition: "UNLOCK CONDITION"
       oak_eyebrow: "OAK CHALLENGE · THIS LOCATION"
       oak_h2: "Register these before you move on"
       oak_obtainable: "OBTAINABLE UP TO HERE"
@@ -344,6 +358,8 @@ en:
       trades_h2: "Trades here"
       trades_hint: "Hand an NPC the Pokémon they want and they give you one back. The only way to register some species without a link cable."
       trade_tag: "TRADE"
+      trade_traded_tag: "TRADED"
+      trade_traded_badge: "TRADED ✓"
       trade_give: "YOU GIVE"
       trade_get: "YOU GET"
       gym_tag: "◆ GYM"
@@ -354,8 +370,10 @@ en:
       gym_trainer: "GYM TRAINER"
       gym_leader: "GYM LEADER"
       gym_leader_label: "LEADER"
+      gym_cleared: "GYM CLEARED ✓"
       gym_roster: "ROSTER"
-      badge: "BADGE"
+      badge_collected: "✓ COLLECTED"
+      badge_not_earned: "◻ NOT EARNED"
       badge_alt: "%{badge} Badge"
       previous: "◀ PREVIOUS"
       next: "NEXT ▶"
@@ -420,9 +438,277 @@ en:
         leg_11:
           lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_12:
-          lead: "Cinnabar's fossils and Blaine, then back to Viridian for Giovanni and the final badge."
+          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
         leg_13:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_14:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
+      mew_glitch:
+        meta_title: "The Mew Glitch · %{game} Walkthrough"
+        crumb_cerulean: "CERULEAN"
+        crumb_here: "MEW GLITCH"
+        hero:
+          back: "◀ CERULEAN CITY"
+          tag: "SPECIAL · GLITCH"
+          games: "RED · BLUE · YELLOW"
+          title_html: "The <span class=\"pn-mew-hero__word\" data-text=\"Mew\">Mew</span> glitch"
+          lead: "Catch #151 with nothing but a wild Abra, a held START Button, and a Trainer who never gets to battle you. Cerulean City is the earliest clean place to pull it off, before Misty, and it costs you almost nothing."
+          card_no: "◈ No. 151"
+          card_species: "NEW SPECIES"
+          art_alt: "Mew, art by Ken Sugimori"
+          credit: "art by Ken Sugimori · © Nintendo / Creatures / Game Freak"
+          card_name: "Mew"
+          card_meta: "PSYCHIC · Lv 7 by default"
+        facts:
+          where:
+            label: "WHERE"
+            value: "CERULEAN / RT 24"
+          earliest:
+            label: "EARLIEST AT"
+            value: "PRE-MISTY"
+          level:
+            label: "MEW LEVEL"
+            value: "Lv 7 (1–13)"
+          risk:
+            label: "RISK"
+            value: "1 NPC LOST"
+        short:
+          eyebrow: "IN SHORT · THE WHOLE TRICK IN 5 LINES"
+          h2: "How it works"
+          lead: "You interrupt a Trainer's approach with the START menu, Teleport away mid-trigger, then let a different battle write its data into the encounter the game still owes you. Walk back in and the leftover value spawns as Mew."
+        tldr:
+          "1":
+            title: "Prime a Trainer"
+            text: "Step into the grass Trainer's line of sight on Route 24 while holding START."
+          "2":
+            title: "Teleport out"
+            text: "Abra warps you to Cerulean before he can walk over. His battle stays queued."
+          "3":
+            title: "Break the buttons"
+            text: "Your menu and A/B stop responding. Expected: the game is mid-encounter."
+          "4":
+            title: "Fight a substitute"
+            text: "Beat the Gym Swimmer. His last Pokémon's Attack stage becomes Mew's level."
+          "5":
+            title: "Walk back in"
+            text: "Re-enter Route 24, close the menu that opens itself, and Mew appears."
+        warn:
+          badge: "READ FIRST"
+          title: "This glitch deletes an NPC. Pick which one."
+          lead: "The game treats Mew as an overworld encounter, like Snorlax, so once the battle ends it tries to delete the overworld object it came from. There isn't one, so it deletes something from an area you visited earlier instead. Follow the route below exactly and the casualty is a known, harmless one."
+          safe:
+            label: "SAFE · RED & BLUE"
+            text: "Travel only Cerulean to Route 24 (or Cerulean to 24 to 25 to 24). The object deleted is the second police officer beside the burgled house, invisible until you meet Bill, so do this before Bill and nothing is lost."
+          perm:
+            label: "PERMANENT · YELLOW"
+            text: "Yellow has no wild Abra on Routes 24 or 25, so the usual route sends you past Bill to Route 5 for one. Meeting Bill loads that second officer, and the glitch then removes them for good. Beating the Rocket behind the burgled house restores them, but you have to beat that Rocket anyway to reach Route 5. Cosmetic only: your game just runs one officer short."
+          workaround:
+            badge: "WORKAROUND"
+            text: "Trade in an Abra that knows Teleport from another cart and run the glitch before visiting Bill, same as Red and Blue."
+          deep_html: "// deep dive on which object dies and why: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch on glitchcity</a>"
+        prereq:
+          eyebrow: "BEFORE YOU START"
+          h2: "Leave these four Trainers standing"
+          lead: "Each one is fuel for the glitch. Beat any of them early and you lose that step's trigger."
+        untouched:
+          trigger:
+            name: "Jr. Trainer♂"
+            where: "In the tall grass west of Nugget Bridge, Route 24."
+            role: "THE TRIGGER"
+          swimmer:
+            name: "Swimmer"
+            where: "First Trainer in the water, right side of Cerulean Gym."
+            role: "MEW'S LEVEL"
+          misty:
+            name: "Misty"
+            where: "Cerulean Gym Leader. She blocks the Swimmer if you beat her first."
+            role: "KEEP WAITING"
+          youngster:
+            name: "Youngster"
+            where: "The Youngster with the lone Slowpoke on Route 25."
+            role: "SECOND MEW"
+        pack:
+          label: "PACK LIST"
+          abra:
+            name: "An Abra that knows Teleport"
+            note: "R/B: Routes 24 to 25. Yellow: Route 5, after Bill."
+          balls:
+            name: "Poké Balls, plenty"
+            note: "Mew's catch rate is low and Cerulean sells nothing better."
+        sleepers:
+          label: "OPTIONAL · BUT DO IT"
+          lead: "Bring something with a sleep move. Any of these learn one by level-up and are catchable by Cerulean."
+        moves:
+          sleep_powder: "Sleep Powder"
+          sing: "Sing"
+        steps:
+          eyebrow: "THE GLITCH · STEP BY STEP"
+          h2: "Cerulean method, start to catch"
+          lead: "Three phases. Save before the second one: if a step goes wrong, a reset is cheaper than a soft lock."
+        phases:
+          setup:
+            label: "PHASE 1 · SETUP"
+            title: "Clear the board"
+            meta: "Nugget Bridge + an Abra"
+            steps:
+              route24:
+                title: "Head north into Route 24"
+                text: "Leave Cerulean north and beat your rival if you haven't already. Stay out of the tall grass to the west."
+              bridge:
+                title: "Clear Nugget Bridge, all six"
+                text: "Beat the five bridge Trainers and the Rocket at the end. Do not touch the Jr. Trainer♂ standing in the grass to the left of the bridge."
+                tag: "DO NOT BEAT"
+                note_label: "WHY"
+                note: "That grass Trainer is the whole glitch. If he's gone, so is your Mew."
+              abra:
+                title: "Get an Abra with Teleport"
+                text: "Red/Blue: catch one in the grass on Route 24 or 25, approaching from the north so the Jr. Trainer♂ never spots you. Yellow: push on to Bill on Route 25, then catch an Abra on Route 5."
+                tag: "YELLOW DIFFERS"
+                note_label: "COST"
+                note: "Meeting Bill first is what makes Yellow lose that police officer for good. Read the warning above."
+          glitch:
+            label: "PHASE 2 · THE GLITCH"
+            title: "Break the encounter"
+            meta: "Save before this phase"
+            steps:
+              center:
+                title: "Save, then heal in Cerulean"
+                text: "Save your game. Then use the Cerulean Poké Center so Teleport brings you back here."
+              lineup:
+                title: "Line up on the grass Trainer"
+                text: "Stand one tile north of the Jr. Trainer♂ on Route 24, with him just offscreen. One step south would put you in his sight."
+                note_label: "CHECK"
+                note: "He must be offscreen. On screen, he simply walks over and battles you normally."
+              start:
+                title: "Step down holding START"
+                text: "Hold the START Button as you step into his line of sight. The menu opens on the same frame the exclamation mark appears."
+                tag: "TIMING"
+              teleport:
+                title: "Teleport away with Abra"
+                text: "From the menu, pick POKéMON, then Abra, then Teleport. You warp to Cerulean before he takes a step."
+                note_label: "EXPECTED"
+                note: "Your menu and the A/B Buttons now do nothing outside a PC. Nothing has broken, keep walking."
+              swimmer:
+                title: "Beat the Swimmer in the Gym"
+                text: "Go straight to Cerulean Gym and battle the Trainer on the right. Approach so he swims at least one tile toward you, then beat his Lv 16 Horsea and Shellder."
+                tag: "SOFT LOCK RISK"
+                note_label: "CAREFUL"
+                note: "If he doesn't move before the battle starts, the game locks. Never talk to him from the right-hand side."
+          catch:
+            label: "PHASE 3 · CATCH"
+            title: "Meet No. 151"
+            meta: "No detours on the way back"
+            steps:
+              return:
+                title: "Walk straight back to Route 24"
+                text: "Leave the Gym and head north out of Cerulean. Do not enter any other area: every detour risks deleting something from it."
+                tag: "NO DETOURS"
+              encounter:
+                title: "Close the menu that opens itself"
+                text: "The moment you enter Route 24 the menu pops open on its own. Press B. A Lv 7 Mew appears."
+              catch:
+                title: "Put it to sleep, then throw"
+                text: "Whittle the HP, land a sleep move, and start throwing. Mew's catch rate is poor and Poké Balls are all Cerulean sells, so bring twenty and be patient."
+                note_label: "LEVEL"
+                note: "Want a different level? Growl the Shellder in phase 2 first, see the calculator below."
+        calc:
+          eyebrow: "LEVEL CALCULATOR"
+          h2: "Pick the Mew you want"
+          lead: "Mew's level is read from the Attack stat stage of the last Pokémon you battled. The game stores stages as 1–13 instead of -6 to +6, so an untouched opponent gives Lv 7. Every Growl you land on that Shellder (or Slowpoke) drops Mew one level."
+          caption: "ATTACK STAT STAGE OF THE LAST OPPONENT"
+          spawns: "YOUR MEW SPAWNS AT"
+          lv_label: "Lv"
+          recipe:
+            untouched: "> untouched opponent, no stat moves used"
+            growl: "> land %{n}× Growl on the last opponent"
+            growl_underflow: "> land %{n}× Growl on the last opponent, then underflow it to Lv 100"
+            raised:
+              one: "> the opponent's Attack must be raised %{count} stage, rare in practice"
+              other: "> the opponent's Attack must be raised %{count} stages, rare in practice"
+          internal: "// internal value %{value} = stage %{stage} → level %{level}"
+          lv100:
+            label: "THE LV 100 ROUTE"
+            text: "Land six Growls to catch a Lv 1 Mew, then run the experience-underflow glitch on it to shoot straight to Lv 100. Keep a free party slot: withdrawing a Lv 1 Mew from the PC soft locks the game. It learns nothing by level-up afterwards, which barely matters: Mew can learn every TM in the game."
+          vc:
+            label: "VIRTUAL CONSOLE · LEGITIMACY"
+            text: "Poké Transporter only accepts a Mew that looks like the Virtual Console event one. That means an Original Trainer of GF (or ゲーフリ) and Trainer ID 22796."
+            ot_label: "OT NAME"
+            tid_label: "TRAINER ID"
+            foot: "You can name yourself GF at the start; the ID is random, so matching it means RNG manipulation, cheats, or a lot of resets. The event Mew also has 15 IVs across the board, pleasant but irrelevant to Transporter."
+        second:
+          eyebrow: "ENCORE · SECOND MEW"
+          h2: "Run it again with the Slowpoke kid"
+          note: "SAVE FIRST · SAME GRASS TRAINER"
+          lead: "The Jr. Trainer♂ in the grass can start the glitch as many times as you like. Swap the Gym Swimmer for the Youngster with the lone Slowpoke on Route 25 and you get another Mew."
+          "1":
+            title: "Clear Route 25 partway"
+            text: "Beat Trainers along Route 25 until you can reach the Youngster with the lone Slowpoke. Leave him standing."
+          "2":
+            title: "Save"
+            text: "You already have one Mew. Save before risking anything."
+          "3":
+            title: "Trigger the grass Trainer again"
+            text: "Same move as before: step into the Jr. Trainer♂'s sight on Route 24 while holding START."
+          "4":
+            title: "Teleport to Cerulean"
+            text: "Abra warps you home and your buttons go dead again."
+          "5":
+            title: "Battle the Slowpoke kid"
+            text: "Walk to him on Route 25 and make sure he takes at least one step toward you, or the game soft locks. His Slowpoke's Attack stage sets the level."
+          "6":
+            title: "Back to Route 24"
+            text: "Walk back, press B on the menu that opens itself, and catch Mew number two."
+        after:
+          art_alt: "Red with Mew, art by Ken Sugimori"
+          art_tag: "No. 151 · REGISTERED"
+          eyebrow: "AFTERWORD"
+          h2: "One Pokémon the game never meant to give you"
+          text: "This is one flavour of the Trainer-Fly glitch, which can produce any Pokémon in the game. The Cerulean pair are just the earliest and safest. Other setups exist, with more moving parts and more ways to lose an NPC. Catch Mew here and your dex is complete without a single event ticket."
+          back: "◀ BACK TO CERULEAN"
+          credit: "art by Ken Sugimori · © Nintendo / Creatures / Game Freak"
+        teaser:
+          tag: "OPTIONAL · GLITCH"
+          window: "EARLIEST WINDOW IN THE GAME"
+          title_html: "Want <span class=\"pn-mew-teaser__word\" data-text=\"Mew\">Mew</span>? Don't beat this Gym yet."
+          lead: "Mew is otherwise event-only, and Cerulean is the first place you can pull the infamous Mew glitch to get one in-game. You'll need to push most of the way through Route 24 first; we'll remind you when you're there. If you want it, leave the Swimmer and Misty standing for now."
+          cta: "FULL MEW GLITCH GUIDE ▶"
+          meta: "~15 min · costs one background NPC"
+        index:
+          kind: "GLITCH"
+          tag: "OPTIONAL"
+          name: "The Mew Glitch"
+          note: "The earliest catchable Mew, via the Cerulean Trainer-Fly. An optional side quest, not a required stop."
+      pikachu_friendship:
+        eyebrow: "MECHANIC · YELLOW ONLY"
+        title: "How Pikachu's friendship works"
+        show: "SHOW"
+        hide: "HIDE"
+        lead_html: "Yellow's starter Pikachu carries a hidden friendship value from <b>0 to 255</b>. It starts at <b>90</b> and moves as you play. The higher it climbs, the less each action is worth, so the cheap gains are cheapest early."
+        meter_start: "START"
+        meter_goal: "BULBASAUR"
+        table_label: "FRIENDSHIP CHANGE BY CURRENT VALUE"
+        col_action: "ACTION"
+        band_lo: "0–99"
+        band_mid: "100–199"
+        band_hi: "200–255"
+        rows:
+          levelup: "Pikachu levels up while in your party"
+          hp_item: "Use an HP-restoring item on Pikachu, even at full HP"
+          x_item: "Use an X item on Pikachu in battle"
+          gym_leader: "Challenge a Gym Leader with Pikachu in the party"
+          tm_hm: "Teach Pikachu an HM or TM"
+          walking: "Walk 256 steps with Pikachu in the party (50% chance)"
+          deposit: "Deposit Pikachu in the PC"
+          faint: "Pikachu faints in battle"
+          poison_faint: "Pikachu faints outside battle from poison damage"
+          careless: "Pikachu faints against an opponent 30+ levels higher"
+          trade: "Pikachu is traded away to another player"
+        potion:
+          title: "THE POTION TRICK"
+          text_html: "An HP-restoring item counts <b>even when it does nothing</b>. Use a Potion on a full-health Pikachu and friendship still goes up. Buy a stack at the Mart and tap your way from 90 to 147 in a few minutes."
+        why:
+          title: "WHY IT MATTERS"
+          text_html: "Mostly a novelty: Pikachu's mood just changes its overworld face. The one real payoff is here in Cerulean, where Melanie only hands over Bulbasaur at <b>147 or higher</b>. Keep Pikachu out of the PC until then."
       locations:
         pallet_town:
           note: "Get Pikachu from Prof. Oak. No wild grass here."
@@ -541,7 +827,17 @@ en:
             spearow: "Early Normal/Flying, evolves to Fearow."
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
-          intro: "The stretch between Viridian and the forest gate. Same catches as before, plus wild Nidoran."
+          intro: "On this pass you only walk the western strip up to the forest gate, with the same catches as before plus wild Nidoran. Route 2 is much larger than that: its eastern half is sealed behind cuttable trees, so the map's east markers (the Moon Stone and HP Up, HM05 Flash, the Mr. Mime trade and the north exit of Diglett's Cave) all wait there until you have Cut, or loop back up through Diglett's Cave from Vermilion."
+          later:
+            moon_stone:
+              where: "A Poké Ball low in the tree-walled plot on the eastern side of Route 2. Cuttable trees fence the whole east half off on your first pass, so you can't reach it yet."
+              after: "Come back with HM01 Cut (from the S.S. Anne in Vermilion) to chop through, or drop into this side from the north exit of Diglett's Cave once you reach Vermilion."
+            hp_up:
+              where: "A second Poké Ball just north of the Moon Stone, in the same Cut-blocked eastern plot. Both sit behind the same wall of cuttable trees."
+              after: "Same trip: bring HM01 Cut back to Route 2, or reach this side through Diglett's Cave from Vermilion."
+            flash:
+              where: "Prof. Oak's Aide hands over HM05 Flash inside the Route 2 gate, on the same Cut-blocked eastern side. He only gives it once you have caught at least 10 kinds of Pokémon (the count in your Pokédex, not how many you own)."
+              after: "Get to the gate with HM01 Cut (or up through Diglett's Cave from Vermilion), and have 10 species caught. Flash is what lights Rock Tunnel later, so it is worth the detour."
           trades:
             mr_mime:
               npc: "SCIENTIST"
@@ -612,6 +908,10 @@ en:
             "2":
               title: "Head east to Route 3"
               text: "With the Boulder Badge, the boy blocking the east exit steps aside. Head east onto Route 3 toward Mt. Moon."
+          trivia:
+            title: "Jigglypuff sings Pikachu to sleep"
+            intro: "A Jigglypuff stands against the wall inside the Pewter City Poke Center. Talk to it and it breaks into its \"Puu pupuu!\" song, and if your Pikachu is out walking behind you the lullaby knocks it out cold, so it stops following you, just like being sung to sleep in a battle."
+            note: "It only fires when Pikachu is your partner out following you and has no status condition. Any other time the Jigglypuff simply sings. A little wink at how its Sing move works in a real battle."
         route_3:
           note: "The climb to Mt. Moon. Spearow, Sandshrew and Mankey."
           intro: "The trainer gauntlet east of Pewter. Grab a Ground type for the caves ahead, then heal at the Mt. Moon center."
@@ -621,12 +921,23 @@ en:
               text: "Head east from Pewter, clearing the Bug Catchers, Youngsters and Lasses as you climb."
             "2":
               title: "Sweep the grass"
-              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves."
-            "3":
-              title: "Heal and enter Mt. Moon"
-              text: "Heal at the Pokémon Center by the cave mouth, then step into Mt. Moon."
+              text: "Catch Spearow, Sandshrew or Mankey in the tall grass. Sandshrew and Mankey both help in the caves, then follow the route to its end at the Mt. Moon Poké Center on Route 4."
           oak:
             sandshrew: "Ground type, evolves to Sandslash. Handy against the coming caves."
+        route_4_mt_moon:
+          note: "The Mt. Moon approach: heal, then into the cave."
+          intro: "The west tip of Route 4, where Route 3 meets the Mt. Moon Poke Center. Heal, run any last errands, then head into the cave. The east half of Route 4 and its items come after you break through."
+          steps:
+            "1":
+              title: "Heal at the Mt. Moon Poke Center"
+              text: "Step off Route 3 onto the west tip of Route 4 and heal at the Mt. Moon Poke Center by the cave mouth. This is your last stop before the cave, so top up and stock Poke Balls."
+            "2":
+              title: "Enter Mt. Moon"
+              text: "Head into Mt. Moon through the entrance beside the center. You come out on the east half of Route 4, covered on the next leg."
+          trivia:
+            title: "The man selling a Magikarp"
+            intro: "Inside the Mt. Moon Poke Center a man will sell you a Magikarp for ¥500. On its own it just Splashes about, but it evolves into Gyarados, a real powerhouse. Buying it here is worth it if you want to start growing it immediately, since reaching Gyarados takes a good while."
+            note: "If you only need it for the Pokedex there is no rush: Magikarp is catchable later on the Old Rod, so you can wait and save the money. He sells a single level 5 Magikarp and gives no refunds."
         mt_moon:
           note: "Cave crawl. Zubat, Geodude, rare Clefairy, and a fossil."
           intro: "A dark cave full of Rockets. Grab the Moon Stone, pick a fossil, and push through to Cerulean."
@@ -667,6 +978,9 @@ en:
             buy: "Poké Balls for Route 24–25 plus a Repel or two to walk the tall grass in peace."
           gym:
             intro: "One Swimmer, a Jr. Trainer, and open floor, then Misty. Her Staryu (Lv 18) and Starmie (Lv 21) hit hard with Water moves, and Starmie's Recover drags the fight out, so close fast with an Electric or Grass attacker. Pikachu's ThunderShock is ideal."
+            notes:
+              swimmer: "Do NOT beat this Trainer if you plan to run the Mew glitch. His Shellder's Attack stage sets Mew's level."
+              misty: "Beating Misty locks the Swimmer behind her. Leave her standing until after your Mew run."
           note: "Misty's Gym. Cascade Badge. Free Bulbasaur too."
           intro: "A water-gym city. Beat Misty, and if Pikachu likes you, claim a free Bulbasaur."
           steps:
@@ -675,11 +989,15 @@ en:
               text: "Arrive from Route 4, heal at the Center and stock the Mart, then enter the Gym. Lead with Pikachu or a Grass type against Misty's Water team."
             "2":
               title: "Grab the extras, then head north"
-              text: "Take the free Bulbasaur from the girl's house if Pikachu's friendship is high. The burgled house near the north stays sealed until later; when the officer moves on, chase the thief out its back for TM28 (Dig). Then head north onto Nugget Bridge (Route 24)."
+              text: "Take the free Bulbasaur from Melanie's house if Pikachu's friendship is high. The burgled house near the north stays sealed until later; when the officer moves on, chase the thief out its back for TM28 (Dig). Then head north onto Nugget Bridge (Route 24)."
           tips:
-            bulbasaur: "Free from the girl's house once Pikachu is happy. Evolves all the way to Venusaur."
+            bulbasaur: "Free from Melanie's house once Pikachu is happy. Evolves all the way to Venusaur."
           oak:
-            bulbasaur: "Free gift from the girl's house → Venusaur. One is enough."
+            bulbasaur: "Free gift from Melanie's house → Venusaur. One is enough."
+          gifts:
+            bulbasaur:
+              from: "FROM MELANIE'S HOUSE"
+              unlock: "Pikachu friendship 147 or higher"
         route_24:
           note: "Nugget Bridge. Oddish, Bellsprout, and a free Charmander."
           intro: "Five trainers back-to-back, a Rocket, your rival. And a free Charmander waiting at the end."
@@ -699,6 +1017,9 @@ en:
             charmander: "Free gift → Charizard. Grab it for the dex and for Erika's grass gym."
             oddish: "Common in the grass. Evolves to Vileplume with a Leaf Stone."
             bellsprout: "The other 30% grass catch. Evolves to Victreebel with a Leaf Stone."
+          gifts:
+            charmander:
+              from: "FROM THE HILLTOP BOY"
         route_25:
           note: "Bill's house. Same grass as Route 24."
           intro: "The path to Bill's cottage. Free him from his machine for the S.S. Anne ticket."
@@ -765,6 +1086,10 @@ en:
             squirtle: "Free from Officer Jenny after the Thunder Badge. The third Kanto starter, evolves to Blastoise."
           oak:
             squirtle: "Free gift after the badge → Blastoise. The last of the three starters."
+          gifts:
+            squirtle:
+              from: "FROM OFFICER JENNY"
+              unlock: "Beat Lt. Surge for the Thunder Badge"
         ss_anne:
           note: "The luxury liner. HM01 Cut, and a rival fight."
           intro: "A one-time boat. Sweep it for items, beat your rival, and get Cut before it sails away for good."
@@ -842,7 +1167,7 @@ en:
           steps:
             "1":
               title: "Use Flash"
-              text: "Teach HM05 Flash (girl on Route 2) before entering, then light each screen inside."
+              text: "Teach HM05 Flash (Oak's Aide in the Route 2 gate) before entering, then light each screen inside."
             "2":
               title: "Wind down and back up"
               text: "Take the ladders to B1F, cross past the Hikers, and climb back to 1F on the far side."
@@ -945,6 +1270,9 @@ en:
           oak:
             eevee: "Gift → one of Vaporeon / Jolteon / Flareon. Register the base once."
             porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
+          gifts:
+            eevee:
+              from: "FROM THE MANSION ROOF"
         rocket_hideout:
           note: "Team Rocket's base. Get the Silph Scope."
           intro: "The maze under the Game Corner. Slide the spin tiles, beat Giovanni, and take the Silph Scope."
@@ -1181,6 +1509,9 @@ en:
             lapras: "The only in-game Lapras. A superb Water/Ice tank. Don't miss it on 7F."
           oak:
             lapras: "Free on 7F → a top Water/Ice tank. The only Lapras you'll get in-game."
+          gifts:
+            lapras:
+              from: "FROM A SILPH EMPLOYEE"
         route_19:
           note: "Water route south of Fuchsia. Needs Surf."
           intro: "Open water south of Fuchsia, thick with Tentacool and Swimmers. Surf required."

@@ -1,5 +1,5 @@
 <section class="pn-wt-section">
-  <div class="pn-wt-gym">
+  <div class="pn-wt-gym pn-wt-gym--<%= gym_grid_tone(gym.badge) %>">
     <div class="pn-wt-gym__grid" aria-hidden="true"></div>
     <div class="pn-wt-gym__inner">
       <div class="pn-wt-gym__head">
@@ -53,7 +53,10 @@
       <% end %>
 
       <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_leader_label") %></div>
-      <div class="pn-wt-gym__leader">
+      <div class="pn-wt-gym__leader" <%= tag.attributes(tickable("collected", "#{slug}/gym-leader")) %>>
+        <span class="pn-wt-gym__leader-cleared"><%= t("walkthrough.ui.gym_cleared") %></span>
+        <%= progress_toast("trainer", name: gym.leader.name) %>
+        <div class="pn-wt-gym__leader-card">
         <div class="pn-wt-gym__leader-id">
           <div class="pn-wt-shot pn-wt-shot--leadervs">
             <%= r2_image_tag "walkthrough/yellow/trainers/#{gym.leader.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--fill", loading: "lazy" %>
@@ -73,14 +76,15 @@
               <span class="pn-wt-gym__pill pn-wt-gym__pill--reward"><%= poke_dollar(gym.leader.reward) %></span>
               <span class="pn-wt-gym__pill"><%= gym.tm %></span>
             </div>
-          </div>
-          <div class="pn-wt-gym__badge">
-            <div class="pn-wt-gym__badge-frame">
-              <%= r2_image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
-            </div>
-            <div>
-              <div class="pn-wt-gym__badge-name"><%= gym.badge %></div>
-              <div class="pn-wt-gym__badge-cap"><%= t("walkthrough.ui.badge") %></div>
+            <div class="pn-wt-gym__badge">
+              <div class="pn-wt-gym__badge-frame">
+                <%= r2_image_tag gym.badge_img, alt: t("walkthrough.ui.badge_alt", badge: gym.badge), class: "pn-wt-gym__badge-img" %>
+              </div>
+              <div class="pn-wt-gym__badge-meta">
+                <div class="pn-wt-gym__badge-name"><%= gym.badge %></div>
+                <div class="pn-wt-gym__badge-cap pn-wt-gym__badge-cap--todo"><%= t("walkthrough.ui.badge_not_earned") %></div>
+                <div class="pn-wt-gym__badge-cap pn-wt-gym__badge-cap--done"><%= t("walkthrough.ui.badge_collected") %></div>
+              </div>
             </div>
           </div>
         </div>
@@ -95,6 +99,13 @@
               </div>
             <% end %>
           </div>
+        </div>
+        <% if gym.leader.note_key? %>
+          <div class="pn-wt-gym__leader-note">
+            <b class="pn-wt-gym-tr__note-label"><%= t("walkthrough.ui.mew_glitch_label") %></b>
+            <span><%= t(gym.leader.note_key) %></span>
+          </div>
+        <% end %>
         </div>
       </div>
     </div>

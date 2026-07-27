@@ -37,12 +37,9 @@
       </div>
       <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: loc.catchable_count) %></div>
     </div>
-    <div class="pn-wt-catch-grid">
-      <% loc.encounters.each do |enc| %>
-        <%= render "catch_card", enc: enc, best: @game.best_catch_here(loc, enc) %>
-      <% end %>
-    </div>
+    <%= render "catch_grids", loc: loc %>
   </section>
+  <% if loc.slug == "cerulean-city" %><%= render "pikachu_friendship" %><% end %>
 <% end %>
 
 <% if loc.trivia? %><%= render "trivia", trivia: loc.trivia %><% end %>
@@ -51,11 +48,7 @@
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: loc.trainers.size) %></div>
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trainers_h2") %></h3>
-    <div class="<%= class_names("pn-wt-trainers", "pn-wt-trainers--dense" => loc.dense_trainers?) %>">
-      <% loc.trainers.each_with_index do |trainer, i| %>
-        <%= render "trainer", trainer: trainer, id: "#{loc.slug}/trainer-#{i}", compact: loc.dense_trainers? %>
-      <% end %>
-    </div>
+    <%= render "trainers", trainers: loc.trainers, slug: loc.slug, dense: loc.dense_trainers? %>
   </section>
 <% end %>
 
@@ -65,12 +58,14 @@
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trades_h2") %></h3>
     <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
     <div class="pn-wt-trades">
-      <% loc.trades.each do |trade| %>
-        <%= render "trade", trade: trade %>
+      <% loc.trades.each_with_index do |trade, i| %>
+        <%= render "trade", trade: trade, id: "#{loc.slug}/trade-#{i}" %>
       <% end %>
     </div>
   </section>
 <% end %>
+
+<% if loc.slug == "cerulean-city" %><%= render "mew_teaser" %><% end %>
 
 <% if loc.gym? %>
   <%= render "gym", gym: loc.gym, slug: loc.slug %>

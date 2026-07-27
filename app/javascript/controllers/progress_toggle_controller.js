@@ -32,11 +32,36 @@ export default class extends Controller {
   // Also bound to Enter and Space, since these tick targets are cards rather than real buttons.
   toggle(event) {
     event.preventDefault()
-    const { kind, progressId } = event.currentTarget.dataset
-    this.state = toggle(this.state, kind, this.gameValue, progressId)
-    save(this.state)
-    this.#render()
-    this.hintValue = progressId
+    this.#commit(event.currentTarget)
+  }
+
+  // The error toast carries a RETRY button; clicking it must re-attempt the save without also
+  // toggling the card it sits on, so it stops the click from reaching the card.
+  retry(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    this.#commit(event.currentTarget.closest("[data-progress-toggle-target='item']"))
+  }
+
+  // The toast itself swallows clicks so tapping the pill (rather than the card) never toggles.
+  stop(event) {
+    event.stopPropagation()
+  }
+
+  // A guest's progress lives in localStorage, which throws when it is disabled, full, or in
+  // private mode. We only adopt the toggle once the write lands: on success the card flips and a
+  // green toast confirms; on failure nothing moves and a red toast offers RETRY.
+  #commit(el) {
+    const { kind, progressId } = el.dataset
+    const next = toggle(this.state, kind, this.gameValue, progressId)
+    if (save(next)) {
+      this.state = next
+      el.classList.remove("is-error")
+      this.#render()
+      this.hintValue = progressId
+    } else {
+      el.classList.add("is-error")
+    }
   }
 
   // The toast confirms what the click did, then gets out of the way.

@@ -1,0 +1,21 @@
+<% mg = "#{Walkthrough::Yellow::K}.mew_glitch" %>
+<div class="pn-wt-route is-built pn-wt-route--glitch">
+  <div class="pn-wt-route__rail">
+    <div class="pn-wt-route__line pn-wt-route__line--top"></div>
+    <div class="pn-wt-route__dot pn-wt-route__dot--special pn-wt-route__dot--glitch"></div>
+    <div class="pn-wt-route__line pn-wt-route__line--bot"></div>
+  </div>
+  <%= link_to walkthrough_mew_glitch_path(game: game.slug), class: "pn-wt-route__card pn-wt-route__card--glitch" do %>
+    <div class="pn-wt-route__main">
+      <div class="pn-wt-route__meta">
+        <span class="pn-wt-route__kind"><%= t("#{mg}.index.kind") %></span>
+        <span class="pn-wt-route__special pn-wt-route__special--glitch"><%= t("#{mg}.index.tag") %></span>
+      </div>
+      <div class="pn-wt-route__name"><%= t("#{mg}.index.name") %></div>
+      <div class="pn-wt-route__note"><%= t("#{mg}.index.note") %></div>
+    </div>
+    <div class="pn-wt-route__stats">
+      <span class="pn-wt-route__arrow">▶</span>
+    </div>
+  <% end %>
+</div>

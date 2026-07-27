@@ -1,0 +1,12 @@
+<div class="pn-mew-phase pn-mew-phase--<%= phase.tone %>">
+  <div class="pn-mew-phase__head">
+    <span class="pn-mew-phase__label"><%= t(phase.label_key) %></span>
+    <div class="pn-mew-phase__title"><%= t(phase.title_key) %></div>
+    <span class="pn-mew-phase__meta"><%= t(phase.meta_key) %></span>
+  </div>
+  <div class="pn-wt-steps">
+    <% phase.steps.each do |step| %>
+      <%= render "mew_step", step: step %>
+    <% end %>
+  </div>
+</div>

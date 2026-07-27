@@ -213,6 +213,7 @@ pt:
         fresh_water: "Recupera 50 HP."
         soda_pop: "Recupera 60 HP."
         lemonade: "Recupera 80 HP."
+      mew_glitch_label: "MEW GLITCH"
       hidden_item: "ITEM OCULTO"
       later_eyebrow: "VOLTE DEPOIS · %{count}"
       later_h2: "Fora de alcance por enquanto"
@@ -221,6 +222,7 @@ pt:
       later_need: "PRECISA"
       later_return: "VOLTE APÓS"
       trivia_eyebrow: "CURIOSIDADE · SÓ NO YELLOW"
+      trivia_eyebrow_general: "CURIOSIDADE"
       missable_badge: "PERDÍVEL"
       missable_tip: "DICA DE NÍVEL"
       map_eyebrow: "MAPA DA ÁREA"
@@ -249,6 +251,16 @@ pt:
       map_status_trainer_done: "DERROTADO ✓"
       map_status_trainer_todo: "NÃO DERROTADO"
       map_status_item_done: "PEGO ✓"
+      toast_caught_on: "%{name} registrado"
+      toast_caught_off: "%{name} liberado"
+      toast_trainer_on: "%{name} derrotado"
+      toast_trainer_off: "%{name} redefinido"
+      toast_item_on: "%{name} coletado"
+      toast_item_off: "%{name} desmarcado"
+      toast_trade_on: "%{name} trocado"
+      toast_trade_off: "%{name} limpo"
+      toast_error: "Falha ao salvar"
+      toast_retry: "↻ TENTAR"
       map_status_item_todo: "NÃO PEGO"
       map_exit_north: "Sai pela borda norte."
       map_exit_south: "Sai pela borda sul."
@@ -327,6 +339,8 @@ pt:
       level: "NÍVEL"
       evo_line: "LINHA EVOLUTIVA"
       tip: "DICA"
+      gift_badge: "PRESENTE"
+      unlock_condition: "CONDIÇÃO DE DESBLOQUEIO"
       oak_eyebrow: "DESAFIO OAK · ESTE LOCAL"
       oak_h2: "Registre estes antes de seguir"
       oak_obtainable: "OBTENÍVEIS ATÉ AQUI"
@@ -344,6 +358,8 @@ pt:
       trades_h2: "Trocas aqui"
       trades_hint: "Entregue a um NPC o Pokémon que ele quer e ganhe um de volta. É o único jeito de registrar algumas espécies sem cabo de link."
       trade_tag: "TROCA"
+      trade_traded_tag: "TROCADO"
+      trade_traded_badge: "TROCADO ✓"
       trade_give: "VOCÊ DÁ"
       trade_get: "VOCÊ RECEBE"
       gym_tag: "◆ GINÁSIO"
@@ -354,8 +370,10 @@ pt:
       gym_trainer: "TREINADOR DO GINÁSIO"
       gym_leader: "LÍDER DE GINÁSIO"
       gym_leader_label: "LÍDER"
+      gym_cleared: "GINÁSIO VENCIDO ✓"
       gym_roster: "EQUIPE"
-      badge: "INSÍGNIA"
+      badge_collected: "✓ OBTIDA"
+      badge_not_earned: "◻ NÃO OBTIDA"
       badge_alt: "Insígnia %{badge}"
       previous: "◀ ANTERIOR"
       next: "PRÓXIMO ▶"
@@ -420,9 +438,277 @@ pt:
         leg_11:
           lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_12:
-          lead: "Os fósseis de Cinnabar e o Blaine, depois de volta a Viridian pelo Giovanni e a insígnia final."
+          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
         leg_13:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_14:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
+      mew_glitch:
+        meta_title: "O Glitch do Mew · Guia de %{game}"
+        crumb_cerulean: "CERULEAN"
+        crumb_here: "GLITCH DO MEW"
+        hero:
+          back: "◀ CERULEAN CITY"
+          tag: "ESPECIAL · GLITCH"
+          games: "RED · BLUE · YELLOW"
+          title_html: "O glitch do <span class=\"pn-mew-hero__word\" data-text=\"Mew\">Mew</span>"
+          lead: "Capture o #151 usando apenas um Abra selvagem, o Botão START segurado e um Treinador que nunca chega a batalhar com você. Cerulean City é o lugar limpo mais cedo para fazer isso, antes da Misty, e quase não custa nada."
+          card_no: "◈ Nº 151"
+          card_species: "NOVA ESPÉCIE"
+          art_alt: "Mew, arte de Ken Sugimori"
+          credit: "arte de Ken Sugimori · © Nintendo / Creatures / Game Freak"
+          card_name: "Mew"
+          card_meta: "PSÍQUICO · Nv 7 por padrão"
+        facts:
+          where:
+            label: "ONDE"
+            value: "CERULEAN / RT 24"
+          earliest:
+            label: "MAIS CEDO EM"
+            value: "PRÉ-MISTY"
+          level:
+            label: "NÍVEL DO MEW"
+            value: "Nv 7 (1–13)"
+          risk:
+            label: "RISCO"
+            value: "1 NPC PERDIDO"
+        short:
+          eyebrow: "EM RESUMO · O TRUQUE INTEIRO EM 5 LINHAS"
+          h2: "Como funciona"
+          lead: "Você interrompe a aproximação de um Treinador com o menu START, dá Teleport no meio do gatilho e deixa outra batalha gravar seus dados no encontro que o jogo ainda te deve. Volte andando e o valor que sobrou aparece como Mew."
+        tldr:
+          "1":
+            title: "Prepare um Treinador"
+            text: "Entre no campo de visão do Treinador no mato da Rota 24 segurando START."
+          "2":
+            title: "Saia de Teleport"
+            text: "O Abra te leva para Cerulean antes que ele consiga andar até você. A batalha dele fica na fila."
+          "3":
+            title: "Quebre os botões"
+            text: "Seu menu e o A/B param de responder. Esperado: o jogo está no meio de um encontro."
+          "4":
+            title: "Lute contra um substituto"
+            text: "Vença o Swimmer do Ginásio. O estágio de Ataque do último Pokémon dele vira o nível do Mew."
+          "5":
+            title: "Volte andando"
+            text: "Entre de novo na Rota 24, feche o menu que abre sozinho e o Mew aparece."
+        warn:
+          badge: "LEIA PRIMEIRO"
+          title: "Este glitch apaga um NPC. Escolha qual."
+          lead: "O jogo trata o Mew como um encontro do mapa, como o Snorlax, então quando a batalha acaba ele tenta apagar o objeto do mapa de onde veio. Não existe um, então ele apaga algo de uma área que você visitou antes. Siga a rota abaixo exatamente e a baixa é conhecida e inofensiva."
+          safe:
+            label: "SEGURO · RED & BLUE"
+            text: "Viaje só de Cerulean para a Rota 24 (ou Cerulean para 24 para 25 para 24). O objeto apagado é o segundo policial ao lado da casa assaltada, invisível até você conhecer o Bill, então faça isso antes do Bill e nada se perde."
+          perm:
+            label: "PERMANENTE · YELLOW"
+            text: "Yellow não tem Abra selvagem nas Rotas 24 ou 25, então o caminho normal te leva passando pelo Bill até a Rota 5 para pegar um. Conhecer o Bill carrega aquele segundo policial, e o glitch então o remove de vez. Vencer o Rocket atrás da casa assaltada o restaura, mas você precisa vencer esse Rocket de qualquer jeito para chegar à Rota 5. Só cosmético: seu jogo apenas fica com um policial a menos."
+          workaround:
+            badge: "ALTERNATIVA"
+            text: "Traga por troca um Abra que saiba Teleport de outro cartucho e faça o glitch antes de visitar o Bill, igual em Red e Blue."
+          deep_html: "// aprofundamento sobre qual objeto morre e por quê: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch no glitchcity</a>"
+        prereq:
+          eyebrow: "ANTES DE COMEÇAR"
+          h2: "Deixe estes quatro Treinadores de pé"
+          lead: "Cada um é combustível para o glitch. Vença qualquer um cedo demais e você perde o gatilho daquela etapa."
+        untouched:
+          trigger:
+            name: "Jr. Trainer♂"
+            where: "No mato a oeste da Ponte Nugget, Rota 24."
+            role: "O GATILHO"
+          swimmer:
+            name: "Swimmer"
+            where: "Primeiro Treinador na água, lado direito do Ginásio de Cerulean."
+            role: "NÍVEL DO MEW"
+          misty:
+            name: "Misty"
+            where: "Líder do Ginásio de Cerulean. Ela bloqueia o Swimmer se você vencê-la primeiro."
+            role: "DEIXE ESPERANDO"
+          youngster:
+            name: "Youngster"
+            where: "O Youngster com o Slowpoke solitário na Rota 25."
+            role: "SEGUNDO MEW"
+        pack:
+          label: "LISTA DA MOCHILA"
+          abra:
+            name: "Um Abra que saiba Teleport"
+            note: "R/B: Rotas 24 a 25. Yellow: Rota 5, depois do Bill."
+          balls:
+            name: "Poké Balls, bastante"
+            note: "A taxa de captura do Mew é baixa e Cerulean não vende nada melhor."
+        sleepers:
+          label: "OPCIONAL · MAS FAÇA"
+          lead: "Traga algo com um golpe de sono. Qualquer um destes aprende um por nível e é capturável até Cerulean."
+        moves:
+          sleep_powder: "Sleep Powder"
+          sing: "Sing"
+        steps:
+          eyebrow: "O GLITCH · PASSO A PASSO"
+          h2: "Método de Cerulean, do início à captura"
+          lead: "Três fases. Salve antes da segunda: se um passo der errado, resetar é mais barato que um travamento."
+        phases:
+          setup:
+            label: "FASE 1 · PREPARO"
+            title: "Limpe o tabuleiro"
+            meta: "Ponte Nugget + um Abra"
+            steps:
+              route24:
+                title: "Suba para a Rota 24"
+                text: "Saia de Cerulean pelo norte e vença seu rival se ainda não venceu. Fique fora do mato alto a oeste."
+              bridge:
+                title: "Limpe a Ponte Nugget, todos os seis"
+                text: "Vença os cinco Treinadores da ponte e o Rocket no fim. Não encoste no Jr. Trainer♂ parado no mato à esquerda da ponte."
+                tag: "NÃO VENÇA"
+                note_label: "POR QUÊ"
+                note: "Aquele Treinador no mato é o glitch inteiro. Se ele sumir, seu Mew também."
+              abra:
+                title: "Consiga um Abra com Teleport"
+                text: "Red/Blue: capture um no mato da Rota 24 ou 25, chegando pelo norte para que o Jr. Trainer♂ nunca te veja. Yellow: siga até o Bill na Rota 25, depois capture um Abra na Rota 5."
+                tag: "YELLOW É DIFERENTE"
+                note_label: "CUSTO"
+                note: "Conhecer o Bill primeiro é o que faz Yellow perder aquele policial de vez. Leia o aviso acima."
+          glitch:
+            label: "FASE 2 · O GLITCH"
+            title: "Quebre o encontro"
+            meta: "Salve antes desta fase"
+            steps:
+              center:
+                title: "Salve, depois cure em Cerulean"
+                text: "Salve o jogo. Depois use o Centro Pokémon de Cerulean para o Teleport te trazer de volta aqui."
+              lineup:
+                title: "Alinhe com o Treinador no mato"
+                text: "Fique um tile ao norte do Jr. Trainer♂ na Rota 24, com ele logo fora da tela. Um passo ao sul te colocaria no campo de visão dele."
+                note_label: "CONFIRA"
+                note: "Ele precisa estar fora da tela. Na tela, ele simplesmente vem até você e batalha normalmente."
+              start:
+                title: "Desça segurando START"
+                text: "Segure o Botão START enquanto pisa no campo de visão dele. O menu abre no mesmo quadro em que o ponto de exclamação aparece."
+                tag: "TIMING"
+              teleport:
+                title: "Dê Teleport com o Abra"
+                text: "No menu, escolha POKéMON, depois Abra, depois Teleport. Você teleporta para Cerulean antes que ele dê um passo."
+                note_label: "ESPERADO"
+                note: "Seu menu e os Botões A/B agora não fazem nada fora de um PC. Nada quebrou, continue andando."
+              swimmer:
+                title: "Vença o Swimmer no Ginásio"
+                text: "Vá direto ao Ginásio de Cerulean e batalhe o Treinador da direita. Chegue de modo que ele nade pelo menos um tile em sua direção, depois vença o Horsea e o Shellder Nv 16 dele."
+                tag: "RISCO DE TRAVAR"
+                note_label: "CUIDADO"
+                note: "Se ele não se mexer antes da batalha começar, o jogo trava. Nunca fale com ele pelo lado direito."
+          catch:
+            label: "FASE 3 · CAPTURA"
+            title: "Conheça o Nº 151"
+            meta: "Sem desvios na volta"
+            steps:
+              return:
+                title: "Volte direto para a Rota 24"
+                text: "Saia do Ginásio e suba para o norte de Cerulean. Não entre em nenhuma outra área: cada desvio arrisca apagar algo dela."
+                tag: "SEM DESVIOS"
+              encounter:
+                title: "Feche o menu que abre sozinho"
+                text: "No instante em que você entra na Rota 24 o menu abre sozinho. Aperte B. Um Mew Nv 7 aparece."
+              catch:
+                title: "Coloque para dormir, depois arremesse"
+                text: "Reduza o HP, aplique um golpe de sono e comece a arremessar. A taxa de captura do Mew é ruim e Cerulean só vende Poké Balls, então leve vinte e tenha paciência."
+                note_label: "NÍVEL"
+                note: "Quer um nível diferente? Use Growl no Shellder na fase 2 antes, veja a calculadora abaixo."
+        calc:
+          eyebrow: "CALCULADORA DE NÍVEL"
+          h2: "Escolha o Mew que você quer"
+          lead: "O nível do Mew é lido do estágio de Ataque do último Pokémon que você batalhou. O jogo guarda os estágios como 1–13 em vez de -6 a +6, então um oponente intacto dá Nv 7. Cada Growl que você acerta naquele Shellder (ou Slowpoke) baixa o Mew um nível."
+          caption: "ESTÁGIO DE ATAQUE DO ÚLTIMO OPONENTE"
+          spawns: "SEU MEW APARECE EM"
+          lv_label: "Nv"
+          recipe:
+            untouched: "> oponente intacto, nenhum golpe de status usado"
+            growl: "> acerte %{n}× Growl no último oponente"
+            growl_underflow: "> acerte %{n}× Growl no último oponente, depois faça underflow para o Nv 100"
+            raised:
+              one: "> o Ataque do oponente precisa estar elevado %{count} estágio, raro na prática"
+              other: "> o Ataque do oponente precisa estar elevado %{count} estágios, raro na prática"
+          internal: "// valor interno %{value} = estágio %{stage} → nível %{level}"
+          lv100:
+            label: "A ROTA DO NV 100"
+            text: "Acerte seis Growls para capturar um Mew Nv 1, depois rode o glitch de underflow de experiência nele para saltar direto ao Nv 100. Deixe um espaço livre na equipe: sacar um Mew Nv 1 do PC trava o jogo. Ele não aprende nada por nível depois, o que quase não importa: o Mew pode aprender todos os TMs do jogo."
+          vc:
+            label: "VIRTUAL CONSOLE · LEGITIMIDADE"
+            text: "O Poké Transporter só aceita um Mew que pareça o do evento do Virtual Console. Isso significa Treinador Original GF (ou ゲーフリ) e ID de Treinador 22796."
+            ot_label: "NOME OT"
+            tid_label: "ID DO TREINADOR"
+            foot: "Você pode se chamar GF no começo; o ID é aleatório, então bater com ele exige manipulação de RNG, cheats ou muitos resets. O Mew do evento também tem 15 de IV em tudo, agradável mas irrelevante para o Transporter."
+        second:
+          eyebrow: "BIS · SEGUNDO MEW"
+          h2: "Repita com o garoto do Slowpoke"
+          note: "SALVE PRIMEIRO · MESMO TREINADOR DO MATO"
+          lead: "O Jr. Trainer♂ no mato pode iniciar o glitch quantas vezes você quiser. Troque o Swimmer do Ginásio pelo Youngster com o Slowpoke solitário na Rota 25 e você ganha outro Mew."
+          "1":
+            title: "Limpe a Rota 25 em parte"
+            text: "Vença Treinadores pela Rota 25 até conseguir alcançar o Youngster com o Slowpoke solitário. Deixe-o de pé."
+          "2":
+            title: "Salve"
+            text: "Você já tem um Mew. Salve antes de arriscar qualquer coisa."
+          "3":
+            title: "Acione o Treinador do mato de novo"
+            text: "Mesma jogada de antes: entre no campo de visão do Jr. Trainer♂ na Rota 24 segurando START."
+          "4":
+            title: "Teleporte para Cerulean"
+            text: "O Abra te leva para casa e seus botões morrem de novo."
+          "5":
+            title: "Batalhe o garoto do Slowpoke"
+            text: "Vá até ele na Rota 25 e garanta que ele dê pelo menos um passo em sua direção, ou o jogo trava. O estágio de Ataque do Slowpoke dele define o nível."
+          "6":
+            title: "De volta à Rota 24"
+            text: "Volte andando, aperte B no menu que abre sozinho e capture o Mew número dois."
+        after:
+          art_alt: "Red com Mew, arte de Ken Sugimori"
+          art_tag: "Nº 151 · REGISTRADO"
+          eyebrow: "POSFÁCIO"
+          h2: "Um Pokémon que o jogo nunca quis te dar"
+          text: "Este é um sabor do glitch Trainer-Fly, que pode produzir qualquer Pokémon do jogo. A dupla de Cerulean é só a mais cedo e mais segura. Existem outras configurações, com mais partes móveis e mais formas de perder um NPC. Capture o Mew aqui e sua dex fica completa sem um único ticket de evento."
+          back: "◀ VOLTAR A CERULEAN"
+          credit: "arte de Ken Sugimori · © Nintendo / Creatures / Game Freak"
+        teaser:
+          tag: "OPCIONAL · GLITCH"
+          window: "JANELA MAIS CEDO DO JOGO"
+          title_html: "Quer o <span class=\"pn-mew-teaser__word\" data-text=\"Mew\">Mew</span>? Não vença este Ginásio ainda."
+          lead: "O Mew normalmente só vem de eventos, e Cerulean é o primeiro lugar onde você pode fazer o famoso glitch do Mew para conseguir um no jogo. Você vai precisar avançar quase toda a Rota 24 antes; a gente te lembra quando chegar lá. Se quiser, deixe o Swimmer e a Misty de pé por enquanto."
+          cta: "GUIA COMPLETO DO GLITCH DO MEW ▶"
+          meta: "~15 min · custa um NPC de fundo"
+        index:
+          kind: "GLITCH"
+          tag: "OPCIONAL"
+          name: "O Glitch do Mew"
+          note: "O Mew capturável mais cedo, via o Trainer-Fly de Cerulean. Uma missão secundária opcional, não uma parada obrigatória."
+      pikachu_friendship:
+        eyebrow: "MECÂNICA · SÓ NO YELLOW"
+        title: "Como funciona a amizade do Pikachu"
+        show: "MOSTRAR"
+        hide: "OCULTAR"
+        lead_html: "O Pikachu inicial do Yellow carrega um valor de amizade oculto de <b>0 a 255</b>. Ele começa em <b>90</b> e muda conforme você joga. Quanto mais sobe, menos vale cada ação, então os ganhos baratos são mais baratos cedo."
+        meter_start: "INÍCIO"
+        meter_goal: "BULBASAUR"
+        table_label: "MUDANÇA DE AMIZADE POR VALOR ATUAL"
+        col_action: "AÇÃO"
+        band_lo: "0–99"
+        band_mid: "100–199"
+        band_hi: "200–255"
+        rows:
+          levelup: "Pikachu sobe de nível na sua equipe"
+          hp_item: "Usar um item que cura HP no Pikachu, mesmo com HP cheio"
+          x_item: "Usar um item X no Pikachu em batalha"
+          gym_leader: "Desafiar um Líder de Ginásio com Pikachu na equipe"
+          tm_hm: "Ensinar um HM ou TM ao Pikachu"
+          walking: "Andar 256 passos com Pikachu na equipe (50% de chance)"
+          deposit: "Depositar o Pikachu no PC"
+          faint: "Pikachu desmaia em batalha"
+          poison_faint: "Pikachu desmaia fora de batalha por dano de veneno"
+          careless: "Pikachu desmaia contra um oponente 30+ níveis acima"
+          trade: "Pikachu é trocado com outro jogador"
+        potion:
+          title: "O TRUQUE DA POTION"
+          text_html: "Um item que cura HP conta <b>mesmo quando não faz nada</b>. Use uma Potion num Pikachu com HP cheio e a amizade sobe do mesmo jeito. Compre um monte no Mart e vá tocando de 90 até 147 em poucos minutos."
+        why:
+          title: "POR QUE IMPORTA"
+          text_html: "Na maior parte é novidade: o humor do Pikachu só muda a carinha dele no mapa. O único ganho real é aqui em Cerulean, onde a Melanie só entrega o Bulbasaur com <b>147 ou mais</b>. Mantenha o Pikachu fora do PC até lá."
       locations:
         pallet_town:
           note: "Pegue o Pikachu com o Prof. Oak. Sem grama selvagem aqui."
@@ -541,7 +827,17 @@ pt:
             spearow: "Normal/Voador cedo, evolui para Fearow."
         route_2:
           note: "Trecho curto até a floresta. Pidgey, Rattata e Nidoran."
-          intro: "O trecho entre Viridian e o portão da floresta. As mesmas capturas de antes, mais Nidoran selvagem."
+          intro: "Nesta passagem você só anda pela faixa oeste até o portão da floresta, com as mesmas capturas de antes mais Nidoran selvagem. A Route 2 é bem maior que isso: sua metade leste fica trancada atrás de árvores que precisam de Cut, então os marcadores do lado leste do mapa (a Moon Stone e o HP Up, o HM05 Flash, a troca do Mr. Mime e a saída norte da Diglett's Cave) só ficam acessíveis quando você tiver Cut, ou voltando pela Diglett's Cave a partir de Vermilion."
+          later:
+            moon_stone:
+              where: "Uma Poké Ball no fundo do terreno cercado de árvores no lado leste da Route 2. As árvores cortáveis isolam toda a metade leste na primeira passagem, então você ainda não chega lá."
+              after: "Volte com o HM01 Cut (do S.S. Anne, em Vermilion) para cortar a árvore, ou entre por esse lado pela saída norte da Diglett's Cave assim que chegar a Vermilion."
+            hp_up:
+              where: "Uma segunda Poké Ball logo ao norte da Moon Stone, no mesmo terreno leste bloqueado por Cut. As duas ficam atrás da mesma parede de árvores cortáveis."
+              after: "Mesma ida: leve o HM01 Cut de volta à Route 2, ou chegue por esse lado pela Diglett's Cave a partir de Vermilion."
+            flash:
+              where: "O Assistente do Prof. Carvalho entrega o HM05 Flash dentro do portão da Route 2, no mesmo lado leste bloqueado por Cut. Ele só dá quando você tiver capturado pelo menos 10 tipos de Pokémon (a contagem na Pokédex, não quantos você tem)."
+              after: "Chegue ao portão com o HM01 Cut (ou subindo pela Diglett's Cave a partir de Vermilion) e tenha 10 espécies capturadas. É o Flash que ilumina a Rock Tunnel mais tarde, então vale o desvio."
           trades:
             mr_mime:
               npc: "CIENTISTA"
@@ -612,6 +908,10 @@ pt:
             "2":
               title: "Siga para leste ate a Rota 3"
               text: "Com a Insígnia Boulder, o garoto que bloqueia a saída leste sai do caminho. Siga para leste na Rota 3 rumo a Mt. Moon."
+          trivia:
+            title: "Jigglypuff faz seu Pikachu dormir"
+            intro: "Um Jigglypuff fica encostado na parede dentro do Centro Pokémon de Pewter City. Fale com ele e ele solta a cantiga \"Puu pupuu!\": se o seu Pikachu estiver andando atrás de você, a canção apaga ele na hora e ele para de te seguir, igualzinho a ser posto para dormir numa batalha."
+            note: "Só acontece quando o Pikachu é seu parceiro te seguindo e está sem nenhuma condição de status. Fora isso, o Jigglypuff apenas canta. Uma piscadela para como o golpe Sing dele funciona numa batalha de verdade."
         route_3:
           note: "A subida até o Mt. Moon. Spearow, Sandshrew e Mankey."
           intro: "O corredor de treinadores a leste de Pewter. Pegue um tipo Terra para as cavernas e cure no centro do Mt. Moon."
@@ -621,12 +921,23 @@ pt:
               text: "Vá a leste de Pewter, limpando os Bug Catchers, Youngsters e Lasses conforme sobe."
             "2":
               title: "Varra a grama"
-              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas."
-            "3":
-              title: "Cure e entre no Mt. Moon"
-              text: "Cure no Centro Pokémon perto da boca da caverna e entre no Mt. Moon."
+              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas; depois siga a rota até o fim, no Centro Pokémon do Mt. Moon, na Route 4."
           oak:
             sandshrew: "Tipo Terra, evolui para Sandslash. Útil nas cavernas à frente."
+        route_4_mt_moon:
+          note: "A entrada do Mt. Moon: cure e entre na caverna."
+          intro: "A ponta oeste da Route 4, onde a Rota 3 encontra o Centro Pokémon do Mt. Moon. Cure, resolva o que faltar e entre na caverna. A metade leste da Route 4 e seus itens vêm depois que você atravessa."
+          steps:
+            "1":
+              title: "Cure no Centro Pokémon do Mt. Moon"
+              text: "Saia da Rota 3 para a ponta oeste da Route 4 e cure no Centro Pokémon do Mt. Moon perto da boca da caverna. É a última parada antes da caverna, então recupere tudo e compre Poke Balls."
+            "2":
+              title: "Entre no Mt. Moon"
+              text: "Entre no Mt. Moon pela porta ao lado do centro. Você sai na metade leste da Route 4, coberta no próximo trecho."
+          trivia:
+            title: "O homem que vende um Magikarp"
+            intro: "Dentro do Centro Pokémon do Mt. Moon um homem vende um Magikarp por ¥500. Sozinho ele só usa Splash, mas evolui para Gyarados, um verdadeiro monstro. Comprar aqui vale a pena se você quer começar a treiná-lo imediatamente, já que chegar até o Gyarados leva um bom tempo."
+            note: "Se você só precisa dele para a Pokédex, não tem pressa: dá para pescar Magikarp depois com o Old Rod, então pode esperar e economizar. Ele vende um único Magikarp nível 5 e não dá reembolso."
         mt_moon:
           note: "Travessia de caverna. Zubat, Geodude, Clefairy rara e um fóssil."
           intro: "Uma caverna escura cheia de Rockets. Pegue a Moon Stone, escolha um fóssil e siga até Cerulean."
@@ -667,6 +978,9 @@ pt:
             buy: "Poké Balls para as Rotas 24–25 e um Repel ou dois para andar pelo mato em paz."
           gym:
             intro: "Um Swimmer, uma Jr. Trainer e chão livre, depois a Misty. O Staryu (Nv 18) e o Starmie (Nv 21) dela batem forte com golpes de Água, e o Recover do Starmie arrasta a luta, então feche rápido com um atacante Elétrico ou Grama. O ThunderShock do Pikachu é ideal."
+            notes:
+              swimmer: "NÃO vença este Treinador se você planeja fazer o glitch do Mew. O estágio de Ataque do Shellder dele define o nível do Mew."
+              misty: "Vencer a Misty tranca o Swimmer atrás dela. Deixe-a de pé até depois da sua corrida do Mew."
           note: "Ginásio da Misty. Cascade Badge. E um Bulbasaur grátis."
           intro: "Uma cidade de ginásio aquático. Vença a Misty e, se o Pikachu gostar de você, pegue um Bulbasaur grátis."
           steps:
@@ -675,11 +989,15 @@ pt:
               text: "Chegando da Rota 4, cure no Centro e abasteça no Mart, depois entre no Ginásio. Lidere com Pikachu ou um tipo Grama contra a equipe de Agua de Misty."
             "2":
               title: "Pegue os extras e siga ao norte"
-              text: "Pegue o Bulbasaur grátis na casa da garota se a amizade do Pikachu estiver alta. A casa assaltada perto do norte fica lacrada até mais tarde; quando a oficial sair, persiga o ladrão pelos fundos dela pelo TM28 (Dig). Depois siga ao norte para a Nugget Bridge (Rota 24)."
+              text: "Pegue o Bulbasaur grátis na casa da Melanie se a amizade do Pikachu estiver alta. A casa assaltada perto do norte fica lacrada até mais tarde; quando a oficial sair, persiga o ladrão pelos fundos dela pelo TM28 (Dig). Depois siga ao norte para a Nugget Bridge (Rota 24)."
           tips:
-            bulbasaur: "Grátis na casa da garota quando o Pikachu está feliz. Evolui até Venusaur."
+            bulbasaur: "Grátis na casa da Melanie quando o Pikachu está feliz. Evolui até Venusaur."
           oak:
-            bulbasaur: "Presente grátis da casa da garota → Venusaur. Um basta."
+            bulbasaur: "Presente grátis da casa da Melanie → Venusaur. Um basta."
+          gifts:
+            bulbasaur:
+              from: "DA CASA DA MELANIE"
+              unlock: "Amizade do Pikachu 147 ou mais"
         route_24:
           note: "Nugget Bridge. Oddish, Bellsprout e um Charmander grátis."
           intro: "Cinco treinadores em sequência, um Rocket, seu rival. E um Charmander grátis no fim."
@@ -699,6 +1017,9 @@ pt:
             charmander: "Presente grátis → Charizard. Pegue para a dex e para o ginásio de grama da Erika."
             oddish: "Comum na grama. Evolui para Vileplume com uma Leaf Stone."
             bellsprout: "A outra captura de 30% na grama. Evolui para Victreebel com uma Leaf Stone."
+          gifts:
+            charmander:
+              from: "DO GAROTO NO ALTO"
         route_25:
           note: "A casa do Bill. Mesma grama da Rota 24."
           intro: "O caminho até a cabana do Bill. Solte-o da máquina para ganhar o ticket do S.S. Anne."
@@ -765,6 +1086,10 @@ pt:
             squirtle: "Grátis da Officer Jenny depois da Thunder Badge. O terceiro starter de Kanto, evolui para Blastoise."
           oak:
             squirtle: "Presente grátis depois da insígnia → Blastoise. O último dos três starters."
+          gifts:
+            squirtle:
+              from: "DA OFFICER JENNY"
+              unlock: "Vença o Lt. Surge pela Thunder Badge"
         ss_anne:
           note: "O transatlântico de luxo. HM01 Cut e uma luta de rival."
           intro: "Um navio de uma vez só. Varra os itens, vença seu rival e pegue o Cut antes que ele parta para sempre."
@@ -842,7 +1167,7 @@ pt:
           steps:
             "1":
               title: "Use Flash"
-              text: "Ensine HM05 Flash (garota na Rota 2) antes de entrar e ilumine cada tela lá dentro."
+              text: "Ensine HM05 Flash (Assistente do Prof. Carvalho no portão da Rota 2) antes de entrar e ilumine cada tela lá dentro."
             "2":
               title: "Desça e suba"
               text: "Pegue as escadas até o B1F, cruze pelos Hikers e suba de volta ao 1F do outro lado."
@@ -945,6 +1270,9 @@ pt:
           oak:
             eevee: "Presente → um entre Vaporeon / Jolteon / Flareon. Registre a base uma vez."
             porygon: "Exclusivo do Game Corner. O único Porygon que você terá. Pegue um."
+          gifts:
+            eevee:
+              from: "DO TELHADO DA MANSÃO"
         rocket_hideout:
           note: "A base da Team Rocket. Pegue o Silph Scope."
           intro: "O labirinto sob o Game Corner. Deslize pelas placas giratórias, vença o Giovanni e pegue o Silph Scope."
@@ -1181,6 +1509,9 @@ pt:
             lapras: "A única Lapras do jogo. Um tanque Água/Gelo excelente. Não perca no 7F."
           oak:
             lapras: "Grátis no 7F → um ótimo tanque Água/Gelo. A única Lapras do jogo."
+          gifts:
+            lapras:
+              from: "DE UM FUNCIONÁRIO DA SILPH"
         route_19:
           note: "Rota aquática ao sul de Fuchsia. Precisa de Surf."
           intro: "Mar aberto ao sul de Fuchsia, cheio de Tentacool e Swimmers. Precisa de Surf."

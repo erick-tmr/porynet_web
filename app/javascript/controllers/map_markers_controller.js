@@ -29,6 +29,8 @@ export default class extends Controller {
       marker.style.setProperty("--mx", `${marker.dataset.x}%`)
       marker.style.setProperty("--my", `${marker.dataset.y}%`)
       marker.style.setProperty("--lane", marker.dataset.lane)
+      // A label nudged into a lower lane gets a leader line back to its pin (drawn in CSS).
+      marker.classList.toggle("has-lane", Number(marker.dataset.lane) > 0)
     })
     // A landscape map holds its own native pixel width so its CSS never scales the pixel art
     // below 1x; the frame scrolls instead. Portrait maps ignore the property.

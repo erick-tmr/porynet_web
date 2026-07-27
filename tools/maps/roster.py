@@ -34,11 +34,13 @@ def hero_cell(root_str, map_label, grid, step):
     """Where the hero stands to face the trainer: never a tile it could not actually stand on.
 
     First choice is its line of sight, two cells in front for a clean framing, then one nearer,
-    then one farther, so a tree or wall the trainer spots you through is skipped. Dry land wins
-    over water at every step, so a gym swimmer's shot stands the hero on the poolside rather than
-    floating mid-pool; open water is still allowed (a route swimmer is fought while surfing). A
-    trainer boxed against the wall it faces has nothing in front at all (a Game Corner Rocket), so
-    the last resort is the nearest standable tile in any direction: off a solid tile beats in-frame."""
+    then one farther, so a tree or wall the trainer spots you through is skipped. Clean footing wins
+    at every step, then dry land, then water: the hero stands on a tile whose lower half is really
+    open ground rather than one that only clears above its feet (a hedge row the sprite would
+    straddle), a gym swimmer's shot stays on the poolside rather than floating mid-pool, and open
+    water is still allowed last (a route swimmer is fought while surfing). A trainer boxed against
+    the wall it faces has nothing in front at all (a Game Corner Rocket), so the last resort is the
+    nearest such tile in any direction: off a solid tile beats in-frame."""
     const, tileset = sources.parse_headers(root_str)[map_label]
     _idx, w_blocks, h_blocks = sources.parse_map_constants(root_str)[0][const]
     w_cells, h_cells = w_blocks * 2, h_blocks * 2
@@ -49,7 +51,7 @@ def hero_cell(root_str, map_label, grid, step):
 
     line = [(grid[0] + step[0] * d, grid[1] + step[1] * d)
             for d in (PLAYER_CELLS, PLAYER_CELLS - 1, PLAYER_CELLS + 1)]
-    for predicate in (markers.cell_is_land, markers.cell_is_walkable):
+    for predicate in (markers.cell_is_standable, markers.cell_is_land, markers.cell_is_walkable):
         for x, y in line:
             if on(predicate, x, y):
                 return [x, y]
