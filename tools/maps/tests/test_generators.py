@@ -28,6 +28,11 @@ def _trade_spec(name):
     return next(s for s in entries if s["name"] == name)
 
 
+def _step_shot(name):
+    entries = json.loads((SPECS / "step_shots.json").read_text())
+    return next(s for s in entries if s["name"] == name)
+
+
 def _cell_walkable(root, map_label, cell):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
@@ -133,6 +138,24 @@ def test_route_2_trade_hero_stands_below_the_scientist_not_across_the_table(root
     assert _cell_walkable(root, spec["map"], hero), "the hero stands on real floor"
     assert (hero[0] - scientist[0], hero[1] - scientist[1]) == (0, 1), "one tile below the scientist"
     assert spec["player_dir"] == "UP", "facing up to talk to the scientist, no table between them"
+
+
+def test_leave_mt_moon_frames_the_cerulean_side_exit(root):
+    # Regression: the "Leave Mt. Moon" shot used to sit the hero below the west entrance
+    # (MT_MOON_1F, the door you walk in through) instead of the Cerulean-side exit you come out of.
+    # Both are cave mouths a few tiles apart on Route 4, so it is an easy shot to aim at the wrong
+    # one. Derive the two warps from the game data so the shot stays pinned to the real exit tile.
+    warps = sources.parse_warp_events(root, "Route4")
+    exit_x, exit_y = next((x, y) for x, y, dest, _ in warps if dest == "MT_MOON_B1F")
+    entrance_x = next(x for x, _, dest, _ in warps if dest == "MT_MOON_1F")
+    assert exit_x != entrance_x  # the premise: the two cave mouths are distinct columns
+
+    spec = _step_shot("route-4-exit")
+    hero = tuple(spec["player"])
+    assert _cell_walkable(root, spec["map"], hero), "the hero stands on real plateau floor"
+    assert hero == (exit_x, exit_y + 1), "one tile out of the Cerulean-side exit"
+    assert hero[0] != entrance_x, "never framed on the west entrance"
+    assert spec["player_dir"] == "DOWN", "facing the ledges you drop east toward Cerulean"
 
 
 def test_trade_house_scene_places_the_hero_at_the_door(root):
