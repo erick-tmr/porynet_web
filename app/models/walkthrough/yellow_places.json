@@ -1044,5 +1044,424 @@
       ],
       "items": 1
     }
+  },
+  "items": {
+    "Antidote": {
+      "const": "ANTIDOTE",
+      "price": 100
+    },
+    "Awakening": {
+      "const": "AWAKENING",
+      "price": 200
+    },
+    "Bicycle": {
+      "const": "BICYCLE"
+    },
+    "Bike Voucher": {
+      "const": "BIKE_VOUCHER"
+    },
+    "Burn Heal": {
+      "const": "BURN_HEAL",
+      "price": 250
+    },
+    "Calcium": {
+      "const": "CALCIUM",
+      "price": 9800
+    },
+    "Carbos": {
+      "const": "CARBOS",
+      "price": 9800
+    },
+    "Coin Case": {
+      "const": "COIN_CASE"
+    },
+    "Dire Hit": {
+      "const": "DIRE_HIT",
+      "price": 650
+    },
+    "Dome Fossil": {
+      "const": "DOME_FOSSIL"
+    },
+    "Escape Rope": {
+      "const": "ESCAPE_ROPE",
+      "price": 550
+    },
+    "Fire Stone": {
+      "const": "FIRE_STONE",
+      "price": 2100
+    },
+    "Fresh Water": {
+      "const": "FRESH_WATER",
+      "price": 200
+    },
+    "Full Heal": {
+      "const": "FULL_HEAL",
+      "price": 600
+    },
+    "Full Restore": {
+      "const": "FULL_RESTORE",
+      "price": 3000
+    },
+    "Good Rod": {
+      "const": "GOOD_ROD"
+    },
+    "Great Ball": {
+      "const": "GREAT_BALL",
+      "price": 600
+    },
+    "Guard Spec": {
+      "const": "GUARD_SPEC",
+      "price": 700
+    },
+    "HM Cut": {
+      "const": "HM_CUT"
+    },
+    "HM Fly": {
+      "const": "HM_FLY"
+    },
+    "HM Strength": {
+      "const": "HM_STRENGTH"
+    },
+    "HM Surf": {
+      "const": "HM_SURF"
+    },
+    "HP Up": {
+      "const": "HP_UP",
+      "price": 9800
+    },
+    "Helix Fossil": {
+      "const": "HELIX_FOSSIL"
+    },
+    "Hyper Potion": {
+      "const": "HYPER_POTION",
+      "price": 1500
+    },
+    "Ice Heal": {
+      "const": "ICE_HEAL",
+      "price": 250
+    },
+    "Iron": {
+      "const": "IRON",
+      "price": 9800
+    },
+    "Leaf Stone": {
+      "const": "LEAF_STONE",
+      "price": 2100
+    },
+    "Lemonade": {
+      "const": "LEMONADE",
+      "price": 350
+    },
+    "Master Ball": {
+      "const": "MASTER_BALL"
+    },
+    "Max Potion": {
+      "const": "MAX_POTION",
+      "price": 2500
+    },
+    "Max Repel": {
+      "const": "MAX_REPEL",
+      "price": 700
+    },
+    "Nugget": {
+      "const": "NUGGET",
+      "price": 10000
+    },
+    "Oak's Parcel": {
+      "const": "OAKS_PARCEL"
+    },
+    "Old Amber": {
+      "const": "OLD_AMBER"
+    },
+    "Old Rod": {
+      "const": "OLD_ROD"
+    },
+    "Parlyz Heal": {
+      "const": "PARLYZ_HEAL",
+      "price": 200
+    },
+    "Pok\u00e9 Ball": {
+      "const": "POKE_BALL",
+      "price": 200
+    },
+    "Pok\u00e9 Doll": {
+      "const": "POKE_DOLL",
+      "price": 1000
+    },
+    "Pok\u00e9 Flute": {
+      "const": "POKE_FLUTE"
+    },
+    "Potion": {
+      "const": "POTION",
+      "price": 300
+    },
+    "Protein": {
+      "const": "PROTEIN",
+      "price": 9800
+    },
+    "Repel": {
+      "const": "REPEL",
+      "price": 350
+    },
+    "Revive": {
+      "const": "REVIVE",
+      "price": 1500
+    },
+    "S.S. Ticket": {
+      "const": "S_S_TICKET"
+    },
+    "Soda Pop": {
+      "const": "SODA_POP",
+      "price": 300
+    },
+    "Super Potion": {
+      "const": "SUPER_POTION",
+      "price": 700
+    },
+    "Super Repel": {
+      "const": "SUPER_REPEL",
+      "price": 500
+    },
+    "Super Rod": {
+      "const": "SUPER_ROD"
+    },
+    "TM Double Team": {
+      "const": "TM_DOUBLE_TEAM",
+      "price": 1000,
+      "tm": 32,
+      "move": "Double Team",
+      "type": "normal"
+    },
+    "TM Egg Bomb": {
+      "const": "TM_EGG_BOMB",
+      "price": 2000,
+      "tm": 37,
+      "move": "Egg Bomb",
+      "type": "normal"
+    },
+    "TM Horn Drill": {
+      "const": "TM_HORN_DRILL",
+      "price": 2000,
+      "tm": 7,
+      "move": "Horn Drill",
+      "type": "normal"
+    },
+    "TM Mega Kick": {
+      "const": "TM_MEGA_KICK",
+      "price": 3000,
+      "tm": 5,
+      "move": "Mega Kick",
+      "type": "normal"
+    },
+    "TM Mega Punch": {
+      "const": "TM_MEGA_PUNCH",
+      "price": 3000,
+      "tm": 1,
+      "move": "Mega Punch",
+      "type": "normal"
+    },
+    "TM Razor Wind": {
+      "const": "TM_RAZOR_WIND",
+      "price": 2000,
+      "tm": 2,
+      "move": "Razor Wind",
+      "type": "normal"
+    },
+    "TM Reflect": {
+      "const": "TM_REFLECT",
+      "price": 1000,
+      "tm": 33,
+      "move": "Reflect",
+      "type": "psychic"
+    },
+    "TM Submission": {
+      "const": "TM_SUBMISSION",
+      "price": 3000,
+      "tm": 17,
+      "move": "Submission",
+      "type": "fighting"
+    },
+    "TM Take Down": {
+      "const": "TM_TAKE_DOWN",
+      "price": 3000,
+      "tm": 9,
+      "move": "Take Down",
+      "type": "normal"
+    },
+    "TM06 Toxic": {
+      "const": "TM_TOXIC",
+      "price": 4000,
+      "tm": 6,
+      "move": "Toxic",
+      "type": "poison"
+    },
+    "TM11 Bubblebeam": {
+      "const": "TM_BUBBLEBEAM",
+      "price": 2000,
+      "tm": 11,
+      "move": "Bubblebeam",
+      "type": "water"
+    },
+    "TM13 Ice Beam": {
+      "const": "TM_ICE_BEAM",
+      "price": 4000,
+      "tm": 13,
+      "move": "Ice Beam",
+      "type": "ice"
+    },
+    "TM18 Counter": {
+      "const": "TM_COUNTER",
+      "price": 2000,
+      "tm": 18,
+      "move": "Counter",
+      "type": "fighting"
+    },
+    "TM21 Mega Drain": {
+      "const": "TM_MEGA_DRAIN",
+      "price": 5000,
+      "tm": 21,
+      "move": "Mega Drain",
+      "type": "grass"
+    },
+    "TM24 Thunderbolt": {
+      "const": "TM_THUNDERBOLT",
+      "price": 2000,
+      "tm": 24,
+      "move": "Thunderbolt",
+      "type": "electric"
+    },
+    "TM27 Fissure": {
+      "const": "TM_FISSURE",
+      "price": 5000,
+      "tm": 27,
+      "move": "Fissure",
+      "type": "ground"
+    },
+    "TM28 Dig": {
+      "const": "TM_DIG",
+      "price": 2000,
+      "tm": 28,
+      "move": "Dig",
+      "type": "ground"
+    },
+    "TM29 Psychic": {
+      "const": "TM_PSYCHIC_M",
+      "price": 4000,
+      "tm": 29,
+      "move": "Psychic",
+      "type": "psychic"
+    },
+    "TM31 Mimic": {
+      "const": "TM_MIMIC",
+      "price": 2000,
+      "tm": 31,
+      "move": "Mimic",
+      "type": "normal"
+    },
+    "TM34 Bide": {
+      "const": "TM_BIDE",
+      "price": 2000,
+      "tm": 34,
+      "move": "Bide",
+      "type": "normal"
+    },
+    "TM35 Metronome": {
+      "const": "TM_METRONOME",
+      "price": 4000,
+      "tm": 35,
+      "move": "Metronome",
+      "type": "normal"
+    },
+    "TM36 Selfdestruct": {
+      "const": "TM_SELFDESTRUCT",
+      "price": 2000,
+      "tm": 36,
+      "move": "Selfdestruct",
+      "type": "normal"
+    },
+    "TM38 Fire Blast": {
+      "const": "TM_FIRE_BLAST",
+      "price": 5000,
+      "tm": 38,
+      "move": "Fire Blast",
+      "type": "fire"
+    },
+    "TM39 Swift": {
+      "const": "TM_SWIFT",
+      "price": 2000,
+      "tm": 39,
+      "move": "Swift",
+      "type": "normal"
+    },
+    "TM41 Softboiled": {
+      "const": "TM_SOFTBOILED",
+      "price": 2000,
+      "tm": 41,
+      "move": "Softboiled",
+      "type": "normal"
+    },
+    "TM42 Dream Eater": {
+      "const": "TM_DREAM_EATER",
+      "price": 2000,
+      "tm": 42,
+      "move": "Dream Eater",
+      "type": "psychic"
+    },
+    "TM46 Psywave": {
+      "const": "TM_PSYWAVE",
+      "price": 4000,
+      "tm": 46,
+      "move": "Psywave",
+      "type": "psychic"
+    },
+    "TM48 Rock Slide": {
+      "const": "TM_ROCK_SLIDE",
+      "price": 4000,
+      "tm": 48,
+      "move": "Rock Slide",
+      "type": "rock"
+    },
+    "TM49 Tri Attack": {
+      "const": "TM_TRI_ATTACK",
+      "price": 4000,
+      "tm": 49,
+      "move": "Tri Attack",
+      "type": "normal"
+    },
+    "Thunder Stone": {
+      "const": "THUNDER_STONE",
+      "price": 2100
+    },
+    "Town Map": {
+      "const": "TOWN_MAP"
+    },
+    "Ultra Ball": {
+      "const": "ULTRA_BALL",
+      "price": 1200
+    },
+    "Water Stone": {
+      "const": "WATER_STONE",
+      "price": 2100
+    },
+    "X Accuracy": {
+      "const": "X_ACCURACY",
+      "price": 950
+    },
+    "X Attack": {
+      "const": "X_ATTACK",
+      "price": 500
+    },
+    "X Defend": {
+      "const": "X_DEFEND",
+      "price": 550
+    },
+    "X Special": {
+      "const": "X_SPECIAL",
+      "price": 350
+    },
+    "X Speed": {
+      "const": "X_SPEED",
+      "price": 350
+    }
   }
 }

@@ -1,0 +1,28 @@
+<% if loc.mart.multi? %>
+  <%= render "dept_store", loc: loc %>
+<% else %>
+  <% mart = loc.mart %>
+  <section class="pn-wt-section pn-wt-mart">
+    <div class="pn-eyebrow-label pn-eyebrow-label--cyan"><%= t("walkthrough.ui.mart_eyebrow", count: mart.count) %></div>
+    <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.mart_h3") %></h3>
+    <% if mart.blurb? %><div class="pn-wt-catch__hint"><%= t(mart.blurb_key) %></div><% end %>
+
+    <div class="pn-wt-mart__card">
+      <div class="pn-wt-mart__counter-head">
+        <div class="pn-wt-mart__counter-title"><%= t("walkthrough.ui.clerks_counter") %></div>
+        <div class="pn-wt-mart__counter-sub"><%= t("walkthrough.ui.prices_in") %></div>
+      </div>
+      <div class="pn-wt-mart__grid">
+        <% mart.counters.first.items.each do |item| %>
+          <%= render "mart_item", item: item, rec_label: t("walkthrough.ui.stock_up") %>
+        <% end %>
+      </div>
+      <% if mart.buy? %>
+        <div class="pn-wt-mart__buy">
+          <span class="pn-wt-mart__buy-tag"><%= t("walkthrough.ui.buy_list") %></span>
+          <div class="pn-wt-mart__buy-text"><%= t(mart.buy_key) %></div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>

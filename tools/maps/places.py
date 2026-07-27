@@ -67,6 +67,13 @@ _GIVE_ITEM = re.compile(r"lb\s+bc,\s*([A-Z0-9_]+),\s*(\d+)[^\n]*\n(?:[^\n]*\n){0
 _MART = re.compile(r"^(\w+)::?\s*\n\s*script_mart\s+(.+)$", re.M)
 _WALLET_LOOKBACK = 600
 _ADD_TM = re.compile(r"^\s*add_tm\s+(\w+)", re.M)
+_PRICE = re.compile(r"^\s*bcd3\s+(\d+)\s*;\s*(\w+)", re.M)
+_TM_PRICE = re.compile(r"^\s*nybble\s+(\d+)\s*;\s*TM(\d+)", re.M)
+_MOVE = re.compile(r"^\s*move\s+(\w+),\s*\w+,\s*\d+,\s*(\w+),", re.M)
+
+# Vending drinks are never in a clerk's `script_mart`, but the Celadon rooftop sells them, so
+# the catalog carries them alongside the mart stock (their prices are in the same prices.asm).
+_EXTRA_ITEMS = ("FRESH_WATER", "SODA_POP", "LEMONADE")
 
 
 @cache
@@ -94,6 +101,68 @@ def tm_display_name(root_str, const):
         return sources.item_display_name(const)
     move = TM_MOVE_FIXUPS.get(const, const[len("TM_"):].replace("_", " ").title())
     return f"TM{number:02d} {move}"
+
+
+@cache
+def parse_prices(root_str):
+    """Return {item const: price} from data/items/prices.asm (`bcd3 <price> ; <CONST>`)."""
+    return {const: int(price)
+            for price, const in _PRICE.findall(sources._read(root_str, "data/items/prices.asm"))}
+
+
+@cache
+def parse_tm_prices(root_str):
+    """Return {TM number: price}. data/items/tm_prices.asm lists a nybble per TM, in thousands."""
+    return {int(number): int(nybble) * 1000
+            for nybble, number in _TM_PRICE.findall(sources._read(root_str, "data/items/tm_prices.asm"))}
+
+
+@cache
+def parse_move_types(root_str):
+    """Return {move const: type slug}. PSYCHIC_TYPE -> 'psychic', so it names the TM's sprite."""
+    return {move: kind.removesuffix("_TYPE").lower()
+            for move, kind in _MOVE.findall(sources._read(root_str, "data/moves/moves.asm"))}
+
+
+def item_price(root_str, const):
+    """The shop price of an item, 0 when it cannot be bought. TMs are priced by their number."""
+    if const.startswith("TM_"):
+        number = parse_tm_numbers(root_str).get(const)
+        return parse_tm_prices(root_str).get(number, 0)
+    return parse_prices(root_str).get(const, 0)
+
+
+def build_item_catalog(root_str):
+    """Return {display name: facts} for every item a mart, gift or vending machine offers, so the
+    walkthrough can price and picture it. Keyed by the same display string that appears in a
+    place's `stock`/`gift_item`, which is the join back to the catalog. Nothing here is authored:
+    price from prices.asm/tm_prices.asm, the TM number from item_constants.asm, its move's type
+    from moves.asm."""
+    marts, gifts = parse_marts(root_str), parse_gifts(root_str)
+    move_types = parse_move_types(root_str)
+    catalog = {}
+
+    def add(const, display):
+        entry = {"const": const}
+        if price := item_price(root_str, const):
+            entry["price"] = price
+        if const.startswith("TM_"):
+            move = const[len("TM_"):]
+            entry["tm"] = parse_tm_numbers(root_str).get(const)
+            entry["move"] = TM_MOVE_FIXUPS.get(const, move.replace("_", " ").title())
+            if kind := move_types.get(move):
+                entry["type"] = kind
+        catalog[display] = entry
+
+    for consts in marts.values():
+        for const in consts:
+            add(const, sources.item_display_name(const))
+    for gift in gifts.values():
+        for const, _qty in gift.get("item", ()):
+            add(const, tm_display_name(root_str, const))
+    for const in _EXTRA_ITEMS:
+        add(const, sources.item_display_name(const))
+    return dict(sorted(catalog.items()))
 
 
 @cache

@@ -1,0 +1,12 @@
+<div class="<%= class_names("pn-wt-mart__row", "pn-wt-mart__row--rec" => item.rec?) %>">
+  <% if item.rec? %><span class="pn-wt-mart__ribbon"><%= rec_label %></span><% end %>
+  <span class="pn-wt-mart__tile">
+    <%= r2_image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-mart__icon" %>
+  </span>
+  <div class="pn-wt-mart__info">
+    <div class="pn-wt-mart__name"><%= item.label %></div>
+    <div class="pn-wt-mart__desc"><%= mart_item_desc(item) %></div>
+    <% if item.rec_key? %><div class="pn-wt-mart__rec">▸ <%= t(item.rec_key) %></div><% end %>
+  </div>
+  <span class="pn-wt-mart__price"><%= poke_dollar(item.price) %></span>
+</div>
