@@ -1038,6 +1038,46 @@ a.pn-wt-route__card:hover {
   background: #fff7e6;
 }
 
+/* Gift Pokémon: a source badge overhanging the top edge, and a dashed unlock-condition strip. */
+.pn-wt-catch--gift { padding-top: 30px; margin-top: 14px; }
+.pn-wt-catch__gift {
+  position: absolute;
+  top: -18px;
+  left: 16px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #ffe9a8;
+  border: 3px solid #171622;
+  box-shadow: 3px 3px 0 #171622;
+  padding: 6px 13px 6px 10px;
+}
+.pn-wt-catch__gift-dot {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  border: 2px solid #171622;
+  border-radius: 50%;
+  background: var(--cream);
+}
+.pn-wt-catch__gift-label { font-family: "Press Start 2P", monospace; font-size: 9px; color: #171622; letter-spacing: 1px; }
+.pn-wt-catch__gift-sep { width: 2px; height: 15px; background: #171622; }
+.pn-wt-catch__gift-from { font-family: "VT323", monospace; font-size: 17px; line-height: 1; color: #3a3850; }
+
+.pn-wt-catch__unlock {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 2px dashed #171622;
+  background: #fffdf2;
+  margin-top: 14px;
+  padding: 10px 12px;
+}
+.pn-wt-catch__unlock-sprite { width: 40px; height: 40px; flex: none; object-fit: contain; image-rendering: pixelated; }
+.pn-wt-catch__unlock-label { font-family: "VT323", monospace; font-size: 15px; color: #6b6880; letter-spacing: 1px; }
+.pn-wt-catch__unlock-text { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 16px; line-height: 1.3; }
+
 .pn-wt-best {
   background: var(--amber);
   border: 2px solid #171622;
@@ -1867,12 +1907,19 @@ a.pn-wt-route__card:hover {
   padding: 4px 6px;
 }
 
+/* The Mew glitch index card: an optional side quest, tinted with the glitch magenta. */
+.pn-wt-route--glitch.is-built .pn-wt-route__dot--glitch { background: var(--neon-magenta); }
+.pn-wt-route__special--glitch { background: var(--neon-magenta); color: #fff; }
+.pn-wt-route__card--glitch { border-color: var(--neon-magenta); box-shadow: 4px 4px 0 var(--neon-magenta); }
+.pn-wt-route__card--glitch:hover { box-shadow: 2px 2px 0 var(--neon-magenta); }
+
 /* ---- gym section (dark neon) ---- */
 .pn-wt-gym {
+  --gym-accent: var(--gym-accent);
   position: relative;
-  border: 3px solid #FF5D8F;
+  border: 3px solid var(--gym-accent);
   background: #080a16;
-  box-shadow: 6px 6px 0 #171622, 0 0 26px #FF5D8F33;
+  box-shadow: 6px 6px 0 #171622, 0 0 26px color-mix(in srgb, var(--gym-accent) 20%, transparent);
   overflow: hidden;
 }
 .pn-wt-gym__grid {
@@ -1880,10 +1927,15 @@ a.pn-wt-route__card:hover {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(#FF5D8F4d 2px, transparent 2px),
-    linear-gradient(90deg, #FF5D8F4d 2px, transparent 2px);
+    linear-gradient(color-mix(in srgb, var(--gym-accent) 30%, transparent) 2px, transparent 2px),
+    linear-gradient(90deg, color-mix(in srgb, var(--gym-accent) 30%, transparent) 2px, transparent 2px);
   background-size: 16px 16px;
 }
+/* Each gym's whole neon treatment takes one identity colour, cycling magenta -> cyan -> amber
+   by badge order (Brock magenta, Misty cyan, Lt. Surge amber, then repeat). */
+.pn-wt-gym--magenta { --gym-accent: #ff3dae; }
+.pn-wt-gym--cyan { --gym-accent: #2af0ff; }
+.pn-wt-gym--amber { --gym-accent: #FFC23D; }
 .pn-wt-gym__inner {
   position: relative;
   padding: 20px 22px;
@@ -1908,15 +1960,15 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
   color: #171622;
-  background: #FF5D8F;
-  border: 2px solid #FF5D8F;
+  background: var(--gym-accent);
+  border: 2px solid var(--gym-accent);
   padding: 6px 8px;
-  box-shadow: 0 0 12px #FF5D8F66;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--gym-accent) 40%, transparent);
 }
 .pn-wt-gym__type {
   font-family: "VT323", monospace;
   font-size: 17px;
-  color: #FF5D8F;
+  color: var(--gym-accent);
   letter-spacing: 1px;
 }
 .pn-wt-gym__name {
@@ -1926,7 +1978,7 @@ a.pn-wt-route__card:hover {
   line-height: 1;
   margin: 12px 0 0;
   color: #fff;
-  text-shadow: 2px 2px 0 #FF5D8F;
+  text-shadow: 2px 2px 0 var(--gym-accent);
 }
 .pn-wt-gym__intro {
   font-family: "Pixelify Sans", system-ui, sans-serif;
@@ -1943,12 +1995,12 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-shot--gym {
   aspect-ratio: 1 / 1;
-  border-color: #FF5D8F;
+  border-color: var(--gym-accent);
   background: #0b1022;
 }
 
 .pn-wt-gym__puzzle {
-  border: 2px solid #FF5D8F;
+  border: 2px solid var(--gym-accent);
   background: #0b1022;
   padding: 16px 18px;
   margin-top: 18px;
@@ -1958,8 +2010,8 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
   color: #171622;
-  background: #FF5D8F;
-  border: 2px solid #FF5D8F;
+  background: var(--gym-accent);
+  border: 2px solid var(--gym-accent);
   padding: 6px 8px;
 }
 .pn-wt-gym__psteps {
@@ -1974,15 +2026,15 @@ a.pn-wt-route__card:hover {
   align-items: stretch;
   flex-wrap: wrap;
   background: #141a2e;
-  border: 2px solid color-mix(in srgb, #FF5D8F 27%, transparent);
+  border: 2px solid color-mix(in srgb, var(--gym-accent) 27%, transparent);
   padding: 12px;
 }
 .pn-wt-gym__pstep-n {
   width: 26px;
   height: 26px;
   flex: none;
-  border: 2px solid #FF5D8F;
-  background: #FF5D8F;
+  border: 2px solid var(--gym-accent);
+  background: var(--gym-accent);
   color: #171622;
   display: flex;
   align-items: center;
@@ -2005,17 +2057,17 @@ a.pn-wt-route__card:hover {
   width: 200px;
   flex: none;
   aspect-ratio: 10 / 9;
-  border-color: #FF5D8F;
+  border-color: var(--gym-accent);
   background: #0b1022;
 }
 
 .pn-wt-gym__label {
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
-  color: #FF5D8F;
+  color: var(--gym-accent);
   letter-spacing: 2px;
   margin-top: 18px;
-  text-shadow: 0 0 8px #FF5D8F66;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--gym-accent) 40%, transparent);
 }
 
 .pn-wt-gym__trainers {
@@ -2026,8 +2078,8 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-gym-tr__card {
   background: #0b1022;
-  border: 2px solid #FF5D8F;
-  box-shadow: 0 0 14px #FF5D8F22;
+  border: 2px solid var(--gym-accent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--gym-accent) 13%, transparent);
   padding: 16px;
 }
 .pn-wt-gym-tr__head {
@@ -2052,8 +2104,8 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   color: #171622;
-  background: #FF5D8F;
-  border: 2px solid #FF5D8F;
+  background: var(--gym-accent);
+  border: 2px solid var(--gym-accent);
   padding: 6px 9px;
 }
 .pn-wt-gym-tr__shots {
@@ -2065,13 +2117,13 @@ a.pn-wt-route__card:hover {
 .pn-wt-shot--gymvs {
   width: 150px;
   flex: none;
-  border-color: #FF5D8F;
+  border-color: var(--gym-accent);
   background: #141a2e;
 }
 .pn-wt-shot--gymwhere {
   flex: 1;
   aspect-ratio: 16 / 9;
-  border-color: #FF5D8F;
+  border-color: var(--gym-accent);
   background: #141a2e;
 }
 
@@ -2086,8 +2138,8 @@ a.pn-wt-route__card:hover {
   gap: 20px;
   max-width: 100%;
   background: #0b1022;
-  border: 2px solid #FF5D8F;
-  box-shadow: 0 0 18px #FF5D8F44;
+  border: 2px solid var(--gym-accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gym-accent) 27%, transparent);
   padding: 22px 24px;
 }
 .pn-wt-gym__leader-id {
@@ -2103,16 +2155,16 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-shot--leadervs {
   aspect-ratio: 26 / 62;
-  border-color: #FF5D8F;
+  border-color: var(--gym-accent);
   background: #141a2e;
-  box-shadow: 0 0 12px #FF5D8F44;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--gym-accent) 27%, transparent);
 }
 .pn-wt-shot--leaderbattle {
   aspect-ratio: 160 / 144;
   max-width: 100%;
-  border: 3px solid #FF5D8F;
+  border: 3px solid var(--gym-accent);
   background: #0b1022;
-  box-shadow: inset 0 0 0 3px #0b1022, 0 0 22px #FF5D8F55;
+  box-shadow: inset 0 0 0 3px #0b1022, 0 0 22px color-mix(in srgb, var(--gym-accent) 33%, transparent);
 }
 .pn-wt-gym__leader-meta {
   display: flex;
@@ -2132,7 +2184,7 @@ a.pn-wt-route__card:hover {
   line-height: 1;
   margin-top: 8px;
   color: #fff;
-  text-shadow: 2px 2px 0 #FF5D8F;
+  text-shadow: 2px 2px 0 var(--gym-accent);
 }
 .pn-wt-gym__leader-pills {
   display: flex;
@@ -2142,15 +2194,15 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym__pill {
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
-  color: #FF5D8F;
+  color: var(--gym-accent);
   background: #141a2e;
-  border: 2px solid #FF5D8F;
+  border: 2px solid var(--gym-accent);
   padding: 7px 9px;
 }
 .pn-wt-gym__pill--reward {
   color: #171622;
-  background: #FF5D8F;
-  border-color: #FF5D8F;
+  background: var(--gym-accent);
+  border-color: var(--gym-accent);
 }
 /* The badge sits under the leader's name/pills and reads as a trophy slot: dashed and greyed out
    until you clear the gym, then it lights up gold. The lit state and its pulse live with the
@@ -2210,7 +2262,7 @@ a.pn-wt-route__card:hover {
   align-items: center;
   gap: 6px;
   width: 112px;
-  border: 2px solid #FF5D8F;
+  border: 2px solid var(--gym-accent);
   background: #141a2e;
   padding: 8px 10px;
 }
@@ -2239,7 +2291,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym__mon-lvl {
   font-family: "VT323", monospace;
   font-size: 15px;
-  color: #FF5D8F;
+  color: var(--gym-accent);
 }
 
 .pn-wt-shot__ph--gym {
@@ -2247,13 +2299,13 @@ a.pn-wt-route__card:hover {
   background: repeating-linear-gradient(45deg, #0b1022, #0b1022 8px, #131b30 8px, #131b30 16px);
 }
 .pn-wt-shot__label--gym {
-  background: #FF5D8F;
+  background: var(--gym-accent);
   color: #171622;
 }
 .pn-wt-shot__label--gym-where {
   top: 0;
   bottom: auto;
-  background: #FF5D8F;
+  background: var(--gym-accent);
   color: #171622;
 }
 
@@ -2320,4 +2372,96 @@ a.pn-wt-route__card:hover {
   width: 100%;
   height: auto;
   image-rendering: pixelated;
+}
+
+/* ============================================================================
+   Pikachu friendship explainer (Cerulean): a collapsible disclosure with a
+   0-255 meter and the game's friendship-change table. The meter's marks sit at
+   fixed percentages (90/255 and 147/255) since those are game constants.
+   ============================================================================ */
+.pn-fs {
+  border: 3px solid #171622;
+  box-shadow: 6px 6px 0 #171622;
+  background: #fff;
+}
+.pn-fs__head {
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--amber);
+  border: 0;
+  padding: 16px 18px;
+}
+.pn-fs__head:hover { background: #ffce63; }
+.pn-fs.is-open .pn-fs__head { border-bottom: 3px solid #171622; }
+.pn-fs__pika { width: 62px; height: 62px; flex: none; object-fit: contain; image-rendering: auto; }
+.pn-fs__head-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pn-fs__eyebrow { font-family: "Press Start 2P", monospace; font-size: 10px; color: #7a5a00; letter-spacing: 1px; }
+.pn-fs__title { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 24px; line-height: 1.2; margin-top: 7px; }
+.pn-fs__state {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #171622;
+  background: #fff;
+  border: 2px solid #171622;
+  padding: 3px 10px;
+  flex: none;
+}
+.pn-fs__state-txt--hide { display: none; }
+.pn-fs.is-open .pn-fs__state-txt--show { display: none; }
+.pn-fs.is-open .pn-fs__state-txt--hide { display: inline; }
+.pn-fs__chevron { font-family: "Press Start 2P", monospace; font-size: 13px; color: #171622; flex: none; }
+.pn-fs.is-open .pn-fs__chevron { transform: rotate(180deg); }
+
+.pn-fs__body { padding: 24px 18px 26px; }
+.pn-fs__lead { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 500; font-size: 17px; line-height: 1.6; color: #3a3850; margin: 0; max-width: 820px; text-wrap: pretty; }
+
+/* meter */
+.pn-fs__meter { margin-top: 24px; }
+.pn-fs__meter-track { position: relative; height: 26px; border: 3px solid #171622; background: #fff; overflow: hidden; }
+.pn-fs__meter-lo { position: absolute; left: 0; top: 0; bottom: 0; width: 35.294%; background: #ffd0e0; }
+.pn-fs__meter-hi { position: absolute; left: 57.647%; right: 0; top: 0; bottom: 0; background: repeating-linear-gradient(45deg, #2bb3e055 0 6px, transparent 6px 12px); }
+.pn-fs__meter-mark { position: absolute; top: 0; bottom: 0; }
+.pn-fs__meter-mark--start { left: 35.294%; width: 3px; background: #171622; }
+.pn-fs__meter-mark--goal { left: 57.647%; width: 4px; background: #ff5d8f; box-shadow: 0 0 0 2px #171622; }
+.pn-fs__meter-labels { position: relative; height: 46px; margin-top: 7px; font-family: "VT323", monospace; font-size: 16px; color: #3a3850; }
+.pn-fs__meter-num { position: absolute; text-align: center; white-space: nowrap; }
+.pn-fs__meter-num--min { left: 0; }
+.pn-fs__meter-num--max { right: 0; }
+.pn-fs__meter-num--start { left: 35.294%; transform: translateX(-50%); }
+.pn-fs__meter-num--goal { left: 57.647%; transform: translateX(-50%); color: #b3245c; }
+.pn-fs__meter-cap { display: block; font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 13px; }
+
+/* table */
+.pn-fs__table-label { font-family: "Press Start 2P", monospace; font-size: 10px; color: var(--accent); letter-spacing: 1px; margin-top: 20px; }
+.pn-fs__table-wrap { overflow-x: auto; margin-top: 12px; border: 3px solid #171622; }
+.pn-fs__table { min-width: 560px; }
+.pn-fs__row { display: grid; grid-template-columns: minmax(0, 1fr) 84px 84px 84px; }
+.pn-fs__row--head { background: #171622; color: var(--cream); }
+.pn-fs__row--gain { background: #f4fbf6; border-top: 2px solid #171622; }
+.pn-fs__row--loss { background: #fff4f8; border-top: 2px solid #171622; }
+.pn-fs__cell--action { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 1.35; padding: 11px 14px; color: #171622; }
+.pn-fs__cell--band { font-family: "Press Start 2P", monospace; font-size: 9px; padding: 12px 6px; text-align: center; border-left: 2px solid #3a3850; }
+.pn-fs__row--head .pn-fs__cell--action { font-family: "Press Start 2P", monospace; font-size: 9px; letter-spacing: 1px; padding: 12px 14px; color: var(--cream); }
+.pn-fs__cell--val { font-family: "Press Start 2P", monospace; font-size: 11px; padding: 11px 6px; text-align: center; border-left: 2px solid #171622; }
+.pn-fs__row--gain .pn-fs__cell--val { color: #2f7d4a; }
+.pn-fs__row--loss .pn-fs__cell--val { color: #b3245c; }
+
+/* tip cards */
+.pn-fs__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.pn-fs__card { border: 3px solid #171622; box-shadow: 4px 4px 0 #171622; padding: 16px 18px; }
+.pn-fs__card--potion { background: #eaf9ef; }
+.pn-fs__card--why { background: #fff0f5; }
+.pn-fs__card-head { display: flex; align-items: center; gap: 10px; }
+.pn-fs__card-icon { width: 30px; height: 30px; object-fit: contain; image-rendering: pixelated; }
+.pn-fs__card-title { font-family: "Press Start 2P", monospace; font-size: 10px; }
+.pn-fs__card--potion .pn-fs__card-title { color: #2f7d4a; }
+.pn-fs__card--why .pn-fs__card-title { color: #b3245c; }
+.pn-fs__card-text { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 1.55; color: #3a3850; margin: 10px 0 0; text-wrap: pretty; }
+
+@media (max-width: 900px) {
+  .pn-fs__cards { grid-template-columns: 1fr; }
 }

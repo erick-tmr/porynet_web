@@ -32,5 +32,11 @@
       </div>
     <% end %>
   </div>
+  <% if trainer.note_key? %>
+    <div class="pn-wt-gym-tr__note">
+      <b class="pn-wt-gym-tr__note-label"><%= t("walkthrough.ui.mew_glitch_label") %></b>
+      <span><%= t(trainer.note_key) %></span>
+    </div>
+  <% end %>
   </div>
 </div>

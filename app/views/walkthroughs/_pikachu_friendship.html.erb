@@ -1,0 +1,79 @@
+<% fs = Walkthrough::Yellow.pikachu_friendship %>
+<% mg = "#{Walkthrough::Yellow::K}.pikachu_friendship" %>
+<section id="friendship" class="pn-wt-section">
+  <div class="pn-fs" data-controller="disclosure">
+    <button type="button" class="pn-fs__head" data-disclosure-target="toggle"
+            data-action="disclosure#toggle" aria-expanded="false" aria-controls="pn-fs-body">
+      <%= r2_image_tag "walkthrough/yellow/art/pikachu-sugimori.png", alt: "", class: "pn-fs__pika" %>
+      <span class="pn-fs__head-main">
+        <span class="pn-fs__eyebrow"><%= t("#{mg}.eyebrow") %></span>
+        <span class="pn-fs__title"><%= t("#{mg}.title") %></span>
+      </span>
+      <span class="pn-fs__state">
+        <span class="pn-fs__state-txt pn-fs__state-txt--show"><%= t("#{mg}.show") %></span>
+        <span class="pn-fs__state-txt pn-fs__state-txt--hide"><%= t("#{mg}.hide") %></span>
+      </span>
+      <span class="pn-fs__chevron" aria-hidden="true">▼</span>
+    </button>
+
+    <div class="pn-fs__body" id="pn-fs-body" data-disclosure-target="body" hidden>
+      <p class="pn-fs__lead"><%= t("#{mg}.lead_html") %></p>
+
+      <div class="pn-fs__meter">
+        <div class="pn-fs__meter-track">
+          <span class="pn-fs__meter-lo" aria-hidden="true"></span>
+          <span class="pn-fs__meter-hi" aria-hidden="true"></span>
+          <span class="pn-fs__meter-mark pn-fs__meter-mark--start" aria-hidden="true"></span>
+          <span class="pn-fs__meter-mark pn-fs__meter-mark--goal" aria-hidden="true"></span>
+        </div>
+        <div class="pn-fs__meter-labels">
+          <span class="pn-fs__meter-num pn-fs__meter-num--min">0</span>
+          <span class="pn-fs__meter-num pn-fs__meter-num--start">
+            <%= fs.start %><b class="pn-fs__meter-cap"><%= t("#{mg}.meter_start") %></b>
+          </span>
+          <span class="pn-fs__meter-num pn-fs__meter-num--goal">
+            <%= fs.threshold %><b class="pn-fs__meter-cap"><%= t("#{mg}.meter_goal") %></b>
+          </span>
+          <span class="pn-fs__meter-num pn-fs__meter-num--max"><%= fs.max %></span>
+        </div>
+      </div>
+
+      <div class="pn-fs__table-label"><%= t("#{mg}.table_label") %></div>
+      <div class="pn-fs__table-wrap">
+        <div class="pn-fs__table">
+          <div class="pn-fs__row pn-fs__row--head">
+            <span class="pn-fs__cell pn-fs__cell--action"><%= t("#{mg}.col_action") %></span>
+            <span class="pn-fs__cell pn-fs__cell--band"><%= t("#{mg}.band_lo") %></span>
+            <span class="pn-fs__cell pn-fs__cell--band"><%= t("#{mg}.band_mid") %></span>
+            <span class="pn-fs__cell pn-fs__cell--band"><%= t("#{mg}.band_hi") %></span>
+          </div>
+          <% fs.rows.each do |row| %>
+            <div class="pn-fs__row <%= row.gain? ? "pn-fs__row--gain" : "pn-fs__row--loss" %>">
+              <span class="pn-fs__cell pn-fs__cell--action"><%= t(row.action_key) %></span>
+              <% row.values.each do |value| %>
+                <span class="pn-fs__cell pn-fs__cell--val"><%= friendship_delta(value) %></span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="pn-fs__cards">
+        <div class="pn-fs__card pn-fs__card--potion">
+          <div class="pn-fs__card-head">
+            <%= r2_image_tag "walkthrough/items/potion.png", alt: "", class: "pn-fs__card-icon" %>
+            <span class="pn-fs__card-title"><%= t("#{mg}.potion.title") %></span>
+          </div>
+          <p class="pn-fs__card-text"><%= t("#{mg}.potion.text_html") %></p>
+        </div>
+        <div class="pn-fs__card pn-fs__card--why">
+          <div class="pn-fs__card-head">
+            <%= r2_image_tag "pokemon/yellow/001.png", alt: "", class: "pn-fs__card-icon" %>
+            <span class="pn-fs__card-title"><%= t("#{mg}.why.title") %></span>
+          </div>
+          <p class="pn-fs__card-text"><%= t("#{mg}.why.text_html") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

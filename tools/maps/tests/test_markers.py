@@ -111,6 +111,86 @@ def test_a_door_always_points_up_wherever_the_building_stands(root):
     assert any(d["y"] > 50 for d in doors), "and at least one of them is in the lower half"
 
 
+def cerulean_exits(root):
+    return [m for m in markers.build_markers(root, "CeruleanCity", "CERULEAN_CITY", 640, 576)
+            if m["cat"] == "exit"]
+
+
+def test_a_pass_through_house_splits_into_an_enter_and_a_back_exit(root):
+    """The Badge House and Trashed House each warp to one interior through a front door and a
+    door behind, so both would otherwise print the same name twice. The door facing the street
+    (larger grid y) is the entrance; the one behind it is the back exit."""
+    by_name = {m["name"]: m for m in cerulean_exits(root)}
+    for house in ("Trashed House", "Badge House"):
+        assert by_name[f"{house} (enter)"]["grid"][1] > by_name[f"{house} (exit)"]["grid"][1]
+
+
+def test_the_split_generalises_to_every_town_and_the_route_gates(root):
+    """Not a Cerulean special case: Celadon Mansion, the Fuchsia cut-through and the Route 12 gate
+    are all walk-throughs, so they split the same way."""
+    celadon = [m["name"] for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 640, 576)
+               if m["cat"] == "exit"]
+    assert "Mansion 1F (enter)" in celadon and "Mansion 1F (exit)" in celadon
+
+
+def test_lone_pass_through_door_is_left_unlabelled():
+    """The split only fires on the two-door pair; a single door keeps its plain name."""
+    one = [{"name": "Cerulean Trashed House", "ref": "CERULEAN_TRASHED_HOUSE", "grid": [27, 11]}]
+    markers.label_pass_through_doors(one)
+    assert one[0]["name"] == "Cerulean Trashed House"
+
+
+def test_far_apart_same_column_doors_are_not_a_pass_through():
+    """Two mouths of a cave in the same column but far apart are separate exits, not one house."""
+    doors = [{"name": "Rock Tunnel", "ref": "ROCK_TUNNEL_1F", "grid": [8, 17]},
+             {"name": "Rock Tunnel", "ref": "ROCK_TUNNEL_1F", "grid": [8, 53]}]
+    markers.label_pass_through_doors(doors)
+    assert [d["name"] for d in doors] == ["Rock Tunnel", "Rock Tunnel"]
+
+
+def test_side_by_side_doors_are_not_a_pass_through():
+    """A front door and back door share a column; two doors on the same row are a wide entrance."""
+    doors = [{"name": "Mart", "ref": "MART", "grid": [4, 9]},
+             {"name": "Mart", "ref": "MART", "grid": [9, 9]}]
+    markers.label_pass_through_doors(doors)
+    assert all(d["name"] == "Mart" for d in doors)
+
+
+def test_a_town_map_drops_the_redundant_town_name_from_its_doorways(root):
+    """On the Cerulean map 'Cerulean Gym' is just 'Gym'; the prefix only crowds the label layer.
+    The routes it connects to keep their full names."""
+    names = [m["name"] for m in cerulean_exits(root)]
+    assert {"Gym", "Pokecenter", "Cave 1F"} <= set(names)
+    assert not any(name.startswith("Cerulean ") for name in names)
+    assert "Route 24" in names
+
+
+def test_strip_town_prefix_leaves_non_town_maps_alone():
+    exits = [{"name": "Route 2 Gate"}]
+    markers.strip_town_prefix(exits, "ROUTE_2")
+    assert exits[0]["name"] == "Route 2 Gate"
+
+
+def test_a_road_across_a_pond_anchors_to_the_road_not_the_water(root):
+    """Cerulean's pond touches its north and west edges, so the generic 'water is crossed by Surf'
+    rule would drop the Route 24 and Route 4 markers on the water. They belong on the Nugget Bridge
+    and the road instead."""
+    exits = {m["ref"]: tuple(m["grid"]) for m in cerulean_exits(root)}
+    assert exits["ROUTE_24"] == (20, 0)   # the bridge, not the pond around x14-18
+    assert exits["ROUTE_4"] == (0, 18)    # the road, not the pond at y15-16
+
+
+def test_a_surf_connection_still_lands_on_water(root):
+    """The land-road override is scoped: Pallet's genuine Surf crossing south to Route 21 keeps its
+    water marker."""
+    tsf = sources.tileset_basename(root, "OVERWORLD")
+    south = next(m for m in markers.build_markers(root, "PalletTown", "PALLET_TOWN", 320, 288)
+                 if m.get("edge") == "south")
+    gx, gy = south["grid"]
+    tiles = sources.cell_tiles(root, "PalletTown", tsf, 320 // sources.BLOCK_PX, gx, gy)
+    assert all(t in sources.WATER_TILES for t in tiles)
+
+
 def test_exit_glyphs_follow_the_way_you_walk(root):
     for entry in by_cat(build(root), "exit"):
         assert entry["glyph"] == markers.EXIT_GLYPHS[entry["edge"]]

@@ -347,6 +347,26 @@
 .pn-mm[data-align="l"] .pn-mm__label { right: 22px; }
 .pn-mm.is-selected .pn-mm__label { border-color: var(--amber); }
 
+/* Labels off means a clean map: hide the pins (arrows, rings, ticks) too, not just their names.
+   The legend beside the map stays fully interactive, so nothing becomes unreachable. */
+.pn-mm-block:not(.is-labelled) .pn-mm__pin { display: none; }
+
+/* Leader line: when a crowded row nudges a label down into a lower lane, an elbow runs from the
+   pin down to it, so the label still reads as part of its marker instead of floating free. Drawn
+   on ::before, behind the pin and label; emerges from under the pin. */
+.is-labelled .pn-mm.has-lane .pn-mm__hit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: calc(var(--lane, 0) * 26px);
+  border-bottom: 2px solid #7a8199;
+  pointer-events: none;
+}
+.pn-mm[data-align="r"].has-lane .pn-mm__hit::before { left: 0; border-left: 2px solid #7a8199; }
+.pn-mm[data-align="l"].has-lane .pn-mm__hit::before { right: 0; border-right: 2px solid #7a8199; }
+.pn-mm.is-selected.has-lane .pn-mm__hit::before { border-color: var(--amber); }
+
 .pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
 .pn-mm[data-cat="npc"] .pn-mm__label-key { color: var(--mm-npc); }
 
