@@ -234,6 +234,28 @@ module Walkthrough
       (1..6).map { |n| MewSecondStep.new(n, "#{MEW_GLITCH_K}.second.#{n}.title", "#{MEW_GLITCH_K}.second.#{n}.text") }
     end
 
+    # The four Trainers to leave standing for the Mew glitch. Each `map`/`marker` is the game's own
+    # tickable pin (verified against the manifest), so a card here and its map pin flip together;
+    # `key` mirrors that pin's letter so the section and the annotated map read the same. Its WHERE
+    # frame is the generator's per-Trainer scene, whose name is `<map>-<marker>` by construction.
+    MEW_SPARE_DEFS = [
+      { id: "grass-jr", cls: "JR. TRAINER♂", tag: "RT 24", map: "route-24", marker: "trainer-5-20", key: "B" },
+      { id: "swimmer", cls: "SWIMMER", tag: "GYM", map: "cerulean-city-gym", marker: "trainer-8-7", key: "C" },
+      { id: "misty", cls: "LEADER", tag: "GYM", map: "cerulean-city-gym", marker: "trainer-4-2", key: "A" },
+      { id: "slowpoke", cls: "YOUNGSTER", tag: "RT 25", map: "route-25", marker: "trainer-18-5", key: "B" }
+    ].freeze
+
+    def self.mew_spares
+      b = "#{MEW_GLITCH_K}.spares.trainers"
+      MEW_SPARE_DEFS.map do |d|
+        image = "walkthrough/yellow/scenes/#{d[:map]}-#{d[:marker]}.png"
+        MewSpare.new(id: d[:id], cls: d[:cls], name_key: "#{b}.#{d[:id]}.name",
+          role_key: "#{b}.#{d[:id]}.role", where_key: "#{b}.#{d[:id]}.where", tag: d[:tag],
+          map: d[:map], marker: d[:marker], key: d[:key],
+          shot: Shot.new(image: image, label: WHERE_LABEL))
+      end
+    end
+
     def self.mew_stages
       (-6..6).map do |stage|
         level = stage + 7

@@ -8,8 +8,8 @@
       "note": "map_npc_route1_potion", "ref": "POTION" }
   ],
   "route-24": [
-    { "id": "npc-nugget", "name": "Nugget", "grid": [6, 5],
-      "note": "map_npc_route24_nugget", "ref": "NUGGET" }
+    { "id": "npc-charmander", "name": "Charmander", "grid": [6, 5],
+      "note": "map_npc_route24_charmander", "ref": "CHARMANDER" }
   ],
   "silph-co-11f": [
     { "id": "npc-master-ball", "name": "Master Ball", "grid": [7, 5],

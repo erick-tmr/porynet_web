@@ -607,6 +607,252 @@
   91% { clip-path: inset(0 0 0 0); transform: translate(0, 0); filter: none; }
 }
 
+/* The small "CHASING MEW?" reminder that sits at the top of Route 24 and jumps to the board. */
+.pn-ls-teaser-wrap { padding-top: 22px; padding-bottom: 0; }
+.pn-ls-teaser {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ui-dark);
+  border: 2px solid var(--neon-magenta);
+  box-shadow: 3px 3px 0 #171622;
+  padding: 9px 12px;
+}
+.pn-ls-teaser:hover { color: inherit; transform: translate(1px, 1px); box-shadow: 2px 2px 0 #171622; }
+.pn-ls-teaser__img { width: 26px; height: 26px; object-fit: contain; image-rendering: pixelated; }
+.pn-ls-teaser__label { font-family: "Press Start 2P", monospace; font-size: 9px; color: var(--neon-magenta); }
+.pn-ls-teaser__text { font-family: "VT323", monospace; font-size: 17px; color: #9fb6d6; }
+
+/* ---- "leave standing" checklist (the DO NOT DEFEAT board under Nugget Bridge) ----
+   Same neon-dark shell as the teaser, but each card is a Trainer you must NOT beat: ticking one
+   (here or on its map pin) flips it into the alarming magenta "lost" state via .is-defeated. */
+.pn-ls {
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--neon-magenta);
+  background: var(--ui-dark);
+  background-image:
+    linear-gradient(#ff3dae12 2px, transparent 2px),
+    linear-gradient(90deg, #2af0ff10 2px, transparent 2px);
+  background-size: 40px 40px;
+  box-shadow: 0 0 28px #ff3dae44, 7px 7px 0 #171622;
+}
+.pn-ls__scan {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(42, 240, 255, 0.05) 0 1px, transparent 1px 3px);
+  animation: mewNoiseShift 7s linear infinite;
+  animation-play-state: var(--play);
+}
+.pn-ls__head {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--neon-magenta);
+  padding: 16px 24px;
+}
+.pn-ls__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+  background: var(--neon-magenta);
+  border: 2px solid #171622;
+  padding: 8px 10px;
+  animation: mewGlitchSlice 6s steps(1) infinite;
+  animation-play-state: var(--play);
+}
+.pn-ls__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: #fff;
+  margin: 0;
+}
+.pn-ls__count {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px #2af0ff66;
+  margin-left: auto;
+}
+.pn-ls__body { position: relative; z-index: 3; padding: 24px; }
+.pn-ls__intro {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #9fb6d6;
+  margin: 0;
+  max-width: 820px;
+  text-wrap: pretty;
+}
+.pn-ls__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.pn-ls-card {
+  display: flex;
+  flex-direction: column;
+  background: #0c1226;
+  border: 2px solid #2a3350;
+  box-shadow: 4px 4px 0 #171622;
+  padding: 16px;
+}
+.pn-ls-card.is-defeated { background: #1b0d18; border-color: var(--neon-magenta); }
+.pn-ls-card.is-error { border-color: #ff6b6b; }
+
+.pn-ls-card__media {
+  position: relative;
+  border: 2px solid #2a3350;
+  background: #0c1226;
+  aspect-ratio: 10 / 9;
+  overflow: hidden;
+}
+.pn-ls-card.is-defeated .pn-ls-card__media { border-color: var(--neon-magenta); }
+.pn-ls-card__shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.pn-ls-card__chip {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: #171622;
+  background: var(--neon-cyan);
+  padding: 3px 5px;
+}
+.pn-ls-card__info { margin-top: 14px; }
+.pn-ls-card__meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pn-ls-card__cls { font-family: "VT323", monospace; font-size: 16px; color: #8fa6c8; letter-spacing: 1px; }
+.pn-ls-card__key {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: var(--neon-cyan);
+  border: 1px solid #171622;
+  padding: 3px 5px;
+}
+.pn-ls-card__pin {
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: #171622;
+  background: #cfe1f5;
+  border: 1px solid #171622;
+  padding: 3px 5px;
+}
+.pn-ls-card__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.1;
+  color: #fff;
+  margin-top: 7px;
+}
+.pn-ls-card__where {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #9fb6d6;
+  margin: 7px 0 0;
+  text-wrap: pretty;
+}
+.pn-ls-card__role {
+  display: inline-block;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #171622;
+  background: var(--neon-cyan);
+  border: 2px solid #171622;
+  padding: 2px 9px;
+  margin-top: 9px;
+}
+
+.pn-ls-card__foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 2px dashed #2a3350;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+.pn-ls-card__btn {
+  cursor: pointer;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--neon-cyan);
+  background: #0c1226;
+  border: 2px solid var(--neon-cyan);
+  padding: 9px 11px;
+}
+.pn-ls-card.is-defeated .pn-ls-card__btn {
+  color: #171622;
+  background: var(--neon-magenta);
+  border-color: #171622;
+}
+.pn-ls-card__btn-label--done,
+.pn-ls-card__state-done { display: none; }
+.pn-ls-card.is-defeated .pn-ls-card__btn-label--todo,
+.pn-ls-card.is-defeated .pn-ls-card__state-todo { display: none; }
+.pn-ls-card.is-defeated .pn-ls-card__btn-label--done,
+.pn-ls-card.is-defeated .pn-ls-card__state-done { display: inline; }
+.pn-ls-card__state { font-family: "VT323", monospace; font-size: 16px; }
+.pn-ls-card__state-todo { color: var(--neon-cyan); }
+.pn-ls-card__state-done { color: var(--neon-magenta); }
+
+.pn-ls__foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  border-top: 2px solid #2a3350;
+  margin-top: 22px;
+  padding-top: 16px;
+}
+.pn-ls__foot-tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--neon-cyan);
+  background: #0c1226;
+  border: 2px solid var(--neon-cyan);
+  padding: 6px 8px;
+}
+.pn-ls__foot-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #9fb6d6;
+  flex: 1;
+  min-width: 260px;
+}
+.pn-ls__cta {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+  background: var(--neon-magenta);
+  border: 3px solid #171622;
+  box-shadow: 4px 4px 0 #171622;
+  padding: 12px 14px;
+}
+.pn-ls__cta:hover { color: #171622; transform: translate(2px, 2px); box-shadow: 2px 2px 0 #171622; }
+
 /* ---- responsive ---- */
 @media (max-width: 900px) {
   .pn-mew-hero__inner,
@@ -617,6 +863,7 @@
   .pn-mew-hero__title { font-size: 40px; }
   .pn-mew-after { grid-template-columns: 1fr; }
   .pn-mew-after__art { min-height: 240px; border-right: none; border-bottom: 3px solid #171622; }
+  .pn-ls__grid { grid-template-columns: 1fr; }
 }
 
 /* Motion off: freeze the glitch/scan/tear layers in their clean neutral frame. */
@@ -624,6 +871,7 @@
   .pn-mew-scan,
   .pn-mew-tear,
   .pn-mew-card__tear,
+  .pn-ls__scan,
   .pn-mew-card__img--glitch { animation: none; opacity: 0; }
   .pn-mew-hero__word,
   .pn-mew-teaser__word,
@@ -631,6 +879,7 @@
   .pn-mew-card__img,
   .pn-mew-card__sprite,
   .pn-mew-calc__mew,
+  .pn-ls__tag,
   .pn-mew-teaser__img { animation: none; }
   .pn-mew-hero__word::before,
   .pn-mew-hero__word::after,

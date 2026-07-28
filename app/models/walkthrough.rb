@@ -289,6 +289,12 @@ module Walkthrough
   end
   MewPhase = Data.define(:label_key, :title_key, :meta_key, :tone, :steps)
   MewSecondStep = Data.define(:n, :title_key, :text_key)
+  # One Trainer the Mew glitch needs left un-beaten. `map`/`marker` join to the very tick key the
+  # annotated maps store under, so `progress_id` is the shared handle the map pin and this card
+  # both toggle; `key` is that pin's letter on its map, `shot` an optional WHERE frame.
+  MewSpare = Data.define(:id, :cls, :name_key, :role_key, :where_key, :tag, :map, :marker, :key, :shot) do
+    def progress_id = "#{map}/#{marker}"
+  end
   # One row of the level calculator. `kind` picks the recipe locale key; `n` fills its count.
   MewStage = Data.define(:stage, :level, :n, :kind, :label) do
     def default? = stage.zero?

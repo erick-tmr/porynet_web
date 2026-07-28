@@ -1,0 +1,62 @@
+<% b = "#{Walkthrough::Yellow::MEW_GLITCH_K}.spares" %>
+<% spares = Walkthrough::Yellow.mew_spares %>
+<section class="pn-wt-section" id="leave-standing"
+         data-controller="leave-standing" data-leave-standing-game-value="<%= @game.slug %>">
+  <div class="pn-ls">
+    <div class="pn-ls__scan" aria-hidden="true"></div>
+
+    <div class="pn-ls__head">
+      <span class="pn-ls__tag"><%= t("#{b}.eyebrow") %></span>
+      <h2 class="pn-ls__title"><%= t("#{b}.title") %></h2>
+      <span class="pn-ls__count">
+        <span class="pn-ls__count-num" data-leave-standing-target="standing"><%= spares.size %></span>
+        / <%= spares.size %> <%= t("#{b}.standing_label") %>
+      </span>
+    </div>
+
+    <div class="pn-ls__body">
+      <p class="pn-ls__intro"><%= t("#{b}.intro") %></p>
+
+      <div class="pn-ls__grid">
+        <% spares.each do |spare| %>
+          <article class="pn-ls-card" data-leave-standing-target="card"
+                   data-progress-id="<%= spare.progress_id %>">
+            <div class="pn-ls-card__media">
+              <%= r2_image_tag spare.shot.image, alt: "", class: "pn-ls-card__shot", loading: "lazy" %>
+              <span class="pn-ls-card__chip"><%= spare.tag %></span>
+            </div>
+
+            <div class="pn-ls-card__info">
+              <div class="pn-ls-card__meta">
+                <span class="pn-ls-card__cls"><%= spare.cls %></span>
+                <span class="pn-ls-card__key"><%= spare.key %></span>
+                <span class="pn-ls-card__pin"><%= spare.tag %></span>
+              </div>
+              <div class="pn-ls-card__name"><%= t(spare.name_key) %></div>
+              <p class="pn-ls-card__where"><%= t(spare.where_key) %></p>
+              <span class="pn-ls-card__role"><%= t(spare.role_key) %></span>
+            </div>
+
+            <div class="pn-ls-card__foot">
+              <button type="button" class="pn-ls-card__btn" aria-pressed="false"
+                      data-action="click->leave-standing#toggle">
+                <span class="pn-ls-card__btn-label pn-ls-card__btn-label--todo"><%= t("#{b}.state.beat") %></span>
+                <span class="pn-ls-card__btn-label pn-ls-card__btn-label--done"><%= t("#{b}.state.undo") %></span>
+              </button>
+              <span class="pn-ls-card__state">
+                <span class="pn-ls-card__state-todo"><%= t("#{b}.state.standing") %></span>
+                <span class="pn-ls-card__state-done"><%= t("#{b}.state.lost") %></span>
+              </span>
+            </div>
+          </article>
+        <% end %>
+      </div>
+
+      <div class="pn-ls__foot">
+        <span class="pn-ls__foot-tag"><%= t("#{b}.workaround_tag") %></span>
+        <span class="pn-ls__foot-text"><%= t("#{b}.workaround") %></span>
+        <%= link_to t("#{b}.cta"), walkthrough_mew_glitch_path(game: @game.slug), class: "pn-ls__cta" %>
+      </div>
+    </div>
+  </div>
+</section>
