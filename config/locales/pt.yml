@@ -527,17 +527,14 @@ pt:
             text: "Entre de novo na Rota 24, feche o menu que abre sozinho e o Mew aparece."
         warn:
           badge: "LEIA PRIMEIRO"
-          title: "Este glitch apaga um NPC. Escolha qual."
-          lead: "O jogo trata o Mew como um encontro do mapa, como o Snorlax, então quando a batalha acaba ele tenta apagar o objeto do mapa de onde veio. Não existe um, então ele apaga algo de uma área que você visitou antes. Siga a rota abaixo exatamente e a baixa é conhecida e inofensiva."
-          safe:
-            label: "SEGURO · RED & BLUE"
-            text: "Viaje só de Cerulean para a Rota 24 (ou Cerulean para 24 para 25 para 24). O objeto apagado é o segundo policial ao lado da casa assaltada, invisível até você conhecer o Bill, então faça isso antes do Bill e nada se perde."
+          title: "Este glitch apaga um NPC, e é inofensivo."
+          lead: "O jogo trata o Mew como um encontro do mapa, como o Snorlax, então quando a batalha acaba ele tenta apagar o objeto do mapa de onde veio. Não existe um, então ele apaga algo de uma área que você visitou antes. Em Yellow a baixa é sempre a mesma, e é conhecida e inofensiva."
           perm:
-            label: "PERMANENTE · YELLOW"
-            text: "Yellow não tem Abra selvagem nas Rotas 24 ou 25, então o caminho normal te leva passando pelo Bill até a Rota 5 para pegar um. Conhecer o Bill carrega aquele segundo policial, e o glitch então o remove de vez. Vencer o Rocket atrás da casa assaltada o restaura, mas você precisa vencer esse Rocket de qualquer jeito para chegar à Rota 5. Só cosmético: seu jogo apenas fica com um policial a menos."
+            label: "PERMANENTE"
+            text: "A baixa é o segundo policial ao lado da casa assaltada. Yellow não tem Abra selvagem nas Rotas 24 ou 25, então o caminho normal te leva passando pelo Bill até a Rota 5 para pegar um. Conhecer o Bill carrega aquele policial, e o glitch então o remove de vez. Vencer o Rocket atrás da casa assaltada o restaura, mas você precisa vencer esse Rocket de qualquer jeito para chegar à Rota 5. Só cosmético: seu jogo apenas fica com um policial a menos."
           workaround:
             badge: "ALTERNATIVA"
-            text: "Traga por troca um Abra que saiba Teleport de outro cartucho e faça o glitch antes de visitar o Bill, igual em Red e Blue."
+            text: "Traga por troca um Abra que já saiba Teleport de outro cartucho e você pode fazer o glitch antes de visitar o Bill, assim o policial nunca é carregado e nada se perde."
           deep_html: "// aprofundamento sobre qual objeto morre e por quê: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch no glitchcity</a>"
         prereq:
           eyebrow: "ANTES DE COMEÇAR"

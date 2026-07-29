@@ -527,17 +527,14 @@ en:
             text: "Re-enter Route 24, close the menu that opens itself, and Mew appears."
         warn:
           badge: "READ FIRST"
-          title: "This glitch deletes an NPC. Pick which one."
-          lead: "The game treats Mew as an overworld encounter, like Snorlax, so once the battle ends it tries to delete the overworld object it came from. There isn't one, so it deletes something from an area you visited earlier instead. Follow the route below exactly and the casualty is a known, harmless one."
-          safe:
-            label: "SAFE · RED & BLUE"
-            text: "Travel only Cerulean to Route 24 (or Cerulean to 24 to 25 to 24). The object deleted is the second police officer beside the burgled house, invisible until you meet Bill, so do this before Bill and nothing is lost."
+          title: "This glitch deletes an NPC, and it's harmless."
+          lead: "The game treats Mew as an overworld encounter, like Snorlax, so once the battle ends it tries to delete the overworld object it came from. There isn't one, so it deletes something from an area you visited earlier instead. In Yellow the casualty is always the same, and it's a known, harmless one."
           perm:
-            label: "PERMANENT · YELLOW"
-            text: "Yellow has no wild Abra on Routes 24 or 25, so the usual route sends you past Bill to Route 5 for one. Meeting Bill loads that second officer, and the glitch then removes them for good. Beating the Rocket behind the burgled house restores them, but you have to beat that Rocket anyway to reach Route 5. Cosmetic only: your game just runs one officer short."
+            label: "PERMANENT"
+            text: "The casualty is the second police officer beside the burgled house. Yellow has no wild Abra on Routes 24 or 25, so the usual route sends you past Bill to Route 5 for one. Meeting Bill loads that officer, and the glitch then removes them for good. Beating the Rocket behind the burgled house restores them, but you have to beat that Rocket anyway to reach Route 5. Cosmetic only: your game just runs one officer short."
           workaround:
             badge: "WORKAROUND"
-            text: "Trade in an Abra that knows Teleport from another cart and run the glitch before visiting Bill, same as Red and Blue."
+            text: "Trade in an Abra that already knows Teleport from another cart and you can run the glitch before ever visiting Bill, so the officer never loads and nothing is lost."
           deep_html: "// deep dive on which object dies and why: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch on glitchcity</a>"
         prereq:
           eyebrow: "BEFORE YOU START"
