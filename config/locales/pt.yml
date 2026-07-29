@@ -561,7 +561,7 @@ pt:
           label: "LISTA DA MOCHILA"
           abra:
             name: "Um Abra que saiba Teleport"
-            note: "R/B: Rotas 24 a 25. Yellow: Rota 5, depois do Bill."
+            note: "Rota 5, a Abra selvagem mais próxima, depois do Bill."
           balls:
             name: "Poké Balls, bastante"
             note: "A taxa de captura do Mew é baixa e Cerulean não vende nada melhor."

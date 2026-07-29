@@ -173,11 +173,13 @@ module Walkthrough
     end
 
     def self.mew_untouched
-      [ [ "trigger", "JR. TRAINER♂", "pink" ], [ "swimmer", "SWIMMER", "cyan" ],
-        [ "misty", "Misty", "cyan" ], [ "youngster", "YOUNGSTER", "purple" ] ].map do |key, id, tone|
+      [ [ "trigger", "JR. TRAINER♂", "pink", "RT 24", "route-24-trainer-5-20" ],
+        [ "swimmer", "SWIMMER", "cyan", "GYM", "cerulean-city-gym-trainer-8-7" ],
+        [ "misty", "Misty", "cyan", "GYM", "cerulean-city-gym-trainer-4-2" ],
+        [ "youngster", "YOUNGSTER", "purple", "RT 25", "route-25-trainer-18-5" ] ].map do |key, id, tone, tag, scene|
         b = "#{MEW_GLITCH_K}.untouched.#{key}"
         MewTrainer.new("#{b}.name", "#{b}.where", "#{b}.role", tone,
-          NAME_SPRITES[id] || CLASS_SPRITES.fetch(id))
+          NAME_SPRITES[id] || CLASS_SPRITES.fetch(id), tag, "walkthrough/yellow/scenes/#{scene}.png")
       end
     end
 

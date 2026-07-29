@@ -292,7 +292,9 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-mew-hero__word", text: "Mew"
     assert_select ".pn-mew-tldr__card", count: 5
     assert_select ".pn-mew-phase", count: 3
-    assert_select ".pn-mew-untouched__row", count: 4
+    assert_select ".pn-mew-tcard", count: 4
+    assert_select ".pn-mew-tcard__tag", text: "RT 24"
+    assert_select ".pn-mew-tcard__role", text: "THE TRIGGER"
     # the calculator wires 13 stage buttons to the Stimulus controller, default stage 0 = Lv 7
     assert_select "[data-controller='mew-level'] .pn-mew-stage", count: 13
     assert_select ".pn-mew-stage.is-active", text: "0"
