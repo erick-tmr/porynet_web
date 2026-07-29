@@ -323,7 +323,7 @@ en:
       map_place_note_rocket_hideout: "Team Rocket's base under the Game Corner. Giovanni waits at the bottom, guarding the Silph Scope."
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
       map_npc_route1_potion: "Talk to him for a free Potion, a sample from the Viridian Mart. Handy before the forest."
-      map_npc_route24_nugget: "At the top of Nugget Bridge he hands you a Nugget, then asks you to join Team Rocket. Say no."
+      map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
@@ -447,6 +447,39 @@ en:
         meta_title: "The Mew Glitch · %{game} Walkthrough"
         crumb_cerulean: "CERULEAN"
         crumb_here: "MEW GLITCH"
+        spares:
+          eyebrow: "DO NOT DEFEAT"
+          reminder:
+            label: "CHASING MEW?"
+            text: "Don't beat these four Trainers. See the list below. ↓"
+          title: "Four Trainers to leave standing"
+          standing_label: "STILL STANDING"
+          intro: "You can't run the Mew glitch until you catch an Abra on Route 5, well past this point. Keep playing in the meantime, but leave these four alone. Each one is a piece of the glitch, and beating any of them costs you that step."
+          state:
+            beat: "I BEAT THEM"
+            undo: "↺ UNDO"
+            standing: "still standing ✓"
+            lost: "lost. this step of the glitch is gone"
+          workaround_tag: "WORKAROUND"
+          workaround: "Already beat one? Only an earlier save brings it back. Trading in an Abra that knows Teleport from another cartridge skips the Route 5 wait entirely."
+          cta: "WHY EACH ONE MATTERS ▶"
+          trainers:
+            grass-jr:
+              name: "The grass Trainer"
+              role: "STARTS THE GLITCH"
+              where: "In the tall grass of Route 24, west of Nugget Bridge. Come at the grass from the north so he never spots you."
+            swimmer:
+              name: "First Trainer in the water"
+              role: "SETS MEW'S LEVEL"
+              where: "Cerulean Gym, the first Trainer in the water on the right. His Shellder is the one you Growl at."
+            misty:
+              name: "Misty"
+              role: "BLOCKS THE SWIMMER"
+              where: "The Cerulean Gym Leader. Beat her and the Swimmer behind her is out of reach for the glitch."
+            slowpoke:
+              name: "The Slowpoke kid"
+              role: "SECOND MEW"
+              where: "Near the start of Route 25, the Youngster with the lone Slowpoke. Only needed if you want a second Mew."
         hero:
           back: "◀ CERULEAN CITY"
           tag: "SPECIAL · GLITCH"
@@ -1000,17 +1033,17 @@ en:
               unlock: "Pikachu friendship 147 or higher"
         route_24:
           note: "Nugget Bridge. Oddish, Bellsprout, and a free Charmander."
-          intro: "Five trainers back-to-back, a Rocket, your rival. And a free Charmander waiting at the end."
+          intro: "Your rival first, then five trainers back-to-back and a Rocket. And a free Charmander waiting at the end."
           steps:
             "1":
-              title: "Cross Nugget Bridge"
-              text: "Beat the five trainers in a row, then the Rocket Grunt. Take the Nugget and decline joining Team Rocket."
-            "2":
               title: "Beat your rival"
-              text: "Blue challenges you just past the north end of the bridge. Win, then grab TM45 (Thunder Wave), hidden in the grass patch nearby."
+              text: "As you leave Cerulean north onto Nugget Bridge, Blue challenges you at its foot, before any bridge trainer. Beat him."
+            "2":
+              title: "Cross Nugget Bridge"
+              text: "Beat the five trainers in a row, then the Rocket Grunt at the top. Take the Nugget from him and decline joining Team Rocket."
             "3":
               title: "Take the free Charmander"
-              text: "On the grassy hill to the northwest, a boy hands you a free Charmander (Lv 10). Take it, then head north to Route 25."
+              text: "On the grassy hilltop past the bridge, a boy hands you a free Charmander (Lv 10), and TM45 (Thunder Wave) sits in a ball a few steps east. Grab both, then head north to Route 25."
           tips:
             charmander: "Free from the boy here. A strong Fire line to Charizard, and a great answer to Erika later."
           oak:

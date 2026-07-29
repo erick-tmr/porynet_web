@@ -14,6 +14,12 @@
 
 <% if loc.area_maps? %><%= render "area_map", loc: loc %><% end %>
 
+<% if loc.slug == "cerulean-city" %><%= render "mew_teaser" %><% end %>
+
+<% if loc.mart? %><%= render "mart", loc: loc %><% end %>
+
+<% if loc.slug == "route-24" %><%= render "leave_standing_teaser" %><% end %>
+
 <section class="pn-wt-section">
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
   <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
@@ -65,13 +71,11 @@
   </section>
 <% end %>
 
-<% if loc.slug == "cerulean-city" %><%= render "mew_teaser" %><% end %>
-
 <% if loc.gym? %>
   <%= render "gym", gym: loc.gym, slug: loc.slug %>
 <% end %>
 
-<% if loc.mart? %><%= render "mart", loc: loc %><% end %>
+<% if loc.slug == "route-24" %><%= render "leave_standing" %><% end %>
 
 <% if loc.after_steps.any? %>
   <section class="pn-wt-section">

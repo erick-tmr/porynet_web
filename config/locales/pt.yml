@@ -323,7 +323,7 @@ pt:
       map_place_note_rocket_hideout: "A base da Equipe Rocket embaixo do Game Corner. Giovanni espera lá no fundo, guardando a Silph Scope."
       map_npc_pallet_technology: "\"A tecnologia é incrível!\" O pescador que explica o armazenamento de itens no PC, um clássico de Kanto."
       map_npc_route1_potion: "Fale com ele para ganhar uma Potion grátis, uma amostra do Mercado de Viridian. Útil antes da floresta."
-      map_npc_route24_nugget: "No topo da Ponte da Pepita ele te dá uma Nugget e convida você para a Equipe Rocket. Recuse."
+      map_npc_route24_charmander: "Na colina de grama acima da ponte, este garoto te dá um Charmander grátis (Nv 10). Pegue."
       map_npc_silph_master_ball: "Derrote o Giovanni e o presidente te agradece com a Master Ball, a única do jogo."
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
@@ -447,6 +447,39 @@ pt:
         meta_title: "O Glitch do Mew · Guia de %{game}"
         crumb_cerulean: "CERULEAN"
         crumb_here: "GLITCH DO MEW"
+        spares:
+          eyebrow: "NÃO DERROTE"
+          reminder:
+            label: "CAÇANDO MEW?"
+            text: "Não derrote estes quatro treinadores. Veja a lista abaixo. ↓"
+          title: "Quatro treinadores para deixar de pé"
+          standing_label: "AINDA DE PÉ"
+          intro: "Você não pode rodar o glitch do Mew até capturar um Abra na Rota 5, bem depois daqui. Continue jogando enquanto isso, mas deixe estes quatro em paz. Cada um é uma peça do glitch, e derrotar qualquer um custa essa etapa."
+          state:
+            beat: "EU DERROTEI"
+            undo: "↺ DESFAZER"
+            standing: "ainda de pé ✓"
+            lost: "perdido. essa etapa do glitch se foi"
+          workaround_tag: "SOLUÇÃO"
+          workaround: "Já derrotou um? Só um save anterior o traz de volta. Trazer por troca um Abra que saiba Teleport de outro cartucho pula a espera da Rota 5 por completo."
+          cta: "POR QUE CADA UM IMPORTA ▶"
+          trainers:
+            grass-jr:
+              name: "O treinador na grama"
+              role: "INICIA O GLITCH"
+              where: "Na grama alta da Rota 24, a oeste da Nugget Bridge. Chegue à grama pelo norte para que ele nunca te veja."
+            swimmer:
+              name: "Primeiro treinador na água"
+              role: "DEFINE O NÍVEL DO MEW"
+              where: "Ginásio de Cerulean, o primeiro treinador na água à direita. É no Shellder dele que você usa Growl."
+            misty:
+              name: "Misty"
+              role: "BLOQUEIA O SWIMMER"
+              where: "A líder do Ginásio de Cerulean. Derrote-a e o Swimmer atrás dela fica fora de alcance para o glitch."
+            slowpoke:
+              name: "O garoto do Slowpoke"
+              role: "SEGUNDO MEW"
+              where: "Perto do início da Rota 25, o Youngster com o Slowpoke solitário. Só precisa se você quiser um segundo Mew."
         hero:
           back: "◀ CERULEAN CITY"
           tag: "ESPECIAL · GLITCH"
@@ -1000,17 +1033,17 @@ pt:
               unlock: "Amizade do Pikachu 147 ou mais"
         route_24:
           note: "Nugget Bridge. Oddish, Bellsprout e um Charmander grátis."
-          intro: "Cinco treinadores em sequência, um Rocket, seu rival. E um Charmander grátis no fim."
+          intro: "Seu rival primeiro, depois cinco treinadores em sequência e um Rocket. E um Charmander grátis no fim."
           steps:
             "1":
-              title: "Atravesse a Nugget Bridge"
-              text: "Vença os cinco treinadores em sequência, depois o Rocket Grunt. Pegue o Nugget e RECUSE entrar na Team Rocket."
-            "2":
               title: "Vença seu rival"
-              text: "O Blue te desafia logo depois da ponta norte da ponte. Vença e pegue o TM45 (Thunder Wave), oculto na moita de grama ali perto."
+              text: "Ao sair de Cerulean para o norte na Nugget Bridge, o Blue te desafia no pé da ponte, antes de qualquer treinador dela. Vença."
+            "2":
+              title: "Atravesse a Nugget Bridge"
+              text: "Vença os cinco treinadores em sequência, depois o Rocket Grunt no topo. Pegue o Nugget com ele e RECUSE entrar na Team Rocket."
             "3":
               title: "Pegue o Charmander grátis"
-              text: "Na colina de grama a noroeste, um garoto te dá um Charmander grátis (Nv 10). Pegue e siga ao norte para a Rota 25."
+              text: "Na colina de grama depois da ponte, um garoto te dá um Charmander grátis (Nv 10), e o TM45 (Thunder Wave) está numa ball alguns passos a leste. Pegue os dois e siga ao norte para a Rota 25."
           tips:
             charmander: "Grátis do garoto aqui. Uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
           oak:
