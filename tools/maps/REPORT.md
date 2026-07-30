@@ -3,7 +3,7 @@
 - location maps: **97** across 51 locations
 - markers: **939** (302 trainer, 113 item, 46 hidden, 478 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **64** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **73** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -178,6 +178,15 @@
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
 - `indigo-lance` (screen): walkthrough/yellow/scenes/indigo-lance.png
 - `indigo-lorelei` (screen): walkthrough/yellow/scenes/indigo-lorelei.png
+- `mew-glitch-abra` (screen): walkthrough/yellow/scenes/mew-glitch-abra.png
+- `mew-glitch-bridge` (screen): walkthrough/yellow/scenes/mew-glitch-bridge.png
+- `mew-glitch-center` (screen): walkthrough/yellow/scenes/mew-glitch-center.png
+- `mew-glitch-lineup` (screen): walkthrough/yellow/scenes/mew-glitch-lineup.png
+- `mew-glitch-return` (screen): walkthrough/yellow/scenes/mew-glitch-return.png
+- `mew-glitch-route24` (screen): walkthrough/yellow/scenes/mew-glitch-route24.png
+- `mew-glitch-start` (screen): walkthrough/yellow/scenes/mew-glitch-start.png
+- `mew-glitch-swimmer` (battle): walkthrough/yellow/battles/mew-glitch-swimmer.png
+- `mew-glitch-teleport` (screen): walkthrough/yellow/scenes/mew-glitch-teleport.png
 - `mt-moon-hidden-ether` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-ether.png
 - `mt-moon-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png
 - `mt-moon-jessie-james` (screen): walkthrough/yellow/scenes/mt-moon-jessie-james.png

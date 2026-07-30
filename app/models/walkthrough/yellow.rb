@@ -198,21 +198,21 @@ module Walkthrough
 
     MEW_PHASE_DEFS = [
       { key: "setup", tone: "cyan", steps: [
-        { key: "route24", shot: "SETUP 1" },
-        { key: "bridge", tag: "danger", note: true, shot: "SETUP 2" },
-        { key: "abra", tag: "info", note: true, shot: "SETUP 3" }
+        { key: "route24", shot: "SETUP 1", scene: "mew-glitch-route24" },
+        { key: "bridge", tag: "danger", note: true, shot: "SETUP 2", scene: "mew-glitch-bridge" },
+        { key: "abra", tag: "info", note: true, shot: "SETUP 3", scene: "mew-glitch-abra" }
       ] },
       { key: "glitch", tone: "pink", steps: [
-        { key: "center", shot: "GLITCH 1" },
-        { key: "lineup", note: true, shot: "GLITCH 2" },
-        { key: "start", tag: "info", shot: "GLITCH 3" },
-        { key: "teleport", note: true, shot: "GLITCH 4" },
-        { key: "swimmer", tag: "danger", note: true, shot: "GLITCH 5" }
+        { key: "center", shot: "GLITCH 1", scene: "mew-glitch-center" },
+        { key: "lineup", note: true, shot: "GLITCH 2", scene: "mew-glitch-lineup" },
+        { key: "start", tag: "info", shot: "GLITCH 3", scene: "mew-glitch-start" },
+        { key: "teleport", note: true, shot: "GLITCH 4", scene: "mew-glitch-teleport" },
+        { key: "swimmer", tag: "danger", note: true, shot: "GLITCH 5", scene: "mew-glitch-swimmer" }
       ] },
       { key: "catch", tone: "gold", steps: [
-        { key: "return", tag: "caution", shot: "CATCH 1" },
-        { key: "encounter", shot: "CATCH 2" },
-        { key: "catch", note: true, shot: "CATCH 3" }
+        { key: "return", tag: "caution", shot: "CATCH 1", scene: "mew-glitch-return" },
+        { key: "encounter" },
+        { key: "catch", note: true }
       ] }
     ].freeze
 
@@ -229,7 +229,7 @@ module Walkthrough
       MewStep.new(n: n, title_key: "#{b}.title", text_key: "#{b}.text",
         tag_key: (step[:tag] && "#{b}.tag"), tag_tone: step[:tag],
         note_key: (step[:note] && "#{b}.note"), note_label_key: (step[:note] && "#{b}.note_label"),
-        shot: shot(step[:shot]))
+        shot: step[:scene] && scene_shot(step[:scene], step[:shot]))
     end
 
     def self.mew_second

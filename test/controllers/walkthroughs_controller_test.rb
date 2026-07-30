@@ -302,6 +302,12 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-mew-recipe", count: 13
     assert_select "img[src*=?]", "walkthrough/yellow/art/mew-sugimori.png"
     assert_select "img[src*=?]", "walkthrough/yellow/art/red-and-mew.png"
+    # 9 of the 11 steps carry a generated shot; the two battle-frame steps (Mew appears, catch it)
+    # have none, so no step renders the empty placeholder.
+    assert_select ".pn-mew-step .pn-wt-shot", count: 9
+    assert_select ".pn-mew-step .pn-wt-shot--step", count: 0
+    assert_select "img[src*=?]", "walkthrough/yellow/scenes/mew-glitch-route24.png"
+    assert_select "img[src*=?]", "walkthrough/yellow/battles/mew-glitch-swimmer.png"
   end
 
   test "the Mew glitch page renders in Portuguese" do
