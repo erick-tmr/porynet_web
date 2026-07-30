@@ -337,6 +337,17 @@ def test_mew_center_wears_ceruleans_blue_palette(root):
     assert cerulean_pal != default_pal, "the parent override actually changes the palette"
 
 
+def test_mew_scenes_stand_the_hero_on_walkable_floor(root):
+    # Regression: the Poke Center heal shot stood the hero on the service counter (3, 2) instead of
+    # the floor in front of it. Every Mew scene that places a hero must put them on walkable floor.
+    for spec in json.loads((SPECS / "mew_glitch.json").read_text()):
+        if "player" not in spec:
+            continue
+        cell = tuple(spec["player"])
+        assert _cell_walkable(root, spec["map"], cell), \
+            f"{spec['name']}: hero cell {cell} on {spec['map']} is not walkable floor"
+
+
 def test_mew_swimmer_battle_is_the_gym_swimmer(root):
     # GLITCH 5 is the face-off with the Cerulean Gym Swimmer (OPP_SWIMMER in CeruleanGym).
     spec = _mew_spec("mew-glitch-swimmer")

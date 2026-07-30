@@ -15,7 +15,7 @@
   },
   {
     "type": "screen", "name": "mew-glitch-center", "map": "CeruleanPokecenter",
-    "parent": "CERULEAN_CITY", "player": [3, 2], "player_dir": "UP", "auto_npcs": true
+    "parent": "CERULEAN_CITY", "player": [3, 3], "player_dir": "UP", "auto_npcs": true
   },
   {
     "type": "screen", "name": "mew-glitch-lineup", "map": "Route24",
