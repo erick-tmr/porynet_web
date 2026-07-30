@@ -483,7 +483,7 @@ pt:
         hero:
           back: "◀ CERULEAN CITY"
           tag: "ESPECIAL · GLITCH"
-          games: "RED · BLUE · YELLOW"
+          game: "POKÉMON YELLOW"
           title_html: "O glitch do <span class=\"pn-mew-hero__word\" data-text=\"Mew\">Mew</span>"
           lead: "Capture o #151 usando apenas um Abra selvagem, o Botão START segurado e um Treinador que nunca chega a batalhar com você. Cerulean City é o lugar limpo mais cedo para fazer isso, antes da Misty, e quase não custa nada."
           card_no: "◈ Nº 151"
@@ -527,17 +527,17 @@ pt:
             text: "Entre de novo na Rota 24, feche o menu que abre sozinho e o Mew aparece."
         warn:
           badge: "LEIA PRIMEIRO"
-          title: "Este glitch apaga um NPC. Escolha qual."
-          lead: "O jogo trata o Mew como um encontro do mapa, como o Snorlax, então quando a batalha acaba ele tenta apagar o objeto do mapa de onde veio. Não existe um, então ele apaga algo de uma área que você visitou antes. Siga a rota abaixo exatamente e a baixa é conhecida e inofensiva."
-          safe:
-            label: "SEGURO · RED & BLUE"
-            text: "Viaje só de Cerulean para a Rota 24 (ou Cerulean para 24 para 25 para 24). O objeto apagado é o segundo policial ao lado da casa assaltada, invisível até você conhecer o Bill, então faça isso antes do Bill e nada se perde."
-          perm:
-            label: "PERMANENTE · YELLOW"
-            text: "Yellow não tem Abra selvagem nas Rotas 24 ou 25, então o caminho normal te leva passando pelo Bill até a Rota 5 para pegar um. Conhecer o Bill carrega aquele segundo policial, e o glitch então o remove de vez. Vencer o Rocket atrás da casa assaltada o restaura, mas você precisa vencer esse Rocket de qualquer jeito para chegar à Rota 5. Só cosmético: seu jogo apenas fica com um policial a menos."
+          title: "Este glitch apaga um NPC, e é inofensivo."
+          lead: "O jogo captura o Mew como se fosse um encontro único do mapa, tipo o Snorlax, então quando a batalha acaba ele tenta apagar o sprite do mapa de onde acha que o Mew veio, para você não lutar de novo. Não existe esse sprite, e nada verifica isso, então o jogo apaga um sprite de uma área por onde você passou antes. Siga a rota abaixo e essa baixa é uma conhecida e inofensiva."
+          lose:
+            label: "O QUE VOCÊ PERDE"
+            text: "O policial que guarda a casa assaltada em Cerulean. Yellow te obriga a passar pelo Bill na Rota 25 para pegar um Abra, então quando você consegue fazer isso o policial já está de plantão, e o glitch então o remove de vez. Puramente cosmético: seu jogo apenas fica com um policial a menos."
+          keep:
+            label: "MANTENHA SÓ ESSE"
+            text: "Qual sprite morre depende de onde você está quando o Mew aparece. Viaje só de Cerulean para a Rota 24 (ou Cerulean para 24 para 25 para 24). Entre em qualquer outra área entre o Teleport e o encontro e o jogo pode apagar um objeto de lá, um que pode importar."
           workaround:
-            badge: "ALTERNATIVA"
-            text: "Traga por troca um Abra que saiba Teleport de outro cartucho e faça o glitch antes de visitar o Bill, igual em Red e Blue."
+            badge: "SEM ATALHO"
+            text: "Trazer por troca um Abra com Teleport te deixa fazer o glitch antes do Bill, mas nunca fica sem perdas: o jogo sempre esconde o sprite que fica logo depois da lista da Rota 24 na memória. Depois do Bill é o policial inofensivo; antes, a baixa é um objeto diferente e menos previsível. Siga a rota e aceite o policial."
           deep_html: "// aprofundamento sobre qual objeto morre e por quê: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch no glitchcity</a>"
         prereq:
           eyebrow: "ANTES DE COMEÇAR"
@@ -564,7 +564,7 @@ pt:
           label: "LISTA DA MOCHILA"
           abra:
             name: "Um Abra que saiba Teleport"
-            note: "R/B: Rotas 24 a 25. Yellow: Rota 5, depois do Bill."
+            note: "Rota 5, a Abra selvagem mais próxima, depois do Bill."
           balls:
             name: "Poké Balls, bastante"
             note: "A taxa de captura do Mew é baixa e Cerulean não vende nada melhor."
@@ -595,10 +595,10 @@ pt:
                 note: "Aquele Treinador no mato é o glitch inteiro. Se ele sumir, seu Mew também."
               abra:
                 title: "Consiga um Abra com Teleport"
-                text: "Red/Blue: capture um no mato da Rota 24 ou 25, chegando pelo norte para que o Jr. Trainer♂ nunca te veja. Yellow: siga até o Bill na Rota 25, depois capture um Abra na Rota 5."
-                tag: "YELLOW É DIFERENTE"
+                text: "Não há Abra selvagem antes do Bill, então siga até ele na Rota 25, depois capture um Abra no mato da Rota 5. Volte para Cerulean quando ele souber Teleport."
+                tag: "A LONGA ESPERA"
                 note_label: "CUSTO"
-                note: "Conhecer o Bill primeiro é o que faz Yellow perder aquele policial de vez. Leia o aviso acima."
+                note: "Conhecer o Bill é o que deixa aquele policial visível, e perdível. Leia o aviso acima."
           glitch:
             label: "FASE 2 · O GLITCH"
             title: "Quebre o encontro"

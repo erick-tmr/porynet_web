@@ -32,6 +32,11 @@ module PorynetWeb
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
 
+    # We never build Active Storage image variants (walkthrough art is pre-rendered and served from
+    # R2), so skip the variant processor. Rails 8's default (:vips) makes Active Storage require the
+    # ruby-vips gem at boot, a native dependency this app has no use for.
+    config.active_storage.variant_processor = :disabled
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

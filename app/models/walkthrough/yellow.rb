@@ -173,11 +173,13 @@ module Walkthrough
     end
 
     def self.mew_untouched
-      [ [ "trigger", "JR. TRAINER♂", "pink" ], [ "swimmer", "SWIMMER", "cyan" ],
-        [ "misty", "Misty", "cyan" ], [ "youngster", "YOUNGSTER", "purple" ] ].map do |key, id, tone|
+      [ [ "trigger", "JR. TRAINER♂", "pink", "RT 24", "route-24-trainer-5-20" ],
+        [ "swimmer", "SWIMMER", "cyan", "GYM", "cerulean-city-gym-trainer-8-7" ],
+        [ "misty", "Misty", "cyan", "GYM", "cerulean-city-gym-trainer-4-2" ],
+        [ "youngster", "YOUNGSTER", "purple", "RT 25", "route-25-trainer-18-5" ] ].map do |key, id, tone, tag, scene|
         b = "#{MEW_GLITCH_K}.untouched.#{key}"
         MewTrainer.new("#{b}.name", "#{b}.where", "#{b}.role", tone,
-          NAME_SPRITES[id] || CLASS_SPRITES.fetch(id))
+          NAME_SPRITES[id] || CLASS_SPRITES.fetch(id), tag, "walkthrough/yellow/scenes/#{scene}.png")
       end
     end
 
@@ -196,21 +198,21 @@ module Walkthrough
 
     MEW_PHASE_DEFS = [
       { key: "setup", tone: "cyan", steps: [
-        { key: "route24", shot: "SETUP 1" },
-        { key: "bridge", tag: "danger", note: true, shot: "SETUP 2" },
-        { key: "abra", tag: "info", note: true, shot: "SETUP 3" }
+        { key: "route24", shot: "SETUP 1", scene: "mew-glitch-route24" },
+        { key: "bridge", tag: "danger", note: true, shot: "SETUP 2", scene: "mew-glitch-bridge" },
+        { key: "abra", tag: "info", note: true, shot: "SETUP 3", scene: "mew-glitch-abra" }
       ] },
       { key: "glitch", tone: "pink", steps: [
-        { key: "center", shot: "GLITCH 1" },
-        { key: "lineup", note: true, shot: "GLITCH 2" },
-        { key: "start", tag: "info", shot: "GLITCH 3" },
-        { key: "teleport", note: true, shot: "GLITCH 4" },
-        { key: "swimmer", tag: "danger", note: true, shot: "GLITCH 5" }
+        { key: "center", shot: "GLITCH 1", scene: "mew-glitch-center" },
+        { key: "lineup", note: true, shot: "GLITCH 2", scene: "mew-glitch-lineup" },
+        { key: "start", tag: "info", shot: "GLITCH 3", scene: "mew-glitch-start" },
+        { key: "teleport", note: true, shot: "GLITCH 4", scene: "mew-glitch-teleport" },
+        { key: "swimmer", tag: "danger", note: true, shot: "GLITCH 5", scene: "mew-glitch-swimmer" }
       ] },
       { key: "catch", tone: "gold", steps: [
-        { key: "return", tag: "caution", shot: "CATCH 1" },
-        { key: "encounter", shot: "CATCH 2" },
-        { key: "catch", note: true, shot: "CATCH 3" }
+        { key: "return", tag: "caution", shot: "CATCH 1", scene: "mew-glitch-return" },
+        { key: "encounter" },
+        { key: "catch", note: true }
       ] }
     ].freeze
 
@@ -227,7 +229,7 @@ module Walkthrough
       MewStep.new(n: n, title_key: "#{b}.title", text_key: "#{b}.text",
         tag_key: (step[:tag] && "#{b}.tag"), tag_tone: step[:tag],
         note_key: (step[:note] && "#{b}.note"), note_label_key: (step[:note] && "#{b}.note_label"),
-        shot: shot(step[:shot]))
+        shot: step[:scene] && scene_shot(step[:scene], step[:shot]))
     end
 
     def self.mew_second

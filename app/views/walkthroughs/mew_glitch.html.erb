@@ -21,7 +21,7 @@
       <div class="pn-mew-hero__tags">
         <%= link_to t("#{mg}.hero.back"), walkthrough_leg_path(game: @game.slug, leg: "leg-04"), class: "pn-mew-hero__back" %>
         <span class="pn-mew-tag pn-mew-tag--glitch"><%= t("#{mg}.hero.tag") %></span>
-        <span class="pn-mew-hero__games"><%= t("#{mg}.hero.games") %></span>
+        <span class="pn-mew-hero__games"><%= t("#{mg}.hero.game") %></span>
       </div>
       <h1 class="pn-mew-hero__title"><%= t("#{mg}.hero.title_html") %></h1>
       <p class="pn-mew-hero__lead"><%= t("#{mg}.hero.lead") %></p>
@@ -84,13 +84,13 @@
     </div>
     <p class="pn-mew-warn__lead"><%= t("#{mg}.warn.lead") %></p>
     <div class="pn-mew-warn__cols">
-      <div class="pn-mew-warn__col pn-mew-warn__col--safe">
-        <div class="pn-mew-warn__col-label"><%= t("#{mg}.warn.safe.label") %></div>
-        <p class="pn-mew-warn__col-text"><%= t("#{mg}.warn.safe.text") %></p>
+      <div class="pn-mew-warn__col pn-mew-warn__col--lose">
+        <div class="pn-mew-warn__col-label"><%= t("#{mg}.warn.lose.label") %></div>
+        <p class="pn-mew-warn__col-text"><%= t("#{mg}.warn.lose.text") %></p>
       </div>
-      <div class="pn-mew-warn__col pn-mew-warn__col--perm">
-        <div class="pn-mew-warn__col-label"><%= t("#{mg}.warn.perm.label") %></div>
-        <p class="pn-mew-warn__col-text"><%= t("#{mg}.warn.perm.text") %></p>
+      <div class="pn-mew-warn__col pn-mew-warn__col--keep">
+        <div class="pn-mew-warn__col-label"><%= t("#{mg}.warn.keep.label") %></div>
+        <p class="pn-mew-warn__col-text"><%= t("#{mg}.warn.keep.text") %></p>
       </div>
     </div>
     <div class="pn-mew-warn__around">
@@ -106,21 +106,27 @@
   <div class="pn-eyebrow-label"><%= t("#{mg}.prereq.eyebrow") %></div>
   <h2 class="pn-h2"><%= t("#{mg}.prereq.h2") %></h2>
   <p class="pn-wt-lead"><%= t("#{mg}.prereq.lead") %></p>
-  <div class="pn-mew-prereq">
-    <div class="pn-mew-untouched">
-      <% @guide.untouched.each do |tr| %>
-        <div class="pn-mew-untouched__row">
-          <span class="pn-mew-untouched__x" aria-hidden="true">&times;</span>
-          <%= r2_image_tag "walkthrough/yellow/trainers/#{tr.sprite}.png", alt: "", class: "pn-mew-untouched__sprite", loading: "lazy" %>
-          <div class="pn-mew-untouched__main">
-            <div class="pn-mew-untouched__name"><%= t(tr.name_key) %></div>
-            <div class="pn-mew-untouched__where"><%= t(tr.where_key) %></div>
-          </div>
-          <span class="pn-mew-untouched__role pn-mew-untouched__role--<%= tr.role_tone %>"><%= t(tr.role_key) %></span>
+  <div class="pn-mew-untouched">
+    <% @guide.untouched.each do |tr| %>
+      <div class="pn-mew-tcard pn-mew-tcard--<%= tr.role_tone %>">
+        <div class="pn-mew-tcard__shot">
+          <%= r2_image_tag tr.shot, alt: "", class: "pn-mew-tcard__img", loading: "lazy" %>
+          <span class="pn-mew-tcard__tag"><%= tr.tag %></span>
         </div>
-      <% end %>
-    </div>
-    <div class="pn-mew-prereq__side">
+        <div class="pn-mew-tcard__body">
+          <div class="pn-mew-tcard__head">
+            <span class="pn-mew-tcard__sprite">
+              <%= r2_image_tag "walkthrough/yellow/trainers/#{tr.sprite}.png", alt: "", class: "pn-mew-tcard__sprite-img", loading: "lazy" %>
+            </span>
+            <span class="pn-mew-tcard__name"><%= t(tr.name_key) %></span>
+          </div>
+          <div class="pn-mew-tcard__where"><%= t(tr.where_key) %></div>
+          <span class="pn-mew-tcard__role"><%= t(tr.role_key) %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="pn-mew-prereq__side">
       <div class="pn-mew-pack">
         <div class="pn-mew-pack__label"><%= t("#{mg}.pack.label") %></div>
         <% @guide.packlist.each do |item| %>
@@ -151,7 +157,6 @@
         </div>
       </div>
     </div>
-  </div>
 </section>
 
 <%# ---- STEPS ---- %>

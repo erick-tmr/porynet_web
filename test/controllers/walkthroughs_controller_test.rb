@@ -292,7 +292,9 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-mew-hero__word", text: "Mew"
     assert_select ".pn-mew-tldr__card", count: 5
     assert_select ".pn-mew-phase", count: 3
-    assert_select ".pn-mew-untouched__row", count: 4
+    assert_select ".pn-mew-tcard", count: 4
+    assert_select ".pn-mew-tcard__tag", text: "RT 24"
+    assert_select ".pn-mew-tcard__role", text: "THE TRIGGER"
     # the calculator wires 13 stage buttons to the Stimulus controller, default stage 0 = Lv 7
     assert_select "[data-controller='mew-level'] .pn-mew-stage", count: 13
     assert_select ".pn-mew-stage.is-active", text: "0"
@@ -300,6 +302,12 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-mew-recipe", count: 13
     assert_select "img[src*=?]", "walkthrough/yellow/art/mew-sugimori.png"
     assert_select "img[src*=?]", "walkthrough/yellow/art/red-and-mew.png"
+    # 9 of the 11 steps carry a generated shot; the two battle-frame steps (Mew appears, catch it)
+    # have none, so no step renders the empty placeholder.
+    assert_select ".pn-mew-step .pn-wt-shot", count: 9
+    assert_select ".pn-mew-step .pn-wt-shot--step", count: 0
+    assert_select "img[src*=?]", "walkthrough/yellow/scenes/mew-glitch-route24.png"
+    assert_select "img[src*=?]", "walkthrough/yellow/battles/mew-glitch-swimmer.png"
   end
 
   test "the Mew glitch page renders in Portuguese" do

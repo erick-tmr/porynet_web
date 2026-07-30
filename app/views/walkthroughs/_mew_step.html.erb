@@ -21,7 +21,9 @@
           </div>
         <% end %>
       </div>
-      <div class="pn-wt-shot__side"><%= render "shot", shot: step.shot %></div>
+      <% if step.shot %>
+        <div class="pn-wt-shot__side"><%= render "shot", shot: step.shot %></div>
+      <% end %>
     </div>
   </div>
 </div>

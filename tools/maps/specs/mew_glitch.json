@@ -1,0 +1,42 @@
+[
+  {
+    "type": "screen", "name": "mew-glitch-route24", "map": "Route24",
+    "player": [10, 33], "player_dir": "UP", "auto_npcs": false,
+    "arrows": [{ "dir": "up", "grid": [10, 31] }]
+  },
+  {
+    "type": "screen", "name": "mew-glitch-bridge", "map": "Route24",
+    "player": [10, 23], "player_dir": "UP", "focus": [8, 20], "auto_npcs": true,
+    "arrows": [{ "dir": "down", "grid": [5, 18] }]
+  },
+  {
+    "type": "screen", "name": "mew-glitch-abra", "map": "Route5",
+    "player": [9, 9], "player_dir": "DOWN", "auto_npcs": false
+  },
+  {
+    "type": "screen", "name": "mew-glitch-center", "map": "CeruleanPokecenter",
+    "parent": "CERULEAN_CITY", "player": [3, 3], "player_dir": "UP", "auto_npcs": true
+  },
+  {
+    "type": "screen", "name": "mew-glitch-lineup", "map": "Route24",
+    "player": [5, 19], "player_dir": "DOWN", "focus": [5, 19], "auto_npcs": true
+  },
+  {
+    "type": "screen", "name": "mew-glitch-start", "map": "Route24",
+    "player": [5, 18], "player_dir": "DOWN", "focus": [5, 19],
+    "sprites": [{ "sprite": "SPRITE_COOLTRAINER_M", "grid": [5, 20], "dir": "UP", "emote": "shock" }]
+  },
+  {
+    "type": "screen", "name": "mew-glitch-teleport", "map": "CeruleanCity",
+    "player": [19, 18], "player_dir": "DOWN", "focus": [19, 17], "auto_npcs": false
+  },
+  {
+    "type": "battle", "name": "mew-glitch-swimmer", "opponent": "SWIMMER",
+    "enemy_balls": 2, "player_balls": 4
+  },
+  {
+    "type": "screen", "name": "mew-glitch-return", "map": "CeruleanCity",
+    "player": [20, 4], "player_dir": "UP", "focus": [20, 3], "auto_npcs": false,
+    "arrows": [{ "dir": "up", "grid": [20, 2] }]
+  }
+]

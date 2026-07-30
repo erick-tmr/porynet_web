@@ -273,8 +273,9 @@ module Walkthrough
   MewFact = Data.define(:label_key, :value_key, :tone)
   MewTldr = Data.define(:n, :title_key, :text_key, :phase)
   # A trainer to leave standing, identified by class + spot (no battle needed for the card).
-  # `sprite` is a trainer-sprite basename (walkthrough/yellow/trainers/<sprite>.png).
-  MewTrainer = Data.define(:name_key, :where_key, :role_key, :role_tone, :sprite)
+  # `sprite` is a trainer-sprite basename (walkthrough/yellow/trainers/<sprite>.png); `shot` is the
+  # generator's per-Trainer scene image key; `tag` is the map-band chip drawn over that shot.
+  MewTrainer = Data.define(:name_key, :where_key, :role_key, :role_tone, :sprite, :tag, :shot)
   MewSleeper = Data.define(:dex, :name, :move_key)
   # One pack-list row: either a Pokémon (`dex` set) or a plain tile with a `glyph` like "x20".
   MewPackItem = Data.define(:dex, :glyph, :name_key, :note_key) do

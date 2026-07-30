@@ -483,7 +483,7 @@ en:
         hero:
           back: "◀ CERULEAN CITY"
           tag: "SPECIAL · GLITCH"
-          games: "RED · BLUE · YELLOW"
+          game: "POKÉMON YELLOW"
           title_html: "The <span class=\"pn-mew-hero__word\" data-text=\"Mew\">Mew</span> glitch"
           lead: "Catch #151 with nothing but a wild Abra, a held START Button, and a Trainer who never gets to battle you. Cerulean City is the earliest clean place to pull it off, before Misty, and it costs you almost nothing."
           card_no: "◈ No. 151"
@@ -527,17 +527,17 @@ en:
             text: "Re-enter Route 24, close the menu that opens itself, and Mew appears."
         warn:
           badge: "READ FIRST"
-          title: "This glitch deletes an NPC. Pick which one."
-          lead: "The game treats Mew as an overworld encounter, like Snorlax, so once the battle ends it tries to delete the overworld object it came from. There isn't one, so it deletes something from an area you visited earlier instead. Follow the route below exactly and the casualty is a known, harmless one."
-          safe:
-            label: "SAFE · RED & BLUE"
-            text: "Travel only Cerulean to Route 24 (or Cerulean to 24 to 25 to 24). The object deleted is the second police officer beside the burgled house, invisible until you meet Bill, so do this before Bill and nothing is lost."
-          perm:
-            label: "PERMANENT · YELLOW"
-            text: "Yellow has no wild Abra on Routes 24 or 25, so the usual route sends you past Bill to Route 5 for one. Meeting Bill loads that second officer, and the glitch then removes them for good. Beating the Rocket behind the burgled house restores them, but you have to beat that Rocket anyway to reach Route 5. Cosmetic only: your game just runs one officer short."
+          title: "This glitch deletes one NPC, and it's harmless."
+          lead: "The game catches Mew as if it were a one-time overworld encounter, like Snorlax, so when the battle ends it tries to delete the map sprite it thinks Mew came from, to stop you re-fighting it. There is no such sprite, and nothing checks for that, so the game deletes a sprite from an area you passed through earlier instead. Keep to the route below and that casualty is a known, harmless one."
+          lose:
+            label: "WHAT YOU LOSE"
+            text: "The police officer guarding the robbed house in Cerulean. Yellow makes you pass Bill on Route 25 to reach an Abra, so by the time you can run this the officer is already on duty, and the glitch then removes them for good. Purely cosmetic: your game just runs one officer short."
+          keep:
+            label: "KEEP IT TO THAT ONE"
+            text: "Which sprite dies depends on where you stand when Mew appears. Travel only Cerulean to Route 24 (or Cerulean to 24 to 25 to 24). Step into any other area between the Teleport and the encounter and the game can delete an object from there instead, one that might matter."
           workaround:
-            badge: "WORKAROUND"
-            text: "Trade in an Abra that knows Teleport from another cart and run the glitch before visiting Bill, same as Red and Blue."
+            badge: "NO FREE PASS"
+            text: "Trading in a Teleport Abra lets you run the glitch before Bill, but it never makes it lossless: the game always hides whatever sprite sits just past Route 24's list in memory. After Bill that is the harmless officer; run it earlier and the casualty is a different, less predictable object. Follow the route and take the officer."
           deep_html: "// deep dive on which object dies and why: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch on glitchcity</a>"
         prereq:
           eyebrow: "BEFORE YOU START"
@@ -564,7 +564,7 @@ en:
           label: "PACK LIST"
           abra:
             name: "An Abra that knows Teleport"
-            note: "R/B: Routes 24 to 25. Yellow: Route 5, after Bill."
+            note: "Route 5, the earliest wild Abra, past Bill."
           balls:
             name: "Poké Balls, plenty"
             note: "Mew's catch rate is low and Cerulean sells nothing better."
@@ -595,10 +595,10 @@ en:
                 note: "That grass Trainer is the whole glitch. If he's gone, so is your Mew."
               abra:
                 title: "Get an Abra with Teleport"
-                text: "Red/Blue: catch one in the grass on Route 24 or 25, approaching from the north so the Jr. Trainer♂ never spots you. Yellow: push on to Bill on Route 25, then catch an Abra on Route 5."
-                tag: "YELLOW DIFFERS"
+                text: "There is no wild Abra before Bill, so carry on to him on Route 25, then catch an Abra in the grass on Route 5. Come back to Cerulean once it knows Teleport."
+                tag: "THE LONG WAIT"
                 note_label: "COST"
-                note: "Meeting Bill first is what makes Yellow lose that police officer for good. Read the warning above."
+                note: "Visiting Bill is what makes that police officer visible, and losable. Read the warning above."
           glitch:
             label: "PHASE 2 · THE GLITCH"
             title: "Break the encounter"

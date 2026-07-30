@@ -3,6 +3,7 @@ import pathlib
 
 import pytest
 
+import compositor
 import follower
 import generators
 import markers
@@ -31,6 +32,21 @@ def _trade_spec(name):
 def _step_shot(name):
     entries = json.loads((SPECS / "step_shots.json").read_text())
     return next(s for s in entries if s["name"] == name)
+
+
+def _mew_spec(name):
+    entries = json.loads((SPECS / "mew_glitch.json").read_text())
+    return next(s for s in entries if s["name"] == name)
+
+
+def _route24_grass_trigger(root):
+    """The Jr. Trainer the Mew glitch triggers on: the OPP_JR_TRAINER_M standing in Route 24's tall
+    grass, not the identically-classed one out on the bridge planks."""
+    grass = compositor.grass_cells(root, "Route24")
+    objs = sources.parse_object_events(root, "Route24", include_battlers=True)
+    trainers = [o for o in objs if o["opp_class"] == "JR_TRAINER_M" and o["grid"] in grass]
+    assert len(trainers) == 1, "exactly one Jr. Trainer stands in the grass"
+    return trainers[0]["grid"]
 
 
 def _cell_walkable(root, map_label, cell):
@@ -268,3 +284,73 @@ def test_a_map_scene_without_a_hero_draws_no_follower(root, pikachu_follower):
 def test_unknown_type_raises(root):
     with pytest.raises(ValueError):
         generators.generate(root, {"type": "bogus", "name": "x"})
+
+
+def test_mew_start_shows_the_trigger_trainer_with_the_bang(root):
+    # The GLITCH 3 caption is about the "!" the grass Jr. Trainer throws when he spots you, so he
+    # and his shock emote are the whole composed cast: no bridge crowd, no other Route 24 people.
+    spec = _mew_spec("mew-glitch-start")
+    trigger = _route24_grass_trigger(root)
+    placed = spec["sprites"]
+    assert len(placed) == 1 and tuple(placed[0]["grid"]) == trigger, "the trigger trainer is placed"
+    assert placed[0]["emote"] == "shock", "he throws the ! the caption points at"
+    grids = [tuple(s["grid"]) for s in generators._screen_sprites(root, spec)]
+    assert grids == [tuple(spec["player"]), trigger], "hand-composed: only the hero and the trigger"
+
+
+def test_mew_lineup_stands_one_tile_north_of_the_trigger(root):
+    # GLITCH 2 lines the hero up one tile north of that same grass trainer, facing him.
+    spec = _mew_spec("mew-glitch-lineup")
+    tx, ty = _route24_grass_trigger(root)
+    assert tuple(spec["player"]) == (tx, ty - 1), "one tile north of the trigger trainer"
+    assert spec["player_dir"] == "DOWN", "facing down toward him"
+
+
+def test_mew_grass_scenes_stand_the_hero_in_tall_grass(root):
+    # Regression: the Abra shot first stood the hero below Route 5's grass patch. The three grass
+    # scenes (catch an Abra, line up, get spotted) each have to put the hero on real tall grass.
+    for name in ("mew-glitch-abra", "mew-glitch-lineup", "mew-glitch-start"):
+        spec = _mew_spec(name)
+        assert tuple(spec["player"]) in compositor.grass_cells(root, spec["map"]), \
+            f"{name}: hero stands in tall grass"
+
+
+def test_mew_bridge_arrow_points_at_the_trigger_trainer(root):
+    # The Nugget Bridge shot has to flag WHICH Jr. Trainer to leave alone, so a down arrow sits
+    # above the grass one (the trigger), not the identically-classed trainers out on the planks.
+    spec = _mew_spec("mew-glitch-bridge")
+    tx, ty = _route24_grass_trigger(root)
+    arrows = spec["arrows"]
+    assert len(arrows) == 1, "one arrow"
+    ax, ay = arrows[0]["grid"]
+    assert ax == tx and ay < ty and arrows[0]["dir"] == "down", "a down arrow above the grass trainer"
+
+
+def test_mew_center_wears_ceruleans_blue_palette(root):
+    # The Cerulean Poke Center interior should inherit Cerulean's blue palette, not the default
+    # green, so the heal shot reads as the same city the teleport and return shots do.
+    spec = _mew_spec("mew-glitch-center")
+    assert spec.get("parent") == "CERULEAN_CITY", "the interior inherits Cerulean's palette"
+    const, tileset = sources.parse_headers(root)["CeruleanPokecenter"]
+    default_pal = sources.resolve_palette_id(root, const, tileset, None)
+    cerulean_pal = sources.resolve_palette_id(root, const, tileset, "CERULEAN_CITY")
+    assert cerulean_pal != default_pal, "the parent override actually changes the palette"
+
+
+def test_mew_scenes_stand_the_hero_on_walkable_floor(root):
+    # Regression: the Poke Center heal shot stood the hero on the service counter (3, 2) instead of
+    # the floor in front of it. Every Mew scene that places a hero must put them on walkable floor.
+    for spec in json.loads((SPECS / "mew_glitch.json").read_text()):
+        if "player" not in spec:
+            continue
+        cell = tuple(spec["player"])
+        assert _cell_walkable(root, spec["map"], cell), \
+            f"{spec['name']}: hero cell {cell} on {spec['map']} is not walkable floor"
+
+
+def test_mew_swimmer_battle_is_the_gym_swimmer(root):
+    # GLITCH 5 is the face-off with the Cerulean Gym Swimmer (OPP_SWIMMER in CeruleanGym).
+    spec = _mew_spec("mew-glitch-swimmer")
+    assert spec["type"] == "battle" and spec["opponent"] == "SWIMMER"
+    gym = sources.parse_object_events(root, "CeruleanGym", include_battlers=True)
+    assert any(o["opp_class"] == "SWIMMER" for o in gym), "the gym really has a Swimmer to fight"
