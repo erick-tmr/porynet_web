@@ -483,7 +483,7 @@ pt:
         hero:
           back: "◀ CERULEAN CITY"
           tag: "ESPECIAL · GLITCH"
-          games: "RED · BLUE · YELLOW"
+          game: "POKÉMON YELLOW"
           title_html: "O glitch do <span class=\"pn-mew-hero__word\" data-text=\"Mew\">Mew</span>"
           lead: "Capture o #151 usando apenas um Abra selvagem, o Botão START segurado e um Treinador que nunca chega a batalhar com você. Cerulean City é o lugar limpo mais cedo para fazer isso, antes da Misty, e quase não custa nada."
           card_no: "◈ Nº 151"
