@@ -528,13 +528,16 @@ pt:
         warn:
           badge: "LEIA PRIMEIRO"
           title: "Este glitch apaga um NPC, e é inofensivo."
-          lead: "O jogo trata o Mew como um encontro do mapa, como o Snorlax, então quando a batalha acaba ele tenta apagar o objeto do mapa de onde veio. Não existe um, então ele apaga algo de uma área que você visitou antes. Em Yellow a baixa é sempre a mesma, e é conhecida e inofensiva."
-          perm:
-            label: "PERMANENTE"
-            text: "A baixa é o segundo policial ao lado da casa assaltada. Yellow não tem Abra selvagem nas Rotas 24 ou 25, então o caminho normal te leva passando pelo Bill até a Rota 5 para pegar um. Conhecer o Bill carrega aquele policial, e o glitch então o remove de vez. Vencer o Rocket atrás da casa assaltada o restaura, mas você precisa vencer esse Rocket de qualquer jeito para chegar à Rota 5. Só cosmético: seu jogo apenas fica com um policial a menos."
+          lead: "O jogo captura o Mew como se fosse um encontro único do mapa, tipo o Snorlax, então quando a batalha acaba ele tenta apagar o sprite do mapa de onde acha que o Mew veio, para você não lutar de novo. Não existe esse sprite, e nada verifica isso, então o jogo apaga um sprite de uma área por onde você passou antes. Siga a rota abaixo e essa baixa é uma conhecida e inofensiva."
+          lose:
+            label: "O QUE VOCÊ PERDE"
+            text: "O policial que guarda a casa assaltada em Cerulean. Yellow te obriga a passar pelo Bill na Rota 25 para pegar um Abra, então quando você consegue fazer isso o policial já está de plantão, e o glitch então o remove de vez. Puramente cosmético: seu jogo apenas fica com um policial a menos."
+          keep:
+            label: "MANTENHA SÓ ESSE"
+            text: "Qual sprite morre depende de onde você está quando o Mew aparece. Viaje só de Cerulean para a Rota 24 (ou Cerulean para 24 para 25 para 24). Entre em qualquer outra área entre o Teleport e o encontro e o jogo pode apagar um objeto de lá, um que pode importar."
           workaround:
             badge: "ALTERNATIVA"
-            text: "Traga por troca um Abra que já saiba Teleport de outro cartucho e você pode fazer o glitch antes de visitar o Bill, assim o policial nunca é carregado e nada se perde."
+            text: "Traga por troca um Abra que já saiba Teleport de outro cartucho e você pode fazer o glitch antes de visitar o Bill. O policial só vira a baixa depois disso, então nada se perde."
           deep_html: "// aprofundamento sobre qual objeto morre e por quê: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch no glitchcity</a>"
         prereq:
           eyebrow: "ANTES DE COMEÇAR"
