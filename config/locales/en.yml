@@ -536,8 +536,8 @@ en:
             label: "KEEP IT TO THAT ONE"
             text: "Which sprite dies depends on where you stand when Mew appears. Travel only Cerulean to Route 24 (or Cerulean to 24 to 25 to 24). Step into any other area between the Teleport and the encounter and the game can delete an object from there instead, one that might matter."
           workaround:
-            badge: "WORKAROUND"
-            text: "Trade in an Abra that already knows Teleport from another cart and you can run the glitch before ever visiting Bill. The officer only becomes the casualty once you have, so nothing is lost."
+            badge: "NO FREE PASS"
+            text: "Trading in a Teleport Abra lets you run the glitch before Bill, but it never makes it lossless: the game always hides whatever sprite sits just past Route 24's list in memory. After Bill that is the harmless officer; run it earlier and the casualty is a different, less predictable object. Follow the route and take the officer."
           deep_html: "// deep dive on which object dies and why: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch on glitchcity</a>"
         prereq:
           eyebrow: "BEFORE YOU START"

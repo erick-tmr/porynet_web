@@ -536,8 +536,8 @@ pt:
             label: "MANTENHA SÓ ESSE"
             text: "Qual sprite morre depende de onde você está quando o Mew aparece. Viaje só de Cerulean para a Rota 24 (ou Cerulean para 24 para 25 para 24). Entre em qualquer outra área entre o Teleport e o encontro e o jogo pode apagar um objeto de lá, um que pode importar."
           workaround:
-            badge: "ALTERNATIVA"
-            text: "Traga por troca um Abra que já saiba Teleport de outro cartucho e você pode fazer o glitch antes de visitar o Bill. O policial só vira a baixa depois disso, então nada se perde."
+            badge: "SEM ATALHO"
+            text: "Trazer por troca um Abra com Teleport te deixa fazer o glitch antes do Bill, mas nunca fica sem perdas: o jogo sempre esconde o sprite que fica logo depois da lista da Rota 24 na memória. Depois do Bill é o policial inofensivo; antes, a baixa é um objeto diferente e menos previsível. Siga a rota e aceite o policial."
           deep_html: "// aprofundamento sobre qual objeto morre e por quê: <a href=\"https://archives.glitchcity.info/forums/board-107/thread-7490/page-0.html\" target=\"_blank\" rel=\"noreferrer\">TheZZAZZGlitch no glitchcity</a>"
         prereq:
           eyebrow: "ANTES DE COMEÇAR"
