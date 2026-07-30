@@ -592,10 +592,10 @@ pt:
                 note: "Aquele Treinador no mato é o glitch inteiro. Se ele sumir, seu Mew também."
               abra:
                 title: "Consiga um Abra com Teleport"
-                text: "Red/Blue: capture um no mato da Rota 24 ou 25, chegando pelo norte para que o Jr. Trainer♂ nunca te veja. Yellow: siga até o Bill na Rota 25, depois capture um Abra na Rota 5."
-                tag: "YELLOW É DIFERENTE"
+                text: "Não há Abra selvagem antes do Bill, então siga até ele na Rota 25, depois capture um Abra no mato da Rota 5. Volte para Cerulean quando ele souber Teleport."
+                tag: "A LONGA ESPERA"
                 note_label: "CUSTO"
-                note: "Conhecer o Bill primeiro é o que faz Yellow perder aquele policial de vez. Leia o aviso acima."
+                note: "Conhecer o Bill é o que deixa aquele policial visível, e perdível. Leia o aviso acima."
           glitch:
             label: "FASE 2 · O GLITCH"
             title: "Quebre o encontro"

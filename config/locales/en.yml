@@ -592,10 +592,10 @@ en:
                 note: "That grass Trainer is the whole glitch. If he's gone, so is your Mew."
               abra:
                 title: "Get an Abra with Teleport"
-                text: "Red/Blue: catch one in the grass on Route 24 or 25, approaching from the north so the Jr. Trainer♂ never spots you. Yellow: push on to Bill on Route 25, then catch an Abra on Route 5."
-                tag: "YELLOW DIFFERS"
+                text: "There is no wild Abra before Bill, so carry on to him on Route 25, then catch an Abra in the grass on Route 5. Come back to Cerulean once it knows Teleport."
+                tag: "THE LONG WAIT"
                 note_label: "COST"
-                note: "Meeting Bill first is what makes Yellow lose that police officer for good. Read the warning above."
+                note: "Visiting Bill is what makes that police officer visible, and losable. Read the warning above."
           glitch:
             label: "PHASE 2 · THE GLITCH"
             title: "Break the encounter"

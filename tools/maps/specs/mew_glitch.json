@@ -6,7 +6,8 @@
   },
   {
     "type": "screen", "name": "mew-glitch-bridge", "map": "Route24",
-    "player": [10, 23], "player_dir": "UP", "focus": [8, 20], "auto_npcs": true
+    "player": [10, 23], "player_dir": "UP", "focus": [8, 20], "auto_npcs": true,
+    "arrows": [{ "dir": "down", "grid": [5, 18] }]
   },
   {
     "type": "screen", "name": "mew-glitch-abra", "map": "Route5",
@@ -14,7 +15,7 @@
   },
   {
     "type": "screen", "name": "mew-glitch-center", "map": "CeruleanPokecenter",
-    "player": [3, 2], "player_dir": "UP", "auto_npcs": true
+    "parent": "CERULEAN_CITY", "player": [3, 2], "player_dir": "UP", "auto_npcs": true
   },
   {
     "type": "screen", "name": "mew-glitch-lineup", "map": "Route24",

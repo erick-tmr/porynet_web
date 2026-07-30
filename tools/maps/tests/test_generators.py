@@ -315,6 +315,28 @@ def test_mew_grass_scenes_stand_the_hero_in_tall_grass(root):
             f"{name}: hero stands in tall grass"
 
 
+def test_mew_bridge_arrow_points_at_the_trigger_trainer(root):
+    # The Nugget Bridge shot has to flag WHICH Jr. Trainer to leave alone, so a down arrow sits
+    # above the grass one (the trigger), not the identically-classed trainers out on the planks.
+    spec = _mew_spec("mew-glitch-bridge")
+    tx, ty = _route24_grass_trigger(root)
+    arrows = spec["arrows"]
+    assert len(arrows) == 1, "one arrow"
+    ax, ay = arrows[0]["grid"]
+    assert ax == tx and ay < ty and arrows[0]["dir"] == "down", "a down arrow above the grass trainer"
+
+
+def test_mew_center_wears_ceruleans_blue_palette(root):
+    # The Cerulean Poke Center interior should inherit Cerulean's blue palette, not the default
+    # green, so the heal shot reads as the same city the teleport and return shots do.
+    spec = _mew_spec("mew-glitch-center")
+    assert spec.get("parent") == "CERULEAN_CITY", "the interior inherits Cerulean's palette"
+    const, tileset = sources.parse_headers(root)["CeruleanPokecenter"]
+    default_pal = sources.resolve_palette_id(root, const, tileset, None)
+    cerulean_pal = sources.resolve_palette_id(root, const, tileset, "CERULEAN_CITY")
+    assert cerulean_pal != default_pal, "the parent override actually changes the palette"
+
+
 def test_mew_swimmer_battle_is_the_gym_swimmer(root):
     # GLITCH 5 is the face-off with the Cerulean Gym Swimmer (OPP_SWIMMER in CeruleanGym).
     spec = _mew_spec("mew-glitch-swimmer")
