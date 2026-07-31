@@ -9,6 +9,16 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-mm-layer.is-ready"
   end
 
+  # Click a map pin after centering it in its scroll frame. A pin parked at the very edge of a tall
+  # map (the bottom exit) sits under the frame's clip, so Cuprite's own scroll-and-click can compute
+  # a hit point off the button and the click is silently dropped (the hint never opens). Centering
+  # it first, well clear of any edge, makes the click land every time.
+  def click_pin(selector)
+    pin = find(selector)
+    pin.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
+    pin.click
+  end
+
   test "the map draws a marker for everything the game data holds" do
     visit_forest
 
@@ -30,7 +40,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
   test "ticking a trainer survives a reload" do
     visit_forest
-    find("#{TRAINER} .pn-mm__hit").click
+    click_pin("#{TRAINER} .pn-mm__hit")
 
     assert_selector "#{TRAINER}.is-done"
     assert_selector ".pn-mm-legend__row[data-marker-id='trainer-30-33'].is-done"
@@ -51,7 +61,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
   test "an exit raises its hint without becoming a chore" do
     visit_forest
-    find(".pn-mm[data-marker-id='exit-15-47'] .pn-mm__hit").click
+    click_pin(".pn-mm[data-marker-id='exit-15-47'] .pn-mm__hit")
 
     assert_selector ".pn-mm[data-marker-id='exit-15-47'].is-selected"
     assert_no_selector ".pn-mm[data-marker-id='exit-15-47'].is-done"
@@ -108,7 +118,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "#{card}.is-done"
     assert_selector "#{pin}.is-done"
 
-    find("#{pin} .pn-mm__hit").click
+    click_pin("#{pin} .pn-mm__hit")
     assert_no_selector "#{card}.is-done"
   end
 
@@ -153,7 +163,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
     within ".pn-mm-block[data-map-markers-map-value='pallet-town']" do
       assert_selector ".pn-mm-legend__chip--npc", text: "A"
-      find("#{npc} .pn-mm__hit").click
+      click_pin("#{npc} .pn-mm__hit")
 
       assert_selector "#{npc}.is-selected"
       assert_no_selector "#{npc}.is-done"
