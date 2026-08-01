@@ -214,6 +214,7 @@ pt:
         soda_pop: "Recupera 60 HP."
         lemonade: "Recupera 80 HP."
       mew_glitch_label: "MEW GLITCH"
+      trainer_note_label: "ATENÇÃO"
       hidden_item: "ITEM OCULTO"
       later_eyebrow: "VOLTE DEPOIS · %{count}"
       later_h2: "Fora de alcance por enquanto"
@@ -1078,6 +1079,9 @@ pt:
             "4":
               title: "Desça para Cerulean City"
               text: "Passado o TM, pule os desníveis. Eles levam a leste e despejam direto do outro lado, em Cerulean City."
+          trainers:
+            lass:
+              note: "Você não consegue alcançar esta Lass na passagem. Ela fica na ponta leste do platô superior da Rota 4, e os desníveis de mão única te jogam em Cerulean antes de chegar até ela. Anote para uma volta mais tarde."
         cerulean_city:
           mart:
             blurb: "O Mart de Cerulean acrescenta Repel à prateleira, útil nas rotas cheias de treinadores até o Bill."
@@ -1211,10 +1215,10 @@ pt:
               title: "Pegue os itens"
               text: "Cure no Centro Pokémon, depois pegue o Bike Voucher no Pokémon Fan Club e o Old Rod com o Fishing Guru no lado oeste da cidade."
             "2":
-              title: "Vasculhe a praca central"
-              text: "Na praca aberta no meio da cidade, encaixado logo a noroeste da Pokémon Trade House (a casinha entre o Fan Club e o Poke Mart), espera um Max Ether invisivel. Fique em cima daquele tile e pressione A, nada aparece na tela."
+              title: "Procure o Max Ether no vão entre os prédios"
+              text: "Logo ao norte da porta da Pokémon Trade House, um vão estreito sobe entre dois prédios até a água do porto. Um Max Ether escondido fica no topo desse vão. Fique na praça abaixo dele, vire para cima em direção ao vão e aperte A. Nada aparece na tela."
               hidden:
-                max-ether: "Centro da cidade, um tile acima e a esquerda da porta da Pokémon Trade House. Pressione A; nada aparece."
+                max-ether: "No topo do vão entre os dois prédios ao norte da porta da Trade House, encostado na água. Vire para cima a partir da praça e aperte A. Nada aparece."
             "3":
               title: "Entre no S.S. Anne pelo Cut"
               text: "A arvore do ginasio precisa do HM01 Cut. Entre no navio na doca sul, limpe as cabines e cure o Capitao enjoado para receber o Cut antes de desafiar Surge."

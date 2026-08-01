@@ -353,7 +353,7 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
-      loc = apply_gym_notes(tick_items(merge_trainers(loc), header))
+      loc = apply_trainer_notes(tick_items(merge_trainers(loc), header))
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
@@ -391,18 +391,27 @@ module Walkthrough
       loc.trainers + (loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : [])
     end
 
-    # Curated captions stamped onto specific gym trainers by their OPP_CLASS:party id, keyed by
-    # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings.
-    def self.gym_trainer_notes(slug)
-      return {} unless slug == "cerulean-city"
-
+    # Curated captions stamped onto specific trainers by their OPP_CLASS:party id, keyed by
+    # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings; Route 4's east-plateau
+    # Lass carries an "unreachable on the way down" heads-up.
+    def self.trainer_notes(slug)
       b = base(slug)
-      { "SWIMMER:1" => "#{b}.gym.notes.swimmer", "MISTY:1" => "#{b}.gym.notes.misty" }
+      case slug
+      when "cerulean-city"
+        { "SWIMMER:1" => "#{b}.gym.notes.swimmer", "MISTY:1" => "#{b}.gym.notes.misty" }
+      when "route-4"
+        { "LASS:4" => "#{b}.trainers.lass.note" }
+      else
+        {}
+      end
     end
 
-    def self.apply_gym_notes(loc)
-      notes = gym_trainer_notes(loc.slug)
-      return loc if notes.empty? || loc.gym.nil?
+    def self.apply_trainer_notes(loc)
+      notes = trainer_notes(loc.slug)
+      return loc if notes.empty?
+
+      loc = loc.with(trainers: loc.trainers.map { |t| note_trainer(t, notes) })
+      return loc if loc.gym.nil?
 
       gym = loc.gym
       loc.with(gym: gym.with(trainers: gym.trainers.map { |t| note_trainer(t, notes) },

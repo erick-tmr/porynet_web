@@ -214,6 +214,7 @@ en:
         soda_pop: "Restores 60 HP."
         lemonade: "Restores 80 HP."
       mew_glitch_label: "MEW GLITCH"
+      trainer_note_label: "HEADS UP"
       hidden_item: "HIDDEN ITEM"
       later_eyebrow: "COME BACK LATER · %{count}"
       later_h2: "Out of reach for now"
@@ -1078,6 +1079,9 @@ en:
             "4":
               title: "Drop into Cerulean City"
               text: "Past the TM, hop down the ledges. They funnel east and pour straight out the far side into Cerulean City."
+          trainers:
+            lass:
+              note: "You cannot reach this Lass on the way through. She stands on the east end of Route 4's upper plateau, and the one-way ledges drop you into Cerulean before you get to her. Note her for a later return."
         cerulean_city:
           mart:
             blurb: "Cerulean's Mart adds Repel to the shelf, handy for the trainer-packed routes north to Bill."
@@ -1211,10 +1215,10 @@ en:
               title: "Grab the goodies"
               text: "Heal at the Poke Center, then collect the Bike Voucher from the Pokémon Fan Club and the Old Rod from the Fishing Guru on the west side of town."
             "2":
-              title: "Sweep the central plaza"
-              text: "In the open square in the middle of town, tucked just northwest of the Pokémon Trade House (the small house between the Fan Club and the Poke Mart), an invisible Max Ether waits. Stand on that tile and press A, nothing shows on-screen."
+              title: "Search the building gap for Max Ether"
+              text: "Just north of the Pokémon Trade House door, a narrow gap runs up between two buildings to the harbor water. A hidden Max Ether sits at the top of that gap. Stand in the plaza below it, face up into the gap, and press A. Nothing shows on-screen."
               hidden:
-                max-ether: "Center of town, one tile above and left of the Pokémon Trade House door. Press A; nothing appears."
+                max-ether: "Top of the gap between the two buildings north of the Trade House door, against the water. Face up from the plaza and press A. Nothing appears."
             "3":
               title: "Board the S.S. Anne for Cut"
               text: "The gym's tree needs HM01 Cut. Board the ship at the south dock, clear the cabins, and cure the seasick Captain for Cut before you challenge Surge."

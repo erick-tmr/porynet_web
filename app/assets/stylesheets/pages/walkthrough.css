@@ -718,7 +718,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-pin--seafoam-islands-ultra-ball { left: 55.0%; top: 94.4%; }
 .pn-wt-pin--silph-co-elixir { left: 50.0%; top: 38.9%; }
 .pn-wt-pin--silph-co-max-potion { left: 25.0%; top: 72.2%; }
-.pn-wt-pin--vermilion-city-max-ether { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--vermilion-city-max-ether { left: 50.0%; top: 33.3%; }
 .pn-wt-pin--victory-road-full-restore { left: 65.0%; top: 44.4%; }
 .pn-wt-pin--victory-road-ultra-ball { left: 50.0%; top: 27.8%; }
 .pn-wt-pin--viridian-city-potion { left: 50.0%; top: 44.4%; }
@@ -1449,6 +1449,22 @@ a.pn-wt-route__card:hover {
   background: #FFC23D;
   border: 2px solid #171622;
   padding: 6px 9px;
+}
+.pn-wt-trainer__note {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+  margin: 4px 0 12px;
+  padding: 8px 12px;
+  background: #fffbee;
+  border-left: 6px solid var(--amber);
+}
+.pn-wt-trainer__note-label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #b3245c;
+  margin-right: 4px;
 }
 .pn-wt-trainer__shots {
   display: flex;
