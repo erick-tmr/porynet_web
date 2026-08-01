@@ -377,6 +377,7 @@
 .pn-mew-step__tag--danger,
 .pn-mew-step__tag--caution { background: #ffd0e0; }
 .pn-mew-step__tag--info { background: var(--amber); }
+.pn-mew-step__tag--purple { background: #e2d9ff; }
 .pn-mew-step--warn .pn-wt-step__card { background: #fffbee; border-left: 14px solid var(--amber); }
 .pn-mew-step__note { font-family: "VT323", monospace; font-size: 16px; color: #6b6880; border-top: 2px dashed #171622; margin-top: 12px; padding-top: 10px; }
 .pn-mew-step__note-label { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; margin-right: 4px; }

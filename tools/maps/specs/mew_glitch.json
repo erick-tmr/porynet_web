@@ -19,7 +19,7 @@
   },
   {
     "type": "screen", "name": "mew-glitch-lineup", "map": "Route24",
-    "player": [5, 19], "player_dir": "DOWN", "focus": [5, 19], "auto_npcs": true
+    "player": [5, 15], "player_dir": "DOWN", "focus": [5, 14], "auto_npcs": true
   },
   {
     "type": "screen", "name": "mew-glitch-start", "map": "Route24",

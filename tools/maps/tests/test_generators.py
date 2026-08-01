@@ -298,18 +298,27 @@ def test_mew_start_shows_the_trigger_trainer_with_the_bang(root):
     assert grids == [tuple(spec["player"]), trigger], "hand-composed: only the hero and the trigger"
 
 
-def test_mew_lineup_stands_one_tile_north_of_the_trigger(root):
-    # GLITCH 2 lines the hero up one tile north of that same grass trainer, facing him.
+def test_mew_lineup_keeps_the_trigger_trainer_offscreen(root):
+    # GLITCH 2 lines the hero up in the trigger's column but far enough north that the grass Jr.
+    # Trainer sits just off the bottom edge: the glitch needs him offscreen (on screen he just
+    # walks over and battles you). Regression against an earlier framing that left him visible.
     spec = _mew_spec("mew-glitch-lineup")
     tx, ty = _route24_grass_trigger(root)
-    assert tuple(spec["player"]) == (tx, ty - 1), "one tile north of the trigger trainer"
+    px, py = spec["player"]
+    assert px == tx and py < ty, "lined up in his column, north of him"
     assert spec["player_dir"] == "DOWN", "facing down toward him"
+    full, _ = compositor.render_map(root, spec["map"])
+    focus_y = spec.get("focus", spec["player"])[1]
+    offy = compositor._camera(focus_y * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1],
+                              full.height, compositor.SCREEN[1])
+    assert ty * compositor.UNIT_PX - offy >= compositor.SCREEN[1], "the trigger sits off the bottom edge"
 
 
 def test_mew_grass_scenes_stand_the_hero_in_tall_grass(root):
-    # Regression: the Abra shot first stood the hero below Route 5's grass patch. The three grass
-    # scenes (catch an Abra, line up, get spotted) each have to put the hero on real tall grass.
-    for name in ("mew-glitch-abra", "mew-glitch-lineup", "mew-glitch-start"):
+    # Regression: the Abra shot first stood the hero below Route 5's grass patch. These grass scenes
+    # (catch an Abra, get spotted) each have to put the hero on real tall grass. The line-up shot is
+    # deliberately not here: it stands the hero on the path north of the patch, trainer offscreen.
+    for name in ("mew-glitch-abra", "mew-glitch-start"):
         spec = _mew_spec(name)
         assert tuple(spec["player"]) in compositor.grass_cells(root, spec["map"]), \
             f"{name}: hero stands in tall grass"

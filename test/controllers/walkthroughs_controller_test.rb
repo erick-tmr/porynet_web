@@ -214,8 +214,8 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__crumb-here", text: "VIRIDIAN FOREST"
     assert_select ".pn-wt-loc__title", /Forest/
     assert_select ".pn-wt-chip", false
-    assert_select "img.pn-wt-shot__img[src*=?]", "scenes/viridian-forest-antidote"
-    assert_select ".pn-wt-pin--vf-antidote"
+    assert_select "img.pn-wt-shot__img[src*=?]", "scenes/viridian-forest-hidden-antidote"
+    assert_select ".pn-wt-pin--viridian-forest-antidote"
   end
 
   test "a trainer-only special hides the catch and Oak sections" do
@@ -302,10 +302,14 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-mew-recipe", count: 13
     assert_select "img[src*=?]", "walkthrough/yellow/art/mew-sugimori.png"
     assert_select "img[src*=?]", "walkthrough/yellow/art/red-and-mew.png"
-    # 9 of the 11 steps carry a generated shot; the two battle-frame steps (Mew appears, catch it)
-    # have none, so no step renders the empty placeholder.
-    assert_select ".pn-mew-step .pn-wt-shot", count: 9
+    # 10 of the 12 steps carry a shot; the two battle-frame steps (Mew appears, catch it) have
+    # none, so no step renders the empty placeholder.
+    assert_select ".pn-mew-step .pn-wt-shot", count: 10
     assert_select ".pn-mew-step .pn-wt-shot--step", count: 0
+    # the second-Mew heads-up step warns off the Route 25 Slowpoke Youngster, reusing his WHERE
+    # frame, and wears the same amber warning panel as the "do not beat" step
+    assert_select ".pn-mew-step--warn .pn-mew-step__tag--purple", text: "SECOND MEW"
+    assert_select ".pn-mew-step img[src*=?]", "walkthrough/yellow/scenes/route-25-trainer-18-5.png"
     assert_select "img[src*=?]", "walkthrough/yellow/scenes/mew-glitch-route24.png"
     assert_select "img[src*=?]", "walkthrough/yellow/battles/mew-glitch-swimmer.png"
   end

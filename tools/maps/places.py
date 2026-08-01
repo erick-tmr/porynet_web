@@ -162,6 +162,10 @@ def build_item_catalog(root_str):
             add(const, tm_display_name(root_str, const))
     for const in _EXTRA_ITEMS:
         add(const, sources.item_display_name(const))
+    # Every TM, not just the sold/gifted ones, so a TM picked up off the ground can still name its
+    # type-badge sprite. Keyed by the same display string the map's item marker uses.
+    for const in parse_tm_numbers(root_str):
+        add(const, sources.item_display_name(const))
     return dict(sorted(catalog.items()))
 
 

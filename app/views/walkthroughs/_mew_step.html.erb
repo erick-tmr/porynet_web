@@ -1,4 +1,4 @@
-<div class="pn-wt-step pn-mew-step<%= " pn-mew-step--warn" if step.tag_tone == "danger" %>">
+<div class="pn-wt-step pn-mew-step<%= " pn-mew-step--warn" if %w[danger purple].include?(step.tag_tone) %>">
   <div class="pn-wt-step__rail">
     <div class="pn-wt-step__line pn-wt-step__line--top"></div>
     <div class="pn-wt-step__node"><%= step.n %></div>
