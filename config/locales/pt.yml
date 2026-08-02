@@ -819,13 +819,17 @@ pt:
           steps:
             "1":
               title: "Cure e pegue o Oak's Parcel"
-              text: "Você chega pela Rota 1 na primeira cidade sem grama selvagem, entao nao ha nada para capturar aqui. Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te para no balcao e entrega o Oak's Parcel para levar de volta ao sul. A estrada ao norte da cidade esta bloqueada por um velho cochilando no caminho, entao nao ha mais o que fazer aqui por ora."
+              text: "Você chega pela Rota 1 na primeira cidade sem grama selvagem, então não há nada para capturar aqui. Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te para no balcão e entrega o Oak's Parcel para levar de volta ao sul. A estrada ao norte da cidade está bloqueada por um velho cochilando no caminho, então não há mais o que fazer aqui por ora."
+              items:
+                oaks_parcel: "Com o atendente da loja em Viridian; entregue ao Oak em Pallet Town."
             "2":
               title: "Entregue o Oak's Parcel"
               text: "Leve o Parcel ao sul, ao laboratorio do Oak em Pallet Town. Entregue a ele e enfim ele te da a Pokédex, a ferramenta que registra cada Pokémon que você ve e captura."
             "3":
               title: "Pegue o Town Map"
-              text: "Enquanto esta em Pallet pela Pokédex, entre na casa do Blue logo a leste. A irma dele, a Daisy, esta perto da mesa; fale com ela e ela te da o Town Map, que mostra cada rota e cidade de Kanto."
+              text: "Enquanto está em Pallet pela Pokédex, entre na casa do Blue logo a leste. A irmã dele, a Daisy, está perto da mesa; fale com ela e ela te dá o Town Map, que mostra cada rota e cidade de Kanto."
+              items:
+                town_map: "Com a Daisy, irmã do Blue, na casa logo a leste da sua em Pallet Town."
             "4":
               title: "Abasteca na loja"
               text: "Volte a pe para Viridian. Agora que a loja esta vendendo, compre um monte de Poke Balls e algumas Potions e Antidotes para a Rota 22, a Rota 2 e a Viridian Forest. Se preferir pegar as cinco Poke Balls gratis do Oak, deixe as balls para depois da batalha de rival na Rota 22 (veja a nota de perdivel)."

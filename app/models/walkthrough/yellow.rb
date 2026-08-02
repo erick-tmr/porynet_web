@@ -633,9 +633,9 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
+          { item: [ "Oak's Parcel", "oaks_parcel" ] },
           {},
-          {},
-          {},
+          { item: [ "Town Map", "town_map" ] },
           {},
           {},
           { hidden: [ "Potion", "potion", "viridian-city-hidden-potion", "viridian-city-potion" ] },
@@ -1646,7 +1646,9 @@ module Walkthrough
     # every other name kebab-cases straight onto its sprite.
     ITEM_SPRITES = {
       "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic",
-      "HM05 Flash" => "tm-normal", "Parlyz Heal" => "paralyze-heal", "X Defend" => "x-defense"
+      "HM05 Flash" => "tm-normal", "HM01 Cut" => "tm-normal", "HM02 Fly" => "tm-flying",
+      "HM03 Surf" => "tm-water", "HM04 Strength" => "tm-normal",
+      "Parlyz Heal" => "paralyze-heal", "X Defend" => "x-defense"
     }.freeze
 
     def self.item_sprite(name)

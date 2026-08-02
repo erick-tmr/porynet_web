@@ -820,12 +820,16 @@ en:
             "1":
               title: "Heal and collect Oak's Parcel"
               text: "You walk in from Route 1 to the first town with no wild grass, so there is nothing to catch here. Heal at the Poke Center in the top-left, then step into the Mart just northeast of it. The clerk stops you at the counter and hands over Oak's Parcel to carry back south. The road north out of town is blocked by an old man dozing on the path, so there is nothing more to do here for now."
+              items:
+                oaks_parcel: "From the clerk in the Viridian Mart; deliver it to Oak in Pallet Town."
             "2":
               title: "Deliver Oak's Parcel"
               text: "Carry the Parcel south to Oak's lab in Pallet Town. Hand it over and he finally gives you the Pokédex, the tool that logs every Pokémon you see and catch."
             "3":
               title: "Grab the Town Map"
               text: "While you are in Pallet for the Pokédex, step into Blue's house next door to the east. His sister Daisy stands by the table; talk to her and she hands you the Town Map, which lays out every route and town in Kanto."
+              items:
+                town_map: "From Blue's sister Daisy, in the house just east of your own in Pallet Town."
             "4":
               title: "Stock up at the Mart"
               text: "Head back up to Viridian. Now that the Mart is stocking, buy a stack of Poke Balls plus a few Potions and Antidotes for Route 22, Route 2 and Viridian Forest. If you would rather claim Oak's five free Poke Balls, skip the balls here and buy them after the Route 22 rival (see the missable note)."
