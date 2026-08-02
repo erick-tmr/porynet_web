@@ -180,6 +180,18 @@ def test_a_road_across_a_pond_anchors_to_the_road_not_the_water(root):
     assert exits["ROUTE_4"] == (0, 18)    # the road, not the pond at y15-16
 
 
+def test_route_6_south_exit_anchors_to_the_road_not_the_pond(root):
+    """Route 6's decorative pond touches its south edge, so the generic 'water is crossed by Surf'
+    rule dropped the Vermilion City marker on the pond (cell 6). It belongs on the road out (cell 9)."""
+    south = next(m for m in markers.build_markers(root, "Route6", "ROUTE_6", 320, 576)
+                 if m.get("edge") == "south")
+    assert south["ref"] == "VERMILION_CITY"
+    assert tuple(south["grid"]) == (9, 35)
+    tsf = sources.tileset_basename(root, "OVERWORLD")
+    tiles = sources.cell_tiles(root, "Route6", tsf, 320 // sources.BLOCK_PX, *south["grid"])
+    assert not all(t in sources.WATER_TILES for t in tiles), "on the road, not the pond"
+
+
 def test_a_surf_connection_still_lands_on_water(root):
     """The land-road override is scoped: Pallet's genuine Surf crossing south to Route 21 keeps its
     water marker."""

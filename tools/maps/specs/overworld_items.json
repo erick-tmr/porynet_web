@@ -1,0 +1,2508 @@
+[
+ {
+  "type": "dialog",
+  "name": "celadon-city-hidden-pp-up",
+  "map": "CeladonCity",
+  "player": [
+   48,
+   16
+  ],
+  "player_dir": "UP",
+  "focus": [
+   48,
+   15
+  ],
+  "auto_npcs": true,
+  "marker": [
+   48,
+   15
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-rare-candy-29-16",
+  "map": "CeruleanCave1F",
+  "player": [
+   29,
+   16
+  ],
+  "player_dir": "UP",
+  "focus": [
+   29,
+   16
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-max-revive-29-9",
+  "map": "CeruleanCave1F",
+  "player": [
+   29,
+   8
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   29,
+   9
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "cerulean-cave-hidden-pp-up-18-7",
+  "map": "CeruleanCave1F",
+  "player": [
+   18,
+   8
+  ],
+  "player_dir": "UP",
+  "focus": [
+   18,
+   7
+  ],
+  "auto_npcs": true,
+  "marker": [
+   18,
+   7
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-ultra-ball-18-3",
+  "map": "CeruleanCave1F",
+  "player": [
+   18,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   18,
+   3
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-max-elixir-7-11",
+  "map": "CeruleanCave1F",
+  "player": [
+   8,
+   11
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   7,
+   11
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-rare-candy-0-11",
+  "map": "CeruleanCave2F",
+  "player": [
+   0,
+   10
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   0,
+   11
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-ultra-ball-16-7",
+  "map": "CeruleanCave2F",
+  "player": [
+   15,
+   7
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   16,
+   7
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "cerulean-cave-hidden-pp-up-16-13",
+  "map": "CeruleanCave2F",
+  "player": [
+   15,
+   13
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   16,
+   13
+  ],
+  "auto_npcs": true,
+  "marker": [
+   16,
+   13
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-max-revive-19-11",
+  "map": "CeruleanCave2F",
+  "player": [
+   19,
+   12
+  ],
+  "player_dir": "UP",
+  "focus": [
+   19,
+   11
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-full-restore",
+  "map": "CeruleanCave2F",
+  "player": [
+   27,
+   8
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   27,
+   9
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-ultra-ball-2-13",
+  "map": "CeruleanCaveB1F",
+  "player": [
+   2,
+   14
+  ],
+  "player_dir": "UP",
+  "focus": [
+   2,
+   13
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-max-revive-3-13",
+  "map": "CeruleanCaveB1F",
+  "player": [
+   3,
+   14
+  ],
+  "player_dir": "UP",
+  "focus": [
+   3,
+   13
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "cerulean-cave-hidden-pp-up-8-14",
+  "map": "CeruleanCaveB1F",
+  "player": [
+   7,
+   14
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   8,
+   14
+  ],
+  "auto_npcs": true,
+  "marker": [
+   8,
+   14
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-max-elixir-15-3",
+  "map": "CeruleanCaveB1F",
+  "player": [
+   15,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   15,
+   3
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "cerulean-cave-item-ultra-ball-26-1",
+  "map": "CeruleanCaveB1F",
+  "player": [
+   26,
+   2
+  ],
+  "player_dir": "UP",
+  "focus": [
+   26,
+   1
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-potion-20-33",
+  "map": "MtMoon1F",
+  "player": [
+   21,
+   33
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   20,
+   33
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-rare-candy",
+  "map": "MtMoon1F",
+  "player": [
+   35,
+   32
+  ],
+  "player_dir": "UP",
+  "focus": [
+   35,
+   31
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-escape-rope",
+  "map": "MtMoon1F",
+  "player": [
+   36,
+   24
+  ],
+  "player_dir": "UP",
+  "focus": [
+   36,
+   23
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-tm-water-gun",
+  "map": "MtMoon1F",
+  "player": [
+   4,
+   32
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   5,
+   32
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-potion-2-20",
+  "map": "MtMoon1F",
+  "player": [
+   2,
+   21
+  ],
+  "player_dir": "UP",
+  "focus": [
+   2,
+   20
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-moon-stone",
+  "map": "MtMoon1F",
+  "player": [
+   2,
+   3
+  ],
+  "player_dir": "UP",
+  "focus": [
+   2,
+   2
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-hp-up",
+  "map": "MtMoonB2F",
+  "player": [
+   25,
+   22
+  ],
+  "player_dir": "UP",
+  "focus": [
+   25,
+   21
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "mt-moon-hidden-moon-stone",
+  "map": "MtMoonB2F",
+  "player": [
+   17,
+   12
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   18,
+   12
+  ],
+  "auto_npcs": true,
+  "marker": [
+   18,
+   12
+  ],
+  "dialog": {
+   "found_item": "MOON STONE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "mt-moon-item-tm-mega-punch",
+  "map": "MtMoonB2F",
+  "player": [
+   29,
+   6
+  ],
+  "player_dir": "UP",
+  "focus": [
+   29,
+   5
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "mt-moon-hidden-ether",
+  "map": "MtMoonB2F",
+  "player": [
+   33,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   33,
+   9
+  ],
+  "auto_npcs": true,
+  "marker": [
+   33,
+   9
+  ],
+  "dialog": {
+   "found_item": "ETHER"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-carbos",
+  "map": "PokemonMansion1F",
+  "player": [
+   17,
+   21
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   18,
+   21
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "dialog",
+  "name": "pokemon-mansion-hidden-moon-stone",
+  "map": "PokemonMansion1F",
+  "player": [
+   7,
+   16
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   8,
+   16
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND",
+  "marker": [
+   8,
+   16
+  ],
+  "dialog": {
+   "found_item": "MOON STONE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-escape-rope",
+  "map": "PokemonMansion1F",
+  "player": [
+   14,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   14,
+   3
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-calcium",
+  "map": "PokemonMansion2F",
+  "player": [
+   28,
+   6
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   28,
+   7
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-iron",
+  "map": "PokemonMansion3F",
+  "player": [
+   25,
+   6
+  ],
+  "player_dir": "UP",
+  "focus": [
+   25,
+   5
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-max-potion",
+  "map": "PokemonMansion3F",
+  "player": [
+   2,
+   16
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   1,
+   16
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "dialog",
+  "name": "pokemon-mansion-hidden-max-revive",
+  "map": "PokemonMansion3F",
+  "player": [
+   1,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   1,
+   9
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND",
+  "marker": [
+   1,
+   9
+  ],
+  "dialog": {
+   "found_item": "MAX REVIVE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-tm-blizzard",
+  "map": "PokemonMansionB1F",
+  "player": [
+   19,
+   24
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   19,
+   25
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-full-restore",
+  "map": "PokemonMansionB1F",
+  "player": [
+   1,
+   23
+  ],
+  "player_dir": "UP",
+  "focus": [
+   1,
+   22
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-secret-key",
+  "map": "PokemonMansionB1F",
+  "player": [
+   5,
+   14
+  ],
+  "player_dir": "UP",
+  "focus": [
+   5,
+   13
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "dialog",
+  "name": "pokemon-mansion-hidden-rare-candy",
+  "map": "PokemonMansionB1F",
+  "player": [
+   1,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   1,
+   9
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND",
+  "marker": [
+   1,
+   9
+  ],
+  "dialog": {
+   "found_item": "RARE CANDY"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-tm-solarbeam",
+  "map": "PokemonMansionB1F",
+  "player": [
+   6,
+   4
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   5,
+   4
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-mansion-item-rare-candy",
+  "map": "PokemonMansionB1F",
+  "player": [
+   11,
+   2
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   10,
+   2
+  ],
+  "auto_npcs": true,
+  "parent": "CINNABAR_ISLAND"
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-escape-rope",
+  "map": "PokemonTower3F",
+  "player": [
+   12,
+   2
+  ],
+  "player_dir": "UP",
+  "focus": [
+   12,
+   1
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-elixir",
+  "map": "PokemonTower4F",
+  "player": [
+   13,
+   10
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   12,
+   10
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-hp-up",
+  "map": "PokemonTower4F",
+  "player": [
+   11,
+   16
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   12,
+   16
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-awakening",
+  "map": "PokemonTower4F",
+  "player": [
+   10,
+   10
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   9,
+   10
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "pokemon-tower-hidden-elixir",
+  "map": "PokemonTower5F",
+  "player": [
+   4,
+   11
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   4,
+   12
+  ],
+  "auto_npcs": true,
+  "marker": [
+   4,
+   12
+  ],
+  "dialog": {
+   "found_item": "ELIXIR"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-nugget",
+  "map": "PokemonTower5F",
+  "player": [
+   7,
+   14
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   6,
+   14
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-rare-candy",
+  "map": "PokemonTower6F",
+  "player": [
+   6,
+   9
+  ],
+  "player_dir": "UP",
+  "focus": [
+   6,
+   8
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "pokemon-tower-item-x-accuracy",
+  "map": "PokemonTower6F",
+  "player": [
+   15,
+   14
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   14,
+   14
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "power-plant-item-carbos",
+  "map": "PowerPlant",
+  "player": [
+   6,
+   25
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   7,
+   25
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "power-plant-item-tm-reflect",
+  "map": "PowerPlant",
+  "player": [
+   20,
+   33
+  ],
+  "player_dir": "UP",
+  "focus": [
+   20,
+   32
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "power-plant-item-tm-thunder",
+  "map": "PowerPlant",
+  "player": [
+   25,
+   32
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   26,
+   32
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "power-plant-hidden-max-elixir",
+  "map": "PowerPlant",
+  "player": [
+   18,
+   16
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   17,
+   16
+  ],
+  "auto_npcs": true,
+  "marker": [
+   17,
+   16
+  ],
+  "dialog": {
+   "found_item": "MAX ELIXIR"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "power-plant-item-hp-up",
+  "map": "PowerPlant",
+  "player": [
+   28,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   28,
+   3
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "power-plant-item-rare-candy",
+  "map": "PowerPlant",
+  "player": [
+   35,
+   3
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   34,
+   3
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "power-plant-hidden-pp-up",
+  "map": "PowerPlant",
+  "player": [
+   12,
+   2
+  ],
+  "player_dir": "UP",
+  "focus": [
+   12,
+   1
+  ],
+  "auto_npcs": true,
+  "marker": [
+   12,
+   1
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-escape-rope",
+  "map": "RocketHideoutB1F",
+  "player": [
+   12,
+   14
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   11,
+   14
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-hyper-potion",
+  "map": "RocketHideoutB1F",
+  "player": [
+   10,
+   17
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   9,
+   17
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "dialog",
+  "name": "rocket-hideout-hidden-pp-up",
+  "map": "RocketHideoutB1F",
+  "player": [
+   20,
+   15
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   21,
+   15
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY",
+  "marker": [
+   21,
+   15
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-nugget",
+  "map": "RocketHideoutB2F",
+  "player": [
+   15,
+   8
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   16,
+   8
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-tm-horn-drill",
+  "map": "RocketHideoutB2F",
+  "player": [
+   6,
+   11
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   6,
+   12
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-moon-stone",
+  "map": "RocketHideoutB2F",
+  "player": [
+   1,
+   12
+  ],
+  "player_dir": "UP",
+  "focus": [
+   1,
+   11
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-super-potion",
+  "map": "RocketHideoutB2F",
+  "player": [
+   4,
+   21
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   3,
+   21
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-rare-candy",
+  "map": "RocketHideoutB3F",
+  "player": [
+   20,
+   15
+  ],
+  "player_dir": "UP",
+  "focus": [
+   20,
+   14
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-tm-double-edge",
+  "map": "RocketHideoutB3F",
+  "player": [
+   25,
+   17
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   26,
+   17
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "dialog",
+  "name": "rocket-hideout-hidden-nugget",
+  "map": "RocketHideoutB3F",
+  "player": [
+   26,
+   17
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   27,
+   17
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY",
+  "marker": [
+   27,
+   17
+  ],
+  "dialog": {
+   "found_item": "NUGGET"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-lift-key",
+  "map": "RocketHideoutB4F",
+  "player": [
+   11,
+   2
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   10,
+   2
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-tm-razor-wind",
+  "map": "RocketHideoutB4F",
+  "player": [
+   9,
+   5
+  ],
+  "player_dir": "UP",
+  "focus": [
+   9,
+   4
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-hp-up",
+  "map": "RocketHideoutB4F",
+  "player": [
+   9,
+   12
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   10,
+   12
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-iron",
+  "map": "RocketHideoutB4F",
+  "player": [
+   11,
+   20
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   12,
+   20
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "rocket-hideout-item-silph-scope",
+  "map": "RocketHideoutB4F",
+  "player": [
+   24,
+   2
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   25,
+   2
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY"
+ },
+ {
+  "type": "dialog",
+  "name": "rocket-hideout-hidden-super-potion",
+  "map": "RocketHideoutB4F",
+  "player": [
+   25,
+   2
+  ],
+  "player_dir": "UP",
+  "focus": [
+   25,
+   1
+  ],
+  "auto_npcs": true,
+  "parent": "CELADON_CITY",
+  "marker": [
+   25,
+   1
+  ],
+  "dialog": {
+   "found_item": "SUPER POTION"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-10-hidden-super-potion",
+  "map": "Route10",
+  "player": [
+   8,
+   17
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   9,
+   17
+  ],
+  "auto_npcs": true,
+  "marker": [
+   9,
+   17
+  ],
+  "dialog": {
+   "found_item": "SUPER POTION"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-10-hidden-max-ether",
+  "map": "Route10",
+  "player": [
+   16,
+   54
+  ],
+  "player_dir": "UP",
+  "focus": [
+   16,
+   53
+  ],
+  "auto_npcs": true,
+  "marker": [
+   16,
+   53
+  ],
+  "dialog": {
+   "found_item": "MAX ETHER"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-11-hidden-escape-rope",
+  "map": "Route11",
+  "player": [
+   47,
+   5
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   48,
+   5
+  ],
+  "auto_npcs": true,
+  "marker": [
+   48,
+   5
+  ],
+  "dialog": {
+   "found_item": "ESCAPE ROPE"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-12-hidden-hyper-potion",
+  "map": "Route12",
+  "player": [
+   1,
+   63
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   2,
+   63
+  ],
+  "auto_npcs": true,
+  "marker": [
+   2,
+   63
+  ],
+  "dialog": {
+   "found_item": "HYPER POTION"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "route-12-item-iron",
+  "map": "Route12",
+  "player": [
+   4,
+   89
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   5,
+   89
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "route-13-hidden-calcium",
+  "map": "Route13",
+  "player": [
+   17,
+   13
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   16,
+   13
+  ],
+  "auto_npcs": true,
+  "marker": [
+   16,
+   13
+  ],
+  "dialog": {
+   "found_item": "CALCIUM"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-13-hidden-pp-up",
+  "map": "Route13",
+  "player": [
+   1,
+   13
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   1,
+   14
+  ],
+  "auto_npcs": true,
+  "marker": [
+   1,
+   14
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "route-15-item-tm-rage",
+  "map": "Route15",
+  "player": [
+   17,
+   5
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   18,
+   5
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "route-17-hidden-rare-candy",
+  "map": "Route17",
+  "player": [
+   15,
+   15
+  ],
+  "player_dir": "UP",
+  "focus": [
+   15,
+   14
+  ],
+  "auto_npcs": true,
+  "marker": [
+   15,
+   14
+  ],
+  "dialog": {
+   "found_item": "RARE CANDY"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-17-hidden-full-restore",
+  "map": "Route17",
+  "player": [
+   8,
+   46
+  ],
+  "player_dir": "UP",
+  "focus": [
+   8,
+   45
+  ],
+  "auto_npcs": true,
+  "marker": [
+   8,
+   45
+  ],
+  "dialog": {
+   "found_item": "FULL RESTORE"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-17-hidden-pp-up",
+  "map": "Route17",
+  "player": [
+   17,
+   73
+  ],
+  "player_dir": "UP",
+  "focus": [
+   17,
+   72
+  ],
+  "auto_npcs": true,
+  "marker": [
+   17,
+   72
+  ],
+  "dialog": {
+   "found_item": "PP UP"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-17-hidden-max-revive",
+  "map": "Route17",
+  "player": [
+   4,
+   92
+  ],
+  "player_dir": "UP",
+  "focus": [
+   4,
+   91
+  ],
+  "auto_npcs": true,
+  "marker": [
+   4,
+   91
+  ],
+  "dialog": {
+   "found_item": "MAX REVIVE"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-17-hidden-max-elixir",
+  "map": "Route17",
+  "player": [
+   7,
+   121
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   8,
+   121
+  ],
+  "auto_npcs": true,
+  "marker": [
+   8,
+   121
+  ],
+  "dialog": {
+   "found_item": "MAX ELIXIR"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-23-hidden-max-ether",
+  "map": "Route23",
+  "player": [
+   8,
+   91
+  ],
+  "player_dir": "UP",
+  "focus": [
+   8,
+   90
+  ],
+  "auto_npcs": true,
+  "marker": [
+   8,
+   90
+  ],
+  "dialog": {
+   "found_item": "MAX ETHER"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-23-hidden-ultra-ball",
+  "map": "Route23",
+  "player": [
+   18,
+   70
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   19,
+   70
+  ],
+  "auto_npcs": true,
+  "marker": [
+   19,
+   70
+  ],
+  "dialog": {
+   "found_item": "ULTRA BALL"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-23-hidden-full-restore",
+  "map": "Route23",
+  "player": [
+   10,
+   44
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   9,
+   44
+  ],
+  "auto_npcs": true,
+  "marker": [
+   9,
+   44
+  ],
+  "dialog": {
+   "found_item": "FULL RESTORE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "route-24-item-tm-thunder-wave",
+  "map": "Route24",
+  "player": [
+   9,
+   5
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   10,
+   5
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "route-25-hidden-elixir",
+  "map": "Route25",
+  "player": [
+   10,
+   2
+  ],
+  "player_dir": "UP",
+  "focus": [
+   10,
+   1
+  ],
+  "auto_npcs": true,
+  "marker": [
+   10,
+   1
+  ],
+  "dialog": {
+   "found_item": "ELIXIR"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "route-25-item-tm-seismic-toss",
+  "map": "Route25",
+  "player": [
+   23,
+   2
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   22,
+   2
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "route-25-hidden-ether",
+  "map": "Route25",
+  "player": [
+   38,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   38,
+   3
+  ],
+  "auto_npcs": true,
+  "marker": [
+   38,
+   3
+  ],
+  "dialog": {
+   "found_item": "ETHER"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "route-4-hidden-great-ball",
+  "map": "Route4",
+  "player": [
+   40,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   40,
+   3
+  ],
+  "auto_npcs": true,
+  "marker": [
+   40,
+   3
+  ],
+  "dialog": {
+   "found_item": "GREAT BALL"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "route-4-item-tm-whirlwind",
+  "map": "Route4",
+  "player": [
+   57,
+   4
+  ],
+  "player_dir": "UP",
+  "focus": [
+   57,
+   3
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "route-9-item-tm-teleport",
+  "map": "Route9",
+  "player": [
+   11,
+   15
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   10,
+   15
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "route-9-hidden-ether",
+  "map": "Route9",
+  "player": [
+   14,
+   6
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   14,
+   7
+  ],
+  "auto_npcs": true,
+  "marker": [
+   14,
+   7
+  ],
+  "dialog": {
+   "found_item": "ETHER"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-nugget",
+  "map": "SafariZoneCenter",
+  "player": [
+   15,
+   10
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   14,
+   10
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-tm-egg-bomb",
+  "map": "SafariZoneEast",
+  "player": [
+   14,
+   12
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   15,
+   12
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-carbos",
+  "map": "SafariZoneEast",
+  "player": [
+   21,
+   13
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   20,
+   13
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-full-restore",
+  "map": "SafariZoneEast",
+  "player": [
+   21,
+   11
+  ],
+  "player_dir": "UP",
+  "focus": [
+   21,
+   10
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-max-potion-3-7",
+  "map": "SafariZoneEast",
+  "player": [
+   3,
+   8
+  ],
+  "player_dir": "UP",
+  "focus": [
+   3,
+   7
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-protein",
+  "map": "SafariZoneNorth",
+  "player": [
+   24,
+   1
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   25,
+   1
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-tm-skull-bash",
+  "map": "SafariZoneNorth",
+  "player": [
+   19,
+   8
+  ],
+  "player_dir": "UP",
+  "focus": [
+   19,
+   7
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-gold-teeth",
+  "map": "SafariZoneWest",
+  "player": [
+   19,
+   8
+  ],
+  "player_dir": "UP",
+  "focus": [
+   19,
+   7
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-tm-double-team",
+  "map": "SafariZoneWest",
+  "player": [
+   8,
+   7
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   9,
+   7
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "safari-zone-hidden-revive",
+  "map": "SafariZoneWest",
+  "player": [
+   6,
+   6
+  ],
+  "player_dir": "UP",
+  "focus": [
+   6,
+   5
+  ],
+  "auto_npcs": true,
+  "marker": [
+   6,
+   5
+  ],
+  "dialog": {
+   "found_item": "REVIVE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-max-potion-8-20",
+  "map": "SafariZoneWest",
+  "player": [
+   8,
+   21
+  ],
+  "player_dir": "UP",
+  "focus": [
+   8,
+   20
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "safari-zone-item-max-revive",
+  "map": "SafariZoneWest",
+  "player": [
+   19,
+   18
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   18,
+   18
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "seafoam-islands-hidden-nugget",
+  "map": "SeafoamIslandsB2F",
+  "player": [
+   14,
+   15
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   15,
+   15
+  ],
+  "auto_npcs": true,
+  "marker": [
+   15,
+   15
+  ],
+  "dialog": {
+   "found_item": "NUGGET"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "seafoam-islands-hidden-max-elixir",
+  "map": "SeafoamIslandsB3F",
+  "player": [
+   8,
+   16
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   9,
+   16
+  ],
+  "auto_npcs": true,
+  "marker": [
+   9,
+   16
+  ],
+  "dialog": {
+   "found_item": "MAX ELIXIR"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "seafoam-islands-hidden-ultra-ball",
+  "map": "SeafoamIslandsB4F",
+  "player": [
+   25,
+   16
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   25,
+   17
+  ],
+  "auto_npcs": true,
+  "marker": [
+   25,
+   17
+  ],
+  "dialog": {
+   "found_item": "ULTRA BALL"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-hyper-potion",
+  "map": "SilphCo3F",
+  "player": [
+   8,
+   6
+  ],
+  "player_dir": "UP",
+  "focus": [
+   8,
+   5
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-max-revive",
+  "map": "SilphCo4F",
+  "player": [
+   4,
+   8
+  ],
+  "player_dir": "UP",
+  "focus": [
+   4,
+   7
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-escape-rope",
+  "map": "SilphCo4F",
+  "player": [
+   5,
+   9
+  ],
+  "player_dir": "UP",
+  "focus": [
+   5,
+   8
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-full-heal",
+  "map": "SilphCo4F",
+  "player": [
+   3,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   3,
+   9
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-card-key",
+  "map": "SilphCo5F",
+  "player": [
+   20,
+   16
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   21,
+   16
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-protein",
+  "map": "SilphCo5F",
+  "player": [
+   3,
+   6
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   4,
+   6
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-tm-take-down",
+  "map": "SilphCo5F",
+  "player": [
+   2,
+   14
+  ],
+  "player_dir": "UP",
+  "focus": [
+   2,
+   13
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "dialog",
+  "name": "silph-co-hidden-elixir",
+  "map": "SilphCo5F",
+  "player": [
+   13,
+   3
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   12,
+   3
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY",
+  "marker": [
+   12,
+   3
+  ],
+  "dialog": {
+   "found_item": "ELIXIR"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-hp-up",
+  "map": "SilphCo6F",
+  "player": [
+   4,
+   12
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   3,
+   12
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-x-accuracy",
+  "map": "SilphCo6F",
+  "player": [
+   2,
+   16
+  ],
+  "player_dir": "UP",
+  "focus": [
+   2,
+   15
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-calcium",
+  "map": "SilphCo7F",
+  "player": [
+   1,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   1,
+   9
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-tm-swords-dance",
+  "map": "SilphCo7F",
+  "player": [
+   23,
+   11
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   24,
+   11
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "dialog",
+  "name": "silph-co-hidden-max-potion",
+  "map": "SilphCo9F",
+  "player": [
+   2,
+   16
+  ],
+  "player_dir": "UP",
+  "focus": [
+   2,
+   15
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY",
+  "marker": [
+   2,
+   15
+  ],
+  "dialog": {
+   "found_item": "MAX POTION"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-tm-earthquake",
+  "map": "SilphCo10F",
+  "player": [
+   1,
+   12
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   2,
+   12
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-rare-candy",
+  "map": "SilphCo10F",
+  "player": [
+   3,
+   14
+  ],
+  "player_dir": "RIGHT",
+  "focus": [
+   4,
+   14
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "screen",
+  "name": "silph-co-item-carbos",
+  "map": "SilphCo10F",
+  "player": [
+   6,
+   11
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   5,
+   11
+  ],
+  "auto_npcs": true,
+  "parent": "SAFFRON_CITY"
+ },
+ {
+  "type": "dialog",
+  "name": "vermilion-city-hidden-max-ether",
+  "map": "VermilionCity",
+  "player": [
+   14,
+   14
+  ],
+  "player_dir": "UP",
+  "focus": [
+   14,
+   12
+  ],
+  "auto_npcs": true,
+  "marker": [
+   14,
+   11
+  ],
+  "dialog": {
+   "found_item": "MAX ETHER"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-rare-candy",
+  "map": "VictoryRoad1F",
+  "player": [
+   10,
+   2
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   9,
+   2
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-tm-sky-attack",
+  "map": "VictoryRoad1F",
+  "player": [
+   11,
+   1
+  ],
+  "player_dir": "UP",
+  "focus": [
+   11,
+   0
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "victory-road-hidden-ultra-ball",
+  "map": "VictoryRoad2F",
+  "player": [
+   5,
+   3
+  ],
+  "player_dir": "UP",
+  "focus": [
+   5,
+   2
+  ],
+  "auto_npcs": true,
+  "marker": [
+   5,
+   2
+  ],
+  "dialog": {
+   "found_item": "ULTRA BALL"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-guard-spec",
+  "map": "VictoryRoad2F",
+  "player": [
+   11,
+   1
+  ],
+  "player_dir": "UP",
+  "focus": [
+   11,
+   0
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-tm-mega-kick",
+  "map": "VictoryRoad2F",
+  "player": [
+   9,
+   12
+  ],
+  "player_dir": "UP",
+  "focus": [
+   9,
+   11
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-full-heal",
+  "map": "VictoryRoad2F",
+  "player": [
+   18,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   18,
+   9
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "victory-road-hidden-full-restore",
+  "map": "VictoryRoad2F",
+  "player": [
+   27,
+   7
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   26,
+   7
+  ],
+  "auto_npcs": true,
+  "marker": [
+   26,
+   7
+  ],
+  "dialog": {
+   "found_item": "FULL RESTORE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-tm-submission",
+  "map": "VictoryRoad2F",
+  "player": [
+   27,
+   4
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   27,
+   5
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-max-revive",
+  "map": "VictoryRoad3F",
+  "player": [
+   27,
+   5
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   26,
+   5
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "victory-road-item-tm-explosion",
+  "map": "VictoryRoad3F",
+  "player": [
+   7,
+   6
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   7,
+   7
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "viridian-city-hidden-potion",
+  "map": "ViridianCity",
+  "player": [
+   15,
+   4
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   14,
+   4
+  ],
+  "auto_npcs": true,
+  "marker": [
+   14,
+   4
+  ],
+  "dialog": {
+   "found_item": "POTION"
+  }
+ },
+ {
+  "type": "dialog",
+  "name": "viridian-forest-hidden-antidote",
+  "map": "ViridianForest",
+  "player": [
+   16,
+   43
+  ],
+  "player_dir": "UP",
+  "focus": [
+   16,
+   42
+  ],
+  "auto_npcs": true,
+  "marker": [
+   16,
+   42
+  ],
+  "dialog": {
+   "found_item": "ANTIDOTE"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "viridian-forest-item-pok-ball",
+  "map": "ViridianForest",
+  "player": [
+   2,
+   31
+  ],
+  "player_dir": "LEFT",
+  "focus": [
+   1,
+   31
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "viridian-forest-item-potion-12-29",
+  "map": "ViridianForest",
+  "player": [
+   12,
+   28
+  ],
+  "player_dir": "DOWN",
+  "focus": [
+   12,
+   29
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "screen",
+  "name": "viridian-forest-item-potion-25-11",
+  "map": "ViridianForest",
+  "player": [
+   25,
+   12
+  ],
+  "player_dir": "UP",
+  "focus": [
+   25,
+   11
+  ],
+  "auto_npcs": true
+ },
+ {
+  "type": "dialog",
+  "name": "viridian-forest-hidden-potion",
+  "map": "ViridianForest",
+  "player": [
+   1,
+   19
+  ],
+  "player_dir": "UP",
+  "focus": [
+   1,
+   18
+  ],
+  "auto_npcs": true,
+  "marker": [
+   1,
+   18
+  ],
+  "dialog": {
+   "found_item": "POTION"
+  }
+ },
+ {
+  "type": "screen",
+  "name": "viridian-gym-item-revive",
+  "map": "ViridianGym",
+  "player": [
+   16,
+   10
+  ],
+  "player_dir": "UP",
+  "focus": [
+   16,
+   9
+  ],
+  "auto_npcs": true,
+  "parent": "VIRIDIAN_CITY"
+ }
+]

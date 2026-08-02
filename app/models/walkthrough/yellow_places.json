@@ -1225,12 +1225,82 @@
     "Super Rod": {
       "const": "SUPER_ROD"
     },
+    "TM Bide": {
+      "const": "TM_BIDE",
+      "price": 2000,
+      "tm": 34,
+      "move": "Bide",
+      "type": "normal"
+    },
+    "TM Blizzard": {
+      "const": "TM_BLIZZARD",
+      "price": 5000,
+      "tm": 14,
+      "move": "Blizzard",
+      "type": "ice"
+    },
+    "TM Body Slam": {
+      "const": "TM_BODY_SLAM",
+      "price": 4000,
+      "tm": 8,
+      "move": "Body Slam",
+      "type": "normal"
+    },
+    "TM Bubblebeam": {
+      "const": "TM_BUBBLEBEAM",
+      "price": 2000,
+      "tm": 11,
+      "move": "Bubblebeam",
+      "type": "water"
+    },
+    "TM Counter": {
+      "const": "TM_COUNTER",
+      "price": 2000,
+      "tm": 18,
+      "move": "Counter",
+      "type": "fighting"
+    },
+    "TM Dig": {
+      "const": "TM_DIG",
+      "price": 2000,
+      "tm": 28,
+      "move": "Dig",
+      "type": "ground"
+    },
+    "TM Double Edge": {
+      "const": "TM_DOUBLE_EDGE",
+      "price": 4000,
+      "tm": 10,
+      "move": "Double Edge",
+      "type": "normal"
+    },
     "TM Double Team": {
       "const": "TM_DOUBLE_TEAM",
       "price": 1000,
       "tm": 32,
       "move": "Double Team",
       "type": "normal"
+    },
+    "TM Dragon Rage": {
+      "const": "TM_DRAGON_RAGE",
+      "price": 5000,
+      "tm": 23,
+      "move": "Dragon Rage",
+      "type": "dragon"
+    },
+    "TM Dream Eater": {
+      "const": "TM_DREAM_EATER",
+      "price": 2000,
+      "tm": 42,
+      "move": "Dream Eater",
+      "type": "psychic"
+    },
+    "TM Earthquake": {
+      "const": "TM_EARTHQUAKE",
+      "price": 4000,
+      "tm": 26,
+      "move": "Earthquake",
+      "type": "ground"
     },
     "TM Egg Bomb": {
       "const": "TM_EGG_BOMB",
@@ -1239,12 +1309,54 @@
       "move": "Egg Bomb",
       "type": "normal"
     },
+    "TM Explosion": {
+      "const": "TM_EXPLOSION",
+      "price": 3000,
+      "tm": 47,
+      "move": "Explosion",
+      "type": "normal"
+    },
+    "TM Fire Blast": {
+      "const": "TM_FIRE_BLAST",
+      "price": 5000,
+      "tm": 38,
+      "move": "Fire Blast",
+      "type": "fire"
+    },
+    "TM Fissure": {
+      "const": "TM_FISSURE",
+      "price": 5000,
+      "tm": 27,
+      "move": "Fissure",
+      "type": "ground"
+    },
     "TM Horn Drill": {
       "const": "TM_HORN_DRILL",
       "price": 2000,
       "tm": 7,
       "move": "Horn Drill",
       "type": "normal"
+    },
+    "TM Hyper Beam": {
+      "const": "TM_HYPER_BEAM",
+      "price": 5000,
+      "tm": 15,
+      "move": "Hyper Beam",
+      "type": "normal"
+    },
+    "TM Ice Beam": {
+      "const": "TM_ICE_BEAM",
+      "price": 4000,
+      "tm": 13,
+      "move": "Ice Beam",
+      "type": "ice"
+    },
+    "TM Mega Drain": {
+      "const": "TM_MEGA_DRAIN",
+      "price": 5000,
+      "tm": 21,
+      "move": "Mega Drain",
+      "type": "grass"
     },
     "TM Mega Kick": {
       "const": "TM_MEGA_KICK",
@@ -1258,6 +1370,48 @@
       "price": 3000,
       "tm": 1,
       "move": "Mega Punch",
+      "type": "normal"
+    },
+    "TM Metronome": {
+      "const": "TM_METRONOME",
+      "price": 4000,
+      "tm": 35,
+      "move": "Metronome",
+      "type": "normal"
+    },
+    "TM Mimic": {
+      "const": "TM_MIMIC",
+      "price": 2000,
+      "tm": 31,
+      "move": "Mimic",
+      "type": "normal"
+    },
+    "TM Pay Day": {
+      "const": "TM_PAY_DAY",
+      "price": 5000,
+      "tm": 16,
+      "move": "Pay Day",
+      "type": "normal"
+    },
+    "TM Psychic M": {
+      "const": "TM_PSYCHIC_M",
+      "price": 4000,
+      "tm": 29,
+      "move": "Psychic",
+      "type": "psychic"
+    },
+    "TM Psywave": {
+      "const": "TM_PSYWAVE",
+      "price": 4000,
+      "tm": 46,
+      "move": "Psywave",
+      "type": "psychic"
+    },
+    "TM Rage": {
+      "const": "TM_RAGE",
+      "price": 2000,
+      "tm": 20,
+      "move": "Rage",
       "type": "normal"
     },
     "TM Razor Wind": {
@@ -1274,6 +1428,62 @@
       "move": "Reflect",
       "type": "psychic"
     },
+    "TM Rest": {
+      "const": "TM_REST",
+      "price": 2000,
+      "tm": 44,
+      "move": "Rest",
+      "type": "psychic"
+    },
+    "TM Rock Slide": {
+      "const": "TM_ROCK_SLIDE",
+      "price": 4000,
+      "tm": 48,
+      "move": "Rock Slide",
+      "type": "rock"
+    },
+    "TM Seismic Toss": {
+      "const": "TM_SEISMIC_TOSS",
+      "price": 3000,
+      "tm": 19,
+      "move": "Seismic Toss",
+      "type": "fighting"
+    },
+    "TM Selfdestruct": {
+      "const": "TM_SELFDESTRUCT",
+      "price": 2000,
+      "tm": 36,
+      "move": "Selfdestruct",
+      "type": "normal"
+    },
+    "TM Skull Bash": {
+      "const": "TM_SKULL_BASH",
+      "price": 4000,
+      "tm": 40,
+      "move": "Skull Bash",
+      "type": "normal"
+    },
+    "TM Sky Attack": {
+      "const": "TM_SKY_ATTACK",
+      "price": 5000,
+      "tm": 43,
+      "move": "Sky Attack",
+      "type": "flying"
+    },
+    "TM Softboiled": {
+      "const": "TM_SOFTBOILED",
+      "price": 2000,
+      "tm": 41,
+      "move": "Softboiled",
+      "type": "normal"
+    },
+    "TM Solarbeam": {
+      "const": "TM_SOLARBEAM",
+      "price": 5000,
+      "tm": 22,
+      "move": "Solarbeam",
+      "type": "grass"
+    },
     "TM Submission": {
       "const": "TM_SUBMISSION",
       "price": 3000,
@@ -1281,11 +1491,88 @@
       "move": "Submission",
       "type": "fighting"
     },
+    "TM Substitute": {
+      "const": "TM_SUBSTITUTE",
+      "price": 2000,
+      "tm": 50,
+      "move": "Substitute",
+      "type": "normal"
+    },
+    "TM Swift": {
+      "const": "TM_SWIFT",
+      "price": 2000,
+      "tm": 39,
+      "move": "Swift",
+      "type": "normal"
+    },
+    "TM Swords Dance": {
+      "const": "TM_SWORDS_DANCE",
+      "price": 2000,
+      "tm": 3,
+      "move": "Swords Dance",
+      "type": "normal"
+    },
     "TM Take Down": {
       "const": "TM_TAKE_DOWN",
       "price": 3000,
       "tm": 9,
       "move": "Take Down",
+      "type": "normal"
+    },
+    "TM Teleport": {
+      "const": "TM_TELEPORT",
+      "price": 1000,
+      "tm": 30,
+      "move": "Teleport",
+      "type": "psychic"
+    },
+    "TM Thunder": {
+      "const": "TM_THUNDER",
+      "price": 5000,
+      "tm": 25,
+      "move": "Thunder",
+      "type": "electric"
+    },
+    "TM Thunder Wave": {
+      "const": "TM_THUNDER_WAVE",
+      "price": 2000,
+      "tm": 45,
+      "move": "Thunder Wave",
+      "type": "electric"
+    },
+    "TM Thunderbolt": {
+      "const": "TM_THUNDERBOLT",
+      "price": 2000,
+      "tm": 24,
+      "move": "Thunderbolt",
+      "type": "electric"
+    },
+    "TM Toxic": {
+      "const": "TM_TOXIC",
+      "price": 4000,
+      "tm": 6,
+      "move": "Toxic",
+      "type": "poison"
+    },
+    "TM Tri Attack": {
+      "const": "TM_TRI_ATTACK",
+      "price": 4000,
+      "tm": 49,
+      "move": "Tri Attack",
+      "type": "normal"
+    },
+    "TM Water Gun": {
+      "const": "TM_WATER_GUN",
+      "price": 1000,
+      "tm": 12,
+      "move": "Water Gun",
+      "type": "water"
+    },
+    "TM Whirlwind": {
+      "const": "TM_WHIRLWIND",
+      "price": 1000,
+      "tm": 4,
+      "move": "Whirlwind",
       "type": "normal"
     },
     "TM06 Toxic": {

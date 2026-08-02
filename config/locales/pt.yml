@@ -214,6 +214,7 @@ pt:
         soda_pop: "Recupera 60 HP."
         lemonade: "Recupera 80 HP."
       mew_glitch_label: "MEW GLITCH"
+      trainer_note_label: "ATENÇÃO"
       hidden_item: "ITEM OCULTO"
       later_eyebrow: "VOLTE DEPOIS · %{count}"
       later_h2: "Fora de alcance por enquanto"
@@ -593,9 +594,15 @@ pt:
                 tag: "NÃO VENÇA"
                 note_label: "POR QUÊ"
                 note: "Aquele Treinador no mato é o glitch inteiro. Se ele sumir, seu Mew também."
+              youngster:
+                title: "Vá para a Rota 25, poupe o garoto do Slowpoke"
+                text: "Atravesse a Ponte Nugget até a Rota 25 e siga rumo ao Bill. Perto do início há um Youngster com um único Slowpoke. Passe reto por ele."
+                tag: "SEGUNDO MEW"
+                note_label: "POR QUÊ"
+                note: "Só importa se você quiser um segundo Mew depois. Aquele garoto do Slowpoke é a batalha substituta de uma nova rodada, então vencê-lo agora custa o bis até você resetar."
               abra:
                 title: "Consiga um Abra com Teleport"
-                text: "Não há Abra selvagem antes do Bill, então siga até ele na Rota 25, depois capture um Abra no mato da Rota 5. Volte para Cerulean quando ele souber Teleport."
+                text: "Não há Abra selvagem antes do Bill, então chegue até ele primeiro, depois capture um Abra no mato da Rota 5. Volte para Cerulean quando ele souber Teleport."
                 tag: "A LONGA ESPERA"
                 note_label: "CUSTO"
                 note: "Conhecer o Bill é o que deixa aquele policial visível, e perdível. Leia o aviso acima."
@@ -609,7 +616,7 @@ pt:
                 text: "Salve o jogo. Depois use o Centro Pokémon de Cerulean para o Teleport te trazer de volta aqui."
               lineup:
                 title: "Alinhe com o Treinador no mato"
-                text: "Fique um tile ao norte do Jr. Trainer♂ na Rota 24, com ele logo fora da tela. Um passo ao sul te colocaria no campo de visão dele."
+                text: "Alinhe-se na coluna do Jr. Trainer♂ na Rota 24, ao norte o bastante para o sprite dele ficar logo abaixo da borda inferior da tela. Um passo ao sul te colocaria no campo de visão dele."
                 note_label: "CONFIRA"
                 note: "Ele precisa estar fora da tela. Na tela, ele simplesmente vem até você e batalha normalmente."
               start:
@@ -812,25 +819,31 @@ pt:
           steps:
             "1":
               title: "Cure e pegue o Oak's Parcel"
-              text: "Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te entrega o Oak's Parcel para levar de volta. A saída norte fica bloqueada por um velho sonolento por ora."
+              text: "Você chega pela Rota 1 na primeira cidade sem grama selvagem, então não há nada para capturar aqui. Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te para no balcão e entrega o Oak's Parcel para levar de volta ao sul. A estrada ao norte da cidade está bloqueada por um velho cochilando no caminho, então não há mais o que fazer aqui por ora."
               items:
                 oaks_parcel: "Com o atendente da loja em Viridian; entregue ao Oak em Pallet Town."
             "2":
               title: "Entregue o Oak's Parcel"
-              text: "Leve o Parcel ao sul, ao laboratório do Oak em Pallet Town, onde ele te dá a Pokédex."
+              text: "Leve o Parcel ao sul, ao laboratorio do Oak em Pallet Town. Entregue a ele e enfim ele te da a Pokédex, a ferramenta que registra cada Pokémon que você ve e captura."
             "3":
               title: "Pegue o Town Map"
-              text: "Enquanto está em Pallet pela Pokédex, entre na casa do Blue ao lado. A irmã dele, a Daisy, está perto da mesa; fale com ela e ela te dá o Town Map, que mostra cada rota e cidade de Kanto."
+              text: "Enquanto está em Pallet pela Pokédex, entre na casa do Blue logo a leste. A irmã dele, a Daisy, está perto da mesa; fale com ela e ela te dá o Town Map, que mostra cada rota e cidade de Kanto."
               items:
                 town_map: "Com a Daisy, irmã do Blue, na casa logo a leste da sua em Pallet Town."
             "4":
-              title: "Veja a demonstração de captura e abasteça"
-              text_html: "Volte a pé para Viridian. O velho na saída norte já acordou; assista à demonstração de captura dele e ele sai do caminho. Compre um monte de Poké Balls e algumas Potions e Antidotes na loja antes de ir. Ou deixe as Poké Balls para depois se quiser <a href=\"#missable-poke-balls\">as cinco grátis do Oak</a>."
-              hidden:
-                potion: "Na árvore logo à esquerda do portão norte. Fique à direita dela e aperte A."
+              title: "Abasteca na loja"
+              text: "Volte a pe para Viridian. Agora que a loja esta vendendo, compre um monte de Poke Balls e algumas Potions e Antidotes para a Rota 22, a Rota 2 e a Viridian Forest. Se preferir pegar as cinco Poke Balls gratis do Oak, deixe as balls para depois da batalha de rival na Rota 22 (veja a nota de perdivel)."
             "5":
-              title: "Siga a oeste para a Rota 22"
-              text: "O Ginásio de Viridian fica trancado até você ter as outras sete insígnias, então pule ele. Siga a oeste para a Rota 22 primeiro, pelas melhores capturas contra o Brock e uma batalha de rival; de lá você volta por Viridian e sobe para a Rota 2."
+              title: "Veja a demonstracao de captura"
+              text: "O velho na estrada ao norte ja acordou. Fale com ele e assista a demonstracao de captura; quando ela termina, ele sai do caminho e a passagem ao norte enfim abre."
+            "6":
+              title: "Pegue a Potion escondida perto da saida norte"
+              text: "Com o caminho aberto, suba em direcao a saida norte, no topo da cidade. Uma arvore solitaria bloqueia um beco sem saida logo a oeste do caminho de saida. Chegue pelo lado leste, que e aberto, fique a direita da arvore, olhe para a esquerda e aperte A para pegar uma Potion escondida. Nada aparece na tela ate o item ser seu."
+              hidden:
+                potion: "A arvore solitaria logo a oeste do caminho da saida norte, perto do topo da cidade. Chegue pelo leste, fique a direita dela, olhe para a esquerda e aperte A. Nada aparece na tela."
+            "7":
+              title: "Pule o Ginasio e siga a oeste para a Rota 22"
+              text: "O Ginasio de Viridian, no nordeste, fica trancado ate você ter as outras sete insignias, entao deixe para o fim do jogo. Pegue a saida oeste para a Rota 22, pelas melhores capturas contra o Brock e sua próxima batalha de rival; de la você volta por Viridian e sobe para a Rota 2."
         route_22:
           note: "Rota oeste opcional. Nidoran♀/♂, Mankey, Spearow. Mais a primeira batalha de rival."
           intro: "Um desvio curto a oeste de Viridian. O melhor lugar para capturar respostas ao Brock antes da floresta."
@@ -880,10 +893,10 @@ pt:
           steps:
             "1":
               title: "Atravesse a grama sul"
-              text: "Vá ao norte pela grama curta. Capture um Nidoran selvagem aqui se pulou a Rota 22."
+              text: "Suba ao norte pela grama curta a partir da borda de Viridian City. Capture um Nidoran selvagem aqui se pulou a Rota 22, e registre um Pidgey ou Rattata para a dex enquanto passa."
             "2":
               title: "Entre na Viridian Forest"
-              text: "Entre no portão da floresta no topo e siga direto. O lado leste bloqueado por Cut vem muito depois."
+              text: "Siga a faixa oeste até o portão da floresta no topo e entre direto. Tudo no lado leste cercado de árvores (a Moon Stone, o HP Up, o HM05 Flash e a troca do Mr. Mime) fica trancado até você ter Cut, então siga em frente."
           tips:
             pidgey: "O mesmo voador confiável da Rota 1 se você ainda precisar de um."
             rattata: "Comum de novo. Pule se já capturou um."
@@ -898,27 +911,35 @@ pt:
           steps:
             "1":
               title: "Entre pelo portão da Rota 2"
-              text: "Entre pelo sul. A grama alta ladeia o caminho. Sua chance de Caterpie, Metapod e Pidgey. Pegue a Poké Ball no beco de grama sem saída a noroeste."
-              items:
-                poke_ball: "No fim do beco de grama sem saída, a noroeste da entrada sul."
+              text: "Entre pelo portão sul. A grama alta preenche todo o labirinto, sua única chance de Caterpie, Metapod e Pidgey. Uma Lass e alguns Bug Catchers esperam nas árvores para XP fácil do Pikachu."
             "2":
               title: "Cheque a árvore isolada"
-              text: "Logo ao norte da entrada sul há uma única árvore. Aperte A no quadrado sudoeste dela para um Antidote oculto."
+              text: "Logo depois do portão sul há uma única árvore. Chegue ao lado dela, olhe para o quadrado da árvore e aperte A para um Antidote oculto."
               hidden:
-                antidote: "Aperte A no quadrado sudoeste da árvore isolada perto da entrada sul. Nada aparece na tela."
+                antidote: "Ao pé da árvore isolada, logo depois do portão sul. Olhe para o quadrado e aperte A. Nada aparece na tela."
             "3":
-              title: "Suba o labirinto"
-              text: "Serpenteie ao norte pelas árvores, batalhando a Lass e os Bug Catchers para XP fácil do Pikachu. Pegue a Potion a nordeste, perto da placa de dicas."
+              title: "Saqueie o beco a noroeste"
+              text: "Vá a noroeste até o beco de grama sem saída, vencendo a Lass no caminho para XP fácil. Uma Poké Ball está no chão junto à parede oeste, bem no fim do caminho."
               items:
-                potion: "A nordeste da floresta, logo a noroeste da placa Trainer Tips."
+                pok-ball: "No fim do beco de grama sem saída, junto à parede oeste, a noroeste do portão sul."
             "4":
-              title: "Chegue à saída norte"
-              text: "Perto do portão norte, cheque o chão um quadrado a oeste do Bug Catcher para uma Potion oculta."
-              hidden:
-                potion: "Um quadrado a oeste do Bug Catcher que fica ao sul da saída norte."
+              title: "Pegue a Potion central"
+              text: "Serpenteie de volta ao meio do labirinto. Uma Potion espera numa ball logo a noroeste da placa que fala em usar Antidote contra veneno."
+              items:
+                potion-12-29: "No centro da floresta, numa ball logo a noroeste da placa de Antidote."
             "5":
+              title: "Varra o nordeste"
+              text: "Suba até o canto nordeste, limpando os Bug Catchers para mais XP do Pikachu. Pegue a Potion numa ball logo a noroeste da placa Trainer Tips."
+              items:
+                potion-25-11: "A nordeste da floresta, logo a noroeste da placa Trainer Tips."
+            "6":
+              title: "Vasculhe a parede oeste"
+              text: "Volte à parede oeste rumo à saída norte. Um quadrado a oeste do Bug Catcher de lá, fique no quadrado logo abaixo, olhe para cima e aperte A para uma Potion oculta."
+              hidden:
+                potion: "Um quadrado a oeste do Bug Catcher na parede oeste (parte alta da floresta). Fique no quadrado logo abaixo, olhe para cima e aperte A. Nada aparece na tela."
+            "7":
               title: "Saia para Pewter City"
-              text: "Capture um Caterpie ou Metapod antes de ir. O Confusion do Butterfree é uma resposta rara e boa ao Brock. Saia ao norte para a Rota 2 e então para Pewter City."
+              text: "Capture um Caterpie ou Metapod antes de ir; o Butterfree aprende Confusion, uma resposta rara e boa ao Brock. Saia pelo portão norte para a Rota 2 e então para Pewter City."
           tips:
             caterpie: "Por toda a grama. Evolui rápido para Butterfree, cujo Confusion machuca o Brock."
             metapod: "Ou só evolua seu Caterpie no Nv 7. Mais barato que caçar o spawn de 25%."
@@ -976,20 +997,69 @@ pt:
           intro: "Uma caverna escura cheia de Rockets. Pegue a Moon Stone, escolha um fóssil e siga até Cerulean."
           steps:
             "1":
-              title: "Entre pela Rota 3"
-              text: "Entre pela entrada oeste (Rota 3). Logo dentro, varra a câmara oeste pelo TM12 (Water Gun) e uma Potion antes de o túnel se dividir e descer pelas escadas conectadas."
+              title: "Entre em Mt. Moon pela Rota 4"
+              text: "Entre pela ponta oeste da Rota 4, bem ao lado do Centro Pokémon, no escuro do 1F. Zubat e Geodude infestam a rocha, entao mantenha um lider descansado; um Clefairy de 1% e um Paras de 5% sao os premios que valem a cacada."
             "2":
-              title: "Vasculhe os andares por itens"
-              text: "Enquanto desce, pegue o Rare Candy, o Escape Rope e a Potion no sudeste do 1F, o HP Up descendo a primeira escada sul e o TM01 (Mega Punch) no B2F. Mais dois itens ficam ocultos nas rochas do B2F."
-              hidden:
-                moon_stone: "Uma segunda Moon Stone, escondida entre as pedras no meio do B2F. Aperte A na rocha logo ao sul da escada ao atravessar; nada aparece na tela."
-                ether: "Guardado dentro da pedra grande ao lado do TM01 (Mega Punch), no nordeste do B2F. Aperte A contra a rocha; nada aparece na tela."
+              title: "Pegue a Potion perto da entrada"
+              text: "A poucos passos da entrada, no centro-sul do 1F, uma Potion esta numa bola logo a leste de onde você entrou. Pegue-a antes de se espalhar pela caverna."
+              items:
+                potion-20-33: "Centro-sul do 1F, logo a leste da entrada da Rota 4."
             "3":
-              title: "Pegue a Moon Stone, vença os Rockets"
-              text: "Pegue a Moon Stone no canto noroeste do 1F; ela evolui Clefairy, Nidorina, Nidorino e mais. Limpe os Rocket Grunts nos andares inferiores e, no Yellow, Jessie & James também aparecem."
+              title: "Va ao sudeste pelo Rare Candy"
+              text: "Siga a parede inferior ate o canto sudeste, onde um Rare Candy espera numa bola. Um nível gratis para o Pokémon que quiser."
+              items:
+                rare-candy: "Canto sudeste do 1F, junto a parede inferior."
             "4":
-              title: "Escolha um fóssil e saia"
-              text: "Vença o último Super Nerd e escolha UM fóssil: Dome (vira Kabuto) ou Helix (vira Omanyte). O que você deixar se perde para sempre. Lute contra Jessie & James perto da escada e suba para a Rota 4."
+              title: "Pegue o Escape Rope na parede leste"
+              text: "Logo ao norte do Rare Candy, encostado na parede leste, um Escape Rope esta numa bola. Util se a caverna consumir suas Potions antes de você achar a saida."
+              items:
+                escape-rope: "Parede leste do 1F, logo ao norte do Rare Candy."
+            "5":
+              title: "Atravesse ao sudoeste pelo TM12"
+              text: "Volte para o oeste pela parte de baixo ate o canto sudoeste, onde o TM12 (Water Gun) descansa numa bola. Um golpe de Agua barato para quem puder aprender."
+              items:
+                tm-water-gun: "Canto sudoeste do 1F."
+            "6":
+              title: "Suba a parede oeste por uma segunda Potion"
+              text: "Suba pela parede mais a oeste ate uma segunda Potion numa bola, mais ou menos na metade da altura. Pegue-a a caminho do canto de cima."
+              items:
+                potion-2-20: "Junto a parede mais a oeste do 1F, na metade da altura."
+            "7":
+              title: "Pegue a Moon Stone no noroeste"
+              text: "No canto superior esquerdo do 1F, uma Moon Stone esta numa bola. Ela evolui Clefairy, Nidorina, Nidorino e mais, entao guarde e nunca venda. A escada para baixo fica logo ao lado."
+              items:
+                moon-stone: "Canto superior esquerdo (noroeste) do 1F."
+            "8":
+              title: "Desca pelo labirinto ate o B2F"
+              text: "Desca pela escada do noroeste ate o B1F, um curto labirinto de ligacao sem itens, e entao pegue a próxima escada ate o B2F, onde os Rockets se entrincheiraram. Limpe os Grunts pelo caminho."
+            "9":
+              title: "Pegue o HP Up no B2F"
+              text: "No centro-sul do B2F, um HP Up descansa numa bola. Ele aumenta permanentemente o HP de um Pokémon, entao guarde para um favorito."
+              items:
+                hp-up: "Centro-sul do B2F."
+            "10":
+              title: "Ache a Moon Stone oculta"
+              text: "Uma segunda Moon Stone se esconde entre as pedras no meio do B2F. Encare a rocha logo ao sul da escada ao atravessar e aperte A; nada aparece na tela, mas ela cai na sua mochila."
+              hidden:
+                moon-stone: "Centro do B2F, na rocha logo ao sul da escada. Aperte A; nada aparece na tela."
+            "11":
+              title: "Pegue o TM01 no nordeste"
+              text: "La no nordeste do B2F, o TM01 (Mega Punch) esta numa bola. Um golpe Normal pesado para um atacante fisico."
+              items:
+                tm-mega-punch: "Nordeste do B2F."
+            "12":
+              title: "Revire a rocha ao lado do TM01 pelo Ether"
+              text: "Um Ether esta guardado dentro da pedra grande bem ao lado do TM01, no nordeste do B2F. Encare a rocha e aperte A; nada aparece na tela, mas o Ether e seu."
+              hidden:
+                ether: "Nordeste do B2F, na pedra ao lado do TM01. Aperte A; nada aparece na tela."
+            "13":
+              title: "Venca Jessie & James, escolha um fossil"
+              text: "Perto dos fosseis ao norte, o ultimo Super Nerd guarda o premio e, no Yellow, Jessie & James bloqueiam a passagem. Venca-os e escolha UM fossil: Dome (vira Kabuto) ou Helix (vira Omanyte). O que você deixar se perde para sempre."
+              items:
+                fossil: "Escolha Dome (Kabuto) ou Helix (Omanyte) com o Super Nerd depois de vencê-lo. Reviva em Pokémon depois no Laboratório de Cinnabar; o outro se perde para sempre."
+            "14":
+              title: "Suba de volta para a Rota 4"
+              text: "Com o fossil em maos, pegue a escada do noroeste de volta ao B1F e saia pela saida nordeste na metade leste da Rota 4, que desce rumo a Cerulean City."
           tips:
             clefairy: "Um spawn de 1% na caverna. Pegue um, e uma Moon Stone o torna Clefable."
           oak:
@@ -1001,10 +1071,23 @@ pt:
           steps:
             "1":
               title: "Saia do Mt. Moon"
-              text: "Você sai na ponta oeste da Rota 4. Cure no Centro Pokémon bem na boca da caverna se pulou o de dentro, depois desça a leste pelos desníveis."
+              text: "Você sai na ponta oeste da Rota 4, bem ao lado do Centro Pokémon do Mt. Moon, na boca da caverna. Cure ali se pulou o de dentro, depois siga a leste pelo platô alto rumo a Cerulean."
             "2":
-              title: "Pegue o TM04, desça para Cerulean"
-              text: "Na descida, pegue o TM04 (Whirlwind) no segundo nível da colina leste e cheque a colina noroeste por uma Great Ball oculta. Os desníveis levam direto para baixo, até Cerulean City."
+              title: "Ache a Great Ball oculta"
+              text: "Mais ou menos na metade do topo da rota, uma Great Ball está enterrada no chão aberto, encostada na parede norte. Fique no tile logo abaixo dela e aperte A virado para cima. Nada aparece na tela."
+              hidden:
+                great-ball: "Enterrada contra a parede do topo, perto do meio da rota. Fique um tile ao sul dela, vire para cima e aperte A. Nada aparece na tela."
+            "3":
+              title: "Pegue o TM04 (Whirlwind)"
+              text: "Mais a leste pelo platô, uma Poké Ball fica no aberto com uma Lass patrulhando bem ao lado. Ande sobre ela para pegar o TM04, Whirlwind."
+              items:
+                tm-whirlwind: "Uma Poké Ball no platô, na metade leste da rota, logo a oeste da Lass. Ande sobre ela."
+            "4":
+              title: "Desça para Cerulean City"
+              text: "Passado o TM, pule os desníveis. Eles levam a leste e despejam direto do outro lado, em Cerulean City."
+          trainers:
+            lass:
+              note: "Você não consegue alcançar esta Lass na passagem. Ela fica na ponta leste do platô superior da Rota 4, e os desníveis de mão única te jogam em Cerulean antes de chegar até ela. Anote para uma volta mais tarde."
         cerulean_city:
           mart:
             blurb: "O Mart de Cerulean acrescenta Repel à prateleira, útil nas rotas cheias de treinadores até o Bill."
@@ -1021,8 +1104,15 @@ pt:
               title: "Cure, compre e entre no Ginásio"
               text: "Chegando da Rota 4, cure no Centro e abasteça no Mart, depois entre no Ginásio. Lidere com Pikachu ou um tipo Grama contra a equipe de Agua de Misty."
             "2":
+              title: "Pegue o Rare Candy escondido"
+              text: "Um nível de graça, largado no chão aberto. Um Rare Candy está enterrado em um tile aberto perto do topo da cidade. Alinhe-se no quadrado logo abaixo dele e aperte A. Nada aparece na tela."
+              hidden:
+                rare_candy: "Em um tile aberto perto do topo da cidade. Fique logo abaixo dele e aperte A, nada aparece na tela."
+            "3":
               title: "Pegue os extras e siga ao norte"
               text: "Pegue o Bulbasaur grátis na casa da Melanie se a amizade do Pikachu estiver alta. A casa assaltada perto do norte fica lacrada até mais tarde; quando a oficial sair, persiga o ladrão pelos fundos dela pelo TM28 (Dig). Depois siga ao norte para a Nugget Bridge (Rota 24)."
+              items:
+                bicycle: "Na Bike Shop, quando você troca o Bike Voucher que ganha em Vermilion. Você volta pra pegar, e nunca mais anda a pé."
           tips:
             bulbasaur: "Grátis na casa da Melanie quando o Pikachu está feliz. Evolui até Venusaur."
           oak:
@@ -1037,13 +1127,21 @@ pt:
           steps:
             "1":
               title: "Vença seu rival"
-              text: "Ao sair de Cerulean para o norte na Nugget Bridge, o Blue te desafia no pé da ponte, antes de qualquer treinador dela. Vença."
+              text: "Saia de Cerulean para o norte e pise na Nugget Bridge. O Blue te embosca logo no pé da ponte, antes de qualquer treinador dela. Vença a equipe dele (liderada por Eevee) e siga subindo a ponte."
             "2":
               title: "Atravesse a Nugget Bridge"
-              text: "Vença os cinco treinadores em sequência, depois o Rocket Grunt no topo. Pegue o Nugget com ele e RECUSE entrar na Team Rocket."
+              text: "Suba a ponte e enfrente os cinco treinadores em fila, depois o Rocket Grunt esperando no topo. Ele te entrega um Nugget e pede para você entrar na Team Rocket. RECUSE, e ele também te enfrenta."
             "3":
               title: "Pegue o Charmander grátis"
-              text: "Na colina de grama depois da ponte, um garoto te dá um Charmander grátis (Nv 10), e o TM45 (Thunder Wave) está numa ball alguns passos a leste. Pegue os dois e siga ao norte para a Rota 25."
+              text: "Na colina de grama depois da ponte, um garoto está pronto para te dar um Charmander grátis (Nv 10). Fale com ele e pegue: uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
+            "4":
+              title: "Pegue o TM45 (Thunder Wave)"
+              text: "Alguns passos a leste do garoto, uma Poke Ball descansa na grama do alto: TM45, Thunder Wave. Chegue nela e pegue, um jeito barato de paralisar qualquer Pokémon que você queira capturar."
+              items:
+                tm-thunder-wave: "Na grama no topo da rota, alguns passos a leste do garoto do Charmander."
+            "5":
+              title: "Siga a leste para a Rota 25"
+              text: "Com o Charmander e o TM na mão, siga o caminho a leste da colina até a Rota 25, a estrada que leva à cabana do Bill."
           tips:
             charmander: "Grátis do garoto aqui. Uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
           oak:
@@ -1058,11 +1156,28 @@ pt:
           intro: "O caminho até a cabana do Bill. Solte-o da máquina para ganhar o ticket do S.S. Anne."
           steps:
             "1":
-              title: "Lute até a cabana"
-              text: "Limpe os Hikers e Youngsters pela rota, e capture um Venonat se ainda precisar. O TM19 (Seismic Toss) fica escondido no canto nordeste do labirinto cercado."
+              title: "Chegue pela Nugget Bridge"
+              text: "Entre pelo oeste, saindo do topo da Nugget Bridge na Rota 24. A trilha segue a leste até a Sea Cottage do Bill, repleta de Hikers, Youngsters e Cooltrainers. Vasculhe a grama e capture um Venonat se ainda precisar."
             "2":
+              title: "Vasculhe a cerca oeste"
+              text: "Poucos passos após a entrada oeste, encoste na borda de cima da rota. Vire para cima e aperte A contra a cerca para um Elixir oculto. Nada aparece na tela."
+              hidden:
+                elixir: "Borda norte perto da entrada oeste, logo após a Rota 24. Vire para cima e aperte A."
+            "3":
+              title: "Pegue o TM19 no labirinto"
+              text: "Serpenteie pelo labirinto cercado no meio da rota, passando pelos Youngsters e pelo Jr. Trainer. A Poke Ball guardada no canto nordeste tem o TM19 (Seismic Toss)."
+              items:
+                tm-seismic-toss: "Canto nordeste do labirinto cercado, no meio da rota."
+            "4":
+              title: "Revise a grama perto da cabana"
+              text: "Na reta final a leste, um pouco a oeste da porta da Sea Cottage do Bill e na mesma fileira, alinhe-se no tile logo abaixo e vire para cima apertando A para um Ether oculto. Nada aparece na tela."
+              hidden:
+                ether: "Extremo leste, a oeste da porta da cabana, na fileira dela. Fique um tile ao sul e aperte A para cima."
+            "5":
               title: "Solte o Bill"
-              text: "Na Sea Cottage, use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
+              text: "Entre na Sea Cottage no extremo leste e use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
+              items:
+                s_s_ticket: "Com o Bill, depois de libertá-lo da máquina na Sea Cottage. Sua passagem para o S.S. Anne em Vermilion."
           oak:
             venonat: "Uma captura Inseto/Veneno → Venomoth. Registre a base uma vez."
         route_5:
@@ -1108,13 +1223,21 @@ pt:
           steps:
             "1":
               title: "Pegue os itens"
-              text: "Cure, depois pegue o Bike Voucher no Fan Club e o Old Rod com o Fishing Guru."
+              text: "Cure no Centro Pokémon, depois pegue o Bike Voucher no Pokémon Fan Club e o Old Rod com o Fishing Guru no lado oeste da cidade."
+              items:
+                bike_voucher: "Com o presidente do Pokémon Fan Club, no lado oeste da cidade. Troque por uma Bicycle na Bike Shop de Cerulean."
+                old_rod: "Com o Fishing Guru na casa do lado oeste da cidade. Pesca Magikarp em qualquer lugar."
             "2":
+              title: "Procure o Max Ether no vão entre os prédios"
+              text: "Logo ao norte da porta da Pokémon Trade House, um vão estreito sobe entre dois prédios até a água do porto. Um Max Ether escondido fica no topo desse vão. Fique na praça abaixo dele, vire para cima em direção ao vão e aperte A. Nada aparece na tela."
+              hidden:
+                max-ether: "No topo do vão entre os dois prédios ao norte da porta da Trade House, encostado na água. Vire para cima a partir da praça e aperte A. Nada aparece."
+            "3":
               title: "Entre no S.S. Anne pelo Cut"
               text: "A arvore do ginasio precisa do HM01 Cut. Entre no navio na doca sul, limpe as cabines e cure o Capitao enjoado para receber o Cut antes de desafiar Surge."
-            "3":
+            "4":
               title: "Pegue o Squirtle gratis"
-              text: "Apos a Insígnia Thunder, a Oficial Jenny te da um Squirtle gratis. Depois siga para leste ate a Rota 11 e a Diglett's Cave."
+              text: "Apos a Insignia Thunder, a Oficial Jenny te da um Squirtle gratis. Depois siga para leste ate a Rota 11 e a Diglett's Cave."
           tips:
             squirtle: "Grátis da Officer Jenny depois da Thunder Badge. O terceiro starter de Kanto, evolui para Blastoise."
           oak:
@@ -1136,6 +1259,8 @@ pt:
             "3":
               title: "Pegue o HM01 Cut"
               text: "Cure o Capitão enjoado na cabine da popa; ele te entrega o HM01 Cut e o TM24 (Thunderbolt). Ensine Cut, depois desembarque. No instante em que você sai, o navio parte de vez, então pegue tudo antes."
+              items:
+                hm01_cut: "Com o Capitão na cabine da popa do S.S. Anne, depois de curar o enjoo dele. Ensina Cut para as arvorezinhas."
         route_11:
           note: "A leste de Vermilion. Pidgey, Rattata e Drowzee."
           intro: "Uma rota larga de grama a leste de Vermilion, com um atalho de caverna rumo a Pewter."
@@ -1147,11 +1272,24 @@ pt:
               note: "Te dá um Dugtrio para pular o spawn de 5% na Caverna Diglett, e a troca ainda o deixa com XP turbinado."
           steps:
             "1":
-              title: "Lute a leste"
-              text: "Limpe os Gamblers, Youngsters e Engineers rumo ao leste; capture um Drowzee na grama."
+              title: "Saia de Vermilion"
+              text: "Saia a leste de Vermilion para a grama larga da Rota 11. A boca da Diglett's Cave fica bem aqui no oeste, marcada pela placa, seu atalho rumo a Pewter para depois."
             "2":
+              title: "Lute a leste"
+              text: "Avance a leste pela grama, limpando os Gamblers, Youngsters e Engineers no caminho, e capture um Drowzee para um Hypno forte cedo."
+            "3":
+              title: "Vasculhe perto do portão leste"
+              text: "Logo antes do portão leste ha um Escape Rope oculto. Pare no tile de grama a alguns quadrados a noroeste da porta do portão, olhe para cima e aperte A. Nada aparece na tela."
+              hidden:
+                escape-rope: "Um tile a oeste e tres ao norte da porta do portão leste, na grama. Fique abaixo dele, olhe para cima e aperte A. Nada aparece na tela."
+            "4":
               title: "Pegue o Itemfinder"
-              text: "Fale com o Assistente do Oak no portão leste pelo Itemfinder (precisa de 30+ espécies). A Diglett's Cave fica no oeste."
+              text: "No portão leste, fale com o Assistente do Oak pelo Itemfinder (ele so entrega quando você ja capturou 30+ especies). No andar de cima, um Garoto troca um Dugtrio turbinado pelo seu Diglett."
+              items:
+                itemfinder: "Com o Assistente do Oak na casa do portão leste, depois de capturar 30+ espécies. Aponta itens escondidos por perto."
+            "5":
+              title: "Pegue o atalho da Diglett's Cave"
+              text: "Volte a oeste ate a boca da Diglett's Cave e entre, atravessando por baixo das montanhas num atalho rapido rumo a Pewter."
           oak:
             drowzee: "A captura notável da rota → Hypno, um Psíquico forte cedo."
         digletts_cave:
@@ -1171,27 +1309,47 @@ pt:
           intro: "Uma rota longa de grama a leste de Cerulean, cheia das duas linhas de Nidoran."
           steps:
             "1":
-              title: "Corte a leste"
-              text: "Corte a árvore no portão e vá a leste pela grama, limpando os Bug Catchers e Hikers."
+              title: "Corte a entrada de Cerulean"
+              text: "A Rota 9 sai a leste de Cerulean, barrada só por uma árvore que você corta na borda da cidade. Pise na grama alta, onde as duas linhas de Nidoran fervilham sob seus pés."
             "2":
-              title: "Pegue o TM30"
-              text: "Desvie a sudoeste pelo TM30 (Teleport) e cheque a árvore a noroeste por um Ether oculto."
+              title: "Desça pelo TM30 Teleport"
+              text: "Logo após a entrada, desça ao sul até a depressão a sudoeste. A Poke Ball na grama baixa é o TM30, Teleport, encaixada ao lado do primeiro Hiker."
+              items:
+                tm-teleport: "Depressão a sudoeste logo após a entrada de Cerulean, na grama baixa perto do primeiro Hiker."
             "3":
-              title: "Chegue à Rota 10"
-              text: "Continue a leste; a rota emenda direto na Rota 10 e no Rock Tunnel."
+              title: "Cheque a árvore solitária"
+              text: "Volte ao norte até a árvore solitária na grama a noroeste, logo acima da primeira Jr. Trainer. Fique no quadrado a leste dela e aperte A por um Ether oculto. Nada aparece na tela."
+              hidden:
+                ether: "A árvore solitária na grama a noroeste, ao norte da primeira Jr. Trainer; aperte A pelo lado leste dela."
+            "4":
+              title: "Avance a leste até a Rota 10"
+              text: "Com os dois tesouros no bolso, siga a leste pela grama alta, trocando golpes com os Bug Catchers, Jr. Trainers e Hikers espalhados pela crista. O caminho emenda direto na Rota 10 e na porta do Rock Tunnel."
         route_10:
           note: "A porta do Rock Tunnel. Magnemite por toda parte."
           intro: "Uma rota curta ao redor da boca norte do Rock Tunnel. Magnemite domina a grama."
           steps:
             "1":
               title: "Cure no Centro"
-              text: "Vá ao sul até o Centro Pokémon ao lado da entrada norte do Rock Tunnel."
+              text: "Chegue da Rota 9 à parte alta da Rota 10 e entre no Centro Pokémon ao lado da boca norte do Rock Tunnel. Recupere-se, porque a caverna adiante é longa e escuríssima."
             "2":
               title: "Capture um Magnemite"
-              text: "Varra a grama por Magnemite e Machop antes do túnel."
+              text: "Varra a grama perto da boca norte por Magnemite e o raro Machop, e derrote a Jr Trainer que patrulha logo abaixo do Centro."
             "3":
+              title: "Pegue a Super Potion escondida"
+              text: "Um tile à direita da entrada norte do Rock Tunnel, aperte A no quadrado vazio ao lado da boca para uma Super Potion escondida. Nada aparece na tela."
+              hidden:
+                super-potion: "Um tile a leste da boca norte do Rock Tunnel; aperte A virado à direita. Nada aparece na tela."
+            "4":
               title: "Entre no Rock Tunnel"
-              text: "Ensine Flash a um Pokémon primeiro, depois entre pela boca norte do túnel."
+              text: "Ensine HM05 Flash a um Pokémon primeiro, depois entre pela boca norte do túnel."
+            "5":
+              title: "Cace o Max Ether escondido"
+              text: "Saindo pela boca sul do Rock Tunnel na parte baixa da Rota 10, caminhe alguns tiles a leste pela trilha e aperte A virado ao norte para um Max Ether escondido. Nada aparece na tela."
+              hidden:
+                max-ether: "A leste da boca sul do Rock Tunnel, na parte baixa da Rota 10; aperte A virado para cima. Nada aparece na tela."
+            "6":
+              title: "Desça para Lavender Town"
+              text: "Limpe os Hikers e o Pokémaniac na parte baixa da Rota 10, depois caminhe ao sul até Lavender Town."
           oak:
             magnemite: "Uma captura de 50% na grama aqui → Magneton. Cobertura Elétrica para o túnel escuro."
         rock_tunnel:
@@ -1288,14 +1446,24 @@ pt:
           intro: "A cidade grande. Compre na loja de departamentos, pegue um Eevee, vença a Erika e assalte o Rocket Game Corner."
           steps:
             "1":
-              title: "Compre na Dept. Store"
-              text: "Pegue o TM18 (Counter) grátis com o atendente no 3F. Compre três bebidas nas máquinas do terraço e dê à garota lá em cima por TM13 (Ice Beam), TM48 (Rock Slide) e TM49 (Tri Attack). Compre pedras de evolução no 4F, e guarde uma bebida extra para os guardas de Saffron."
+              title: "Chegue pela Route 7"
+              text: "Entre pelo portão da Route 7, no lado leste de Celadon, onde a maior cidade de Kanto se abre: uma loja de departamentos de seis andares, um Game Corner e o ginásio de Grama da Erika. Cure seu time no Centro Pokémon logo adiante antes de começar."
             "2":
+              title: "Vasculhe as árvores do nordeste"
+              text: "Antes de entrar na cidade, suba pela grama alta que corre ao longo da borda leste, até o canto nordeste. Fique no topo da faixa, um tile abaixo da árvore solitária, olhe para cima e aperte A para um PP Up escondido. Nada aparece na tela, então confie no lugar."
+              hidden:
+                pp-up: "No topo da faixa de grama alta do extremo leste, na árvore que fecha a ponta norte (a sudeste do Centro Pokémon). Olhe para cima e aperte A; nada aparece."
+            "3":
+              title: "Compre na Dept. Store"
+              text: "Vá até a loja de departamentos de seis andares, no lado oeste. Pegue o TM18 (Counter) grátis com o atendente no 3F. Compre três bebidas nas máquinas do terraço e dê à garota lá em cima por TM13 (Ice Beam), TM48 (Rock Slide) e TM49 (Tri Attack). Compre pedras de evolução no 4F, e guarde uma bebida extra para os guardas de Saffron."
+            "4":
               title: "Pegue o Eevee, depois o Ginásio"
               text: "Pegue o Eevee de presente no último andar da Celadon Mansion (atrás do Centro Pokémon) e a Coin Case com o homem no restaurante, depois entre no Ginásio atrás das árvores. Fogo, Voador ou Psíquico vence a Grama e Veneno da Erika; corte as arvorezinhas de dentro para pular o labirinto."
-            "3":
-              title: "Va ao Game Corner"
-              text: "Ganhe fichas por premios como Porygon e Vulpix, depois ache o interruptor no poster para entrar no Esconderijo Rocket."
+              items:
+                coin_case: "Com o homem caído no restaurante de Celadon, ao sul do Game Corner. Guarda as fichas que você ganha nos caça-níqueis."
+            "5":
+              title: "Vá ao Game Corner"
+              text: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o interruptor no pôster para entrar no Esconderijo Rocket."
           tips:
             eevee: "Grátis no Condominiums. Evolua com uma pedra em Vaporeon, Jolteon ou Flareon."
             porygon: "O único Porygon do jogo. 9999 fichas do Game Corner, e não há outro jeito."
@@ -1312,32 +1480,166 @@ pt:
           steps:
             "1":
               title: "Abra a escada"
-              text: "No Game Corner, um homem de preto guarda o pôster solitário na parede norte. Vença ele, aperte o botão atrás do pôster e a escada para o B1F se abre."
+              text: "No Game Corner de Celadon, um homem de preto vigia o pôster solitário na parede norte. Vença ele, aperte o botão escondido atrás do pôster e a escada para o B1F se abre."
             "2":
-              title: "Deslize pelas placas por itens"
-              text: "As placas de seta te deslizam em linha reta até bater num ponto de parada, então alinhe cada lançamento. Espalhados pelos labirintos giratórios do B2F e B3F estão um Nugget, uma Moon Stone, o TM07 (Horn Drill), um Rare Candy e o TM10 (Double-Edge)."
+              title: "Deslize pelas placas giratórias"
+              text: "O B1F é forrado de placas de seta que te lançam em linha reta até uma parede ou placa de parada te segurar, então alinhe cada giro antes de pisar. Rocket Grunts patrulham os pontos de parada. Use as placas para varrer os item balls espalhados pelo andar."
             "3":
-              title: "Pegue a Lift Key"
-              text: "No B4F, vença o Rocket Grunt que solta a Lift Key; um HP Up e o TM02 (Razor Wind) ficam na mesma sala a noroeste. Pegue o elevador para chegar ao escritório do Giovanni a sudeste."
+              title: "Deslize a oeste pelo Escape Rope"
+              text: "Gire até a metade oeste do B1F, onde um Escape Rope está num ball. Guarde ele agora; pode te tirar direto do esconderijo se o labirinto te vencer."
+              items:
+                escape-rope: "Metade oeste do B1F. Pise no ball na grade (11,14)."
             "4":
+              title: "Pegue a Hyper Potion"
+              text: "Logo a sudoeste do Escape Rope, outro ball guarda uma Hyper Potion. Pegue para uma boa cura de 200 HP para levar às batalhas contra os grunts lá embaixo."
+              items:
+                hyper-potion: "Lado oeste do B1F, uma fileira a sudoeste do ball do Escape Rope."
+            "5":
+              title: "Procure o PP Up oculto"
+              text: "De volta ao centro do B1F, perto de onde você entrou, fique na casa (20,15) e aperte A virado para leste. Um PP Up oculto está enterrado na casa ao seu lado, mesmo que nada apareça na tela."
+              hidden:
+                pp-up: "Centro do B1F. Aperte A virado para leste em (20,15). Nada aparece na tela."
+            "6":
+              title: "Desça a escada para o B2F"
+              text: "Gire de volta ao canto nordeste do B1F e desça a escada para o B2F, o próximo anel do labirinto giratório."
+            "7":
+              title: "Pegue o Nugget"
+              text: "Perto do meio do B2F um ball guarda um Nugget, uma pepita cara que vende por uma boa grana em qualquer loja. Alinhe as placas e chegue nele pelo oeste."
+              items:
+                nugget: "Centro do B2F, no ball na grade (16,8)."
+            "8":
+              title: "Pegue o TM07 (Horn Drill)"
+              text: "Deslize para a faixa oeste do B2F pelo TM07, Horn Drill, um golpe de nocaute imediato que só acerta em alvos mais lentos. Pegue o ball e guarde o TM."
+              items:
+                tm-horn-drill: "Lado oeste do B2F, no ball na grade (6,12)."
+            "9":
+              title: "Pegue a Moon Stone"
+              text: "No canto extremo noroeste do B2F fica uma Moon Stone, a pedra de evolução de Nidoran, Clefairy e Jigglypuff. Ela se esconde fácil colada na parede, então faça a viagem até ela."
+              items:
+                moon-stone: "Canto extremo noroeste do B2F, no ball na grade (1,11)."
+            "10":
+              title: "Pegue a Super Potion"
+              text: "Lá no sudoeste do B2F, mais um ball guarda uma Super Potion. Pegue antes de deixar o andar."
+              items:
+                super-potion: "Sudoeste do B2F, no ball na grade (3,21)."
+            "11":
+              title: "Desça para o B3F"
+              text: "Volte ao norte do B2F e desça a escada para o B3F. Os Rockets aqui batem um pouco mais forte, então mantenha seu líder saudável."
+            "12":
+              title: "Pegue o Rare Candy"
+              text: "Um Rare Candy descansa num ball perto do meio do B3F. Um nível de graça para qualquer Pokémon; guarde para o que você quiser empurrar por cima de uma evolução ou um ginásio."
+              items:
+                rare-candy: "Centro do B3F, no ball na grade (20,14)."
+            "13":
+              title: "Pegue o TM10 (Double-Edge)"
+              text: "No lado leste do B3F, um ball guarda o TM10, Double-Edge, um golpe Normal pesado que devolve um quarto do dano em recuo sobre você. Pegue ele."
+              items:
+                tm-double-edge: "Lado leste do B3F, no ball na grade (26,17)."
+            "14":
+              title: "Procure o Nugget oculto"
+              text: "Uma casa a leste do ball do Double-Edge, fique em (27,18) e aperte A virado para cima. Um segundo Nugget oculto está enterrado ali mesmo, sem nada aparecer na tela. Dois Nuggets deste esconderijo é uma boa bolada."
+              hidden:
+                nugget: "Borda leste do B3F, uma casa a leste do ball do TM10. Aperte A virado para cima em (27,18). Nada aparece na tela."
+            "15":
+              title: "Desça para o B4F"
+              text: "Desça a última escada para o B4F, o fundo do esconderijo. Giovanni está em algum lugar aqui embaixo, mas um elevador trancado separa você do escritório dele."
+            "16":
+              title: "Pegue a Lift Key na sala do grunt"
+              text: "Na sala noroeste do B4F, um Rocket Grunt solitário guarda um ball. Vença ele e pegue a Lift Key, a chave que enfim liga o elevador até o escritório do Giovanni."
+              items:
+                lift-key: "Sala noroeste do B4F, no ball na grade (10,2), ao lado do Rocket Grunt."
+            "17":
+              title: "Pegue o TM02 (Razor Wind)"
+              text: "Duas casas ao sul da Lift Key, na mesma sala noroeste, um ball guarda o TM02, Razor Wind, um golpe Normal de dois turnos. Pegue enquanto está por aqui."
+              items:
+                tm-razor-wind: "Sala noroeste do B4F, no ball na grade (9,4), logo ao sul do ball da Lift Key."
+            "18":
+              title: "Pegue o HP Up"
+              text: "Ainda na metade oeste do B4F, um pouco ao sul da sala da Lift Key, um ball guarda um HP Up. Um aumento permanente de HP para um Pokémon; pegue ele."
+              items:
+                hp-up: "Oeste do B4F, no ball na grade (10,12), ao sul da sala da Lift Key."
+            "19":
+              title: "Pegue o Iron"
+              text: "Lá no sul do B4F, um ball guarda um Iron, a vitamina que aumenta a Defesa de forma permanente. Deslize pelas placas até ele antes de ir ao elevador."
+              items:
+                iron: "Sul do B4F, no ball na grade (12,20)."
+            "20":
+              title: "Pegue o elevador até o Giovanni"
+              text: "Com a Lift Key, atravesse até o elevador no leste do B4F e use ele. Ele te leva ao corredor selado onde Jessie & James bloqueiam a passagem. Limpe a dupla e siga rumo ao escritório lá em cima."
+            "21":
               title: "Vença o Giovanni"
-              text: "Limpe Jessie & James, depois o Giovanni (Onix Nv 25, Rhyhorn Nv 24, Persian Nv 29); Água ou Grama resolve os dois primeiros. Ele solta o Silph Scope que você precisa para a Pokémon Tower."
+              text: "No topo do corredor está o próprio Giovanni: Onix (Nv 25), Rhyhorn (Nv 24) e Persian (Nv 29). Água ou Grama derrete os dois primeiros, e qualquer coisa rápida resolve o Persian. Ele cai, e o ball atrás dele agora é seu."
+            "22":
+              title: "Pegue o Silph Scope"
+              text: "Com o Giovanni fora do caminho, avance e pegue o ball na casa que ele guardava. Dentro está o Silph Scope, o aparelho que revela os fantasmas que assombram a Pokémon Tower em Lavender Town."
+              items:
+                silph-scope: "Topo do corredor do Giovanni, nordeste do B4F, no ball na grade (25,2)."
+            "23":
+              title: "Procure a Super Potion oculta"
+              text: "Mais uma casa ao norte do Silph Scope, bem no topo do corredor, fique na casa do Silph Scope e aperte A virado para cima. Uma Super Potion oculta está guardada na casa acima, sem nada aparecer na tela."
+              hidden:
+                super-potion: "Bem no topo do corredor do Giovanni. Fique na casa do Silph Scope (25,2) e aperte A virado para cima. Nada aparece na tela."
+            "24":
+              title: "Saia rumo à Pokémon Tower"
+              text: "É o esconderijo inteiro varrido. Use um Escape Rope ou pegue o elevador de volta ao B1F e siga para Lavender Town: o Silph Scope libera a Pokémon Tower a seguir."
         pokemon_tower:
           note: "A torre assombrada de Lavender. Fantasmas e o Poké Flute."
           intro: "Suba a torre com o Silph Scope para revelar os fantasmas, vencer seu rival e soltar o Mr. Fuji."
           steps:
             "1":
               title: "Suba com o Silph Scope"
-              text: "Entre e suba; com o Scope, os Gastly, Haunter e Cubone selvagens finalmente aparecem. Varra os andares por um Escape Rope (3F), um Elixir, Awakening e HP Up (4F), um Elixir oculto e um Nugget (5F), e um X Accuracy e Rare Candy (6F)."
+              text: "Entre vindo de Lavender Town e comece a subir. Com o Silph Scope ativo, os Gastly, Haunter e Cubone selvagens que assombram cada andar finalmente tomam forma, então dá pra batalhar em vez de tatear no escuro."
             "2":
-              title: "Vença seu rival"
-              text: "O Blue te enfrenta no 2F, com a equipe por volta do Nv 25. O Eevee dele já evoluiu, conforme o histórico que você marcou nas batalhas anteriores."
+              title: "Vença seu rival no 2F"
+              text: "O Blue te embosca ao atravessar o segundo andar, com a equipe por volta do Nv 25. O Eevee dele já evoluiu conforme o histórico que você marcou nas batalhas anteriores, então comece com um counter pra forma que ele tomou e suba pela escada oeste."
             "3":
-              title: "Limpe o Marowak fantasma"
-              text: "Nos andares de cima, um Marowak fantasma Nv 30 bloqueia a escada. O Silph Scope deixa você batalhar e derrotá-lo, mas ele nunca pode ser capturado."
+              title: "Pegue o Escape Rope no 3F"
+              text: "No terceiro andar, uma ball solitária espera colada na parede de cima, bem no centro. Suba até ela pra pegar um Escape Rope, sua saída na hora se os fantasmas te desgastarem."
+              items:
+                escape-rope: "Centro-topo do 3F, contra a parede norte; aproxime por baixo."
             "4":
-              title: "Solte o Mr. Fuji"
-              text: "Vença Jessie & James no 7F e solte o Mr. Fuji no topo. Ele te dá o Poké Flute, que acorda os Snorlax dorminhocos das Rotas 12 e 16."
+              title: "Pegue o Elixir no 4F"
+              text: "No quarto andar, a primeira de três balls fica perto do meio da sala. Chegue por ela pela direita pra levar um Elixir, que recarrega o PP de todos os golpes de uma vez."
+              items:
+                elixir: "Centro do 4F, aproximado pela direita."
+            "5":
+              title: "Desça pro HP Up"
+              text: "Logo abaixo do Elixir, encostada na parede de baixo, uma segunda ball guarda um HP Up, um aumento permanente no HP máximo de um Pokémon. Alcance pela esquerda."
+              items:
+                hp-up: "Borda sul do 4F, logo abaixo do Elixir."
+            "6":
+              title: "Embolse o Awakening"
+              text: "Alguns passos a oeste pela fileira do meio, a última ball do 4F é um Awakening, uma cura na hora pra Sleep e útil contra os fantasmas sonolentos da Torre. Depois siga pra escada oeste."
+              items:
+                awakening: "Centro-oeste do 4F, a oeste do Elixir, perto da escada de subida."
+            "7":
+              title: "Tateie o Elixir oculto no 5F"
+              text: "Chegando ao quinto andar pela escada oeste, entre um ou dois tiles e vire pra baixo. Aperte A no tile vazio logo à sua frente pra achar um Elixir oculto; nada aparece na tela, mas ele cai na sua bag."
+              hidden:
+                elixir: "Logo a sudeste da escada oeste do 5F. Aperte A virado pra baixo no tile vazio; nenhuma ball aparece."
+            "8":
+              title: "Garanta o Nugget"
+              text: "Um pouco mais adentro do quinto andar, uma ball fica embaixo, no lado oeste. Pegue pela direita pra levar um Nugget, que vale um bom bolo de dinheiro em qualquer loja."
+              items:
+                nugget: "Área oeste-sul do 5F, alguns tiles depois do Elixir oculto; aproxime pela direita."
+            "9":
+              title: "Fisgue o Rare Candy no 6F"
+              text: "O prêmio do sexto andar fica lá no lado oeste, perto do topo. Suba até ele pra pegar um Rare Candy, um nível na hora pro Pokémon que mais precisar."
+              items:
+                rare-candy: "Lado oeste do 6F, mais pro topo; aproxime por baixo."
+            "10":
+              title: "Pegue o X Accuracy"
+              text: "De volta pro sudeste, a última ball da Torre é um X Accuracy, um item de batalha que afia seus próximos golpes. Daqui é um pulo até a escada que o fantasma guarda."
+              items:
+                x-accuracy: "Sudeste do 6F; aproxime pela direita."
+            "11":
+              title: "Limpe o Marowak fantasma"
+              text: "Um Marowak fantasma Nv 30 fica sobre a escada de subida, de luto entre os túmulos. O Silph Scope deixa você vê-lo e enfrentá-lo, então derrube-o pra abrir caminho. Ele nunca pode ser capturado, só posto pra descansar."
+            "12":
+              title: "Solte o Mr. Fuji no 7F"
+              text: "No topo, a Jessie & James da Equipe Rocket bloqueiam o caminho até o Mr. Fuji. Vença a dupla e fale com o velho pra libertá-lo. Ele te entrega o Poké Flute, que acorda os Snorlax dorminhocos das Rotas 12 e 16."
+              items:
+                poke_flute: "Com o Mr. Fuji no topo da torre, depois que o Marowak fantasma descansa. Acorda o Snorlax que bloqueia as Rotas 12 e 16."
           tips:
             gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar por troca."
           oak:
@@ -1348,14 +1650,29 @@ pt:
           intro: "Uma longa ponte de pesca bloqueada por um Snorlax dorminhoco. Acorde-o com o Poké Flute para passar."
           steps:
             "1":
-              title: "Acorde o Snorlax"
-              text: "Toque o Poké Flute no Snorlax dorminhoco da ponte e batalhe (ou nocauteie) para abrir o caminho."
+              title: "Desça de Lavender Town"
+              text: "Entre na Rota 12 pelo norte, vindo direto de Lavender Town. Esta é a Silence Bridge, uma longa ponte de pesca sobre água aberta. Entre no portão lá em cima e suba ao 2F para pegar de graça o TM39 (Swift) com a garota dos binóculos, depois desça pelo trecho ao sul, batalhando os Fishermen espalhados pela metade norte."
             "2":
-              title: "Desça pela ponte"
-              text: "Lute com os Fishermen ao longo do vão; pegue o TM39 e o Super Rod nas casas."
+              title: "Acorde o Snorlax"
+              text: "No meio da ponte, um Snorlax Nv 30 bloqueia o único caminho. Toque o Poke Flute (do Mr. Fuji em Lavender Town) para acordá-lo, depois batalhe ou nocauteie para abrir a passagem ao sul. É um de apenas dois Snorlax do jogo, então jogue algumas balls se quiser a captura."
             "3":
+              title: "Vasculhe o beco oeste"
+              text: "Logo depois do Snorlax, siga a estreita ponte de terra a oeste ate um beco sem saida murado. Fique no piso mais a oeste e aperte A virado para leste para um Hyper Potion oculto. Nada aparece na tela."
+              hidden:
+                hyper-potion: "O beco sem saida no extremo oeste da ponte de terra do Snorlax. Vire para leste no piso mais a oeste e aperte A. Nada aparece na tela."
+            "4":
+              title: "Desca pela ponte"
+              text: "Continue ao sul pela ponte, enfrentando o Rocker e o ultimo Fisherman conforme o caminho permitir. Entre na casa do Fishing Guru pelo caminho para pegar o Super Rod, a melhor vara do jogo."
+              items:
+                super_rod: "Com o Fishing Guru na casa no meio da Silence Bridge. A melhor vara, pesca a maior variedade de Pokémon de Água."
+            "5":
+              title: "Pegue o Iron no beco"
+              text: "Perto do extremo sul, logo após o ultimo Fisherman, uma Poke Ball fica num beco murado do lado oeste. Entre e pegue o Iron, que aumenta permanentemente a Defesa de um Pokémon."
+              items:
+                iron: "Beco do lado oeste perto da saida sul, ao lado do Fisherman do sul. A Poke Ball encostada na parede."
+            "6":
               title: "Siga para a Rota 13"
-              text: "Surfe a água leste pelo TM16 se tiver Surf, depois continue ao sul até a Rota 13."
+              text: "Limpe o ultimo Jr. Trainer e atravesse a grama alta la embaixo (Oddish, Bellsprout e o raro Farfetch'd) ate a saida sul para a Rota 13."
           tips:
             farfetchd: "Uma captura rara de 5% na grama. O único Farfetch'd selvagem por perto."
             snorlax: "Um de apenas dois Snorlax do jogo. Uma parede Nv 30. Faça dormir ou paralise, e jogue balls."
@@ -1367,11 +1684,21 @@ pt:
           intro: "Um labirinto sinuoso de cercas e desníveis. Fique atento a um Ditto selvagem."
           steps:
             "1":
-              title: "Serpenteie o labirinto"
-              text: "A Rota 13 é um ziguezague de cercas e desníveis. Siga o caminho descendo da Rota 12, limpando os Bird Keepers e Beauties enquanto ele serpenteia a oeste e ao sul."
+              title: "Desca serpenteando da Rota 12"
+              text: "A Rota 13 e um ziguezague de cercas e desniveis que descem da Rota 12. Siga o caminho enquanto ele serpenteia a oeste e ao sul, limpando os Bird Keepers, o par de Beauties e o Biker solitario, e observe a grama por um Ditto selvagem que Transforma no que enfrenta."
             "2":
-              title: "Pegue os itens ocultos e siga"
-              text: "Dois itens ocultos ficam em vãos ao longo da cerca sul: um Calcium e um PP Up. Localize-os com o Itemfinder, depois continue rumo à Rota 14."
+              title: "Descubra o Calcium perto da placa"
+              text: "Ao longo da cerca sul, um quadrado a leste da primeira placa Trainer Tips, um Calcium se esconde na grama. Fique no tile a leste dele, vire para oeste e aperte A para pega-lo. Nada aparece na tela, entao confie no bip do Itemfinder."
+              hidden:
+                calcium: "Cerca sul, um tile a leste da primeira placa Trainer Tips. Vire para oeste e aperte A; nada aparece na tela."
+            "3":
+              title: "Desenterre o PP Up do canto"
+              text: "Siga a cerca ate o canto sudoeste, o ultimo trecho antes da passagem para a Rota 14. Um PP Up esta enterrado ali. Alinhe-se no quadrado logo acima dele, vire para baixo e aperte A. Nada aparece na tela."
+              hidden:
+                pp-up: "Canto sudoeste, o tile de baixo perto da saida para a Rota 14. Fique acima dele, vire para baixo e aperte A; nada aparece na tela."
+            "4":
+              title: "Saia a oeste para a Rota 14"
+              text: "Com os dois reforcos de status no bolso, desca pelo ultimo trecho de desniveis e saia a oeste para a Rota 14."
           tips:
             ditto: "Uma captura de 5% que Transforma no que enfrenta. Útil para a dex."
           oak:
@@ -1391,11 +1718,18 @@ pt:
           intro: "O último trecho até Fuchsia, por um campo cercado de treinadores."
           steps:
             "1":
-              title: "Cruze o campo"
-              text: "Passe pela dupla fileira de Bikers, Bird Keepers e Beauties."
+              title: "Cruze o campo cercado"
+              text: "Entre em Route 15 pela cancela de Route 14, a leste, e siga para oeste pelo campo cercado. Uma dupla fileira de Bird Keepers, Beauties, Bikers e Jr. Trainers lota a pista, então recupere o HP antes de encarar."
+              items:
+                exp_all: "Com o Assistente do Oak no 2F da cancela, depois de capturar 50 espécies. Divide o EXP das lutas com todo o time."
             "2":
+              title: "Pegue o TM20 Rage no canto noroeste"
+              text: "Perto do fim oeste do campo, corte para o norte, saindo da pista principal. Uma Poke Ball encravada no canto noroeste guarda o TM20 Rage, logo antes da cancela para Fuchsia."
+              items:
+                tm-rage: "Canto noroeste da rota, na fileira de cima, a leste da cancela de Fuchsia."
+            "3":
               title: "Entre em Fuchsia"
-              text: "Corte no canto noroeste pelo TM20 se quiser, depois saia a oeste para Fuchsia City."
+              text: "Volte para a pista principal e atravesse a oeste pela cancela até Fuchsia City."
         fuchsia_city:
           mart:
             blurb: "Fuchsia vende Ultra Balls e Hyper Potions, o kit para a Safari Zone e o ginásio do Koga."
@@ -1415,12 +1749,16 @@ pt:
             "2":
               title: "Pesque no lago do Warden"
               text: "Use o Super Rod no lago para um Gyarados selvagem, uma captura exclusiva do Yellow aqui."
+              items:
+                good_rod: "Com o pescador na casinha perto da cancela oeste. Pesca melhor que o Old Rod."
             "3":
               title: "Explore a Safari Zone"
               text: "Siga ao norte para a Safari Zone pelo HM03 Surf e os Gold Teeth."
             "4":
               title: "Troque pelo Strength"
               text: "Devolva os Gold Teeth ao Warden pelo HM04 Strength; pegue o Rare Candy la dentro depois de te-lo."
+              items:
+                hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
           tips:
             gyarados: "Super Rod no lago do Warden por um Gyarados selvagem. Sem grind de Magikarp."
           oak:
@@ -1430,17 +1768,79 @@ pt:
           intro: "Pague, pegue 30 Safari Balls e capture os mais raros do jogo. Além do HM03 Surf e do Gold Teeth."
           steps:
             "1":
-              title: "Pague a entrada"
-              text_html: "Pague <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dólar\"></span><span class=\"pn-money-value__n\">500</span></span> no portão por 30 Safari Balls; você tem 500 passos por rodada."
+              title: "Pague a entrada no portão"
+              text: "Pague 500 no portão da Safari Zone por 30 Safari Balls e um relógio de 500 passos. Nenhum treinador espera lá dentro, e Poké Balls comuns, HMs e desmaios ficam todos fora de jogo até você sair, então o passeio é seu para percorrer à vontade."
             "2":
-              title: "Cace os raros e pegue os TMs"
-              text: "Varra as áreas por Scyther, Pinsir, Kangaskhan, Tauros, Chansey e Tangela; use Bait para mantê-los parados, Rocks para facilitar a captura, e lembre que nada desmaia aqui. Pegue o TM37 (Egg Bomb) na Área 1, o TM40 (Skull Bash) na Área 2 e o TM32 (Double Team) na Área 3."
+              title: "Entre e aprenda as regras"
+              text: "Suba para a Área Central. Jogue Bait para congelar um Pokémon no lugar ou Rock para baixar a resistência de captura (ao custo de ele fugir mais cedo), e lembre que nada em que você joga uma ball pode ser enfraquecido antes. Varra as quatro áreas por Scyther, Pinsir, Kangaskhan, Tauros, Chansey e Tangela, e use o Super Rod nos lagos por Dratini enquanto dá a volta."
             "3":
-              title: "Chegue à Secret House"
-              text: "No canto distante da Área 3, pegue o HM03 Surf com o oficial dentro da Secret House, com o Gold Teeth logo ali perto. Um Max Revive e algumas Max Potions também ficam por perto."
+              title: "Pegue o Nugget"
+              text: "Reto pelo meio da Área Central, na grama ao norte da entrada, há uma ball solitária com um Nugget. Guarde para vender por bons 5000 depois."
+              items:
+                nugget: "Área Central, subindo pelo meio ao norte do portão."
             "4":
-              title: "Pegue o Dratini"
-              text: "Super Rod nos lagos por Dratini, depois saia e entregue o Gold Teeth ao Warden por Strength."
+              title: "Cruze para a Área 1 pelo TM37"
+              text: "Saia da Área Central pela borda leste para a Área 1 (Leste), chegando ao canto sudoeste. Avance rumo ao meio do campo, onde uma ball espera com o TM37 Egg Bomb."
+              items:
+                tm-egg-bomb: "Área 1 (Leste), no centro do mapa."
+            "5":
+              title: "Varra o leste pelo Carbos"
+              text: "Siga para a direita rumo às árvores do leste e pegue a ball de Carbos, um aumento permanente de Velocidade para um do seu time."
+              items:
+                carbos: "Área 1 (Leste), a leste do centro."
+            "6":
+              title: "Pegue o Full Restore"
+              text: "Alguns tiles ao norte do Carbos há outra ball com um Full Restore, uma cura total com status que vale guardar para lutas difíceis."
+              items:
+                full-restore: "Área 1 (Leste), logo ao norte do Carbos."
+            "7":
+              title: "Volte pela Max Potion"
+              text: "Atravesse o topo da área de volta ao extremo oeste, onde uma ball perto da saída norte guarda uma Max Potion. Pegue e escape pelo canto noroeste para a Área 2."
+              items:
+                max-potion-3-7: "Área 1 (Leste), extremo oeste perto da saída norte."
+            "8":
+              title: "Suba a Área 2 pelo Protein"
+              text: "Você chega à Área 2 (Norte) pelo canto sudeste. Suba até a parede do topo, onde uma ball encostada na cerca guarda um Protein, um aumento permanente de Especial."
+              items:
+                protein: "Área 2 (Norte), encostado na parede do topo."
+            "9":
+              title: "Pegue o TM40 na descida"
+              text: "Desça e vá à esquerda do Protein e pegue a ball com o TM40 Skull Bash. Daqui, siga para o canto sudoeste para cruzar à Área 3."
+              items:
+                tm-skull-bash: "Área 2 (Norte), centro-superior abaixo da parede do topo."
+            "10":
+              title: "Entre na Área 3 e ache o Gold Teeth"
+              text: "Você desce na Área 3 (Oeste) pela borda de cima, onde fica a Secret House. Vá para o oeste pela faixa superior e pegue a ball com o Gold Teeth, a dentadura perdida do Warden."
+              items:
+                gold-teeth: "Área 3 (Oeste), centro-superior do mapa."
+            "11":
+              title: "Pegue o TM32 Double Team"
+              text: "Continue para o oeste pela mesma linha e pegue a ball com o TM32 Double Team antes de o terreno abrir rumo à Secret House."
+              items:
+                tm-double-team: "Área 3 (Oeste), canto superior esquerdo, a oeste do Gold Teeth."
+            "12":
+              title: "Procure o Revive escondido"
+              text: "Alguns tiles a oeste da ball do TM32, pare e aperte A virado para cima no trecho de chão vazio. Nada aparece na tela, mas você guarda um Revive escondido."
+              hidden:
+                revive: "Área 3 (Oeste), dois tiles a oeste da ball do TM32; aperte A virado para cima, nada aparece."
+            "13":
+              title: "Pegue o HM03 Surf na Secret House"
+              text: "Entre na Secret House no canto superior esquerdo. O velho lá dentro te dá o HM03 Surf, o motivo inteiro de vir até aqui. Ensine depois e metade da água do mapa se abre."
+              items:
+                hm03_surf: "Com o velho na Secret House, no canto da Área 3 da Safari Zone. Ensina Surf pela água aberta."
+            "14":
+              title: "Desça ao sul por outra Max Potion"
+              text: "Saia da casa e siga o lado oeste até o fundo da área, onde outra ball guarda uma Max Potion."
+              items:
+                max-potion-8-20: "Área 3 (Oeste), canto inferior esquerdo perto da parede de baixo."
+            "15":
+              title: "Corte a leste pelo Max Revive"
+              text: "Vá para o leste pelo campo inferior e pegue a ball com um Max Revive, o último prêmio antes da saída."
+              items:
+                max-revive: "Área 3 (Oeste), centro-inferior do mapa."
+            "16":
+              title: "Dê a volta e pague o Warden"
+              text: "Escape pela borda leste da Área 3 para a Área Central e desça de volta pelo portão. Antes de esquecer, use o Super Rod nos lagos por Dratini, e em Fuchsia entregue o Gold Teeth ao Warden, que troca por HM04 Strength."
           tips:
             scyther: "Um dos dois grandes brutamontes Inseto do Yellow, aqui junto do Pinsir. Isca, depois Safari Balls."
             pinsir: "O Yellow deixa capturar Pinsir e Scyther na Safari. Pegue este também."
@@ -1459,6 +1859,8 @@ pt:
             "1":
               title: "Pegue o HM02 Fly"
               text: "Corte a árvore a noroeste para chegar à casa e pegar o HM02 Fly."
+              items:
+                hm02_fly: "Com a garota na casa no topo da Rota 16, depois de uma árvore de Cut. Ensina Fly entre cidades."
             "2":
               title: "Acorde o Snorlax"
               text: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão."
@@ -1475,11 +1877,36 @@ pt:
           intro: "Uma descida de bike de mão única cheia de Bikers. Ponyta galopa nas faixas de grama."
           steps:
             "1":
-              title: "Desça de bike"
-              text: "Monte a bike e desça a Cycling Road; não dá para cruzá-la a pé. Vença os Bikers e Cue Balls que ladeiam a descida enquanto passa."
+              title: "Desça de bike pela Cycling Road"
+              text: "Entre pelo portão norte e monte a bike; a Cycling Road não dá para cruzar a pé. Desça a ladeira de mão única, parando nas faixas de grama por uma chance de Ponyta enquanto vence os Bikers e Cue Balls que ladeiam a descida."
             "2":
-              title: "Varra a grama, pegue os itens ocultos"
-              text: "Pare nas faixas de grama por Ponyta. Escondidos na grama e ao longo das cercas estão um Rare Candy, um Full Restore, um Max Revive, um PP Up e um Max Elixir; o Itemfinder ajuda a localizá-los. Saia pelo portão sul para a Rota 18."
+              title: "Vasculhe a faixa do topo"
+              text: "Logo depois do portão norte, a ladeira se abre no primeiro trecho. Cole na faixa leste e aperte A no ladrilho vazio ali por um Rare Candy oculto; nada aparece na tela."
+              hidden:
+                rare-candy: "Faixa leste, perto do topo junto ao portão norte. Aperte A no ladrilho vazio; nada surge."
+            "3":
+              title: "Revire o trecho central"
+              text: "A cerca de um terço da descida, vá para o centro-esquerda da pista. Aperte A no ladrilho comum ali para desenterrar um Full Restore oculto; nada aparece na tela."
+              hidden:
+                full-restore: "Centro-esquerda da pista, mais ou menos um terço abaixo. Aperte A no ladrilho vazio; nada surge."
+            "4":
+              title: "Cheque a cerca leste"
+              text: "Perto da placa de Dicas de Treinador, vire para a beira leste da pista. Aperte A junto ao ladrilho da cerca por um PP Up oculto; nada aparece na tela."
+              hidden:
+                pp-up: "Beira leste, na altura da placa de Dicas de Treinador. Aperte A no ladrilho da cerca; nada surge."
+            "5":
+              title: "Vasculhe a faixa oeste"
+              text: "Mais abaixo, vá para a faixa oeste perto dos Bikers que guardam este trecho. Aperte A no ladrilho vazio ali por um Max Revive oculto; nada aparece na tela."
+              hidden:
+                max-revive: "Faixa oeste, terço inferior da pista. Aperte A no ladrilho vazio; nada surge."
+            "6":
+              title: "Cave perto do fim"
+              text: "Perto do pé da ladeira, antes da placa de fim da Cycling Road, pare no centro-esquerda e aperte A por um Max Elixir oculto; nada aparece na tela."
+              hidden:
+                max-elixir: "Centro-esquerda, perto do fim junto à placa de fim da Cycling Road. Aperte A; nada surge."
+            "7":
+              title: "Saia para a Rota 18"
+              text: "No pé da ladeira, passando a placa de fim da Cycling Road, atravesse o portão sul até a Rota 18."
           oak:
             ponyta: "Uma captura de fogo na grama → Rapidash. Um dos poucos tipos Fogo do Yellow."
         route_18:
@@ -1507,7 +1934,7 @@ pt:
             puzzle:
               "1": "Pise numa plataforma de teletransporte e ela te joga para outra sala. Cada sala tem um treinador e duas plataformas: uma volta, a outra avanca."
               "2": "A linha mais rápida: da entrada pegue a plataforma sudeste, depois a noroeste, depois a sudoeste, e a sudoeste de novo. Cada salto te deixa em cima de um treinador para vencer, e essa sequência te leva à sala da Sabrina."
-              "3": "O ultimo teletransporte te deixa ao lado de Sabrina. Psiquico nao tem contra na 1a geracao, entao suba de nivel ou lidere com um forte atacante Inseto."
+              "3": "O ultimo teletransporte te deixa ao lado de Sabrina. Psiquico nao tem contra na 1a geracao, entao suba de nível ou lidere com um forte atacante Inseto."
           note: "Ginásio da Sabrina. Marsh Badge. Silph Co. e o Dojo."
           intro: "Uma cidade central tomada pela Rocket. Liberte a Silph Co., vença a Sabrina e ganhe um lutador no Dojo."
           steps:
@@ -1516,7 +1943,7 @@ pt:
               text: "Leve uma bebida da Dept. Store de Celadon para passar por cada portao bloqueado da cidade."
             "2":
               title: "Liberte a Silph Co. primeiro"
-              text: "O ginasio fica trancado ate voce limpar a Silph Co. tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
+              text: "O ginasio fica trancado ate você limpar a Silph Co. tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
             "3":
               title: "Reivindique um lutador"
               text: "Vença o Karate Master no Fighting Dojo para levar um Hitmonlee ou Hitmonchan gratis."
@@ -1527,17 +1954,97 @@ pt:
           intro: "Um labirinto de 11 andares com teletransporte. Pegue a Card Key, resgate a Lapras e vença o Giovanni pela Master Ball."
           steps:
             "1":
-              title: "Pegue a Card Key"
-              text: "Chegue ao 5F e pegue a Card Key. Ela abre as portas trancadas do labirinto de placas."
+              title: "Entre na torre tomada pela Rocket"
+              text: "A Equipe Rocket tomou todos os onze andares da Silph Co., um emaranhado de placas de teletransporte de mao unica e portas de Card Key. Sua primeira missao e subir ate o 5F pela Card Key, que destranca todas as salas de itens seladas, e entao avancar ate o topo."
             "2":
-              title: "Resgate a Lapras"
-              text: "No 7F, pegue a Lapras grátis do funcionário (e enfrente seu rival lá)."
+              title: "Varra o 3F pela Hyper Potion"
+              text: "No terceiro andar, uma Poke Ball fica numa sala um pouco a oeste do centro. Pegue a Hyper Potion junto a parede norte dessa sala."
+              items:
+                hyper-potion: "3F, sala a oeste do centro; a bola fica perto da parede norte."
             "3":
-              title: "Vença o Giovanni"
-              text: "Suba até o 11F e derrote o Giovanni (Nidorino Nv 37, Rhyhorn Nv 37, Persian Nv 35, Nidoqueen Nv 41); golpes de Terra como Dig e Earthquake resolvem a luta. Vencê-lo quebra a tomada."
+              title: "Pegue o Max Revive"
+              text: "Tres Poke Balls ficam juntas no canto inferior esquerdo do 4F. A mais ao norte guarda o Max Revive."
+              items:
+                max-revive: "4F, aglomerado inferior esquerdo, a bola mais ao norte das tres."
             "4":
+              title: "Pegue o Escape Rope"
+              text: "Logo a sudeste do Max Revive, a bola do meio do trio guarda um Escape Rope."
+              items:
+                escape-rope: "4F, logo a sudeste do Max Revive."
+            "5":
+              title: "Pegue o Full Heal"
+              text: "A terceira bola do trio, encaixada no sudoeste, guarda um Full Heal."
+              items:
+                full-heal: "4F, canto sudoeste do mesmo trio de bolas."
+            "6":
+              title: "Tome a Card Key"
+              text: "No canto sudeste do 5F, passando pelo cientista e suas pranchetas de Relatorio Pokémon, uma Poke Ball guarda a Card Key. Ela abre todas as portas trancadas do predio, entao pegue-a antes de tudo."
+              items:
+                card-key: "5F, canto sudeste, passando pelas pranchetas."
+            "7":
+              title: "Pegue a Protein"
+              text: "Na sala superior esquerda do 5F, uma Poke Ball solitaria guarda a Protein."
+              items:
+                protein: "5F, sala superior esquerda."
+            "8":
+              title: "Pegue o TM Take Down"
+              text: "La embaixo, no canto inferior esquerdo do 5F, fica o TM Take Down."
+              items:
+                tm-take-down: "5F, canto inferior esquerdo."
+            "9":
+              title: "Sinta o Elixir oculto"
+              text: "Ao longo da parede norte do 5F, perto do centro, aperte A num quadrado vazio para um Elixir oculto. Nada aparece na tela."
+              hidden:
+                elixir: "5F, parede norte perto do centro; aperte A virado para cima. Nada aparece na tela."
+            "10":
+              title: "Pegue o HP Up"
+              text: "No canto inferior esquerdo do 6F, uma Poke Ball guarda o HP Up."
+              items:
+                hp-up: "6F, canto inferior esquerdo."
+            "11":
+              title: "Pegue o X Accuracy"
+              text: "Logo ao sul do HP Up, no canto do 6F, fica um X Accuracy."
+              items:
+                x-accuracy: "6F, canto inferior esquerdo, logo ao sul do HP Up."
+            "12":
+              title: "Resgate a Lapras e enfrente seu rival"
+              text: "No 7F, um funcionario da Silph libertado te da uma Lapras, a unica do jogo e um tanque Agua/Gelo excelente. Seu rival te embosca aqui perto do elevador, entao cure-se antes de falar com o funcionario."
+            "13":
+              title: "Pegue o Calcium"
+              text: "Junto a parede esquerda do 7F, logo abaixo de onde o rival aparece, uma Poke Ball guarda o Calcium."
+              items:
+                calcium: "7F, parede esquerda, logo ao sul do ponto do rival."
+            "14":
+              title: "Pegue o TM Swords Dance"
+              text: "Do outro lado do andar, na lateral direita do 7F, fica o TM Swords Dance."
+              items:
+                tm-swords-dance: "7F, lateral direita."
+            "15":
+              title: "Sinta a Max Potion oculta"
+              text: "O 9F tem uma enfermeira no canto inferior esquerdo. Fique no canto ao lado dela e aperte A para uma Max Potion oculta. Nada aparece na tela."
+              hidden:
+                max-potion: "9F, canto inferior esquerdo perto da enfermeira; aperte A virado para cima. Nada aparece na tela."
+            "16":
+              title: "Pegue o TM Earthquake"
+              text: "No bolsao inferior esquerdo do 10F fica o TM Earthquake, um dos melhores TMs do jogo."
+              items:
+                tm-earthquake: "10F, bolsao inferior esquerdo."
+            "17":
+              title: "Pegue o Rare Candy"
+              text: "Logo a sudeste do TM Earthquake, uma Poke Ball guarda um Rare Candy."
+              items:
+                rare-candy: "10F, logo a sudeste do TM Earthquake."
+            "18":
+              title: "Pegue o Carbos"
+              text: "No topo do mesmo bolsao inferior esquerdo do 10F fica o Carbos."
+              items:
+                carbos: "10F, topo do bolsao inferior esquerdo."
+            "19":
+              title: "Venca o Giovanni no 11F"
+              text: "Suba ate o 11F e enfrente o Giovanni (Nidorino Nv 37, Rhyhorn Nv 37, Persian Nv 35, Nidoqueen Nv 41). Golpes de Terra como Dig e Earthquake resolvem a luta. Vence-lo quebra a tomada."
+            "20":
               title: "Pegue a Master Ball"
-              text: "Fale com o presidente da Silph pela Master Ball. Guarde para um lendário."
+              text: "Fale com o presidente da Silph no escritorio dele pela Master Ball. Guarde-a para um lendario como Articuno, Zapdos, Moltres ou Mewtwo."
           tips:
             lapras: "A única Lapras do jogo. Um tanque Água/Gelo excelente. Não perca no 7F."
           oak:
@@ -1570,17 +2077,32 @@ pt:
           intro: "Uma caverna cheia de correntes. Empurre pedras com Strength para conter a água, depois capture o Articuno."
           steps:
             "1":
-              title: "Traga Surf e Strength"
-              text: "Você precisa dos dois HMs; Strength empurra pedras nos buracos das correntes para deixar a água passável."
+              title: "Entre com Surf e Strength"
+              text: "Chegue surfando pela Rota 20 e entre na caverna. Você precisa dos dois HMs aqui: Surf para cruzar as correntes de água e Strength para empurrar as pedras que as contêm. Seel, Slowpoke, Shellder e Krabby selvagens rondam os andares."
             "2":
-              title: "Contenha as correntes"
-              text: "Solte pedras pelos buracos, andar por andar, para abrir um caminho de Surf até o B4F."
+              title: "Contenha as correntes descendo"
+              text: "Desça pelo 1F e pelo B1F empurrando cada pedra nos buracos das correntes para a água abaixo parar de correr. Cada corrente contida abre mais um trecho de Surf, levando você firme até o B2F."
             "3":
-              title: "Capture o Articuno"
-              text: "No B4F, surfe até o Articuno dorminhoco (Nv 50). Salve antes. É um ótimo alvo de Master Ball."
+              title: "Embolse o Nugget oculto"
+              text: "No B2F, cruze até o chão aberto da caverna no centro-baixo do andar. Pare um quadrado a oeste de um azulejo comum e aperte A virado para leste para um Nugget oculto, que rende uma boa grana em qualquer Mart."
+              hidden:
+                nugget: "B2F, no chão aberto do centro-baixo. Vire para leste e aperte A. Nada aparece na tela."
             "4":
+              title: "Desenterre o Max Elixir"
+              text: "Descendo ao B3F, vá até o amontoado de pedras no canto sudoeste. Logo ao sul delas, aperte A virado para o norte no chão nu para um Max Elixir oculto, que recarrega todo o PP de todos os golpes de um Pokémon."
+              hidden:
+                max-elixir: "B3F, canto sudoeste logo abaixo das pedras. Vire para o norte e aperte A. Nada aparece na tela."
+            "5":
+              title: "Capture o Articuno"
+              text: "O B4F abre na câmara do Articuno. Surfe até o pássaro de Gelo adormecido no canto noroeste (Nv 50) e salve antes de tocá-lo. Faça-o dormir ou paralise, depois use a Master Ball ou uma boa sequência de Ultra Balls."
+            "6":
+              title: "Varra o Ultra Ball do canto"
+              text: "Antes de subir de volta, varra o canto sudeste extremo do B4F. Ao lado das pedras ali, aperte A virado para o sul para um Ultra Ball oculto e reabasteça seu estoque de captura."
+              hidden:
+                ultra-ball: "B4F, canto sudeste extremo ao lado das pedras. Vire para o sul e aperte A. Nada aparece na tela."
+            "7":
               title: "Saia rumo a Cinnabar"
-              text: "Saia pela extremidade oeste no mar aberto rumo a Cinnabar Island."
+              text: "Com o Articuno capturado e os bolsos cheios, saia pela boca oeste da caverna no mar aberto e surfe ao sul até Cinnabar Island."
           tips:
             articuno: "Um lendário Nv 50 de uma vez só. Salve antes, faça dormir/paralise, e use a Master Ball ou muitas Ultra Balls."
           oak:
@@ -1592,13 +2114,72 @@ pt:
           steps:
             "1":
               title: "Surfe da Rota 10"
-              text: "Com o Surf, surfe pela água ao sul da entrada do Rock Tunnel na Rota 10 até a porta da usina. Leve Repels se só se importa com os itens e o Zapdos."
+              text: "Com o Surf, surfe pela agua ao sul da entrada do Rock Tunnel na Rota 10 ate a porta solitaria da usina e entre. Os andares fervilham de tipos Eletrico e Veneno selvagens, entao leve Repels se so quer o loot e o Zapdos. Aviso: muitos dos item balls espalhados aqui sao Voltorb ou Electrode disfarcados que ganham vida e atacam assim que você tenta pegar um."
             "2":
-              title: "Varra os andares, cuidado com os itens falsos"
-              text: "Pegue o TM25 (Thunder), o TM33 (Reflect), Carbos, HP Up, um Rare Candy, um PP Up e um Max Elixir enquanto percorre. Vários item balls são Voltorb ou Electrode disfarçados, então espere uma batalha ao pegar um."
+              title: "Pegue o Carbos na parede oeste"
+              text: "Suba pelo lado esquerdo a partir da porta. Encostado na parede oeste, na parte baixa da usina, ha um item ball de verdade: um Carbos para aumentar a Velocidade de um Pokémon. Pegue de frente para leste."
+              items:
+                carbos: "Encostado na parede oeste, na parte baixa da usina. De frente para leste para pegar."
             "3":
+              title: "Cutuque o primeiro item falso"
+              text: "Suba o corredor acima do nicho do Carbos. O ball esperando no centro-esquerdo e seu primeiro Voltorb disfarcado (Nv 40); toque nele e ele desperta para uma batalha. Registre para a dex e siga."
+            "4":
+              title: "Atravesse para a sala centro-sul"
+              text: "Serpenteie a leste e para baixo ate o meio da usina. Um ball fica na sala centro-sul, e e outro Voltorb (Nv 40) fingindo de morto. Encare a luta ou passe direto."
+            "5":
+              title: "Cutuque o ball logo abaixo"
+              text: "Um pequeno passo a leste e para baixo ha mais um ball falso, um Voltorb (Nv 40) no centro-baixo. Mesmo disfarce, mesmo choque ao tocar."
+            "6":
+              title: "Pegue o TM33 Reflect"
+              text: "Desca para a ampla sala sul. Bem no centro ha um ball de verdade com o TM33 (Reflect), que reduz pela metade o dano fisico recebido por alguns turnos. Pegue de frente para norte."
+              items:
+                tm-reflect: "Centro da sala sul. De frente para norte para pegar."
+            "7":
+              title: "Cheque o ball na parede sul"
+              text: "Logo a leste do TM, encostado na parede sul, ha outro ball. E um Voltorb (Nv 40) disfarcado, entao fique de frente para leste e espere briga."
+            "8":
+              title: "Pegue o TM25 Thunder"
+              text: "A leste do centro na sala sul espera um ball de verdade com o TM25 (Thunder), o golpe Eletrico de 110 de poder simbolo da usina. Pegue de frente para leste."
+              items:
+                tm-thunder: "Sala sul, a leste do centro. De frente para leste para pegar."
+            "9":
+              title: "Varra o canto sudeste"
+              text: "Va ate o canto sudeste distante pelo ultimo ball aqui embaixo. Outro disfarce de Voltorb (Nv 40); pegue de frente para oeste e depois volte para cima."
+            "10":
+              title: "Tateie o Max Elixir oculto"
+              text: "De volta ao meio da usina, fique no chao aberto e aperte A no quadrado logo a oeste, um quadrado a leste do pequeno bloco de parede. Um Max Elixir oculto esta ali mesmo sem nada aparecer na tela."
+              hidden:
+                max-elixir: "Bem no centro da usina, um quadrado a leste do bloco de parede. Aperte A de frente para oeste; nada aparece na tela."
+            "11":
+              title: "Desperte o ball Electrode"
+              text: "Um ball fica no centro da usina, mas este e um disfarce mais duro: um Electrode (Nv 43). Pegue de frente para sul e prepare-se para um possivel Selfdestruct."
+            "12":
+              title: "Cheque o ball centro-leste"
+              text: "Um pouco a leste ha mais um ball, um Voltorb (Nv 40) disfarcado. Pegue de frente para oeste antes de subir rumo ao topo da usina."
+            "13":
+              title: "Pegue o HP Up la em cima"
+              text: "Suba pelo lado leste e siga a fileira do topo. A direita do centro ha um ball de verdade com um HP Up para elevar o HP maximo de um Pokémon. Pegue de frente para norte."
+              items:
+                hp-up: "Fileira do topo, a direita do centro. De frente para norte para pegar."
+            "14":
+              title: "Fisgue o Rare Candy"
+              text: "No canto superior direito espera um ball de verdade com um Rare Candy, um nível gratis para qualquer Pokémon. Pegue de frente para oeste."
+              items:
+                rare-candy: "Canto superior direito. De frente para oeste para pegar."
+            "15":
+              title: "Desperte o ultimo Electrode"
+              text: "Varra de volta a oeste pelo topo. No centro-superior esta o segundo disfarce de Electrode (Nv 43); pegue de frente para leste e prepare-se para outro Selfdestruct."
+            "16":
+              title: "Tateie o PP Up oculto"
+              text: "Perto do topo esquerdo, va ate a parede norte a esquerda do centro e aperte A de frente para norte. Um PP Up oculto fica encostado na parede, invisivel ate cair na sua mochila."
+              hidden:
+                pp-up: "Encostado na parede norte, a esquerda do centro. Aperte A de frente para norte; nada aparece na tela."
+            "17":
               title: "Capture o Zapdos"
-              text: "O Zapdos (Nv 50) espera perto do fundo da usina. Salve antes, enfraqueça com Rocha ou Gelo, faça dormir ou paralise, depois jogue Ultra Balls ou a Master Ball."
+              text: "Desca ate o canto noroeste distante, perto da porta oeste da usina, onde o Zapdos (Nv 50) descansa. Salve antes, enfraqueca com Rocha ou Gelo, faca dormir ou paralise, depois jogue Ultra Balls ou a Master Ball. Você so tem uma chance."
+            "18":
+              title: "Surfe de volta para a Rota 10"
+              text: "Com o Zapdos capturado e a usina saqueada, saia pela porta sul e surfe de volta para a Rota 10. Daqui e seguir rumo ao Rock Tunnel e Lavender Town."
           tips:
             zapdos: "O lendário Elétrico, um Nv 50 estático de uma vez só. Salve antes de tocar nele, depois faça dormir ou paralise e capture."
           oak:
@@ -1655,14 +2236,82 @@ pt:
           intro: "Um labirinto de botões-estátua cheio de Fogo e Veneno. Ache a Secret Key no B1F."
           steps:
             "1":
-              title: "Aperte os botões-estátua"
-              text: "A mansão é um labirinto de caminhos barrados abertos por botões ocultos dentro das estátuas. Inspecione as estátuas andar por andar para baixar as barreiras, pegando a Moon Stone oculta perto dos pilares do 1F e o Escape Rope, o Calcium e o Iron nos andares de cima conforme sobe."
+              title: "Entre na mansão incendiada"
+              text: "Atravesse da praia de Cinnabar para dentro da mansão carbonizada. Lá dentro é um labirinto de caminhos barrados, cada um trancado até você apertar o botão oculto dentro de uma estátua próxima, e os andares fervilham de Fogo e Veneno (Vulpix, Growlithe selvagens e o raro Magmar). O prêmio é a Secret Key dois andares abaixo, no B1F, então suba apertando botões e depois desça de volta."
             "2":
-              title: "Desça até o B1F"
-              text: "Percorra o labirinto de botões descendo pelos andares até o B1F. Pelo subsolo, pegue o TM14 (Blizzard) e o TM22 (SolarBeam), um Full Restore e alguns Rare Candy."
+              title: "Pegue o Carbos no 1F"
+              text: "Logo na entrada, varra o lado leste do andar térreo. O Carbos (uma vitamina de Velocidade) está numa bola no lado leste, logo ao sul do Scientist que você enfrenta na subida."
+              items:
+                carbos: "Lado leste do 1F, ao sul do treinador Scientist."
             "3":
+              title: "Vasculhe os pilares do 1F por uma Moon Stone"
+              text: "Perto dos pilares na parte centro-oeste do 1F, aperte A no piso vazio para achar uma Moon Stone oculta (evolui Nidorina, Nidorino, Clefairy e Jigglypuff). Nada aparece na tela, então confie no tile."
+              hidden:
+                moon-stone: "Centro-oeste do 1F, no chão ao lado dos pilares. Aperte A; nada fica visível."
+            "4":
+              title: "Pegue o Escape Rope ao norte"
+              text: "Siga o caminho aberto até a parede norte do 1F, onde um Escape Rope espera numa bola. É uma saída instantânea da mansão para usar depois, então guarde-o antes de subir as escadas."
+              items:
+                escape-rope: "Borda norte do 1F, ao centro-norte."
+            "5":
+              title: "Aperte os botões e suba ao 2F"
+              text: "Aperte A nas estátuas para acionar os botões ocultos, baixando as barreiras que bloqueiam a escada oeste, depois suba as escadas até o 2F."
+            "6":
+              title: "Atravesse o 2F pelo Calcium"
+              text: "No 2F, avance para o leste passando pelo Burglar que anda de um lado para o outro até a parede do fundo. O Calcium (uma vitamina Especial) está numa bola no canto nordeste. Aperte o botão-estátua do 2F enquanto está aqui e suba ao 3F."
+              items:
+                calcium: "Canto nordeste do 2F."
+            "7":
+              title: "Varra o 3F a leste pelo Iron"
+              text: "No andar de cima você encara um Burglar e um Scientist. Avance para o lado nordeste, passando o Scientist, e abra a bola pelo Iron (uma vitamina de Defesa)."
+              items:
+                iron: "Área nordeste do 3F, passando o Scientist."
+            "8":
+              title: "Pegue o Max Potion no sudoeste do 3F"
+              text: "Volte pelo 3F até o extremo sudoeste e pegue o Max Potion na bola encostada na parede oeste (cura total de HP)."
+              items:
+                max-potion: "Canto sudoeste do 3F, encostado na parede oeste."
+            "9":
+              title: "Cheque a parede oeste por um Max Revive oculto"
+              text: "Suba pela parede oeste a partir desse Max Potion e aperte A no piso vazio perto do meio da altura para desenterrar um Max Revive oculto (revive com HP e PP cheios). Nada aparece na tela, então confie no lugar."
+              hidden:
+                max-revive: "Parede oeste do 3F, um trecho ao norte do Max Potion. Aperte A; nada aparece."
+            "10":
+              title: "Volte descendo até o B1F"
+              text: "Com os botões de cima acionados, a barreira até a escada do subsolo no 1F finalmente abre. Refaça o caminho descendo pelo 3F e 2F até o 1F, depois desça a escada recém-liberada no sudeste até o B1F."
+            "11":
+              title: "Pegue o TM14 Blizzard perto da escada do B1F"
+              text: "Você chega no sudeste do B1F. Logo a sudoeste da escada, abra a bola pelo TM14 (Blizzard), um golpe de Gelo de primeira para ensinar a um tipo Água forte."
+              items:
+                tm-blizzard: "Sudeste do B1F, logo a sudoeste da escada de entrada."
+            "12":
+              title: "Atravesse até o Full Restore no sudoeste"
+              text: "Serpenteie para o oeste pela base do subsolo até o canto sudoeste, onde um Full Restore (cura total de HP mais status) está numa bola."
+              items:
+                full-restore: "Canto sudoeste do B1F."
+            "13":
               title: "Pegue a Secret Key"
-              text: "A Secret Key fica no centro da sala centro-oeste do B1F, com um Rare Candy oculto no canto noroeste dessa sala. Pegue-a e atravesse a rua até o ginásio do Blaine."
+              text: "Suba até a pequena câmara central e abra a bola com a Secret Key. É o motivo de toda a visita: ela destranca o ginásio do Blaine do outro lado da rua, em Cinnabar Island."
+              items:
+                secret-key: "Sala centro-oeste do B1F, ao norte do Full Restore."
+            "14":
+              title: "Desenterre um Rare Candy oculto no canto noroeste"
+              text: "No noroeste dessa mesma sala, aperte A contra o piso do canto para achar um Rare Candy oculto (um nível de graça). Nada aparece na tela, então cheque o tile vazio."
+              hidden:
+                rare-candy: "Canto noroeste da sala da Secret Key no B1F. Aperte A; nada fica visível."
+            "15":
+              title: "Pegue o TM22 SolarBeam no noroeste"
+              text: "Continue ao norte a partir desse canto até a bola com o TM22 (SolarBeam), o golpe de Grama mais forte do jogo."
+              items:
+                tm-solarbeam: "Noroeste do B1F, ao norte do canto do Rare Candy oculto."
+            "16":
+              title: "Pegue o último Rare Candy lá em cima"
+              text: "Logo a leste pela parede norte, abra a última bola por um segundo Rare Candy. Guarde-os para empurrar um favorito de nível lento além de uma evolução teimosa, depois volte à escada."
+              items:
+                rare-candy: "Borda norte do B1F, ao centro, a leste do TM22."
+            "17":
+              title: "Saia e atravesse até o ginásio do Blaine"
+              text: "Com a Secret Key em mãos e o subsolo limpo, use o Escape Rope (ou saia andando) de volta a Cinnabar Island. Atravesse a rua e destranque o ginásio do Blaine pela Volcano Badge."
           tips:
             vulpix: "O Yellow põe Vulpix e Growlithe aqui. Um Vulpix selvagem fácil, enfim."
             growlithe: "O outro cão de Fogo, na mesma mansão → Arcanine com uma Fire Stone."
@@ -1691,7 +2340,7 @@ pt:
           gym:
             intro: "O último ginásio de Kanto, um labirinto de plataformas giratórias com oito treinadores. O Giovanni espera no topo com Dugtrio (Nv 50), Persian (Nv 53), Nidoqueen (Nv 53), Nidoking (Nv 55) e Rhydon (Nv 55). O Fissure do Dugtrio e o Horn Drill do Rhydon são nocautes de um golpe, então seja mais rápido que eles e leve Água, Grama ou Gelo."
             puzzle:
-              "1": "As plataformas giratorias te lançam em linha reta ate voce bater numa de parada. Planeje cada lançamento para parar onde alcance o proximo treinador."
+              "1": "As plataformas giratorias te lançam em linha reta ate você bater numa de parada. Planeje cada lançamento para parar onde alcance o próximo treinador."
               "2": "Vença treinadores para abrir o caminho ao norte, depois use as giratorias para o norte e o oeste, corrigindo sua linha a cada parada rumo a Giovanni."
               "3": "As giratorias finais te deixam diante de Giovanni. Cuidado com os nocautes de um golpe de Fissure e Horn Drill e lidere com um atacante rapido de Agua ou Gelo."
           note: "Ginásio do Giovanni. Earth Badge. A 8ª insígnia."
@@ -1699,26 +2348,87 @@ pt:
           steps:
             "1":
               title: "Prepare e entre no Ginásio"
-              text: "Abasteça Potions e Revives, depois use as plataformas giratorias pelos oito treinadores ate Giovanni. Leve Agua, Grama ou Gelo e cuidado com Fissure e Horn Drill."
+              text: "Reabasteça Potions e Revives antes de entrar, porque não há cura entre os oito treinadores. Entre pelo sul, passando pelo Gym Guide, e o piso vira um labirinto de plataformas giratórias que te lançam em linha reta até você bater numa plataforma de parada."
             "2":
+              title: "Pegue o Revive"
+              text: "Uma Poke Ball fica no lado leste do labirinto, direto ao norte pela coluna da entrada sul. Use as giratórias para se alinhar com ela e guarde o Revive grátis antes de subir rumo a Giovanni."
+              items:
+                revive: "Lado leste, direto ao norte da porta sul, mais ou menos na metade do ginásio."
+            "3":
+              title: "Suba até Giovanni pelas giratórias"
+              text: "Vença os treinadores para abrir o caminho ao norte, depois corrija seu lançamento a cada plataforma de parada enquanto sobe ao norte e ao oeste. Giovanni espera no topo com seu time Terra; cuidado com o Fissure do Dugtrio e o Horn Drill do Rhydon, lidere rápido com Água, Grama ou Gelo e pegue a Earth Badge, a sua oitava."
+            "4":
               title: "Rumo a Victory Road"
-              text: "Com a Insígnia Earth e as oito em maos, volte a Rota 22 e avance para o oeste na Victory Road."
+              text: "Com a Insígnia Earth e as oito em mãos, saia do ginásio e volte à Rota 22, depois avance para o oeste na Victory Road."
         victory_road:
           note: "O portão da Liga. Quebra-cabeças de pedra e Moltres."
           intro: "Um labirinto de pedras de três andares que exige as 8 insígnias e Strength. Moltres pousa lá dentro."
           steps:
             "1":
-              title: "Traga Strength"
-              text: "Você precisa das 8 insígnias para entrar, mais Strength para as pedras (e Surf e Flash para atravessar). A caverna sobe por três andares."
+              title: "Entre com Strength na mao"
+              text: "A Victory Road so abre para um treinador com as 8 insignias. Traga Strength para as pedras, mais Surf e Flash para enxergar e atravessar o escuro. Entre pelo norte da Route 23; a caverna sobe por tres andares, e cada um e travado por uma pedra que você empurra sobre um botao do chao para baixar a barreira."
             "2":
-              title: "Empurre as pedras nos botões"
-              text: "Cada andar é travado por um quebra-cabeça de pedras: use Strength para empurrar uma pedra no botão do chão e a barreira baixa. Pegue o TM05 (Mega Kick), o TM17 (Submission), o TM43 (Sky Attack) e o TM47 (Explosion) espalhados pelos andares."
+              title: "Pegue o Rare Candy"
+              text: "Suba da entrada ate a camara superior do 1F. Uma Poke Ball na saliencia norte guarda um Rare Candy, um nível gratis para qualquer parceiro."
+              items:
+                rare-candy: "1F, saliencia norte da camara superior, um pouco a oeste do centro."
             "3":
-              title: "Capture o Moltres"
-              text: "No lado oeste do 2F, o Moltres (Nv 50) está pousado. Salve antes, enfraqueça com Água, Elétrico ou Rocha, faça dormir ou paralise, depois jogue Ultra Balls."
+              title: "Pegue o TM43 Sky Attack"
+              text: "Alguns tiles a leste, colada na parede de cima, outra bola guarda o TM43 Sky Attack, um golpe Voador pesado de dois turnos."
+              items:
+                tm-sky-attack: "1F, colada na parede de cima, poucos passos a leste do Rare Candy."
             "4":
-              title: "Suba ao Plateau"
-              text: "Recolha o Max Revive e um Full Restore na subida, depois saia pela saída de cima rumo à entrada do Indigo Plateau."
+              title: "Suba a escada para o 2F"
+              text: "Com o 1F limpo, va ate a escada do noroeste e suba ao segundo andar, o labirinto central onde o Moltres pousa."
+            "5":
+              title: "Ache a Ultra Ball escondida"
+              text: "Chegue ao 2F e va ate a saliencia noroeste. Pressione A no quadrado vazio ali para uma Ultra Ball escondida; nada aparece na tela, entao confie no ponto."
+              hidden:
+                ultra-ball: "2F, saliencia noroeste. Pressione A no tile vazio; nenhum item aparece."
+            "6":
+              title: "Pegue o Guard Spec."
+              text: "Logo abaixo da parede de cima, perto do centro do 2F, uma bola guarda um Guard Spec., que bloqueia quedas de atributo por alguns turnos."
+              items:
+                guard-spec: "2F, centro-norte, colado na parede de cima."
+            "7":
+              title: "Capture o Moltres"
+              text: "A oeste do centro, o Moltres (Nv 50) esta pousado na rocha. Salve antes, enfraqueca com Agua, Eletrico ou Rocha, faca dormir ou paralise, depois jogue Ultra Balls. Você tem so uma chance."
+            "8":
+              title: "Pegue o TM05 Mega Kick"
+              text: "Desca ao centro-sul do 2F, onde uma bola guarda o TM05 Mega Kick, um golpe Normal forte."
+              items:
+                tm-mega-kick: "2F, centro-sul do andar."
+            "9":
+              title: "Guarde o Full Heal"
+              text: "Atravesse para leste pelo meio do 2F ate uma bola com um Full Heal, que cura qualquer condicao de status."
+              items:
+                full-heal: "2F, meio do andar, a leste do centro."
+            "10":
+              title: "Vasculhe o Full Restore escondido"
+              text: "Siga rumo as escadas do leste e pressione A no quadrado vazio ali para um Full Restore escondido. Nada aparece na tela, entao revista o tile exato."
+              hidden:
+                full-restore: "2F, extremo leste, perto das escadas de saida. Pressione A no tile vazio; nenhum item aparece."
+            "11":
+              title: "Pegue o TM17 Submission"
+              text: "No canto nordeste do 2F, uma bola guarda o TM17 Submission, um golpe Lutador com recuo."
+              items:
+                tm-submission: "2F, canto nordeste."
+            "12":
+              title: "Suba ao 3F"
+              text: "Pegue a escada leste ate o 3F e seu quebra-cabeca de quatro pedras. Empurre as pedras sobre os botoes para abrir o caminho aos dois ultimos premios."
+            "13":
+              title: "Pegue o Max Revive"
+              text: "Perto de onde você chega no 3F, no lado leste, uma bola guarda um Max Revive, que revive por completo um Pokémon desmaiado."
+              items:
+                max-revive: "3F, lado leste, perto das escadas de subida."
+            "14":
+              title: "Pegue o TM47 Explosion"
+              text: "Trabalhe as pedras para oeste pelo 3F ate a bola distante, o TM47 Explosion, o golpe Normal de tiro unico mais forte do jogo."
+              items:
+                tm-explosion: "3F, extremo oeste."
+            "15":
+              title: "Parta para o Indigo Plateau"
+              text: "Com todos os premios coletados e o Moltres capturado, volte ao 2F e saia pela porta leste rumo a entrada do Indigo Plateau."
           tips:
             moltres: "O lendário de Fogo da Victory Road. Um Nv 50 de uma vez só. Salve antes, depois enfraqueça e capture."
           oak:
@@ -1728,14 +2438,26 @@ pt:
           intro: "A estrada com portões até a Liga. Cada guarda checa uma insígnia. Os selvagens aqui são fortes."
           steps:
             "1":
-              title: "Passe os checkpoints"
-              text: "Vá ao norte de Viridian; cada guarita abre só com a insígnia certa, então você precisa das 8."
+              title: "Entre pelo portão da Rota 22"
+              text: "Entre pelo sul, saindo do portão da Rota 22. Sete guaritas guardam a estrada até a Liga, e cada uma só abre se você tiver a insígnia certa, então você precisa das 8 antes que a Rota 23 deixe você passar. A grama aqui é de nível alto, com Ditto, Sandslash e Nidos de nível 33 a 45, então mantenha as curas em dia."
             "2":
-              title: "Surfe o canal"
-              text: "Surfe ao norte pela água passando pelos portões do meio."
+              title: "Vasculhe a ilhota no meio do canal"
+              text: "Depois dos guardas de baixo a estrada abre num canal largo, então surfe ao norte por ele. Uma pequena ilhota seca quebra a água entre os dois Swimmers. Suba nela e aperte A virado para o norte para achar um Max Ether escondido. Nada aparece na tela."
+              hidden:
+                max-ether: "Na pequena ilhota seca no meio da água, entre os dois Swimmers. Aperte A virado para o norte. Nada aparece na tela."
             "3":
+              title: "Varra o canto nordeste"
+              text: "Surfe até a margem norte e corte para leste pela grama, entrando no bolsão do canto. Vá até a parede mais distante e aperte A contra a borda leste para pegar uma Ultra Ball escondida. Nada aparece na tela."
+              hidden:
+                ultra-ball: "No canto nordeste do bolsão de grama logo depois da água, colado na parede leste. Aperte A virado para o leste. Nada aparece na tela."
+            "4":
+              title: "Revire a clareira do topo"
+              text: "Suba pelo labirinto de terra até a clareira gramada perto do extremo norte. Fique na grama e aperte A contra a parede de rocha a oeste para desenterrar um Full Restore escondido. Nada aparece na tela."
+              hidden:
+                full-restore: "Na grama perto do topo da rota, um quadrado a leste da parede de rocha. Aperte A virado para o oeste. Nada aparece na tela."
+            "5":
               title: "Entre na Victory Road"
-              text: "Continue ao norte pelo portão final até a Victory Road."
+              text: "Siga pelo lado oeste para cima, passe pelo último guarda e atravesse o portão no topo até a Victory Road, a última caverna antes da Liga Pokémon."
         indigo_plateau:
           note: "A Pokémon League. Elite dos Quatro e o Campeão Blue."
           intro: "As cinco batalhas finais, uma após a outra, sem cura entre as salas. Abasteça antes."
@@ -1754,17 +2476,95 @@ pt:
           intro: "Liberada após virar Campeão. Os Pokémon selvagens mais fortes de Kanto, com o Mewtwo esperando no fundo."
           steps:
             "1":
-              title: "Surfe para dentro"
-              text: "Depois do Hall da Fama, surfe a noroeste pela água a partir de Cerulean City até a boca da caverna."
+              title: "Surfe para dentro da caverna"
+              text: "Depois do Hall da Fama, surfe a noroeste pela água a partir de Cerulean City e entre pela boca da caverna. Você chega no 1F, na câmara sul alagada, cercado pelos selvagens mais fortes de Kanto (Nv 45-65: Rhydon, Chansey, Ditto, Kadabra e mais)."
             "2":
-              title: "Desça até o B1F"
-              text: "Desça pelos selvagens Nv 45-65 (Rhydon, Chansey, Ditto, Kadabra e mais). Os andares estão lotados de itens de ponta: várias Ultra Balls, Max Revives, Rare Candy, um Full Restore e Max Elixirs. Pegue-os enquanto espirala até o B1F."
+              title: "Surfe até o canto alagado"
+              text: "Da lagoa da entrada, surfe para leste até o canto extremo e pegue o Rare Candy parado sozinho na água, na borda sudeste da caverna."
+              items:
+                rare-candy-29-16: "Canto sudeste do 1F, na água além da lagoa da entrada. Surfe até ele."
             "3":
-              title: "Salve antes do Mewtwo"
-              text: "Cruze o B1F e surfe até a pequena ilha bem ao sul. O Mewtwo espera lá; salve o jogo antes de pisar na plataforma, pois você tem uma única chance nele."
+              title: "Suba pela saliência leste"
+              text: "Siga a parede leste para o norte, saindo da água até a saliência, e pegue o Max Revive na borda direita do 1F."
+              items:
+                max-revive-29-9: "Borda direita (leste) do 1F, na saliência logo ao norte do canto alagado."
             "4":
+              title: "Tateie perto da escada central"
+              text: "Avance até o meio do 1F, à escada que sobe na câmara central. Aperte A no chão duas casas ao norte dessa escada para achar um PP Up escondido. Nada aparece na tela."
+              hidden:
+                pp-up-18-7: "Centro do 1F, duas casas ao norte da escada central que sobe. Aperte A; nada aparece na tela."
+            "5":
+              title: "Chegue à prateleira norte"
+              text: "Suba do centro até o topo do 1F e pegue a Ultra Ball encostada na parede norte, perto do meio."
+              items:
+                ultra-ball-18-3: "Centro-norte do 1F, encostada na parede norte."
+            "6":
+              title: "Varra o lado oeste"
+              text: "Cruze para o lado esquerdo do 1F e pegue o Max Elixir na câmara centro-oeste, perto das escadas inferiores."
+              items:
+                max-elixir-7-11: "Centro-oeste do 1F, perto das escadas inferiores da esquerda."
+            "7":
+              title: "Suba para o 2F"
+              text: "Pegue uma das escadas que sobem até o 2F, um labirinto de rocha seca, sem nenhuma água. Serpenteie pelos corredores para pegar mais quatro prêmios."
+            "8":
+              title: "Vá até a parede oeste"
+              text: "Siga os corredores até a borda esquerda do 2F e pegue o Rare Candy encostado na parede oeste."
+              items:
+                rare-candy-0-11: "Borda esquerda (oeste) do 2F, na altura do meio, contra a parede."
+            "9":
+              title: "Pegue a bola central"
+              text: "Volte ao meio do 2F e pegue a Ultra Ball parada no corredor central."
+              items:
+                ultra-ball-16-7: "Centro do 2F, no corredor do meio."
+            "10":
+              title: "Vasculhe logo abaixo"
+              text: "Desça ao sul pela mesma coluna da Ultra Ball central, até o labirinto de baixo, e aperte A no chão para achar um PP Up escondido. Nada aparece na tela."
+              hidden:
+                pp-up-16-13: "Centro-sul do 2F, reto abaixo da Ultra Ball central. Aperte A; nada aparece na tela."
+            "11":
+              title: "Pegue a saliência do meio"
+              text: "Logo a leste do ponto escondido, pegue o Max Revive na parte centro-baixa do 2F."
+              items:
+                max-revive-19-11: "Centro-baixo do 2F, logo a leste do PP Up escondido."
+            "12":
+              title: "Limpe a câmara leste"
+              text: "Serpenteie até o lado direito do 2F e pegue o Full Restore perto da parede leste."
+              items:
+                full-restore: "Lado direito (leste) do 2F, perto da parede leste."
+            "13":
+              title: "Desça para o B1F"
+              text: "Volte para o 1F e vá até a escada da ponta esquerda, na borda oeste, que desce para o B1F, o andar mais fundo onde o Mewtwo espera. Você chega no lado oeste."
+            "14":
+              title: "Varra o recanto sudoeste"
+              text: "Do ponto de chegada, desça para o sudoeste e pegue a Ultra Ball na borda esquerda, logo acima da água do fundo."
+              items:
+                ultra-ball-2-13: "Sudoeste do B1F, na borda esquerda, logo acima da água do fundo."
+            "15":
+              title: "Pegue o vizinho"
+              text: "Uma casa a leste dessa Ultra Ball está um Max Revive. Pegue-o também."
+              items:
+                max-revive-3-13: "Sudoeste do B1F, uma casa a leste da Ultra Ball."
+            "16":
+              title: "Sonde a margem sul"
+              text: "Um pouco a leste pelo fundo do B1F, aperte A no chão na beira da água para achar um PP Up escondido. Nada aparece na tela."
+              hidden:
+                pp-up-8-14: "Borda sul do B1F, algumas casas a leste do Max Revive, na beira da água. Aperte A; nada aparece na tela."
+            "17":
+              title: "Chegue ao centro-norte"
+              text: "Suba e cruze o meio do B1F até o centro-norte e pegue o Max Elixir ali, perto da parede de cima."
+              items:
+                max-elixir-15-3: "Centro-norte do B1F, perto da parede de cima."
+            "18":
+              title: "Encurrale a bola do nordeste"
+              text: "Continue até o canto superior direito do B1F e pegue a última Ultra Ball contra a parede norte."
+              items:
+                ultra-ball-26-1: "Canto superior direito (nordeste) do B1F, contra a parede norte."
+            "19":
+              title: "Salve antes do Mewtwo"
+              text: "Desça até a massa de terra do sudeste e surfe pela água em direção à plataforma do Mewtwo. Antes de pisar nela, salve o jogo: você tem uma única chance nesse lendário Nv 70."
+            "20":
               title: "Capture o Mewtwo"
-              text: "O Mewtwo é Nv 70 e abusa de Recover, então faça-o dormir ou paralise primeiro, deixe-o baixo, e jogue a Master Ball, ou encare com uma pilha grande de Ultra Balls."
+              text: "O Mewtwo está no coração da ilha do sudeste. É Nv 70 e abusa de Recover, então faça-o dormir ou paralise, deixe-o baixo, e jogue a Master Ball, ou encare com uma pilha grande de Ultra Balls."
           tips:
             mewtwo: "O Pokémon mais forte do jogo, um Nv 70 estático. A Master Ball foi feita para isso. Ou faça dormir e reze."
           oak:

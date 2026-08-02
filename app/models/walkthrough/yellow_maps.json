@@ -9647,10 +9647,10 @@
             "id": "exit-south",
             "cat": "exit",
             "key": null,
-            "x": 32.5,
+            "x": 47.5,
             "y": 98.611,
             "grid": [
-              6,
+              9,
               35
             ],
             "align": "r",
@@ -16130,7 +16130,7 @@
         "width": 160,
         "height": 144
       },
-      "2": {
+      "3": {
         "image": "walkthrough/yellow/scenes/cerulean-north-nugget.png",
         "width": 160,
         "height": 144
@@ -16390,32 +16390,8 @@
       "height": 144,
       "type": "screen"
     },
-    "viridian-forest-antidote": {
-      "image": "walkthrough/yellow/scenes/viridian-forest-antidote.png",
-      "width": 160,
-      "height": 144,
-      "type": "dialog"
-    },
-    "viridian-forest-hidden-potion": {
-      "image": "walkthrough/yellow/scenes/viridian-forest-hidden-potion.png",
-      "width": 160,
-      "height": 144,
-      "type": "dialog"
-    },
-    "mt-moon-hidden-moon-stone": {
-      "image": "walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png",
-      "width": 160,
-      "height": 144,
-      "type": "dialog"
-    },
-    "mt-moon-hidden-ether": {
-      "image": "walkthrough/yellow/scenes/mt-moon-hidden-ether.png",
-      "width": 160,
-      "height": 144,
-      "type": "dialog"
-    },
-    "viridian-city-hidden-potion": {
-      "image": "walkthrough/yellow/scenes/viridian-city-hidden-potion.png",
+    "cerulean-city-hidden-rare-candy": {
+      "image": "walkthrough/yellow/scenes/cerulean-city-hidden-rare-candy.png",
       "width": 160,
       "height": 144,
       "type": "dialog"
@@ -16494,6 +16470,864 @@
     },
     "mew-glitch-return": {
       "image": "walkthrough/yellow/scenes/mew-glitch-return.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "celadon-city-hidden-pp-up": {
+      "image": "walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "cerulean-cave-item-rare-candy-29-16": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-rare-candy-29-16.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-max-revive-29-9": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-max-revive-29-9.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-hidden-pp-up-18-7": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-18-7.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "cerulean-cave-item-ultra-ball-18-3": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-18-3.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-max-elixir-7-11": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-max-elixir-7-11.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-rare-candy-0-11": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-rare-candy-0-11.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-ultra-ball-16-7": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-16-7.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-hidden-pp-up-16-13": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-16-13.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "cerulean-cave-item-max-revive-19-11": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-max-revive-19-11.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-full-restore": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-ultra-ball-2-13": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-2-13.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-max-revive-3-13": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-max-revive-3-13.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-hidden-pp-up-8-14": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-8-14.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "cerulean-cave-item-max-elixir-15-3": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-max-elixir-15-3.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-item-ultra-ball-26-1": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-26-1.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-potion-20-33": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-potion-20-33.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-escape-rope": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-escape-rope.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-tm-water-gun": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-tm-water-gun.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-potion-2-20": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-potion-2-20.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-moon-stone": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-moon-stone.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-item-hp-up": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-hidden-moon-stone": {
+      "image": "walkthrough/yellow/scenes/mt-moon-hidden-moon-stone.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "mt-moon-item-tm-mega-punch": {
+      "image": "walkthrough/yellow/scenes/mt-moon-item-tm-mega-punch.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "mt-moon-hidden-ether": {
+      "image": "walkthrough/yellow/scenes/mt-moon-hidden-ether.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-mansion-item-carbos": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-carbos.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-hidden-moon-stone": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-hidden-moon-stone.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-mansion-item-escape-rope": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-escape-rope.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-item-calcium": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-calcium.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-item-iron": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-iron.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-item-max-potion": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-max-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-hidden-max-revive": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-hidden-max-revive.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-mansion-item-tm-blizzard": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-tm-blizzard.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-item-full-restore": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-item-secret-key": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-secret-key.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-hidden-rare-candy": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-hidden-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-mansion-item-tm-solarbeam": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-tm-solarbeam.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-item-escape-rope": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-escape-rope.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-item-elixir": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-item-hp-up": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-item-awakening": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-awakening.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-hidden-elixir": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-hidden-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-tower-item-nugget": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-nugget.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-tower-item-x-accuracy": {
+      "image": "walkthrough/yellow/scenes/pokemon-tower-item-x-accuracy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "power-plant-item-carbos": {
+      "image": "walkthrough/yellow/scenes/power-plant-item-carbos.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "power-plant-item-tm-reflect": {
+      "image": "walkthrough/yellow/scenes/power-plant-item-tm-reflect.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "power-plant-item-tm-thunder": {
+      "image": "walkthrough/yellow/scenes/power-plant-item-tm-thunder.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "power-plant-hidden-max-elixir": {
+      "image": "walkthrough/yellow/scenes/power-plant-hidden-max-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "power-plant-item-hp-up": {
+      "image": "walkthrough/yellow/scenes/power-plant-item-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "power-plant-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/power-plant-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "power-plant-hidden-pp-up": {
+      "image": "walkthrough/yellow/scenes/power-plant-hidden-pp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "rocket-hideout-item-escape-rope": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-escape-rope.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-hyper-potion": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-hyper-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-hidden-pp-up": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-hidden-pp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "rocket-hideout-item-nugget": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-nugget.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-tm-horn-drill": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-tm-horn-drill.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-moon-stone": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-moon-stone.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-super-potion": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-super-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-tm-double-edge": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-tm-double-edge.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-hidden-nugget": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-hidden-nugget.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "rocket-hideout-item-lift-key": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-lift-key.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-tm-razor-wind": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-tm-razor-wind.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-hp-up": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-iron": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-iron.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-item-silph-scope": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-item-silph-scope.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "rocket-hideout-hidden-super-potion": {
+      "image": "walkthrough/yellow/scenes/rocket-hideout-hidden-super-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-10-hidden-super-potion": {
+      "image": "walkthrough/yellow/scenes/route-10-hidden-super-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-10-hidden-max-ether": {
+      "image": "walkthrough/yellow/scenes/route-10-hidden-max-ether.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-11-hidden-escape-rope": {
+      "image": "walkthrough/yellow/scenes/route-11-hidden-escape-rope.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-12-hidden-hyper-potion": {
+      "image": "walkthrough/yellow/scenes/route-12-hidden-hyper-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-12-item-iron": {
+      "image": "walkthrough/yellow/scenes/route-12-item-iron.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-13-hidden-calcium": {
+      "image": "walkthrough/yellow/scenes/route-13-hidden-calcium.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-13-hidden-pp-up": {
+      "image": "walkthrough/yellow/scenes/route-13-hidden-pp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-15-item-tm-rage": {
+      "image": "walkthrough/yellow/scenes/route-15-item-tm-rage.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-17-hidden-rare-candy": {
+      "image": "walkthrough/yellow/scenes/route-17-hidden-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-17-hidden-full-restore": {
+      "image": "walkthrough/yellow/scenes/route-17-hidden-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-17-hidden-pp-up": {
+      "image": "walkthrough/yellow/scenes/route-17-hidden-pp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-17-hidden-max-revive": {
+      "image": "walkthrough/yellow/scenes/route-17-hidden-max-revive.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-17-hidden-max-elixir": {
+      "image": "walkthrough/yellow/scenes/route-17-hidden-max-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-23-hidden-max-ether": {
+      "image": "walkthrough/yellow/scenes/route-23-hidden-max-ether.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-23-hidden-ultra-ball": {
+      "image": "walkthrough/yellow/scenes/route-23-hidden-ultra-ball.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-23-hidden-full-restore": {
+      "image": "walkthrough/yellow/scenes/route-23-hidden-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-24-item-tm-thunder-wave": {
+      "image": "walkthrough/yellow/scenes/route-24-item-tm-thunder-wave.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-25-hidden-elixir": {
+      "image": "walkthrough/yellow/scenes/route-25-hidden-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-25-item-tm-seismic-toss": {
+      "image": "walkthrough/yellow/scenes/route-25-item-tm-seismic-toss.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-25-hidden-ether": {
+      "image": "walkthrough/yellow/scenes/route-25-hidden-ether.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-4-hidden-great-ball": {
+      "image": "walkthrough/yellow/scenes/route-4-hidden-great-ball.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-4-item-tm-whirlwind": {
+      "image": "walkthrough/yellow/scenes/route-4-item-tm-whirlwind.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-9-item-tm-teleport": {
+      "image": "walkthrough/yellow/scenes/route-9-item-tm-teleport.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-9-hidden-ether": {
+      "image": "walkthrough/yellow/scenes/route-9-hidden-ether.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "safari-zone-item-nugget": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-nugget.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-tm-egg-bomb": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-tm-egg-bomb.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-carbos": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-carbos.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-full-restore": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-max-potion-3-7": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-max-potion-3-7.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-protein": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-protein.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-tm-skull-bash": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-tm-skull-bash.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-gold-teeth": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-gold-teeth.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-tm-double-team": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-tm-double-team.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-hidden-revive": {
+      "image": "walkthrough/yellow/scenes/safari-zone-hidden-revive.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "safari-zone-item-max-potion-8-20": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-max-potion-8-20.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "safari-zone-item-max-revive": {
+      "image": "walkthrough/yellow/scenes/safari-zone-item-max-revive.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "seafoam-islands-hidden-nugget": {
+      "image": "walkthrough/yellow/scenes/seafoam-islands-hidden-nugget.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "seafoam-islands-hidden-max-elixir": {
+      "image": "walkthrough/yellow/scenes/seafoam-islands-hidden-max-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "seafoam-islands-hidden-ultra-ball": {
+      "image": "walkthrough/yellow/scenes/seafoam-islands-hidden-ultra-ball.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "silph-co-item-hyper-potion": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-hyper-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-max-revive": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-max-revive.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-escape-rope": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-escape-rope.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-full-heal": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-full-heal.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-card-key": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-card-key.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-protein": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-protein.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-tm-take-down": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-tm-take-down.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-hidden-elixir": {
+      "image": "walkthrough/yellow/scenes/silph-co-hidden-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "silph-co-item-hp-up": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-hp-up.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-x-accuracy": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-x-accuracy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-calcium": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-calcium.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-tm-swords-dance": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-tm-swords-dance.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-hidden-max-potion": {
+      "image": "walkthrough/yellow/scenes/silph-co-hidden-max-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "silph-co-item-tm-earthquake": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-tm-earthquake.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "silph-co-item-carbos": {
+      "image": "walkthrough/yellow/scenes/silph-co-item-carbos.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "vermilion-city-hidden-max-ether": {
+      "image": "walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "victory-road-item-rare-candy": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-rare-candy.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-item-tm-sky-attack": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-tm-sky-attack.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-hidden-ultra-ball": {
+      "image": "walkthrough/yellow/scenes/victory-road-hidden-ultra-ball.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "victory-road-item-guard-spec": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-guard-spec.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-item-tm-mega-kick": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-tm-mega-kick.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-item-full-heal": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-full-heal.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-hidden-full-restore": {
+      "image": "walkthrough/yellow/scenes/victory-road-hidden-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "victory-road-item-tm-submission": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-tm-submission.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-item-max-revive": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-max-revive.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-item-tm-explosion": {
+      "image": "walkthrough/yellow/scenes/victory-road-item-tm-explosion.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "viridian-city-hidden-potion": {
+      "image": "walkthrough/yellow/scenes/viridian-city-hidden-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "viridian-forest-hidden-antidote": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-hidden-antidote.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "viridian-forest-item-pok-ball": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-item-pok-ball.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "viridian-forest-item-potion-12-29": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-item-potion-12-29.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "viridian-forest-item-potion-25-11": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-item-potion-25-11.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "viridian-forest-hidden-potion": {
+      "image": "walkthrough/yellow/scenes/viridian-forest-hidden-potion.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "viridian-gym-item-revive": {
+      "image": "walkthrough/yellow/scenes/viridian-gym-item-revive.png",
       "width": 160,
       "height": 144,
       "type": "screen"

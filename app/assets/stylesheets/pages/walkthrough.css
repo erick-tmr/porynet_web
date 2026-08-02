@@ -678,11 +678,52 @@ a.pn-wt-route__card:hover {
    screenshot has a flat pink dot baked in; this covers it with the live one. It keeps pulsing
    after you collect it, because the point of the pin is to say "the tile is here", which stays
    true. */
-.pn-wt-pin--vf-antidote { left: 60%; top: 44.4%; }
-.pn-wt-pin--vf-potion { left: 15%; top: 33.3%; }
-.pn-wt-pin--mt-moon-moon-stone { left: 50%; top: 33.3%; }
-.pn-wt-pin--mt-moon-ether { left: 50%; top: 33.3%; }
-.pn-wt-pin--viridian-potion { left: 50%; top: 44.4%; }
+.pn-wt-pin--cerulean-rare-candy { left: 50%; top: 44.4%; }
+.pn-wt-pin--celadon-city-pp-up { left: 85.0%; top: 44.4%; }
+.pn-wt-pin--cerulean-cave-pp-up-16-13 { left: 50.0%; top: 50.0%; }
+.pn-wt-pin--cerulean-cave-pp-up-18-7 { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--cerulean-cave-pp-up-8-14 { left: 50.0%; top: 61.1%; }
+.pn-wt-pin--mt-moon-ether { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--mt-moon-moon-stone { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--pokemon-mansion-max-revive { left: 15.0%; top: 44.4%; }
+.pn-wt-pin--pokemon-mansion-moon-stone { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--pokemon-mansion-rare-candy { left: 15.0%; top: 44.4%; }
+.pn-wt-pin--pokemon-tower-elixir { left: 45.0%; top: 44.4%; }
+.pn-wt-pin--power-plant-max-elixir { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--power-plant-pp-up { left: 50.0%; top: 16.7%; }
+.pn-wt-pin--rocket-hideout-nugget { left: 75.0%; top: 44.4%; }
+.pn-wt-pin--rocket-hideout-pp-up { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--rocket-hideout-super-potion { left: 55.0%; top: 16.7%; }
+.pn-wt-pin--route-10-max-ether { left: 65.0%; top: 44.4%; }
+.pn-wt-pin--route-10-super-potion { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-11-escape-rope { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-12-hyper-potion { left: 25.0%; top: 44.4%; }
+.pn-wt-pin--route-13-calcium { left: 50.0%; top: 50.0%; }
+.pn-wt-pin--route-13-pp-up { left: 15.0%; top: 61.1%; }
+.pn-wt-pin--route-17-full-restore { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-17-max-elixir { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-17-max-revive { left: 45.0%; top: 44.4%; }
+.pn-wt-pin--route-17-pp-up { left: 75.0%; top: 44.4%; }
+.pn-wt-pin--route-17-rare-candy { left: 55.0%; top: 44.4%; }
+.pn-wt-pin--route-23-full-restore { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-23-max-ether { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-23-ultra-ball { left: 95.0%; top: 44.4%; }
+.pn-wt-pin--route-25-elixir { left: 50.0%; top: 16.7%; }
+.pn-wt-pin--route-25-ether { left: 50.0%; top: 38.9%; }
+.pn-wt-pin--route-4-great-ball { left: 50.0%; top: 38.9%; }
+.pn-wt-pin--route-9-ether { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--safari-zone-revive { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--seafoam-islands-max-elixir { left: 50.0%; top: 83.3%; }
+.pn-wt-pin--seafoam-islands-nugget { left: 50.0%; top: 72.2%; }
+.pn-wt-pin--seafoam-islands-ultra-ball { left: 55.0%; top: 94.4%; }
+.pn-wt-pin--silph-co-elixir { left: 50.0%; top: 38.9%; }
+.pn-wt-pin--silph-co-max-potion { left: 25.0%; top: 72.2%; }
+.pn-wt-pin--vermilion-city-max-ether { left: 50.0%; top: 33.3%; }
+.pn-wt-pin--victory-road-full-restore { left: 65.0%; top: 44.4%; }
+.pn-wt-pin--victory-road-ultra-ball { left: 50.0%; top: 27.8%; }
+.pn-wt-pin--viridian-city-potion { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--viridian-forest-antidote { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--viridian-forest-potion { left: 15.0%; top: 44.4%; }
 .pn-wt-pin__glow {
   position: absolute;
   left: 0;
@@ -1409,6 +1450,22 @@ a.pn-wt-route__card:hover {
   border: 2px solid #171622;
   padding: 6px 9px;
 }
+.pn-wt-trainer__note {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+  margin: 4px 0 12px;
+  padding: 8px 12px;
+  background: #fffbee;
+  border-left: 6px solid var(--amber);
+}
+.pn-wt-trainer__note-label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #b3245c;
+  margin-right: 4px;
+}
 .pn-wt-trainer__shots {
   display: flex;
   gap: 12px;
@@ -1465,7 +1522,10 @@ a.pn-wt-route__card:hover {
    then the BATTLE screen on its own row beneath, then the team). It just sits alone on its line at
    a comfortable width rather than sharing a grid row with the rank-and-file trainers. */
 .pn-wt-trainers.pn-wt-trainers--feature { grid-template-columns: 1fr; }
-.pn-wt-trainer--feature .pn-wt-trainer__card { max-width: 680px; }
+/* Cap the whole tick root, not just the inner card: the beaten stamp and toast are absolutely
+   positioned against the root, so a full-width root would fling them out to the far right of the
+   1fr track instead of onto the card's own top-right corner. */
+.pn-wt-trainer--feature { max-width: 680px; }
 .pn-wt-trainer--feature .pn-wt-trainer__name { font-size: 24px; }
 .pn-wt-trainer--feature .pn-wt-trainer__shots { align-items: stretch; }
 .pn-wt-trainer--feature .pn-wt-shot--vs { width: 172px; aspect-ratio: 16 / 9; }

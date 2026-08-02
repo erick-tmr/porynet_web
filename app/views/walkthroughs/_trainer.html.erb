@@ -21,6 +21,12 @@
     </div>
     <div class="pn-wt-trainer__reward"><%= poke_dollar(trainer.reward) %></div>
   </div>
+  <% if trainer.note_key? %>
+    <div class="pn-wt-trainer__note">
+      <b class="pn-wt-trainer__note-label"><%= t("walkthrough.ui.trainer_note_label") %></b>
+      <span><%= t(trainer.note_key) %></span>
+    </div>
+  <% end %>
   <div class="pn-wt-trainer__shots">
     <div class="pn-wt-shot pn-wt-shot--vs">
       <%= r2_image_tag "walkthrough/yellow/trainers/#{trainer.sprite}.png", alt: "", class: "pn-wt-shot__img pn-wt-shot__img--vs", loading: "lazy" %>

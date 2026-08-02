@@ -402,7 +402,7 @@
   {
     "type": "screen",
     "slug": "cerulean-city",
-    "step": 2,
+    "step": 3,
     "name": "cerulean-north-nugget",
     "map": "CeruleanCity",
     "player": [
@@ -452,23 +452,25 @@
     "slug": "route-25",
     "step": 2,
     "name": "route-25-bill",
-    "map": "Route25",
+    "map": "BillsHouse",
     "player": [
-      45,
-      5
+      6,
+      6
     ],
     "player_dir": "UP",
     "focus": [
-      44,
+      5,
       5
     ],
-    "arrows": [
+    "auto_npcs": false,
+    "sprites": [
       {
-        "dir": "up",
+        "sprite": "SPRITE_MONSTER",
         "grid": [
-          45,
-          3
-        ]
+          6,
+          5
+        ],
+        "dir": "DOWN"
       }
     ]
   },

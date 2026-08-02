@@ -92,13 +92,13 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "forest steps mix items, hidden items and screenshots" do
     steps = loc("viridian-forest").steps
-    assert_equal 5, steps.size
-    assert steps[0].items?
-    assert steps[0].shot?
-    refute steps[0].hidden?
+    assert_equal 7, steps.size
     assert steps[1].hidden?
     refute steps[1].items?
     refute steps[1].shot?
+    assert steps[2].items?
+    assert steps[2].shot?
+    refute steps[2].hidden?
   end
 
   test "starter encounters are gifts while wild encounters are catchable" do

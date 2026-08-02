@@ -281,6 +281,7 @@ def connection_span(cells, direction, offset, dest_dims, width_cells, height_cel
 LAND_CROSSINGS = frozenset({
     ("CERULEAN_CITY", "north"), ("CERULEAN_CITY", "west"),
     ("ROUTE_24", "south"), ("ROUTE_4", "east"),
+    ("ROUTE_6", "south"),
 })
 
 
