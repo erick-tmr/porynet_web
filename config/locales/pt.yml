@@ -838,9 +838,9 @@ pt:
               text: "O velho na estrada ao norte ja acordou. Fale com ele e assista a demonstracao de captura; quando ela termina, ele sai do caminho e a passagem ao norte enfim abre."
             "6":
               title: "Pegue a Potion escondida perto da saida norte"
-              text: "Com o caminho aberto, suba em direcao a saida norte, no topo da cidade. Uma arvore solitaria fica logo a oeste do caminho de saida. Fique do lado esquerdo dela, olhe para a direita e aperte A para pegar uma Potion escondida. Nada aparece na tela ate o item ser seu."
+              text: "Com o caminho aberto, suba em direcao a saida norte, no topo da cidade. Uma arvore solitaria bloqueia um beco sem saida logo a oeste do caminho de saida. Chegue pelo lado leste, que e aberto, fique a direita da arvore, olhe para a esquerda e aperte A para pegar uma Potion escondida. Nada aparece na tela ate o item ser seu."
               hidden:
-                potion: "A arvore solitaria logo a oeste do caminho da saida norte, perto do topo da cidade. Fique a esquerda dela, olhe para a direita e aperte A. Nada aparece na tela."
+                potion: "A arvore solitaria logo a oeste do caminho da saida norte, perto do topo da cidade. Chegue pelo leste, fique a direita dela, olhe para a esquerda e aperte A. Nada aparece na tela."
             "7":
               title: "Pule o Ginasio e siga a oeste para a Rota 22"
               text: "O Ginasio de Viridian, no nordeste, fica trancado ate você ter as outras sete insignias, entao deixe para o fim do jogo. Pegue a saida oeste para a Rota 22, pelas melhores capturas contra o Brock e sua próxima batalha de rival; de la você volta por Viridian e sobe para a Rota 2."

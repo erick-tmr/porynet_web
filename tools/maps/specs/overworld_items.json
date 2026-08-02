@@ -2383,10 +2383,10 @@
   "name": "viridian-city-hidden-potion",
   "map": "ViridianCity",
   "player": [
-   13,
+   15,
    4
   ],
-  "player_dir": "RIGHT",
+  "player_dir": "LEFT",
   "focus": [
    14,
    4

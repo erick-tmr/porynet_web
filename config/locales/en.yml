@@ -838,9 +838,9 @@ en:
               text: "The old man on the north road is awake now. Talk to him and sit through his catching demonstration; when it ends he steps aside and the path north finally opens."
             "6":
               title: "Grab the hidden Potion by the north exit"
-              text: "With the road open, walk up toward the north exit at the top of town. A lone tree stands just west of the exit path. Stand on its left side, face right, and press A for a hidden Potion. Nothing appears on-screen until the item is yours."
+              text: "With the road open, walk up toward the north exit at the top of town. A lone tree blocks a dead-end nook just west of the exit path. Approach from the open east side, stand to the tree's right, face left, and press A for a hidden Potion. Nothing appears on-screen until the item is yours."
               hidden:
-                potion: "The lone tree just west of the north exit path, near the top of town. Stand to its left, face right, and press A. Nothing shows on-screen."
+                potion: "The lone tree just west of the north exit path, near the top of town. Come from the east, stand to its right, face left, and press A. Nothing shows on-screen."
             "7":
               title: "Skip the Gym, head west to Route 22"
               text: "The Viridian Gym in the northeast stays locked until you hold the other seven badges, so leave it for the endgame. Take the west exit out to Route 22 for the best Brock-ready catches and your next rival battle; from there you loop back through Viridian and up to Route 2."

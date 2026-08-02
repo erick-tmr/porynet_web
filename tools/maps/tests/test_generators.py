@@ -39,6 +39,11 @@ def _mew_spec(name):
     return next(s for s in entries if s["name"] == name)
 
 
+def _item_spec(name):
+    entries = json.loads((SPECS / "overworld_items.json").read_text())
+    return next(s for s in entries if s["name"] == name)
+
+
 def _route24_grass_trigger(root):
     """The Jr. Trainer the Mew glitch triggers on: the OPP_JR_TRAINER_M standing in Route 24's tall
     grass, not the identically-classed one out on the bridge planks."""
@@ -174,6 +179,19 @@ def test_leave_mt_moon_frames_the_cerulean_side_exit(root):
     assert spec["player_dir"] == "DOWN", "facing the ledges you drop east toward Cerulean"
 
 
+def test_viridian_hidden_potion_hero_approaches_from_the_open_exit_side(root):
+    # Regression: an auto-placement pass flipped this shot's hero to [13, 4], west of the item,
+    # into the dead-end nook the lone tree walls off. Both sides read as walkable to the collision
+    # check (the west nook connects back to town by a long detour), so only a curated pin catches
+    # it: the reviewed approach is from the open north-exit path to the east, standing one tile
+    # right of the item and facing left into it.
+    spec = _item_spec("viridian-city-hidden-potion")
+    hero, item = tuple(spec["player"]), tuple(spec["marker"])
+    assert _cell_walkable(root, spec["map"], hero), "the hero stands on real path floor"
+    assert (hero[0] - item[0], hero[1] - item[1]) == (1, 0), "one tile east of the item, not the west nook"
+    assert spec["player_dir"] == "LEFT", "facing west into the tree, from the open exit path"
+
+
 def test_trade_house_scene_places_the_hero_at_the_door(root):
     # The overworld "where" shot for the trade house stands the hero at its door on Route 2
     # (warp_event 15, 19 in data/maps/objects/Route2.asm). The route's own people ride along
@@ -187,7 +205,7 @@ def test_trade_house_scene_places_the_hero_at_the_door(root):
 # item, a trainer it faces. A render draws the hero on a counter, boulder or desk all the same, so
 # these are guarded to keep it on real floor. Directional step shots frame a landmark rather than
 # an interaction and are out of scope.
-INTERACTION_SPEC_FILES = ["trades.json", "hidden_items.json", "trainers.json"]
+INTERACTION_SPEC_FILES = ["trades.json", "hidden_items.json", "trainers.json", "overworld_items.json"]
 
 
 def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
