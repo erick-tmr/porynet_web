@@ -1055,6 +1055,8 @@ en:
             "13":
               title: "Beat Jessie & James, choose a fossil"
               text: "By the fossils in the north, the last Super Nerd guards the prize and Jessie & James block the way in Yellow. Beat them, then pick ONE fossil: Dome (becomes Kabuto) or Helix (becomes Omanyte). The one you leave is gone for good."
+              items:
+                fossil: "Choose Dome (Kabuto) or Helix (Omanyte) from the Super Nerd once he is beaten. Revive it into a Pokémon later at the Cinnabar Lab; the other is lost for good."
             "14":
               title: "Climb out to Route 4"
               text: "With the fossil in hand, take the northwest ladder back up to B1F and out the northeast exit onto the east half of Route 4, which drops toward Cerulean City."
@@ -1109,6 +1111,8 @@ en:
             "3":
               title: "Grab the extras, then head north"
               text: "Take the free Bulbasaur from Melanie's house if Pikachu's friendship is high. The burgled house near the north stays sealed until later; when the officer moves on, chase the thief out its back for TM28 (Dig). Then head north onto Nugget Bridge (Route 24)."
+              items:
+                bicycle: "From the Bike Shop, once you trade in the Bike Voucher you earn in Vermilion. You will come back for it, then never walk again."
           tips:
             bulbasaur: "Free from Melanie's house once Pikachu is happy. Evolves all the way to Venusaur."
           oak:
@@ -1172,6 +1176,8 @@ en:
             "5":
               title: "Free Bill"
               text: "Enter the Sea Cottage at the far east and use Bill's machine to un-fuse him. He hands you the S.S. Ticket. Head back to Vermilion via Cerulean."
+              items:
+                s_s_ticket: "From Bill, after freeing him from his machine in the Sea Cottage. Your pass onto the S.S. Anne in Vermilion."
           oak:
             venonat: "A Bug/Poison catch → Venomoth. Log the base once."
         route_5:
@@ -1218,6 +1224,9 @@ en:
             "1":
               title: "Grab the goodies"
               text: "Heal at the Poke Center, then collect the Bike Voucher from the Pokémon Fan Club and the Old Rod from the Fishing Guru on the west side of town."
+              items:
+                bike_voucher: "From the chairman of the Pokémon Fan Club, west side of town. Trade it for a Bicycle at the Cerulean Bike Shop."
+                old_rod: "From the Fishing Guru in the house on the west side of town. Fishes up Magikarp anywhere."
             "2":
               title: "Search the building gap for Max Ether"
               text: "Just north of the Pokémon Trade House door, a narrow gap runs up between two buildings to the harbor water. A hidden Max Ether sits at the top of that gap. Stand in the plaza below it, face up into the gap, and press A. Nothing shows on-screen."
@@ -1250,6 +1259,8 @@ en:
             "3":
               title: "Get HM01 Cut"
               text: "Cure the seasick Captain in the stern cabin; he hands over HM01 Cut and TM24 (Thunderbolt). Teach Cut, then disembark. The instant you step off, the ship sails for good, so grab everything first."
+              items:
+                hm01_cut: "From the Captain in the S.S. Anne's stern cabin, once you soothe his seasickness. Teaches Cut for the small trees."
         route_11:
           note: "East of Vermilion. Pidgey, Rattata, and Drowzee."
           intro: "A wide grass route east of Vermilion, with a cave shortcut back toward Pewter."
@@ -1274,6 +1285,8 @@ en:
             "4":
               title: "Grab the Itemfinder"
               text: "At the east gate, talk to Oak's Aide for the Itemfinder (he only hands it over once you have caught 30+ species). Upstairs, a Youngster trades you a boosted Dugtrio for a Diglett."
+              items:
+                itemfinder: "From Oak's Aide in the east gate house, once you have caught 30+ species. Points to nearby hidden items."
             "5":
               title: "Take the Diglett's Cave shortcut"
               text: "Head back west to the mouth of Diglett's Cave and drop in, tunneling under the mountains for a quick way back toward Pewter."
@@ -1446,6 +1459,8 @@ en:
             "4":
               title: "Take the Eevee, then the Gym"
               text: "Pick up the gift Eevee on the top floor of the Celadon Mansion (behind the Poké Center) and the Coin Case from the man in the restaurant, then enter the Gym behind the trees. Fire, Flying or Psychic beats Erika's Grass and Poison; Cut the small trees inside to skip the maze."
+              items:
+                coin_case: "From the man slumped in the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
             "5":
               title: "Hit the Game Corner"
               text: "Win coins for prizes like Porygon and Vulpix, then find the poster switch to enter the Rocket Hideout."
@@ -1623,6 +1638,8 @@ en:
             "12":
               title: "Free Mr. Fuji on 7F"
               text: "At the top, Team Rocket's Jessie & James block the way to Mr. Fuji. Beat the pair, then speak to the old man to free him. He hands you the Poké Flute, which wakes the sleeping Snorlax on Routes 12 and 16."
+              items:
+                poke_flute: "From Mr. Fuji atop the tower, once the ghost Marowak is laid to rest. Wakes the Snorlax blocking Routes 12 and 16."
           tips:
             gastly: "The only Gengar line in the game. Evolve Gastly to Haunter, then Gengar by trade."
           oak:
@@ -1646,6 +1663,8 @@ en:
             "4":
               title: "Work down the bridge"
               text: "Continue south down the pier, taking the Rocker and the last Fisherman as the path lets you. Duck into the Fishing Guru's house on the way for the Super Rod, the best rod in the game."
+              items:
+                super_rod: "From the Fishing Guru in his house partway down Silence Bridge. The best rod, it pulls the widest range of Water Pokémon."
             "5":
               title: "Grab the Iron alcove"
               text: "Near the south end, just past the last Fisherman, a Poke Ball sits in a walled alcove on the west side. Step in and grab the Iron, which permanently raises a Pokémon's Defense."
@@ -1701,6 +1720,8 @@ en:
             "1":
               title: "Cross the fenced field"
               text: "Step onto Route 15 from the Route 14 gate in the east and head west across the fenced field. A double file of Bird Keepers, Beauties, Bikers and Jr. Trainers packs the lane, so top off your HP before wading in."
+              items:
+                exp_all: "From Oak's Aide on the gate's 2F, once you have caught 50 species. Splits battle EXP across your whole party."
             "2":
               title: "Grab TM20 Rage in the NW pocket"
               text: "Near the western end of the field, break north off the main lane. A Poke Ball tucked into the northwest corner holds TM20 Rage, sitting just short of the gate to Fuchsia."
@@ -1728,12 +1749,16 @@ en:
             "2":
               title: "Fish the Warden's pond"
               text: "Super Rod the pond for a wild Gyarados, a Yellow-exclusive catch here."
+              items:
+                good_rod: "From the fisherman in the small house by the west gate. Reels in better catches than the Old Rod."
             "3":
               title: "Raid the Safari Zone"
               text: "Head north into the Safari Zone for HM03 Surf and the Gold Teeth."
             "4":
               title: "Trade for Strength"
               text: "Return the Gold Teeth to the Warden for HM04 Strength; grab the Rare Candy inside once you have it."
+              items:
+                hm04_strength: "From the Safari Zone Warden, after you return the Gold Teeth. Teaches Strength to push boulders."
           tips:
             gyarados: "Super Rod the Warden's pond for a wild Gyarados. No Magikarp grind needed."
           oak:
@@ -1801,6 +1826,8 @@ en:
             "13":
               title: "Claim HM03 Surf at the Secret House"
               text: "Step into the Secret House in the far top-left corner. The old man inside hands you HM03 Surf, the whole reason to trek out here. Teach it later and half the map's water opens up."
+              items:
+                hm03_surf: "From the old man in the Secret House, far corner of Safari Zone Area 3. Teaches Surf across open water."
             "14":
               title: "Drop south for a second Max Potion"
               text: "Leave the house and follow the west side down to the bottom of the area, where another ball holds a Max Potion."
@@ -1832,6 +1859,8 @@ en:
             "1":
               title: "Grab HM02 Fly"
               text: "Cut the tree in the NW to reach the house and pick up HM02 Fly."
+              items:
+                hm02_fly: "From the girl in the house at the top of Route 16, past a Cut tree. Teaches Fly between towns."
             "2":
               title: "Wake the Snorlax"
               text: "Play the Poké Flute at the Snorlax on the path (Lv 30) and battle it to clear the gate."

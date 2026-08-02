@@ -1055,6 +1055,8 @@ pt:
             "13":
               title: "Venca Jessie & James, escolha um fossil"
               text: "Perto dos fosseis ao norte, o ultimo Super Nerd guarda o premio e, no Yellow, Jessie & James bloqueiam a passagem. Venca-os e escolha UM fossil: Dome (vira Kabuto) ou Helix (vira Omanyte). O que você deixar se perde para sempre."
+              items:
+                fossil: "Escolha Dome (Kabuto) ou Helix (Omanyte) com o Super Nerd depois de vencê-lo. Reviva em Pokémon depois no Laboratório de Cinnabar; o outro se perde para sempre."
             "14":
               title: "Suba de volta para a Rota 4"
               text: "Com o fossil em maos, pegue a escada do noroeste de volta ao B1F e saia pela saida nordeste na metade leste da Rota 4, que desce rumo a Cerulean City."
@@ -1109,6 +1111,8 @@ pt:
             "3":
               title: "Pegue os extras e siga ao norte"
               text: "Pegue o Bulbasaur grátis na casa da Melanie se a amizade do Pikachu estiver alta. A casa assaltada perto do norte fica lacrada até mais tarde; quando a oficial sair, persiga o ladrão pelos fundos dela pelo TM28 (Dig). Depois siga ao norte para a Nugget Bridge (Rota 24)."
+              items:
+                bicycle: "Na Bike Shop, quando você troca o Bike Voucher que ganha em Vermilion. Você volta pra pegar, e nunca mais anda a pé."
           tips:
             bulbasaur: "Grátis na casa da Melanie quando o Pikachu está feliz. Evolui até Venusaur."
           oak:
@@ -1172,6 +1176,8 @@ pt:
             "5":
               title: "Solte o Bill"
               text: "Entre na Sea Cottage no extremo leste e use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
+              items:
+                s_s_ticket: "Com o Bill, depois de libertá-lo da máquina na Sea Cottage. Sua passagem para o S.S. Anne em Vermilion."
           oak:
             venonat: "Uma captura Inseto/Veneno → Venomoth. Registre a base uma vez."
         route_5:
@@ -1218,6 +1224,9 @@ pt:
             "1":
               title: "Pegue os itens"
               text: "Cure no Centro Pokémon, depois pegue o Bike Voucher no Pokémon Fan Club e o Old Rod com o Fishing Guru no lado oeste da cidade."
+              items:
+                bike_voucher: "Com o presidente do Pokémon Fan Club, no lado oeste da cidade. Troque por uma Bicycle na Bike Shop de Cerulean."
+                old_rod: "Com o Fishing Guru na casa do lado oeste da cidade. Pesca Magikarp em qualquer lugar."
             "2":
               title: "Procure o Max Ether no vão entre os prédios"
               text: "Logo ao norte da porta da Pokémon Trade House, um vão estreito sobe entre dois prédios até a água do porto. Um Max Ether escondido fica no topo desse vão. Fique na praça abaixo dele, vire para cima em direção ao vão e aperte A. Nada aparece na tela."
@@ -1250,6 +1259,8 @@ pt:
             "3":
               title: "Pegue o HM01 Cut"
               text: "Cure o Capitão enjoado na cabine da popa; ele te entrega o HM01 Cut e o TM24 (Thunderbolt). Ensine Cut, depois desembarque. No instante em que você sai, o navio parte de vez, então pegue tudo antes."
+              items:
+                hm01_cut: "Com o Capitão na cabine da popa do S.S. Anne, depois de curar o enjoo dele. Ensina Cut para as arvorezinhas."
         route_11:
           note: "A leste de Vermilion. Pidgey, Rattata e Drowzee."
           intro: "Uma rota larga de grama a leste de Vermilion, com um atalho de caverna rumo a Pewter."
@@ -1274,6 +1285,8 @@ pt:
             "4":
               title: "Pegue o Itemfinder"
               text: "No portão leste, fale com o Assistente do Oak pelo Itemfinder (ele so entrega quando você ja capturou 30+ especies). No andar de cima, um Garoto troca um Dugtrio turbinado pelo seu Diglett."
+              items:
+                itemfinder: "Com o Assistente do Oak na casa do portão leste, depois de capturar 30+ espécies. Aponta itens escondidos por perto."
             "5":
               title: "Pegue o atalho da Diglett's Cave"
               text: "Volte a oeste ate a boca da Diglett's Cave e entre, atravessando por baixo das montanhas num atalho rapido rumo a Pewter."
@@ -1446,6 +1459,8 @@ pt:
             "4":
               title: "Pegue o Eevee, depois o Ginásio"
               text: "Pegue o Eevee de presente no último andar da Celadon Mansion (atrás do Centro Pokémon) e a Coin Case com o homem no restaurante, depois entre no Ginásio atrás das árvores. Fogo, Voador ou Psíquico vence a Grama e Veneno da Erika; corte as arvorezinhas de dentro para pular o labirinto."
+              items:
+                coin_case: "Com o homem caído no restaurante de Celadon, ao sul do Game Corner. Guarda as fichas que você ganha nos caça-níqueis."
             "5":
               title: "Vá ao Game Corner"
               text: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o interruptor no pôster para entrar no Esconderijo Rocket."
@@ -1623,6 +1638,8 @@ pt:
             "12":
               title: "Solte o Mr. Fuji no 7F"
               text: "No topo, a Jessie & James da Equipe Rocket bloqueiam o caminho até o Mr. Fuji. Vença a dupla e fale com o velho pra libertá-lo. Ele te entrega o Poké Flute, que acorda os Snorlax dorminhocos das Rotas 12 e 16."
+              items:
+                poke_flute: "Com o Mr. Fuji no topo da torre, depois que o Marowak fantasma descansa. Acorda o Snorlax que bloqueia as Rotas 12 e 16."
           tips:
             gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar por troca."
           oak:
@@ -1646,6 +1663,8 @@ pt:
             "4":
               title: "Desca pela ponte"
               text: "Continue ao sul pela ponte, enfrentando o Rocker e o ultimo Fisherman conforme o caminho permitir. Entre na casa do Fishing Guru pelo caminho para pegar o Super Rod, a melhor vara do jogo."
+              items:
+                super_rod: "Com o Fishing Guru na casa no meio da Silence Bridge. A melhor vara, pesca a maior variedade de Pokémon de Água."
             "5":
               title: "Pegue o Iron no beco"
               text: "Perto do extremo sul, logo após o ultimo Fisherman, uma Poke Ball fica num beco murado do lado oeste. Entre e pegue o Iron, que aumenta permanentemente a Defesa de um Pokémon."
@@ -1701,6 +1720,8 @@ pt:
             "1":
               title: "Cruze o campo cercado"
               text: "Entre em Route 15 pela cancela de Route 14, a leste, e siga para oeste pelo campo cercado. Uma dupla fileira de Bird Keepers, Beauties, Bikers e Jr. Trainers lota a pista, então recupere o HP antes de encarar."
+              items:
+                exp_all: "Com o Assistente do Oak no 2F da cancela, depois de capturar 50 espécies. Divide o EXP das lutas com todo o time."
             "2":
               title: "Pegue o TM20 Rage no canto noroeste"
               text: "Perto do fim oeste do campo, corte para o norte, saindo da pista principal. Uma Poke Ball encravada no canto noroeste guarda o TM20 Rage, logo antes da cancela para Fuchsia."
@@ -1728,12 +1749,16 @@ pt:
             "2":
               title: "Pesque no lago do Warden"
               text: "Use o Super Rod no lago para um Gyarados selvagem, uma captura exclusiva do Yellow aqui."
+              items:
+                good_rod: "Com o pescador na casinha perto da cancela oeste. Pesca melhor que o Old Rod."
             "3":
               title: "Explore a Safari Zone"
               text: "Siga ao norte para a Safari Zone pelo HM03 Surf e os Gold Teeth."
             "4":
               title: "Troque pelo Strength"
               text: "Devolva os Gold Teeth ao Warden pelo HM04 Strength; pegue o Rare Candy la dentro depois de te-lo."
+              items:
+                hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
           tips:
             gyarados: "Super Rod no lago do Warden por um Gyarados selvagem. Sem grind de Magikarp."
           oak:
@@ -1801,6 +1826,8 @@ pt:
             "13":
               title: "Pegue o HM03 Surf na Secret House"
               text: "Entre na Secret House no canto superior esquerdo. O velho lá dentro te dá o HM03 Surf, o motivo inteiro de vir até aqui. Ensine depois e metade da água do mapa se abre."
+              items:
+                hm03_surf: "Com o velho na Secret House, no canto da Área 3 da Safari Zone. Ensina Surf pela água aberta."
             "14":
               title: "Desça ao sul por outra Max Potion"
               text: "Saia da casa e siga o lado oeste até o fundo da área, onde outra ball guarda uma Max Potion."
@@ -1832,6 +1859,8 @@ pt:
             "1":
               title: "Pegue o HM02 Fly"
               text: "Corte a árvore a noroeste para chegar à casa e pegar o HM02 Fly."
+              items:
+                hm02_fly: "Com a garota na casa no topo da Rota 16, depois de uma árvore de Cut. Ensina Fly entre cidades."
             "2":
               title: "Acorde o Snorlax"
               text: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão."

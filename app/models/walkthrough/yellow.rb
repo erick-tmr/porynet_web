@@ -746,7 +746,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, trivia: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, key_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, trivia: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
@@ -754,6 +754,7 @@ module Walkthrough
         steps: steps.is_a?(Array) ? build_steps(b, steps) : (1..steps).map { |i|
           step(b, i, html: html_steps.include?(i),
             shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
+            items: key_items.fetch(i, []).map { |name, key| item(b, i, name, key) },
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
@@ -762,16 +763,23 @@ module Walkthrough
     end
 
     # Declarative per-item steps: each def is a narrative beat ({}), a visible overworld item
-    # ({ item: [name, key], scene:, at: }) whose GB-screen shot names the ball, or a hidden item
+    # ({ item: [name, key], scene:, at: }) whose GB-screen shot names the ball, one or more key
+    # items handed over together ({ items: [[name, key], ...] }), or a hidden item
     # ({ hidden: [name, key, scene, pin], at: }) whose found-frame panel carries its own shot.
     def self.build_steps(base, defs)
       defs.each_with_index.map do |d, i|
         n = i + 1
         step(base, n,
-          items: (d[:item] ? [ item(base, n, *d[:item], at: d[:at]) ] : []),
+          items: step_items(base, n, d),
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil))
       end
+    end
+
+    def self.step_items(base, n, def_)
+      return [ item(base, n, *def_[:item], at: def_[:at]) ] if def_[:item]
+
+      (def_[:items] || []).map { |name, key| item(base, n, name, key) }
     end
 
     NAME_SPRITES = {
@@ -879,7 +887,7 @@ module Walkthrough
           { hidden: [ "Moon Stone", "moon-stone", "mt-moon-hidden-moon-stone", "mt-moon-moon-stone" ] },
           { item: [ "TM Mega Punch", "tm-mega-punch" ], scene: "mt-moon-item-tm-mega-punch" },
           { hidden: [ "Ether", "ether", "mt-moon-hidden-ether", "mt-moon-ether" ] },
-          {},
+          { items: [ [ "Fossil", "fossil" ] ] },
           {}
         ],
         encounters: [
@@ -914,6 +922,7 @@ module Walkthrough
     def self.cerulean_city
       loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 3, shots: [ 1, 3 ], gym_after: 1, badge: "CASCADE",
         hidden_items: { 2 => [ [ "Rare Candy", "rare_candy", "cerulean-city-hidden-rare-candy", "cerulean-rare-candy" ] ] },
+        key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png") ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
@@ -948,7 +957,7 @@ module Walkthrough
           { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ] },
           { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss" },
           { hidden: [ "Ether", "ether", "route-25-hidden-ether", "route-25-ether" ] },
-          {}
+          { item: [ "S.S. Ticket", "s_s_ticket" ] }
         ],
         encounters: [
           enc("route-25", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
@@ -985,7 +994,7 @@ module Walkthrough
 
     def self.vermilion_city
       loc("vermilion-city", "CITY", "Vermilion City", 16, steps: [
-          {},
+          { items: [ [ "Bike Voucher", "bike_voucher" ], [ "Old Rod", "old_rod" ] ] },
           { hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether", "vermilion-city-max-ether" ] },
           {},
           {}
@@ -1000,6 +1009,7 @@ module Walkthrough
 
     def self.ss_anne
       loc("ss-anne", "BUILDING", "S.S. Anne", 17, steps: 3, shots: [ 3 ],
+        key_items: { 3 => [ [ "HM01 Cut", "hm01_cut" ] ] },
         trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),
           where: scene_shot("ss-anne-rival", "WHERE"),
           battle: scene_shot("battle-rival-ss-anne", "BATTLE"), opp: [ "RIVAL1", 1 ]) ])
@@ -1010,7 +1020,7 @@ module Walkthrough
           {},
           {},
           { hidden: [ "Escape Rope", "escape-rope", "route-11-hidden-escape-rope", "route-11-escape-rope" ] },
-          {},
+          { items: [ [ "Itemfinder", "itemfinder" ] ] },
           {}
         ],
         encounters: [
@@ -1045,7 +1055,7 @@ module Walkthrough
           { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-tower-item-rare-candy" },
           { item: [ "X Accuracy", "x-accuracy" ], scene: "pokemon-tower-item-x-accuracy" },
           {},
-          {}
+          { items: [ [ "Poké Flute", "poke_flute" ] ] }
         ],
         encounters: [
           enc("pokemon-tower", "092", "FLOORS", "90%", "18–29", "COMMON", "092", "093", "094", tip: true),
@@ -1068,7 +1078,7 @@ module Walkthrough
           {},
           {},
           { hidden: [ "Hyper Potion", "hyper-potion", "route-12-hidden-hyper-potion", "route-12-hyper-potion" ] },
-          {},
+          { items: [ [ "Super Rod", "super_rod" ] ] },
           { item: [ "Iron", "iron" ], scene: "route-12-item-iron" },
           {}
         ],
@@ -1110,7 +1120,7 @@ module Walkthrough
 
     def self.route_15
       loc("route-15", "ROUTE", "Route 15", 32, steps: [
-          {},
+          { items: [ [ "Exp. All", "exp_all" ] ] },
           { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage" },
           {}
         ],
@@ -1123,6 +1133,7 @@ module Walkthrough
 
     def self.fuchsia_city
       loc("fuchsia-city", "CITY", "Fuchsia City", 33, steps: 4, gym_after: 1, badge: "SOUL",
+        key_items: { 2 => [ [ "Good Rod", "good_rod" ] ], 4 => [ [ "HM04 Strength", "hm04_strength" ] ] },
         encounters: [
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
@@ -1147,7 +1158,7 @@ module Walkthrough
           { item: [ "Gold Teeth", "gold-teeth" ], scene: "safari-zone-item-gold-teeth" },
           { item: [ "TM Double Team", "tm-double-team" ], scene: "safari-zone-item-tm-double-team" },
           { hidden: [ "Revive", "revive", "safari-zone-hidden-revive", "safari-zone-revive" ] },
-          {},
+          { items: [ [ "HM03 Surf", "hm03_surf" ] ] },
           { item: [ "Max Potion", "max-potion-8-20" ], scene: "safari-zone-item-max-potion-8-20", at: [ 8, 20 ] },
           { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive" },
           {}
@@ -1170,6 +1181,7 @@ module Walkthrough
 
     def self.route_16
       loc("route-16", "ROUTE", "Route 16", 35, steps: 3, shots: [ 2 ],
+        key_items: { 1 => [ [ "HM02 Fly", "hm02_fly" ] ] },
         encounters: [
           enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-16", "019", "GRASS", "30%", "23–24", "COMMON", "019", "020"),
@@ -1534,7 +1546,7 @@ module Walkthrough
           {},
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
           {},
-          {},
+          { items: [ [ "Coin Case", "coin_case" ] ] },
           {}
         ], gym_after: 2, badge: "RAINBOW",
         encounters: [
@@ -1648,7 +1660,7 @@ module Walkthrough
       "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic",
       "HM05 Flash" => "tm-normal", "HM01 Cut" => "tm-normal", "HM02 Fly" => "tm-flying",
       "HM03 Surf" => "tm-water", "HM04 Strength" => "tm-normal",
-      "Parlyz Heal" => "paralyze-heal", "X Defend" => "x-defense"
+      "Parlyz Heal" => "paralyze-heal", "X Defend" => "x-defense", "Fossil" => "dome-fossil"
     }.freeze
 
     def self.item_sprite(name)
