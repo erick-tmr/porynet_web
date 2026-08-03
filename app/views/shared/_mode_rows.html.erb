@@ -1,5 +1,5 @@
 <% %w[living oak].each do |mode| %>
-  <button type="button" class="pn-nav__panel-mode pn-nav__panel-mode--<%= mode %>" aria-pressed="true"
+  <button type="button" class="pn-nav__panel-mode pn-nav__panel-mode--<%= mode %>" aria-pressed="false"
           data-mode-toggle-target="switch" data-mode="<%= mode %>"
           data-action="mode-toggle#toggle">
     <span><%= t("walkthrough.ui.mode_#{mode}_title") %></span>

@@ -27,7 +27,7 @@ export default class extends Controller {
 
   #render() {
     MODES.forEach((mode) => {
-      this.element.classList.toggle(`pn-mode-${mode}-off`, !isOn(this.state, mode, this.gameValue))
+      this.element.classList.toggle(`pn-mode-${mode}-on`, isOn(this.state, mode, this.gameValue))
     })
     this.switchTargets.forEach((el) => {
       el.setAttribute("aria-pressed", String(isOn(this.state, el.dataset.mode, this.gameValue)))

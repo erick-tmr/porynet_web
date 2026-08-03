@@ -1,0 +1,97 @@
+<% k = "#{Walkthrough::Yellow::K}.modes" %>
+<% gym_stop = game.first_gym_location %>
+<section class="pn-wt-section" id="modes">
+  <div class="pn-eyebrow-label"><%= t("#{k}.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{k}.h2") %></h2>
+  <p class="pn-wt-lead pn-wt-lead--wide"><%= t("#{k}.lead") %></p>
+
+  <div class="pn-wt-moderows">
+    <div class="pn-wt-moderow pn-wt-moderow--living">
+      <%= render "mode_ident", mode: "living" %>
+      <div class="pn-wt-moderow__body">
+        <p class="pn-wt-modep"><%= t("#{k}.living.body_html") %></p>
+
+        <div class="pn-wt-evopair">
+          <%= r2_image_tag "pokemon/yellow/019.png", alt: "", class: "pn-wt-evopair__sprite" %>
+          <span class="pn-wt-evopair__plus" aria-hidden="true">+</span>
+          <%= r2_image_tag "pokemon/yellow/020.png", alt: "", class: "pn-wt-evopair__sprite" %>
+          <span class="pn-wt-evopair__note"><%= t("#{k}.living.example") %></span>
+        </div>
+
+        <p class="pn-wt-modep"><%= t("#{k}.living.stop_pages_html") %></p>
+
+        <div class="pn-wt-modefoot">
+          <span class="pn-wt-modetag pn-wt-modetag--living"><%= t("#{k}.living.species_tag") %></span>
+          <p class="pn-wt-modep pn-wt-modep--sm"><%= t("#{k}.living.species_body_html") %></p>
+
+          <div class="pn-wt-species">
+            <div class="pn-wt-mode is-on">
+              <span class="pn-wt-mode__box" aria-hidden="true">✓</span>
+              <span class="pn-wt-mode__name"><%= t("walkthrough.ui.mode_living") %></span>
+              <span class="pn-wt-mode__tag"><%= t("walkthrough.ui.mode_living_tag") %></span>
+            </div>
+            <% %w[gender cosmetic regional].each do |variant| %>
+              <div class="pn-wt-mode pn-wt-mode--locked">
+                <span class="pn-wt-mode__box"></span>
+                <span class="pn-wt-mode__name"><%= t("walkthrough.ui.mode_#{variant}") %></span>
+                <span class="pn-wt-mode__tag"><%= t("walkthrough.ui.mode_none_tag") %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pn-wt-moderow pn-wt-moderow--oak">
+      <%= render "mode_ident", mode: "oak" %>
+      <div class="pn-wt-moderow__body">
+        <p class="pn-wt-modep"><%= t("#{k}.oak.body_html") %></p>
+
+        <div class="pn-wt-deadline">
+          <%= r2_image_tag "walkthrough/yellow/trainers/#{gym_stop.gym.leader.sprite}.png",
+                           alt: gym_stop.gym.leader.name, class: "pn-wt-deadline__leader" %>
+          <div class="pn-wt-deadline__body">
+            <div class="pn-wt-deadline__title">
+              <%= t("walkthrough.ui.deadline_title", leader: gym_stop.gym.leader.name) %>
+            </div>
+            <div class="pn-wt-deadline__note">
+              <%= t("walkthrough.ui.deadline_note", count: game.oak_example.size, gym: gym_stop.gym.name) %>
+            </div>
+          </div>
+          <div class="pn-wt-deadline__badge">
+            <%= r2_image_tag gym_stop.gym.badge_img,
+                             alt: t("walkthrough.ui.badge_alt", badge: gym_stop.gym.badge),
+                             class: "pn-wt-deadline__badge-img" %>
+            <span class="pn-wt-deadline__badge-name"><%= gym_stop.gym.badge %></span>
+          </div>
+        </div>
+
+        <p class="pn-wt-modep"><%= t("#{k}.oak.stop_pages_html") %></p>
+
+        <div class="pn-wt-modefoot">
+          <span class="pn-wt-modetag pn-wt-modetag--oak"><%= t("#{k}.oak.queue_tag") %></span>
+
+          <div class="pn-wt-oakq">
+            <% game.oak_example.each do |entry| %>
+              <div class="pn-wt-oakq__cell">
+                <div class="pn-wt-oakq__frame">
+                  <%= r2_image_tag "pokemon/yellow/#{entry.dex}.png", alt: "", class: "pn-wt-oakq__sprite" %>
+                  <span class="pn-wt-oakq__mark" title="<%= t("walkthrough.ui.oak_must_register") %>">
+                    <%= r2_image_tag "walkthrough/items/poke-ball.png",
+                                     alt: t("walkthrough.ui.oak_must_register"), class: "pn-wt-oakq__mark-img" %>
+                  </span>
+                </div>
+                <span class="pn-wt-oakq__name"><%= entry.name %></span>
+                <span class="pn-wt-oakq__how pn-wt-oakq__how--<%= entry.how.downcase %>">
+                  <%= t("walkthrough.ui.oak_how_#{entry.how.downcase}") %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+
+          <p class="pn-wt-modep"><%= t("#{k}.oak.queue_note") %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
