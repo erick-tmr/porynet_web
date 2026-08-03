@@ -42,9 +42,6 @@ module ApplicationHelper
     t(step.text_key, href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
-  # Both walkthrough controllers hang off the page root: progress-toggle so one instance covers
-  # every tick target on the page, mode-toggle so the switches in the nav and the chips in the
-  # index hero share one state and one root class to flip.
   def walkthrough_page_controller(game)
     tag.attributes(data: { controller: "progress-toggle mode-toggle",
                            progress_toggle_game_value: game.slug,

@@ -38,8 +38,6 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_current_path walkthrough_leg_path(game: "yellow", leg: "leg-02")
   end
 
-  # The switch is nav chrome, so what it hides has to follow the reader onto the next page and
-  # survive a reload. There is no account yet, so localStorage is the whole of that promise.
   test "switching Oak off on the index carries onto a leg page and survives a reload" do
     visit walkthrough_path(game: "yellow")
 
@@ -59,9 +57,6 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-oak"
   end
 
-  # Below the breakpoint the switches are gone from the bar, so the only way to reach a mode is
-  # through the burger panel. Which set of controls a reader gets is a media query, so this is the
-  # one test that has to change the window.
   test "on a narrow window the burger panel is where the modes live" do
     resize_to(430, 900)
 

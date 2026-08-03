@@ -7,8 +7,6 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 let application;
 
-// The nav pair and the index hero pair are the same targets on the same root, which is what keeps
-// them from ever disagreeing.
 const FIXTURE = `
   <div id="root" class="porynet" data-controller="mode-toggle" data-mode-toggle-game-value="yellow">
     <button id="sw-living" type="button" aria-pressed="true"

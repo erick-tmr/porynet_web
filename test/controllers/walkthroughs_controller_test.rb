@@ -384,7 +384,6 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym.pn-wt-gym--cyan" # Misty, gym 2
   end
 
-  # The glitch is a detour, so it belongs in the specials grid and not inside the route timeline.
   test "the walkthrough index surfaces the Mew glitch as a special, off the timeline" do
     get walkthrough_path(game: "yellow")
 
@@ -412,8 +411,6 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__modes", count: 0
   end
 
-  # The narrow-screen nav is one markup set behind a media query, so the panel is always in the
-  # response and the burger is always wired, on the landing page as much as on a walkthrough.
   test "the burger panel carries the links everywhere and the mode rows only in a walkthrough" do
     get walkthrough_path(game: "yellow")
 

@@ -37,8 +37,6 @@
   box-shadow: 3px 3px 0 #171622;
 }
 
-/* The same two switches as the nav, spelled out. The nav pair is chrome you carry between pages;
-   this pair is the index saying what the switches are for. */
 .pn-wt-modechip {
   cursor: pointer;
   font-family: "Press Start 2P", monospace;
@@ -64,8 +62,6 @@
 .pn-mode-living-off .pn-wt-modechip--living .pn-wt-modechip__off,
 .pn-mode-oak-off .pn-wt-modechip--oak .pn-wt-modechip__off { display: inline; }
 
-/* One strip that says what the live combination of modes does to every stop page. All three
-   captions render; CSS picks the one the root classes describe, so no wording lives in JS. */
 .pn-wt-modebar {
   display: flex;
   align-items: center;
@@ -108,8 +104,6 @@
 .pn-mode-living-off:not(.pn-mode-oak-off) .pn-wt-modebar__blurb--oak,
 .pn-mode-oak-off:not(.pn-mode-living-off) .pn-wt-modebar__blurb--living { display: block; }
 
-/* What each mode takes away when it is switched off. The class marks a mode off rather than on,
-   so a page with nothing stored paints complete on the first frame. */
 .pn-mode-oak-off .pn-wt-oak,
 .pn-mode-oak-off .pn-wt-band-oak { display: none; }
 .pn-mode-living-off .pn-wt-best,
@@ -2053,7 +2047,6 @@ a.pn-wt-route__card:hover {
 }
 
 /* ---- index: specials ---- */
-/* Detours that belong to no single stop, so they sit off the timeline rather than inside it. */
 .pn-wt-specials {
   display: grid;
   grid-template-columns: 1fr 1fr;

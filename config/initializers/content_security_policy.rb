@@ -13,8 +13,5 @@ Rails.application.configure do
   end
 
   config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
-  # script-src covers the importmap JSON block. style-src covers exactly one thing: the stylesheet
-  # Turbo injects at boot for its progress bar, which it nonces from the csp-nonce meta tag.
-  # A nonce matches elements, never attributes, so inline style= stays blocked either way.
   config.content_security_policy_nonce_directives = %w[script-src style-src]
 end

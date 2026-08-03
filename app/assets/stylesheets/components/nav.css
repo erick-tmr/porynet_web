@@ -228,8 +228,6 @@
 }
 .pn-nav__panel-cta:hover { color: #ff3dae; }
 
-/* Same switches as the bar, spelled out as full rows: at this width there is room for the whole
-   name and no room for a 30px track sitting next to it. */
 .pn-nav__panel-mode {
   cursor: pointer;
   text-align: left;
@@ -261,9 +259,6 @@
 .porynet:not(.pn-mode-living-off) .pn-nav__panel-mode--living .pn-nav__panel-mode-state { color: var(--neon-cyan); }
 .porynet:not(.pn-mode-oak-off) .pn-nav__panel-mode--oak .pn-nav__panel-mode-state { color: var(--amber); }
 
-/* The bar carries brand, language and burger; everything else moves into the panel. The cut is
-   where the full row stops fitting, which is wider here than in the design because this nav also
-   carries a language toggle and a CTA. */
 @media (max-width: 1240px) {
   .pn-nav__menu,
   .pn-nav__crumb,

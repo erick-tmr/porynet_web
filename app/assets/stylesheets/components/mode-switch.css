@@ -3,8 +3,6 @@
   align-items: center;
   gap: 8px;
 }
-/* Matches the burger breakpoint in components/nav.css. It lives here rather than there because
-   this sheet loads later and would otherwise win the cascade and keep the pair on screen. */
 @media (max-width: 1240px) {
   .pn-nav__modes { display: none; }
 }
