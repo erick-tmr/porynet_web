@@ -71,6 +71,24 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
+  test "the Oak example owes every catch and level-up evolution reachable before the first gym" do
+    g = game
+    assert_equal 17, g.oak_example.size
+    assert_equal({ dex: "025", name: "Pikachu", how: "START" }, g.oak_example.first.to_h)
+    assert_equal %w[011 017], g.oak_example.select { |e| e.how == "EITHER" }.map(&:dex)
+    assert_empty g.oak_example.map(&:dex) & %w[026 031 034],
+      "Raichu, Nidoqueen and Nidoking need a stone or a trade, so they fall outside this window"
+    assert_equal g.oak_example.map(&:dex).uniq, g.oak_example.map(&:dex)
+  end
+
+  test "the first gym location carries the leader, badge and gym name the deadline card reads" do
+    stop = game.first_gym_location
+    assert_equal "Pewter City", stop.name
+    assert_equal "BOULDER", stop.gym.badge
+    assert_equal "Pewter Gym", stop.gym.name
+    assert_equal "brock-gen1", stop.gym.leader.sprite
+  end
+
   test "a leg aggregates its locations' Oak queues without duplicates" do
     assert_empty game.leg!("leg-01").oak_queue, "leg 01 has nothing catchable yet (no Poke Balls)"
     assert_equal %w[029 032 056 021 016 019], game.leg!("leg-02").oak_queue.map(&:dex)
@@ -115,7 +133,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "every referenced sprite dex is a three-digit string" do
     g = game
-    dexes = g.oak_queue.map(&:dex)
+    dexes = g.oak_example.map(&:dex)
     g.locations.each do |l|
       dexes.concat l.encounters.map(&:dex)
       dexes.concat l.encounters.flat_map { |e| e.evo_line.map { |stage| stage[:dex] } }
@@ -299,8 +317,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   private
 
   def content_keys(game)
-    keys = game.oak_queue.map(&:why_key)
-    keys.concat game.legs.reject(&:special).map(&:lead_key)
+    keys = game.legs.reject(&:special).map(&:lead_key)
     game.locations.each do |loc|
       keys << loc.note_key << loc.intro_key
       loc.steps.each do |step|

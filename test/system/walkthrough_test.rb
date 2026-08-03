@@ -38,23 +38,35 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_current_path walkthrough_leg_path(game: "yellow", leg: "leg-02")
   end
 
-  test "switching Oak off on the index carries onto a leg page and survives a reload" do
+  test "switching Oak on from the index carries onto a leg page and survives a reload" do
     visit walkthrough_path(game: "yellow")
 
-    assert_selector ".pn-wt-modechip--oak[aria-pressed='true']"
-    find(".pn-nav__modes .pn-modesw--oak").click
     assert_selector ".pn-wt-modechip--oak[aria-pressed='false']"
+    find(".pn-nav__modes .pn-modesw--oak").click
+    assert_selector ".pn-wt-modechip--oak[aria-pressed='true']"
+    assert_selector ".pn-wt-modeid__cta--oak[aria-pressed='true']"
 
     visit walkthrough_leg_path(game: "yellow", leg: "leg-02")
 
     assert_selector ".pn-wt-loc__title"
-    assert_no_selector ".pn-wt-oak"
+    assert_selector ".pn-wt-oak"
 
     visit walkthrough_leg_path(game: "yellow", leg: "leg-02")
 
-    assert_no_selector ".pn-wt-oak"
-    find(".pn-nav__modes .pn-modesw--oak").click
     assert_selector ".pn-wt-oak"
+    find(".pn-nav__modes .pn-modesw--oak").click
+    assert_no_selector ".pn-wt-oak"
+  end
+
+  test "the section's own button switches a mode on, like every other switch" do
+    visit walkthrough_path(game: "yellow")
+
+    assert_no_selector ".pn-wt-modeid__cta--living[aria-pressed='true']"
+    find(".pn-wt-modeid__cta--living").click
+
+    assert_selector ".pn-wt-modechip--living[aria-pressed='true']"
+    assert_selector ".pn-nav__modes .pn-modesw--living[aria-pressed='true']"
+    assert_selector ".pn-wt-modeid__cta--oak[aria-pressed='false']"
   end
 
   test "on a narrow window the burger panel is where the modes live" do
@@ -70,10 +82,10 @@ class WalkthroughTest < ApplicationSystemTestCase
       click_button I18n.t("walkthrough.ui.mode_oak_title")
     end
 
-    assert_selector ".pn-wt-modechip--oak[aria-pressed='false']"
+    assert_selector ".pn-wt-modechip--oak[aria-pressed='true']"
 
     visit walkthrough_leg_path(game: "yellow", leg: "leg-02")
-    assert_no_selector ".pn-wt-oak"
+    assert_selector ".pn-wt-oak"
   ensure
     resize_to(1400, 1000)
   end

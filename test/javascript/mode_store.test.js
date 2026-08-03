@@ -76,38 +76,38 @@ describe("save", () => {
 });
 
 describe("isOn", () => {
-  it("treats a game nobody has switched as on, for both modes", () => {
+  it("treats a game nobody has switched as off, for both modes", () => {
     const fresh = load();
 
-    MODES.forEach((mode) => expect(isOn(fresh, mode, "yellow")).toBe(true));
+    MODES.forEach((mode) => expect(isOn(fresh, mode, "yellow")).toBe(false));
   });
 
-  it("is off only for the mode and game that were switched off", () => {
-    const state = setMode(load(), "oak", "yellow", false);
+  it("is on only for the mode and game that were switched on", () => {
+    const state = setMode(load(), "oak", "yellow", true);
 
-    expect(isOn(state, "oak", "yellow")).toBe(false);
-    expect(isOn(state, "oak", "red")).toBe(true);
-    expect(isOn(state, "living", "yellow")).toBe(true);
+    expect(isOn(state, "oak", "yellow")).toBe(true);
+    expect(isOn(state, "oak", "red")).toBe(false);
+    expect(isOn(state, "living", "yellow")).toBe(false);
   });
 });
 
 describe("setMode", () => {
-  it("switches off, back on, and leaves the original state alone", () => {
+  it("switches on, back off, and leaves the original state alone", () => {
     const fresh = load();
-    const off = setMode(fresh, "living", "yellow", false);
-    const on = setMode(off, "living", "yellow", true);
+    const on = setMode(fresh, "living", "yellow", true);
+    const off = setMode(on, "living", "yellow", false);
 
-    expect(isOn(off, "living", "yellow")).toBe(false);
     expect(isOn(on, "living", "yellow")).toBe(true);
+    expect(isOn(off, "living", "yellow")).toBe(false);
     expect(fresh.living).toEqual({});
   });
 
   it("keeps games apart", () => {
-    let state = setMode(load(), "oak", "yellow", false);
-    state = setMode(state, "oak", "red", true);
+    let state = setMode(load(), "oak", "yellow", true);
+    state = setMode(state, "oak", "red", false);
 
-    expect(isOn(state, "oak", "yellow")).toBe(false);
-    expect(isOn(state, "oak", "red")).toBe(true);
+    expect(isOn(state, "oak", "yellow")).toBe(true);
+    expect(isOn(state, "oak", "red")).toBe(false);
   });
 });
 
@@ -116,11 +116,11 @@ describe("subscribe", () => {
     const seen = [];
     const unsubscribe = subscribe((state) => seen.push(state));
 
-    seed(JSON.stringify({ v: SCHEMA_VERSION, living: {}, oak: { yellow: false } }));
+    seed(JSON.stringify({ v: SCHEMA_VERSION, living: {}, oak: { yellow: true } }));
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
 
     expect(seen).toHaveLength(1);
-    expect(isOn(seen[0], "oak", "yellow")).toBe(false);
+    expect(isOn(seen[0], "oak", "yellow")).toBe(true);
 
     unsubscribe();
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
@@ -132,10 +132,10 @@ describe("subscribe", () => {
     const seen = [];
     subscribe((state) => seen.push(state));
 
-    save(setMode(load(), "living", "yellow", false));
+    save(setMode(load(), "living", "yellow", true));
 
     expect(seen).toHaveLength(1);
-    expect(isOn(seen[0], "living", "yellow")).toBe(false);
+    expect(isOn(seen[0], "living", "yellow")).toBe(true);
   });
 
   it("ignores writes to somebody else's key", () => {

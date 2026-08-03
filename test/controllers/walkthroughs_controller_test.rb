@@ -13,6 +13,23 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "SPECIALS · OFF THE MAIN LINE"
   end
 
+  test "the index explains both challenge trackers, with the Brock deadline drawn from the game data" do
+    get walkthrough_path(game: "yellow")
+
+    assert_response :success
+    assert_select "#modes .pn-wt-moderow", count: 2
+    assert_select ".pn-wt-moderow--living .pn-wt-modeid__title", text: "Catch one of every species, and keep it"
+    assert_select ".pn-wt-moderow--oak .pn-wt-modeid__title", text: "Register everything before the next gym"
+    assert_select ".pn-wt-species .pn-wt-mode--locked", count: 3
+
+    assert_select ".pn-wt-deadline__title", text: "First deadline · Brock"
+    assert_select ".pn-wt-deadline__note", text: "17 entries owed before you step into Pewter Gym."
+    assert_select ".pn-wt-deadline__badge-name", text: "BOULDER"
+    assert_select ".pn-wt-oakq__cell", count: 17
+    assert_select ".pn-wt-oakq__how--start", text: "START"
+    assert_select ".pn-wt-oakq__how--either", count: 2
+  end
+
   test "the index renders in Portuguese" do
     get walkthrough_path(game: "yellow", locale: :pt)
 
@@ -389,7 +406,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select ".pn-wt-specials a.pn-wt-special[href*=?]", "/walkthroughs/yellow/mew-glitch"
-    assert_select ".pn-wt-special__name", text: "The Mew Glitch"
+    assert_select ".pn-wt-special__name", text: "The Mew glitch"
     assert_select ".pn-wt-steps a[href*='/mew-glitch']", count: 0
   end
 
@@ -398,11 +415,12 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select ".porynet[data-controller~='mode-toggle'][data-mode-toggle-game-value=?]", "yellow"
-    assert_select ".pn-nav__modes .pn-modesw[data-mode='living'][aria-pressed='true']"
-    assert_select ".pn-nav__modes .pn-modesw[data-mode='oak'][aria-pressed='true']"
+    assert_select ".pn-nav__modes .pn-modesw[data-mode='living'][aria-pressed='false']"
+    assert_select ".pn-nav__modes .pn-modesw[data-mode='oak'][aria-pressed='false']"
     assert_select ".pn-wt-modechip[data-mode='living']"
     assert_select ".pn-wt-modechip[data-mode='oak']"
-    assert_select ".pn-wt-modebar__blurb", count: 3
+    assert_select ".pn-wt-modeid__cta[data-mode='living']"
+    assert_select ".pn-wt-modeid__cta[data-mode='oak']"
 
     get walkthrough_mew_glitch_path(game: "yellow")
     assert_select ".pn-nav__modes .pn-modesw", count: 2
@@ -419,8 +437,8 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__burger[aria-expanded='false'][aria-controls='pn-nav-panel']"
     assert_select "#pn-nav-panel .pn-nav__panel-link", count: 3
     assert_select "#pn-nav-panel .pn-nav__panel-link.is-active", text: "Walkthroughs"
-    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='living'][aria-pressed='true']"
-    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='oak'][aria-pressed='true']"
+    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='living'][aria-pressed='false']"
+    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='oak'][aria-pressed='false']"
 
     get root_path
     assert_select "#pn-nav-panel .pn-nav__panel-link", count: 3

@@ -101,6 +101,8 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
   test "catching a Pokemon counts toward the leg's registered total" do
     visit "/walkthroughs/yellow/leg-04"
+    find(".pn-nav__modes .pn-modesw--oak").click
+
     within first(".pn-wt-oak__sub--reg") { assert_text "0" }
 
     first(".pn-wt-catch[data-progress-id]").click

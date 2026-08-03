@@ -37,7 +37,7 @@ export function save(state) {
 }
 
 export function isOn(state, mode, game) {
-  return state[mode]?.[game] !== false
+  return state[mode]?.[game] === true
 }
 
 export function setMode(state, mode, game, on) {

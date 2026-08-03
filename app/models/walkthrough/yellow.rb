@@ -124,6 +124,19 @@ module Walkthrough
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
 
+    OAK_EXAMPLE = [
+      [ "025", "START" ], [ "010", "CATCH" ], [ "011", "EITHER" ], [ "012", "EVOLVE" ],
+      [ "016", "CATCH" ], [ "017", "EITHER" ], [ "018", "EVOLVE" ], [ "019", "CATCH" ],
+      [ "020", "EVOLVE" ], [ "021", "CATCH" ], [ "022", "EVOLVE" ], [ "029", "CATCH" ],
+      [ "030", "EVOLVE" ], [ "032", "CATCH" ], [ "033", "EVOLVE" ], [ "056", "CATCH" ],
+      [ "057", "EVOLVE" ]
+    ].freeze
+
+    MODE_SOURCES = {
+      "living" => "https://bulbapedia.bulbagarden.net/wiki/Living_Pok%C3%A9dex",
+      "oak" => "https://bulbagarden.net/threads/challenge-run-encyclopedia.307749/"
+    }.freeze
+
     def self.game
       locations = all_locations
       by_slug = locations.to_h { |loc| [ loc.slug, loc ] }
@@ -132,14 +145,7 @@ module Walkthrough
         name: "Pokémon Yellow",
         region: "Kanto",
         dex_goal: 151,
-        oak_queue: [
-          OakEntry.new(dex: "010", name: "Caterpie", qty: 1, why_key: "#{K}.slice_oak.caterpie"),
-          OakEntry.new(dex: "016", name: "Pidgey", qty: 1, why_key: "#{K}.slice_oak.pidgey"),
-          OakEntry.new(dex: "029", name: "Nidoran♀", qty: 1, why_key: "#{K}.slice_oak.nidoranf"),
-          OakEntry.new(dex: "032", name: "Nidoran♂", qty: 1, why_key: "#{K}.slice_oak.nidoranm"),
-          OakEntry.new(dex: "056", name: "Mankey", qty: 1, why_key: "#{K}.slice_oak.mankey"),
-          OakEntry.new(dex: "021", name: "Spearow", qty: 1, why_key: "#{K}.slice_oak.spearow")
-        ],
+        oak_example: OAK_EXAMPLE.map { |dex, how| OakExample.new(dex: dex, name: NAMES.fetch(dex), how: how) },
         locations: locations,
         legs: build_legs(by_slug),
         best_catches: compute_best_catches(locations)

@@ -1,0 +1,25 @@
+<% k = "#{Walkthrough::Yellow::K}.modes.#{mode}" %>
+<div class="pn-wt-moderow__ident">
+  <div class="pn-wt-moderow__sticky">
+    <div class="pn-wt-modeid__head">
+      <span class="pn-wt-modeid__chip pn-wt-modeid__chip--<%= mode %>"><%= t("walkthrough.ui.mode_#{mode}_label") %></span>
+      <span class="pn-wt-modeid__state pn-wt-modeid__state--<%= mode %>">
+        <%= t("walkthrough.ui.mode_now") %>
+        <span class="pn-wt-modeid__state-on"><%= t("walkthrough.ui.mode_on") %></span>
+        <span class="pn-wt-modeid__state-off"><%= t("walkthrough.ui.mode_off") %></span>
+      </span>
+    </div>
+    <h3 class="pn-wt-modeid__title"><%= t("#{k}.title") %></h3>
+    <button type="button" class="pn-wt-modeid__cta pn-wt-modeid__cta--<%= mode %>" aria-pressed="false"
+            data-mode-toggle-target="switch" data-mode="<%= mode %>"
+            data-action="mode-toggle#toggle">
+      <span class="pn-wt-modeid__cta-on"><%= t("walkthrough.ui.mode_#{mode}_turn_on") %></span>
+      <span class="pn-wt-modeid__cta-off"><%= t("walkthrough.ui.mode_#{mode}_turn_off") %></span>
+    </button>
+    <div class="pn-wt-modeid__source">
+      <%= t("walkthrough.ui.mode_source") %><br>
+      <%= link_to t("#{k}.source_name"), Walkthrough::Yellow::MODE_SOURCES.fetch(mode),
+                  target: "_blank", rel: "noreferrer" %>
+    </div>
+  </div>
+</div>

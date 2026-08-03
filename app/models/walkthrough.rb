@@ -174,6 +174,7 @@ module Walkthrough
     :inside)
 
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
+  OakExample = Data.define(:dex, :name, :how)
   BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
     def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, **rest) = super
     def rate? = !rate.nil?
@@ -230,7 +231,7 @@ module Walkthrough
     def oak_queue = locations.flat_map(&:oak_queue).uniq(&:dex)
   end
 
-  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_queue, :locations, :legs, :best_catches) do
+  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_example, :locations, :legs, :best_catches) do
     def leg(slug) = legs.find { |l| l.slug == slug }
 
     def leg!(slug)
@@ -246,6 +247,8 @@ module Walkthrough
     end
 
     def obtainable_dex = locations.flat_map(&:dex_list).uniq
+
+    def first_gym_location = locations.find(&:gym?)
 
     def obtainable_upto_leg(current)
       idx = locations.index(current.locations.last)
