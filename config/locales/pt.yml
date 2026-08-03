@@ -793,9 +793,9 @@ pt:
               text: "Vá ao norte pela grama alta, batalhando Pidgey e Rattata selvagens para subir o nível do Pikachu. Você ainda não tem Poké Balls, então só batalhe por enquanto; dá para capturar um Pidgey e um Rattata na volta, depois de comprar Balls na loja de Viridian."
             "2":
               title: "Pegue a Potion grátis"
-              text: "Perto da saída norte (Viridian), um homem parado ao lado da placa sai para demonstrar a loja e te dá uma Potion grátis. Pegue e siga ao norte."
+              text: "Perto da saída sul (Pallet), um homem parado ao lado da placa sai para demonstrar a loja e te dá uma Potion grátis. Pegue e siga ao norte."
               items:
-                potion: "Com o homem ao lado da placa perto da saída norte (Viridian)."
+                potion: "Com o homem ao lado da placa perto da saída sul (Pallet)."
             "3":
               title: "Entre em Viridian City"
               text: "Continue ao norte até Viridian City. Mais tarde, na volta, pule os desníveis do lado leste para evitar a grama no caminho de retorno."
@@ -819,12 +819,14 @@ pt:
           steps:
             "1":
               title: "Cure e pegue o Oak's Parcel"
-              text: "Você chega pela Rota 1 na primeira cidade sem grama selvagem, então não há nada para capturar aqui. Cure no Centro Pokémon no canto superior esquerdo, depois entre na loja logo a nordeste dele. O atendente te para no balcão e entrega o Oak's Parcel para levar de volta ao sul. A estrada ao norte da cidade está bloqueada por um velho cochilando no caminho, então não há mais o que fazer aqui por ora."
+              text: "Cure no Centro Pokémon no canto superior esquerdo, se precisar, depois entre na loja logo a nordeste. Fale com o atendente no balcão e ele entrega o Oak's Parcel para levar de volta ao sul."
               items:
                 oaks_parcel: "Com o atendente da loja em Viridian; entregue ao Oak em Pallet Town."
             "2":
               title: "Entregue o Oak's Parcel"
               text: "Leve o Parcel ao sul, ao laboratorio do Oak em Pallet Town. Entregue a ele e enfim ele te da a Pokédex, a ferramenta que registra cada Pokémon que você ve e captura."
+              items:
+                pokedex: "Dada pelo Prof. Oak quando você entrega o Oak's Parcel; registra cada Pokémon que você vê e captura."
             "3":
               title: "Pegue o Town Map"
               text: "Enquanto está em Pallet pela Pokédex, entre na casa do Blue logo a leste. A irmã dele, a Daisy, está perto da mesa; fale com ela e ela te dá o Town Map, que mostra cada rota e cidade de Kanto."
@@ -838,9 +840,9 @@ pt:
               text: "O velho na estrada ao norte ja acordou. Fale com ele e assista a demonstracao de captura; quando ela termina, ele sai do caminho e a passagem ao norte enfim abre."
             "6":
               title: "Pegue a Potion escondida perto da saida norte"
-              text: "Com o caminho aberto, suba em direcao a saida norte, no topo da cidade. Uma arvore solitaria bloqueia um beco sem saida logo a oeste do caminho de saida. Chegue pelo lado leste, que e aberto, fique a direita da arvore, olhe para a esquerda e aperte A para pegar uma Potion escondida. Nada aparece na tela ate o item ser seu."
+              text: "Com o caminho aberto, suba até a saída norte, no topo da cidade. Uma árvore solitária ao lado do caminho de saída esconde uma Potion. Aperte A ao lado dela; nada aparece na tela."
               hidden:
-                potion: "A arvore solitaria logo a oeste do caminho da saida norte, perto do topo da cidade. Chegue pelo leste, fique a direita dela, olhe para a esquerda e aperte A. Nada aparece na tela."
+                potion: "A árvore solitária ao lado do caminho da saída norte, no topo da cidade. Aperte A; nada aparece na tela."
             "7":
               title: "Pule o Ginasio e siga a oeste para a Rota 22"
               text: "O Ginasio de Viridian, no nordeste, fica trancado ate você ter as outras sete insignias, entao deixe para o fim do jogo. Pegue a saida oeste para a Rota 22, pelas melhores capturas contra o Brock e sua próxima batalha de rival; de la você volta por Viridian e sobe para a Rota 2."
@@ -1053,13 +1055,13 @@ pt:
               hidden:
                 ether: "Nordeste do B2F, na pedra ao lado do TM01. Aperte A; nada aparece na tela."
             "13":
-              title: "Venca Jessie & James, escolha um fossil"
-              text: "Perto dos fosseis ao norte, o ultimo Super Nerd guarda o premio e, no Yellow, Jessie & James bloqueiam a passagem. Venca-os e escolha UM fossil: Dome (vira Kabuto) ou Helix (vira Omanyte). O que você deixar se perde para sempre."
+              title: "Vença o Super Nerd, escolha um fóssil"
+              text: "Perto dos fósseis ao norte, o último Super Nerd reivindica os dois e batalha com você por eles. Vença-o e escolha UM fóssil: Dome (vira Kabuto) ou Helix (vira Omanyte). Ele fica com o que você deixar, então esse se perde para sempre."
               items:
                 fossil: "Escolha Dome (Kabuto) ou Helix (Omanyte) com o Super Nerd depois de vencê-lo. Reviva em Pokémon depois no Laboratório de Cinnabar; o outro se perde para sempre."
             "14":
               title: "Suba de volta para a Rota 4"
-              text: "Com o fossil em maos, pegue a escada do noroeste de volta ao B1F e saia pela saida nordeste na metade leste da Rota 4, que desce rumo a Cerulean City."
+              text: "Com o fóssil em mãos, siga para a escada do noroeste de volta ao B1F. Na saída, a Jessie & James da Team Rocket bloqueiam a passagem, então vença a dupla e pegue a saída nordeste na metade leste da Rota 4, que desce rumo a Cerulean City."
           tips:
             clefairy: "Um spawn de 1% na caverna. Pegue um, e uma Moon Stone o torna Clefable."
           oak:

@@ -634,7 +634,7 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
           { item: [ "Oak's Parcel", "oaks_parcel" ] },
-          {},
+          { item: [ "Pokédex", "pokedex" ] },
           { item: [ "Town Map", "town_map" ] },
           {},
           {},

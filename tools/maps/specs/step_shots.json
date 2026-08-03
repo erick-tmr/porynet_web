@@ -793,7 +793,6 @@
     "name": "oaks-lab-poke-balls",
     "map": "OaksLab",
     "parent": "PALLET_TOWN",
-    "follower": false,
     "player": [
       5,
       3

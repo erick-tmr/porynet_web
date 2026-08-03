@@ -39,6 +39,11 @@ def _mew_spec(name):
     return next(s for s in entries if s["name"] == name)
 
 
+def _trivia_spec(name):
+    entries = json.loads((SPECS / "trivia.json").read_text())
+    return next(s for s in entries if s["name"] == name)
+
+
 def _item_spec(name):
     entries = json.loads((SPECS / "overworld_items.json").read_text())
     return next(s for s in entries if s["name"] == name)
@@ -127,6 +132,18 @@ def test_a_hand_composed_scene_keeps_only_its_own_cast(root):
     grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
 
     assert sorted(grids) == sorted([hero, rival]), "only the hero and the placed rival"
+
+
+def test_pewter_jigglypuff_scene_shows_nurse_joy(root):
+    """The Jigglypuff trivia is set in the Pewter Poke Center, so Nurse Joy (SPRITE_NURSE at [3, 1])
+    and her Chansey ([4, 1]) must staff the healing counter; without them the counter reads as an
+    empty machine. The scene hand-composes its cast, so these are placed explicitly."""
+    spec = _trivia_spec("pewter-jigglypuff")
+    grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
+
+    assert [3, 1] in grids, "Nurse Joy staffs the healing counter"
+    assert [4, 1] in grids, "her Chansey stands beside her"
+    assert [1, 3] in grids and [3, 3] in grids, "the Jigglypuff and sleeping Pikachu are kept"
 
 
 def test_a_scene_never_double_draws_an_npc_under_a_placed_sprite(root):
@@ -243,6 +260,16 @@ def test_screen_scene_gets_the_configured_follower_behind_the_hero(root, pikachu
     trailing = generators._follower(root, spec, spec["player"], "UP",
                                     generators._screen_sprites(root, spec))
     assert trailing == {"file": "pikachu", "frame": 1, "grid": [13, 25], "flip": False}
+
+
+def test_oaks_lab_poke_balls_scene_trails_pikachu(root, pikachu_follower):
+    # Returning to Oak for the five free Poke Balls happens after Pikachu is caught, so it walks
+    # behind the hero. The hero stands at [5, 3] facing up, so Pikachu trails one tile south.
+    spec = _step_shot("oaks-lab-poke-balls")
+    trailing = generators._follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"),
+                                    generators._screen_sprites(root, spec))
+    assert trailing is not None, "the scene must not opt out of the Pikachu follower"
+    assert trailing["file"] == "pikachu" and trailing["grid"] == [5, 4]
 
 
 def test_no_follower_when_the_game_configures_none(root):

@@ -793,9 +793,9 @@ en:
               text: "Head north through the tall grass, battling wild Pidgey and Rattata to level Pikachu. You have no Poké Balls yet, so just battle them for now; you can catch a Pidgey and Rattata on the way back once you buy Balls at the Viridian Mart."
             "2":
               title: "Take the free Potion"
-              text: "Near the north (Viridian) end, a man standing by the sign steps out to demo the shop and hands you a free Potion. Take it and keep north."
+              text: "Near the south (Pallet) end, a man standing by the sign steps out to demo the shop and hands you a free Potion. Take it and keep north."
               items:
-                potion: "From the man by the sign near the north (Viridian) exit."
+                potion: "From the man by the sign near the south (Pallet) exit."
             "3":
               title: "Enter Viridian City"
               text: "Continue north into Viridian City. On the way back later, hop down the ledges along the east side to skip the grass on the return trip."
@@ -819,12 +819,14 @@ en:
           steps:
             "1":
               title: "Heal and collect Oak's Parcel"
-              text: "You walk in from Route 1 to the first town with no wild grass, so there is nothing to catch here. Heal at the Poke Center in the top-left, then step into the Mart just northeast of it. The clerk stops you at the counter and hands over Oak's Parcel to carry back south. The road north out of town is blocked by an old man dozing on the path, so there is nothing more to do here for now."
+              text: "Heal at the Poke Center in the top-left if you need to, then step into the Mart just northeast. Talk to the clerk at the counter and he hands over Oak's Parcel to carry back south."
               items:
                 oaks_parcel: "From the clerk in the Viridian Mart; deliver it to Oak in Pallet Town."
             "2":
               title: "Deliver Oak's Parcel"
               text: "Carry the Parcel south to Oak's lab in Pallet Town. Hand it over and he finally gives you the Pokédex, the tool that logs every Pokémon you see and catch."
+              items:
+                pokedex: "Given by Prof. Oak once you deliver Oak's Parcel; it logs every Pokémon you see and catch."
             "3":
               title: "Grab the Town Map"
               text: "While you are in Pallet for the Pokédex, step into Blue's house next door to the east. His sister Daisy stands by the table; talk to her and she hands you the Town Map, which lays out every route and town in Kanto."
@@ -838,9 +840,9 @@ en:
               text: "The old man on the north road is awake now. Talk to him and sit through his catching demonstration; when it ends he steps aside and the path north finally opens."
             "6":
               title: "Grab the hidden Potion by the north exit"
-              text: "With the road open, walk up toward the north exit at the top of town. A lone tree blocks a dead-end nook just west of the exit path. Approach from the open east side, stand to the tree's right, face left, and press A for a hidden Potion. Nothing appears on-screen until the item is yours."
+              text: "With the road open, head up to the north exit at the top of town. A lone tree beside the exit path hides a Potion. Press A next to it; nothing shows on-screen."
               hidden:
-                potion: "The lone tree just west of the north exit path, near the top of town. Come from the east, stand to its right, face left, and press A. Nothing shows on-screen."
+                potion: "The lone tree beside the north exit path, at the top of town. Press A; nothing shows on-screen."
             "7":
               title: "Skip the Gym, head west to Route 22"
               text: "The Viridian Gym in the northeast stays locked until you hold the other seven badges, so leave it for the endgame. Take the west exit out to Route 22 for the best Brock-ready catches and your next rival battle; from there you loop back through Viridian and up to Route 2."
@@ -1053,13 +1055,13 @@ en:
               hidden:
                 ether: "Northeast of B2F, in the rock beside TM01. Press A; nothing shows on-screen."
             "13":
-              title: "Beat Jessie & James, choose a fossil"
-              text: "By the fossils in the north, the last Super Nerd guards the prize and Jessie & James block the way in Yellow. Beat them, then pick ONE fossil: Dome (becomes Kabuto) or Helix (becomes Omanyte). The one you leave is gone for good."
+              title: "Beat the Super Nerd, choose a fossil"
+              text: "By the fossils in the north, the last Super Nerd claims both and battles you for them. Beat him, then pick ONE fossil: Dome (becomes Kabuto) or Helix (becomes Omanyte). He grabs the one you leave, so it is gone for good."
               items:
                 fossil: "Choose Dome (Kabuto) or Helix (Omanyte) from the Super Nerd once he is beaten. Revive it into a Pokémon later at the Cinnabar Lab; the other is lost for good."
             "14":
               title: "Climb out to Route 4"
-              text: "With the fossil in hand, take the northwest ladder back up to B1F and out the northeast exit onto the east half of Route 4, which drops toward Cerulean City."
+              text: "With the fossil in hand, head for the northwest ladder back up to B1F. On the way out, Team Rocket's Jessie & James block the path, so beat the pair, then take the northeast exit onto the east half of Route 4, which drops toward Cerulean City."
           tips:
             clefairy: "A 1% cave spawn. Grab one, then a Moon Stone turns it into Clefable."
           oak:
