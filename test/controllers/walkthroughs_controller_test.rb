@@ -10,7 +10,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-route__name", text: "Pallet Town → Route 1"
     assert_select ".pn-wt-route__special"
     assert_select ".pn-wt-route__stat--gym"
-    assert_includes response.body, "OAK CHALLENGE · FIRST CATCHES"
+    assert_includes response.body, "SPECIALS · OFF THE MAIN LINE"
   end
 
   test "the index renders in Portuguese" do
@@ -384,12 +384,32 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym.pn-wt-gym--cyan" # Misty, gym 2
   end
 
-  test "the walkthrough index surfaces the Mew glitch as an optional special card" do
+  # The glitch is a detour, so it belongs in the specials grid and not inside the route timeline.
+  test "the walkthrough index surfaces the Mew glitch as a special, off the timeline" do
     get walkthrough_path(game: "yellow")
 
     assert_response :success
-    assert_select "a.pn-wt-route__card[href*=?]", "/walkthroughs/yellow/mew-glitch"
-    assert_select ".pn-wt-route__name", text: "The Mew Glitch"
+    assert_select ".pn-wt-specials a.pn-wt-special[href*=?]", "/walkthroughs/yellow/mew-glitch"
+    assert_select ".pn-wt-special__name", text: "The Mew Glitch"
+    assert_select ".pn-wt-steps a[href*='/mew-glitch']", count: 0
+  end
+
+  test "the mode switches ride the nav on every walkthrough page and stay off the landing page" do
+    get walkthrough_path(game: "yellow")
+
+    assert_response :success
+    assert_select ".porynet[data-controller~='mode-toggle'][data-mode-toggle-game-value=?]", "yellow"
+    assert_select ".pn-nav__modes .pn-modesw[data-mode='living'][aria-pressed='true']"
+    assert_select ".pn-nav__modes .pn-modesw[data-mode='oak'][aria-pressed='true']"
+    assert_select ".pn-wt-modechip[data-mode='living']"
+    assert_select ".pn-wt-modechip[data-mode='oak']"
+    assert_select ".pn-wt-modebar__blurb", count: 3
+
+    get walkthrough_mew_glitch_path(game: "yellow")
+    assert_select ".pn-nav__modes .pn-modesw", count: 2
+
+    get root_path
+    assert_select ".pn-nav__modes", count: 0
   end
 
   test "the Mew glitch route is recognized and 404s for an unknown game" do

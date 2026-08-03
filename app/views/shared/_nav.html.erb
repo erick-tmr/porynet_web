@@ -19,6 +19,9 @@
         <% if content_for?(:nav_crumb) %>
           <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
         <% end %>
+        <% if controller_name == "walkthroughs" %>
+          <%= render "shared/mode_switches" %>
+        <% end %>
         <span class="pn-nav__lang-wrap">
           <%= link_to t("pages.home.nav.lang_toggle"),
                       url_for(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),

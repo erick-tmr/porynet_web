@@ -19,6 +19,12 @@
   margin: 0 auto;
   padding: 56px 28px 20px;
 }
+.pn-wt-hero__chips {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 .pn-wt-badge {
   display: inline-block;
   font-family: "Press Start 2P", monospace;
@@ -30,6 +36,85 @@
   padding: 9px 12px;
   box-shadow: 3px 3px 0 #171622;
 }
+
+/* The same two switches as the nav, spelled out. The nav pair is chrome you carry between pages;
+   this pair is the index saying what the switches are for. */
+.pn-wt-modechip {
+  cursor: pointer;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #171622;
+  background: #fff;
+  border: 2px solid #171622;
+  box-shadow: 3px 3px 0 #171622;
+  padding: 9px 12px;
+  transition: transform 0.05s linear, box-shadow 0.05s linear;
+}
+.pn-wt-modechip:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #171622;
+}
+.porynet:not(.pn-mode-living-off) .pn-wt-modechip--living { background: var(--neon-cyan); }
+.porynet:not(.pn-mode-oak-off) .pn-wt-modechip--oak { background: var(--amber); }
+.pn-wt-modechip__on,
+.pn-wt-modechip__off { display: none; }
+.porynet:not(.pn-mode-living-off) .pn-wt-modechip--living .pn-wt-modechip__on,
+.porynet:not(.pn-mode-oak-off) .pn-wt-modechip--oak .pn-wt-modechip__on { display: inline; }
+.pn-mode-living-off .pn-wt-modechip--living .pn-wt-modechip__off,
+.pn-mode-oak-off .pn-wt-modechip--oak .pn-wt-modechip__off { display: inline; }
+
+/* One strip that says what the live combination of modes does to every stop page. All three
+   captions render; CSS picks the one the root classes describe, so no wording lives in JS. */
+.pn-wt-modebar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: #fffbee;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  padding: 14px 16px;
+  margin-top: 16px;
+}
+.pn-mode-living-off.pn-mode-oak-off .pn-wt-modebar { display: none; }
+.pn-wt-modebar__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  background: var(--amber);
+  border: 2px solid #171622;
+  padding: 7px 9px;
+  white-space: nowrap;
+}
+.pn-wt-modebar__tag--living { background: var(--neon-cyan); }
+.pn-wt-modebar__blurb {
+  flex: 1;
+  min-width: 240px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #3a3850;
+  margin: 0;
+  text-wrap: pretty;
+}
+.pn-wt-modebar__tag,
+.pn-wt-modebar__blurb { display: none; }
+.porynet:not(.pn-mode-living-off):not(.pn-mode-oak-off) .pn-wt-modebar__tag--both,
+.pn-mode-living-off:not(.pn-mode-oak-off) .pn-wt-modebar__tag--oak,
+.pn-mode-oak-off:not(.pn-mode-living-off) .pn-wt-modebar__tag--living { display: inline-block; }
+.porynet:not(.pn-mode-living-off):not(.pn-mode-oak-off) .pn-wt-modebar__blurb--both,
+.pn-mode-living-off:not(.pn-mode-oak-off) .pn-wt-modebar__blurb--oak,
+.pn-mode-oak-off:not(.pn-mode-living-off) .pn-wt-modebar__blurb--living { display: block; }
+
+/* What each mode takes away when it is switched off. The class marks a mode off rather than on,
+   so a page with nothing stored paints complete on the first frame. */
+.pn-mode-oak-off .pn-wt-oak,
+.pn-mode-oak-off .pn-wt-band-oak { display: none; }
+.pn-mode-living-off .pn-wt-best,
+.pn-mode-living-off .pn-wt-qty { display: none; }
+.pn-mode-living-off .pn-wt-catch--best { background: #fff; }
 .pn-wt-hero__title {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 700;
@@ -1967,11 +2052,95 @@ a.pn-wt-route__card:hover {
   padding: 4px 6px;
 }
 
-/* The Mew glitch index card: an optional side quest, tinted with the glitch magenta. */
-.pn-wt-route--glitch.is-built .pn-wt-route__dot--glitch { background: var(--neon-magenta); }
-.pn-wt-route__special--glitch { background: var(--neon-magenta); color: #fff; }
-.pn-wt-route__card--glitch { border-color: var(--neon-magenta); box-shadow: 4px 4px 0 var(--neon-magenta); }
-.pn-wt-route__card--glitch:hover { box-shadow: 2px 2px 0 var(--neon-magenta); }
+/* ---- index: specials ---- */
+/* Detours that belong to no single stop, so they sit off the timeline rather than inside it. */
+.pn-wt-specials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 24px 0 40px;
+}
+.pn-wt-special {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  background: #fff;
+  color: #171622;
+  transition: transform 0.05s linear, box-shadow 0.05s linear;
+}
+.pn-wt-special--glitch {
+  background: var(--ui-dark);
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 20px #ff3dae44, 5px 5px 0 #171622;
+  color: #fff;
+}
+.pn-wt-special--glitch:hover {
+  color: #fff;
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 20px #ff3dae44, 3px 3px 0 #171622;
+}
+.pn-wt-special__sprite {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  flex: none;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 12px #ff3dae99);
+  animation: floatMon 3.6s ease-in-out infinite;
+  animation-play-state: var(--play);
+}
+.pn-wt-special__main {
+  flex: 1;
+  min-width: 0;
+}
+.pn-wt-special__meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.pn-wt-special__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: var(--neon-magenta);
+  border: 1px solid #171622;
+  padding: 4px 6px;
+}
+.pn-wt-special__pill {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  border: 1px solid #3a4a66;
+  padding: 4px 6px;
+}
+.pn-wt-special__where {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #8fa6c8;
+}
+.pn-wt-special__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 23px;
+  margin-top: 8px;
+}
+.pn-wt-special__note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #9fb6d6;
+  margin-top: 3px;
+}
+.pn-wt-special__arrow {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--neon-magenta);
+  flex: none;
+}
 
 /* ---- gym section (dark neon) ---- */
 .pn-wt-gym {
@@ -2371,6 +2540,7 @@ a.pn-wt-route__card:hover {
 
 @media (max-width: 900px) {
   .pn-wt-hero__grid,
+  .pn-wt-specials,
   .pn-wt-oak-sum__grid,
   .pn-wt-oak__grid,
   .pn-wt-trainers,

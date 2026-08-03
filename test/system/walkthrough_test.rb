@@ -34,6 +34,27 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_current_path walkthrough_leg_path(game: "yellow", leg: "leg-02")
   end
 
+  # The switch is nav chrome, so what it hides has to follow the reader onto the next page and
+  # survive a reload. There is no account yet, so localStorage is the whole of that promise.
+  test "switching Oak off on the index carries onto a leg page and survives a reload" do
+    visit walkthrough_path(game: "yellow")
+
+    assert_selector ".pn-wt-modechip--oak[aria-pressed='true']"
+    find(".pn-nav__modes .pn-modesw--oak").click
+    assert_selector ".pn-wt-modechip--oak[aria-pressed='false']"
+
+    visit walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_selector ".pn-wt-loc__title"
+    assert_no_selector ".pn-wt-oak"
+
+    visit walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_no_selector ".pn-wt-oak"
+    find(".pn-nav__modes .pn-modesw--oak").click
+    assert_selector ".pn-wt-oak"
+  end
+
   test "a special stop opens its dedicated page and the language toggle stays put" do
     visit walkthrough_path(game: "yellow")
 

@@ -1,4 +1,4 @@
-<% content_for :page_controller do %>data-controller="progress-toggle" data-progress-toggle-game-value="<%= @game.slug %>"<% end %>
+<% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("walkthrough.ui.title_index", name: @game.name) %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "data-turbo-track": "reload" %>
@@ -12,7 +12,30 @@
 <% end %>
 
 <section class="pn-wt-hero">
-  <div class="pn-wt-badge"><%= t("#{Walkthrough::Yellow::K}.hero.badge") %></div>
+  <div class="pn-wt-hero__chips">
+    <div class="pn-wt-badge"><%= t("#{Walkthrough::Yellow::K}.hero.badge") %></div>
+    <% %w[living oak].each do |mode| %>
+      <button type="button" class="pn-wt-modechip pn-wt-modechip--<%= mode %>" aria-pressed="true"
+              data-mode-toggle-target="switch" data-mode="<%= mode %>"
+              data-action="mode-toggle#toggle">
+        <%= t("walkthrough.ui.mode_#{mode}_chip") %>
+        <span class="pn-wt-modechip__state">
+          <span class="pn-wt-modechip__on"><%= t("walkthrough.ui.mode_on") %></span>
+          <span class="pn-wt-modechip__off"><%= t("walkthrough.ui.mode_off") %></span>
+        </span>
+      </button>
+    <% end %>
+  </div>
+
+  <div class="pn-wt-modebar">
+    <% %w[both oak living].each do |combo| %>
+      <span class="pn-wt-modebar__tag pn-wt-modebar__tag--<%= combo %>"><%= t("walkthrough.ui.mode_tag_#{combo}") %></span>
+    <% end %>
+    <% %w[both oak living].each do |combo| %>
+      <p class="pn-wt-modebar__blurb pn-wt-modebar__blurb--<%= combo %>"><%= t("walkthrough.ui.mode_blurb_#{combo}") %></p>
+    <% end %>
+  </div>
+
   <h1 class="pn-wt-hero__title"><%= accent_last(@game.name) %></h1>
   <p class="pn-wt-hero__lead"><%= t("#{Walkthrough::Yellow::K}.hero.lead") %></p>
 
@@ -66,37 +89,16 @@
   <div class="pn-wt-steps">
     <% @game.legs.each do |leg| %>
       <%= render "leg_stop", leg: leg, game: @game %>
-      <% if leg.slug == "leg-04" %><%= render "mew_index_card", game: @game %><% end %>
     <% end %>
   </div>
 </section>
 
-<section class="pn-wt-oak-sum">
-  <div class="pn-wt-oak-sum__inner">
-    <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("#{Walkthrough::Yellow::K}.oak_sum.eyebrow") %></div>
-    <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.oak_sum.h2") %></h2>
-    <div class="pn-wt-oak-sum__grid">
-      <div class="pn-wt-rules">
-        <div class="pn-wt-rules__title"><%= t("walkthrough.ui.how_we_count") %></div>
-        <ul class="pn-wt-rules__list">
-          <li><%= t("walkthrough.ui.count1_html") %></li>
-          <li><%= t("walkthrough.ui.count2_html") %></li>
-          <li><%= t("walkthrough.ui.count3_html") %></li>
-        </ul>
-      </div>
-      <div class="pn-wt-queue">
-        <div class="pn-wt-queue__title"><%= t("walkthrough.ui.catch_now_queue") %></div>
-        <div class="pn-wt-queue__list">
-          <% @game.oak_queue.each do |entry| %>
-            <div class="pn-wt-queue__item">
-              <span class="pn-wt-queue__sprite"><%= r2_image_tag "pokemon/yellow/#{entry.dex}.png", alt: "" %></span>
-              <span class="pn-wt-queue__name"><%= entry.name %></span>
-              <span class="pn-wt-queue__why"><%= t(entry.why_key) %></span>
-              <span class="pn-wt-qty">×<%= entry.qty %></span>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label pn-eyebrow-label--magenta"><%= t("#{Walkthrough::Yellow::K}.specials.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.specials.h2") %></h2>
+  <p class="pn-wt-lead"><%= t("#{Walkthrough::Yellow::K}.specials.lead") %></p>
+
+  <div class="pn-wt-specials">
+    <%= render "mew_special_card", game: @game %>
   </div>
 </section>

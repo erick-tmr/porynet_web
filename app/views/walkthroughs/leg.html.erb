@@ -1,4 +1,4 @@
-<% content_for :page_controller do %>data-controller="progress-toggle" data-progress-toggle-game-value="<%= @game.slug %>"<% end %>
+<% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% leg_label = @leg.slug.tr("-", " ").upcase %>
 <% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
 <% content_for :head do %>
