@@ -1,4 +1,4 @@
-<header class="pn-nav">
+<header class="pn-nav" data-controller="nav-menu" data-action="keydown.esc@window->nav-menu#close">
   <div class="pn-nav__bar">
     <%= link_to root_path, class: "pn-nav__brand" do %>
       <span class="pn-logo-tile">
@@ -9,15 +9,14 @@
     <% end %>
     <nav class="pn-nav__links">
       <span class="pn-nav__menu">
-        <%= link_to t("pages.home.nav.home"), root_path,
-                    class: class_names("pn-nav__link", "is-active" => controller_name == "pages") %>
-        <%= link_to t("pages.home.nav.walkthroughs"), walkthrough_path(game: "yellow"),
-                    class: class_names("pn-nav__link", "is-active" => controller_name == "walkthroughs") %>
-        <%= link_to t("pages.home.nav.tracker"), root_path(anchor: "tracker"), class: "pn-nav__link" %>
+        <%= render "shared/nav_links", variant: "link" %>
       </span>
       <span class="pn-nav__actions">
         <% if content_for?(:nav_crumb) %>
           <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
+        <% end %>
+        <% if controller_name == "walkthroughs" %>
+          <%= render "shared/mode_switches" %>
         <% end %>
         <span class="pn-nav__lang-wrap">
           <%= link_to t("pages.home.nav.lang_toggle"),
@@ -38,9 +37,22 @@
           <% end %>
         </span>
         <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
+        <button type="button" class="pn-nav__burger" aria-label="<%= t("pages.home.nav.menu") %>"
+                aria-expanded="false" aria-controls="pn-nav-panel"
+                data-nav-menu-target="button" data-action="nav-menu#toggle">
+          <span class="pn-nav__burger-glyph pn-nav__burger-glyph--open" aria-hidden="true">☰</span>
+          <span class="pn-nav__burger-glyph pn-nav__burger-glyph--close" aria-hidden="true">✕</span>
+        </button>
       </span>
     </nav>
   </div>
+  <nav class="pn-nav__panel" id="pn-nav-panel">
+    <%= render "shared/nav_links", variant: "panel-link" %>
+    <% if controller_name == "walkthroughs" %>
+      <%= render "shared/mode_rows" %>
+    <% end %>
+    <a href="#" class="pn-nav__panel-cta"><%= t("pages.home.nav.start") %></a>
+  </nav>
   <% if content_for?(:nav_marquee) %>
     <div class="pn-marquee">
       <div class="pn-marquee__track"><%= yield :nav_marquee %></div>

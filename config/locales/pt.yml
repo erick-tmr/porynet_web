@@ -8,6 +8,7 @@ pt:
         walkthroughs: "Guias"
         tracker: "Rastreador"
         start: "START"
+        menu: "Menu"
         lang_toggle: "EN"
         lang_title: "Português / English"
       hint:
@@ -122,6 +123,20 @@ pt:
       mode_cosmetic: "Formas cosméticas"
       mode_regional: "Formas regionais"
       mode_none_tag: "0 NA GEN 1"
+      mode_on: "LIGADO"
+      mode_off: "DESLIGADO"
+      mode_living_short: "LIVING DEX"
+      mode_oak_short: "OAK"
+      mode_living_title: "Modo Living Dex"
+      mode_oak_title: "Modo Desafio Oak"
+      mode_living_chip: "LIVING DEX:"
+      mode_oak_chip: "DESAFIO OAK:"
+      mode_tag_both: "OS DOIS MODOS LIGADOS"
+      mode_tag_oak: "MODO OAK LIGADO"
+      mode_tag_living: "LIVING DEX LIGADO"
+      mode_blurb_both: "Cada página de parada agora mostra as quantidades de captura da living dex no melhor lugar, e também o que o Oak precisa ter registrado e evoluído antes do próximo ginásio."
+      mode_blurb_oak: "Cada página de parada mostra o que precisa ser registrado e evoluído antes do próximo ginásio. Um de cada já basta."
+      mode_blurb_living: "Cada página de parada mostra quantos de cada espécie capturar, na fila só onde aquela espécie é mais fácil de achar."
       route_eyebrow: "A ROTA · %{count} PARADAS"
       catchable: "CAPTURÁVEIS"
       new: "NOVOS"
@@ -405,6 +420,10 @@ pt:
       route:
         h2: "Pallet Town → Indigo Plateau"
         lead: "Siga na ordem. Cada parada abre sua própria página com listas de captura, treinadores, itens e mapas de itens ocultos."
+      specials:
+        eyebrow: "ESPECIAIS · FORA DA LINHA PRINCIPAL"
+        h2: "Glitches e páginas extras"
+        lead: "Desvios opcionais que não pertencem a uma parada só. Leia os avisos antes de tentar um."
       oak_sum:
         eyebrow: "DESAFIO OAK · PRIMEIRAS CAPTURAS"
         h2: "As famílias para registrar primeiro."
@@ -716,6 +735,7 @@ pt:
         index:
           kind: "GLITCH"
           tag: "OPCIONAL"
+          where: "CERULEAN · ANTES DA MISTY"
           name: "O Glitch do Mew"
           note: "O Mew capturável mais cedo, via o Trainer-Fly de Cerulean. Uma missão secundária opcional, não uma parada obrigatória."
       pikachu_friendship:

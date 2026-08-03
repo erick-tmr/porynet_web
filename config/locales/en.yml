@@ -8,6 +8,7 @@ en:
         walkthroughs: "Walkthroughs"
         tracker: "Collection Tracker"
         start: "START"
+        menu: "Menu"
         lang_toggle: "PT"
         lang_title: "Português / English"
       hint:
@@ -122,6 +123,20 @@ en:
       mode_cosmetic: "Cosmetic forms"
       mode_regional: "Regional forms"
       mode_none_tag: "0 IN GEN 1"
+      mode_on: "ON"
+      mode_off: "OFF"
+      mode_living_short: "LIVING DEX"
+      mode_oak_short: "OAK"
+      mode_living_title: "Living Dex mode"
+      mode_oak_title: "Oak Challenge mode"
+      mode_living_chip: "LIVING DEX:"
+      mode_oak_chip: "OAK CHALLENGE:"
+      mode_tag_both: "BOTH MODES ON"
+      mode_tag_oak: "OAK MODE ON"
+      mode_tag_living: "LIVING DEX ON"
+      mode_blurb_both: "Every stop page now shows living-dex catch quantities at the best place, plus what Oak needs registered and evolved before the next gym."
+      mode_blurb_oak: "Every stop page shows what has to be registered and evolved before the next gym. One of each is enough."
+      mode_blurb_living: "Every stop page shows how many of each species to catch, queued only where that species is easiest to find."
       route_eyebrow: "THE ROUTE · %{count} STOPS"
       catchable: "CATCHABLE"
       new: "NEW"
@@ -405,6 +420,10 @@ en:
       route:
         h2: "Pallet Town → Indigo Plateau"
         lead: "Follow it in order. Each stop opens its own page with catch lists, trainers, items and hidden-item maps."
+      specials:
+        eyebrow: "SPECIALS · OFF THE MAIN LINE"
+        h2: "Glitches and side pages"
+        lead: "Optional detours that don't belong to a single stop. Read the warnings before you run one."
       oak_sum:
         eyebrow: "OAK CHALLENGE · FIRST CATCHES"
         h2: "The families to register first."
@@ -716,6 +735,7 @@ en:
         index:
           kind: "GLITCH"
           tag: "OPTIONAL"
+          where: "CERULEAN · PRE-MISTY"
           name: "The Mew Glitch"
           note: "The earliest catchable Mew, via the Cerulean Trainer-Fly. An optional side quest, not a required stop."
       pikachu_friendship:

@@ -10,6 +10,7 @@
   letter-spacing: 1px;
 }
 .pn-eyebrow-label--ink { color: #171622; }
+.pn-eyebrow-label--magenta { color: var(--neon-magenta); }
 .pn-h2 {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 700;

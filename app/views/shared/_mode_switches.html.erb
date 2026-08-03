@@ -1,0 +1,11 @@
+<span class="pn-nav__modes">
+  <% %w[living oak].each do |mode| %>
+    <button type="button" class="pn-modesw pn-modesw--<%= mode %>"
+            title="<%= t("walkthrough.ui.mode_#{mode}_title") %>" aria-pressed="true"
+            data-mode-toggle-target="switch" data-mode="<%= mode %>"
+            data-action="mode-toggle#toggle">
+      <span class="pn-modesw__label"><%= t("walkthrough.ui.mode_#{mode}_short") %></span>
+      <span class="pn-modesw__track" aria-hidden="true"><span class="pn-modesw__knob"></span></span>
+    </button>
+  <% end %>
+</span>

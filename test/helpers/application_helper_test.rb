@@ -66,6 +66,14 @@ class ApplicationHelperTest < ActionView::TestCase
     )
   end
 
+  test "the page root carries both walkthrough controllers, each scoped to the same game" do
+    attrs = walkthrough_page_controller(Walkthrough.find!("yellow"))
+
+    assert_includes attrs, 'data-controller="progress-toggle mode-toggle"'
+    assert_includes attrs, 'data-progress-toggle-game-value="yellow"'
+    assert_includes attrs, 'data-mode-toggle-game-value="yellow"'
+  end
+
   test "an exit hint speaks about the place behind the door, not the door" do
     door = Walkthrough::MapMarker.new(
       id: "exit-5-5", cat: "exit", name: "Reds House 1F", x: 1.0, y: 2.0, align: "r",

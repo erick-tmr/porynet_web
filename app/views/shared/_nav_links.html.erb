@@ -1,0 +1,5 @@
+<%= link_to t("pages.home.nav.home"), root_path,
+            class: class_names("pn-nav__#{variant}", "is-active" => controller_name == "pages") %>
+<%= link_to t("pages.home.nav.walkthroughs"), walkthrough_path(game: "yellow"),
+            class: class_names("pn-nav__#{variant}", "is-active" => controller_name == "walkthroughs") %>
+<%= link_to t("pages.home.nav.tracker"), root_path(anchor: "tracker"), class: "pn-nav__#{variant}" %>

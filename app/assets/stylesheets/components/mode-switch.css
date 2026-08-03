@@ -1,0 +1,59 @@
+.pn-nav__modes {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (max-width: 1240px) {
+  .pn-nav__modes { display: none; }
+}
+.pn-modesw {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #8fa6c8;
+  background: #080a16;
+  border: 2px solid #3a4a66;
+  padding: 9px 10px;
+  white-space: nowrap;
+}
+.pn-modesw__track {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 30px;
+  height: 14px;
+  flex: none;
+  border: 2px solid #3a4a66;
+  background: #0c0e1d;
+  padding: 1px;
+}
+.pn-modesw__knob {
+  width: 10px;
+  height: 8px;
+  background: #3a4a66;
+}
+
+.porynet:not(.pn-mode-living-off) .pn-modesw--living {
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 14px #2af0ff77, inset 0 0 10px #2af0ff22;
+}
+.porynet:not(.pn-mode-oak-off) .pn-modesw--oak {
+  color: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 14px #FFC23D77, inset 0 0 10px #FFC23D22;
+}
+.porynet:not(.pn-mode-living-off) .pn-modesw--living .pn-modesw__track,
+.porynet:not(.pn-mode-oak-off) .pn-modesw--oak .pn-modesw__track {
+  justify-content: flex-end;
+  border-color: currentColor;
+}
+.porynet:not(.pn-mode-living-off) .pn-modesw--living .pn-modesw__knob,
+.porynet:not(.pn-mode-oak-off) .pn-modesw--oak .pn-modesw__knob {
+  background: currentColor;
+}
+
