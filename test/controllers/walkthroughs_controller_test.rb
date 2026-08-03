@@ -412,6 +412,25 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__modes", count: 0
   end
 
+  # The narrow-screen nav is one markup set behind a media query, so the panel is always in the
+  # response and the burger is always wired, on the landing page as much as on a walkthrough.
+  test "the burger panel carries the links everywhere and the mode rows only in a walkthrough" do
+    get walkthrough_path(game: "yellow")
+
+    assert_response :success
+    assert_select ".pn-nav[data-controller='nav-menu']"
+    assert_select ".pn-nav__burger[aria-expanded='false'][aria-controls='pn-nav-panel']"
+    assert_select "#pn-nav-panel .pn-nav__panel-link", count: 3
+    assert_select "#pn-nav-panel .pn-nav__panel-link.is-active", text: "Walkthroughs"
+    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='living'][aria-pressed='true']"
+    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='oak'][aria-pressed='true']"
+
+    get root_path
+    assert_select "#pn-nav-panel .pn-nav__panel-link", count: 3
+    assert_select "#pn-nav-panel .pn-nav__panel-link.is-active", text: "Home"
+    assert_select "#pn-nav-panel .pn-nav__panel-mode", count: 0
+  end
+
   test "the Mew glitch route is recognized and 404s for an unknown game" do
     assert_equal({ controller: "walkthroughs", action: "mew_glitch", game: "yellow" },
       Rails.application.routes.recognize_path("/walkthroughs/yellow/mew-glitch"))

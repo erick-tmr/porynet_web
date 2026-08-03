@@ -1,6 +1,10 @@
 require "application_system_test_case"
 
 class WalkthroughTest < ApplicationSystemTestCase
+  def resize_to(width, height)
+    Capybara.current_session.current_window.resize_to(width, height)
+  end
+
   test "the shared menu moves between the landing page and the walkthrough" do
     visit root_path
 
@@ -53,6 +57,30 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_no_selector ".pn-wt-oak"
     find(".pn-nav__modes .pn-modesw--oak").click
     assert_selector ".pn-wt-oak"
+  end
+
+  # Below the breakpoint the switches are gone from the bar, so the only way to reach a mode is
+  # through the burger panel. Which set of controls a reader gets is a media query, so this is the
+  # one test that has to change the window.
+  test "on a narrow window the burger panel is where the modes live" do
+    resize_to(430, 900)
+
+    visit walkthrough_path(game: "yellow")
+
+    assert_no_selector ".pn-nav__modes", visible: true
+    find(".pn-nav__burger").click
+
+    assert_selector ".pn-nav__burger[aria-expanded='true']"
+    within "#pn-nav-panel" do
+      click_button I18n.t("walkthrough.ui.mode_oak_title")
+    end
+
+    assert_selector ".pn-wt-modechip--oak[aria-pressed='false']"
+
+    visit walkthrough_leg_path(game: "yellow", leg: "leg-02")
+    assert_no_selector ".pn-wt-oak"
+  ensure
+    resize_to(1400, 1000)
   end
 
   test "a special stop opens its dedicated page and the language toggle stays put" do
