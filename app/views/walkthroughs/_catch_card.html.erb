@@ -38,7 +38,9 @@
       </div>
       <div class="pn-wt-catch__chips">
         <span class="pn-wt-tagpill pn-wt-tagpill--<%= enc.how.parameterize %>"><%= enc.how %></span>
-        <span class="pn-wt-tagpill pn-wt-tagpill--<%= enc.rarity.downcase %>"><%= enc.rarity %></span>
+        <% if enc.rarity != enc.how %>
+          <span class="pn-wt-tagpill pn-wt-tagpill--<%= enc.rarity.downcase %>"><%= enc.rarity %></span>
+        <% end %>
       </div>
       <div class="pn-wt-catch__stats">
         <div>

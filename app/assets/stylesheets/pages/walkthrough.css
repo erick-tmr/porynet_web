@@ -1239,19 +1239,18 @@ a.pn-wt-route__card:hover {
 }
 
 /* Gift Pokémon: a source badge overhanging the top edge, and a dashed unlock-condition strip. */
-.pn-wt-catch--gift { padding-top: 30px; margin-top: 14px; }
 .pn-wt-catch__gift {
-  position: absolute;
-  top: -18px;
-  left: 16px;
-  z-index: 4;
   display: flex;
   align-items: center;
   gap: 9px;
+  width: fit-content;
+  max-width: 100%;
+  flex-wrap: wrap;
   background: #ffe9a8;
   border: 3px solid #171622;
   box-shadow: 3px 3px 0 #171622;
   padding: 6px 13px 6px 10px;
+  margin-bottom: 15px;
 }
 .pn-wt-catch__gift-dot {
   width: 12px;

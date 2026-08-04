@@ -277,6 +277,11 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-chip__work"
     assert_select ".pn-wt-catchbadge--elsewhere", text: /DO IT AT ROUTE 24/
     assert_select ".pn-wt-catchbadge--boxed", text: "ALREADY BOXED"
+
+    assert_select ".pn-wt-catch--gift .pn-wt-catch__badges .pn-wt-catchbadge--living"
+    assert_select ".pn-wt-catch--gift .pn-wt-catch__gift-from", text: "FROM THE HILLTOP BOY"
+    assert_select ".pn-wt-catch[data-body-counter-dex-value='004'] .pn-wt-tagpill", count: 1,
+      text: "GIFT"
   end
 
   test "the challenge stats are live slots, so the meter and the counts move with the store" do
