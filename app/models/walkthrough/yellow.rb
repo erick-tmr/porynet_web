@@ -1475,7 +1475,7 @@ module Walkthrough
           enc("cerulean-cave", "112", "CAVE", "15%", "58–62", "UNCOMMON", "111", "112"),
           enc("cerulean-cave", "113", "CAVE", "10%", "55–60", "UNCOMMON", "113"),
           enc("cerulean-cave", "132", "CAVE", "15%", "55–65", "UNCOMMON", "132"),
-          enc("cerulean-cave", "026", "CAVE", "4%", "53–64", "RARE", "025", "026"),
+          enc("cerulean-cave", "108", "CAVE", "20%", "50–55", "UNCOMMON", "108", tip: true),
           enc("cerulean-cave", "150", "STATIC", "-", "70", "STATIC", "150", tip: true)
         ],
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])

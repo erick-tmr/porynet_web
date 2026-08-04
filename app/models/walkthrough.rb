@@ -192,6 +192,7 @@ module Walkthrough
     def fresh? = fresh
     def boxed? = boxed
     def best? = !best.nil?
+    def rated? = !Yellow.parse_rate(rate).nil?
     def queued? = fresh && qty.positive?
     def skipped? = fresh && qty.zero?
   end

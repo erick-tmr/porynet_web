@@ -80,10 +80,8 @@ class WalkthroughEvolutionsTest < ActiveSupport::TestCase
     refute evolutions.refused?("031")
   end
 
-  test "a refused evolution still leaves the species catchable, as Cerulean Cave proves" do
-    raichu = game.locations.find { |loc| loc.slug == "cerulean-cave" }.encounters.find { |e| e.dex == "026" }
-
-    assert_equal "4%", raichu.rate, "Raichu is off the evolution path, not out of the game"
-    assert_includes game.obtainable_dex, "026"
+  test "Raichu is in no encounter table either, so Yellow cannot produce one at all" do
+    refute_includes game.obtainable_dex, "026"
+    assert_empty game.locations.flat_map(&:encounters).select { |enc| enc.dex == "026" }
   end
 end

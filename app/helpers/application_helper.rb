@@ -109,6 +109,8 @@ module ApplicationHelper
   end
 
   def catch_spot(entry)
+    return t("walkthrough.ui.ld_spot_given", how: entry.how) unless entry.rated?
+
     key = entry.best? ? "walkthrough.ui.ld_spot_best" : "walkthrough.ui.ld_spot_good"
     t(key, rate: entry.rate)
   end

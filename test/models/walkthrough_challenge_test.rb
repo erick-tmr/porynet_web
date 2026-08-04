@@ -141,8 +141,9 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     forest = plan("viridian-forest")
 
     assert_equal [ "Raichu", "Nidoqueen", "Nidoking" ], forest.locked.map(&:name)
-    assert_equal [ "Golem", "Alakazam", "Machamp", "Gengar" ], plan("cerulean-cave").locked.map(&:name),
-      "the four trade evolutions are the only thing a single cartridge never closes"
+    assert_equal [ "Raichu", "Golem", "Alakazam", "Machamp", "Gengar" ],
+      plan("cerulean-cave").locked.map(&:name),
+      "four trade evolutions, plus the Raichu Yellow has no route to at all"
   end
 
   test "the box ledger walks every stage of each queued family" do

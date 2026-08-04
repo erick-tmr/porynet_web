@@ -121,7 +121,7 @@ module Walkthrough
       PagePlan.new(window: window_for(game, leg), entries: entries, due: due,
         notes: notes_for(game, leg, entries), families: families_for(game, entries),
         groups: groups_for(game, leg, entries, due), earlier: earlier_for(game, leg),
-        locked: locked_for(game, due))
+        locked: locked_for(due))
     end
 
     def self.window_for(game, leg) = game.windows.find { |win| win.covers?(leg_order(leg).last.slug) }
@@ -135,8 +135,8 @@ module Walkthrough
     def self.build_entry(game, span, dex, home, shown)
       qty = bodies_for(game, dex)
       best = game.best_catches[dex]
-      why = why_for(shown, dex, qty, best)
       found = encounter_at(shown, dex)
+      why = why_for(shown, found, qty, best)
       here = home.slug == shown.slug
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
         stop_name: shown.name, qty: qty, chain: Evolutions.chain_for(dex), fresh: here,
@@ -144,15 +144,21 @@ module Walkthrough
         how: found.how, rate: found.rate, best: best, why_key: why.first, why_args: why.last)
     end
 
-    def self.why_for(loc, dex, qty, best)
-      name = Yellow::NAMES.fetch(dex)
-      return [ "walkthrough.ui.ld_why_stages", { count: qty, name: name } ] if qty > 1
+    def self.why_for(loc, found, qty, best)
+      given = { name: found.name, stop: loc.name }
+      return [ "walkthrough.ui.ld_why_gift", given ] if found.gift?
 
-      override = loc.oak_queue.find { |owed| owed.dex == dex }
+      wild_why(loc, found, qty, best, given)
+    end
+
+    def self.wild_why(loc, found, qty, best, given)
+      return [ "walkthrough.ui.ld_why_stages", { count: qty, name: found.name } ] if qty > 1
+
+      override = loc.oak_queue.find { |owed| owed.dex == found.dex }
       return [ override.why_key, {} ] if override
-      return [ "walkthrough.ui.ld_why_sole", { name: name } ] if best&.only
+      return [ "walkthrough.ui.ld_why_sole", { name: found.name } ] if best&.only
 
-      [ "walkthrough.ui.ld_why_best", { name: name, stop: loc.name } ]
+      [ "walkthrough.ui.ld_why_best", given ]
     end
 
     def self.boxed_before?(game, span, dex)
@@ -204,17 +210,21 @@ module Walkthrough
         stages: entry.chain.map { |dex| stage_for(game, dex) })
     end
 
+    def self.unreachable?(game, dex) = stops_with(game, dex).empty? && !evolvable?(dex)
+
     def self.stage_for(game, dex)
       step = Evolutions.into(dex).first
-      FamilyStage.new(dex: dex, name: Yellow::NAMES.fetch(dex), step_key: step_key(step),
-        step_args: step_args(step), owed: !self_sourced?(game, dex) && body_source(game, dex).nil?)
+      traded = unreachable?(game, dex)
+      FamilyStage.new(dex: dex, name: Yellow::NAMES.fetch(dex),
+        step_key: traded ? "walkthrough.ui.step_trade" : step_key(step),
+        step_args: traded ? {} : step_args(step),
+        owed: traded || (!self_sourced?(game, dex) && body_source(game, dex).nil?))
     end
 
     def self.step_key(step)
       return "walkthrough.ui.step_catch" if step.nil?
-      return "walkthrough.ui.step_level" if step.level?
 
-      step.stone? ? "walkthrough.ui.step_stone" : "walkthrough.ui.step_trade"
+      step.level? ? "walkthrough.ui.step_level" : "walkthrough.ui.step_stone"
     end
 
     def self.step_args(step) = step&.level? ? { level: step.arg } : { stone: step&.arg }
@@ -285,17 +295,16 @@ module Walkthrough
       earlier_dex(game, leg).map { |dex| tile_for(game, dex, reached) }
     end
 
-    def self.locked_for(game, due)
+    def self.locked_for(due)
       candidates = due.flat_map { |dex| Evolutions.out_of(dex) }.map(&:to).uniq - due
-      candidates.map { |dex| locked_entry(game, dex) }
+      candidates.map { |dex| locked_entry(dex) }
     end
 
-    def self.locked_entry(game, dex)
+    def self.locked_entry(dex)
       step = Evolutions.into(dex).find { |evo| !evo.trade? } || Evolutions.into(dex).first
       LockedEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), gate_key: gate_key(dex, step),
         gate_args: step_args(step), where_key: locked_where_key(dex, step),
-        where_args: { stone: step.arg, name: Yellow::NAMES.fetch(step.from),
-                      stop: home_stop(game, dex)&.name })
+        where_args: { stone: step.arg, name: Yellow::NAMES.fetch(step.from) })
     end
 
     def self.gate_key(dex, step)
@@ -305,7 +314,7 @@ module Walkthrough
     end
 
     def self.locked_where_key(dex, step)
-      return "walkthrough.ui.locked_wild" if Evolutions.refused?(dex)
+      return "walkthrough.ui.locked_refused" if Evolutions.refused?(dex)
 
       step.trade? ? "walkthrough.ui.locked_trade" : "walkthrough.ui.locked_stone"
     end
