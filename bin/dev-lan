@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# Run the dev app so other devices on the same network (a phone, a tablet,
+# another laptop) can open it. Resolves this machine's LAN address, prints the
+# URLs to type on the other device (plus a QR code when `qrencode` is
+# installed), then hands off to bin/dev.
+#
+# Usage:  bin/dev-lan
+#         PORT=4000 bin/dev-lan              # serve on another port
+#         LAN_IP=192.168.1.20 bin/dev-lan    # skip autodetection
+#
+# Postgres must be up first: docker compose up -d postgres
+#
+set -e
+
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+PORT="${PORT:-3000}"
+export PORT
+
+lan_ip() {
+  if [ -n "${LAN_IP:-}" ]; then
+    printf '%s' "$LAN_IP"
+  elif command -v ip >/dev/null 2>&1; then
+    ip -4 route get 1.1.1.1 2>/dev/null |
+      awk '{ for (i = 1; i < NF; i++) if ($i == "src") { print $(i + 1); exit } }'
+  elif command -v route >/dev/null 2>&1 && command -v ipconfig >/dev/null 2>&1; then
+    iface="$(route -n get default 2>/dev/null | awk '/interface:/ { print $2 }')"
+    [ -n "$iface" ] && ipconfig getifaddr "$iface"
+  fi
+}
+
+mdns_host() {
+  short=""
+  if command -v scutil >/dev/null 2>&1; then
+    short="$(scutil --get LocalHostName 2>/dev/null || true)"
+  fi
+  [ -n "$short" ] || short="$(hostname -s 2>/dev/null || hostname)"
+  [ -n "$short" ] && printf '%s.local' "$short"
+}
+
+ufw_enabled() {
+  command -v ufw >/dev/null 2>&1 && grep -qi '^ENABLED=yes' /etc/ufw/ufw.conf 2>/dev/null
+}
+
+IP="$(lan_ip || true)"
+HOST="$(mdns_host || true)"
+
+printf '\n\033[1;34m==> PORYNET on the local network\033[0m\n\n'
+
+if [ -n "$IP" ]; then
+  printf '  this machine   \033[1;32mhttp://%s:%s\033[0m\n' "$IP" "$PORT"
+else
+  printf '  \033[1;33mCould not detect a LAN address.\033[0m Find it with `ip addr` (or\n'
+  printf '  `ipconfig getifaddr en0` on macOS) and re-run with LAN_IP=<address>.\n'
+fi
+if [ -n "$HOST" ]; then
+  printf '  mDNS name      http://%s:%s  (Apple devices, avahi/Bonjour)\n' "$HOST" "$PORT"
+fi
+
+printf '\n  Both devices need to be on the same network.\n'
+if ufw_enabled; then
+  printf '  ufw is enabled here, so open the port: sudo ufw allow %s/tcp\n' "$PORT"
+fi
+printf '  Named hosts (a tunnel, a Tailscale machine) go in DEV_HOSTS, see .env.example.\n\n'
+
+if [ -n "$IP" ] && command -v qrencode >/dev/null 2>&1; then
+  qrencode -t ANSIUTF8 -m 1 "http://$IP:$PORT"
+fi
+
+exec bin/dev "$@"

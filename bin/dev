@@ -8,6 +8,10 @@ fi
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
 
+# Listen on every interface so other devices on the network can reach the app
+# (see bin/dev-lan). Set BINDING=127.0.0.1 to keep it loopback-only.
+export BINDING="${BINDING:-0.0.0.0}"
+
 # Let the debug gem allow remote connections,
 # but avoid loading until `debugger` is called
 export RUBY_DEBUG_OPEN="true"

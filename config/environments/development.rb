@@ -15,6 +15,12 @@ Rails.application.configure do
   # Enable server timing.
   config.server_timing = true
 
+  # Reachable from other devices on the network (see bin/dev-lan). Raw IPs are
+  # already allowed in development, so this covers named hosts: the mDNS
+  # `.local` name, plus anything in DEV_HOSTS (a tunnel URL, a Tailscale name).
+  config.hosts << ".local"
+  config.hosts += ENV.fetch("DEV_HOSTS", "").split(",").map(&:strip).reject(&:empty?)
+
   # Enable/disable Action Controller caching. By default Action Controller caching is disabled.
   # Run rails dev:cache to toggle Action Controller caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?

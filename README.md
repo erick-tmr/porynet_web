@@ -45,6 +45,25 @@ Requires Ruby 3.4.9 (`.ruby-version`), Node 24 (`.node-version`), and a running
 PostgreSQL. `bin/setup` handles `bin/rails db:prepare`; to reset later use
 `bin/rails db:prepare`.
 
+### Opening the app on your phone (or another machine)
+
+```bash
+bin/dev-lan          # prints http://<this-machine>:3000, then boots the app
+PORT=4000 bin/dev-lan
+```
+
+`bin/dev-lan` is `bin/dev` plus the addressing: it detects this machine's LAN
+address, prints the URL to type on the other device (with a QR code when
+[`qrencode`](https://fukuchi.org/works/qrencode/) is installed), and points at
+the mDNS `http://<hostname>.local:3000` alias for Apple devices and any machine
+running Avahi.
+
+Both devices have to be on the same network, and if you run a firewall the port
+must be open in it (`sudo ufw allow 3000/tcp` on Linux). Rails accepts raw IPs in
+development; to reach the app through a named host instead (an ngrok or
+cloudflared tunnel, a Tailscale machine) list it in `DEV_HOSTS` in your `.env`.
+To keep the dev server loopback-only, run `BINDING=127.0.0.1 bin/dev`.
+
 ## Testing & quality gates
 
 ```bash
