@@ -62,7 +62,10 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "bodies are counted so every stage of a family ends up in its own box" do
     assert_equal 2, challenge.bodies_for(game, "010"), "one Caterpie stays, one becomes Butterfree"
     assert_equal 1, challenge.bodies_for(game, "011"), "a wild Metapod fills its own slot"
-    assert_equal 2, challenge.bodies_for(game, "016"), "Pidgeotto is catchable, so Pidgey only owes Pidgeot"
+    assert_equal 3, challenge.bodies_for(game, "016"),
+      "Pidgeotto only spawns ten legs later, so Pidgey carries both stages above it"
+    assert_equal 2, challenge.bodies_for(game, "019"), "same for Rattata, whose Raticate waits for Route 21"
+    assert_equal 0, challenge.bodies_for(game, "020"), "and Raticate is not worth a ball once it is covered"
     assert_equal 1, challenge.bodies_for(game, "001"), "the only Bulbasaur in the game is a single gift"
   end
 
@@ -94,7 +97,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "a species is grouped by how you would really get it here, not by whether it spawns" do
-    catch_here, evolving = plan("leg-09").groups
+    catch_here, evolving = plan("leg-04").groups
 
     assert_includes catch_here.tiles.map(&:name), "Venonat", "10% in the grass is worth the walk"
     assert_includes evolving.tiles.map(&:name), "Venomoth",
@@ -106,10 +109,25 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     forest = plan("viridian-forest")
     fearow = forest.earlier.find { |tile| tile.name == "Fearow" }
 
-    assert_equal "walkthrough.ui.where_evolve", fearow.where_key,
+    assert_equal "walkthrough.ui.step_level", fearow.via_key,
       "Route 17 is ten legs away, so before Brock the only Fearow is a levelled Spearow"
-    assert_equal "Spearow", fearow.where_args[:name]
-    assert_equal "walkthrough.ui.step_level", fearow.via_key
+    assert_equal 20, fearow.via_args[:level]
+
+    spearow = forest.earlier.find { |tile| tile.name == "Spearow" }
+
+    assert_equal "walkthrough.ui.via_catch", spearow.via_key
+    assert_equal "GRASS", spearow.via_args[:how]
+  end
+
+  test "every Oak list reads in Pokedex order, whatever order the pages hand it over in" do
+    page = plan("leg-02")
+
+    [ *page.groups.map(&:tiles), page.earlier, page.locked ].each do |list|
+      dexes = list.map(&:dex)
+
+      assert_equal dexes.sort, dexes, "#{dexes.inspect} is out of Pokedex order"
+    end
+    assert_equal %w[021 029 032 056], page.groups.first.tiles.map(&:dex)
   end
 
   test "the earlier-stops list is the diff since the last badge, not the whole run" do
@@ -131,6 +149,25 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_empty misty_page.groups.flat_map(&:tiles).map(&:dex) & before_brock
   end
 
+  test "Oak owes a species once, on the page that first puts it in reach" do
+    game.legs.each do |leg|
+      opens = challenge.leg_order(leg).first.slug
+      already = challenge.registerable_before(game, opens)
+      owed = game.plan_for(leg).groups.flat_map(&:tiles).map(&:dex)
+
+      assert_empty owed & already,
+        "#{leg.slug} asks again for #{(owed & already).join(', ')}, reachable before the page opens"
+    end
+  end
+
+  test "a better spot later never re-owes a registration the earliest spot already covered" do
+    spearow = "021"
+
+    assert_equal "Route 3", challenge.home_stop(game, spearow).name, "55% beats Route 22's 10%"
+    assert_includes plan("leg-02").groups.first.tiles.map(&:dex), spearow
+    refute_includes plan("leg-03").groups.flat_map(&:tiles).map(&:dex), spearow
+  end
+
   test "the due count stays global even though the lists reset at each badge" do
     assert_equal 17, plan("viridian-forest").due_count
     assert_operator plan("leg-04").due_count, :>, plan("viridian-forest").due_count
@@ -141,7 +178,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     forest = plan("viridian-forest")
 
     assert_equal [ "Raichu", "Nidoqueen", "Nidoking" ], forest.locked.map(&:name)
-    assert_equal [ "Raichu", "Golem", "Alakazam", "Machamp", "Gengar" ],
+    assert_equal [ "Raichu", "Alakazam", "Machamp", "Golem", "Gengar" ],
       plan("cerulean-cave").locked.map(&:name),
       "four trade evolutions, plus the Raichu Yellow has no route to at all"
   end

@@ -1,5 +1,6 @@
 <div class="pn-wt-ldrow" data-controller="body-counter" data-body-counter-game-value="<%= @game.slug %>"
-     data-body-counter-dex-value="<%= entry.dex %>" data-body-counter-quota-value="<%= entry.qty %>">
+     data-body-counter-dex-value="<%= entry.dex %>"
+     data-body-counter-covers-value="<%= entry.covers.to_json %>">
   <div class="pn-wt-ldrow__top">
     <span class="pn-wt-ldrow__sprite"><%= r2_image_tag "pokemon/yellow/#{entry.dex}.png", alt: "" %></span>
     <div class="pn-wt-ldrow__id">
@@ -8,7 +9,7 @@
         <%= multi ? entry.stop_name.upcase : catch_spot(entry) %>
       </span>
     </div>
-    <span class="pn-wt-ldrow__qty"><%= t("walkthrough.ui.ld_qty", count: entry.qty) %></span>
+    <span class="pn-wt-ldrow__qty"><%= body_quota(entry.qty) %></span>
   </div>
 
   <p class="pn-wt-ldrow__why"><%= challenge_why(entry) %></p>

@@ -75,10 +75,17 @@ module Walkthrough
       !rate.nil? && rate >= WORTH_CATCHING_RATE
     end
 
+    def self.home_index(game, dex)
+      stop = dex && home_stop(game, dex)
+      stop && play_order(game.legs).index(stop)
+    end
+
     def self.self_sourced?(game, dex)
       return true unless evolvable?(dex)
+      return false unless worth_catching?(game, dex)
 
-      worth_catching?(game, dex)
+      base = home_index(game, ancestors_of(dex).first)
+      base.nil? || home_index(game, dex) <= base
     end
 
     def self.body_source(game, dex)
@@ -92,11 +99,13 @@ module Walkthrough
       end
     end
 
-    def self.bodies_for(game, dex)
-      return 1 unless repeatable?(game, dex)
+    def self.covered_by(game, dex)
+      return [ dex ] unless repeatable?(game, dex)
 
-      (self_sourced?(game, dex) ? 1 : 0) + dependents(game, dex).size
+      (self_sourced?(game, dex) ? [ dex ] : []) + dependents(game, dex)
     end
+
+    def self.bodies_for(game, dex) = covered_by(game, dex).size
 
     def self.stops_with(game, dex)
       game.locations.select { |loc| loc.dex_list.include?(dex) }
@@ -120,7 +129,7 @@ module Walkthrough
       due = registerable(game, span.last.slug)
       PagePlan.new(window: window_for(game, leg), entries: entries, due: due,
         notes: notes_for(game, leg, entries), families: families_for(game, entries),
-        groups: groups_for(game, leg, entries, due), earlier: earlier_for(game, leg),
+        groups: groups_for(game, leg, due), earlier: earlier_for(game, leg),
         locked: locked_for(due))
     end
 
@@ -133,13 +142,14 @@ module Walkthrough
     end
 
     def self.build_entry(game, span, dex, home, shown)
-      qty = bodies_for(game, dex)
+      covers = covered_by(game, dex)
+      qty = covers.size
       best = game.best_catches[dex]
       found = encounter_at(shown, dex)
       why = why_for(shown, found, qty, best)
       here = home.slug == shown.slug
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
-        stop_name: shown.name, qty: qty, chain: Evolutions.chain_for(dex), fresh: here,
+        stop_name: shown.name, qty: qty, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
         boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,
         how: found.how, rate: found.rate, best: best, why_key: why.first, why_args: why.last)
     end
@@ -229,9 +239,9 @@ module Walkthrough
 
     def self.step_args(step) = step&.level? ? { level: step.arg } : { stone: step&.arg }
 
-    def self.groups_for(game, leg, entries, due)
+    def self.groups_for(game, leg, due)
       reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
-      caught, grown = owed_here(game, leg, entries, due)
+      caught, grown = owed_here(game, leg, due)
         .partition { |dex| catchable_stop(game, dex, reached) }
       [ OakGroup.new(kind: :catch, note_key: "walkthrough.ui.oak_group_catch_note",
           tiles: caught.map { |dex| tile_for(game, dex, reached) }),
@@ -239,17 +249,15 @@ module Walkthrough
           tiles: grown.map { |dex| tile_for(game, dex, reached) }) ]
     end
 
-    def self.owed_here(game, leg, entries, due)
-      fresh = entries.select(&:fresh?).map(&:dex)
-      fresh + ((due - registerable_before(game, leg_order(leg).first.slug)) - fresh)
+    def self.owed_here(game, leg, due)
+      (due - registerable_before(game, leg_order(leg).first.slug)).sort
     end
 
     def self.catch_tile(entry)
       rated = Yellow.parse_rate(entry.rate)
       OakTile.new(dex: entry.dex, name: entry.name,
         via_key: rated ? "walkthrough.ui.via_catch" : "walkthrough.ui.via_gift",
-        via_args: rated ? { how: entry.how, rate: entry.rate } : { how: entry.how },
-        where_key: "walkthrough.ui.where_stop", where_args: { stop: entry.stop_name })
+        via_args: rated ? { how: entry.how, rate: entry.rate } : { how: entry.how })
     end
 
     def self.tile_for(game, dex, reached)
@@ -258,8 +266,7 @@ module Walkthrough
 
       step = Evolutions.into(dex).first
       OakTile.new(dex: dex, name: Yellow::NAMES.fetch(dex), via_key: step_key(step),
-        via_args: step_args(step), where_key: "walkthrough.ui.where_evolve",
-        where_args: { name: Yellow::NAMES.fetch(step.from) })
+        via_args: step_args(step))
     end
 
     def self.catchable_stop(game, dex, reached)
@@ -287,7 +294,7 @@ module Walkthrough
       slugs = window_span(game, leg)
       return [] if slugs.empty?
 
-      registerable(game, slugs.last) - registerable_before(game, window_for(game, leg).slugs.first)
+      (registerable(game, slugs.last) - registerable_before(game, window_for(game, leg).slugs.first)).sort
     end
 
     def self.earlier_for(game, leg)
@@ -296,7 +303,7 @@ module Walkthrough
     end
 
     def self.locked_for(due)
-      candidates = due.flat_map { |dex| Evolutions.out_of(dex) }.map(&:to).uniq - due
+      candidates = (due.flat_map { |dex| Evolutions.out_of(dex) }.map(&:to).uniq - due).sort
       candidates.map { |dex| locked_entry(dex) }
     end
 

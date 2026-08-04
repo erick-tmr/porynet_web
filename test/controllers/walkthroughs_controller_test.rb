@@ -287,7 +287,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-progress-toggle-target='remaining'][data-kind='caught']", text: "17"
     assert_select "[data-meter-pct]", text: "0%"
     assert_select "[data-controller='body-counter'][data-body-counter-dex-value='010']"
-    assert_select "[data-body-counter-quota-value='2']"
+    assert_select "[data-body-counter-covers-value]"
   end
 
   test "a page whose window opened on an earlier page says so instead of repeating it" do

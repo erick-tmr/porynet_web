@@ -10,7 +10,7 @@
   <% else %>
     <% if entry.qty.positive? %>
       <span class="pn-wt-catchbadge pn-wt-catchbadge--living">
-        <%= t("walkthrough.ui.badge_living", count: entry.qty) %>
+        <%= t("walkthrough.ui.badge_living_html", count: body_want_slot(entry.qty)) %>
       </span>
     <% end %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--oak"><%= t("walkthrough.ui.badge_oak", count: 1) %></span>

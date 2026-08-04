@@ -9,11 +9,12 @@ let application;
 
 const FIXTURE = `
   <div id="row" data-controller="body-counter" data-body-counter-game-value="yellow"
-       data-body-counter-dex-value="010" data-body-counter-quota-value="2">
+       data-body-counter-dex-value="010" data-body-counter-covers-value='["010","020"]'>
     <button id="minus" type="button" data-action="body-counter#remove">-</button>
     <span data-body-counter-target="have">0</span>
     <button id="plus" type="button" data-action="body-counter#add">+</button>
-    <span class="pn-wt-ldrow__prog"><span data-body-counter-target="have">0</span> OF 2 BOXED</span>
+    <span class="pn-wt-ldrow__prog"><span data-body-counter-target="have">0</span> /
+      <span data-body-counter-target="want">2</span> CAUGHT</span>
   </div>
 `;
 
@@ -27,6 +28,7 @@ async function mount(html = FIXTURE) {
 const el = (id) => document.getElementById(id);
 const have = () => el("row").querySelector("[data-body-counter-target='have']").textContent;
 const isMet = () => el("row").classList.contains("is-met");
+const want = () => el("row").querySelector("[data-body-counter-target='want']").textContent;
 const stored = () => JSON.parse(localStorage.getItem(STORAGE_KEY));
 
 beforeEach(() => {
@@ -96,7 +98,7 @@ describe("counting bodies", () => {
     expect(isMet()).toBe(true);
   });
 
-  it("defaults the quota to one when the row does not name it", async () => {
+  it("owes a single specimen when the species covers only itself", async () => {
     await mount(`
       <div id="row" data-controller="body-counter" data-body-counter-dex-value="010">
         <button id="plus" type="button" data-action="body-counter#add">+</button>
@@ -168,7 +170,7 @@ describe("clicks", () => {
     await mount(`
       <div id="card">
         <div id="row" data-controller="body-counter" data-body-counter-dex-value="010"
-             data-body-counter-quota-value="2" data-action="click->body-counter#stop">
+             data-body-counter-covers-value='["010","020"]' data-action="click->body-counter#stop">
           <button id="plus" type="button" data-action="body-counter#add">+</button>
           <span data-body-counter-target="have">0</span>
         </div>
@@ -213,5 +215,30 @@ describe("staying in sync", () => {
     await flush();
 
     expect(row.querySelector("[data-body-counter-target='have']").textContent).toBe("0");
+  });
+});
+
+describe("crediting stages you already own", () => {
+  it("drops the quota when a covered evolution is already registered", async () => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "020": true } }, bodies: {} }),
+    );
+
+    await mount();
+
+    expect(want()).toBe("1");
+    el("plus").click();
+    expect(isMet()).toBe(true);
+  });
+
+  it("still owes both while only the base is registered", async () => {
+    await mount();
+
+    el("plus").click();
+
+    expect(want()).toBe("2");
+    expect(have()).toBe("1");
+    expect(isMet()).toBe(false);
   });
 });

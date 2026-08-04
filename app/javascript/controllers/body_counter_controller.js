@@ -1,12 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
-import { bump, countOf, load, save, subscribe } from "lib/progress_store"
+import { bump, countOf, isSet, load, save, subscribe } from "lib/progress_store"
 
 export default class extends Controller {
-  static targets = ["have"]
+  static targets = ["have", "want"]
   static values = {
     game: { type: String, default: "yellow" },
     dex: String,
-    quota: { type: Number, default: 1 },
+    covers: Array,
   }
 
   connect() {
@@ -34,8 +34,19 @@ export default class extends Controller {
     event.stopPropagation()
   }
 
+  #stages() {
+    return this.coversValue.length ? this.coversValue : [ this.dexValue ]
+  }
+
+  #need() {
+    const spare = this.#stages().filter(
+      (dex) => dex !== this.dexValue && isSet(this.state, "caught", this.gameValue, dex),
+    )
+    return this.#stages().length - spare.length
+  }
+
   #commit(delta) {
-    const next = bump(this.state, this.gameValue, this.dexValue, delta, this.quotaValue)
+    const next = bump(this.state, this.gameValue, this.dexValue, delta, this.#need())
     if (!save(next)) {
       this.element.classList.add("is-error")
       return
@@ -47,7 +58,9 @@ export default class extends Controller {
 
   #render() {
     const have = countOf(this.state, this.gameValue, this.dexValue)
+    const need = this.#need()
     this.haveTargets.forEach((slot) => { slot.textContent = String(have) })
-    this.element.classList.toggle("is-met", have >= this.quotaValue)
+    this.wantTargets.forEach((slot) => { slot.textContent = String(need) })
+    this.element.classList.toggle("is-met", have >= need)
   }
 }

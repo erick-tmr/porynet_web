@@ -1,17 +1,13 @@
 <div class="pn-wt-oaktile" title="<%= t("walkthrough.ui.oak_tile_mark", name: tile.name) %>"
      <%= tag.attributes(tickable("caught", tile.dex)) %>>
+  <span class="pn-wt-oaktile__stamp">
+    <span class="pn-wt-oaktile__ball" aria-hidden="true"></span>
+    <%= t("walkthrough.ui.oak_tile_registered") %>
+  </span>
   <span class="pn-wt-oaktile__sprite"><%= r2_image_tag "pokemon/yellow/#{tile.dex}.png", alt: "" %></span>
   <div class="pn-wt-oaktile__body">
-    <div class="pn-wt-oaktile__id">
-      <span class="pn-wt-oaktile__num">#<%= tile.dex %></span>
-      <span class="pn-wt-oaktile__via"><%= t(tile.via_key, **tile.via_args) %></span>
-    </div>
+    <div class="pn-wt-oaktile__num">#<%= tile.dex %></div>
     <div class="pn-wt-oaktile__name"><%= tile.name %></div>
-    <div class="pn-wt-oaktile__where"><%= t(tile.where_key, **tile.where_args) %></div>
-    <span class="pn-wt-oaktile__state">
-      <span class="pn-wt-oaktile__ball" aria-hidden="true"></span>
-      <span class="pn-wt-oaktile__todo"><%= t("walkthrough.ui.oak_tile_todo") %></span>
-      <span class="pn-wt-oaktile__done"><%= t("walkthrough.ui.oak_tile_registered") %></span>
-    </span>
+    <span class="pn-wt-oaktile__via"><%= t(tile.via_key, **tile.via_args) %></span>
   </div>
 </div>

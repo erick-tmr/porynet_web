@@ -187,8 +187,8 @@ module Walkthrough
     def covers?(slug) = slugs.include?(slug)
   end
 
-  PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :chain, :fresh, :boxed, :done_at,
-    :how, :rate, :best, :why_key, :why_args) do
+  PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :covers, :chain, :fresh, :boxed,
+    :done_at, :how, :rate, :best, :why_key, :why_args) do
     def fresh? = fresh
     def boxed? = boxed
     def best? = !best.nil?
@@ -203,7 +203,7 @@ module Walkthrough
     def total = stages.size
   end
 
-  OakTile = Data.define(:dex, :name, :via_key, :via_args, :where_key, :where_args)
+  OakTile = Data.define(:dex, :name, :via_key, :via_args)
   OakGroup = Data.define(:kind, :tiles, :note_key) do
     def any? = tiles.any?
   end

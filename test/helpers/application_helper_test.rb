@@ -139,7 +139,8 @@ class ApplicationHelperTest < ActionView::TestCase
   def plan_entry(dex, **overrides)
     Walkthrough::PlanEntry.new(
       dex: dex, name: "Caterpie", at: "viridian-forest", stop_name: "Viridian Forest", qty: 2,
-      chain: [ dex ], fresh: true, boxed: false, done_at: nil, how: "GRASS", rate: "50%", best: nil,
+      covers: [ dex ], chain: [ dex ], fresh: true, boxed: false, done_at: nil, how: "GRASS",
+      rate: "50%", best: nil,
       why_key: nil, why_args: {}, **overrides
     )
   end
