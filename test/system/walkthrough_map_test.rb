@@ -112,8 +112,25 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "[data-meter-pct]", text: /%/
   end
 
+  test "a challenge section keeps its explanation out and folds the lists away" do
+    visit_with_modes "/walkthroughs/yellow/leg-04", "living", "oak"
+
+    assert_selector ".pn-wt-ld .pn-wt-statbar"
+    assert_selector ".pn-wt-oak__window"
+    assert_no_selector ".pn-wt-ldrow"
+    assert_no_selector ".pn-wt-oaktile"
+
+    find(".pn-wt-oak .pn-wt-fold").click
+    assert_selector ".pn-wt-oaktile"
+    assert_no_selector ".pn-wt-ldrow", visible: true
+
+    find(".pn-wt-ld .pn-wt-fold").click
+    assert_selector ".pn-wt-ldrow"
+  end
+
   test "the Living Dex stepper counts bodies and registers the species on the first one" do
     visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
+    find(".pn-wt-ld .pn-wt-fold").click
 
     card = ".pn-wt-catch[data-body-counter-dex-value='010']"
     row = ".pn-wt-ldrow[data-body-counter-dex-value='010']"
@@ -135,6 +152,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
   test "ticking a card caught fills its body in the Living Dex queue, and un-ticking clears it" do
     visit_with_modes "/walkthroughs/yellow/leg-01", "living"
+    find(".pn-wt-ld .pn-wt-fold").click
 
     card = ".pn-wt-catch[data-body-counter-dex-value='025']"
     row = ".pn-wt-ldrow[data-body-counter-dex-value='025']"

@@ -1,5 +1,5 @@
 <% stage_ids = plan.families.flat_map { |family| family.stages.map(&:dex) }.uniq %>
-<section class="pn-wt-ld">
+<section class="pn-wt-ld" data-controller="disclosure">
   <div class="pn-wt-ld__inner">
     <div class="pn-wt-ld__head">
       <span class="pn-wt-ld__chip"><%= t("walkthrough.ui.ld_eyebrow") %></span>
@@ -33,6 +33,14 @@
       <div class="pn-wt-statbar__tag"><%= t("walkthrough.ui.ld_queue_tag") %></div>
     </div>
 
+    <button type="button" class="pn-wt-fold" data-disclosure-target="toggle"
+            data-action="disclosure#toggle" aria-expanded="false" aria-controls="pn-ld-body">
+      <span class="pn-wt-fold__show"><%= t("walkthrough.ui.ld_fold_show") %></span>
+      <span class="pn-wt-fold__hide"><%= t("walkthrough.ui.ld_fold_hide") %></span>
+      <span class="pn-wt-fold__chevron" aria-hidden="true">▼</span>
+    </button>
+
+    <div id="pn-ld-body" data-disclosure-target="body" hidden>
     <div class="pn-wt-ldq">
       <% plan.queue.each do |entry| %>
         <%= render "ld_row", entry: entry, multi: multi %>
@@ -60,6 +68,7 @@
       <% plan.families.each do |family| %>
         <%= render "ld_family", family: family %>
       <% end %>
+    </div>
     </div>
   </div>
 </section>

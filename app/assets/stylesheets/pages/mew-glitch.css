@@ -549,6 +549,7 @@
   box-shadow: 4px 4px 0 #171622;
   padding: 14px 18px;
 }
+.pn-mew-teaser__cta:hover { color: #171622; transform: translate(2px, 2px); box-shadow: 2px 2px 0 #171622; }
 .pn-mew-teaser__meta { font-family: "VT323", monospace; font-size: 18px; color: #6f83a8; }
 .pn-mew-teaser__art { position: relative; z-index: 1; display: flex; justify-content: center; }
 .pn-mew-teaser__img {
@@ -808,6 +809,7 @@
   border: 2px solid var(--neon-cyan);
   padding: 9px 11px;
 }
+.pn-ls-card__btn:hover { color: #0c1226; background: var(--neon-cyan); }
 .pn-ls-card.is-defeated .pn-ls-card__btn {
   color: #171622;
   background: var(--neon-magenta);
@@ -888,6 +890,8 @@
   .pn-mew-calc__mew,
   .pn-ls__tag,
   .pn-mew-teaser__img { animation: none; }
+
+  .pn-mew-teaser__cta:hover { transform: none; }
   .pn-mew-hero__word::before,
   .pn-mew-hero__word::after,
   .pn-mew-teaser__word::before,

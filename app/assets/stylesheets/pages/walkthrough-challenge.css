@@ -201,6 +201,34 @@
 
 .pn-wt-statbar__meter { flex: 1; min-width: 180px; }
 
+.pn-wt-fold {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 4px 4px 0 #171622;
+  padding: 13px 16px;
+  margin-top: 22px;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+
+.pn-wt-fold:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #171622; }
+.pn-wt-fold__chevron { font-size: 9px; transition: transform 0.08s steps(2); }
+.pn-wt-fold__hide { display: none; }
+.is-open .pn-wt-fold__hide { display: inline; }
+.is-open .pn-wt-fold__show { display: none; }
+.is-open .pn-wt-fold__chevron { transform: rotate(180deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-fold { transition: none; }
+  .pn-wt-fold:hover { transform: none; }
+}
+
 .pn-wt-meter {
   height: 14px;
   border: 2px solid var(--cream);

@@ -554,7 +554,8 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym-tr,
 .pn-wt-gym__leader,
 .pn-wt-oaktile,
-.pn-wt-ldstage {
+.pn-wt-ldstage,
+.pn-wt-chip {
   transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
 }
 
@@ -609,7 +610,8 @@ a.pn-wt-route__card:hover {
   .pn-wt-gym-tr,
   .pn-wt-gym__leader,
   .pn-wt-oaktile,
-  .pn-wt-ldstage { transition: none; }
+  .pn-wt-ldstage,
+  .pn-wt-chip { transition: none; }
 
   .pn-wt-item:hover,
   .pn-wt-item:active,
@@ -630,7 +632,8 @@ a.pn-wt-route__card:hover {
   .pn-wt-oaktile:hover,
   .pn-wt-oaktile:active,
   .pn-wt-ldstage:hover,
-  .pn-wt-ldstage:active { transform: none; }
+  .pn-wt-ldstage:active,
+  .pn-wt-chip:hover { transform: none; }
 }
 
 /* ---- location header ---- */
@@ -1992,6 +1995,7 @@ a.pn-wt-route__card:hover {
   color: #171622;
   box-shadow: 2px 2px 0 #171622;
 }
+.pn-wt-chip:hover { transform: translate(2px, 2px); box-shadow: none; }
 .pn-wt-chip.is-active { background: #171622; color: #FBF5E6; }
 .pn-wt-chip__no {
   font-family: "VT323", monospace;
