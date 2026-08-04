@@ -179,6 +179,46 @@ module Walkthrough
     def trade? = kind == :trade
   end
 
+  Window = Data.define(:number, :badge, :gym, :slugs) do
+    def final? = badge.nil?
+    def leader = gym&.leader&.name
+    def gym_name = gym&.name
+    def label = format("%02d", number)
+    def covers?(slug) = slugs.include?(slug)
+  end
+
+  PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :chain, :fresh, :done_at, :how,
+    :rate, :best) do
+    def fresh? = fresh
+    def best? = !best.nil?
+    def queued? = fresh && qty.positive?
+    def skipped? = fresh && qty.zero?
+  end
+
+  ChallengeNote = Data.define(:kind, :args)
+  FamilyStage = Data.define(:dex, :name, :step_key, :step_args, :owed)
+  Family = Data.define(:name, :stages) do
+    def total = stages.size
+  end
+
+  OakTile = Data.define(:dex, :name, :via_key, :via_args, :where_key, :where_args)
+  OakGroup = Data.define(:kind, :tiles, :note_key) do
+    def any? = tiles.any?
+  end
+  LockedEntry = Data.define(:dex, :name, :gate_key, :gate_args, :where_key, :where_args)
+
+  PagePlan = Data.define(:window, :entries, :notes, :families, :groups, :earlier, :locked, :due) do
+    def queue = entries.select(&:queued?)
+    def bodies = queue.sum(&:qty)
+    def skipped = entries.select(&:skipped?)
+    def boxed = entries.reject(&:fresh?)
+    def stages = families.sum(&:total)
+    def due_count = due.size
+    def living? = queue.any?
+    def oak? = groups.any?(&:any?) || earlier.any?
+    def any? = living? || oak?
+  end
+
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
   OakExample = Data.define(:dex, :name, :how)
   BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
@@ -243,7 +283,8 @@ module Walkthrough
     def oak_queue = locations.flat_map(&:oak_queue).uniq(&:dex)
   end
 
-  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_example, :locations, :legs, :best_catches) do
+  Game = Data.define(:slug, :name, :region, :dex_goal, :oak_example, :locations, :legs,
+    :best_catches, :windows) do
     def leg(slug) = legs.find { |l| l.slug == slug }
 
     def leg!(slug)
@@ -271,6 +312,10 @@ module Walkthrough
       idx = locations.index(current.locations.first)
       current.dex_list - locations.first(idx).flat_map(&:dex_list)
     end
+
+    def plan_for(current) = Challenge.plan(self, current)
+
+    def registerable_upto_leg(current) = Challenge.registerable(self, Challenge.leg_order(current).last.slug)
 
     private
 

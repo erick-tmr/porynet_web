@@ -140,6 +140,7 @@ module Walkthrough
     def self.game
       locations = all_locations
       by_slug = locations.to_h { |loc| [ loc.slug, loc ] }
+      legs = build_legs(by_slug)
       Game.new(
         slug: "yellow",
         name: "Pokémon Yellow",
@@ -147,8 +148,9 @@ module Walkthrough
         dex_goal: 151,
         oak_example: OAK_EXAMPLE.map { |dex, how| OakExample.new(dex: dex, name: NAMES.fetch(dex), how: how) },
         locations: locations,
-        legs: build_legs(by_slug),
-        best_catches: compute_best_catches(locations)
+        legs: legs,
+        best_catches: compute_best_catches(locations),
+        windows: Challenge.windows(legs)
       )
     end
 
