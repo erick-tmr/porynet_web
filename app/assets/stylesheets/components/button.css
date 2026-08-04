@@ -25,19 +25,3 @@
 .pn-btn--cream:hover {
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
 }
-
-.pn-nav__cta {
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  background: #080a16;
-  color: #2af0ff;
-  border: 2px solid #2af0ff;
-  box-shadow: 0 0 13px #2af0ff88, inset 0 0 8px #2af0ff22;
-  text-shadow: 0 0 6px #2af0ff;
-  padding: 12px 15px;
-  transition: box-shadow 0.12s linear;
-}
-.pn-nav__cta:hover {
-  color: #2af0ff;
-  box-shadow: 0 0 20px #2af0ffcc, inset 0 0 11px #2af0ff44;
-}

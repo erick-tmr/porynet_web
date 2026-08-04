@@ -36,7 +36,6 @@
             </span>
           <% end %>
         </span>
-        <a href="#" class="pn-nav__cta"><%= t("pages.home.nav.start") %></a>
         <button type="button" class="pn-nav__burger" aria-label="<%= t("pages.home.nav.menu") %>"
                 aria-expanded="false" aria-controls="pn-nav-panel"
                 data-nav-menu-target="button" data-action="nav-menu#toggle">
@@ -51,7 +50,6 @@
     <% if controller_name == "walkthroughs" %>
       <%= render "shared/mode_rows" %>
     <% end %>
-    <a href="#" class="pn-nav__panel-cta"><%= t("pages.home.nav.start") %></a>
   </nav>
   <% if content_for?(:nav_marquee) %>
     <div class="pn-marquee">
