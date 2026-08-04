@@ -132,6 +132,25 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end
 
+  test "Fuchsia holds Koga back until the Safari Zone has handed over Surf and the Gold Teeth" do
+    fuchsia = loc("fuchsia-city")
+    refute fuchsia.band_gym?, "the gym must not render before the Safari Zone band"
+    assert fuchsia.gym_finale?
+    assert_equal [ 1, 2, 3 ], fuchsia.lead_steps.map(&:n)
+    assert_equal [ 4 ], fuchsia.finale_steps.map(&:n), "HM04 Strength lands with the gym, not before it"
+    assert_equal fuchsia, game.leg!("leg-09").finale
+  end
+
+  test "Silph Co. is freed before Saffron's gym opens, as the leg-10 lead promises" do
+    saffron = game.locations.index(loc("saffron-city"))
+    silph = game.locations.index(loc("silph-co"))
+
+    assert_operator silph, :<, saffron
+    assert_equal 38, loc("silph-co").order
+    assert_equal 39, loc("saffron-city").order
+    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-10"))
+  end
+
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do
     forest_dex = loc("viridian-forest").dex_list
     assert_equal %w[010 011 016 017], forest_dex

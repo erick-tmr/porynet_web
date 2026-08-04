@@ -464,7 +464,7 @@ pt:
         leg_08:
           lead: "Do Rock Tunnel a Lavender, depois a oeste até a loja de departamentos de Celadon e o ginásio da Erika."
         leg_09:
-          lead: "As rotas de pesca ao sul até Fuchsia, o ginásio do Koga e a Safari Zone."
+          lead: "As rotas de pesca ao sul até Fuchsia, depois a Safari Zone antes do ginásio do Koga."
         leg_10:
           lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
         leg_11:
@@ -1777,11 +1777,11 @@ pt:
               "2": "Serpenteie para cima e ao redor das barreiras rumo ao topo da sala, pegando cada treinador opcional conforme o caminho permitir."
               "3": "A ultima abertura leva a Koga. Leve um atacante Psiquico ou Terra e carregue Antidotos para o Toxic dele."
           note: "Ginásio do Koga. Soul Badge. Safari Zone ao lado."
-          intro: "Lar da Safari Zone. Vença o Koga, depois pegue Surf e Strength na Safari."
+          intro: "Lar da Safari Zone. Pegue Surf e Strength na Safari primeiro, depois feche a etapa no Koga."
           steps:
             "1":
-              title: "Cure e entre no Ginásio"
-              text: "Cure no Centro, depois tateie pelo labirinto de paredes invisíveis ate Koga. Leve um tipo Psíquico ou Fogo rapido e Antídotos para o Toxic dele."
+              title: "Cure e reabasteça"
+              text: "Chegue pela Rota 15, cure no Centro e abasteça no Mart. Deixe o Ginásio para depois: a Safari Zone guarda o HM03 Surf e os Gold Teeth, e o Koga fecha esta etapa."
             "2":
               title: "Pesque no lago do Warden"
               text: "Use o Super Rod no lago para um Gyarados selvagem, uma captura exclusiva do Yellow aqui."
@@ -1791,8 +1791,8 @@ pt:
               title: "Explore a Safari Zone"
               text: "Siga ao norte para a Safari Zone pelo HM03 Surf e os Gold Teeth."
             "4":
-              title: "Troque pelo Strength"
-              text: "Devolva os Gold Teeth ao Warden pelo HM04 Strength; pegue o Rare Candy la dentro depois de te-lo."
+              title: "Troque pelo Strength, depois encare o Koga"
+              text: "Devolva os Gold Teeth ao Warden pelo HM04 Strength e pegue o Rare Candy la dentro depois de te-lo. Depois cure, reabasteça e tateie pelo labirinto de paredes invisíveis do ginásio. Leve um tipo Psíquico ou Fogo rapido e Antídotos para o Toxic do Koga."
               items:
                 hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
           tips:

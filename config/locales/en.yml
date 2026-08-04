@@ -464,7 +464,7 @@ en:
         leg_08:
           lead: "Out of Rock Tunnel to Lavender, then west to Celadon's department store and Erika's gym."
         leg_09:
-          lead: "The southern fishing routes down to Fuchsia, Koga's gym, and the Safari Zone."
+          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
         leg_10:
           lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
         leg_11:
@@ -1777,11 +1777,11 @@ en:
               "2": "Weave up and around the barriers toward the top of the room, taking each optional trainer as the path lets you reach them."
               "3": "The last opening leads to Koga. Bring a Psychic or Ground attacker and carry Antidotes for his Toxic."
           note: "Koga's Gym. Soul Badge. Safari Zone next door."
-          intro: "Home of the Safari Zone. Beat Koga, then fetch Surf and Strength from the Safari."
+          intro: "Home of the Safari Zone. Fetch Surf and Strength from the Safari first, then close the leg on Koga."
           steps:
             "1":
-              title: "Heal and enter the Gym"
-              text: "Heal at the Center, then feel through the gym's invisible-wall maze to reach Koga. Bring a fast Psychic or Fire type and Antidotes for his Toxic."
+              title: "Heal and stock up"
+              text: "Arrive from Route 15, heal at the Center and stock the Mart. Leave the Gym alone for now: the Safari Zone holds HM03 Surf and the Gold Teeth, and Koga closes this leg."
             "2":
               title: "Fish the Warden's pond"
               text: "Super Rod the pond for a wild Gyarados, a Yellow-exclusive catch here."
@@ -1791,8 +1791,8 @@ en:
               title: "Raid the Safari Zone"
               text: "Head north into the Safari Zone for HM03 Surf and the Gold Teeth."
             "4":
-              title: "Trade for Strength"
-              text: "Return the Gold Teeth to the Warden for HM04 Strength; grab the Rare Candy inside once you have it."
+              title: "Trade for Strength, then take Koga"
+              text: "Return the Gold Teeth to the Warden for HM04 Strength and grab the Rare Candy inside once you have it. Then heal, restock, and feel your way through the gym's invisible-wall maze. Bring a fast Psychic or Fire type and Antidotes for Koga's Toxic."
               items:
                 hm04_strength: "From the Safari Zone Warden, after you return the Gold Teeth. Teaches Strength to push boulders."
           tips:
