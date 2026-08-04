@@ -164,6 +164,27 @@ describe("saving", () => {
   });
 });
 
+describe("clicks", () => {
+  it("keeps a stepper click inside the stepper, so the card around it never toggles", async () => {
+    const outer = [];
+    await mount(`
+      <div id="card">
+        <div id="row" data-controller="body-counter" data-body-counter-dex-value="010"
+             data-body-counter-quota-value="2" data-action="click->body-counter#stop">
+          <button id="plus" type="button" data-action="body-counter#add">+</button>
+          <span data-body-counter-target="have">0</span>
+        </div>
+      </div>
+    `);
+    el("card").addEventListener("click", () => outer.push("card"));
+
+    el("plus").click();
+
+    expect(have()).toBe("1");
+    expect(outer).toEqual([]);
+  });
+});
+
 describe("staying in sync", () => {
   it("picks up a change made in another tab", async () => {
     await mount();

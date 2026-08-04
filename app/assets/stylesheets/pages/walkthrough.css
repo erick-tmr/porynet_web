@@ -62,10 +62,8 @@
 .pn-mode-living-on .pn-wt-modechip--living .pn-wt-modechip__off,
 .pn-mode-oak-on .pn-wt-modechip--oak .pn-wt-modechip__off { display: none; }
 
-.pn-wt-oak,
-.pn-wt-best { display: none; }
+.pn-wt-oak { display: none; }
 .pn-mode-oak-on .pn-wt-oak { display: block; }
-.pn-mode-living-on .pn-wt-best { display: block; }
 .pn-wt-hero__title {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 700;
@@ -1236,7 +1234,7 @@ a.pn-wt-route__card:hover {
   padding: 16px;
 }
 
-.pn-mode-living-on .pn-wt-catch--best {
+.pn-wt-catch--best {
   background: #fff7e6;
 }
 

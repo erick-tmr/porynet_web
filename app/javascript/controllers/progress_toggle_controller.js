@@ -100,8 +100,6 @@ export default class extends Controller {
     return countSet(this.state, slot.dataset.kind, this.gameValue, this.#ids(slot))
   }
 
-  // The width is a number, not a string of copy, so writing it through the CSSOM keeps every
-  // translated word server-rendered. Same trick the map uses to place its pins.
   #fill(meter) {
     const total = this.#ids(meter).length
     const pct = total ? Math.round((this.#done(meter) / total) * 100) : 0

@@ -1,6 +1,8 @@
 <div class="pn-wt-catch__badges">
-  <% if !entry.fresh? %>
+  <% if entry.boxed? %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--boxed"><%= t("walkthrough.ui.badge_boxed") %></span>
+  <% elsif !entry.fresh? %>
+    <span class="pn-wt-catchbadge pn-wt-catchbadge--elsewhere"><%= t("walkthrough.ui.badge_elsewhere") %></span>
   <% elsif entry.at != slug %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--elsewhere">
       <%= t("walkthrough.ui.badge_do_at", stop: entry.stop_name.upcase) %>

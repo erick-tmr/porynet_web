@@ -129,23 +129,21 @@ module Walkthrough
     def self.entry_for(game, span, dex)
       home = home_stop(game, dex)
       here = span.find { |loc| loc.slug == home.slug }
-      build_entry(game, dex, home, here, here || span.find { |loc| loc.dex_list.include?(dex) })
+      build_entry(game, span, dex, home, here || span.find { |loc| loc.dex_list.include?(dex) })
     end
 
-    def self.build_entry(game, dex, home, here, shown)
+    def self.build_entry(game, span, dex, home, shown)
       qty = bodies_for(game, dex)
       best = game.best_catches[dex]
       why = why_for(shown, dex, qty, best)
       found = encounter_at(shown, dex)
+      here = home.slug == shown.slug
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
-        stop_name: shown.name, qty: qty, chain: Evolutions.chain_for(dex), fresh: !here.nil?,
-        done_at: here ? nil : home.name, how: found.how, rate: found.rate, best: best,
-        why_key: why.first, why_args: why.last)
+        stop_name: shown.name, qty: qty, chain: Evolutions.chain_for(dex), fresh: here,
+        boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,
+        how: found.how, rate: found.rate, best: best, why_key: why.first, why_args: why.last)
     end
 
-    # A stop's hand-written Oak line wins whenever it cannot contradict the quota, which is to say
-    # whenever one body is all the species owes. Past that the count is the point, so the template
-    # states it rather than letting "log one" sit under a x2 badge.
     def self.why_for(loc, dex, qty, best)
       name = Yellow::NAMES.fetch(dex)
       return [ "walkthrough.ui.ld_why_stages", { count: qty, name: name } ] if qty > 1
@@ -163,20 +161,17 @@ module Walkthrough
     end
 
     def self.notes_for(game, leg, entries)
-      later_notes(game, leg, entries) + shared_notes(leg, entries) +
+      later_notes(entries) + shared_notes(leg, entries) +
         gift_notes(game, entries) + crowd_notes(entries)
     end
 
-    def self.later_notes(game, leg, entries)
-      span = leg_order(leg)
-      entries.reject { |entry| entry.fresh? || boxed_before?(game, span, entry.dex) }
+    def self.later_notes(entries)
+      entries.reject { |entry| entry.fresh? || entry.boxed? }
         .map { |entry| ChallengeNote.new(kind: :later, args: { name: entry.name, stop: entry.done_at }) }
     end
 
     def self.stops_holding(leg, dex) = leg.locations.count { |loc| loc.dex_list.include?(dex) }
 
-    # One card per species would say the same sentence four times on a page whose stops share their
-    # grass, so the species that repeat are named together in a single note.
     def self.shared_notes(leg, entries)
       roll_up(:shared, entries.select { |entry| stops_holding(leg, entry.dex) > 1 })
     end
@@ -224,9 +219,6 @@ module Walkthrough
 
     def self.step_args(step) = step&.level? ? { level: step.arg } : { stone: step&.arg }
 
-    # Catching and evolving are not two lists of species but one list split by how you would
-    # actually get each one here, so a 1% Venomoth sits under BY EVOLVING next to the Venonat it
-    # grows from rather than under CATCH HERE promising odds nobody should take.
     def self.groups_for(game, leg, entries, due)
       reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
       caught, grown = owed_here(game, leg, entries, due)
@@ -250,11 +242,6 @@ module Walkthrough
         where_key: "walkthrough.ui.where_stop", where_args: { stop: entry.stop_name })
     end
 
-    # A species can be both catchable and evolvable, and the honest answer depends on where you
-    # stand. Fearow is a 25% spawn on Route 17, but in Brock's window the only Fearow you can have
-    # is a Spearow that hit level 20, and a Pidgeotto you could technically hunt at 1% is still
-    # better evolved. So a tile names a catch only at a stop you have already walked and at odds
-    # worth walking for, and names the evolution otherwise.
     def self.tile_for(game, dex, reached)
       stop = catchable_stop(game, dex, reached)
       return catch_tile(entry_for(game, [ stop ], dex)) if stop

@@ -120,6 +120,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_includes challenge_note_text(note), "holds one Bulbasaur and no more"
   end
 
+  test "the spot chip says whether this really is the best place, or merely a good one" do
+    best = Walkthrough::BestCatch.new(dex: "010", slug: "viridian-forest", rate: "50%")
+
+    assert_equal "BEST PLACE · 50%", catch_spot(plan_entry("010", best: best))
+    assert_equal "GOOD PLACE · 50%", catch_spot(plan_entry("010", best: nil))
+  end
+
   test "a live count slot names the ids it watches so the controller can total them" do
     assert_includes progress_remaining(%w[010 011]), 'data-progress-ids="010 011"'
     assert_includes progress_remaining(%w[010 011]), ">2<"
@@ -132,7 +139,7 @@ class ApplicationHelperTest < ActionView::TestCase
   def plan_entry(dex, **overrides)
     Walkthrough::PlanEntry.new(
       dex: dex, name: "Caterpie", at: "viridian-forest", stop_name: "Viridian Forest", qty: 2,
-      chain: [ dex ], fresh: true, done_at: nil, how: "GRASS", rate: "50%", best: nil,
+      chain: [ dex ], fresh: true, boxed: false, done_at: nil, how: "GRASS", rate: "50%", best: nil,
       why_key: nil, why_args: {}, **overrides
     )
   end

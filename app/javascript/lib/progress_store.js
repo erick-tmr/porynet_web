@@ -63,15 +63,10 @@ export function countSet(state, kind, game, ids) {
   return ids.filter((id) => isSet(state, kind, game, id)).length
 }
 
-// Living Dex counts bodies, not ticks: a species can owe two or three specimens. The count lives
-// under its own kind so the existing boolean kinds keep their shape, and a stored state written
-// before this existed simply normalises to an empty bodies map.
 export function countOf(state, game, dex) {
   return state.bodies?.[game]?.[dex] || 0
 }
 
-// One body is enough to register the dex entry, so a bump keeps `caught` in step: Oak and Living
-// Dex never disagree about whether you have seen a species.
 export function bump(state, game, dex, delta, quota) {
   const next = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
   const bodies = { ...(state.bodies?.[game] || {}), [dex]: next }

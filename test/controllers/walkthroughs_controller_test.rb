@@ -272,7 +272,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 02 · EVERYTHING BEFORE MISTY"
     assert_select ".pn-wt-ldrow", count: 4
-    assert_select ".pn-wt-ldrow__stop", text: "ROUTE 24"
+    assert_select ".pn-wt-ldrow__spot", text: "ROUTE 24"
     assert_select ".pn-wt-bandledger", count: 4
     assert_select ".pn-wt-chip__work"
     assert_select ".pn-wt-catchbadge--elsewhere", text: /DO IT AT ROUTE 24/

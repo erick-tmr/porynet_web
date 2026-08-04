@@ -117,20 +117,38 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     visit "/walkthroughs/yellow/viridian-forest"
     find(".pn-nav__modes .pn-modesw--living").click
 
+    card = ".pn-wt-catch[data-body-counter-dex-value='010']"
     row = ".pn-wt-ldrow[data-body-counter-dex-value='010']"
-    within(find("#{row} .pn-wt-stepper__count")) { assert_text "0" }
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "0" }
 
-    find("#{row} .pn-wt-stepper__btn--add").click
-    within(find("#{row} .pn-wt-stepper__count")) { assert_text "1" }
+    find("#{card} .pn-wt-stepper__btn--add").click
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "1" }
+    within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "1 / 2" }
 
-    find("#{row} .pn-wt-stepper__btn--add").click
-    within(find("#{row} .pn-wt-stepper__count")) { assert_text "2" }
+    find("#{card} .pn-wt-stepper__btn--add").click
+    assert_selector "#{card}.is-met"
     assert_selector "#{row}.is-met"
 
-    find("#{row} .pn-wt-stepper__btn--add").click
-    within(find("#{row} .pn-wt-stepper__count")) { assert_text "2" }
+    find("#{card} .pn-wt-stepper__btn--add").click
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "2" }
 
     assert_selector ".pn-wt-ldstage[data-progress-id='010'].is-done"
+  end
+
+  test "a body registers the species, and stepping again never un-registers it" do
+    visit "/walkthroughs/yellow/viridian-forest"
+    find(".pn-nav__modes .pn-modesw--living").click
+
+    card = ".pn-wt-catch[data-body-counter-dex-value='011']"
+    find("#{card} .pn-wt-stepper__btn--add").click
+
+    assert_selector "#{card}.is-met"
+    assert_selector "#{card}.is-done"
+
+    find("#{card} .pn-wt-stepper__btn--add").click
+
+    assert_selector "#{card}.is-done"
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "1" }
   end
 
   test "a trainer card and its pin are one tick, from either side" do

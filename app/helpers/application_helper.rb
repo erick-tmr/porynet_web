@@ -74,8 +74,6 @@ module ApplicationHelper
     end
   end
 
-  # Every live total on the page counts registered species, so each of these renders an element
-  # naming the dex ids it watches and progress_toggle_controller fills in the number.
   def progress_slot(role, ids, **options)
     options.deep_merge(data: { progress_toggle_target: role, kind: "caught",
                                progress_ids: ids.join(" ") })
@@ -93,16 +91,26 @@ module ApplicationHelper
 
   def meter_percent = tag.span("0%", data: { meter_pct: true })
 
-  # A queued species carries a live body count, so its label is assembled here rather than in the
-  # controller: the number is the only part JS writes, and every word around it stays translated.
+  def body_count_slot = tag.span(0, data: { body_counter_target: "have" })
+
   def body_progress(quota)
-    t("walkthrough.ui.ld_progress_html", want: quota,
-      have: tag.span(0, data: { body_counter_target: "have" }))
+    t("walkthrough.ui.ld_caught_progress_html", want: quota, have: body_count_slot)
   end
 
-  def body_pill(quota)
-    t("walkthrough.ui.pill_box_html", want: quota,
-      have: tag.span(0, data: { body_counter_target: "have" }))
+  def body_pill(quota) = t("walkthrough.ui.pill_box_html", want: quota, have: body_count_slot)
+
+  def owned_line = t("walkthrough.ui.ld_owned_html", caught: body_count_slot, evolved: 0)
+
+  def catch_card_attributes(dex, entry)
+    tickable("caught", dex).deep_merge(
+      data: { controller: "body-counter", body_counter_game_value: @game.slug,
+              body_counter_dex_value: dex, body_counter_quota_value: entry.qty }
+    )
+  end
+
+  def catch_spot(entry)
+    key = entry.best? ? "walkthrough.ui.ld_spot_best" : "walkthrough.ui.ld_spot_good"
+    t(key, rate: entry.rate)
   end
 
   def oak_tally(ids)
