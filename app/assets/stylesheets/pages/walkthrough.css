@@ -63,13 +63,9 @@
 .pn-mode-oak-on .pn-wt-modechip--oak .pn-wt-modechip__off { display: none; }
 
 .pn-wt-oak,
-.pn-wt-band-oak,
 .pn-wt-best { display: none; }
-.pn-wt-qty { display: none; }
-.pn-mode-oak-on .pn-wt-oak,
-.pn-mode-oak-on .pn-wt-band-oak { display: block; }
+.pn-mode-oak-on .pn-wt-oak { display: block; }
 .pn-mode-living-on .pn-wt-best { display: block; }
-.pn-mode-living-on .pn-wt-qty { display: inline; }
 .pn-wt-hero__title {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 700;
@@ -548,15 +544,6 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 14px;
   color: #171622;
-}
-
-.pn-wt-qty {
-  font-family: "Press Start 2P", monospace;
-  font-size: 11px;
-  color: #171622;
-  background: #FFC23D;
-  border: 2px solid #171622;
-  padding: 5px 8px;
 }
 
 /* ---- location header ---- */
@@ -1473,119 +1460,13 @@ a.pn-wt-route__card:hover {
 /* ---- location oak challenge ---- */
 .pn-wt-oak {
   border-top: 3px solid #171622;
-  background: var(--accent2);
-  margin-top: 44px;
+  background: #fffbee;
 }
 .pn-wt-oak__inner {
   max-width: 1200px;
   margin: 0 auto;
   padding: 52px 28px;
 }
-.pn-wt-oak__grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 22px;
-  margin-top: 26px;
-}
-.pn-wt-oak__counter {
-  background: #171622;
-  border: 3px solid #171622;
-  box-shadow: 6px 6px 0 rgba(23, 22, 34, 0.3);
-  padding: 24px;
-  color: #FBF5E6;
-}
-.pn-wt-oak__caption {
-  font-family: "VT323", monospace;
-  font-size: 19px;
-  color: #8fa6c8;
-}
-.pn-wt-oak__total {
-  font-family: "Press Start 2P", monospace;
-  font-size: 36px;
-  margin-top: 6px;
-}
-.pn-wt-oak__cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 22px;
-}
-.pn-wt-oak__sub {
-  padding: 13px;
-  border: 2px solid #2a3350;
-  background: #0c0e1d;
-}
-.pn-wt-oak__sub--reg {
-  border-color: var(--accent);
-  background: rgba(255, 93, 143, 0.16);
-}
-.pn-wt-oak__sub-label {
-  font-family: "VT323", monospace;
-  font-size: 16px;
-  color: #cfe9f5;
-}
-.pn-wt-oak__sub-num {
-  font-family: "Press Start 2P", monospace;
-  font-size: 22px;
-  margin-top: 6px;
-  color: #fff;
-}
-.pn-wt-oak__sub-num--need { color: #FFC23D; }
-.pn-wt-oak__note {
-  font-family: "VT323", monospace;
-  font-size: 16px;
-  color: #8f8ba8;
-  margin-top: 12px;
-}
-.pn-wt-oak__list-card {
-  background: #fff;
-  border: 3px solid #171622;
-  box-shadow: 6px 6px 0 #171622;
-  padding: 22px;
-}
-.pn-wt-oak__list-title {
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  color: var(--accent);
-}
-.pn-wt-oak__list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
-}
-.pn-wt-oak__row {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  border: 2px solid #171622;
-  background: #fff;
-  padding: 9px 11px;
-}
-.pn-wt-oak__row-sprite {
-  width: 44px;
-  height: 44px;
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #FBF5E6;
-  border: 2px solid #171622;
-}
-.pn-wt-oak__row-sprite img { width: 38px; height: 38px; object-fit: contain; }
-.pn-wt-oak__row-body { flex: 1; min-width: 0; }
-.pn-wt-oak__row-name {
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-}
-.pn-wt-oak__row-why {
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: #3a3850;
-}
-
 /* ---- trainers ---- */
 .pn-wt-trainers {
   display: grid;
@@ -2103,33 +1984,6 @@ a.pn-wt-route__card:hover {
   font-size: 26px;
   margin: 11px 0 0;
 }
-.pn-wt-band-oak {
-  background: #fffbee;
-  border: 3px solid #171622;
-  box-shadow: 5px 5px 0 #171622;
-  padding: 20px 22px;
-}
-.pn-wt-band-oak__head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-.pn-wt-band-oak__badge {
-  font-family: "Press Start 2P", monospace;
-  font-size: 9px;
-  color: #171622;
-  background: #FFC23D;
-  border: 2px solid #171622;
-  padding: 6px 8px;
-}
-.pn-wt-band-oak__title {
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-}
-
 /* ---- index: special stops ---- */
 .pn-wt-route__dot--special { background: #FFC23D; }
 .pn-wt-route__special {
@@ -2622,7 +2476,6 @@ a.pn-wt-route__card:hover {
 @media (max-width: 900px) {
   .pn-wt-specials,
   .pn-wt-moderow,
-  .pn-wt-oak__grid,
   .pn-wt-trainers,
   .pn-wt-trades,
   .pn-wt-gym__trainers { grid-template-columns: 1fr; }

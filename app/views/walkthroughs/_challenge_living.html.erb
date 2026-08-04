@@ -1,0 +1,65 @@
+<% stage_ids = plan.families.flat_map { |family| family.stages.map(&:dex) }.uniq %>
+<section class="pn-wt-ld">
+  <div class="pn-wt-ld__inner">
+    <div class="pn-wt-ld__head">
+      <span class="pn-wt-ld__chip"><%= t("walkthrough.ui.ld_eyebrow") %></span>
+      <span class="pn-wt-ld__kicker"><%= t("walkthrough.ui.ld_kicker") %></span>
+    </div>
+    <h2 class="pn-h2"><%= t("walkthrough.ui.ld_h2") %></h2>
+    <p class="pn-wt-lead"><%= t("walkthrough.ui.ld_lead_#{multi ? 'multi' : 'single'}") %></p>
+    <p class="pn-wt-ld__how">
+      <%= link_to t("walkthrough.ui.ld_how"), walkthrough_path(game: @game.slug, anchor: "modes") %>
+    </p>
+
+    <div class="pn-wt-statbar">
+      <div class="pn-wt-statbar__cell">
+        <div class="pn-wt-statbar__label"><%= t("walkthrough.ui.ld_stat_bodies") %></div>
+        <div class="pn-wt-statbar__row">
+          <span class="pn-wt-statbar__big pn-wt-statbar__big--cyan"><%= plan.bodies %></span>
+          <span class="pn-wt-statbar__unit"><%= t("walkthrough.ui.ld_stat_bodies_unit") %></span>
+        </div>
+      </div>
+      <div class="pn-wt-statbar__rule" aria-hidden="true"></div>
+      <div class="pn-wt-statbar__cell">
+        <div class="pn-wt-statbar__label"><%= t("walkthrough.ui.ld_stat_species") %></div>
+        <div class="pn-wt-statbar__num"><%= plan.queue.size %></div>
+      </div>
+      <div class="pn-wt-statbar__rule" aria-hidden="true"></div>
+      <div class="pn-wt-statbar__cell">
+        <div class="pn-wt-statbar__label"><%= t("walkthrough.ui.ld_stat_elsewhere") %></div>
+        <div class="pn-wt-statbar__num pn-wt-statbar__num--amber"><%= plan.boxed.size %></div>
+      </div>
+      <div class="pn-wt-statbar__spacer"></div>
+      <div class="pn-wt-statbar__tag"><%= t("walkthrough.ui.ld_queue_tag") %></div>
+    </div>
+
+    <div class="pn-wt-ldq">
+      <% plan.queue.each do |entry| %>
+        <%= render "ld_row", entry: entry, multi: multi %>
+      <% end %>
+    </div>
+
+    <% if plan.notes.any? %>
+      <div class="pn-wt-ldnotes">
+        <% plan.notes.each do |note| %>
+          <%= render "ld_note", note: note %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="pn-wt-ld__ledger-head">
+      <div>
+        <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.ld_ledger_eyebrow") %></div>
+        <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.ld_ledger_h3") %></h3>
+        <p class="pn-wt-ld__ledger-lead"><%= t("walkthrough.ui.ld_ledger_lead") %></p>
+      </div>
+      <div class="pn-wt-ld__filled"><%= ledger_filled(stage_ids) %></div>
+    </div>
+
+    <div class="pn-wt-ldfam">
+      <% plan.families.each do |family| %>
+        <%= render "ld_family", family: family %>
+      <% end %>
+    </div>
+  </div>
+</section>

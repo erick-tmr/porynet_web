@@ -188,7 +188,7 @@ module Walkthrough
   end
 
   PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :chain, :fresh, :done_at, :how,
-    :rate, :best) do
+    :rate, :best, :why_key, :why_args) do
     def fresh? = fresh
     def best? = !best.nil?
     def queued? = fresh && qty.positive?
@@ -214,6 +214,8 @@ module Walkthrough
     def boxed = entries.reject(&:fresh?)
     def stages = families.sum(&:total)
     def due_count = due.size
+    def queue_at(slug) = queue.select { |entry| entry.at == slug }
+    def entry_for(dex) = entries.find { |entry| entry.dex == dex }
     def living? = queue.any?
     def oak? = groups.any?(&:any?) || earlier.any?
     def any? = living? || oak?

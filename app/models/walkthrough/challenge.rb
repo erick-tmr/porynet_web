@@ -129,11 +129,32 @@ module Walkthrough
     def self.entry_for(game, span, dex)
       home = home_stop(game, dex)
       here = span.find { |loc| loc.slug == home.slug }
-      shown = here || span.find { |loc| loc.dex_list.include?(dex) }
+      build_entry(game, dex, home, here, here || span.find { |loc| loc.dex_list.include?(dex) })
+    end
+
+    def self.build_entry(game, dex, home, here, shown)
+      qty = bodies_for(game, dex)
+      best = game.best_catches[dex]
+      why = why_for(shown, dex, qty, best)
+      found = encounter_at(shown, dex)
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
-        stop_name: shown.name, qty: bodies_for(game, dex), chain: Evolutions.chain_for(dex),
-        fresh: !here.nil?, done_at: here ? nil : home.name, how: encounter_at(shown, dex).how,
-        rate: encounter_at(shown, dex).rate, best: game.best_catches[dex])
+        stop_name: shown.name, qty: qty, chain: Evolutions.chain_for(dex), fresh: !here.nil?,
+        done_at: here ? nil : home.name, how: found.how, rate: found.rate, best: best,
+        why_key: why.first, why_args: why.last)
+    end
+
+    # A stop's hand-written Oak line wins whenever it cannot contradict the quota, which is to say
+    # whenever one body is all the species owes. Past that the count is the point, so the template
+    # states it rather than letting "log one" sit under a x2 badge.
+    def self.why_for(loc, dex, qty, best)
+      name = Yellow::NAMES.fetch(dex)
+      return [ "walkthrough.ui.ld_why_stages", { count: qty, name: name } ] if qty > 1
+
+      override = loc.oak_queue.find { |owed| owed.dex == dex }
+      return [ override.why_key, {} ] if override
+      return [ "walkthrough.ui.ld_why_sole", { name: name } ] if best&.only
+
+      [ "walkthrough.ui.ld_why_best", { name: name, stop: loc.name } ]
     end
 
     def self.boxed_before?(game, span, dex)
@@ -154,14 +175,21 @@ module Walkthrough
 
     def self.stops_holding(leg, dex) = leg.locations.count { |loc| loc.dex_list.include?(dex) }
 
+    # One card per species would say the same sentence four times on a page whose stops share their
+    # grass, so the species that repeat are named together in a single note.
     def self.shared_notes(leg, entries)
-      entries.select { |entry| stops_holding(leg, entry.dex) > 1 }
-        .map { |entry| ChallengeNote.new(kind: :shared, args: { name: entry.name, stop: entry.stop_name }) }
+      roll_up(:shared, entries.select { |entry| stops_holding(leg, entry.dex) > 1 })
     end
 
     def self.gift_notes(game, entries)
-      entries.select { |entry| entry.queued? && !repeatable?(game, entry.dex) }
-        .map { |entry| ChallengeNote.new(kind: :one_copy, args: { name: entry.name }) }
+      roll_up(:one_copy, entries.select { |entry| entry.queued? && !repeatable?(game, entry.dex) })
+    end
+
+    def self.roll_up(kind, entries)
+      return [] if entries.empty?
+
+      [ ChallengeNote.new(kind: kind,
+        args: { names: entries.map(&:name).to_sentence, count: entries.size }) ]
     end
 
     def self.crowd_notes(entries)
@@ -172,7 +200,8 @@ module Walkthrough
     end
 
     def self.families_for(game, entries)
-      entries.select(&:queued?).map { |entry| family_for(game, entry) }
+      entries.select(&:queued?).uniq { |entry| entry.chain.first }
+        .map { |entry| family_for(game, entry) }
     end
 
     def self.family_for(game, entry)
@@ -203,24 +232,41 @@ module Walkthrough
     end
 
     def self.catch_tile(entry)
-      OakTile.new(dex: entry.dex, name: entry.name, via_key: "walkthrough.ui.via_catch",
-        via_args: { how: entry.how, rate: entry.rate },
+      rated = Yellow.parse_rate(entry.rate)
+      OakTile.new(dex: entry.dex, name: entry.name,
+        via_key: rated ? "walkthrough.ui.via_catch" : "walkthrough.ui.via_gift",
+        via_args: rated ? { how: entry.how, rate: entry.rate } : { how: entry.how },
         where_key: "walkthrough.ui.where_stop", where_args: { stop: entry.stop_name })
     end
 
     def self.evolve_tiles(game, leg, entries, due)
+      reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
       ((due - registerable_before(game, leg_order(leg).first.slug)) - entries.map(&:dex))
-        .map { |dex| tile_for(game, dex) }
+        .map { |dex| tile_for(game, dex, reached) }
     end
 
-    def self.tile_for(game, dex)
-      home = home_stop(game, dex)
-      return catch_tile(entry_for(game, [ home ], dex)) if home
+    # A species can be both catchable and evolvable, and the honest answer depends on where you
+    # stand. Fearow is a 25% spawn on Route 17, but in Brock's window the only Fearow you can have
+    # is a Spearow that hit level 20, and a Pidgeotto you could technically hunt at 1% is still
+    # better evolved. So a tile names a catch only at a stop you have already walked and at odds
+    # worth walking for, and names the evolution otherwise.
+    def self.tile_for(game, dex, reached)
+      stop = catchable_stop(game, dex, reached)
+      return catch_tile(entry_for(game, [ stop ], dex)) if stop
 
       step = Evolutions.into(dex).first
       OakTile.new(dex: dex, name: Yellow::NAMES.fetch(dex), via_key: step_key(step),
         via_args: step_args(step), where_key: "walkthrough.ui.where_evolve",
         where_args: { name: Yellow::NAMES.fetch(step.from) })
+    end
+
+    def self.catchable_stop(game, dex, reached)
+      best = stops_with(game, dex).select { |loc| reached.include?(loc.slug) }
+        .max_by { |loc| stop_rate(loc, dex) || 100 }
+      return nil if best.nil?
+
+      rate = stop_rate(best, dex)
+      best if rate.nil? || rate >= WORTH_CATCHING_RATE || Evolutions.into(dex).empty?
     end
 
     def self.registerable_before(game, slug)
@@ -243,7 +289,8 @@ module Walkthrough
     end
 
     def self.earlier_for(game, leg)
-      earlier_dex(game, leg).map { |dex| tile_for(game, dex) }
+      reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
+      earlier_dex(game, leg).map { |dex| tile_for(game, dex, reached) }
     end
 
     def self.locked_for(game, due)

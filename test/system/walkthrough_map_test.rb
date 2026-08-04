@@ -99,15 +99,38 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-catch.is-done"
   end
 
-  test "catching a Pokemon counts toward the leg's registered total" do
+  test "catching a Pokemon moves the window's registered count, remainder and meter together" do
     visit "/walkthroughs/yellow/leg-04"
     find(".pn-nav__modes .pn-modesw--oak").click
 
-    within first(".pn-wt-oak__sub--reg") { assert_text "0" }
+    within(first(".pn-wt-statbar__num--green")) { assert_text "0" }
+    owed = first(".pn-wt-statbar__num--amber").text.to_i
 
     first(".pn-wt-catch[data-progress-id]").click
 
-    within first(".pn-wt-oak__sub--reg") { assert_text "1" }
+    within(first(".pn-wt-statbar__num--green")) { assert_text "1" }
+    within(first(".pn-wt-statbar__num--amber")) { assert_text (owed - 1).to_s }
+    assert_selector "[data-meter-pct]", text: /%/
+  end
+
+  test "the Living Dex stepper counts bodies and registers the species on the first one" do
+    visit "/walkthroughs/yellow/viridian-forest"
+    find(".pn-nav__modes .pn-modesw--living").click
+
+    row = ".pn-wt-ldrow[data-body-counter-dex-value='010']"
+    within(find("#{row} .pn-wt-stepper__count")) { assert_text "0" }
+
+    find("#{row} .pn-wt-stepper__btn--add").click
+    within(find("#{row} .pn-wt-stepper__count")) { assert_text "1" }
+
+    find("#{row} .pn-wt-stepper__btn--add").click
+    within(find("#{row} .pn-wt-stepper__count")) { assert_text "2" }
+    assert_selector "#{row}.is-met"
+
+    find("#{row} .pn-wt-stepper__btn--add").click
+    within(find("#{row} .pn-wt-stepper__count")) { assert_text "2" }
+
+    assert_selector ".pn-wt-ldstage[data-progress-id='010'].is-done"
   end
 
   test "a trainer card and its pin are one tick, from either side" do

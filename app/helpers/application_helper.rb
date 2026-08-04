@@ -74,8 +74,73 @@ module ApplicationHelper
     end
   end
 
-  def progress_count(kind, ids)
-    tag.span(0, data: { progress_toggle_target: "count", kind: kind, progress_ids: ids.join(" ") })
+  # Every live total on the page counts registered species, so each of these renders an element
+  # naming the dex ids it watches and progress_toggle_controller fills in the number.
+  def progress_slot(role, ids, **options)
+    options.deep_merge(data: { progress_toggle_target: role, kind: "caught",
+                               progress_ids: ids.join(" ") })
+  end
+
+  def progress_count(ids) = tag.span(0, **progress_slot("count", ids))
+
+  def progress_remaining(ids) = tag.span(ids.size, **progress_slot("remaining", ids))
+
+  def progress_meter(ids)
+    tag.div(**progress_slot("meter", ids, class: "pn-wt-meter")) do
+      tag.div(nil, class: "pn-wt-meter__fill")
+    end
+  end
+
+  def meter_percent = tag.span("0%", data: { meter_pct: true })
+
+  # A queued species carries a live body count, so its label is assembled here rather than in the
+  # controller: the number is the only part JS writes, and every word around it stays translated.
+  def body_progress(quota)
+    t("walkthrough.ui.ld_progress_html", want: quota,
+      have: tag.span(0, data: { body_counter_target: "have" }))
+  end
+
+  def body_pill(quota)
+    t("walkthrough.ui.pill_box_html", want: quota,
+      have: tag.span(0, data: { body_counter_target: "have" }))
+  end
+
+  def oak_tally(ids)
+    t("walkthrough.ui.oak_tally_html", total: ids.size, done: progress_count(ids))
+  end
+
+  def ledger_filled(ids)
+    t("walkthrough.ui.ld_ledger_filled_html", total: ids.size, filled: progress_count(ids))
+  end
+
+  def challenge_why(entry) = t(entry.why_key, **entry.why_args)
+
+  def challenge_note_text(note) = t("walkthrough.ui.note_#{note.kind}", **note.args)
+
+  def challenge_note_tag(note) = t("walkthrough.ui.note_tag_#{note.kind}")
+
+  def window_label(window)
+    return t("walkthrough.ui.oak_window_label_final") if window.final?
+
+    t("walkthrough.ui.oak_window_label", leader: window.leader.upcase)
+  end
+
+  def window_title(window)
+    return t("walkthrough.ui.oak_h2_final") if window.final?
+
+    t("walkthrough.ui.oak_h2", leader: window.leader)
+  end
+
+  def window_due_label(window)
+    return t("walkthrough.ui.oak_due_final") if window.final?
+
+    t("walkthrough.ui.oak_due", leader: window.leader.upcase)
+  end
+
+  def modes_off_body(window)
+    return t("walkthrough.ui.modes_off_body_final") if window.final?
+
+    t("walkthrough.ui.modes_off_body", leader: window.leader)
   end
 
   # A trainer is beaten, everything else is collected, so the two tick categories read differently.

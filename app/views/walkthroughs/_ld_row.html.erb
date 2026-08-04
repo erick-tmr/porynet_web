@@ -1,0 +1,30 @@
+<div class="pn-wt-ldrow" data-controller="body-counter" data-body-counter-game-value="<%= @game.slug %>"
+     data-body-counter-dex-value="<%= entry.dex %>" data-body-counter-quota-value="<%= entry.qty %>">
+  <div class="pn-wt-ldrow__top">
+    <span class="pn-wt-ldrow__sprite"><%= r2_image_tag "pokemon/yellow/#{entry.dex}.png", alt: "" %></span>
+    <div class="pn-wt-ldrow__id">
+      <div class="pn-wt-ldrow__name"><%= entry.name %></div>
+      <% if multi %>
+        <span class="pn-wt-ldrow__stop"><%= entry.stop_name.upcase %></span>
+      <% end %>
+      <% if entry.best? %>
+        <span class="pn-wt-ldrow__best"><%= t("walkthrough.ui.best_badge") %></span>
+      <% end %>
+    </div>
+    <span class="pn-wt-ldrow__qty"><%= t("walkthrough.ui.ld_qty", count: entry.qty) %></span>
+  </div>
+
+  <p class="pn-wt-ldrow__why"><%= challenge_why(entry) %></p>
+
+  <div class="pn-wt-ldrow__foot">
+    <div class="pn-wt-stepper">
+      <button type="button" class="pn-wt-stepper__btn" data-action="body-counter#remove"
+              aria-label="<%= t("walkthrough.ui.ld_remove") %>">−</button>
+      <span class="pn-wt-stepper__count" data-body-counter-target="have">0</span>
+      <button type="button" class="pn-wt-stepper__btn pn-wt-stepper__btn--add" data-action="body-counter#add"
+              aria-label="<%= t("walkthrough.ui.ld_add") %>">+</button>
+    </div>
+    <span class="pn-wt-ldrow__prog"><%= body_progress(entry.qty) %></span>
+    <span class="pn-wt-ldrow__met"><%= t("walkthrough.ui.ld_progress_met") %></span>
+  </div>
+</div>

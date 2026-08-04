@@ -1,0 +1,11 @@
+<div class="pn-wt-locked">
+  <span class="pn-wt-locked__sprite"><%= r2_image_tag "pokemon/yellow/#{entry.dex}.png", alt: "" %></span>
+  <div class="pn-wt-locked__body">
+    <div class="pn-wt-locked__id">
+      <span class="pn-wt-locked__num">#<%= entry.dex %></span>
+      <span class="pn-wt-locked__name"><%= entry.name %></span>
+      <span class="pn-wt-locked__gate"><%= t(entry.gate_key, **entry.gate_args) %></span>
+    </div>
+    <p class="pn-wt-locked__where"><%= t(entry.where_key, **entry.where_args) %></p>
+  </div>
+</div>

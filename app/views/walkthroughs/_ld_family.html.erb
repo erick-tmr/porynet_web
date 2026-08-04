@@ -1,0 +1,21 @@
+<div class="pn-wt-ldfam__card">
+  <div class="pn-wt-ldfam__head">
+    <span class="pn-wt-ldfam__name"><%= family.name.upcase %></span>
+    <span class="pn-wt-ldfam__tally"><%= oak_tally(family.stages.map(&:dex)) %></span>
+  </div>
+  <div class="pn-wt-ldfam__rows">
+    <% family.stages.each do |stage| %>
+      <div class="pn-wt-ldstage" <%= tag.attributes(tickable("caught", stage.dex)) %>>
+        <span class="pn-wt-ldstage__sprite"><%= r2_image_tag "pokemon/yellow/#{stage.dex}.png", alt: "" %></span>
+        <div class="pn-wt-ldstage__body">
+          <div class="pn-wt-ldstage__name"><%= stage.name %></div>
+          <div class="pn-wt-ldstage__step"><%= t(stage.step_key, **stage.step_args) %></div>
+        </div>
+        <span class="pn-wt-ldstage__todo">
+          <%= t("walkthrough.ui.ld_stage_needs_#{stage.owed ? 'trade' : 'body'}") %>
+        </span>
+        <span class="pn-wt-ldstage__done"><%= t("walkthrough.ui.ld_stage_in_box") %></span>
+      </div>
+    <% end %>
+  </div>
+</div>

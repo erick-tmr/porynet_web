@@ -1,0 +1,8 @@
+<% here = plan.queue_at(loc.slug) %>
+<div class="pn-wt-bandledger">
+  <% if here.any? %>
+    <%= t("walkthrough.ui.band_ledger", species: here.size, bodies: here.sum(&:qty)) %>
+  <% else %>
+    <%= t("walkthrough.ui.band_ledger_none") %>
+  <% end %>
+</div>

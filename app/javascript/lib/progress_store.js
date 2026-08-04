@@ -11,10 +11,10 @@
 export const STORAGE_KEY = "porynet.progress"
 export const SCHEMA_VERSION = 1
 
-const KINDS = ["collected", "caught"]
+const KINDS = ["collected", "caught", "bodies"]
 
 function emptyState() {
-  return { v: SCHEMA_VERSION, collected: {}, caught: {} }
+  return { v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} }
 }
 
 function normalize(raw) {
@@ -61,6 +61,28 @@ export function toggle(state, kind, game, id) {
 
 export function countSet(state, kind, game, ids) {
   return ids.filter((id) => isSet(state, kind, game, id)).length
+}
+
+// Living Dex counts bodies, not ticks: a species can owe two or three specimens. The count lives
+// under its own kind so the existing boolean kinds keep their shape, and a stored state written
+// before this existed simply normalises to an empty bodies map.
+export function countOf(state, game, dex) {
+  return state.bodies?.[game]?.[dex] || 0
+}
+
+// One body is enough to register the dex entry, so a bump keeps `caught` in step: Oak and Living
+// Dex never disagree about whether you have seen a species.
+export function bump(state, game, dex, delta, quota) {
+  const next = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
+  const bodies = { ...(state.bodies?.[game] || {}), [dex]: next }
+  const caught = { ...(state.caught?.[game] || {}) }
+  if (next > 0) caught[dex] = true
+  else delete caught[dex]
+  return {
+    ...state,
+    bodies: { ...state.bodies, [game]: bodies },
+    caught: { ...state.caught, [game]: caught },
+  }
 }
 
 export function exportJson(state) {

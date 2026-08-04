@@ -34,6 +34,13 @@ const FIXTURE = `
          data-progress-id="010" data-action="${ACTIONS}"></div>
     <span id="caught-count" data-progress-toggle-target="count"
           data-kind="caught" data-progress-ids="010 011 016">0</span>
+    <span id="caught-left" data-progress-toggle-target="remaining"
+          data-kind="caught" data-progress-ids="010 011 016">3</span>
+    <div id="meter-wrap">
+      <div id="meter" data-progress-toggle-target="meter"
+           data-kind="caught" data-progress-ids="010 011 016"></div>
+      <span id="pct" data-meter-pct>0%</span>
+    </div>
   </div>
 `;
 
@@ -245,5 +252,53 @@ describe("teardown", () => {
     await flush();
 
     expect(block.querySelector("#mon").classList.contains("is-done")).toBe(false);
+  });
+});
+
+describe("the window meter", () => {
+  it("counts what is left and fills the bar as a percentage", async () => {
+    await mount();
+
+    expect(el("caught-left").textContent).toBe("3");
+    expect(el("meter").style.getPropertyValue("--pn-meter")).toBe("0%");
+    expect(el("pct").textContent).toBe("0%");
+
+    el("mon").click();
+
+    expect(el("caught-count").textContent).toBe("1");
+    expect(el("caught-left").textContent).toBe("2");
+    expect(el("meter").style.getPropertyValue("--pn-meter")).toBe("33%");
+    expect(el("pct").textContent).toBe("33%");
+  });
+
+  it("reads a full window as a hundred per cent", async () => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        v: 1,
+        collected: {},
+        caught: { yellow: { "010": true, "011": true, "016": true } },
+        bodies: {},
+      })
+    );
+
+    await mount();
+
+    expect(el("caught-left").textContent).toBe("0");
+    expect(el("meter").style.getPropertyValue("--pn-meter")).toBe("100%");
+  });
+
+  it("shows nothing owed rather than dividing by zero on an empty window", async () => {
+    await mount(`
+      <div data-controller="progress-toggle" data-progress-toggle-game-value="yellow">
+        <div id="meter-wrap">
+          <div id="meter" data-progress-toggle-target="meter" data-kind="caught" data-progress-ids=""></div>
+          <span id="pct" data-meter-pct>0%</span>
+        </div>
+      </div>
+    `);
+
+    expect(el("meter").style.getPropertyValue("--pn-meter")).toBe("0%");
+    expect(el("pct").textContent).toBe("0%");
   });
 });

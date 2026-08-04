@@ -9,6 +9,7 @@
     </div>
     <h2 class="pn-wt-band__title"><%= loc.name %></h2>
     <p class="pn-wt-band__lead"><%= t(loc.intro_key) %></p>
+    <%= render "band_ledger", loc: loc, plan: plan %>
   </div>
 </section>
 
@@ -43,7 +44,7 @@
       </div>
       <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: loc.catchable_count) %></div>
     </div>
-    <%= render "catch_grids", loc: loc %>
+    <%= render "catch_grids", loc: loc, plan: plan %>
   </section>
   <% if loc.slug == "cerulean-city" %><%= render "pikachu_friendship" %><% end %>
 <% end %>
@@ -90,18 +91,3 @@
   </section>
 <% end %>
 
-<% if loc.oak_queue.any? %>
-  <section class="pn-wt-section">
-    <div class="pn-wt-band-oak">
-      <div class="pn-wt-band-oak__head">
-        <span class="pn-wt-band-oak__badge"><%= t("walkthrough.ui.oak_here") %></span>
-        <span class="pn-wt-band-oak__title"><%= t("walkthrough.ui.oak_register_before") %></span>
-      </div>
-      <div class="pn-wt-oak__list">
-        <% loc.oak_queue.each do |entry| %>
-          <%= render "oak_row", entry: entry %>
-        <% end %>
-      </div>
-    </div>
-  </section>
-<% end %>

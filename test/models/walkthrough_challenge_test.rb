@@ -133,7 +133,9 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "Caterpie", caterpie.name
     assert_equal %w[010 011 012], caterpie.stages.map(&:dex)
     assert_equal 3, caterpie.total
-    assert_equal 6, forest.stages
+    assert_equal 3, forest.stages
+    assert_equal 1, forest.families.size,
+      "Caterpie and Metapod share a family, so the ledger draws it once"
   end
 
   test "a page with nothing to catch and nothing owed renders no challenge at all" do
