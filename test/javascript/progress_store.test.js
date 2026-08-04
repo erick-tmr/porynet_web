@@ -2,6 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   SCHEMA_VERSION,
   STORAGE_KEY,
+  bump,
+  countOf,
   countSet,
   exportJson,
   importJson,
@@ -26,7 +28,7 @@ afterEach(() => {
 
 describe("load", () => {
   it("starts empty when nothing has been stored", () => {
-    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {} });
+    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} });
   });
 
   it("reads back what was saved", () => {
@@ -38,13 +40,13 @@ describe("load", () => {
   it("discards a payload written by a future schema rather than half-reading it", () => {
     seed(JSON.stringify({ v: 99, collected: { yellow: { a: true } } }));
 
-    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {} });
+    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} });
   });
 
   it("survives a corrupted payload", () => {
     seed("{ not json");
 
-    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {} });
+    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} });
   });
 
   it("fills in a section the payload is missing", () => {
@@ -56,7 +58,7 @@ describe("load", () => {
   it("ignores a section that is not an object", () => {
     seed(JSON.stringify({ v: SCHEMA_VERSION, collected: "nope", caught: null }));
 
-    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {} });
+    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} });
   });
 
   it("falls back when storage is unreadable, as in private mode", () => {
@@ -64,7 +66,7 @@ describe("load", () => {
       throw new Error("SecurityError");
     });
 
-    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {} });
+    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} });
   });
 });
 
@@ -172,5 +174,106 @@ describe("subscribe", () => {
     window.dispatchEvent(new StorageEvent("storage", { key: "unrelated" }));
 
     expect(seen).toHaveLength(0);
+  });
+});
+
+describe("counting bodies", () => {
+  it("reads zero for a species nobody has caught", () => {
+    expect(countOf(load(), "yellow", "010")).toBe(0);
+  });
+
+  it("counts up to the quota and no further", () => {
+    let state = bump(load(), "yellow", "010", 1, 2);
+    expect(countOf(state, "yellow", "010")).toBe(1);
+
+    state = bump(state, "yellow", "010", 1, 2);
+    state = bump(state, "yellow", "010", 1, 2);
+
+    expect(countOf(state, "yellow", "010")).toBe(2);
+  });
+
+  it("never counts below zero", () => {
+    const state = bump(load(), "yellow", "010", -1, 2);
+
+    expect(countOf(state, "yellow", "010")).toBe(0);
+  });
+
+  it("registers the species as caught while it holds a body, and drops it when empty", () => {
+    let state = bump(load(), "yellow", "010", 1, 2);
+    expect(isSet(state, "caught", "yellow", "010")).toBe(true);
+
+    state = bump(state, "yellow", "010", -1, 2);
+
+    expect(isSet(state, "caught", "yellow", "010")).toBe(false);
+  });
+
+  it("leaves the other games and kinds alone", () => {
+    const before = toggle(load(), "collected", "yellow", "route-1/step-1/item-0");
+    const state = bump(before, "yellow", "010", 1, 2);
+
+    expect(isSet(state, "collected", "yellow", "route-1/step-1/item-0")).toBe(true);
+    expect(countOf(state, "red", "010")).toBe(0);
+  });
+
+  it("reads a species registered before bodies existed as holding one", () => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "010": true } } }),
+    );
+
+    const state = load();
+
+    expect(isSet(state, "caught", "yellow", "010")).toBe(true);
+    expect(countOf(state, "yellow", "010")).toBe(1);
+  });
+
+  it("leaves a body count that was already written alone", () => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        v: SCHEMA_VERSION,
+        collected: {},
+        caught: { yellow: { "016": true } },
+        bodies: { yellow: { "016": 3 } },
+      }),
+    );
+
+    expect(countOf(load(), "yellow", "016")).toBe(3);
+  });
+});
+
+describe("one species, two views", () => {
+  it("gives a species its first body when a card is ticked caught", () => {
+    const state = toggle(load(), "caught", "yellow", "025");
+
+    expect(isSet(state, "caught", "yellow", "025")).toBe(true);
+    expect(countOf(state, "yellow", "025")).toBe(1);
+  });
+
+  it("keeps a bigger count when the card is ticked off and on again", () => {
+    let state = bump(load(), "yellow", "016", 1, 3);
+    state = bump(state, "yellow", "016", 1, 3);
+    expect(countOf(state, "yellow", "016")).toBe(2);
+
+    state = toggle(state, "caught", "yellow", "016");
+    expect(countOf(state, "yellow", "016")).toBe(0);
+
+    state = toggle(state, "caught", "yellow", "016");
+    expect(countOf(state, "yellow", "016")).toBe(1);
+  });
+
+  it("clears every body when a card is un-ticked", () => {
+    let state = bump(load(), "yellow", "010", 1, 2);
+    state = toggle(state, "caught", "yellow", "010");
+
+    expect(isSet(state, "caught", "yellow", "010")).toBe(false);
+    expect(countOf(state, "yellow", "010")).toBe(0);
+  });
+
+  it("leaves a collected marker alone, since only species have bodies", () => {
+    const state = toggle(load(), "collected", "yellow", "route-1/step-1/item-0");
+
+    expect(isSet(state, "collected", "yellow", "route-1/step-1/item-0")).toBe(true);
+    expect(state.bodies.yellow).toBeUndefined();
   });
 });

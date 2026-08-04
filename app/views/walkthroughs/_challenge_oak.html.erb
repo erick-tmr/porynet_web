@@ -1,0 +1,76 @@
+<section class="pn-wt-oak" data-controller="disclosure">
+  <div class="pn-wt-oak__inner">
+    <div class="pn-wt-oak__head">
+      <span class="pn-wt-oak__chip"><%= t("walkthrough.ui.oak_eyebrow") %></span>
+      <span class="pn-wt-oak__window">
+        <%= t("walkthrough.ui.oak_window", number: plan.window.label, label: window_label(plan.window)) %>
+      </span>
+    </div>
+    <h2 class="pn-h2"><%= window_title(plan.window) %></h2>
+    <p class="pn-wt-oak__how">
+      <%= link_to t("walkthrough.ui.oak_how"), walkthrough_path(game: @game.slug, anchor: "modes") %>
+    </p>
+    <% if plan.earlier.empty? && plan.window.number > 1 %>
+      <p class="pn-wt-oak__assumes">
+        <%= t("walkthrough.ui.oak_assumes", leader: @game.windows[plan.window.number - 2].leader) %>
+      </p>
+    <% end %>
+
+    <div class="pn-wt-statbar pn-wt-statbar--oak">
+      <div class="pn-wt-statbar__cell">
+        <div class="pn-wt-statbar__label"><%= window_due_label(plan.window) %></div>
+        <div class="pn-wt-statbar__big pn-wt-statbar__big--amber"><%= plan.due_count %></div>
+      </div>
+      <div class="pn-wt-statbar__rule" aria-hidden="true"></div>
+      <div class="pn-wt-statbar__cell">
+        <div class="pn-wt-statbar__label"><%= t("walkthrough.ui.oak_registered") %></div>
+        <div class="pn-wt-statbar__num pn-wt-statbar__num--green"><%= progress_count(plan.due) %></div>
+      </div>
+      <div class="pn-wt-statbar__rule" aria-hidden="true"></div>
+      <div class="pn-wt-statbar__cell">
+        <div class="pn-wt-statbar__label"><%= t("walkthrough.ui.oak_needed") %></div>
+        <div class="pn-wt-statbar__num pn-wt-statbar__num--amber"><%= progress_remaining(plan.due) %></div>
+      </div>
+      <div class="pn-wt-statbar__meter">
+        <%= progress_meter(plan.due) %>
+        <div class="pn-wt-statbar__note"><%= t("walkthrough.ui.oak_meter_note_html", pct: meter_percent) %></div>
+      </div>
+    </div>
+
+    <button type="button" class="pn-wt-fold" data-disclosure-target="toggle"
+            data-action="disclosure#toggle" aria-expanded="false" aria-controls="pn-oak-body">
+      <span class="pn-wt-fold__show"><%= t("walkthrough.ui.oak_fold_show") %></span>
+      <span class="pn-wt-fold__hide"><%= t("walkthrough.ui.oak_fold_hide") %></span>
+      <span class="pn-wt-fold__chevron" aria-hidden="true">▼</span>
+    </button>
+
+    <div id="pn-oak-body" data-disclosure-target="body" hidden>
+    <div class="pn-wt-oakgroups">
+      <% plan.groups.select(&:any?).each do |group| %>
+        <%= render "oak_group", kind: group.kind, tiles: group.tiles,
+                   note: t(group.note_key) %>
+      <% end %>
+      <% if plan.earlier.any? %>
+        <%= render "oak_group", kind: "earlier", tiles: plan.earlier,
+                   note: t("walkthrough.ui.oak_group_earlier_note") %>
+      <% end %>
+    </div>
+
+    <% if plan.locked.any? %>
+      <div class="pn-wt-oaklocked">
+        <div class="pn-wt-oaklocked__head">
+          <span class="pn-wt-oaklocked__tag"><%= t("walkthrough.ui.oak_locked") %></span>
+          <span class="pn-wt-oaklocked__count">
+            <%= t("walkthrough.ui.oak_locked_count", count: plan.locked.size) %>
+          </span>
+        </div>
+        <div class="pn-wt-oaklocked__grid">
+          <% plan.locked.each do |entry| %>
+            <%= render "oak_locked", entry: entry %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</section>

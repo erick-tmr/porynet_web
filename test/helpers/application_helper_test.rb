@@ -91,4 +91,57 @@ class ApplicationHelperTest < ActionView::TestCase
 
     assert_equal I18n.t("walkthrough.ui.map_exit_north"), marker_detail(edge)
   end
+
+  test "a badge window names its leader, and the last one names the League instead" do
+    game = Walkthrough.find!("yellow")
+    brock = game.windows.first
+    league = game.windows.last
+
+    assert_equal "EVERYTHING BEFORE BROCK", window_label(brock)
+    assert_equal "Registered before Brock", window_title(brock)
+    assert_equal "SPECIES DUE BY BROCK", window_due_label(brock)
+
+    assert_equal "EVERYTHING LEFT IN THE DEX", window_label(league)
+    assert_equal "Registered before the League", window_title(league)
+    assert_equal "SPECIES DUE IN ALL", window_due_label(league)
+    assert_includes modes_off_body(league), "the dex still owes"
+  end
+
+  test "a queued species uses its hand-written line when the stop has one" do
+    entry = plan_entry("010", why_key: "walkthrough.ui.ld_why_sole", why_args: { name: "Caterpie" })
+
+    assert_equal "The only Caterpie in the game. Miss it here and you miss it.", challenge_why(entry)
+  end
+
+  test "a note reads from its kind, so a new kind cannot render an untranslated tag" do
+    note = Walkthrough::ChallengeNote.new(kind: :one_copy, args: { names: "Bulbasaur", count: 1 })
+
+    assert_equal "NO SECOND COPY", challenge_note_tag(note)
+    assert_includes challenge_note_text(note), "holds one Bulbasaur and no more"
+  end
+
+  test "the spot chip says whether this really is the best place, or merely a good one" do
+    best = Walkthrough::BestCatch.new(dex: "010", slug: "viridian-forest", rate: "50%")
+
+    assert_equal "BEST PLACE · 50%", catch_spot(plan_entry("010", best: best))
+    assert_equal "GOOD PLACE · 50%", catch_spot(plan_entry("010", best: nil))
+  end
+
+  test "a live count slot names the ids it watches so the controller can total them" do
+    assert_includes progress_remaining(%w[010 011]), 'data-progress-ids="010 011"'
+    assert_includes progress_remaining(%w[010 011]), ">2<"
+    assert_includes progress_meter(%w[010]), 'data-progress-toggle-target="meter"'
+    assert_includes body_progress(2), 'data-body-counter-target="have"'
+  end
+
+  private
+
+  def plan_entry(dex, **overrides)
+    Walkthrough::PlanEntry.new(
+      dex: dex, name: "Caterpie", at: "viridian-forest", stop_name: "Viridian Forest", qty: 2,
+      covers: [ dex ], chain: [ dex ], fresh: true, boxed: false, done_at: nil, how: "GRASS",
+      rate: "50%", best: nil,
+      why_key: nil, why_args: {}, **overrides
+    )
+  end
 end

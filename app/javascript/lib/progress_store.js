@@ -11,10 +11,19 @@
 export const STORAGE_KEY = "porynet.progress"
 export const SCHEMA_VERSION = 1
 
-const KINDS = ["collected", "caught"]
+const KINDS = ["collected", "caught", "bodies"]
 
 function emptyState() {
-  return { v: SCHEMA_VERSION, collected: {}, caught: {} }
+  return { v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} }
+}
+
+function backfill(state) {
+  Object.entries(state.caught).forEach(([game, dexes]) => {
+    const bodies = { ...(state.bodies[game] || {}) }
+    Object.keys(dexes).forEach((dex) => { bodies[dex] ||= 1 })
+    state.bodies[game] = bodies
+  })
+  return state
 }
 
 function normalize(raw) {
@@ -24,7 +33,7 @@ function normalize(raw) {
     const games = raw[kind]
     if (games && typeof games === "object") state[kind] = { ...games }
   })
-  return state
+  return backfill(state)
 }
 
 export function load() {
@@ -51,16 +60,33 @@ export function isSet(state, kind, game, id) {
   return Boolean(state[kind]?.[game]?.[id])
 }
 
+function write(state, kind, game, id, value) {
+  const forGame = { ...(state[kind]?.[game] || {}) }
+  if (value) forGame[id] = value
+  else delete forGame[id]
+  return { ...state, [kind]: { ...state[kind], [game]: forGame } }
+}
+
 // Returns a new state; the caller decides whether to persist it.
 export function toggle(state, kind, game, id) {
-  const forGame = { ...(state[kind]?.[game] || {}) }
-  if (forGame[id]) delete forGame[id]
-  else forGame[id] = true
-  return { ...state, [kind]: { ...state[kind], [game]: forGame } }
+  const on = !isSet(state, kind, game, id)
+  const next = write(state, kind, game, id, on)
+  if (kind !== "caught") return next
+
+  return write(next, "bodies", game, id, on ? Math.max(1, countOf(state, game, id)) : 0)
 }
 
 export function countSet(state, kind, game, ids) {
   return ids.filter((id) => isSet(state, kind, game, id)).length
+}
+
+export function countOf(state, game, dex) {
+  return state.bodies?.[game]?.[dex] || 0
+}
+
+export function bump(state, game, dex, delta, quota) {
+  const count = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
+  return write(write(state, "bodies", game, dex, count), "caught", game, dex, count > 0)
 }
 
 export function exportJson(state) {

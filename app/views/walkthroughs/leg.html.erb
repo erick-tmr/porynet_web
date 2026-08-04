@@ -1,8 +1,9 @@
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% leg_label = @leg.slug.tr("-", " ").upcase %>
+<% plan = @game.plan_for(@leg) %>
 <% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
 <% content_for :head do %>
-  <% sheets = %w[pages/walkthrough pages/walkthrough-map] %>
+  <% sheets = %w[pages/walkthrough pages/walkthrough-map pages/walkthrough-challenge] %>
   <% sheets << "pages/mew-glitch" if @leg.locations.any? { |loc| %w[cerulean-city route-24].include?(loc.slug) } %>
   <%= stylesheet_link_tag(*sheets, "data-turbo-track": "reload") %>
 <% end %>
@@ -48,7 +49,7 @@
 </section>
 
 <% if @leg.single? %>
-  <%= render "band", loc: @leg.locations.first %>
+  <%= render "band", loc: @leg.locations.first, plan: plan %>
 <% else %>
   <div data-controller="leg-switcher">
     <div class="pn-wt-switchbar">
@@ -56,10 +57,14 @@
         <span class="pn-wt-switchbar__label"><%= t("walkthrough.ui.jump_to") %></span>
         <div class="pn-wt-switchbar__chips">
           <% @leg.locations.each do |loc| %>
+            <% work = plan.queue_at(loc.slug) %>
             <button type="button" class="pn-wt-chip" data-leg-switcher-target="chip" data-slug="<%= loc.slug %>" data-action="leg-switcher#jump">
               <span class="pn-wt-chip__no"><%= format("%02d", loc.order) %></span>
               <span class="pn-wt-chip__kind"><%= loc.kind %></span>
               <%= loc.name %>
+              <% if work.any? %>
+                <span class="pn-wt-chip__work"><%= t("walkthrough.ui.work_tag_bodies", count: work.sum(&:qty)) %></span>
+              <% end %>
             </button>
           <% end %>
         </div>
@@ -67,7 +72,7 @@
     </div>
     <% @leg.locations.each do |loc| %>
       <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-slug="<%= loc.slug %>">
-        <%= render "band", loc: loc %>
+        <%= render "band", loc: loc, plan: plan %>
       </div>
     <% end %>
     <% if @leg.finale %>
@@ -78,41 +83,6 @@
   </div>
 <% end %>
 
-<% if @leg.oak_queue.any? %>
-<section class="pn-wt-oak">
-  <div class="pn-wt-oak__inner">
-    <% obtainable = @game.obtainable_upto_leg(@leg).size %>
-    <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.leg_oak_eyebrow") %></div>
-    <h2 class="pn-h2"><%= t("walkthrough.ui.leg_oak_h2") %></h2>
-    <div class="pn-wt-oak__grid">
-      <div class="pn-wt-oak__counter">
-        <div class="pn-wt-oak__caption"><%= t("walkthrough.ui.oak_obtainable") %></div>
-        <div class="pn-wt-oak__total"><%= obtainable %></div>
-        <div class="pn-wt-oak__cards">
-          <div class="pn-wt-oak__sub pn-wt-oak__sub--reg">
-            <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_registered") %></div>
-            <div class="pn-wt-oak__sub-num">
-              <%= progress_count("caught", @game.obtainable_upto_leg(@leg)) %>
-            </div>
-          </div>
-          <div class="pn-wt-oak__sub">
-            <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_needed") %></div>
-            <div class="pn-wt-oak__sub-num pn-wt-oak__sub-num--need"><%= obtainable %></div>
-          </div>
-        </div>
-        <div class="pn-wt-oak__note"><%= t("walkthrough.ui.oak_note") %></div>
-      </div>
-      <div class="pn-wt-oak__list-card">
-        <div class="pn-wt-oak__list-title"><%= t("walkthrough.ui.catch_queue_leg") %></div>
-        <div class="pn-wt-oak__list">
-          <% @leg.oak_queue.each do |entry| %>
-            <%= render "oak_row", entry: entry %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<% end %>
+<%= render "challenges", plan: plan, multi: !@leg.single? %>
 
 <%= render "leg_nav", game: @game, leg: @leg %>

@@ -74,8 +74,89 @@ module ApplicationHelper
     end
   end
 
-  def progress_count(kind, ids)
-    tag.span(0, data: { progress_toggle_target: "count", kind: kind, progress_ids: ids.join(" ") })
+  def progress_slot(role, ids, **options)
+    options.deep_merge(data: { progress_toggle_target: role, kind: "caught",
+                               progress_ids: ids.join(" ") })
+  end
+
+  def progress_count(ids) = tag.span(0, **progress_slot("count", ids))
+
+  def progress_remaining(ids) = tag.span(ids.size, **progress_slot("remaining", ids))
+
+  def progress_meter(ids)
+    tag.div(**progress_slot("meter", ids, class: "pn-wt-meter")) do
+      tag.div(nil, class: "pn-wt-meter__fill")
+    end
+  end
+
+  def meter_percent = tag.span("0%", data: { meter_pct: true })
+
+  def body_count_slot = tag.span(0, data: { body_counter_target: "have" })
+
+  def body_want_slot(quota) = tag.span(quota, data: { body_counter_target: "want" })
+
+  def body_progress(quota)
+    t("walkthrough.ui.ld_caught_progress_html", want: body_want_slot(quota), have: body_count_slot)
+  end
+
+  def body_pill(quota)
+    t("walkthrough.ui.pill_box_html", want: body_want_slot(quota), have: body_count_slot)
+  end
+
+  def body_quota(quota) = t("walkthrough.ui.ld_qty_html", count: body_want_slot(quota))
+
+  def owned_line = t("walkthrough.ui.ld_owned_html", caught: body_count_slot, evolved: 0)
+
+  def catch_card_attributes(dex, entry)
+    tickable("caught", dex).deep_merge(
+      data: { controller: "body-counter", body_counter_game_value: @game.slug,
+              body_counter_dex_value: dex, body_counter_covers_value: entry.covers.to_json }
+    )
+  end
+
+  def catch_spot(entry)
+    return t("walkthrough.ui.ld_spot_given", how: entry.how) unless entry.rated?
+
+    key = entry.best? ? "walkthrough.ui.ld_spot_best" : "walkthrough.ui.ld_spot_good"
+    t(key, rate: entry.rate)
+  end
+
+  def oak_tally(ids)
+    t("walkthrough.ui.oak_tally_html", total: ids.size, done: progress_count(ids))
+  end
+
+  def ledger_filled(ids)
+    t("walkthrough.ui.ld_ledger_filled_html", total: ids.size, filled: progress_count(ids))
+  end
+
+  def challenge_why(entry) = t(entry.why_key, **entry.why_args)
+
+  def challenge_note_text(note) = t("walkthrough.ui.note_#{note.kind}", **note.args)
+
+  def challenge_note_tag(note) = t("walkthrough.ui.note_tag_#{note.kind}")
+
+  def window_label(window)
+    return t("walkthrough.ui.oak_window_label_final") if window.final?
+
+    t("walkthrough.ui.oak_window_label", leader: window.leader.upcase)
+  end
+
+  def window_title(window)
+    return t("walkthrough.ui.oak_h2_final") if window.final?
+
+    t("walkthrough.ui.oak_h2", leader: window.leader)
+  end
+
+  def window_due_label(window)
+    return t("walkthrough.ui.oak_due_final") if window.final?
+
+    t("walkthrough.ui.oak_due", leader: window.leader.upcase)
+  end
+
+  def modes_off_body(window)
+    return t("walkthrough.ui.modes_off_body_final") if window.final?
+
+    t("walkthrough.ui.modes_off_body", leader: window.leader)
   end
 
   # A trainer is beaten, everything else is collected, so the two tick categories read differently.

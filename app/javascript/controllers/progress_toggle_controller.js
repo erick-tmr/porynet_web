@@ -8,7 +8,7 @@ import { countSet, isSet, load, save, subscribe, toggle } from "lib/progress_sto
 // Like the map controller this only moves classes and writes counts, so every string on the
 // page stays server-rendered and translatable.
 export default class extends Controller {
-  static targets = ["item", "count"]
+  static targets = ["item", "count", "remaining", "meter"]
   static values = {
     game: { type: String, default: "yellow" },
     hint: { type: String, default: "" },
@@ -82,8 +82,30 @@ export default class extends Controller {
       item.setAttribute("aria-pressed", String(ticked))
     })
     this.countTargets.forEach((slot) => {
-      const ids = slot.dataset.progressIds.split(" ").filter(Boolean)
-      slot.textContent = String(countSet(this.state, slot.dataset.kind, this.gameValue, ids))
+      slot.textContent = String(this.#done(slot))
+    })
+    this.remainingTargets.forEach((slot) => {
+      slot.textContent = String(this.#ids(slot).length - this.#done(slot))
+    })
+    this.meterTargets.forEach((meter) => {
+      this.#fill(meter)
+    })
+  }
+
+  #ids(slot) {
+    return slot.dataset.progressIds.split(" ").filter(Boolean)
+  }
+
+  #done(slot) {
+    return countSet(this.state, slot.dataset.kind, this.gameValue, this.#ids(slot))
+  }
+
+  #fill(meter) {
+    const total = this.#ids(meter).length
+    const pct = total ? Math.round((this.#done(meter) / total) * 100) : 0
+    meter.style.setProperty("--pn-meter", `${pct}%`)
+    meter.parentElement.querySelectorAll("[data-meter-pct]").forEach((slot) => {
+      slot.textContent = `${pct}%`
     })
   }
 }

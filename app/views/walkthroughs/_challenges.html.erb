@@ -1,0 +1,5 @@
+<% if plan.any? %>
+  <%= render "modes_off", window: plan.window %>
+  <% if plan.living? %><%= render "challenge_living", plan: plan, multi: multi %><% end %>
+  <% if plan.oak? %><%= render "challenge_oak", plan: plan %><% end %>
+<% end %>

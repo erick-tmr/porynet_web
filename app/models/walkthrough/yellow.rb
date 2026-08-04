@@ -111,8 +111,8 @@ module Walkthrough
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-09", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
-      { slug: "leg-10", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
+      { slug: "leg-10", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
       { slug: "leg-11", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "power-plant", special: true, locs: %w[power-plant] },
@@ -140,6 +140,7 @@ module Walkthrough
     def self.game
       locations = all_locations
       by_slug = locations.to_h { |loc| [ loc.slug, loc ] }
+      legs = build_legs(by_slug)
       Game.new(
         slug: "yellow",
         name: "Pokémon Yellow",
@@ -147,8 +148,9 @@ module Walkthrough
         dex_goal: 151,
         oak_example: OAK_EXAMPLE.map { |dex, how| OakExample.new(dex: dex, name: NAMES.fetch(dex), how: how) },
         locations: locations,
-        legs: build_legs(by_slug),
-        best_catches: compute_best_catches(locations)
+        legs: legs,
+        best_catches: compute_best_catches(locations),
+        windows: Challenge.windows(legs)
       )
     end
 
@@ -337,7 +339,7 @@ module Walkthrough
         route_5, route_6, vermilion_city, ss_anne, route_11, digletts_cave,
         route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
-        route_16, route_17, route_18, saffron_city, silph_co, route_19, route_20, seafoam_islands,
+        route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, data.fetch(loc.slug, []))) }
@@ -1138,7 +1140,7 @@ module Walkthrough
     end
 
     def self.fuchsia_city
-      loc("fuchsia-city", "CITY", "Fuchsia City", 33, steps: 4, gym_after: 1, badge: "SOUL",
+      loc("fuchsia-city", "CITY", "Fuchsia City", 33, steps: 4, gym_after: 3, gym_finale: true, badge: "SOUL",
         key_items: { 2 => [ [ "Good Rod", "good_rod" ] ], 4 => [ [ "HM04 Strength", "hm04_strength" ] ] },
         encounters: [
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
@@ -1228,7 +1230,7 @@ module Walkthrough
     end
 
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 38, steps: 3, gym_after: 2, badge: "MARSH",
+      loc("saffron-city", "CITY", "Saffron City", 39, steps: 3, gym_after: 2, badge: "MARSH",
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
@@ -1238,7 +1240,7 @@ module Walkthrough
     end
 
     def self.silph_co
-      loc("silph-co", "BUILDING", "Silph Co.", 39, steps: [
+      loc("silph-co", "BUILDING", "Silph Co.", 38, steps: [
           {},
           { item: [ "Hyper Potion", "hyper-potion" ], scene: "silph-co-item-hyper-potion" },
           { item: [ "Max Revive", "max-revive" ], scene: "silph-co-item-max-revive" },
@@ -1473,7 +1475,7 @@ module Walkthrough
           enc("cerulean-cave", "112", "CAVE", "15%", "58–62", "UNCOMMON", "111", "112"),
           enc("cerulean-cave", "113", "CAVE", "10%", "55–60", "UNCOMMON", "113"),
           enc("cerulean-cave", "132", "CAVE", "15%", "55–65", "UNCOMMON", "132"),
-          enc("cerulean-cave", "026", "CAVE", "4%", "53–64", "RARE", "025", "026"),
+          enc("cerulean-cave", "108", "CAVE", "20%", "50–55", "UNCOMMON", "108", tip: true),
           enc("cerulean-cave", "150", "STATIC", "-", "70", "STATIC", "150", tip: true)
         ],
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])

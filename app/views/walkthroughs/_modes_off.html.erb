@@ -1,0 +1,15 @@
+<section class="pn-wt-section pn-wt-modesoff">
+  <div class="pn-wt-modesoff__inner">
+    <span class="pn-wt-modesoff__tag"><%= t("walkthrough.ui.modes_off_tag") %></span>
+    <p class="pn-wt-modesoff__body"><%= modes_off_body(window) %></p>
+    <div class="pn-wt-modesoff__actions">
+      <% %w[living oak].each do |mode| %>
+        <button type="button" class="pn-wt-modesoff__cta pn-wt-modesoff__cta--<%= mode %>"
+                aria-pressed="false" data-mode-toggle-target="switch" data-mode="<%= mode %>"
+                data-action="mode-toggle#toggle">
+          <%= t("walkthrough.ui.modes_off_#{mode}") %>
+        </button>
+      <% end %>
+    </div>
+  </div>
+</section>

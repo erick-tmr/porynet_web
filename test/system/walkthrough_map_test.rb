@@ -99,15 +99,90 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-catch.is-done"
   end
 
-  test "catching a Pokemon counts toward the leg's registered total" do
-    visit "/walkthroughs/yellow/leg-04"
-    find(".pn-nav__modes .pn-modesw--oak").click
+  test "catching a Pokemon moves the window's registered count, remainder and meter together" do
+    visit_with_modes "/walkthroughs/yellow/leg-04", "oak"
 
-    within first(".pn-wt-oak__sub--reg") { assert_text "0" }
+    within(first(".pn-wt-statbar__num--green")) { assert_text "0" }
+    owed = first(".pn-wt-statbar__num--amber").text.to_i
 
     first(".pn-wt-catch[data-progress-id]").click
 
-    within first(".pn-wt-oak__sub--reg") { assert_text "1" }
+    within(first(".pn-wt-statbar__num--green")) { assert_text "1" }
+    within(first(".pn-wt-statbar__num--amber")) { assert_text (owed - 1).to_s }
+    assert_selector "[data-meter-pct]", text: /%/
+  end
+
+  test "a challenge section keeps its explanation out and folds the lists away" do
+    visit_with_modes "/walkthroughs/yellow/leg-04", "living", "oak"
+
+    assert_selector ".pn-wt-ld .pn-wt-statbar"
+    assert_selector ".pn-wt-oak__window"
+    assert_no_selector ".pn-wt-ldrow"
+    assert_no_selector ".pn-wt-oaktile"
+
+    find(".pn-wt-oak .pn-wt-fold").click
+    assert_selector ".pn-wt-oaktile"
+    assert_no_selector ".pn-wt-ldrow", visible: true
+
+    find(".pn-wt-ld .pn-wt-fold").click
+    assert_selector ".pn-wt-ldrow"
+  end
+
+  test "the Living Dex stepper counts bodies and registers the species on the first one" do
+    visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
+    find(".pn-wt-ld .pn-wt-fold").click
+
+    card = ".pn-wt-catch[data-body-counter-dex-value='010']"
+    row = ".pn-wt-ldrow[data-body-counter-dex-value='010']"
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "0" }
+
+    find("#{card} .pn-wt-stepper__btn--add").click
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "1" }
+    within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "1 / 2" }
+
+    find("#{card} .pn-wt-stepper__btn--add").click
+    assert_selector "#{card}.is-met"
+    assert_selector "#{row}.is-met"
+
+    find("#{card} .pn-wt-stepper__btn--add").click
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "2" }
+
+    assert_selector ".pn-wt-ldstage[data-progress-id='010'].is-done"
+  end
+
+  test "ticking a card caught fills its body in the Living Dex queue, and un-ticking clears it" do
+    visit_with_modes "/walkthroughs/yellow/leg-01", "living"
+    find(".pn-wt-ld .pn-wt-fold").click
+
+    card = ".pn-wt-catch[data-body-counter-dex-value='025']"
+    row = ".pn-wt-ldrow[data-body-counter-dex-value='025']"
+    within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "0 / 1" }
+
+    find(card).click
+
+    assert_selector "#{card}.is-done"
+    assert_selector "#{row}.is-met"
+    assert_selector "#{row} .pn-wt-ldrow__met", text: "QUOTA MET ✓"
+
+    find(card).click
+
+    assert_no_selector "#{row}.is-met"
+    within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "0 / 1" }
+  end
+
+  test "a body registers the species, and stepping again never un-registers it" do
+    visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
+
+    card = ".pn-wt-catch[data-body-counter-dex-value='011']"
+    find("#{card} .pn-wt-stepper__btn--add").click
+
+    assert_selector "#{card}.is-met"
+    assert_selector "#{card}.is-done"
+
+    find("#{card} .pn-wt-stepper__btn--add").click
+
+    assert_selector "#{card}.is-done"
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "1" }
   end
 
   test "a trainer card and its pin are one tick, from either side" do

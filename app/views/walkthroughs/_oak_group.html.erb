@@ -1,0 +1,14 @@
+<div class="pn-wt-oakgroup">
+  <div class="pn-wt-oakgroup__head">
+    <span class="pn-wt-oakgroup__label pn-wt-oakgroup__label--<%= kind %>">
+      <%= t("walkthrough.ui.oak_group_#{kind}") %>
+    </span>
+    <span class="pn-wt-oakgroup__tally"><%= oak_tally(tiles.map(&:dex)) %></span>
+    <span class="pn-wt-oakgroup__note"><%= note %></span>
+  </div>
+  <div class="pn-wt-oakgroup__grid">
+    <% tiles.each do |tile| %>
+      <%= render "oak_tile", tile: tile %>
+    <% end %>
+  </div>
+</div>

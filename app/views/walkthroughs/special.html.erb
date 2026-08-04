@@ -1,7 +1,9 @@
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("walkthrough.ui.title_location", name: @location.name, game: @game.name) %>
+<% plan = @game.plan_for(@leg) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "pages/walkthrough-challenge",
+                          "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -44,42 +46,7 @@
       </div>
       <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: @location.catchable_count) %></div>
     </div>
-    <%= render "catch_grids", loc: @location %>
-  </section>
-<% end %>
-
-<% if @location.oak_queue.any? %>
-  <% obtainable = @game.obtainable_upto_leg(@leg).size %>
-  <section class="pn-wt-oak">
-    <div class="pn-wt-oak__inner">
-      <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.oak_eyebrow") %></div>
-      <h2 class="pn-h2"><%= t("walkthrough.ui.oak_h2") %></h2>
-      <div class="pn-wt-oak__grid">
-        <div class="pn-wt-oak__counter">
-          <div class="pn-wt-oak__caption"><%= t("walkthrough.ui.oak_obtainable") %></div>
-          <div class="pn-wt-oak__total"><%= obtainable %></div>
-          <div class="pn-wt-oak__cards">
-            <div class="pn-wt-oak__sub pn-wt-oak__sub--reg">
-              <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_registered") %></div>
-              <div class="pn-wt-oak__sub-num">0</div>
-            </div>
-            <div class="pn-wt-oak__sub">
-              <div class="pn-wt-oak__sub-label"><%= t("walkthrough.ui.oak_needed") %></div>
-              <div class="pn-wt-oak__sub-num pn-wt-oak__sub-num--need"><%= obtainable %></div>
-            </div>
-          </div>
-          <div class="pn-wt-oak__note"><%= t("walkthrough.ui.oak_note") %></div>
-        </div>
-        <div class="pn-wt-oak__list-card">
-          <div class="pn-wt-oak__list-title"><%= t("walkthrough.ui.catch_queue") %></div>
-          <div class="pn-wt-oak__list">
-            <% @location.oak_queue.each do |entry| %>
-              <%= render "oak_row", entry: entry %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render "catch_grids", loc: @location, plan: plan %>
   </section>
 <% end %>
 
@@ -92,5 +59,7 @@
     <%= render "trainers", trainers: @location.trainers, slug: @location.slug, dense: @location.dense_trainers? %>
   </section>
 <% end %>
+
+<%= render "challenges", plan: plan, multi: false %>
 
 <%= render "leg_nav", game: @game, leg: @leg %>

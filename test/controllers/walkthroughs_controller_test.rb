@@ -159,7 +159,8 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-band__badge", /VOLCANO/
     assert_select ".pn-wt-tagpill--fossil"
     assert_select ".pn-wt-gym__leader-name", text: "Blaine"
-    assert_select ".pn-wt-band-oak"
+    assert_select ".pn-wt-oak__chip", text: "MODO DESAFIO OAK"
+    assert_select ".pn-wt-ld__chip", text: "MODO LIVING DEX"
     assert_select ".pn-wt-trade__tag", text: "TROCA"
   end
 
@@ -235,13 +236,101 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-pin--viridian-forest-antidote"
   end
 
-  test "a trainer-only special hides the catch and Oak sections" do
+  test "a trainer-only special hides the catch and challenge sections" do
     get walkthrough_leg_path(game: "yellow", leg: "ss-anne")
 
     assert_response :success
     assert_select ".pn-wt-catch-grid", false
     assert_select ".pn-wt-oak", false
+    assert_select ".pn-wt-ld", false
+    assert_select ".pn-wt-modesoff", false
     assert_select ".pn-wt-trainer__name", text: "Blue"
+  end
+
+  test "a single-stop page queues its catches, its box ledger and its Oak window" do
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+
+    assert_response :success
+    assert_select ".pn-wt-ld__chip", text: "LIVING DEX MODE"
+    assert_select ".pn-wt-ldrow", count: 2
+    assert_select ".pn-wt-ldrow__qty", text: "×2"
+    assert_select ".pn-wt-statbar__big--cyan", text: "3"
+    assert_select ".pn-wt-ldfam__card", count: 1
+    assert_select ".pn-wt-ldstage", count: 3
+
+    assert_select ".pn-wt-oak__window", text: "WINDOW 01 · EVERYTHING BEFORE BROCK"
+    assert_select ".pn-h2", text: "Registered before Brock"
+    assert_select ".pn-wt-statbar__big--amber", text: "17"
+    assert_select ".pn-wt-oakgroup__label--earlier", text: "EARLIER STOPS"
+    assert_select ".pn-wt-locked__name", text: "Raichu"
+    assert_select ".pn-wt-locked__name", text: "Nidoqueen"
+  end
+
+  test "a multi-stop page merges its stops into one queue and tags each band with its share" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select ".pn-wt-oak__window", text: "WINDOW 02 · EVERYTHING BEFORE MISTY"
+    assert_select ".pn-wt-ldrow", count: 4
+    assert_select ".pn-wt-ldrow__spot", text: "ROUTE 24"
+    assert_select ".pn-wt-bandledger", count: 4
+    assert_select ".pn-wt-chip__work"
+    assert_select ".pn-wt-catchbadge--elsewhere", text: /DO IT AT ROUTE 24/
+    assert_select ".pn-wt-catchbadge--boxed", text: "ALREADY BOXED"
+
+    assert_select ".pn-wt-catch--gift .pn-wt-catch__badges .pn-wt-catchbadge--living"
+    assert_select ".pn-wt-catch--gift .pn-wt-catch__gift-from", text: "FROM THE HILLTOP BOY"
+    assert_select ".pn-wt-catch[data-body-counter-dex-value='004'] .pn-wt-tagpill", count: 1,
+      text: "GIFT"
+  end
+
+  test "the challenge stats are live slots, so the meter and the counts move with the store" do
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+
+    assert_response :success
+    assert_select "[data-progress-toggle-target='meter'][data-kind='caught']"
+    assert_select "[data-progress-toggle-target='remaining'][data-kind='caught']", text: "17"
+    assert_select "[data-meter-pct]", text: "0%"
+    assert_select "[data-controller='body-counter'][data-body-counter-dex-value='010']"
+    assert_select "[data-body-counter-covers-value]"
+  end
+
+  test "a page whose window opened on an earlier page says so instead of repeating it" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-03")
+
+    assert_response :success
+    assert_select ".pn-wt-oak__window", text: "WINDOW 02 · EVERYTHING BEFORE MISTY"
+    assert_select ".pn-wt-oak__assumes", text: /The Brock window closed clean/
+    assert_select ".pn-wt-oakgroup__label--earlier", false
+  end
+
+  test "the Safari Zone sits inside the Koga window now that it precedes his gym" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
+    assert_select ".pn-wt-band__title", text: "Safari Zone"
+    assert_select ".pn-wt-gym__leader-name", text: "Koga"
+  end
+
+  test "the endgame page names the League rather than a leader it does not have" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+
+    assert_response :success
+    assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"
+    assert_select ".pn-h2", text: "Registered before the League"
+    assert_select ".pn-wt-statbar__label", text: "SPECIES DUE IN ALL"
+  end
+
+  test "both challenge sections render even with the modes off, so CSS alone gates them" do
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+
+    assert_response :success
+    assert_select ".pn-wt-modesoff__tag", text: "BOTH MODES OFF"
+    assert_select ".pn-wt-modesoff__cta[data-mode='living']"
+    assert_select ".pn-wt-modesoff__cta[data-mode='oak']"
+    assert_select ".pn-wt-ld"
+    assert_select ".pn-wt-oak"
   end
 
   test "a boss trainer gets its own full-width feature card, apart from the trainer grid" do

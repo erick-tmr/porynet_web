@@ -29,6 +29,9 @@ detectors:
                           # god object.
       - Walkthrough::Yellow   # data source: dex names, leg defs, sprite maps —
                               # each a distinct lookup table, not a god object.
+      - Walkthrough::Evolutions   # the five stone names, the row table transcribed
+                                  # from evos_moves.asm, and the three indexes built
+                                  # off it. All one cohesive lookup.
   UncommunicativeVariableName:
     accept:
       - i                 # plain loop index in the grid/box builders
@@ -41,6 +44,10 @@ detectors:
   LongParameterList:
     exclude:
       - Walkthrough::Yellow
+      - Walkthrough::Challenge  # every builder derives one slice of a page's plan from the
+                                # same four facts (the game, the leg, the species already on
+                                # the page, the roster owed by now). Collapsing them into a
+                                # context object would only rename the same four.
       - Walkthrough::Location   # Data.define cannot declare default values, so this
                                 # initialize is a defaults shim that forwards to super.
                                 # Its keywords are the optional subset of the struct's
@@ -81,6 +88,9 @@ detectors:
   ControlParameter:
     exclude:
       - Walkthrough::Yellow
+      - Walkthrough::Challenge   # `dex` in the encounter finders is the value being looked up,
+                                 # not a flag steering a branch; every one of them is a query
+                                 # over the game's tables.
       - Assets::R2Uploader#call   # `force` is a caller-facing switch on the upload API (re-send
                                   # every image vs only the changed ones), an intended option, not
                                   # a hidden flag threaded through to pick a private branch.
