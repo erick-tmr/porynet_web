@@ -224,11 +224,22 @@ module Walkthrough
 
     def self.step_args(step) = step&.level? ? { level: step.arg } : { stone: step&.arg }
 
+    # Catching and evolving are not two lists of species but one list split by how you would
+    # actually get each one here, so a 1% Venomoth sits under BY EVOLVING next to the Venonat it
+    # grows from rather than under CATCH HERE promising odds nobody should take.
     def self.groups_for(game, leg, entries, due)
+      reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
+      caught, grown = owed_here(game, leg, entries, due)
+        .partition { |dex| catchable_stop(game, dex, reached) }
       [ OakGroup.new(kind: :catch, note_key: "walkthrough.ui.oak_group_catch_note",
-          tiles: entries.select(&:fresh?).map { |entry| catch_tile(entry) }),
+          tiles: caught.map { |dex| tile_for(game, dex, reached) }),
         OakGroup.new(kind: :evolve, note_key: "walkthrough.ui.oak_group_evolve_note",
-          tiles: evolve_tiles(game, leg, entries, due)) ]
+          tiles: grown.map { |dex| tile_for(game, dex, reached) }) ]
+    end
+
+    def self.owed_here(game, leg, entries, due)
+      fresh = entries.select(&:fresh?).map(&:dex)
+      fresh + ((due - registerable_before(game, leg_order(leg).first.slug)) - fresh)
     end
 
     def self.catch_tile(entry)
@@ -237,12 +248,6 @@ module Walkthrough
         via_key: rated ? "walkthrough.ui.via_catch" : "walkthrough.ui.via_gift",
         via_args: rated ? { how: entry.how, rate: entry.rate } : { how: entry.how },
         where_key: "walkthrough.ui.where_stop", where_args: { stop: entry.stop_name })
-    end
-
-    def self.evolve_tiles(game, leg, entries, due)
-      reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
-      ((due - registerable_before(game, leg_order(leg).first.slug)) - entries.map(&:dex))
-        .map { |dex| tile_for(game, dex, reached) }
     end
 
     # A species can be both catchable and evolvable, and the honest answer depends on where you

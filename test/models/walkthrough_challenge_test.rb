@@ -93,6 +93,25 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal [ "Bulbasaur", "Charmander", "Oddish", "Bellsprout" ], leg.queue.map(&:name)
   end
 
+  test "a species is grouped by how you would really get it here, not by whether it spawns" do
+    catch_here, evolving = plan("leg-09").groups
+
+    assert_includes catch_here.tiles.map(&:name), "Venonat", "10% in the grass is worth the walk"
+    assert_includes evolving.tiles.map(&:name), "Venomoth",
+      "Venomoth spawns at 1%, so the honest route is levelling the Venonat"
+    refute_includes catch_here.tiles.map(&:name), "Venomoth"
+  end
+
+  test "a species catchable only past this window is named by its evolution, not its far spawn" do
+    forest = plan("viridian-forest")
+    fearow = forest.earlier.find { |tile| tile.name == "Fearow" }
+
+    assert_equal "walkthrough.ui.where_evolve", fearow.where_key,
+      "Route 17 is ten legs away, so before Brock the only Fearow is a levelled Spearow"
+    assert_equal "Spearow", fearow.where_args[:name]
+    assert_equal "walkthrough.ui.step_level", fearow.via_key
+  end
+
   test "the earlier-stops list is the diff since the last badge, not the whole run" do
     forest = plan("viridian-forest")
 
