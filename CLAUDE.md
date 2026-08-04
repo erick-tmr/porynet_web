@@ -7,7 +7,8 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
 
 ## Commands
 
-- `bin/dev` — Rails server at http://localhost:3000 (Foreman: web + jobs). Postgres must be up first — `docker compose up -d postgres`.
+- `bin/dev` — Rails server at http://localhost:3000 (Foreman: web + jobs). Postgres must be up first — `docker compose up -d postgres`. Binds `0.0.0.0` via `BINDING`; `BINDING=127.0.0.1 bin/dev` keeps it loopback-only.
+- `bin/dev-lan` — `bin/dev` plus the LAN addressing: prints this machine's network URL (and a QR code when `qrencode` is installed) and the mDNS `<hostname>.local` alias, so a phone or another laptop on the same network can open the app. Rails allows raw IPs in development and `config/environments/development.rb` also allows `.local`; other named hosts (a tunnel, a Tailscale machine) go in `DEV_HOSTS`.
 - `bin/setup` — fresh-machine setup: installs gems, starts Postgres via Docker Compose, runs `db:prepare`, then boots the server (`--skip-server` to stop before booting, `--reset` to reset the DB). Needs `cmake` + `pkg-config` for `rugged` (undercover): `brew install cmake` / `sudo apt-get install -y cmake pkg-config`.
 - `bin/pre-push-check` — local CI gauntlet; must pass before pushing. `SKIP_TESTS=1` for docs-only pushes.
 - `bin/ci` — aggregate runner (`config/ci.rb`): setup → rubocop → bundler-audit → importmap audit → brakeman → `bin/rails test` → `npm ci && npm run test:js` → ruff + pytest on `tools/maps`.
