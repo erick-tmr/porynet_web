@@ -349,6 +349,23 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym__leader-note", text: /locks the Swimmer behind her/
   end
 
+  test "Misty closes leg 04, below the routes north, with her own lead-in step" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    bands = css_select(".pn-wt-band-wrap")
+    assert_equal 5, bands.size, "the four stops plus the gym finale"
+    assert_equal %w[route-4 cerulean-city route-24 route-25 cerulean-city],
+      bands.map { |band| band["data-slug"] }
+    assert bands.last.at_css(".pn-wt-gym__leader-name")&.text == "Misty",
+      "Misty's gym card is the last thing on the page"
+    # the Cerulean band itself ends at step 3, with no gym and no "after the gym" section
+    assert_select ".pn-eyebrow-label", text: /AFTER THE GYM/, count: 0
+    assert_select ".pn-eyebrow-label", text: /LAST STOP · BACK TO THE GYM/
+    assert_select ".pn-wt-step__title", text: "Come back down for Misty"
+    assert_select ".pn-wt-step__title", text: "Grab the extras, then head north"
+  end
+
   test "the Cerulean Bulbasaur is a gift card with a Pikachu-friendship unlock condition" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 

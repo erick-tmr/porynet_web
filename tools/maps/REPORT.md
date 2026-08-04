@@ -110,8 +110,8 @@
 ## Step shots
 
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
-- `cerulean-city` step 1: walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
+- `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `mt-moon` step 3: walkthrough/yellow/scenes/mt-moon-moon-stone.png
 - `mt-moon` step 4: walkthrough/yellow/scenes/mt-moon-fossils.png
 - `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png

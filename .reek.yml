@@ -65,6 +65,10 @@ detectors:
                                  # same defaults shim as Walkthrough::Location below.
       - Walkthrough::MartItem    # `rec:` describes the item (is it a flagged pick), it steers
                                  # nothing; same record-describing flag as BestCatch above.
+      - Walkthrough::Location#initialize   # `gym_finale:` describes the stop (does its gym close
+                                           # the whole leg, or sit inside this band), it steers
+                                           # nothing here; same defaults shim as BestCatch, and
+                                           # the same shim already excluded under LongParameterList.
       - Assets::R2Uploader#call   # `force:` is an intended optional switch on the upload API
                                   # (re-send everything vs only changed), defaulting off.
   DataClump:

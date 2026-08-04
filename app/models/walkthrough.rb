@@ -193,13 +193,13 @@ module Walkthrough
 
   Location = Data.define(
     :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
-    :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :area_maps, :later,
-    :trivia, :missable, :mart
+    :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
+    :area_maps, :later, :trivia, :missable, :mart
   ) do
-    def initialize(gym: nil, gym_after: nil, area_maps: [], later: [], trivia: nil, missable: nil,
-      trades: [], mart: nil, **rest)
-      super(gym: gym, gym_after: gym_after, area_maps: area_maps, later: later, trivia: trivia,
-        missable: missable, trades: trades, mart: mart, **rest)
+    def initialize(gym: nil, gym_after: nil, gym_finale: false, area_maps: [], later: [],
+      trivia: nil, missable: nil, trades: [], mart: nil, **rest)
+      super(gym: gym, gym_after: gym_after, gym_finale: gym_finale, area_maps: area_maps,
+        later: later, trivia: trivia, missable: missable, trades: trades, mart: mart, **rest)
     end
 
     def mart? = !mart.nil?
@@ -213,21 +213,27 @@ module Walkthrough
     def catchable_count = wild_encounters.size
     def badge? = !badge.nil?
     def gym? = !gym.nil?
+    def gym_finale? = gym_finale
+    def band_gym? = gym? && !gym_finale
 
     def dense_trainers? = trainers.size > DENSE_TRAINERS
 
-    # steps that lead up to the gym vs. the follow-up steps after it
+    # steps that lead up to the gym, then the rest: rendered after the gym in this band, or
+    # held back with the gym itself when it closes the whole leg
     def lead_steps = gym_after ? steps.first(gym_after) : steps
-    def after_steps = gym_after ? steps.drop(gym_after) : []
+    def trailing_steps = gym_after ? steps.drop(gym_after) : []
+    def after_steps = gym_finale ? [] : trailing_steps
+    def finale_steps = gym_finale ? trailing_steps : []
   end
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do
     def single? = locations.one?
     def from = locations.first.name
-    def to = locations.last.name
+    def to = (finale || locations.last).name
     def catch_count = locations.sum(&:catchable_count)
     def dex_list = locations.flat_map(&:dex_list).uniq
     def gyms = locations.select(&:badge?)
+    def finale = locations.find(&:gym_finale?)
     def oak_queue = locations.flat_map(&:oak_queue).uniq(&:dex)
   end
 

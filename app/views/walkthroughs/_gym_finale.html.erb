@@ -1,0 +1,11 @@
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_finale_eyebrow") %></div>
+  <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_finale_h2", name: loc.name) %></h3>
+  <div class="pn-wt-steps">
+    <% loc.finale_steps.each do |step| %>
+      <%= render "step", step: step, slug: loc.slug %>
+    <% end %>
+  </div>
+</section>
+
+<%= render "gym", gym: loc.gym, slug: loc.slug %>

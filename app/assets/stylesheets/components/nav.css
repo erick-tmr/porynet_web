@@ -206,8 +206,7 @@
   background: #080a16;
   box-shadow: 0 0 16px #2af0ff44;
 }
-.pn-nav__panel-link,
-.pn-nav__panel-cta {
+.pn-nav__panel-link {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 600;
   font-size: 18px;
@@ -215,18 +214,11 @@
   padding: 15px 28px;
   border-bottom: 1px solid #1a2740;
 }
-.pn-nav__panel-link:hover,
-.pn-nav__panel-cta:hover {
+.pn-nav__panel-link:hover {
   color: #2af0ff;
   background: #0c1226;
 }
 .pn-nav__panel-link.is-active { color: #2af0ff; text-shadow: 0 0 8px #2af0ff; }
-.pn-nav__panel-cta {
-  color: #ff3dae;
-  border-bottom: none;
-  text-shadow: 0 0 8px #ff3dae88;
-}
-.pn-nav__panel-cta:hover { color: #ff3dae; }
 
 .pn-nav__panel-mode {
   cursor: pointer;
@@ -261,8 +253,7 @@
 
 @media (max-width: 1240px) {
   .pn-nav__menu,
-  .pn-nav__crumb,
-  .pn-nav__cta { display: none; }
+  .pn-nav__crumb { display: none; }
   .pn-nav__burger { display: inline-flex; }
   .pn-nav.is-open .pn-nav__panel { display: flex; }
 }
@@ -271,6 +262,5 @@
   .pn-wordmark { font-size: 15px; }
   .pn-nav__bar { padding: 12px 18px; }
   .pn-nav__panel-link,
-  .pn-nav__panel-cta,
   .pn-nav__panel-mode { padding: 15px 18px; }
 }

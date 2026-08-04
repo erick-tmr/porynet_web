@@ -7,7 +7,6 @@ en:
         home: "Home"
         walkthroughs: "Walkthroughs"
         tracker: "Collection Tracker"
-        start: "START"
         menu: "Menu"
         lang_toggle: "PT"
         lang_title: "Português / English"
@@ -155,6 +154,8 @@ en:
       steps_h2: "Your path, step by step"
       steps_after_eyebrow: "AFTER THE GYM · WHERE NEXT"
       steps_after_h2: "Where to go next"
+      steps_finale_eyebrow: "LAST STOP · BACK TO THE GYM"
+      steps_finale_h2: "Finish the leg in %{name}"
       item_kind: "· ITEM"
       mart_eyebrow: "POKÉ MART · %{count} ITEMS"
       mart_h3: "What the Mart sells"
@@ -453,7 +454,7 @@ en:
         leg_03:
           lead: "Brock's Boulder Badge and the climb east toward Mt. Moon."
         leg_04:
-          lead: "Out of Mt. Moon to Cerulean and Misty, then the Nugget Bridge routes up to Bill's cottage."
+          lead: "Out of Mt. Moon into Cerulean, up the Nugget Bridge routes to Bill's cottage, then back down for Misty."
         leg_05:
           lead: "South from Cerulean to Vermilion City and Lt. Surge, via the Underground Path shortcut."
         leg_06:
@@ -1130,11 +1131,11 @@ en:
               swimmer: "Do NOT beat this Trainer if you plan to run the Mew glitch. His Shellder's Attack stage sets Mew's level."
               misty: "Beating Misty locks the Swimmer behind her. Leave her standing until after your Mew run."
           note: "Misty's Gym. Cascade Badge. Free Bulbasaur too."
-          intro: "A water-gym city. Beat Misty, and if Pikachu likes you, claim a free Bulbasaur."
+          intro: "A water-gym city. Sweep the town, run the routes north to Bill, and come back for Misty at the end. If Pikachu likes you, there is a free Bulbasaur here too."
           steps:
             "1":
-              title: "Heal, shop, and enter the Gym"
-              text: "Arrive from Route 4, heal at the Center and stock the Mart, then enter the Gym. Lead with Pikachu or a Grass type against Misty's Water team."
+              title: "Heal and stock up"
+              text: "Arrive from Route 4, heal at the Center and stock the Mart. Leave the Gym alone for now: everything north of town is worth doing first, and Misty closes this leg."
             "2":
               title: "Grab the hidden Rare Candy"
               text: "One free level, sitting in plain ground. A Rare Candy is buried on an open tile near the top of town. Line up on the square just below it and press A. Nothing shows on-screen."
@@ -1145,6 +1146,9 @@ en:
               text: "Take the free Bulbasaur from Melanie's house if Pikachu's friendship is high. The burgled house near the north stays sealed until later; when the officer moves on, chase the thief out its back for TM28 (Dig). Then head north onto Nugget Bridge (Route 24)."
               items:
                 bicycle: "From the Bike Shop, once you trade in the Bike Voucher you earn in Vermilion. You will come back for it, then never walk again."
+            "4":
+              title: "Come back down for Misty"
+              text: "With Bill's S.S. Ticket in your bag, walk back south off Nugget Bridge into Cerulean. Heal at the Center, restock any Poké Balls the routes ate, then step into the Gym. Lead with Pikachu or a Grass type against Misty's Water team."
           tips:
             bulbasaur: "Free from Melanie's house once Pikachu is happy. Evolves all the way to Venusaur."
           oak:

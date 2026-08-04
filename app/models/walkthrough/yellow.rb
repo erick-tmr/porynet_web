@@ -752,7 +752,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, key_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, trivia: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, key_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
@@ -764,7 +764,7 @@ module Walkthrough
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
-        gym: gym, gym_after: gym_after, trivia: trivia
+        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia
       )
     end
 
@@ -926,7 +926,7 @@ module Walkthrough
     end
 
     def self.cerulean_city
-      loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 3, shots: [ 1, 3 ], gym_after: 1, badge: "CASCADE",
+      loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 4, shots: [ 3, 4 ], gym_after: 3, gym_finale: true, badge: "CASCADE",
         hidden_items: { 2 => [ [ "Rare Candy", "rare_candy", "cerulean-city-hidden-rare-candy", "cerulean-rare-candy" ] ] },
         key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png") ],

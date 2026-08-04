@@ -2,7 +2,7 @@
 #
 # Pre-push gate: mirrors the CI gates locally so nothing red lands on
 # origin/main. Runs rubocop, brakeman, bundler-audit, importmap audit, reek
-# (advisory), gitleaks (when installed), semgrep diff-mode (when semgrep or
+# (blocking here, advisory in CI), gitleaks (when installed), semgrep diff-mode (when semgrep or
 # docker is available), the Rails suite, undercover changed-line coverage, the
 # Vitest JS suite, then the Python map-generator suite (ruff + pytest, when a
 # pokeyellow checkout is present). Run this manually before `git push`.
@@ -36,10 +36,17 @@ step "importmap audit"
 bin/importmap audit
 ok "importmap audit"
 
-step "reek (changed files, advisory)"
-CHANGED_RB="$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- 'app/**/*.rb' 'lib/**/*.rb' | tr '\n' ' ')"
+# Blocking, unlike CI's advisory report: "reek at zero on changed files" is the
+# rule, and a gate you can read past is a gate you miss. Diffs the merge-base
+# against the working tree, not HEAD, so a run made before committing still
+# lints the work in progress instead of passing on an empty file list.
+step "reek (changed files)"
+REEK_BASE="$(git merge-base origin/main HEAD)"
+CHANGED_RB="$( { git diff --name-only --diff-filter=ACMR "$REEK_BASE" -- 'app/**/*.rb' 'lib/**/*.rb'
+                 git ls-files --others --exclude-standard -- 'app/**/*.rb' 'lib/**/*.rb'; } | sort -u | tr '\n' ' ')"
 if [ -n "$CHANGED_RB" ]; then
-  bundle exec reek --force-exclusion $CHANGED_RB || true
+  printf '  %s\n' "$CHANGED_RB"
+  bundle exec reek --force-exclusion $CHANGED_RB
 else
   printf '  (no changed Ruby files vs origin/main)\n'
 fi
