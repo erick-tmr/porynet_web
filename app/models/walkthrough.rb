@@ -173,6 +173,12 @@ module Walkthrough
   Trade = Data.define(:give, :receive, :nick, :npc_key, :title_key, :where_key, :note_key, :house,
     :inside)
 
+  Evolution = Data.define(:from, :to, :kind, :arg) do
+    def level? = kind == :level
+    def stone? = kind == :stone
+    def trade? = kind == :trade
+  end
+
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
   OakExample = Data.define(:dex, :name, :how)
   BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
