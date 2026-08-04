@@ -381,7 +381,7 @@
   {
     "type": "screen",
     "slug": "cerulean-city",
-    "step": 1,
+    "step": 4,
     "name": "cerulean-gym-entrance",
     "map": "CeruleanCity",
     "player": [

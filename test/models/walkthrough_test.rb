@@ -52,6 +52,12 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "Route 1", leg1.to
     refute leg1.single?
     assert game.leg!("leg-06").single?
+
+    # leg 04 doubles back: the routes north are the middle, the Cerulean gym is the destination
+    leg4 = game.leg!("leg-04")
+    assert_equal "Route 4", leg4.from
+    assert_equal "Cerulean City", leg4.to
+    assert_equal "Route 25", leg4.locations.last.name
   end
 
   test "leg_before and leg_after walk the legs and stop at the ends" do
@@ -99,6 +105,31 @@ class WalkthroughTest < ActiveSupport::TestCase
       game.locations.select(&:badge?).map(&:slug)
     assert_equal %w[cinnabar-island], game.leg!("leg-12").gyms.map(&:slug)
     assert_equal %w[viridian-gym], game.leg!("leg-13").gyms.map(&:slug)
+  end
+
+  test "Pewter splits its steps around the gym, in the band" do
+    pewter = loc("pewter-city")
+    assert pewter.band_gym?
+    refute pewter.gym_finale?
+    assert_equal [ 1 ], pewter.lead_steps.map(&:n)
+    assert_equal [ 2 ], pewter.after_steps.map(&:n)
+    assert_empty pewter.finale_steps
+  end
+
+  test "Cerulean holds Misty back to close the leg, after the routes north" do
+    cerulean = loc("cerulean-city")
+    assert cerulean.gym?
+    refute cerulean.band_gym?, "the gym must not render inside the Cerulean band"
+    assert cerulean.gym_finale?
+    assert_equal [ 1, 2, 3 ], cerulean.lead_steps.map(&:n)
+    assert_empty cerulean.after_steps, "nothing renders under AFTER THE GYM any more"
+    assert_equal [ 4 ], cerulean.finale_steps.map(&:n)
+    assert_equal cerulean, game.leg!("leg-04").finale
+    assert_nil game.leg!("leg-03").finale
+  end
+
+  test "a finale gym only sits on a multi-stop leg, where the leg page can render it" do
+    assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end
 
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do

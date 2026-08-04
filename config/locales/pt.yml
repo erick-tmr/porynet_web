@@ -155,6 +155,8 @@ pt:
       steps_h2: "Seu caminho, passo a passo"
       steps_after_eyebrow: "APÓS O GINÁSIO · PARA ONDE IR"
       steps_after_h2: "Para onde ir a seguir"
+      steps_finale_eyebrow: "ÚLTIMA PARADA · DE VOLTA AO GINÁSIO"
+      steps_finale_h2: "Feche a etapa em %{name}"
       item_kind: "· ITEM"
       mart_eyebrow: "POKÉ MART · %{count} ITENS"
       mart_h3: "O que o Mart vende"
@@ -453,7 +455,7 @@ pt:
         leg_03:
           lead: "A Boulder Badge do Brock e a subida a leste rumo ao Mt. Moon."
         leg_04:
-          lead: "Do Mt. Moon até Cerulean e a Misty, depois as rotas da Nugget Bridge até a cabana do Bill."
+          lead: "Do Mt. Moon até Cerulean, subindo as rotas da Nugget Bridge até a cabana do Bill, e então de volta para a Misty."
         leg_05:
           lead: "Ao sul de Cerulean até Vermilion City e o Lt. Surge, pelo atalho do Underground Path."
         leg_06:
@@ -1130,11 +1132,11 @@ pt:
               swimmer: "NÃO vença este Treinador se você planeja fazer o glitch do Mew. O estágio de Ataque do Shellder dele define o nível do Mew."
               misty: "Vencer a Misty tranca o Swimmer atrás dela. Deixe-a de pé até depois da sua corrida do Mew."
           note: "Ginásio da Misty. Cascade Badge. E um Bulbasaur grátis."
-          intro: "Uma cidade de ginásio aquático. Vença a Misty e, se o Pikachu gostar de você, pegue um Bulbasaur grátis."
+          intro: "Uma cidade de ginásio aquático. Limpe a cidade, percorra as rotas ao norte até o Bill e volte para a Misty no fim. Se o Pikachu gostar de você, ainda tem um Bulbasaur grátis aqui."
           steps:
             "1":
-              title: "Cure, compre e entre no Ginásio"
-              text: "Chegando da Rota 4, cure no Centro e abasteça no Mart, depois entre no Ginásio. Lidere com Pikachu ou um tipo Grama contra a equipe de Agua de Misty."
+              title: "Cure e abasteça"
+              text: "Chegando da Rota 4, cure no Centro e abasteça no Mart. Deixe o Ginásio quieto por enquanto: tudo ao norte da cidade vale a pena antes, e a Misty fecha esta etapa."
             "2":
               title: "Pegue o Rare Candy escondido"
               text: "Um nível de graça, largado no chão aberto. Um Rare Candy está enterrado em um tile aberto perto do topo da cidade. Alinhe-se no quadrado logo abaixo dele e aperte A. Nada aparece na tela."
@@ -1145,6 +1147,9 @@ pt:
               text: "Pegue o Bulbasaur grátis na casa da Melanie se a amizade do Pikachu estiver alta. A casa assaltada perto do norte fica lacrada até mais tarde; quando a oficial sair, persiga o ladrão pelos fundos dela pelo TM28 (Dig). Depois siga ao norte para a Nugget Bridge (Rota 24)."
               items:
                 bicycle: "Na Bike Shop, quando você troca o Bike Voucher que ganha em Vermilion. Você volta pra pegar, e nunca mais anda a pé."
+            "4":
+              title: "Desça de volta para a Misty"
+              text: "Com o S.S. Ticket do Bill na mochila, volte ao sul pela Nugget Bridge até Cerulean. Cure no Centro, reponha as Poké Balls que as rotas consumiram e entre no Ginásio. Lidere com Pikachu ou um tipo Grama contra a equipe de Água da Misty."
           tips:
             bulbasaur: "Grátis na casa da Melanie quando o Pikachu está feliz. Evolui até Venusaur."
           oak:
