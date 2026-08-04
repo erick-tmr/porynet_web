@@ -486,11 +486,7 @@
   padding: 7px 9px;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
 }
-
-.pn-wt-ldstage:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #171622; }
-.pn-wt-ldstage:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #171622; }
 
 .pn-wt-ldstage.is-done { background: color-mix(in srgb, var(--done-green) 12%, #fff); }
 
@@ -588,11 +584,8 @@
   border: 3px solid #171622;
   box-shadow: 4px 4px 0 #171622;
   padding: 8px;
-  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
 }
 
-.pn-wt-oaktile:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #171622; }
-.pn-wt-oaktile:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #171622; }
 .pn-wt-oaktile.is-done { background: color-mix(in srgb, var(--done-green) 12%, #fff); }
 
 .pn-wt-oaktile__sprite {
@@ -868,14 +861,4 @@
   .pn-wt-ldfam,
   .pn-wt-oakgroup__grid,
   .pn-wt-oaklocked__grid { grid-template-columns: 1fr; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pn-wt-oaktile,
-  .pn-wt-ldstage { transition: none; }
-
-  .pn-wt-oaktile:hover,
-  .pn-wt-oaktile:active,
-  .pn-wt-ldstage:hover,
-  .pn-wt-ldstage:active { transform: none; }
 }

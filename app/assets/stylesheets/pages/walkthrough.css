@@ -544,6 +544,95 @@ a.pn-wt-route__card:hover {
   color: #171622;
 }
 
+/* ---- every click-to-tick surface ---- */
+.pn-wt-item,
+.pn-wt-hidden,
+.pn-wt-later,
+.pn-wt-catch,
+.pn-wt-trade,
+.pn-wt-trainer,
+.pn-wt-gym-tr,
+.pn-wt-gym__leader,
+.pn-wt-oaktile,
+.pn-wt-ldstage {
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+
+.pn-wt-item:hover,
+.pn-wt-hidden:hover,
+.pn-wt-later:hover,
+.pn-wt-catch:hover,
+.pn-wt-trade:hover,
+.pn-wt-trainer:hover,
+.pn-wt-gym-tr:hover,
+.pn-wt-gym__leader:hover,
+.pn-wt-oaktile:hover,
+.pn-wt-ldstage:hover {
+  transform: translate(-2px, -2px);
+}
+
+.pn-wt-item:active,
+.pn-wt-hidden:active,
+.pn-wt-later:active,
+.pn-wt-catch:active,
+.pn-wt-trade:active,
+.pn-wt-trainer:active,
+.pn-wt-gym-tr:active,
+.pn-wt-gym__leader:active,
+.pn-wt-oaktile:active,
+.pn-wt-ldstage:active {
+  transform: translate(1px, 1px);
+}
+
+.pn-wt-item:hover { box-shadow: 2px 2px 0 #171622; }
+.pn-wt-item:active { box-shadow: none; }
+.pn-wt-ldstage:hover { box-shadow: 4px 4px 0 #171622; }
+.pn-wt-ldstage:active { box-shadow: 1px 1px 0 #171622; }
+.pn-wt-hidden:hover,
+.pn-wt-oaktile:hover { box-shadow: 6px 6px 0 #171622; }
+.pn-wt-hidden:active,
+.pn-wt-oaktile:active { box-shadow: 2px 2px 0 #171622; }
+.pn-wt-later:hover,
+.pn-wt-catch:hover,
+.pn-wt-trade:hover { box-shadow: 7px 7px 0 #171622; }
+.pn-wt-later:active,
+.pn-wt-catch:active,
+.pn-wt-trade:active { box-shadow: 3px 3px 0 #171622; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-item,
+  .pn-wt-hidden,
+  .pn-wt-later,
+  .pn-wt-catch,
+  .pn-wt-trade,
+  .pn-wt-trainer,
+  .pn-wt-gym-tr,
+  .pn-wt-gym__leader,
+  .pn-wt-oaktile,
+  .pn-wt-ldstage { transition: none; }
+
+  .pn-wt-item:hover,
+  .pn-wt-item:active,
+  .pn-wt-hidden:hover,
+  .pn-wt-hidden:active,
+  .pn-wt-later:hover,
+  .pn-wt-later:active,
+  .pn-wt-catch:hover,
+  .pn-wt-catch:active,
+  .pn-wt-trade:hover,
+  .pn-wt-trade:active,
+  .pn-wt-trainer:hover,
+  .pn-wt-trainer:active,
+  .pn-wt-gym-tr:hover,
+  .pn-wt-gym-tr:active,
+  .pn-wt-gym__leader:hover,
+  .pn-wt-gym__leader:active,
+  .pn-wt-oaktile:hover,
+  .pn-wt-oaktile:active,
+  .pn-wt-ldstage:hover,
+  .pn-wt-ldstage:active { transform: none; }
+}
+
 /* ---- location header ---- */
 .pn-wt-loc__tags {
   display: flex;
