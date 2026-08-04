@@ -100,8 +100,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   end
 
   test "catching a Pokemon moves the window's registered count, remainder and meter together" do
-    visit "/walkthroughs/yellow/leg-04"
-    find(".pn-nav__modes .pn-modesw--oak").click
+    visit_with_modes "/walkthroughs/yellow/leg-04", "oak"
 
     within(first(".pn-wt-statbar__num--green")) { assert_text "0" }
     owed = first(".pn-wt-statbar__num--amber").text.to_i
@@ -114,8 +113,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   end
 
   test "the Living Dex stepper counts bodies and registers the species on the first one" do
-    visit "/walkthroughs/yellow/viridian-forest"
-    find(".pn-nav__modes .pn-modesw--living").click
+    visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
 
     card = ".pn-wt-catch[data-body-counter-dex-value='010']"
     row = ".pn-wt-ldrow[data-body-counter-dex-value='010']"
@@ -135,9 +133,27 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-ldstage[data-progress-id='010'].is-done"
   end
 
+  test "ticking a card caught fills its body in the Living Dex queue, and un-ticking clears it" do
+    visit_with_modes "/walkthroughs/yellow/leg-01", "living"
+
+    card = ".pn-wt-catch[data-body-counter-dex-value='025']"
+    row = ".pn-wt-ldrow[data-body-counter-dex-value='025']"
+    within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "0 / 1" }
+
+    find(card).click
+
+    assert_selector "#{card}.is-done"
+    assert_selector "#{row}.is-met"
+    assert_selector "#{row} .pn-wt-ldrow__met", text: "QUOTA MET ✓"
+
+    find(card).click
+
+    assert_no_selector "#{row}.is-met"
+    within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "0 / 1" }
+  end
+
   test "a body registers the species, and stepping again never un-registers it" do
-    visit "/walkthroughs/yellow/viridian-forest"
-    find(".pn-nav__modes .pn-modesw--living").click
+    visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
 
     card = ".pn-wt-catch[data-body-counter-dex-value='011']"
     find("#{card} .pn-wt-stepper__btn--add").click

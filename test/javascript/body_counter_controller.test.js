@@ -7,8 +7,6 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 let application;
 
-// Mirrors the Living Dex queue row: a minus/plus pair around the live body count, with the
-// quota-met wording sitting beside it for CSS to swap in.
 const FIXTURE = `
   <div id="row" data-controller="body-counter" data-body-counter-game-value="yellow"
        data-body-counter-dex-value="010" data-body-counter-quota-value="2">
@@ -74,7 +72,7 @@ describe("counting bodies", () => {
     el("minus").click();
 
     expect(have()).toBe("0");
-    expect(stored().bodies.yellow["010"]).toBe(0);
+    expect(stored().bodies.yellow["010"]).toBeUndefined();
   });
 
   it("writes every slot that asks for the count", async () => {
@@ -130,7 +128,7 @@ describe("keeping Oak in step", () => {
     el("minus").click();
 
     expect(stored().caught.yellow["010"]).toBeUndefined();
-    expect(stored().bodies.yellow["010"]).toBe(0);
+    expect(stored().bodies.yellow["010"]).toBeUndefined();
   });
 });
 

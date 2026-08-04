@@ -215,7 +215,7 @@ describe("counting bodies", () => {
     expect(countOf(state, "red", "010")).toBe(0);
   });
 
-  it("reads a state saved before bodies existed as an empty count", () => {
+  it("reads a species registered before bodies existed as holding one", () => {
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "010": true } } }),
@@ -224,6 +224,56 @@ describe("counting bodies", () => {
     const state = load();
 
     expect(isSet(state, "caught", "yellow", "010")).toBe(true);
+    expect(countOf(state, "yellow", "010")).toBe(1);
+  });
+
+  it("leaves a body count that was already written alone", () => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        v: SCHEMA_VERSION,
+        collected: {},
+        caught: { yellow: { "016": true } },
+        bodies: { yellow: { "016": 3 } },
+      }),
+    );
+
+    expect(countOf(load(), "yellow", "016")).toBe(3);
+  });
+});
+
+describe("one species, two views", () => {
+  it("gives a species its first body when a card is ticked caught", () => {
+    const state = toggle(load(), "caught", "yellow", "025");
+
+    expect(isSet(state, "caught", "yellow", "025")).toBe(true);
+    expect(countOf(state, "yellow", "025")).toBe(1);
+  });
+
+  it("keeps a bigger count when the card is ticked off and on again", () => {
+    let state = bump(load(), "yellow", "016", 1, 3);
+    state = bump(state, "yellow", "016", 1, 3);
+    expect(countOf(state, "yellow", "016")).toBe(2);
+
+    state = toggle(state, "caught", "yellow", "016");
+    expect(countOf(state, "yellow", "016")).toBe(0);
+
+    state = toggle(state, "caught", "yellow", "016");
+    expect(countOf(state, "yellow", "016")).toBe(1);
+  });
+
+  it("clears every body when a card is un-ticked", () => {
+    let state = bump(load(), "yellow", "010", 1, 2);
+    state = toggle(state, "caught", "yellow", "010");
+
+    expect(isSet(state, "caught", "yellow", "010")).toBe(false);
     expect(countOf(state, "yellow", "010")).toBe(0);
+  });
+
+  it("leaves a collected marker alone, since only species have bodies", () => {
+    const state = toggle(load(), "collected", "yellow", "route-1/step-1/item-0");
+
+    expect(isSet(state, "collected", "yellow", "route-1/step-1/item-0")).toBe(true);
+    expect(state.bodies.yellow).toBeUndefined();
   });
 });

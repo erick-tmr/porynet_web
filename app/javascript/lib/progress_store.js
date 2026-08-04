@@ -17,6 +17,15 @@ function emptyState() {
   return { v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} }
 }
 
+function backfill(state) {
+  Object.entries(state.caught).forEach(([game, dexes]) => {
+    const bodies = { ...(state.bodies[game] || {}) }
+    Object.keys(dexes).forEach((dex) => { bodies[dex] ||= 1 })
+    state.bodies[game] = bodies
+  })
+  return state
+}
+
 function normalize(raw) {
   if (!raw || raw.v !== SCHEMA_VERSION) return emptyState()
   const state = emptyState()
@@ -24,7 +33,7 @@ function normalize(raw) {
     const games = raw[kind]
     if (games && typeof games === "object") state[kind] = { ...games }
   })
-  return state
+  return backfill(state)
 }
 
 export function load() {
@@ -51,12 +60,20 @@ export function isSet(state, kind, game, id) {
   return Boolean(state[kind]?.[game]?.[id])
 }
 
+function write(state, kind, game, id, value) {
+  const forGame = { ...(state[kind]?.[game] || {}) }
+  if (value) forGame[id] = value
+  else delete forGame[id]
+  return { ...state, [kind]: { ...state[kind], [game]: forGame } }
+}
+
 // Returns a new state; the caller decides whether to persist it.
 export function toggle(state, kind, game, id) {
-  const forGame = { ...(state[kind]?.[game] || {}) }
-  if (forGame[id]) delete forGame[id]
-  else forGame[id] = true
-  return { ...state, [kind]: { ...state[kind], [game]: forGame } }
+  const on = !isSet(state, kind, game, id)
+  const next = write(state, kind, game, id, on)
+  if (kind !== "caught") return next
+
+  return write(next, "bodies", game, id, on ? Math.max(1, countOf(state, game, id)) : 0)
 }
 
 export function countSet(state, kind, game, ids) {
@@ -68,16 +85,8 @@ export function countOf(state, game, dex) {
 }
 
 export function bump(state, game, dex, delta, quota) {
-  const next = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
-  const bodies = { ...(state.bodies?.[game] || {}), [dex]: next }
-  const caught = { ...(state.caught?.[game] || {}) }
-  if (next > 0) caught[dex] = true
-  else delete caught[dex]
-  return {
-    ...state,
-    bodies: { ...state.bodies, [game]: bodies },
-    caught: { ...state.caught, [game]: caught },
-  }
+  const count = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
+  return write(write(state, "bodies", game, dex, count), "caught", game, dex, count > 0)
 }
 
 export function exportJson(state) {
