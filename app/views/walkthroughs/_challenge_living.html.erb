@@ -1,23 +1,27 @@
 <% stage_ids = plan.families.flat_map { |family| family.stages.map(&:dex) }.uniq %>
-<section class="pn-wt-ld" data-controller="disclosure">
+<section class="pn-wt-ld is-open" data-controller="disclosure" data-disclosure-open-value="true">
   <div class="pn-wt-ld__inner">
     <div class="pn-wt-ld__head">
       <span class="pn-wt-ld__chip"><%= t("walkthrough.ui.ld_eyebrow") %></span>
       <span class="pn-wt-ld__kicker"><%= t("walkthrough.ui.ld_kicker") %></span>
     </div>
     <h2 class="pn-h2"><%= t("walkthrough.ui.ld_h2") %></h2>
-    <p class="pn-wt-lead"><%= t("walkthrough.ui.ld_lead_#{multi ? 'multi' : 'single'}") %></p>
     <p class="pn-wt-ld__how">
       <%= link_to t("walkthrough.ui.ld_how"), walkthrough_path(game: @game.slug, anchor: "modes") %>
     </p>
 
-    <div class="pn-wt-statbar">
+    <div class="pn-wt-statbar" data-controller="ld-stats"
+         data-ld-stats-game-value="<%= @game.slug %>"
+         data-ld-stats-entries-value="<%= ld_stat_entries(plan.queue) %>">
       <div class="pn-wt-statbar__cell">
         <div class="pn-wt-statbar__label"><%= t("walkthrough.ui.ld_stat_bodies") %></div>
         <div class="pn-wt-statbar__row">
-          <span class="pn-wt-statbar__big pn-wt-statbar__big--cyan"><%= plan.bodies %></span>
+          <span class="pn-wt-statbar__big pn-wt-statbar__big--cyan">
+            <%= ld_bodies_slot(plan.bodies) %>
+          </span>
           <span class="pn-wt-statbar__unit"><%= t("walkthrough.ui.ld_stat_bodies_unit") %></span>
         </div>
+        <div class="pn-wt-statbar__clear"><%= t("walkthrough.ui.ld_stat_clear") %></div>
       </div>
       <div class="pn-wt-statbar__rule" aria-hidden="true"></div>
       <div class="pn-wt-statbar__cell">
@@ -34,13 +38,13 @@
     </div>
 
     <button type="button" class="pn-wt-fold" data-disclosure-target="toggle"
-            data-action="disclosure#toggle" aria-expanded="false" aria-controls="pn-ld-body">
+            data-action="disclosure#toggle" aria-expanded="true" aria-controls="pn-ld-body">
       <span class="pn-wt-fold__show"><%= t("walkthrough.ui.ld_fold_show") %></span>
       <span class="pn-wt-fold__hide"><%= t("walkthrough.ui.ld_fold_hide") %></span>
       <span class="pn-wt-fold__chevron" aria-hidden="true">▼</span>
     </button>
 
-    <div id="pn-ld-body" data-disclosure-target="body" hidden>
+    <div id="pn-ld-body" data-disclosure-target="body">
     <div class="pn-wt-ldq">
       <% plan.queue.each do |entry| %>
         <%= render "ld_row", entry: entry, multi: multi %>

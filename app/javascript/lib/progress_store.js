@@ -84,6 +84,16 @@ export function countOf(state, game, dex) {
   return state.bodies?.[game]?.[dex] || 0
 }
 
+export function needFor(state, game, dex, covers) {
+  const stages = covers.length ? covers : [ dex ]
+  const spare = stages.filter((id) => id !== dex && isSet(state, "caught", game, id))
+  return stages.length - spare.length
+}
+
+export function owedFor(state, game, dex, covers) {
+  return Math.max(0, needFor(state, game, dex, covers) - countOf(state, game, dex))
+}
+
 export function bump(state, game, dex, delta, quota) {
   const count = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
   return write(write(state, "bodies", game, dex, count), "caught", game, dex, count > 0)
