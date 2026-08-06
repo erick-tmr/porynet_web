@@ -40,13 +40,19 @@ def hero_cell(root_str, map_label, grid, step):
     straddle), a gym swimmer's shot stays on the poolside rather than floating mid-pool, and open
     water is still allowed last (a route swimmer is fought while surfing). A trainer boxed against
     the wall it faces has nothing in front at all (a Game Corner Rocket), so the last resort is the
-    nearest such tile in any direction: off a solid tile beats in-frame."""
+    nearest such tile in any direction: off a solid tile beats in-frame.
+
+    Another person or an item ball already holds its cell against you, so those are skipped too:
+    the game blocks you from walking into one, and a shot that ignores that draws the hero on top of
+    whoever stands there, quietly deleting them from the frame."""
     const, tileset = sources.parse_headers(root_str)[map_label]
     _idx, w_blocks, h_blocks = sources.parse_map_constants(root_str)[0][const]
     w_cells, h_cells = w_blocks * 2, h_blocks * 2
+    taken = {tuple(o["grid"]) for o in
+             sources.parse_object_events(root_str, map_label, include_battlers=True)}
 
     def on(predicate, x, y):
-        return 0 <= x < w_cells and 0 <= y < h_cells and \
+        return 0 <= x < w_cells and 0 <= y < h_cells and (x, y) not in taken and \
             predicate(root_str, map_label, tileset, w_blocks, (x, y))
 
     line = [(grid[0] + step[0] * d, grid[1] + step[1] * d)

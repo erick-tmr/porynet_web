@@ -167,6 +167,27 @@ def test_no_where_scene_straddles_the_hero_across_a_hedge(root):
             f"{spec['name']} straddles the hero at {spec['player']}"
 
 
+def test_no_where_scene_stands_the_hero_on_another_object(root):
+    """A person or an item ball holds its cell against you, and the render draws the hero over
+    whoever is there, so the shot silently loses them."""
+    _, specs = built(root)
+
+    for spec in specs:
+        taken = {tuple(o["grid"]): o["sprite_const"] for o
+                 in sources.parse_object_events(root, spec["map"], include_battlers=True)}
+        assert tuple(spec["player"]) not in taken, \
+            f"{spec['name']} stands the hero on {taken.get(tuple(spec['player']))}"
+
+
+def test_the_dojo_hero_stands_between_the_master_and_the_black_belt(root):
+    """Regression: the Karate Master's card stood the hero two cells ahead on [5, 5], the cell
+    Black Belt 3 occupies, so the shot showed four Black Belts instead of five."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "saffron-city-fightingdojo-trainer-5-3")
+
+    assert spec["player"] == [5, 4]
+
+
 def test_the_bug_catcher_hero_steps_off_the_hedge_row(root):
     """Regression for the impossible-tile card: the Route 3 Bug Catcher hero moved off [19, 7]
     (feet on the hedge) up onto [19, 6], the grass row it can actually stand on."""

@@ -371,9 +371,9 @@ en:
       ld_eyebrow: "LIVING DEX MODE"
       ld_kicker: "ONE OF EVERY SPECIES"
       ld_h2: "How many to catch here"
+      ld_how: "How Living Dex mode works ▸"
       ld_lead_single: "Counted once for the whole page, at the best odds in the game for each species."
       ld_lead_multi: "Counted once for the whole page, not once per stop, because these stops share their grass."
-      ld_how: "How Living Dex mode works ▸"
       ld_stat_bodies: "CATCHES DUE HERE"
       ld_stat_bodies_unit: "SPECIMENS"
       ld_stat_species: "SPECIES QUEUED"
@@ -1030,9 +1030,9 @@ en:
               text: "Step in through the south gate. Tall grass fills the whole maze, your only shot at Caterpie, Metapod and Pidgey. A Lass and a handful of Bug Catchers wait in the trees for easy Pikachu XP."
             "2":
               title: "Check the lone tree"
-              text: "Just inside the south gate stands a single tree. Step up beside it, face the tree tile and press A for a hidden Antidote."
+              text: "Just inside the south gate stands a single tree, with a Youngster parked on the tile below it. Come at the tree from its left side, face east into it and press A for a hidden Antidote."
               hidden:
-                antidote: "At the foot of the lone tree just inside the south gate. Face the tile and press A. Nothing shows on-screen."
+                antidote: "The lone tree just inside the south gate. The Youngster holds the tile below it, so stand on the tree's west side, face east and press A. Nothing shows on-screen."
             "3":
               title: "Raid the northwest dead-end"
               text: "Head northwest to the grassy dead-end, beating the Lass on the way for easy XP. A Poké Ball sits on the ground against the west wall at the very end of the path."

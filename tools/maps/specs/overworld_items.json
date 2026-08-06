@@ -27,9 +27,10 @@
   "map": "CeruleanCave1F",
   "player": [
    29,
-   16
+   15
   ],
-  "player_dir": "UP",
+  "player_dir": "DOWN",
+  "follower": false,
   "focus": [
    29,
    16
@@ -1062,10 +1063,10 @@
   "name": "rocket-hideout-hidden-nugget",
   "map": "RocketHideoutB3F",
   "player": [
-   26,
-   17
+   27,
+   18
   ],
-  "player_dir": "RIGHT",
+  "player_dir": "UP",
   "focus": [
    27,
    17
@@ -1085,15 +1086,18 @@
   "name": "rocket-hideout-item-lift-key",
   "map": "RocketHideoutB4F",
   "player": [
-   11,
-   2
+   10,
+   3
   ],
-  "player_dir": "LEFT",
+  "player_dir": "UP",
   "focus": [
    10,
    2
   ],
   "auto_npcs": true,
+  "show": [
+   "ROCKETHIDEOUTB4F_LIFT_KEY"
+  ],
   "parent": "CELADON_CITY"
  },
  {
@@ -1158,6 +1162,12 @@
    2
   ],
   "auto_npcs": true,
+  "show": [
+   "ROCKETHIDEOUTB4F_SILPH_SCOPE"
+  ],
+  "hide": [
+   "ROCKETHIDEOUTB4F_GIOVANNI"
+  ],
   "parent": "CELADON_CITY"
  },
  {
@@ -1174,6 +1184,9 @@
    1
   ],
   "auto_npcs": true,
+  "hide": [
+   "ROCKETHIDEOUTB4F_GIOVANNI"
+  ],
   "parent": "CELADON_CITY",
   "marker": [
    25,
@@ -2405,10 +2418,10 @@
   "name": "viridian-forest-hidden-antidote",
   "map": "ViridianForest",
   "player": [
-   16,
-   43
+   15,
+   42
   ],
-  "player_dir": "UP",
+  "player_dir": "RIGHT",
   "focus": [
    16,
    42

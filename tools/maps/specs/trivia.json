@@ -3,11 +3,9 @@
     "type": "screen", "name": "pewter-jigglypuff",
     "map": "PewterPokecenter", "parent": "PEWTER_CITY",
     "player": [2, 3], "player_dir": "LEFT", "focus": [2, 3],
+    "auto_npcs": true,
     "sprites": [
-      {"sprite": "SPRITE_JIGGLYPUFF", "grid": [1, 3], "dir": "DOWN"},
-      {"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN", "emote": "zzz"},
-      {"sprite": "SPRITE_NURSE", "grid": [3, 1], "dir": "DOWN"},
-      {"sprite": "SPRITE_CHANSEY", "grid": [4, 1], "dir": "DOWN"}
+      {"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN", "emote": "zzz"}
     ]
   },
   {
