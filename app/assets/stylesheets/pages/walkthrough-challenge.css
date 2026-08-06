@@ -186,6 +186,21 @@
 .pn-wt-statbar__num--green { color: var(--term-green); }
 .pn-wt-statbar__num--amber { color: var(--amber); }
 
+.pn-wt-statbar__clear {
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #171622;
+  background: #7CE38B;
+  border: 2px solid #171622;
+  padding: 7px 8px;
+  margin-top: 9px;
+}
+
+.pn-wt-statbar.is-clear .pn-wt-statbar__clear { display: inline-block; }
+.pn-wt-statbar.is-clear .pn-wt-statbar__row { display: none; }
+
 .pn-wt-statbar__rule { width: 2px; align-self: stretch; background: #2a3350; }
 .pn-wt-statbar__spacer { flex: 1; min-width: 0; }
 

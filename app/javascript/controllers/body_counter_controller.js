@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { bump, countOf, isSet, load, save, subscribe } from "lib/progress_store"
+import { bump, countOf, load, needFor, save, subscribe } from "lib/progress_store"
 
 export default class extends Controller {
   static targets = ["have", "want"]
@@ -34,15 +34,8 @@ export default class extends Controller {
     event.stopPropagation()
   }
 
-  #stages() {
-    return this.coversValue.length ? this.coversValue : [ this.dexValue ]
-  }
-
   #need() {
-    const spare = this.#stages().filter(
-      (dex) => dex !== this.dexValue && isSet(this.state, "caught", this.gameValue, dex),
-    )
-    return this.#stages().length - spare.length
+    return needFor(this.state, this.gameValue, this.dexValue, this.coversValue)
   }
 
   #commit(delta) {

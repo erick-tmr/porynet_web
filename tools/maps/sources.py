@@ -304,14 +304,18 @@ def _object_events(root_str, map_label):
     return tuple(out)
 
 
-def parse_object_events(root_str, map_label, include_battlers=False):
+def parse_object_events(root_str, map_label, include_battlers=False, show=(), hide=()):
     """Return the map's objects as [{grid:(x,y), sprite_const, movement, direction, kind, ...}].
 
     Plain people are always returned; trainers and item balls are included only when
     `include_battlers` is set (e.g. to show a gym's leader and trainers on its map). Source
-    coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop)."""
+    coords are the raw 16px movement grid (the +4 border the macro adds is a detail we drop).
+
+    `show` and `hide` move an object across the map-load state for a caller that knows it is
+    depicting a later moment. They come in pairs as often as not, because one script beat does
+    both: beating Giovanni on B4F hides him and reveals the Silph Scope in the same breath."""
     const, _tileset = parse_headers(root_str).get(map_label, (None, None))
-    hidden = parse_hidden_objects(root_str).get(const, set())
+    hidden = parse_hidden_objects(root_str).get(const, set()).difference(show).union(hide)
     objects = tuple(o for o in _object_events(root_str, map_label) if o["const"] not in hidden)
     if include_battlers:
         return objects

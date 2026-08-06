@@ -105,6 +105,10 @@ module ApplicationHelper
 
   def body_quota(quota) = t("walkthrough.ui.ld_qty_html", count: body_want_slot(quota))
 
+  def ld_stat_entries(queue) = queue.map { |entry| { dex: entry.dex, covers: entry.covers } }.to_json
+
+  def ld_bodies_slot(count) = tag.span(count, data: { ld_stats_target: "bodies" })
+
   def owned_line = t("walkthrough.ui.ld_owned_html", caught: body_count_slot, evolved: 0)
 
   def catch_card_attributes(dex, entry)

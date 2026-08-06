@@ -1,4 +1,4 @@
-<section class="pn-wt-oak" data-controller="disclosure">
+<section class="pn-wt-oak is-open" data-controller="disclosure" data-disclosure-open-value="true">
   <div class="pn-wt-oak__inner">
     <div class="pn-wt-oak__head">
       <span class="pn-wt-oak__chip"><%= t("walkthrough.ui.oak_eyebrow") %></span>
@@ -38,13 +38,13 @@
     </div>
 
     <button type="button" class="pn-wt-fold" data-disclosure-target="toggle"
-            data-action="disclosure#toggle" aria-expanded="false" aria-controls="pn-oak-body">
+            data-action="disclosure#toggle" aria-expanded="true" aria-controls="pn-oak-body">
       <span class="pn-wt-fold__show"><%= t("walkthrough.ui.oak_fold_show") %></span>
       <span class="pn-wt-fold__hide"><%= t("walkthrough.ui.oak_fold_hide") %></span>
       <span class="pn-wt-fold__chevron" aria-hidden="true">▼</span>
     </button>
 
-    <div id="pn-oak-body" data-disclosure-target="body" hidden>
+    <div id="pn-oak-body" data-disclosure-target="body">
     <div class="pn-wt-oakgroups">
       <% plan.groups.select(&:any?).each do |group| %>
         <%= render "oak_group", kind: group.kind, tiles: group.tiles,

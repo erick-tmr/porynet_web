@@ -36,11 +36,13 @@ def _resolve_sprite(root, entry):
     return {"file": file, "frame": frame, "grid": entry["grid"], "flip": flip}
 
 
-def auto_npcs(root, map_label, battlers=False):
+def auto_npcs(root, map_label, battlers=False, show=(), hide=()):
     """Every person object on the map, at its real cell and facing. With `battlers`, also the
-    map's trainers and item balls (its leader / gym trainers / ground items)."""
+    map's trainers and item balls (its leader / gym trainers / ground items). `show` / `hide` move
+    an object across its map-load state for a scene set later in the story."""
     out = []
-    for obj in sources.parse_object_events(root, map_label, include_battlers=battlers):
+    for obj in sources.parse_object_events(root, map_label, include_battlers=battlers,
+                                           show=show, hide=hide):
         frame, flip = compositor.DIR_TO_FRAME.get(obj["direction"], (0, False))
         file = sources.parse_sprite_table(root).get(obj["sprite_const"])
         if file:
@@ -82,7 +84,7 @@ def gen_map_scene(root, spec):
     image, colors = compositor.render_map(root, spec["map"], spec.get("parent"))
     sprites = [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
-        sprites += auto_npcs(root, spec["map"])
+        sprites += auto_npcs(root, spec["map"], show=spec.get("show", ()), hide=spec.get("hide", ()))
     hero = next((s for s in spec.get("sprites", []) if s.get("sprite") == HERO_SPRITE), None)
     if hero:
         trailing = _follower(root, spec, hero["grid"], hero.get("dir", "DOWN"), sprites)
@@ -104,13 +106,18 @@ def _screen_sprites(root, spec):
     something: without them the reference tile has no anchor on screen. A hand-composed scene (one
     that places its own `sprites`, e.g. a rival face-off) keeps exactly that cast unless it sets
     `auto_npcs`; every other scene shows its NPCs by default. An NPC on the hero's or a placed
-    sprite's cell is dropped so nothing double-draws."""
+    sprite's cell is dropped so nothing double-draws.
+
+    `show` / `hide` let a scene set later in the story move an object across its map-load state, so
+    it comes back (or goes) at its real cell, sprite and facing rather than being retyped as
+    `sprites`."""
     sprites = [_resolve_sprite(root, {"sprite": HERO_SPRITE, "grid": spec["player"],
                                       "dir": spec.get("player_dir", "DOWN")})]
     sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs", not spec.get("sprites")):
         taken = {tuple(s["grid"]) for s in sprites}
-        sprites += [npc for npc in auto_npcs(root, spec["map"], battlers=True)
+        sprites += [npc for npc in auto_npcs(root, spec["map"], battlers=True,
+                                             show=spec.get("show", ()), hide=spec.get("hide", ()))
                     if tuple(npc["grid"]) not in taken]
     return sprites
 

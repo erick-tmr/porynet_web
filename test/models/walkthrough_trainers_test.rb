@@ -78,11 +78,11 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_empty location("route-1").trainers
   end
 
-  test "gym trainers come from the gym floor and claim no letter" do
+  test "gym trainers come from the gym floor and claim its pin letters" do
     gym = location("celadon-city").gym
 
     assert_equal 7, gym.trainers.size
-    assert(gym.trainers.all? { |card| card.marker_key.nil? })
+    assert_equal %w[B C D E F G H], gym.trainers.map(&:marker_key).sort
     assert_equal "Erika", gym.leader.name
     assert_equal "ERIKA:1", gym.leader.opp
   end

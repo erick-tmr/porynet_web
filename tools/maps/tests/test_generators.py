@@ -134,16 +134,18 @@ def test_a_hand_composed_scene_keeps_only_its_own_cast(root):
     assert sorted(grids) == sorted([hero, rival]), "only the hero and the placed rival"
 
 
-def test_pewter_jigglypuff_scene_shows_nurse_joy(root):
-    """The Jigglypuff trivia is set in the Pewter Poke Center, so Nurse Joy (SPRITE_NURSE at [3, 1])
-    and her Chansey ([4, 1]) must staff the healing counter; without them the counter reads as an
-    empty machine. The scene hand-composes its cast, so these are placed explicitly."""
+def test_pewter_jigglypuff_scene_draws_the_whole_room(root):
+    """Regression: restating the Poke Center's people as `sprites` lost the Cooltrainer F standing
+    in front of the counter, so the scene takes its cast from the map and hand-places only the
+    sleeping Pikachu, which the game does not put there."""
     spec = _trivia_spec("pewter-jigglypuff")
     grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
 
     assert [3, 1] in grids, "Nurse Joy staffs the healing counter"
     assert [4, 1] in grids, "her Chansey stands beside her"
+    assert [4, 3] in grids, "the Cooltrainer F waiting in front of the counter"
     assert [1, 3] in grids and [3, 3] in grids, "the Jigglypuff and sleeping Pikachu are kept"
+    assert [s["sprite"] for s in spec["sprites"]] == ["SPRITE_PIKACHU"], "only the staged Pikachu"
 
 
 def test_a_scene_never_double_draws_an_npc_under_a_placed_sprite(root):
@@ -236,6 +238,99 @@ def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
             for cell in cells:
                 assert _cell_walkable(root, spec["map"], cell), \
                     f"{spec['name']} ({fname}): hero cell {cell} on {spec['map']} is not walkable floor"
+
+
+def test_interaction_scenes_never_stand_the_hero_on_another_object(root):
+    """The other half of a legal hero tile: open floor is not enough if somebody already holds it.
+    Regressions this catches: the Antidote hero on Viridian Forest's Youngster, the Lift Key hero
+    on the B4F Rocket, the Nugget and Rare Candy heroes on the balls their captions point at."""
+    for fname in INTERACTION_SPEC_FILES:
+        for spec in json.loads((SPECS / fname).read_text()):
+            taken = {tuple(o["grid"]): o["sprite_const"] for o
+                     in sources.parse_object_events(root, spec["map"], include_battlers=True)}
+            cells = [tuple(spec["player"])] if "player" in spec else []
+            cells += [tuple(s["grid"]) for s in spec.get("sprites", []) if s.get("sprite") == "SPRITE_RED"]
+            for cell in cells:
+                assert cell not in taken, \
+                    f"{spec['name']} ({fname}): hero cell {cell} is held by {taken.get(cell)}"
+
+
+def test_an_object_the_game_starts_switched_off_stays_out_of_a_scene(root):
+    """The default `show` opts out of, and the rule that correctly keeps Oak out of the Pallet Town
+    exit shot: an object switched off at map load is not drawn."""
+    balls = [o["grid"] for o in sources.parse_object_events(root, "RocketHideoutB4F", include_battlers=True)]
+
+    assert (10, 2) not in balls, "the Lift Key ball is switched off at map load"
+    assert (10, 12) in balls, "the HP Up ball on the same floor ships switched on"
+
+
+def test_show_puts_a_switched_off_object_back_at_its_real_cell(root):
+    """`show` pulls the object out of the game rather than restating it, so its cell, sprite and
+    facing cannot drift from the disassembly the way a hand-placed sprite can."""
+    spec = _item_spec("rocket-hideout-item-lift-key")
+    drawn = {tuple(s["grid"]): s["file"] for s in generators._screen_sprites(root, spec)}
+
+    assert drawn.get((10, 2)) == "poke_ball", "the shot telling you to grab the Lift Key shows it"
+    assert (11, 2) in drawn, "the Rocket who dropped it is still standing there"
+
+
+def test_show_and_hide_only_name_objects_that_move(root):
+    """An entry matching nothing does nothing, and would read as a fix that quietly stopped
+    working: `show` must name an object the map ships off, `hide` one it ships on."""
+    for fname in INTERACTION_SPEC_FILES + ["step_shots.json", "encounters.json", "mew_glitch.json"]:
+        for spec in json.loads((SPECS / fname).read_text()):
+            if not (spec.get("show") or spec.get("hide")):
+                continue
+            const = sources.parse_headers(root)[spec["map"]][0]
+            off = sources.parse_hidden_objects(root).get(const, set())
+            on_map = {o["const"] for o in sources._object_events(root, spec["map"])}
+            for name in spec.get("show", []):
+                assert name in off, \
+                    f"{spec['name']} ({fname}): show {name} is not switched off on {spec['map']}"
+            for name in spec.get("hide", []):
+                assert name in on_map - off, \
+                    f"{spec['name']} ({fname}): hide {name} is not switched on on {spec['map']}"
+
+
+def test_beating_giovanni_takes_him_off_the_floor_it_reveals_the_scope_on(root):
+    """One script beat does both (HideObject GIOVANNI then ShowObject ITEM_4 in
+    RocketHideoutB4F.asm), so no shot may claim the Silph Scope is there and Giovanni still is."""
+    for name in ("rocket-hideout-item-silph-scope", "rocket-hideout-hidden-super-potion"):
+        cells = [tuple(s["grid"]) for s in generators._screen_sprites(root, _item_spec(name))]
+
+        assert (25, 3) not in cells, f"{name} still draws Giovanni after he leaves"
+
+    scope = generators._screen_sprites(root, _item_spec("rocket-hideout-item-silph-scope"))
+
+    assert {tuple(s["grid"]): s["file"] for s in scope}.get((25, 2)) == "poke_ball", \
+        "the shot telling you to grab the Silph Scope shows it"
+
+
+def test_a_later_scene_on_the_same_floor_leaves_a_collected_ball_taken(root):
+    """The judgement no field expresses: the walkthrough sends you past these two after the Lift Key
+    and Silph Scope steps, and the Super Potion shot stands the hero on the Scope's own cell."""
+    for name in ("rocket-hideout-item-tm-razor-wind", "rocket-hideout-hidden-super-potion"):
+        spec = _item_spec(name)
+        drawn = {tuple(s["grid"]): s["file"] for s in generators._screen_sprites(root, spec)}
+
+        assert not spec.get("show"), f"{name} is set after those balls are picked up"
+        assert "poke_ball" not in (drawn.get((10, 2)), drawn.get((25, 2))), \
+            f"{name} draws a ball the walkthrough already had you collect"
+
+
+def test_viridian_forest_antidote_hero_stands_beside_the_youngster(root):
+    """Regression: this shot stood the hero on [16, 43], the Youngster's own cell, so the NPC
+    vanished under the hero. The tree is walled in on three sides, leaving its west cell."""
+    spec = _item_spec("viridian-forest-hidden-antidote")
+    hero, item = tuple(spec["player"]), tuple(spec["marker"])
+    youngster = next(o for o in sources.parse_object_events(root, "ViridianForest")
+                     if o["grid"] == (16, 43))
+
+    assert hero != youngster["grid"], "the Youngster keeps the cell south of the tree"
+    assert (item[0] - hero[0], item[1] - hero[1]) == (1, 0), "one tile west of the Antidote tile"
+    assert spec["player_dir"] == "RIGHT", "facing east into the tree"
+    assert youngster["grid"] in [tuple(s["grid"]) for s in generators._screen_sprites(root, spec)], \
+        "the shot still draws the Youngster the game puts there"
 
 
 def test_collision_flags_the_counter_the_dewgong_hero_once_sat_on(root):

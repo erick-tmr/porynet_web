@@ -20,6 +20,13 @@ const FIXTURE = `
   </div>
 `;
 
+const OPEN_FIXTURE = `
+  <div data-controller="disclosure" data-disclosure-open-value="true" class="is-open">
+    <button id="toggle" data-disclosure-target="toggle" data-action="disclosure#toggle" aria-expanded="true">Hide</button>
+    <div id="body" data-disclosure-target="body">secret</div>
+  </div>
+`;
+
 const root = () => document.querySelector("[data-controller='disclosure']");
 
 beforeEach(() => {
@@ -50,5 +57,20 @@ describe("disclosure_controller", () => {
 
     expect(document.getElementById("body").hidden).toBe(true);
     expect(root().classList.contains("is-open")).toBe(false);
+  });
+
+  it("starts open when the markup says so, and still closes on toggle", async () => {
+    await mount(OPEN_FIXTURE);
+
+    expect(document.getElementById("body").hidden).toBe(false);
+    expect(root().classList.contains("is-open")).toBe(true);
+    expect(document.getElementById("toggle").getAttribute("aria-expanded")).toBe("true");
+
+    document.getElementById("toggle").click();
+    await flush();
+
+    expect(document.getElementById("body").hidden).toBe(true);
+    expect(root().classList.contains("is-open")).toBe(false);
+    expect(document.getElementById("toggle").getAttribute("aria-expanded")).toBe("false");
   });
 });
