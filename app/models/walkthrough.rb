@@ -235,10 +235,13 @@ module Walkthrough
   end
 
   Gym = Data.define(
-    :type, :name, :intro_key, :shot, :badge, :badge_img, :tm, :puzzle, :trainers, :leader
+    :type, :name, :intro_key, :shot, :area, :badge, :badge_img, :tm, :puzzle, :trainers, :leader
   ) do
+    def initialize(area: nil, **rest) = super
     def puzzle? = puzzle.any?
     def trainers? = trainers.any?
+    def area? = !area.nil?
+    def pins = area? ? area.markers_in("trainer") : []
   end
 
   Location = Data.define(

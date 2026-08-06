@@ -135,7 +135,7 @@ def build_roster(root_str):
                 continue
             area = locations.image_name(slug, floor)
             for index, obj in enumerate(_map_trainers(root_str, label)):
-                key = None if floor == "Gym" else markers.key_letters(index)
+                key = markers.key_letters(index)
                 name = scene_name(area, obj)
                 specs.append(where_spec(root_str, label, parent, obj, name))
                 entries.append(entry_for(root_str, area, floor, obj, key, name))

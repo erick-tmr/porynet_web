@@ -638,7 +638,6 @@
 .pn-wt-later,
 .pn-wt-catch,
 .pn-wt-trainer,
-.pn-wt-gym-tr,
 .pn-wt-trade,
 .pn-wt-gym__leader {
   position: relative;
@@ -650,7 +649,6 @@
 .pn-wt-later:focus-visible,
 .pn-wt-catch:focus-visible,
 .pn-wt-trainer:focus-visible,
-.pn-wt-gym-tr:focus-visible,
 .pn-wt-trade:focus-visible,
 .pn-wt-gym__leader:focus-visible {
   outline: 3px solid var(--amber);
@@ -672,10 +670,8 @@
    trainers dim instead. The dim lands on an inner card wrapper, not the tick root: the corner stamp
    and toast are the root's own children, and opacity forms a group that would drag them down with
    it, so they stay outside the wrapper and keep their full colour. Values are the handover's: 0.62
-   for the gym trainers, 0.82 for the leader (it also lights its badge gold), and 0.62 for an
-   overworld trainer. */
-.pn-wt-trainer.is-done .pn-wt-trainer__card,
-.pn-wt-gym-tr.is-done .pn-wt-gym-tr__card { opacity: 0.62; }
+   for a trainer card, 0.82 for the leader (it also lights its badge gold). */
+.pn-wt-trainer.is-done .pn-wt-trainer__card { opacity: 0.62; }
 .pn-wt-gym__leader.is-done .pn-wt-gym__leader-card { opacity: 0.82; }
 
 /* --- the click toast ----------------------------------------------------- */
@@ -834,8 +830,7 @@
 }
 
 .pn-wt-catch.is-done .pn-wt-catch__caught,
-.pn-wt-trainer.is-done .pn-wt-trainer__beaten,
-.pn-wt-gym-tr.is-done .pn-wt-trainer__beaten { display: block; }
+.pn-wt-trainer.is-done .pn-wt-trainer__beaten { display: block; }
 
 .pn-wt-later__check {
   position: absolute;

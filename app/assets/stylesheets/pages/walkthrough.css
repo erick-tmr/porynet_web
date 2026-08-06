@@ -2243,14 +2243,54 @@ a.pn-wt-route__card:hover {
   color: #cfe1f5;
 }
 .pn-wt-gym__shot-wrap {
-  width: 220px;
   max-width: 100%;
   flex: none;
 }
 .pn-wt-shot--gym {
-  aspect-ratio: 1 / 1;
+  width: max-content;
+  max-width: 100%;
   border-color: var(--gym-accent);
   background: #0b1022;
+}
+.pn-wt-trainers--gym .pn-wt-trainer__card {
+  background: #0b1022;
+  border-color: var(--gym-accent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--gym-accent) 13%, transparent);
+}
+.pn-wt-trainers--gym .pn-wt-trainer__cls { color: #8fa6c8; }
+.pn-wt-trainers--gym .pn-wt-trainer__name { color: #fff; }
+.pn-wt-trainers--gym .pn-wt-trainer__key { color: var(--gym-accent); }
+.pn-wt-trainers--gym .pn-wt-trainer__reward {
+  background: var(--gym-accent);
+  border-color: var(--gym-accent);
+}
+.pn-wt-trainers--gym .pn-wt-shot--vs,
+.pn-wt-trainers--gym .pn-wt-shot--where {
+  border-color: var(--gym-accent);
+  background: #141a2e;
+}
+.pn-wt-trainers--gym .pn-wt-shot__label,
+.pn-wt-trainers--gym .pn-wt-shot__label--where { background: var(--gym-accent); }
+.pn-wt-trainers--gym .pn-wt-team-mon {
+  border-color: var(--gym-accent);
+  background: #141a2e;
+}
+.pn-wt-trainers--gym .pn-wt-team-mon__name { color: #fff; }
+.pn-wt-trainers--gym .pn-wt-team-mon__lvl { color: var(--gym-accent); }
+.pn-wt-trainers--gym .pn-wt-trainer__note {
+  background: #141a2e;
+  border-left-color: var(--gym-accent);
+  color: #a9cfdd;
+}
+.pn-wt-trainers--gym .pn-wt-trainer__note-label { color: var(--gym-accent); }
+
+.pn-wt-gym__canvas {
+  position: relative;
+  line-height: 0;
+}
+.pn-wt-shot--gym .pn-wt-shot__map-img {
+  width: auto;
+  height: clamp(240px, 30vw, 360px);
 }
 
 .pn-wt-gym__puzzle {
@@ -2324,63 +2364,6 @@ a.pn-wt-route__card:hover {
   text-shadow: 0 0 8px color-mix(in srgb, var(--gym-accent) 40%, transparent);
 }
 
-.pn-wt-gym__trainers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 12px;
-}
-.pn-wt-gym-tr__card {
-  background: #0b1022;
-  border: 2px solid var(--gym-accent);
-  box-shadow: 0 0 14px color-mix(in srgb, var(--gym-accent) 13%, transparent);
-  padding: 16px;
-}
-.pn-wt-gym-tr__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.pn-wt-gym-tr__role {
-  font-family: "VT323", monospace;
-  font-size: 15px;
-  color: #8fa6c8;
-}
-.pn-wt-gym-tr__cls {
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: #fff;
-}
-.pn-wt-gym-tr__reward {
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  color: #171622;
-  background: var(--gym-accent);
-  border: 2px solid var(--gym-accent);
-  padding: 6px 9px;
-}
-.pn-wt-gym-tr__shots {
-  display: flex;
-  gap: 12px;
-  margin-top: 14px;
-  align-items: stretch;
-}
-.pn-wt-shot--gymvs {
-  width: 150px;
-  flex: none;
-  border-color: var(--gym-accent);
-  background: #141a2e;
-}
-.pn-wt-shot--gymwhere {
-  flex: 1;
-  aspect-ratio: 16 / 9;
-  border-color: var(--gym-accent);
-  background: #141a2e;
-}
-
 .pn-wt-gym__leader {
   display: inline-flex;
   max-width: 100%;
@@ -2389,22 +2372,22 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym__leader-card {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
   max-width: 100%;
   background: #0b1022;
   border: 2px solid var(--gym-accent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--gym-accent) 27%, transparent);
-  padding: 22px 24px;
+  padding: 16px 18px;
 }
 .pn-wt-gym__leader-id {
   display: flex;
-  gap: 22px;
+  gap: 16px;
   align-items: center;
   flex-wrap: wrap;
 }
 .pn-wt-shot--leadervs,
 .pn-wt-shot--leaderbattle {
-  height: clamp(170px, 26vw, 248px);
+  height: clamp(150px, 20vw, 206px);
   flex: none;
 }
 .pn-wt-shot--leadervs {
@@ -2439,6 +2422,11 @@ a.pn-wt-route__card:hover {
   margin-top: 8px;
   color: #fff;
   text-shadow: 2px 2px 0 var(--gym-accent);
+}
+.pn-wt-gym__leader-key {
+  font-size: 22px;
+  color: var(--gym-accent);
+  text-shadow: none;
 }
 .pn-wt-gym__leader-pills {
   display: flex;
@@ -2507,22 +2495,22 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym__mons {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 9px;
+  margin-top: 10px;
 }
 .pn-wt-gym__mon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  width: 112px;
+  gap: 4px;
+  width: 82px;
   border: 2px solid var(--gym-accent);
   background: #141a2e;
-  padding: 8px 10px;
+  padding: 6px 7px;
 }
 .pn-wt-gym__mon-sprite {
-  width: 84px;
-  height: 84px;
+  width: 56px;
+  height: 56px;
   flex: none;
   display: flex;
   align-items: center;
@@ -2537,14 +2525,14 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym__mon-name {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1;
   color: #fff;
   text-align: center;
 }
 .pn-wt-gym__mon-lvl {
   font-family: "VT323", monospace;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--gym-accent);
 }
 
@@ -2556,19 +2544,12 @@ a.pn-wt-route__card:hover {
   background: var(--gym-accent);
   color: #171622;
 }
-.pn-wt-shot__label--gym-where {
-  top: 0;
-  bottom: auto;
-  background: var(--gym-accent);
-  color: #171622;
-}
 
 @media (max-width: 900px) {
   .pn-wt-specials,
   .pn-wt-moderow,
   .pn-wt-trainers,
-  .pn-wt-trades,
-  .pn-wt-gym__trainers { grid-template-columns: 1fr; }
+  .pn-wt-trades { grid-template-columns: 1fr; }
 
   .pn-wt-legstats { grid-template-columns: 1fr 1fr; }
   .pn-wt-switchbar { top: 0; }

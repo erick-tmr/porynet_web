@@ -365,7 +365,8 @@ module Walkthrough
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
-        gym: loc.gym.with(shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
+        gym: loc.gym.with(area: gym_map,
+                          shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
     end
 
     def self.merge_trainers(loc)

@@ -158,7 +158,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
     assert_select ".pn-wt-tagpill--fossil"
-    assert_select ".pn-wt-gym__leader-name", text: "Blaine"
+    assert_select ".pn-wt-gym__leader-name", text: /\ABlaine\b/
     assert_select ".pn-wt-oak__chip", text: "MODO DESAFIO OAK"
     assert_select ".pn-wt-ld__chip", text: "MODO LIVING DEX"
     assert_select ".pn-wt-trade__tag", text: "TROCA"
@@ -200,8 +200,8 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pn-wt-gym__name", text: "Pewter Gym"
     assert_select ".pn-wt-gym__type", /ROCK/
-    assert_select ".pn-wt-gym-tr__cls", text: "JR. TRAINER♂"
-    assert_select ".pn-wt-gym__leader-name", text: "Brock"
+    assert_select ".pn-wt-trainers--gym .pn-wt-trainer__name", text: /JR. TRAINER♂/
+    assert_select ".pn-wt-gym__leader-name", text: /\ABrock\b/
     assert_select ".pn-wt-gym__leader[role='button'][data-kind='collected'][data-progress-id$='gym-leader']"
     assert_select ".pn-wt-gym__leader .pn-wt-toast__retry"
     assert_select ".pn-wt-gym__leader-cleared", text: /GYM CLEARED/
@@ -219,7 +219,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select ".pn-wt-gym__name", text: "Vermilion Gym"
-    assert_select ".pn-wt-gym__leader-name", text: "Lt. Surge"
+    assert_select ".pn-wt-gym__leader-name", text: /\ALt\.\ Surge\b/
     assert_select ".pn-wt-gym__puzzle"
     assert_select ".pn-wt-gym__pstep", count: 3
     assert_select ".pn-wt-shot--pstep"
@@ -310,7 +310,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
     assert_select ".pn-wt-band__title", text: "Safari Zone"
-    assert_select ".pn-wt-gym__leader-name", text: "Koga"
+    assert_select ".pn-wt-gym__leader-name", text: /\AKoga\b/
   end
 
   test "the endgame page names the League rather than a leader it does not have" do
@@ -434,7 +434,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pn-mew-teaser a[href*=?]", "/walkthroughs/yellow/mew-glitch"
     # the Swimmer and Misty carry the Mew-glitch caption; the Jr. Trainer does not
-    assert_select ".pn-wt-gym-tr__note", text: /Shellder's Attack stage sets Mew's level/
+    assert_select ".pn-wt-trainers--gym .pn-wt-trainer__note", text: /Shellder's Attack stage sets Mew's level/
     assert_select ".pn-wt-gym__leader-note", text: /locks the Swimmer behind her/
   end
 
@@ -446,7 +446,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 5, bands.size, "the four stops plus the gym finale"
     assert_equal %w[route-4 cerulean-city route-24 route-25 cerulean-city],
       bands.map { |band| band["data-slug"] }
-    assert bands.last.at_css(".pn-wt-gym__leader-name")&.text == "Misty",
+    assert bands.last.at_css(".pn-wt-gym__leader-name")&.text&.strip&.start_with?("Misty"),
       "Misty's gym card is the last thing on the page"
     # the Cerulean band itself ends at step 3, with no gym and no "after the gym" section
     assert_select ".pn-eyebrow-label", text: /AFTER THE GYM/, count: 0

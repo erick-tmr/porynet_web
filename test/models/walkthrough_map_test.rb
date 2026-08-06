@@ -150,19 +150,28 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     end
   end
 
-  test "a trainer fought somewhere the location never draws carries no letter" do
+  test "a gym leader claims the letter of its own pin on the gym floor" do
     brock = location("pewter-city").gym.leader
 
     assert_equal "BROCK:1", brock.opp
-    assert_nil brock.marker_key
-    refute_predicate brock, :marker_key?
+    assert_equal "A", brock.marker_key
+    assert_predicate brock, :marker_key?
   end
 
-  test "a gym city moves its gym floor into the gym section and keys nobody from it" do
+  test "a gym city moves its gym floor into the gym section and pins its trainers on it" do
     loc = location("pewter-city")
 
     assert(loc.area_maps.none? { |area| area.floor == "Gym" }, "the gym floor moves into the gym section")
     assert_match(/pewter-city-gym/, loc.gym.shot.image)
+    assert_equal %w[A B], loc.gym.pins.map(&:key), "the gym map draws a lettered pin per trainer"
+    assert(loc.gym.pins.all? { |pin| pin.cat == "trainer" }, "only trainers are pinned")
+  end
+
+  test "a gym whose floor the manifest never drew pins nobody" do
+    gym = location("pewter-city").gym.with(area: nil)
+
+    refute_predicate gym, :area?
+    assert_empty gym.pins
   end
 
   test "a location with no manifest entry still builds" do

@@ -498,8 +498,7 @@
 .pn-mew-after__btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #171622; }
 .pn-mew-after__credit { font-family: "VT323", monospace; font-size: 17px; color: #6b6880; }
 
-/* ---- gym-trainer Mew notes (only the Cerulean leg loads this sheet) ---- */
-.pn-wt-gym-tr__note,
+/* ---- gym-leader Mew notes (only the Cerulean leg loads this sheet) ---- */
 .pn-wt-gym__leader-note {
   font-family: "VT323", monospace;
   font-size: 16px;
@@ -509,8 +508,7 @@
   padding-top: 10px;
 }
 .pn-wt-gym__leader-note { color: #a9cfdd; border-top-color: #2a4a5a; }
-.pn-wt-gym-tr__note-label { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; color: #b3245c; margin-right: 4px; }
-.pn-wt-gym__leader-note .pn-wt-gym-tr__note-label { color: #ff8ab5; }
+.pn-wt-gym__leader-note-label { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 15px; color: #ff8ab5; margin-right: 4px; }
 
 /* ---- Cerulean teaser box ---- */
 .pn-mew-teaser {

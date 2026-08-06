@@ -1,5 +1,6 @@
 <% compact = local_assigns.fetch(:compact, false) %>
 <% feature = local_assigns.fetch(:feature, false) %>
+<% role = local_assigns[:role] %>
 <div class="<%= class_names("pn-wt-trainer", "pn-wt-trainer--compact" => compact, "pn-wt-trainer--feature" => feature) %>"
      <%= tag.attributes(tickable("collected", trainer.tick || id)) %>>
   <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
@@ -7,6 +8,9 @@
   <div class="pn-wt-trainer__card">
   <div class="pn-wt-trainer__head">
     <div>
+      <% if role %>
+        <div class="pn-wt-trainer__cls"><%= role %></div>
+      <% end %>
       <% if trainer.name %>
         <div class="pn-wt-trainer__cls"><%= trainer.cls %></div>
         <div class="pn-wt-trainer__name"><%= trainer.name %></div>

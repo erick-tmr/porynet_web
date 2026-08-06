@@ -80,12 +80,13 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
     assert checked == 301
 
 
-def test_gym_floors_are_lettered_nothing(root):
-    """A gym renders as a plain screenshot with no pins, so its cards claim no letter."""
+def test_gym_floors_are_lettered_like_any_other_map(root):
+    """A gym map draws lettered trainer pins, so its cards claim the same letters: the pin is how
+    you tell which card is the Jr. Trainer by the door and which is the leader at the back."""
     entries, _ = built(root)
     gym = [e for e in entries["pewter-city"] if e["floor"] == "Gym"]
 
-    assert gym and all(e["key"] is None for e in gym)
+    assert [e["key"] for e in gym] == ["A", "B"]
 
 
 def test_extra_maps_contribute_cards_without_pins(root):

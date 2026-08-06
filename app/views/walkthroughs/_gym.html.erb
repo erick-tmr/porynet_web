@@ -11,10 +11,21 @@
           <h3 class="pn-wt-gym__name"><%= gym.name %></h3>
           <p class="pn-wt-gym__intro"><%= t(gym.intro_key) %></p>
         </div>
-        <div class="pn-wt-gym__shot-wrap">
+        <div class="pn-wt-gym__shot-wrap" data-controller="map-markers"
+             data-map-markers-game-value="<%= @game.slug %>"
+             data-map-markers-map-value="<%= gym.area&.name %>">
           <div class="pn-wt-shot pn-wt-shot--gym">
-            <% if gym.shot&.map? %>
-              <%= r2_image_tag gym.shot.image, alt: "", class: "pn-wt-shot__map-img", loading: "lazy" %>
+            <% if gym.area? %>
+              <div class="pn-wt-gym__canvas" data-map-markers-target="canvas"
+                   data-action="click->map-markers#dismiss">
+                <%= r2_image_tag gym.area.image, alt: "", class: "pn-wt-shot__map-img", loading: "lazy",
+                                 width: gym.area.width, height: gym.area.height %>
+                <div class="pn-mm-layer" data-map-markers-target="layer">
+                  <% gym.pins.each do |marker| %>
+                    <%= render "map_marker", marker: marker %>
+                  <% end %>
+                </div>
+              </div>
             <% else %>
               <div class="pn-wt-shot__ph pn-wt-shot__ph--gym"><%= t("walkthrough.ui.shot_placeholder") %></div>
             <% end %>
@@ -45,9 +56,10 @@
 
       <% if gym.trainers? %>
         <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_trainers_inside", count: gym.trainers.size) %></div>
-        <div class="pn-wt-gym__trainers">
+        <div class="pn-wt-trainers pn-wt-trainers--gym">
           <% gym.trainers.each_with_index do |trainer, i| %>
-            <%= render "gym_trainer", trainer: trainer, id: "#{slug}/gym-trainer-#{i}" %>
+            <%= render "trainer", trainer: trainer, id: "#{slug}/gym-trainer-#{i}",
+                       role: t("walkthrough.ui.gym_trainer") %>
           <% end %>
         </div>
       <% end %>
@@ -71,7 +83,12 @@
           <% end %>
           <div class="pn-wt-gym__leader-meta">
             <div class="pn-wt-gym__leader-role"><%= t("walkthrough.ui.gym_leader") %></div>
-            <div class="pn-wt-gym__leader-name"><%= gym.leader.name %></div>
+            <div class="pn-wt-gym__leader-name">
+              <%= gym.leader.name %>
+              <% if gym.leader.marker_key? %>
+                <span class="pn-wt-gym__leader-key">(<%= gym.leader.marker_key %>)</span>
+              <% end %>
+            </div>
             <div class="pn-wt-gym__leader-pills">
               <span class="pn-wt-gym__pill pn-wt-gym__pill--reward"><%= poke_dollar(gym.leader.reward) %></span>
               <span class="pn-wt-gym__pill"><%= gym.tm %></span>
@@ -102,7 +119,7 @@
         </div>
         <% if gym.leader.note_key? %>
           <div class="pn-wt-gym__leader-note">
-            <b class="pn-wt-gym-tr__note-label"><%= t("walkthrough.ui.mew_glitch_label") %></b>
+            <b class="pn-wt-gym__leader-note-label"><%= t("walkthrough.ui.mew_glitch_label") %></b>
             <span><%= t(gym.leader.note_key) %></span>
           </div>
         <% end %>
