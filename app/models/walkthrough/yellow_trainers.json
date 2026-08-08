@@ -6086,10 +6086,10 @@
     ],
     "ss-anne": [
       {
-        "map": "ss-anne-ssanne1frooms",
-        "floor": "",
+        "map": "ss-anne-1f-rooms",
+        "floor": "1F Rooms",
         "marker": "trainer-2-3",
-        "key": null,
+        "key": "A",
         "opp": "GENTLEMAN:1",
         "cls": "GENTLEMAN",
         "reward": 1260,
@@ -6103,13 +6103,13 @@
             "lvl": 18
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-2-3.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-1f-rooms-trainer-2-3.png"
       },
       {
-        "map": "ss-anne-ssanne1frooms",
-        "floor": "",
+        "map": "ss-anne-1f-rooms",
+        "floor": "1F Rooms",
         "marker": "trainer-11-4",
-        "key": null,
+        "key": "B",
         "opp": "GENTLEMAN:2",
         "cls": "GENTLEMAN",
         "reward": 1330,
@@ -6123,13 +6123,13 @@
             "lvl": 19
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-11-4.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-1f-rooms-trainer-11-4.png"
       },
       {
-        "map": "ss-anne-ssanne1frooms",
-        "floor": "",
+        "map": "ss-anne-1f-rooms",
+        "floor": "1F Rooms",
         "marker": "trainer-11-14",
-        "key": null,
+        "key": "C",
         "opp": "YOUNGSTER:8",
         "cls": "YOUNGSTER",
         "reward": 315,
@@ -6139,13 +6139,13 @@
             "lvl": 21
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-11-14.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-1f-rooms-trainer-11-14.png"
       },
       {
-        "map": "ss-anne-ssanne1frooms",
-        "floor": "",
+        "map": "ss-anne-1f-rooms",
+        "floor": "1F Rooms",
         "marker": "trainer-13-11",
-        "key": null,
+        "key": "D",
         "opp": "LASS:11",
         "cls": "LASS",
         "reward": 270,
@@ -6159,13 +6159,13 @@
             "lvl": 18
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne1frooms-trainer-13-11.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-1f-rooms-trainer-13-11.png"
       },
       {
-        "map": "ss-anne-ssanne2frooms",
-        "floor": "",
+        "map": "ss-anne-2f-rooms",
+        "floor": "2F Rooms",
         "marker": "trainer-10-2",
-        "key": null,
+        "key": "A",
         "opp": "GENTLEMAN:3",
         "cls": "GENTLEMAN",
         "reward": 1540,
@@ -6179,13 +6179,13 @@
             "lvl": 22
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-10-2.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-2f-rooms-trainer-10-2.png"
       },
       {
-        "map": "ss-anne-ssanne2frooms",
-        "floor": "",
+        "map": "ss-anne-2f-rooms",
+        "floor": "2F Rooms",
         "marker": "trainer-13-4",
-        "key": null,
+        "key": "B",
         "opp": "FISHER:1",
         "cls": "FISHER",
         "reward": 595,
@@ -6203,13 +6203,13 @@
             "lvl": 17
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-13-4.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-2f-rooms-trainer-13-4.png"
       },
       {
-        "map": "ss-anne-ssanne2frooms",
-        "floor": "",
+        "map": "ss-anne-2f-rooms",
+        "floor": "2F Rooms",
         "marker": "trainer-0-14",
-        "key": null,
+        "key": "C",
         "opp": "GENTLEMAN:5",
         "cls": "GENTLEMAN",
         "reward": 1190,
@@ -6223,13 +6223,13 @@
             "lvl": 17
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-0-14.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-2f-rooms-trainer-0-14.png"
       },
       {
-        "map": "ss-anne-ssanne2frooms",
-        "floor": "",
+        "map": "ss-anne-2f-rooms",
+        "floor": "2F Rooms",
         "marker": "trainer-2-11",
-        "key": null,
+        "key": "D",
         "opp": "LASS:12",
         "cls": "LASS",
         "reward": 300,
@@ -6239,13 +6239,13 @@
             "lvl": 20
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanne2frooms-trainer-2-11.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-2f-rooms-trainer-2-11.png"
       },
       {
-        "map": "ss-anne-ssanneb1frooms",
-        "floor": "",
+        "map": "ss-anne-b1f-rooms",
+        "floor": "B1F Rooms",
         "marker": "trainer-0-13",
-        "key": null,
+        "key": "A",
         "opp": "SAILOR:3",
         "cls": "SAILOR",
         "reward": 630,
@@ -6255,13 +6255,13 @@
             "lvl": 21
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-0-13.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-0-13.png"
       },
       {
-        "map": "ss-anne-ssanneb1frooms",
-        "floor": "",
+        "map": "ss-anne-b1f-rooms",
+        "floor": "B1F Rooms",
         "marker": "trainer-2-11",
-        "key": null,
+        "key": "B",
         "opp": "SAILOR:4",
         "cls": "SAILOR",
         "reward": 510,
@@ -6279,13 +6279,13 @@
             "lvl": 17
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-2-11.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-2-11.png"
       },
       {
-        "map": "ss-anne-ssanneb1frooms",
-        "floor": "",
+        "map": "ss-anne-b1f-rooms",
+        "floor": "B1F Rooms",
         "marker": "trainer-12-3",
-        "key": null,
+        "key": "C",
         "opp": "SAILOR:5",
         "cls": "SAILOR",
         "reward": 540,
@@ -6299,13 +6299,13 @@
             "lvl": 18
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-12-3.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-12-3.png"
       },
       {
-        "map": "ss-anne-ssanneb1frooms",
-        "floor": "",
+        "map": "ss-anne-b1f-rooms",
+        "floor": "B1F Rooms",
         "marker": "trainer-22-2",
-        "key": null,
+        "key": "D",
         "opp": "SAILOR:6",
         "cls": "SAILOR",
         "reward": 510,
@@ -6323,13 +6323,13 @@
             "lvl": 17
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-22-2.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-22-2.png"
       },
       {
-        "map": "ss-anne-ssanneb1frooms",
-        "floor": "",
+        "map": "ss-anne-b1f-rooms",
+        "floor": "B1F Rooms",
         "marker": "trainer-0-2",
-        "key": null,
+        "key": "E",
         "opp": "SAILOR:7",
         "cls": "SAILOR",
         "reward": 600,
@@ -6339,13 +6339,13 @@
             "lvl": 20
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-0-2.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-0-2.png"
       },
       {
-        "map": "ss-anne-ssanneb1frooms",
-        "floor": "",
+        "map": "ss-anne-b1f-rooms",
+        "floor": "B1F Rooms",
         "marker": "trainer-0-4",
-        "key": null,
+        "key": "F",
         "opp": "FISHER:2",
         "cls": "FISHER",
         "reward": 595,
@@ -6363,7 +6363,7 @@
             "lvl": 17
           }
         ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssanneb1frooms-trainer-0-4.png"
+        "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-0-4.png"
       },
       {
         "map": "ss-anne-ssannebow",

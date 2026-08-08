@@ -182,34 +182,34 @@ describe("counting bodies", () => {
     expect(countOf(load(), "yellow", "010")).toBe(0);
   });
 
-  it("counts up to the quota and no further", () => {
-    let state = bump(load(), "yellow", "010", 1, 2);
+  it("counts past the quota, so spare bodies can be banked", () => {
+    let state = bump(load(), "yellow", "010", 1);
     expect(countOf(state, "yellow", "010")).toBe(1);
 
-    state = bump(state, "yellow", "010", 1, 2);
-    state = bump(state, "yellow", "010", 1, 2);
+    state = bump(state, "yellow", "010", 1);
+    state = bump(state, "yellow", "010", 1);
 
-    expect(countOf(state, "yellow", "010")).toBe(2);
+    expect(countOf(state, "yellow", "010")).toBe(3);
   });
 
   it("never counts below zero", () => {
-    const state = bump(load(), "yellow", "010", -1, 2);
+    const state = bump(load(), "yellow", "010", -1);
 
     expect(countOf(state, "yellow", "010")).toBe(0);
   });
 
   it("registers the species as caught while it holds a body, and drops it when empty", () => {
-    let state = bump(load(), "yellow", "010", 1, 2);
+    let state = bump(load(), "yellow", "010", 1);
     expect(isSet(state, "caught", "yellow", "010")).toBe(true);
 
-    state = bump(state, "yellow", "010", -1, 2);
+    state = bump(state, "yellow", "010", -1);
 
     expect(isSet(state, "caught", "yellow", "010")).toBe(false);
   });
 
   it("leaves the other games and kinds alone", () => {
     const before = toggle(load(), "collected", "yellow", "route-1/step-1/item-0");
-    const state = bump(before, "yellow", "010", 1, 2);
+    const state = bump(before, "yellow", "010", 1);
 
     expect(isSet(state, "collected", "yellow", "route-1/step-1/item-0")).toBe(true);
     expect(countOf(state, "red", "010")).toBe(0);
@@ -251,8 +251,8 @@ describe("one species, two views", () => {
   });
 
   it("keeps a bigger count when the card is ticked off and on again", () => {
-    let state = bump(load(), "yellow", "016", 1, 3);
-    state = bump(state, "yellow", "016", 1, 3);
+    let state = bump(load(), "yellow", "016", 1);
+    state = bump(state, "yellow", "016", 1);
     expect(countOf(state, "yellow", "016")).toBe(2);
 
     state = toggle(state, "caught", "yellow", "016");
@@ -263,7 +263,7 @@ describe("one species, two views", () => {
   });
 
   it("clears every body when a card is un-ticked", () => {
-    let state = bump(load(), "yellow", "010", 1, 2);
+    let state = bump(load(), "yellow", "010", 1);
     state = toggle(state, "caught", "yellow", "010");
 
     expect(isSet(state, "caught", "yellow", "010")).toBe(false);

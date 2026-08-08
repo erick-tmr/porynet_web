@@ -10,13 +10,35 @@ module Walkthrough
   # `from_key`/`unlock_key` are optional locale keys for a gift Pokémon: who hands it over and any
   # condition to unlock it (Bulbasaur needs Pikachu's friendship at 147+, Squirtle the Thunder
   # Badge). `unlock_icon` is the R2 image that condition shows (a Pikachu, a badge).
+  # One map's share of a species inside a location: which floor, which method finds it there, and
+  # the real slot-weighted rate and level band the game gives that pairing. A floor can carry
+  # several of these at once, since Seafoam B3F has cave grass, Surf water and a Super Rod table
+  # that disagree about who lives there.
+  EncounterPlace = Data.define(:floor, :kind, :rate, :min_level, :max_level) do
+    # The card's method tag (hand-authored, an editorial choice) mapped onto the game table it is
+    # really read from. The cave, floor and Safari tags all read the same "grass" table.
+    KIND_BY_HOW = {
+      "GRASS" => "grass", "CAVE" => "grass", "FLOORS" => "grass", "SAFARI" => "grass",
+      "SURF" => "water", "OLD ROD" => "old_rod", "GOOD ROD" => "good_rod",
+      "SUPER ROD" => "super_rod"
+    }.freeze
+
+    def surf? = kind == "water"
+    def rod? = kind.end_with?("_rod")
+    def method?(how) = KIND_BY_HOW[how] == kind
+    def levels = min_level == max_level ? min_level.to_s : "#{min_level}–#{max_level}"
+  end
+
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line,
-    :from_key, :unlock_key, :unlock_icon) do
-    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, **rest) = super
+    :from_key, :unlock_key, :unlock_icon, :places) do
+    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
     def from? = !from_key.nil?
     def unlock? = !unlock_key.nil?
+    # Only worth breaking out when the floors can actually disagree.
+    def places? = places.size > 1
+    def best_place = places.max_by(&:rate)
   end
 
   Item = Data.define(:name, :where_key, :sprite, :at, :tick) do

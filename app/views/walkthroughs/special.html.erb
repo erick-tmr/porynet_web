@@ -13,7 +13,7 @@
 
 <section class="pn-wt-section pn-wt-loc">
   <div class="pn-wt-loc__tags">
-    <%= link_to t("walkthrough.ui.back"), walkthrough_path(game: @game.slug), class: "pn-wt-back" %>
+    <%= link_to t("walkthrough.ui.back"), walkthrough_path(game: @game.slug, anchor: @leg.slug), class: "pn-wt-back" %>
     <span class="pn-wt-tag"><%= t("walkthrough.ui.stop", n: format("%02d", @location.order), kind: @location.kind) %></span>
     <span class="pn-wt-tag pn-wt-tag--mode"><%= t("walkthrough.ui.mode_tag") %></span>
   </div>

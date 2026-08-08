@@ -76,6 +76,21 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_nil challenge.body_source(game, "010"), "the root of a line has no ancestor to draw on"
   end
 
+  test "a rare ancestor still owes a spare body when the stage above it has no other source" do
+    assert_equal "035", challenge.body_source(game, "036"),
+      "Clefable only ever comes off a Clefairy, however rare Clefairy is"
+    assert_equal 2, challenge.bodies_for(game, "035"),
+      "one Clefairy stays, one takes the Moon Stone to become Clefable"
+    refute challenge.stage_for(game, "036").owed,
+      "Clefable is accounted for now, not left owed with nowhere to come from"
+  end
+
+  test "a one-off revival is not a body source, however many stages sit above it" do
+    assert_nil challenge.body_source(game, "139"), "the game hands out a single fossil, never a second"
+    assert_equal 1, challenge.bodies_for(game, "138")
+    assert_equal 1, challenge.bodies_for(game, "140")
+  end
+
   test "a species is queued at its best stop and only there" do
     forest = plan("viridian-forest")
 

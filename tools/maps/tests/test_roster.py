@@ -77,7 +77,7 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
                     assert pin["key"] == entry["key"]
                 checked += 1
 
-    assert checked == 301
+    assert checked == 315  # +14: the cabin trainers now sit on drawn maps
 
 
 def test_gym_floors_are_lettered_like_any_other_map(root):
@@ -89,13 +89,18 @@ def test_gym_floors_are_lettered_like_any_other_map(root):
     assert [e["key"] for e in gym] == ["A", "B"]
 
 
-def test_extra_maps_contribute_cards_without_pins(root):
-    """The SS Anne's cabins hold sixteen trainers the ship's own map never draws."""
+def test_the_cabin_trainers_are_pinned_now_that_the_rooms_are_drawn(root):
+    """The SS Anne's sixteen trainers used to be cards with no pin, because the cabin maps were
+    never rendered. The cabins are drawn now, so only the Bow's lone trainer stays pinless."""
     entries, _ = built(root)
     ship = entries["ss-anne"]
 
     assert len(ship) == 16
-    assert all(e["key"] is None for e in ship)
+    pinless = [e for e in ship if e["key"] is None]
+    assert len(pinless) == 2, "only the SS Anne Bow's two Sailors are still undrawn"
+    assert {e["map"] for e in pinless} == {"ss-anne-ssannebow"}
+    assert {e["map"] for e in ship if e["key"]} == {
+        "ss-anne-1f-rooms", "ss-anne-2f-rooms", "ss-anne-b1f-rooms"}
 
 
 def test_where_geometry_puts_the_player_in_front_facing_back(root):
