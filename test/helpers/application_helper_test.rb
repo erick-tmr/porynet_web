@@ -134,7 +134,63 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_includes body_progress(2), 'data-body-counter-target="have"'
   end
 
+  test "encounter_method_label names every way a place is fished or walked into" do
+    assert_equal "GRASS", encounter_method_label(place(kind: "grass"))
+    assert_equal "SURF", encounter_method_label(place(kind: "water"))
+    assert_equal "OLD ROD", encounter_method_label(place(kind: "old_rod"))
+    assert_equal "GOOD ROD", encounter_method_label(place(kind: "good_rod"))
+    assert_equal "SUPER ROD", encounter_method_label(place(kind: "super_rod"))
+  end
+
+  test "an encounter place answers to the card tag that reads its table" do
+    assert place(kind: "grass").method?("CAVE"), "a cave floor reads the grass table"
+    assert place(kind: "grass").method?("SAFARI")
+    refute place(kind: "grass").method?("SURF")
+    assert place(kind: "super_rod").method?("SUPER ROD")
+    refute place(kind: "super_rod").method?("GOOD ROD")
+    refute place(kind: "grass").method?("STATIC"), "a static encounter reads no table at all"
+  end
+
+  test "the floor bar runs proportional to the best floor on the card" do
+    best = place(rate: 10.5)
+
+    assert_equal "pn-wt-floors__bar pn-wt-floors__bar--w100", floor_bar_class(best, best)
+    assert_equal "pn-wt-floors__bar pn-wt-floors__bar--w50", floor_bar_class(place(rate: 5.25), best)
+  end
+
+  test "a barely-there spawn still draws a bar rather than nothing" do
+    assert_equal "pn-wt-floors__bar pn-wt-floors__bar--w10",
+      floor_bar_class(place(rate: 1.2), place(rate: 10.5)),
+      "Clefairy's 1.2% on 1F is 11% of its best floor, so it buckets to 10 rather than vanishing"
+    assert_equal "pn-wt-floors__bar pn-wt-floors__bar--w5",
+      floor_bar_class(place(rate: 0.1), place(rate: 10.5)),
+      "a share under half a step is floored to a sliver, never to an empty track"
+  end
+
+  test "a rate of zero fills the bar instead of dividing by it" do
+    assert_equal "pn-wt-floors__bar pn-wt-floors__bar--w100",
+      floor_bar_class(place(rate: 0), place(rate: 0)),
+      "the generator never emits a zero-slot row, but the bar must not raise if one appears"
+  end
+
+  test "an encounter place knows a rod from a walk" do
+    assert place(kind: "old_rod").rod?
+    assert place(kind: "super_rod").rod?
+    refute place(kind: "water").rod?
+    assert place(kind: "water").surf?
+  end
+
+  test "an encounter place reads a single-level floor as one number, not a range" do
+    assert_equal "11", place(min_level: 11, max_level: 11).levels
+    assert_equal "9–13", place(min_level: 9, max_level: 13).levels
+  end
+
   private
+
+  def place(floor: "1F", kind: "grass", rate: 10.5, min_level: 9, max_level: 13)
+    Walkthrough::EncounterPlace.new(floor: floor, kind: kind, rate: rate,
+      min_level: min_level, max_level: max_level)
+  end
 
   def plan_entry(dex, **overrides)
     Walkthrough::PlanEntry.new(

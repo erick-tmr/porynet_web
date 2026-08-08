@@ -52,6 +52,18 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-nav__where", text: "Viridian City → Route 2"
   end
 
+  test "back from a leg lands on that leg's card in the index, not the top of the page" do
+    get walkthrough_path(game: "yellow")
+    assert_select ".pn-wt-route#leg-04"
+    assert_select ".pn-wt-route#viridian-forest"
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+    assert_select "a.pn-wt-back[href=?]", "#{walkthrough_path(game: 'yellow')}#leg-04"
+
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+    assert_select "a.pn-wt-back[href=?]", "#{walkthrough_path(game: 'yellow')}#viridian-forest"
+  end
+
   test "reward amounts carry the drawn Poke Dollar sign instead of a currency character" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 

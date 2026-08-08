@@ -88,9 +88,12 @@ module Walkthrough
       base.nil? || home_index(game, dex) <= base
     end
 
+    # The stage you farm a spare body from: any ancestor with a percentage encounter rate, which is
+    # what makes it re-catchable at all (a "-" rate is a one-off like a revived fossil). Rate ranks
+    # those candidates but does not gate them, so an evolution-only stage still owes a spare body
+    # even when its ancestor sits under WORTH_CATCHING_RATE, as Clefable does on a 1% Clefairy.
     def self.body_source(game, dex)
-      ancestors_of(dex).select { |stage| worth_catching?(game, stage) && repeatable?(game, stage) }
-        .max_by { |stage| top_rate(game, stage) }
+      ancestors_of(dex).select { |stage| top_rate(game, stage) }.max_by { |stage| top_rate(game, stage) }
     end
 
     def self.dependents(game, dex)

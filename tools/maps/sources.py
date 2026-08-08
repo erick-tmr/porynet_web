@@ -36,6 +36,15 @@ def _read(root_str, rel):
     return (_root(root_str) / rel).read_text()
 
 
+def read_data(root_str, rel, missing_ok=False):
+    """A disassembly file's text. `missing_ok` returns None instead of raising, for the tables
+    that only some maps carry (a map with no wild encounters has no data/wild/maps entry)."""
+    path = _root(root_str) / rel
+    if missing_ok and not path.exists():
+        return None
+    return path.read_text()
+
+
 def _rgb5_to_8(v):
     return (v << 3) | (v >> 2)
 

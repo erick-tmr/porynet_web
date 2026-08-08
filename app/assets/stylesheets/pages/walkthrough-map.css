@@ -543,6 +543,8 @@
 
 .pn-mm-legend__chip--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__chip--npc { background: var(--mm-npc); color: var(--ink); }
+/* A numbered ladder: the steps call it "ladder 3", so the legend wears the same 3. */
+.pn-mm-legend__chip--exit { background: var(--mm-exit); border-radius: 4px; }
 
 .pn-mm-legend__dot {
   flex: none;

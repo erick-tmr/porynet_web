@@ -39,7 +39,7 @@ export default class extends Controller {
   }
 
   #commit(delta) {
-    const next = bump(this.state, this.gameValue, this.dexValue, delta, this.#need())
+    const next = bump(this.state, this.gameValue, this.dexValue, delta)
     if (!save(next)) {
       this.element.classList.add("is-error")
       return

@@ -46,15 +46,21 @@ _DUNGEONS = {
                         "SAFFRON_CITY"),
     "rocket-hideout": _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY"),
     "pokemon-mansion": _floors("PokemonMansion", ["1F", "2F", "3F", "B1F"], "CINNABAR_ISLAND"),
-    "ss-anne": _floors("SSAnne", ["1F", "2F", "3F", "B1F"], "VERMILION_CITY"),
+    # The cabin sub-maps are rendered as their own floors, not folded into the deck above them:
+    # six items live only in the cabins, and an unrendered map can carry no marker for them.
+    "ss-anne": _floors("SSAnne", ["1F", "2F", "3F", "B1F"], "VERMILION_CITY")
+    + [("SSAnne1FRooms", "1F Rooms", "VERMILION_CITY"),
+       ("SSAnne2FRooms", "2F Rooms", "VERMILION_CITY"),
+       ("SSAnneB1FRooms", "B1F Rooms", "VERMILION_CITY")],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
 }
 
 _EXTRA_TRAINER_MAPS = {
-    "ss-anne": [("SSAnne1FRooms", "VERMILION_CITY"), ("SSAnne2FRooms", "VERMILION_CITY"),
-                ("SSAnneB1FRooms", "VERMILION_CITY"), ("SSAnneBow", "VERMILION_CITY")],
+    # The three *Rooms maps moved into _DUNGEONS above. They must not stay here too: roster.py
+    # walks this list separately from location_maps, so a map in both is counted twice.
+    "ss-anne": [("SSAnneBow", "VERMILION_CITY")],
     "saffron-city": [("FightingDojo", "SAFFRON_CITY")],
     "celadon-city": [("GameCorner", "CELADON_CITY")],
 }

@@ -38,6 +38,31 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
 - Customer-facing strings are localized (`t(...)`, EN + PT), never hardcoded. The brand wordmark is **PORYNET**; the desktop app is **PoryPC** (one word).
 - New env vars: document in `.env.example` (committed), set the value in `.env` (gitignored).
 
+## Voice (UI and walkthrough copy)
+
+**Straight to the point, but precise, informative and friendly.** A player reads a step mid-game with
+one hand on the D-pad: give them the move and the payoff, nothing else.
+
+- **Length is the guardrail.** A walkthrough step's `text` runs **15–40 words**, two or three
+  sentences; the corpus median is 30. Past ~45 you are explaining, not directing. Before adding a
+  step, read its neighbours and match them. To check a stop you just wrote, compare its word counts
+  against the rest of `config/locales/en.yml` rather than trusting your eye.
+- **Shape of a step:** where to move → what is there → one short clause on why it matters.
+  "Head up from the entrance into 1F's upper chamber. A Poké Ball on the north ledge holds a Rare
+  Candy, one free level for any teammate." Value notes are appositives, not sentences.
+- **Direct the player, never narrate the guide.** Cut anything about the route's own logic: no "so
+  take the floor anticlockwise, west side first", no "this is the long leg", no "that clears the
+  floor, every item is in your bag", no pointing at steps the player has not reached. The ordering
+  of the steps already carries the plan; saying it out loud is what makes copy bloat.
+- **Concrete beats hedged.** Real directions (north, the east wall, one tile below), real numbers
+  (Lv 50, 1%, ¥500), real names. Say "press A facing it; nothing shows on-screen", the stock line
+  for hidden items, rather than describing how hidden items work again.
+- **Friendly, not chatty.** Second person, imperative, warm asides where they earn their place
+  ("never sell it", "you get one shot at it"). No hype, no filler adjectives, no jokes that age.
+- Same rules for PT, at the same lengths: translate the intent, do not pad. `en` and `pt` step
+  counts must match (`test/i18n_parity_test.rb` enforces the key sets).
+- Non-translatable structure (names, counts, coordinates) belongs in the models, not the copy.
+
 ## System tests
 
 - **Capybara + Cuprite** (headless Chrome over CDP — no Selenium/WebDriver), Minitest. Foundation in `test/application_system_test_case.rb`; specs in `test/system/*.rb`.
