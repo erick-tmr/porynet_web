@@ -1053,10 +1053,11 @@ module Walkthrough
     def self.route_25
       loc("route-25", "ROUTE", "Route 25", 13, steps: [
           {},
-          { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ], scene: "route-25-bill" },
+          { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ] },
           { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss" },
           { hidden: [ "Ether", "ether", "route-25-hidden-ether", "route-25-ether" ] },
-          { item: [ "S.S. Ticket", "s_s_ticket" ], pins: { cottage: "route-25/exit-45-3" } }
+          { item: [ "S.S. Ticket", "s_s_ticket" ], scene: "route-25-bill",
+            pins: { cottage: "route-25/exit-45-3" } }
         ],
         encounters: [
           enc("route-25", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
