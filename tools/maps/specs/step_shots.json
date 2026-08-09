@@ -47,7 +47,7 @@
     "map": "Route1",
     "player": [
       13,
-      24
+      29
     ],
     "player_dir": "UP",
     "arrows": [
@@ -55,7 +55,7 @@
         "dir": "up",
         "grid": [
           13,
-          22
+          27
         ]
       }
     ]

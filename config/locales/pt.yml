@@ -341,7 +341,7 @@ pt:
       map_place_note_silph_co: "A Silph Co., tomada pela Equipe Rocket. Suba lutando pelos andares até Giovanni, e a Master Ball, no topo."
       map_place_note_rocket_hideout: "A base da Equipe Rocket embaixo do Game Corner. Giovanni espera lá no fundo, guardando a Silph Scope."
       map_npc_pallet_technology: "\"A tecnologia é incrível!\" O pescador que explica o armazenamento de itens no PC, um clássico de Kanto."
-      map_npc_route1_potion: "Fale com ele para ganhar uma Potion grátis, uma amostra do Mercado de Viridian. Útil antes da floresta."
+      map_npc_route1_potion: "Funcionário do Poké Mart de Viridian. Fale com ele por uma Potion de amostra grátis; ele indica a loja para as Poké Balls."
       map_npc_route24_charmander: "Na colina de grama acima da ponte, este garoto te dá um Charmander grátis (Nv 10). Pegue."
       map_npc_silph_master_ball: "Derrote o Giovanni e o presidente te agradece com a Master Ball, a única do jogo."
       shot_placeholder: "Captura em breve"
@@ -914,7 +914,7 @@ pt:
               text: "Vá ao norte pela grama alta, batalhando Pidgey e Rattata selvagens para subir o nível do Pikachu. Você ainda não tem Poké Balls, então capture na volta, com a loja de Viridian abastecida."
             "2":
               title: "Pegue a Potion grátis"
-              text: "Perto da saída sul (Pallet), um homem parado ao lado da placa sai para demonstrar a loja e te dá uma Potion grátis. Pegue e siga ao norte."
+              text: "Um Youngster na borda oeste da estrada trabalha no Poké Mart de Viridian. Ele entrega uma Potion de amostra grátis e conta que a loja vende as Poké Balls que faltam."
               items:
                 potion: "Com o homem ao lado da placa perto da saída sul (Pallet)."
             "3":
