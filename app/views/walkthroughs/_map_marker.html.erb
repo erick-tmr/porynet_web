@@ -21,6 +21,11 @@
       <%= marker.key? ? t("walkthrough.ui.map_marker_named", name: marker.name, key: marker.key) : marker.name %>
     </div>
     <div class="pn-mm__hint-detail"><%= marker_detail(marker) %></div>
+    <% if marker.step? %>
+      <a class="pn-mm__hint-step" href="#<%= slug %>-step-<%= marker.step %>">
+        <%= t("walkthrough.ui.map_marker_step", n: marker.step) %>
+      </a>
+    <% end %>
     <% if marker.tickable? %>
       <span class="pn-mm__status pn-mm__status--todo"><%= t(marker_status_key(marker, "todo")) %></span>
       <span class="pn-mm__status pn-mm__status--done"><%= t(marker_status_key(marker, "done")) %></span>

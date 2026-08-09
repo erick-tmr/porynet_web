@@ -7,7 +7,12 @@
       <%= r2_image_tag "walkthrough/items/#{hidden.sprite}.png", alt: "", class: "pn-wt-item__icon" %>
       <span class="pn-wt-item__check" aria-hidden="true">✓</span>
     </span>
-    <div class="pn-wt-hidden__name"><%= hidden.name %></div>
+    <div class="pn-wt-hidden__name">
+      <%= hidden.name %>
+      <% if hidden.key? %>
+        <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= hidden.key %></span>
+      <% end %>
+    </div>
   </div>
   <div class="pn-wt-shot pn-wt-shot--hidden">
     <%= r2_image_tag hidden.image, alt: "", class: "pn-wt-shot__img" %>

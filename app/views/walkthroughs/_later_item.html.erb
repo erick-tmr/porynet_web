@@ -21,7 +21,12 @@
     <div class="pn-wt-later__main">
       <div class="pn-wt-later__head">
         <span class="pn-wt-later__icon"><%= r2_image_tag "walkthrough/items/#{item.sprite}.png", alt: "", class: "pn-wt-item__icon" %></span>
-        <div class="pn-wt-later__name"><%= item.name %></div>
+        <div class="pn-wt-later__name">
+          <%= item.name %>
+          <% if item.key? %>
+            <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= item.key %></span>
+          <% end %>
+        </div>
       </div>
       <div class="pn-wt-later__tags">
         <span class="pn-wt-later__need"><%= t("walkthrough.ui.later_need") %> · <%= item.need %></span>

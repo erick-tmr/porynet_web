@@ -134,6 +134,15 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_includes body_progress(2), 'data-body-counter-target="have"'
   end
 
+  test "a floor row takes the card's own tag when it reads the same table" do
+    assert_equal "CAVE", encounter_method_label(place(kind: "grass"), "CAVE"),
+      "Mt. Moon reads the grass table, but there is no grass in a cave"
+    assert_equal "SAFARI", encounter_method_label(place(kind: "grass"), "SAFARI")
+    assert_equal "GRASS", encounter_method_label(place(kind: "grass"), "GRASS")
+    assert_equal "GRASS", encounter_method_label(place(kind: "grass"), "SURF"),
+      "a land row under a Surf card still says what it really is"
+  end
+
   test "encounter_method_label names every way a place is fished or walked into" do
     assert_equal "GRASS", encounter_method_label(place(kind: "grass"))
     assert_equal "SURF", encounter_method_label(place(kind: "water"))

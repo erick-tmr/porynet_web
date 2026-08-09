@@ -142,10 +142,30 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 
     assert_response :success
-    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=npc] .pn-mm__label-key", "pallet-town", text: "A"
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=npc] .pn-mm__label-key", "pallet-town", text: "N1"
     assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=npc] [aria-pressed]", "pallet-town", false
     assert_select ".pn-mm-legend__title", text: "IMPORTANT NPCS"
     assert_includes response.body, "Technology is incredible"
+  end
+
+  test "a pin's hint links to the step that collects it, and that step is there to land on" do
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+
+    assert_response :success
+    assert_select ".pn-mm[data-marker-id=?] .pn-mm__hint-step[href=?]", "item-1-31",
+      "#viridian-forest-step-3", text: /STEP 3/
+    assert_select ".pn-wt-step#viridian-forest-step-3"
+    assert_select ".pn-mm[data-marker-id=?] .pn-mm__hint-step", "trainer-2-41", false,
+      "a trainer is the location's, not one step's"
+  end
+
+  test "every card prints the letter of the pin it belongs to" do
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+
+    assert_response :success
+    assert_select ".pn-wt-item .pn-wt-mark", text: "I3"
+    assert_select ".pn-wt-hidden__name .pn-wt-mark", text: "H2"
+    assert_select ".pn-mm-legend__chip--item", text: "I3"
   end
 
   test "an interior map fills a step screenshot slot" do

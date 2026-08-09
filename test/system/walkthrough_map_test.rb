@@ -24,7 +24,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
     assert_selector ".pn-mm", count: 12
     assert_selector ".pn-mm-legend__row", count: 12
-    assert_selector ".pn-mm-legend__chip", text: "A"
+    assert_selector ".pn-mm-legend__chip", text: "T1"
   end
 
   test "markers are placed from their own coordinates, not stacked in a corner" do
@@ -245,7 +245,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     npc = ".pn-mm[data-marker-id='npc-technology']"
 
     within ".pn-mm-block[data-map-markers-map-value='pallet-town']" do
-      assert_selector ".pn-mm-legend__chip--npc", text: "A"
+      assert_selector ".pn-mm-legend__chip--npc", text: "N1"
       click_pin("#{npc} .pn-mm__hit")
 
       assert_selector "#{npc}.is-selected"

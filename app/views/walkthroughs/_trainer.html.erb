@@ -18,7 +18,7 @@
         <div class="pn-wt-trainer__name">
           <%= trainer.cls %>
           <% if trainer.marker_key? %>
-            <span class="pn-wt-trainer__key">(<%= trainer.marker_key %>)</span>
+            <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= trainer.marker_key %></span>
           <% end %>
         </div>
       <% end %>

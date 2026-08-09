@@ -41,18 +41,25 @@ module Walkthrough
     def best_place = places.max_by(&:rate)
   end
 
-  Item = Data.define(:name, :where_key, :sprite, :at, :tick) do
-    def initialize(at: nil, tick: nil, **rest) = super
+  # `key` is the letter this thing's pin wears on the location's map, so the card can tell the
+  # reader exactly which marker to hunt for. Nil when no single pin matches.
+  Item = Data.define(:name, :where_key, :sprite, :at, :tick, :key) do
+    def initialize(at: nil, tick: nil, key: nil, **rest) = super
+    def key? = !key.nil?
   end
 
-  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite, :at, :tick) do
-    def initialize(at: nil, tick: nil, **rest) = super
+  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite, :at, :tick, :key) do
+    def initialize(at: nil, tick: nil, key: nil, **rest) = super
+    def key? = !key.nil?
   end
-  LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin) do
+  LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin,
+    :key) do
+    def initialize(key: nil, **rest) = super
     def image? = !image.nil?
+    def key? = !key.nil?
   end
   TriviaCard = Data.define(:dex, :name, :tone, :rows)
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :yellow_only)
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot)
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -146,14 +153,17 @@ module Walkthrough
   # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
   # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
   # An exit also carries the `place` its door leads to, when the game states anything about it.
+  # `step` is the number of the step that collects this marker, so the pin can offer a way back
+  # into the instructions that explain it. Nil for anything no step points at.
   MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref,
-    :note, :place) do
-    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, place: nil, **rest) = super
+    :note, :place, :step) do
+    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, place: nil, step: nil, **rest) = super
     def key? = !key.nil?
     def tickable? = !NON_TICKABLE.include?(cat)
     def glyph_or_key = glyph || key
     def note? = !note.nil?
     def place? = !place.nil?
+    def step? = !step.nil?
   end
 
   AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers) do
@@ -170,11 +180,18 @@ module Walkthrough
 
   StepLink = Data.define(:leg, :anchor)
 
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link) do
+  # `pins` names the map markers this step's prose points at, as { token => "map-name/marker-id" }.
+  # The copy interpolates the token (`%{center}`) and the view fills in the letter that pin wears
+  # today. Authored as ids, never as letters: a letter is the marker's position in its map's run, so
+  # one new item ball would shift every letter after it and silently re-point the prose. `marks` is
+  # the resolved { token => letter } the view actually interpolates.
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks) do
+    def initialize(pins: {}, marks: {}, **rest) = super
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?
     def link? = !link.nil?
+    def marks? = marks.any?
   end
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from

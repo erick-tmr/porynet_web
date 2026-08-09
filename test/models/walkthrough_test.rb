@@ -169,6 +169,12 @@ class WalkthroughTest < ActiveSupport::TestCase
     refute steps[2].hidden?
   end
 
+  test "the forest picks its items up in the order the maze can actually be walked" do
+    items = loc("viridian-forest").steps.flat_map(&:items).map { |i| [ i.name, i.at ] }
+
+    assert_equal [ [ "Poké Ball", nil ], [ "Potion", [ 25, 11 ] ], [ "Potion", [ 12, 29 ] ] ], items
+  end
+
   test "starter encounters are gifts while wild encounters are catchable" do
     pallet = loc("pallet-town")
     pikachu = pallet.encounters.sole
@@ -485,18 +491,28 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty missing, "prose says 'ladder N' but no pin wears N, so the reference points nowhere"
   end
 
-  test "every numbered ladder in the overlay lands on a real exit" do
-    overlay = JSON.parse(File.read(Rails.root.join("app/models/walkthrough/yellow_ladders.json")))
-      .fetch("ladders")
-    grids = game.locations.flat_map(&:area_maps)
-      .to_h { |m| [ m.name, m.markers.select { |k| k.cat == "exit" }.map { |k| k.id.delete_prefix("exit-").tr("-", ",") } ] }
-
-    stray = overlay.flat_map do |map_name, cells|
-      cells.keys.reject { |cell| grids.fetch(map_name, []).include?(cell) }
-        .map { |cell| "#{map_name} #{cell}" }
+  test "every letter a step names is worn by a pin on that location's map" do
+    missing = I18n.available_locales.flat_map do |locale|
+      I18n.with_locale(locale) do
+        game.locations.flat_map do |loc|
+          keys = loc.area_maps.flat_map { |m| m.markers.map(&:key) }.compact
+          loc.steps.flat_map { |s| I18n.t(s.text_key).scan(/pn-wt-mark">([A-Z])</).flatten }
+            .uniq.reject { |k| keys.include?(k) }.map { |k| "#{locale} #{loc.slug} names #{k}" }
+        end
+      end
     end
 
-    assert_empty stray, "a mistyped grid cell is a silent no-op in both directions"
+    assert_empty missing, "prose names a letter but no pin on that map wears it"
+  end
+
+  test "every pin a step names is a real marker on that location's own maps" do
+    stray = game.locations.flat_map do |loc|
+      ids = loc.area_maps.flat_map { |m| m.markers.map { |k| "#{m.name}/#{k.id}" } }.to_set
+      loc.steps.flat_map { |s| s.pins.values }.uniq.reject { |id| ids.include?(id) }
+        .map { |id| "#{loc.slug} names #{id}" }
+    end
+
+    assert_empty stray, "a mistyped pin id would print nothing where a key belongs"
   end
 
   test "a step reads from exactly one of text and text_html" do
@@ -525,41 +541,42 @@ class WalkthroughTest < ActiveSupport::TestCase
                    "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
   end
 
-  test "a step that names a ladder renders its number as the chip the map wears" do
+  test "a step that names a staircase renders the key the map wears on both its floors" do
     steps = loc("mt-moon").steps
 
     assert_equal "text_html", steps[2].text_key.split(".").last,
-      "the ladder numbers are markup, so the step reads from an _html key"
-    body = I18n.t(steps[2].text_key)
-    assert_includes body, %(<span class="pn-wt-ladder">1</span>)
-    assert_includes body, %(<span class="pn-wt-ladder">2</span>)
-
+      "the keys are markup, so the step reads from an _html key"
+    assert_equal({ down: "E4", lower: "E7" }, steps[2].marks)
     refute_equal "text_html", steps[0].text_key.split(".").last,
-      "a step with no ladder to point at stays plain text"
+      "a step with no pin to point at stays plain text"
   end
 
-  test "a dungeon's ladders wear the route-order number the steps call them by" do
-    floors = loc("mt-moon").area_maps.to_h { |m| [ m.floor, m.markers.select { |k| k.cat == "exit" } ] }
+  test "both ends of a staircase wear one key, so the two floors read as connected" do
+    floors = loc("mt-moon").area_maps.to_h do |m|
+      [ m.floor, m.markers.select { |k| k.cat == "exit" }.to_h { |k| [ k.id, k.key ] } ]
+    end
 
-    assert_equal({ "exit-25-15" => "1", "exit-17-11" => "3", "exit-5-5" => "5" },
-      floors["1F"].select(&:key?).to_h { |k| [ k.id, k.key ] },
-      "1F's three ladders all read 'Mt. Moon B1F', so only a number tells them apart")
-    assert_equal %w[2 4 6 8], floors["B1F"].select(&:key?).map(&:key).sort
-    assert_equal [ "7" ], floors["B2F"].select(&:key?).map(&:key)
+    assert_equal "E2", floors["1F"]["exit-5-5"]
+    assert_equal "E2", floors["B1F"]["exit-5-5"], "the far side of the same staircase"
+    assert_equal "E4", floors["1F"]["exit-25-15"]
+    assert_equal "E4", floors["B1F"]["exit-25-15"]
+    assert_equal "E7", floors["B1F"]["exit-13-27"]
+    assert_equal "E7", floors["B2F"]["exit-15-27"], "it lands well away from where it started"
   end
 
-  test "a numbered ladder keeps its direction glyph on the pin" do
-    ladder = loc("mt-moon").area_maps.first.markers.find { |k| k.id == "exit-25-15" }
-
-    assert_equal "▲", ladder.glyph_or_key, "the pin still says which way it goes"
-    assert_equal "1", ladder.key, "and the label and legend carry the number"
-  end
-
-  test "an unnumbered exit is left alone" do
+  test "a doorway out of the location is nobody's twin, so it keeps a key of its own" do
     outside = loc("mt-moon").area_maps.first.markers.find { |k| k.id == "exit-14-35" }
-    refute outside.key?, "the way you came in needs no number"
-    refute loc("viridian-forest").area_maps.first.markers.any? { |k| k.cat == "exit" && k.key? },
-      "a single-floor map has no ladders to disambiguate"
+    twins = loc("mt-moon").area_maps.flat_map { |m| m.markers.select { |k| k.cat == "exit" } }
+
+    assert_equal "E1", outside.key, "Route 3 draws its far side, not Mt. Moon"
+    assert_equal "▼", outside.glyph_or_key, "the pin still says which way it goes"
+    assert_equal 1, twins.count { |k| k.key == "E1" }
+  end
+
+  test "an exit on a single-floor map is keyed like any other" do
+    forest = loc("viridian-forest").area_maps.first.markers.select { |k| k.cat == "exit" }
+
+    assert_equal %w[E1 E2], forest.map(&:key)
   end
 
   test "locations carry plain rendered area maps" do

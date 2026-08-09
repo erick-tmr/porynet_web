@@ -86,7 +86,7 @@
             <div class="pn-wt-gym__leader-name">
               <%= gym.leader.name %>
               <% if gym.leader.marker_key? %>
-                <span class="pn-wt-gym__leader-key">(<%= gym.leader.marker_key %>)</span>
+                <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= gym.leader.marker_key %></span>
               <% end %>
             </div>
             <div class="pn-wt-gym__leader-pills">

@@ -93,7 +93,7 @@ def main():
     areas, missing = {}, []
 
     for slug, maps in sorted(locations.location_maps().items()):
-        entries = []
+        entries, labels, warps, consts = [], [], {}, {}
         for label, floor, parent in maps:
             if label not in headers:
                 missing.append(f"{slug}: {label}")
@@ -109,7 +109,11 @@ def main():
                             "floor": floor, "name": name,
                             "markers": markers.build_markers(root, label, headers[label][0],
                                                              image.width, image.height)})
+            labels.append(label)
+            warps[label] = sources.parse_warp_events(root, label)
+            consts[label] = headers[label][0]
         if entries:
+            markers.link_exit_keys(entries, labels, warps, consts)
             areas[slug] = entries
 
     trainers, where_specs = roster.build_roster(root)

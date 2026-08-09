@@ -43,13 +43,35 @@ def _registry(root):
 MAP_NAMES = sorted(MAP_ENTRIES)
 
 
+# Exit keys are settled per location, not per map, because a staircase's two ends share one key.
+# So the golden test rebuilds a whole location and then reads back the map it is checking.
+def _rebuild_location(root, slug):
+    headers = sources.parse_headers(root)
+    entries, labels, warps, consts = [], [], {}, {}
+    for label, floor, _parent in locations.location_maps()[slug]:
+        if label not in headers:
+            continue
+        name = locations.image_name(slug, floor)
+        entry = MAP_ENTRIES[name]
+        entries.append({"name": name, "markers": markers.build_markers(
+            root, label, headers[label][0], entry["width"], entry["height"])})
+        labels.append(label)
+        warps[label] = sources.parse_warp_events(root, label)
+        consts[label] = headers[label][0]
+    markers.link_exit_keys(entries, labels, warps, consts)
+    return {e["name"]: e["markers"] for e in entries}
+
+
+MAP_SLUGS = {locations.image_name(slug, floor): slug
+             for slug, maps in locations.location_maps().items()
+             for _label, floor, _parent in maps}
+
+
 @pytest.mark.parametrize("name", MAP_NAMES)
 def test_map_markers_match_the_committed_manifest(root, name):
-    label, const = _registry(root)[name]
-    entry = MAP_ENTRIES[name]
-    built = markers.build_markers(root, label, const, entry["width"], entry["height"])
+    built = _rebuild_location(root, MAP_SLUGS[name])[name]
 
-    assert built == entry["markers"], (
+    assert built == MAP_ENTRIES[name]["markers"], (
         f"{name}: generator output drifted from the committed manifest; "
         f"rerun tools/maps/build.py and review the diff")
 

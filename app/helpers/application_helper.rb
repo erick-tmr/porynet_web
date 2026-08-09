@@ -37,9 +37,16 @@ module ApplicationHelper
   end
 
   def step_text(step)
-    return t(step.text_key) unless step.link?
+    marks = step.marks.transform_values { |key| map_mark(key) }
+    return t(step.text_key, **marks) unless step.link?
 
-    t(step.text_key, href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
+    t(step.text_key, **marks,
+      href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
+  end
+
+  # The letter a step's prose points at, wearing the chip the map pin and legend row give it.
+  def map_mark(key)
+    tag.span(key, class: "pn-wt-mark", title: t("walkthrough.ui.map_marker_hint"))
   end
 
   def walkthrough_page_controller(game)
@@ -118,7 +125,13 @@ module ApplicationHelper
     )
   end
 
-  def encounter_method_label(place) = t("walkthrough.ui.method_#{place.kind}")
+  # A floor row wears the card's own method tag when it reads the same table the card does, so a
+  # cave floor says CAVE like the pill above it instead of GRASS, which is only the name of the
+  # table underneath. A row on a different table (a Surf spot listed under a grass card) keeps its
+  # own label, because there the difference is the whole point of the row.
+  def encounter_method_label(place, how = nil)
+    place.method?(how) ? how : t("walkthrough.ui.method_#{place.kind}")
+  end
 
   # The ladder's bar runs proportional to the best floor on the card, and a strict CSP blocks the
   # inline width the design mock uses. So the width is bucketed to the nearest 5% and carried as a

@@ -2,15 +2,19 @@
 """Turn a map's game data into the marker list the walkthrough page overlays on its area map.
 
 Four categories, each a tick target on the page except exits:
-  trainer  every object_event carrying OPP_<CLASS>, <party#>, lettered A, B, C ... per map
+  trainer  every object_event carrying OPP_<CLASS>, <party#>
   item     every object_event carrying a bare item constant (a ball you can pick up)
   hidden   the map's hidden_events, which show nothing on screen in the game
   exit     the map's warp_events, collapsed so one doorway is one marker
 
+Every marker carries a key: its category's letter plus its position among its own kind on that map
+(T1, I2, H1, E3). One key names exactly one thing, and any card, step or legend row can print the
+key its reader should hunt for. A ladder is the one exception: the Ruby overlay swaps its key for a
+bare route-order number, because the steps count ladders rather than naming them.
+
 Positions come out as percentages of the rendered PNG, so the page can lay markers over an
 image scaled to any width without knowing the tile size.
 """
-import string
 from collections import defaultdict
 
 import sources
@@ -20,17 +24,16 @@ LABEL_FLIP_PCT = 62.0              # past this x the label reads better to the m
 LABEL_PX = 26                      # a label's own height, the closest two can sit before they touch
 
 
-def key_letters(index):
-    """0 -> A, 25 -> Z, 26 -> AA. Ten trainers on one map is the current maximum, so the
-    wrap-around is unreachable today; it exists so a denser map cannot silently collide."""
-    letters = string.ascii_uppercase
-    out = letters[index % 26]
-    index = index // 26
-    while index:
-        index -= 1
-        out = letters[index % 26] + out
-        index = index // 26
-    return out
+# The letter that opens every key, per category. A marker's key is that letter plus its 1-based
+# position among its own kind on its own map, so T1 is always a trainer and I2 always an item ball.
+# Numbering per category (rather than one run over the whole map) keeps a key stable against
+# unrelated edits: adding an item ball renumbers the items and leaves every trainer alone.
+KEY_PREFIX = {"trainer": "T", "item": "I", "hidden": "H", "exit": "E", "npc": "N"}
+
+
+def marker_key(cat, index):
+    """('trainer', 0) -> 'T1'. Index is 0-based within the category."""
+    return f"{KEY_PREFIX[cat]}{index + 1}"
 
 
 def cell_percent(grid_x, grid_y, width_px, height_px):
@@ -65,18 +68,25 @@ def group_warps(warps):
 
     groups = {}
     for i, warp in enumerate(warps):
-        groups.setdefault(find(i), []).append(warp)
-    return [_warp_group(cells) for cells in groups.values()]
+        groups.setdefault(find(i), []).append((i, warp))
+    return [_warp_group(members) for members in groups.values()]
 
 
-def _warp_group(cells):
+def _warp_group(members):
     """A doorway's display position is the centroid of its tiles, so a four-tile gate sits at
-    its middle; its id anchors to the min cell, which survives the group growing or shrinking."""
+    its middle; its id anchors to the min cell, which survives the group growing or shrinking.
+
+    `slots` are the doorway's own indices in its map's warp list and `to` the index it lands on in
+    the destination's, which is what lets two ends of one staircase find each other. The game
+    numbers that target from 1, so it is dropped to a 0-based index here."""
+    cells = [warp for _, warp in members]
     xs, ys = [c[0] for c in cells], [c[1] for c in cells]
     anchor = min((y, x) for x, y in zip(xs, ys, strict=True))
     return {"dest": cells[0][2],
             "center": (sum(xs) / len(xs), sum(ys) / len(ys)),
-            "anchor": (anchor[1], anchor[0])}
+            "anchor": (anchor[1], anchor[0]),
+            "slots": frozenset(i for i, _ in members),
+            "to": cells[0][3] - 1}
 
 
 EXIT_GLYPHS = {"north": "▲", "south": "▼", "west": "◀", "east": "▶", "inner": "▲"}
@@ -154,11 +164,10 @@ def build_markers(root_str, map_label, map_const, width_px, height_px):
     out = []
 
     trainers = [o for o in objects if o["kind"] == "trainer"]
-    for i, obj in enumerate(trainers):
+    for obj in trainers:
         name = classes.get(obj["opp_class"], (0, obj["opp_class"].replace("_", " ")))[1]
         out.append(_marker("trainer", obj["grid"], obj["grid"], width_px, height_px,
-                           key=key_letters(i), name=name.title(),
-                           ref=f"{obj['opp_class']}:{obj['party']}"))
+                           name=name.title(), ref=f"{obj['opp_class']}:{obj['party']}"))
 
     for obj in (o for o in objects if o["kind"] == "item"):
         out.append(_marker("item", obj["grid"], obj["grid"], width_px, height_px,
@@ -185,6 +194,12 @@ def build_markers(root_str, map_label, map_const, width_px, height_px):
     tileset = sources.parse_headers(root_str)[map_label][1]
     out += connection_exits(root_str, map_label, map_const, tileset, width_px // sources.BLOCK_PX,
                             width_cells, height_cells, width_px, height_px)
+
+    counts = defaultdict(int)
+    for entry in out:
+        cat = entry["cat"]
+        entry["key"] = marker_key(cat, counts[cat])
+        counts[cat] += 1
 
     return assign_label_lanes(out, width_px, height_px)
 
@@ -321,7 +336,7 @@ def connection_exits(root_str, map_label, map_const, tileset, width_blocks, widt
 LABEL_CHAR_PX = 8
 LABEL_PAD_PX = 18
 LABEL_OFFSET_PX = 22
-LABEL_KEY_PX = 20
+LABEL_KEY_PX = 26          # the key badge ('T1', 'E12') printed ahead of a label's name
 
 
 def label_span(entry, width_px):
@@ -351,3 +366,41 @@ def assign_label_lanes(entries, width_px, height_px):
         entry["lane"] = lane
         taken.append({**entry, "span": span})
     return entries
+
+
+# A staircase is two doorways, one per floor, and the game already says which: a warp names the map
+# it leads to and the slot it lands on in that map's warp list. Pairing them up lets both ends wear
+# one key, so a reader can see at a glance that E3 on 1F and E3 on B1F are the same steps.
+def link_exit_keys(entries, labels, warps_by_label, consts):
+    """Re-key the exits of one location's maps so a warp shared by two floors wears one key.
+
+    `entries` are the location's map entries in page order with `labels` parallel to them, and
+    `warps_by_label` / `consts` each map's raw warp list and map constant. A doorway leading out of
+    the location keeps a key of its own, since its far side is drawn on somebody else's map."""
+    doors, by_const = {}, {}
+    for label in labels:
+        by_const[consts[label]] = label
+        for group in group_warps(warps_by_label[label]):
+            doors[(label, f"exit-{group['anchor'][0]}-{group['anchor'][1]}")] = group
+
+    def partner(label, group):
+        far = by_const.get(group["dest"])
+        if far is None:
+            return None
+        return next((key for key, other in doors.items()
+                     if key[0] == far and group["to"] in other["slots"]), None)
+
+    assigned, n = {}, 0
+    for entry, label in zip(entries, labels, strict=True):
+        for marker in entry["markers"]:
+            if marker["cat"] != "exit":
+                continue
+            here = (label, marker["id"])
+            if here not in assigned:
+                n += 1
+                assigned[here] = marker_key("exit", n - 1)
+                group = doors.get(here)
+                far = partner(label, group) if group else None
+                if far is not None:
+                    assigned[far] = assigned[here]
+            marker["key"] = assigned[here]
