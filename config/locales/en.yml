@@ -341,7 +341,7 @@ en:
       map_place_note_silph_co: "Silph Co., seized by Team Rocket. Fight up through the floors to Giovanni, and the Master Ball, at the top."
       map_place_note_rocket_hideout: "Team Rocket's base under the Game Corner. Giovanni waits at the bottom, guarding the Silph Scope."
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
-      map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion, and he points you at the shop for Poké Balls."
+      map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion."
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
       shot_placeholder: "Screenshot coming soon"
@@ -914,7 +914,7 @@ en:
               text: "Head north through the tall grass, battling wild Pidgey and Rattata to level Pikachu. You have no Poké Balls yet, so catch them on the way back once the Viridian Mart is stocked."
             "2":
               title: "Take the free Potion"
-              text: "A Youngster on the west edge of the road works at the Viridian Poké Mart. He hands over a free sample Potion, and tells you the shop stocks the Poké Balls you still need."
+              text: "A Youngster on the west edge of the road works at the Viridian Poké Mart. He steps out as you pass and hands you a free sample Potion."
               items:
                 potion: "From the man by the sign near the south (Pallet) exit."
             "3":

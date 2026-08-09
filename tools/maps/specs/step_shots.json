@@ -46,7 +46,7 @@
     "name": "route-1-north",
     "map": "Route1",
     "player": [
-      13,
+      7,
       29
     ],
     "player_dir": "UP",
@@ -54,7 +54,7 @@
       {
         "dir": "up",
         "grid": [
-          13,
+          7,
           27
         ]
       }
