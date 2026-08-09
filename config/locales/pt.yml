@@ -1292,9 +1292,9 @@ pt:
                 elixir: "Borda norte perto da entrada oeste, logo após a Rota 24. Vire para cima e aperte A."
             "3":
               title: "Pegue o TM19 no labirinto"
-              text: "Serpenteie pelo labirinto cercado no meio da rota, passando pelos Youngsters e pelo Jr. Trainer. A Poke Ball guardada no canto nordeste tem o TM19 (Seismic Toss)."
+              text_html: "O Jr. Trainer %{guard} tampa a única brecha para o bolsão do TM19. Puxe-o de dois tiles abaixo para ele descer e sair dela; se você lutar colado nele, o TM fica preso até você ter o Cut."
               items:
-                tm-seismic-toss: "Canto nordeste do labirinto cercado, no meio da rota."
+                tm-seismic-toss: "Bolsão nordeste do labirinto de árvores, no meio da rota. Se o Jr. Trainer voltar a tampar a brecha, corte a árvore da parede leste do bolsão."
             "4":
               title: "Revise a grama perto da cabana"
               text: "Na reta final a leste, um pouco a oeste da porta da Sea Cottage do Bill e na mesma fileira, alinhe-se no tile logo abaixo e vire para cima apertando A para um Ether oculto. Nada aparece na tela."

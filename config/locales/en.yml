@@ -1292,9 +1292,9 @@ en:
                 elixir: "North edge near the west entrance, just in from Route 24. Face up and press A."
             "3":
               title: "Grab TM19 in the maze"
-              text: "Wind through the fenced maze in the middle of the route, past the Youngsters and the Jr. Trainer. The Poke Ball tucked in the northeast corner holds TM19 (Seismic Toss)."
+              text_html: "Jr. Trainer %{guard} plugs the one gap into the TM19 pocket. Trigger him from two tiles below so he steps down off it; beat him from right below and the TM stays sealed until you have Cut."
               items:
-                tm-seismic-toss: "Northeast corner of the fenced maze, mid-route."
+                tm-seismic-toss: "Northeast pocket of the tree maze, mid-route. If the Jr. Trainer settles back on the gap, Cut the tree in the pocket's east wall instead."
             "4":
               title: "Check the grass by the cottage"
               text: "On the final approach east, a short walk west of Bill's Sea Cottage door and on the same row, line up on the tile just below and press A facing up for a hidden Ether. Nothing shows on-screen."

@@ -1054,7 +1054,8 @@ module Walkthrough
       loc("route-25", "ROUTE", "Route 25", 13, steps: [
           {},
           { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ] },
-          { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss" },
+          { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss",
+            pins: { guard: "route-25/trainer-24-4" } },
           { hidden: [ "Ether", "ether", "route-25-hidden-ether", "route-25-ether" ] },
           { item: [ "S.S. Ticket", "s_s_ticket" ], scene: "route-25-bill",
             pins: { cottage: "route-25/exit-45-3" } }
