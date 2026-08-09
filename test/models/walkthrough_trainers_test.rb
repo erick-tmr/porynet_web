@@ -103,12 +103,15 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_equal "Giovanni", viridian.gym.leader.name
   end
 
-  test "the SS Anne counts the trainers in its cabins, which its own map never draws" do
+  test "the SS Anne pins its cabin trainers now that the cabin maps are drawn" do
     ship = location("ss-anne")
 
     assert_equal 17, ship.trainers.size
-    assert(ship.trainers.all? { |card| card.marker_key.nil? })
     assert_equal "Blue", ship.trainers.first.name
+    pinless = ship.trainers.reject { |card| card.marker_key }
+    assert_equal 3, pinless.size,
+      "only Blue and the two Sailors on the still-undrawn Bow lack a pin"
+    assert_equal [ "RIVAL", "SAILOR", "SAILOR" ], pinless.map(&:cls).sort
   end
 
   test "a card ticks under the same key as its pin on the map" do

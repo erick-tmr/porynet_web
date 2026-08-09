@@ -58,10 +58,32 @@ module Walkthrough
     def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil)
       b = base(slug)
       key = mon_key(dex)
-      Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: rate, level: level,
+      places = encounter_places(slug, dex)
+      head = headline(places, how) || [ rate, level ]
+      Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: head.first, level: head.last,
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
         from_key: (from ? "#{b}.gifts.#{key}.from" : nil),
-        unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock)
+        unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock,
+        places: places)
+    end
+
+    # A species spread over several floors has no single hand-typed rate that is true; the card
+    # would otherwise headline one floor's number above a breakdown that contradicts it. So the
+    # headline is the best floor you can reach, rounded to the whole percent `parse_rate` reads,
+    # over the level band across every floor it lives on.
+    #
+    # Only the places matching the card's own method count. Which method a stop expects you to
+    # use is an editorial call (the guide sends you Surfing at Seafoam, not fishing off the same
+    # tile), so the tag stays put and the number is made true for it; the breakdown below the
+    # headline still lists every other way the species turns up there. Returns nil when the
+    # method has no table at all (gifts, fossils, the Game Corner), leaving the hand-typed pair.
+    def self.headline(places, how)
+      matching = places.select { |place| place.method?(how) }
+      return nil if matching.size < 2
+
+      lo = matching.map(&:min_level).min
+      hi = matching.map(&:max_level).max
+      [ "#{matching.map(&:rate).max.round}%", lo == hi ? lo.to_s : "#{lo}–#{hi}" ]
     end
 
     # Verbatim from HappinessChangeTable in engine/events/pikachu_happiness.asm: each action's
@@ -473,6 +495,26 @@ module Walkthrough
       @manifest ||= JSON.parse(File.read(File.join(__dir__, "yellow_maps.json"))).freeze
     end
 
+    def self.wild_tables
+      @wild_tables ||= JSON.parse(File.read(File.join(__dir__, "yellow_encounters.json")))
+        .fetch("encounters").freeze
+    end
+
+    # Where one species really spawns inside a location, floor by floor. Gen 1 gives every map its
+    # own table, so a cave's floors disagree on both who is there and how often: Sandshrew is on
+    # Mt. Moon 1F alone, and Clefairy climbs from 1.2% there to 10.5% on B2F. A single headline
+    # rate cannot say that, so the card lists the places and lets the player pick the best one.
+    def self.encounter_places(slug, dex)
+      wild_tables.fetch(slug, []).filter_map do |place|
+        row = place.fetch("mons").find { |mon| mon["dex"] == dex }
+        next if row.nil?
+
+        EncounterPlace.new(floor: place["floor"].presence, kind: place.fetch("kind"),
+          rate: row.fetch("rate"), min_level: row.fetch("min_level"),
+          max_level: row.fetch("max_level"))
+      end
+    end
+
     # Item-givers and easter-egg NPCs are curated, not derivable from the map data the way
     # trainers and item balls are, so they live in a hand-authored overlay keyed by map name
     # and join onto the generated markers at load. Positions are the game's own object
@@ -481,10 +523,25 @@ module Walkthrough
       @npc_overlay ||= JSON.parse(File.read(File.join(__dir__, "yellow_npcs.json"))).freeze
     end
 
+    # Which ladder a step means, numbered in the order the route climbs them. A dungeon's floors all
+    # label their exits the same way ("Mt. Moon B1F"), so "take the ladder" is ambiguous the moment a
+    # floor has three of them; a number on the pin and the same number in the step ties the two
+    # together. Route order is an editorial call, so it is authored rather than generated.
+    def self.ladder_overlay
+      @ladder_overlay ||= JSON.parse(File.read(File.join(__dir__, "yellow_ladders.json")))
+        .fetch("ladders").freeze
+    end
+
+    def self.ladder_key(map_name, data)
+      return data["key"] unless data["cat"] == "exit"
+
+      ladder_overlay.dig(map_name, data.fetch("grid", []).join(",")) || data["key"]
+    end
+
     def self.map_data
       manifest.fetch("locations").transform_values do |maps|
         maps.map do |m|
-          base = m.fetch("markers", []).map { |k| map_marker(k) }
+          base = m.fetch("markers", []).map { |k| map_marker(k, ladder_key(m["name"], k)) }
           # NPC letters carry on from the map's trainers so a person is one A, B, C... sequence and
           # no NPC ever wears the same letter as a trainer standing on the same map.
           trainers = base.count { |marker| marker.cat == "trainer" }
@@ -537,8 +594,8 @@ module Walkthrough
         tm: data["tm"])
     end
 
-    def self.map_marker(data)
-      MapMarker.new(id: data["id"], cat: data["cat"], key: data["key"], name: data["name"],
+    def self.map_marker(data, key = data["key"])
+      MapMarker.new(id: data["id"], cat: data["cat"], key: key, name: data["name"],
         x: data["x"], y: data["y"], align: data["align"], lane: data["lane"],
         glyph: data["glyph"], edge: data["edge"], ref: data["ref"],
         place: (place_facts[data["ref"]] if data["cat"] == "exit"))
@@ -642,9 +699,9 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
-          { item: [ "Oak's Parcel", "oaks_parcel" ] },
+          { item: [ "Oak's Parcel", "oaks_parcel" ], scene: "viridian-mart-parcel" },
           { item: [ "Pokédex", "pokedex" ] },
-          { item: [ "Town Map", "town_map" ] },
+          { item: [ "Town Map", "town_map" ], scene: "blues-house-town-map" },
           {},
           {},
           { hidden: [ "Potion", "potion", "viridian-city-hidden-potion", "viridian-city-potion" ] },
@@ -691,7 +748,7 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
           {},
-          {}
+          { scene: "viridian-forest-south-gate" }
         ]),
         encounters: [
           enc("route-2", "016", "GRASS", "35%", "3–7", "COMMON", "016", "017", "018", tip: true),
@@ -722,7 +779,7 @@ module Walkthrough
           { item: [ "Potion", "potion-12-29" ], scene: "viridian-forest-item-potion-12-29", at: [ 12, 29 ] },
           { item: [ "Potion", "potion-25-11" ], scene: "viridian-forest-item-potion-25-11", at: [ 25, 11 ] },
           { hidden: [ "Potion", "potion", "viridian-forest-hidden-potion", "viridian-forest-potion" ] },
-          {}
+          { scene: "viridian-forest-north" }
         ]),
         encounters: [
           enc("viridian-forest", "010", "GRASS", "50%", "3–6", "COMMON", "010", "011", "012", tip: true),
@@ -755,13 +812,13 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], html_steps: [], hidden_items: {}, key_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], hidden_items: {}, key_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: steps.is_a?(Array) ? build_steps(b, steps) : (1..steps).map { |i|
-          step(b, i, html: html_steps.include?(i),
+          step(b, i,
             shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
             items: key_items.fetch(i, []).map { |name, key| item(b, i, name, key) },
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
@@ -778,7 +835,7 @@ module Walkthrough
     def self.build_steps(base, defs)
       defs.each_with_index.map do |d, i|
         n = i + 1
-        step(base, n,
+        step(base, n, html: d.fetch(:html, false),
           items: step_items(base, n, d),
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil))
@@ -884,20 +941,20 @@ module Walkthrough
 
     def self.mt_moon
       loc("mt-moon", "CAVE", "Mt. Moon", 9, steps: [
-          {},
+          { item: [ "TM Water Gun", "tm-water-gun" ], scene: "mt-moon-item-tm-water-gun" },
+          { item: [ "Potion", "potion-2-20" ], scene: "mt-moon-item-potion-2-20", at: [ 2, 20 ] },
+          { item: [ "HP Up", "hp-up" ], scene: "mt-moon-item-hp-up", html: true },
           { item: [ "Potion", "potion-20-33" ], scene: "mt-moon-item-potion-20-33", at: [ 20, 33 ] },
           { item: [ "Rare Candy", "rare-candy" ], scene: "mt-moon-item-rare-candy" },
           { item: [ "Escape Rope", "escape-rope" ], scene: "mt-moon-item-escape-rope" },
-          { item: [ "TM Water Gun", "tm-water-gun" ], scene: "mt-moon-item-tm-water-gun" },
-          { item: [ "Potion", "potion-2-20" ], scene: "mt-moon-item-potion-2-20", at: [ 2, 20 ] },
-          { item: [ "Moon Stone", "moon-stone" ], scene: "mt-moon-item-moon-stone" },
-          {},
-          { item: [ "HP Up", "hp-up" ], scene: "mt-moon-item-hp-up" },
-          { hidden: [ "Moon Stone", "moon-stone", "mt-moon-hidden-moon-stone", "mt-moon-moon-stone" ] },
+          { html: true },
           { item: [ "TM Mega Punch", "tm-mega-punch" ], scene: "mt-moon-item-tm-mega-punch" },
           { hidden: [ "Ether", "ether", "mt-moon-hidden-ether", "mt-moon-ether" ] },
-          { items: [ [ "Fossil", "fossil" ] ] },
-          {}
+          { item: [ "Moon Stone", "moon-stone" ], scene: "mt-moon-item-moon-stone" },
+          { html: true },
+          { hidden: [ "Moon Stone", "moon-stone", "mt-moon-hidden-moon-stone", "mt-moon-moon-stone" ] },
+          { items: [ [ "Fossil", "fossil" ] ], scene: "mt-moon-fossils" },
+          { html: true }
         ],
         encounters: [
           enc("mt-moon", "041", "CAVE", "75%", "6–11", "COMMON", "041", "042"),
@@ -915,7 +972,7 @@ module Walkthrough
     def self.route_4
       loc("route-4", "ROUTE", "Route 4", 10,
         steps: [
-          {},
+          { scene: "route-4-exit" },
           { hidden: [ "Great Ball", "great-ball", "route-4-hidden-great-ball", "route-4-great-ball" ] },
           { item: [ "TM Whirlwind", "tm-whirlwind" ], scene: "route-4-item-tm-whirlwind" },
           {}
@@ -943,7 +1000,7 @@ module Walkthrough
       loc("route-24", "ROUTE", "Route 24", 12, steps: [
           {},
           {},
-          {},
+          { scene: "route-24-charmander" },
           { item: [ "TM Thunder Wave", "tm-thunder-wave" ], scene: "route-24-item-tm-thunder-wave" },
           {}
         ],
@@ -963,7 +1020,7 @@ module Walkthrough
     def self.route_25
       loc("route-25", "ROUTE", "Route 25", 13, steps: [
           {},
-          { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ] },
+          { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ], scene: "route-25-bill" },
           { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss" },
           { hidden: [ "Ether", "ether", "route-25-hidden-ether", "route-25-ether" ] },
           { item: [ "S.S. Ticket", "s_s_ticket" ] }
@@ -1004,8 +1061,8 @@ module Walkthrough
     def self.vermilion_city
       loc("vermilion-city", "CITY", "Vermilion City", 16, steps: [
           { items: [ [ "Bike Voucher", "bike_voucher" ], [ "Old Rod", "old_rod" ] ] },
-          { hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether", "vermilion-city-max-ether" ] },
-          {},
+          { hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether", "vermilion-city-max-ether" ], scene: "vermilion-ss-anne-dock" },
+          { scene: "vermilion-squirtle" },
           {}
         ], gym_after: 2, badge: "THUNDER",
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ],
@@ -1017,8 +1074,18 @@ module Walkthrough
     end
 
     def self.ss_anne
-      loc("ss-anne", "BUILDING", "S.S. Anne", 17, steps: 3, shots: [ 3 ],
-        key_items: { 3 => [ [ "HM01 Cut", "hm01_cut" ] ] },
+      # The cabin sub-maps are drawn now, so the six items inside them are pinned and get a step
+      # each, rather than being listed in one sentence on the boarding beat.
+      loc("ss-anne", "BUILDING", "S.S. Anne", 17, steps: [
+          {},
+          { item: [ "TM Body Slam", "tm-body-slam" ] },
+          { item: [ "Max Ether", "max-ether" ] },
+          { item: [ "Rare Candy", "rare-candy" ] },
+          { item: [ "Ether", "ether" ] },
+          { item: [ "TM Rest", "tm-rest" ] },
+          { item: [ "Max Potion", "max-potion" ] },
+          { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut" }
+        ],
         trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),
           where: scene_shot("ss-anne-rival", "WHERE"),
           battle: scene_shot("battle-rival-ss-anne", "BATTLE"), opp: [ "RIVAL1", 1 ]) ])
@@ -1085,7 +1152,8 @@ module Walkthrough
     def self.route_12
       loc("route-12", "ROUTE", "Route 12", 29, steps: [
           {},
-          {},
+          { item: [ "TM Pay Day", "tm-pay-day" ], scene: "route-12-item-tm-pay-day" },
+          { scene: "route-12-snorlax" },
           { hidden: [ "Hyper Potion", "hyper-potion", "route-12-hidden-hyper-potion", "route-12-hyper-potion" ] },
           { items: [ [ "Super Rod", "super_rod" ] ] },
           { item: [ "Iron", "iron" ], scene: "route-12-item-iron" },
@@ -1301,7 +1369,7 @@ module Walkthrough
           {},
           { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
           { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
-          {},
+          { scene: "seafoam-articuno" },
           { hidden: [ "Ultra Ball", "ultra-ball", "seafoam-islands-hidden-ultra-ball", "seafoam-islands-ultra-ball" ] },
           {}
         ],
@@ -1322,7 +1390,7 @@ module Walkthrough
           enc("cinnabar-island", "138", "FOSSIL", "-", "30", "GIFT", "138", "139", tip: true),
           enc("cinnabar-island", "140", "FOSSIL", "-", "30", "GIFT", "140", "141", tip: true),
           enc("cinnabar-island", "142", "FOSSIL", "-", "30", "GIFT", "142", tip: true),
-          enc("cinnabar-island", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
+          enc("cinnabar-island", "072", "SUPER ROD", "40%", "15–30", "COMMON", "072", "073"),
           enc("cinnabar-island", "120", "SUPER ROD", "30%", "15–30", "UNCOMMON", "120", "121")
         ],
         trainers: [],
@@ -1346,12 +1414,12 @@ module Walkthrough
           { item: [ "Carbos", "carbos" ], scene: "pokemon-mansion-item-carbos" },
           { hidden: [ "Moon Stone", "moon-stone", "pokemon-mansion-hidden-moon-stone", "pokemon-mansion-moon-stone" ] },
           { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-mansion-item-escape-rope" },
-          {},
-          { item: [ "Calcium", "calcium" ], scene: "pokemon-mansion-item-calcium" },
+          { html: true },
+          { item: [ "Calcium", "calcium" ], scene: "pokemon-mansion-item-calcium", html: true },
           { item: [ "Iron", "iron" ], scene: "pokemon-mansion-item-iron" },
           { item: [ "Max Potion", "max-potion" ], scene: "pokemon-mansion-item-max-potion" },
           { hidden: [ "Max Revive", "max-revive", "pokemon-mansion-hidden-max-revive", "pokemon-mansion-max-revive" ] },
-          {},
+          { html: true },
           { item: [ "TM Blizzard", "tm-blizzard" ], scene: "pokemon-mansion-item-tm-blizzard" },
           { item: [ "Full Restore", "full-restore" ], scene: "pokemon-mansion-item-full-restore" },
           { item: [ "Secret Key", "secret-key" ], scene: "pokemon-mansion-item-secret-key" },
@@ -1388,18 +1456,18 @@ module Walkthrough
           {},
           { item: [ "Rare Candy", "rare-candy" ], scene: "victory-road-item-rare-candy" },
           { item: [ "TM Sky Attack", "tm-sky-attack" ], scene: "victory-road-item-tm-sky-attack" },
-          {},
+          { html: true },
           { hidden: [ "Ultra Ball", "ultra-ball", "victory-road-hidden-ultra-ball", "victory-road-ultra-ball" ] },
           { item: [ "Guard Spec", "guard-spec" ], scene: "victory-road-item-guard-spec" },
-          {},
+          { scene: "victory-road-moltres" },
           { item: [ "TM Mega Kick", "tm-mega-kick" ], scene: "victory-road-item-tm-mega-kick" },
           { item: [ "Full Heal", "full-heal" ], scene: "victory-road-item-full-heal" },
           { hidden: [ "Full Restore", "full-restore", "victory-road-hidden-full-restore", "victory-road-full-restore" ] },
           { item: [ "TM Submission", "tm-submission" ], scene: "victory-road-item-tm-submission" },
-          {},
+          { html: true },
           { item: [ "Max Revive", "max-revive" ], scene: "victory-road-item-max-revive" },
           { item: [ "TM Explosion", "tm-explosion" ], scene: "victory-road-item-tm-explosion" },
-          {}
+          { html: true }
         ],
         encounters: [
           enc("victory-road", "074", "CAVE", "30%", "26–46", "COMMON", "074", "075", "076"),
@@ -1456,20 +1524,20 @@ module Walkthrough
           { hidden: [ "PP Up", "pp-up-18-7", "cerulean-cave-hidden-pp-up-18-7", "cerulean-cave-pp-up-18-7" ], at: [ 18, 7 ] },
           { item: [ "Ultra Ball", "ultra-ball-18-3" ], scene: "cerulean-cave-item-ultra-ball-18-3", at: [ 18, 3 ] },
           { item: [ "Max Elixir", "max-elixir-7-11" ], scene: "cerulean-cave-item-max-elixir-7-11", at: [ 7, 11 ] },
-          {},
+          { html: true },
           { item: [ "Rare Candy", "rare-candy-0-11" ], scene: "cerulean-cave-item-rare-candy-0-11", at: [ 0, 11 ] },
           { item: [ "Ultra Ball", "ultra-ball-16-7" ], scene: "cerulean-cave-item-ultra-ball-16-7", at: [ 16, 7 ] },
           { hidden: [ "PP Up", "pp-up-16-13", "cerulean-cave-hidden-pp-up-16-13", "cerulean-cave-pp-up-16-13" ], at: [ 16, 13 ] },
           { item: [ "Max Revive", "max-revive-19-11" ], scene: "cerulean-cave-item-max-revive-19-11", at: [ 19, 11 ] },
           { item: [ "Full Restore", "full-restore" ], scene: "cerulean-cave-item-full-restore" },
-          {},
+          { html: true },
           { item: [ "Ultra Ball", "ultra-ball-2-13" ], scene: "cerulean-cave-item-ultra-ball-2-13", at: [ 2, 13 ] },
           { item: [ "Max Revive", "max-revive-3-13" ], scene: "cerulean-cave-item-max-revive-3-13", at: [ 3, 13 ] },
           { hidden: [ "PP Up", "pp-up-8-14", "cerulean-cave-hidden-pp-up-8-14", "cerulean-cave-pp-up-8-14" ], at: [ 8, 14 ] },
           { item: [ "Max Elixir", "max-elixir-15-3" ], scene: "cerulean-cave-item-max-elixir-15-3", at: [ 15, 3 ] },
           { item: [ "Ultra Ball", "ultra-ball-26-1" ], scene: "cerulean-cave-item-ultra-ball-26-1", at: [ 26, 1 ] },
           {},
-          {}
+          { scene: "cerulean-cave-mewtwo" }
         ],
         encounters: [
           enc("cerulean-cave", "042", "CAVE", "40%", "50–55", "COMMON", "041", "042"),
@@ -1499,7 +1567,7 @@ module Walkthrough
 
     def self.route_10
       loc("route-10", "ROUTE", "Route 10", 21, steps: [
-          {},
+          { scene: "route-10-rock-tunnel" },
           {},
           { hidden: [ "Super Potion", "super-potion", "route-10-hidden-super-potion", "route-10-super-potion" ] },
           {},
@@ -1516,7 +1584,16 @@ module Walkthrough
     end
 
     def self.rock_tunnel
-      loc("rock-tunnel", "CAVE", "Rock Tunnel", 22, steps: 3, shots: [ 1 ],
+      # 1F is three regions with no path between them: the north mouth reaches only ladder 1, and
+      # the south mouth only the ladder you come back up. B1F is the one floor that joins them, so
+      # the crossing is forced rather than chosen, and the middle pair of 1F ladders leads to a
+      # trainer pocket holding nothing.
+      loc("rock-tunnel", "CAVE", "Rock Tunnel", 22, steps: [
+          { scene: "rock-tunnel-flash" },
+          { html: true },
+          { html: true },
+          {}
+        ],
         encounters: [
           enc("rock-tunnel", "041", "CAVE", "50%", "15–21", "COMMON", "041", "042"),
           enc("rock-tunnel", "074", "CAVE", "40%", "16–20", "COMMON", "074", "075", "076"),
@@ -1576,21 +1653,21 @@ module Walkthrough
           { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },
           { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },
           { hidden: [ "PP Up", "pp-up", "rocket-hideout-hidden-pp-up", "rocket-hideout-pp-up" ] },
-          {},
+          { html: true },
           { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget" },
           { item: [ "TM Horn Drill", "tm-horn-drill" ], scene: "rocket-hideout-item-tm-horn-drill" },
           { item: [ "Moon Stone", "moon-stone" ], scene: "rocket-hideout-item-moon-stone" },
           { item: [ "Super Potion", "super-potion" ], scene: "rocket-hideout-item-super-potion" },
-          {},
+          { html: true },
           { item: [ "Rare Candy", "rare-candy" ], scene: "rocket-hideout-item-rare-candy" },
           { item: [ "TM Double Edge", "tm-double-edge" ], scene: "rocket-hideout-item-tm-double-edge" },
           { hidden: [ "Nugget", "nugget", "rocket-hideout-hidden-nugget", "rocket-hideout-nugget" ] },
-          {},
+          { html: true },
           { item: [ "Lift Key", "lift-key" ], scene: "rocket-hideout-item-lift-key" },
           { item: [ "TM Razor Wind", "tm-razor-wind" ], scene: "rocket-hideout-item-tm-razor-wind" },
           { item: [ "HP Up", "hp-up" ], scene: "rocket-hideout-item-hp-up" },
           { item: [ "Iron", "iron" ], scene: "rocket-hideout-item-iron" },
-          {},
+          { html: true },
           {},
           { item: [ "Silph Scope", "silph-scope" ], scene: "rocket-hideout-item-silph-scope" },
           { hidden: [ "Super Potion", "super-potion", "rocket-hideout-hidden-super-potion", "rocket-hideout-super-potion" ] },
@@ -1626,7 +1703,7 @@ module Walkthrough
           { item: [ "Rare Candy", "rare-candy" ], scene: "power-plant-item-rare-candy" },
           {},
           { hidden: [ "PP Up", "pp-up", "power-plant-hidden-pp-up", "power-plant-pp-up" ] },
-          {},
+          { scene: "power-plant-zapdos" },
           {}
         ],
         encounters: [
@@ -1649,8 +1726,8 @@ module Walkthrough
           enc("route-21", "017", "GRASS", "15%", "25–29", "UNCOMMON", "016", "017", "018"),
           enc("route-21", "020", "GRASS", "15%", "25–29", "UNCOMMON", "019", "020"),
           enc("route-21", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
-          enc("route-21", "129", "SUPER ROD", "40%", "15–25", "COMMON", "129", "130", tip: true),
-          enc("route-21", "118", "SUPER ROD", "25%", "15–25", "UNCOMMON", "118", "119", tip: true),
+          enc("route-21", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130", tip: true),
+          enc("route-21", "118", "GOOD ROD", "50%", "10", "UNCOMMON", "118", "119", tip: true),
           enc("route-21", "090", "SUPER ROD", "20%", "15–25", "UNCOMMON", "090", "091"),
           enc("route-21", "120", "SUPER ROD", "15%", "15–25", "UNCOMMON", "120", "121")
         ],

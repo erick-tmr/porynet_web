@@ -55,6 +55,29 @@
     </div>
   </div>
 
+  <% if enc.places? %>
+    <% best = enc.best_place %>
+    <div class="pn-wt-floors">
+      <div class="pn-wt-floors__head">
+        <span><%= t("walkthrough.ui.floors_label") %></span>
+        <span><%= t("walkthrough.ui.floors_level") %></span>
+      </div>
+      <ul class="pn-wt-floors__list">
+        <% enc.places.each do |place| %>
+          <li class="<%= class_names("pn-wt-floors__row", "is-best" => place == best) %>">
+            <% if place.floor %><span class="pn-wt-floors__chip"><%= place.floor %></span><% end %>
+            <span class="pn-wt-floors__how pn-wt-floors__how--<%= place.kind.dasherize %>"><%= encounter_method_label(place) %></span>
+            <span class="pn-wt-floors__track">
+              <span class="<%= floor_bar_class(place, best) %>"></span>
+            </span>
+            <span class="pn-wt-floors__rate"><%= t("walkthrough.ui.floors_rate", rate: place.rate) %></span>
+            <span class="pn-wt-floors__lv"><%= place.levels %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <% if enc.unlock? %>
     <div class="pn-wt-catch__unlock">
       <%= r2_image_tag enc.unlock_icon, alt: "", class: "pn-wt-catch__unlock-sprite" %>

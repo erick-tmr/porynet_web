@@ -118,6 +118,20 @@ module ApplicationHelper
     )
   end
 
+  def encounter_method_label(place) = t("walkthrough.ui.method_#{place.kind}")
+
+  # The ladder's bar runs proportional to the best floor on the card, and a strict CSP blocks the
+  # inline width the design mock uses. So the width is bucketed to the nearest 5% and carried as a
+  # class: static CSS, no controller, and the exact figure is printed beside the bar anyway. The
+  # floor of 5 keeps a 1.2% spawn visible rather than rendering nothing at all.
+  FLOOR_BAR_STEP = 5
+
+  def floor_bar_class(place, best)
+    share = best.rate.positive? ? (place.rate / best.rate * 100) : 100
+    bucket = [ (share / FLOOR_BAR_STEP).round * FLOOR_BAR_STEP, FLOOR_BAR_STEP ].max
+    "pn-wt-floors__bar pn-wt-floors__bar--w#{bucket}"
+  end
+
   def catch_spot(entry)
     return t("walkthrough.ui.ld_spot_given", how: entry.how) unless entry.rated?
 

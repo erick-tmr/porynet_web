@@ -94,8 +94,10 @@ export function owedFor(state, game, dex, covers) {
   return Math.max(0, needFor(state, game, dex, covers) - countOf(state, game, dex))
 }
 
-export function bump(state, game, dex, delta, quota) {
-  const count = Math.min(quota, Math.max(0, countOf(state, game, dex) + delta))
+// The quota is what the walkthrough asks for, not a ceiling: a collector is free to bank spare
+// bodies of any species, so this clamps at zero only.
+export function bump(state, game, dex, delta) {
+  const count = Math.max(0, countOf(state, game, dex) + delta)
   return write(write(state, "bodies", game, dex, count), "caught", game, dex, count > 0)
 }
 

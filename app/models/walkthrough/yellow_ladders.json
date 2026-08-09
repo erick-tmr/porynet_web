@@ -1,0 +1,58 @@
+{
+  "note": "Route-order numbers for the ladders inside a multi-floor dungeon, so a step that says 'take ladder 3' points at the marker wearing 3 on the map. The order a route climbs them is an editorial call, not a fact in the disassembly, so it is authored here rather than generated. Keyed by the manifest's map name, then the ladder's own grid cell.",
+  "ladders": {
+    "mt-moon-1f": {
+      "25,15": "1",
+      "17,11": "3",
+      "5,5": "5"
+    },
+    "mt-moon-b1f": {
+      "13,27": "2",
+      "17,11": "4",
+      "21,17": "6",
+      "27,3": "8"
+    },
+    "mt-moon-b2f": {
+      "5,7": "7"
+    },
+    "rock-tunnel-1f": {
+      "37,3": "1"
+    },
+    "rock-tunnel-b1f": {
+      "3,3": "2"
+    },
+    "cerulean-cave-1f": {
+      "1,3": "1",
+      "0,6": "3"
+    },
+    "cerulean-cave-2f": {
+      "3,11": "2"
+    },
+    "victory-road-1f": {
+      "1,1": "1"
+    },
+    "victory-road-2f": {
+      "23,7": "2",
+      "29,7": "3"
+    },
+    "pokemon-mansion-1f": {
+      "5,10": "1",
+      "21,23": "3"
+    },
+    "pokemon-mansion-2f": {
+      "7,10": "2"
+    },
+    "rocket-hideout-b1f": {
+      "23,2": "1"
+    },
+    "rocket-hideout-b2f": {
+      "21,8": "2"
+    },
+    "rocket-hideout-b3f": {
+      "19,18": "3"
+    },
+    "rocket-hideout-b4f": {
+      "24,15": "4"
+    }
+  }
+}

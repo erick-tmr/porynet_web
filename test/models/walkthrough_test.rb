@@ -310,7 +310,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     magikarp = bc.fetch("129")
     assert magikarp.only, "Magikarp only appears on Route 21"
     assert_equal "route-21", magikarp.slug
-    assert_equal "40%", magikarp.rate
+    assert_equal "100%", magikarp.rate, "the Old Rod hooks nothing else, so it never misses"
     assert_nil magikarp.alt_name, "there is no rival spot to compare against"
 
     zapdos = bc.fetch("145")
@@ -335,6 +335,231 @@ class WalkthroughTest < ActiveSupport::TestCase
     pidgey_r2 = r2.encounters.find { |e| e.dex == "016" }
     assert g.best_catch_here(r1, pidgey_r1), "Route 1 is Pidgey's best spot"
     assert_nil g.best_catch_here(r2, pidgey_r2), "Route 2 is not Pidgey's best spot"
+  end
+
+  test "a multi-floor cave breaks an encounter down by the floor it really spawns on" do
+    clefairy = loc("mt-moon").encounters.find { |enc| enc.dex == "035" }
+
+    assert clefairy.places?
+    assert_equal %w[1F B1F B2F], clefairy.places.map(&:floor)
+    assert_equal [ 1.2, 5.5, 10.5 ], clefairy.places.map(&:rate),
+      "Clefairy is nine times likelier two floors down, which one headline rate cannot say"
+    assert_equal "B2F", clefairy.best_place.floor
+    assert_equal "9–13", clefairy.best_place.levels
+  end
+
+  test "the headline rate of a spread-out species is its best floor, not a hand-typed guess" do
+    mt_moon = loc("mt-moon")
+    clefairy = mt_moon.encounters.find { |enc| enc.dex == "035" }
+    paras = mt_moon.encounters.find { |enc| enc.dex == "046" }
+
+    assert_equal "11%", clefairy.rate, "rounded from B2F's 10.5%, so parse_rate can still read it"
+    assert_equal 11, Walkthrough::Yellow.parse_rate(clefairy.rate)
+    assert_equal "9–13", clefairy.level, "the level band across every floor it lives on"
+    assert_equal "15%", paras.rate
+    assert_equal [ "B1F", "B2F" ], paras.places.map(&:floor), "Paras is not on 1F at all"
+  end
+
+  test "a species confined to one map carries no floor breakdown to show" do
+    pidgey = loc("route-1").encounters.find { |enc| enc.dex == "016" }
+
+    refute pidgey.places?
+    assert_equal "70%", pidgey.rate, "its hand-typed headline is left alone"
+  end
+
+  test "a floor's water table is read as its own place, apart from the grass on that floor" do
+    seafoam = Walkthrough::Yellow.encounter_places("seafoam-islands", "072")
+
+    assert_equal %w[B3F B4F], seafoam.select(&:surf?).map(&:floor)
+    refute Walkthrough::Yellow.encounter_places("seafoam-islands", "086").any?(&:surf?),
+      "Seel shares those floors but walks the grass"
+  end
+
+  test "a species carries every way it is caught at a stop, surf and rods included" do
+    staryu = Walkthrough::Yellow.encounter_places("seafoam-islands", "120")
+
+    assert_equal [ "water", "super_rod" ], staryu.map(&:kind).uniq,
+      "Staryu is both Surfed into and fished up on the same floors"
+    assert_equal %w[B3F B3F B4F B4F], staryu.map(&:floor).sort
+    assert staryu.select(&:rod?).all? { |place| place.rate == 40.2 }
+  end
+
+  test "the rods carry the game's own odds, not a flat split" do
+    magikarp = Walkthrough::Yellow.encounter_places("fuchsia-city", "129")
+
+    old_rod = magikarp.find { |place| place.kind == "old_rod" }
+    assert_equal 100.0, old_rod.rate, "the Old Rod only ever hooks Magikarp"
+    assert_equal "5", old_rod.levels
+    assert_equal 89.5, magikarp.find { |place| place.kind == "super_rod" }.rate,
+      "three of Fuchsia's four Super Rod slots are Magikarp, weighted 39.8/29.7/19.9"
+    assert_equal 10.5, Walkthrough::Yellow.encounter_places("fuchsia-city", "130").sole.rate,
+      "Gyarados sits in the rarest slot"
+  end
+
+  test "a method tag matches the game table it claims to read" do
+    mistagged = game.locations.flat_map do |loc|
+      loc.encounters.select(&:wild?).reject { |enc| enc.places.empty? }
+        .reject { |enc| enc.places.any? { |place| place.method?(enc.how) } }
+        .map { |enc| "#{loc.slug}/#{enc.name} tagged #{enc.how}" }
+    end
+
+    assert_empty mistagged,
+      "every wild card with a game table must be tagged with the method that table is read from"
+  end
+
+  test "the headline is made true for the card's own method, leaving other methods to the list" do
+    tentacool = loc("route-21").encounters.find { |enc| enc.dex == "072" }
+
+    assert_equal "SURF", tentacool.how
+    assert_equal "100%", tentacool.rate, "the Surf table, not the 59.8% Super Rod one below it"
+    assert_includes tentacool.places.map(&:kind), "super_rod", "still listed as another way in"
+  end
+
+  # Every screenshot lookup in this app degrades silently: `scene_shot` and `map_shot` fall back to
+  # a placeholder, and `hidden`/`later` hand a nil image straight to `r2_image_tag`, which renders a
+  # broken <img> with no error. A typo'd scene name is therefore invisible without these.
+  UNRENDERED_GYM_SHOTS = "the gym card and gym puzzle frames are not drawn yet"
+
+  def declared_shots
+    game.locations.flat_map do |loc|
+      loc.steps.flat_map { |s| [ [ "#{loc.slug} step #{s.n}", s.shot ] ] } +
+        loc.steps.flat_map { |s| s.hidden.map { |h| [ "#{loc.slug} hidden #{h.name}", h ] } } +
+        loc.later.map { |l| [ "#{loc.slug} later #{l.name}", l ] } +
+        loc.trainers.flat_map { |t| [ [ "#{loc.slug} where #{t.name}", t.where ],
+                                      [ "#{loc.slug} battle #{t.name}", t.battle ] ] } +
+        [ [ "#{loc.slug} trivia", loc.trivia&.shot ] ]
+    end.reject { |_label, node| node.nil? }
+  end
+
+  test "every screenshot a step, item or trainer points at resolves to a real image" do
+    unresolved = declared_shots.reject { |_label, node| node.image }.map(&:first)
+
+    assert_empty unresolved,
+      "a name that misses the manifest renders a placeholder, never an error, so it can only be caught here"
+  end
+
+  # Walks the whole page graph rather than a hand-listed set of call sites, so a new kind of shot
+  # carrier is covered the day it is added.
+  def every_referenced_image(node, out = [])
+    case node
+    when Array then node.each { |n| every_referenced_image(n, out) }
+    when Hash then node.each_value { |n| every_referenced_image(n, out) }
+    when Data
+      out << node.image if node.respond_to?(:image) && node.image
+      node.to_h.each_value { |v| every_referenced_image(v, out) }
+    end
+    out
+  end
+
+  test "no generated frame is left unreferenced beyond the known backlog" do
+    referenced = [ game, Walkthrough::Yellow.mew_glitch ].flat_map { |r| every_referenced_image(r) }
+      .map { |i| File.basename(i, ".png") }.to_set
+    orphans = (Walkthrough::Yellow.manifest.fetch("scenes").keys.to_set - referenced).to_a.sort
+
+    # Frames the generator renders that nothing points at yet. This list may only shrink: a step
+    # that stops referencing its frame silently loses the picture, and that is what this catches.
+    # The three that remain are superseded duplicates, not losses: each one's step now carries a
+    # per-item frame generated later (mt-moon-item-moon-stone, viridian-forest-item-pok-ball,
+    # viridian-forest-item-potion-*), so pointing a step back at the old frame would show the
+    # worse picture. Everything else is referenced.
+    assert_equal [ "mt-moon-moon-stone", "viridian-forest-poke-ball", "viridian-forest-potion" ],
+      orphans
+  end
+
+  test "a step that supersedes an older frame still shows a picture" do
+    superseded = { "mt-moon" => 10, "viridian-forest" => 3 }
+
+    superseded.each do |slug, n|
+      shot = game.locations.find { |loc| loc.slug == slug }.steps[n - 1].shot
+      assert shot&.map?, "#{slug} step #{n} must carry the per-item frame that replaced the old one"
+    end
+  end
+
+  test "every ladder number a step names exists as a chip on that location's map" do
+    missing = game.locations.flat_map do |loc|
+      keys = loc.area_maps.flat_map { |m| m.markers.select { |k| k.cat == "exit" }.map(&:key) }.compact
+      loc.steps.flat_map { |s| I18n.t(s.text_key).scan(/pn-wt-ladder">(\d+)</).flatten }
+        .uniq.reject { |n| keys.include?(n) }.map { |n| "#{loc.slug} names ladder #{n}" }
+    end
+
+    assert_empty missing, "prose says 'ladder N' but no pin wears N, so the reference points nowhere"
+  end
+
+  test "every numbered ladder in the overlay lands on a real exit" do
+    overlay = JSON.parse(File.read(Rails.root.join("app/models/walkthrough/yellow_ladders.json")))
+      .fetch("ladders")
+    grids = game.locations.flat_map(&:area_maps)
+      .to_h { |m| [ m.name, m.markers.select { |k| k.cat == "exit" }.map { |k| k.id.delete_prefix("exit-").tr("-", ",") } ] }
+
+    stray = overlay.flat_map do |map_name, cells|
+      cells.keys.reject { |cell| grids.fetch(map_name, []).include?(cell) }
+        .map { |cell| "#{map_name} #{cell}" }
+    end
+
+    assert_empty stray, "a mistyped grid cell is a silent no-op in both directions"
+  end
+
+  test "a step reads from exactly one of text and text_html" do
+    both = game.locations.flat_map do |loc|
+      base = loc.steps.first&.text_key&.sub(/\.steps\..*/, "")
+      next [] if base.nil?
+
+      loc.steps.select { |s| I18n.exists?("#{base}.steps.#{s.n}.text") && I18n.exists?("#{base}.steps.#{s.n}.text_html") }
+        .map { |s| "#{loc.slug} step #{s.n}" }
+    end
+
+    assert_empty both, "the unread key silently goes stale while the step renders the other one"
+  end
+
+  # Renumbering steps is routine here, and `pin_tick` only binds an item to a stable key when
+  # exactly one map pin carries its name. Everything else falls back to a positional
+  # "slug/step-N/item-i", so a reorder quietly resets a player's saved ticks. This pins the set that
+  # is allowed to be positional: NPC gifts, which have no pin by design.
+  test "only pinless NPC gifts fall back to a positional progress key" do
+    loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
+
+    assert_equal 20, loose.size
+    assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
+                   "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
+                   "Oak's Parcel", "Old Rod", "Poké Flute", "Pokédex", "Potion", "S.S. Ticket",
+                   "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
+  end
+
+  test "a step that names a ladder renders its number as the chip the map wears" do
+    steps = loc("mt-moon").steps
+
+    assert_equal "text_html", steps[2].text_key.split(".").last,
+      "the ladder numbers are markup, so the step reads from an _html key"
+    body = I18n.t(steps[2].text_key)
+    assert_includes body, %(<span class="pn-wt-ladder">1</span>)
+    assert_includes body, %(<span class="pn-wt-ladder">2</span>)
+
+    refute_equal "text_html", steps[0].text_key.split(".").last,
+      "a step with no ladder to point at stays plain text"
+  end
+
+  test "a dungeon's ladders wear the route-order number the steps call them by" do
+    floors = loc("mt-moon").area_maps.to_h { |m| [ m.floor, m.markers.select { |k| k.cat == "exit" } ] }
+
+    assert_equal({ "exit-25-15" => "1", "exit-17-11" => "3", "exit-5-5" => "5" },
+      floors["1F"].select(&:key?).to_h { |k| [ k.id, k.key ] },
+      "1F's three ladders all read 'Mt. Moon B1F', so only a number tells them apart")
+    assert_equal %w[2 4 6 8], floors["B1F"].select(&:key?).map(&:key).sort
+    assert_equal [ "7" ], floors["B2F"].select(&:key?).map(&:key)
+  end
+
+  test "a numbered ladder keeps its direction glyph on the pin" do
+    ladder = loc("mt-moon").area_maps.first.markers.find { |k| k.id == "exit-25-15" }
+
+    assert_equal "▲", ladder.glyph_or_key, "the pin still says which way it goes"
+    assert_equal "1", ladder.key, "and the label and legend carry the number"
+  end
+
+  test "an unnumbered exit is left alone" do
+    outside = loc("mt-moon").area_maps.first.markers.find { |k| k.id == "exit-14-35" }
+    refute outside.key?, "the way you came in needs no number"
+    refute loc("viridian-forest").area_maps.first.markers.any? { |k| k.cat == "exit" && k.key? },
+      "a single-floor map has no ladders to disambiguate"
   end
 
   test "locations carry plain rendered area maps" do

@@ -57,15 +57,16 @@ describe("counting bodies", () => {
     expect(isMet()).toBe(true);
   });
 
-  it("never counts past the quota", async () => {
+  it("counts past the quota and stays met, so spare bodies can be banked", async () => {
     await mount();
 
     el("plus").click();
     el("plus").click();
     el("plus").click();
 
-    expect(have()).toBe("2");
-    expect(stored().bodies.yellow["010"]).toBe(2);
+    expect(have()).toBe("3");
+    expect(stored().bodies.yellow["010"]).toBe(3);
+    expect(isMet()).toBe(true);
   });
 
   it("never counts below zero", async () => {

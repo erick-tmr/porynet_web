@@ -423,6 +423,7 @@
   display: flex;
   align-items: stretch;
   gap: 0;
+  scroll-margin-top: 156px;
 }
 .pn-wt-route__rail {
   width: 56px;
@@ -1482,6 +1483,135 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 12px;
   margin-top: 3px;
+}
+/* An inline ladder number in a step, wearing the same dark chip the map pin and legend row give
+   that ladder, so "ladder 3" and the 3 on the map read as one thing. Sized to sit in a line of
+   body copy without pushing the leading around. */
+.pn-wt-ladder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 17px;
+  padding: 2px 3px;
+  margin: 0 1px;
+  border-radius: 4px;
+  background: #171622;
+  color: #fbf5e6;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1;
+  vertical-align: 1px;
+}
+
+.pn-wt-floors {
+  border-top: 2px dashed #171622;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+.pn-wt-floors__head {
+  display: flex;
+  justify-content: space-between;
+  font-family: "VT323", monospace;
+  font-size: 14px;
+  color: #6b6880;
+}
+.pn-wt-floors__list {
+  list-style: none;
+  margin: 9px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pn-wt-floors__row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.pn-wt-floors__chip {
+  width: 44px;
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  background: #fbf5e6;
+  border: 2px solid #171622;
+  padding: 6px 0;
+  text-align: center;
+}
+.pn-wt-floors__row.is-best .pn-wt-floors__chip {
+  color: #fbf5e6;
+  background: #171622;
+}
+.pn-wt-floors__how {
+  flex: none;
+  font-family: "VT323", monospace;
+  font-size: 13px;
+  line-height: 1;
+  color: #3d3a52;
+  background: #e6e2d2;
+  border: 2px solid #171622;
+  padding: 4px 5px;
+}
+.pn-wt-floors__how--water {
+  background: #cfe6f5;
+}
+.pn-wt-floors__how--old-rod,
+.pn-wt-floors__how--good-rod,
+.pn-wt-floors__how--super-rod {
+  background: #d8d2f0;
+}
+.pn-wt-floors__track {
+  flex: 1;
+  min-width: 0;
+  height: 16px;
+  border: 2px solid #171622;
+  background: #fbf5e6;
+  overflow: hidden;
+  display: block;
+}
+.pn-wt-floors__bar {
+  display: block;
+  height: 100%;
+  background: #a0ddf1;
+}
+.pn-wt-floors__row.is-best .pn-wt-floors__bar {
+  background: #2bb3e0;
+}
+.pn-wt-floors__bar--w5 { width: 5%; }
+.pn-wt-floors__bar--w10 { width: 10%; }
+.pn-wt-floors__bar--w15 { width: 15%; }
+.pn-wt-floors__bar--w20 { width: 20%; }
+.pn-wt-floors__bar--w25 { width: 25%; }
+.pn-wt-floors__bar--w30 { width: 30%; }
+.pn-wt-floors__bar--w35 { width: 35%; }
+.pn-wt-floors__bar--w40 { width: 40%; }
+.pn-wt-floors__bar--w45 { width: 45%; }
+.pn-wt-floors__bar--w50 { width: 50%; }
+.pn-wt-floors__bar--w55 { width: 55%; }
+.pn-wt-floors__bar--w60 { width: 60%; }
+.pn-wt-floors__bar--w65 { width: 65%; }
+.pn-wt-floors__bar--w70 { width: 70%; }
+.pn-wt-floors__bar--w75 { width: 75%; }
+.pn-wt-floors__bar--w80 { width: 80%; }
+.pn-wt-floors__bar--w85 { width: 85%; }
+.pn-wt-floors__bar--w90 { width: 90%; }
+.pn-wt-floors__bar--w95 { width: 95%; }
+.pn-wt-floors__bar--w100 { width: 100%; }
+.pn-wt-floors__rate {
+  width: 46px;
+  flex: none;
+  text-align: right;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+}
+.pn-wt-floors__lv {
+  width: 48px;
+  flex: none;
+  text-align: right;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #3a3850;
 }
 .pn-wt-catch__tip {
   border-top: 2px dashed #171622;

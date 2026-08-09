@@ -15,6 +15,7 @@ Outputs (relative to the porynet_web repo root):
   app/assets/images/walkthrough/yellow/{maps,scenes,battles}/<name>.png   (gitignored -> R2)
   app/models/walkthrough/yellow_maps.json                                 manifest (committed)
   app/models/walkthrough/yellow_places.json                               place facts (committed)
+  app/models/walkthrough/yellow_encounters.json                           wild tables (committed)
   tools/maps/REPORT.md                                                     counts + review notes
 """
 import argparse
@@ -22,6 +23,7 @@ import json
 import pathlib
 
 import compositor
+import encounters
 import follower
 import generators
 import locations
@@ -36,6 +38,7 @@ SPECS_DIR = pathlib.Path(__file__).resolve().parent / "specs"
 MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
 PLACES = REPO / "app/models/walkthrough/yellow_places.json"
 ROSTER = REPO / "app/models/walkthrough/yellow_trainers.json"
+ENCOUNTERS = REPO / "app/models/walkthrough/yellow_encounters.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
 
 # spec type -> output subdirectory (and R2 key prefix) under walkthrough/yellow/
@@ -47,6 +50,19 @@ def load_specs():
     for path in sorted(SPECS_DIR.glob("*.json")):
         specs.extend(json.loads(path.read_text()))
     return specs
+
+
+def file_frame(scenes, step_shots, spec, name, entry):
+    """Index one rendered frame into the manifest.
+
+    Every frame goes under `scenes` keyed by its own name. A frame authored for a particular step
+    is *additionally* indexed by its (slug, step), but that index is positional: renumbering a
+    location's steps silently orphans it, which is how nineteen frames went unreferenced. The name
+    is content-addressed and survives a reorder, so it is the key a step should point at.
+    """
+    scenes[name] = {**entry, "type": spec["type"]}
+    if spec.get("slug") and spec.get("step") is not None:
+        step_shots.setdefault(spec["slug"], {})[str(spec["step"])] = entry
 
 
 def save_png(image, subdir, name, force):
@@ -110,10 +126,7 @@ def main():
         image, name, extra = generators.generate(root, spec)
         key = save_png(image, DIR_BY_TYPE[spec["type"]], name, args.force)
         entry = {"image": key, "width": image.width, "height": image.height, **extra}
-        if spec.get("slug") and spec.get("step") is not None:
-            step_shots.setdefault(spec["slug"], {})[str(spec["step"])] = entry
-        else:
-            scenes[name] = {**entry, "type": spec["type"]}
+        file_frame(scenes, step_shots, spec, name, entry)
 
     MANIFEST.write_text(json.dumps(
         {"source": "pret/pokeyellow", "locations": areas,
@@ -125,6 +138,9 @@ def main():
     ROSTER.write_text(json.dumps(
         {"source": "pret/pokeyellow", "count": sum(len(v) for v in trainers.values()),
          "trainers": trainers}, indent=2))
+    wild = encounters.build_encounters(root)
+    ENCOUNTERS.write_text(json.dumps(
+        {"source": "pret/pokeyellow", "encounters": wild}, indent=2) + "\n")
     _write_report(areas, step_shots, scenes, trainers, missing)
     print(f"palette: {args.palette}  "
           f"location maps: {sum(len(v) for v in areas.values())}  "
@@ -132,7 +148,8 @@ def main():
           f"step shots: {sum(len(v) for v in step_shots.values())}  "
           f"scenes: {len(scenes)}+{len(where_specs)}  "
           f"trainers: {sum(len(v) for v in trainers.values())}  "
-          f"places: {len(place_facts)}  missing: {len(missing)}")
+          f"places: {len(place_facts)}  "
+          f"wild maps: {sum(len(v) for v in wild.values())}  missing: {len(missing)}")
     if missing:
         print("MISSING:", ", ".join(missing))
 

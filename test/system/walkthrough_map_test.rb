@@ -146,8 +146,12 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "#{card}.is-met"
     assert_selector "#{row}.is-met"
 
+    # The quota is what the walkthrough asks for, not a ceiling: a collector can bank spares, so
+    # the third body counts and the row stays met rather than clamping at 2.
     find("#{card} .pn-wt-stepper__btn--add").click
-    within(find("#{card} .pn-wt-stepper__count")) { assert_text "2" }
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "3" }
+    assert_selector "#{card}.is-met"
+    assert_selector "#{row}.is-met"
 
     assert_selector ".pn-wt-ldstage[data-progress-id='010'].is-done"
   end
@@ -183,7 +187,8 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     find("#{card} .pn-wt-stepper__btn--add").click
 
     assert_selector "#{card}.is-done"
-    within(find("#{card} .pn-wt-stepper__count")) { assert_text "1" }
+    # A second body past a quota of one still counts, and never un-registers the species.
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "2" }
   end
 
   test "a trainer card and its pin are one tick, from either side" do

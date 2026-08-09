@@ -15,7 +15,14 @@ def test_location_maps_shape():
 
 
 def test_extra_trainer_maps():
-    """Maps a location owns but never draws, whose trainers still belong to it."""
+    """Maps a location owns but never draws, whose trainers still belong to it.
+
+    The three cabin *Rooms maps used to live here. They are drawn now, so they moved to _DUNGEONS;
+    a map listed in both would have its trainers counted twice, since roster.py walks this list
+    separately from location_maps."""
     labels = [label for label, _ in locations.extra_trainer_maps("ss-anne")]
-    assert labels == ["SSAnne1FRooms", "SSAnne2FRooms", "SSAnneB1FRooms", "SSAnneBow"]
+    assert labels == ["SSAnneBow"]
+    assert [label for label, _, _ in locations.location_maps()["ss-anne"]] == [
+        "SSAnne1F", "SSAnne2F", "SSAnne3F", "SSAnneB1F",
+        "SSAnne1FRooms", "SSAnne2FRooms", "SSAnneB1FRooms"]
     assert locations.extra_trainer_maps("route-1") == []
