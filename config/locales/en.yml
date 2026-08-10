@@ -1366,9 +1366,9 @@ en:
                 full-restore: "Top row of the tunnel, two tiles west of the entry stairs. Stand next to it facing west and press A. Nothing shows on-screen."
             "2":
               title: "South for the X Special, then out to Route 6"
-              text_html: "Walk south in that lane, four fifths of the way down. Press A facing down for a hidden X Special, one battle of sharper Special. Stairs %{out} sit in the southwest corner."
+              text_html: "Walk south to eight tiles above the Route 6 stairs, second lane from the east wall. Press A facing down for a hidden X Special, one battle of sharper Special. Stairs %{out} are just below."
               hidden:
-                x-special: "Second lane from the east wall, roughly four fifths of the way down the tunnel. Stand one tile north and press A facing down. Nothing shows on-screen."
+                x-special: "Second lane from the east wall, seven tiles north of the stairs down to Route 6. Stand one tile north of it and press A facing down. Nothing shows on-screen."
         route_6:
           note: "Into Vermilion. Same grass as Route 5, plus fishing."
           intro: "The last stretch into Vermilion City. Fish the pond once you pick up a rod."

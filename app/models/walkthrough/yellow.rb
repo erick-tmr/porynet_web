@@ -334,10 +334,10 @@ module Walkthrough
 
     def self.best_catch(dex, entries)
       armed = entries.select { |entry| entry[:enc].unlocked_from <= entry[:loc].order }
-      pool = armed.any? ? armed : entries
-      return sole_catch(dex, pool.first, entries.one?) if pool.one?
+      return nil if armed.empty?
+      return sole_catch(dex, armed.first, entries.one?) if armed.one?
 
-      ranked_catch(dex, pool)
+      ranked_catch(dex, armed)
     end
 
     def self.sole_catch(dex, entry, anywhere = true)

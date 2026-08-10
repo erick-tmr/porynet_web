@@ -211,9 +211,19 @@ class WalkthroughTest < ActiveSupport::TestCase
       end
     end
 
-    # Psyduck and Golduck live on Route 6 alone, behind Surf, so their one stop is the fallback:
-    # the badge stays because there is nowhere else to send them.
-    assert_equal [ "Psyduck at route-6", "Golduck at route-6" ], stranded
+    assert_empty stranded
+  end
+
+  test "a species whose every stop is locked when you walk it is crowned nowhere" do
+    g = game
+    route6 = loc("route-6")
+    psyduck = route6.encounters.find { |enc| enc.dex == "054" }
+
+    assert_equal "SURF", psyduck.how
+    assert_operator psyduck.unlocked_from, :>, route6.order,
+      "Route 6 is the only Psyduck water in the game, and Surf is many stops later"
+    assert_nil g.best_catches["054"], "no stop may claim a catch you cannot make there"
+    assert_nil g.best_catches["055"]
   end
 
   test "a species is not crowned at a stop whose rod arrives many stops later" do
@@ -235,8 +245,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     refute best.only, "Seaking also lives on Route 4 and Route 24, just behind a later rod"
   end
 
-  test "gating the ranking on the tools you carry costs no species its badge" do
-    assert_equal 94, game.best_catches.size
+  test "gating the ranking on the tools you carry costs only the two it must" do
+    assert_equal 92, game.best_catches.size
   end
 
   test "a stop boxes its catchables by method, in section order rather than authoring order" do

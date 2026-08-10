@@ -1366,9 +1366,9 @@ pt:
                 full-restore: "Linha de cima do túnel, dois tiles a oeste da escada de entrada. Fique ao lado dele virado para o oeste e aperte A. Nada aparece na tela."
             "2":
               title: "Ao sul pelo X Special, depois saia na Rota 6"
-              text_html: "Ande ao sul nessa faixa, uns quatro quintos do caminho. Aperte A virado para baixo por um X Special oculto, uma batalha de Special reforçado. A escada %{out} fica no canto sudoeste."
+              text_html: "Ande ao sul até oito tiles acima da escada da Rota 6, na segunda faixa da parede leste. Aperte A virado para baixo por um X Special oculto, uma batalha de Special reforçado. A escada %{out} fica logo abaixo."
               hidden:
-                x-special: "Segunda faixa a partir da parede leste, uns quatro quintos do túnel abaixo. Fique um tile ao norte e aperte A virado para baixo. Nada aparece na tela."
+                x-special: "Segunda faixa a partir da parede leste, sete tiles ao norte da escada que desce para a Rota 6. Fique um tile ao norte dele e aperte A virado para baixo. Nada aparece na tela."
         route_6:
           note: "Até Vermilion. Mesma grama da Rota 5, mais pesca."
           intro: "O último trecho até Vermilion City. Pesque no lago assim que pegar um caniço."
