@@ -1117,12 +1117,12 @@ module Walkthrough
 
     def self.underground_path
       loc("underground-path", "TUNNEL", "Underground Path", 15, steps: [
-          { pins: { in: "underground-path/exit-5-4" } },
-          { hidden: [ "Full Restore", "full-restore", "underground-path-hidden-full-restore",
+          { pins: { in: "underground-path/exit-5-4" },
+            hidden: [ "Full Restore", "full-restore", "underground-path-hidden-full-restore",
                       "underground-path-full-restore" ] },
-          { hidden: [ "X Special", "x-special", "underground-path-hidden-x-special",
-                      "underground-path-x-special" ] },
-          { pins: { out: "underground-path/exit-2-41" } }
+          { pins: { out: "underground-path/exit-2-41" },
+            hidden: [ "X Special", "x-special", "underground-path-hidden-x-special",
+                      "underground-path-x-special" ] }
         ])
     end
 

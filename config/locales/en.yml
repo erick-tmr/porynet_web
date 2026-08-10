@@ -1360,21 +1360,15 @@ en:
           intro: "One straight corridor beneath Saffron City, four tiles wide, with no trainers and no wild Pokémon. Two hidden items sit on its floor, and neither of them shows on-screen."
           steps:
             "1":
-              title: "Drop into the tunnel"
-              text_html: "The Route 5 house puts you in beside stairs %{in}, at the tunnel's north end. From here the corridor runs straight south to Route 6, with two hidden pickups on the way."
-            "2":
-              title: "Take the Full Restore by the stairs"
-              text: "Step one tile west off the stairs, face west and press A. A hidden Full Restore sits under that tile: all HP back plus any status cleared, and the earliest one you can get."
+              title: "Down the stairs, then west for the Full Restore"
+              text_html: "The Route 5 house drops you at stairs %{in}. Step one tile west, face west and press A: a hidden Full Restore, the earliest in the game, all HP plus any status cleared."
               hidden:
                 full-restore: "Top row of the tunnel, two tiles west of the entry stairs. Stand next to it facing west and press A. Nothing shows on-screen."
-            "3":
-              title: "Walk south for the X Special"
-              text: "Stay in that lane and walk south, about four fifths of the way down. Press A facing down for a hidden X Special, which sharpens one Pokémon's Special for a single battle."
+            "2":
+              title: "South for the X Special, then out to Route 6"
+              text_html: "Walk south in that lane, four fifths of the way down. Press A facing down for a hidden X Special, one battle of sharper Special. Stairs %{out} sit in the southwest corner."
               hidden:
                 x-special: "Second lane from the east wall, roughly four fifths of the way down the tunnel. Stand one tile north and press A facing down. Nothing shows on-screen."
-            "4":
-              title: "Up into Route 6"
-              text_html: "Carry on to the bottom of the corridor and take stairs %{out} in the southwest corner. They come up in the Route 6 house, at the north end of the route."
         route_6:
           note: "Into Vermilion. Same grass as Route 5, plus fishing."
           intro: "The last stretch into Vermilion City. Fish the pond once you pick up a rod."

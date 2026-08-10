@@ -178,7 +178,8 @@ class WalkthroughTest < ActiveSupport::TestCase
       game.leg!("leg-05").locations.map(&:slug)
     assert_empty tunnel.encounters, "nothing is wild down there"
     assert_equal [ [ "Full Restore", "H1" ], [ "X Special", "H2" ] ], hidden.map { |h| [ h.name, h.key ] }
-    assert_equal [ { in: "E1" }, {}, {}, { out: "E2" } ], tunnel.steps.map(&:marks)
+    assert_equal [ { in: "E1" }, { out: "E2" } ], tunnel.steps.map(&:marks),
+      "a straight corridor is two steps: in with the first pickup, out with the second"
   end
 
   test "the forest picks its items up in the order the maze can actually be walked" do

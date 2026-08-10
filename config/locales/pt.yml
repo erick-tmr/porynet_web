@@ -1360,21 +1360,15 @@ pt:
           intro: "Um corredor reto sob Saffron City, de quatro tiles de largura, sem treinadores e sem Pokémon selvagens. Dois itens ocultos ficam no chão, e nenhum dos dois aparece na tela."
           steps:
             "1":
-              title: "Desça para o túnel"
-              text_html: "A casa da Rota 5 te deixa ao lado da escada %{in}, no extremo norte do túnel. Daqui o corredor segue reto ao sul até a Rota 6, com dois itens ocultos no caminho."
-            "2":
-              title: "Pegue o Full Restore ao lado da escada"
-              text: "Dê um passo a oeste saindo da escada, vire para o oeste e aperte A. Um Full Restore oculto está nesse tile: todo o HP de volta e status curado, o mais cedo do jogo."
+              title: "Desça a escada e vá a oeste pelo Full Restore"
+              text_html: "A casa da Rota 5 te deixa na escada %{in}. Dê um passo a oeste, vire para o oeste e aperte A: um Full Restore oculto, o mais cedo do jogo, todo o HP e status curado."
               hidden:
                 full-restore: "Linha de cima do túnel, dois tiles a oeste da escada de entrada. Fique ao lado dele virado para o oeste e aperte A. Nada aparece na tela."
-            "3":
-              title: "Siga ao sul até o X Special"
-              text: "Continue nessa faixa e ande ao sul, uns quatro quintos do caminho. Aperte A virado para baixo por um X Special oculto, que reforça o Special de um Pokémon por uma batalha."
+            "2":
+              title: "Ao sul pelo X Special, depois saia na Rota 6"
+              text_html: "Ande ao sul nessa faixa, uns quatro quintos do caminho. Aperte A virado para baixo por um X Special oculto, uma batalha de Special reforçado. A escada %{out} fica no canto sudoeste."
               hidden:
                 x-special: "Segunda faixa a partir da parede leste, uns quatro quintos do túnel abaixo. Fique um tile ao norte e aperte A virado para baixo. Nada aparece na tela."
-            "4":
-              title: "Suba para a Rota 6"
-              text_html: "Siga até o fim do corredor e pegue a escada %{out} no canto sudoeste. Ela sobe na casa da Rota 6, no extremo norte da rota."
         route_6:
           note: "Até Vermilion. Mesma grama da Rota 5, mais pesca."
           intro: "O último trecho até Vermilion City. Pesque no lago assim que pegar um caniço."
