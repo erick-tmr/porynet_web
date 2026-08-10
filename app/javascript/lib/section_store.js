@@ -1,9 +1,3 @@
-// Which catchable boxes a reader has folded away, per game and stop.
-//
-// Boxes are open by default, so only the closed ones are written down. An empty payload means a
-// page with everything open, which is also what the server renders, so the common visit corrects
-// nothing and cannot flash. A stop that gains a new method starts open like the rest.
-
 export const STORAGE_KEY = "porynet.sections"
 export const CHANGE_EVENT = "porynet:sections"
 export const SCHEMA_VERSION = 1
@@ -41,8 +35,6 @@ export function isOpen(state, game, id) {
   return state.folds[game]?.[id] !== false
 }
 
-// Reopening drops the id rather than storing true, so the payload only ever grows with the boxes a
-// reader actually closed.
 export function setOpen(state, game, id, open) {
   const forGame = { ...state.folds[game] }
   if (open) delete forGame[id]

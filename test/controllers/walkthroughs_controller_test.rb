@@ -536,14 +536,11 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     get walkthrough_leg_path(game: "yellow", leg: "leg-02")
 
     assert_response :success
-    # Route 22 is stop 4; the Old Rod is stop 16. The card still lists Magikarp, still says which
-    # rod it wants, and no longer claims this is where to catch it.
     assert_select "#catchsec-route-22-old-rod .pn-wt-catch__name", text: "Magikarp"
     assert_select "#catchsec-route-22-old-rod .pn-wt-catchbadge--locked", text: "NEEDS OLD ROD"
     assert_select "#catchsec-route-22-old-rod .pn-wt-best", false
     assert_select "#catchsec-route-22-super-rod .pn-wt-best", false
     assert_select "#catchsec-route-22-good-rod .pn-wt-best", false
-    # the grass on the same stop is walkable from the start, so it keeps its badge
     assert_select "#catchsec-route-22-grass .pn-wt-best"
   end
 

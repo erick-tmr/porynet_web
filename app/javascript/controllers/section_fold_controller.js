@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { isOpen, load, save, setOpen, subscribe } from "lib/section_store"
 
-// One catchable box: the header folds its grid away, and the choice sticks per game and stop. A
-// failed write still folds, because a full or disabled localStorage should not keep the box open.
 export default class extends Controller {
   static targets = [ "body", "toggle" ]
   static values = { game: { type: String, default: "yellow" }, id: String }

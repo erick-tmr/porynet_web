@@ -10,15 +10,15 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 51 Kanto stops, drawing Route 4 twice around Mt. Moon" do
+  test "the game covers the 52 Kanto stops, drawing Route 4 twice around Mt. Moon" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 51 numbered stops (1..51); Route 4 (stop 10) wraps Mt. Moon, so it is drawn as a Mt. Moon
-    # approach section (leg 3) and its east half (leg 4). That makes 52 sections over 51 numbers.
-    assert_equal 52, g.locations.size
-    assert_equal (1..51).to_a, g.locations.map(&:order).uniq.sort
+    # 52 numbered stops (1..52); Route 4 (stop 10) wraps Mt. Moon, so it is drawn as a Mt. Moon
+    # approach section (leg 3) and its east half (leg 4). That makes 53 sections over 52 numbers.
+    assert_equal 53, g.locations.size
+    assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
   end
 
@@ -146,8 +146,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     silph = game.locations.index(loc("silph-co"))
 
     assert_operator silph, :<, saffron
-    assert_equal 38, loc("silph-co").order
-    assert_equal 39, loc("saffron-city").order
+    assert_equal 39, loc("silph-co").order
+    assert_equal 40, loc("saffron-city").order
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-10"))
   end
 
@@ -167,6 +167,18 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert steps[2].items?
     assert steps[2].shot?
     refute steps[2].hidden?
+  end
+
+  test "the Underground Path sits between the routes it joins, carrying only its hidden items" do
+    tunnel = loc("underground-path")
+    hidden = tunnel.steps.flat_map(&:hidden)
+
+    assert_equal [ 15, 16 ], [ tunnel.order, loc("route-6").order ]
+    assert_equal %w[route-5 underground-path route-6 vermilion-city],
+      game.leg!("leg-05").locations.map(&:slug)
+    assert_empty tunnel.encounters, "nothing is wild down there"
+    assert_equal [ [ "Full Restore", "H1" ], [ "X Special", "H2" ] ], hidden.map { |h| [ h.name, h.key ] }
+    assert_equal [ { in: "E1" }, {}, {}, { out: "E2" } ], tunnel.steps.map(&:marks)
   end
 
   test "the forest picks its items up in the order the maze can actually be walked" do
@@ -229,8 +241,8 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "a stop boxes its catchables by method, in section order rather than authoring order" do
     sections = loc("route-24").encounter_sections
 
-    # the Charmander is authored last, and comes out first
-    assert_equal [ "GIFT", "GRASS", "OLD ROD", "GOOD ROD", "SUPER ROD" ], sections.map(&:code)
+    assert_equal [ "GIFT", "GRASS", "OLD ROD", "GOOD ROD", "SUPER ROD" ], sections.map(&:code),
+      "the Charmander is authored last and must still come out first"
     assert_equal [ 1, 5, 1, 2, 2 ], sections.map(&:size)
   end
 
@@ -251,9 +263,27 @@ class WalkthroughTest < ActiveSupport::TestCase
 
     assert_equal "safari", section.key
     refute section.gift?
-    assert_equal "walkthrough/items/safari-ball.png", section.icon_path
+    assert_equal "walkthrough/items/safari-ball.png", section.icon
     assert_equal "walkthrough.ui.catchsec_safari_label", section.label_key
     assert_equal "walkthrough.ui.catchsec_safari_hint", section.hint_key
+  end
+
+  test "a species on one floor of a multi-floor cave still says which floor" do
+    sandshrew = loc("mt-moon").encounters.find { |enc| enc.dex == "027" }
+
+    assert_equal 1, sandshrew.places.size
+    assert_equal "1F", sandshrew.places.sole.floor
+    assert sandshrew.places?, "Mt. Moon has three floors, so 1F-only is the fact worth printing"
+  end
+
+  test "a route species with one unfloored table breaks out nothing" do
+    refute loc("route-3").encounters.find { |enc| enc.dex == "027" }.places?
+  end
+
+  test "tall grass is titled by the game's own grass tile, not by a stand-in item" do
+    section = loc("route-1").encounter_sections.find { |s| s.code == "GRASS" }
+
+    assert_equal "walkthrough/yellow/icons/tall-grass.png", section.icon
   end
 
   test "a multi-word method slugs into one key for the id, the class and the copy" do

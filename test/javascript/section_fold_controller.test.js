@@ -7,7 +7,6 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 let application;
 
-// Two boxes on one stop, as a leg page renders them: each folds on its own key.
 const FIXTURE = `
   <section id="grass" class="pn-wt-catchsec is-open" data-controller="section-fold"
            data-section-fold-game-value="yellow" data-section-fold-id-value="route-24/grass">

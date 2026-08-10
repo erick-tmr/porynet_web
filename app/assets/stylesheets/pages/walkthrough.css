@@ -970,6 +970,8 @@ a.pn-wt-route__card:hover {
 .pn-wt-pin--seafoam-islands-ultra-ball { left: 55.0%; top: 94.4%; }
 .pn-wt-pin--silph-co-elixir { left: 50.0%; top: 38.9%; }
 .pn-wt-pin--silph-co-max-potion { left: 25.0%; top: 72.2%; }
+.pn-wt-pin--underground-path-full-restore { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--underground-path-x-special { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--vermilion-city-max-ether { left: 50.0%; top: 33.3%; }
 .pn-wt-pin--victory-road-full-restore { left: 65.0%; top: 44.4%; }
 .pn-wt-pin--victory-road-ultra-ball { left: 50.0%; top: 27.8%; }
@@ -1417,8 +1419,6 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
 }
-/* The glyph is a right-pointing ▸ that turns down when the box opens. Gated on is-ready so a box
-   restored closed lands closed instead of spinning shut on load. */
 .pn-wt-catchsec.is-ready .pn-wt-catchsec__chev { transition: transform 0.08s steps(2); }
 .pn-wt-catchsec.is-open .pn-wt-catchsec__chev { transform: rotate(90deg); }
 .pn-wt-catchsec__body {
@@ -2304,6 +2304,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-band-head--city { background: color-mix(in srgb, var(--accent2) 12%, #FBF5E6); }
 .pn-wt-band-head--cave,
 .pn-wt-band-head--dungeon,
+.pn-wt-band-head--tunnel,
 .pn-wt-band-head--building,
 .pn-wt-band-head--gym { background: color-mix(in srgb, #171622 7%, #FBF5E6); }
 .pn-wt-band__tags {

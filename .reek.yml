@@ -63,6 +63,9 @@ detectors:
       - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
                                 # optional members (key/glyph/edge/lane/note), each named
                                 # so a caller can omit it, not a call signature.
+      - Walkthrough::BestCatch  # same defaults shim: a sole appearance states no runner-up and
+                                # a ranked one states no only/armed_only flag, so every keyword
+                                # is an optional member the other case omits.
       - Walkthrough::MartItem   # same defaults shim: an item states only the facts it has
                                 # (a TM its number/move/type, a pick its rec note), each
                                 # keyword the struct's own optional member.

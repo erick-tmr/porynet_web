@@ -13,27 +13,27 @@ module Walkthrough
   # water happens to be on. Without this the Oak deadline would owe you a Magikarp before Brock,
   # four legs before the Old Rod exists.
   METHOD_UNLOCK = {
-    "OLD ROD" => 16,     # Vermilion City, the Fishing Guru
-    "SUPER ROD" => 29,   # Route 12, the Super Rod house
-    "GOOD ROD" => 33,    # Fuchsia City, the Good Rod house
-    "SURF" => 34         # Safari Zone, HM03 in the Secret House
+    "OLD ROD" => 17,     # Vermilion City, the Fishing Guru
+    "SUPER ROD" => 30,   # Route 12, the Super Rod house
+    "GOOD ROD" => 34,    # Fuchsia City, the Good Rod house
+    "SURF" => 35         # Safari Zone, HM03 in the Secret House
   }.freeze
 
   GIFT_SECTION = "GIFT"
 
   SECTION_ICONS = {
-    GIFT_SECTION => "poke-ball",
-    "GRASS" => "leaf-stone",
-    "CAVE" => "escape-rope",
-    "FLOORS" => "town-map",
-    "SAFARI" => "safari-ball",
-    "SURF" => "tm-water",
-    "OLD ROD" => "old-rod",
-    "GOOD ROD" => "good-rod",
-    "SUPER ROD" => "super-rod",
-    "STATIC" => "poke-flute",
-    "FOSSIL" => "dome-fossil",
-    "GAME CORNER" => "coin-case"
+    GIFT_SECTION => "walkthrough/items/poke-ball.png",
+    "GRASS" => "walkthrough/yellow/icons/tall-grass.png",
+    "CAVE" => "walkthrough/items/escape-rope.png",
+    "FLOORS" => "walkthrough/items/town-map.png",
+    "SAFARI" => "walkthrough/items/safari-ball.png",
+    "SURF" => "walkthrough/items/tm-water.png",
+    "OLD ROD" => "walkthrough/items/old-rod.png",
+    "GOOD ROD" => "walkthrough/items/good-rod.png",
+    "SUPER ROD" => "walkthrough/items/super-rod.png",
+    "STATIC" => "walkthrough/items/poke-flute.png",
+    "FOSSIL" => "walkthrough/items/dome-fossil.png",
+    "GAME CORNER" => "walkthrough/items/coin-case.png"
   }.freeze
 
   class UnknownEncounterSection < StandardError; end
@@ -71,8 +71,7 @@ module Walkthrough
     def unlocked_from = METHOD_UNLOCK.fetch(how, 0)
     def from? = !from_key.nil?
     def unlock? = !unlock_key.nil?
-    # Only worth breaking out when the floors can actually disagree.
-    def places? = places.size > 1
+    def places? = places.size > 1 || places.any?(&:floor)
     def best_place = places.max_by(&:rate)
   end
 
@@ -81,7 +80,6 @@ module Walkthrough
     def gift? = code == GIFT_SECTION
     def size = encounters.size
     def dex_list = encounters.map(&:dex).uniq
-    def icon_path = "walkthrough/items/#{icon}.png"
     def label_key = "walkthrough.ui.catchsec_#{key.tr('-', '_')}_label"
     def hint_key = "walkthrough.ui.catchsec_#{key.tr('-', '_')}_hint"
   end
