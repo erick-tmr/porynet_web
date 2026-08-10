@@ -39,7 +39,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     route = location("route-11")
 
     assert_equal 10, route.trainers.size
-    assert_equal %w[A B C D E F G H I J], route.trainers.map(&:marker_key)
+    assert_equal %w[T1 T2 T3 T4 T5 T6 T7 T8 T9 T10], route.trainers.map(&:marker_key)
     assert(route.trainers.all? { |card| card.where.map? })
   end
 
@@ -78,11 +78,11 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_empty location("route-1").trainers
   end
 
-  test "gym trainers come from the gym floor and claim its pin letters" do
+  test "gym trainers come from the gym floor and claim its pin keys" do
     gym = location("celadon-city").gym
 
     assert_equal 7, gym.trainers.size
-    assert_equal %w[B C D E F G H], gym.trainers.map(&:marker_key).sort
+    assert_equal %w[T2 T3 T4 T5 T6 T7 T8], gym.trainers.map(&:marker_key).sort
     assert_equal "Erika", gym.leader.name
     assert_equal "ERIKA:1", gym.leader.opp
   end

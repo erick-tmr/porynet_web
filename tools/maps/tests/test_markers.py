@@ -13,14 +13,12 @@ def by_cat(entries, cat):
     return [m for m in entries if m["cat"] == cat]
 
 
-def test_key_letters():
-    assert markers.key_letters(0) == "A"
-    assert markers.key_letters(4) == "E"
-    assert markers.key_letters(25) == "Z"
-    assert markers.key_letters(26) == "AA"
-    assert markers.key_letters(27) == "AB"
-    assert markers.key_letters(51) == "AZ"
-    assert markers.key_letters(52) == "BA"
+def test_marker_key_prefixes_by_category():
+    assert markers.marker_key("trainer", 0) == "T1"
+    assert markers.marker_key("item", 1) == "I2"
+    assert markers.marker_key("hidden", 2) == "H3"
+    assert markers.marker_key("exit", 11) == "E12"
+    assert markers.marker_key("npc", 0) == "N1"
 
 
 def test_cell_percent_centers_the_cell():
@@ -67,9 +65,9 @@ def test_viridian_forest_marker_counts(root):
     assert len(by_cat(entries, "exit")) == 2
 
 
-def test_viridian_forest_trainers_are_lettered_in_declaration_order(root):
+def test_viridian_forest_trainers_are_numbered_in_declaration_order(root):
     trainers = by_cat(build(root), "trainer")
-    assert [t["key"] for t in trainers] == ["A", "B", "C", "D", "E"]
+    assert [t["key"] for t in trainers] == ["T1", "T2", "T3", "T4", "T5"]
     assert [t["ref"] for t in trainers] == [
         "BUG_CATCHER:1", "BUG_CATCHER:2", "BUG_CATCHER:3", "LASS:19", "BUG_CATCHER:15"]
     assert trainers[3]["name"] == "Lass"
@@ -79,7 +77,15 @@ def test_viridian_forest_trainers_are_lettered_in_declaration_order(root):
 def test_viridian_forest_items(root):
     items = by_cat(build(root), "item")
     assert {i["name"] for i in items} == {"Potion", "Poké Ball"}
-    assert all(i["key"] is None for i in items)
+    assert [i["key"] for i in items] == ["I1", "I2", "I3"]
+
+
+def test_every_marker_is_keyed_and_each_category_counts_from_one(root):
+    """A key names its own kind, so no legend row is left without a handle and adding an item ball
+    can never renumber a trainer."""
+    entries = build(root)
+    assert [m["key"] for m in entries] == [
+        "T1", "T2", "T3", "T4", "T5", "I1", "I2", "I3", "H1", "H2", "E1", "E2"]
 
 
 def test_viridian_forest_hidden_item_position(root):
@@ -361,3 +367,29 @@ def test_connection_span_narrows_an_edge_to_the_shared_strip():
 
     assert strip[0] == (0, 4) and strip[-1] == (0, 21)
     assert markers.connection_span(edge, "west", 2, None, 20, 30) == edge  # unknown dims: whole edge
+
+
+def test_link_exit_keys_gives_both_ends_of_a_staircase_one_key(root):
+    """Mt. Moon 1F's three doors all read 'Mt. Moon B1F'; the shared key is what says which of B1F's
+    doors each one lands on. The game names the target slot, so the pairing is read, not guessed."""
+    headers = sources.parse_headers(root)
+    floors = [("MtMoon1F", "mt-moon-1f", 640, 720), ("MtMoonB1F", "mt-moon-b1f", 640, 576),
+              ("MtMoonB2F", "mt-moon-b2f", 640, 576)]
+    entries, labels, warps, consts = [], [], {}, {}
+    for label, name, w, h in floors:
+        entries.append({"name": name,
+                        "markers": markers.build_markers(root, label, headers[label][0], w, h)})
+        labels.append(label)
+        warps[label] = sources.parse_warp_events(root, label)
+        consts[label] = headers[label][0]
+
+    markers.link_exit_keys(entries, labels, warps, consts)
+    keys = {e["name"]: {m["id"]: m["key"] for m in e["markers"] if m["cat"] == "exit"}
+            for e in entries}
+
+    assert keys["mt-moon-1f"]["exit-5-5"] == keys["mt-moon-b1f"]["exit-5-5"]
+    assert keys["mt-moon-1f"]["exit-17-11"] == keys["mt-moon-b1f"]["exit-25-9"]
+    assert keys["mt-moon-b1f"]["exit-13-27"] == keys["mt-moon-b2f"]["exit-15-27"]
+    # the two mouths onto Route 3 and Route 4 have no twin here, so they keep keys of their own
+    outside = [keys["mt-moon-1f"]["exit-14-35"], keys["mt-moon-b1f"]["exit-27-3"]]
+    assert len(set(outside)) == 2

@@ -107,8 +107,8 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 1, oddish.size, "Oddish is on Route 24 and Route 25 but owes one row"
     assert_equal "route-24", oddish.first.at
     assert_equal 3, oddish.first.qty
-    assert_equal 10, leg.entries.size
-    assert_equal [ "Bulbasaur", "Charmander", "Oddish", "Bellsprout" ], leg.queue.map(&:name)
+    assert_equal 11, leg.entries.size
+    assert_equal [ "Bulbasaur", "Oddish", "Bellsprout", "Charmander" ], leg.queue.map(&:name)
   end
 
   test "a species is grouped by how you would really get it here, not by whether it spawns" do
@@ -222,7 +222,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
 
     refute gym.living?
     assert gym.oak?
-    assert_equal 8, gym.earlier.size
+    assert_equal 3, gym.earlier.size
   end
 
   test "every leg builds a plan whose queue never outruns the species on the page" do

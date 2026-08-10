@@ -131,7 +131,7 @@
 - `route-22` step 3: walkthrough/yellow/scenes/oaks-lab-poke-balls.png
 - `route-22` step 4: walkthrough/yellow/scenes/viridian-to-route-2.png
 - `route-24` step 3: walkthrough/yellow/scenes/route-24-charmander.png
-- `route-25` step 2: walkthrough/yellow/scenes/route-25-bill.png
+- `route-25` step 5: walkthrough/yellow/scenes/route-25-bill.png
 - `route-4` step 1: walkthrough/yellow/scenes/route-4-exit.png
 - `route-4-mt-moon` step 2: walkthrough/yellow/scenes/route-4-mt-moon-enter.png
 - `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png

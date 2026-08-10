@@ -60,7 +60,7 @@
               <%= r2_image_tag area.image, alt: "", class: "pn-mm-canvas__img", loading: "lazy" %>
               <div class="pn-mm-layer" data-map-markers-target="layer">
                 <% area.markers.each do |marker| %>
-                  <%= render "map_marker", marker: marker %>
+                  <%= render "map_marker", marker: marker, slug: loc.slug %>
                 <% end %>
               </div>
             </div>

@@ -4,14 +4,14 @@ import roster
 import sources
 
 ROUTE_3 = [
-    ("A", "BUG_CATCHER:4", 100, [("010", 10), ("013", 10), ("010", 10)]),
-    ("B", "YOUNGSTER:1", 165, [("019", 11), ("023", 11)]),
-    ("C", "LASS:1", 135, [("016", 9), ("016", 9)]),
-    ("D", "BUG_CATCHER:5", 90, [("013", 9), ("014", 9), ("010", 9), ("011", 9)]),
-    ("E", "LASS:2", 150, [("019", 10), ("032", 10)]),
-    ("F", "YOUNGSTER:2", 210, [("021", 14)]),
-    ("G", "BUG_CATCHER:6", 110, [("010", 11), ("011", 11)]),
-    ("H", "LASS:3", 210, [("039", 14)]),
+    ("T1", "BUG_CATCHER:4", 100, [("010", 10), ("013", 10), ("010", 10)]),
+    ("T2", "YOUNGSTER:1", 165, [("019", 11), ("023", 11)]),
+    ("T3", "LASS:1", 135, [("016", 9), ("016", 9)]),
+    ("T4", "BUG_CATCHER:5", 90, [("013", 9), ("014", 9), ("010", 9), ("011", 9)]),
+    ("T5", "LASS:2", 150, [("019", 10), ("032", 10)]),
+    ("T6", "YOUNGSTER:2", 210, [("021", 14)]),
+    ("T7", "BUG_CATCHER:6", 110, [("010", 11), ("011", 11)]),
+    ("T8", "LASS:3", 210, [("039", 14)]),
 ]
 
 
@@ -80,13 +80,13 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
     assert checked == 315  # +14: the cabin trainers now sit on drawn maps
 
 
-def test_gym_floors_are_lettered_like_any_other_map(root):
-    """A gym map draws lettered trainer pins, so its cards claim the same letters: the pin is how
-    you tell which card is the Jr. Trainer by the door and which is the leader at the back."""
+def test_gym_floors_are_keyed_like_any_other_map(root):
+    """A gym map draws keyed trainer pins, so its cards claim the same keys: the pin is how you
+    tell which card is the Jr. Trainer by the door and which is the leader at the back."""
     entries, _ = built(root)
     gym = [e for e in entries["pewter-city"] if e["floor"] == "Gym"]
 
-    assert [e["key"] for e in gym] == ["A", "B"]
+    assert [e["key"] for e in gym] == ["T1", "T2"]
 
 
 def test_the_cabin_trainers_are_pinned_now_that_the_rooms_are_drawn(root):

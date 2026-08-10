@@ -7,6 +7,18 @@ module Walkthrough
 
   DENSE_TRAINERS = 6
 
+  # A rod or Surf encounter is only a catch once you hold the tool, and the guide hands each one
+  # over at a fixed stop. Keyed by method, valued by that stop's `order`, so a fishing card on an
+  # early route counts toward the dex from the stop that arms you rather than from the route the
+  # water happens to be on. Without this the Oak deadline would owe you a Magikarp before Brock,
+  # four legs before the Old Rod exists.
+  METHOD_UNLOCK = {
+    "OLD ROD" => 16,     # Vermilion City, the Fishing Guru
+    "SUPER ROD" => 29,   # Route 12, the Super Rod house
+    "GOOD ROD" => 33,    # Fuchsia City, the Good Rod house
+    "SURF" => 34         # Safari Zone, HM03 in the Secret House
+  }.freeze
+
   # `from_key`/`unlock_key` are optional locale keys for a gift Pokémon: who hands it over and any
   # condition to unlock it (Bulbasaur needs Pikachu's friendship at 147+, Squirtle the Thunder
   # Badge). `unlock_icon` is the R2 image that condition shows (a Pikachu, a badge).
@@ -34,6 +46,9 @@ module Walkthrough
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
+    # The earliest stop whose `order` can register this species: everything walked into is open
+    # from the start, a rod or Surf card only once that tool is in the bag.
+    def unlocked_from = METHOD_UNLOCK.fetch(how, 0)
     def from? = !from_key.nil?
     def unlock? = !unlock_key.nil?
     # Only worth breaking out when the floors can actually disagree.
@@ -41,18 +56,25 @@ module Walkthrough
     def best_place = places.max_by(&:rate)
   end
 
-  Item = Data.define(:name, :where_key, :sprite, :at, :tick) do
-    def initialize(at: nil, tick: nil, **rest) = super
+  # `key` is the letter this thing's pin wears on the location's map, so the card can tell the
+  # reader exactly which marker to hunt for. Nil when no single pin matches.
+  Item = Data.define(:name, :where_key, :sprite, :at, :tick, :key) do
+    def initialize(at: nil, tick: nil, key: nil, **rest) = super
+    def key? = !key.nil?
   end
 
-  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite, :at, :tick) do
-    def initialize(at: nil, tick: nil, **rest) = super
+  HiddenItem = Data.define(:name, :where_key, :image, :pin, :sprite, :at, :tick, :key) do
+    def initialize(at: nil, tick: nil, key: nil, **rest) = super
+    def key? = !key.nil?
   end
-  LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin) do
+  LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin,
+    :key) do
+    def initialize(key: nil, **rest) = super
     def image? = !image.nil?
+    def key? = !key.nil?
   end
   TriviaCard = Data.define(:dex, :name, :tone, :rows)
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :yellow_only)
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot)
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -146,14 +168,17 @@ module Walkthrough
   # One clickable point on an area map, read from the game data. `x`/`y` are percentages of the
   # rendered PNG; `ref` joins back to the game fact (OPP_CLASS:party, an item const, a map const).
   # An exit also carries the `place` its door leads to, when the game states anything about it.
+  # `step` is the number of the step that collects this marker, so the pin can offer a way back
+  # into the instructions that explain it. Nil for anything no step points at.
   MapMarker = Data.define(:id, :cat, :key, :name, :x, :y, :align, :lane, :glyph, :edge, :ref,
-    :note, :place) do
-    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, place: nil, **rest) = super
+    :note, :place, :step) do
+    def initialize(key: nil, glyph: nil, edge: nil, lane: 0, note: nil, place: nil, step: nil, **rest) = super
     def key? = !key.nil?
     def tickable? = !NON_TICKABLE.include?(cat)
     def glyph_or_key = glyph || key
     def note? = !note.nil?
     def place? = !place.nil?
+    def step? = !step.nil?
   end
 
   AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers) do
@@ -170,11 +195,18 @@ module Walkthrough
 
   StepLink = Data.define(:leg, :anchor)
 
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link) do
+  # `pins` names the map markers this step's prose points at, as { token => "map-name/marker-id" }.
+  # The copy interpolates the token (`%{center}`) and the view fills in the letter that pin wears
+  # today. Authored as ids, never as letters: a letter is the marker's position in its map's run, so
+  # one new item ball would shift every letter after it and silently re-point the prose. `marks` is
+  # the resolved { token => letter } the view actually interpolates.
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks) do
+    def initialize(pins: {}, marks: {}, **rest) = super
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?
     def link? = !link.nil?
+    def marks? = marks.any?
   end
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
@@ -283,7 +315,9 @@ module Walkthrough
     def trivia? = !trivia.nil?
     def missable_after?(step_n) = !missable.nil? && missable.after_step == step_n
 
-    def dex_list = encounters.map(&:dex)
+    # What this stop can actually add to the dex when you walk it. The cards still list every
+    # species that lives here; this is the subset you are equipped to catch on arrival.
+    def dex_list = encounters.select { |enc| enc.unlocked_from <= order }.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
     def badge? = !badge.nil?

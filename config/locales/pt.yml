@@ -240,8 +240,7 @@ pt:
       later_locked: "TRANCADO 🔒"
       later_need: "PRECISA"
       later_return: "VOLTE APÓS"
-      trivia_eyebrow: "CURIOSIDADE · SÓ NO YELLOW"
-      trivia_eyebrow_general: "CURIOSIDADE"
+      trivia_eyebrow: "CURIOSIDADE"
       missable_badge: "PERDÍVEL"
       missable_tip: "DICA DE NÍVEL"
       map_eyebrow: "MAPA DA ÁREA"
@@ -258,6 +257,8 @@ pt:
       tap_when_collected: "Toque ao coletar"
       tap_to_undo: "Toque para desfazer"
       map_marker_named: "%{name} (%{key})"
+      map_marker_hint: "Procure esta letra no mapa acima"
+      map_marker_step: "IR PARA O PASSO %{n}"
       map_filter_all: "TUDO"
       map_cat_trainer: "TREINADORES"
       map_cat_npc: "NPCS IMPORTANTES"
@@ -449,6 +450,7 @@ pt:
       band_ledger_none: "NADA PARA CAPTURAR AQUI"
       badge_living_html: "LIVING DEX ×%{count}"
       badge_oak: "OAK ×%{count}"
+      badge_needs: "PRECISA DE %{tool}"
       badge_boxed: "JÁ NA CAIXA"
       badge_do_at: "FAÇA EM %{stop}"
       pill_box_html: "CAIXA %{have}/%{want}"
@@ -891,18 +893,18 @@ pt:
           steps:
             "1":
               title: "Retire a Potion grátis"
-              text: "No seu quarto no andar de cima, cheque a PC e retire a Potion grátis, depois desça e saia pela porta da frente."
+              text_html: "No seu quarto no andar de cima, cheque a PC e retire a Potion grátis, depois desça e saia pela porta da frente %{home}."
               items:
                 potion: "Quarto de cima, dentro da PC."
             "2":
               title: "Pegue o Pikachu com o Oak"
-              text: "Vá até a saída norte. Ao pisar na grama da Rota 1, o Oak te para e te leva ao laboratório para entregar o Pikachu, que anda ao seu lado em vez de ficar na Ball."
+              text_html: "Vá até a saída norte %{north}. Ao pisar na grama da Rota 1, o Oak te para e te leva ao laboratório %{lab} para entregar o Pikachu, que anda ao seu lado em vez de ficar na Ball."
             "3":
               title: "Vença seu rival"
               text_html: "O Blue pega um Eevee e te enfrenta no laboratório: Nv 5 com Tackle e Tail Whip. Lidere com o Pikachu e use ThunderShock por <span class=\"pn-money-value\"><span class=\"pn-money\" role=\"img\" aria-label=\"Poké Dólar\"></span><span class=\"pn-money-value__n\">175</span></span>. Esse resultado é metade do que define <a href=\"%{href}\">em qual evolução o Eevee dele vira</a>."
             "4":
               title: "Siga ao norte para a Rota 1"
-              text: "Saia de Pallet pela saída norte para a Rota 1, seguindo rumo a Viridian City."
+              text_html: "Saia de Pallet pela saída norte %{north} para a Rota 1, seguindo rumo a Viridian City."
           tips:
             pikachu: "Seu parceiro obrigatório e o único Pikachu do jogo. Ele recusa a Thunder Stone, então continua Pikachu."
         route_1:
@@ -914,12 +916,12 @@ pt:
               text: "Vá ao norte pela grama alta, batalhando Pidgey e Rattata selvagens para subir o nível do Pikachu. Você ainda não tem Poké Balls, então capture na volta, com a loja de Viridian abastecida."
             "2":
               title: "Pegue a Potion grátis"
-              text: "Um Youngster na borda oeste da estrada trabalha no Poké Mart de Viridian. Fale com ele e ele entrega uma Potion de amostra grátis."
+              text_html: "Um Youngster %{man} na borda oeste da estrada trabalha no Poké Mart de Viridian. Fale com ele e ele entrega uma Potion de amostra grátis."
               items:
                 potion: "Com o homem ao lado da placa perto da saída sul (Pallet)."
             "3":
               title: "Entre em Viridian City"
-              text: "Continue ao norte até Viridian City. Mais tarde, na volta, pule os desníveis do lado leste para evitar a grama no caminho de retorno."
+              text_html: "Continue ao norte %{north} até Viridian City. Mais tarde, na volta, pule os desníveis do lado leste para evitar a grama no caminho de retorno."
           tips:
             pidgey: "Por toda a Rota 1. Um Normal/Voador confiável que evolui até Pidgeot."
             rattata: "Rápido e comum. Evolui para Raticate, um bom atacante inicial."
@@ -940,7 +942,7 @@ pt:
           steps:
             "1":
               title: "Cure e pegue o Oak's Parcel"
-              text: "Cure no Centro Pokémon no canto superior esquerdo, se precisar, depois entre na loja logo a nordeste. Fale com o atendente no balcão e ele entrega o Oak's Parcel para levar de volta ao sul."
+              text_html: "Cure no Centro Pokémon %{center} no canto superior esquerdo, se precisar, depois entre na loja %{mart} logo a nordeste. Fale com o atendente no balcão e ele entrega o Oak's Parcel para levar de volta ao sul."
               items:
                 oaks_parcel: "Com o atendente da loja em Viridian; entregue ao Oak em Pallet Town."
             "2":
@@ -961,12 +963,12 @@ pt:
               text: "O velho na estrada ao norte ja acordou. Fale com ele e assista a demonstracao de captura; quando ela termina, ele sai do caminho e a passagem ao norte enfim abre."
             "6":
               title: "Pegue a Potion escondida perto da saida norte"
-              text: "Com o caminho aberto, suba até a saída norte, no topo da cidade. Uma árvore solitária ao lado do caminho de saída esconde uma Potion. Aperte A ao lado dela; nada aparece na tela."
+              text_html: "Com o caminho aberto, suba até a saída norte %{north}, no topo da cidade. Uma árvore solitária ao lado do caminho de saída esconde uma Potion. Aperte A ao lado dela; nada aparece na tela."
               hidden:
                 potion: "A árvore solitária ao lado do caminho da saída norte, no topo da cidade. Aperte A; nada aparece na tela."
             "7":
               title: "Pule o Ginasio e siga a oeste para a Rota 22"
-              text: "O Ginásio no nordeste fica trancado até você ter as outras sete insígnias, então deixe para depois. Pegue a saída oeste para a Rota 22, pelas melhores capturas contra o Brock e o próximo rival."
+              text_html: "O Ginásio %{gym} no nordeste fica trancado até você ter as outras sete insígnias, então deixe para depois. Pegue a saída oeste %{west} para a Rota 22, pelas melhores capturas contra o Brock e o próximo rival."
         route_22:
           note: "Rota oeste opcional. Nidoran♀/♂, Mankey, Spearow. Mais a primeira batalha de rival."
           intro: "Um desvio curto a oeste de Viridian. O melhor lugar para capturar respostas ao Brock antes da floresta."
@@ -1019,7 +1021,7 @@ pt:
               text: "Suba ao norte pela grama curta a partir da borda de Viridian City. Capture um Nidoran selvagem aqui se pulou a Rota 22, e registre um Pidgey ou Rattata para a dex enquanto passa."
             "2":
               title: "Entre na Viridian Forest"
-              text: "Siga a faixa oeste até o portão da floresta e entre. O lado leste cercado de árvores, com a Moon Stone, o HP Up, o HM05 Flash e a troca do Mr. Mime, fica trancado até você ter Cut."
+              text_html: "Siga a faixa oeste até o portão da floresta %{gate} e entre. O lado leste cercado de árvores, com a Moon Stone, o HP Up, o HM05 Flash e a troca do Mr. Mime, fica trancado até você ter Cut."
           tips:
             pidgey: "O mesmo voador confiável da Rota 1 se você ainda precisar de um."
             rattata: "Comum de novo. Pule se já capturou um."
@@ -1034,35 +1036,35 @@ pt:
           steps:
             "1":
               title: "Entre pelo portão da Rota 2"
-              text: "Entre pelo portão sul. A grama alta preenche todo o labirinto, sua única chance de Caterpie, Metapod e Pidgey. Uma Lass e alguns Bug Catchers esperam nas árvores para XP fácil do Pikachu."
+              text_html: "Entre pelo portão sul. A grama alta preenche todo o labirinto, sua única chance de Caterpie, Metapod e Pidgey. A Lass %{lass} e quatro Bug Catchers esperam nas árvores."
             "2":
               title: "Cheque a árvore isolada"
-              text: "Logo depois do portão sul há uma única árvore, com um Youngster parado no quadrado abaixo dela. Chegue pela esquerda da árvore, olhe para leste e aperte A para um Antidote oculto."
+              text: "Uma árvore isolada fica logo depois do portão, com um Youngster no quadrado abaixo dela. Fique do lado oeste dela, olhe para leste e aperte A para um Antidote oculto."
               hidden:
                 antidote: "A árvore isolada logo depois do portão sul. O Youngster ocupa o quadrado abaixo dela, então fique do lado oeste da árvore, olhe para leste e aperte A. Nada aparece na tela."
             "3":
-              title: "Saqueie o beco a noroeste"
-              text: "Vá a noroeste até o beco de grama sem saída, vencendo a Lass no caminho para XP fácil. Uma Poké Ball está no chão junto à parede oeste, bem no fim do caminho."
+              title: "Saqueie o beco sem saída a oeste"
+              text: "Vá ao norte a partir da árvore, depois a oeste pela clareira e suba até o beco de grama sem saída. A Poké Ball fica lá no fim, junto à parede."
               items:
-                pok-ball: "No fim do beco de grama sem saída, junto à parede oeste, a noroeste do portão sul."
+                pok-ball: "Junto à parede oeste, no fim do beco de grama sem saída, duas clareiras ao norte do portão."
             "4":
-              title: "Pegue a Potion central"
-              text: "Serpenteie de volta ao meio do labirinto. Uma Potion espera numa ball logo a noroeste da placa que fala em usar Antidote contra veneno."
+              title: "Suba pelo lado leste"
+              text_html: "Volte à clareira da entrada e siga para leste; aquela abertura é a única rota norte da floresta. Suba passando pelos Bug Catchers %{low} e %{high} até uma Potion na viela estreita."
               items:
-                potion-12-29: "No centro da floresta, numa ball logo a noroeste da placa de Antidote."
+                potion-25-11: "Seis passos acima na viela de duas colunas ao norte da placa de avaliação da Pokédex, no nordeste da floresta."
             "5":
-              title: "Varra o nordeste"
-              text: "Suba até o canto nordeste, limpando os Bug Catchers para mais XP do Pikachu. Pegue a Potion numa ball logo a noroeste da placa Trainer Tips."
+              title: "Contorne até a Potion do meio"
+              text_html: "Contorne para oeste pelo topo do labirinto, passando pelo Bug Catcher %{middle}, e desça pelo caminho oeste. A Potion espera no pé de uma fresta de duas colunas nos arbustos."
               items:
-                potion-25-11: "A nordeste da floresta, logo a noroeste da placa Trainer Tips."
+                potion-12-29: "No pé da fresta de duas colunas no meio da floresta, do outro lado das árvores da placa de Antidote. Só dá para chegar pelo norte."
             "6":
               title: "Vasculhe a parede oeste"
-              text: "Volte à parede oeste rumo à saída norte. Um quadrado a oeste do Bug Catcher de lá, fique no quadrado logo abaixo, olhe para cima e aperte A para uma Potion oculta."
+              text_html: "Volte e siga a parede oeste para o norte. O Bug Catcher %{west} ocupa a faixa da direita; o quadrado ao lado dele esconde uma Potion. Fique abaixo, olhe para cima e aperte A."
               hidden:
-                potion: "Um quadrado a oeste do Bug Catcher na parede oeste (parte alta da floresta). Fique no quadrado logo abaixo, olhe para cima e aperte A. Nada aparece na tela."
+                potion: "Um quadrado a oeste do Bug Catcher C na coluna da parede oeste. Fique no quadrado logo abaixo, olhe para cima e aperte A. Nada aparece na tela."
             "7":
               title: "Saia para Pewter City"
-              text: "Capture um Caterpie ou Metapod antes de ir; o Butterfree aprende Confusion, uma resposta rara e boa ao Brock. Saia pelo portão norte para a Rota 2 e então para Pewter City."
+              text_html: "Capture um Caterpie ou Metapod antes de ir; o Butterfree aprende Confusion, uma resposta rara e boa ao Brock. Saia pela saída %{north} para a Rota 2 e então para Pewter City."
           tips:
             caterpie: "Por toda a grama. Evolui rápido para Butterfree, cujo Confusion machuca o Brock."
             metapod: "Ou só evolua seu Caterpie no Nv 7. Mais barato que caçar o spawn de 25%."
@@ -1081,10 +1083,10 @@ pt:
           steps:
             "1":
               title: "Cure, prepare e entre no Ginásio"
-              text: "Cure no Centro Pokémon e compre Potions no Mart. Pikachu nao faz nada contra Pedra, entao lidere com Mankey, um Nidoran ou Butterfree, depois entre no Ginásio no lado oeste."
+              text_html: "Cure no Centro Pokémon %{center} e compre Potions no Mart %{mart}. Pikachu nao faz nada contra Pedra, entao lidere com Mankey, um Nidoran ou Butterfree, depois entre no Ginásio %{gym} no lado oeste."
             "2":
               title: "Siga para leste ate a Rota 3"
-              text: "Com a Insígnia Boulder, o garoto que bloqueia a saída leste sai do caminho. Siga para leste na Rota 3 rumo a Mt. Moon."
+              text_html: "Com a Insígnia Boulder, o garoto que bloqueia a saída leste %{east} sai do caminho. Siga para leste na Rota 3 rumo a Mt. Moon."
           trivia:
             title: "Jigglypuff faz seu Pikachu dormir"
             intro: "Um Jigglypuff fica encostado na parede dentro do Centro Pokémon de Pewter City. Fale com ele e ele solta a cantiga \"Puu pupuu!\": se o seu Pikachu estiver andando atrás de você, a canção apaga ele na hora e ele para de te seguir, igualzinho a ser posto para dormir numa batalha."
@@ -1098,7 +1100,7 @@ pt:
               text: "Siga a leste de Pewter e suba os desníveis, limpando os Bug Catchers, Youngsters e Lasses espalhados pela subida rumo ao Mt. Moon."
             "2":
               title: "Varra a grama"
-              text: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas; depois siga a rota até o fim, no Centro Pokémon do Mt. Moon, na Route 4."
+              text_html: "Capture Spearow, Sandshrew ou Mankey na grama. Sandshrew e Mankey ajudam nas cavernas; depois siga a rota até o fim e saia na Route 4 %{north}, onde espera o Centro Pokémon do Mt. Moon."
           oak:
             sandshrew: "Tipo Terra, evolui para Sandslash. Útil nas cavernas à frente."
         route_4_mt_moon:
@@ -1107,10 +1109,10 @@ pt:
           steps:
             "1":
               title: "Cure no Centro Pokémon do Mt. Moon"
-              text: "Saia da Rota 3 para a ponta oeste da Route 4 e cure no Centro Pokémon do Mt. Moon perto da boca da caverna. É a última parada antes da caverna, então recupere tudo e compre Poke Balls."
+              text_html: "Saia da Rota 3 para a ponta oeste da Route 4 e cure no Centro Pokémon do Mt. Moon %{center}, perto da boca da caverna. Sua última parada antes da caverna, então recupere tudo e compre Poké Balls."
             "2":
               title: "Entre no Mt. Moon"
-              text: "Entre no Mt. Moon pela porta ao lado do centro. Você sai na metade leste da Route 4, coberta no próximo trecho."
+              text_html: "Entre no Mt. Moon pela entrada %{cave}, logo ao lado do Centro. Você sai na metade leste da Route 4, coberta no próximo trecho."
           trivia:
             title: "O homem que vende um Magikarp"
             intro: "Dentro do Centro Pokémon do Mt. Moon um homem vende um Magikarp por ¥500. Sozinho ele só usa Splash, mas evolui para Gyarados, um verdadeiro monstro. Comprar aqui vale a pena se você quer começar a treiná-lo imediatamente, já que chegar até o Gyarados leva um bom tempo."
@@ -1130,15 +1132,15 @@ pt:
               items:
                 potion-2-20: "Junto à parede mais a oeste do 1F, na metade da altura."
             "3":
-              title: "Desça as escadas 1 e 2 pelo HP Up"
-              text_html: "Siga o caminho a leste até a escada <span class=\"pn-wt-ladder\">1</span>, depois a escada <span class=\"pn-wt-ladder\">2</span> abaixo dela, até o B2F. Subindo o pequeno platô à sua direita está um HP Up, um aumento permanente de HP. Volte ao 1F pelo mesmo caminho."
+              title: "Desça duas escadas pelo HP Up"
+              text_html: "Siga o caminho a leste até a escada %{down}, depois a escada %{lower} abaixo dela, até o B2F. Subindo o pequeno platô à sua direita está um HP Up, um aumento permanente de HP. Volte ao 1F pelo mesmo caminho."
               items:
-                hp-up: "No pequeno platô do B2F, descendo direto pelas escadas 1 e 2."
+                hp-up: "No pequeno platô do B2F, descendo direto pelas duas escadas a leste da entrada."
             "4":
               title: "Ao sul pela segunda Potion"
               text: "De volta ao 1F, siga direto ao sul. Procure no sudoeste desse bolsão uma segunda Potion numa bola."
               items:
-                potion-20-33: "Centro-sul do 1F, no sudoeste do bolsão abaixo da escada 1."
+                potion-20-33: "Centro-sul do 1F, no sudoeste do bolsão abaixo da primeira escada."
             "5":
               title: "Direto a leste até o Rare Candy"
               text: "Da Potion, siga direto a leste até um Rare Candy. Um nível grátis para o Pokémon que quiser."
@@ -1150,13 +1152,13 @@ pt:
               items:
                 escape-rope: "Junto à parede mais a leste do 1F, no caminho ao norte."
             "7":
-              title: "Desça as escadas 3 e 4"
-              text_html: "Do canto nordeste siga a oeste, depois pegue o caminho à esquerda e ao sul até a escada <span class=\"pn-wt-ladder\">3</span>. Abaixo, um trecho reto do B1F segue a oeste até a escada <span class=\"pn-wt-ladder\">4</span> e desce ao B2F."
+              title: "Desça as escadas do nordeste"
+              text_html: "Do canto nordeste siga a oeste, depois pegue o caminho à esquerda e ao sul até a escada %{down}. Abaixo, um trecho reto do B1F segue a oeste até a escada %{lower} e desce ao B2F."
             "8":
               title: "Suba o platô pelo TM01"
               text: "Suba o pequeno platô pelo TM01 Mega Punch, um golpe Normal pesado para um atacante físico."
               items:
-                tm-mega-punch: "No pequeno platô do B2F, logo depois da escada 4."
+                tm-mega-punch: "No pequeno platô do B2F, logo depois da escada por onde você desceu."
             "9":
               title: "Examine a rocha solitária pelo Ether"
               text: "Examine a rocha solitária a leste para achar um Ether oculto; nada aparece na tela. Depois pegue as escadas de volta ao 1F."
@@ -1168,8 +1170,8 @@ pt:
               items:
                 moon-stone: "Canto superior esquerdo (noroeste) do 1F."
             "11":
-              title: "Desça as escadas 5 e 6"
-              text_html: "A escada <span class=\"pn-wt-ladder\">5</span> fica a poucos passos a leste do canto. Pegue-a, siga o caminho curto até a escada <span class=\"pn-wt-ladder\">6</span> e desça ao B2F."
+              title: "Desça as escadas do noroeste"
+              text_html: "A escada %{down} fica a poucos passos a leste do canto. Pegue-a, siga o caminho curto até a escada %{lower} e desça ao B2F."
             "12":
               title: "Procure a Moon Stone no fim sem saída"
               text: "Pegue o caminho leste descendo as escadas, depois suba o outro conjunto e siga o caminho longo a oeste. Antes das escadas ao norte, um beco estreito à direita esconde uma Moon Stone na parede do fim."
@@ -1177,12 +1179,12 @@ pt:
                 moon-stone: "A parede do fim do beco estreito a leste dos fósseis, no B2F. Aperte A; nada aparece na tela."
             "13":
               title: "Escolha um fóssil"
-              text: "Siga ao norte até os dois fósseis e escolha UM: Dome (vira Kabuto) ou Helix (vira Omanyte). O outro se perde para sempre."
+              text: "Siga ao norte até os dois fósseis na mesa do Super Nerd. O Dome fica à esquerda e vira Kabuto, o Helix à direita e vira Omanyte. Pegue UM; o outro se perde para sempre."
               items:
-                fossil: "Escolha Dome (Kabuto) ou Helix (Omanyte) com o Super Nerd que os guarda. Reviva em Pokémon depois no Laboratório de Cinnabar; o outro se perde para sempre."
+                fossil: "Na mesa do Super Nerd no B2F: Dome (Kabuto) é o da esquerda, Helix (Omanyte) o da direita. Reviva no Laboratório de Cinnabar depois; o outro se perde para sempre."
             "14":
               title: "Saída para a Rota 4"
-              text_html: "Depois dos fósseis e a oeste, pegue a escada <span class=\"pn-wt-ladder\">7</span> ao sul até o B1F, depois a saída <span class=\"pn-wt-ladder\">8</span> a leste e de volta para fora, na Rota 4."
+              text_html: "Depois dos fósseis e a oeste, pegue a escada %{up} ao sul até o B1F, depois a saída %{out} a leste e de volta para fora, na Rota 4."
           tips:
             clefairy: "Só 1% no 1F, mas 10,5% lá no B2F. Pegue dois: uma Moon Stone transforma um em Clefable."
           oak:
@@ -1194,7 +1196,7 @@ pt:
           steps:
             "1":
               title: "Saia do Mt. Moon"
-              text: "Você sai na ponta oeste da Rota 4, bem ao lado do Centro Pokémon do Mt. Moon, na boca da caverna. Cure ali se pulou o de dentro, depois siga a leste pelo platô alto rumo a Cerulean."
+              text_html: "Você sai na ponta oeste da Rota 4, bem ao lado do Centro Pokémon do Mt. Moon %{center}, na boca da caverna. Cure ali se pulou o de dentro, depois siga a leste pelo platô alto rumo a Cerulean."
             "2":
               title: "Ache a Great Ball oculta"
               text: "Mais ou menos na metade do topo da rota, uma Great Ball está enterrada no chão aberto, encostada na parede norte. Fique no tile logo abaixo dela e aperte A virado para cima. Nada aparece na tela."
@@ -1207,7 +1209,7 @@ pt:
                 tm-whirlwind: "Uma Poké Ball no platô, na metade leste da rota, logo a oeste da Lass. Ande sobre ela."
             "4":
               title: "Desça para Cerulean City"
-              text: "Passado o TM, pule os desníveis. Eles levam a leste e despejam direto do outro lado, em Cerulean City."
+              text_html: "Passado o TM, pule os desníveis. Eles levam a leste e despejam direto do outro lado %{east}, em Cerulean City."
           trainers:
             lass:
               note: "Você não consegue alcançar esta Lass na passagem. Ela fica na ponta leste do platô superior da Rota 4, e os desníveis de mão única te jogam em Cerulean antes de chegar até ela. Anote para uma volta mais tarde."
@@ -1225,7 +1227,7 @@ pt:
           steps:
             "1":
               title: "Cure e abasteça"
-              text: "Chegando da Rota 4, cure no Centro e abasteça no Mart. Deixe o Ginásio quieto por enquanto: tudo ao norte da cidade vale a pena antes, e a Misty fecha esta etapa."
+              text_html: "Chegando da Rota 4, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} quieto por enquanto: tudo ao norte da cidade vale a pena antes, e a Misty fecha esta etapa."
             "2":
               title: "Pegue o Rare Candy escondido"
               text: "Um nível de graça, largado no chão aberto. Um Rare Candy está enterrado em um tile aberto perto do topo da cidade. Alinhe-se no quadrado logo abaixo dele e aperte A. Nada aparece na tela."
@@ -1233,7 +1235,7 @@ pt:
                 rare_candy: "Em um tile aberto perto do topo da cidade. Fique logo abaixo dele e aperte A, nada aparece na tela."
             "3":
               title: "Pegue os extras e siga ao norte"
-              text: "Pegue o Bulbasaur grátis na casa da Melanie se a amizade do Pikachu estiver alta. A casa assaltada fica lacrada até a oficial sair; persiga o ladrão pelos fundos pelo TM28 Dig e siga à Nugget Bridge."
+              text_html: "Pegue o Bulbasaur grátis na casa da Melanie %{house} se a amizade do Pikachu estiver alta. A casa assaltada fica lacrada até a oficial sair; persiga o ladrão pelos fundos pelo TM28 Dig e siga ao norte %{north} até a Nugget Bridge."
               items:
                 bicycle: "Na Bike Shop, quando você troca o Bike Voucher que ganha em Vermilion. Você volta pra pegar, e nunca mais anda a pé."
             "4":
@@ -1259,7 +1261,7 @@ pt:
               text: "Suba a ponte e enfrente os cinco treinadores em fila, depois o Rocket Grunt esperando no topo. Ele te entrega um Nugget e pede para você entrar na Team Rocket. RECUSE, e ele também te enfrenta."
             "3":
               title: "Pegue o Charmander grátis"
-              text: "Na colina de grama depois da ponte, um garoto está pronto para te dar um Charmander grátis (Nv 10). Fale com ele e pegue: uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
+              text_html: "Na colina de grama depois da ponte, um garoto %{boy} está pronto para te dar um Charmander grátis (Nv 10). Fale com ele e pegue: uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
             "4":
               title: "Pegue o TM45 (Thunder Wave)"
               text: "Alguns passos a leste do garoto, uma Poke Ball descansa na grama do alto: TM45, Thunder Wave. Chegue nela e pegue, um jeito barato de paralisar qualquer Pokémon que você queira capturar."
@@ -1267,7 +1269,7 @@ pt:
                 tm-thunder-wave: "Na grama no topo da rota, alguns passos a leste do garoto do Charmander."
             "5":
               title: "Siga a leste para a Rota 25"
-              text: "Com o Charmander e o TM na mão, siga o caminho a leste da colina até a Rota 25, a estrada que leva à cabana do Bill."
+              text_html: "Com o Charmander e o TM na mão, siga o caminho a leste da colina %{east} até a Rota 25, a estrada que leva à cabana do Bill."
           tips:
             charmander: "Grátis do garoto aqui. Uma linha de Fogo forte até Charizard, e ótima contra a Erika depois."
           oak:
@@ -1291,9 +1293,9 @@ pt:
                 elixir: "Borda norte perto da entrada oeste, logo após a Rota 24. Vire para cima e aperte A."
             "3":
               title: "Pegue o TM19 no labirinto"
-              text: "Serpenteie pelo labirinto cercado no meio da rota, passando pelos Youngsters e pelo Jr. Trainer. A Poke Ball guardada no canto nordeste tem o TM19 (Seismic Toss)."
+              text_html: "O Jr. Trainer %{guard} tampa a única brecha para o bolsão do TM19. Puxe-o de dois tiles abaixo para ele descer e sair dela; se você lutar colado nele, o TM fica preso até você ter o Cut."
               items:
-                tm-seismic-toss: "Canto nordeste do labirinto cercado, no meio da rota."
+                tm-seismic-toss: "Bolsão nordeste do labirinto de árvores, no meio da rota. Se o Jr. Trainer voltar a tampar a brecha, corte a árvore da parede leste do bolsão."
             "4":
               title: "Revise a grama perto da cabana"
               text: "Na reta final a leste, um pouco a oeste da porta da Sea Cottage do Bill e na mesma fileira, alinhe-se no tile logo abaixo e vire para cima apertando A para um Ether oculto. Nada aparece na tela."
@@ -1301,7 +1303,7 @@ pt:
                 ether: "Extremo leste, a oeste da porta da cabana, na fileira dela. Fique um tile ao sul e aperte A para cima."
             "5":
               title: "Solte o Bill"
-              text: "Entre na Sea Cottage no extremo leste e use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
+              text_html: "Entre na Sea Cottage %{cottage} no extremo leste e use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
               items:
                 s_s_ticket: "Com o Bill, depois de libertá-lo da máquina na Sea Cottage. Sua passagem para o S.S. Anne em Vermilion."
           oak:
@@ -1318,10 +1320,10 @@ pt:
           steps:
             "1":
               title: "Vá ao sul"
-              text: "Saia de Cerulean ao sul; deixe um Pokémon na Day Care se quiser subir o nível."
+              text_html: "Saia de Cerulean ao sul; deixe um Pokémon na Day Care %{daycare} se quiser subir o nível."
             "2":
               title: "Pegue o Underground Path"
-              text: "Os portões de Saffron estão bloqueados, então entre no prédio do Underground Path e túnele ao sul até a Rota 6. Um Full Restore e um X Special ocultos ficam pelo chão do túnel."
+              text_html: "Os portões de Saffron estão bloqueados, então entre no prédio do Underground Path %{path} e túnele ao sul até a Rota 6. Um Full Restore e um X Special ocultos ficam pelo chão do túnel."
           oak:
             abra: "Capture rápido (ele só usa Teleport). Evolui para Kadabra, depois Alakazam por troca."
         route_6:
@@ -1330,10 +1332,10 @@ pt:
           steps:
             "1":
               title: "Saia do Underground Path"
-              text: "Você surge no norte da Rota 6, no caminho que desce até Vermilion. Siga ao sul passando pelos Jr. Trainers e Bug Catchers junto às cercas."
+              text_html: "Você surge %{path} no norte da Rota 6, no caminho que desce até Vermilion. Siga ao sul passando pelos Jr. Trainers e Bug Catchers junto às cercas."
             "2":
               title: "Entre em Vermilion"
-              text: "Siga a estrada ao sul pela última ponte e direto até Vermilion City, onde o S.S. Anne está atracado."
+              text_html: "Siga a estrada ao sul pela última ponte e direto %{south} até Vermilion City, onde o S.S. Anne está atracado."
         vermilion_city:
           mart:
             blurb: "Agora com Super Potions. Abasteça antes do S.S. Anne e do ginásio do Lt. Surge."
@@ -1349,7 +1351,7 @@ pt:
           steps:
             "1":
               title: "Pegue os itens"
-              text: "Cure no Centro Pokémon, depois pegue o Bike Voucher no Pokémon Fan Club e o Old Rod com o Fishing Guru no lado oeste da cidade."
+              text_html: "Cure no Centro Pokémon %{center}, depois pegue o Bike Voucher no Pokémon Fan Club %{club} e o Old Rod com o Fishing Guru %{guru} no lado oeste da cidade."
               items:
                 bike_voucher: "Com o presidente do Pokémon Fan Club, no lado oeste da cidade. Troque por uma Bicycle na Bike Shop de Cerulean."
                 old_rod: "Com o Fishing Guru na casa do lado oeste da cidade. Pesca Magikarp em qualquer lugar."
@@ -1360,10 +1362,10 @@ pt:
                 max-ether: "No topo do vão entre os dois prédios ao norte da porta da Trade House, encostado na água. Vire para cima a partir da praça e aperte A. Nada aparece."
             "3":
               title: "Entre no S.S. Anne pelo Cut"
-              text: "A arvore do ginasio precisa do HM01 Cut. Entre no navio na doca sul, limpe as cabines e cure o Capitao enjoado para receber o Cut antes de desafiar Surge."
+              text_html: "A arvore do ginasio %{gym} precisa do HM01 Cut. Entre no navio na doca sul %{dock}, limpe as cabines e cure o Capitao enjoado para receber o Cut antes de desafiar Surge."
             "4":
               title: "Pegue o Squirtle gratis"
-              text: "Apos a Insignia Thunder, a Oficial Jenny te da um Squirtle gratis. Depois siga para leste ate a Rota 11 e a Diglett's Cave."
+              text_html: "Apos a Insignia Thunder, a Oficial Jenny te da um Squirtle gratis. Depois siga para leste %{east} ate a Rota 11 e a Diglett's Cave."
           tips:
             squirtle: "Grátis da Officer Jenny depois da Thunder Badge. O terceiro starter de Kanto, evolui para Blastoise."
           oak:
@@ -1428,7 +1430,7 @@ pt:
           steps:
             "1":
               title: "Saia de Vermilion"
-              text: "Saia a leste de Vermilion para a grama larga da Rota 11. A boca da Diglett's Cave fica bem aqui no oeste, marcada pela placa, seu atalho rumo a Pewter para depois."
+              text_html: "Saia a leste de Vermilion para a grama larga da Rota 11. A boca da Diglett's Cave %{cave} fica bem aqui no oeste, marcada pela placa, seu atalho rumo a Pewter para depois."
             "2":
               title: "Lute a leste"
               text: "Avance a leste pela grama, limpando os Gamblers, Youngsters e Engineers no caminho, e capture um Drowzee para um Hypno forte cedo."
@@ -1439,12 +1441,12 @@ pt:
                 escape-rope: "Um tile a oeste e tres ao norte da porta do portão leste, na grama. Fique abaixo dele, olhe para cima e aperte A. Nada aparece na tela."
             "4":
               title: "Pegue o Itemfinder"
-              text: "No portão leste, fale com o Assistente do Oak pelo Itemfinder (ele so entrega quando você ja capturou 30+ especies). No andar de cima, um Garoto troca um Dugtrio turbinado pelo seu Diglett."
+              text_html: "No portão leste %{gate}, fale com o Assistente do Oak pelo Itemfinder (ele so entrega quando você ja capturou 30+ especies). No andar de cima, um Garoto troca um Dugtrio turbinado pelo seu Diglett."
               items:
                 itemfinder: "Com o Assistente do Oak na casa do portão leste, depois de capturar 30+ espécies. Aponta itens escondidos por perto."
             "5":
               title: "Pegue o atalho da Diglett's Cave"
-              text: "Volte a oeste ate a boca da Diglett's Cave e entre, atravessando por baixo das montanhas num atalho rapido rumo a Pewter."
+              text_html: "Volte a oeste ate a boca da Diglett's Cave %{cave} e entre, atravessando por baixo das montanhas num atalho rapido rumo a Pewter."
           oak:
             drowzee: "A captura notável da rota → Hypno, um Psíquico forte cedo."
         digletts_cave:
@@ -1453,10 +1455,10 @@ pt:
           steps:
             "1":
               title: "Entre pela Rota 11"
-              text: "Pegue a entrada sul perto do oeste da Rota 11 e siga o único túnel."
+              text_html: "Pegue a entrada sul %{south} perto do oeste da Rota 11 e siga o único túnel."
             "2":
               title: "Saia rumo a Pewter"
-              text: "Capture um Diglett ou o raro Dugtrio, depois saia ao norte na Rota 2 abaixo de Pewter."
+              text_html: "Capture um Diglett ou o raro Dugtrio, depois saia ao norte %{north} na Rota 2 abaixo de Pewter."
           oak:
             diglett: "Por toda parte aqui → Dugtrio, um tipo Terra rápido. Pegue a base."
         route_9:
@@ -1478,14 +1480,14 @@ pt:
                 ether: "A árvore solitária na grama a noroeste, ao norte da primeira Jr. Trainer; aperte A pelo lado leste dela."
             "4":
               title: "Avance a leste até a Rota 10"
-              text: "Com os dois tesouros no bolso, siga a leste pela grama alta, trocando golpes com os Bug Catchers, Jr. Trainers e Hikers espalhados pela crista. O caminho emenda direto na Rota 10 e na porta do Rock Tunnel."
+              text_html: "Com os dois tesouros no bolso, siga a leste pela grama alta, trocando golpes com os Bug Catchers, Jr. Trainers e Hikers espalhados pela crista. O caminho emenda direto %{east} na Rota 10 e na porta do Rock Tunnel."
         route_10:
           note: "A porta do Rock Tunnel. Magnemite por toda parte."
           intro: "Uma rota curta ao redor da boca norte do Rock Tunnel. Magnemite domina a grama."
           steps:
             "1":
               title: "Cure no Centro"
-              text: "Chegue da Rota 9 à parte alta da Rota 10 e entre no Centro Pokémon ao lado da boca norte do Rock Tunnel. Recupere-se, porque a caverna adiante é longa e escuríssima."
+              text_html: "Chegue da Rota 9 à parte alta da Rota 10 e entre no Centro Pokémon %{center} ao lado da boca norte %{north} do Rock Tunnel. Recupere-se, porque a caverna adiante é longa e escuríssima."
             "2":
               title: "Capture um Magnemite"
               text: "Varra a grama perto da boca norte por Magnemite e o raro Machop, e derrote a Jr Trainer que patrulha logo abaixo do Centro."
@@ -1496,15 +1498,15 @@ pt:
                 super-potion: "Um tile a leste da boca norte do Rock Tunnel; aperte A virado à direita. Nada aparece na tela."
             "4":
               title: "Entre no Rock Tunnel"
-              text: "Ensine o HM05 Flash a um Pokémon antes de entrar, porque o túnel é escuro demais sem ele. Depois entre pela boca norte, no alto da rota."
+              text_html: "Ensine o HM05 Flash a um Pokémon antes de entrar, porque o túnel é escuro demais sem ele. Depois entre pela boca norte %{north}, no alto da rota."
             "5":
               title: "Cace o Max Ether escondido"
-              text: "Saindo pela boca sul do Rock Tunnel na parte baixa da Rota 10, caminhe alguns tiles a leste pela trilha e aperte A virado ao norte para um Max Ether escondido. Nada aparece na tela."
+              text_html: "Saindo pela boca sul %{south} do Rock Tunnel na parte baixa da Rota 10, caminhe alguns tiles a leste pela trilha e aperte A virado ao norte para um Max Ether escondido. Nada aparece na tela."
               hidden:
                 max-ether: "A leste da boca sul do Rock Tunnel, na parte baixa da Rota 10; aperte A virado para cima. Nada aparece na tela."
             "6":
               title: "Desça para Lavender Town"
-              text: "Limpe os Hikers e o Pokémaniac na parte baixa da Rota 10, depois caminhe ao sul até Lavender Town."
+              text_html: "Limpe os Hikers e o Pokémaniac na parte baixa da Rota 10, depois caminhe ao sul %{lavender} até Lavender Town."
           oak:
             magnemite: "Uma captura de 50% na grama aqui → Magneton. Cobertura Elétrica para o túnel escuro."
         rock_tunnel:
@@ -1516,10 +1518,10 @@ pt:
               text: "Rock Tunnel é escuro demais sem ele. Ensine o HM05 Flash a um Pokémon antes (o Ajudante do Oak entrega no portão da Rota 2) e ilumine cada tela ao entrar pelo norte da Rota 10."
             "2":
               title: "Atravesse o 1F até a escada nordeste"
-              text_html: "Da boca norte desça ao sul, corra a leste pela passagem e suba até o canto nordeste. A escada <span class=\"pn-wt-ladder\">1</span> está lá. As outras duas escadas do 1F levam a um bolsão sem nada."
+              text_html: "Da boca norte desça ao sul, corra a leste pela passagem e suba até o canto nordeste. A escada %{down} está lá. As outras duas escadas do 1F levam a um bolsão sem nada."
             "3":
               title: "Atravesse o B1F até a escada mais a oeste"
-              text_html: "Você cai no sudeste. Siga a oeste pela parte de baixo, depois suba pelo lado oeste até a escada <span class=\"pn-wt-ladder\">2</span> no canto superior esquerdo, e volte ao 1F por ela."
+              text_html: "Você cai no sudeste. Siga a oeste pela parte de baixo, depois suba pelo lado oeste até a escada %{up} no canto superior esquerdo, e volte ao 1F por ela."
             "4":
               title: "Saia para Lavender Town"
               text: "Você emerge no lado leste do 1F, no trecho que tem a boca sul. Desça e siga a oeste até ela, saindo na parte baixa da Rota 10 e direto para Lavender Town."
@@ -1535,10 +1537,10 @@ pt:
           steps:
             "1":
               title: "Tente a Torre"
-              text: "Entre na Pokémon Tower, no lado leste da cidade. Você encontra um fantasma invencível no 6F: ele exige o Silph Scope, então volte depois de invadir o esconderijo da Rocket."
+              text_html: "Entre na Pokémon Tower %{tower}, no lado leste da cidade. Você encontra um fantasma invencível no 6F: ele exige o Silph Scope, então volte depois de invadir o esconderijo da Rocket."
             "2":
               title: "Desvie pelo Silph Scope"
-              text: "Vá a oeste pela Rota 8 até Celadon e destrua o Rocket Hideout pelo Silph Scope."
+              text_html: "Vá a oeste %{west} pela Rota 8 até Celadon e destrua o Rocket Hideout pelo Silph Scope."
             "3":
               title: "Volte pelo Poké Flute"
               text: "Volte, limpe a Torre e solte o Mr. Fuji. Ele dá o Poké Flute para acordar os Snorlax dorminhocos."
@@ -1548,20 +1550,20 @@ pt:
           steps:
             "1":
               title: "Vá a oeste"
-              text: "Limpe a Lass, o Gambler e o Super Nerd rumo ao portão leste de Saffron."
+              text_html: "Limpe a Lass, o Gambler e o Super Nerd rumo ao portão leste de Saffron %{gate}."
             "2":
               title: "Pegue o Underground Path"
-              text: "Os guardas de Saffron querem uma bebida. Pule-os túnelando a oeste sob a cidade até a Rota 7."
+              text_html: "Os guardas de Saffron querem uma bebida. Pule-os túnelando a oeste %{path} sob a cidade até a Rota 7."
         route_7:
           note: "Rota-portão até Celadon. Pidgey e Abra."
           intro: "Um conector minúsculo entre Saffron e Celadon. Entra e sai."
           steps:
             "1":
               title: "Cruze até Celadon"
-              text: "Você surge do Underground Path na Rota 7, a faixa verde curta entre Saffron e Celadon. Caminhe a oeste por ela."
+              text_html: "Você surge do Underground Path %{path} na Rota 7, a faixa verde curta entre Saffron e Celadon. Caminhe a oeste por ela."
             "2":
               title: "Entre em Celadon"
-              text: "Passe pelo portão na ponta oeste e saia em Celadon City, a maior cidade de Kanto."
+              text_html: "Passe pelo portão %{gate} na ponta oeste e saia %{west} em Celadon City, a maior cidade de Kanto."
         celadon_city:
           store:
             blurb: "A maior loja de Kanto: seis andares de Poké Balls, TMs, pedras de evolução, vitaminas e bebidas de máquina. Pegue o elevador para qualquer andar e veja o que ele vende e por quanto."
@@ -1605,7 +1607,7 @@ pt:
           steps:
             "1":
               title: "Chegue pela Route 7"
-              text: "Entre pelo portão da Rota 7, no lado leste. A maior cidade de Kanto tem uma loja de seis andares, um Game Corner e o ginásio de Grama da Erika. Cure no Centro logo adiante."
+              text_html: "Entre pelo portão da Rota 7 %{east}, no lado leste. A maior cidade de Kanto tem uma loja de seis andares, um Game Corner e o ginásio de Grama da Erika. Cure no Centro %{center} logo adiante."
             "2":
               title: "Vasculhe as árvores do nordeste"
               text: "Antes de entrar na cidade, suba pela grama alta da borda leste até o canto nordeste. Fique um tile abaixo da árvore solitária, olhe para cima e aperte A para um PP Up escondido."
@@ -1613,15 +1615,15 @@ pt:
                 pp-up: "No topo da faixa de grama alta do extremo leste, na árvore que fecha a ponta norte (a sudeste do Centro Pokémon). Olhe para cima e aperte A; nada aparece."
             "3":
               title: "Compre na Dept. Store"
-              text: "Vá à loja de seis andares no lado oeste. Pegue o TM18 Counter grátis no 3F e pedras de evolução no 4F. Compre quatro bebidas no terraço: três viram TMs, uma é para os guardas de Saffron."
+              text_html: "Vá à loja de seis andares %{store} no lado oeste. Pegue o TM18 Counter grátis no 3F e pedras de evolução no 4F. Compre quatro bebidas no terraço: três viram TMs, uma é para os guardas de Saffron."
             "4":
               title: "Pegue o Eevee, depois o Ginásio"
-              text: "Pegue o Eevee no alto da Celadon Mansion, atrás do Centro, e a Coin Case no restaurante. Depois o Ginásio atrás das árvores: Fogo, Voador ou Psíquico vence a Erika, e Cut pula o labirinto."
+              text_html: "Pegue o Eevee no alto da Celadon Mansion %{mansion}, atrás do Centro, e a Coin Case no restaurante %{diner}. Depois o Ginásio %{gym} atrás das árvores: Fogo, Voador ou Psíquico vence a Erika, e Cut pula o labirinto."
               items:
                 coin_case: "Com o homem caído no restaurante de Celadon, ao sul do Game Corner. Guarda as fichas que você ganha nos caça-níqueis."
             "5":
               title: "Vá ao Game Corner"
-              text: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o interruptor no pôster para entrar no Esconderijo Rocket."
+              text_html: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o interruptor no pôster lá dentro %{corner} para entrar no Esconderijo Rocket."
           tips:
             eevee: "Grátis no Condominiums. Evolua com uma pedra em Vaporeon, Jolteon ou Flareon."
             porygon: "O único Porygon do jogo. 9999 fichas do Game Corner, e não há outro jeito."
@@ -1659,7 +1661,7 @@ pt:
                 pp-up: "Centro do B1F. Aperte A virado para leste em (20,15). Nada aparece na tela."
             "6":
               title: "Desça a escada para o B2F"
-              text_html: "Gire de volta ao canto nordeste do B1F e desça a escada <span class=\"pn-wt-ladder\">1</span> para o B2F, o próximo anel do labirinto giratório."
+              text_html: "Gire de volta ao canto nordeste do B1F e desça a escada %{down} para o B2F, o próximo anel do labirinto giratório."
             "7":
               title: "Pegue o Nugget"
               text: "Perto do meio do B2F um ball guarda um Nugget, uma pepita cara que vende por uma boa grana em qualquer loja. Alinhe as placas e chegue nele pelo oeste."
@@ -1682,7 +1684,7 @@ pt:
                 super-potion: "Sudoeste do B2F, no ball na grade (3,21)."
             "11":
               title: "Desça para o B3F"
-              text_html: "Volte ao norte do B2F e desça a escada <span class=\"pn-wt-ladder\">2</span> para o B3F. Os Rockets aqui batem um pouco mais forte, então mantenha seu líder saudável."
+              text_html: "Volte ao norte do B2F e desça a escada %{down} para o B3F. Os Rockets aqui batem um pouco mais forte, então mantenha seu líder saudável."
             "12":
               title: "Pegue o Rare Candy"
               text: "Um Rare Candy descansa num ball perto do meio do B3F. Um nível de graça para qualquer Pokémon; guarde para o que você quiser empurrar por cima de uma evolução ou um ginásio."
@@ -1700,7 +1702,7 @@ pt:
                 nugget: "Borda leste do B3F, uma casa a leste do ball do TM10. Aperte A virado para cima em (27,18). Nada aparece na tela."
             "15":
               title: "Desça para o B4F"
-              text_html: "Desça a última escada <span class=\"pn-wt-ladder\">3</span> para o B4F, o fundo do esconderijo. Giovanni está aqui embaixo, mas um elevador trancado separa você do escritório dele."
+              text_html: "Desça a última escada %{down} para o B4F, o fundo do esconderijo. Giovanni está aqui embaixo, mas um elevador trancado separa você do escritório dele."
             "16":
               title: "Pegue a Lift Key na sala do grunt"
               text: "Na sala noroeste do B4F, um Rocket Grunt solitário guarda um ball. Vença ele e pegue a Lift Key, a chave que enfim liga o elevador até o escritório do Giovanni."
@@ -1723,7 +1725,7 @@ pt:
                 iron: "Sul do B4F, no ball na grade (12,20)."
             "20":
               title: "Pegue o elevador até o Giovanni"
-              text_html: "Com a Lift Key, atravesse até o elevador <span class=\"pn-wt-ladder\">4</span> no leste do B4F e desça ao corredor selado. Jessie & James bloqueiam a passagem; depois deles fica o escritório."
+              text_html: "Com a Lift Key, atravesse até o elevador %{lift} no leste do B4F e desça ao corredor selado. Jessie & James bloqueiam a passagem; depois deles fica o escritório."
             "21":
               title: "Vença o Giovanni"
               text: "Giovanni espera no topo do corredor: Onix (Nv 25), Rhyhorn (Nv 24), Persian (Nv 29). Água ou Grama derrete os dois primeiros, e algo rápido resolve o Persian. O ball atrás dele então é seu."
@@ -1809,7 +1811,7 @@ pt:
           steps:
             "1":
               title: "Desça de Lavender Town"
-              text: "Entre pelo norte, vindo de Lavender Town, na Silence Bridge, uma longa ponte de pesca sobre água aberta. Suba ao 2F do portão pelo TM39 Swift grátis e depois desça pelo trecho sul."
+              text_html: "Entre pelo norte, vindo de Lavender Town, na Silence Bridge, uma longa ponte de pesca sobre água aberta. Suba ao 2F do portão %{gate} pelo TM39 Swift grátis e depois desça pelo trecho sul."
             "2":
               title: "Pegue o TM18 Pay Day"
               text: "No meio do trecho norte, uma Poké Ball está sobre as tábuas do píer. Ande até ela pelo TM18 Pay Day, que espalha moedas recolhidas depois da batalha."
@@ -1825,7 +1827,7 @@ pt:
                 hyper-potion: "O beco sem saida no extremo oeste da ponte de terra do Snorlax. Vire para leste no piso mais a oeste e aperte A. Nada aparece na tela."
             "5":
               title: "Desca pela ponte"
-              text: "Continue ao sul pela ponte, enfrentando o Rocker e o ultimo Fisherman conforme o caminho permitir. Entre na casa do Fishing Guru pelo caminho para pegar o Super Rod, a melhor vara do jogo."
+              text_html: "Continue ao sul pela ponte, enfrentando o Rocker e o ultimo Fisherman conforme o caminho permitir. Entre na casa do Fishing Guru %{guru} pelo caminho para pegar o Super Rod, a melhor vara do jogo."
               items:
                 super_rod: "Com o Fishing Guru na casa no meio da Silence Bridge. A melhor vara, pesca a maior variedade de Pokémon de Água."
             "6":
@@ -1835,7 +1837,7 @@ pt:
                 iron: "Beco do lado oeste perto da saida sul, ao lado do Fisherman do sul. A Poke Ball encostada na parede."
             "7":
               title: "Siga para a Rota 13"
-              text: "Limpe o ultimo Jr. Trainer e atravesse a grama alta la embaixo (Oddish, Bellsprout e o raro Farfetch'd) ate a saida sul para a Rota 13."
+              text_html: "Limpe o ultimo Jr. Trainer e atravesse a grama alta la embaixo (Oddish, Bellsprout e o raro Farfetch'd) ate a saida sul %{south} para a Rota 13."
           tips:
             farfetchd: "Uma captura rara de 5% na grama. O único Farfetch'd selvagem por perto."
             snorlax: "Um de apenas dois Snorlax do jogo. Uma parede Nv 30. Faça dormir ou paralise, e jogue balls."
@@ -1861,9 +1863,8 @@ pt:
                 pp-up: "Canto sudoeste, o tile de baixo perto da saida para a Rota 14. Fique acima dele, vire para baixo e aperte A; nada aparece na tela."
             "4":
               title: "Saia a oeste para a Rota 14"
-              text: "Com os dois reforcos de status no bolso, desca pelo ultimo trecho de desniveis e saia a oeste para a Rota 14."
+              text_html: "Com os dois reforcos de status no bolso, desca pelo ultimo trecho de desniveis e saia a oeste %{west} para a Rota 14."
           tips:
-            ditto: "Uma captura de 5% que Transforma no que enfrenta. Útil para a dex."
           oak:
             ditto: "Capture a bolha que Transforma aqui. Divertida e útil para breeding em gerações futuras."
         route_14:
@@ -1875,14 +1876,14 @@ pt:
               text: "Lute com os Bird Keepers em cima e os Bikers embaixo. Um tipo Elétrico ou Psíquico varre os dois."
             "2":
               title: "Siga para a Rota 15"
-              text: "Siga os desníveis de mão única a sudoeste enquanto descem os penhascos, e siga para a Rota 15 lá embaixo."
+              text_html: "Siga os desníveis de mão única a sudoeste enquanto descem os penhascos, e siga %{west} para a Rota 15 lá embaixo."
         route_15:
           note: "A oeste até Fuchsia. Oddish, Bellsprout, Venonat."
           intro: "O último trecho até Fuchsia, por um campo cercado de treinadores."
           steps:
             "1":
               title: "Cruze o campo cercado"
-              text: "Entre em Route 15 pela cancela de Route 14, a leste, e siga para oeste pelo campo cercado. Uma dupla fileira de Bird Keepers, Beauties, Bikers e Jr. Trainers lota a pista, então recupere o HP antes de encarar."
+              text_html: "Entre em Route 15 pelo lado de Route 14 %{east}, e siga para oeste pelo campo cercado. Uma dupla fileira de Bird Keepers, Beauties, Bikers e Jr. Trainers lota a pista, então recupere o HP antes de encarar."
               items:
                 exp_all: "Com o Assistente do Oak no 2F da cancela, depois de capturar 50 espécies. Divide o EXP das lutas com todo o time."
             "2":
@@ -1892,7 +1893,7 @@ pt:
                 tm-rage: "Canto noroeste da rota, na fileira de cima, a leste da cancela de Fuchsia."
             "3":
               title: "Entre em Fuchsia"
-              text: "Volte para a pista principal e atravesse a oeste pela cancela, saindo direto em Fuchsia City e na sua Safari Zone."
+              text_html: "Volte para a pista principal e atravesse a oeste pela cancela %{gate}, saindo direto em Fuchsia City %{west} e na sua Safari Zone."
         fuchsia_city:
           mart:
             blurb: "Fuchsia vende Ultra Balls e Hyper Potions, o kit para a Safari Zone e o ginásio do Koga."
@@ -1908,7 +1909,7 @@ pt:
           steps:
             "1":
               title: "Cure e reabasteça"
-              text: "Chegue pela Rota 15, cure no Centro e abasteça no Mart. Deixe o Ginásio para depois: a Safari Zone guarda o HM03 Surf e os Gold Teeth, e o Koga fecha esta etapa."
+              text_html: "Chegue pela Rota 15, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} para depois: a Safari Zone guarda o HM03 Surf e os Gold Teeth, e o Koga fecha esta etapa."
             "2":
               title: "Pesque no lago do Warden"
               text: "Use o Super Rod no lago atrás do portão da Safari Zone por um Gyarados selvagem. É uma captura exclusiva do Yellow aqui, e bem mais barata que criar um Magikarp."
@@ -1916,10 +1917,10 @@ pt:
                 good_rod: "Com o pescador na casinha perto da cancela oeste. Pesca melhor que o Old Rod."
             "3":
               title: "Explore a Safari Zone"
-              text: "Siga ao norte para a Safari Zone. A sala de prêmios guarda o HM03 Surf, e os Gold Teeth que você acha lá dentro compram o HM04 Strength com o Warden."
+              text_html: "Siga ao norte para a Safari Zone %{safari}. A sala de prêmios guarda o HM03 Surf, e os Gold Teeth que você acha lá dentro compram o HM04 Strength com o Warden."
             "4":
               title: "Troque pelo Strength, depois encare o Koga"
-              text: "Devolva os Gold Teeth ao Warden pelo HM04 Strength e pegue o Rare Candy lá dentro. Depois tateie o labirinto de paredes invisíveis do ginásio: leve um tipo Psíquico ou Fogo rápido e Antídotos para o Toxic do Koga."
+              text_html: "Devolva os Gold Teeth ao Warden %{warden} pelo HM04 Strength e pegue o Rare Candy lá dentro. Depois tateie o labirinto de paredes invisíveis do ginásio: leve um tipo Psíquico ou Fogo rápido e Antídotos para o Toxic do Koga."
               items:
                 hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
           tips:
@@ -2021,15 +2022,15 @@ pt:
           steps:
             "1":
               title: "Pegue o HM02 Fly"
-              text: "Corte a árvore a noroeste para chegar à casa isolada e pegar o HM02 Fly, que leva você a qualquer cidade já visitada."
+              text_html: "Corte a árvore a noroeste para chegar à casa isolada %{house} e pegar o HM02 Fly, que leva você a qualquer cidade já visitada."
               items:
                 hm02_fly: "Com a garota na casa no topo da Rota 16, depois de uma árvore de Cut. Ensina Fly entre cidades."
             "2":
               title: "Acorde o Snorlax"
-              text: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão."
+              text_html: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão %{gate}."
             "3":
               title: "Suba na Cycling Road"
-              text: "Pedale a Bicycle pelo portão norte até a Rota 17, a Cycling Road. Não dá para atravessar a pé, então a bike não é opcional aqui."
+              text_html: "Pedale a Bicycle pelo portão norte %{gate} até a Rota 17 %{south}, a Cycling Road. Não dá para atravessar a pé, então a bike não é opcional aqui."
           tips:
             snorlax: "O segundo e último Snorlax. A mesma parede Nv 30. Faça dormir, depois jogue balls."
           oak:
@@ -2041,7 +2042,7 @@ pt:
           steps:
             "1":
               title: "Desça de bike pela Cycling Road"
-              text: "Entre pelo portão norte e monte a bike, já que a Cycling Road não dá para cruzar a pé. Desça a ladeira de mão única, parando nas faixas de grama por uma chance de Ponyta."
+              text_html: "Entre pelo portão norte %{north} e monte a bike, já que a Cycling Road não dá para cruzar a pé. Desça a ladeira de mão única, parando nas faixas de grama por uma chance de Ponyta."
             "2":
               title: "Vasculhe a faixa do topo"
               text: "Logo depois do portão norte, a ladeira se abre no primeiro trecho. Cole na faixa leste e aperte A no ladrilho vazio ali por um Rare Candy oculto; nada aparece na tela."
@@ -2069,7 +2070,7 @@ pt:
                 max-elixir: "Centro-esquerda, perto do fim junto à placa de fim da Cycling Road. Aperte A; nada surge."
             "7":
               title: "Saia para a Rota 18"
-              text: "No pé da ladeira, passando a placa de fim da Cycling Road, atravesse o portão sul até a Rota 18."
+              text_html: "No pé da ladeira, passando a placa de fim da Cycling Road, atravesse o portão sul %{south} até a Rota 18."
           oak:
             ponyta: "Uma captura de fogo na grama → Rapidash. Um dos poucos tipos Fogo do Yellow."
         route_18:
@@ -2087,7 +2088,7 @@ pt:
               text: "Vença os três Bird Keepers espalhados pela estreita faixa de terra no pé da Cycling Road, onde a rota se aperta entre as águas."
             "2":
               title: "Entre em Fuchsia"
-              text: "Siga a leste pelo portão e entre em Fuchsia City, casa da Safari Zone e do ginásio do Koga."
+              text_html: "Siga a leste pelo portão %{gate} e entre %{east} em Fuchsia City, casa da Safari Zone e do ginásio do Koga."
         saffron_city:
           mart:
             blurb: "O Mart de Saffron tem Max Repel e Full Heal, aberto assim que a Equipe Rocket deixa a cidade."
@@ -2106,10 +2107,10 @@ pt:
               text: "Todo portão de Saffron está bloqueado por um guarda com sede. Compre uma bebida nas máquinas do terraço de Celadon e entregue para ser liberado."
             "2":
               title: "Liberte a Silph Co. primeiro"
-              text: "O ginasio fica trancado ate você limpar a Silph Co. tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
+              text_html: "O ginasio %{gym} fica trancado ate você limpar a Silph Co. %{silph} tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
             "3":
               title: "Reivindique um lutador"
-              text: "Vença o Karate Master no Fighting Dojo para levar um Hitmonlee ou Hitmonchan grátis. Só dá para escolher um, então o outro se perde."
+              text_html: "Vença o Karate Master no Fighting Dojo %{dojo} para levar um Hitmonlee ou Hitmonchan grátis. Só dá para escolher um, então o outro se perde."
           oak:
             hitmonlee: "Grátis do Dojo. Escolha Hitmonlee ou Hitmonchan (só um)."
         silph_co:
@@ -2224,7 +2225,7 @@ pt:
               text: "Surfe ao sul de Fuchsia pela aproximação de Seafoam, pescando ou batalhando os Swimmers e Beauties espalhados pela água aberta."
             "2":
               title: "Siga para a Rota 20"
-              text: "Siga ao sul até a praia lá embaixo, que abre a oeste para a Rota 20 e as Seafoam Islands."
+              text_html: "Siga ao sul até a praia lá embaixo, que abre a oeste %{west} para a Rota 20 e as Seafoam Islands."
         route_20:
           note: "Rota aquática até Seafoam. Tentacool, Staryu, Shellder."
           intro: "O canal até as Seafoam Islands. O único caminho a oeste rumo a Cinnabar."
@@ -2234,7 +2235,7 @@ pt:
               text: "Limpe os Swimmers espalhados pela metade leste da água enquanto surfa a oeste pelo canal rumo às ilhas."
             "2":
               title: "Entre em Seafoam"
-              text: "A caverna das Seafoam Islands quebra a água no meio da rota. Entre pela boca leste para começar o quebra-cabeça de pedras."
+              text_html: "A caverna das Seafoam Islands quebra a água no meio da rota. Entre pela boca leste %{east} para começar o quebra-cabeça de pedras."
         seafoam_islands:
           note: "Caverna com quebra-cabeça de pedras. Articuno selvagem dentro."
           intro: "Uma caverna cheia de correntes. Empurre pedras com Strength para conter a água, depois capture o Articuno."
@@ -2277,7 +2278,7 @@ pt:
           steps:
             "1":
               title: "Surfe da Rota 10"
-              text: "Com o Surf, siga ao sul da entrada do Rock Tunnel na Rota 10 até a porta solitária da usina. Os andares fervilham de tipos Elétrico e Veneno, então leve Repels se só quer o loot e o Zapdos."
+              text_html: "Com o Surf, siga ao sul da entrada do Rock Tunnel na Rota 10 até a porta solitária da usina %{door}. Os andares fervilham de tipos Elétrico e Veneno, então leve Repels se só quer o loot e o Zapdos."
             "2":
               title: "Pegue o Carbos na parede oeste"
               text: "Suba pelo lado esquerdo a partir da porta. Oito das bolas destes andares são Voltorb ou Electrode que acordam e atacam, mas a que fica embaixo na parede oeste é real: um Carbos, aumento de Velocidade."
@@ -2379,10 +2380,10 @@ pt:
           steps:
             "1":
               title: "Limpe a Mansao primeiro"
-              text: "O ginasio de Blaine esta trancado. Atravesse a rua ate a Pokémon Mansion e pegue a Secret Key."
+              text_html: "O ginasio de Blaine %{gym} esta trancado. Atravesse a rua ate a Pokémon Mansion %{mansion} e pegue a Secret Key."
             "2":
               title: "Entregue um fossil, depois o Ginásio"
-              text: "Da um fossil ao cientista no Lab, depois abra o ginasio com a Secret Key e resolva as portas de quiz ate Blaine. Agua, Terra ou Pedra derrete a equipe de Fogo dele."
+              text_html: "Da um fossil ao cientista no Lab %{lab}, depois abra o ginasio com a Secret Key e resolva as portas de quiz ate Blaine. Agua, Terra ou Pedra derrete a equipe de Fogo dele."
             "3":
               title: "Pegue seu fossil e siga em frente"
               text: "Volte ao Lab depois pelo Pokémon fossil revivido, depois use Surf rumo a ultima insígnia."
@@ -2418,10 +2419,10 @@ pt:
                 escape-rope: "Borda norte do 1F, ao centro-norte."
             "5":
               title: "Aperte os botões e suba ao 2F"
-              text_html: "Aperte A nas estátuas para acionar os botões ocultos, baixando as barreiras em volta da escada oeste, a escada <span class=\"pn-wt-ladder\">1</span>, e suba ao 2F."
+              text_html: "Aperte A nas estátuas para acionar os botões ocultos, baixando as barreiras em volta da escada oeste, a escada %{up}, e suba ao 2F."
             "6":
               title: "Atravesse o 2F pelo Calcium"
-              text_html: "No 2F, avance para leste até a parede do fundo, onde uma bola guarda o Calcium, uma vitamina Especial. Aperte o botão-estátua do 2F e suba pela escada <span class=\"pn-wt-ladder\">2</span> ao 3F."
+              text_html: "No 2F, avance para leste até a parede do fundo, onde uma bola guarda o Calcium, uma vitamina Especial. Aperte o botão-estátua do 2F e suba pela escada %{up} ao 3F."
               items:
                 calcium: "Canto nordeste do 2F."
             "7":
@@ -2441,7 +2442,7 @@ pt:
                 max-revive: "Parede oeste do 3F, um trecho ao norte do Max Potion. Aperte A; nada aparece."
             "10":
               title: "Volte descendo até o B1F"
-              text_html: "Os botões de cima abriram a barreira em volta da escada do subsolo do 1F. Refaça o caminho pelo 3F e 2F, depois desça a escada sudeste liberada, a escada <span class=\"pn-wt-ladder\">3</span>, até o B1F."
+              text_html: "Os botões de cima abriram a barreira em volta da escada do subsolo do 1F. Refaça o caminho pelo 3F e 2F, depois desça a escada sudeste liberada, a escada %{down}, até o B1F."
             "11":
               title: "Pegue o TM14 Blizzard perto da escada do B1F"
               text: "Você chega no sudeste do B1F. Logo a sudoeste da escada, abra a bola pelo TM14 (Blizzard), um golpe de Gelo de primeira para ensinar a um tipo Água forte."
@@ -2476,9 +2477,7 @@ pt:
               title: "Saia e atravesse até o ginásio do Blaine"
               text: "Com a Secret Key em mãos e o subsolo limpo, use o Escape Rope (ou saia andando) de volta a Cinnabar Island. Atravesse a rua e destranque o ginásio do Blaine pela Volcano Badge."
           tips:
-            vulpix: "O Yellow põe Vulpix e Growlithe aqui. Um Vulpix selvagem fácil, enfim."
             growlithe: "O outro cão de Fogo, na mesma mansão → Arcanine com uma Fire Stone."
-            magmar: "Uma captura rara de Fogo nos andares inferiores. Uma das poucas fontes de Magmar."
           oak:
             vulpix: "Selvagem aqui no Yellow (senão só por troca) → Ninetales. Pegue um."
             growlithe: "Também selvagem aqui → Arcanine com uma Fire Stone. Registre a base."
@@ -2522,7 +2521,7 @@ pt:
               text: "Vença os treinadores para abrir o caminho ao norte, corrigindo o lançamento a cada parada. Giovanni espera no topo: cuidado com Fissure e Horn Drill, e lidere rápido com Água, Grama ou Gelo."
             "4":
               title: "Rumo a Victory Road"
-              text: "Com a Insígnia Earth e as oito em mãos, saia do ginásio e volte à Rota 22, depois avance para o oeste na Victory Road."
+              text_html: "Com a Insígnia Earth e as oito em mãos, saia do ginásio %{out} e volte à Rota 22, depois avance para o oeste na Victory Road."
         victory_road:
           note: "O portão da Liga. Quebra-cabeças de pedra e Moltres."
           intro: "Um labirinto de pedras de três andares que exige as 8 insígnias e Strength. Moltres pousa lá dentro."
@@ -2542,7 +2541,7 @@ pt:
                 tm-sky-attack: "1F, colada na parede de cima, poucos passos a leste do Rare Candy."
             "4":
               title: "Suba a escada para o 2F"
-              text_html: "Com o 1F limpo, vá até a escada do noroeste, a escada <span class=\"pn-wt-ladder\">1</span>, a única saída para cima do andar, e suba ao 2F, o labirinto onde o Moltres pousa."
+              text_html: "Com o 1F limpo, vá até a escada do noroeste, a escada %{up}, a única saída para cima do andar, e suba ao 2F, o labirinto onde o Moltres pousa."
             "5":
               title: "Ache a Ultra Ball escondida"
               text: "Chegue ao 2F e va ate a saliencia noroeste. Pressione A no quadrado vazio ali para uma Ultra Ball escondida; nada aparece na tela, entao confie no ponto."
@@ -2578,7 +2577,7 @@ pt:
                 tm-submission: "2F, canto nordeste."
             "12":
               title: "Suba ao 3F"
-              text_html: "Pegue a escada leste <span class=\"pn-wt-ladder\">2</span> até o 3F e seu quebra-cabeça de quatro pedras. Empurre cada pedra sobre o seu botão para abrir o caminho aos dois últimos prêmios."
+              text_html: "Pegue a escada leste %{up} até o 3F e seu quebra-cabeça de quatro pedras. Empurre cada pedra sobre o seu botão para abrir o caminho aos dois últimos prêmios."
             "13":
               title: "Pegue o Max Revive"
               text: "Perto de onde você chega no 3F, no lado leste, uma bola guarda um Max Revive, que revive por completo um Pokémon desmaiado."
@@ -2591,7 +2590,7 @@ pt:
                 tm-explosion: "3F, extremo oeste."
             "15":
               title: "Parta para o Indigo Plateau"
-              text_html: "Com todos os prêmios coletados e o Moltres capturado, desça pela escada <span class=\"pn-wt-ladder\">2</span> ao 2F e saia pela porta leste <span class=\"pn-wt-ladder\">3</span>, rumo à entrada do Indigo Plateau."
+              text_html: "Com todos os prêmios coletados e o Moltres capturado, desça pela escada %{down} ao 2F e saia pela porta leste %{out}, rumo à entrada do Indigo Plateau."
           tips:
             moltres: "O lendário de Fogo da Victory Road. Um Nv 50 de uma vez só. Salve antes, depois enfraqueça e capture."
           oak:
@@ -2602,7 +2601,7 @@ pt:
           steps:
             "1":
               title: "Entre pelo portão da Rota 22"
-              text: "Entre pelo sul, saindo do portão da Rota 22. Sete guaritas guardam a estrada, e cada uma só abre com a insígnia certa, então você precisa das 8. A grama é de Nv 33 a 45."
+              text_html: "Entre pelo sul %{gate}, saindo do portão da Rota 22. Sete guaritas guardam a estrada, e cada uma só abre com a insígnia certa, então você precisa das 8. A grama é de Nv 33 a 45."
             "2":
               title: "Vasculhe a ilhota no meio do canal"
               text: "Depois dos guardas de baixo a estrada abre num canal largo. Surfe ao norte até a ilhota seca entre os dois Swimmers e aperte A virado para o norte para um Max Ether escondido."
@@ -2620,7 +2619,7 @@ pt:
                 full-restore: "Na grama perto do topo da rota, um quadrado a leste da parede de rocha. Aperte A virado para o oeste. Nada aparece na tela."
             "5":
               title: "Entre na Victory Road"
-              text: "Siga pelo lado oeste para cima, passe pelo último guarda e atravesse o portão no topo até a Victory Road, a última caverna antes da Liga Pokémon."
+              text_html: "Siga pelo lado oeste para cima, passe pelo último guarda e atravesse o portão no topo %{victory} até a Victory Road, a última caverna antes da Liga Pokémon."
         indigo_plateau:
           note: "A Pokémon League. Elite dos Quatro e o Campeão Blue."
           intro: "As cinco batalhas finais, uma após a outra, sem cura entre as salas. Abasteça antes."
@@ -2668,7 +2667,7 @@ pt:
                 max-elixir-7-11: "Centro-oeste do 1F, perto das escadas inferiores da esquerda."
             "7":
               title: "Suba para o 2F"
-              text_html: "Pegue a escada mais a oeste, a escada <span class=\"pn-wt-ladder\">1</span>, até o 2F: um labirinto de rocha seca, sem água nenhuma. Você chega junto à parede oeste, ao lado do primeiro prêmio."
+              text_html: "Pegue a escada mais a oeste, a escada %{up}, até o 2F: um labirinto de rocha seca, sem água nenhuma. Você chega junto à parede oeste, ao lado do primeiro prêmio."
             "8":
               title: "Vá até a parede oeste"
               text: "Siga os corredores até a borda esquerda do 2F e pegue o Rare Candy encostado na parede oeste."
@@ -2696,7 +2695,7 @@ pt:
                 full-restore: "Lado direito (leste) do 2F, perto da parede leste."
             "13":
               title: "Desça para o B1F"
-              text_html: "Volte ao 1F pela escada <span class=\"pn-wt-ladder\">2</span>, depois vá até a escada da ponta esquerda, na borda oeste, a escada <span class=\"pn-wt-ladder\">3</span>. Ela desce ao B1F, o andar mais fundo, onde você chega no lado oeste."
+              text_html: "Volte ao 1F pela escada %{down}, depois vá até a escada da ponta esquerda, na borda oeste, a escada %{lower}. Ela desce ao B1F, o andar mais fundo, onde você chega no lado oeste."
             "14":
               title: "Varra o recanto sudoeste"
               text: "Do ponto de chegada, desça para o sudoeste e pegue a Ultra Ball na borda esquerda, logo acima da água do fundo."

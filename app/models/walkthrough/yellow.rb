@@ -370,11 +370,14 @@ module Walkthrough
 
     # The leg-3 approach section has no map data of its own; it borrows Route 4's map so the same
     # interactive map (markers, tick state) shows on both the approach (leg 3) and the east half
-    # (leg 4).
+    # (leg 4). Its steps resolve their pin letters here, since until now it had no map to read them
+    # from.
     def self.show_mt_moon_approach(locs)
       route_4_maps = locs.find { |loc| loc.slug == "route-4" }.area_maps
       locs.map do |loc|
-        loc.slug == "route-4-mt-moon" ? loc.with(area_maps: route_4_maps) : loc
+        next loc unless loc.slug == "route-4-mt-moon"
+
+        mark_steps(loc.with(area_maps: route_4_maps), route_4_maps)
       end
     end
 
@@ -383,7 +386,8 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
-      loc = apply_trainer_notes(tick_items(merge_trainers(loc), header))
+      loc = apply_trainer_notes(mark_steps(tick_items(merge_trainers(loc), header), header))
+      header = link_steps(loc, header)
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
       loc.with(area_maps: header,
@@ -401,21 +405,61 @@ module Walkthrough
       place_trainers(loc, fresh, claimed)
     end
 
-    def self.tick_items(loc, maps)
-      pins = maps.flat_map { |m| m.markers.map { |k| [ m.name, k ] } }
+    # A pin and the step that picks it up are one instruction seen twice, so the pin carries that
+    # step's number home: tapping a marker on the map offers the step that explains it. Reuses the
+    # tick target the cards already resolved, which is the same map-and-pin pair.
+    # Turn each step's authored pin ids into the letters those pins wear right now, so the prose
+    # can say "exit K" without anyone having to keep a letter written down anywhere.
+    def self.mark_steps(loc, maps)
+      # The Mt. Moon approach owns no map, so it resolves later, once it has borrowed Route 4's.
+      return loc if maps.empty?
+
+      letters = maps.flat_map { |m| m.markers.map { |k| [ "#{m.name}/#{k.id}", k.key ] } }.to_h
       loc.with(steps: loc.steps.map do |step|
-        step.with(items: step.items.map { |i| i.with(tick: pin_tick(pins, "item", i)) },
-          hidden: step.hidden.map { |h| h.with(tick: pin_tick(pins, "hidden", h)) })
+        step.pins.any? ? step.with(marks: step.pins.transform_values { |id| letters.fetch(id) }) : step
       end)
     end
 
-    def self.pin_tick(pins, cat, item)
-      found = pins.select { |_name, pin| pin.cat == cat && pin.name == item.name }
-      found = found.select { |_name, pin| pin.id.end_with?("-#{item.at[0]}-#{item.at[1]}") } if item.at
-      return nil unless found.one?
+    def self.link_steps(loc, maps)
+      steps = loc.steps.flat_map { |s| (s.items + s.hidden).map { |i| [ i.tick, s.n ] } }.to_h
+      maps.map do |map|
+        map.with(markers: map.markers.map do |pin|
+          n = steps["#{map.name}/#{pin.id}"]
+          n ? pin.with(step: n) : pin
+        end)
+      end
+    end
 
-      map_name, pin = found.first
-      "#{map_name}/#{pin.id}"
+    def self.tick_items(loc, maps)
+      pins = maps.flat_map { |m| m.markers.map { |k| [ m.name, k ] } }
+      loc.with(later: loc.later.map { |l| key_later(pins, l) },
+        steps: loc.steps.map do |step|
+          step.with(items: step.items.map { |i| join_pin(pins, "item", i) },
+            hidden: step.hidden.map { |h| join_pin(pins, "hidden", h) })
+        end)
+    end
+
+    # A card and its pin are the same thing seen twice, so the card carries the pin's tick target
+    # (so ticking either flips both) and the pin's letter (so a reader can find it on the map).
+    # An ambiguous match leaves both nil rather than pointing at the wrong ball.
+    def self.join_pin(pins, cat, item)
+      map_name, pin = find_pin(pins, cat, item.name, item.at)
+      return item if pin.nil?
+
+      item.with(tick: "#{map_name}/#{pin.id}", key: pin.key)
+    end
+
+    # A later item is locked, so it is nobody's tick target, but it still sits on the map and its
+    # card still has to say which letter to look for.
+    def self.key_later(pins, item)
+      _map_name, pin = find_pin(pins, "item", item.name, nil)
+      pin ? item.with(key: pin.key) : item
+    end
+
+    def self.find_pin(pins, cat, name, at)
+      found = pins.select { |_map, pin| pin.cat == cat && pin.name == name }
+      found = found.select { |_map, pin| pin.id.end_with?("-#{at[0]}-#{at[1]}") } if at
+      found.one? ? found.first : [ nil, nil ]
     end
 
     def self.authored_cards(loc)
@@ -523,30 +567,13 @@ module Walkthrough
       @npc_overlay ||= JSON.parse(File.read(File.join(__dir__, "yellow_npcs.json"))).freeze
     end
 
-    # Which ladder a step means, numbered in the order the route climbs them. A dungeon's floors all
-    # label their exits the same way ("Mt. Moon B1F"), so "take the ladder" is ambiguous the moment a
-    # floor has three of them; a number on the pin and the same number in the step ties the two
-    # together. Route order is an editorial call, so it is authored rather than generated.
-    def self.ladder_overlay
-      @ladder_overlay ||= JSON.parse(File.read(File.join(__dir__, "yellow_ladders.json")))
-        .fetch("ladders").freeze
-    end
-
-    def self.ladder_key(map_name, data)
-      return data["key"] unless data["cat"] == "exit"
-
-      ladder_overlay.dig(map_name, data.fetch("grid", []).join(",")) || data["key"]
-    end
-
     def self.map_data
       manifest.fetch("locations").transform_values do |maps|
         maps.map do |m|
-          base = m.fetch("markers", []).map { |k| map_marker(k, ladder_key(m["name"], k)) }
-          # NPC letters carry on from the map's trainers so a person is one A, B, C... sequence and
-          # no NPC ever wears the same letter as a trainer standing on the same map.
-          trainers = base.count { |marker| marker.cat == "trainer" }
+          base = m.fetch("markers", []).map { |k| map_marker(k) }
+          # NPCs are their own category, so they number from N1 like every other kind does.
           npcs = npc_overlay.fetch(m["name"], []).each_with_index.map do |n, i|
-            npc_marker(n, m["width"], m["height"], key_letter(trainers + i))
+            npc_marker(n, m["width"], m["height"], key_letter(i))
           end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
             name: m["name"], markers: base + npcs)
@@ -612,17 +639,8 @@ module Walkthrough
         note: data["note"], ref: data["ref"])
     end
 
-    # 0 -> A, 25 -> Z, 26 -> AA, mirroring the generator's key_letters so map and overlay agree.
-    def self.key_letter(index)
-      out = ("A".ord + index % 26).chr
-      index /= 26
-      while index.positive?
-        index -= 1
-        out = ("A".ord + index % 26).chr + out
-        index /= 26
-      end
-      out
-    end
+    # An NPC pin's key: the same N1, N2 ... shape the generator gives every other category.
+    def self.key_letter(index) = "N#{index + 1}"
 
     def self.step_shots = manifest.fetch("step_shots", {})
 
@@ -656,10 +674,11 @@ module Walkthrough
         slug: "pallet-town", kind: "TOWN", name: "Pallet Town", order: 1, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1")),
-          step(b, 2),
+          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1"),
+            pins: { home: "pallet-town/exit-5-5" }),
+          step(b, 2, pins: { north: "pallet-town/exit-north", lab: "pallet-town/exit-12-11" }),
           step(b, 3, html: true, link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)),
-          step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"))
+          step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"), pins: { north: "pallet-town/exit-north" })
         ],
         encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
@@ -681,8 +700,8 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
           step(b, 1, shot: map_shot("route-1", 1, "STEP 1")),
-          step(b, 2, items: [ item(b, 2, "Potion", "potion") ]),
-          step(b, 3)
+          step(b, 2, items: [ item(b, 2, "Potion", "potion") ], pins: { man: "route-1/npc-potion-sample" }),
+          step(b, 3, pins: { north: "route-1/exit-north" })
         ],
         encounters: [
           enc("route-1", "016", "GRASS", "70%", "2–7", "COMMON", "016", "017", "018", tip: true),
@@ -699,13 +718,15 @@ module Walkthrough
         slug: "viridian-city", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
-          { item: [ "Oak's Parcel", "oaks_parcel" ], scene: "viridian-mart-parcel" },
+          { item: [ "Oak's Parcel", "oaks_parcel" ], scene: "viridian-mart-parcel",
+            pins: { center: "viridian-city/exit-23-25", mart: "viridian-city/exit-29-19" } },
           { item: [ "Pokédex", "pokedex" ] },
           { item: [ "Town Map", "town_map" ], scene: "blues-house-town-map" },
           {},
           {},
-          { hidden: [ "Potion", "potion", "viridian-city-hidden-potion", "viridian-city-potion" ] },
-          {}
+          { hidden: [ "Potion", "potion", "viridian-city-hidden-potion", "viridian-city-potion" ],
+            pins: { north: "viridian-city/exit-north" } },
+          { pins: { gym: "viridian-city/exit-32-7", west: "viridian-city/exit-west" } }
         ]),
         encounters: [], trainers: [], oak_queue: [],
         later: [ later(b, "tm42", "TM42 Dream Eater", "ITEM", "Cut or Surf", "viridian-city-tm42") ],
@@ -728,8 +749,13 @@ module Walkthrough
           enc("route-22", "029", "GRASS", "30%", "2–4", "COMMON", "029", "030", "031", tip: true),
           enc("route-22", "032", "GRASS", "30%", "2–4", "COMMON", "032", "033", "034", tip: true),
           enc("route-22", "056", "GRASS", "20%", "3–5", "UNCOMMON", "056", "057", tip: true),
+          enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true),
           enc("route-22", "019", "GRASS", "10%", "3", "UNCOMMON", "019", "020", tip: true),
-          enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true)
+          enc("route-22", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-22", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-22", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-22", "060", "SUPER ROD", "90%", "5–15", "COMMON", "060", "061", "062"),
+          enc("route-22", "061", "SUPER ROD", "10%", "15", "UNCOMMON", "060", "061", "062")
         ],
         trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1",
           where: scene_shot("route-22-rival", "WHERE"),
@@ -748,7 +774,7 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
           {},
-          { scene: "viridian-forest-south-gate" }
+          { scene: "viridian-forest-south-gate", pins: { gate: "route-2/exit-3-43" } }
         ]),
         encounters: [
           enc("route-2", "016", "GRASS", "35%", "3–7", "COMMON", "016", "017", "018", tip: true),
@@ -773,13 +799,16 @@ module Walkthrough
         slug: "viridian-forest", kind: "FOREST", name: "Viridian Forest", order: 6, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: build_steps(b, [
-          {},
+          { pins: { lass: "viridian-forest/trainer-2-41" } },
           { hidden: [ "Antidote", "antidote", "viridian-forest-hidden-antidote", "viridian-forest-antidote" ] },
           { item: [ "Poké Ball", "pok-ball" ], scene: "viridian-forest-item-pok-ball" },
-          { item: [ "Potion", "potion-12-29" ], scene: "viridian-forest-item-potion-12-29", at: [ 12, 29 ] },
-          { item: [ "Potion", "potion-25-11" ], scene: "viridian-forest-item-potion-25-11", at: [ 25, 11 ] },
-          { hidden: [ "Potion", "potion", "viridian-forest-hidden-potion", "viridian-forest-potion" ] },
-          { scene: "viridian-forest-north" }
+          { item: [ "Potion", "potion-25-11" ], scene: "viridian-forest-item-potion-25-11", at: [ 25, 11 ],
+            pins: { low: "viridian-forest/trainer-30-33", high: "viridian-forest/trainer-30-19" } },
+          { item: [ "Potion", "potion-12-29" ], scene: "viridian-forest-item-potion-12-29", at: [ 12, 29 ],
+            pins: { middle: "viridian-forest/trainer-13-17" } },
+          { hidden: [ "Potion", "potion", "viridian-forest-hidden-potion", "viridian-forest-potion" ],
+            pins: { west: "viridian-forest/trainer-2-18" } },
+          { scene: "viridian-forest-north", pins: { north: "viridian-forest/exit-1-0" } }
         ]),
         encounters: [
           enc("viridian-forest", "010", "GRASS", "50%", "3–6", "COMMON", "010", "011", "012", tip: true),
@@ -798,8 +827,9 @@ module Walkthrough
         slug: "pewter-city", kind: "CITY", name: "Pewter City", order: 7, badge: "BOULDER",
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: map_shot("pewter-city", 1, "STEP 1")),
-          step(b, 2)
+          step(b, 1, shot: map_shot("pewter-city", 1, "STEP 1"),
+            pins: { center: "pewter-city/exit-13-25", mart: "pewter-city/exit-23-17", gym: "pewter-city/exit-16-17" }),
+          step(b, 2, pins: { east: "pewter-city/exit-east" })
         ],
         gym_after: 1,
         encounters: [],
@@ -812,13 +842,13 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], hidden_items: {}, key_items: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
+    def self.loc(slug, kind, name, order, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
-        steps: steps.is_a?(Array) ? build_steps(b, steps) : (1..steps).map { |i|
-          step(b, i,
+        steps: steps.is_a?(Array) ? build_steps(b, steps, pins) : (1..steps).map { |i|
+          step(b, i, pins: pins.fetch(i, {}),
             shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
             items: key_items.fetch(i, []).map { |name, key| item(b, i, name, key) },
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
@@ -832,10 +862,10 @@ module Walkthrough
     # ({ item: [name, key], scene:, at: }) whose GB-screen shot names the ball, one or more key
     # items handed over together ({ items: [[name, key], ...] }), or a hidden item
     # ({ hidden: [name, key, scene, pin], at: }) whose found-frame panel carries its own shot.
-    def self.build_steps(base, defs)
+    def self.build_steps(base, defs, pins = {})
       defs.each_with_index.map do |d, i|
         n = i + 1
-        step(base, n, html: d.fetch(:html, false),
+        step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
           items: step_items(base, n, d),
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil))
@@ -917,12 +947,12 @@ module Walkthrough
       Location.new(
         slug: "route-3", kind: "ROUTE", name: "Route 3", order: 8, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
-        steps: [ step(b, 1), step(b, 2) ],
+        steps: [ step(b, 1), step(b, 2, pins: { north: "route-3/exit-north" }) ],
         encounters: [
           enc("route-3", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
+          enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057"),
           enc("route-3", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
-          enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
-          enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
+          enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028")
         ],
         trainers: [],
         oak_queue: [ oak("route-3", "027", 1) ]
@@ -935,12 +965,18 @@ module Walkthrough
     # here because the Poke Center is on this side.
     def self.route_4_mt_moon
       loc("route-4-mt-moon", "ROUTE", "Route 4", 10, steps: 2, shots: [ 2 ],
-        trivia: trivia(base("route-4-mt-moon"), anchor: "mt-moon-magikarp", yellow_only: false,
+        pins: { 1 => { center: "route-4/exit-11-5" }, 2 => { cave: "route-4/exit-18-5" } },
+        trivia: trivia(base("route-4-mt-moon"), anchor: "mt-moon-magikarp",
           shot: scene_shot("mt-moon-magikarp", "MAGIKARP")))
     end
 
     def self.mt_moon
-      loc("mt-moon", "CAVE", "Mt. Moon", 9, steps: [
+      loc("mt-moon", "CAVE", "Mt. Moon", 9,
+        pins: { 3 => { down: "mt-moon-1f/exit-25-15", lower: "mt-moon-b1f/exit-13-27" },
+                7 => { down: "mt-moon-1f/exit-17-11", lower: "mt-moon-b1f/exit-17-11" },
+                11 => { down: "mt-moon-1f/exit-5-5", lower: "mt-moon-b1f/exit-21-17" },
+                14 => { up: "mt-moon-b2f/exit-5-7", out: "mt-moon-b1f/exit-27-3" } },
+        steps: [
           { item: [ "TM Water Gun", "tm-water-gun" ], scene: "mt-moon-item-tm-water-gun" },
           { item: [ "Potion", "potion-2-20" ], scene: "mt-moon-item-potion-2-20", at: [ 2, 20 ] },
           { item: [ "HP Up", "hp-up" ], scene: "mt-moon-item-hp-up", html: true },
@@ -957,10 +993,11 @@ module Walkthrough
           { html: true }
         ],
         encounters: [
-          enc("mt-moon", "041", "CAVE", "75%", "6–11", "COMMON", "041", "042"),
-          enc("mt-moon", "074", "CAVE", "15%", "8–10", "UNCOMMON", "074", "075", "076"),
-          enc("mt-moon", "046", "CAVE", "5%", "8", "RARE", "046", "047"),
-          enc("mt-moon", "035", "CAVE", "1%", "11", "RARE", "035", "036", tip: true)
+          enc("mt-moon", "041", "CAVE", "74%", "6–13", "COMMON", "041", "042"),
+          enc("mt-moon", "074", "CAVE", "20%", "10–11", "UNCOMMON", "074", "075", "076"),
+          enc("mt-moon", "046", "CAVE", "15%", "9–13", "UNCOMMON", "046", "047"),
+          enc("mt-moon", "035", "CAVE", "10%", "9–13", "UNCOMMON", "035", "036", tip: true),
+          enc("mt-moon", "027", "CAVE", "4%", "12", "RARE", "027", "028")
         ],
         trainers: [ tr("TEAM ROCKET", "Jessie & James", 420,
           mon("023", 14), mon("052", 14), mon("109", 14),
@@ -972,21 +1009,28 @@ module Walkthrough
     def self.route_4
       loc("route-4", "ROUTE", "Route 4", 10,
         steps: [
-          { scene: "route-4-exit" },
+          { scene: "route-4-exit", pins: { center: "route-4/exit-11-5" } },
           { hidden: [ "Great Ball", "great-ball", "route-4-hidden-great-ball", "route-4-great-ball" ] },
           { item: [ "TM Whirlwind", "tm-whirlwind" ], scene: "route-4-item-tm-whirlwind" },
-          {}
+          { pins: { east: "route-4/exit-east" } }
         ],
         encounters: [
           enc("route-4", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
+          enc("route-4", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057"),
           enc("route-4", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
           enc("route-4", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
-          enc("route-4", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
+          enc("route-4", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-4", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-4", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-4", "118", "SUPER ROD", "90%", "20–30", "COMMON", "118", "119"),
+          enc("route-4", "119", "SUPER ROD", "10%", "30", "UNCOMMON", "118", "119")
         ])
     end
 
     def self.cerulean_city
       loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 4, shots: [ 3, 4 ], gym_after: 3, gym_finale: true, badge: "CASCADE",
+        pins: { 1 => { center: "cerulean-city/exit-19-17", mart: "cerulean-city/exit-25-25", gym: "cerulean-city/exit-30-19" },
+                3 => { house: "cerulean-city/exit-13-15", north: "cerulean-city/exit-north" } },
         hidden_items: { 2 => [ [ "Rare Candy", "rare_candy", "cerulean-city-hidden-rare-candy", "cerulean-rare-candy" ] ] },
         key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
         encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png") ],
@@ -1000,16 +1044,22 @@ module Walkthrough
       loc("route-24", "ROUTE", "Route 24", 12, steps: [
           {},
           {},
-          { scene: "route-24-charmander" },
+          { scene: "route-24-charmander", pins: { boy: "route-24/npc-charmander" } },
           { item: [ "TM Thunder Wave", "tm-thunder-wave" ], scene: "route-24-item-tm-thunder-wave" },
-          {}
+          { pins: { east: "route-24/exit-east" } }
         ],
         encounters: [
-          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true, from: true),
           enc("route-24", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-24", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
           enc("route-24", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
-          enc("route-24", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049")
+          enc("route-24", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049"),
+          enc("route-24", "017", "GRASS", "1%", "17", "RARE", "016", "017", "018"),
+          enc("route-24", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-24", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-24", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-24", "118", "SUPER ROD", "90%", "20–30", "COMMON", "118", "119"),
+          enc("route-24", "119", "SUPER ROD", "10%", "30", "UNCOMMON", "118", "119"),
+          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true, from: true)
         ],
         trainers: [ rival(595, mon("021", 18), mon("027", 15), mon("019", 15), mon("133", 17),
           where: scene_shot("route-24-rival", "WHERE"),
@@ -1020,27 +1070,37 @@ module Walkthrough
     def self.route_25
       loc("route-25", "ROUTE", "Route 25", 13, steps: [
           {},
-          { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ], scene: "route-25-bill" },
-          { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss" },
+          { hidden: [ "Elixir", "elixir", "route-25-hidden-elixir", "route-25-elixir" ] },
+          { item: [ "TM Seismic Toss", "tm-seismic-toss" ], scene: "route-25-item-tm-seismic-toss",
+            pins: { guard: "route-25/trainer-24-4" } },
           { hidden: [ "Ether", "ether", "route-25-hidden-ether", "route-25-ether" ] },
-          { item: [ "S.S. Ticket", "s_s_ticket" ] }
+          { item: [ "S.S. Ticket", "s_s_ticket" ], scene: "route-25-bill",
+            pins: { cottage: "route-25/exit-45-3" } }
         ],
         encounters: [
           enc("route-25", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-25", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
           enc("route-25", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
-          enc("route-25", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049")
+          enc("route-25", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049"),
+          enc("route-25", "017", "GRASS", "1%", "17", "RARE", "016", "017", "018"),
+          enc("route-25", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-25", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-25", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-25", "098", "SUPER ROD", "70%", "10–15", "COMMON", "098", "099"),
+          enc("route-25", "099", "SUPER ROD", "30%", "15–25", "COMMON", "098", "099")
         ],
         oak_queue: [ oak("route-25", "048", 1) ])
     end
 
     def self.route_5
       loc("route-5", "ROUTE", "Route 5", 14, steps: 2, shots: [ 2 ],
+        pins: { 1 => { daycare: "route-5/exit-10-21" }, 2 => { path: "route-5/exit-17-27" } },
         encounters: [
           enc("route-5", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
           enc("route-5", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
           enc("route-5", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
-          enc("route-5", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040")
+          enc("route-5", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040"),
+          enc("route-5", "017", "GRASS", "5%", "17", "RARE", "016", "017", "018")
         ],
         trades: [ trade("route-5", "machoke", "104", "067", "RICKY",
           house: "route-5-underground-house", inside: "route-5-underground-house-inside") ],
@@ -1049,21 +1109,29 @@ module Walkthrough
 
     def self.route_6
       loc("route-6", "ROUTE", "Route 6", 15, steps: 2,
+        pins: { 1 => { path: "route-6/exit-17-13" }, 2 => { south: "route-6/exit-south" } },
         encounters: [
           enc("route-6", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
           enc("route-6", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
           enc("route-6", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
-          enc("route-6", "090", "SUPER ROD", "50%", "15", "COMMON", "090", "091"),
-          enc("route-6", "098", "SUPER ROD", "50%", "15", "COMMON", "098", "099")
+          enc("route-6", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040"),
+          enc("route-6", "017", "GRASS", "5%", "17", "RARE", "016", "017", "018"),
+          enc("route-6", "054", "SURF", "94%", "15", "COMMON", "054", "055"),
+          enc("route-6", "055", "SURF", "6%", "15–20", "RARE", "054", "055"),
+          enc("route-6", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-6", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-6", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-6", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119")
         ])
     end
 
     def self.vermilion_city
       loc("vermilion-city", "CITY", "Vermilion City", 16, steps: [
-          { items: [ [ "Bike Voucher", "bike_voucher" ], [ "Old Rod", "old_rod" ] ] },
+          { items: [ [ "Bike Voucher", "bike_voucher" ], [ "Old Rod", "old_rod" ] ],
+            pins: { center: "vermilion-city/exit-11-3", club: "vermilion-city/exit-9-13", guru: "vermilion-city/exit-7-3" } },
           { hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether", "vermilion-city-max-ether" ], scene: "vermilion-ss-anne-dock" },
-          { scene: "vermilion-squirtle" },
-          {}
+          { scene: "vermilion-squirtle", pins: { gym: "vermilion-city/exit-12-19", dock: "vermilion-city/exit-18-31" } },
+          { pins: { east: "vermilion-city/exit-east" } }
         ], gym_after: 2, badge: "THUNDER",
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ],
         trainers: [],
@@ -1093,16 +1161,23 @@ module Walkthrough
 
     def self.route_11
       loc("route-11", "ROUTE", "Route 11", 18, steps: [
-          {},
+          { pins: { cave: "route-11/exit-4-5" } },
           {},
           { hidden: [ "Escape Rope", "escape-rope", "route-11-hidden-escape-rope", "route-11-escape-rope" ] },
-          { items: [ [ "Itemfinder", "itemfinder" ] ] },
-          {}
+          { items: [ [ "Itemfinder", "itemfinder" ] ], pins: { gate: "route-11/exit-49-8" } },
+          { pins: { cave: "route-11/exit-4-5" } }
         ],
         encounters: [
-          enc("route-11", "016", "GRASS", "40%", "16–18", "COMMON", "016", "017", "018"),
-          enc("route-11", "019", "GRASS", "25%", "15–17", "UNCOMMON", "019", "020"),
-          enc("route-11", "096", "GRASS", "24%", "15–19", "UNCOMMON", "096", "097")
+          enc("route-11", "016", "GRASS", "35%", "16–18", "COMMON", "016", "017", "018"),
+          enc("route-11", "019", "GRASS", "30%", "15–17", "COMMON", "019", "020"),
+          enc("route-11", "096", "GRASS", "24%", "15–19", "UNCOMMON", "096", "097"),
+          enc("route-11", "017", "GRASS", "10%", "18–20", "UNCOMMON", "016", "017", "018"),
+          enc("route-11", "020", "GRASS", "1%", "17", "RARE", "019", "020"),
+          enc("route-11", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-11", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-11", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-11", "072", "SUPER ROD", "90%", "10–20", "COMMON", "072", "073"),
+          enc("route-11", "116", "SUPER ROD", "10%", "5", "UNCOMMON", "116", "117")
         ],
         trades: [ trade("route-11", "dugtrio", "108", "051", "GURIO",
           house: "route-11-gate", inside: "route-11-gate-inside") ],
@@ -1111,9 +1186,10 @@ module Walkthrough
 
     def self.digletts_cave
       loc("digletts-cave", "CAVE", "Diglett's Cave", 19, steps: 2,
+        pins: { 1 => { south: "digletts-cave/exit-37-31" }, 2 => { north: "digletts-cave/exit-5-5" } },
         encounters: [
-          enc("digletts-cave", "050", "CAVE", "95%", "15–22", "COMMON", "050", "051"),
-          enc("digletts-cave", "051", "CAVE", "5%", "29–31", "RARE", "050", "051")
+          enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
+          enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
         ],
         oak_queue: [ oak("digletts-cave", "050", 1) ])
     end
@@ -1134,7 +1210,8 @@ module Walkthrough
           { items: [ [ "Poké Flute", "poke_flute" ] ] }
         ],
         encounters: [
-          enc("pokemon-tower", "092", "FLOORS", "90%", "18–29", "COMMON", "092", "093", "094", tip: true),
+          enc("pokemon-tower", "092", "FLOORS", "94%", "18–29", "COMMON", "092", "093", "094", tip: true),
+          enc("pokemon-tower", "093", "FLOORS", "6%", "20–29", "RARE", "092", "093", "094"),
           enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105")
         ],
         trainers: [
@@ -1151,19 +1228,29 @@ module Walkthrough
 
     def self.route_12
       loc("route-12", "ROUTE", "Route 12", 29, steps: [
-          {},
+          { pins: { gate: "route-12/exit-10-21" } },
           { item: [ "TM Pay Day", "tm-pay-day" ], scene: "route-12-item-tm-pay-day" },
           { scene: "route-12-snorlax" },
           { hidden: [ "Hyper Potion", "hyper-potion", "route-12-hidden-hyper-potion", "route-12-hyper-potion" ] },
-          { items: [ [ "Super Rod", "super_rod" ] ] },
+          { items: [ [ "Super Rod", "super_rod" ] ], pins: { guru: "route-12/exit-11-77" } },
           { item: [ "Iron", "iron" ], scene: "route-12-item-iron" },
-          {}
+          { pins: { south: "route-12/exit-south" } }
         ],
         encounters: [
-          enc("route-12", "043", "GRASS", "30%", "22–26", "COMMON", "043", "044", "045"),
-          enc("route-12", "069", "GRASS", "30%", "22–26", "COMMON", "069", "070", "071"),
-          enc("route-12", "079", "SURF", "95%", "15", "COMMON", "079", "080"),
-          enc("route-12", "083", "GRASS", "5%", "26–31", "RARE", "083", tip: true),
+          enc("route-12", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
+          enc("route-12", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
+          enc("route-12", "016", "GRASS", "15%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "017", "GRASS", "10%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "083", "GRASS", "6%", "26–31", "RARE", "083", tip: true),
+          enc("route-12", "044", "GRASS", "5%", "29", "RARE", "043", "044", "045"),
+          enc("route-12", "070", "GRASS", "5%", "29", "RARE", "069", "070", "071"),
+          enc("route-12", "079", "SURF", "94%", "15", "COMMON", "079", "080"),
+          enc("route-12", "080", "SURF", "6%", "15–20", "RARE", "079", "080"),
+          enc("route-12", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-12", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-12", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-12", "116", "SUPER ROD", "70%", "20–25", "COMMON", "116", "117"),
+          enc("route-12", "117", "SUPER ROD", "30%", "25–35", "COMMON", "116", "117"),
           enc("route-12", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
         ],
         oak_queue: [ oak("route-12", "079", 1), oak("route-12", "083", 1) ])
@@ -1174,44 +1261,69 @@ module Walkthrough
           {},
           { hidden: [ "Calcium", "calcium", "route-13-hidden-calcium", "route-13-calcium" ] },
           { hidden: [ "PP Up", "pp-up", "route-13-hidden-pp-up", "route-13-pp-up" ] },
-          {}
+          { pins: { west: "route-13/exit-west" } }
         ],
         encounters: [
-          enc("route-13", "043", "GRASS", "30%", "22–27", "COMMON", "043", "044", "045"),
-          enc("route-13", "069", "GRASS", "30%", "22–27", "COMMON", "069", "070", "071"),
-          enc("route-13", "016", "GRASS", "10%", "25–28", "UNCOMMON", "016", "017", "018"),
-          enc("route-13", "132", "GRASS", "5%", "25", "RARE", "132", tip: true)
+          enc("route-13", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
+          enc("route-13", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
+          enc("route-13", "017", "GRASS", "15%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-13", "016", "GRASS", "10%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-13", "083", "GRASS", "6%", "26–31", "RARE", "083"),
+          enc("route-13", "044", "GRASS", "5%", "29", "RARE", "043", "044", "045"),
+          enc("route-13", "070", "GRASS", "5%", "29", "RARE", "069", "070", "071"),
+          enc("route-13", "079", "SURF", "94%", "15", "COMMON", "079", "080"),
+          enc("route-13", "080", "SURF", "6%", "15–20", "RARE", "079", "080"),
+          enc("route-13", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-13", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-13", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-13", "116", "SUPER ROD", "70%", "15–20", "COMMON", "116", "117"),
+          enc("route-13", "072", "SUPER ROD", "20%", "10", "UNCOMMON", "072", "073"),
+          enc("route-13", "117", "SUPER ROD", "10%", "20", "UNCOMMON", "116", "117")
         ],
         oak_queue: [ oak("route-13", "132", 1) ])
     end
 
     def self.route_14
-      loc("route-14", "ROUTE", "Route 14", 31, steps: 2,
+      loc("route-14", "ROUTE", "Route 14", 31, steps: 2, pins: { 2 => { west: "route-14/exit-west" } },
         encounters: [
-          enc("route-14", "043", "GRASS", "30%", "22–28", "COMMON", "043", "044", "045"),
-          enc("route-14", "069", "GRASS", "30%", "22–28", "COMMON", "069", "070", "071"),
-          enc("route-14", "048", "GRASS", "19%", "24–27", "UNCOMMON", "048", "049"),
+          enc("route-14", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
+          enc("route-14", "069", "GRASS", "30%", "26–28", "COMMON", "069", "070", "071"),
+          enc("route-14", "048", "GRASS", "20%", "24–27", "UNCOMMON", "048", "049"),
+          enc("route-14", "017", "GRASS", "10%", "30", "UNCOMMON", "016", "017", "018"),
+          enc("route-14", "044", "GRASS", "5%", "30", "RARE", "043", "044", "045"),
+          enc("route-14", "070", "GRASS", "5%", "30", "RARE", "069", "070", "071"),
           enc("route-14", "049", "GRASS", "1%", "30", "RARE", "048", "049")
         ])
     end
 
     def self.route_15
       loc("route-15", "ROUTE", "Route 15", 32, steps: [
-          { items: [ [ "Exp. All", "exp_all" ] ] },
+          { items: [ [ "Exp. All", "exp_all" ] ], pins: { east: "route-15/exit-east" } },
           { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage" },
-          {}
+          { pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
         ],
         encounters: [
-          enc("route-15", "043", "GRASS", "30%", "22–28", "COMMON", "043", "044", "045"),
-          enc("route-15", "069", "GRASS", "30%", "22–28", "COMMON", "069", "070", "071"),
-          enc("route-15", "048", "GRASS", "9%", "24–28", "RARE", "048", "049")
+          enc("route-15", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
+          enc("route-15", "069", "GRASS", "30%", "26–28", "COMMON", "069", "070", "071"),
+          enc("route-15", "048", "GRASS", "20%", "24–27", "UNCOMMON", "048", "049"),
+          enc("route-15", "017", "GRASS", "10%", "32", "UNCOMMON", "016", "017", "018"),
+          enc("route-15", "044", "GRASS", "5%", "30", "RARE", "043", "044", "045"),
+          enc("route-15", "070", "GRASS", "5%", "30", "RARE", "069", "070", "071"),
+          enc("route-15", "049", "GRASS", "1%", "30", "RARE", "048", "049")
         ])
     end
 
     def self.fuchsia_city
       loc("fuchsia-city", "CITY", "Fuchsia City", 33, steps: 4, gym_after: 3, gym_finale: true, badge: "SOUL",
+        pins: { 1 => { center: "fuchsia-city/exit-19-27", mart: "fuchsia-city/exit-5-13", gym: "fuchsia-city/exit-5-27" },
+                3 => { safari: "fuchsia-city/exit-18-3" },
+                4 => { warden: "fuchsia-city/exit-27-27" } },
         key_items: { 2 => [ [ "Good Rod", "good_rod" ] ], 4 => [ [ "HM04 Strength", "hm04_strength" ] ] },
         encounters: [
+          enc("fuchsia-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("fuchsia-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("fuchsia-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("fuchsia-city", "129", "SUPER ROD", "90%", "5–15", "COMMON", "129", "130"),
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
         trainers: [],
@@ -1241,14 +1353,28 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("safari-zone", "123", "SAFARI", "4%", "23", "RARE", "123", tip: true),
-          enc("safari-zone", "127", "SAFARI", "4%", "23", "RARE", "127", tip: true),
-          enc("safari-zone", "115", "SAFARI", "4%", "25", "RARE", "115", tip: true),
+          enc("safari-zone", "102", "SAFARI", "20%", "20–26", "UNCOMMON", "102", "103"),
+          enc("safari-zone", "029", "SAFARI", "20%", "14–36", "UNCOMMON", "029", "030", "031"),
+          enc("safari-zone", "032", "SAFARI", "20%", "14–36", "UNCOMMON", "032", "033", "034"),
+          enc("safari-zone", "047", "SAFARI", "15%", "27–32", "UNCOMMON", "046", "047"),
+          enc("safari-zone", "115", "SAFARI", "15%", "28–33", "UNCOMMON", "115", tip: true),
+          enc("safari-zone", "030", "SAFARI", "10%", "23–32", "UNCOMMON", "029", "030", "031"),
+          enc("safari-zone", "033", "SAFARI", "10%", "23–32", "UNCOMMON", "032", "033", "034"),
+          enc("safari-zone", "104", "SAFARI", "10%", "16–19", "UNCOMMON", "104", "105"),
+          enc("safari-zone", "111", "SAFARI", "10%", "20–25", "UNCOMMON", "111", "112"),
           enc("safari-zone", "128", "SAFARI", "10%", "21", "UNCOMMON", "128"),
-          enc("safari-zone", "113", "SAFARI", "1%", "7", "RARE", "113", tip: true),
-          enc("safari-zone", "114", "SAFARI", "4%", "22", "RARE", "114"),
-          enc("safari-zone", "102", "SAFARI", "15%", "24", "UNCOMMON", "102", "103"),
-          enc("safari-zone", "147", "SUPER ROD", "10%", "15", "UNCOMMON", "147", "148", "149", tip: true)
+          enc("safari-zone", "046", "SAFARI", "5%", "27", "RARE", "046", "047"),
+          enc("safari-zone", "105", "SAFARI", "5%", "24", "RARE", "104", "105"),
+          enc("safari-zone", "113", "SAFARI", "4%", "7–21", "RARE", "113", tip: true),
+          enc("safari-zone", "114", "SAFARI", "4%", "22–27", "RARE", "114"),
+          enc("safari-zone", "123", "SAFARI", "4%", "15–25", "RARE", "123", tip: true),
+          enc("safari-zone", "127", "SAFARI", "4%", "15–25", "RARE", "127", tip: true),
+          enc("safari-zone", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("safari-zone", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("safari-zone", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("safari-zone", "129", "SUPER ROD", "90%", "5–15", "COMMON", "129", "130"),
+          enc("safari-zone", "147", "SUPER ROD", "20%", "10–15", "UNCOMMON", "147", "148", "149", tip: true),
+          enc("safari-zone", "148", "SUPER ROD", "10%", "15", "UNCOMMON", "147", "148", "149")
         ],
         oak_queue: [
           oak("safari-zone", "123", 1), oak("safari-zone", "127", 1),
@@ -1258,11 +1384,15 @@ module Walkthrough
 
     def self.route_16
       loc("route-16", "ROUTE", "Route 16", 35, steps: 3, shots: [ 2 ],
+        pins: { 1 => { house: "route-16/exit-7-5" }, 2 => { gate: "route-16/exit-17-10" },
+                3 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
         key_items: { 1 => [ [ "HM02 Fly", "hm02_fly" ] ] },
         encounters: [
           enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
-          enc("route-16", "019", "GRASS", "30%", "23–24", "COMMON", "019", "020"),
+          enc("route-16", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
           enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
+          enc("route-16", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
+          enc("route-16", "022", "GRASS", "5%", "24", "RARE", "021", "022"),
           enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
         ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
@@ -1270,29 +1400,42 @@ module Walkthrough
 
     def self.route_17
       loc("route-17", "ROUTE", "Route 17", 36, steps: [
-          {},
+          { pins: { north: "route-17/exit-north" } },
           { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
           { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
           { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
           { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
           { hidden: [ "Max Elixir", "max-elixir", "route-17-hidden-max-elixir", "route-17-max-elixir" ] },
-          {}
+          { pins: { south: "route-17/exit-south" } }
         ],
         encounters: [
           enc("route-17", "084", "GRASS", "50%", "26–28", "COMMON", "084", "085"),
-          enc("route-17", "077", "GRASS", "24%", "28–32", "UNCOMMON", "077", "078"),
           enc("route-17", "022", "GRASS", "25%", "27–29", "UNCOMMON", "021", "022"),
-          enc("route-17", "085", "GRASS", "1%", "29", "RARE", "084", "085")
+          enc("route-17", "077", "GRASS", "24%", "28–32", "UNCOMMON", "077", "078"),
+          enc("route-17", "085", "GRASS", "1%", "29", "RARE", "084", "085"),
+          enc("route-17", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-17", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-17", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-17", "072", "SUPER ROD", "70%", "5–15", "COMMON", "072", "073"),
+          enc("route-17", "090", "SUPER ROD", "30%", "25–35", "COMMON", "090", "091")
         ],
         oak_queue: [ oak("route-17", "077", 1) ])
     end
 
     def self.route_18
       loc("route-18", "ROUTE", "Route 18", 37, steps: 2,
+        pins: { 2 => { gate: "route-18/exit-33-8", east: "route-18/exit-east" } },
         encounters: [
-          enc("route-18", "021", "GRASS", "40%", "20–22", "COMMON", "021", "022"),
+          enc("route-18", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-18", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
-          enc("route-18", "084", "GRASS", "25%", "24–28", "UNCOMMON", "084", "085")
+          enc("route-18", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
+          enc("route-18", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
+          enc("route-18", "022", "GRASS", "5%", "24", "RARE", "021", "022"),
+          enc("route-18", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-18", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-18", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-18", "090", "SUPER ROD", "60%", "20–40", "COMMON", "090", "091"),
+          enc("route-18", "072", "SUPER ROD", "40%", "15", "COMMON", "072", "073")
         ],
         trades: [ trade("route-18", "parasect", "114", "047", "SPIKE",
           house: "route-18-gate", inside: "route-18-gate-inside") ])
@@ -1300,6 +1443,8 @@ module Walkthrough
 
     def self.saffron_city
       loc("saffron-city", "CITY", "Saffron City", 39, steps: 3, gym_after: 2, badge: "MARSH",
+        pins: { 2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
+                3 => { dojo: "saffron-city/exit-26-3" } },
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
@@ -1345,21 +1490,28 @@ module Walkthrough
     end
 
     def self.route_19
-      loc("route-19", "ROUTE", "Route 19", 40, steps: 2,
+      loc("route-19", "ROUTE", "Route 19", 40, steps: 2, pins: { 2 => { west: "route-19/exit-west" } },
         encounters: [
           enc("route-19", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
+          enc("route-19", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-19", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-19", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-19", "072", "SUPER ROD", "60%", "15–30", "COMMON", "072", "073"),
           enc("route-19", "120", "SUPER ROD", "30%", "20", "COMMON", "120", "121"),
-          enc("route-19", "116", "SUPER ROD", "25%", "15", "UNCOMMON", "116", "117"),
-          enc("route-19", "090", "SUPER ROD", "25%", "15", "UNCOMMON", "090", "091")
+          enc("route-19", "073", "SUPER ROD", "10%", "30", "UNCOMMON", "072", "073")
         ])
     end
 
     def self.route_20
-      loc("route-20", "ROUTE", "Route 20", 41, steps: 2,
+      loc("route-20", "ROUTE", "Route 20", 41, steps: 2, pins: { 2 => { east: "route-20/exit-58-9" } },
         encounters: [
           enc("route-20", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
-          enc("route-20", "120", "SUPER ROD", "45%", "15–30", "COMMON", "120", "121"),
-          enc("route-20", "116", "SUPER ROD", "25%", "15", "UNCOMMON", "116", "117")
+          enc("route-20", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-20", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-20", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-20", "073", "SUPER ROD", "40%", "20–40", "COMMON", "072", "073"),
+          enc("route-20", "072", "SUPER ROD", "40%", "20", "COMMON", "072", "073"),
+          enc("route-20", "120", "SUPER ROD", "20%", "30", "UNCOMMON", "120", "121")
         ])
     end
 
@@ -1374,11 +1526,22 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("seafoam-islands", "086", "CAVE", "15%", "28–30", "UNCOMMON", "086", "087"),
-          enc("seafoam-islands", "090", "CAVE", "19%", "28–30", "UNCOMMON", "090", "091"),
-          enc("seafoam-islands", "098", "CAVE", "35%", "25–27", "COMMON", "098", "099"),
-          enc("seafoam-islands", "054", "CAVE", "20%", "30", "UNCOMMON", "054", "055"),
-          enc("seafoam-islands", "079", "CAVE", "15%", "28–30", "UNCOMMON", "079", "080"),
+          enc("seafoam-islands", "041", "CAVE", "44%", "9–45", "COMMON", "041", "042"),
+          enc("seafoam-islands", "098", "CAVE", "35%", "25–31", "COMMON", "098", "099"),
+          enc("seafoam-islands", "042", "CAVE", "25%", "27–36", "UNCOMMON", "041", "042"),
+          enc("seafoam-islands", "086", "CAVE", "20%", "22–32", "UNCOMMON", "086", "087"),
+          enc("seafoam-islands", "079", "CAVE", "15%", "28–31", "UNCOMMON", "079", "080"),
+          enc("seafoam-islands", "099", "CAVE", "10%", "28–32", "UNCOMMON", "098", "099"),
+          enc("seafoam-islands", "087", "CAVE", "6%", "28–34", "RARE", "086", "087"),
+          enc("seafoam-islands", "080", "CAVE", "1%", "31", "RARE", "079", "080"),
+          enc("seafoam-islands", "072", "SURF", "70%", "20–40", "COMMON", "072", "073"),
+          enc("seafoam-islands", "120", "SURF", "30%", "30", "COMMON", "120", "121"),
+          enc("seafoam-islands", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("seafoam-islands", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("seafoam-islands", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("seafoam-islands", "120", "SUPER ROD", "40%", "20–40", "COMMON", "120", "121"),
+          enc("seafoam-islands", "098", "SUPER ROD", "40%", "25", "COMMON", "098", "099"),
+          enc("seafoam-islands", "099", "SUPER ROD", "20%", "35", "UNCOMMON", "098", "099"),
           enc("seafoam-islands", "144", "STATIC", "-", "50", "STATIC", "144", tip: true)
         ],
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
@@ -1386,12 +1549,17 @@ module Walkthrough
 
     def self.cinnabar_island
       loc("cinnabar-island", "TOWN", "Cinnabar Island", 44, steps: 3, gym_after: 2, badge: "VOLCANO",
+        pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
+                2 => { lab: "cinnabar-island/exit-6-9" } },
         encounters: [
+          enc("cinnabar-island", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("cinnabar-island", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("cinnabar-island", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("cinnabar-island", "120", "SUPER ROD", "60%", "10–15", "COMMON", "120", "121"),
+          enc("cinnabar-island", "072", "SUPER ROD", "40%", "15–30", "COMMON", "072", "073"),
           enc("cinnabar-island", "138", "FOSSIL", "-", "30", "GIFT", "138", "139", tip: true),
           enc("cinnabar-island", "140", "FOSSIL", "-", "30", "GIFT", "140", "141", tip: true),
-          enc("cinnabar-island", "142", "FOSSIL", "-", "30", "GIFT", "142", tip: true),
-          enc("cinnabar-island", "072", "SUPER ROD", "40%", "15–30", "COMMON", "072", "073"),
-          enc("cinnabar-island", "120", "SUPER ROD", "30%", "15–30", "UNCOMMON", "120", "121")
+          enc("cinnabar-island", "142", "FOSSIL", "-", "30", "GIFT", "142", tip: true)
         ],
         trainers: [],
         trades: [
@@ -1409,7 +1577,11 @@ module Walkthrough
     end
 
     def self.pokemon_mansion
-      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 45, steps: [
+      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 45,
+        pins: { 5 => { up: "pokemon-mansion-1f/exit-5-10" },
+                6 => { up: "pokemon-mansion-2f/exit-7-10" },
+                10 => { down: "pokemon-mansion-1f/exit-21-23" } },
+        steps: [
           {},
           { item: [ "Carbos", "carbos" ], scene: "pokemon-mansion-item-carbos" },
           { hidden: [ "Moon Stone", "moon-stone", "pokemon-mansion-hidden-moon-stone", "pokemon-mansion-moon-stone" ] },
@@ -1429,12 +1601,12 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("pokemon-mansion", "037", "FLOORS", "15%", "32–35", "UNCOMMON", "037", "038", tip: true),
-          enc("pokemon-mansion", "058", "FLOORS", "15%", "32–35", "UNCOMMON", "058", "059", tip: true),
-          enc("pokemon-mansion", "109", "FLOORS", "40%", "30–35", "COMMON", "109", "110"),
-          enc("pokemon-mansion", "088", "FLOORS", "30%", "23–38", "COMMON", "088", "089"),
-          enc("pokemon-mansion", "126", "FLOORS", "5%", "34–38", "RARE", "126", tip: true),
-          enc("pokemon-mansion", "132", "FLOORS", "10%", "12–24", "UNCOMMON", "132")
+          enc("pokemon-mansion", "020", "FLOORS", "40%", "34–46", "COMMON", "019", "020"),
+          enc("pokemon-mansion", "088", "FLOORS", "40%", "23–38", "COMMON", "088", "089"),
+          enc("pokemon-mansion", "019", "FLOORS", "30%", "34–43", "COMMON", "019", "020"),
+          enc("pokemon-mansion", "058", "FLOORS", "20%", "26–38", "UNCOMMON", "058", "059", tip: true),
+          enc("pokemon-mansion", "132", "FLOORS", "10%", "12–24", "UNCOMMON", "132"),
+          enc("pokemon-mansion", "089", "FLOORS", "10%", "35–41", "UNCOMMON", "088", "089")
         ],
         oak_queue: [ oak("pokemon-mansion", "037", 1), oak("pokemon-mansion", "058", 1), oak("pokemon-mansion", "126", 1) ])
     end
@@ -1444,7 +1616,7 @@ module Walkthrough
           {},
           { item: [ "Revive", "revive" ], scene: "viridian-gym-item-revive" },
           {},
-          {}
+          { pins: { out: "viridian-gym/exit-16-17" } }
         ], gym_after: 1, badge: "EARTH",
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
           leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE"), opp: [ "GIOVANNI", 3 ]),
@@ -1452,7 +1624,11 @@ module Walkthrough
     end
 
     def self.victory_road
-      loc("victory-road", "CAVE", "Victory Road", 48, steps: [
+      loc("victory-road", "CAVE", "Victory Road", 48,
+        pins: { 4 => { up: "victory-road-1f/exit-1-1" },
+                12 => { up: "victory-road-2f/exit-23-7" },
+                15 => { down: "victory-road-2f/exit-23-7", out: "victory-road-2f/exit-29-7" } },
+        steps: [
           {},
           { item: [ "Rare Candy", "rare-candy" ], scene: "victory-road-item-rare-candy" },
           { item: [ "TM Sky Attack", "tm-sky-attack" ], scene: "victory-road-item-tm-sky-attack" },
@@ -1470,10 +1646,12 @@ module Walkthrough
           { html: true }
         ],
         encounters: [
-          enc("victory-road", "074", "CAVE", "30%", "26–46", "COMMON", "074", "075", "076"),
-          enc("victory-road", "066", "CAVE", "20%", "22–24", "UNCOMMON", "066", "067", "068"),
-          enc("victory-road", "095", "CAVE", "20%", "36–47", "UNCOMMON", "095"),
-          enc("victory-road", "105", "CAVE", "4%", "40–43", "RARE", "104", "105"),
+          enc("victory-road", "074", "CAVE", "65%", "26–46", "COMMON", "074", "075", "076"),
+          enc("victory-road", "042", "CAVE", "20%", "39–44", "UNCOMMON", "041", "042"),
+          enc("victory-road", "041", "CAVE", "20%", "39–44", "UNCOMMON", "041", "042"),
+          enc("victory-road", "075", "CAVE", "15%", "41–47", "UNCOMMON", "074", "075", "076"),
+          enc("victory-road", "067", "CAVE", "10%", "39–45", "UNCOMMON", "066", "067", "068"),
+          enc("victory-road", "095", "CAVE", "10%", "43–49", "UNCOMMON", "095"),
           enc("victory-road", "146", "STATIC", "-", "50", "STATIC", "146", tip: true)
         ],
         oak_queue: [ oak("victory-road", "146", 1) ])
@@ -1481,17 +1659,23 @@ module Walkthrough
 
     def self.route_23
       loc("route-23", "ROUTE", "Route 23", 49, steps: [
-          {},
+          { pins: { gate: "route-23/exit-south" } },
           { hidden: [ "Max Ether", "max-ether", "route-23-hidden-max-ether", "route-23-max-ether" ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "route-23-hidden-ultra-ball", "route-23-ultra-ball" ] },
           { hidden: [ "Full Restore", "full-restore", "route-23-hidden-full-restore", "route-23-full-restore" ] },
-          {}
+          { pins: { victory: "route-23/exit-4-31" } }
         ],
         encounters: [
-          enc("route-23", "132", "GRASS", "35%", "33–43", "COMMON", "132"),
+          enc("route-23", "030", "GRASS", "30%", "41–44", "COMMON", "029", "030", "031"),
+          enc("route-23", "033", "GRASS", "30%", "41–44", "COMMON", "032", "033", "034"),
           enc("route-23", "056", "GRASS", "20%", "36–41", "UNCOMMON", "056", "057"),
           enc("route-23", "022", "GRASS", "15%", "40–45", "UNCOMMON", "021", "022"),
-          enc("route-23", "024", "GRASS", "5%", "41", "RARE", "023", "024")
+          enc("route-23", "057", "GRASS", "6%", "41–46", "RARE", "056", "057"),
+          enc("route-23", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-23", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-23", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-23", "060", "SUPER ROD", "70%", "25–30", "COMMON", "060", "061", "062"),
+          enc("route-23", "061", "SUPER ROD", "30%", "30–40", "COMMON", "060", "061", "062")
         ])
     end
 
@@ -1517,7 +1701,10 @@ module Walkthrough
     end
 
     def self.cerulean_cave
-      loc("cerulean-cave", "CAVE", "Cerulean Cave", 51, steps: [
+      loc("cerulean-cave", "CAVE", "Cerulean Cave", 51,
+        pins: { 7 => { up: "cerulean-cave-1f/exit-1-3" },
+                13 => { down: "cerulean-cave-2f/exit-3-11", lower: "cerulean-cave-1f/exit-0-6" } },
+        steps: [
           {},
           { item: [ "Rare Candy", "rare-candy-29-16" ], scene: "cerulean-cave-item-rare-candy-29-16", at: [ 29, 16 ] },
           { item: [ "Max Revive", "max-revive-29-9" ], scene: "cerulean-cave-item-max-revive-29-9", at: [ 29, 9 ] },
@@ -1540,11 +1727,23 @@ module Walkthrough
           { scene: "cerulean-cave-mewtwo" }
         ],
         encounters: [
-          enc("cerulean-cave", "042", "CAVE", "40%", "50–55", "COMMON", "041", "042"),
-          enc("cerulean-cave", "112", "CAVE", "15%", "58–62", "UNCOMMON", "111", "112"),
-          enc("cerulean-cave", "113", "CAVE", "10%", "55–60", "UNCOMMON", "113"),
+          enc("cerulean-cave", "042", "CAVE", "40%", "50–59", "COMMON", "041", "042"),
+          enc("cerulean-cave", "075", "CAVE", "15%", "45–55", "UNCOMMON", "074", "075", "076"),
           enc("cerulean-cave", "132", "CAVE", "15%", "55–65", "UNCOMMON", "132"),
-          enc("cerulean-cave", "108", "CAVE", "20%", "50–55", "UNCOMMON", "108", tip: true),
+          enc("cerulean-cave", "028", "CAVE", "10%", "52–56", "UNCOMMON", "027", "028"),
+          enc("cerulean-cave", "044", "CAVE", "10%", "55–58", "UNCOMMON", "043", "044", "045"),
+          enc("cerulean-cave", "070", "CAVE", "10%", "55–58", "UNCOMMON", "069", "070", "071"),
+          enc("cerulean-cave", "111", "CAVE", "10%", "50–52", "UNCOMMON", "111", "112"),
+          enc("cerulean-cave", "112", "CAVE", "10%", "58–62", "UNCOMMON", "111", "112"),
+          enc("cerulean-cave", "108", "CAVE", "6%", "50–55", "RARE", "108", tip: true),
+          enc("cerulean-cave", "047", "CAVE", "5%", "54", "RARE", "046", "047"),
+          enc("cerulean-cave", "049", "CAVE", "5%", "54", "RARE", "048", "049"),
+          enc("cerulean-cave", "113", "CAVE", "5%", "56", "RARE", "113"),
+          enc("cerulean-cave", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("cerulean-cave", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("cerulean-cave", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("cerulean-cave", "119", "SUPER ROD", "60%", "35–60", "COMMON", "118", "119"),
+          enc("cerulean-cave", "118", "SUPER ROD", "40%", "25–30", "COMMON", "118", "119"),
           enc("cerulean-cave", "150", "STATIC", "-", "70", "STATIC", "150", tip: true)
         ],
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])
@@ -1555,30 +1754,42 @@ module Walkthrough
           {},
           { item: [ "TM Teleport", "tm-teleport" ], scene: "route-9-item-tm-teleport" },
           { hidden: [ "Ether", "ether", "route-9-hidden-ether", "route-9-ether" ] },
-          {}
+          { pins: { east: "route-9/exit-east" } }
         ],
         encounters: [
-          enc("route-9", "032", "GRASS", "30%", "16–18", "COMMON", "032", "033", "034"),
           enc("route-9", "029", "GRASS", "30%", "16–18", "COMMON", "029", "030", "031"),
+          enc("route-9", "032", "GRASS", "30%", "16–18", "COMMON", "032", "033", "034"),
           enc("route-9", "019", "GRASS", "15%", "18", "UNCOMMON", "019", "020"),
-          enc("route-9", "021", "GRASS", "10%", "17", "UNCOMMON", "021", "022")
+          enc("route-9", "021", "GRASS", "10%", "17", "UNCOMMON", "021", "022"),
+          enc("route-9", "030", "GRASS", "5%", "18", "RARE", "029", "030", "031"),
+          enc("route-9", "033", "GRASS", "5%", "18", "RARE", "032", "033", "034"),
+          enc("route-9", "020", "GRASS", "4%", "20", "RARE", "019", "020"),
+          enc("route-9", "022", "GRASS", "1%", "19", "RARE", "021", "022")
         ])
     end
 
     def self.route_10
       loc("route-10", "ROUTE", "Route 10", 21, steps: [
-          { scene: "route-10-rock-tunnel" },
+          { scene: "route-10-rock-tunnel", pins: { center: "route-10/exit-11-19", north: "route-10/exit-8-17" } },
           {},
           { hidden: [ "Super Potion", "super-potion", "route-10-hidden-super-potion", "route-10-super-potion" ] },
-          {},
-          { hidden: [ "Max Ether", "max-ether", "route-10-hidden-max-ether", "route-10-max-ether" ] },
-          {}
+          { pins: { north: "route-10/exit-8-17" } },
+          { hidden: [ "Max Ether", "max-ether", "route-10-hidden-max-ether", "route-10-max-ether" ], pins: { south: "route-10/exit-8-53" } },
+          { pins: { lavender: "route-10/exit-south" } }
         ],
         encounters: [
           enc("route-10", "081", "GRASS", "50%", "16–22", "COMMON", "081", "082"),
           enc("route-10", "019", "GRASS", "20%", "18", "UNCOMMON", "019", "020"),
+          enc("route-10", "029", "GRASS", "10%", "17", "UNCOMMON", "029", "030", "031"),
           enc("route-10", "032", "GRASS", "10%", "17", "UNCOMMON", "032", "033", "034"),
-          enc("route-10", "066", "GRASS", "5%", "16–18", "RARE", "066", "067", "068")
+          enc("route-10", "066", "GRASS", "6%", "16–18", "RARE", "066", "067", "068"),
+          enc("route-10", "020", "GRASS", "5%", "20", "RARE", "019", "020"),
+          enc("route-10", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-10", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-10", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-10", "098", "SUPER ROD", "70%", "15–20", "COMMON", "098", "099"),
+          enc("route-10", "116", "SUPER ROD", "20%", "10", "UNCOMMON", "116", "117"),
+          enc("route-10", "099", "SUPER ROD", "10%", "25", "UNCOMMON", "098", "099")
         ],
         oak_queue: [ oak("route-10", "081", 1) ])
     end
@@ -1588,54 +1799,67 @@ module Walkthrough
       # the south mouth only the ladder you come back up. B1F is the one floor that joins them, so
       # the crossing is forced rather than chosen, and the middle pair of 1F ladders leads to a
       # trainer pocket holding nothing.
-      loc("rock-tunnel", "CAVE", "Rock Tunnel", 22, steps: [
+      loc("rock-tunnel", "CAVE", "Rock Tunnel", 22,
+        pins: { 2 => { down: "rock-tunnel-1f/exit-37-3" }, 3 => { up: "rock-tunnel-b1f/exit-3-3" } },
+        steps: [
           { scene: "rock-tunnel-flash" },
           { html: true },
           { html: true },
           {}
         ],
         encounters: [
-          enc("rock-tunnel", "041", "CAVE", "50%", "15–21", "COMMON", "041", "042"),
-          enc("rock-tunnel", "074", "CAVE", "40%", "16–20", "COMMON", "074", "075", "076"),
-          enc("rock-tunnel", "066", "CAVE", "10%", "17–21", "UNCOMMON", "066", "067", "068"),
+          enc("rock-tunnel", "041", "CAVE", "50%", "15–22", "COMMON", "041", "042"),
+          enc("rock-tunnel", "074", "CAVE", "40%", "16–21", "COMMON", "074", "075", "076"),
+          enc("rock-tunnel", "066", "CAVE", "20%", "17–21", "UNCOMMON", "066", "067", "068"),
           enc("rock-tunnel", "095", "CAVE", "10%", "14–22", "UNCOMMON", "095")
         ],
         oak_queue: [ oak("rock-tunnel", "066", 1), oak("rock-tunnel", "095", 1) ])
     end
 
     def self.lavender_town
-      loc("lavender-town", "TOWN", "Lavender Town", 23, steps: 3)
+      loc("lavender-town", "TOWN", "Lavender Town", 23, steps: 3,
+        pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } })
     end
 
     def self.route_8
       loc("route-8", "ROUTE", "Route 8", 24, steps: 2,
+        pins: { 1 => { gate: "route-8/exit-1-9" }, 2 => { path: "route-8/exit-13-3" } },
         encounters: [
           enc("route-8", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
           enc("route-8", "063", "GRASS", "20%", "15–19", "UNCOMMON", "063", "064", "065"),
           enc("route-8", "019", "GRASS", "15%", "20", "UNCOMMON", "019", "020"),
-          enc("route-8", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040")
+          enc("route-8", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040"),
+          enc("route-8", "017", "GRASS", "10%", "24", "UNCOMMON", "016", "017", "018"),
+          enc("route-8", "064", "GRASS", "6%", "20–27", "RARE", "063", "064", "065")
         ])
     end
 
     def self.route_7
       loc("route-7", "ROUTE", "Route 7", 25, steps: 2,
+        pins: { 1 => { path: "route-7/exit-5-13" }, 2 => { gate: "route-7/exit-11-9", west: "route-7/exit-west" } },
         encounters: [
           enc("route-7", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
           enc("route-7", "063", "GRASS", "25%", "15–26", "UNCOMMON", "063", "064", "065"),
           enc("route-7", "019", "GRASS", "15%", "20", "UNCOMMON", "019", "020"),
-          enc("route-7", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040")
+          enc("route-7", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040"),
+          enc("route-7", "017", "GRASS", "10%", "24", "UNCOMMON", "016", "017", "018")
         ])
     end
 
     def self.celadon_city
       loc("celadon-city", "CITY", "Celadon City", 26, steps: [
-          {},
+          { pins: { east: "celadon-city/exit-east", center: "celadon-city/exit-41-9" } },
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
-          {},
-          { items: [ [ "Coin Case", "coin_case" ] ] },
-          {}
+          { pins: { store: "celadon-city/exit-8-13" } },
+          { items: [ [ "Coin Case", "coin_case" ] ],
+            pins: { mansion: "celadon-city/exit-24-9", diner: "celadon-city/exit-31-27", gym: "celadon-city/exit-12-27" } },
+          { pins: { corner: "celadon-city/exit-28-19" } }
         ], gym_after: 2, badge: "RAINBOW",
         encounters: [
+          enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("celadon-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("celadon-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("celadon-city", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119"),
           enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true),
           enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
           enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
@@ -1647,7 +1871,12 @@ module Walkthrough
     end
 
     def self.rocket_hideout
-      loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 27, steps: [
+      loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 27,
+        pins: { 6 => { down: "rocket-hideout-b1f/exit-23-2" },
+                11 => { down: "rocket-hideout-b2f/exit-21-8" },
+                15 => { down: "rocket-hideout-b3f/exit-19-18" },
+                20 => { lift: "rocket-hideout-b4f/exit-24-15" } },
+        steps: [
           {},
           {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },
@@ -1687,7 +1916,7 @@ module Walkthrough
 
     def self.power_plant
       loc("power-plant", "BUILDING", "Power Plant", 43, steps: [
-          {},
+          { pins: { door: "power-plant/exit-4-35" } },
           { item: [ "Carbos", "carbos" ], scene: "power-plant-item-carbos" },
           {},
           {},
@@ -1707,12 +1936,11 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("power-plant", "100", "FLOORS", "40%", "21–33", "COMMON", "100", "101"),
-          enc("power-plant", "081", "FLOORS", "25%", "20–33", "COMMON", "081", "082"),
-          enc("power-plant", "088", "FLOORS", "15%", "23–33", "UNCOMMON", "088", "089"),
-          enc("power-plant", "101", "FLOORS", "10%", "24–33", "UNCOMMON", "100", "101"),
-          enc("power-plant", "082", "FLOORS", "5%", "21–33", "RARE", "081", "082"),
-          enc("power-plant", "089", "FLOORS", "5%", "33", "RARE", "088", "089"),
+          enc("power-plant", "081", "FLOORS", "40%", "30–35", "COMMON", "081", "082"),
+          enc("power-plant", "082", "FLOORS", "20%", "33–38", "UNCOMMON", "081", "082"),
+          enc("power-plant", "100", "FLOORS", "20%", "33–37", "UNCOMMON", "100", "101"),
+          enc("power-plant", "088", "FLOORS", "15%", "33–37", "UNCOMMON", "088", "089"),
+          enc("power-plant", "089", "FLOORS", "6%", "33–37", "RARE", "088", "089"),
           enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
         ],
         oak_queue: [ oak("power-plant", "145", 1), oak("power-plant", "100", 1) ])
@@ -1721,23 +1949,25 @@ module Walkthrough
     def self.route_21
       loc("route-21", "ROUTE", "Route 21", 46, steps: 2,
         encounters: [
-          enc("route-21", "016", "GRASS", "35%", "21–23", "COMMON", "016", "017", "018"),
-          enc("route-21", "019", "GRASS", "35%", "21–23", "COMMON", "019", "020"),
-          enc("route-21", "017", "GRASS", "15%", "25–29", "UNCOMMON", "016", "017", "018"),
-          enc("route-21", "020", "GRASS", "15%", "25–29", "UNCOMMON", "019", "020"),
+          enc("route-21", "016", "GRASS", "55%", "11–17", "COMMON", "016", "017", "018"),
+          enc("route-21", "019", "GRASS", "30%", "13–15", "COMMON", "019", "020"),
+          enc("route-21", "017", "GRASS", "10%", "15–19", "UNCOMMON", "016", "017", "018"),
+          enc("route-21", "020", "GRASS", "5%", "15", "RARE", "019", "020"),
           enc("route-21", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-21", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130", tip: true),
-          enc("route-21", "118", "GOOD ROD", "50%", "10", "UNCOMMON", "118", "119", tip: true),
-          enc("route-21", "090", "SUPER ROD", "20%", "15–25", "UNCOMMON", "090", "091"),
-          enc("route-21", "120", "SUPER ROD", "15%", "15–25", "UNCOMMON", "120", "121")
+          enc("route-21", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-21", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119", tip: true),
+          enc("route-21", "072", "SUPER ROD", "60%", "15–30", "COMMON", "072", "073"),
+          enc("route-21", "120", "SUPER ROD", "30%", "20", "COMMON", "120", "121"),
+          enc("route-21", "073", "SUPER ROD", "10%", "30", "UNCOMMON", "072", "073")
         ],
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil)
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {})
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
-        text_key: "#{base}.steps.#{n}.#{html ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link)
+        text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
+        items: items, hidden: hidden, shot: shot, link: link, pins: pins)
     end
 
     # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
@@ -1899,9 +2129,9 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil, yellow_only: true)
+    def self.trivia(base, anchor:, cards: [], shot: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, yellow_only: yellow_only)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot)
     end
 
     def self.missable(base, anchor:, after_step:)

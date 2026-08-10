@@ -123,7 +123,7 @@ def build_roster(root_str):
     """Return ({slug: [entry]}, [where-scene spec]).
 
     Entries come out in the order the page shows them: floor by floor, and within a floor in the
-    order the map file declares them, which is the order markers.key_letters lettered the pins.
+    order the map file declares them, which is the order markers.marker_key numbered the pins.
     A location's extra maps come last; they have no drawn map, so their cards carry no letter."""
     headers = sources.parse_headers(root_str)
     roster, specs = {}, []
@@ -135,7 +135,7 @@ def build_roster(root_str):
                 continue
             area = locations.image_name(slug, floor)
             for index, obj in enumerate(_map_trainers(root_str, label)):
-                key = markers.key_letters(index)
+                key = markers.marker_key("trainer", index)
                 name = scene_name(area, obj)
                 specs.append(where_spec(root_str, label, parent, obj, name))
                 entries.append(entry_for(root_str, area, floor, obj, key, name))

@@ -37,13 +37,13 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_in_delta 88.542, antidote.y, 0.001
   end
 
-  test "an exit is keyless, points the way it leaves, and cannot be ticked" do
+  test "an exit is keyed, points the way it leaves, and cannot be ticked" do
     south = forest_map.markers.find { |marker| marker.id == "exit-15-47" }
 
     assert_equal "south", south.edge
-    assert_equal "▼", south.glyph_or_key
+    assert_equal "E2", south.key, "the legend needs a handle for it like every other row"
+    assert_equal "▼", south.glyph_or_key, "but the pin still shows which way it goes"
     assert_equal 50.0, south.x, "a four-tile gate sits at the centre of its tiles"
-    refute_predicate south, :key?
     refute_predicate south, :tickable?
   end
 
@@ -52,10 +52,10 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_empty forest_map.markers_in("nonsense")
   end
 
-  test "a trainer marker is lettered and tickable" do
+  test "a trainer marker is keyed and tickable" do
     first = forest_map.markers_in("trainer").first
 
-    assert_equal "A", first.glyph_or_key
+    assert_equal "T1", first.glyph_or_key
     assert_predicate first, :key?
     assert_predicate first, :tickable?
   end
@@ -63,7 +63,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   test "a marker with neither glyph nor key has nothing to show" do
     assert_nil marker.glyph_or_key
     assert_equal "X", marker(key: "X").glyph_or_key
-    assert_equal "▲", marker(key: "X", glyph: "▲").glyph_or_key, "a glyph wins over a letter"
+    assert_equal "▲", marker(key: "X", glyph: "▲").glyph_or_key, "a glyph wins over a key"
   end
 
   test "a map wider than half again its height takes the landscape template" do
@@ -79,7 +79,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
 
     assert_equal "npc", fisher.cat
     assert_equal "Technology!", fisher.name
-    assert_equal "A", fisher.key, "a map with no trainers starts its people at A"
+    assert_equal "N1", fisher.key, "an NPC numbers from N1, clear of every other category"
     assert_in_delta 57.5, fisher.x, 0.001, "grid (11,14) centred on the 320px-wide map"
     assert_in_delta 80.556, fisher.y, 0.001
     assert_predicate fisher, :key?
@@ -87,14 +87,57 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate fisher, :tickable?, "an NPC is a signpost, not a chore"
   end
 
-  test "an NPC's letter carries on from the trainers so the two never collide" do
-    map = location("route-24").area_maps.first
-    trainers = map.markers_in("trainer")
-    npc = map.markers.find { |m| m.cat == "npc" }
+  test "every card carries the key its pin wears, so the two name one thing" do
+    forest = location("viridian-forest")
+    items = forest.steps.flat_map(&:items)
+    hidden = forest.steps.flat_map(&:hidden)
 
-    assert_equal 7, trainers.size
-    assert_equal %w[A B C D E F G], trainers.map(&:key)
-    assert_equal "H", npc.key, "the Nugget giver takes the letter after the last trainer"
+    assert_equal [ "I3", "I1", "I2" ], items.map(&:key)
+    assert_equal "viridian-forest/item-1-31", items.first.tick
+    assert_equal({ "Antidote" => "H2", "Potion" => "H1" }, hidden.to_h { |h| [ h.name, h.key ] })
+  end
+
+  test "a step that names a pin resolves it to the key that pin wears today" do
+    approach = location("route-4-mt-moon")
+    center = approach.area_maps.first.markers.find { |m| m.id == "exit-11-5" }
+
+    assert_equal({ center: center.key }, approach.steps.first.marks)
+    assert_equal "Mt. Moon Pokecenter", center.name
+  end
+
+  test "every step that names pins ends up with a key for each of them" do
+    unresolved = game.locations.flat_map(&:steps).reject { |s| s.pins.keys == s.marks.keys }
+
+    assert_empty unresolved.map(&:title_key),
+      "a step kept an unresolved pin, so its prose would print a raw %{token}"
+  end
+
+  test "a pin knows the step that picks it up, so the map can point back at the prose" do
+    pins = forest_map.markers.to_h { |m| [ m.id, m.step ] }
+
+    assert_equal 3, pins.fetch("item-1-31"), "the Poké Ball is step 3's errand"
+    assert_equal 6, pins.fetch("hidden-1-18")
+    assert_nil pins.fetch("trainer-2-41"), "a trainer belongs to the location, not to one step"
+    assert_nil pins.fetch("exit-1-0")
+  end
+
+  test "a locked later item names its pin, and names none when the game gives it no ball" do
+    route_2 = location("route-2").later.to_h { |l| [ l.name, l.key ] }
+
+    assert_equal "I1", route_2.fetch("Moon Stone")
+    assert_nil route_2.fetch("HM05 Flash"), "Flash is handed over by Oak's aide, not lying on a tile"
+  end
+
+  test "each category counts from one, so no two pins on a map share a key" do
+    map = location("route-24").area_maps.first
+    keys = map.markers.map(&:key)
+
+    assert_equal %w[T1 T2 T3 T4 T5 T6 T7], map.markers_in("trainer").map(&:key)
+    assert_equal %w[I1], map.markers_in("item").map(&:key)
+    assert_equal %w[E1 E2], map.markers_in("exit").map(&:key)
+    assert_equal "N1", map.markers.find { |m| m.cat == "npc" }.key,
+      "an NPC starts its own N series rather than borrowing the trainers'"
+    assert_equal keys, keys.uniq, "a key names one thing on a map or it names nothing"
   end
 
   test "an NPC pin is left out of the tickable count and carries a note only it and exits have" do
@@ -115,10 +158,9 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "r", left.align
   end
 
-  test "NPC letters run past Z the way the generator's do" do
-    assert_equal "A", Walkthrough::Yellow.key_letter(0)
-    assert_equal "Z", Walkthrough::Yellow.key_letter(25)
-    assert_equal "AA", Walkthrough::Yellow.key_letter(26)
+  test "NPC keys number from one, matching the generator's own series" do
+    assert_equal "N1", Walkthrough::Yellow.key_letter(0)
+    assert_equal "N3", Walkthrough::Yellow.key_letter(2)
   end
 
   test "an area map defaults to no name and no markers" do
@@ -132,11 +174,11 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal 0, bare.tickable_count
   end
 
-  test "a trainer given its map object takes the letter that object's pin carries" do
+  test "a trainer given its map object takes the key that object's pin carries" do
     lass = location("viridian-forest").trainers.find { |trainer| trainer.cls == "LASS" }
 
     assert_equal "LASS:19", lass.opp
-    assert_equal "D", lass.marker_key
+    assert_equal "T4", lass.marker_key
     assert_predicate lass, :marker_key?
   end
 
@@ -150,11 +192,11 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     end
   end
 
-  test "a gym leader claims the letter of its own pin on the gym floor" do
+  test "a gym leader claims the key of its own pin on the gym floor" do
     brock = location("pewter-city").gym.leader
 
     assert_equal "BROCK:1", brock.opp
-    assert_equal "A", brock.marker_key
+    assert_equal "T1", brock.marker_key
     assert_predicate brock, :marker_key?
   end
 
@@ -163,7 +205,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
 
     assert(loc.area_maps.none? { |area| area.floor == "Gym" }, "the gym floor moves into the gym section")
     assert_match(/pewter-city-gym/, loc.gym.shot.image)
-    assert_equal %w[A B], loc.gym.pins.map(&:key), "the gym map draws a lettered pin per trainer"
+    assert_equal %w[T1 T2], loc.gym.pins.map(&:key), "the gym map draws a keyed pin per trainer"
     assert(loc.gym.pins.all? { |pin| pin.cat == "trainer" }, "only trainers are pinned")
   end
 

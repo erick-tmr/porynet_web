@@ -450,7 +450,7 @@
   {
     "type": "screen",
     "slug": "route-25",
-    "step": 2,
+    "step": 5,
     "name": "route-25-bill",
     "map": "BillsHouse",
     "player": [
@@ -815,7 +815,7 @@
     "dialog": {
       "lines": [
         "<PLAYER> got 5",
-        "POK\u00e9 BALLs!"
+        "POKé BALLs!"
       ]
     }
   }

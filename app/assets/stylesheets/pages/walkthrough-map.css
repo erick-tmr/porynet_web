@@ -369,6 +369,9 @@
 
 .pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
 .pn-mm[data-cat="npc"] .pn-mm__label-key { color: var(--mm-npc); }
+.pn-mm[data-cat="item"] .pn-mm__label-key { color: var(--mm-item); }
+.pn-mm[data-cat="hidden"] .pn-mm__label-key { color: var(--mm-hidden); }
+.pn-mm[data-cat="exit"] .pn-mm__label-key { color: var(--mm-exit); }
 
 /* --- hint popover -------------------------------------------------------- */
 
@@ -425,6 +428,21 @@
   color: #9fb6d6;
   margin-top: 3px;
 }
+
+/* The way back into the prose: a marker knows which step picks it up, so its hint offers that
+   step as a link. Tapping it jumps to the card that explains the pin you just tapped. */
+.pn-mm__hint-step {
+  display: block;
+  width: max-content;
+  margin-top: 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+}
+.pn-mm__hint-step:hover,
+.pn-mm__hint-step:focus-visible { color: var(--amber); }
 
 .pn-mm__status {
   display: none;
@@ -533,29 +551,22 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  width: 22px;
+  min-width: 22px;
   height: 22px;
+  padding: 0 3px;
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
   color: #fff;
   border: 2px solid var(--ink);
 }
 
+/* Every marker wears its letter here, in its category's colour, because the letter is the whole
+   handle: it is what the step card prints and what the label beside the pin repeats. */
 .pn-mm-legend__chip--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__chip--npc { background: var(--mm-npc); color: var(--ink); }
-/* A numbered ladder: the steps call it "ladder 3", so the legend wears the same 3. */
+.pn-mm-legend__chip--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__chip--hidden { background: var(--mm-hidden); border-radius: 50%; }
 .pn-mm-legend__chip--exit { background: var(--mm-exit); border-radius: 4px; }
-
-.pn-mm-legend__dot {
-  flex: none;
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--ink);
-}
-
-.pn-mm-legend__dot--item { background: var(--mm-item); border-radius: 50%; }
-.pn-mm-legend__dot--hidden { background: var(--mm-hidden); border-radius: 50%; }
-.pn-mm-legend__dot--exit { background: var(--mm-exit); border-radius: 4px; }
 
 .pn-mm-legend__name {
   flex: 1;
@@ -851,7 +862,6 @@
 
 .pn-wt-later.is-done .pn-wt-later__check { display: block; }
 
-.pn-wt-trainer__key { color: var(--accent2); }
 
 /* --- trade card: traded state -------------------------------------------- */
 /* The TRADE tag flips to a solid purple TRADED, and a corner badge confirms the swap, the same
