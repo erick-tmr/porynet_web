@@ -50,6 +50,14 @@ class ApplicationHelperTest < ActionView::TestCase
       best_catch_reason(best, encounter("063", "Abra"))
   end
 
+  test "best_catch_reason says a species lives elsewhere too, just behind a later rod" do
+    best = Walkthrough::BestCatch.new(dex: "119", slug: "cerulean-cave", rate: "15%",
+                                      armed_only: true)
+
+    assert_equal "The only stop you reach already equipped for Seaking. The rest come before the rod.",
+      best_catch_reason(best, encounter("119", "Seaking"))
+  end
+
   test "best_catch_reason drops the rate for a static with no percentage to quote" do
     best = Walkthrough::BestCatch.new(dex: "150", slug: "cerulean-cave", rate: nil, only: true)
 
@@ -132,6 +140,15 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_includes progress_remaining(%w[010 011]), ">2<"
     assert_includes progress_meter(%w[010]), 'data-progress-toggle-target="meter"'
     assert_includes body_progress(2), 'data-body-counter-target="have"'
+  end
+
+  test "a section header tallies only the species that method finds" do
+    tally = catch_tally(%w[010 011])
+
+    assert_includes tally, 'data-progress-toggle-target="count"'
+    assert_includes tally, 'data-kind="caught"'
+    assert_includes tally, 'data-progress-ids="010 011"'
+    assert_includes tally, "/ 2 CAUGHT"
   end
 
   test "a floor row takes the card's own tag when it reads the same table" do

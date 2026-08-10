@@ -46,7 +46,7 @@
       </div>
       <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: @location.catchable_count) %></div>
     </div>
-    <%= render "catch_grids", loc: @location, plan: plan %>
+    <%= render "catch_sections", loc: @location, plan: plan %>
   </section>
 <% end %>
 

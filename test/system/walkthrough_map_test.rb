@@ -131,6 +131,25 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-ldrow"
   end
 
+  test "a folded catchable section is still folded on the next visit" do
+    section = "#catchsec-viridian-forest-grass"
+    visit_forest
+
+    assert_selector "#{section}.is-ready.is-open"
+    assert_selector "#{section} .pn-wt-catch", count: 4
+
+    find("#{section} .pn-wt-catchsec__head").click
+    assert_no_selector "#{section} .pn-wt-catch", visible: true
+
+    visit FOREST
+
+    assert_selector "#{section}.is-ready"
+    assert_no_selector "#{section} .pn-wt-catch", visible: true
+
+    find("#{section} .pn-wt-catchsec__head").click
+    assert_selector "#{section} .pn-wt-catch", count: 4
+  end
+
   test "the Living Dex stepper counts bodies and registers the species on the first one" do
     visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
 

@@ -187,6 +187,108 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 4, forest.catchable_count
   end
 
+  test "the best place to catch is a stop you reach already holding the rod or Surf" do
+    g = game
+    stranded = g.locations.flat_map do |loc|
+      loc.encounters.filter_map do |enc|
+        next unless g.best_catch_here(loc, enc)
+        next if enc.unlocked_from <= loc.order
+
+        "#{enc.name} at #{loc.slug}"
+      end
+    end
+
+    # Psyduck and Golduck live on Route 6 alone, behind Surf, so their one stop is the fallback:
+    # the badge stays because there is nowhere else to send them.
+    assert_equal [ "Psyduck at route-6", "Golduck at route-6" ], stranded
+  end
+
+  test "a species is not crowned at a stop whose rod arrives many stops later" do
+    g = game
+    route22 = loc("route-22")
+    magikarp = route22.encounters.find { |enc| enc.dex == "129" }
+
+    assert_equal "OLD ROD", magikarp.how
+    assert_operator magikarp.unlocked_from, :>, route22.order, "Route 22 is before the Old Rod"
+    assert_nil g.best_catch_here(route22, magikarp)
+    refute_equal "route-22", g.best_catches["129"].slug
+  end
+
+  test "a species catchable at one armed stop says so, without claiming to be the only one" do
+    best = game.best_catches["119"]
+
+    assert_equal "cerulean-cave", best.slug
+    assert best.armed_only
+    refute best.only, "Seaking also lives on Route 4 and Route 24, just behind a later rod"
+  end
+
+  test "gating the ranking on the tools you carry costs no species its badge" do
+    assert_equal 94, game.best_catches.size
+  end
+
+  test "a stop boxes its catchables by method, in section order rather than authoring order" do
+    sections = loc("route-24").encounter_sections
+
+    # the Charmander is authored last, and comes out first
+    assert_equal [ "GIFT", "GRASS", "OLD ROD", "GOOD ROD", "SUPER ROD" ], sections.map(&:code)
+    assert_equal [ 1, 5, 1, 2, 2 ], sections.map(&:size)
+  end
+
+  test "a starter files under the gift box while its card keeps the STARTER tag" do
+    section = loc("pallet-town").encounter_sections.sole
+
+    assert section.gift?
+    assert_equal "GIFT", section.code
+    assert_equal "STARTER", section.encounters.sole.how
+  end
+
+  test "a method the stop has no Pokemon for gets no box at all" do
+    assert_equal [ "GRASS" ], loc("route-3").encounter_sections.map(&:code)
+  end
+
+  test "a box names the sprite and the copy keys it renders with" do
+    section = loc("safari-zone").encounter_sections.first
+
+    assert_equal "safari", section.key
+    refute section.gift?
+    assert_equal "walkthrough/items/safari-ball.png", section.icon_path
+    assert_equal "walkthrough.ui.catchsec_safari_label", section.label_key
+    assert_equal "walkthrough.ui.catchsec_safari_hint", section.hint_key
+  end
+
+  test "a multi-word method slugs into one key for the id, the class and the copy" do
+    section = loc("celadon-city").encounter_sections.find { |s| s.code == "GAME CORNER" }
+
+    assert_equal "game-corner", section.key
+    assert_equal "walkthrough.ui.catchsec_game_corner_label", section.label_key
+  end
+
+  test "a method with no box raises rather than dropping its cards" do
+    error = assert_raises(Walkthrough::UnknownEncounterSection) do
+      stub_location("route-99", [ encounter_by("MIRAGE") ]).encounter_sections
+    end
+
+    assert_match "route-99", error.message
+    assert_match "MIRAGE", error.message
+  end
+
+  test "a box counts its cards but tallies its species" do
+    section = stub_location("route-99", [ encounter_by("GRASS"), encounter_by("GRASS") ])
+      .encounter_sections.sole
+
+    assert_equal 2, section.size
+    assert_equal [ "016" ], section.dex_list
+  end
+
+  test "every catchable in the game lands in exactly one box, and every box is used" do
+    codes = game.locations.flat_map do |l|
+      assert_equal l.encounters.size, l.encounter_sections.sum(&:size), "#{l.slug} lost a card"
+      l.encounter_sections.map(&:code)
+    end
+
+    assert_equal Walkthrough::SECTION_ICONS.keys.sort, codes.uniq.sort
+  end
+
   test "every referenced sprite dex is a three-digit string" do
     g = game
     dexes = g.oak_example.map(&:dex)
@@ -607,6 +709,17 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   private
+
+  def encounter_by(how)
+    Walkthrough::Encounter.new(dex: "016", name: "Pidgey", how: how, rate: "50%", level: "3",
+      rarity: "COMMON", tip_key: nil, evo_line: [])
+  end
+
+  def stub_location(slug, encounters)
+    Walkthrough::Location.new(slug: slug, kind: "ROUTE", name: slug.titleize, order: 99,
+      note_key: "n", intro_key: "i", badge: nil, steps: [], encounters: encounters,
+      trainers: [], oak_queue: [])
+  end
 
   def content_keys(game)
     keys = game.legs.reject(&:special).map(&:lead_key)

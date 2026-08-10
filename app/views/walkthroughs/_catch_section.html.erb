@@ -1,0 +1,34 @@
+<% id = "catchsec-#{loc.slug}-#{section.key}" %>
+<section class="pn-wt-catchsec is-open" id="<%= id %>"
+         data-controller="section-fold"
+         data-section-fold-game-value="<%= @game.slug %>"
+         data-section-fold-id-value="<%= loc.slug %>/<%= section.key %>">
+  <button type="button" class="pn-wt-catchsec__head pn-wt-catchsec__head--<%= section.key %>"
+          data-section-fold-target="toggle" data-action="section-fold#toggle"
+          aria-expanded="true" aria-controls="<%= id %>-body">
+    <span class="pn-wt-catchsec__icon" aria-hidden="true">
+      <%= r2_image_tag section.icon_path, alt: "" %>
+    </span>
+    <span class="pn-wt-catchsec__main">
+      <span class="pn-wt-catchsec__line">
+        <span class="pn-wt-catchsec__label"><%= t(section.label_key) %></span>
+        <span class="pn-wt-catchsec__code"><%= section.code %></span>
+      </span>
+      <span class="pn-wt-catchsec__hint"><%= t(section.hint_key) %></span>
+    </span>
+    <span class="pn-wt-catchsec__meta">
+      <span class="pn-wt-catchsec__num"><%= t("walkthrough.ui.catchsec_count", count: section.size) %></span>
+      <span class="pn-wt-catchsec__tally"><%= catch_tally(section.dex_list) %></span>
+    </span>
+    <span class="pn-wt-catchsec__chev" aria-hidden="true">▸</span>
+  </button>
+
+  <div class="pn-wt-catchsec__body" id="<%= id %>-body" data-section-fold-target="body">
+    <div class="<%= class_names("pn-wt-catch-grid", "pn-wt-catch-grid--gifts" => section.gift?) %>">
+      <% section.encounters.each do |enc| %>
+        <%= render "catch_card", enc: enc, best: @game.best_catch_here(loc, enc), slug: loc.slug,
+                   entry: plan.entry_for(enc.dex) %>
+      <% end %>
+    </div>
+  </div>
+</section>

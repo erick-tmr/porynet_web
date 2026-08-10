@@ -156,6 +156,10 @@ module ApplicationHelper
     t(key, rate: entry.rate)
   end
 
+  def catch_tally(ids)
+    t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
+  end
+
   def oak_tally(ids)
     t("walkthrough.ui.oak_tally_html", total: ids.size, done: progress_count(ids))
   end
@@ -225,6 +229,9 @@ module ApplicationHelper
 
   def best_catch_reason(best, encounter)
     return sole_catch_reason(best, encounter) if best.only
+    if best.armed_only
+      return t("walkthrough.ui.best_reason_armed_only", name: encounter.name)
+    end
 
     key = best.tie ? "walkthrough.ui.best_reason_tie" : "walkthrough.ui.best_reason_beats"
     t(key, name: encounter.name, rate: best.rate, alt: best.alt_name, alt_rate: best.alt_rate)

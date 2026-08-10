@@ -32,6 +32,10 @@ detectors:
       - Walkthrough::Evolutions   # the five stone names, the row table transcribed
                                   # from evos_moves.asm, and the three indexes built
                                   # off it. All one cohesive lookup.
+      - Walkthrough        # the namespace itself: a handful of small shared tables the
+                           # Data structs below read (map categories, method unlock stops,
+                           # the encounter-section order). Each belongs to the module rather
+                           # than to any one struct, so there is nowhere better to put them.
   UncommunicativeVariableName:
     accept:
       - i                 # plain loop index in the grid/box builders

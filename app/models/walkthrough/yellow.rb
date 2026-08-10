@@ -327,14 +327,22 @@ module Walkthrough
         end
       end
       by_dex.each_with_object({}) do |(dex, entries), best|
-        found = entries.one? ? sole_catch(dex, entries.first) : ranked_catch(dex, entries)
+        found = best_catch(dex, entries)
         best[dex] = found if found
       end
     end
 
-    def self.sole_catch(dex, entry)
+    def self.best_catch(dex, entries)
+      armed = entries.select { |entry| entry[:enc].unlocked_from <= entry[:loc].order }
+      pool = armed.any? ? armed : entries
+      return sole_catch(dex, pool.first, entries.one?) if pool.one?
+
+      ranked_catch(dex, pool)
+    end
+
+    def self.sole_catch(dex, entry, anywhere = true)
       BestCatch.new(
-        dex: dex, slug: entry[:loc].slug, only: true,
+        dex: dex, slug: entry[:loc].slug, only: anywhere, armed_only: !anywhere,
         rate: entry[:pct] ? entry[:enc].rate : nil
       )
     end

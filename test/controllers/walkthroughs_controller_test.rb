@@ -168,6 +168,16 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-mm-legend__chip--item", text: "I3"
   end
 
+  test "a stop with one encounter method renders exactly one section" do
+    get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
+
+    assert_response :success
+    assert_select ".pn-wt-catchsec", count: 1
+    assert_select "#catchsec-viridian-forest-grass .pn-wt-catch", count: 4
+    assert_select "#catchsec-viridian-forest-surf", false
+    assert_select "#catchsec-viridian-forest-gift", false
+  end
+
   test "an interior map fills a step screenshot slot" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-01")
 
@@ -515,9 +525,67 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     # Route 24's Charmander is a gift: badge + source, in the gifts row, and unconditional (no box)
     assert_select ".pn-wt-catch-grid--gifts .pn-wt-catch__gift-from", text: "FROM THE HILLTOP BOY"
-    assert_select ".pn-wt-catch-grid--gifts .pn-wt-catch--gift .pn-wt-catch__name", text: "Charmander"
+    assert_select "#catchsec-route-24-gift .pn-wt-catch-grid--gifts .pn-wt-catch--gift .pn-wt-catch__name",
+      text: "Charmander"
     # the wild grass mons stay in the separate wild grid
-    assert_select ".pn-wt-catch-grid:not(.pn-wt-catch-grid--gifts) .pn-wt-catch__name", text: "Oddish"
+    assert_select "#catchsec-route-24-grass .pn-wt-catch-grid:not(.pn-wt-catch-grid--gifts) .pn-wt-catch__name",
+      text: "Oddish"
+  end
+
+  test "a card you have no rod for is never crowned the best place to catch" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_response :success
+    # Route 22 is stop 4; the Old Rod is stop 16. The card still lists Magikarp, still says which
+    # rod it wants, and no longer claims this is where to catch it.
+    assert_select "#catchsec-route-22-old-rod .pn-wt-catch__name", text: "Magikarp"
+    assert_select "#catchsec-route-22-old-rod .pn-wt-catchbadge--locked", text: "NEEDS OLD ROD"
+    assert_select "#catchsec-route-22-old-rod .pn-wt-best", false
+    assert_select "#catchsec-route-22-super-rod .pn-wt-best", false
+    assert_select "#catchsec-route-22-good-rod .pn-wt-best", false
+    # the grass on the same stop is walkable from the start, so it keeps its badge
+    assert_select "#catchsec-route-22-grass .pn-wt-best"
+  end
+
+  test "the catchables box into one section per method, gifts first" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    ids = css_select(".pn-wt-band-wrap[data-slug='route-24'] .pn-wt-catchsec").map { |s| s["id"] }
+    assert_equal %w[catchsec-route-24-gift catchsec-route-24-grass catchsec-route-24-old-rod
+                    catchsec-route-24-good-rod catchsec-route-24-super-rod], ids
+    assert_select "#catchsec-route-24-gift .pn-wt-catchsec__label", text: "Gifts and starters"
+    assert_select "#catchsec-route-24-gift .pn-wt-catchsec__code", text: "GIFT"
+    assert_select "#catchsec-route-24-grass .pn-wt-catchsec__hint",
+      text: "Walk the patches and let them come to you."
+    assert_select "#catchsec-route-24-super-rod .pn-wt-catchsec__num", text: "2 SPECIES"
+    assert_select "#catchsec-route-24-old-rod .pn-wt-catchsec__num", text: "1 SPECIES"
+    assert_select "#catchsec-route-24-safari .pn-wt-catchsec__icon img[src*=?]", "safari-ball.png",
+      false, "a method this stop has no Pokemon for gets no box"
+  end
+
+  test "a section header tallies only the species its own method finds" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+
+    assert_response :success
+    assert_select "#catchsec-cinnabar-island-fossil .pn-wt-catchsec__label", text: "Revived fossils"
+    assert_select "#catchsec-cinnabar-island-fossil .pn-wt-catchsec__icon img[src*=?]",
+      "walkthrough/items/dome-fossil.png"
+    assert_select "#catchsec-cinnabar-island-fossil " \
+                  "[data-progress-toggle-target='count'][data-progress-ids='138 140 142']"
+  end
+
+  test "each section folds on its own, keyed by the stop and the method" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select "#catchsec-route-24-grass.pn-wt-catchsec.is-open" \
+                  "[data-controller='section-fold']" \
+                  "[data-section-fold-game-value='yellow']" \
+                  "[data-section-fold-id-value='route-24/grass']"
+    assert_select "#catchsec-route-24-grass .pn-wt-catchsec__head" \
+                  "[aria-expanded='true'][aria-controls='catchsec-route-24-grass-body']"
+    assert_select "#catchsec-route-24-grass-body[data-section-fold-target='body']"
   end
 
   test "a gift gated by a badge (Squirtle) shows that badge as its unlock icon" do
