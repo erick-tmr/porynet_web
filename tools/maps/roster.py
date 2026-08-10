@@ -71,9 +71,19 @@ def hero_cell(root_str, map_label, grid, step):
     return [grid[0] + step[0] * PLAYER_CELLS, grid[1] + step[1] * PLAYER_CELLS]
 
 
+def spots_player(root_str, map_label, obj):
+    """Whether this trainer engages on sight, from its own engage distance in the game.
+
+    A distance of zero, or no trainer header at all, means the fight only starts when you talk:
+    the two Route 6 Jr. Trainers face each other across one tile, a gym leader waits for you, and
+    Cinnabar's quiz gym has no headers to spot you with."""
+    return sources.parse_trainer_sight(root_str, map_label).get(obj["text_const"], 0) > 0
+
+
 def where_spec(root_str, map_label, parent, obj, name):
     """The 'where' shot: the hero on a walkable tile in front of the trainer, both facing each
-    other, with the trainer flashing the '!' it shows on spotting you. The camera sits midway
+    other. A trainer that engages on sight flashes the '!' it shows on spotting you; one you have
+    to walk up and talk to does not, because it never sees you coming. The camera sits midway
     between them so both stay framed however near the hero ends up.
 
     `auto_npcs` keeps the map's other real people in frame as landmarks (only the spotting trainer
@@ -83,14 +93,16 @@ def where_spec(root_str, map_label, parent, obj, name):
     step = FACINGS[facing]
     grid = obj["grid"]
     player = hero_cell(root_str, map_label, grid, step)
+    sprite = {"sprite": obj["sprite_const"], "grid": list(grid), "dir": facing}
+    if spots_player(root_str, map_label, obj):
+        sprite["emote"] = "shock"
     spec = {
         "type": "screen", "name": name, "map": map_label,
         "player": player,
         "player_dir": OPPOSITE[facing],
         "focus": [(grid[0] + player[0]) // 2, (grid[1] + player[1]) // 2],
         "auto_npcs": True,
-        "sprites": [{"sprite": obj["sprite_const"], "grid": list(grid),
-                     "dir": facing, "emote": "shock"}],
+        "sprites": [sprite],
     }
     if parent:
         spec["parent"] = parent

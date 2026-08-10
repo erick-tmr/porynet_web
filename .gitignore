@@ -64,3 +64,6 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Playwright MCP scratch output (screenshots, page snapshots)
+.playwright-mcp/

@@ -220,3 +220,45 @@ def test_every_entry_is_complete(root):
             assert 1 <= len(card["team"]) <= 6
             assert all(len(m["dex"]) == 3 and m["lvl"] > 0 for m in card["team"])
             assert card["where"].endswith(".png")
+
+
+def test_a_facing_pair_never_flashes_the_spotted_bubble(root):
+    """Route 6's two Jr. Trainers stand on adjacent tiles facing each other, and the game gives
+    both an engage distance of 0: they only fight when talked to, so no '!' belongs on either."""
+    _, specs = built(root)
+    pair = [s for s in specs if s["name"] in ("route-6-trainer-10-21", "route-6-trainer-11-21")]
+
+    assert len(pair) == 2
+    for spec in pair:
+        assert "emote" not in spec["sprites"][0], spec["name"]
+
+
+def test_a_trainer_who_watches_the_road_still_flashes_it(root):
+    """The same route's Bug Catcher sees four tiles down the path, so its shot keeps the '!'."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "route-6-trainer-0-15")
+
+    assert spec["sprites"][0]["emote"] == "shock"
+
+
+def test_a_gym_leader_waits_to_be_talked_to(root):
+    """A leader is a trainer object with no header at all, so it must not be read as sight 0 by
+    accident and must not flash: Brock does not spot you across the gym."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "pewter-city-gym-trainer-4-1")
+
+    assert "emote" not in spec["sprites"][0]
+
+
+def test_sight_ranges_come_from_the_map_script(root):
+    sight = sources.parse_trainer_sight(root, "Route6")
+
+    assert sight["TEXT_ROUTE6_COOLTRAINER_M1"] == 0
+    assert sight["TEXT_ROUTE6_COOLTRAINER_F1"] == 0
+    assert sight["TEXT_ROUTE6_YOUNGSTER1"] == 4
+
+
+def test_a_map_with_no_trainer_headers_reads_as_nobody_spotting(root):
+    """Cinnabar's quiz gym has no trainer headers: its fights start at the question machines."""
+    assert sources.parse_trainer_sight(root, "CinnabarGym") == {}
+    assert sources.parse_trainer_sight(root, "PalletTown") == {}
