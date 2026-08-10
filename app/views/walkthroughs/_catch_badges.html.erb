@@ -1,5 +1,9 @@
 <div class="pn-wt-catch__badges">
-  <% if entry.boxed? %>
+  <% if entry.nil? %>
+    <span class="pn-wt-catchbadge pn-wt-catchbadge--locked">
+      <%= t("walkthrough.ui.badge_needs", tool: needs_label) %>
+    </span>
+  <% elsif entry.boxed? %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--boxed"><%= t("walkthrough.ui.badge_boxed") %></span>
   <% elsif !entry.fresh? %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--elsewhere"><%= t("walkthrough.ui.badge_elsewhere") %></span>

@@ -450,6 +450,7 @@ pt:
       band_ledger_none: "NADA PARA CAPTURAR AQUI"
       badge_living_html: "LIVING DEX ×%{count}"
       badge_oak: "OAK ×%{count}"
+      badge_needs: "PRECISA DE %{tool}"
       badge_boxed: "JÁ NA CAIXA"
       badge_do_at: "FAÇA EM %{stop}"
       pill_box_html: "CAIXA %{have}/%{want}"
@@ -1864,7 +1865,6 @@ pt:
               title: "Saia a oeste para a Rota 14"
               text_html: "Com os dois reforcos de status no bolso, desca pelo ultimo trecho de desniveis e saia a oeste %{west} para a Rota 14."
           tips:
-            ditto: "Uma captura de 5% que Transforma no que enfrenta. Útil para a dex."
           oak:
             ditto: "Capture a bolha que Transforma aqui. Divertida e útil para breeding em gerações futuras."
         route_14:
@@ -2477,9 +2477,7 @@ pt:
               title: "Saia e atravesse até o ginásio do Blaine"
               text: "Com a Secret Key em mãos e o subsolo limpo, use o Escape Rope (ou saia andando) de volta a Cinnabar Island. Atravesse a rua e destranque o ginásio do Blaine pela Volcano Badge."
           tips:
-            vulpix: "O Yellow põe Vulpix e Growlithe aqui. Um Vulpix selvagem fácil, enfim."
             growlithe: "O outro cão de Fogo, na mesma mansão → Arcanine com uma Fire Stone."
-            magmar: "Uma captura rara de Fogo nos andares inferiores. Uma das poucas fontes de Magmar."
           oak:
             vulpix: "Selvagem aqui no Yellow (senão só por troca) → Ninetales. Pegue um."
             growlithe: "Também selvagem aqui → Arcanine com uma Fire Stone. Registre a base."

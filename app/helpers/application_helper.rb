@@ -118,7 +118,11 @@ module ApplicationHelper
 
   def owned_line = t("walkthrough.ui.ld_owned_html", caught: body_count_slot, evolved: 0)
 
+  # A species you cannot reach yet at this stop (a rod card before the rod) has no ledger entry, so
+  # it is nobody's tick target here. The card still renders, because the species does live here.
   def catch_card_attributes(dex, entry)
+    return {} if entry.nil?
+
     tickable("caught", dex).deep_merge(
       data: { controller: "body-counter", body_counter_game_value: @game.slug,
               body_counter_dex_value: dex, body_counter_covers_value: entry.covers.to_json }

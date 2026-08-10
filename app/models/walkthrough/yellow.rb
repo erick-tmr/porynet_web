@@ -749,8 +749,13 @@ module Walkthrough
           enc("route-22", "029", "GRASS", "30%", "2–4", "COMMON", "029", "030", "031", tip: true),
           enc("route-22", "032", "GRASS", "30%", "2–4", "COMMON", "032", "033", "034", tip: true),
           enc("route-22", "056", "GRASS", "20%", "3–5", "UNCOMMON", "056", "057", tip: true),
+          enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true),
           enc("route-22", "019", "GRASS", "10%", "3", "UNCOMMON", "019", "020", tip: true),
-          enc("route-22", "021", "GRASS", "10%", "2–6", "UNCOMMON", "021", "022", tip: true)
+          enc("route-22", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-22", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-22", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-22", "060", "SUPER ROD", "90%", "5–15", "COMMON", "060", "061", "062"),
+          enc("route-22", "061", "SUPER ROD", "10%", "15", "UNCOMMON", "060", "061", "062")
         ],
         trainers: [ tr("RIVAL", "Blue", 280, mon("021", 9), mon("133", 8), sprite: "blue-gen1",
           where: scene_shot("route-22-rival", "WHERE"),
@@ -945,9 +950,9 @@ module Walkthrough
         steps: [ step(b, 1), step(b, 2, pins: { north: "route-3/exit-north" }) ],
         encounters: [
           enc("route-3", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
+          enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057"),
           enc("route-3", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
-          enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
-          enc("route-3", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
+          enc("route-3", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028")
         ],
         trainers: [],
         oak_queue: [ oak("route-3", "027", 1) ]
@@ -988,10 +993,11 @@ module Walkthrough
           { html: true }
         ],
         encounters: [
-          enc("mt-moon", "041", "CAVE", "75%", "6–11", "COMMON", "041", "042"),
-          enc("mt-moon", "074", "CAVE", "15%", "8–10", "UNCOMMON", "074", "075", "076"),
-          enc("mt-moon", "046", "CAVE", "5%", "8", "RARE", "046", "047"),
-          enc("mt-moon", "035", "CAVE", "1%", "11", "RARE", "035", "036", tip: true)
+          enc("mt-moon", "041", "CAVE", "74%", "6–13", "COMMON", "041", "042"),
+          enc("mt-moon", "074", "CAVE", "20%", "10–11", "UNCOMMON", "074", "075", "076"),
+          enc("mt-moon", "046", "CAVE", "15%", "9–13", "UNCOMMON", "046", "047"),
+          enc("mt-moon", "035", "CAVE", "10%", "9–13", "UNCOMMON", "035", "036", tip: true),
+          enc("mt-moon", "027", "CAVE", "4%", "12", "RARE", "027", "028")
         ],
         trainers: [ tr("TEAM ROCKET", "Jessie & James", 420,
           mon("023", 14), mon("052", 14), mon("109", 14),
@@ -1010,9 +1016,14 @@ module Walkthrough
         ],
         encounters: [
           enc("route-4", "021", "GRASS", "55%", "8–12", "COMMON", "021", "022"),
+          enc("route-4", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057"),
           enc("route-4", "019", "GRASS", "15%", "10–12", "UNCOMMON", "019", "020"),
           enc("route-4", "027", "GRASS", "15%", "8–10", "UNCOMMON", "027", "028"),
-          enc("route-4", "056", "GRASS", "15%", "9", "UNCOMMON", "056", "057")
+          enc("route-4", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-4", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-4", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-4", "118", "SUPER ROD", "90%", "20–30", "COMMON", "118", "119"),
+          enc("route-4", "119", "SUPER ROD", "10%", "30", "UNCOMMON", "118", "119")
         ])
     end
 
@@ -1038,11 +1049,17 @@ module Walkthrough
           { pins: { east: "route-24/exit-east" } }
         ],
         encounters: [
-          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true, from: true),
           enc("route-24", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-24", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
           enc("route-24", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
-          enc("route-24", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049")
+          enc("route-24", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049"),
+          enc("route-24", "017", "GRASS", "1%", "17", "RARE", "016", "017", "018"),
+          enc("route-24", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-24", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-24", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-24", "118", "SUPER ROD", "90%", "20–30", "COMMON", "118", "119"),
+          enc("route-24", "119", "SUPER ROD", "10%", "30", "UNCOMMON", "118", "119"),
+          enc("route-24", "004", "GIFT", "-", "10", "GIFT", "004", "005", "006", tip: true, from: true)
         ],
         trainers: [ rival(595, mon("021", 18), mon("027", 15), mon("019", 15), mon("133", 17),
           where: scene_shot("route-24-rival", "WHERE"),
@@ -1064,7 +1081,13 @@ module Walkthrough
           enc("route-25", "043", "GRASS", "30%", "12–14", "COMMON", "043", "044", "045"),
           enc("route-25", "069", "GRASS", "30%", "12–14", "COMMON", "069", "070", "071"),
           enc("route-25", "016", "GRASS", "29%", "13–17", "UNCOMMON", "016", "017", "018"),
-          enc("route-25", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049")
+          enc("route-25", "048", "GRASS", "10%", "13–16", "UNCOMMON", "048", "049"),
+          enc("route-25", "017", "GRASS", "1%", "17", "RARE", "016", "017", "018"),
+          enc("route-25", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-25", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-25", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-25", "098", "SUPER ROD", "70%", "10–15", "COMMON", "098", "099"),
+          enc("route-25", "099", "SUPER ROD", "30%", "15–25", "COMMON", "098", "099")
         ],
         oak_queue: [ oak("route-25", "048", 1) ])
     end
@@ -1076,7 +1099,8 @@ module Walkthrough
           enc("route-5", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
           enc("route-5", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
           enc("route-5", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
-          enc("route-5", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040")
+          enc("route-5", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040"),
+          enc("route-5", "017", "GRASS", "5%", "17", "RARE", "016", "017", "018")
         ],
         trades: [ trade("route-5", "machoke", "104", "067", "RICKY",
           house: "route-5-underground-house", inside: "route-5-underground-house-inside") ],
@@ -1090,8 +1114,14 @@ module Walkthrough
           enc("route-6", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
           enc("route-6", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
           enc("route-6", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
-          enc("route-6", "090", "SUPER ROD", "50%", "15", "COMMON", "090", "091"),
-          enc("route-6", "098", "SUPER ROD", "50%", "15", "COMMON", "098", "099")
+          enc("route-6", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040"),
+          enc("route-6", "017", "GRASS", "5%", "17", "RARE", "016", "017", "018"),
+          enc("route-6", "054", "SURF", "94%", "15", "COMMON", "054", "055"),
+          enc("route-6", "055", "SURF", "6%", "15–20", "RARE", "054", "055"),
+          enc("route-6", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-6", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-6", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-6", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119")
         ])
     end
 
@@ -1138,9 +1168,16 @@ module Walkthrough
           { pins: { cave: "route-11/exit-4-5" } }
         ],
         encounters: [
-          enc("route-11", "016", "GRASS", "40%", "16–18", "COMMON", "016", "017", "018"),
-          enc("route-11", "019", "GRASS", "25%", "15–17", "UNCOMMON", "019", "020"),
-          enc("route-11", "096", "GRASS", "24%", "15–19", "UNCOMMON", "096", "097")
+          enc("route-11", "016", "GRASS", "35%", "16–18", "COMMON", "016", "017", "018"),
+          enc("route-11", "019", "GRASS", "30%", "15–17", "COMMON", "019", "020"),
+          enc("route-11", "096", "GRASS", "24%", "15–19", "UNCOMMON", "096", "097"),
+          enc("route-11", "017", "GRASS", "10%", "18–20", "UNCOMMON", "016", "017", "018"),
+          enc("route-11", "020", "GRASS", "1%", "17", "RARE", "019", "020"),
+          enc("route-11", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-11", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-11", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-11", "072", "SUPER ROD", "90%", "10–20", "COMMON", "072", "073"),
+          enc("route-11", "116", "SUPER ROD", "10%", "5", "UNCOMMON", "116", "117")
         ],
         trades: [ trade("route-11", "dugtrio", "108", "051", "GURIO",
           house: "route-11-gate", inside: "route-11-gate-inside") ],
@@ -1151,8 +1188,8 @@ module Walkthrough
       loc("digletts-cave", "CAVE", "Diglett's Cave", 19, steps: 2,
         pins: { 1 => { south: "digletts-cave/exit-37-31" }, 2 => { north: "digletts-cave/exit-5-5" } },
         encounters: [
-          enc("digletts-cave", "050", "CAVE", "95%", "15–22", "COMMON", "050", "051"),
-          enc("digletts-cave", "051", "CAVE", "5%", "29–31", "RARE", "050", "051")
+          enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
+          enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
         ],
         oak_queue: [ oak("digletts-cave", "050", 1) ])
     end
@@ -1173,7 +1210,8 @@ module Walkthrough
           { items: [ [ "Poké Flute", "poke_flute" ] ] }
         ],
         encounters: [
-          enc("pokemon-tower", "092", "FLOORS", "90%", "18–29", "COMMON", "092", "093", "094", tip: true),
+          enc("pokemon-tower", "092", "FLOORS", "94%", "18–29", "COMMON", "092", "093", "094", tip: true),
+          enc("pokemon-tower", "093", "FLOORS", "6%", "20–29", "RARE", "092", "093", "094"),
           enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105")
         ],
         trainers: [
@@ -1199,10 +1237,20 @@ module Walkthrough
           { pins: { south: "route-12/exit-south" } }
         ],
         encounters: [
-          enc("route-12", "043", "GRASS", "30%", "22–26", "COMMON", "043", "044", "045"),
-          enc("route-12", "069", "GRASS", "30%", "22–26", "COMMON", "069", "070", "071"),
-          enc("route-12", "079", "SURF", "95%", "15", "COMMON", "079", "080"),
-          enc("route-12", "083", "GRASS", "5%", "26–31", "RARE", "083", tip: true),
+          enc("route-12", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
+          enc("route-12", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
+          enc("route-12", "016", "GRASS", "15%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "017", "GRASS", "10%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "083", "GRASS", "6%", "26–31", "RARE", "083", tip: true),
+          enc("route-12", "044", "GRASS", "5%", "29", "RARE", "043", "044", "045"),
+          enc("route-12", "070", "GRASS", "5%", "29", "RARE", "069", "070", "071"),
+          enc("route-12", "079", "SURF", "94%", "15", "COMMON", "079", "080"),
+          enc("route-12", "080", "SURF", "6%", "15–20", "RARE", "079", "080"),
+          enc("route-12", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-12", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-12", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-12", "116", "SUPER ROD", "70%", "20–25", "COMMON", "116", "117"),
+          enc("route-12", "117", "SUPER ROD", "30%", "25–35", "COMMON", "116", "117"),
           enc("route-12", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
         ],
         oak_queue: [ oak("route-12", "079", 1), oak("route-12", "083", 1) ])
@@ -1216,10 +1264,21 @@ module Walkthrough
           { pins: { west: "route-13/exit-west" } }
         ],
         encounters: [
-          enc("route-13", "043", "GRASS", "30%", "22–27", "COMMON", "043", "044", "045"),
-          enc("route-13", "069", "GRASS", "30%", "22–27", "COMMON", "069", "070", "071"),
-          enc("route-13", "016", "GRASS", "10%", "25–28", "UNCOMMON", "016", "017", "018"),
-          enc("route-13", "132", "GRASS", "5%", "25", "RARE", "132", tip: true)
+          enc("route-13", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
+          enc("route-13", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
+          enc("route-13", "017", "GRASS", "15%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-13", "016", "GRASS", "10%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-13", "083", "GRASS", "6%", "26–31", "RARE", "083"),
+          enc("route-13", "044", "GRASS", "5%", "29", "RARE", "043", "044", "045"),
+          enc("route-13", "070", "GRASS", "5%", "29", "RARE", "069", "070", "071"),
+          enc("route-13", "079", "SURF", "94%", "15", "COMMON", "079", "080"),
+          enc("route-13", "080", "SURF", "6%", "15–20", "RARE", "079", "080"),
+          enc("route-13", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-13", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-13", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-13", "116", "SUPER ROD", "70%", "15–20", "COMMON", "116", "117"),
+          enc("route-13", "072", "SUPER ROD", "20%", "10", "UNCOMMON", "072", "073"),
+          enc("route-13", "117", "SUPER ROD", "10%", "20", "UNCOMMON", "116", "117")
         ],
         oak_queue: [ oak("route-13", "132", 1) ])
     end
@@ -1227,9 +1286,12 @@ module Walkthrough
     def self.route_14
       loc("route-14", "ROUTE", "Route 14", 31, steps: 2, pins: { 2 => { west: "route-14/exit-west" } },
         encounters: [
-          enc("route-14", "043", "GRASS", "30%", "22–28", "COMMON", "043", "044", "045"),
-          enc("route-14", "069", "GRASS", "30%", "22–28", "COMMON", "069", "070", "071"),
-          enc("route-14", "048", "GRASS", "19%", "24–27", "UNCOMMON", "048", "049"),
+          enc("route-14", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
+          enc("route-14", "069", "GRASS", "30%", "26–28", "COMMON", "069", "070", "071"),
+          enc("route-14", "048", "GRASS", "20%", "24–27", "UNCOMMON", "048", "049"),
+          enc("route-14", "017", "GRASS", "10%", "30", "UNCOMMON", "016", "017", "018"),
+          enc("route-14", "044", "GRASS", "5%", "30", "RARE", "043", "044", "045"),
+          enc("route-14", "070", "GRASS", "5%", "30", "RARE", "069", "070", "071"),
           enc("route-14", "049", "GRASS", "1%", "30", "RARE", "048", "049")
         ])
     end
@@ -1241,9 +1303,13 @@ module Walkthrough
           { pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
         ],
         encounters: [
-          enc("route-15", "043", "GRASS", "30%", "22–28", "COMMON", "043", "044", "045"),
-          enc("route-15", "069", "GRASS", "30%", "22–28", "COMMON", "069", "070", "071"),
-          enc("route-15", "048", "GRASS", "9%", "24–28", "RARE", "048", "049")
+          enc("route-15", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
+          enc("route-15", "069", "GRASS", "30%", "26–28", "COMMON", "069", "070", "071"),
+          enc("route-15", "048", "GRASS", "20%", "24–27", "UNCOMMON", "048", "049"),
+          enc("route-15", "017", "GRASS", "10%", "32", "UNCOMMON", "016", "017", "018"),
+          enc("route-15", "044", "GRASS", "5%", "30", "RARE", "043", "044", "045"),
+          enc("route-15", "070", "GRASS", "5%", "30", "RARE", "069", "070", "071"),
+          enc("route-15", "049", "GRASS", "1%", "30", "RARE", "048", "049")
         ])
     end
 
@@ -1254,6 +1320,10 @@ module Walkthrough
                 4 => { warden: "fuchsia-city/exit-27-27" } },
         key_items: { 2 => [ [ "Good Rod", "good_rod" ] ], 4 => [ [ "HM04 Strength", "hm04_strength" ] ] },
         encounters: [
+          enc("fuchsia-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("fuchsia-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("fuchsia-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("fuchsia-city", "129", "SUPER ROD", "90%", "5–15", "COMMON", "129", "130"),
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
         trainers: [],
@@ -1283,14 +1353,28 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("safari-zone", "123", "SAFARI", "4%", "23", "RARE", "123", tip: true),
-          enc("safari-zone", "127", "SAFARI", "4%", "23", "RARE", "127", tip: true),
-          enc("safari-zone", "115", "SAFARI", "4%", "25", "RARE", "115", tip: true),
+          enc("safari-zone", "102", "SAFARI", "20%", "20–26", "UNCOMMON", "102", "103"),
+          enc("safari-zone", "029", "SAFARI", "20%", "14–36", "UNCOMMON", "029", "030", "031"),
+          enc("safari-zone", "032", "SAFARI", "20%", "14–36", "UNCOMMON", "032", "033", "034"),
+          enc("safari-zone", "047", "SAFARI", "15%", "27–32", "UNCOMMON", "046", "047"),
+          enc("safari-zone", "115", "SAFARI", "15%", "28–33", "UNCOMMON", "115", tip: true),
+          enc("safari-zone", "030", "SAFARI", "10%", "23–32", "UNCOMMON", "029", "030", "031"),
+          enc("safari-zone", "033", "SAFARI", "10%", "23–32", "UNCOMMON", "032", "033", "034"),
+          enc("safari-zone", "104", "SAFARI", "10%", "16–19", "UNCOMMON", "104", "105"),
+          enc("safari-zone", "111", "SAFARI", "10%", "20–25", "UNCOMMON", "111", "112"),
           enc("safari-zone", "128", "SAFARI", "10%", "21", "UNCOMMON", "128"),
-          enc("safari-zone", "113", "SAFARI", "1%", "7", "RARE", "113", tip: true),
-          enc("safari-zone", "114", "SAFARI", "4%", "22", "RARE", "114"),
-          enc("safari-zone", "102", "SAFARI", "15%", "24", "UNCOMMON", "102", "103"),
-          enc("safari-zone", "147", "SUPER ROD", "10%", "15", "UNCOMMON", "147", "148", "149", tip: true)
+          enc("safari-zone", "046", "SAFARI", "5%", "27", "RARE", "046", "047"),
+          enc("safari-zone", "105", "SAFARI", "5%", "24", "RARE", "104", "105"),
+          enc("safari-zone", "113", "SAFARI", "4%", "7–21", "RARE", "113", tip: true),
+          enc("safari-zone", "114", "SAFARI", "4%", "22–27", "RARE", "114"),
+          enc("safari-zone", "123", "SAFARI", "4%", "15–25", "RARE", "123", tip: true),
+          enc("safari-zone", "127", "SAFARI", "4%", "15–25", "RARE", "127", tip: true),
+          enc("safari-zone", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("safari-zone", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("safari-zone", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("safari-zone", "129", "SUPER ROD", "90%", "5–15", "COMMON", "129", "130"),
+          enc("safari-zone", "147", "SUPER ROD", "20%", "10–15", "UNCOMMON", "147", "148", "149", tip: true),
+          enc("safari-zone", "148", "SUPER ROD", "10%", "15", "UNCOMMON", "147", "148", "149")
         ],
         oak_queue: [
           oak("safari-zone", "123", 1), oak("safari-zone", "127", 1),
@@ -1305,8 +1389,10 @@ module Walkthrough
         key_items: { 1 => [ [ "HM02 Fly", "hm02_fly" ] ] },
         encounters: [
           enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
-          enc("route-16", "019", "GRASS", "30%", "23–24", "COMMON", "019", "020"),
+          enc("route-16", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
           enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
+          enc("route-16", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
+          enc("route-16", "022", "GRASS", "5%", "24", "RARE", "021", "022"),
           enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
         ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
@@ -1324,9 +1410,14 @@ module Walkthrough
         ],
         encounters: [
           enc("route-17", "084", "GRASS", "50%", "26–28", "COMMON", "084", "085"),
-          enc("route-17", "077", "GRASS", "24%", "28–32", "UNCOMMON", "077", "078"),
           enc("route-17", "022", "GRASS", "25%", "27–29", "UNCOMMON", "021", "022"),
-          enc("route-17", "085", "GRASS", "1%", "29", "RARE", "084", "085")
+          enc("route-17", "077", "GRASS", "24%", "28–32", "UNCOMMON", "077", "078"),
+          enc("route-17", "085", "GRASS", "1%", "29", "RARE", "084", "085"),
+          enc("route-17", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-17", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-17", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-17", "072", "SUPER ROD", "70%", "5–15", "COMMON", "072", "073"),
+          enc("route-17", "090", "SUPER ROD", "30%", "25–35", "COMMON", "090", "091")
         ],
         oak_queue: [ oak("route-17", "077", 1) ])
     end
@@ -1335,9 +1426,16 @@ module Walkthrough
       loc("route-18", "ROUTE", "Route 18", 37, steps: 2,
         pins: { 2 => { gate: "route-18/exit-33-8", east: "route-18/exit-east" } },
         encounters: [
-          enc("route-18", "021", "GRASS", "40%", "20–22", "COMMON", "021", "022"),
+          enc("route-18", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-18", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
-          enc("route-18", "084", "GRASS", "25%", "24–28", "UNCOMMON", "084", "085")
+          enc("route-18", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
+          enc("route-18", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
+          enc("route-18", "022", "GRASS", "5%", "24", "RARE", "021", "022"),
+          enc("route-18", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-18", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-18", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-18", "090", "SUPER ROD", "60%", "20–40", "COMMON", "090", "091"),
+          enc("route-18", "072", "SUPER ROD", "40%", "15", "COMMON", "072", "073")
         ],
         trades: [ trade("route-18", "parasect", "114", "047", "SPIKE",
           house: "route-18-gate", inside: "route-18-gate-inside") ])
@@ -1395,9 +1493,12 @@ module Walkthrough
       loc("route-19", "ROUTE", "Route 19", 40, steps: 2, pins: { 2 => { west: "route-19/exit-west" } },
         encounters: [
           enc("route-19", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
+          enc("route-19", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-19", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-19", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-19", "072", "SUPER ROD", "60%", "15–30", "COMMON", "072", "073"),
           enc("route-19", "120", "SUPER ROD", "30%", "20", "COMMON", "120", "121"),
-          enc("route-19", "116", "SUPER ROD", "25%", "15", "UNCOMMON", "116", "117"),
-          enc("route-19", "090", "SUPER ROD", "25%", "15", "UNCOMMON", "090", "091")
+          enc("route-19", "073", "SUPER ROD", "10%", "30", "UNCOMMON", "072", "073")
         ])
     end
 
@@ -1405,8 +1506,12 @@ module Walkthrough
       loc("route-20", "ROUTE", "Route 20", 41, steps: 2, pins: { 2 => { east: "route-20/exit-58-9" } },
         encounters: [
           enc("route-20", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
-          enc("route-20", "120", "SUPER ROD", "45%", "15–30", "COMMON", "120", "121"),
-          enc("route-20", "116", "SUPER ROD", "25%", "15", "UNCOMMON", "116", "117")
+          enc("route-20", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-20", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-20", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-20", "073", "SUPER ROD", "40%", "20–40", "COMMON", "072", "073"),
+          enc("route-20", "072", "SUPER ROD", "40%", "20", "COMMON", "072", "073"),
+          enc("route-20", "120", "SUPER ROD", "20%", "30", "UNCOMMON", "120", "121")
         ])
     end
 
@@ -1421,11 +1526,22 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("seafoam-islands", "086", "CAVE", "15%", "28–30", "UNCOMMON", "086", "087"),
-          enc("seafoam-islands", "090", "CAVE", "19%", "28–30", "UNCOMMON", "090", "091"),
-          enc("seafoam-islands", "098", "CAVE", "35%", "25–27", "COMMON", "098", "099"),
-          enc("seafoam-islands", "054", "CAVE", "20%", "30", "UNCOMMON", "054", "055"),
-          enc("seafoam-islands", "079", "CAVE", "15%", "28–30", "UNCOMMON", "079", "080"),
+          enc("seafoam-islands", "041", "CAVE", "44%", "9–45", "COMMON", "041", "042"),
+          enc("seafoam-islands", "098", "CAVE", "35%", "25–31", "COMMON", "098", "099"),
+          enc("seafoam-islands", "042", "CAVE", "25%", "27–36", "UNCOMMON", "041", "042"),
+          enc("seafoam-islands", "086", "CAVE", "20%", "22–32", "UNCOMMON", "086", "087"),
+          enc("seafoam-islands", "079", "CAVE", "15%", "28–31", "UNCOMMON", "079", "080"),
+          enc("seafoam-islands", "099", "CAVE", "10%", "28–32", "UNCOMMON", "098", "099"),
+          enc("seafoam-islands", "087", "CAVE", "6%", "28–34", "RARE", "086", "087"),
+          enc("seafoam-islands", "080", "CAVE", "1%", "31", "RARE", "079", "080"),
+          enc("seafoam-islands", "072", "SURF", "70%", "20–40", "COMMON", "072", "073"),
+          enc("seafoam-islands", "120", "SURF", "30%", "30", "COMMON", "120", "121"),
+          enc("seafoam-islands", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("seafoam-islands", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("seafoam-islands", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("seafoam-islands", "120", "SUPER ROD", "40%", "20–40", "COMMON", "120", "121"),
+          enc("seafoam-islands", "098", "SUPER ROD", "40%", "25", "COMMON", "098", "099"),
+          enc("seafoam-islands", "099", "SUPER ROD", "20%", "35", "UNCOMMON", "098", "099"),
           enc("seafoam-islands", "144", "STATIC", "-", "50", "STATIC", "144", tip: true)
         ],
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
@@ -1436,11 +1552,14 @@ module Walkthrough
         pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
                 2 => { lab: "cinnabar-island/exit-6-9" } },
         encounters: [
+          enc("cinnabar-island", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("cinnabar-island", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("cinnabar-island", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("cinnabar-island", "120", "SUPER ROD", "60%", "10–15", "COMMON", "120", "121"),
+          enc("cinnabar-island", "072", "SUPER ROD", "40%", "15–30", "COMMON", "072", "073"),
           enc("cinnabar-island", "138", "FOSSIL", "-", "30", "GIFT", "138", "139", tip: true),
           enc("cinnabar-island", "140", "FOSSIL", "-", "30", "GIFT", "140", "141", tip: true),
-          enc("cinnabar-island", "142", "FOSSIL", "-", "30", "GIFT", "142", tip: true),
-          enc("cinnabar-island", "072", "SUPER ROD", "40%", "15–30", "COMMON", "072", "073"),
-          enc("cinnabar-island", "120", "SUPER ROD", "30%", "15–30", "UNCOMMON", "120", "121")
+          enc("cinnabar-island", "142", "FOSSIL", "-", "30", "GIFT", "142", tip: true)
         ],
         trainers: [],
         trades: [
@@ -1482,12 +1601,12 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("pokemon-mansion", "037", "FLOORS", "15%", "32–35", "UNCOMMON", "037", "038", tip: true),
-          enc("pokemon-mansion", "058", "FLOORS", "15%", "32–35", "UNCOMMON", "058", "059", tip: true),
-          enc("pokemon-mansion", "109", "FLOORS", "40%", "30–35", "COMMON", "109", "110"),
-          enc("pokemon-mansion", "088", "FLOORS", "30%", "23–38", "COMMON", "088", "089"),
-          enc("pokemon-mansion", "126", "FLOORS", "5%", "34–38", "RARE", "126", tip: true),
-          enc("pokemon-mansion", "132", "FLOORS", "10%", "12–24", "UNCOMMON", "132")
+          enc("pokemon-mansion", "020", "FLOORS", "40%", "34–46", "COMMON", "019", "020"),
+          enc("pokemon-mansion", "088", "FLOORS", "40%", "23–38", "COMMON", "088", "089"),
+          enc("pokemon-mansion", "019", "FLOORS", "30%", "34–43", "COMMON", "019", "020"),
+          enc("pokemon-mansion", "058", "FLOORS", "20%", "26–38", "UNCOMMON", "058", "059", tip: true),
+          enc("pokemon-mansion", "132", "FLOORS", "10%", "12–24", "UNCOMMON", "132"),
+          enc("pokemon-mansion", "089", "FLOORS", "10%", "35–41", "UNCOMMON", "088", "089")
         ],
         oak_queue: [ oak("pokemon-mansion", "037", 1), oak("pokemon-mansion", "058", 1), oak("pokemon-mansion", "126", 1) ])
     end
@@ -1527,10 +1646,12 @@ module Walkthrough
           { html: true }
         ],
         encounters: [
-          enc("victory-road", "074", "CAVE", "30%", "26–46", "COMMON", "074", "075", "076"),
-          enc("victory-road", "066", "CAVE", "20%", "22–24", "UNCOMMON", "066", "067", "068"),
-          enc("victory-road", "095", "CAVE", "20%", "36–47", "UNCOMMON", "095"),
-          enc("victory-road", "105", "CAVE", "4%", "40–43", "RARE", "104", "105"),
+          enc("victory-road", "074", "CAVE", "65%", "26–46", "COMMON", "074", "075", "076"),
+          enc("victory-road", "042", "CAVE", "20%", "39–44", "UNCOMMON", "041", "042"),
+          enc("victory-road", "041", "CAVE", "20%", "39–44", "UNCOMMON", "041", "042"),
+          enc("victory-road", "075", "CAVE", "15%", "41–47", "UNCOMMON", "074", "075", "076"),
+          enc("victory-road", "067", "CAVE", "10%", "39–45", "UNCOMMON", "066", "067", "068"),
+          enc("victory-road", "095", "CAVE", "10%", "43–49", "UNCOMMON", "095"),
           enc("victory-road", "146", "STATIC", "-", "50", "STATIC", "146", tip: true)
         ],
         oak_queue: [ oak("victory-road", "146", 1) ])
@@ -1545,10 +1666,16 @@ module Walkthrough
           { pins: { victory: "route-23/exit-4-31" } }
         ],
         encounters: [
-          enc("route-23", "132", "GRASS", "35%", "33–43", "COMMON", "132"),
+          enc("route-23", "030", "GRASS", "30%", "41–44", "COMMON", "029", "030", "031"),
+          enc("route-23", "033", "GRASS", "30%", "41–44", "COMMON", "032", "033", "034"),
           enc("route-23", "056", "GRASS", "20%", "36–41", "UNCOMMON", "056", "057"),
           enc("route-23", "022", "GRASS", "15%", "40–45", "UNCOMMON", "021", "022"),
-          enc("route-23", "024", "GRASS", "5%", "41", "RARE", "023", "024")
+          enc("route-23", "057", "GRASS", "6%", "41–46", "RARE", "056", "057"),
+          enc("route-23", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-23", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-23", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-23", "060", "SUPER ROD", "70%", "25–30", "COMMON", "060", "061", "062"),
+          enc("route-23", "061", "SUPER ROD", "30%", "30–40", "COMMON", "060", "061", "062")
         ])
     end
 
@@ -1600,11 +1727,23 @@ module Walkthrough
           { scene: "cerulean-cave-mewtwo" }
         ],
         encounters: [
-          enc("cerulean-cave", "042", "CAVE", "40%", "50–55", "COMMON", "041", "042"),
-          enc("cerulean-cave", "112", "CAVE", "15%", "58–62", "UNCOMMON", "111", "112"),
-          enc("cerulean-cave", "113", "CAVE", "10%", "55–60", "UNCOMMON", "113"),
+          enc("cerulean-cave", "042", "CAVE", "40%", "50–59", "COMMON", "041", "042"),
+          enc("cerulean-cave", "075", "CAVE", "15%", "45–55", "UNCOMMON", "074", "075", "076"),
           enc("cerulean-cave", "132", "CAVE", "15%", "55–65", "UNCOMMON", "132"),
-          enc("cerulean-cave", "108", "CAVE", "20%", "50–55", "UNCOMMON", "108", tip: true),
+          enc("cerulean-cave", "028", "CAVE", "10%", "52–56", "UNCOMMON", "027", "028"),
+          enc("cerulean-cave", "044", "CAVE", "10%", "55–58", "UNCOMMON", "043", "044", "045"),
+          enc("cerulean-cave", "070", "CAVE", "10%", "55–58", "UNCOMMON", "069", "070", "071"),
+          enc("cerulean-cave", "111", "CAVE", "10%", "50–52", "UNCOMMON", "111", "112"),
+          enc("cerulean-cave", "112", "CAVE", "10%", "58–62", "UNCOMMON", "111", "112"),
+          enc("cerulean-cave", "108", "CAVE", "6%", "50–55", "RARE", "108", tip: true),
+          enc("cerulean-cave", "047", "CAVE", "5%", "54", "RARE", "046", "047"),
+          enc("cerulean-cave", "049", "CAVE", "5%", "54", "RARE", "048", "049"),
+          enc("cerulean-cave", "113", "CAVE", "5%", "56", "RARE", "113"),
+          enc("cerulean-cave", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("cerulean-cave", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("cerulean-cave", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("cerulean-cave", "119", "SUPER ROD", "60%", "35–60", "COMMON", "118", "119"),
+          enc("cerulean-cave", "118", "SUPER ROD", "40%", "25–30", "COMMON", "118", "119"),
           enc("cerulean-cave", "150", "STATIC", "-", "70", "STATIC", "150", tip: true)
         ],
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])
@@ -1618,10 +1757,14 @@ module Walkthrough
           { pins: { east: "route-9/exit-east" } }
         ],
         encounters: [
-          enc("route-9", "032", "GRASS", "30%", "16–18", "COMMON", "032", "033", "034"),
           enc("route-9", "029", "GRASS", "30%", "16–18", "COMMON", "029", "030", "031"),
+          enc("route-9", "032", "GRASS", "30%", "16–18", "COMMON", "032", "033", "034"),
           enc("route-9", "019", "GRASS", "15%", "18", "UNCOMMON", "019", "020"),
-          enc("route-9", "021", "GRASS", "10%", "17", "UNCOMMON", "021", "022")
+          enc("route-9", "021", "GRASS", "10%", "17", "UNCOMMON", "021", "022"),
+          enc("route-9", "030", "GRASS", "5%", "18", "RARE", "029", "030", "031"),
+          enc("route-9", "033", "GRASS", "5%", "18", "RARE", "032", "033", "034"),
+          enc("route-9", "020", "GRASS", "4%", "20", "RARE", "019", "020"),
+          enc("route-9", "022", "GRASS", "1%", "19", "RARE", "021", "022")
         ])
     end
 
@@ -1637,8 +1780,16 @@ module Walkthrough
         encounters: [
           enc("route-10", "081", "GRASS", "50%", "16–22", "COMMON", "081", "082"),
           enc("route-10", "019", "GRASS", "20%", "18", "UNCOMMON", "019", "020"),
+          enc("route-10", "029", "GRASS", "10%", "17", "UNCOMMON", "029", "030", "031"),
           enc("route-10", "032", "GRASS", "10%", "17", "UNCOMMON", "032", "033", "034"),
-          enc("route-10", "066", "GRASS", "5%", "16–18", "RARE", "066", "067", "068")
+          enc("route-10", "066", "GRASS", "6%", "16–18", "RARE", "066", "067", "068"),
+          enc("route-10", "020", "GRASS", "5%", "20", "RARE", "019", "020"),
+          enc("route-10", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-10", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-10", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-10", "098", "SUPER ROD", "70%", "15–20", "COMMON", "098", "099"),
+          enc("route-10", "116", "SUPER ROD", "20%", "10", "UNCOMMON", "116", "117"),
+          enc("route-10", "099", "SUPER ROD", "10%", "25", "UNCOMMON", "098", "099")
         ],
         oak_queue: [ oak("route-10", "081", 1) ])
     end
@@ -1657,9 +1808,9 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("rock-tunnel", "041", "CAVE", "50%", "15–21", "COMMON", "041", "042"),
-          enc("rock-tunnel", "074", "CAVE", "40%", "16–20", "COMMON", "074", "075", "076"),
-          enc("rock-tunnel", "066", "CAVE", "10%", "17–21", "UNCOMMON", "066", "067", "068"),
+          enc("rock-tunnel", "041", "CAVE", "50%", "15–22", "COMMON", "041", "042"),
+          enc("rock-tunnel", "074", "CAVE", "40%", "16–21", "COMMON", "074", "075", "076"),
+          enc("rock-tunnel", "066", "CAVE", "20%", "17–21", "UNCOMMON", "066", "067", "068"),
           enc("rock-tunnel", "095", "CAVE", "10%", "14–22", "UNCOMMON", "095")
         ],
         oak_queue: [ oak("rock-tunnel", "066", 1), oak("rock-tunnel", "095", 1) ])
@@ -1677,7 +1828,9 @@ module Walkthrough
           enc("route-8", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
           enc("route-8", "063", "GRASS", "20%", "15–19", "UNCOMMON", "063", "064", "065"),
           enc("route-8", "019", "GRASS", "15%", "20", "UNCOMMON", "019", "020"),
-          enc("route-8", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040")
+          enc("route-8", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040"),
+          enc("route-8", "017", "GRASS", "10%", "24", "UNCOMMON", "016", "017", "018"),
+          enc("route-8", "064", "GRASS", "6%", "20–27", "RARE", "063", "064", "065")
         ])
     end
 
@@ -1688,7 +1841,8 @@ module Walkthrough
           enc("route-7", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
           enc("route-7", "063", "GRASS", "25%", "15–26", "UNCOMMON", "063", "064", "065"),
           enc("route-7", "019", "GRASS", "15%", "20", "UNCOMMON", "019", "020"),
-          enc("route-7", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040")
+          enc("route-7", "039", "GRASS", "10%", "19–24", "UNCOMMON", "039", "040"),
+          enc("route-7", "017", "GRASS", "10%", "24", "UNCOMMON", "016", "017", "018")
         ])
     end
 
@@ -1702,6 +1856,10 @@ module Walkthrough
           { pins: { corner: "celadon-city/exit-28-19" } }
         ], gym_after: 2, badge: "RAINBOW",
         encounters: [
+          enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("celadon-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("celadon-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("celadon-city", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119"),
           enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true),
           enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
           enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
@@ -1778,12 +1936,11 @@ module Walkthrough
           {}
         ],
         encounters: [
-          enc("power-plant", "100", "FLOORS", "40%", "21–33", "COMMON", "100", "101"),
-          enc("power-plant", "081", "FLOORS", "25%", "20–33", "COMMON", "081", "082"),
-          enc("power-plant", "088", "FLOORS", "15%", "23–33", "UNCOMMON", "088", "089"),
-          enc("power-plant", "101", "FLOORS", "10%", "24–33", "UNCOMMON", "100", "101"),
-          enc("power-plant", "082", "FLOORS", "5%", "21–33", "RARE", "081", "082"),
-          enc("power-plant", "089", "FLOORS", "5%", "33", "RARE", "088", "089"),
+          enc("power-plant", "081", "FLOORS", "40%", "30–35", "COMMON", "081", "082"),
+          enc("power-plant", "082", "FLOORS", "20%", "33–38", "UNCOMMON", "081", "082"),
+          enc("power-plant", "100", "FLOORS", "20%", "33–37", "UNCOMMON", "100", "101"),
+          enc("power-plant", "088", "FLOORS", "15%", "33–37", "UNCOMMON", "088", "089"),
+          enc("power-plant", "089", "FLOORS", "6%", "33–37", "RARE", "088", "089"),
           enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
         ],
         oak_queue: [ oak("power-plant", "145", 1), oak("power-plant", "100", 1) ])
@@ -1792,15 +1949,17 @@ module Walkthrough
     def self.route_21
       loc("route-21", "ROUTE", "Route 21", 46, steps: 2,
         encounters: [
-          enc("route-21", "016", "GRASS", "35%", "21–23", "COMMON", "016", "017", "018"),
-          enc("route-21", "019", "GRASS", "35%", "21–23", "COMMON", "019", "020"),
-          enc("route-21", "017", "GRASS", "15%", "25–29", "UNCOMMON", "016", "017", "018"),
-          enc("route-21", "020", "GRASS", "15%", "25–29", "UNCOMMON", "019", "020"),
+          enc("route-21", "016", "GRASS", "55%", "11–17", "COMMON", "016", "017", "018"),
+          enc("route-21", "019", "GRASS", "30%", "13–15", "COMMON", "019", "020"),
+          enc("route-21", "017", "GRASS", "10%", "15–19", "UNCOMMON", "016", "017", "018"),
+          enc("route-21", "020", "GRASS", "5%", "15", "RARE", "019", "020"),
           enc("route-21", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-21", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130", tip: true),
-          enc("route-21", "118", "GOOD ROD", "50%", "10", "UNCOMMON", "118", "119", tip: true),
-          enc("route-21", "090", "SUPER ROD", "20%", "15–25", "UNCOMMON", "090", "091"),
-          enc("route-21", "120", "SUPER ROD", "15%", "15–25", "UNCOMMON", "120", "121")
+          enc("route-21", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-21", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119", tip: true),
+          enc("route-21", "072", "SUPER ROD", "60%", "15–30", "COMMON", "072", "073"),
+          enc("route-21", "120", "SUPER ROD", "30%", "20", "COMMON", "120", "121"),
+          enc("route-21", "073", "SUPER ROD", "10%", "30", "UNCOMMON", "072", "073")
         ],
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end

@@ -7,6 +7,18 @@ module Walkthrough
 
   DENSE_TRAINERS = 6
 
+  # A rod or Surf encounter is only a catch once you hold the tool, and the guide hands each one
+  # over at a fixed stop. Keyed by method, valued by that stop's `order`, so a fishing card on an
+  # early route counts toward the dex from the stop that arms you rather than from the route the
+  # water happens to be on. Without this the Oak deadline would owe you a Magikarp before Brock,
+  # four legs before the Old Rod exists.
+  METHOD_UNLOCK = {
+    "OLD ROD" => 16,     # Vermilion City, the Fishing Guru
+    "SUPER ROD" => 29,   # Route 12, the Super Rod house
+    "GOOD ROD" => 33,    # Fuchsia City, the Good Rod house
+    "SURF" => 34         # Safari Zone, HM03 in the Secret House
+  }.freeze
+
   # `from_key`/`unlock_key` are optional locale keys for a gift Pokémon: who hands it over and any
   # condition to unlock it (Bulbasaur needs Pikachu's friendship at 147+, Squirtle the Thunder
   # Badge). `unlock_icon` is the R2 image that condition shows (a Pikachu, a badge).
@@ -34,6 +46,9 @@ module Walkthrough
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
+    # The earliest stop whose `order` can register this species: everything walked into is open
+    # from the start, a rod or Surf card only once that tool is in the bag.
+    def unlocked_from = METHOD_UNLOCK.fetch(how, 0)
     def from? = !from_key.nil?
     def unlock? = !unlock_key.nil?
     # Only worth breaking out when the floors can actually disagree.
@@ -300,7 +315,9 @@ module Walkthrough
     def trivia? = !trivia.nil?
     def missable_after?(step_n) = !missable.nil? && missable.after_step == step_n
 
-    def dex_list = encounters.map(&:dex)
+    # What this stop can actually add to the dex when you walk it. The cards still list every
+    # species that lives here; this is the subset you are equipped to catch on arrival.
+    def dex_list = encounters.select { |enc| enc.unlocked_from <= order }.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
     def badge? = !badge.nil?

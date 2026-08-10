@@ -1,7 +1,7 @@
 <% best = local_assigns[:best] %>
 <div class="<%= class_names("pn-wt-catch", "pn-wt-catch--best" => best, "pn-wt-catch--gift" => enc.from?) %>"
      <%= tag.attributes(catch_card_attributes(enc.dex, entry)) %>>
-  <%= render "catch_badges", entry: entry, slug: slug %>
+  <%= render "catch_badges", entry: entry, slug: slug, needs_label: enc.how %>
   <% if enc.from? %>
     <div class="pn-wt-catch__gift">
       <span class="pn-wt-catch__gift-dot" aria-hidden="true"></span>
@@ -27,14 +27,16 @@
       <div class="pn-wt-catch__id">
         <span class="pn-wt-catch__num">#<%= enc.dex %></span>
         <span class="pn-wt-catch__name"><%= enc.name %></span>
-        <span class="pn-wt-catchpill pn-wt-catchpill--living">
-          <span class="pn-wt-catchpill__todo"><%= body_pill(entry.qty) %></span>
-          <span class="pn-wt-catchpill__done"><%= t("walkthrough.ui.pill_box_done") %></span>
-        </span>
-        <span class="pn-wt-catchpill pn-wt-catchpill--oak">
-          <span class="pn-wt-catchpill__todo"><%= t("walkthrough.ui.pill_not_registered") %></span>
-          <span class="pn-wt-catchpill__done"><%= t("walkthrough.ui.pill_registered") %></span>
-        </span>
+        <% if entry %>
+          <span class="pn-wt-catchpill pn-wt-catchpill--living">
+            <span class="pn-wt-catchpill__todo"><%= body_pill(entry.qty) %></span>
+            <span class="pn-wt-catchpill__done"><%= t("walkthrough.ui.pill_box_done") %></span>
+          </span>
+          <span class="pn-wt-catchpill pn-wt-catchpill--oak">
+            <span class="pn-wt-catchpill__todo"><%= t("walkthrough.ui.pill_not_registered") %></span>
+            <span class="pn-wt-catchpill__done"><%= t("walkthrough.ui.pill_registered") %></span>
+          </span>
+        <% end %>
       </div>
       <div class="pn-wt-catch__chips">
         <span class="pn-wt-tagpill pn-wt-tagpill--<%= enc.how.parameterize %>"><%= enc.how %></span>

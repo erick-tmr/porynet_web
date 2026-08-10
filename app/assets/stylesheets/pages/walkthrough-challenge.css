@@ -835,6 +835,15 @@
   white-space: nowrap;
 }
 
+/* Not a challenge badge: it says the species lives here but the tool to catch it does not exist
+   yet, which is why the card cannot be ticked. True whatever mode the reader is in, so it shows
+   unconditionally. */
+.pn-wt-catchbadge--locked {
+  display: inline-block;
+  background: #e6e2d4;
+  color: #6b6880;
+}
+
 .pn-wt-catchbadge--living { background: var(--neon-cyan); }
 .pn-wt-catchbadge--oak { background: var(--amber); }
 .pn-wt-catchbadge--boxed { background: #e2d9ff; }

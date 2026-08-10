@@ -450,6 +450,7 @@ en:
       band_ledger_none: "NOTHING TO CATCH HERE"
       badge_living_html: "LIVING DEX ×%{count}"
       badge_oak: "OAK ×%{count}"
+      badge_needs: "NEEDS %{tool}"
       badge_boxed: "ALREADY BOXED"
       badge_do_at: "DO IT AT %{stop}"
       pill_box_html: "BOX %{have}/%{want}"
@@ -1864,7 +1865,6 @@ en:
               title: "Slip out west to Route 14"
               text_html: "With both stat boosts pocketed, drop through the last run of ledges and leave west %{west} into Route 14."
           tips:
-            ditto: "A 5% catch that Transforms into whatever it faces. Handy for the dex."
           oak:
             ditto: "Catch the Transforming blob here. A fun one and useful for breeding later gens."
         route_14:
@@ -2477,9 +2477,7 @@ en:
               title: "Leave and cross to Blaine's Gym"
               text: "With the Secret Key in hand and the basement cleared, use the Escape Rope (or walk out) back to Cinnabar Island. Cross the street and unlock Blaine's Gym for the Volcano Badge."
           tips:
-            vulpix: "Yellow puts both Vulpix and Growlithe here. An easy wild Vulpix for once."
             growlithe: "The other Fire dog, here in the same mansion → Arcanine with a Fire Stone."
-            magmar: "A rare Fire catch on the lower floors. One of few Magmar sources."
           oak:
             vulpix: "Wild here in Yellow (elsewhere trade-only) → Ninetales. Grab one."
             growlithe: "Also wild here → Arcanine with a Fire Stone. Log the base."

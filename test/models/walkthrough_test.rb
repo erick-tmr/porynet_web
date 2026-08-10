@@ -73,7 +73,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 2, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 83, g.obtainable_dex.size
+    assert_equal 99, g.obtainable_dex.size
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
@@ -299,12 +299,12 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "route-1", pidgey.slug
     assert_equal "70%", pidgey.rate
     refute pidgey.tie
-    assert_equal "Route 5", pidgey.alt_name
-    assert_equal "40%", pidgey.alt_rate
+    assert_equal "Route 21", pidgey.alt_name
+    assert_equal "55%", pidgey.alt_rate
 
-    rattata = bc.fetch("019")
-    assert_equal "route-2", rattata.slug
-    assert rattata.tie, "Rattata's 35% is matched elsewhere, so the earliest location wins"
+    nidoran = bc.fetch("029")
+    assert_equal "route-22", nidoran.slug
+    assert nidoran.tie, "Nidoran♀'s 30% is matched elsewhere, so the earliest location wins"
 
     refute bc.key?("025"), "Pikachu is a gift, not a rated wild catch"
     refute pidgey.only, "Pidgey turns up in more than one place, so it is a ranked win"
@@ -313,11 +313,11 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "best_catches tags a species with a single location as the only place to catch it" do
     bc = game.best_catches
 
-    magikarp = bc.fetch("129")
-    assert magikarp.only, "Magikarp only appears on Route 21"
-    assert_equal "route-21", magikarp.slug
-    assert_equal "100%", magikarp.rate, "the Old Rod hooks nothing else, so it never misses"
-    assert_nil magikarp.alt_name, "there is no rival spot to compare against"
+    clefairy = bc.fetch("035")
+    assert clefairy.only, "Clefairy lives in Mt. Moon and nowhere else"
+    assert_equal "mt-moon", clefairy.slug
+    assert_equal "11%", clefairy.rate
+    assert_nil clefairy.alt_name, "there is no rival spot to compare against"
 
     zapdos = bc.fetch("145")
     assert zapdos.only, "Zapdos is a lone static"
@@ -329,7 +329,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "best_catches skips a species whose spots cannot be ranked or called the only one" do
     bc = game.best_catches
 
-    refute bc.key?("037"), "Vulpix is sold at the Game Corner as well as the Mansion, and coins do not rank against a rate"
+    refute bc.fetch("037").rate?, "Vulpix is bought with Game Corner coins, which do not rank against a rate"
     refute bc.key?("143"), "Snorlax blocks two routes, so neither one is the only place"
   end
 

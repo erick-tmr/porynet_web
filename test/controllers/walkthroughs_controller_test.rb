@@ -115,7 +115,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     get walkthrough_leg_path(game: "yellow", leg: "leg-02")
 
     assert_response :success
-    assert_includes response.body, "Best rate at 35%, and the earliest place to catch Rattata"
+    assert_includes response.body, "Best rate at 30%, and the earliest place to catch Nidoran♀"
   end
 
   test "a location renders its area map with a marker overlay" do

@@ -46,7 +46,7 @@ class WalkthroughEvolutionsTest < ActiveSupport::TestCase
       .map { |enc| enc.evo_line.map { |s| s[:dex] } }.uniq
       .select { |chain| chain.size > 1 }
 
-    assert_equal 50, linear.size
+    assert_equal 49, linear.size
 
     linear.each do |chain|
       assert_equal chain, evolutions.chain_for(chain.first),
