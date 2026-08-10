@@ -115,12 +115,14 @@ def test_where_geometry_puts_the_player_in_front_facing_back(root):
 
 
 def test_a_directionless_trainer_faces_down(root):
-    """Viridian Forest's Lass has no facing; the hand-authored scene she replaces chose DOWN."""
+    """Viridian Forest's Lass has no facing; the hand-authored scene she replaces chose DOWN.
+
+    She is also a sight-0 trainer, so the hero meets her at one tile rather than two."""
     _, specs = built(root)
     spec = next(s for s in specs if s["name"] == "viridian-forest-trainer-2-41")
 
     assert spec["sprites"][0]["dir"] == "DOWN"
-    assert spec["player"] == [2, 43] and spec["player_dir"] == "UP"
+    assert spec["player"] == [2, 42] and spec["player_dir"] == "UP"
 
 
 def test_every_player_cell_lands_inside_its_map(root):
@@ -262,3 +264,47 @@ def test_a_map_with_no_trainer_headers_reads_as_nobody_spotting(root):
     """Cinnabar's quiz gym has no trainer headers: its fights start at the question machines."""
     assert sources.parse_trainer_sight(root, "CinnabarGym") == {}
     assert sources.parse_trainer_sight(root, "PalletTown") == {}
+
+
+def test_a_talked_to_trainer_is_met_face_to_face(root):
+    """You cannot start a conversation two tiles off, and a hero placed down either sightline of a
+    facing pair lands past the other trainer. So the hero steps up beside them and each turns to
+    face it, which is the moment the fight actually begins."""
+    _, specs = built(root)
+    left = next(s for s in specs if s["name"] == "route-6-trainer-10-21")
+    right = next(s for s in specs if s["name"] == "route-6-trainer-11-21")
+
+    assert left["player"] == [10, 22] and left["sprites"][0]["dir"] == "DOWN"
+    assert right["player"] == [11, 22] and right["sprites"][0]["dir"] == "DOWN"
+    assert left["player_dir"] == "UP" and right["player_dir"] == "UP"
+
+
+def test_a_spotting_trainer_keeps_its_own_facing_and_distance(root):
+    """The ones that engage on sight are untouched: the game stops you where they see you."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "route-6-trainer-0-15")
+
+    assert spec["player"] == [2, 15]
+    assert spec["sprites"][0]["dir"] == "RIGHT"
+    assert spec["sprites"][0]["emote"] == "shock"
+
+
+def test_a_leader_turns_to_the_challenger(root):
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "pewter-city-gym-trainer-4-1")
+
+    assert spec["player"] == [4, 2]
+    assert spec["sprites"][0]["dir"] == "DOWN"
+
+
+def test_direction_toward_picks_the_dominant_axis():
+    assert roster.direction_toward((5, 5), [5, 6]) == "DOWN"
+    assert roster.direction_toward((5, 5), [5, 4]) == "UP"
+    assert roster.direction_toward((5, 5), [6, 5]) == "RIGHT"
+    assert roster.direction_toward((5, 5), [4, 5]) == "LEFT"
+    assert roster.direction_toward((5, 5), [7, 6]) == "RIGHT"
+
+
+def test_talk_cell_prefers_the_tile_the_trainer_already_faces(root):
+    """A trainer with a clear front is still met head-on rather than from a side."""
+    assert roster.talk_cell(root, "Route6", [0, 15], roster.FACINGS["RIGHT"]) == [1, 15]

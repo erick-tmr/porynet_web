@@ -71,6 +71,34 @@ def hero_cell(root_str, map_label, grid, step):
     return [grid[0] + step[0] * PLAYER_CELLS, grid[1] + step[1] * PLAYER_CELLS]
 
 
+def talk_cell(root_str, map_label, grid, step):
+    """Where the hero stands to start a fight by talking: one tile away, because you cannot hold a
+    conversation from further off. The trainer's own facing is tried first so a trainer with a clear
+    front is still met head-on; a trainer boxed in by the one it faces is met from the side.
+
+    Without this a facing pair reads wrong. Route 6's two Jr. Trainers stand shoulder to shoulder,
+    so a hero placed two tiles down either sightline lands past the other trainer and the shot looks
+    like a conversation with the wrong one."""
+    const, tileset = sources.parse_headers(root_str)[map_label]
+    _idx, w_blocks, _h_blocks = sources.parse_map_constants(root_str)[0][const]
+    taken = {tuple(o["grid"]) for o in
+             sources.parse_object_events(root_str, map_label, include_battlers=True)}
+    order = [step] + [s for s in FACINGS.values() if s != step]
+    for predicate in (markers.cell_is_standable, markers.cell_is_land, markers.cell_is_walkable):
+        for dx, dy in order:
+            cell = (grid[0] + dx, grid[1] + dy)
+            if cell not in taken and predicate(root_str, map_label, tileset, w_blocks, cell):
+                return list(cell)
+    return None
+
+
+def direction_toward(grid, cell):
+    dx, dy = cell[0] - grid[0], cell[1] - grid[1]
+    if abs(dx) >= abs(dy):
+        return "RIGHT" if dx > 0 else "LEFT"
+    return "DOWN" if dy > 0 else "UP"
+
+
 def spots_player(root_str, map_label, obj):
     """Whether this trainer engages on sight, from its own engage distance in the game.
 
@@ -81,10 +109,11 @@ def spots_player(root_str, map_label, obj):
 
 
 def where_spec(root_str, map_label, parent, obj, name):
-    """The 'where' shot: the hero on a walkable tile in front of the trainer, both facing each
-    other. A trainer that engages on sight flashes the '!' it shows on spotting you; one you have
-    to walk up and talk to does not, because it never sees you coming. The camera sits midway
-    between them so both stay framed however near the hero ends up.
+    """The 'where' shot, drawn at the moment the fight starts. A trainer that engages on sight
+    stands where the game leaves it, two tiles down its own sightline from the hero, flashing the
+    '!' it shows on spotting you. A trainer you have to talk to is drawn mid-conversation instead:
+    the hero steps up beside it and it turns to face them, which is what the game does when you
+    press A. The camera sits midway between them so both stay framed however near the hero ends up.
 
     `auto_npcs` keeps the map's other real people in frame as landmarks (only the spotting trainer
     flashes the '!'), so a gym trainer's shot still shows the leader standing behind them the way
@@ -92,14 +121,18 @@ def where_spec(root_str, map_label, parent, obj, name):
     facing = facing_of(obj)
     step = FACINGS[facing]
     grid = obj["grid"]
-    player = hero_cell(root_str, map_label, grid, step)
-    sprite = {"sprite": obj["sprite_const"], "grid": list(grid), "dir": facing}
-    if spots_player(root_str, map_label, obj):
+    spots = spots_player(root_str, map_label, obj)
+    player = (hero_cell(root_str, map_label, grid, step) if spots
+              else talk_cell(root_str, map_label, grid, step)
+              or hero_cell(root_str, map_label, grid, step))
+    turned = facing if spots else direction_toward(grid, player)
+    sprite = {"sprite": obj["sprite_const"], "grid": list(grid), "dir": turned}
+    if spots:
         sprite["emote"] = "shock"
     spec = {
         "type": "screen", "name": name, "map": map_label,
         "player": player,
-        "player_dir": OPPOSITE[facing],
+        "player_dir": OPPOSITE[turned],
         "focus": [(grid[0] + player[0]) // 2, (grid[1] + player[1]) // 2],
         "auto_npcs": True,
         "sprites": [sprite],
