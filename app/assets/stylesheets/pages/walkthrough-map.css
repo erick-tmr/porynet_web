@@ -556,14 +556,16 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 3px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
   color: #fff;
   border: 2px solid var(--ink);
 }
+
+.pn-mm-legend__chip--wide { font-size: 7px; }
 
 /* Every marker wears its letter here, in its category's colour, because the letter is the whole
    handle: it is what the step card prints and what the label beside the pin repeats. */
