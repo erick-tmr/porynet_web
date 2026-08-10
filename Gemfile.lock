@@ -453,7 +453,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   simplecov
   solid_cache
-  solid_queue
+  solid_queue (~> 1.6)
   stimulus-rails
   thruster
   turbo-rails
