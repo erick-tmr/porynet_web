@@ -22,6 +22,11 @@ def test_render_map_dimensions(root):
     assert len(colors) == 4
 
 
+def test_render_map_stops_at_the_blueprint_not_the_header(root):
+    image, _colors = compositor.render_map(root, "UndergroundPathNorthSouth")
+    assert image.size == (128, 736)            # 4x23 blocks * 32px, not the header's 4x24
+
+
 def test_render_battle_dimensions(root):
     assert compositor.render_battle(root, "BROCK").size == compositor.SCREEN == (160, 144)
 

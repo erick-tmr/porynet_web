@@ -11,6 +11,7 @@
   --mm-done: var(--done-green);
   --mm-row-done: #E8F2EA;
   --mm-row-selected: #FFEDC5;
+  --mm-max-zoom: 2.5;
   margin-top: 10px;
 }
 
@@ -172,6 +173,8 @@
 .pn-mm-canvas {
   position: relative;
   line-height: 0;
+  max-width: calc(var(--mm-native-w, 100%) * var(--mm-max-zoom));
+  margin-inline: auto;
 }
 
 .pn-mm-canvas__img {
@@ -276,6 +279,8 @@
   animation: pinpulse 1.3s ease-in-out infinite;
   animation-play-state: var(--play);
 }
+
+.pn-mm__pin--hidden .pn-mm__glyph { display: none; }
 
 .pn-mm__ring {
   position: absolute;

@@ -1,9 +1,9 @@
 # Asset generation report
 
-- location maps: **100** across 51 locations
-- markers: **977** (316 trainer, 119 item, 47 hidden, 495 exit)
+- location maps: **101** across 52 locations
+- markers: **981** (316 trainer, 119 item, 49 hidden, 497 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **246** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **248** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -101,6 +101,7 @@
 - `ss-anne-1f-rooms`: 4 trainer, 1 item, 6 exit
 - `ss-anne-2f-rooms`: 4 trainer, 2 item, 6 exit
 - `ss-anne-b1f-rooms`: 6 trainer, 3 item, 1 hidden, 5 exit
+- `underground-path`: 2 hidden, 2 exit
 - `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit
 - `victory-road-1f`: 2 trainer, 2 item, 2 exit
@@ -365,6 +366,8 @@
 - `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png
 - `ss-anne-cut` (screen): walkthrough/yellow/scenes/ss-anne-cut.png
 - `ss-anne-rival` (screen): walkthrough/yellow/scenes/ss-anne-rival.png
+- `underground-path-hidden-full-restore` (dialog): walkthrough/yellow/scenes/underground-path-hidden-full-restore.png
+- `underground-path-hidden-x-special` (dialog): walkthrough/yellow/scenes/underground-path-hidden-x-special.png
 - `vermilion-city-hidden-max-ether` (dialog): walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png
 - `vermilion-squirtle` (screen): walkthrough/yellow/scenes/vermilion-squirtle.png
 - `vermilion-ss-anne-dock` (screen): walkthrough/yellow/scenes/vermilion-ss-anne-dock.png

@@ -337,12 +337,18 @@ LABEL_CHAR_PX = 8
 LABEL_PAD_PX = 18
 LABEL_OFFSET_PX = 22
 LABEL_KEY_PX = 26          # the key badge ('T1', 'E12') printed ahead of a label's name
+NARROW_MAP_DRAWN_PX = 320  # a map too narrow to fill its column is drawn at --mm-max-zoom, not wider
+
+
+def drawn_width(width_px):
+    return max(width_px, NARROW_MAP_DRAWN_PX)
 
 
 def label_span(entry, width_px):
     """The horizontal band a label occupies, in percent, on whichever side of its marker it sits."""
     text = len(entry["name"]) * LABEL_CHAR_PX + LABEL_PAD_PX + (LABEL_KEY_PX if entry.get("key") else 0)
-    width, offset = text / width_px * 100, LABEL_OFFSET_PX / width_px * 100
+    basis = drawn_width(width_px)
+    width, offset = text / basis * 100, LABEL_OFFSET_PX / basis * 100
     if entry["align"] == "r":
         return (entry["x"] + offset, entry["x"] + offset + width)
     return (entry["x"] - offset - width, entry["x"] - offset)

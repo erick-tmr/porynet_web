@@ -1352,9 +1352,29 @@ pt:
               text_html: "Saia de Cerulean ao sul; deixe um Pokémon na Day Care %{daycare} se quiser subir o nível."
             "2":
               title: "Pegue o Underground Path"
-              text_html: "Os portões de Saffron estão bloqueados, então entre no prédio do Underground Path %{path} e túnele ao sul até a Rota 6. Um Full Restore e um X Special ocultos ficam pelo chão do túnel."
+              text_html: "Os portões de Saffron estão bloqueados, então entre na casa do Underground Path %{path} no sul da rota. A escada lá dentro te joga no túnel para a Rota 6."
           oak:
             abra: "Capture rápido (ele só usa Teleport). Evolui para Kadabra, depois Alakazam por troca."
+        underground_path:
+          note: "O túnel sob Saffron. Dois itens ocultos, nada selvagem."
+          intro: "Um corredor reto sob Saffron City, de quatro tiles de largura, sem treinadores e sem Pokémon selvagens. Dois itens ocultos ficam no chão, e nenhum dos dois aparece na tela."
+          steps:
+            "1":
+              title: "Desça para o túnel"
+              text_html: "A casa da Rota 5 te deixa ao lado da escada %{in}, no extremo norte do túnel. Daqui o corredor segue reto ao sul até a Rota 6, com dois itens ocultos no caminho."
+            "2":
+              title: "Pegue o Full Restore ao lado da escada"
+              text: "Dê um passo a oeste saindo da escada, vire para o oeste e aperte A. Um Full Restore oculto está nesse tile: todo o HP de volta e status curado, o mais cedo do jogo."
+              hidden:
+                full-restore: "Linha de cima do túnel, dois tiles a oeste da escada de entrada. Fique ao lado dele virado para o oeste e aperte A. Nada aparece na tela."
+            "3":
+              title: "Siga ao sul até o X Special"
+              text: "Continue nessa faixa e ande ao sul, uns quatro quintos do caminho. Aperte A virado para baixo por um X Special oculto, que reforça o Special de um Pokémon por uma batalha."
+              hidden:
+                x-special: "Segunda faixa a partir da parede leste, uns quatro quintos do túnel abaixo. Fique um tile ao norte e aperte A virado para baixo. Nada aparece na tela."
+            "4":
+              title: "Suba para a Rota 6"
+              text_html: "Siga até o fim do corredor e pegue a escada %{out} no canto sudoeste. Ela sobe na casa da Rota 6, no extremo norte da rota."
         route_6:
           note: "Até Vermilion. Mesma grama da Rota 5, mais pesca."
           intro: "O último trecho até Vermilion City. Pesque no lago assim que pegar um caniço."

@@ -263,6 +263,15 @@ def test_a_longer_name_reserves_more_room():
     assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 0, 1 ]
 
 
+def test_a_narrow_map_measures_labels_against_the_width_it_is_drawn_at():
+    label = row(10.0, 40, "Underground Path Route 5")
+
+    assert markers.drawn_width(640) == 640
+    assert markers.drawn_width(128) == markers.NARROW_MAP_DRAWN_PX
+    assert markers.label_span(label, 128) == markers.label_span(label, 320)
+    assert markers.label_span(label, 320) != markers.label_span(label, 640)
+
+
 def test_marker_ids_are_unique(root):
     ids = [m["id"] for m in build(root)]
     assert len(ids) == len(set(ids))
@@ -393,3 +402,15 @@ def test_link_exit_keys_gives_both_ends_of_a_staircase_one_key(root):
     # the two mouths onto Route 3 and Route 4 have no twin here, so they keep keys of their own
     outside = [keys["mt-moon-1f"]["exit-14-35"], keys["mt-moon-b1f"]["exit-27-3"]]
     assert len(set(outside)) == 2
+
+
+def test_the_underground_path_pins_both_hidden_items_and_both_staircases(root):
+    entries = markers.build_markers(root, "UndergroundPathNorthSouth",
+                                    "UNDERGROUND_PATH_NORTH_SOUTH", 128, 736)
+    by_id = {m["id"]: m for m in entries}
+
+    assert [(m["key"], m["name"], m["grid"]) for m in by_cat(entries, "hidden")] == [
+        ("H1", "Full Restore", [3, 4]), ("H2", "X Special", [4, 34])]
+    assert by_id["exit-5-4"]["name"] == "Underground Path Route 5"
+    assert by_id["exit-2-41"]["name"] == "Underground Path Route 6"
+    assert len(entries) == 4, "no trainers and no item balls live down there"
