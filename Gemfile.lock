@@ -178,7 +178,7 @@ GEM
       activesupport (>= 6.1)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    image_processing (2.0.2)
+    image_processing (2.0.3)
     imagen (0.2.0)
       parser (>= 2.5, != 2.5.1.1)
     importmap-rails (2.2.3)
