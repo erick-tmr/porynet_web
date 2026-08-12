@@ -352,9 +352,38 @@ en:
       best_badge: "BEST PLACE TO CATCH"
       best_reason_beats: "%{rate} here versus %{alt_rate} at %{alt}, the best odds for %{name}."
       best_reason_tie: "Best rate at %{rate}, and the earliest place to catch %{name}."
+      best_reason_armed_only: "The only stop you reach already equipped for %{name}. The rest come before the rod."
       best_reason_only: "The only place in the game to catch %{name}. Miss it here and you miss it."
       best_reason_only_rate: "The only place in the game to catch %{name}, at %{rate}."
       catch_targets: "%{count} catch targets"
+      catch_tally_html: "%{done} / %{total} CAUGHT"
+      catchsec_count:
+        one: "1 SPECIES"
+        other: "%{count} SPECIES"
+      catchsec_gift_label: "Gifts and starters"
+      catchsec_gift_hint: "Handed over, not found. One each, and nobody offers a second."
+      catchsec_grass_label: "Tall grass"
+      catchsec_grass_hint: "Walk the patches and let them come to you."
+      catchsec_cave_label: "Cave floor"
+      catchsec_cave_hint: "Every step inside can spawn one, floor by floor."
+      catchsec_floors_label: "Building floors"
+      catchsec_floors_hint: "Indoor tables that change per floor."
+      catchsec_safari_label: "Safari Zone"
+      catchsec_safari_hint: "Its own rules: bait, rocks and a step limit."
+      catchsec_surf_label: "Surfing"
+      catchsec_surf_hint: "Out on the water. Needs Surf."
+      catchsec_old_rod_label: "Old Rod"
+      catchsec_old_rod_hint: "One slot only, so expect the same fish forever."
+      catchsec_good_rod_label: "Good Rod"
+      catchsec_good_rod_hint: "Two shared slots on any shore tile."
+      catchsec_super_rod_label: "Super Rod"
+      catchsec_super_rod_hint: "Water-specific tables, so the spot matters."
+      catchsec_static_label: "Static encounter"
+      catchsec_static_hint: "One sprite on the map, one battle, no respawn."
+      catchsec_fossil_label: "Revived fossils"
+      catchsec_fossil_hint: "Revived at the Cinnabar lab. Mt. Moon only lets you keep one of its two."
+      catchsec_game_corner_label: "Game Corner"
+      catchsec_game_corner_hint: "Bought with coins. Bring money or patience."
       rate: "RATE"
       level: "LEVEL"
       floors_label: "RATE BY FLOOR"
@@ -1323,9 +1352,23 @@ en:
               text_html: "Leave Cerulean south; drop a Pokémon at the Day Care %{daycare} if you want it leveled."
             "2":
               title: "Take the Underground Path"
-              text_html: "Saffron's gates are blocked, so duck into the Underground Path building %{path} and tunnel south to Route 6. A hidden Full Restore and X Special lie along the tunnel floor."
+              text_html: "Saffron's gates are blocked, so duck into the Underground Path house %{path} at the south end of the route. The stairs inside drop you into the tunnel to Route 6."
           oak:
             abra: "Catch one fast (it only Teleports). Evolves to Kadabra, then Alakazam by trade."
+        underground_path:
+          note: "The tunnel under Saffron. Two hidden items, nothing wild."
+          intro: "One straight corridor beneath Saffron City, four tiles wide, with no trainers and no wild Pokémon. Two hidden items sit on its floor, and neither of them shows on-screen."
+          steps:
+            "1":
+              title: "Down the stairs, then west for the Full Restore"
+              text_html: "The Route 5 house drops you at stairs %{in}. Step one tile west, face west and press A: a hidden Full Restore, the earliest in the game, all HP plus any status cleared."
+              hidden:
+                full-restore: "Top row of the tunnel, two tiles west of the entry stairs. Stand next to it facing west and press A. Nothing shows on-screen."
+            "2":
+              title: "South for the X Special, then out to Route 6"
+              text_html: "Walk south to eight tiles above the Route 6 stairs, second lane from the east wall. Press A facing down for a hidden X Special, one battle of sharper Special. Stairs %{out} are just below."
+              hidden:
+                x-special: "Second lane from the east wall, seven tiles north of the stairs down to Route 6. Stand one tile north of it and press A facing down. Nothing shows on-screen."
         route_6:
           note: "Into Vermilion. Same grass as Route 5, plus fishing."
           intro: "The last stretch into Vermilion City. Fish the pond once you pick up a rod."

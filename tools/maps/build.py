@@ -12,7 +12,7 @@ Usage:
   python tools/maps/build.py --pokeyellow ~/Code/pokeyellow [--force]
 
 Outputs (relative to the porynet_web repo root):
-  app/assets/images/walkthrough/yellow/{maps,scenes,battles}/<name>.png   (gitignored -> R2)
+  app/assets/images/walkthrough/yellow/{maps,scenes,battles,icons}/<name>.png  (gitignored -> R2)
   app/models/walkthrough/yellow_maps.json                                 manifest (committed)
   app/models/walkthrough/yellow_places.json                               place facts (committed)
   app/models/walkthrough/yellow_encounters.json                           wild tables (committed)
@@ -26,6 +26,7 @@ import compositor
 import encounters
 import follower
 import generators
+import icons
 import locations
 import markers
 import places
@@ -120,6 +121,9 @@ def main():
     for spec in where_specs:
         image, name, _extra = generators.generate(root, spec)
         save_png(image, "scenes", name, args.force)
+
+    for name, image in icons.render_icons(root).items():
+        save_png(image, "icons", name, args.force)
 
     step_shots, scenes = {}, {}
     for spec in load_specs():

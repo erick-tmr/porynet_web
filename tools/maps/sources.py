@@ -331,6 +331,44 @@ def parse_object_events(root_str, map_label, include_battlers=False, show=(), hi
     return tuple(o for o in objects if o["kind"] == "person")
 
 
+@cache
+def parse_trainer_sight(root_str, map_label):
+    """{text_const: engage distance} for the map's trainers, in tiles.
+
+    The second argument of the `trainer` macro is the distance CheckSpriteCanSeePlayer measures
+    against, and zero means the trainer never engages on its own: you have to talk to it. Route 6's
+    two Jr. Trainers stand on adjacent tiles facing each other and are both zero.
+
+    Objects cannot be matched to headers by position, because a gym leader is a trainer object with
+    no header at all and would shift every index after it. So this follows the game's own wiring:
+    the object names a TEXT_* const, the script's dw_const table maps that to a routine, and the
+    routine loads the TrainerHeader it belongs to."""
+    body = read_data(root_str, f"scripts/{map_label}.asm", missing_ok=True)
+    if body is None:
+        return {}
+
+    sight_by_header = {}
+    block = re.search(r"^\w*TrainerHeaders:\s*$(.*?)^\s*db -1", body, re.M | re.S)
+    if block:
+        sight_by_header = {label: int(dist) for label, dist in
+                           re.findall(r"^(\w+):\s*\n\s*trainer\s+\w+,\s*(\d+)",
+                                      block.group(1), re.M)}
+
+    header_by_routine, routine = {}, None
+    for line in body.splitlines():
+        label = re.match(r"^(\w+):", line)
+        if label:
+            routine = label.group(1)
+        loads = re.search(r"ld hl,\s*(\w*TrainerHeader\w+)", line)
+        if loads and routine:
+            header_by_routine.setdefault(routine, loads.group(1))
+
+    routine_by_text = dict(re.findall(r"dw_const\s+(\w+)\s*,\s*(\w+)", body))
+    return {text: sight_by_header[header_by_routine[label]]
+            for label, text in routine_by_text.items()
+            if label in header_by_routine and header_by_routine[label] in sight_by_header}
+
+
 WATER_TILES = frozenset({0x14})
 SHORE_TILES = frozenset({0x48, 0x32})
 

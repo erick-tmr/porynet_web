@@ -10,15 +10,15 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 51 Kanto stops, drawing Route 4 twice around Mt. Moon" do
+  test "the game covers the 52 Kanto stops, drawing Route 4 twice around Mt. Moon" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 51 numbered stops (1..51); Route 4 (stop 10) wraps Mt. Moon, so it is drawn as a Mt. Moon
-    # approach section (leg 3) and its east half (leg 4). That makes 52 sections over 51 numbers.
-    assert_equal 52, g.locations.size
-    assert_equal (1..51).to_a, g.locations.map(&:order).uniq.sort
+    # 52 numbered stops (1..52); Route 4 (stop 10) wraps Mt. Moon, so it is drawn as a Mt. Moon
+    # approach section (leg 3) and its east half (leg 4). That makes 53 sections over 52 numbers.
+    assert_equal 53, g.locations.size
+    assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
   end
 
@@ -146,8 +146,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     silph = game.locations.index(loc("silph-co"))
 
     assert_operator silph, :<, saffron
-    assert_equal 38, loc("silph-co").order
-    assert_equal 39, loc("saffron-city").order
+    assert_equal 39, loc("silph-co").order
+    assert_equal 40, loc("saffron-city").order
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-10"))
   end
 
@@ -169,6 +169,19 @@ class WalkthroughTest < ActiveSupport::TestCase
     refute steps[2].hidden?
   end
 
+  test "the Underground Path sits between the routes it joins, carrying only its hidden items" do
+    tunnel = loc("underground-path")
+    hidden = tunnel.steps.flat_map(&:hidden)
+
+    assert_equal [ 15, 16 ], [ tunnel.order, loc("route-6").order ]
+    assert_equal %w[route-5 underground-path route-6 vermilion-city],
+      game.leg!("leg-05").locations.map(&:slug)
+    assert_empty tunnel.encounters, "nothing is wild down there"
+    assert_equal [ [ "Full Restore", "H1" ], [ "X Special", "H2" ] ], hidden.map { |h| [ h.name, h.key ] }
+    assert_equal [ { in: "E1" }, { out: "E2" } ], tunnel.steps.map(&:marks),
+      "a straight corridor is two steps: in with the first pickup, out with the second"
+  end
+
   test "the forest picks its items up in the order the maze can actually be walked" do
     items = loc("viridian-forest").steps.flat_map(&:items).map { |i| [ i.name, i.at ] }
 
@@ -185,6 +198,136 @@ class WalkthroughTest < ActiveSupport::TestCase
     forest = loc("viridian-forest")
     assert forest.encounters.all?(&:wild?)
     assert_equal 4, forest.catchable_count
+  end
+
+  test "the best place to catch is a stop you reach already holding the rod or Surf" do
+    g = game
+    stranded = g.locations.flat_map do |loc|
+      loc.encounters.filter_map do |enc|
+        next unless g.best_catch_here(loc, enc)
+        next if enc.unlocked_from <= loc.order
+
+        "#{enc.name} at #{loc.slug}"
+      end
+    end
+
+    assert_empty stranded
+  end
+
+  test "a species whose every stop is locked when you walk it is crowned nowhere" do
+    g = game
+    route6 = loc("route-6")
+    psyduck = route6.encounters.find { |enc| enc.dex == "054" }
+
+    assert_equal "SURF", psyduck.how
+    assert_operator psyduck.unlocked_from, :>, route6.order,
+      "Route 6 is the only Psyduck water in the game, and Surf is many stops later"
+    assert_nil g.best_catches["054"], "no stop may claim a catch you cannot make there"
+    assert_nil g.best_catches["055"]
+  end
+
+  test "a species is not crowned at a stop whose rod arrives many stops later" do
+    g = game
+    route22 = loc("route-22")
+    magikarp = route22.encounters.find { |enc| enc.dex == "129" }
+
+    assert_equal "OLD ROD", magikarp.how
+    assert_operator magikarp.unlocked_from, :>, route22.order, "Route 22 is before the Old Rod"
+    assert_nil g.best_catch_here(route22, magikarp)
+    refute_equal "route-22", g.best_catches["129"].slug
+  end
+
+  test "a species catchable at one armed stop says so, without claiming to be the only one" do
+    best = game.best_catches["119"]
+
+    assert_equal "cerulean-cave", best.slug
+    assert best.armed_only
+    refute best.only, "Seaking also lives on Route 4 and Route 24, just behind a later rod"
+  end
+
+  test "gating the ranking on the tools you carry costs only the two it must" do
+    assert_equal 92, game.best_catches.size
+  end
+
+  test "a stop boxes its catchables by method, in section order rather than authoring order" do
+    sections = loc("route-24").encounter_sections
+
+    assert_equal [ "GIFT", "GRASS", "OLD ROD", "GOOD ROD", "SUPER ROD" ], sections.map(&:code),
+      "the Charmander is authored last and must still come out first"
+    assert_equal [ 1, 5, 1, 2, 2 ], sections.map(&:size)
+  end
+
+  test "a starter files under the gift box while its card keeps the STARTER tag" do
+    section = loc("pallet-town").encounter_sections.sole
+
+    assert section.gift?
+    assert_equal "GIFT", section.code
+    assert_equal "STARTER", section.encounters.sole.how
+  end
+
+  test "a method the stop has no Pokemon for gets no box at all" do
+    assert_equal [ "GRASS" ], loc("route-3").encounter_sections.map(&:code)
+  end
+
+  test "a box names the sprite and the copy keys it renders with" do
+    section = loc("safari-zone").encounter_sections.first
+
+    assert_equal "safari", section.key
+    refute section.gift?
+    assert_equal "walkthrough/items/safari-ball.png", section.icon
+    assert_equal "walkthrough.ui.catchsec_safari_label", section.label_key
+    assert_equal "walkthrough.ui.catchsec_safari_hint", section.hint_key
+  end
+
+  test "a species on one floor of a multi-floor cave still says which floor" do
+    sandshrew = loc("mt-moon").encounters.find { |enc| enc.dex == "027" }
+
+    assert_equal 1, sandshrew.places.size
+    assert_equal "1F", sandshrew.places.sole.floor
+    assert sandshrew.places?, "Mt. Moon has three floors, so 1F-only is the fact worth printing"
+  end
+
+  test "a route species with one unfloored table breaks out nothing" do
+    refute loc("route-3").encounters.find { |enc| enc.dex == "027" }.places?
+  end
+
+  test "tall grass is titled by the game's own grass tile, not by a stand-in item" do
+    section = loc("route-1").encounter_sections.find { |s| s.code == "GRASS" }
+
+    assert_equal "walkthrough/yellow/icons/tall-grass.png", section.icon
+  end
+
+  test "a multi-word method slugs into one key for the id, the class and the copy" do
+    section = loc("celadon-city").encounter_sections.find { |s| s.code == "GAME CORNER" }
+
+    assert_equal "game-corner", section.key
+    assert_equal "walkthrough.ui.catchsec_game_corner_label", section.label_key
+  end
+
+  test "a method with no box raises rather than dropping its cards" do
+    error = assert_raises(Walkthrough::UnknownEncounterSection) do
+      stub_location("route-99", [ encounter_by("MIRAGE") ]).encounter_sections
+    end
+
+    assert_match "route-99", error.message
+    assert_match "MIRAGE", error.message
+  end
+
+  test "a box counts its cards but tallies its species" do
+    section = stub_location("route-99", [ encounter_by("GRASS"), encounter_by("GRASS") ])
+      .encounter_sections.sole
+
+    assert_equal 2, section.size
+    assert_equal [ "016" ], section.dex_list
+  end
+
+  test "every catchable in the game lands in exactly one box, and every box is used" do
+    codes = game.locations.flat_map do |l|
+      assert_equal l.encounters.size, l.encounter_sections.sum(&:size), "#{l.slug} lost a card"
+      l.encounter_sections.map(&:code)
+    end
+
+    assert_equal Walkthrough::SECTION_ICONS.keys.sort, codes.uniq.sort
   end
 
   test "every referenced sprite dex is a three-digit string" do
@@ -607,6 +750,17 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   private
+
+  def encounter_by(how)
+    Walkthrough::Encounter.new(dex: "016", name: "Pidgey", how: how, rate: "50%", level: "3",
+      rarity: "COMMON", tip_key: nil, evo_line: [])
+  end
+
+  def stub_location(slug, encounters)
+    Walkthrough::Location.new(slug: slug, kind: "ROUTE", name: slug.titleize, order: 99,
+      note_key: "n", intro_key: "i", badge: nil, steps: [], encounters: encounters,
+      trainers: [], oak_queue: [])
+  end
 
   def content_keys(game)
     keys = game.legs.reject(&:special).map(&:lead_key)

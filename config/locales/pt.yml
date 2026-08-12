@@ -352,9 +352,38 @@ pt:
       best_badge: "MELHOR LUGAR PARA CAPTURAR"
       best_reason_beats: "%{rate} aqui contra %{alt_rate} em %{alt}, a melhor chance de %{name}."
       best_reason_tie: "Melhor taxa com %{rate}, e o lugar mais cedo para capturar %{name}."
+      best_reason_armed_only: "A única parada onde você chega já equipado para %{name}. As outras vêm antes da vara."
       best_reason_only: "O único lugar do jogo para capturar %{name}. Se perder aqui, perdeu de vez."
       best_reason_only_rate: "O único lugar do jogo para capturar %{name}, com %{rate}."
       catch_targets: "%{count} metas de captura"
+      catch_tally_html: "%{done} / %{total} CAPTURADOS"
+      catchsec_count:
+        one: "1 ESPÉCIE"
+        other: "%{count} ESPÉCIES"
+      catchsec_gift_label: "Presentes e iniciais"
+      catchsec_gift_hint: "Entregues, não encontrados. Um de cada, e ninguém oferece um segundo."
+      catchsec_grass_label: "Grama alta"
+      catchsec_grass_hint: "Ande pelos matos e deixe que eles venham até você."
+      catchsec_cave_label: "Chão da caverna"
+      catchsec_cave_hint: "Cada passo lá dentro pode gerar um, andar por andar."
+      catchsec_floors_label: "Andares do prédio"
+      catchsec_floors_hint: "Tabelas internas que mudam a cada andar."
+      catchsec_safari_label: "Safari Zone"
+      catchsec_safari_hint: "Regras próprias: isca, pedras e um limite de passos."
+      catchsec_surf_label: "Surfando"
+      catchsec_surf_hint: "Em cima da água. Precisa de Surf."
+      catchsec_old_rod_label: "Vara Velha"
+      catchsec_old_rod_hint: "Um slot só, então espere sempre o mesmo peixe."
+      catchsec_good_rod_label: "Vara Boa"
+      catchsec_good_rod_hint: "Dois slots compartilhados em qualquer margem."
+      catchsec_super_rod_label: "Super Vara"
+      catchsec_super_rod_hint: "Tabelas específicas de cada água, então o ponto importa."
+      catchsec_static_label: "Encontro fixo"
+      catchsec_static_hint: "Um sprite no mapa, uma batalha, sem reaparecer."
+      catchsec_fossil_label: "Fósseis revividos"
+      catchsec_fossil_hint: "Revividos no laboratório de Cinnabar. O Mt. Moon só deixa ficar com um dos dois."
+      catchsec_game_corner_label: "Game Corner"
+      catchsec_game_corner_hint: "Comprados com fichas. Traga dinheiro ou paciência."
       rate: "TAXA"
       level: "NÍVEL"
       floors_label: "TAXA POR ANDAR"
@@ -1323,9 +1352,23 @@ pt:
               text_html: "Saia de Cerulean ao sul; deixe um Pokémon na Day Care %{daycare} se quiser subir o nível."
             "2":
               title: "Pegue o Underground Path"
-              text_html: "Os portões de Saffron estão bloqueados, então entre no prédio do Underground Path %{path} e túnele ao sul até a Rota 6. Um Full Restore e um X Special ocultos ficam pelo chão do túnel."
+              text_html: "Os portões de Saffron estão bloqueados, então entre na casa do Underground Path %{path} no sul da rota. A escada lá dentro te joga no túnel para a Rota 6."
           oak:
             abra: "Capture rápido (ele só usa Teleport). Evolui para Kadabra, depois Alakazam por troca."
+        underground_path:
+          note: "O túnel sob Saffron. Dois itens ocultos, nada selvagem."
+          intro: "Um corredor reto sob Saffron City, de quatro tiles de largura, sem treinadores e sem Pokémon selvagens. Dois itens ocultos ficam no chão, e nenhum dos dois aparece na tela."
+          steps:
+            "1":
+              title: "Desça a escada e vá a oeste pelo Full Restore"
+              text_html: "A casa da Rota 5 te deixa na escada %{in}. Dê um passo a oeste, vire para o oeste e aperte A: um Full Restore oculto, o mais cedo do jogo, todo o HP e status curado."
+              hidden:
+                full-restore: "Linha de cima do túnel, dois tiles a oeste da escada de entrada. Fique ao lado dele virado para o oeste e aperte A. Nada aparece na tela."
+            "2":
+              title: "Ao sul pelo X Special, depois saia na Rota 6"
+              text_html: "Ande ao sul até oito tiles acima da escada da Rota 6, na segunda faixa da parede leste. Aperte A virado para baixo por um X Special oculto, uma batalha de Special reforçado. A escada %{out} fica logo abaixo."
+              hidden:
+                x-special: "Segunda faixa a partir da parede leste, sete tiles ao norte da escada que desce para a Rota 6. Fique um tile ao norte dele e aperte A virado para baixo. Nada aparece na tela."
         route_6:
           note: "Até Vermilion. Mesma grama da Rota 5, mais pesca."
           intro: "O último trecho até Vermilion City. Pesque no lago assim que pegar um caniço."

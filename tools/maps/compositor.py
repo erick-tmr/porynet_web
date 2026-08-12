@@ -83,6 +83,10 @@ def _shade_to_ramp(value, ramp):
 
 # --- map ---------------------------------------------------------------------
 
+def _rows_the_blueprint_holds(blk, width, declared_rows):
+    return min(declared_rows, len(blk) // width)
+
+
 def _map_painter(root_str, label, parent_const):
     """Return (paint_block, colors, w, h, blk): paint_block(idx) colors one 32x32 block image.
 
@@ -98,6 +102,7 @@ def _map_painter(root_str, label, parent_const):
     tiles = sources.load_tiles(root_str, tileset_file)
     blocks = sources.load_blockset(root_str, tileset_file)
     blk = sources.load_blueprint(root_str, label)
+    h = _rows_the_blueprint_holds(blk, w, h)
 
     colors = _map_colors(root_str, sources.resolve_palette_id(root_str, const, tileset, parent_const))
     shade_to_rgb = {255: colors[0], 170: colors[1], 85: colors[2], 0: colors[3]}

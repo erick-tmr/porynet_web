@@ -970,6 +970,8 @@ a.pn-wt-route__card:hover {
 .pn-wt-pin--seafoam-islands-ultra-ball { left: 55.0%; top: 94.4%; }
 .pn-wt-pin--silph-co-elixir { left: 50.0%; top: 38.9%; }
 .pn-wt-pin--silph-co-max-potion { left: 25.0%; top: 72.2%; }
+.pn-wt-pin--underground-path-full-restore { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--underground-path-x-special { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--vermilion-city-max-ether { left: 50.0%; top: 33.3%; }
 .pn-wt-pin--victory-road-full-restore { left: 65.0%; top: 44.4%; }
 .pn-wt-pin--victory-road-ultra-ball { left: 50.0%; top: 27.8%; }
@@ -1313,6 +1315,144 @@ a.pn-wt-route__card:hover {
   background: #fff;
   padding: 6px 12px;
 }
+.pn-wt-catchsecs {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 26px;
+}
+.pn-wt-catchsec {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+}
+.pn-wt-catchsec__head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  color: #171622;
+  border: 0;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.pn-wt-catchsec.is-open .pn-wt-catchsec__head { border-bottom: 3px solid #171622; }
+.pn-wt-catchsec__head:hover { filter: brightness(1.06); }
+.pn-wt-catchsec__head:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: -5px;
+}
+.pn-wt-catchsec__icon {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #171622;
+}
+.pn-wt-catchsec__icon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-catchsec__main {
+  flex: 1;
+  min-width: 0;
+}
+.pn-wt-catchsec__line {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.pn-wt-catchsec__label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+}
+.pn-wt-catchsec__code {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  background: #fff;
+  border: 2px solid #171622;
+  padding: 4px 6px;
+}
+.pn-wt-catchsec__hint {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #3a3850;
+  margin-top: 5px;
+}
+.pn-wt-catchsec__meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: none;
+}
+.pn-wt-catchsec__num,
+.pn-wt-catchsec__tally {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  line-height: 1;
+  color: #171622;
+  background: #fff;
+  border: 2px solid #171622;
+  padding: 6px 9px;
+  white-space: nowrap;
+}
+.pn-wt-catchsec__chev {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #171622;
+  color: #fbf5e6;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+}
+.pn-wt-catchsec.is-ready .pn-wt-catchsec__chev { transition: transform 0.08s steps(2); }
+.pn-wt-catchsec.is-open .pn-wt-catchsec__chev { transform: rotate(90deg); }
+.pn-wt-catchsec__body {
+  background: #fbf5e6;
+  padding: 18px 16px;
+}
+.pn-wt-catchsec__body .pn-wt-catch-grid { margin-top: 0; }
+
+.pn-wt-catchsec__head--gift { background: #ffe6b3; }
+.pn-wt-catchsec__head--grass { background: #7cc47f; }
+.pn-wt-catchsec__head--cave { background: #d3c4a0; }
+.pn-wt-catchsec__head--floors { background: #c9b6d8; }
+.pn-wt-catchsec__head--safari { background: #cfe6a8; }
+.pn-wt-catchsec__head--surf { background: #9fd3ef; }
+.pn-wt-catchsec__head--old-rod,
+.pn-wt-catchsec__head--good-rod,
+.pn-wt-catchsec__head--super-rod { background: #a6e3d7; }
+.pn-wt-catchsec__head--static { background: #e0ccff; }
+.pn-wt-catchsec__head--fossil { background: #d8c8b0; }
+.pn-wt-catchsec__head--game-corner { background: #ffcf8f; }
+
+@media (max-width: 680px) {
+  .pn-wt-catchsec__head { flex-wrap: wrap; }
+  .pn-wt-catchsec__meta {
+    order: 3;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-catchsec.is-ready .pn-wt-catchsec__chev { transition: none; }
+  .pn-wt-catchsec__head:hover { filter: none; }
+}
+
 .pn-wt-catch-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -2164,6 +2304,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-band-head--city { background: color-mix(in srgb, var(--accent2) 12%, #FBF5E6); }
 .pn-wt-band-head--cave,
 .pn-wt-band-head--dungeon,
+.pn-wt-band-head--tunnel,
 .pn-wt-band-head--building,
 .pn-wt-band-head--gym { background: color-mix(in srgb, #171622 7%, #FBF5E6); }
 .pn-wt-band__tags {

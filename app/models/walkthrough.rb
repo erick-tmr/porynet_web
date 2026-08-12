@@ -13,11 +13,30 @@ module Walkthrough
   # water happens to be on. Without this the Oak deadline would owe you a Magikarp before Brock,
   # four legs before the Old Rod exists.
   METHOD_UNLOCK = {
-    "OLD ROD" => 16,     # Vermilion City, the Fishing Guru
-    "SUPER ROD" => 29,   # Route 12, the Super Rod house
-    "GOOD ROD" => 33,    # Fuchsia City, the Good Rod house
-    "SURF" => 34         # Safari Zone, HM03 in the Secret House
+    "OLD ROD" => 17,     # Vermilion City, the Fishing Guru
+    "SUPER ROD" => 30,   # Route 12, the Super Rod house
+    "GOOD ROD" => 34,    # Fuchsia City, the Good Rod house
+    "SURF" => 35         # Safari Zone, HM03 in the Secret House
   }.freeze
+
+  GIFT_SECTION = "GIFT"
+
+  SECTION_ICONS = {
+    GIFT_SECTION => "walkthrough/items/poke-ball.png",
+    "GRASS" => "walkthrough/yellow/icons/tall-grass.png",
+    "CAVE" => "walkthrough/items/escape-rope.png",
+    "FLOORS" => "walkthrough/items/town-map.png",
+    "SAFARI" => "walkthrough/items/safari-ball.png",
+    "SURF" => "walkthrough/items/tm-water.png",
+    "OLD ROD" => "walkthrough/items/old-rod.png",
+    "GOOD ROD" => "walkthrough/items/good-rod.png",
+    "SUPER ROD" => "walkthrough/items/super-rod.png",
+    "STATIC" => "walkthrough/items/poke-flute.png",
+    "FOSSIL" => "walkthrough/items/dome-fossil.png",
+    "GAME CORNER" => "walkthrough/items/coin-case.png"
+  }.freeze
+
+  class UnknownEncounterSection < StandardError; end
 
   # `from_key`/`unlock_key` are optional locale keys for a gift Pokémon: who hands it over and any
   # condition to unlock it (Bulbasaur needs Pikachu's friendship at 147+, Squirtle the Thunder
@@ -46,14 +65,23 @@ module Walkthrough
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
+    def section = gift? ? GIFT_SECTION : how
     # The earliest stop whose `order` can register this species: everything walked into is open
     # from the start, a rod or Surf card only once that tool is in the bag.
     def unlocked_from = METHOD_UNLOCK.fetch(how, 0)
     def from? = !from_key.nil?
     def unlock? = !unlock_key.nil?
-    # Only worth breaking out when the floors can actually disagree.
-    def places? = places.size > 1
+    def places? = places.size > 1 || places.any?(&:floor)
     def best_place = places.max_by(&:rate)
+  end
+
+  EncounterSection = Data.define(:code, :icon, :encounters) do
+    def key = code.parameterize
+    def gift? = code == GIFT_SECTION
+    def size = encounters.size
+    def dex_list = encounters.map(&:dex).uniq
+    def label_key = "walkthrough.ui.catchsec_#{key.tr('-', '_')}_label"
+    def hint_key = "walkthrough.ui.catchsec_#{key.tr('-', '_')}_hint"
   end
 
   # `key` is the letter this thing's pin wears on the location's map, so the card can tell the
@@ -279,8 +307,8 @@ module Walkthrough
 
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
   OakExample = Data.define(:dex, :name, :how)
-  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only) do
-    def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, **rest) = super
+  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only, :armed_only) do
+    def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, armed_only: false, **rest) = super
     def rate? = !rate.nil?
   end
 
@@ -320,6 +348,17 @@ module Walkthrough
     def dex_list = encounters.select { |enc| enc.unlocked_from <= order }.map(&:dex)
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
+
+    def encounter_sections
+      grouped = encounters.group_by(&:section)
+      missing = grouped.keys - SECTION_ICONS.keys
+      raise UnknownEncounterSection, "#{slug}: no section for #{missing.join(', ')}" if missing.any?
+
+      SECTION_ICONS.filter_map do |code, icon|
+        found = grouped[code]
+        EncounterSection.new(code: code, icon: icon, encounters: found) if found
+      end
+    end
     def badge? = !badge.nil?
     def gym? = !gym.nil?
     def gym_finale? = gym_finale

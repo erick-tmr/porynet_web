@@ -52,6 +52,7 @@ _DUNGEONS = {
     + [("SSAnne1FRooms", "1F Rooms", "VERMILION_CITY"),
        ("SSAnne2FRooms", "2F Rooms", "VERMILION_CITY"),
        ("SSAnneB1FRooms", "B1F Rooms", "VERMILION_CITY")],
+    "underground-path": [("UndergroundPathNorthSouth", "", None)],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],

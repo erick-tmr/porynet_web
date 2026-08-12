@@ -2222,6 +2222,50 @@
   },
   {
     "type": "dialog",
+    "name": "underground-path-hidden-full-restore",
+    "map": "UndergroundPathNorthSouth",
+    "player": [
+      4,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      4
+    ],
+    "auto_npcs": true,
+    "marker": [
+      3,
+      4
+    ],
+    "dialog": {
+      "found_item": "FULL RESTORE"
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "underground-path-hidden-x-special",
+    "map": "UndergroundPathNorthSouth",
+    "player": [
+      4,
+      33
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      4,
+      34
+    ],
+    "auto_npcs": true,
+    "marker": [
+      4,
+      34
+    ],
+    "dialog": {
+      "found_item": "X SPECIAL"
+    }
+  },
+  {
+    "type": "dialog",
     "name": "vermilion-city-hidden-max-ether",
     "map": "VermilionCity",
     "player": [

@@ -359,7 +359,7 @@
             "align": "l",
             "name": "Lass",
             "ref": "LASS:18",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-3-3",
@@ -15268,6 +15268,81 @@
         ]
       }
     ],
+    "underground-path": [
+      {
+        "image": "walkthrough/yellow/maps/underground-path.png",
+        "width": 128,
+        "height": 736,
+        "floor": "",
+        "name": "underground-path",
+        "markers": [
+          {
+            "id": "hidden-3-4",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 43.75,
+            "y": 9.783,
+            "grid": [
+              3,
+              4
+            ],
+            "align": "r",
+            "name": "Full Restore",
+            "ref": "FULL_RESTORE",
+            "lane": 0
+          },
+          {
+            "id": "hidden-4-34",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 56.25,
+            "y": 75.0,
+            "grid": [
+              4,
+              34
+            ],
+            "align": "r",
+            "name": "X Special",
+            "ref": "X_SPECIAL",
+            "lane": 0
+          },
+          {
+            "id": "exit-5-4",
+            "cat": "exit",
+            "key": "E1",
+            "x": 68.75,
+            "y": 9.783,
+            "grid": [
+              5,
+              4
+            ],
+            "align": "l",
+            "name": "Underground Path Route 5",
+            "ref": "UNDERGROUND_PATH_ROUTE_5",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 1
+          },
+          {
+            "id": "exit-2-41",
+            "cat": "exit",
+            "key": "E2",
+            "x": 31.25,
+            "y": 90.217,
+            "grid": [
+              2,
+              41
+            ],
+            "align": "r",
+            "name": "Underground Path Route 6",
+            "ref": "UNDERGROUND_PATH_ROUTE_6",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      }
+    ],
     "vermilion-city": [
       {
         "image": "walkthrough/yellow/maps/vermilion-city.png",
@@ -17860,6 +17935,18 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "underground-path-hidden-full-restore": {
+      "image": "walkthrough/yellow/scenes/underground-path-hidden-full-restore.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "underground-path-hidden-x-special": {
+      "image": "walkthrough/yellow/scenes/underground-path-hidden-x-special.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     },
     "vermilion-city-hidden-max-ether": {
       "image": "walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png",
