@@ -366,6 +366,42 @@ def test_the_ship_rival_meets_you_where_the_script_stops_him(root):
     assert _cell_standable(root, "SSAnne2F", hero) and _cell_standable(root, "SSAnne2F", blue)
 
 
+def test_the_ship_cabin_item_shots_frame_a_ball_in_the_right_cabin(root):
+    """The ship's six item balls live in cabins that share three composite `Rooms` maps, laid out
+    on a 3x2 grid ten cells apart. A focus off by one cabin still renders a plausible room, so each
+    shot has to sit on a cell the game really puts a ball on, with the hero next to it."""
+    shots = [s for s in json.loads((SPECS / "overworld_items.json").read_text())
+             if s["name"].startswith("ss-anne-item-")]
+
+    assert len(shots) == 6, "one shot per item ball aboard the S.S. Anne"
+    for spec in shots:
+        balls = {tuple(o["grid"]) for o
+                 in sources.parse_object_events(root, spec["map"], include_battlers=True)
+                 if o["sprite_const"] == "SPRITE_POKE_BALL"}
+        focus, (px, py) = tuple(spec["focus"]), spec["player"]
+
+        assert focus in balls, f"{spec['name']}: {spec['map']} has no item ball at {focus}"
+        assert abs(px - focus[0]) + abs(py - focus[1]) == 1, \
+            f"{spec['name']}: hero at {spec['player']} is not beside the ball at {focus}"
+
+
+def test_a_found_item_shot_marks_a_cell_the_game_really_hides_that_item_on(root):
+    """The other half of a found-item frame: the box names an item, so the marked cell has to be a
+    HiddenItems event on that map handing over exactly that item. Catches a shot pointed at the
+    wrong bin, bed or rock, which renders fine and quietly teaches the reader a dead tile."""
+    hidden = {(const, x, y): item for const, x, y, item in sources.parse_hidden_events(root)}
+    for fname in INTERACTION_SPEC_FILES:
+        for spec in json.loads((SPECS / fname).read_text()):
+            if spec.get("type") != "dialog" or "found_item" not in spec.get("dialog", {}):
+                continue
+            const = sources.parse_headers(root)[spec["map"]][0]
+            item = hidden.get((const, *spec["marker"]))
+
+            assert item, f"{spec['name']} ({fname}): {spec['map']} hides nothing at {spec['marker']}"
+            assert sources.item_display_name(item).upper() == spec["dialog"]["found_item"], \
+                f"{spec['name']} ({fname}): {spec['map']} hides {item} at {spec['marker']}"
+
+
 def test_a_hero_out_on_the_water_is_drawn_on_the_surf_sprite(root):
     """Gen 1 swaps the player onto SPRITE_SEEL the moment they step off dry land, so a scene whose
     `player` cell is water has to say so with `player_sprite` or it draws someone standing on the

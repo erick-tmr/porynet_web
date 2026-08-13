@@ -286,17 +286,19 @@ def _camera(focus_px, anchor, full_size, screen_size):
     return min(max(focus_px - anchor, 0), full_size - screen_size)
 
 
-def _border_fill(root_str, label, parent_const):
-    """A 160x144 screen tiled with the map's border block (grass/water outdoors, black inside
-    buildings), the fill Gen 1 draws in any on-screen cell that falls outside the map."""
+def border_fill(root_str, label, parent_const, width=SCREEN[0], height=SCREEN[1]):
+    """A canvas tiled with the map's border block (grass/water outdoors, black inside buildings),
+    the fill Gen 1 draws in any on-screen cell that falls outside the map. Screen-sized by default,
+    which is what a GB shot needs; a deck asks for its whole composite so the space around the
+    rooms it hangs off a corridor is filled the same way."""
     border = sources.parse_border_block(root_str, label)
     paint_block, _, _, _, _ = _map_painter(root_str, label, parent_const)
     tile = paint_block(border if border is not None else 0)
-    screen = Image.new("RGB", SCREEN)
-    for y in range(0, SCREEN[1], BLOCK_PX):
-        for x in range(0, SCREEN[0], BLOCK_PX):
-            screen.paste(tile, (x, y))
-    return screen
+    canvas = Image.new("RGB", (width, height))
+    for y in range(0, height, BLOCK_PX):
+        for x in range(0, width, BLOCK_PX):
+            canvas.paste(tile, (x, y))
+    return canvas
 
 
 def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None,
@@ -319,7 +321,7 @@ def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), ar
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
     offx = _camera(fx, PLAYER_SCREEN[0], full.width, SCREEN[0])
     offy = _camera(fy, PLAYER_SCREEN[1], full.height, SCREEN[1])
-    screen = _border_fill(root_str, label, parent_const)
+    screen = border_fill(root_str, label, parent_const)
     screen.paste(full, (-offx, -offy))
     if dialog:
         draw_dialog(screen, root_str, dialog, ink=colors[3], paper=colors[0])

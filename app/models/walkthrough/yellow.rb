@@ -1239,17 +1239,31 @@ module Walkthrough
     end
 
     def self.ss_anne
-      # The cabin sub-maps are drawn now, so the six items inside them are pinned and get a step
-      # each, rather than being listed in one sentence on the boarding beat.
       loc("ss-anne", "BUILDING", "S.S. Anne", 18, steps: [
-          {},
-          { item: [ "TM Body Slam", "tm-body-slam" ] },
-          { item: [ "Max Ether", "max-ether" ] },
-          { item: [ "Rare Candy", "rare-candy" ] },
-          { item: [ "Ether", "ether" ] },
-          { item: [ "TM Rest", "tm-rest" ] },
-          { item: [ "Max Potion", "max-potion" ] },
-          { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut", html: true,
+          { pins: { cabin: "ss-anne-1f/exit-11-8" } },
+          { item: [ "TM Body Slam", "tm-body-slam" ], scene: "ss-anne-item-tm-body-slam" },
+          { pins: { down: "ss-anne-1f/exit-37-15", cabin: "ss-anne-b1f/exit-23-3" } },
+          { item: [ "Max Potion", "max-potion" ], scene: "ss-anne-item-max-potion" },
+          { item: [ "Ether", "ether" ], scene: "ss-anne-item-ether",
+            pins: { cabin: "ss-anne-b1f/exit-15-3" } },
+          { item: [ "TM Rest", "tm-rest" ], scene: "ss-anne-item-tm-rest",
+            pins: { cabin: "ss-anne-b1f/exit-11-3" } },
+          { hidden: [ "Hyper Potion", "hyper-potion", "ss-anne-hidden-hyper-potion",
+                      "ss-anne-hyper-potion" ],
+            pins: { cabin: "ss-anne-b1f/exit-7-3" } },
+          { hidden: [ "Great Ball", "great-ball", "ss-anne-hidden-great-ball",
+                      "ss-anne-great-ball" ],
+            pins: { up: "ss-anne-b1f/exit-27-5", kitchen: "ss-anne-1f/exit-3-16" } },
+          { pins: { up: "ss-anne-1f/exit-2-6", down: "ss-anne-2f/exit-2-12",
+                    deck: "ss-anne-3f/exit-0-3" } },
+          { pins: { cabin: "ss-anne-2f/exit-9-11" } },
+          { item: [ "Max Ether", "max-ether" ], scene: "ss-anne-item-max-ether",
+            pins: { cabin: "ss-anne-2f/exit-13-11" } },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "ss-anne-item-rare-candy",
+            pins: { cabin: "ss-anne-2f/exit-21-11" } },
+          { pins: { rival: "ss-anne-2f/trainer-36-4" } },
+          { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut",
+            pins: { stairs: "ss-anne-2f/exit-36-4" },
             link: StepLink.new(leg: "leg-06", anchor: "vermilion-city-return-step-1") }
         ],
         trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),

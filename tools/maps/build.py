@@ -23,6 +23,7 @@ import json
 import pathlib
 
 import compositor
+import decks
 import encounters
 import follower
 import generators
@@ -66,6 +67,29 @@ def file_frame(scenes, step_shots, spec, name, entry):
         step_shots.setdefault(spec["slug"], {})[str(spec["step"])] = entry
 
 
+def draw_map(root, label, parent):
+    """One source map, with its people and its item balls exactly where the game puts them."""
+    image, colors = compositor.render_map(root, label, parent)
+    return compositor.overlay_sprites(image, root,
+                                      generators.auto_npcs(root, label, battlers=True), colors,
+                                      compositor.grass_cells(root, label))
+
+
+def draw_area(root, label, floor, parent):
+    """The image the page shows for one floor, and its markers.
+
+    Usually that is the map itself. A map with rooms attached is a deck: the rooms are cropped out
+    of the maps they share and hung off the doors they belong to, and the whole composite is
+    measured and numbered as one picture."""
+    rooms = locations.attached(label)
+    if not rooms:
+        image = draw_map(root, label, parent)
+    else:
+        deck = decks.plan(root, label, floor, rooms)
+        image = decks.render(root, deck, parent, lambda name: draw_map(root, name, parent))
+    return image, decks.area_markers(root, label, floor, image.width, image.height)
+
+
 def save_png(image, subdir, name, force):
     out_dir = IMG_ROOT / subdir
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -100,16 +124,10 @@ def main():
                 missing.append(f"{slug}: {label}")
                 continue
             name = locations.image_name(slug, floor)
-            image, colors = compositor.render_map(root, label, parent)
-            # every map shows its people and its item balls, exactly where the game puts them
-            image = compositor.overlay_sprites(
-                image, root, generators.auto_npcs(root, label, battlers=True), colors,
-                compositor.grass_cells(root, label))
+            image, pins = draw_area(root, label, floor, parent)
             key = save_png(image, "maps", name, args.force)
             entries.append({"image": key, "width": image.width, "height": image.height,
-                            "floor": floor, "name": name,
-                            "markers": markers.build_markers(root, label, headers[label][0],
-                                                             image.width, image.height)})
+                            "floor": floor, "name": name, "markers": pins})
             labels.append(label)
             warps[label] = sources.parse_warp_events(root, label)
             consts[label] = headers[label][0]

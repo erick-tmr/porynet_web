@@ -2237,6 +2237,148 @@
     "parent": "SAFFRON_CITY"
   },
   {
+    "type": "screen",
+    "name": "ss-anne-item-tm-body-slam",
+    "map": "SSAnne1FRooms",
+    "player": [
+      12,
+      14
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      12,
+      15
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY"
+  },
+  {
+    "type": "screen",
+    "name": "ss-anne-item-max-potion",
+    "map": "SSAnneB1FRooms",
+    "player": [
+      12,
+      12
+    ],
+    "player_dir": "UP",
+    "focus": [
+      12,
+      11
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY"
+  },
+  {
+    "type": "screen",
+    "name": "ss-anne-item-ether",
+    "map": "SSAnneB1FRooms",
+    "player": [
+      20,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      20,
+      2
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY"
+  },
+  {
+    "type": "screen",
+    "name": "ss-anne-item-tm-rest",
+    "map": "SSAnneB1FRooms",
+    "player": [
+      10,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      10,
+      2
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY"
+  },
+  {
+    "type": "dialog",
+    "name": "ss-anne-hidden-hyper-potion",
+    "map": "SSAnneB1FRooms",
+    "player": [
+      2,
+      1
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      3,
+      1
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY",
+    "marker": [
+      3,
+      1
+    ],
+    "dialog": {
+      "found_item": "HYPER POTION"
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "ss-anne-hidden-great-ball",
+    "map": "SSAnneKitchen",
+    "player": [
+      12,
+      9
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      13,
+      9
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY",
+    "marker": [
+      13,
+      9
+    ],
+    "dialog": {
+      "found_item": "GREAT BALL"
+    }
+  },
+  {
+    "type": "screen",
+    "name": "ss-anne-item-max-ether",
+    "map": "SSAnne2FRooms",
+    "player": [
+      12,
+      2
+    ],
+    "player_dir": "UP",
+    "focus": [
+      12,
+      1
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY"
+  },
+  {
+    "type": "screen",
+    "name": "ss-anne-item-rare-candy",
+    "map": "SSAnne2FRooms",
+    "player": [
+      0,
+      13
+    ],
+    "player_dir": "UP",
+    "focus": [
+      0,
+      12
+    ],
+    "auto_npcs": true,
+    "parent": "VERMILION_CITY"
+  },
+  {
     "type": "dialog",
     "name": "underground-path-hidden-full-restore",
     "map": "UndergroundPathNorthSouth",

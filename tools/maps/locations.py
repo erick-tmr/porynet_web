@@ -46,25 +46,36 @@ _DUNGEONS = {
                         "SAFFRON_CITY"),
     "rocket-hideout": _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY"),
     "pokemon-mansion": _floors("PokemonMansion", ["1F", "2F", "3F", "B1F"], "CINNABAR_ISLAND"),
-    # The cabin sub-maps are rendered as their own floors, not folded into the deck above them:
-    # six items live only in the cabins, and an unrendered map can carry no marker for them. Each
-    # deck is followed by the rooms you reach from it, so a reader walking 1F does not have to
-    # scroll past every other deck to find the 1F cabins. The kitchen hangs off 1F the same way,
-    # and is here because a Great Ball is buried in its last bin.
+    # One entry per deck; the cabins, kitchen and bow are drawn into the deck they open off (see
+    # _ATTACHED below and decks.py), not listed here as floors of their own.
     "ss-anne": [("SSAnne1F", "1F", "VERMILION_CITY"),
-                ("SSAnne1FRooms", "1F Rooms", "VERMILION_CITY"),
-                ("SSAnneKitchen", "Kitchen", "VERMILION_CITY"),
                 ("SSAnne2F", "2F", "VERMILION_CITY"),
-                ("SSAnne2FRooms", "2F Rooms", "VERMILION_CITY"),
                 ("SSAnne3F", "3F", "VERMILION_CITY"),
-                ("SSAnneBow", "Bow", "VERMILION_CITY"),
-                ("SSAnneB1F", "B1F", "VERMILION_CITY"),
-                ("SSAnneB1FRooms", "B1F Rooms", "VERMILION_CITY")],
+                ("SSAnneB1F", "B1F", "VERMILION_CITY")],
     "underground-path": [("UndergroundPathNorthSouth", "", None)],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
 }
+
+# Maps drawn into another map's image rather than as a floor of their own: {corridor: [(map,
+# floor label)]}. The game keeps a deck's cabins on one shared map (SS_ANNE_1F_ROOMS is all six 1F
+# cabins in a 3x2 grid), which made the ship a corridor of identical doors beside a grid of
+# identical cabins, and left the reader to pair them off by letter. decks.py crops each room out
+# and hangs it under its own door instead. The floor label rides along because a trainer's "where"
+# shot is still named after the map it really stands on.
+_ATTACHED = {
+    "SSAnne1F": [("SSAnne1FRooms", "1F Rooms"), ("SSAnneKitchen", "Kitchen")],
+    "SSAnne2F": [("SSAnne2FRooms", "2F Rooms")],
+    "SSAnne3F": [("SSAnneBow", "Bow")],
+    "SSAnneB1F": [("SSAnneB1FRooms", "B1F Rooms")],
+}
+
+
+def attached(map_label):
+    """The maps drawn into this one's image, as [(label, floor label)]; empty for a plain map."""
+    return _ATTACHED.get(map_label, [])
+
 
 _EXTRA_TRAINER_MAPS = {
     # The three *Rooms maps and the bow moved into _DUNGEONS above. They must not stay here too:

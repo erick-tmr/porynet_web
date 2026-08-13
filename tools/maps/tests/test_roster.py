@@ -1,3 +1,4 @@
+import decks
 import locations
 import markers
 import roster
@@ -65,11 +66,10 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
         for label, floor, _parent in maps:
             if label not in headers:
                 continue
-            const = headers[label][0]
-            _i, blocks_w, blocks_h = dims[const]
+            _i, blocks_w, blocks_h = dims[headers[label][0]]
             area = locations.image_name(slug, floor)
-            pins = {m["id"]: m for m in markers.build_markers(
-                root, label, const, blocks_w * 32, blocks_h * 32) if m["cat"] == "trainer"}
+            pins = {m["id"]: m for m in decks.area_markers(
+                root, label, floor, blocks_w * 32, blocks_h * 32) if m["cat"] == "trainer"}
             for entry in (e for e in entries.get(slug, []) if e["map"] == area):
                 pin = pins[entry["marker"]]
                 assert pin["ref"] == entry["opp"]
@@ -89,16 +89,17 @@ def test_gym_floors_are_keyed_like_any_other_map(root):
     assert [e["key"] for e in gym] == ["T1", "T2"]
 
 
-def test_every_trainer_on_the_ship_is_pinned_now_that_every_deck_is_drawn(root):
+def test_every_trainer_on_the_ship_is_pinned_on_the_deck_it_is_fought_on(root):
     """The SS Anne's sixteen trainers used to be cards with no pin, because the cabin maps were
-    never rendered. The cabins came first, then the bow off 3F, so nobody aboard is pinless."""
+    never rendered. They are now, and folded into the four decks: a cabin trainer files under the
+    deck whose door you reach it through, which is the map its pin is drawn on."""
     entries, _ = built(root)
     ship = entries["ss-anne"]
 
     assert len(ship) == 16
     assert [e for e in ship if e["key"] is None] == [], "every card can point at its pin"
     assert {e["map"] for e in ship} == {
-        "ss-anne-1f-rooms", "ss-anne-2f-rooms", "ss-anne-b1f-rooms", "ss-anne-bow"}
+        "ss-anne-1f", "ss-anne-2f", "ss-anne-3f", "ss-anne-b1f"}
 
 
 def test_where_geometry_puts_the_player_in_front_facing_back(root):

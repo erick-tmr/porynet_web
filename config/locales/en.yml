@@ -1465,45 +1465,65 @@ en:
           intro: "A one-time boat. Sweep it for items, beat your rival, and get Cut before it sails away for good."
           steps:
             "1":
-              title: "Board at the south dock"
-              text: "Show the S.S. Ticket at the south dock and step aboard. Sailors and Gentlemen fill the decks, and your rival is waiting near the stern for a rematch before the Captain will see you."
+              title: "Board and head west along 1F"
+              text_html: "Show the S.S. Ticket at the dock and step aboard. Head west down the 1F corridor to the second cabin from the west end %{cabin}."
             "2":
-              title: "Sweep the 1F cabins for TM08"
-              text: "Work the cabin doors along the 1F corridor. One of them holds a ball with TM08 Body Slam, a heavy Normal move with a chance to paralyze."
+              title: "Take TM08 from the west cabin"
+              text: "A ball at the bottom of the room holds TM08 Body Slam, a heavy Normal move that paralyzes about a third of the time."
               items:
-                tm-body-slam: "In a 1F cabin, off the main corridor."
+                tm-body-slam: "At the bottom of the 1F cabin, second door from the west end of the corridor."
             "3":
-              title: "Take the Max Ether upstairs"
-              text: "Climb to the 2F cabins and open the doors along the corridor. A ball in the far room holds a Max Ether, which fully refills one move's PP."
-              items:
-                max-ether: "In a 2F cabin, at the end of the corridor."
+              title: "Down to the crew deck"
+              text_html: "Back in the corridor, head east past the entrance to the stairs %{down} in the far corner. B1F runs west from there past five crew cabins; start with the nearest %{cabin}."
             "4":
-              title: "Grab the 2F Rare Candy"
-              text: "Another 2F cabin, further down the same corridor, holds a Rare Candy on a ball. One free level for whoever needs it."
+              title: "Max Potion in the first cabin"
+              text: "A ball sits against the far wall past the bunks. A Max Potion is a full heal for one Pokémon, worth holding for Surge."
               items:
-                rare-candy: "In a 2F cabin, along the same corridor."
+                max-potion: "Against the far wall of the easternmost B1F cabin."
             "5":
-              title: "Drop to the B1F cabins for the Ether"
-              text: "Head below deck to the B1F cabins, where the Sailors bunk. The first room off the corridor holds an Ether on a ball."
+              title: "Ether two doors along"
+              text_html: "Carry on west to cabin %{cabin}. An Ether rests on the floor beside the bunk, ten PP back on a single move."
               items:
-                ether: "In a B1F cabin, first off the corridor."
+                ether: "On the floor of the third B1F cabin from the east, beside the bunk."
             "6":
-              title: "Bag TM44 Rest"
-              text: "A second B1F cabin holds TM44 Rest, which puts the user to sleep and restores it to full health in one turn."
+              title: "TM44 Rest next door"
+              text_html: "Next door west %{cabin} holds TM44 Rest. It knocks the user out for two turns and wakes it at full HP, a free heal in a pinch."
               items:
-                tm-rest: "In a B1F cabin, along the crew corridor."
+                tm-rest: "Beside the bed in the fourth B1F cabin from the east."
             "7":
-              title: "Pocket the Max Potion"
-              text: "The last of the B1F rooms holds a Max Potion on a ball, a full heal for one Pokémon and worth saving for the gym ahead."
-              items:
-                max-potion: "In the last B1F cabin."
+              title: "Hyper Potion on the pillow"
+              text_html: "The last cabin %{cabin} sits at the west end. Stand at the head of the bed and press A facing the pillow; nothing shows on-screen, but a Hyper Potion is there."
+              hidden:
+                hyper-potion: "On the pillow of the bed in the westernmost B1F cabin. Press A facing it from the left; nothing shows on-screen."
             "8":
-              title: "Take HM01 Cut from the Captain"
-              text_html: "Head to the Captain's cabin at the top of the ship and soothe his seasickness. He hands over HM01 Cut, and the ship sails once you leave. Teach it, then go <a href=\"%{href}\">open Vermilion's gym</a>."
+              title: "Great Ball in the kitchen bin"
+              text_html: "Take the stairs %{up} back to 1F, then west the length of the corridor and south through the gap %{kitchen}. In the kitchen, the lowest of the three bins on the east wall hides a Great Ball."
+              hidden:
+                great-ball: "The lowest of the three trash cans on the kitchen's east wall. Press A facing it; nothing shows on-screen."
+            "9":
+              title: "Out to the bow deck"
+              text_html: "Leave the kitchen, take the stairs %{up} to 2F and %{down} to 3F, then west along that corridor and out onto the bow %{deck}. Two Sailors up there are free XP before the rival."
+            "10":
+              title: "Snorlax's dex entry on 2F"
+              text_html: "Back in the 2F corridor, the first cabin %{cabin} holds no items, just a man who shows you Snorlax. Talking to him registers it as seen."
+            "11":
+              title: "Max Ether next door"
+              text_html: "The next cabin east %{cabin} has a ball at the back of the room: a Max Ether, which refills one move's PP completely."
               items:
-                hm01_cut: "From the seasick Captain in his cabin at the top of the ship."
-          oak:
-            drowzee: "The route's notable catch → Hypno, a strong early Psychic."
+                max-ether: "At the back of the second 2F cabin from the west."
+            "12":
+              title: "Rare Candy two doors on"
+              text_html: "Skip one door and take the next %{cabin}. A Rare Candy waits against the west wall, one free level. That is the last item aboard."
+              items:
+                rare-candy: "Against the west wall of the fourth 2F cabin from the west."
+            "13":
+              title: "Heal before the rival"
+              text_html: "Keep east down the corridor and the rival %{rival} steps out for a fight. Top the team up with items first: there is no Center aboard, and this is the last fight on the ship."
+            "14":
+              title: "HM01 Cut from the Captain"
+              text_html: "Take the stairs behind him %{stairs} up to the Captain's cabin and soothe his seasickness for HM01 Cut. Teach it and step off; the ship sails for good. Then go <a href=\"%{href}\">open Vermilion's gym</a>."
+              items:
+                hm01_cut: "From the seasick Captain, up the stairs behind the rival at the 2F stern."
         route_11:
           note: "East of Vermilion. Pidgey, Rattata, and Drowzee."
           intro: "A wide grass route east of Vermilion, with a cave shortcut back toward Pewter."

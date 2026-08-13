@@ -1465,45 +1465,65 @@ pt:
           intro: "Um navio de uma vez só. Varra os itens, vença seu rival e pegue o Cut antes que ele parta para sempre."
           steps:
             "1":
-              title: "Embarque na doca sul"
-              text: "Mostre o S.S. Ticket na doca sul e suba a bordo. Sailors e Gentlemen lotam os conveses, e seu rival espera perto da popa para uma revanche antes de o Capitão te receber."
+              title: "Embarque e siga a oeste no 1F"
+              text_html: "Mostre o S.S. Ticket na doca e suba a bordo. Siga a oeste pelo corredor do 1F até a segunda cabine a partir da ponta oeste %{cabin}."
             "2":
-              title: "Varra as cabines do 1F pelo TM08"
-              text: "Abra as portas das cabines pelo corredor do 1F. Uma delas guarda uma bola com o TM08 Body Slam, um golpe Normal pesado com chance de paralisar."
+              title: "Pegue o TM08 na cabine oeste"
+              text: "Uma bola no fundo do quarto guarda o TM08 Body Slam, um golpe Normal pesado que paralisa cerca de um terço das vezes."
               items:
-                tm-body-slam: "Numa cabine do 1F, saindo do corredor principal."
+                tm-body-slam: "No fundo da cabine do 1F, a segunda porta a partir da ponta oeste do corredor."
             "3":
-              title: "Pegue o Max Ether lá em cima"
-              text: "Suba até as cabines do 2F e abra as portas do corredor. Uma bola no quarto do fim guarda um Max Ether, que recarrega todo o PP de um golpe."
-              items:
-                max-ether: "Numa cabine do 2F, no fim do corredor."
+              title: "Desça ao convés da tripulação"
+              text_html: "De volta ao corredor, siga a leste passando pela entrada até a escada %{down} no canto. O B1F corre para oeste dali, com cinco cabines; comece pela mais próxima %{cabin}."
             "4":
-              title: "Pegue o Rare Candy do 2F"
-              text: "Outra cabine do 2F, mais adiante no mesmo corredor, guarda um Rare Candy numa bola. Um nível grátis para quem precisar."
+              title: "Max Potion na primeira cabine"
+              text: "Uma bola fica junto à parede do fundo, passando das camas. A Max Potion cura um Pokémon por completo, boa de guardar para o Surge."
               items:
-                rare-candy: "Numa cabine do 2F, no mesmo corredor."
+                max-potion: "Junto à parede do fundo da cabine mais a leste do B1F."
             "5":
-              title: "Desça às cabines do B1F pelo Ether"
-              text: "Desça para as cabines do B1F, onde os Sailors dormem. O primeiro quarto do corredor guarda um Ether numa bola."
+              title: "Ether duas portas adiante"
+              text_html: "Siga a oeste até a cabine %{cabin}. Um Ether está no chão ao lado da cama, dez PP de volta num único golpe."
               items:
-                ether: "Numa cabine do B1F, a primeira do corredor."
+                ether: "No chão da terceira cabine do B1F a partir do leste, ao lado da cama."
             "6":
-              title: "Pegue o TM44 Rest"
-              text: "Uma segunda cabine do B1F guarda o TM44 Rest, que faz o usuário dormir e recuperar toda a vida num turno."
+              title: "TM44 Rest na porta seguinte"
+              text_html: "A porta seguinte a oeste %{cabin} guarda o TM44 Rest. Ele apaga o usuário por dois turnos e o acorda com a vida cheia, uma cura grátis no aperto."
               items:
-                tm-rest: "Numa cabine do B1F, pelo corredor da tripulação."
+                tm-rest: "Ao lado da cama, na quarta cabine do B1F a partir do leste."
             "7":
-              title: "Guarde a Max Potion"
-              text: "O último dos quartos do B1F guarda uma Max Potion numa bola, cura completa para um Pokémon e boa de guardar para o ginásio adiante."
-              items:
-                max-potion: "Na última cabine do B1F."
+              title: "Hyper Potion no travesseiro"
+              text_html: "A última cabine %{cabin} fica na ponta oeste. Fique ao lado da cabeceira e aperte A de frente para o travesseiro; nada aparece na tela, mas há uma Hyper Potion ali."
+              hidden:
+                hyper-potion: "No travesseiro da cama, na cabine mais a oeste do B1F. Aperte A de frente para ele, pela esquerda; nada aparece na tela."
             "8":
-              title: "Pegue o HM01 Cut com o Capitão"
-              text_html: "Vá até a cabine do Capitão, no alto do navio, e alivie o enjoo dele. Ele entrega o HM01 Cut, e o navio zarpa quando você sai. Ensine o golpe e vá <a href=\"%{href}\">abrir o ginásio de Vermilion</a>."
+              title: "Great Ball na lixeira da cozinha"
+              text_html: "Suba a escada %{up} de volta ao 1F, depois vá a oeste por todo o corredor e ao sul pela brecha %{kitchen}. Na cozinha, a mais baixa das três lixeiras da parede leste esconde uma Great Ball."
+              hidden:
+                great-ball: "A mais baixa das três lixeiras na parede leste da cozinha. Aperte A de frente para ela; nada aparece na tela."
+            "9":
+              title: "Saia para o convés da proa"
+              text_html: "Saia da cozinha, pegue a escada %{up} para o 2F e a %{down} para o 3F, depois siga a oeste e saia na proa %{deck}. Dois Sailors ali são XP grátis antes do rival."
+            "10":
+              title: "O registro de Snorlax no 2F"
+              text_html: "De volta ao corredor do 2F, a primeira cabine %{cabin} não tem itens, só um homem que te mostra o Snorlax. Falar com ele registra o bicho como visto."
+            "11":
+              title: "Max Ether na porta seguinte"
+              text_html: "A cabine seguinte a leste %{cabin} tem uma bola no fundo do quarto: um Max Ether, que recarrega todo o PP de um golpe."
               items:
-                hm01_cut: "Com o Capitão enjoado, na cabine no alto do navio."
-          oak:
-            drowzee: "A captura notável da rota → Hypno, um Psíquico forte cedo."
+                max-ether: "No fundo da segunda cabine do 2F a partir do oeste."
+            "12":
+              title: "Rare Candy duas portas adiante"
+              text_html: "Pule uma porta e entre na seguinte %{cabin}. Um Rare Candy espera junto à parede oeste, um nível grátis. É o último item do navio."
+              items:
+                rare-candy: "Junto à parede oeste da quarta cabine do 2F a partir do oeste."
+            "13":
+              title: "Cure a equipe antes do rival"
+              text_html: "Siga a leste pelo corredor e o rival %{rival} aparece para a luta. Cure a equipe com itens antes: não há Centro a bordo, e essa é a última luta do navio."
+            "14":
+              title: "HM01 Cut com o Capitão"
+              text_html: "Pegue a escada atrás dele %{stairs} até a cabine do Capitão e alivie o enjoo dele pelo HM01 Cut. Ensine o golpe e desça; o navio parte de vez. Depois vá <a href=\"%{href}\">abrir o ginásio de Vermilion</a>."
+              items:
+                hm01_cut: "Com o Capitão enjoado, subindo a escada atrás do rival, na popa do 2F."
         route_11:
           note: "A leste de Vermilion. Pidgey, Rattata e Drowzee."
           intro: "Uma rota larga de grama a leste de Vermilion, com um atalho de caverna rumo a Pewter."
