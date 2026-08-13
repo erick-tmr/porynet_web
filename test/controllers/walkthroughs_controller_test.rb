@@ -186,12 +186,14 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-shot--map img.pn-wt-shot__map-img[src*=?]", "walkthrough/yellow/scenes/pallet-town-exit.png"
   end
 
-  test "a single-location leg drops the switcher" do
+  test "the leg back from the ship switches between Vermilion and Route 11" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-06")
 
     assert_response :success
-    assert_select "[data-controller='leg-switcher']", false
-    assert_select ".pn-wt-loc__title", text: "Route 11"
+    assert_select "[data-controller='leg-switcher']"
+    assert_select ".pn-wt-chip[data-slug='vermilion-city-return']"
+    assert_select ".pn-wt-chip[data-slug='route-11']"
+    assert_select ".pn-wt-band__title", text: "Route 11"
   end
 
   test "a leg renders in Portuguese with a gym band, fossils and its leader" do
@@ -244,7 +246,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym__type", /ROCK/
     assert_select ".pn-wt-trainers--gym .pn-wt-trainer__name", text: /JR. TRAINER♂/
     assert_select ".pn-wt-gym__leader-name", text: /\ABrock\b/
-    assert_select ".pn-wt-gym__leader[role='button'][data-kind='collected'][data-progress-id$='gym-leader']"
+    assert_select ".pn-wt-gym__leader[role='button'][data-kind='collected'][data-progress-id='pewter-city-gym/trainer-4-1']"
     assert_select ".pn-wt-gym__leader .pn-wt-toast__retry"
     assert_select ".pn-wt-gym__leader-cleared", text: /GYM CLEARED/
     assert_select ".pn-wt-gym__badge-name", text: "BOULDER"
@@ -257,7 +259,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a maze gym renders its puzzle solution steps" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-05")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-06")
 
     assert_response :success
     assert_select ".pn-wt-gym__name", text: "Vermilion Gym"
@@ -278,15 +280,15 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-pin--viridian-forest-antidote"
   end
 
-  test "a trainer-only special hides the catch and challenge sections" do
+  test "a trainer-only special hides the catch section but still owes Oak the next gym" do
     get walkthrough_leg_path(game: "yellow", leg: "ss-anne")
 
     assert_response :success
     assert_select ".pn-wt-catch-grid", false
-    assert_select ".pn-wt-oak", false
     assert_select ".pn-wt-ld", false
-    assert_select ".pn-wt-modesoff", false
     assert_select ".pn-wt-trainer__name", text: "Blue"
+    # Surge now sits on the far side of the ship, so the ship is inside his deadline window
+    assert_select ".pn-wt-oak"
   end
 
   test "a single-stop page queues its catches, its box ledger and its Oak window" do
@@ -417,6 +419,31 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-band__h3", text: "O que o Mart vende"
   end
 
+  test "Cerulean explains the eight badges right after its Mart" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select "#badges-explained .pn-wt-band__h3", text: "Gym Badges, explained"
+    assert_select "#badges-explained .pn-wt-badge", 8
+    assert_select ".pn-wt-badge__name", text: "Cascade"
+    assert_select ".pn-wt-badge__where", text: "Misty · Cerulean City"
+    assert_select ".pn-wt-badge-row__text", text: "Traded Pokémon up to Lv 30"
+    assert_select ".pn-wt-badge-row__text--none", 3
+    assert_select ".pn-wt-badge-rules__row", 4
+    assert_operator response.body.index("pn-wt-mart"), :<, response.body.index("badges-explained"),
+      "the badge guide must follow the Mart"
+    assert_operator response.body.index("badges-explained"), :<,
+      response.body.index("cerulean-city-step-1"), "the badge guide must precede the steps"
+  end
+
+  test "the badge guide renders in Portuguese" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04", locale: :pt)
+
+    assert_response :success
+    assert_select "#badges-explained .pn-wt-band__h3", text: "As Insígnias de Ginásio, explicadas"
+    assert_select ".pn-wt-badge-row__text", text: "Trocados até o Nv 30"
+  end
+
   test "Celadon renders the multi-floor department store with an elevator" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-08")
 
@@ -505,6 +532,19 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-catch__unlock-text", text: "Pikachu friendship 147 or higher"
   end
 
+  test "Misty's leader card and her pin on the gym map tick the same key" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    map = css_select(".pn-wt-gym [data-map-markers-map-value]").first["data-map-markers-map-value"]
+    pin = css_select(".pn-wt-gym [data-role='marker']").find { |node| node.text.include?("Misty") }
+    assert pin, "Misty has a pin on the gym map"
+
+    assert_equal "#{map}/#{pin['data-marker-id']}",
+      css_select(".pn-wt-gym__leader").first["data-progress-id"],
+      "beating her on the map and on her card must write the same key"
+  end
+
   test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 
@@ -517,6 +557,20 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-fs__cell--action", text: "Deposit Pikachu in the PC"
     assert_select ".pn-fs__row--gain .pn-fs__cell--val", text: "+5"
     assert_select ".pn-fs__row--loss .pn-fs__cell--val", text: "−20"
+  end
+
+  test "the leave-standing board folds its four shots away, keeping the count and the warning" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select "#leave-standing .pn-ls[data-controller='disclosure']"
+    assert_select ".pn-ls__reveal[aria-expanded='false'][aria-controls='pn-ls-cards']"
+    assert_select ".pn-ls__reveal-txt--show", text: "SHOW THE FOUR"
+    assert_select "#pn-ls-cards.pn-ls__grid[hidden] .pn-ls-card", 4
+    # the head, the warning and the way out of the section stay readable while folded
+    assert_select ".pn-ls__head .pn-ls__title", text: "Four Trainers to leave standing"
+    assert_select ".pn-ls__intro"
+    assert_select ".pn-ls__foot .pn-ls__cta"
   end
 
   test "a gift Pokemon sits in its own row above the wild grid, as a gift card" do
@@ -586,7 +640,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a gift gated by a badge (Squirtle) shows that badge as its unlock icon" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-05")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-06")
 
     assert_response :success
     assert_select ".pn-wt-catch--gift .pn-wt-catch__gift-from", text: "FROM OFFICER JENNY"

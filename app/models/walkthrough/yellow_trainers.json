@@ -6242,6 +6242,46 @@
         "where": "walkthrough/yellow/scenes/ss-anne-2f-rooms-trainer-2-11.png"
       },
       {
+        "map": "ss-anne-bow",
+        "floor": "Bow",
+        "marker": "trainer-4-4",
+        "key": "T1",
+        "opp": "SAILOR:1",
+        "cls": "SAILOR",
+        "reward": 540,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 18
+          },
+          {
+            "dex": "090",
+            "lvl": 18
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-bow-trainer-4-4.png"
+      },
+      {
+        "map": "ss-anne-bow",
+        "floor": "Bow",
+        "marker": "trainer-10-8",
+        "key": "T2",
+        "opp": "SAILOR:2",
+        "cls": "SAILOR",
+        "reward": 510,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 17
+          },
+          {
+            "dex": "072",
+            "lvl": 17
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/ss-anne-bow-trainer-10-8.png"
+      },
+      {
         "map": "ss-anne-b1f-rooms",
         "floor": "B1F Rooms",
         "marker": "trainer-0-13",
@@ -6364,46 +6404,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/ss-anne-b1f-rooms-trainer-0-4.png"
-      },
-      {
-        "map": "ss-anne-ssannebow",
-        "floor": "",
-        "marker": "trainer-4-4",
-        "key": null,
-        "opp": "SAILOR:1",
-        "cls": "SAILOR",
-        "reward": 540,
-        "team": [
-          {
-            "dex": "066",
-            "lvl": 18
-          },
-          {
-            "dex": "090",
-            "lvl": 18
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssannebow-trainer-4-4.png"
-      },
-      {
-        "map": "ss-anne-ssannebow",
-        "floor": "",
-        "marker": "trainer-10-8",
-        "key": null,
-        "opp": "SAILOR:2",
-        "cls": "SAILOR",
-        "reward": 510,
-        "team": [
-          {
-            "dex": "066",
-            "lvl": 17
-          },
-          {
-            "dex": "072",
-            "lvl": 17
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/ss-anne-ssannebow-trainer-10-8.png"
       }
     ],
     "vermilion-city": [

@@ -608,6 +608,8 @@ en:
           title: "Four Trainers to leave standing"
           standing_label: "STILL STANDING"
           intro: "You can't run the Mew glitch until you catch an Abra on Route 5, well past this point. Keep playing in the meantime, but leave these four alone. Each one is a piece of the glitch, and beating any of them costs you that step."
+          show: "SHOW THE FOUR"
+          hide: "HIDE THE FOUR"
           state:
             beat: "I BEAT THEM"
             undo: "↺ UNDO"
@@ -901,6 +903,41 @@ en:
         why:
           title: "WHY IT MATTERS"
           text_html: "Mostly a novelty: Pikachu's mood just changes its overworld face. The one real payoff is here in Cerulean, where Melanie only hands over Bulbasaur at <b>147 or higher</b>. Keep Pikachu out of the PC until then."
+      badge_guide:
+        eyebrow: "TRIVIA · BADGE HOUSE"
+        title: "Gym Badges, explained"
+        intro: "The man in the northwest house explains what the eight badges actually do. Half of them raise a stat for every Pokémon you send out, the other half raise the level cap for traded Pokémon. The first five also unlock a field move."
+        key_boost: "STAT BOOST"
+        key_obey: "OBEDIENCE CAP"
+        tag_boost: "BOOST"
+        tag_obey: "OBEY"
+        tag_field: "FIELD"
+        field_none: "None"
+        obey: "Traded Pokémon up to Lv %{level}"
+        boost:
+          attack: "Raises Attack"
+          defense: "Raises Defense"
+          speed: "Raises Speed"
+          special: "Raises Special"
+        rules:
+          tag: "RULES YELLOW NEVER TELLS YOU"
+          sub: "Four things the badge man leaves out."
+          boost:
+            label: "THE BOOST"
+            title: "A boost is about 12.5%"
+            text: "It applies in battle only, and to every Pokémon you send out, not just the one that earned the badge."
+          stacking:
+            label: "THE STACKING"
+            title: "It stacks by accident"
+            text: "The game re-applies the boost every time a stat is recalculated, so each X Attack or Growl piles on another 12.5%. Long battles inflate your numbers far past the intended value."
+          caps:
+            label: "THE CAPS"
+            title: "Caps hit traded mons only"
+            text: "In-game trades count. Anything you caught yourself obeys at any level, however few badges you hold."
+          field_moves:
+            label: "THE FIELD MOVES"
+            title: "The HM is not enough"
+            text: "Field moves need the matching badge too. Pick Cut from the menu without the Cascade Badge and the game answers 'No! A new BADGE is required.'"
       locations:
         pallet_town:
           note: "Get Pikachu from Prof. Oak. No wild grass here."
@@ -1225,7 +1262,7 @@ en:
           steps:
             "1":
               title: "Surface from Mt. Moon"
-              text_html: "You step out onto the western tip of Route 4, right beside the Mt. Moon Poké Center %{center} at the cave mouth. Heal there if you skipped the one inside, then set off east along the high plateau toward Cerulean."
+              text_html: "You come out on Mt. Moon's east side %{exit}. The Poké Center is walled off on the west face, so the next heal is Cerulean. Step down from the cave mouth and head east, grabbing two items on the way."
             "2":
               title: "Feel out the hidden Great Ball"
               text: "About halfway along the top of the route, a Great Ball is buried in the open ground against the north wall. Stand on the tile just below it and press A facing up. Nothing shows on-screen."
@@ -1259,12 +1296,12 @@ en:
               text_html: "Arrive from Route 4, heal at the Center %{center} and stock the Mart %{mart}. Leave the Gym %{gym} alone for now: everything north of town is worth doing first, and Misty closes this leg."
             "2":
               title: "Grab the hidden Rare Candy"
-              text: "One free level, sitting in plain ground. A Rare Candy is buried on an open tile near the top of town. Line up on the square just below it and press A. Nothing shows on-screen."
+              text_html: "The strip along the top of town is fenced off. Go in the badge house %{door} on the west side and out its back door for a buried Rare Candy, one free level. Stand below it and press A facing up; nothing shows on-screen."
               hidden:
-                rare_candy: "On an open tile near the top of town. Stand just below it and press A, nothing shows on-screen."
+                rare_candy: "In the fenced strip at the top of town, reached through the badge house on the west side. Stand just below it and press A."
             "3":
               title: "Grab the extras, then head north"
-              text_html: "Take the free Bulbasaur from Melanie's house %{house} if Pikachu's friendship is high. The burgled house stays sealed until the officer moves on; chase the thief out its back for TM28 Dig, then head north %{north} onto Nugget Bridge."
+              text_html: "Take the free Bulbasaur from Melanie's house %{house} if Pikachu's friendship is high, then head north %{north} onto Nugget Bridge. The burgled house stays sealed: Officer Jenny only steps aside once Bill hands you the S.S. Ticket, so TM28 Dig waits for that trip back."
               items:
                 bicycle: "From the Bike Shop, once you trade in the Bike Voucher you earn in Vermilion. You will come back for it, then never walk again."
             "4":
@@ -1316,15 +1353,15 @@ en:
               title: "Arrive from Nugget Bridge"
               text: "Step in from the west, off the top of Nugget Bridge on Route 24. The trail runs east to Bill's Sea Cottage, lined with Hikers, Youngsters and Cooltrainers. Sweep the grass and catch a Venonat if you still need one."
             "2":
-              title: "Sweep the west fence"
-              text: "A short walk in from the west entrance, hug the top edge of the route. Face up and press A against the fence for a hidden Elixir. Nothing shows on-screen."
+              title: "Sweep the west rock wall"
+              text: "A short walk in from the west entrance, hug the top edge of the route. Face up and press A against the rock wall for a hidden Elixir. Nothing shows on-screen."
               hidden:
                 elixir: "North edge near the west entrance, just in from Route 24. Face up and press A."
             "3":
               title: "Grab TM19 in the maze"
-              text_html: "Jr. Trainer %{guard} plugs the one gap into the TM19 pocket. Trigger him from two tiles below so he steps down off it; beat him from right below and the TM stays sealed until you have Cut."
+              text_html: "Jr. Trainer %{guard} plugs the one gap into the TM19 pocket. Trigger him from three tiles below so he walks down clear of it, then come at the gap from the west. Any closer and he parks on the way in."
               items:
-                tm-seismic-toss: "Northeast pocket of the tree maze, mid-route. If the Jr. Trainer settles back on the gap, Cut the tree in the pocket's east wall instead."
+                tm-seismic-toss: "Northeast pocket of the tree maze, mid-route. If the Jr. Trainer is still in the way, Cut the tree in the pocket's east wall instead."
             "4":
               title: "Check the grass by the cottage"
               text: "On the final approach east, a short walk west of Bill's Sea Cottage door and on the same row, line up on the tile just below and press A facing up for a hidden Ether. Nothing shows on-screen."
@@ -1332,7 +1369,7 @@ en:
                 ether: "East end, due west of the cottage door on its row. Stand one tile south and press A up."
             "5":
               title: "Free Bill"
-              text_html: "Enter the Sea Cottage %{cottage} at the far east and use Bill's machine to un-fuse him. He hands you the S.S. Ticket. Head back to Vermilion via Cerulean."
+              text_html: "Enter the Sea Cottage %{cottage} at the far east and use Bill's machine to un-fuse him. He hands you the S.S. Ticket, your way aboard the S.S. Anne when you reach Vermilion."
               items:
                 s_s_ticket: "From Bill, after freeing him from his machine in the Sea Cottage. Your pass onto the S.S. Anne in Vermilion."
           oak:
@@ -1389,8 +1426,8 @@ en:
               "1": "Check the trash cans along the walls to find the first switch. Its position is random on every visit."
               "2": "The second switch is always in a can directly next to the first, up, down, left or right. Pick wrong and both reset, so search the neighbors."
               "3": "With both switches flipped, the door to Lt. Surge opens. Bring a Ground type to shut his Electric team down."
-          note: "Lt. Surge. Thunder Badge. Free Squirtle after."
-          intro: "A port city with a puzzle-box gym. Board the S.S. Anne first for Cut, then take on Surge."
+          note: "Bike Voucher and Old Rod. The gym waits on Cut."
+          intro: "A port city you pass through twice. Trees seal the gym off until the S.S. Anne hands you Cut, so take the gifts and board the ship."
           steps:
             "1":
               title: "Grab the goodies"
@@ -1399,16 +1436,12 @@ en:
                 bike_voucher: "From the chairman of the Pokémon Fan Club, west side of town. Trade it for a Bicycle at the Cerulean Bike Shop."
                 old_rod: "From the Fishing Guru in the house on the west side of town. Fishes up Magikarp anywhere."
             "2":
-              title: "Search the building gap for Max Ether"
-              text: "Just north of the Pokémon Trade House door, a narrow gap runs up between two buildings. A hidden Max Ether sits at its top: stand in the plaza below, face up into the gap and press A."
-              hidden:
-                max-ether: "Top of the gap between the two buildings north of the Trade House door, against the water. Face up from the plaza and press A. Nothing appears."
-            "3":
               title: "Board the S.S. Anne for Cut"
-              text_html: "The gym's %{gym} tree needs HM01 Cut. Board the ship at the south dock %{dock}, clear the cabins, and cure the seasick Captain for Cut before you challenge Surge."
-            "4":
-              title: "Take the free Squirtle"
-              text_html: "After the Thunder Badge, Officer Jenny hands you a free Squirtle. Then head east %{east} to Route 11 and Diglett's Cave."
+              text_html: "Cuttable trees wall off the gym plaza %{gym}, so Surge waits. Board the ship at the south dock %{dock} and <a href=\"%{href}\">clear the S.S. Anne</a>: the seasick Captain hands over HM01 Cut."
+          later:
+            max_ether:
+              where: "A hidden Max Ether sits at the top of the gap between the two buildings north of the Trade House, and the only tile you can face it from is open water."
+              after: "Come back on Surf (HM03, from the Safari Zone), park on the water tile beside it and press A. Nothing shows on-screen."
           tips:
             squirtle: "Free from Officer Jenny after the Thunder Badge. The third Kanto starter, evolves to Blastoise."
           oak:
@@ -1417,6 +1450,16 @@ en:
             squirtle:
               from: "FROM OFFICER JENNY"
               unlock: "Beat Lt. Surge for the Thunder Badge"
+        vermilion_city_return:
+          note: "Lt. Surge. Thunder Badge. Free Squirtle after."
+          intro: "Back in port with Cut in the bag. Open the gym plaza, work the trash-can puzzle, and take the Thunder Badge."
+          steps:
+            "1":
+              title: "Cut through to the gym"
+              text_html: "Cut either tree beside the gym %{gym} to open the plaza. Surge's Raichu hits the whole team hard, so lead with a Ground type and Dig if you have one."
+            "2":
+              title: "Take the free Squirtle"
+              text_html: "With the Thunder Badge in hand, Officer Jenny by the gym hands you a free Squirtle. Then head east %{east} to Route 11 and Diglett's Cave."
         ss_anne:
           note: "The luxury liner. HM01 Cut, and a rival fight."
           intro: "A one-time boat. Sweep it for items, beat your rival, and get Cut before it sails away for good."
@@ -1456,7 +1499,7 @@ en:
                 max-potion: "In the last B1F cabin."
             "8":
               title: "Take HM01 Cut from the Captain"
-              text: "Head to the Captain's cabin at the top of the ship and soothe his seasickness. He hands over HM01 Cut, which clears the small trees blocking Route 9 and several gyms. The ship sails once you leave."
+              text_html: "Head to the Captain's cabin at the top of the ship and soothe his seasickness. He hands over HM01 Cut, and the ship sails once you leave. Teach it, then go <a href=\"%{href}\">open Vermilion's gym</a>."
               items:
                 hm01_cut: "From the seasick Captain in his cabin at the top of the ship."
           oak:

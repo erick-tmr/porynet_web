@@ -47,11 +47,19 @@ _DUNGEONS = {
     "rocket-hideout": _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY"),
     "pokemon-mansion": _floors("PokemonMansion", ["1F", "2F", "3F", "B1F"], "CINNABAR_ISLAND"),
     # The cabin sub-maps are rendered as their own floors, not folded into the deck above them:
-    # six items live only in the cabins, and an unrendered map can carry no marker for them.
-    "ss-anne": _floors("SSAnne", ["1F", "2F", "3F", "B1F"], "VERMILION_CITY")
-    + [("SSAnne1FRooms", "1F Rooms", "VERMILION_CITY"),
-       ("SSAnne2FRooms", "2F Rooms", "VERMILION_CITY"),
-       ("SSAnneB1FRooms", "B1F Rooms", "VERMILION_CITY")],
+    # six items live only in the cabins, and an unrendered map can carry no marker for them. Each
+    # deck is followed by the rooms you reach from it, so a reader walking 1F does not have to
+    # scroll past every other deck to find the 1F cabins. The kitchen hangs off 1F the same way,
+    # and is here because a Great Ball is buried in its last bin.
+    "ss-anne": [("SSAnne1F", "1F", "VERMILION_CITY"),
+                ("SSAnne1FRooms", "1F Rooms", "VERMILION_CITY"),
+                ("SSAnneKitchen", "Kitchen", "VERMILION_CITY"),
+                ("SSAnne2F", "2F", "VERMILION_CITY"),
+                ("SSAnne2FRooms", "2F Rooms", "VERMILION_CITY"),
+                ("SSAnne3F", "3F", "VERMILION_CITY"),
+                ("SSAnneBow", "Bow", "VERMILION_CITY"),
+                ("SSAnneB1F", "B1F", "VERMILION_CITY"),
+                ("SSAnneB1FRooms", "B1F Rooms", "VERMILION_CITY")],
     "underground-path": [("UndergroundPathNorthSouth", "", None)],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],
@@ -59,11 +67,18 @@ _DUNGEONS = {
 }
 
 _EXTRA_TRAINER_MAPS = {
-    # The three *Rooms maps moved into _DUNGEONS above. They must not stay here too: roster.py
-    # walks this list separately from location_maps, so a map in both is counted twice.
-    "ss-anne": [("SSAnneBow", "VERMILION_CITY")],
+    # The three *Rooms maps and the bow moved into _DUNGEONS above. They must not stay here too:
+    # roster.py walks this list separately from location_maps, so a map in both is counted twice.
     "saffron-city": [("FightingDojo", "SAFFRON_CITY")],
     "celadon-city": [("GameCorner", "CELADON_CITY")],
+}
+
+
+# Maps a location owns beyond its town and gym. The Vermilion dock is its own map with its own
+# Super Rod slots (Staryu and Shellder, neither of which the city's own water gives up), so it has
+# to be drawn for those to have anywhere to hang.
+_ANNEXES = {
+    "vermilion-city": [("VermilionDock", "Dock", "VERMILION_CITY")],
 }
 
 
@@ -72,7 +87,7 @@ def location_maps():
     for slug, label in _SIMPLE.items():
         out[slug] = [(label, "", None)]
     for slug, (town, gym, parent) in _GYM_CITIES.items():
-        out[slug] = [(town, "", None), (gym, "Gym", parent)]
+        out[slug] = [(town, "", None), (gym, "Gym", parent)] + _ANNEXES.get(slug, [])
     out.update(_DUNGEONS)
     return out
 

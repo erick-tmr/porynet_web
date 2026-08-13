@@ -16,12 +16,15 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_predicate first, :frozen?
   end
 
+  # A stop the guide walks twice (Route 4 around Mt. Moon, Vermilion around the S.S. Anne) splits
+  # one map's roster across its two passes, so the cards are counted over both.
   test "every trainer the game fields has a card" do
     counts = Walkthrough::Yellow.roster.fetch("trainers").transform_values(&:size)
 
     counts.each do |slug, wanted|
-      loc = location(slug)
-      assert_operator loc.trainers.size + gym_cards(loc).size, :>=, wanted, slug
+      passes = game.locations.select { |loc| loc.slug == slug || Walkthrough::Yellow::MAP_SOURCE[loc.slug] == slug }
+      cards = passes.sum { |loc| loc.trainers.size + gym_cards(loc).size }
+      assert_operator cards, :>=, wanted, slug
     end
   end
 
@@ -103,15 +106,14 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_equal "Giovanni", viridian.gym.leader.name
   end
 
-  test "the SS Anne pins its cabin trainers now that the cabin maps are drawn" do
+  test "the SS Anne pins every trainer now that every deck is drawn" do
     ship = location("ss-anne")
 
     assert_equal 17, ship.trainers.size
     assert_equal "Blue", ship.trainers.first.name
     pinless = ship.trainers.reject { |card| card.marker_key }
-    assert_equal 3, pinless.size,
-      "only Blue and the two Sailors on the still-undrawn Bow lack a pin"
-    assert_equal [ "RIVAL", "SAILOR", "SAILOR" ], pinless.map(&:cls).sort
+    assert_equal [ "RIVAL" ], pinless.map(&:cls),
+      "only Blue, who is walked in by script rather than standing on the map"
   end
 
   test "a card ticks under the same key as its pin on the map" do

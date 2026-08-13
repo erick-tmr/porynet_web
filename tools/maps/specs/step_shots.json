@@ -555,7 +555,7 @@
     "map": "SSAnneCaptainsRoom",
     "player": [
       4,
-      4
+      3
     ],
     "player_dir": "UP",
     "focus": [
@@ -569,7 +569,7 @@
           4,
           2
         ],
-        "dir": "UP"
+        "dir": "DOWN"
       }
     ],
     "dialog": {

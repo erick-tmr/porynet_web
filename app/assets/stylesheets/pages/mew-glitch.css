@@ -697,12 +697,34 @@
   max-width: 820px;
   text-wrap: pretty;
 }
+/* The board opens folded: the four shots are a reminder, not something you read every pass. */
+.pn-ls__reveal {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  cursor: pointer;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--neon-cyan);
+  background: #0c1226;
+  border: 2px solid var(--neon-cyan);
+  padding: 11px 13px;
+}
+.pn-ls__reveal:hover { color: #0c1226; background: var(--neon-cyan); }
+.pn-ls__reveal-txt--hide { display: none; }
+.pn-ls.is-open .pn-ls__reveal-txt--show { display: none; }
+.pn-ls.is-open .pn-ls__reveal-txt--hide { display: inline; }
+.pn-ls__reveal-chev { font-size: 8px; }
+.pn-ls.is-open .pn-ls__reveal-chev { transform: rotate(180deg); }
 .pn-ls__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-top: 22px;
 }
+.pn-ls__grid[hidden] { display: none; }
 
 .pn-ls-card {
   display: flex;

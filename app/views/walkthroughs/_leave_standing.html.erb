@@ -2,7 +2,7 @@
 <% spares = Walkthrough::Yellow.mew_spares %>
 <section class="pn-wt-section" id="leave-standing"
          data-controller="leave-standing" data-leave-standing-game-value="<%= @game.slug %>">
-  <div class="pn-ls">
+  <div class="pn-ls" data-controller="disclosure">
     <div class="pn-ls__scan" aria-hidden="true"></div>
 
     <div class="pn-ls__head">
@@ -17,7 +17,14 @@
     <div class="pn-ls__body">
       <p class="pn-ls__intro"><%= t("#{b}.intro") %></p>
 
-      <div class="pn-ls__grid">
+      <button type="button" class="pn-ls__reveal" data-disclosure-target="toggle"
+              data-action="disclosure#toggle" aria-expanded="false" aria-controls="pn-ls-cards">
+        <span class="pn-ls__reveal-txt pn-ls__reveal-txt--show"><%= t("#{b}.show") %></span>
+        <span class="pn-ls__reveal-txt pn-ls__reveal-txt--hide"><%= t("#{b}.hide") %></span>
+        <span class="pn-ls__reveal-chev" aria-hidden="true">▼</span>
+      </button>
+
+      <div class="pn-ls__grid" id="pn-ls-cards" data-disclosure-target="body" hidden>
         <% spares.each do |spare| %>
           <article class="pn-ls-card" data-leave-standing-target="card"
                    data-progress-id="<%= spare.progress_id %>">
