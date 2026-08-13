@@ -473,6 +473,16 @@ module Walkthrough
   end
   PikachuFriendship = Data.define(:start, :threshold, :max, :rows)
 
+  # What a Gym Badge does once it is in the case. `kind` is "boost" (an in-battle stat lift for the
+  # whole party) or "obey" (the level a traded Pokémon obeys up to), `level` fills the obedience
+  # copy, and `field` is the HM the badge switches on outside battle, nil for the last three.
+  BadgeCard = Data.define(:no, :name, :image, :leader, :city, :kind, :effect_key, :level, :field) do
+    def obey? = kind == "obey"
+    def field? = !field.nil?
+  end
+  BadgeRule = Data.define(:no, :label_key, :title_key, :text_key)
+  BadgeGuide = Data.define(:anchor, :cards, :rules)
+
   def self.games = { "yellow" => Yellow.game }
 
   def self.find(slug) = games[slug]

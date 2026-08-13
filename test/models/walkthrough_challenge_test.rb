@@ -11,7 +11,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal %w[01 02 03 04 05 06 07 08 09], game.windows.map(&:label)
     assert_equal [ "Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni", nil ],
       game.windows.map(&:leader)
-    assert_equal %w[pewter-city cerulean-city vermilion-city celadon-city fuchsia-city
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city fuchsia-city
                     saffron-city cinnabar-island viridian-gym cerulean-cave],
       game.windows.map { |win| win.slugs.last }
     assert game.windows.last.final?, "nothing closes the run but the League"
@@ -211,10 +211,16 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "a page with nothing to catch and nothing owed renders no challenge at all" do
-    %w[ss-anne rocket-hideout].each do |slug|
-      refute plan(slug).any?, "#{slug} has no species of its own"
-      assert_empty plan(slug).entries
-    end
+    refute plan("rocket-hideout").any?, "the hideout has no species of its own"
+    assert_empty plan("rocket-hideout").entries
+  end
+
+  test "the ship owes Oak nothing to catch, but still sits inside Surge's window" do
+    ship = plan("ss-anne")
+
+    refute ship.living?, "the S.S. Anne has no species of its own"
+    assert ship.oak?, "Surge is now on the far side of the ship, so his deadline is still open"
+    assert_equal "Lt. Surge", ship.window.leader
   end
 
   test "a page can owe an Oak reminder without owing a single catch" do

@@ -63,22 +63,21 @@
     "map": "SSAnne2F",
     "player": [
       36,
-      6
+      8
     ],
     "player_dir": "UP",
     "focus": [
       36,
-      5
+      7
     ],
     "sprites": [
       {
         "sprite": "SPRITE_BLUE",
         "grid": [
           36,
-          4
+          7
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },

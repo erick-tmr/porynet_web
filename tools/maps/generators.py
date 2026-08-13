@@ -110,8 +110,13 @@ def _screen_sprites(root, spec):
 
     `show` / `hide` let a scene set later in the story move an object across its map-load state, so
     it comes back (or goes) at its real cell, sprite and facing rather than being retyped as
-    `sprites`."""
-    sprites = [_resolve_sprite(root, {"sprite": HERO_SPRITE, "grid": spec["player"],
+    `sprites`.
+
+    `player_sprite` swaps the sprite the hero is drawn with, for the shots where the game itself
+    would: Gen 1 puts you on SPRITE_SEEL the moment you step onto water, so a scene standing the
+    hero on a water tile has to say so or it draws someone walking on the sea."""
+    sprites = [_resolve_sprite(root, {"sprite": spec.get("player_sprite", HERO_SPRITE),
+                                      "grid": spec["player"],
                                       "dir": spec.get("player_dir", "DOWN")})]
     sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs", not spec.get("sprites")):

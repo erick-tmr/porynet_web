@@ -1,0 +1,66 @@
+<% bg = Walkthrough::Yellow.badge_guide %>
+<% k = "#{Walkthrough::Yellow::K}.badge_guide" %>
+<section class="pn-wt-section" id="<%= bg.anchor %>">
+  <div class="pn-eyebrow-label"><%= t("#{k}.eyebrow") %></div>
+  <h3 class="pn-wt-band__h3"><%= t("#{k}.title") %></h3>
+  <p class="pn-wt-trivia__intro"><%= t("#{k}.intro") %></p>
+
+  <div class="pn-wt-badges__legend">
+    <span class="pn-wt-badges__key pn-wt-badges__key--boost"><%= t("#{k}.key_boost") %></span>
+    <span class="pn-wt-badges__key pn-wt-badges__key--obey"><%= t("#{k}.key_obey") %></span>
+  </div>
+
+  <div class="pn-wt-badge-grid">
+    <% bg.cards.each do |card| %>
+      <div class="pn-wt-badge">
+        <div class="pn-wt-badge__head">
+          <span class="pn-wt-badge__crest">
+            <%= r2_image_tag card.image, alt: t("walkthrough.ui.badge_alt", badge: card.name) %>
+          </span>
+          <span class="pn-wt-badge__id">
+            <span class="pn-wt-badge__no"><%= format("%02d", card.no) %></span>
+            <span class="pn-wt-badge__name"><%= card.name %></span>
+            <span class="pn-wt-badge__where"><%= card.leader %> · <%= card.city %></span>
+          </span>
+        </div>
+        <div class="pn-wt-badge__rows">
+          <div class="pn-wt-badge-row">
+            <span class="pn-wt-badge-tag pn-wt-badge-tag--<%= card.kind %>">
+              <%= t("#{k}.tag_#{card.kind}") %>
+            </span>
+            <span class="pn-wt-badge-row__text"><%= t(card.effect_key, level: card.level) %></span>
+          </div>
+          <div class="pn-wt-badge-row">
+            <span class="pn-wt-badge-tag pn-wt-badge-tag--field <%= "pn-wt-badge-tag--none" unless card.field? %>">
+              <%= t("#{k}.tag_field") %>
+            </span>
+            <% if card.field? %>
+              <span class="pn-wt-badge-row__text"><%= card.field %></span>
+            <% else %>
+              <span class="pn-wt-badge-row__text pn-wt-badge-row__text--none"><%= t("#{k}.field_none") %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pn-wt-badge-rules">
+    <div class="pn-wt-badge-rules__head">
+      <span class="pn-wt-badge-rules__tag"><%= t("#{k}.rules.tag") %></span>
+      <span class="pn-wt-badge-rules__sub"><%= t("#{k}.rules.sub") %></span>
+    </div>
+    <% bg.rules.each do |rule| %>
+      <div class="pn-wt-badge-rules__row">
+        <div class="pn-wt-badge-rules__kicker">
+          <span class="pn-wt-badge-rules__no"><%= format("%02d", rule.no) %></span>
+          <span class="pn-wt-badge-rules__label"><%= t(rule.label_key) %></span>
+        </div>
+        <div class="pn-wt-badge-rules__body">
+          <div class="pn-wt-badge-rules__title"><%= t(rule.title_key) %></div>
+          <div class="pn-wt-badge-rules__text"><%= t(rule.text_key) %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

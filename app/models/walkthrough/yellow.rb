@@ -101,6 +101,43 @@ module Walkthrough
         rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
     end
 
+    # The eight badges in case order, with what each one switches on: `boost` names the stat every
+    # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
+    # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym
+    # definitions below already say; a model test holds the two in step.
+    BADGES = [
+      { name: "Boulder", leader: "Brock",     city: "Pewter City",     boost: "attack",  field: "Flash" },
+      { name: "Cascade", leader: "Misty",     city: "Cerulean City",   obey: 30,         field: "Cut" },
+      { name: "Thunder", leader: "Lt. Surge", city: "Vermilion City",  boost: "defense", field: "Fly" },
+      { name: "Rainbow", leader: "Erika",     city: "Celadon City",    obey: 50,         field: "Strength" },
+      { name: "Soul",    leader: "Koga",      city: "Fuchsia City",    boost: "speed",   field: "Surf" },
+      { name: "Marsh",   leader: "Sabrina",   city: "Saffron City",    obey: 70 },
+      { name: "Volcano", leader: "Blaine",    city: "Cinnabar Island", boost: "special" },
+      { name: "Earth",   leader: "Giovanni",  city: "Viridian City",   obey: 100 }
+    ].freeze
+
+    BADGE_RULES = %w[boost stacking caps field_moves].freeze
+
+    def self.badge_img(badge) = "walkthrough/yellow/badges/#{badge.downcase}.png"
+
+    def self.badge_guide
+      b = "#{K}.badge_guide"
+      BadgeGuide.new(anchor: "badges-explained",
+        cards: BADGES.each_with_index.map { |badge, i| badge_card(b, badge, i + 1) },
+        rules: BADGE_RULES.each_with_index.map { |key, i|
+          BadgeRule.new(no: i + 1, label_key: "#{b}.rules.#{key}.label",
+            title_key: "#{b}.rules.#{key}.title", text_key: "#{b}.rules.#{key}.text")
+        })
+    end
+
+    def self.badge_card(base, badge, no)
+      obey = badge[:obey]
+      BadgeCard.new(no: no, name: badge[:name], image: badge_img(badge[:name]),
+        leader: badge[:leader], city: badge[:city], kind: obey ? "obey" : "boost",
+        effect_key: obey ? "#{base}.obey" : "#{base}.boost.#{badge[:boost]}",
+        level: obey, field: badge[:field])
+    end
+
     def self.oak(slug, dex, qty)
       OakEntry.new(dex: dex, name: NAMES.fetch(dex), qty: qty, why_key: "#{base(slug)}.oak.#{mon_key(dex)}")
     end
@@ -125,7 +162,7 @@ module Walkthrough
       { slug: "leg-04", special: false, locs: %w[route-4 cerulean-city route-24 route-25] },
       { slug: "leg-05", special: false, locs: %w[route-5 underground-path route-6 vermilion-city] },
       { slug: "ss-anne", special: true, locs: %w[ss-anne] },
-      { slug: "leg-06", special: false, locs: %w[route-11] },
+      { slug: "leg-06", special: false, locs: %w[vermilion-city-return route-11] },
       { slug: "digletts-cave", special: true, locs: %w[digletts-cave] },
       { slug: "leg-07", special: false, locs: %w[route-9 route-10] },
       { slug: "rock-tunnel", special: true, locs: %w[rock-tunnel] },
@@ -366,15 +403,20 @@ module Walkthrough
       locs = [
         pallet_town, route_1, viridian_city, route_22, route_2, viridian_forest, pewter_city,
         route_3, route_4_mt_moon, mt_moon, route_4, cerulean_city, route_24, route_25,
-        route_5, underground_path, route_6, vermilion_city, ss_anne, route_11, digletts_cave,
+        route_5, underground_path, route_6, vermilion_city, ss_anne, vermilion_city_return,
+        route_11, digletts_cave,
         route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ].map { |loc| attach_mart(attach_maps(loc, data.fetch(loc.slug, []))) }
+      ].map { |loc| attach_mart(attach_maps(loc, data.fetch(MAP_SOURCE.fetch(loc.slug, loc.slug), []))) }
       show_mt_moon_approach(locs)
     end
+
+    # A stop the guide walks twice has map data under one slug only. The second pass reads the
+    # first pass's maps, so the same interactive map (markers, tick state) shows on both.
+    MAP_SOURCE = { "vermilion-city-return" => "vermilion-city" }.freeze
 
     # The leg-3 approach section has no map data of its own; it borrows Route 4's map so the same
     # interactive map (markers, tick state) shows on both the approach (leg 3) and the east half
@@ -537,7 +579,7 @@ module Walkthrough
 
     def self.tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
 
-    def self.roster_for(slug) = roster.fetch("trainers", {}).fetch(slug, [])
+    def self.roster_for(slug) = roster.fetch("trainers", {}).fetch(MAP_SOURCE.fetch(slug, slug), [])
 
     def self.roster
       @roster ||= JSON.parse(File.read(File.join(__dir__, "yellow_trainers.json"))).freeze
@@ -876,7 +918,7 @@ module Walkthrough
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
           items: step_items(base, n, d),
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
-          shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil))
+          shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
       end
     end
 
@@ -941,7 +983,7 @@ module Walkthrough
       b = base(slug)
       Gym.new(
         type: type, name: name, intro_key: "#{b}.gym.intro",
-        shot: shot("GYM"), badge: badge, badge_img: "walkthrough/yellow/badges/#{badge.downcase}.png",
+        shot: shot("GYM"), badge: badge, badge_img: badge_img(badge),
         tm: tm, puzzle: puzzle, trainers: trainers, leader: leader
       )
     end
@@ -1017,7 +1059,7 @@ module Walkthrough
     def self.route_4
       loc("route-4", "ROUTE", "Route 4", 10,
         steps: [
-          { scene: "route-4-exit", pins: { center: "route-4/exit-11-5" } },
+          { scene: "route-4-exit", pins: { exit: "route-4/exit-24-5" } },
           { hidden: [ "Great Ball", "great-ball", "route-4-hidden-great-ball", "route-4-great-ball" ] },
           { item: [ "TM Whirlwind", "tm-whirlwind" ], scene: "route-4-item-tm-whirlwind" },
           { pins: { east: "route-4/exit-east" } }
@@ -1038,6 +1080,7 @@ module Walkthrough
     def self.cerulean_city
       loc("cerulean-city", "CITY", "Cerulean City", 11, steps: 4, shots: [ 3, 4 ], gym_after: 3, gym_finale: true, badge: "CASCADE",
         pins: { 1 => { center: "cerulean-city/exit-19-17", mart: "cerulean-city/exit-25-25", gym: "cerulean-city/exit-30-19" },
+                2 => { door: "cerulean-city/exit-9-11" },
                 3 => { house: "cerulean-city/exit-13-15", north: "cerulean-city/exit-north" } },
         hidden_items: { 2 => [ [ "Rare Candy", "rare_candy", "cerulean-city-hidden-rare-candy", "cerulean-rare-candy" ] ] },
         key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
@@ -1144,20 +1187,55 @@ module Walkthrough
         ])
     end
 
+    # Vermilion is walked twice, the way Route 4 is walked twice around Mt. Moon. The gym plaza is
+    # sealed off by cuttable trees and the Max Ether sits on water, so the first pass can only take
+    # the two gifts and board the ship; Surge, the Squirtle he unlocks and the road east all belong
+    # to the return trip, once the S.S. Anne has handed over Cut.
     def self.vermilion_city
-      loc("vermilion-city", "CITY", "Vermilion City", 17, steps: [
-          { items: [ [ "Bike Voucher", "bike_voucher" ], [ "Old Rod", "old_rod" ] ],
-            pins: { center: "vermilion-city/exit-11-3", club: "vermilion-city/exit-9-13", guru: "vermilion-city/exit-7-3" } },
-          { hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether", "vermilion-city-max-ether" ], scene: "vermilion-ss-anne-dock" },
-          { scene: "vermilion-squirtle", pins: { gym: "vermilion-city/exit-12-19", dock: "vermilion-city/exit-18-31" } },
-          { pins: { east: "vermilion-city/exit-east" } }
-        ], gym_after: 2, badge: "THUNDER",
-        encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009", tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ],
+      b = base("vermilion-city")
+      Location.new(
+        slug: "vermilion-city", kind: "CITY", name: "Vermilion City", order: 17, badge: nil,
+        note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, items: [ item(b, 1, "Bike Voucher", "bike_voucher"), item(b, 1, "Old Rod", "old_rod") ],
+            pins: { center: "vermilion-city/exit-11-3", club: "vermilion-city/exit-9-13", guru: "vermilion-city/exit-7-3" }),
+          step(b, 2, shot: scene_shot("vermilion-ss-anne-dock", "STEP 2"),
+            pins: { gym: "vermilion-city/exit-12-19", dock: "vermilion-city/exit-18-31" },
+            link: StepLink.new(leg: "ss-anne", anchor: "ss-anne-step-1"))
+        ],
+        encounters: [
+          enc("vermilion-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("vermilion-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("vermilion-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("vermilion-city", "072", "SUPER ROD", "90%", "10–20", "COMMON", "072", "073"),
+          enc("vermilion-city", "116", "SUPER ROD", "10%", "5", "UNCOMMON", "116", "117"),
+          # The dock is its own map with its own Super Rod slots; these two live only out there.
+          enc("vermilion-city", "120", "SUPER ROD", "20%", "15", "UNCOMMON", "120", "121"),
+          enc("vermilion-city", "090", "SUPER ROD", "10%", "10", "UNCOMMON", "090", "091")
+        ],
+        trainers: [], oak_queue: [],
+        later: [ later(b, "max_ether", "Max Ether", "ITEM", "Surf", "vermilion-city-hidden-max-ether") ]
+      )
+    end
+
+    def self.vermilion_city_return
+      b = base("vermilion-city-return")
+      Location.new(
+        slug: "vermilion-city-return", kind: "CITY", name: "Vermilion City", order: 17,
+        badge: "THUNDER", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, pins: { gym: "vermilion-city/exit-12-19" }),
+          step(b, 2, shot: scene_shot("vermilion-squirtle", "STEP 2"),
+            pins: { east: "vermilion-city/exit-east" })
+        ], gym_after: 1,
+        encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009",
+          tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ],
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
           leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE"), opp: [ "LT_SURGE", 1 ]),
           puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ]),
-        oak_queue: [ oak("vermilion-city", "007", 1) ])
+        oak_queue: [ oak("vermilion-city", "007", 1) ]
+      )
     end
 
     def self.ss_anne
@@ -1171,7 +1249,8 @@ module Walkthrough
           { item: [ "Ether", "ether" ] },
           { item: [ "TM Rest", "tm-rest" ] },
           { item: [ "Max Potion", "max-potion" ] },
-          { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut" }
+          { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut", html: true,
+            link: StepLink.new(leg: "leg-06", anchor: "vermilion-city-return-step-1") }
         ],
         trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),
           where: scene_shot("ss-anne-rival", "WHERE"),

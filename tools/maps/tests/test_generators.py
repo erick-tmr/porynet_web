@@ -29,6 +29,11 @@ def _trade_spec(name):
     return next(s for s in entries if s["name"] == name)
 
 
+def _trainer_spec(name):
+    entries = json.loads((SPECS / "trainers.json").read_text())
+    return next(s for s in entries if s["name"] == name)
+
+
 def _step_shot(name):
     entries = json.loads((SPECS / "step_shots.json").read_text())
     return next(s for s in entries if s["name"] == name)
@@ -63,6 +68,18 @@ def _cell_walkable(root, map_label, cell):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
     return markers.cell_is_walkable(root, map_label, tileset, width_blocks, cell)
+
+
+def _cell_standable(root, map_label, cell):
+    const, tileset = sources.parse_headers(root)[map_label]
+    width_blocks = sources.parse_map_constants(root)[0][const][1]
+    return markers.cell_is_standable(root, map_label, tileset, width_blocks, cell)
+
+
+def _cell_land(root, map_label, cell):
+    const, tileset = sources.parse_headers(root)[map_label]
+    width_blocks = sources.parse_map_constants(root)[0][const][1]
+    return markers.cell_is_land(root, map_label, tileset, width_blocks, cell)
 
 
 def test_resolve_sprite_const_and_dir(root):
@@ -304,6 +321,118 @@ def test_beating_giovanni_takes_him_off_the_floor_it_reveals_the_scope_on(root):
 
     assert {tuple(s["grid"]): s["file"] for s in scope}.get((25, 2)) == "poke_ball", \
         "the shot telling you to grab the Silph Scope shows it"
+
+
+def test_a_handover_shot_stands_the_hero_face_to_face_with_the_giver(root):
+    """An NPC hands something over across one tile, so a shot captioned with the pickup has to put
+    the hero next to them and both of them looking at each other.
+
+    The Captain is the one NPC in the game who does not turn around on his own: SSAnneCaptainsRoom
+    sets BIT_NO_NPC_FACE_PLAYER on load, and MakeNPCFacePlayer's comment says that flag exists for
+    exactly this scene. But the back-rub text clears it before the HM01 box prints, so by the frame
+    this shot draws he has turned to face you, and his map facing of UP is the wrong one to use.
+    Regression: the shot stood the hero two tiles below him, out of talking range."""
+    spec = _step_shot("ss-anne-cut")
+    captain = next(o for o in sources._object_events(root, "SSAnneCaptainsRoom")
+                   if o["const"] == "SSANNECAPTAINSROOM_CAPTAIN")
+    (px, py), (cx, cy) = spec["player"], captain["grid"]
+    drawn = {tuple(s["grid"]): s["frame"] for s in generators._screen_sprites(root, spec)}
+
+    assert abs(px - cx) + abs(py - cy) == 1, "the hero has to be within talking range"
+    assert spec["player_dir"] == "UP" and py > cy, "looking up at him"
+    assert drawn[(cx, cy)] == compositor.DIR_TO_FRAME["DOWN"][0], "and the Captain looking back"
+    assert len(drawn) == 2, "the hero and the Captain, nobody drawn twice"
+    assert _cell_standable(root, "SSAnneCaptainsRoom", (px, py)), "on a tile of the cabin floor"
+
+
+def test_the_ship_rival_meets_you_where_the_script_stops_him(root):
+    """SSAnne2F triggers on the player standing at [36, 8] or [37, 8], then walks the rival down
+    from his spawn: three steps for the left tile, four for the right. So from [36, 8] he ends one
+    tile up at [36, 7], and SSAnne2FSetFacingDirectionScript turns him DOWN onto you.
+
+    Regression: the shot stood the hero at [36, 6], two tiles above any trigger, and drew the rival
+    still parked on his spawn cell three tiles further up, with a spotted-trainer '!' that this
+    scene never shows (nothing here calls the emote; the rival is walked in by script)."""
+    spec = _trainer_spec("ss-anne-rival")
+    # raw objects: the rival ships switched off and is only ShowObject'd once you trip the trigger
+    rival = next(o for o in sources._object_events(root, "SSAnne2F")
+                 if o["const"] == "SSANNE2F_RIVAL")
+    hero, blue = tuple(spec["player"]), tuple(spec["sprites"][0]["grid"])
+
+    assert hero == (36, 8), "the hero stands on a tile the script actually triggers on"
+    assert blue == (rival["grid"][0], hero[1] - 1), "the rival stops one tile short of you"
+    assert spec["player_dir"] == "UP" and spec["sprites"][0]["dir"] == "DOWN", "facing each other"
+    assert not any(s.get("emote") for s in spec["sprites"]), "no '!' in a scripted walk-up"
+    assert _cell_standable(root, "SSAnne2F", hero) and _cell_standable(root, "SSAnne2F", blue)
+
+
+def test_a_hero_out_on_the_water_is_drawn_on_the_surf_sprite(root):
+    """Gen 1 swaps the player onto SPRITE_SEEL the moment they step off dry land, so a scene whose
+    `player` cell is water has to say so with `player_sprite` or it draws someone standing on the
+    sea. Vermilion's Max Ether is the case that forces it: the only tile you can face the item
+    from is open water, so the shot of taking it is a shot of surfing."""
+    for fname in INTERACTION_SPEC_FILES:
+        for spec in json.loads((SPECS / fname).read_text()):
+            if "player" not in spec:
+                continue
+            cell = tuple(spec["player"])
+            afloat = (_cell_walkable(root, spec["map"], cell)
+                      and not _cell_land(root, spec["map"], cell))
+            if not afloat:
+                continue
+
+            assert spec.get("player_sprite"), \
+                f"{spec['name']} ({fname}): hero at {cell} is on water with no surf sprite"
+
+    ether = _item_spec("vermilion-city-hidden-max-ether")
+    drawn = {tuple(s["grid"]): s["file"] for s in generators._screen_sprites(root, ether)}
+
+    assert drawn[tuple(ether["player"])] == sources.parse_sprite_table(root)["SPRITE_SEEL"]
+    assert not _cell_land(root, "VermilionCity", tuple(ether["player"])), "the hero is afloat"
+
+
+def test_a_found_item_shot_stands_the_hero_within_reach_of_what_it_marks(root):
+    """A "<PLAYER> found X!" frame claims the pickup just happened, so the hero has to be on a tile
+    the game would let them press A from: orthogonally adjacent to the marked cell.
+
+    Regression: Vermilion's Max Ether sits at [14, 11] with water on its only open side, and the
+    shot stood the hero three tiles south at [14, 14] with two building blocks in between. A spot
+    you cannot reach without Surf cannot carry a found-item box, so that one is a plain screen with
+    a marker instead, and this test is what keeps the two kinds honest."""
+    for fname in INTERACTION_SPEC_FILES:
+        for spec in json.loads((SPECS / fname).read_text()):
+            if spec.get("type") != "dialog" or "found_item" not in spec.get("dialog", {}):
+                continue
+            marker = spec.get("marker")
+            assert marker, f"{spec['name']} ({fname}): a found-item shot marks the cell it found"
+            (px, py), (mx, my) = spec["player"], marker
+
+            assert abs(px - mx) + abs(py - my) == 1, \
+                f"{spec['name']} ({fname}): hero at {spec['player']} cannot press A on {marker}"
+
+
+def test_route_25_tm_guard_stands_where_the_walkthrough_leaves_him(root):
+    """Route 25's Jr. Trainer spawns on the one gap into the TM19 pocket, and the step tells you to
+    trigger him from the far end of his line of sight so he walks down clear of it: he stops one
+    tile short of you (TrainerWalkUpToPlayer), which is sight - 1 cells below his post, freeing both
+    the gap and the cell you reach it through. Triggering closer parks him on that cell instead, so
+    a shot that still draws him on or beside the gap contradicts the instruction beside it."""
+    spec = _item_spec("route-25-item-tm-seismic-toss")
+    guard = next(o for o in sources._object_events(root, "Route25")
+                 if o["const"] == "ROUTE25_COOLTRAINER_M")
+    sight = sources.parse_trainer_sight(root, "Route25")[guard["text_const"]]
+    gap_x, gap_y = guard["grid"]
+    drawn = {tuple(s["grid"]): s["file"] for s in generators._screen_sprites(root, spec)}
+
+    assert sight > 1, "a guard who only engages point-blank could never be walked off the gap"
+    assert not any(_cell_standable(root, "Route25", c)
+                   for c in ((gap_x - 1, gap_y), (gap_x + 1, gap_y))), \
+        "the gap has a second approach, so which cell the guard ends on would not matter"
+    assert (gap_x, gap_y) not in drawn, "the shot still plugs the gap it tells you to clear"
+    assert (gap_x, gap_y + 1) not in drawn, "the cell you reach the gap through must be clear too"
+    assert drawn.get((gap_x, gap_y + sight - 1)) == \
+        sources.parse_sprite_table(root)[guard["sprite_const"]], \
+        "the guard is not standing where triggering him from the far end of his sight leaves him"
 
 
 def test_a_later_scene_on_the_same_floor_leaves_a_collected_ball_taken(root):

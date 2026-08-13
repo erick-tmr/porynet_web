@@ -608,6 +608,8 @@ pt:
           title: "Quatro treinadores para deixar de pé"
           standing_label: "AINDA DE PÉ"
           intro: "Você não pode rodar o glitch do Mew até capturar um Abra na Rota 5, bem depois daqui. Continue jogando enquanto isso, mas deixe estes quatro em paz. Cada um é uma peça do glitch, e derrotar qualquer um custa essa etapa."
+          show: "MOSTRAR OS QUATRO"
+          hide: "OCULTAR OS QUATRO"
           state:
             beat: "EU DERROTEI"
             undo: "↺ DESFAZER"
@@ -901,6 +903,41 @@ pt:
         why:
           title: "POR QUE IMPORTA"
           text_html: "Na maior parte é novidade: o humor do Pikachu só muda a carinha dele no mapa. O único ganho real é aqui em Cerulean, onde a Melanie só entrega o Bulbasaur com <b>147 ou mais</b>. Mantenha o Pikachu fora do PC até lá."
+      badge_guide:
+        eyebrow: "CURIOSIDADE · CASA DAS INSÍGNIAS"
+        title: "As Insígnias de Ginásio, explicadas"
+        intro: "O homem da casa a noroeste explica o que as oito insígnias fazem de verdade. Metade delas aumenta um atributo de todo Pokémon que você mandar para o campo, a outra metade eleva o nível máximo dos Pokémon trocados. As cinco primeiras também liberam um movimento de campo."
+        key_boost: "AUMENTO DE ATRIBUTO"
+        key_obey: "LIMITE DE OBEDIÊNCIA"
+        tag_boost: "AUMENTO"
+        tag_obey: "OBEDECE"
+        tag_field: "CAMPO"
+        field_none: "Nenhum"
+        obey: "Trocados até o Nv %{level}"
+        boost:
+          attack: "Aumenta o Ataque"
+          defense: "Aumenta a Defesa"
+          speed: "Aumenta a Velocidade"
+          special: "Aumenta o Especial"
+        rules:
+          tag: "REGRAS QUE O YELLOW NUNCA CONTA"
+          sub: "Quatro coisas que o homem das insígnias não menciona."
+          boost:
+            label: "O AUMENTO"
+            title: "O aumento é de cerca de 12,5%"
+            text: "Vale só em batalha, e para todo Pokémon que você mandar para o campo, não apenas o que ganhou a insígnia."
+          stacking:
+            label: "O ACÚMULO"
+            title: "Ele acumula sem querer"
+            text: "O jogo reaplica o aumento sempre que um atributo é recalculado, então cada X Attack ou Growl soma mais 12,5%. Batalhas longas inflam seus números muito além do previsto."
+          caps:
+            label: "OS LIMITES"
+            title: "Limite só para os trocados"
+            text: "Trocas dentro do jogo contam. O que você capturou obedece em qualquer nível, por menos insígnias que você tenha."
+          field_moves:
+            label: "OS MOVIMENTOS"
+            title: "A HM não basta"
+            text: "Movimentos de campo também exigem a insígnia certa. Escolha Cut no menu sem a Insígnia Cascade e o jogo responde 'No! A new BADGE is required.'"
       locations:
         pallet_town:
           note: "Pegue o Pikachu com o Prof. Oak. Sem grama selvagem aqui."
@@ -1225,7 +1262,7 @@ pt:
           steps:
             "1":
               title: "Saia do Mt. Moon"
-              text_html: "Você sai na ponta oeste da Rota 4, bem ao lado do Centro Pokémon do Mt. Moon %{center}, na boca da caverna. Cure ali se pulou o de dentro, depois siga a leste pelo platô alto rumo a Cerulean."
+              text_html: "Você sai pelo lado leste do Mt. Moon %{exit}. O Centro Pokémon fica fechado na face oeste, então a próxima cura é em Cerulean. Desça da boca da caverna e siga a leste, pegando dois itens no caminho."
             "2":
               title: "Ache a Great Ball oculta"
               text: "Mais ou menos na metade do topo da rota, uma Great Ball está enterrada no chão aberto, encostada na parede norte. Fique no tile logo abaixo dela e aperte A virado para cima. Nada aparece na tela."
@@ -1259,12 +1296,12 @@ pt:
               text_html: "Chegando da Rota 4, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} quieto por enquanto: tudo ao norte da cidade vale a pena antes, e a Misty fecha esta etapa."
             "2":
               title: "Pegue o Rare Candy escondido"
-              text: "Um nível de graça, largado no chão aberto. Um Rare Candy está enterrado em um tile aberto perto do topo da cidade. Alinhe-se no quadrado logo abaixo dele e aperte A. Nada aparece na tela."
+              text_html: "A faixa no topo da cidade é cercada. Entre na casa das insígnias %{door} do lado oeste e saia pelos fundos para pegar um Rare Candy enterrado, um nível de graça. Fique abaixo dele e aperte A virado para cima; nada aparece na tela."
               hidden:
-                rare_candy: "Em um tile aberto perto do topo da cidade. Fique logo abaixo dele e aperte A, nada aparece na tela."
+                rare_candy: "Na faixa cercada no topo da cidade, alcançada pela casa das insígnias do lado oeste. Fique logo abaixo dele e aperte A."
             "3":
               title: "Pegue os extras e siga ao norte"
-              text_html: "Pegue o Bulbasaur grátis na casa da Melanie %{house} se a amizade do Pikachu estiver alta. A casa assaltada fica lacrada até a oficial sair; persiga o ladrão pelos fundos pelo TM28 Dig e siga ao norte %{north} até a Nugget Bridge."
+              text_html: "Pegue o Bulbasaur grátis na casa da Melanie %{house} se a amizade do Pikachu estiver alta, depois siga ao norte %{north} até a Nugget Bridge. A casa assaltada fica lacrada: a Officer Jenny só sai de lá quando o Bill te entregar o S.S. Ticket, então o TM28 Dig fica para essa volta."
               items:
                 bicycle: "Na Bike Shop, quando você troca o Bike Voucher que ganha em Vermilion. Você volta pra pegar, e nunca mais anda a pé."
             "4":
@@ -1316,15 +1353,15 @@ pt:
               title: "Chegue pela Nugget Bridge"
               text: "Entre pelo oeste, saindo do topo da Nugget Bridge na Rota 24. A trilha segue a leste até a Sea Cottage do Bill, repleta de Hikers, Youngsters e Cooltrainers. Vasculhe a grama e capture um Venonat se ainda precisar."
             "2":
-              title: "Vasculhe a cerca oeste"
-              text: "Poucos passos após a entrada oeste, encoste na borda de cima da rota. Vire para cima e aperte A contra a cerca para um Elixir oculto. Nada aparece na tela."
+              title: "Vasculhe a parede de pedra oeste"
+              text: "Poucos passos após a entrada oeste, encoste na borda de cima da rota. Vire para cima e aperte A contra a parede de pedra para um Elixir oculto. Nada aparece na tela."
               hidden:
                 elixir: "Borda norte perto da entrada oeste, logo após a Rota 24. Vire para cima e aperte A."
             "3":
               title: "Pegue o TM19 no labirinto"
-              text_html: "O Jr. Trainer %{guard} tampa a única brecha para o bolsão do TM19. Puxe-o de dois tiles abaixo para ele descer e sair dela; se você lutar colado nele, o TM fica preso até você ter o Cut."
+              text_html: "O Jr. Trainer %{guard} tampa a única brecha para o bolsão do TM19. Puxe-o de três tiles abaixo para ele descer e liberar a passagem, depois chegue à brecha pelo oeste. Mais perto que isso e ele fica no caminho."
               items:
-                tm-seismic-toss: "Bolsão nordeste do labirinto de árvores, no meio da rota. Se o Jr. Trainer voltar a tampar a brecha, corte a árvore da parede leste do bolsão."
+                tm-seismic-toss: "Bolsão nordeste do labirinto de árvores, no meio da rota. Se o Jr. Trainer continuar no caminho, corte a árvore da parede leste do bolsão."
             "4":
               title: "Revise a grama perto da cabana"
               text: "Na reta final a leste, um pouco a oeste da porta da Sea Cottage do Bill e na mesma fileira, alinhe-se no tile logo abaixo e vire para cima apertando A para um Ether oculto. Nada aparece na tela."
@@ -1332,7 +1369,7 @@ pt:
                 ether: "Extremo leste, a oeste da porta da cabana, na fileira dela. Fique um tile ao sul e aperte A para cima."
             "5":
               title: "Solte o Bill"
-              text_html: "Entre na Sea Cottage %{cottage} no extremo leste e use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket. Volte a Vermilion via Cerulean."
+              text_html: "Entre na Sea Cottage %{cottage} no extremo leste e use a máquina do Bill para desfundi-lo. Ele te dá o S.S. Ticket, sua entrada no S.S. Anne quando chegar a Vermilion."
               items:
                 s_s_ticket: "Com o Bill, depois de libertá-lo da máquina na Sea Cottage. Sua passagem para o S.S. Anne em Vermilion."
           oak:
@@ -1389,8 +1426,8 @@ pt:
               "1": "Revise as latas de lixo ao longo das paredes para achar o primeiro interruptor. A posicao dele e aleatoria a cada visita."
               "2": "O segundo interruptor fica sempre numa lata vizinha a primeira, acima, abaixo, a esquerda ou a direita. Se errar, os dois reiniciam, entao cheque as vizinhas."
               "3": "Com os dois interruptores ativados, a porta ate Lt. Surge abre. Leve um tipo Terra para anular a equipe Eletrica dele."
-          note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
-          intro: "Uma cidade portuária com ginásio-quebra-cabeça. Suba no S.S. Anne primeiro pelo Cut, depois encare o Surge."
+          note: "Bike Voucher e Old Rod. O ginásio depende do Cut."
+          intro: "Uma cidade portuária por onde você passa duas vezes. Árvores fecham o ginásio até o S.S. Anne te dar o Cut, então pegue os presentes e suba no navio."
           steps:
             "1":
               title: "Pegue os itens"
@@ -1399,16 +1436,12 @@ pt:
                 bike_voucher: "Com o presidente do Pokémon Fan Club, no lado oeste da cidade. Troque por uma Bicycle na Bike Shop de Cerulean."
                 old_rod: "Com o Fishing Guru na casa do lado oeste da cidade. Pesca Magikarp em qualquer lugar."
             "2":
-              title: "Procure o Max Ether no vão entre os prédios"
-              text: "Logo ao norte da porta da Pokémon Trade House, um vão estreito sobe entre dois prédios. Um Max Ether escondido fica no topo: fique na praça abaixo, vire para cima e aperte A."
-              hidden:
-                max-ether: "No topo do vão entre os dois prédios ao norte da porta da Trade House, encostado na água. Vire para cima a partir da praça e aperte A. Nada aparece."
-            "3":
               title: "Entre no S.S. Anne pelo Cut"
-              text_html: "A arvore do ginasio %{gym} precisa do HM01 Cut. Entre no navio na doca sul %{dock}, limpe as cabines e cure o Capitao enjoado para receber o Cut antes de desafiar Surge."
-            "4":
-              title: "Pegue o Squirtle gratis"
-              text_html: "Apos a Insignia Thunder, a Oficial Jenny te da um Squirtle gratis. Depois siga para leste %{east} ate a Rota 11 e a Diglett's Cave."
+              text_html: "Árvores cortáveis fecham a praça do ginásio %{gym}, então o Surge espera. Suba no navio na doca sul %{dock} e <a href=\"%{href}\">limpe o S.S. Anne</a>: o Capitão enjoado entrega o HM01 Cut."
+          later:
+            max_ether:
+              where: "Um Max Ether escondido fica no topo do vão entre os dois prédios ao norte da Trade House, e o único tile de onde dá para encará-lo é água aberta."
+              after: "Volte com o Surf (HM03, da Safari Zone), pare no tile de água ao lado dele e aperte A. Nada aparece na tela."
           tips:
             squirtle: "Grátis da Officer Jenny depois da Thunder Badge. O terceiro starter de Kanto, evolui para Blastoise."
           oak:
@@ -1417,6 +1450,16 @@ pt:
             squirtle:
               from: "DA OFFICER JENNY"
               unlock: "Vença o Lt. Surge pela Thunder Badge"
+        vermilion_city_return:
+          note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
+          intro: "De volta ao porto com o Cut na mochila. Abra a praça do ginásio, resolva o quebra-cabeça das latas de lixo e pegue a Thunder Badge."
+          steps:
+            "1":
+              title: "Corte o caminho até o ginásio"
+              text_html: "Corte qualquer uma das árvores ao lado do ginásio %{gym} para abrir a praça. O Raichu do Surge castiga a equipe inteira, então lidere com um tipo Terra e use Dig se tiver."
+            "2":
+              title: "Pegue o Squirtle grátis"
+              text_html: "Com a Thunder Badge na mão, a Officer Jenny ao lado do ginásio te dá um Squirtle grátis. Depois siga para leste %{east} até a Rota 11 e a Diglett's Cave."
         ss_anne:
           note: "O transatlântico de luxo. HM01 Cut e uma luta de rival."
           intro: "Um navio de uma vez só. Varra os itens, vença seu rival e pegue o Cut antes que ele parta para sempre."
@@ -1456,7 +1499,7 @@ pt:
                 max-potion: "Na última cabine do B1F."
             "8":
               title: "Pegue o HM01 Cut com o Capitão"
-              text: "Vá até a cabine do Capitão, no alto do navio, e alivie o enjoo dele. Ele entrega o HM01 Cut, que corta as arvorezinhas da Rota 9 e de vários ginásios. O navio zarpa quando você sai."
+              text_html: "Vá até a cabine do Capitão, no alto do navio, e alivie o enjoo dele. Ele entrega o HM01 Cut, e o navio zarpa quando você sai. Ensine o golpe e vá <a href=\"%{href}\">abrir o ginásio de Vermilion</a>."
               items:
                 hm01_cut: "Com o Capitão enjoado, na cabine no alto do navio."
           oak:

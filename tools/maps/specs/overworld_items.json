@@ -30,6 +30,7 @@
       15
     ],
     "player_dir": "DOWN",
+    "player_sprite": "SPRITE_SEEL",
     "follower": false,
     "focus": [
       29,
@@ -1293,6 +1294,8 @@
       35
     ],
     "player_dir": "RIGHT",
+    "player_sprite": "SPRITE_SEEL",
+    "follower": false,
     "focus": [
       14,
       35
@@ -1597,9 +1600,22 @@
     "player_dir": "LEFT",
     "focus": [
       22,
-      2
+      3
     ],
-    "auto_npcs": true
+    "auto_npcs": true,
+    "hide": [
+      "ROUTE25_COOLTRAINER_M"
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_COOLTRAINER_M",
+        "grid": [
+          24,
+          6
+        ],
+        "dir": "DOWN"
+      }
+    ]
   },
   {
     "type": "dialog",
@@ -2269,13 +2285,15 @@
     "name": "vermilion-city-hidden-max-ether",
     "map": "VermilionCity",
     "player": [
-      14,
-      14
+      13,
+      11
     ],
-    "player_dir": "UP",
+    "player_dir": "RIGHT",
+    "player_sprite": "SPRITE_SEEL",
+    "follower": false,
     "focus": [
-      14,
-      12
+      13,
+      11
     ],
     "auto_npcs": true,
     "marker": [

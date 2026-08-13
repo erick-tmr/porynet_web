@@ -14306,337 +14306,6 @@
         ]
       },
       {
-        "image": "walkthrough/yellow/maps/ss-anne-2f.png",
-        "width": 640,
-        "height": 288,
-        "floor": "2F",
-        "name": "ss-anne-2f",
-        "markers": [
-          {
-            "id": "trainer-36-4",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 91.25,
-            "y": 25.0,
-            "grid": [
-              36,
-              4
-            ],
-            "align": "l",
-            "name": "Rival1",
-            "ref": "RIVAL1:1",
-            "lane": 0
-          },
-          {
-            "id": "exit-9-11",
-            "cat": "exit",
-            "key": "E11",
-            "x": 23.75,
-            "y": 63.889,
-            "grid": [
-              9,
-              11
-            ],
-            "align": "r",
-            "name": "S.S. Anne 2F Rooms",
-            "ref": "SS_ANNE_2F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "exit-13-11",
-            "cat": "exit",
-            "key": "E12",
-            "x": 33.75,
-            "y": 63.889,
-            "grid": [
-              13,
-              11
-            ],
-            "align": "r",
-            "name": "S.S. Anne 2F Rooms",
-            "ref": "SS_ANNE_2F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 1
-          },
-          {
-            "id": "exit-17-11",
-            "cat": "exit",
-            "key": "E13",
-            "x": 43.75,
-            "y": 63.889,
-            "grid": [
-              17,
-              11
-            ],
-            "align": "r",
-            "name": "S.S. Anne 2F Rooms",
-            "ref": "SS_ANNE_2F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 2
-          },
-          {
-            "id": "exit-21-11",
-            "cat": "exit",
-            "key": "E14",
-            "x": 53.75,
-            "y": 63.889,
-            "grid": [
-              21,
-              11
-            ],
-            "align": "r",
-            "name": "S.S. Anne 2F Rooms",
-            "ref": "SS_ANNE_2F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "exit-25-11",
-            "cat": "exit",
-            "key": "E15",
-            "x": 63.75,
-            "y": 63.889,
-            "grid": [
-              25,
-              11
-            ],
-            "align": "l",
-            "name": "S.S. Anne 2F Rooms",
-            "ref": "SS_ANNE_2F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 3
-          },
-          {
-            "id": "exit-29-11",
-            "cat": "exit",
-            "key": "E16",
-            "x": 73.75,
-            "y": 63.889,
-            "grid": [
-              29,
-              11
-            ],
-            "align": "l",
-            "name": "S.S. Anne 2F Rooms",
-            "ref": "SS_ANNE_2F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 4
-          },
-          {
-            "id": "exit-2-4",
-            "cat": "exit",
-            "key": "E8",
-            "x": 6.25,
-            "y": 25.0,
-            "grid": [
-              2,
-              4
-            ],
-            "align": "r",
-            "name": "S.S. Anne 1F",
-            "ref": "SS_ANNE_1F",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "exit-2-12",
-            "cat": "exit",
-            "key": "E17",
-            "x": 6.25,
-            "y": 69.444,
-            "grid": [
-              2,
-              12
-            ],
-            "align": "r",
-            "name": "S.S. Anne 3F",
-            "ref": "SS_ANNE_3F",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 1
-          },
-          {
-            "id": "exit-36-4",
-            "cat": "exit",
-            "key": "E18",
-            "x": 91.25,
-            "y": 25.0,
-            "grid": [
-              36,
-              4
-            ],
-            "align": "l",
-            "name": "S.S. Anne Captains Room",
-            "ref": "SS_ANNE_CAPTAINS_ROOM",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 1
-          }
-        ]
-      },
-      {
-        "image": "walkthrough/yellow/maps/ss-anne-3f.png",
-        "width": 320,
-        "height": 96,
-        "floor": "3F",
-        "name": "ss-anne-3f",
-        "markers": [
-          {
-            "id": "exit-0-3",
-            "cat": "exit",
-            "key": "E19",
-            "x": 2.5,
-            "y": 58.333,
-            "grid": [
-              0,
-              3
-            ],
-            "align": "r",
-            "name": "S.S. Anne Bow",
-            "ref": "SS_ANNE_BOW",
-            "edge": "west",
-            "glyph": "\u25c0",
-            "lane": 0
-          },
-          {
-            "id": "exit-19-3",
-            "cat": "exit",
-            "key": "E17",
-            "x": 97.5,
-            "y": 58.333,
-            "grid": [
-              19,
-              3
-            ],
-            "align": "l",
-            "name": "S.S. Anne 2F",
-            "ref": "SS_ANNE_2F",
-            "edge": "east",
-            "glyph": "\u25b6",
-            "lane": 1
-          }
-        ]
-      },
-      {
-        "image": "walkthrough/yellow/maps/ss-anne-b1f.png",
-        "width": 480,
-        "height": 128,
-        "floor": "B1F",
-        "name": "ss-anne-b1f",
-        "markers": [
-          {
-            "id": "exit-23-3",
-            "cat": "exit",
-            "key": "E20",
-            "x": 78.333,
-            "y": 43.75,
-            "grid": [
-              23,
-              3
-            ],
-            "align": "l",
-            "name": "S.S. Anne B1F Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 4
-          },
-          {
-            "id": "exit-19-3",
-            "cat": "exit",
-            "key": "E21",
-            "x": 65.0,
-            "y": 43.75,
-            "grid": [
-              19,
-              3
-            ],
-            "align": "l",
-            "name": "S.S. Anne B1F Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 3
-          },
-          {
-            "id": "exit-15-3",
-            "cat": "exit",
-            "key": "E22",
-            "x": 51.667,
-            "y": 43.75,
-            "grid": [
-              15,
-              3
-            ],
-            "align": "r",
-            "name": "S.S. Anne B1F Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 2
-          },
-          {
-            "id": "exit-11-3",
-            "cat": "exit",
-            "key": "E23",
-            "x": 38.333,
-            "y": 43.75,
-            "grid": [
-              11,
-              3
-            ],
-            "align": "r",
-            "name": "S.S. Anne B1F Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 1
-          },
-          {
-            "id": "exit-7-3",
-            "cat": "exit",
-            "key": "E24",
-            "x": 25.0,
-            "y": 43.75,
-            "grid": [
-              7,
-              3
-            ],
-            "align": "r",
-            "name": "S.S. Anne B1F Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "exit-27-5",
-            "cat": "exit",
-            "key": "E9",
-            "x": 91.667,
-            "y": 68.75,
-            "grid": [
-              27,
-              5
-            ],
-            "align": "l",
-            "name": "S.S. Anne 1F",
-            "ref": "SS_ANNE_1F",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          }
-        ]
-      },
-      {
         "image": "walkthrough/yellow/maps/ss-anne-1f-rooms.png",
         "width": 384,
         "height": 256,
@@ -14816,6 +14485,224 @@
             "align": "l",
             "name": "S.S. Anne 1F",
             "ref": "SS_ANNE_1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 1
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-kitchen.png",
+        "width": 224,
+        "height": 256,
+        "floor": "Kitchen",
+        "name": "ss-anne-kitchen",
+        "markers": [
+          {
+            "id": "hidden-13-9",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 96.429,
+            "y": 59.375,
+            "grid": [
+              13,
+              9
+            ],
+            "align": "l",
+            "name": "Great Ball",
+            "ref": "GREAT_BALL",
+            "lane": 0
+          },
+          {
+            "id": "exit-6-0",
+            "cat": "exit",
+            "key": "E10",
+            "x": 46.429,
+            "y": 3.125,
+            "grid": [
+              6,
+              0
+            ],
+            "align": "r",
+            "name": "S.S. Anne 1F",
+            "ref": "SS_ANNE_1F",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-2f.png",
+        "width": 640,
+        "height": 288,
+        "floor": "2F",
+        "name": "ss-anne-2f",
+        "markers": [
+          {
+            "id": "trainer-36-4",
+            "cat": "trainer",
+            "key": "T1",
+            "x": 91.25,
+            "y": 25.0,
+            "grid": [
+              36,
+              4
+            ],
+            "align": "l",
+            "name": "Rival1",
+            "ref": "RIVAL1:1",
+            "lane": 0
+          },
+          {
+            "id": "exit-9-11",
+            "cat": "exit",
+            "key": "E11",
+            "x": 23.75,
+            "y": 63.889,
+            "grid": [
+              9,
+              11
+            ],
+            "align": "r",
+            "name": "S.S. Anne 2F Rooms",
+            "ref": "SS_ANNE_2F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-13-11",
+            "cat": "exit",
+            "key": "E12",
+            "x": 33.75,
+            "y": 63.889,
+            "grid": [
+              13,
+              11
+            ],
+            "align": "r",
+            "name": "S.S. Anne 2F Rooms",
+            "ref": "SS_ANNE_2F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 1
+          },
+          {
+            "id": "exit-17-11",
+            "cat": "exit",
+            "key": "E13",
+            "x": 43.75,
+            "y": 63.889,
+            "grid": [
+              17,
+              11
+            ],
+            "align": "r",
+            "name": "S.S. Anne 2F Rooms",
+            "ref": "SS_ANNE_2F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 2
+          },
+          {
+            "id": "exit-21-11",
+            "cat": "exit",
+            "key": "E14",
+            "x": 53.75,
+            "y": 63.889,
+            "grid": [
+              21,
+              11
+            ],
+            "align": "r",
+            "name": "S.S. Anne 2F Rooms",
+            "ref": "SS_ANNE_2F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-25-11",
+            "cat": "exit",
+            "key": "E15",
+            "x": 63.75,
+            "y": 63.889,
+            "grid": [
+              25,
+              11
+            ],
+            "align": "l",
+            "name": "S.S. Anne 2F Rooms",
+            "ref": "SS_ANNE_2F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 3
+          },
+          {
+            "id": "exit-29-11",
+            "cat": "exit",
+            "key": "E16",
+            "x": 73.75,
+            "y": 63.889,
+            "grid": [
+              29,
+              11
+            ],
+            "align": "l",
+            "name": "S.S. Anne 2F Rooms",
+            "ref": "SS_ANNE_2F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 4
+          },
+          {
+            "id": "exit-2-4",
+            "cat": "exit",
+            "key": "E8",
+            "x": 6.25,
+            "y": 25.0,
+            "grid": [
+              2,
+              4
+            ],
+            "align": "r",
+            "name": "S.S. Anne 1F",
+            "ref": "SS_ANNE_1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-2-12",
+            "cat": "exit",
+            "key": "E17",
+            "x": 6.25,
+            "y": 69.444,
+            "grid": [
+              2,
+              12
+            ],
+            "align": "r",
+            "name": "S.S. Anne 3F",
+            "ref": "SS_ANNE_3F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 1
+          },
+          {
+            "id": "exit-36-4",
+            "cat": "exit",
+            "key": "E18",
+            "x": 91.25,
+            "y": 25.0,
+            "grid": [
+              36,
+              4
+            ],
+            "align": "l",
+            "name": "S.S. Anne Captains Room",
+            "ref": "SS_ANNE_CAPTAINS_ROOM",
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 1
@@ -15020,6 +14907,216 @@
             "edge": "south",
             "glyph": "\u25bc",
             "lane": 2
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-3f.png",
+        "width": 320,
+        "height": 96,
+        "floor": "3F",
+        "name": "ss-anne-3f",
+        "markers": [
+          {
+            "id": "exit-0-3",
+            "cat": "exit",
+            "key": "E19",
+            "x": 2.5,
+            "y": 58.333,
+            "grid": [
+              0,
+              3
+            ],
+            "align": "r",
+            "name": "S.S. Anne Bow",
+            "ref": "SS_ANNE_BOW",
+            "edge": "west",
+            "glyph": "\u25c0",
+            "lane": 0
+          },
+          {
+            "id": "exit-19-3",
+            "cat": "exit",
+            "key": "E17",
+            "x": 97.5,
+            "y": 58.333,
+            "grid": [
+              19,
+              3
+            ],
+            "align": "l",
+            "name": "S.S. Anne 2F",
+            "ref": "SS_ANNE_2F",
+            "edge": "east",
+            "glyph": "\u25b6",
+            "lane": 1
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-bow.png",
+        "width": 320,
+        "height": 224,
+        "floor": "Bow",
+        "name": "ss-anne-bow",
+        "markers": [
+          {
+            "id": "trainer-4-4",
+            "cat": "trainer",
+            "key": "T1",
+            "x": 22.5,
+            "y": 32.143,
+            "grid": [
+              4,
+              4
+            ],
+            "align": "r",
+            "name": "Sailor",
+            "ref": "SAILOR:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-10-8",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 52.5,
+            "y": 60.714,
+            "grid": [
+              10,
+              8
+            ],
+            "align": "r",
+            "name": "Sailor",
+            "ref": "SAILOR:2",
+            "lane": 1
+          },
+          {
+            "id": "exit-13-6",
+            "cat": "exit",
+            "key": "E19",
+            "x": 67.5,
+            "y": 50.0,
+            "grid": [
+              13,
+              6
+            ],
+            "align": "l",
+            "name": "S.S. Anne 3F",
+            "ref": "SS_ANNE_3F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/ss-anne-b1f.png",
+        "width": 480,
+        "height": 128,
+        "floor": "B1F",
+        "name": "ss-anne-b1f",
+        "markers": [
+          {
+            "id": "exit-23-3",
+            "cat": "exit",
+            "key": "E20",
+            "x": 78.333,
+            "y": 43.75,
+            "grid": [
+              23,
+              3
+            ],
+            "align": "l",
+            "name": "S.S. Anne B1F Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 4
+          },
+          {
+            "id": "exit-19-3",
+            "cat": "exit",
+            "key": "E21",
+            "x": 65.0,
+            "y": 43.75,
+            "grid": [
+              19,
+              3
+            ],
+            "align": "l",
+            "name": "S.S. Anne B1F Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 3
+          },
+          {
+            "id": "exit-15-3",
+            "cat": "exit",
+            "key": "E22",
+            "x": 51.667,
+            "y": 43.75,
+            "grid": [
+              15,
+              3
+            ],
+            "align": "r",
+            "name": "S.S. Anne B1F Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 2
+          },
+          {
+            "id": "exit-11-3",
+            "cat": "exit",
+            "key": "E23",
+            "x": 38.333,
+            "y": 43.75,
+            "grid": [
+              11,
+              3
+            ],
+            "align": "r",
+            "name": "S.S. Anne B1F Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 1
+          },
+          {
+            "id": "exit-7-3",
+            "cat": "exit",
+            "key": "E24",
+            "x": 25.0,
+            "y": 43.75,
+            "grid": [
+              7,
+              3
+            ],
+            "align": "r",
+            "name": "S.S. Anne B1F Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-27-5",
+            "cat": "exit",
+            "key": "E9",
+            "x": 91.667,
+            "y": 68.75,
+            "grid": [
+              27,
+              5
+            ],
+            "align": "l",
+            "name": "S.S. Anne 1F",
+            "ref": "SS_ANNE_1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
           }
         ]
       },
@@ -15620,6 +15717,49 @@
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
+            "lane": 0
+          }
+        ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/vermilion-city-dock.png",
+        "width": 448,
+        "height": 192,
+        "floor": "Dock",
+        "name": "vermilion-city-dock",
+        "markers": [
+          {
+            "id": "exit-14-0",
+            "cat": "exit",
+            "key": "E6",
+            "x": 51.786,
+            "y": 4.167,
+            "grid": [
+              14,
+              0
+            ],
+            "align": "r",
+            "name": "Back outside",
+            "ref": "LAST_MAP",
+            "edge": "north",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-14-2",
+            "cat": "exit",
+            "key": "E11",
+            "x": 51.786,
+            "y": 20.833,
+            "grid": [
+              14,
+              2
+            ],
+            "align": "r",
+            "name": "S.S. Anne 1F",
+            "ref": "SS_ANNE_1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
             "lane": 0
           }
         ]

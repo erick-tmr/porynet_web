@@ -10,16 +10,19 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing Route 4 twice around Mt. Moon" do
+  test "the game covers the 52 Kanto stops, drawing Route 4 and Vermilion twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 52 numbered stops (1..52); Route 4 (stop 10) wraps Mt. Moon, so it is drawn as a Mt. Moon
-    # approach section (leg 3) and its east half (leg 4). That makes 53 sections over 52 numbers.
-    assert_equal 53, g.locations.size
+    # 52 numbered stops (1..52), two of them walked twice: Route 4 (stop 10) wraps Mt. Moon, and
+    # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
+    # needs. Each pass is its own section, so 54 sections share 52 numbers.
+    assert_equal 54, g.locations.size
     assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
+    assert_equal %w[vermilion-city vermilion-city-return],
+      g.locations.select { |loc| loc.order == 17 }.map(&:slug)
   end
 
   test "the location sections group into 27 ordered legs with no gaps or dupes" do
@@ -51,7 +54,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "Pallet Town", leg1.from
     assert_equal "Route 1", leg1.to
     refute leg1.single?
-    assert game.leg!("leg-06").single?
+    assert game.leg!("ss-anne").single?
 
     # leg 04 doubles back: the routes north are the middle, the Cerulean gym is the destination
     leg4 = game.leg!("leg-04")
@@ -101,7 +104,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "the eight gym locations carry badges" do
-    assert_equal %w[pewter-city cerulean-city vermilion-city celadon-city fuchsia-city saffron-city cinnabar-island viridian-gym],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city fuchsia-city saffron-city cinnabar-island viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
     assert_equal %w[cinnabar-island], game.leg!("leg-12").gyms.map(&:slug)
     assert_equal %w[viridian-gym], game.leg!("leg-13").gyms.map(&:slug)
@@ -420,11 +423,54 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert brock.trainers?
     refute brock.puzzle?
 
-    surge = loc("vermilion-city").gym
+    surge = loc("vermilion-city-return").gym
     assert surge.puzzle?
     assert_equal 3, surge.puzzle.size
     assert surge.puzzle[1].shot?
     refute surge.puzzle[0].shot?
+  end
+
+  test "a gym leader card ticks the very pin that stands for her on the map" do
+    gyms = game.locations.select(&:gym?)
+    assert_equal 8, gyms.size
+
+    gyms.each do |loc|
+      maps = loc.area_maps + [ loc.gym.area ].compact
+      pins = maps.flat_map { |map| map.markers_in("trainer").map { |pin| "#{map.name}/#{pin.id}" } }
+      assert_includes pins, loc.gym.leader.tick,
+        "#{loc.gym.name}: the leader card would tick a key no pin on the map writes"
+    end
+  end
+
+  test "the badge guide explains all eight badges and the four rules behind them" do
+    guide = Walkthrough::Yellow.badge_guide
+    assert_equal "badges-explained", guide.anchor
+    assert_equal (1..8).to_a, guide.cards.map(&:no)
+    assert_equal %w[Boulder Cascade Thunder Rainbow Soul Marsh Volcano Earth], guide.cards.map(&:name)
+
+    boulder = guide.cards.first
+    refute boulder.obey?
+    assert_nil boulder.level
+    assert_equal "walkthrough.yellow.badge_guide.boost.attack", boulder.effect_key
+    assert_equal "Flash", boulder.field
+
+    cascade = guide.cards.second
+    assert cascade.obey?
+    assert_equal 30, cascade.level
+    assert_equal "walkthrough.yellow.badge_guide.obey", cascade.effect_key
+
+    assert_equal %w[Marsh Volcano Earth], guide.cards.reject(&:field?).map(&:name)
+    assert_equal [ 1, 2, 3, 4 ], guide.rules.map(&:no)
+    assert_equal "walkthrough.yellow.badge_guide.rules.stacking.title", guide.rules.second.title_key
+  end
+
+  test "the badge guide's badges, leaders and crests stay in step with the gyms" do
+    gyms = game.locations.select(&:gym?).map(&:gym)
+    cards = Walkthrough::Yellow.badge_guide.cards
+
+    assert_equal gyms.map(&:badge), cards.map { |card| card.name.upcase }
+    assert_equal gyms.map { |gym| gym.leader.name }, cards.map(&:leader)
+    assert_equal gyms.map(&:badge_img), cards.map(&:image)
   end
 
   test "every content and leg key resolves in both locales" do

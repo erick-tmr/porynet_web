@@ -65,7 +65,7 @@
       <% end %>
 
       <div class="pn-wt-gym__label"><%= t("walkthrough.ui.gym_leader_label") %></div>
-      <div class="pn-wt-gym__leader" <%= tag.attributes(tickable("collected", "#{slug}/gym-leader")) %>>
+      <div class="pn-wt-gym__leader" <%= tag.attributes(tickable("collected", gym.leader.tick || "#{slug}/gym-leader")) %>>
         <span class="pn-wt-gym__leader-cleared"><%= t("walkthrough.ui.gym_cleared") %></span>
         <%= progress_toast("trainer", name: gym.leader.name) %>
         <div class="pn-wt-gym__leader-card">

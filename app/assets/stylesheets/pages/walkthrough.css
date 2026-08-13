@@ -1234,6 +1234,193 @@ a.pn-wt-route__card:hover {
   margin-top: 16px;
 }
 
+/* ---- badge guide ---- */
+.pn-wt-badges__legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.pn-wt-badges__key {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #171622;
+  border: 2px solid #171622;
+  padding: 6px 8px;
+}
+.pn-wt-badges__key--boost { background: #ffe1ea; }
+.pn-wt-badges__key--obey { background: #d8f0fb; }
+.pn-wt-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+.pn-wt-badge {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pn-wt-badge__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pn-wt-badge__crest {
+  width: 74px;
+  height: 74px;
+  flex: none;
+  border: 3px solid #171622;
+  background: #f4eeda;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pn-wt-badge__crest img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-badge__id {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.pn-wt-badge__no {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #6b6880;
+}
+.pn-wt-badge__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 1;
+  color: #171622;
+}
+.pn-wt-badge__where {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  line-height: 1;
+  color: #3a3850;
+}
+.pn-wt-badge__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.pn-wt-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.pn-wt-badge-tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  border: 2px solid #171622;
+  padding: 5px 7px;
+  flex: none;
+}
+.pn-wt-badge-tag--boost { color: #171622; background: #ffe1ea; }
+.pn-wt-badge-tag--obey { color: #171622; background: #d8f0fb; }
+.pn-wt-badge-tag--field { color: #3a3850; background: #efeade; }
+.pn-wt-badge-tag--none { color: #6b6880; border-color: #cfc7b4; }
+.pn-wt-badge-row__text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  color: #3a3850;
+}
+.pn-wt-badge-row__text--none { color: #6b6880; }
+.pn-wt-badge-rules {
+  margin-top: 32px;
+  background: #0b1022;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+  padding: 24px 26px;
+}
+.pn-wt-badge-rules__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 3px solid #2af0ff;
+}
+.pn-wt-badge-rules__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #171622;
+  background: #2af0ff;
+  padding: 8px 10px;
+}
+.pn-wt-badge-rules__sub {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: #8fa6c8;
+}
+.pn-wt-badge-rules__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 22px;
+  padding: 20px 0;
+  border-bottom: 1px solid #2a3350;
+}
+.pn-wt-badge-rules__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.pn-wt-badge-rules__kicker {
+  flex: 0 0 168px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.pn-wt-badge-rules__no {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #2af0ff;
+}
+.pn-wt-badge-rules__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  color: #8fa6c8;
+}
+.pn-wt-badge-rules__body {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pn-wt-badge-rules__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.1;
+  color: #fff;
+}
+.pn-wt-badge-rules__text {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  line-height: 1.35;
+  color: #cfe1f5;
+}
+@media (max-width: 760px) {
+  .pn-wt-badge-rules { padding: 18px; }
+  .pn-wt-badge-rules__row { gap: 10px; }
+  .pn-wt-badge-rules__kicker { flex: 0 0 100%; }
+}
+
 /* ---- missable step ---- */
 .pn-wt-step__node--missable { background: #FFC23D; }
 .pn-wt-step__warn polygon { fill: #171622; }
