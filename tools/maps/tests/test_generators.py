@@ -1,5 +1,6 @@
 import json
 import pathlib
+import re
 
 import pytest
 
@@ -52,6 +53,20 @@ def _trivia_spec(name):
 def _item_spec(name):
     entries = json.loads((SPECS / "overworld_items.json").read_text())
     return next(s for s in entries if s["name"] == name)
+
+
+def _gym_spec(name):
+    entries = json.loads((SPECS / "gyms.json").read_text())
+    return next(s for s in entries if s["name"] == name)
+
+
+def _trash_can_cells(root):
+    """The Vermilion Gym trash cans, read from the map's own hidden events rather than retyped:
+    each `GymTrashScript` entry is one can, and its argument is the can's puzzle index."""
+    text = (pathlib.Path(root) / "data/events/hidden_events.asm").read_text()
+    block = re.search(r"hidden_events_for VERMILION_GYM(.*?)db -1", text, re.S).group(1)
+    return {(int(x), int(y)) for x, y in
+            re.findall(r"hidden_event\s+(\d+),\s*(\d+),\s*GymTrashScript", block)}
 
 
 def _route24_grass_trigger(root):
@@ -241,7 +256,8 @@ def test_trade_house_scene_places_the_hero_at_the_door(root):
 # item, a trainer it faces. A render draws the hero on a counter, boulder or desk all the same, so
 # these are guarded to keep it on real floor. Directional step shots frame a landmark rather than
 # an interaction and are out of scope.
-INTERACTION_SPEC_FILES = ["trades.json", "hidden_items.json", "trainers.json", "overworld_items.json"]
+INTERACTION_SPEC_FILES = ["trades.json", "hidden_items.json", "trainers.json", "overworld_items.json",
+                          "gyms.json"]
 
 
 def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
@@ -668,3 +684,29 @@ def test_mew_swimmer_battle_is_the_gym_swimmer(root):
     assert spec["type"] == "battle" and spec["opponent"] == "SWIMMER"
     gym = sources.parse_object_events(root, "CeruleanGym", include_battlers=True)
     assert any(o["opp_class"] == "SWIMMER" for o in gym), "the gym really has a Swimmer to fight"
+
+
+def test_the_gym_puzzle_shot_stands_at_a_real_trash_can(root):
+    """The Vermilion switch shot has to face a can the game actually scripts. The gym floor is
+    open on every side of every can, so a hero one tile off still renders happily, pointing at
+    nothing: only the hidden-event list says which tiles are cans."""
+    spec = _gym_spec("vermilion-gym-second-switch")
+    cans = _trash_can_cells(root)
+    x, y = spec["player"]
+    faced = {"UP": (x, y - 1), "DOWN": (x, y + 1),
+             "LEFT": (x - 1, y), "RIGHT": (x + 1, y)}[spec["player_dir"]]
+
+    assert len(cans) == 15, "the puzzle is 15 cans"
+    assert faced in cans, f"the hero faces {faced}, which is not one of the gym's trash cans"
+
+
+def test_the_gym_puzzle_shot_quotes_the_games_own_second_switch_line(root):
+    """The caption is the game's text, not ours: `_VermilionGymTrashSuccessText3` is what prints
+    when the second switch is the right one, which is the beat the shot illustrates."""
+    spec = _gym_spec("vermilion-gym-second-switch")
+    text = (pathlib.Path(root) / "data/text/text_2.asm").read_text()
+    block = re.search(r"_VermilionGymTrashSuccessText3::(.*?)text_end", text, re.S).group(1)
+    quoted = re.findall(r'"([^"]*)"', block)
+
+    for line in spec["dialog"]["lines"]:
+        assert line in quoted, f"{line!r} is not a line of _VermilionGymTrashSuccessText3"

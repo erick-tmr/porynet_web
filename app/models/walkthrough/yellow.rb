@@ -1001,8 +1001,16 @@ module Walkthrough
       )
     end
 
-    def self.gstep(slug, n, map: false)
-      GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}", shot: map ? shot("STEP #{n}") : nil)
+    def self.gstep(slug, n, map: false, scene: nil)
+      GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}",
+        shot: gym_shot(n, map, scene))
+    end
+
+    def self.gym_shot(n, map, scene)
+      return scene_shot(scene, "STEP #{n}") if scene
+      return shot("STEP #{n}") if map
+
+      nil
     end
 
     def self.route_3
@@ -1259,7 +1267,9 @@ module Walkthrough
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
           leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE"), opp: [ "LT_SURGE", 1 ]),
-          puzzle: [ gstep("vermilion-city", 1), gstep("vermilion-city", 2, map: true), gstep("vermilion-city", 3) ]),
+          puzzle: [ gstep("vermilion-city", 1),
+                    gstep("vermilion-city", 2, scene: "vermilion-gym-second-switch"),
+                    gstep("vermilion-city", 3) ]),
         oak_queue: [ oak("vermilion-city", "007", 1) ]
       )
     end

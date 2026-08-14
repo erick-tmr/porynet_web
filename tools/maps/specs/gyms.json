@@ -1,0 +1,11 @@
+[
+  {
+    "type": "dialog",
+    "name": "vermilion-gym-second-switch",
+    "map": "VermilionGym",
+    "parent": "VERMILION_CITY",
+    "player": [5, 10],
+    "player_dir": "UP",
+    "dialog": { "lines": ["The 2nd electric", "lock opened!"] }
+  }
+]
