@@ -18,6 +18,7 @@ import pathlib
 
 import pytest
 
+import decks
 import locations
 import markers
 import sources
@@ -53,8 +54,8 @@ def _rebuild_location(root, slug):
             continue
         name = locations.image_name(slug, floor)
         entry = MAP_ENTRIES[name]
-        entries.append({"name": name, "markers": markers.build_markers(
-            root, label, headers[label][0], entry["width"], entry["height"])})
+        entries.append({"name": name, "markers": decks.area_markers(
+            root, label, floor, entry["width"], entry["height"])})
         labels.append(label)
         warps[label] = sources.parse_warp_events(root, label)
         consts[label] = headers[label][0]

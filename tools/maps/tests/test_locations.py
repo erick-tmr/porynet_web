@@ -25,11 +25,22 @@ def test_extra_trainer_maps():
     assert locations.extra_trainer_maps("route-1") == []
 
 
-def test_the_ship_lists_each_deck_with_the_rooms_you_reach_from_it():
-    """Reading order is walking order: a deck, then whatever opens off it. The kitchen hangs off 1F
-    and the bow off 3F (their only warps are SS_ANNE_1F and SS_ANNE_3F). Both are drawn for what
-    they hold: a hidden Great Ball in the kitchen's last bin, two Sailors out on the bow."""
+def test_the_ship_draws_one_map_per_deck():
+    """Four decks, not nine floors. The cabins, the kitchen and the bow are drawn into the deck
+    they open off (decks.py), so nobody has to match a corridor of identical doors against a grid
+    of identical cabins by letter."""
     assert [label for label, _, _ in locations.location_maps()["ss-anne"]] == [
-        "SSAnne1F", "SSAnne1FRooms", "SSAnneKitchen",
-        "SSAnne2F", "SSAnne2FRooms", "SSAnne3F", "SSAnneBow",
-        "SSAnneB1F", "SSAnneB1FRooms"]
+        "SSAnne1F", "SSAnne2F", "SSAnne3F", "SSAnneB1F"]
+
+
+def test_every_attached_room_hangs_off_a_map_that_is_drawn():
+    """An attached room is drawn into another map's image and nowhere else, so its corridor has to
+    be a floor the location really draws. Attach one to a map nobody draws and the room, its items
+    and its trainers drop off the site silently."""
+    drawn = {label for maps in locations.location_maps().values() for label, _, _ in maps}
+    attached = {"SSAnne1F", "SSAnne2F", "SSAnne3F", "SSAnneB1F"}
+
+    assert attached <= drawn
+    for corridor in attached:
+        assert locations.attached(corridor), f"{corridor} is a deck and should carry its rooms"
+    assert locations.attached("Route1") == [], "a plain map has nothing hung off it"

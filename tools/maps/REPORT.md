@@ -1,9 +1,9 @@
 # Asset generation report
 
-- location maps: **104** across 52 locations
-- markers: **988** (318 trainer, 119 item, 50 hidden, 501 exit)
+- location maps: **99** across 52 locations
+- markers: **969** (318 trainer, 119 item, 50 hidden, 482 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **248** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **256** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -94,15 +94,10 @@
 - `silph-co-9f`: 3 trainer, 1 hidden, 5 exit
 - `silph-co-10f`: 2 trainer, 3 item, 6 exit
 - `silph-co-11f`: 2 trainer, 4 exit
-- `ss-anne-1f`: 10 exit
-- `ss-anne-1f-rooms`: 4 trainer, 1 item, 6 exit
-- `ss-anne-kitchen`: 1 hidden, 1 exit
-- `ss-anne-2f`: 1 trainer, 9 exit
-- `ss-anne-2f-rooms`: 4 trainer, 2 item, 6 exit
-- `ss-anne-3f`: 2 exit
-- `ss-anne-bow`: 2 trainer, 1 exit
-- `ss-anne-b1f`: 6 exit
-- `ss-anne-b1f-rooms`: 6 trainer, 3 item, 1 hidden, 5 exit
+- `ss-anne-1f`: 4 trainer, 1 item, 1 hidden, 10 exit
+- `ss-anne-2f`: 5 trainer, 2 item, 9 exit
+- `ss-anne-3f`: 2 trainer, 2 exit
+- `ss-anne-b1f`: 6 trainer, 3 item, 1 hidden, 6 exit
 - `underground-path`: 2 hidden, 2 exit
 - `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit
@@ -140,7 +135,7 @@
 - `route-4-mt-moon` step 2: walkthrough/yellow/scenes/route-4-mt-moon-enter.png
 - `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png
 - `seafoam-islands` step 3: walkthrough/yellow/scenes/seafoam-articuno.png
-- `ss-anne` step 3: walkthrough/yellow/scenes/ss-anne-cut.png
+- `ss-anne` step 14: walkthrough/yellow/scenes/ss-anne-cut.png
 - `vermilion-city` step 2: walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png
 - `victory-road` step 3: walkthrough/yellow/scenes/victory-road-moltres.png
@@ -368,6 +363,14 @@
 - `silph-co-item-x-accuracy` (screen): walkthrough/yellow/scenes/silph-co-item-x-accuracy.png
 - `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png
 - `ss-anne-cut` (screen): walkthrough/yellow/scenes/ss-anne-cut.png
+- `ss-anne-hidden-great-ball` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-great-ball.png
+- `ss-anne-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-hyper-potion.png
+- `ss-anne-item-ether` (screen): walkthrough/yellow/scenes/ss-anne-item-ether.png
+- `ss-anne-item-max-ether` (screen): walkthrough/yellow/scenes/ss-anne-item-max-ether.png
+- `ss-anne-item-max-potion` (screen): walkthrough/yellow/scenes/ss-anne-item-max-potion.png
+- `ss-anne-item-rare-candy` (screen): walkthrough/yellow/scenes/ss-anne-item-rare-candy.png
+- `ss-anne-item-tm-body-slam` (screen): walkthrough/yellow/scenes/ss-anne-item-tm-body-slam.png
+- `ss-anne-item-tm-rest` (screen): walkthrough/yellow/scenes/ss-anne-item-tm-rest.png
 - `ss-anne-rival` (screen): walkthrough/yellow/scenes/ss-anne-rival.png
 - `underground-path-hidden-full-restore` (dialog): walkthrough/yellow/scenes/underground-path-hidden-full-restore.png
 - `underground-path-hidden-x-special` (dialog): walkthrough/yellow/scenes/underground-path-hidden-x-special.png

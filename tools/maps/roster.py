@@ -9,6 +9,7 @@ shot. So the roster is generated rather than typed, and it cannot drift from the
 Two things it deliberately does not carry: the sprite basename and the display name of the
 class. Those are product decisions and stay in the Rails model.
 """
+import decks
 import locations
 import markers
 import sources
@@ -164,6 +165,28 @@ def _map_trainers(root_str, map_label):
             if o["kind"] == "trainer"]
 
 
+def _floor_trainers(root_str, label, floor):
+    """Every trainer pinned on one drawn floor, in the order its pins are numbered, as (source map,
+    that map's own floor label, trainer, whether the roster carries a card for it).
+
+    A deck runs the count across the corridor and every room hung off it, in the order decks.py
+    places them, because they share one picture and one run of keys. The count includes trainers
+    the game ships switched off, which the roster has no card for: the ship's rival is walked onto
+    2F by a script and his pin still takes T1, so the cabin trainers behind him have to count him
+    or every letter on that deck is off by one."""
+    rooms = locations.attached(label)
+    places = (decks.plan(root_str, label, floor, rooms).placements if rooms
+              else [decks.Placement(label, floor, None, (0, 0))])
+
+    out = []
+    for place in places:
+        carded = {tuple(o["grid"]) for o in _map_trainers(root_str, place.label)}
+        out += [(place.label, place.floor, obj, tuple(obj["grid"]) in carded)
+                for obj in markers.map_trainers(root_str, place.label)
+                if place.cells is None or decks.holds(place, obj["grid"])]
+    return out
+
+
 def build_roster(root_str):
     """Return ({slug: [entry]}, [where-scene spec]).
 
@@ -179,10 +202,13 @@ def build_roster(root_str):
             if label not in headers:
                 continue
             area = locations.image_name(slug, floor)
-            for index, obj in enumerate(_map_trainers(root_str, label)):
+            for index, (source, home, obj, carded) in enumerate(
+                    _floor_trainers(root_str, label, floor)):
+                if not carded:
+                    continue
                 key = markers.marker_key("trainer", index)
-                name = scene_name(area, obj)
-                specs.append(where_spec(root_str, label, parent, obj, name))
+                name = scene_name(locations.image_name(slug, home), obj)
+                specs.append(where_spec(root_str, source, parent, obj, name))
                 entries.append(entry_for(root_str, area, floor, obj, key, name))
 
         for label, parent in locations.extra_trainer_maps(slug):

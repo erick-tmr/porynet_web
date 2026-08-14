@@ -42,6 +42,32 @@ def cell_percent(grid_x, grid_y, width_px, height_px):
             round((grid_y * CELL_PX + CELL_PX / 2) / height_px * 100, 3))
 
 
+class Frame:
+    """Where one map's cells land on the image the page finally shows.
+
+    A map drawn on its own is its own frame, and this is the identity: cell (0,0) at the top-left,
+    percentages against its own PNG. A room cropped into a deck is not (see decks.py): only part of
+    it is drawn, somewhere else on a larger canvas, so every marker on it has to be measured there
+    instead. `cells` is the half-open crop of the source map that made it in, and `origin` where
+    that crop's top-left corner sits on the canvas."""
+
+    def __init__(self, width_px, height_px, cells=None, origin=(0, 0)):
+        self.width_px, self.height_px = width_px, height_px
+        self.cells, self.origin = cells, origin
+
+    def holds(self, grid_x, grid_y):
+        if self.cells is None:
+            return True
+        x0, y0, x1, y1 = self.cells
+        return x0 <= grid_x < x1 and y0 <= grid_y < y1
+
+    def percent(self, grid_x, grid_y):
+        x0, y0 = (self.cells[0], self.cells[1]) if self.cells else (0, 0)
+        return cell_percent(grid_x - x0 + self.origin[0] / CELL_PX,
+                            grid_y - y0 + self.origin[1] / CELL_PX,
+                            self.width_px, self.height_px)
+
+
 def group_warps(warps):
     """Collapse warp_events into one entry per real doorway.
 
@@ -149,42 +175,47 @@ def map_edge(grid_x, grid_y, width_cells, height_cells):
     return "inner"
 
 
-def _marker(cat, anchor, center, width_px, height_px, **fields):
-    x, y = cell_percent(center[0], center[1], width_px, height_px)
+def _marker(cat, anchor, center, frame, **fields):
+    x, y = frame.percent(center[0], center[1])
     return {"id": f"{cat}-{anchor[0]}-{anchor[1]}", "cat": cat, "key": None,
             "x": x, "y": y, "grid": [anchor[0], anchor[1]],
             "align": "l" if x > LABEL_FLIP_PCT else "r", **fields}
 
 
-def build_markers(root_str, map_label, map_const, width_px, height_px):
+def build_markers(root_str, map_label, map_const, width_px, height_px, frame=None, keyed=True):
     """Every marker for one map, ordered trainers, items, hidden, exits so the page's legend
-    groups without re-sorting."""
+    groups without re-sorting.
+
+    `frame` places the map on a composite canvas and drops whatever its crop leaves out; the
+    default frame is the map drawn on its own at `width_px` x `height_px`. `keyed` numbers the
+    markers here: a deck holds several maps and numbers them once across the lot, so it turns this
+    off and calls `assign_keys` itself."""
+    frame = frame or Frame(width_px, height_px)
     objects = sources._object_events(root_str, map_label)
     classes = sources.parse_trainer_classes(root_str)
     out = []
 
-    trainers = [o for o in objects if o["kind"] == "trainer"]
-    for obj in trainers:
+    for obj in map_trainers(root_str, map_label):
         name = classes.get(obj["opp_class"], (0, obj["opp_class"].replace("_", " ")))[1]
-        out.append(_marker("trainer", obj["grid"], obj["grid"], width_px, height_px,
+        out.append(_marker("trainer", obj["grid"], obj["grid"], frame,
                            name=name.title(), ref=f"{obj['opp_class']}:{obj['party']}"))
 
     for obj in (o for o in objects if o["kind"] == "item"):
-        out.append(_marker("item", obj["grid"], obj["grid"], width_px, height_px,
+        out.append(_marker("item", obj["grid"], obj["grid"], frame,
                            name=sources.item_display_name(obj["item_const"]),
                            ref=obj["item_const"]))
 
     for marker in sources.markers_by_map(root_str).get(map_const, []):
         grid = tuple(marker["grid"])
-        out.append(_marker("hidden", grid, grid, width_px, height_px,
+        out.append(_marker("hidden", grid, grid, frame,
                            name=marker["label"], ref=marker["item_const"]))
 
-    width_cells, height_cells = width_px // CELL_PX, height_px // CELL_PX
+    width_cells, height_cells = map_cells(root_str, map_const)
     warp_markers = []
     for group in group_warps(sources.parse_warp_events(root_str, map_label)):
         anchor = group["anchor"]
         edge = map_edge(anchor[0], anchor[1], width_cells, height_cells)
-        entry = _marker("exit", anchor, group["center"], width_px, height_px,
+        entry = _marker("exit", anchor, group["center"], frame,
                         name=sources.place_display_name(group["dest"]), ref=group["dest"])
         warp_markers.append({**entry, "edge": edge, "glyph": EXIT_GLYPHS[edge]})
     label_pass_through_doors(warp_markers)
@@ -192,16 +223,39 @@ def build_markers(root_str, map_label, map_const, width_px, height_px):
     out += warp_markers
 
     tileset = sources.parse_headers(root_str)[map_label][1]
-    out += connection_exits(root_str, map_label, map_const, tileset, width_px // sources.BLOCK_PX,
-                            width_cells, height_cells, width_px, height_px)
+    out += connection_exits(root_str, map_label, map_const, tileset, width_cells // 2,
+                            width_cells, height_cells, frame)
 
+    out = [entry for entry in out if frame.holds(*entry["grid"])]
+    if not keyed:
+        return out
+    return assign_label_lanes(assign_keys(out), frame.width_px, frame.height_px)
+
+
+def map_trainers(root_str, map_label):
+    """The trainers a map pins, in the order their keys are numbered.
+
+    The raw object list, so a trainer the game ships switched off is in here: SSAnne2F's rival is
+    walked on by a script and still holds a pin where he ends up. The roster reads this too rather
+    than counting for itself, because a floor whose two halves count differently prints one letter
+    on the card and another on the map."""
+    return [obj for obj in sources._object_events(root_str, map_label) if obj["kind"] == "trainer"]
+
+
+def map_cells(root_str, map_const):
+    """A map's size in grid cells, from the game's own map_constants (blocks are two cells)."""
+    _index, width_blocks, height_blocks = sources.parse_map_constants(root_str)[0][map_const]
+    return width_blocks * 2, height_blocks * 2
+
+
+def assign_keys(entries):
+    """Number the markers within each category, in the order they were built."""
     counts = defaultdict(int)
-    for entry in out:
+    for entry in entries:
         cat = entry["cat"]
         entry["key"] = marker_key(cat, counts[cat])
         counts[cat] += 1
-
-    return assign_label_lanes(out, width_px, height_px)
+    return entries
 
 
 def edge_cells(direction, width_cells, height_cells):
@@ -313,7 +367,7 @@ def nearest_land_crossing(root_str, map_label, tileset, width_blocks, cells):
 
 
 def connection_exits(root_str, map_label, map_const, tileset, width_blocks, width_cells,
-                     height_cells, width_px, height_px):
+                     height_cells, frame):
     """One marker per map this one scrolls into, on the part of the edge you can cross."""
     out = []
     dims, _num_city, _first_indoor = sources.parse_map_constants(root_str)
@@ -324,7 +378,7 @@ def connection_exits(root_str, map_label, map_const, tileset, width_blocks, widt
             cell = nearest_land_crossing(root_str, map_label, tileset, width_blocks, cells)
         else:
             cell = crossing_cell(root_str, map_label, tileset, width_blocks, cells)
-        entry = _marker("exit", cell, cell, width_px, height_px,
+        entry = _marker("exit", cell, cell, frame,
                         name=sources.place_display_name(dest), ref=dest)
         out.append({**entry, "id": f"exit-{direction}", "edge": direction,
                     "glyph": EXIT_GLYPHS[direction]})

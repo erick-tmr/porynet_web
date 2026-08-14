@@ -550,7 +550,7 @@
   {
     "type": "screen",
     "slug": "ss-anne",
-    "step": 3,
+    "step": 14,
     "name": "ss-anne-cut",
     "map": "SSAnneCaptainsRoom",
     "player": [
@@ -815,7 +815,7 @@
     "dialog": {
       "lines": [
         "<PLAYER> got 5",
-        "POKé BALLs!"
+        "POK\u00e9 BALLs!"
       ]
     }
   }
