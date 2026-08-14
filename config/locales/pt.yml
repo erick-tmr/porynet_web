@@ -579,7 +579,7 @@ pt:
         leg_05:
           lead: "Ao sul de Cerulean até Vermilion City e o Lt. Surge, pelo atalho do Underground Path."
         leg_06:
-          lead: "O trecho de grama a leste de Vermilion, levando à boca da Diglett's Cave."
+          lead: "Limpe a grama a leste de Vermilion e depois volte para o Lt. Surge e a Thunder Badge."
         leg_07:
           lead: "A leste e ao sul de Cerulean rumo ao labirinto escuro do Rock Tunnel."
         leg_08:
@@ -1452,14 +1452,14 @@ pt:
               unlock: "Vença o Lt. Surge pela Thunder Badge"
         vermilion_city_return:
           note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
-          intro: "De volta ao porto com o Cut na mochila. Abra a praça do ginásio, resolva o quebra-cabeça das latas de lixo e pegue a Thunder Badge."
+          intro: "De volta da Rota 11 com o Cut na mochila. Abra a praça do ginásio, resolva o quebra-cabeça das latas de lixo e pegue a Thunder Badge."
           steps:
             "1":
               title: "Corte o caminho até o ginásio"
-              text_html: "Corte qualquer uma das árvores ao lado do ginásio %{gym} para abrir a praça. O Raichu do Surge castiga a equipe inteira, então lidere com um tipo Terra e use Dig se tiver."
+              text_html: "Corte qualquer uma das árvores ao lado do ginásio %{gym} para abrir a praça. O Raichu do Surge castiga a equipe inteira, então lidere com o Diglett ou o Dugtrio que você trouxe da Rota 11."
             "2":
               title: "Pegue o Squirtle grátis"
-              text_html: "Com a Thunder Badge na mão, a Officer Jenny ao lado do ginásio te dá um Squirtle grátis. Depois siga para leste %{east} até a Rota 11 e a Diglett's Cave."
+              text_html: "Com a Thunder Badge na mão, a Officer Jenny ao lado do ginásio te dá um Squirtle grátis. Depois siga para leste %{east} de novo e entre na Diglett's Cave, sob as montanhas."
         ss_anne:
           note: "O transatlântico de luxo. HM01 Cut e uma luta de rival."
           intro: "Um navio de uma vez só. Varra os itens, vença seu rival e pegue o Cut antes que ele parta para sempre."
@@ -1521,43 +1521,43 @@ pt:
               text_html: "Siga a leste pelo corredor e o rival %{rival} aparece para a luta. Cure a equipe com itens antes: não há Centro a bordo, e essa é a última luta do navio."
             "14":
               title: "HM01 Cut com o Capitão"
-              text_html: "Pegue a escada atrás dele %{stairs} até a cabine do Capitão e alivie o enjoo dele pelo HM01 Cut. Ensine o golpe e desça; o navio parte de vez. Depois vá <a href=\"%{href}\">abrir o ginásio de Vermilion</a>."
+              text_html: "Pegue a escada atrás dele %{stairs} até a cabine do Capitão e alivie o enjoo dele pelo HM01 Cut. Ensine o golpe e desça; o navio parte de vez. Depois siga <a href=\"%{href}\">a leste para a Rota 11</a>."
               items:
                 hm01_cut: "Com o Capitão enjoado, subindo a escada atrás do rival, na popa do 2F."
         route_11:
           note: "A leste de Vermilion. Pidgey, Rattata e Drowzee."
-          intro: "Uma rota larga de grama a leste de Vermilion, com um atalho de caverna rumo a Pewter."
+          intro: "Uma rota larga de grama a leste de Vermilion. Limpe antes do ginásio: a caverna na boca dela guarda o tipo Terra que resolve o Lt. Surge."
           trades:
             dugtrio:
               npc: "GAROTO"
               title: "Dugtrio"
               where: "No andar de cima do portão da Rota 11"
-              note: "Te dá um Dugtrio para pular o spawn de 5% na Caverna Diglett, e a troca ainda o deixa com XP turbinado."
+              note: "Ele quer um Lickitung, e o único de Yellow vive na Cerulean Cave, então essa troca é pós-jogo. Para um Dugtrio agora, evolua um Diglett no nível 26 ou capture o raro na Diglett's Cave."
           steps:
             "1":
               title: "Saia de Vermilion"
-              text_html: "Saia a leste de Vermilion para a grama larga da Rota 11. A boca da Diglett's Cave %{cave} fica bem aqui no oeste, marcada pela placa, seu atalho rumo a Pewter para depois."
+              text_html: "Saia a leste de Vermilion para a grama larga da Rota 11. A boca da Diglett's Cave %{cave} fica bem aqui no oeste. Vale a parada por um Diglett, ou o raro Dugtrio: Terra trava o Raichu do Surge."
             "2":
               title: "Lute a leste"
-              text: "Avance a leste pela grama, limpando os Gamblers, Youngsters e Engineers no caminho, e capture um Drowzee para um Hypno forte cedo."
+              text: "Avance a leste pela grama, limpando os Gamblers, Youngsters e Engineers no caminho. O Drowzee aparece só aqui no jogo inteiro, e vira um Hypno forte cedo."
             "3":
               title: "Vasculhe perto do portão leste"
-              text: "Logo antes do portão leste ha um Escape Rope oculto. Pare no tile de grama a alguns quadrados a noroeste da porta do portão, olhe para cima e aperte A. Nada aparece na tela."
+              text: "Logo antes do portão leste há um Escape Rope oculto. Pare no tile de grama a alguns quadrados a noroeste da porta do portão, olhe para cima e aperte A. Nada aparece na tela."
               hidden:
-                escape-rope: "Um tile a oeste e tres ao norte da porta do portão leste, na grama. Fique abaixo dele, olhe para cima e aperte A. Nada aparece na tela."
+                escape-rope: "Um tile a oeste e três ao norte da porta do portão leste, na grama. Fique abaixo dele, olhe para cima e aperte A. Nada aparece na tela."
             "4":
               title: "Pegue o Itemfinder"
-              text_html: "No portão leste %{gate}, fale com o Assistente do Oak pelo Itemfinder (ele so entrega quando você ja capturou 30+ especies). No andar de cima, um Garoto troca um Dugtrio turbinado pelo seu Diglett."
+              text_html: "No portão leste %{gate}, fale com o Assistente do Oak pelo Itemfinder (ele só entrega quando você já capturou 30+ espécies). No andar de cima, um Garoto quer um Lickitung pelo Dugtrio dele, e o único Lickitung de Yellow está na Cerulean Cave."
               items:
                 itemfinder: "Com o Assistente do Oak na casa do portão leste, depois de capturar 30+ espécies. Aponta itens escondidos por perto."
             "5":
-              title: "Pegue o atalho da Diglett's Cave"
-              text_html: "Volte a oeste ate a boca da Diglett's Cave %{cave} e entre, atravessando por baixo das montanhas num atalho rapido rumo a Pewter."
+              title: "Volte para pegar a insígnia"
+              text_html: "Volte a oeste %{west} para Vermilion com o tipo Terra na equipe. O <a href=\"%{href}\">Lt. Surge</a> é o próximo; o túnel sob as montanhas espera até a insígnia ser sua."
           oak:
             drowzee: "A captura notável da rota → Hypno, um Psíquico forte cedo."
         digletts_cave:
           note: "Um túnel-atalho. Diglett e Dugtrio raro."
-          intro: "Uma caverna de um túnel só, cheia de Diglett. Ótima para pegar um Dugtrio e atalhar até Pewter."
+          intro: "Uma caverna de um túnel só, cheia de Diglett. Você já entrou aqui antes do ginásio; agora percorra o túnel inteiro como atalho até Pewter."
           steps:
             "1":
               title: "Entre pela Rota 11"

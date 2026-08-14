@@ -162,7 +162,7 @@ module Walkthrough
       { slug: "leg-04", special: false, locs: %w[route-4 cerulean-city route-24 route-25] },
       { slug: "leg-05", special: false, locs: %w[route-5 underground-path route-6 vermilion-city] },
       { slug: "ss-anne", special: true, locs: %w[ss-anne] },
-      { slug: "leg-06", special: false, locs: %w[vermilion-city-return route-11] },
+      { slug: "leg-06", special: false, locs: %w[route-11 vermilion-city-return] },
       { slug: "digletts-cave", special: true, locs: %w[digletts-cave] },
       { slug: "leg-07", special: false, locs: %w[route-9 route-10] },
       { slug: "rock-tunnel", special: true, locs: %w[rock-tunnel] },
@@ -403,8 +403,8 @@ module Walkthrough
       locs = [
         pallet_town, route_1, viridian_city, route_22, route_2, viridian_forest, pewter_city,
         route_3, route_4_mt_moon, mt_moon, route_4, cerulean_city, route_24, route_25,
-        route_5, underground_path, route_6, vermilion_city, ss_anne, vermilion_city_return,
-        route_11, digletts_cave,
+        route_5, underground_path, route_6, vermilion_city, ss_anne, route_11,
+        vermilion_city_return, digletts_cave,
         route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
@@ -730,7 +730,14 @@ module Walkthrough
           step(b, 3, html: true, link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)),
           step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"), pins: { north: "pallet-town/exit-north" })
         ],
-        encounters: [ enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true) ],
+        encounters: [
+          enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true),
+          enc("pallet-town", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("pallet-town", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("pallet-town", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("pallet-town", "120", "SUPER ROD", "60%", "5–10", "COMMON", "120", "121"),
+          enc("pallet-town", "072", "SUPER ROD", "40%", "10–20", "COMMON", "072", "073")
+        ],
         trainers: [ tr("RIVAL", "Blue", 175, mon("133", 5), sprite: "blue-gen1",
           where: scene_shot("oaks-lab-rival", "WHERE"),
           battle: scene_shot("battle-rival-oaks-lab", "BATTLE")) ],
@@ -778,7 +785,13 @@ module Walkthrough
             pins: { north: "viridian-city/exit-north" } },
           { pins: { gym: "viridian-city/exit-32-7", west: "viridian-city/exit-west" } }
         ]),
-        encounters: [], trainers: [], oak_queue: [],
+        encounters: [
+          enc("viridian-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("viridian-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("viridian-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("viridian-city", "060", "SUPER ROD", "100%", "5–15", "COMMON", "060", "061", "062")
+        ],
+        trainers: [], oak_queue: [],
         later: [ later(b, "tm42", "TM42 Dream Eater", "ITEM", "Cut or Surf", "viridian-city-tm42") ],
         missable: missable(b, anchor: "missable-poke-balls", after_step: 3)
       )
@@ -1084,7 +1097,14 @@ module Walkthrough
                 3 => { house: "cerulean-city/exit-13-15", north: "cerulean-city/exit-north" } },
         hidden_items: { 2 => [ [ "Rare Candy", "rare_candy", "cerulean-city-hidden-rare-candy", "cerulean-rare-candy" ] ] },
         key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
-        encounters: [ enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png") ],
+        encounters: [
+          enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png"),
+          enc("cerulean-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("cerulean-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("cerulean-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("cerulean-city", "118", "SUPER ROD", "70%", "25–30", "COMMON", "118", "119"),
+          enc("cerulean-city", "119", "SUPER ROD", "30%", "30–40", "COMMON", "118", "119")
+        ],
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
           leader("Misty", 2079, mon("120", 18), mon("121", 21), battle: scene_shot("battle-misty", "BATTLE"), opp: [ "MISTY", 1 ])),
@@ -1187,6 +1207,21 @@ module Walkthrough
         ])
     end
 
+    # One shore, listed the same on both passes: the water does not change while you are on the
+    # ship, and the Old Rod the first pass hands you only becomes castable on the return.
+    def self.vermilion_water
+      [
+        enc("vermilion-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+        enc("vermilion-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+        enc("vermilion-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+        enc("vermilion-city", "072", "SUPER ROD", "90%", "10–20", "COMMON", "072", "073"),
+        enc("vermilion-city", "116", "SUPER ROD", "10%", "5", "UNCOMMON", "116", "117"),
+        # The dock is its own map with its own Super Rod slots; these two live only out there.
+        enc("vermilion-city", "120", "SUPER ROD", "20%", "15", "UNCOMMON", "120", "121"),
+        enc("vermilion-city", "090", "SUPER ROD", "10%", "10", "UNCOMMON", "090", "091")
+      ]
+    end
+
     # Vermilion is walked twice, the way Route 4 is walked twice around Mt. Moon. The gym plaza is
     # sealed off by cuttable trees and the Max Ether sits on water, so the first pass can only take
     # the two gifts and board the ship; Surge, the Squirtle he unlocks and the road east all belong
@@ -1203,16 +1238,7 @@ module Walkthrough
             pins: { gym: "vermilion-city/exit-12-19", dock: "vermilion-city/exit-18-31" },
             link: StepLink.new(leg: "ss-anne", anchor: "ss-anne-step-1"))
         ],
-        encounters: [
-          enc("vermilion-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
-          enc("vermilion-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
-          enc("vermilion-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
-          enc("vermilion-city", "072", "SUPER ROD", "90%", "10–20", "COMMON", "072", "073"),
-          enc("vermilion-city", "116", "SUPER ROD", "10%", "5", "UNCOMMON", "116", "117"),
-          # The dock is its own map with its own Super Rod slots; these two live only out there.
-          enc("vermilion-city", "120", "SUPER ROD", "20%", "15", "UNCOMMON", "120", "121"),
-          enc("vermilion-city", "090", "SUPER ROD", "10%", "10", "UNCOMMON", "090", "091")
-        ],
+        encounters: vermilion_water,
         trainers: [], oak_queue: [],
         later: [ later(b, "max_ether", "Max Ether", "ITEM", "Surf", "vermilion-city-hidden-max-ether") ]
       )
@@ -1229,7 +1255,7 @@ module Walkthrough
             pins: { east: "vermilion-city/exit-east" })
         ], gym_after: 1,
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009",
-          tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ],
+          tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ] + vermilion_water,
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
           leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE"), opp: [ "LT_SURGE", 1 ]),
@@ -1264,7 +1290,7 @@ module Walkthrough
           { pins: { rival: "ss-anne-2f/trainer-36-4" } },
           { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut",
             pins: { stairs: "ss-anne-2f/exit-36-4" },
-            link: StepLink.new(leg: "leg-06", anchor: "vermilion-city-return-step-1") }
+            link: StepLink.new(leg: "leg-06", anchor: "route-11-step-1") }
         ],
         trainers: [ rival(1300, mon("021", 19), mon("019", 16), mon("027", 18), mon("133", 20),
           where: scene_shot("ss-anne-rival", "WHERE"),
@@ -1277,7 +1303,8 @@ module Walkthrough
           {},
           { hidden: [ "Escape Rope", "escape-rope", "route-11-hidden-escape-rope", "route-11-escape-rope" ] },
           { items: [ [ "Itemfinder", "itemfinder" ] ], pins: { gate: "route-11/exit-49-8" } },
-          { pins: { cave: "route-11/exit-4-5" } }
+          { pins: { west: "route-11/exit-west" },
+            link: StepLink.new(leg: "leg-06", anchor: "vermilion-city-return-step-1") }
         ],
         encounters: [
           enc("route-11", "016", "GRASS", "35%", "16–18", "COMMON", "016", "017", "018"),

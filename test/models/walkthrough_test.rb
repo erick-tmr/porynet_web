@@ -25,6 +25,16 @@ class WalkthroughTest < ActiveSupport::TestCase
       g.locations.select { |loc| loc.order == 17 }.map(&:slug)
   end
 
+  test "both passes of a stop walked twice list the same water" do
+    first, second = %w[vermilion-city vermilion-city-return].map { |slug| loc(slug) }
+    water = ->(l) { l.wild_encounters.map { |enc| [ enc.how, enc.dex, enc.rate ] } }
+
+    assert_equal water.call(first), water.call(second)
+    assert_equal [ "007" ], second.encounters.reject(&:wild?).map(&:dex)
+    refute_includes game.best_catches.values.map(&:slug), "vermilion-city-return",
+      "the second pass must never win the star over the first"
+  end
+
   test "the location sections group into 27 ordered legs with no gaps or dupes" do
     g = game
     assert_equal 27, g.legs.size
@@ -73,7 +83,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "leg stats aggregate catch counts, new dex and obtainable" do
     g = game
     leg1 = g.leg!("leg-01")
-    assert_equal 2, leg1.catch_count
+    assert_equal 7, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
     assert_equal 99, g.obtainable_dex.size
@@ -193,10 +203,11 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "starter encounters are gifts while wild encounters are catchable" do
     pallet = loc("pallet-town")
-    pikachu = pallet.encounters.sole
+    pikachu = pallet.encounters.find { |enc| enc.how == "STARTER" }
     assert pikachu.gift?
     refute pikachu.wild?
-    assert_equal 0, pallet.catchable_count
+    assert_equal 6, pallet.encounters.size
+    assert_equal 5, pallet.catchable_count
 
     forest = loc("viridian-forest")
     assert forest.encounters.all?(&:wild?)
@@ -261,11 +272,11 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "a starter files under the gift box while its card keeps the STARTER tag" do
-    section = loc("pallet-town").encounter_sections.sole
+    sections = loc("pallet-town").encounter_sections
 
-    assert section.gift?
-    assert_equal "GIFT", section.code
-    assert_equal "STARTER", section.encounters.sole.how
+    assert_equal [ "GIFT", "OLD ROD", "GOOD ROD", "SUPER ROD" ], sections.map(&:code)
+    assert sections.first.gift?
+    assert_equal "STARTER", sections.first.encounters.sole.how
   end
 
   test "a method the stop has no Pokemon for gets no box at all" do
