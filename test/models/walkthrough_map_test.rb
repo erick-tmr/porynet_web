@@ -5,6 +5,20 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   def location(slug) = game.locations.find { |l| l.slug == slug }
   def forest_map = location("viridian-forest").area_maps.first
 
+  # Every stop pair that renders one map between them, which is every way the guide shows the
+  # same errand twice.
+  def shared_map_pairs
+    by_map = Hash.new { |hash, key| hash[key] = [] }
+    game.locations.each { |loc| loc.area_maps.each { |map| by_map[map.name] << loc } }
+    by_map.values.select { |locs| locs.size > 1 }.flat_map { |locs| locs.combination(2).to_a }.uniq
+  end
+
+  # Everything on a stop's page that a player can tick off as collected, by the name on its card.
+  def ticks_by_name(loc)
+    (loc.steps.flat_map { |step| step.items + step.hidden } + loc.later)
+      .group_by(&:name).transform_values { |cards| cards.map(&:tick).to_set }
+  end
+
   def marker(**overrides)
     Walkthrough::MapMarker.new(
       **{ id: "item-1-2", cat: "item", name: "Potion", x: 10.0, y: 20.0, align: "r", ref: "POTION" }
@@ -128,6 +142,77 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_nil route_2.fetch("HM05 Flash"), "Flash is handed over by Oak's aide, not lying on a tile"
   end
 
+  # The locked card, the map pin and the step that finally collects it are one item seen three
+  # times, so all three tick the same id. A ball takes it from its pin, a stash from its hidden
+  # pin, and only an NPC gift, which the map draws nowhere, falls back to an id of its own.
+  test "a locked later item ticks against its own pin, not its slot on the page" do
+    route_2 = location("route-2").later.to_h { |l| [ l.name, l.tick ] }
+    step = location("digletts-cave").steps.flat_map(&:items).find { |i| i.name == "Moon Stone" }
+
+    assert_equal "route-2/item-13-54", route_2.fetch("Moon Stone")
+    assert_equal "route-2/item-13-45", route_2.fetch("HP Up")
+    assert_equal route_2.fetch("Moon Stone"), step.tick
+    assert_equal "vermilion-city/hidden-14-11", location("vermilion-city").later.sole.tick,
+      "the Max Ether is a hidden stash, and the map pins those too"
+  end
+
+  test "an NPC gift, which no map pin holds, is keyed to the place that hands it over" do
+    flash = location("route-2").later.find { |l| l.name == "HM05 Flash" }
+    collected = location("digletts-cave").steps.flat_map(&:items).find { |i| i.name == "HM05 Flash" }
+
+    assert_nil flash.key, "Oak's aide hands it over indoors, so no pin wears a letter for it"
+    assert_equal "route-2/gift-flash", flash.tick
+    assert_equal flash.tick, collected.tick
+    assert_equal "viridian-city/gift-tm42",
+      location("digletts-cave").steps.flat_map(&:items).find { |i| i.name == "TM42 Dream Eater" }.tick
+  end
+
+  # Borrowing another stop's map is the only thing that puts one errand on two pages, so it is
+  # also the only way two cards can drift onto separate progress ids and quietly stop syncing.
+  test "two stops that share a map tick one id per item" do
+    pairs = shared_map_pairs.sort_by { |a, b| [ a.slug, b.slug ] }
+    clashes = pairs.flat_map do |a, b|
+      left, right = ticks_by_name(a), ticks_by_name(b)
+      (left.keys & right.keys).reject { |name| left[name] == right[name] }
+        .map { |name| "#{name}: #{a.slug} ticks #{left[name].to_a}, #{b.slug} ticks #{right[name].to_a}" }
+    end
+
+    assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
+    assert_equal [ %w[route-2 digletts-cave], %w[route-4-mt-moon route-4],
+                   %w[vermilion-city vermilion-city-return], %w[viridian-city digletts-cave] ],
+      pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
+  end
+
+  test "a stop that walks off its own map borrows the maps it steps onto" do
+    borrowed = location("digletts-cave").area_maps
+
+    assert_equal %w[digletts-cave route-2 viridian-city], borrowed.map(&:name)
+    assert_nil borrowed.first.title, "its own map is titled by the page"
+    assert_equal [ "Route 2", "Viridian City" ], borrowed.drop(1).map(&:title)
+    assert_equal "Route 2", borrowed[1].caption
+    assert_predicate borrowed[1], :captioned?
+    refute_predicate borrowed.first, :captioned?
+  end
+
+  test "borrowing a map leaves the lender's own page untouched" do
+    lender = location("route-2").area_maps.sole
+
+    assert_nil lender.title
+    assert_nil lender.markers.find { |m| m.id == "item-13-54" }.step,
+      "Route 2 walks past the Moon Stone; the Diglett's Cave detour is what collects it"
+    assert_equal 8, location("digletts-cave").area_maps[1]
+      .markers.find { |m| m.id == "item-13-54" }.step
+  end
+
+  test "a curated NPC pin marks the giver the map data cannot name" do
+    fisher = location("viridian-city").area_maps.first.markers.find { |m| m.id == "npc-tm42" }
+
+    assert_equal "npc", fisher.cat
+    assert_equal "TM42 Dream Eater", fisher.name
+    refute_predicate fisher, :tickable?
+    assert_equal "N1", fisher.key
+  end
+
   test "each category counts from one, so no two pins on a map share a key" do
     map = location("route-24").area_maps.first
     keys = map.markers.map(&:key)
@@ -169,7 +254,8 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "", bare.name
     assert_empty bare.markers
     refute_predicate bare, :markers?
-    refute_predicate bare, :floor?
+    refute_predicate bare, :captioned?
+    assert_nil bare.title
     assert_equal({}, bare.marker_counts)
     assert_equal 0, bare.tickable_count
   end

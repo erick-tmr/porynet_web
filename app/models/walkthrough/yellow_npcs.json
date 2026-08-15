@@ -7,6 +7,10 @@
     { "id": "npc-potion-sample", "name": "Free Potion", "grid": [5, 24],
       "note": "map_npc_route1_potion", "ref": "POTION" }
   ],
+  "viridian-city": [
+    { "id": "npc-tm42", "name": "TM42 Dream Eater", "grid": [6, 23],
+      "note": "map_npc_viridian_tm42", "ref": "TM_DREAM_EATER" }
+  ],
   "route-24": [
     { "id": "npc-charmander", "name": "Charmander", "grid": [6, 5],
       "note": "map_npc_route24_charmander", "ref": "CHARMANDER" }

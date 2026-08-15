@@ -99,6 +99,52 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-catch.is-done"
   end
 
+  # Registration is a Pokédex fact, not a per-stop one. Viridian lists Magikarp behind an Old Rod
+  # you do not own for another four legs, and that card used to drop out of the progress system
+  # entirely: it could not be ticked and never showed the tick the section header was already
+  # counting.
+  MAGIKARP = ".pn-wt-catch[data-progress-id='129']".freeze
+
+  test "a species caught at one stop reads as caught on every other stop that lists it" do
+    visit "/walkthroughs/yellow/leg-05"
+    first(MAGIKARP).click
+    assert_selector "#{MAGIKARP}.is-done"
+
+    visit "/walkthroughs/yellow/leg-02"
+
+    # Viridian's locked Old Rod card shows the same catch the section header was already counting.
+    assert_selector "#{MAGIKARP}.is-done"
+    assert_selector ".pn-wt-catchsec__tally", text: "1 / 1 CAUGHT"
+  end
+
+  test "a card the stop cannot catch yet still counts bodies in Living Dex mode" do
+    visit_with_modes "/walkthroughs/yellow/leg-02", "living"
+
+    card = "#catchsec-viridian-city-old-rod-body #{MAGIKARP}"
+    find("#{card} .pn-wt-stepper__btn--add").click
+
+    within(find("#{card} .pn-wt-stepper__count")) { assert_text "1" }
+    # The first body registers the species, so every other card for it ticks too.
+    assert_selector "#{MAGIKARP}.is-done", count: 2
+  end
+
+  # The tick and the LOCKED badge share the card's top-right corner, so collecting an item has to
+  # take the badge down with it. An item you are holding is not locked any more, whether you ticked
+  # it here or on the stop that finally walks to it.
+  test "a locked item that has been collected stops calling itself locked" do
+    visit "/walkthroughs/yellow/leg-02"
+    card = ".pn-wt-later[data-progress-id='route-2/item-13-54']"
+
+    assert_selector "#{card} .pn-wt-later__lock"
+    assert_no_selector "#{card} .pn-wt-later__check", visible: true
+
+    find(card).click
+
+    assert_selector "#{card}.is-done"
+    assert_selector "#{card} .pn-wt-later__check", visible: true
+    assert_no_selector "#{card} .pn-wt-later__lock", visible: true
+  end
+
   test "catching a Pokemon moves the window's registered count, remainder and meter together" do
     visit_with_modes "/walkthroughs/yellow/leg-04", "oak"
 

@@ -2,8 +2,8 @@
 
 - location maps: **99** across 52 locations
 - markers: **969** (318 trainer, 119 item, 50 hidden, 482 exit)
-- step shots: **33** (map/scene in a step slot)
-- standalone scenes: **257** (dialog / battle / NPC, not step-bound)
+- step shots: **36** (map/scene in a step slot)
+- standalone scenes: **260** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -114,6 +114,9 @@
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
+- `digletts-cave` step 3: walkthrough/yellow/scenes/route-2-digletts-exit.png
+- `digletts-cave` step 5: walkthrough/yellow/scenes/route-2-cut-tree.png
+- `digletts-cave` step 9: walkthrough/yellow/scenes/route-2-viridian-cut.png
 - `mt-moon` step 3: walkthrough/yellow/scenes/mt-moon-moon-stone.png
 - `mt-moon` step 4: walkthrough/yellow/scenes/mt-moon-fossils.png
 - `pallet-town` step 1: walkthrough/yellow/maps/reds-house-2f.png
@@ -302,11 +305,14 @@
 - `route-17-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/route-17-hidden-rare-candy.png
 - `route-18-gate` (screen): walkthrough/yellow/scenes/route-18-gate.png
 - `route-18-gate-inside` (screen): walkthrough/yellow/scenes/route-18-gate-inside.png
+- `route-2-cut-tree` (screen): walkthrough/yellow/scenes/route-2-cut-tree.png
+- `route-2-digletts-exit` (screen): walkthrough/yellow/scenes/route-2-digletts-exit.png
 - `route-2-flash` (screen): walkthrough/yellow/scenes/route-2-flash.png
 - `route-2-hp-up` (screen): walkthrough/yellow/scenes/route-2-hp-up.png
 - `route-2-moon-stone` (screen): walkthrough/yellow/scenes/route-2-moon-stone.png
 - `route-2-trade-house` (screen): walkthrough/yellow/scenes/route-2-trade-house.png
 - `route-2-trade-house-inside` (screen): walkthrough/yellow/scenes/route-2-trade-house-inside.png
+- `route-2-viridian-cut` (screen): walkthrough/yellow/scenes/route-2-viridian-cut.png
 - `route-22-rival` (screen): walkthrough/yellow/scenes/route-22-rival.png
 - `route-23-hidden-full-restore` (dialog): walkthrough/yellow/scenes/route-23-hidden-full-restore.png
 - `route-23-hidden-max-ether` (dialog): walkthrough/yellow/scenes/route-23-hidden-max-ether.png

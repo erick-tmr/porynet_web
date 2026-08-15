@@ -231,6 +231,31 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 3, gym.earlier.size
   end
 
+  # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so
+  # the line cannot possibly stand registered before the gym that unlocks it. Its deadline is the
+  # next badge, even though the stop that gives it closes Surge's window.
+  test "a gift a gym unlocks falls due at the next badge, not that gym's" do
+    surge = plan("leg-06")
+    next_window = plan("digletts-cave")
+
+    assert_equal "Lt. Surge", surge.window.leader
+    assert_empty %w[007 008 009] & surge.due, "the Thunder Badge is won on this very page"
+    assert_equal "Erika", next_window.window.leader
+    assert_empty %w[007 008 009] - next_window.due,
+      "Wartortle and Blastoise follow Squirtle out of Surge's window"
+  end
+
+  # The rest of the run takes a species on the page that owes it, so a tile only says how. This
+  # one sits a leg behind the deadline it counts toward, so it has to say where too.
+  test "an owed species you take on an earlier page names the stop it waits at" do
+    tiles = plan("digletts-cave").groups.flat_map(&:tiles).to_h { |tile| [ tile.name, tile ] }
+
+    assert_equal "walkthrough.ui.via_away", tiles.fetch("Squirtle").via_key
+    assert_equal({ how: "GIFT", stop: "Vermilion City" }, tiles.fetch("Squirtle").via_args)
+    assert_equal "walkthrough.ui.via_catch", tiles.fetch("Diglett").via_key,
+      "a species you take on this page still just says how"
+  end
+
   test "every leg builds a plan whose queue never outruns the species on the page" do
     game.legs.each do |leg|
       page = game.plan_for(leg)

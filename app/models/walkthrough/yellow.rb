@@ -55,7 +55,8 @@ module Walkthrough
 
     # `from: true` adds the gift-source badge; `unlock:` is the icon (an R2 path) a gift's unlock
     # condition shows, or nil for an unconditional gift.
-    def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil)
+    def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil,
+      badge: nil)
       b = base(slug)
       key = mon_key(dex)
       places = encounter_places(slug, dex)
@@ -64,7 +65,7 @@ module Walkthrough
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
         from_key: (from ? "#{b}.gifts.#{key}.from" : nil),
         unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock,
-        places: places)
+        needs_badge: badge, places: places)
     end
 
     # A species spread over several floors has no single hand-typed rate that is true; the card
@@ -142,14 +143,14 @@ module Walkthrough
       OakEntry.new(dex: dex, name: NAMES.fetch(dex), qty: qty, why_key: "#{base(slug)}.oak.#{mon_key(dex)}")
     end
 
-    def self.trade(slug, key, give, receive, nick, house:, inside:)
+    def self.trade(slug, key, give, receive, nick, house:, inside:, tick: nil)
       b = base(slug)
       Trade.new(
         give: { dex: give, name: NAMES.fetch(give) },
         receive: { dex: receive, name: NAMES.fetch(receive) },
         nick: nick, npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
         where_key: "#{b}.trades.#{key}.where", note_key: "#{b}.trades.#{key}.note",
-        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL)
+        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL), tick: tick
       )
     end
 
@@ -410,13 +411,27 @@ module Walkthrough
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
-      ].map { |loc| attach_mart(attach_maps(loc, data.fetch(MAP_SOURCE.fetch(loc.slug, loc.slug), []))) }
+      ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
     end
 
     # A stop the guide walks twice has map data under one slug only. The second pass reads the
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city" }.freeze
+
+    # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
+    # over them. Diglett's Cave surfaces on Route 2 and the detour carries on into Viridian City,
+    # so both pages have to hand the reader the same markers and the same ticks.
+    MAP_EXTRA = {
+      "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City" }
+    }.freeze
+
+    def self.maps_for(slug, data)
+      own = data.fetch(MAP_SOURCE.fetch(slug, slug), [])
+      own + MAP_EXTRA.fetch(slug, {}).flat_map do |from, title|
+        data.fetch(from, []).map { |map| map.with(title: title) }
+      end
+    end
 
     # The leg-3 approach section has no map data of its own; it borrows Route 4's map so the same
     # interactive map (markers, tick state) shows on both the approach (leg 3) and the east half
@@ -499,11 +514,20 @@ module Walkthrough
       item.with(tick: "#{map_name}/#{pin.id}", key: pin.key)
     end
 
-    # A later item is locked, so it is nobody's tick target, but it still sits on the map and its
-    # card still has to say which letter to look for.
+    # A later item still sits on the map, so its card has to say which letter to look for, and it
+    # ticks off against that pin: the stop that finally walks to it lists the same thing, and one
+    # item collected once should read as collected on both pages.
     def self.key_later(pins, item)
-      _map_name, pin = find_pin(pins, "item", item.name, nil)
-      pin ? item.with(key: pin.key) : item
+      map_name, pin = later_pin(pins, item.name)
+      pin ? item.with(key: pin.key, tick: "#{map_name}/#{pin.id}") : item
+    end
+
+    # A locked item is a ball on the ground or a stash you press A for, and the map draws both, so
+    # look in either category. Only an NPC gift is on no map at all; that one keeps the id it was
+    # built with (gift_tick), since there is no pin to take one from.
+    def self.later_pin(pins, name)
+      ball = find_pin(pins, "item", name, nil)
+      ball.last ? ball : find_pin(pins, "hidden", name, nil)
     end
 
     def self.find_pin(pins, cat, name, at)
@@ -792,7 +816,7 @@ module Walkthrough
           enc("viridian-city", "060", "SUPER ROD", "100%", "5–15", "COMMON", "060", "061", "062")
         ],
         trainers: [], oak_queue: [],
-        later: [ later(b, "tm42", "TM42 Dream Eater", "ITEM", "Cut or Surf", "viridian-city-tm42") ],
+        later: [ later("viridian-city", "tm42", "TM42 Dream Eater", "ITEM", "Cut or Surf", "viridian-city-tm42") ],
         missable: missable(b, anchor: "missable-poke-balls", after_step: 3)
       )
     end
@@ -849,9 +873,9 @@ module Walkthrough
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
           house: "route-2-trade-house", inside: "route-2-trade-house-inside") ],
         later: [
-          later(b, "moon_stone", "Moon Stone", "ITEM", "Cut", "route-2-moon-stone"),
-          later(b, "hp_up", "HP Up", "ITEM", "Cut", "route-2-hp-up"),
-          later(b, "flash", "HM05 Flash", "HM", "Cut · 10 caught", "route-2-flash")
+          later("route-2", "moon_stone", "Moon Stone", "ITEM", "Cut", "route-2-moon-stone"),
+          later("route-2", "hp_up", "HP Up", "ITEM", "Cut", "route-2-hp-up"),
+          later("route-2", "flash", "HM05 Flash", "HM", "Cut · 10 caught", "route-2-flash")
         ]
       )
     end
@@ -905,10 +929,10 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
       b = base(slug)
       Location.new(
-        slug: slug, kind: kind, name: name, order: order, badge: badge,
+        slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: steps.is_a?(Array) ? build_steps(b, steps, pins) : (1..steps).map { |i|
           step(b, i, pins: pins.fetch(i, {}),
@@ -925,6 +949,10 @@ module Walkthrough
     # ({ item: [name, key], scene:, at: }) whose GB-screen shot names the ball, one or more key
     # items handed over together ({ items: [[name, key], ...] }), or a hidden item
     # ({ hidden: [name, key, scene, pin], at: }) whose found-frame panel carries its own shot.
+    #
+    # `gift: [slug, key]` claims an NPC gift another stop already flags as locked, naming that
+    # stop's `later` entry. A ball resolves its tick from the map pin it shares, but a gift has no
+    # pin, so this is what stops the two cards drifting onto separate progress ids.
     def self.build_steps(base, defs, pins = {})
       defs.each_with_index.map do |d, i|
         n = i + 1
@@ -938,7 +966,8 @@ module Walkthrough
     def self.step_items(base, n, def_)
       return [ item(base, n, *def_[:item], at: def_[:at]) ] if def_[:item]
 
-      (def_[:items] || []).map { |name, key| item(base, n, name, key) }
+      gift = def_[:gift]
+      (def_[:items] || []).map { |name, key| item(base, n, name, key, tick: gift && gift_tick(*gift)) }
     end
 
     NAME_SPRITES = {
@@ -1248,7 +1277,7 @@ module Walkthrough
         ],
         encounters: vermilion_water,
         trainers: [], oak_queue: [],
-        later: [ later(b, "max_ether", "Max Ether", "ITEM", "Surf", "vermilion-city-hidden-max-ether") ]
+        later: [ later("vermilion-city", "max_ether", "Max Ether", "ITEM", "Surf", "vermilion-city-hidden-max-ether") ]
       )
     end
 
@@ -1263,7 +1292,8 @@ module Walkthrough
             pins: { east: "vermilion-city/exit-east" })
         ], gym_after: 1,
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009",
-          tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png") ] + vermilion_water,
+          tip: true, from: true, unlock: "walkthrough/yellow/badges/thunder.png",
+          badge: "THUNDER") ] + vermilion_water,
         trainers: [],
         gym: gym("vermilion-city", "Vermilion Gym", "ELECTRIC", "THUNDER", "TM24 · THUNDERBOLT",
           leader("Lt. Surge", 2772, mon("026", 28), battle: scene_shot("battle-lt-surge", "BATTLE"), opp: [ "LT_SURGE", 1 ]),
@@ -1333,13 +1363,34 @@ module Walkthrough
         oak_queue: [ oak("route-11", "096", 1) ])
     end
 
+    # The tunnel is two screens of Diglett, but its north door is the back way into the half of
+    # Route 2 that Cut walled off on the first pass. So the stop is the whole loop: out at the top,
+    # down the east side for Flash, the Mr. Mime trade, the Moon Stone and the HP Up, on into
+    # Viridian for the Dream Eater TM, then back through the tunnel for Cerulean. Route 2 and
+    # Viridian City lend their maps (MAP_EXTRA) so every pin the detour names is on this page.
     def self.digletts_cave
-      loc("digletts-cave", "CAVE", "Diglett's Cave", 20, steps: 2,
-        pins: { 1 => { south: "digletts-cave/exit-37-31" }, 2 => { north: "digletts-cave/exit-5-5" } },
+      loc("digletts-cave", "CAVE", "Diglett's Cave", 20,
+        title: "Diglett's Cave → Viridian Detour", steps: [
+          { pins: { south: "digletts-cave/exit-37-31" } },
+          {},
+          { scene: "route-2-digletts-exit", pins: { north: "digletts-cave/exit-5-5" } },
+          { pins: { house: "route-2/exit-15-19" } },
+          { scene: "route-2-cut-tree", pins: { gate: "route-2/exit-16-35" } },
+          { items: [ [ "HM05 Flash", "flash" ] ], gift: %w[route-2 flash], scene: "route-2-flash" },
+          { item: [ "HP Up", "hp-up" ], scene: "route-2-hp-up" },
+          { item: [ "Moon Stone", "moon-stone" ], scene: "route-2-moon-stone" },
+          { scene: "route-2-viridian-cut", pins: { south: "route-2/exit-south" } },
+          { items: [ [ "TM42 Dream Eater", "tm42" ] ], gift: %w[viridian-city tm42],
+            scene: "viridian-city-tm42", pins: { fisher: "viridian-city/npc-tm42" } },
+          { html: true, link: StepLink.new(leg: "leg-07", anchor: "route-9-step-1") }
+        ],
         encounters: [
           enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
           enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
         ],
+        trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
+          house: "route-2-trade-house", inside: "route-2-trade-house-inside",
+          tick: "route-2/trade-0") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ])
     end
 
@@ -2260,20 +2311,27 @@ module Walkthrough
       end
     end
 
-    def self.item(base, n, name, key, at: nil)
+    def self.item(base, n, name, key, at: nil, tick: nil)
       Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}",
-        sprite: item_sprite(name), at: at)
+        sprite: item_sprite(name), at: at, tick: tick)
     end
+
+    # An NPC hands this one over, so no ball on the map holds it and there is no pin to tick
+    # against. It takes an id built from the place that gives it instead, which the stop that
+    # flags it as locked and the stop that walks back for it both name, so collecting it once
+    # reads as collected on both pages.
+    def self.gift_tick(slug, key) = "#{slug}/gift-#{key}"
 
     def self.hidden(base, n, name, key, scene, pin, at: nil)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",
         image: scenes.dig(scene, "image"), pin: pin, sprite: item_sprite(name), at: at)
     end
 
-    def self.later(base, key, name, kind, need, scene, pin = nil)
+    def self.later(slug, key, name, kind, need, scene, pin = nil)
+      base = base(slug)
       LaterItem.new(name: name, sprite: item_sprite(name), kind: kind, need: need,
         where_key: "#{base}.later.#{key}.where", after_key: "#{base}.later.#{key}.after",
-        image: scenes.dig(scene, "image"), pin: pin)
+        image: scenes.dig(scene, "image"), pin: pin, tick: gift_tick(slug, key))
     end
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze

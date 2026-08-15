@@ -60,6 +60,10 @@ detectors:
       - Walkthrough::Place      # same defaults shim: its keywords are the place's own
                                 # optional members, each defaulting to "the game says nothing
                                 # about this", so a caller states only the facts it has.
+      - Walkthrough::Encounter  # same defaults shim: a plain wild card states none of the gift
+                                # keywords (who hands it over, what unlocks it, which badge the
+                                # game gates it behind), so each is an optional member the common
+                                # case omits, not a call signature.
       - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
                                 # optional members (key/glyph/edge/lane/note), each named
                                 # so a caller can omit it, not a call signature.
@@ -95,6 +99,11 @@ detectors:
   ControlParameter:
     exclude:
       - Walkthrough::Yellow
+      - Walkthrough::Location#initialize   # `title` steers no branch: it is the struct's own
+                                           # optional member, defaulting to the stop's `name`
+                                           # when a caller states no separate page title. Same
+                                           # defaults shim already excluded under
+                                           # LongParameterList and BooleanParameter.
       - Walkthrough::Challenge   # `dex` in the encounter finders is the value being looked up,
                                  # not a flag steering a branch; every one of them is a query
                                  # over the game's tables.
