@@ -4,7 +4,7 @@
   <p class="pn-wt-later__intro"><%= t("walkthrough.ui.later_intro") %></p>
   <div class="pn-wt-later-grid">
     <% loc.later.each_with_index do |item, i| %>
-      <%= render "later_item", item: item, id: "#{loc.slug}/later-#{i}" %>
+      <%= render "later_item", item: item, id: item.tick || "#{loc.slug}/later-#{i}" %>
     <% end %>
   </div>
 </section>

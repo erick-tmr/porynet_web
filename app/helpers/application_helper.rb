@@ -120,12 +120,16 @@ module ApplicationHelper
 
   # A species you cannot reach yet at this stop (a rod card before the rod) has no ledger entry, so
   # it is nobody's tick target here. The card still renders, because the species does live here.
+  # Registration and the bodies you are holding are both facts about the collection, not about the
+  # stop you happen to be reading: catching a Magikarp off Vermilion's dock has to read as caught,
+  # and counted, on Viridian's Old Rod card too, four legs before you own the rod. So every card
+  # wires up both, taking its cover list from the page's plan entry when there is one and from the
+  # game itself when there is not.
   def catch_card_attributes(dex, entry)
-    return {} if entry.nil?
-
+    covers = entry ? entry.covers : @game.covers(dex)
     tickable("caught", dex).deep_merge(
       data: { controller: "body-counter", body_counter_game_value: @game.slug,
-              body_counter_dex_value: dex, body_counter_covers_value: entry.covers.to_json }
+              body_counter_dex_value: dex, body_counter_covers_value: covers.to_json }
     )
   end
 

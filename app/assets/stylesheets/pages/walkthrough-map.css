@@ -867,7 +867,11 @@
   padding: 5px 6px;
 }
 
+/* The green tick takes the corner the LOCKED badge sits in, so the badge has to stand down with
+   it. An item you have collected (on this page or on the stop that finally walks to it) is not
+   locked any more, and saying both at once is the card contradicting itself. */
 .pn-wt-later.is-done .pn-wt-later__check { display: block; }
+.pn-wt-later.is-done .pn-wt-later__lock { display: none; }
 
 
 /* --- trade card: traded state -------------------------------------------- */

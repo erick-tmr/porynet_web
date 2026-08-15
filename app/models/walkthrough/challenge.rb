@@ -25,8 +25,15 @@ module Walkthrough
 
     def self.registerable(game, slug)
       seen = reached_upto(game, slug)
-      grow(seen.flat_map(&:dex_list).uniq, seen.map(&:slug))
+      badges = badges_before(seen)
+      grow(seen.flat_map { |loc| loc.dex_list_after(badges) }.uniq, seen.map(&:slug))
     end
+
+    # The badges you hold walking into the stop you have reached, which is every badge but the one
+    # that stop is about to award. Oak's deadline is what stands registered *before* a gym, so a
+    # gift that gym unlocks cannot count against it: Officer Jenny hands the Squirtle over only
+    # once Lt. Surge is beaten, so the line is owed at the next gym, not his.
+    def self.badges_before(seen) = seen[0...-1].filter_map(&:badge)
 
     def self.grow(roster, reached)
       grown = roster.dup
@@ -244,32 +251,44 @@ module Walkthrough
 
     def self.groups_for(game, leg, due)
       reached = reached_upto(game, leg_order(leg).last.slug).map(&:slug)
+      here = leg_order(leg).map(&:slug)
       caught, grown = owed_here(game, leg, due)
         .partition { |dex| catchable_stop(game, dex, reached) }
       [ OakGroup.new(kind: :catch, note_key: "walkthrough.ui.oak_group_catch_note",
-          tiles: caught.map { |dex| tile_for(game, dex, reached) }),
+          tiles: caught.map { |dex| tile_for(game, dex, reached, here) }),
         OakGroup.new(kind: :evolve, note_key: "walkthrough.ui.oak_group_evolve_note",
-          tiles: grown.map { |dex| tile_for(game, dex, reached) }) ]
+          tiles: grown.map { |dex| tile_for(game, dex, reached, here) }) ]
     end
 
     def self.owed_here(game, leg, due)
       (due - registerable_before(game, leg_order(leg).first.slug)).sort
     end
 
-    def self.catch_tile(entry)
+    # A tile almost always sits on the page you take it from, so it only has to say how. The one
+    # exception is a gift a badge unlocks: the Squirtle is Lt. Surge's own reward, so it falls due
+    # in Erika's window while staying back in Vermilion, and `away` names the stop it waits at
+    # rather than letting "CATCH HERE" point at a page it is not on.
+    def self.catch_tile(entry, away = nil)
+      return OakTile.new(dex: entry.dex, name: entry.name, via_key: "walkthrough.ui.via_away",
+        via_args: { how: entry.how, stop: away }) if away
+
       rated = Yellow.parse_rate(entry.rate)
       OakTile.new(dex: entry.dex, name: entry.name,
         via_key: rated ? "walkthrough.ui.via_catch" : "walkthrough.ui.via_gift",
         via_args: rated ? { how: entry.how, rate: entry.rate } : { how: entry.how })
     end
 
-    def self.tile_for(game, dex, reached)
+    def self.tile_for(game, dex, reached, here = reached)
       stop = catchable_stop(game, dex, reached)
-      return catch_tile(entry_for(game, [ stop ], dex)) if stop
+      return catch_tile(entry_for(game, [ stop ], dex), off_page(stop, here)) if stop
 
       step = Evolutions.into(dex).first
       OakTile.new(dex: dex, name: Yellow::NAMES.fetch(dex), via_key: step_key(step),
         via_args: step_args(step))
+    end
+
+    def self.off_page(stop, here)
+      stop.name unless here.include?(stop.slug)
     end
 
     def self.catchable_stop(game, dex, reached)
