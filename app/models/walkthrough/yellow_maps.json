@@ -16868,6 +16868,12 @@
       "height": 144,
       "type": "screen"
     },
+    "vermilion-gym-second-switch": {
+      "image": "walkthrough/yellow/scenes/vermilion-gym-second-switch.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
     "cerulean-city-hidden-rare-candy": {
       "image": "walkthrough/yellow/scenes/cerulean-city-hidden-rare-candy.png",
       "width": 160,

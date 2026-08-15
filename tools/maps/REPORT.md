@@ -3,7 +3,7 @@
 - location maps: **99** across 52 locations
 - markers: **969** (318 trainer, 119 item, 50 hidden, 482 exit)
 - step shots: **33** (map/scene in a step slot)
-- standalone scenes: **256** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **257** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -375,6 +375,7 @@
 - `underground-path-hidden-full-restore` (dialog): walkthrough/yellow/scenes/underground-path-hidden-full-restore.png
 - `underground-path-hidden-x-special` (dialog): walkthrough/yellow/scenes/underground-path-hidden-x-special.png
 - `vermilion-city-hidden-max-ether` (dialog): walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png
+- `vermilion-gym-second-switch` (dialog): walkthrough/yellow/scenes/vermilion-gym-second-switch.png
 - `vermilion-squirtle` (screen): walkthrough/yellow/scenes/vermilion-squirtle.png
 - `vermilion-ss-anne-dock` (screen): walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `victory-road-hidden-full-restore` (dialog): walkthrough/yellow/scenes/victory-road-hidden-full-restore.png

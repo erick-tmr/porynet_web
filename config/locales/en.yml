@@ -579,7 +579,7 @@ en:
         leg_05:
           lead: "South from Cerulean to Vermilion City and Lt. Surge, via the Underground Path shortcut."
         leg_06:
-          lead: "The grassy leg east of Vermilion, leading to the mouth of Diglett's Cave."
+          lead: "Sweep the grass east of Vermilion, then double back for Lt. Surge and the Thunder Badge."
         leg_07:
           lead: "East and south from Cerulean toward the dark maze of Rock Tunnel."
         leg_08:
@@ -1452,14 +1452,14 @@ en:
               unlock: "Beat Lt. Surge for the Thunder Badge"
         vermilion_city_return:
           note: "Lt. Surge. Thunder Badge. Free Squirtle after."
-          intro: "Back in port with Cut in the bag. Open the gym plaza, work the trash-can puzzle, and take the Thunder Badge."
+          intro: "Back from Route 11 with Cut in the bag. Open the gym plaza, work the trash-can puzzle, and take the Thunder Badge."
           steps:
             "1":
               title: "Cut through to the gym"
-              text_html: "Cut either tree beside the gym %{gym} to open the plaza. Surge's Raichu hits the whole team hard, so lead with a Ground type and Dig if you have one."
+              text_html: "Cut either tree beside the gym %{gym} to open the plaza. Surge's Raichu hits the whole team hard, so lead with the Diglett or Dugtrio you brought back from Route 11."
             "2":
               title: "Take the free Squirtle"
-              text_html: "With the Thunder Badge in hand, Officer Jenny by the gym hands you a free Squirtle. Then head east %{east} to Route 11 and Diglett's Cave."
+              text_html: "With the Thunder Badge in hand, Officer Jenny by the gym hands you a free Squirtle. Then head east %{east} again and take Diglett's Cave under the mountains."
         ss_anne:
           note: "The luxury liner. HM01 Cut, and a rival fight."
           intro: "A one-time boat. Sweep it for items, beat your rival, and get Cut before it sails away for good."
@@ -1521,25 +1521,25 @@ en:
               text_html: "Keep east down the corridor and the rival %{rival} steps out for a fight. Top the team up with items first: there is no Center aboard, and this is the last fight on the ship."
             "14":
               title: "HM01 Cut from the Captain"
-              text_html: "Take the stairs behind him %{stairs} up to the Captain's cabin and soothe his seasickness for HM01 Cut. Teach it and step off; the ship sails for good. Then go <a href=\"%{href}\">open Vermilion's gym</a>."
+              text_html: "Take the stairs behind him %{stairs} up to the Captain's cabin and soothe his seasickness for HM01 Cut. Teach it and step off; the ship sails for good. Then head <a href=\"%{href}\">east to Route 11</a>."
               items:
                 hm01_cut: "From the seasick Captain, up the stairs behind the rival at the 2F stern."
         route_11:
           note: "East of Vermilion. Pidgey, Rattata, and Drowzee."
-          intro: "A wide grass route east of Vermilion, with a cave shortcut back toward Pewter."
+          intro: "A wide grass route east of Vermilion. Clear it before the gym: the cave at its mouth holds the Ground type that answers Lt. Surge."
           trades:
             dugtrio:
               npc: "YOUNGSTER"
               title: "Dugtrio"
               where: "Upstairs in the Route 11 gate"
-              note: "Hands you a Dugtrio so you can skip the 5% spawn in Diglett's Cave, and the trade gives it boosted XP."
+              note: "He wants a Lickitung, and Yellow's only one lives in Cerulean Cave, so this is a postgame trade. For a Dugtrio now, evolve a Diglett at Lv 26 or catch the rare one in Diglett's Cave."
           steps:
             "1":
               title: "Enter from Vermilion"
-              text_html: "Step east out of Vermilion onto the wide grass of Route 11. The mouth of Diglett's Cave %{cave} sits right here at the west end, marked by its sign, your shortcut back toward Pewter for later."
+              text_html: "Step east out of Vermilion onto the wide grass of Route 11. The mouth of Diglett's Cave %{cave} sits right here at the west end. Worth a detour for a Diglett, or the rare Dugtrio: Ground walls Surge's Raichu."
             "2":
               title: "Fight east"
-              text: "Push east through the grass, clearing the Gamblers, Youngsters and Engineers as you go, and catch a Drowzee for a strong early Hypno."
+              text: "Push east through the grass, clearing the Gamblers, Youngsters and Engineers as you go. Drowzee spawns here and nowhere else in the game, and it makes a strong early Hypno."
             "3":
               title: "Search by the east gate"
               text: "Just before the east gate lies a hidden Escape Rope. Stop on the grass tile a few squares northwest of the gate door, face up, and press A. Nothing shows on-screen."
@@ -1547,17 +1547,17 @@ en:
                 escape-rope: "One tile west and three north of the east gate's door, out in the grass. Stand below it, face up, and press A. Nothing shows on-screen."
             "4":
               title: "Grab the Itemfinder"
-              text_html: "At the east gate %{gate}, talk to Oak's Aide for the Itemfinder (he only hands it over once you have caught 30+ species). Upstairs, a Youngster trades you a boosted Dugtrio for a Diglett."
+              text_html: "At the east gate %{gate}, talk to Oak's Aide for the Itemfinder (he only hands it over once you have caught 30+ species). Upstairs a Youngster wants a Lickitung for his Dugtrio, and Yellow's only Lickitung is in Cerulean Cave."
               items:
                 itemfinder: "From Oak's Aide in the east gate house, once you have caught 30+ species. Points to nearby hidden items."
             "5":
-              title: "Take the Diglett's Cave shortcut"
-              text_html: "Head back west to the mouth of Diglett's Cave %{cave} and drop in, tunneling under the mountains for a quick way back toward Pewter."
+              title: "Head back for the badge"
+              text_html: "Walk back west %{west} into Vermilion with your Ground type in tow. <a href=\"%{href}\">Lt. Surge</a> is next; the tunnel under the mountains can wait until the badge is yours."
           oak:
             drowzee: "The route's notable catch → Hypno, a strong early Psychic."
         digletts_cave:
           note: "A shortcut tunnel. Diglett and rare Dugtrio."
-          intro: "A one-tunnel cave of Diglett. A great place to grab a Dugtrio and shortcut back to Pewter."
+          intro: "A one-tunnel cave of Diglett. You dipped in for one before the gym; now run it end to end as a shortcut back to Pewter."
           steps:
             "1":
               title: "Enter from Route 11"

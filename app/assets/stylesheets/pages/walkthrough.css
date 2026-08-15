@@ -3003,6 +3003,8 @@ a.pn-wt-route__card:hover {
   background: repeating-linear-gradient(45deg, #0b1022, #0b1022 8px, #131b30 8px, #131b30 16px);
 }
 .pn-wt-shot__label--gym {
+  top: 0;
+  bottom: auto;
   background: var(--gym-accent);
   color: #171622;
 }
