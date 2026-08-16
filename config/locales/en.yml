@@ -326,6 +326,7 @@ en:
       map_place_note_saffron_pidgey: "The Copycat's pen pal lives here, beside a note explaining PP Up, which raises a move's PP."
       map_place_note_vermilion_pidgey: "A trainer sends letters to Saffron by carrier Pidgey. Flavor only, nothing to collect."
       map_place_note_route2_trade: "Trade a Clefairy here for MILES the Mr. Mime, the easiest way to add it to your dex."
+      map_place_note_route2_gate: "Prof. Oak's Aide waits inside with HM05 Flash, handed over once you have caught 10 kinds of Pokémon."
       map_place_note_vermilion_trade: "Despite the name, no trade: a gentleman only warns that an HM move can't be replaced once taught."
       map_place_note_celadon_chief: "The Game Corner's Rocket boss brags about the rigged slots; a guard swears the prize poster hides no switch."
       map_place_note_copycats: "The ground floor of the Copycat's home. She, and the TM Mimic she gives, are up the stairs."
@@ -344,6 +345,7 @@ en:
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
       map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion."
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
+      map_npc_viridian_tm42: "A Fisher dozing on a fenced plot, walled in by a cuttable tree. Wake him and he gives you TM42, Dream Eater."
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
@@ -406,6 +408,7 @@ en:
       step_trade: "Trade"
       via_catch: "%{how} %{rate}"
       via_gift: "%{how}"
+      via_away: "%{how} · %{stop}"
       ld_eyebrow: "LIVING DEX MODE"
       ld_kicker: "ONE OF EVERY SPECIES"
       ld_h2: "How many to catch here"
@@ -462,7 +465,7 @@ en:
       oak_meter_note_html: "// %{pct} of everything owed so far"
       oak_group_catch: "CATCH HERE"
       oak_group_evolve: "BY EVOLVING"
-      oak_group_catch_note: "Everything that owes a first registration on this page."
+      oak_group_catch_note: "Everything that owes a first registration by this point in the run."
       oak_group_evolve_note: "No catching needed: these register the moment something you own grows up."
       oak_group_earlier: "EARLIER STOPS"
       oak_group_earlier_note: "Still owed from this badge window, from the stops before this page."
@@ -941,7 +944,7 @@ en:
       locations:
         pallet_town:
           note: "Get Pikachu from Prof. Oak. No wild grass here."
-          intro: "Home. Grab your partner Pikachu, settle the first rival battle, and head north."
+          intro: "A one-street town of two houses and Oak's lab, with no grass anywhere inside it. Every trainer in Kanto starts from this doorstep."
           trivia:
             title: "This battle decides your rival's Eevee"
             intro: "The outcome of this battle, plus an optional rematch on Route 22, locks in which evolution your rival's Eevee takes. Play it how you like, but here's the recipe for each."
@@ -975,7 +978,7 @@ en:
             pikachu: "Your forced partner and the only Pikachu in the game. It refuses the Thunder Stone, so it stays Pikachu."
         route_1:
           note: "First grass patch. Pidgey and Rattata."
-          intro: "The short road north to Viridian. Your first wild grass. Level Pikachu on the way."
+          intro: "A short hop north to Viridian, all ledges and low grass. Pidgey and Rattata are the only two things living on it."
           steps:
             "1":
               title: "Sweep the tall grass"
@@ -996,11 +999,11 @@ en:
             blurb: "The first Mart in the game. It only starts selling once you deliver Oak's Parcel from Pallet Town."
             buy: "Buy a handful of Poké Balls for Route 1–2 and Viridian Forest. Antidote covers the Weedle line's Poison Sting."
           note: "Catching tutorial, Oak's Parcel, stock up on Poké Balls."
-          intro: "The gateway city. No wild grass. Run the errands, buy Poké Balls, then push into Route 2."
+          intro: "Where Kanto's roads meet: Pallet to the south, Route 2 north, Route 22 west. Its own gym stays shut until the other seven badges are yours."
           later:
             tm42:
               where: "The Fisher who hands over TM42 (Dream Eater) sits on a fenced patch in the southwest corner, walled off by a cuttable tree and the pond. You can't cross to him on the first pass."
-              after: "Chop the tree with HM01 Cut (from the S.S. Anne in Vermilion), or Surf across once you have HM03. Cut comes first."
+              after: "Chop the tree with HM01 Cut (from the S.S. Anne in Vermilion). The guide swings back here at the end of the Diglett's Cave detour."
           missable:
             title: "Five free Poké Balls"
             body_html: "Oak hands you <b>five Poké Balls</b> if you beat the Route 22 rival while carrying <b>none</b> and having caught <b>nothing but Pikachu</b>. Small prize, but if you want it, skip the Mart until after that fight."
@@ -1037,7 +1040,7 @@ en:
               text_html: "The Gym %{gym} in the northeast stays locked until you hold the other seven badges, so leave it. Take the west exit %{west} to Route 22 for the best Brock-ready catches and the next rival battle."
         route_22:
           note: "Optional west route. Nidoran♀/♂, Mankey, Spearow. Plus the first rival battle."
-          intro: "A short detour west of Viridian. The best spot to catch answers for Brock before the forest."
+          intro: "A dead end west of Viridian that stops at the Pokémon League gate. Your rival picks a fight here now, and again on the road to Victory Road."
           steps:
             "1":
               title: "Cross the grass"
@@ -1064,23 +1067,23 @@ en:
             spearow: "Early Normal/Flying, evolves to Fearow."
         route_2:
           note: "Short leg into the forest. Pidgey, Rattata and Nidoran."
-          intro: "On this pass you only walk the western strip up to the forest gate, with the same catches as before plus wild Nidoran. Route 2 is much larger than that: its eastern half is sealed behind cuttable trees, so the map's east markers (the Moon Stone and HP Up, HM05 Flash, the Mr. Mime trade and the north exit of Diglett's Cave) all wait there until you have Cut, or loop back up through Diglett's Cave from Vermilion."
+          intro: "A long north-south corridor with Viridian Forest bolted onto its western side. Cuttable trees split it lengthwise, so half its markers stay out of reach until you hold Cut."
           later:
             moon_stone:
               where: "A Poké Ball low in the tree-walled plot on the eastern side of Route 2. Cuttable trees fence the whole east half off on your first pass, so you can't reach it yet."
-              after: "Come back with HM01 Cut (from the S.S. Anne in Vermilion) to chop through, or drop into this side from the north exit of Diglett's Cave once you reach Vermilion."
+              after: "The guide comes back for it on the Diglett's Cave detour, up through the tunnel from Vermilion with Cut in the bag."
             hp_up:
               where: "A second Poké Ball just north of the Moon Stone, in the same Cut-blocked eastern plot. Both sit behind the same wall of cuttable trees."
-              after: "Same trip: bring HM01 Cut back to Route 2, or reach this side through Diglett's Cave from Vermilion."
+              after: "Same trip, nine tiles up the strip: the Diglett's Cave detour, in through the tunnel's north exit."
             flash:
               where: "Prof. Oak's Aide hands over HM05 Flash inside the Route 2 gate, on the same Cut-blocked eastern side. He only gives it once you have caught at least 10 kinds of Pokémon (the count in your Pokédex, not how many you own)."
-              after: "Get to the gate with HM01 Cut (or up through Diglett's Cave from Vermilion), and have 10 species caught. Flash is what lights Rock Tunnel later, so it is worth the detour."
+              after: "Same trip, with 10 species caught. Flash is what lights Rock Tunnel one leg later, so the Diglett's Cave detour pays for itself."
           trades:
             mr_mime:
               npc: "SCIENTIST"
               title: "Mr. Mime"
               where: "The trade house on Route 2"
-              note: "Yellow has no wild Mr. Mime, so this trade is the only way to add it. You need a spare Clefairy from Mt. Moon, so most players come back for it later."
+              note: "Yellow has no wild Mr. Mime, so this trade is the only way to add it. The price is a spare Clefairy from Mt. Moon, so box one when you pass through."
           steps:
             "1":
               title: "Cross the south grass"
@@ -1098,7 +1101,7 @@ en:
             rattata: "Everywhere on Route 2. Grab one for the dex; it evolves into Raticate."
         viridian_forest:
           note: "Bug haven. Caterpie, Metapod, Pidgey. Hidden items inside. No wild Pikachu in Yellow."
-          intro: "The maze of trees between Route 2 and Pewter. Sweep the grass, grab the hidden items, and pick up a Caterpie for Brock."
+          intro: "A lattice of tree walls between Route 2 and Pewter, patrolled by Bug Catchers. Caterpie lives here and nowhere else, and no wild Pikachu lives here at all."
           steps:
             "1":
               title: "Enter from the Route 2 gate"
@@ -1145,7 +1148,7 @@ en:
           gym:
             intro: "A short, straight gym, no puzzle. Beat the lone Jr. Trainer on the way in, then Brock at the back. His Geodude (Lv 10) and Onix (Lv 12) shrug off Pikachu completely, so lead with Mankey's Low Kick, a Nidoran, or Butterfree's Confusion. When Onix uses Bide, stop attacking for two turns or it fires all the stored damage back at once."
           note: "Brock. The first Gym. Rock types; Electric does nothing."
-          intro: "The first Gym city. Heal, prep a non-Electric attacker, and take the Boulder Badge from Brock."
+          intro: "A grey mining town at the foot of Mt. Moon, built around its museum and Brock's rock gym. No grass grows inside the city walls."
           steps:
             "1":
               title: "Heal, prep, and enter the Gym"
@@ -1159,7 +1162,7 @@ en:
             note: "It only fires when Pikachu is your partner out following you and has no status condition. Any other time the Jigglypuff simply sings. A little wink at how its Sing move works in a real battle."
         route_3:
           note: "The climb to Mt. Moon. Spearow, Sandshrew and Mankey."
-          intro: "The trainer gauntlet east of Pewter. Grab a Ground type for the caves ahead, then heal at the Mt. Moon center."
+          intro: "A narrow climb east of Pewter carrying eight trainers, more than any road so far. It ends at the Pokémon Center outside Mt. Moon."
           steps:
             "1":
               title: "Fight east up the route"
@@ -1171,7 +1174,7 @@ en:
             sandshrew: "Ground type, evolves to Sandslash. Handy against the coming caves."
         route_4_mt_moon:
           note: "The Mt. Moon approach: heal, then into the cave."
-          intro: "The west tip of Route 4, where Route 3 meets the Mt. Moon Poke Center. Heal, run any last errands, then head into the cave. The east half of Route 4 and its items come after you break through."
+          intro: "The west tip of Route 4: one ledge, one Pokémon Center, and the mouth of Mt. Moon. The rest of the route lies on the far side of the cave."
           steps:
             "1":
               title: "Heal at the Mt. Moon Poke Center"
@@ -1185,7 +1188,7 @@ en:
             note: "If you only need it for the Pokédex there is no rush: Magikarp is catchable later on the Old Rod, so you can wait and save the money. He sells a single level 5 Magikarp and gives no refunds."
         mt_moon:
           note: "Cave crawl. Zubat, Geodude, rare Clefairy, and a fossil."
-          intro: "A dark cave full of Rockets. Grab the Moon Stone, pick a fossil, and push through to Cerulean."
+          intro: "Three floors of dark rock under Route 4, dug into by Team Rocket. Clefairy lives here and nowhere else, and two fossils sit at the bottom for you to keep exactly one."
           steps:
             "1":
               title: "Follow the west wall to TM12"
@@ -1258,7 +1261,7 @@ en:
             geodude: "Everywhere in the rock. Evolves to Graveler, then Golem by trade."
         route_4:
           note: "Short drop to Cerulean. Same grass as Route 3."
-          intro: "The ledge down from Mt. Moon into Cerulean City. A quick one."
+          intro: "The long ledge east of Mt. Moon, dropping toward Cerulean in one-way steps. Once you jump down, the only way back up is through the cave."
           steps:
             "1":
               title: "Surface from Mt. Moon"
@@ -1289,7 +1292,7 @@ en:
               swimmer: "Do NOT beat this Trainer if you plan to run the Mew glitch. His Shellder's Attack stage sets Mew's level."
               misty: "Beating Misty locks the Swimmer behind her. Leave her standing until after your Mew run."
           note: "Misty's Gym. Cascade Badge. Free Bulbasaur too."
-          intro: "A water-gym city. Sweep the town, run the routes north to Bill, and come back for Misty at the end. If Pikachu likes you, there is a free Bulbasaur here too."
+          intro: "A lakeside city built around Misty's water gym. Team Rocket has already dug out the back wall of one house, and the bike shop takes only a voucher, never cash."
           steps:
             "1":
               title: "Heal and stock up"
@@ -1317,7 +1320,7 @@ en:
               unlock: "Pikachu friendship 147 or higher"
         route_24:
           note: "Nugget Bridge. Oddish, Bellsprout, and a free Charmander."
-          intro: "Your rival first, then five trainers back-to-back and a Rocket. And a free Charmander waiting at the end."
+          intro: "Nugget Bridge: five trainers lined up nose to tail on one span, and the man waiting at the far end offers you a job with Team Rocket."
           steps:
             "1":
               title: "Beat your rival"
@@ -1347,7 +1350,7 @@ en:
               from: "FROM THE HILLTOP BOY"
         route_25:
           note: "Bill's house. Same grass as Route 24."
-          intro: "The path to Bill's cottage. Free him from his machine for the S.S. Anne ticket."
+          intro: "The wooded cape path to Bill's cottage, nine trainers along its length. Bill is inside, stuck halfway through his own teleporter."
           steps:
             "1":
               title: "Arrive from Nugget Bridge"
@@ -1376,7 +1379,7 @@ en:
             venonat: "A Bug/Poison catch → Venomoth. Log the base once."
         route_5:
           note: "South to Vermilion. Pidgey, Rattata and rare Abra."
-          intro: "A short leg south of Cerulean. Catch an Abra here. It becomes one of the best Pokémon in the game."
+          intro: "A short hillside south of Cerulean holding the Day-Care fence and the north mouth of the Underground Path. Saffron's west gate sits at the bottom."
           trades:
             machoke:
               npc: "LITTLE GIRL"
@@ -1408,7 +1411,7 @@ en:
                 x-special: "Second lane from the east wall, seven tiles north of the stairs down to Route 6. Stand one tile north of it and press A facing down. Nothing shows on-screen."
         route_6:
           note: "Into Vermilion. Same grass as Route 5, plus fishing."
-          intro: "The last stretch into Vermilion City. Fish the pond once you pick up a rod."
+          intro: "The last stretch down into Vermilion, ending at a pond that is the only water in Kanto where a Psyduck will bite."
           steps:
             "1":
               title: "Leave the Underground Path"
@@ -1427,7 +1430,7 @@ en:
               "2": "The second switch is always in a can directly next to the first, up, down, left or right. Pick wrong and both reset, so search the neighbors."
               "3": "With both switches flipped, the door to Lt. Surge opens. Bring a Ground type to shut his Electric team down."
           note: "Bike Voucher and Old Rod. The gym waits on Cut."
-          intro: "A port city you pass through twice. Trees seal the gym off until the S.S. Anne hands you Cut, so take the gifts and board the ship."
+          intro: "A working port on Kanto's south coast, its harbour taken up by the S.S. Anne. Cuttable trees fence the gym plaza off from the rest of town."
           steps:
             "1":
               title: "Grab the goodies"
@@ -1452,17 +1455,17 @@ en:
               unlock: "Beat Lt. Surge for the Thunder Badge"
         vermilion_city_return:
           note: "Lt. Surge. Thunder Badge. Free Squirtle after."
-          intro: "Back from Route 11 with Cut in the bag. Open the gym plaza, work the trash-can puzzle, and take the Thunder Badge."
+          intro: "The same port with the trees gone. Lt. Surge keeps his door shut behind two switches hidden in the gym's trash cans, and his Raichu answers Ground types with Mega Kick."
           steps:
             "1":
               title: "Cut through to the gym"
-              text_html: "Cut either tree beside the gym %{gym} to open the plaza. Surge's Raichu hits the whole team hard, so lead with the Diglett or Dugtrio you brought back from Route 11."
+              text_html: "Cut either tree beside the gym %{gym} to open the plaza. Lead with a Ground type if you have one; Thunderbolt cannot touch it. If not, backtrack to Diglett's Cave at the west end of Route 11."
             "2":
               title: "Take the free Squirtle"
               text_html: "With the Thunder Badge in hand, Officer Jenny by the gym hands you a free Squirtle. Then head east %{east} again and take Diglett's Cave under the mountains."
         ss_anne:
           note: "The luxury liner. HM01 Cut, and a rival fight."
-          intro: "A one-time boat. Sweep it for items, beat your rival, and get Cut before it sails away for good."
+          intro: "A liner in dock for one visit only. Four decks, seventeen trainers, and a seasick captain who pays for a back rub with an HM."
           steps:
             "1":
               title: "Board and head west along 1F"
@@ -1526,7 +1529,7 @@ en:
                 hm01_cut: "From the seasick Captain, up the stairs behind the rival at the 2F stern."
         route_11:
           note: "East of Vermilion. Pidgey, Rattata, and Drowzee."
-          intro: "A wide grass route east of Vermilion. Clear it before the gym: the cave at its mouth holds the Ground type that answers Lt. Surge."
+          intro: "A wide grass field east of Vermilion with ten trainers spread over it. Drowzee spawns here and nowhere else, and Diglett's Cave opens at the west end."
           trades:
             dugtrio:
               npc: "YOUNGSTER"
@@ -1556,20 +1559,55 @@ en:
           oak:
             drowzee: "The route's notable catch → Hypno, a strong early Psychic."
         digletts_cave:
-          note: "A shortcut tunnel. Diglett and rare Dugtrio."
-          intro: "A one-tunnel cave of Diglett. You dipped in for one before the gym; now run it end to end as a shortcut back to Pewter."
+          note: "Diglett, rare Dugtrio, and the Cut detour on the far side."
+          intro: "A single tunnel bored under the mountains between Route 11 and Route 2, crawling with Diglett and the odd Dugtrio. Its north door opens onto the half of Route 2 that Cut keeps shut."
           steps:
             "1":
               title: "Enter from Route 11"
-              text_html: "Take the south entrance %{south} near the west end of Route 11 and follow the single tunnel."
+              text_html: "Take the south entrance %{south} near the west end of Route 11. One tunnel runs the whole way through, with nothing branching off it."
             "2":
-              title: "Exit toward Pewter"
-              text_html: "Catch a Diglett or the rare Dugtrio, then exit north %{north} onto Route 2 below Pewter."
+              title: "Catch a Diglett or Dugtrio"
+              text: "Every step in here can spawn one: Diglett at 94%, Dugtrio at 6% and Lv 29 to 31. Nowhere else in Kanto has either of them."
+            "3":
+              title: "Surface on Route 2"
+              text_html: "Climb out the north exit %{north}. You come up in a tree-walled pocket at the top of Route 2, below Pewter, on the side Cut kept you out of."
+            "4":
+              title: "Trade for Mr. Mime"
+              text_html: "The trade house %{house} sits a few steps south, no Cut needed. The scientist inside swaps MILES the Mr. Mime for a spare Clefairy, the only one in Yellow."
+            "5":
+              title: "Cut south toward the gate"
+              text_html: "A single cuttable tree stands below the house. Chop it, follow the east strip down and step into the Route 2 gate %{gate}."
+            "6":
+              title: "Take HM05 Flash"
+              text: "Prof. Oak's Aide is waiting inside. He hands over HM05 Flash once your Pokédex shows 10 kinds caught, and Rock Tunnel is pitch black without it."
+              items:
+                flash: "From Prof. Oak's Aide inside the Route 2 gate, once you have caught 10 kinds of Pokémon."
+            "7":
+              title: "Grab the HP Up"
+              text: "Out the gate's south door, the first Poké Ball down the strip holds an HP Up. It raises one Pokémon's HP for good, so save it for a keeper."
+              items:
+                hp-up: "First Poké Ball on the east strip, a few steps south of the Route 2 gate's lower door."
+            "8":
+              title: "Grab the Moon Stone"
+              text: "Nine tiles further south, the second ball is a Moon Stone. It evolves Clefairy, Jigglypuff, Nidorina or Nidorino, and Yellow hands out very few."
+              items:
+                moon-stone: "Second Poké Ball on the east strip, nine tiles south of the HP Up."
+            "9":
+              title: "Cut west into Viridian"
+              text_html: "Two tiles back north, another cuttable tree breaks the wall to the west. Chop through, cross to the main road and follow it south %{south} into Viridian City."
+            "10":
+              title: "Take TM42 Dream Eater"
+              text_html: "One more tree fences off the plot in Viridian's southwest corner. Cut it and talk to the dozing Fisher %{fisher}; he hands over TM42, Dream Eater."
+              items:
+                tm42: "From the Fisher on the fenced plot in Viridian's southwest corner, past the cuttable tree on its east side."
+            "11":
+              title: "Head back for Cerulean"
+              text_html: "Retrace the loop: north up Route 2, through the tunnel to Route 11, then Vermilion and the Underground Path up to Cerulean and <a href=\"%{href}\">Route 9</a>."
           oak:
             diglett: "Everywhere here → Dugtrio, a fast Ground type. Grab the base."
         route_9:
           note: "East to Rock Tunnel. Nidoran hotspot."
-          intro: "A long grass route east of Cerulean, thick with both Nidoran lines."
+          intro: "A long grass route east of Cerulean, thick with both Nidoran lines. Nine trainers hold the ridge between here and Rock Tunnel."
           steps:
             "1":
               title: "Cut in from Cerulean"
@@ -1589,7 +1627,7 @@ en:
               text_html: "With both stashes in the bag, push east through the long grass, trading blows with the Bug Catchers, Jr. Trainers, and Hikers strung across the ridge. The path spills straight out %{east} onto Route 10 and Rock Tunnel's doorstep."
         route_10:
           note: "Rock Tunnel's doorstep. Magnemite everywhere."
-          intro: "A short route around Rock Tunnel's north mouth. Magnemite dominates the grass."
+          intro: "A tall route cut in two by Rock Tunnel: a Pokémon Center at the north mouth, the road to Lavender at the south. Magnemite owns the grass at both ends."
           steps:
             "1":
               title: "Heal at the Center"
@@ -1617,7 +1655,7 @@ en:
             magnemite: "A 50% grass catch here → Magneton. Electric coverage for the dark tunnel."
         rock_tunnel:
           note: "Pitch-black cave. Needs Flash."
-          intro: "A two-floor maze that's black without Flash. Onix, Machop and Geodude live inside."
+          intro: "Two unlit floors under the ridge, holding fifteen trainers and not one item ball. Without Flash the screen stays black."
           steps:
             "1":
               title: "Bring Flash before you go in"
@@ -1639,7 +1677,7 @@ en:
             blurb: "Lavender's Mart jumps to Great Balls and Revives, gear for the Pokémon Tower next door."
             buy: "Great Balls for the Tower's Gastly line and a couple of Revives. Super Repel thins the ghosts."
           note: "The ghost town. Pokémon Tower looms."
-          intro: "A quiet town shadowed by Pokémon Tower. You'll need the Silph Scope before you can clear it."
+          intro: "Kanto's smallest town, and its graveyard. Pokémon Tower stands over a handful of houses, with Team Rocket somewhere inside it."
           steps:
             "1":
               title: "Try the Tower"
@@ -1652,7 +1690,7 @@ en:
               text: "Come back, clear the Tower, and free Mr. Fuji. He gives the Poké Flute to wake the sleeping Snorlax."
         route_8:
           note: "West to Celadon. Pidgey, Abra, Jigglypuff."
-          intro: "The road from Lavender toward Saffron and Celadon. Another shot at Abra."
+          intro: "The road west from Lavender to Saffron's east gate, nine trainers along it. Wild Kadabra turns up here and nowhere else."
           steps:
             "1":
               title: "Head west"
@@ -1662,7 +1700,7 @@ en:
               text_html: "The Saffron guards want a drink. Skip them by tunnelling west %{path} under the city to Route 7."
         route_7:
           note: "Gate route into Celadon. Pidgey and Abra."
-          intro: "A tiny connector between Saffron and Celadon. In and out."
+          intro: "One screen of road between Saffron and Celadon, gate to gate. No grass, no trainers, nothing lying on the ground."
           steps:
             "1":
               title: "Cross to Celadon"
@@ -1709,7 +1747,7 @@ en:
           gym:
             intro: "A garden of small trees hiding several trainers, then Erika. Her Tangela (Lv 30), Weepinbell (Lv 32) and Gloom (Lv 32) fold to Fire, Flying, Psychic or Ice, so lead with one of those and carry status heals for their Sleep Powder and Stun Spore. Cut the small trees to reach her faster."
           note: "Erika's Gym. Rainbow Badge. Dept. Store, Eevee and the Game Corner."
-          intro: "The big city. Shop the department store, grab an Eevee, beat Erika, and raid the Rocket Game Corner."
+          intro: "Kanto's biggest city: a six-floor department store, Erika's greenhouse gym, and a Game Corner with Team Rocket's hideout underneath it."
           steps:
             "1":
               title: "Arrive from Route 7"
@@ -1742,7 +1780,7 @@ en:
               from: "FROM THE MANSION ROOF"
         rocket_hideout:
           note: "Team Rocket's base. Get the Silph Scope."
-          intro: "The maze under the Game Corner. Slide the spin tiles, beat Giovanni, and take the Silph Scope."
+          intro: "Four basement floors under the Game Corner, tiled with arrows that shove you along until a wall stops you. Giovanni runs the place."
           steps:
             "1":
               title: "Open the stairs"
@@ -1850,7 +1888,7 @@ en:
               text: "That is the whole hideout swept. Escape Rope out or ride the elevator back to B1F, and head for Lavender Town: the Silph Scope opens up Pokémon Tower next."
         pokemon_tower:
           note: "Lavender's haunted tower. Ghosts and the Poké Flute."
-          intro: "Climb the tower with the Silph Scope to reveal the ghosts, beat your rival, and free Mr. Fuji."
+          intro: "Seven floors of graves above Lavender Town, most landings held by a Channeler. Gastly haunts this tower and nowhere else in Kanto."
           steps:
             "1":
               title: "Climb with the Silph Scope"
@@ -1913,7 +1951,7 @@ en:
             cubone: "A rare Tower catch → Marowak, a strong Ground type."
         route_12:
           note: "Silence Bridge. Oddish, Bellsprout, and a Snorlax."
-          intro: "A long fishing bridge blocked by a sleeping Snorlax. Wake it with the Poké Flute to pass."
+          intro: "A fishing pier down Kanto's east coast, most of its length out over open water. A Snorlax sleeps across the planks halfway along."
           steps:
             "1":
               title: "Come down from Lavender"
@@ -1952,7 +1990,7 @@ en:
             farfetchd: "The rare duck of the grass. Grab the single wild Farfetch'd here."
         route_13:
           note: "Ledge maze south. Oddish, Bellsprout, Ditto."
-          intro: "A winding fenced maze of ledges. Watch for a wild Ditto."
+          intro: "A fenced maze of ledges and hedges south of the pier, ten trainers deep. A wild Ditto turns up in its grass."
           steps:
             "1":
               title: "Wind down from Route 12"
@@ -1975,7 +2013,7 @@ en:
             ditto: "Catch the Transforming blob here. A fun one and useful for breeding later gens."
         route_14:
           note: "Bird-and-biker row. Oddish, Bellsprout, Venonat."
-          intro: "A long diagonal of Bird Keepers and Bikers. A rare Venomoth flies here."
+          intro: "A long diagonal of hedge-lined lanes worked by Bird Keepers and Bikers. Venomoth flies here, rare enough that a Repel is worth carrying."
           steps:
             "1":
               title: "Cut through the ledges"
@@ -1985,7 +2023,7 @@ en:
               text_html: "Follow the one-way ledges southwest as they step down the cliffs, and carry on %{west} into Route 15 at the bottom."
         route_15:
           note: "West to Fuchsia. Oddish, Bellsprout, Venonat."
-          intro: "The last leg into Fuchsia, through a fenced field of trainers."
+          intro: "The last road into Fuchsia, a fenced field of hedges with ten trainers strung across it."
           steps:
             "1":
               title: "Cross the fenced field"
@@ -2011,7 +2049,7 @@ en:
               "2": "Weave up and around the barriers toward the top of the room, taking each optional trainer as the path lets you reach them."
               "3": "The last opening leads to Koga. Bring a Psychic or Ground attacker and carry Antidotes for his Toxic."
           note: "Koga's Gym. Soul Badge. Safari Zone next door."
-          intro: "Home of the Safari Zone. Fetch Surf and Strength from the Safari first, then close the leg on Koga."
+          intro: "A town of low fences wrapped around the Safari Zone's front gate. Koga's gym hides behind invisible walls, and the Warden cannot speak without his teeth."
           steps:
             "1":
               title: "Heal and stock up"
@@ -2035,7 +2073,7 @@ en:
             gyarados: "Fish one straight out of the Warden's pond. A rare Yellow shortcut to Gyarados."
         safari_zone:
           note: "500-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
-          intro: "Pay in, get 30 Safari Balls, and grab the game's rarest catches. Plus HM03 Surf and the Gold Teeth."
+          intro: "Four fenced areas with no trainers and no ordinary Poké Balls. Entry buys thirty Safari Balls and exactly 502 steps, and Kangaskhan, Tauros, Scyther, Pinsir and Dratini live nowhere else."
           steps:
             "1":
               title: "Buy in at the gate"
@@ -2124,7 +2162,7 @@ en:
             kangaskhan: "Rare and Safari-only. Bank one for the dex while you're here."
         route_16:
           note: "Cycling Road's top. Doduo and a Snorlax."
-          intro: "The north gate of Cycling Road, blocked by a second Snorlax. Fly is hidden nearby."
+          intro: "The north gate of Cycling Road, with a second Snorlax asleep in the doorway. Past it the road runs one way only, downhill."
           steps:
             "1":
               title: "Grab HM02 Fly"
@@ -2144,7 +2182,7 @@ en:
             snorlax: "The last of two Snorlax. Wake with the Poké Flute and catch it now."
         route_17:
           note: "Cycling Road. Doduo, Ponyta, Fearow."
-          intro: "A one-way downhill bike run lined with Bikers. Ponyta gallops in the grass strips."
+          intro: "Cycling Road: a long downhill run you can only take on the Bike, walled by ledges that stop you turning back. Ten Bikers and five hidden items line it."
           steps:
             "1":
               title: "Ride south down Cycling Road"
@@ -2181,7 +2219,7 @@ en:
             ponyta: "A fiery grass catch → Rapidash. One of few Fire types in Yellow."
         route_18:
           note: "East to Fuchsia. Spearow, Rattata, Doduo."
-          intro: "A short strip of Bird Keepers bridging Cycling Road to Fuchsia."
+          intro: "A short strip between the foot of Cycling Road and Fuchsia, three Bird Keepers on it and a gate house at either end."
           trades:
             parasect:
               npc: "COOK"
@@ -2206,7 +2244,7 @@ en:
               "2": "The fastest line: from the entrance take the southeast pad, then the northwest pad, then the southwest pad, and the southwest pad once more. Each hop drops you on one trainer to clear, and that sequence lands you in Sabrina's room."
               "3": "The final warp drops you beside Sabrina. Psychic has no counters in Gen 1, so out-level her or lead with a strong Bug attacker."
           note: "Sabrina's Gym. Marsh Badge. Silph Co. and the Dojo."
-          intro: "A central city held by Rocket. Free Silph Co., beat Sabrina, and claim a fighter from the Dojo."
+          intro: "Kanto's capital under Rocket occupation, a guard on every gate. Silph Co. stands in the middle, and the city keeps two fighting halls: Sabrina's gym and the Dojo."
           steps:
             "1":
               title: "Bribe the guards"
@@ -2221,7 +2259,7 @@ en:
             hitmonlee: "Free from the Dojo. Pick Hitmonlee or Hitmonchan (you only get one)."
         silph_co:
           note: "Rocket HQ takeover. Lapras and the Master Ball."
-          intro: "An 11-floor warp maze. Grab the Card Key, rescue Lapras, and beat Giovanni for the Master Ball."
+          intro: "Eleven floors of offices wired together by teleport pads, with thirty-one Rockets inside. One Card Key opens every locked door in the building."
           steps:
             "1":
               title: "Enter the Rocket-held tower"
@@ -2324,7 +2362,7 @@ en:
               from: "FROM A SILPH EMPLOYEE"
         route_19:
           note: "Water route south of Fuchsia. Needs Surf."
-          intro: "Open water south of Fuchsia, thick with Tentacool and Swimmers. Surf required."
+          intro: "Open sea south of Fuchsia, nothing but water once you leave the beach. Ten Swimmers float in the way, and Tentacool is almost all that bites."
           steps:
             "1":
               title: "Surf out"
@@ -2334,7 +2372,7 @@ en:
               text_html: "Carry on south to the little beach at the bottom, which opens west %{west} into Route 20 and the Seafoam Islands."
         route_20:
           note: "Water route to Seafoam. Tentacool, Staryu, Shellder."
-          intro: "The channel to Seafoam Islands. The only way west toward Cinnabar."
+          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. Nothing gets past except through the cave or around it."
           steps:
             "1":
               title: "Surf west"
@@ -2344,7 +2382,7 @@ en:
               text_html: "The Seafoam Islands cave breaks the water in the middle of the route. Step in from the eastern mouth %{east} to start the boulder puzzle."
         seafoam_islands:
           note: "Boulder-puzzle cave. Wild Articuno inside."
-          intro: "A current-filled cave. Push boulders with Strength to slow the water, then catch Articuno."
+          intro: "Five floors of sea cave with currents running through the lower ones. No trainers at all, one boulder puzzle, and Articuno at the bottom."
           steps:
             "1":
               title: "Enter with Surf and Strength"
@@ -2380,7 +2418,7 @@ en:
             articuno: "The Ice legendary of Seafoam. One shot only. Catch it now."
         power_plant:
           note: "Optional Surf detour. Electric mons, a rare Muk, and Zapdos."
-          intro: "An abandoned plant off Route 10, reachable only by Surf. Electric and Poison types roam the floors, and the legendary Zapdos waits deep inside."
+          intro: "An abandoned plant off Route 10, reachable only by Surf. Thirteen Poké Balls lie on its floors and eight are Voltorb in disguise; Zapdos roosts at the back."
           steps:
             "1":
               title: "Surf in from Route 10"
@@ -2466,7 +2504,7 @@ en:
               "2": "If you would rather not guess, the answers in order are yes, no, no, no, yes, no. Or skip the quizzes and fight every trainer instead; the doors open either way and both routes reach the back."
               "3": "The final door opens onto Blaine. A single strong Water, Rock or Ground move drops his Ninetales, Rapidash and Arcanine in a hurry."
           note: "Blaine's Gym. Volcano Badge. Fossil lab."
-          intro: "A volcanic island. Revive your fossils at the lab, get the Secret Key from the Mansion, then beat Blaine."
+          intro: "A volcanic island one street long: a lab that revives fossils, a burnt-out mansion, and a gym whose key is somewhere inside it."
           trades:
             muk:
               npc: "SCIENTIST"
@@ -2503,7 +2541,7 @@ en:
             aerodactyl: "Old Amber from Pewter's museum → Aerodactyl. Register the single specimen."
         pokemon_mansion:
           note: "Burnt-out mansion. Fire types and the Secret Key."
-          intro: "A statue-switch maze full of Fire and Poison mons. Find the Secret Key on B1F."
+          intro: "A burnt-out mansion of hidden staircases opened by statue switches. Its abandoned diary is where Mewtwo's story is written down."
           steps:
             "1":
               title: "Enter the burned mansion"
@@ -2590,7 +2628,7 @@ en:
             magmar: "A rare mansion catch. A strong Fire attacker. Bank one."
         route_21:
           note: "Water route back to Pallet. Fishing plus a Pallet-side grass patch."
-          intro: "The sea route between Cinnabar and Pallet. Surf and fish it on the way back to Viridian for the last gym; a small grass patch by Pallet holds land catches."
+          intro: "The sea between Cinnabar and Pallet, nine Swimmers and Fishermen strung down it. A strip of grass at the Pallet end is the only land on the route."
           steps:
             "1":
               title: "Surf north toward Pallet"
@@ -2612,7 +2650,7 @@ en:
               "2": "Clear trainers to open the northern path, then ride the spinners north and west, correcting your line at each stop toward Giovanni."
               "3": "The final spinners drop you in front of Giovanni. Watch for Fissure and Horn Drill one-hit KOs and lead with a fast Water or Ice attacker."
           note: "Giovanni's Gym. Earth Badge. The 8th badge."
-          intro: "The final Kanto gym, back in Viridian. Beat Giovanni's Ground team for the last badge."
+          intro: "The gym that stayed shut all game. Giovanni runs it, with eight trainers and a floor of spinning arrow tiles between the door and him."
           steps:
             "1":
               title: "Prep and enter the Gym"
@@ -2630,7 +2668,7 @@ en:
               text_html: "With the Earth Badge and all eight in hand, leave the gym %{out} and head back to Route 22, then push west into Victory Road."
         victory_road:
           note: "The League gate. Boulder puzzles and Moltres."
-          intro: "A three-floor boulder maze that needs all 8 badges and Strength. Moltres roosts inside."
+          intro: "Three floors of boulder puzzles between Route 23 and the League, every door held by a switch that needs a rock sat on it. Moltres roosts on the way up."
           steps:
             "1":
               title: "Step in with Strength ready"
@@ -2703,7 +2741,7 @@ en:
             moltres: "The Fire bird roosting in Victory Road. One shot only. Catch it on the way through."
         route_23:
           note: "Badge checkpoints to the League. High-level grass."
-          intro: "The gated road to the League. Every guard checks a badge. Wild mons here are strong."
+          intro: "The badge-gated approach to the League, a line of checkpoints where each guard asks for another badge. Its wild Pokémon are the strongest outside Cerulean Cave."
           steps:
             "1":
               title: "Enter from the Route 22 gate"
@@ -2728,7 +2766,7 @@ en:
               text_html: "Follow the west side up past the last guard and step through the gate at the top %{victory} into Victory Road, the final cave before the Pokémon League."
         indigo_plateau:
           note: "The Pokémon League. Elite Four and Champion Blue."
-          intro: "The final five battles, back to back, with no healing between rooms. Stock up first."
+          intro: "The League building: five rooms in a row, the Elite Four and then the Champion. Once the first door shuts there is no way back and nothing to heal with."
           steps:
             "1":
               title: "Stock up"
@@ -2741,7 +2779,7 @@ en:
               text: "Your rival leads with Sandslash (Lv 61) and fields Alakazam, Exeggutor, a Magneton or Cloyster, Ninetales, and the Eeveelution his Eevee became (Lv 65). Alakazam carries Recover, so break it with physical moves. Win to enter the Hall of Fame."
         cerulean_cave:
           note: "Post-game dungeon. The strongest wilds. And Mewtwo."
-          intro: "Unlocked after becoming Champion. The toughest wild Pokémon in Kanto, with Mewtwo waiting at the bottom."
+          intro: "The cave the guard only opens for a Champion. Three floors of the strongest wild Pokémon in Kanto, with Mewtwo alone at the bottom."
           steps:
             "1":
               title: "Surf into the cave"

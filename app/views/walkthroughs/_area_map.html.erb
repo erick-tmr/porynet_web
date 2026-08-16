@@ -11,7 +11,7 @@
           <div class="pn-eyebrow-label">
             <%= t("walkthrough.ui.map_markers_eyebrow", count: area.markers.size) %>
           </div>
-          <% if area.floor? %><div class="pn-mm-head__floor"><%= area.floor %></div><% end %>
+          <% if area.captioned? %><div class="pn-mm-head__floor"><%= area.caption %></div><% end %>
         </div>
         <div class="pn-mm-counter">
           <%= t("walkthrough.ui.map_ticked") %>
@@ -51,7 +51,7 @@
       <div class="pn-mm-split">
         <figure class="pn-mm-frame">
           <figcaption class="pn-mm-titlebar">
-            <span class="pn-mm-titlebar__name">◈ <%= loc.name.upcase %></span>
+            <span class="pn-mm-titlebar__name">◈ <%= (area.title || loc.name).upcase %></span>
             <span class="pn-mm-titlebar__note"><%= t("walkthrough.ui.map_note") %></span>
           </figcaption>
           <div class="pn-mm-viewport">

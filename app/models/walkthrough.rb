@@ -61,14 +61,18 @@ module Walkthrough
   end
 
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line,
-    :from_key, :unlock_key, :unlock_icon, :places) do
-    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, places: [], **rest) = super
+    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places) do
+    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
     def section = gift? ? GIFT_SECTION : how
     # The earliest stop whose `order` can register this species: everything walked into is open
     # from the start, a rod or Surf card only once that tool is in the bag.
     def unlocked_from = METHOD_UNLOCK.fetch(how, 0)
+    # A gift the game itself locks behind a badge (`wBeatGymFlags`), so it cannot be registered
+    # until that gym is beaten. Nil for everything you can just walk up to.
+    def badge_locked? = !needs_badge.nil?
+    def open_after?(badges) = needs_badge.nil? || badges.include?(needs_badge)
     def from? = !from_key.nil?
     def unlock? = !unlock_key.nil?
     def places? = places.size > 1 || places.any?(&:floor)
@@ -96,8 +100,8 @@ module Walkthrough
     def key? = !key.nil?
   end
   LaterItem = Data.define(:name, :sprite, :kind, :need, :where_key, :after_key, :image, :pin,
-    :key) do
-    def initialize(key: nil, **rest) = super
+    :key, :tick) do
+    def initialize(key: nil, tick: nil, **rest) = super
     def image? = !image.nil?
     def key? = !key.nil?
   end
@@ -209,9 +213,13 @@ module Walkthrough
     def step? = !step.nil?
   end
 
-  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers) do
-    def initialize(name: "", markers: [], **rest) = super
-    def floor? = !floor.empty?
+  # A map says which slice of the location it draws: `floor` for a dungeon's own floors, and
+  # `title` for a map a stop borrows from another location, since the page is named after the stop
+  # and a borrowed map has to name the place it really draws.
+  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title) do
+    def initialize(name: "", markers: [], title: nil, **rest) = super
+    def caption = title || floor
+    def captioned? = !caption.empty?
     def markers? = markers.any?
     def marker_counts = markers.group_by(&:cat).transform_values(&:size)
     def tickable_count = markers.count(&:tickable?)
@@ -251,9 +259,13 @@ module Walkthrough
     def feature? = battle&.map? == true
   end
   # An in-game trade: give one species, receive another with a fixed nickname. give/receive are
-  # { dex:, name: }; house/inside are Shots (the building on the overworld, the NPC inside).
+  # { dex:, name: }; house/inside are Shots (the building on the overworld, the NPC inside). A
+  # trade shown on two stops (the one that flags it, the one that walks to it) carries the tick id
+  # of the first, so trading once ticks it on both.
   Trade = Data.define(:give, :receive, :nick, :npc_key, :title_key, :where_key, :note_key, :house,
-    :inside)
+    :inside, :tick) do
+    def initialize(tick: nil, **rest) = super
+  end
 
   Evolution = Data.define(:from, :to, :kind, :arg) do
     def level? = kind == :level
@@ -326,14 +338,19 @@ module Walkthrough
     def pins = area? ? area.markers_in("trainer") : []
   end
 
+  # `name` is the place the game knows, and it stays on everything anchored to that place: the map
+  # titlebar, the catch cards, the challenge planner's "do at" badge. `title` is what the guide
+  # calls the stop, which parts company with the name when a stop walks well past its own map
+  # (Diglett's Cave, whose steps carry on through Route 2 into Viridian). Defaults to the name.
   Location = Data.define(
-    :slug, :kind, :name, :order, :note_key, :intro_key, :badge,
+    :slug, :kind, :name, :title, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
     :area_maps, :later, :trivia, :missable, :mart
   ) do
-    def initialize(gym: nil, gym_after: nil, gym_finale: false, area_maps: [], later: [],
-      trivia: nil, missable: nil, trades: [], mart: nil, **rest)
-      super(gym: gym, gym_after: gym_after, gym_finale: gym_finale, area_maps: area_maps,
+    def initialize(name:, title: nil, gym: nil, gym_after: nil, gym_finale: false, area_maps: [],
+      later: [], trivia: nil, missable: nil, trades: [], mart: nil, **rest)
+      super(name: name, title: title || name, gym: gym, gym_after: gym_after,
+        gym_finale: gym_finale, area_maps: area_maps,
         later: later, trivia: trivia, missable: missable, trades: trades, mart: mart, **rest)
     end
 
@@ -346,6 +363,12 @@ module Walkthrough
     # What this stop can actually add to the dex when you walk it. The cards still list every
     # species that lives here; this is the subset you are equipped to catch on arrival.
     def dex_list = encounters.select { |enc| enc.unlocked_from <= order }.map(&:dex)
+
+    # The same, minus anything the game locks behind a badge you are not holding yet. Oak's
+    # deadline reads this one: a gift a gym unlocks cannot stand registered before that gym.
+    def dex_list_after(badges)
+      encounters.select { |enc| enc.unlocked_from <= order && enc.open_after?(badges) }.map(&:dex)
+    end
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
 
@@ -376,8 +399,8 @@ module Walkthrough
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do
     def single? = locations.one?
-    def from = locations.first.name
-    def to = (finale || locations.last).name
+    def from = locations.first.title
+    def to = (finale || locations.last).title
     def catch_count = locations.sum(&:catchable_count)
     def dex_list = locations.flat_map(&:dex_list).uniq
     def gyms = locations.select(&:badge?)
@@ -416,6 +439,10 @@ module Walkthrough
     end
 
     def plan_for(current) = Challenge.plan(self, current)
+
+    # Which stages one caught body of this species covers. A fact about the whole run, not about
+    # any one stop, so a card can count bodies whether or not the page it sits on queues it.
+    def covers(dex) = Challenge.covered_by(self, dex)
 
     def registerable_upto_leg(current) = Challenge.registerable(self, Challenge.leg_order(current).last.slug)
 

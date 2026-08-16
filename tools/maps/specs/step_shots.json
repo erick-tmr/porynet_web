@@ -581,6 +581,57 @@
   },
   {
     "type": "screen",
+    "slug": "digletts-cave",
+    "step": 3,
+    "name": "route-2-digletts-exit",
+    "map": "Route2",
+    "player": [
+      12,
+      12
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      12,
+      12
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 5,
+    "name": "route-2-cut-tree",
+    "map": "Route2",
+    "player": [
+      15,
+      21
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      15,
+      22
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 9,
+    "name": "route-2-viridian-cut",
+    "map": "Route2",
+    "player": [
+      13,
+      52
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      12,
+      52
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
     "slug": "route-10",
     "step": 1,
     "name": "route-10-rock-tunnel",

@@ -381,9 +381,29 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty plain
   end
 
+  # A stop that walks well past its own map is titled for the whole walk, but the place it is
+  # anchored to keeps its own name, so the map titlebar, the catch cards and the planner's "do at"
+  # badge still say where Diglett actually lives.
+  test "a stop titled for its whole walk keeps the plain place name underneath" do
+    detour = loc("digletts-cave")
+
+    assert_equal "Diglett's Cave", detour.name
+    assert_equal "Diglett's Cave → Viridian Detour", detour.title
+    assert_equal "Diglett's Cave", detour.area_maps.first.title || detour.name
+    assert_equal detour.title, game.leg!("digletts-cave").from, "the index card and nav read the title"
+  end
+
+  test "a stop with nothing to add to its name is titled by it" do
+    plain = loc("route-11")
+
+    assert_equal "Route 11", plain.name
+    assert_equal plain.name, plain.title
+    assert_equal "Route 11", game.leg!("leg-06").from
+  end
+
   test "the seven usable in-game trades sit at their real locations" do
-    by_slug = game.locations.to_h { |l| [ l.slug, l.trades ] }
-    assert_equal 7, by_slug.values.sum(&:size), "Yellow has 7 usable NPC trades"
+    cards = game.locations.flat_map(&:trades)
+    assert_equal 7, cards.uniq(&:title_key).size, "Yellow has 7 usable NPC trades"
     assert_empty game.leg!("leg-01").locations.flat_map(&:trades), "leg 01 has no trades"
 
     mime = loc("route-2").trades.sole
@@ -398,10 +418,23 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "every trade give and receive sprite dex is a three-digit string" do
-    trades = game.locations.flat_map(&:trades)
+    trades = game.locations.flat_map(&:trades).uniq(&:title_key)
     dexes = trades.flat_map { |t| [ t.give[:dex], t.receive[:dex] ] }
     assert_equal 14, dexes.size
     dexes.each { |dex| assert_match(/\A\d{3}\z/, dex) }
+  end
+
+  # A trade the guide flags long before you can make it (Route 2 tells you to keep a Mt. Moon
+  # Clefairy) shows again on the stop that finally walks there. Two cards, one trade: the second
+  # carries the first's tick id so trading once reads as traded on both pages.
+  test "a trade flagged early and walked to later is one tick shown twice" do
+    flagged = loc("route-2").trades.sole
+    walked = loc("digletts-cave").trades.sole
+
+    assert_nil flagged.tick, "the stop that owns the trade keeps its positional id"
+    assert_equal "route-2/trade-0", walked.tick
+    assert_equal flagged.title_key, walked.title_key
+    assert_equal "MILES", walked.nick
   end
 
   test "scene_shot returns a placeholder for an unknown scene key" do
@@ -739,6 +772,8 @@ class WalkthroughTest < ActiveSupport::TestCase
                    "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
                    "Oak's Parcel", "Old Rod", "Poké Flute", "Pokédex", "Potion", "S.S. Ticket",
                    "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
+    assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
+      "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
   end
 
   test "a step that names a staircase renders the key the map wears on both its floors" do
@@ -784,11 +819,11 @@ class WalkthroughTest < ActiveSupport::TestCase
     vf = loc("viridian-forest")
     assert_equal 1, vf.area_maps.size
     assert_equal "walkthrough/yellow/maps/viridian-forest.png", vf.area_maps.first.image
-    refute vf.area_maps.first.floor?
+    refute_predicate vf.area_maps.first, :captioned?
 
     floors = loc("mt-moon").area_maps
     assert_equal %w[1F B1F B2F], floors.map(&:floor)
-    assert floors.first.floor?
+    assert_equal "1F", floors.first.caption
     assert(g.locations.count(&:area_maps?) > 40)
   end
 

@@ -142,6 +142,32 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_includes body_progress(2), 'data-body-counter-target="have"'
   end
 
+  # The Pokédex does not care where you caught it, and neither does the box: catch a Magikarp off
+  # Vermilion's dock and Viridian's Old Rod card, four legs before you own a rod, has to show it
+  # caught and counted. So a card with no plan entry still wires up both, taking its cover list
+  # from the game rather than from a page that never queued the species.
+  test "a card the stop cannot catch yet ticks and counts like one it can" do
+    @game = Walkthrough.find!("yellow")
+    locked = catch_card_attributes("129", nil)
+
+    assert_equal "caught", locked.dig(:data, :kind)
+    assert_equal "129", locked.dig(:data, :progress_id)
+    assert_equal "item", locked.dig(:data, :progress_toggle_target)
+    assert_equal "body-counter", locked.dig(:data, :controller)
+    assert_equal "129", locked.dig(:data, :body_counter_dex_value)
+    assert_equal @game.covers("129").to_json, locked.dig(:data, :body_counter_covers_value)
+  end
+
+  test "a card the stop does catch takes its cover list from the page's own plan" do
+    @game = Walkthrough.find!("yellow")
+    entry = @game.plan_for(@game.leg!("leg-02")).entry_for("029")
+    queued = catch_card_attributes("029", entry)
+
+    assert_equal "029", queued.dig(:data, :progress_id)
+    assert_equal "body-counter", queued.dig(:data, :controller)
+    assert_equal entry.covers.to_json, queued.dig(:data, :body_counter_covers_value)
+  end
+
   test "a section header tallies only the species that method finds" do
     tally = catch_tally(%w[010 011])
 
