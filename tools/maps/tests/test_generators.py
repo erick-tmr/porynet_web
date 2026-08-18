@@ -295,6 +295,23 @@ def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
                     f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
 
 
+def test_the_tm42_gift_shot_is_set_after_the_tree_the_step_tells_you_to_cut(root):
+    """The Fisher is walled into the plot by one cuttable tree, so the frame of him handing TM42
+    over cannot still show the tree standing. The hero is inside the fence, next to him, and the
+    box is the game's own `<PLAYER> received / TM42!`."""
+    spec = next(s for s in json.loads((SPECS / "later_items.json").read_text())
+                if s["name"] == "viridian-city-tm42-gift")
+    fisher = next(o for o in sources.parse_object_events(root, "ViridianCity")
+                  if o["sprite_const"] == "SPRITE_FISHER")
+    (px, py), (fx, fy) = spec["player"], fisher["grid"]
+
+    assert abs(px - fx) + abs(py - fy) == 1, "the hero is close enough to talk to him"
+    assert spec["dialog"]["lines"] == ["<PLAYER> received", "TM42!"]
+    assert not _cell_standable(root, "ViridianCity", tuple(spec["cut"][0])), "the tree is there to cut"
+    assert _cell_standable(root, "ViridianCity", tuple(spec["player"]), spec["cut"]), \
+        "and the hero stands on open ground inside the plot"
+
+
 def test_interaction_scenes_never_stand_the_hero_on_another_object(root):
     """The other half of a legal hero tile: open floor is not enough if somebody already holds it.
     Regressions this catches: the Antidote hero on Viridian Forest's Youngster, the Lift Key hero

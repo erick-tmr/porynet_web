@@ -16903,6 +16903,12 @@
       "height": 144,
       "type": "screen"
     },
+    "viridian-city-tm42-gift": {
+      "image": "walkthrough/yellow/scenes/viridian-city-tm42-gift.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
     "route-2-moon-stone": {
       "image": "walkthrough/yellow/scenes/route-2-moon-stone.png",
       "width": 160,

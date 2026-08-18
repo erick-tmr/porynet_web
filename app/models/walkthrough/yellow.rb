@@ -1381,7 +1381,7 @@ module Walkthrough
           { item: [ "Moon Stone", "moon-stone" ], scene: "route-2-moon-stone" },
           { scene: "route-2-viridian-cut", pins: { south: "route-2/exit-south" } },
           { items: [ [ "TM42 Dream Eater", "tm42" ] ], gift: %w[viridian-city tm42],
-            scene: "viridian-city-tm42", pins: { fisher: "viridian-city/npc-tm42" } },
+            scene: "viridian-city-tm42-gift", pins: { fisher: "viridian-city/npc-tm42" } },
           { html: true, link: StepLink.new(leg: "leg-07", anchor: "route-9-step-1") }
         ],
         encounters: [

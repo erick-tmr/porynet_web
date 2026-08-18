@@ -3,7 +3,7 @@
 - location maps: **99** across 52 locations
 - markers: **969** (318 trainer, 119 item, 50 hidden, 482 exit)
 - step shots: **36** (map/scene in a step slot)
-- standalone scenes: **260** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **261** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -397,6 +397,7 @@
 - `victory-road-moltres` (screen): walkthrough/yellow/scenes/victory-road-moltres.png
 - `viridian-city-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-city-hidden-potion.png
 - `viridian-city-tm42` (screen): walkthrough/yellow/scenes/viridian-city-tm42.png
+- `viridian-city-tm42-gift` (dialog): walkthrough/yellow/scenes/viridian-city-tm42-gift.png
 - `viridian-forest-hidden-antidote` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-antidote.png
 - `viridian-forest-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-potion.png
 - `viridian-forest-item-pok-ball` (screen): walkthrough/yellow/scenes/viridian-forest-item-pok-ball.png
