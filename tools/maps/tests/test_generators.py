@@ -85,6 +85,24 @@ def _cell_walkable(root, map_label, cell):
     return markers.cell_is_walkable(root, map_label, tileset, width_blocks, cell)
 
 
+def _reachable(root, map_label, start, goal, cut=()):
+    """Whether `goal` is walkable-connected to `start` on this map, in the state `cut` describes.
+    Used to prove a shot's route exists rather than trusting the eye on a screenshot."""
+    const, tileset = sources.parse_headers(root)[map_label]
+    _index, width, height = sources.parse_map_constants(root)[0][const]
+    blueprint = compositor.cut_trees(root, sources.load_blueprint(root, map_label), width, cut)
+    seen, queue = {start}, [start]
+    while queue:
+        x, y = queue.pop()
+        for cell in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+            if cell in seen or not (0 <= cell[0] < width * 2 and 0 <= cell[1] < height * 2):
+                continue
+            if markers.cell_is_standable(root, map_label, tileset, width, cell, blueprint):
+                seen.add(cell)
+                queue.append(cell)
+    return goal in seen
+
+
 def _cell_standable(root, map_label, cell, cut=()):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
@@ -325,6 +343,33 @@ def test_the_tm42_gift_shot_is_set_after_the_tree_the_step_tells_you_to_cut(root
     assert not _cell_standable(root, "ViridianCity", tuple(spec["cut"][0])), "the tree is there to cut"
     assert _cell_standable(root, "ViridianCity", tuple(spec["player"]), spec["cut"]), \
         "and the hero stands on open ground inside the plot"
+
+
+def test_the_old_amber_shot_faces_the_scientist_who_actually_hands_it_over(root):
+    """Four people stand in Museum 1F and only MUSEUM1F_SCIENTIST2 runs GiveItem OLD_AMBER, so the
+    frame has to face that one. The amber itself is switched off, because the script that gives it
+    hides the display object in the same run that prints the box this shot draws."""
+    spec = _step_shot("museum-old-amber")
+    giver = next(o for o in sources.parse_object_events(root, "Museum1F")
+                 if o["sprite_const"] == "SPRITE_SCIENTIST" and o["grid"] == (15, 2))
+    (px, py), (gx, gy) = spec["player"], giver["grid"]
+
+    assert abs(px - gx) + abs(py - gy) == 1, "the hero is close enough to talk to him"
+    assert spec["dialog"]["lines"] == ["<PLAYER> received", "OLD AMBER!"]
+    assert spec["hide"] == ["MUSEUM1F_OLD_AMBER"], "the case is empty once he has handed it over"
+    drawn = {tuple(s["grid"]) for s in generators._screen_sprites(root, spec)}
+    assert (16, 2) not in drawn, "the amber is gone from its case"
+
+
+def test_the_museum_back_door_is_the_only_way_to_the_old_amber(root):
+    """Museum 1F is two rooms with no door between them: the front entrance reaches the west half
+    only, and the scientist with the amber stands in the east half. That is why the step spends a
+    Cut on the tree beside Pewter's back entrance rather than walking in the front."""
+    warps = sources.parse_warp_events(root, "Museum1F")
+    front, back = (warps[0][0], warps[0][1]), (warps[2][0], warps[2][1])
+
+    assert _reachable(root, "Museum1F", back, (15, 3)), "the back door reaches him"
+    assert not _reachable(root, "Museum1F", front, (15, 3)), "the front door does not"
 
 
 def test_interaction_scenes_never_stand_the_hero_on_another_object(root):

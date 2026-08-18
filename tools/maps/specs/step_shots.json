@@ -599,7 +599,82 @@
   {
     "type": "screen",
     "slug": "digletts-cave",
+    "step": 4,
+    "name": "route-2-pewter-cut",
+    "map": "Route2",
+    "player": [
+      5,
+      11
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      10
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
     "step": 5,
+    "name": "pewter-museum-cut",
+    "map": "PewterCity",
+    "player": [
+      27,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      23,
+      4
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          19,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "slug": "digletts-cave",
+    "step": 6,
+    "name": "museum-old-amber",
+    "map": "Museum1F",
+    "parent": "PEWTER_CITY",
+    "player": [
+      15,
+      3
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "sprites": [
+      {
+        "sprite": "SPRITE_SCIENTIST",
+        "grid": [
+          15,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "hide": [
+      "MUSEUM1F_OLD_AMBER"
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "OLD AMBER!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 8,
     "name": "route-2-cut-tree",
     "map": "Route2",
     "player": [
@@ -616,7 +691,7 @@
   {
     "type": "screen",
     "slug": "digletts-cave",
-    "step": 9,
+    "step": 12,
     "name": "route-2-viridian-cut",
     "map": "Route2",
     "player": [

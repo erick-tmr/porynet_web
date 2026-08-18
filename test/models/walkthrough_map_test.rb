@@ -200,7 +200,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_nil lender.title
     assert_nil lender.markers.find { |m| m.id == "item-13-54" }.step,
       "Route 2 walks past the Moon Stone; the Diglett's Cave detour is what collects it"
-    assert_equal 8, location("digletts-cave").area_maps[1]
+    assert_equal 11, location("digletts-cave").area_maps[1]
       .markers.find { |m| m.id == "item-13-54" }.step
   end
 

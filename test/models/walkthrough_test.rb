@@ -769,11 +769,11 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "only pinless NPC gifts fall back to a positional progress key" do
     loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
 
-    assert_equal 20, loose.size
+    assert_equal 21, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
                    "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
-                   "Oak's Parcel", "Old Rod", "Poké Flute", "Pokédex", "Potion", "S.S. Ticket",
-                   "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
+                   "Oak's Parcel", "Old Amber", "Old Rod", "Poké Flute", "Pokédex", "Potion",
+                   "S.S. Ticket", "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
     assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
       "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
   end

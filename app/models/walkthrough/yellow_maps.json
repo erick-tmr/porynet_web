@@ -16660,12 +16660,27 @@
         "width": 160,
         "height": 144
       },
+      "4": {
+        "image": "walkthrough/yellow/scenes/route-2-pewter-cut.png",
+        "width": 160,
+        "height": 144
+      },
       "5": {
+        "image": "walkthrough/yellow/scenes/pewter-museum-cut.png",
+        "width": 160,
+        "height": 144
+      },
+      "6": {
+        "image": "walkthrough/yellow/scenes/museum-old-amber.png",
+        "width": 160,
+        "height": 144
+      },
+      "8": {
         "image": "walkthrough/yellow/scenes/route-2-cut-tree.png",
         "width": 160,
         "height": 144
       },
-      "9": {
+      "12": {
         "image": "walkthrough/yellow/scenes/route-2-viridian-cut.png",
         "width": 160,
         "height": 144
@@ -18054,6 +18069,24 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "route-2-pewter-cut": {
+      "image": "walkthrough/yellow/scenes/route-2-pewter-cut.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pewter-museum-cut": {
+      "image": "walkthrough/yellow/scenes/pewter-museum-cut.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "museum-old-amber": {
+      "image": "walkthrough/yellow/scenes/museum-old-amber.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     },
     "route-2-cut-tree": {
       "image": "walkthrough/yellow/scenes/route-2-cut-tree.png",
