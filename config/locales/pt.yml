@@ -1572,48 +1572,48 @@ pt:
               title: "Saia na Rota 2"
               text_html: "Suba pela saída norte %{north}. Você aparece num cercado de árvores no alto da Rota 2, abaixo de Pewter, no lado que o Cut mantinha fechado."
             "4":
-              title: "Corte a oeste para a estrada de Pewter"
-              text: "Desça o bolsão e siga a oeste até uma árvore solitária no fim dele. Corte e passe para a estrada principal da Rota 2, que sobe até Pewter City."
-            "5":
-              title: "Corte atrás do Museu"
-              text: "Em Pewter, uma árvore fecha o terreno a leste do Museu. Corte, siga a pé rente à parede e entre pela porta dos fundos, o único caminho até a sala leste."
-            "6":
-              title: "Pegue o Old Amber"
-              text: "O cientista ao lado das vitrines de fósseis entrega o Old Amber. O laboratório de Cinnabar o revive em Aerodactyl, e é o único do jogo, então nunca venda."
-              items:
-                old-amber: "Com o cientista na sala leste do Museu, alcançada pela entrada dos fundos de Pewter, passando uma árvore cortável."
-            "7":
               title: "Troque pelo Mr. Mime"
-              text_html: "De volta ao bolsão, a casa de troca %{house} fica alguns passos ao sul da boca da caverna. O cientista lá dentro troca MILES, o Mr. Mime, por um Clefairy extra, o único de Yellow."
-            "8":
+              text_html: "A casa de troca %{house} fica alguns passos ao sul, sem precisar de Cut. O cientista lá dentro troca MILES, o Mr. Mime, por um Clefairy extra, o único de Yellow."
+            "5":
               title: "Corte ao sul rumo ao portão"
               text_html: "Uma única árvore cortável fica logo abaixo da casa. Derrube-a, desça pela faixa leste e entre no portão da Rota 2 %{gate}."
-            "9":
+            "6":
               title: "Pegue o HM05 Flash"
               text: "O Assistente do Prof. Carvalho espera lá dentro. Ele entrega o HM05 Flash quando sua Pokédex marcar 10 tipos capturados, e a Rock Tunnel é escuridão total sem ele."
               items:
                 flash: "Com o Assistente do Prof. Carvalho, dentro do portão da Rota 2, quando você tiver capturado 10 tipos de Pokémon."
-            "10":
+            "7":
               title: "Pegue o HP Up"
               text: "Saindo pela porta sul do portão, a primeira Poké Ball da faixa guarda um HP Up. Ele aumenta o HP de um Pokémon para sempre, então guarde para um titular."
               items:
                 hp-up: "Primeira Poké Ball da faixa leste, alguns passos ao sul da porta de baixo do portão da Rota 2."
-            "11":
+            "8":
               title: "Pegue a Moon Stone"
               text: "Nove quadrados mais ao sul, a segunda bola é uma Moon Stone. Ela evolui Clefairy, Jigglypuff, Nidorina ou Nidorino, e Yellow dá pouquíssimas."
               items:
                 moon-stone: "Segunda Poké Ball da faixa leste, nove quadrados ao sul do HP Up."
-            "12":
+            "9":
               title: "Corte a oeste rumo a Viridian"
               text_html: "Dois quadrados de volta ao norte, outra árvore cortável abre a parede a oeste. Corte, atravesse até a estrada principal e desça por ela %{south} até Viridian City."
-            "13":
+            "10":
               title: "Pegue o TM42 Dream Eater"
               text_html: "Mais uma árvore cerca o terreno no canto sudoeste de Viridian. Corte e fale com o Pescador sonolento %{fisher}; ele entrega o TM42, Dream Eater."
               items:
                 tm42: "Com o Pescador no terreno cercado do canto sudoeste de Viridian, passando a árvore cortável do lado leste dele."
+            "11":
+              title: "Suba para Pewter"
+              text: "De Viridian, siga a Rota 2 ao norte, atravesse a Viridian Forest e saia pelo portão de cima, na estrada abaixo de Pewter. É um trecho longo, mas o Museu no fim guarda o único Old Amber do jogo."
+            "12":
+              title: "Corte atrás do Museu"
+              text_html: "Em Pewter, uma árvore fecha o terreno a leste do Museu. Corte, siga a pé rente à parede e entre pela porta dos fundos %{museum}, o único caminho até a sala leste."
+            "13":
+              title: "Pegue o Old Amber"
+              text: "O cientista ao lado das vitrines de fósseis entrega o Old Amber. O laboratório de Cinnabar o revive em Aerodactyl, e é o único do jogo, então nunca venda."
+              items:
+                old-amber: "Com o cientista na sala leste do Museu, alcançada pela entrada dos fundos de Pewter, passando uma árvore cortável."
             "14":
-              title: "Volte para Cerulean"
-              text_html: "Refaça o caminho: suba a Rota 2, atravesse o túnel até a Rota 11, e de Vermilion pegue o Underground Path até Cerulean e a <a href=\"%{href}\">Rota 9</a>."
+              title: "Volte para Cerulean pelo Mt. Moon"
+              text_html: "Saia de Pewter a leste para a Rota 3, atravesse o Mt. Moon e desça a Rota 4 até Cerulean. De lá é a leste para a <a href=\"%{href}\">Rota 9</a> e o Rock Tunnel."
           trivia:
             title: "O melhor lugar para upar até aqui"
             intro: "Diglett é 94% desta caverna e Dugtrio os outros 6%. A Gen 1 paga experiência base vezes o nível dividido por sete, então um Diglett Lv 20 dá cerca de 230 EXP e um Dugtrio Lv 30 cerca de 655. Nada que você consiga farmar tão cedo paga assim, e os 35 de HP base do Dugtrio fazem ele cair em um ou dois golpes."

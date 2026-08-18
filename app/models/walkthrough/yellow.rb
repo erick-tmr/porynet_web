@@ -422,10 +422,11 @@ module Walkthrough
                    "route-10-south" => "route-10" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
-    # over them. Diglett's Cave surfaces on Route 2 and the detour carries on into Viridian City,
-    # so both pages have to hand the reader the same markers and the same ticks.
+    # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
+    # up to Pewter, so every page has to hand the reader the same markers and the same ticks.
     MAP_EXTRA = {
-      "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City" }
+      "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City",
+                           "pewter-city" => "Pewter City" }
     }.freeze
 
     def self.maps_for(slug, data)
@@ -975,7 +976,7 @@ module Walkthrough
       defs.each_with_index.map do |d, i|
         n = i + 1
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
-          items: step_items(base, n, d),
+          items: step_items(base, n, d), map: d[:map],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
       end
@@ -1389,20 +1390,24 @@ module Walkthrough
     def self.digletts_cave
       loc("digletts-cave", "CAVE", "Diglett's Cave", 20,
         title: "Diglett's Cave → Viridian Detour", steps: [
-          { pins: { south: "digletts-cave/exit-37-31" } },
-          {},
-          { scene: "route-2-digletts-exit", pins: { north: "digletts-cave/exit-5-5" } },
-          { scene: "route-2-pewter-cut" },
-          { scene: "pewter-museum-cut" },
-          { item: [ "Old Amber", "old-amber" ], scene: "museum-old-amber" },
-          { pins: { house: "route-2/exit-15-19" } },
-          { scene: "route-2-cut-tree", pins: { gate: "route-2/exit-16-35" } },
-          { items: [ [ "HM05 Flash", "flash" ] ], gift: %w[route-2 flash], scene: "route-2-flash" },
-          { item: [ "HP Up", "hp-up" ], scene: "route-2-hp-up" },
-          { item: [ "Moon Stone", "moon-stone" ], scene: "route-2-moon-stone" },
-          { scene: "route-2-viridian-cut", pins: { south: "route-2/exit-south" } },
-          { items: [ [ "TM42 Dream Eater", "tm42" ] ], gift: %w[viridian-city tm42],
-            scene: "viridian-city-tm42-gift", pins: { fisher: "viridian-city/npc-tm42" } },
+          { map: "digletts-cave", pins: { south: "digletts-cave/exit-37-31" } },
+          { map: "digletts-cave" },
+          { map: "digletts-cave", scene: "route-2-digletts-exit",
+            pins: { north: "digletts-cave/exit-5-5" } },
+          { map: "route-2", pins: { house: "route-2/exit-15-19" } },
+          { map: "route-2", scene: "route-2-cut-tree", pins: { gate: "route-2/exit-16-35" } },
+          { map: "route-2", items: [ [ "HM05 Flash", "flash" ] ], gift: %w[route-2 flash],
+            scene: "route-2-flash" },
+          { map: "route-2", item: [ "HP Up", "hp-up" ], scene: "route-2-hp-up" },
+          { map: "route-2", item: [ "Moon Stone", "moon-stone" ], scene: "route-2-moon-stone" },
+          { map: "route-2", scene: "route-2-viridian-cut", pins: { south: "route-2/exit-south" } },
+          { map: "viridian-city", items: [ [ "TM42 Dream Eater", "tm42" ] ],
+            gift: %w[viridian-city tm42], scene: "viridian-city-tm42-gift",
+            pins: { fisher: "viridian-city/npc-tm42" } },
+          { map: "pewter-city" },
+          { map: "pewter-city", scene: "pewter-museum-cut",
+            pins: { museum: "pewter-city/exit-19-5" } },
+          { map: "pewter-city", item: [ "Old Amber", "old-amber" ], scene: "museum-old-amber" },
           { html: true, link: StepLink.new(leg: "leg-07", anchor: "route-9-step-1") }
         ],
         encounters: [
@@ -1413,7 +1418,7 @@ module Walkthrough
           house: "route-2-trade-house", inside: "route-2-trade-house-inside",
           tick: "route-2/trade-0") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ],
-        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding"))
+        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave"))
     end
 
     def self.pokemon_tower
@@ -2196,10 +2201,10 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {})
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {}, map: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link, pins: pins)
+        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map)
     end
 
     # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
@@ -2368,9 +2373,9 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil)
+    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map)
     end
 
     def self.missable(base, anchor:, after_step:)

@@ -599,24 +599,7 @@
   {
     "type": "screen",
     "slug": "digletts-cave",
-    "step": 4,
-    "name": "route-2-pewter-cut",
-    "map": "Route2",
-    "player": [
-      5,
-      11
-    ],
-    "player_dir": "UP",
-    "focus": [
-      5,
-      10
-    ],
-    "auto_npcs": true
-  },
-  {
-    "type": "screen",
-    "slug": "digletts-cave",
-    "step": 5,
+    "step": 12,
     "name": "pewter-museum-cut",
     "map": "PewterCity",
     "player": [
@@ -641,7 +624,7 @@
   {
     "type": "dialog",
     "slug": "digletts-cave",
-    "step": 6,
+    "step": 13,
     "name": "museum-old-amber",
     "map": "Museum1F",
     "parent": "PEWTER_CITY",
@@ -674,7 +657,7 @@
   {
     "type": "screen",
     "slug": "digletts-cave",
-    "step": 8,
+    "step": 5,
     "name": "route-2-cut-tree",
     "map": "Route2",
     "player": [
@@ -691,7 +674,7 @@
   {
     "type": "screen",
     "slug": "digletts-cave",
-    "step": 12,
+    "step": 9,
     "name": "route-2-viridian-cut",
     "map": "Route2",
     "player": [

@@ -178,7 +178,8 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     end
 
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
-    assert_equal [ %w[route-10 route-10-south], %w[route-2 digletts-cave], %w[route-4-mt-moon route-4],
+    assert_equal [ %w[pewter-city digletts-cave], %w[route-10 route-10-south],
+                   %w[route-2 digletts-cave], %w[route-4-mt-moon route-4],
                    %w[vermilion-city vermilion-city-return], %w[viridian-city digletts-cave] ],
       pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
   end
@@ -186,9 +187,9 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   test "a stop that walks off its own map borrows the maps it steps onto" do
     borrowed = location("digletts-cave").area_maps
 
-    assert_equal %w[digletts-cave route-2 viridian-city], borrowed.map(&:name)
+    assert_equal %w[digletts-cave route-2 viridian-city pewter-city], borrowed.map(&:name)
     assert_nil borrowed.first.title, "its own map is titled by the page"
-    assert_equal [ "Route 2", "Viridian City" ], borrowed.drop(1).map(&:title)
+    assert_equal [ "Route 2", "Viridian City", "Pewter City" ], borrowed.drop(1).map(&:title)
     assert_equal "Route 2", borrowed[1].caption
     assert_predicate borrowed[1], :captioned?
     refute_predicate borrowed.first, :captioned?
@@ -200,8 +201,40 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_nil lender.title
     assert_nil lender.markers.find { |m| m.id == "item-13-54" }.step,
       "Route 2 walks past the Moon Stone; the Diglett's Cave detour is what collects it"
-    assert_equal 11, location("digletts-cave").area_maps[1]
+    assert_equal 8, location("digletts-cave").area_maps[1]
       .markers.find { |m| m.id == "item-13-54" }.step
+  end
+
+  # The Cut detour crosses four maps, so one wall of steps over one pile of maps leaves the reader
+  # working out which map each step is on. Steps that name their map let the page draw each map
+  # with only the steps taken there.
+  test "a stop that names its steps' maps groups them map by map" do
+    groups = location("digletts-cave").step_groups
+
+    assert_equal %w[digletts-cave route-2 viridian-city pewter-city],
+      groups.filter_map { |area, _steps| area&.name }
+    assert_equal [ 3, 6, 1, 3, 1 ], groups.map { |_area, steps| steps.size }
+    assert_nil groups.last.first, "the sign-off leaves for the next leg and belongs to no map"
+    assert_equal (1..14).to_a, groups.flat_map(&:last).map(&:n), "every step lands in exactly one group"
+  end
+
+  test "a stop whose steps name no map renders as one block" do
+    loc = location("rock-tunnel")
+
+    assert_predicate loc.area_maps.size, :positive?
+    assert_empty loc.step_groups, "no grouping to do, so the page keeps its single steps section"
+    refute_predicate loc.steps.first, :map?
+  end
+
+  test "trivia pinned to a map is drawn with that map, not at the end of the walk" do
+    trivia = location("digletts-cave").trivia
+    cave, route_2 = location("digletts-cave").area_maps.first(2)
+
+    assert trivia.after?(cave)
+    refute trivia.after?(route_2)
+    refute trivia.after?(nil)
+    refute_predicate trivia, :loose?
+    assert_predicate location("pewter-city").trivia, :loose?
   end
 
   test "a curated NPC pin marks the giver the map data cannot name" do

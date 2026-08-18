@@ -1572,48 +1572,48 @@ en:
               title: "Surface on Route 2"
               text_html: "Climb out the north exit %{north}. You come up in a tree-walled pocket at the top of Route 2, below Pewter, on the side Cut kept you out of."
             "4":
-              title: "Cut west to the Pewter road"
-              text: "Follow the pocket down and west to a lone tree on its far side. Cut it and step through onto Route 2's main road, which runs north into Pewter City."
-            "5":
-              title: "Cut in behind the Museum"
-              text: "In Pewter, one tree fences off the ground east of the Museum. Cut it, follow the path west along the wall and go in through the back door, the only way to the east room."
-            "6":
-              title: "Take the Old Amber"
-              text: "The scientist by the fossil cases hands over the Old Amber. Cinnabar's lab revives it into Aerodactyl, and this is the only one in the game, so do not sell it."
-              items:
-                old-amber: "From the scientist in the Museum's east room, reached through Pewter's back entrance past a cuttable tree."
-            "7":
               title: "Trade for Mr. Mime"
-              text_html: "Back down in the pocket, the trade house %{house} sits a few steps south of the cave mouth. The scientist inside swaps MILES the Mr. Mime for a spare Clefairy, the only one in Yellow."
-            "8":
+              text_html: "The trade house %{house} sits a few steps south, no Cut needed. The scientist inside swaps MILES the Mr. Mime for a spare Clefairy, the only one in Yellow."
+            "5":
               title: "Cut south toward the gate"
               text_html: "A single cuttable tree stands below the house. Chop it, follow the east strip down and step into the Route 2 gate %{gate}."
-            "9":
+            "6":
               title: "Take HM05 Flash"
               text: "Prof. Oak's Aide is waiting inside. He hands over HM05 Flash once your Pokédex shows 10 kinds caught, and Rock Tunnel is pitch black without it."
               items:
                 flash: "From Prof. Oak's Aide inside the Route 2 gate, once you have caught 10 kinds of Pokémon."
-            "10":
+            "7":
               title: "Grab the HP Up"
               text: "Out the gate's south door, the first Poké Ball down the strip holds an HP Up. It raises one Pokémon's HP for good, so save it for a keeper."
               items:
                 hp-up: "First Poké Ball on the east strip, a few steps south of the Route 2 gate's lower door."
-            "11":
+            "8":
               title: "Grab the Moon Stone"
               text: "Nine tiles further south, the second ball is a Moon Stone. It evolves Clefairy, Jigglypuff, Nidorina or Nidorino, and Yellow hands out very few."
               items:
                 moon-stone: "Second Poké Ball on the east strip, nine tiles south of the HP Up."
-            "12":
+            "9":
               title: "Cut west into Viridian"
               text_html: "Two tiles back north, another cuttable tree breaks the wall to the west. Chop through, cross to the main road and follow it south %{south} into Viridian City."
-            "13":
+            "10":
               title: "Take TM42 Dream Eater"
               text_html: "One more tree fences off the plot in Viridian's southwest corner. Cut it and talk to the dozing Fisher %{fisher}; he hands over TM42, Dream Eater."
               items:
                 tm42: "From the Fisher on the fenced plot in Viridian's southwest corner, past the cuttable tree on its east side."
+            "11":
+              title: "Head north for Pewter"
+              text: "From Viridian, walk Route 2 north into Viridian Forest and out its top gate onto the road below Pewter. A long stretch, but the Museum at the end holds the only Old Amber in the game."
+            "12":
+              title: "Cut in behind the Museum"
+              text_html: "In Pewter, one tree fences off the ground east of the Museum. Cut it, follow the path west along the wall and go in the back door %{museum}, the only way into the east room."
+            "13":
+              title: "Take the Old Amber"
+              text: "The scientist by the fossil cases hands over the Old Amber. Cinnabar's lab revives it into Aerodactyl, and this is the only one in the game, so do not sell it."
+              items:
+                old-amber: "From the scientist in the Museum's east room, reached through Pewter's back entrance past a cuttable tree."
             "14":
-              title: "Head back for Cerulean"
-              text_html: "Retrace the loop: north up Route 2, through the tunnel to Route 11, then Vermilion and the Underground Path up to Cerulean and <a href=\"%{href}\">Route 9</a>."
+              title: "Back to Cerulean through Mt. Moon"
+              text_html: "Out of Pewter east onto Route 3, straight through Mt. Moon and down Route 4 into Cerulean. From there it is east to <a href=\"%{href}\">Route 9</a> and Rock Tunnel."
           trivia:
             title: "The best grinding spot yet"
             intro: "Diglett fills 94% of this cave and Dugtrio takes the other 6%. Gen 1 pays base experience times level over seven, so a Lv 20 Diglett gives about 230 EXP and a Lv 30 Dugtrio about 655. Nothing else you can farm this early pays like that, and Dugtrio's 35 base HP means it drops in a hit or two."
