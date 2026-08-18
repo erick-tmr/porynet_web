@@ -1627,32 +1627,39 @@ pt:
               text_html: "Com os dois tesouros no bolso, siga a leste pela grama alta, trocando golpes com os Bug Catchers, Jr. Trainers e Hikers espalhados pela crista. O caminho emenda direto %{east} na Rota 10 e na porta do Rock Tunnel."
         route_10:
           note: "A porta do Rock Tunnel. Magnemite por toda parte."
-          intro: "Uma rota alta cortada em duas pelo Rock Tunnel: um Centro Pokémon na boca norte, a estrada para Lavender ao sul. Magnemite domina a grama nas duas pontas."
+          intro: "A metade de cima da Rota 10, acima do Rock Tunnel: um Centro Pokémon na boca norte e Magnemite dominando a grama. A estrada para Lavender espera do outro lado da caverna."
           steps:
             "1":
               title: "Cure no Centro"
               text_html: "Chegue da Rota 9 à parte alta da Rota 10 e entre no Centro Pokémon %{center} ao lado da boca norte %{north} do Rock Tunnel. Recupere-se, porque a caverna adiante é longa e escuríssima."
             "2":
-              title: "Capture um Magnemite"
-              text: "Varra a grama perto da boca norte por Magnemite e o raro Machop, e derrote a Jr Trainer que patrulha logo abaixo do Centro."
-            "3":
               title: "Pegue a Super Potion escondida"
-              text: "Um tile à direita da entrada norte do Rock Tunnel, aperte A no quadrado vazio ao lado da boca para uma Super Potion escondida. Nada aparece na tela."
+              text: "Corte a árvore um tile ao sul da boca norte do Rock Tunnel e pise no toco. Aperte A virado para cima para uma Super Potion escondida; nada aparece na tela."
               hidden:
-                super-potion: "Um tile a leste da boca norte do Rock Tunnel; aperte A virado à direita. Nada aparece na tela."
+                super-potion: "Na parede ao lado da boca norte do Rock Tunnel. Corte a árvore abaixo dela, fique nesse tile e aperte A virado para cima. Nada aparece na tela."
+            "3":
+              title: "Anote o Power Plant para depois"
+              text: "A água isola o meio da Rota 10. A porta do Power Plant e um Pokémaniac solitário ficam do outro lado, e nada te leva até lá sem Surf. Volte quando tiver."
             "4":
               title: "Entre no Rock Tunnel"
-              text_html: "Ensine o HM05 Flash a um Pokémon antes de entrar, porque o túnel é escuro demais sem ele. Depois entre pela boca norte %{north}, no alto da rota."
-            "5":
+              text_html: "Ensine o HM05 Flash a um Pokémon antes de entrar: o túnel é escuro demais sem ele. Magnemite aprende Flash e é metade desta grama, então capture um se ninguém mais puder. Depois pegue a boca norte %{north}."
+          trainers:
+            pokemaniac:
+              note: "Você ainda não alcança este Pokémaniac. Ele fica na faixa do meio da Rota 10, depois da água e ao lado da porta do Power Plant, e só o Surf te leva até ele. Anote-o para uma volta depois."
+          oak:
+            magnemite: "Uma captura de 50% na grama aqui → Magneton. Cobertura Elétrica para o túnel escuro."
+        route_10_south:
+          note: "Do lado de fora da boca sul. Hikers até embaixo."
+          intro: "A Rota 10 recomeça onde o Rock Tunnel te cospe e desce direto até Lavender Town. Quatro treinadores seguram a trilha, e um Max Ether está enterrado perto da boca."
+          steps:
+            "1":
               title: "Cace o Max Ether escondido"
               text_html: "Saindo pela boca sul %{south} do Rock Tunnel na parte baixa da Rota 10, caminhe alguns tiles a leste pela trilha e aperte A virado ao norte para um Max Ether escondido. Nada aparece na tela."
               hidden:
                 max-ether: "A leste da boca sul do Rock Tunnel, na parte baixa da Rota 10; aperte A virado para cima. Nada aparece na tela."
-            "6":
+            "2":
               title: "Desça para Lavender Town"
               text_html: "Limpe os Hikers e o Pokémaniac na parte baixa da Rota 10, depois caminhe ao sul %{lavender} até Lavender Town."
-          oak:
-            magnemite: "Uma captura de 50% na grama aqui → Magneton. Cobertura Elétrica para o túnel escuro."
         rock_tunnel:
           note: "Caverna escuríssima. Precisa de Flash."
           intro: "Dois andares sem luz sob a serra, com quinze treinadores dentro e nenhuma Poké Ball no chão. Sem Flash a tela fica preta."

@@ -295,6 +295,21 @@ def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
                     f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
 
 
+def test_route_10_super_potion_is_taken_from_the_stump_of_the_cut_tree(root):
+    """The item sits in the cliff at (9, 17), and the only cell that can face it is (9, 18), a
+    cuttable tree. Standing in Rock Tunnel's mouth at (8, 17) faces it too, but that tile is the
+    warp: you arrive there out of the cave, and the step comes before you ever go in. So the shot
+    is set after Cut, on the tree's own cell."""
+    spec = _item_spec("route-10-hidden-super-potion")
+    tree = tuple(spec["cut"][0])
+
+    assert tuple(spec["player"]) == tree, "the hero stands where the tree was"
+    assert not _cell_standable(root, "Route10", tree), "the cell is a tree until you cut it"
+    assert _cell_standable(root, "Route10", tree, spec["cut"]), "and open ground once you have"
+    assert (8, 17) in {(x, y) for x, y, _dest, _to in sources.parse_warp_events(root, "Route10")}, \
+        "the other cell that faces the item is the tunnel mouth, not somewhere to stand"
+
+
 def test_the_tm42_gift_shot_is_set_after_the_tree_the_step_tells_you_to_cut(root):
     """The Fisher is walled into the plot by one cuttable tree, so the frame of him handing TM42
     over cannot still show the tree standing. The hero is inside the fence, next to him, and the
