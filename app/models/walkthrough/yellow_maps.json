@@ -4637,26 +4637,9 @@
             "lane": 1
           },
           {
-            "id": "exit-15-0",
-            "cat": "exit",
-            "key": "E2",
-            "x": 38.75,
-            "y": 1.389,
-            "grid": [
-              15,
-              0
-            ],
-            "align": "r",
-            "name": "Back outside",
-            "ref": "LAST_MAP",
-            "edge": "north",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
             "id": "exit-15-33",
             "cat": "exit",
-            "key": "E3",
+            "key": "E2",
             "x": 38.75,
             "y": 93.056,
             "grid": [
@@ -4671,26 +4654,9 @@
             "lane": 0
           },
           {
-            "id": "exit-15-35",
-            "cat": "exit",
-            "key": "E4",
-            "x": 38.75,
-            "y": 98.611,
-            "grid": [
-              15,
-              35
-            ],
-            "align": "r",
-            "name": "Back outside",
-            "ref": "LAST_MAP",
-            "edge": "south",
-            "glyph": "\u25bc",
-            "lane": 0
-          },
-          {
             "id": "exit-37-3",
             "cat": "exit",
-            "key": "E5",
+            "key": "E3",
             "x": 93.75,
             "y": 9.722,
             "grid": [
@@ -4707,7 +4673,7 @@
           {
             "id": "exit-5-3",
             "cat": "exit",
-            "key": "E6",
+            "key": "E4",
             "x": 13.75,
             "y": 9.722,
             "grid": [
@@ -4724,7 +4690,7 @@
           {
             "id": "exit-17-11",
             "cat": "exit",
-            "key": "E7",
+            "key": "E5",
             "x": 43.75,
             "y": 31.944,
             "grid": [
@@ -4741,7 +4707,7 @@
           {
             "id": "exit-37-17",
             "cat": "exit",
-            "key": "E8",
+            "key": "E6",
             "x": 93.75,
             "y": 48.611,
             "grid": [
@@ -4887,7 +4853,7 @@
           {
             "id": "exit-33-25",
             "cat": "exit",
-            "key": "E5",
+            "key": "E3",
             "x": 83.75,
             "y": 70.833,
             "grid": [
@@ -4904,7 +4870,7 @@
           {
             "id": "exit-27-3",
             "cat": "exit",
-            "key": "E6",
+            "key": "E4",
             "x": 68.75,
             "y": 9.722,
             "grid": [
@@ -4921,7 +4887,7 @@
           {
             "id": "exit-23-11",
             "cat": "exit",
-            "key": "E7",
+            "key": "E5",
             "x": 58.75,
             "y": 31.944,
             "grid": [
@@ -4938,7 +4904,7 @@
           {
             "id": "exit-3-3",
             "cat": "exit",
-            "key": "E8",
+            "key": "E6",
             "x": 8.75,
             "y": 9.722,
             "grid": [

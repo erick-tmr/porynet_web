@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **99** across 52 locations
-- markers: **969** (318 trainer, 119 item, 50 hidden, 482 exit)
+- markers: **967** (318 trainer, 119 item, 50 hidden, 480 exit)
 - step shots: **39** (map/scene in a step slot)
 - standalone scenes: **264** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
@@ -41,7 +41,7 @@
 - `pokemon-tower-6f`: 3 trainer, 2 item, 2 exit
 - `pokemon-tower-7f`: 1 exit
 - `power-plant`: 14 item, 2 hidden, 2 exit
-- `rock-tunnel-1f`: 7 trainer, 8 exit
+- `rock-tunnel-1f`: 7 trainer, 6 exit
 - `rock-tunnel-b1f`: 8 trainer, 4 exit
 - `rocket-hideout-b1f`: 5 trainer, 2 item, 1 hidden, 4 exit
 - `rocket-hideout-b2f`: 1 trainer, 4 item, 4 exit
