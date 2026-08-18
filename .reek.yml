@@ -64,6 +64,10 @@ detectors:
                                 # keywords (who hands it over, what unlocks it, which badge the
                                 # game gates it behind), so each is an optional member the common
                                 # case omits, not a call signature.
+      - Walkthrough::Trainer    # same defaults shim: a roster card states none of the authored
+                                # keywords (a curated note, a hand-set pin letter), and a boss met
+                                # in a scripted scene has no floor in the game's roster, so each is
+                                # an optional member the other case omits.
       - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
                                 # optional members (key/glyph/edge/lane/note), each named
                                 # so a caller can omit it, not a call signature.

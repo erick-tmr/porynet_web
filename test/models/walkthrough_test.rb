@@ -383,6 +383,30 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty plain
   end
 
+  # Rock Tunnel numbers its pins per map, so two trainers wear T6 on one page. The floor is what
+  # tells them apart, and it comes off the roster rather than being read back out of a pin id.
+  test "a trainer carries the floor the roster puts it on" do
+    tunnel = loc("rock-tunnel")
+    upper, lower = tunnel.trainers.partition { |t| t.floor == "1F" }
+
+    assert_equal 7, upper.size
+    assert_equal [ "B1F" ], lower.map(&:floor).uniq
+    assert_equal %w[T1 T2 T3 T4 T5 T6 T7], (upper.map(&:marker_key) & lower.map(&:marker_key)).sort,
+      "the pin letters collide across floors, which is the whole reason for the badge"
+  end
+
+  test "a one-floor stop leaves the floor blank, and so does a gym" do
+    assert_empty loc("route-3").trainers.filter_map(&:floor), "a route is all one floor"
+    assert_equal [ "Gym" ], loc("celadon-city").gym.trainers.map(&:floor).uniq,
+      "every trainer in a gym reads the same, so no card can single one out"
+  end
+
+  test "a boss met in a scripted scene has no floor to name" do
+    rival = loc("silph-co").trainers.find { |t| t.name == "Blue" }
+
+    assert_nil rival.floor, "the generated roster has no entry for a scripted fight"
+  end
+
   # A stop that walks well past its own map is titled for the whole walk, but the place it is
   # anchored to keeps its own name, so the map titlebar, the catch cards and the planner's "do at"
   # badge still say where Diglett actually lives.

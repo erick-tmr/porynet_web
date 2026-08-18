@@ -261,8 +261,8 @@ module Walkthrough
   # `note_key` is an optional locale key for a hand-authored caption on the card (e.g. the Mew
   # glitch warnings on the Cerulean Swimmer and Misty).
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key,
-    :tick, :note_key) do
-    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, **rest) = super
+    :tick, :note_key, :floor) do
+    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, floor: nil, **rest) = super
     def marker_key? = !marker_key.nil?
     def note_key? = !note_key.nil?
     # A boss (the rival, a Team Rocket duo) carries a battle face-off shot; those get their own

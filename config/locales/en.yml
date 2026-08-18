@@ -232,6 +232,7 @@ en:
         soda_pop: "Restores 60 HP."
         lemonade: "Restores 80 HP."
       mew_glitch_label: "MEW GLITCH"
+      trainer_floor_hint: "Which floor this trainer waits on"
       trainer_note_label: "HEADS UP"
       hidden_item: "HIDDEN ITEM"
       later_eyebrow: "COME BACK LATER · %{count}"

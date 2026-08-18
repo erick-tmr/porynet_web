@@ -232,6 +232,7 @@ pt:
         soda_pop: "Recupera 60 HP."
         lemonade: "Recupera 80 HP."
       mew_glitch_label: "MEW GLITCH"
+      trainer_floor_hint: "Em qual andar este treinador está"
       trainer_note_label: "ATENÇÃO"
       hidden_item: "ITEM OCULTO"
       later_eyebrow: "VOLTE DEPOIS · %{count}"

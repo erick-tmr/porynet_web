@@ -135,6 +135,12 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal %(<h2 class="pn-h2">Trades here</h2>), wt_heading("Trades here", :page)
   end
 
+  test "a trainer with no floor on record gets no badge at all" do
+    assert_nil trainer_floor_chip(nil)
+    assert_equal %(<span class="pn-wt-trainer__floor" title="Which floor this trainer waits on">B1F</span>),
+      trainer_floor_chip("B1F")
+  end
+
   test "a note reads from its kind, so a new kind cannot render an untranslated tag" do
     note = Walkthrough::ChallengeNote.new(kind: :one_copy, args: { names: "Bulbasaur", count: 1 })
 

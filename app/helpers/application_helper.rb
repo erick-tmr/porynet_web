@@ -169,6 +169,14 @@ module ApplicationHelper
     content_tag(name, text, class: css)
   end
 
+  # Which floor a trainer stands on, drawn only where a stop has more than one to tell apart. A
+  # boss met in a scripted scene has no floor in the game's roster, so that card goes without.
+  def trainer_floor_chip(floor)
+    return if floor.nil?
+
+    tag.span(floor, class: "pn-wt-trainer__floor", title: t("walkthrough.ui.trainer_floor_hint"))
+  end
+
   def catch_tally(ids)
     t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
   end

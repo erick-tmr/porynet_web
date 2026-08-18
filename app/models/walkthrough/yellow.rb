@@ -595,7 +595,8 @@ module Walkthrough
 
     def self.enrich(card, entry)
       card.with(where: card.where || Shot.new(image: entry["where"], label: WHERE_LABEL),
-        marker_key: card.marker_key || entry["key"], tick: card.tick || tick_for(entry))
+        marker_key: card.marker_key || entry["key"], tick: card.tick || tick_for(entry),
+        floor: floor_of(entry))
     end
 
     def self.roster_trainer(entry)
@@ -604,8 +605,13 @@ module Walkthrough
         team: entry["team"].map { |m| mon(m["dex"], m["lvl"]) },
         sprite: trainer_sprite(label, nil),
         where: Shot.new(image: entry["where"], label: WHERE_LABEL), battle: nil,
-        opp: entry["opp"], marker_key: entry["key"], tick: tick_for(entry))
+        opp: entry["opp"], marker_key: entry["key"], tick: tick_for(entry),
+        floor: floor_of(entry))
     end
+
+    # A one-floor map leaves the field empty, and every trainer inside a gym reads "Gym", neither
+    # of which tells a reader anything a card does not already say.
+    def self.floor_of(entry) = entry["floor"].presence
 
     def self.tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
 
