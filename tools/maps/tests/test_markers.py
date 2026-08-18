@@ -414,3 +414,27 @@ def test_the_underground_path_pins_both_hidden_items_and_both_staircases(root):
     assert by_id["exit-5-4"]["name"] == "Underground Path Route 5"
     assert by_id["exit-2-41"]["name"] == "Underground Path Route 6"
     assert len(entries) == 4, "no trainers and no item balls live down there"
+
+
+def test_a_cave_mouth_draws_one_doorway_not_its_edge_bounce_spare(root):
+    """Rock Tunnel 1F lists four warps back outside, and only two are doors. Beside each ladder the
+    game keeps a spare pointing at the same warp slot a few cells into the rock, so walking off the
+    map edge bounces you out; (15, 0) is sealed in a three-cell pocket and (15, 35) is not even a
+    tile you can stand on. Both used to draw a second "Back outside" pin on solid stone."""
+    warps = sources.parse_warp_events(root, "RockTunnel1F")
+    outside = [w for w in warps if w[2] == "LAST_MAP"]
+    doors = {g["anchor"] for g in markers.group_warps(warps) if g["dest"] == "LAST_MAP"}
+
+    assert len(outside) == 4, "the game writes four warps back outside"
+    assert doors == {(15, 3), (15, 33)}, "only the two ladders are doorways"
+
+
+def test_two_real_doors_sharing_an_outdoor_tile_both_survive(root):
+    """The spare rule keys off distance, not just the shared destination slot: the Pokemon Mansion
+    leaves by two separate south exits that drop you on Cinnabar's single mansion tile, and twenty
+    cells apart they are two doors a reader has to be able to tell apart."""
+    groups = markers.group_warps(sources.parse_warp_events(root, "PokemonMansion1F"))
+    out = sorted(g["anchor"] for g in groups if g["dest"] == "LAST_MAP")
+
+    assert len(out) == 2, "both south exits keep their pin"
+    assert abs(out[0][0] - out[1][0]) > markers.SPARE_WARP_REACH

@@ -106,7 +106,17 @@ module Walkthrough
     def key? = !key.nil?
   end
   TriviaCard = Data.define(:dex, :name, :tone, :rows)
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot)
+  # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
+  # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
+  # finishes four maps away. Left unset it renders where it always has, below the steps.
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map, :art,
+    :note_icon) do
+    def initialize(after_map: nil, art: nil, note_icon: nil, **rest) = super
+    def art? = !art.nil?
+    def note_icon? = !note_icon.nil?
+    def after?(area) = !after_map.nil? && area&.name == after_map
+    def loose? = after_map.nil?
+  end
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -236,13 +246,14 @@ module Walkthrough
   # today. Authored as ids, never as letters: a letter is the marker's position in its map's run, so
   # one new item ball would shift every letter after it and silently re-point the prose. `marks` is
   # the resolved { token => letter } the view actually interpolates.
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks) do
-    def initialize(pins: {}, marks: {}, **rest) = super
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map) do
+    def initialize(pins: {}, marks: {}, map: nil, **rest) = super
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?
     def link? = !link.nil?
     def marks? = marks.any?
+    def map? = !map.nil?
   end
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
@@ -388,6 +399,32 @@ module Walkthrough
     def band_gym? = gym? && !gym_finale
 
     def dense_trainers? = trainers.size > DENSE_TRAINERS
+
+    # A stop that walks off its own map (the Cut detour crosses four of them) reads as one wall of
+    # steps over one pile of maps, and the reader has to work out which map any given step is on.
+    # When its steps name their map, the page draws each map with only the steps taken on it. The
+    # groups come out in the order the steps run, so the maps follow the walk rather than the
+    # manifest, and a step naming no map (the sign-off that leaves for the next leg) trails the
+    # last group. A stop whose steps carry no map at all returns nothing and renders as one block.
+    def step_groups
+      return [] if steps.none?(&:map?)
+
+      runs = steps.chunk_while { |before, after| before.map == after.map }
+      runs.each_with_object([]) { |run, groups| absorb_run(groups, run) }
+    end
+
+    # A run of steps naming no map (the sign-off that leaves for the next leg) has no map to draw
+    # above it, so it joins the block before rather than opening a bare one. The rail down the left
+    # of the steps runs first-child to last-child inside one block, so an orphan block would break
+    # the line between two consecutive steps.
+    def absorb_run(groups, run)
+      area = area_map_named(run.first.map)
+      return groups << [ area, run ] if area || groups.empty?
+
+      groups[-1] = [ groups.last.first, groups.last.last + run ]
+    end
+
+    def area_map_named(name) = area_maps.find { |area| area.name == name }
 
     # steps that lead up to the gym, then the rest: rendered after the gym in this band, or
     # held back with the gym itself when it closes the whole leg

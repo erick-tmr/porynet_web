@@ -1202,13 +1202,19 @@
     "name": "route-10-hidden-super-potion",
     "map": "Route10",
     "player": [
-      8,
-      17
+      9,
+      18
     ],
-    "player_dir": "RIGHT",
+    "player_dir": "UP",
     "focus": [
       9,
       17
+    ],
+    "cut": [
+      [
+        9,
+        18
+      ]
     ],
     "auto_npcs": true,
     "marker": [

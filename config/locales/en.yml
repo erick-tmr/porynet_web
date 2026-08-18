@@ -1601,8 +1601,23 @@ en:
               items:
                 tm42: "From the Fisher on the fenced plot in Viridian's southwest corner, past the cuttable tree on its east side."
             "11":
-              title: "Head back for Cerulean"
-              text_html: "Retrace the loop: north up Route 2, through the tunnel to Route 11, then Vermilion and the Underground Path up to Cerulean and <a href=\"%{href}\">Route 9</a>."
+              title: "Cut the shortcut to Pewter"
+              text: "Back up Route 2 and through the gate, then west along the low path under the cave mouth. Cut the tree at its end and you are on the road that runs straight up to Pewter, no forest in between."
+            "12":
+              title: "Cut in behind the Museum"
+              text_html: "In Pewter, one tree fences off the ground east of the Museum. Cut it, follow the path west along the wall and go in the back door %{museum}, the only way into the east room."
+            "13":
+              title: "Take the Old Amber"
+              text: "The scientist by the fossil cases hands over the Old Amber. Cinnabar's lab revives it into Aerodactyl, and this is the only one in the game, so do not sell it."
+              items:
+                old-amber: "From the scientist in the Museum's east room, reached through Pewter's back entrance past a cuttable tree."
+            "14":
+              title: "Back to Cerulean through Mt. Moon"
+              text_html: "Out of Pewter east onto Route 3, straight through Mt. Moon and down Route 4 into Cerulean. From there it is east to <a href=\"%{href}\">Route 9</a> and Rock Tunnel."
+          trivia:
+            title: "The best grinding spot yet"
+            intro: "Diglett fills 94% of this cave and Dugtrio takes the other 6%. Gen 1 pays base experience times level over seven, so a Lv 20 Diglett gives about 230 EXP and a Lv 30 Dugtrio about 655. Nothing else you can farm this early pays like that, and Dugtrio's 35 base HP means it drops in a hit or two."
+            note: "The famous Repel trick already works in Gen 1: it blocks anything under the level of your first party slot, and Diglett stops at Lv 22, so a Lv 23 lead leaves nothing but Dugtrio. Mind what you send in, though: Lv 29 to 31, 120 base Speed, pure Ground, so Pikachu cannot touch it."
           oak:
             diglett: "Everywhere here → Dugtrio, a fast Ground type. Grab the base."
         route_9:
@@ -1627,32 +1642,39 @@ en:
               text_html: "With both stashes in the bag, push east through the long grass, trading blows with the Bug Catchers, Jr. Trainers, and Hikers strung across the ridge. The path spills straight out %{east} onto Route 10 and Rock Tunnel's doorstep."
         route_10:
           note: "Rock Tunnel's doorstep. Magnemite everywhere."
-          intro: "A tall route cut in two by Rock Tunnel: a Pokémon Center at the north mouth, the road to Lavender at the south. Magnemite owns the grass at both ends."
+          intro: "The upper half of Route 10, above Rock Tunnel: a Pokémon Center at the north mouth and Magnemite owning the grass. The road to Lavender waits on the far side of the cave."
           steps:
             "1":
               title: "Heal at the Center"
               text_html: "Arrive from Route 9 into upper Route 10 and step into the Pokémon Center %{center} beside Rock Tunnel's north mouth %{north}. Top off, because the cave ahead is long and pitch-black."
             "2":
-              title: "Catch a Magnemite"
-              text: "Sweep the grass by the north mouth for Magnemite and the rare Machop, and take down the Jr Trainer patrolling just below the Center."
-            "3":
               title: "Grab the hidden Super Potion"
-              text: "One tile right of Rock Tunnel's north entrance, press A on the empty square beside the mouth for a hidden Super Potion. Nothing shows on-screen."
+              text: "Cut the tree one tile south of Rock Tunnel's north mouth and step onto its stump. Press A facing up for a hidden Super Potion; nothing shows on-screen."
               hidden:
-                super-potion: "One tile east of Rock Tunnel's north mouth; press A facing right. Nothing shows on-screen."
+                super-potion: "Under the cliff beside Rock Tunnel's north mouth. Cut the tree below it, stand on that tile and press A facing up. Nothing shows on-screen."
+            "3":
+              title: "Note the Power Plant for later"
+              text: "Water walls off the middle of Route 10. The Power Plant's door and a lone Pokémaniac sit past it, and nothing gets you across until Surf. Come back once you have it."
             "4":
               title: "Enter Rock Tunnel"
-              text_html: "Teach a Pokémon HM05 Flash before you go in, because the tunnel is pitch black without it. Then step into the north mouth %{north} at the top of the route."
-            "5":
+              text_html: "Teach a Pokémon HM05 Flash before you go in: the tunnel is pitch black without it. Magnemite learns Flash and is half this grass, so catch one if nobody else can. Then take the north mouth %{north}."
+          trainers:
+            pokemaniac:
+              note: "You cannot reach this Pokémaniac yet. He stands on Route 10's middle strip, past the water and beside the Power Plant's door, and only Surf gets you over to him. Note him for a later return."
+          oak:
+            magnemite: "A 50% grass catch here → Magneton. Electric coverage for the dark tunnel."
+        route_10_south:
+          note: "Out the south mouth. Hikers all the way down."
+          intro: "Route 10 picks up where Rock Tunnel spits you out and runs straight down to Lavender Town. Four trainers hold the path, and a Max Ether is buried near the mouth."
+          steps:
+            "1":
               title: "Sweep for the hidden Max Ether"
               text_html: "Out Rock Tunnel's south mouth %{south} onto lower Route 10, walk a few tiles east along the path and press A facing north for a hidden Max Ether. Nothing shows on-screen."
               hidden:
                 max-ether: "East of Rock Tunnel's south mouth on lower Route 10; press A facing up. Nothing shows on-screen."
-            "6":
+            "2":
               title: "Drop into Lavender Town"
-              text_html: "Clear the Hikers and Pokémaniac down lower Route 10, then walk south %{lavender} into Lavender Town."
-          oak:
-            magnemite: "A 50% grass catch here → Magneton. Electric coverage for the dark tunnel."
+              text_html: "Clear the Hikers and the Pokémaniac down lower Route 10, then walk south %{lavender} into Lavender Town."
         rock_tunnel:
           note: "Pitch-black cave. Needs Flash."
           intro: "Two unlit floors under the ridge, holding fifteen trainers and not one item ball. Without Flash the screen stays black."

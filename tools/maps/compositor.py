@@ -130,9 +130,31 @@ def _map_painter(root_str, label, parent_const):
     return paint_block, colors, w, h, blk
 
 
-def render_map(root_str, label, parent_const=None):
-    """Render one pokeyellow map (by header label) to (RGB image, palette colors)."""
+def cut_trees(root_str, blueprint, width_blocks, cells):
+    """The blueprint with the cuttable tree on each of `cells` felled.
+
+    A cell names one 16px tree; the game swaps the whole 32px block it sits in through
+    `CutTreeBlockSwaps`, so that is what we swap too. A cell whose block has no entry in the table
+    holds no cuttable tree, which is an authoring mistake worth failing on rather than drawing."""
+    if not cells:
+        return blueprint
+    swaps = sources.parse_cut_tree_blocks(root_str)
+    out = list(blueprint)
+    for gx, gy in cells:
+        index = (gy // 2) * width_blocks + (gx // 2)
+        if out[index] not in swaps:
+            raise ValueError(f"no cuttable tree at cell ({gx}, {gy}): block ${out[index]:02x}")
+        out[index] = swaps[out[index]]
+    return out
+
+
+def render_map(root_str, label, parent_const=None, cut=()):
+    """Render one pokeyellow map (by header label) to (RGB image, palette colors).
+
+    `cut` fells the cuttable tree on each grid cell it names, for a scene set after the player
+    has used Cut there."""
     paint_block, colors, w, h, blk = _map_painter(root_str, label, parent_const)
+    blk = cut_trees(root_str, blk, w, cut)
     canvas = Image.new("RGB", (w * BLOCK_PX, h * BLOCK_PX))
     for by in range(h):
         for bx in range(w):
@@ -302,14 +324,14 @@ def border_fill(root_str, label, parent_const, width=SCREEN[0], height=SCREEN[1]
 
 
 def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), arrows=(), dialog=None,
-                  emotes=(), markers=()):
+                  emotes=(), markers=(), cut=()):
     """Render a native 160x144 GB screen: a viewport of the map with the hero pinned near the
     center, the given sprites, emotion bubbles, hidden-item markers and directional arrows
     composited, and an optional bottom dialog box.
 
     Beyond the map edge the screen shows the map's border block, exactly like the game: on a small
     interior map (a gate or shop) that block is solid black, so the empty space reads as black."""
-    full, colors = render_map(root_str, label, parent_const)
+    full, colors = render_map(root_str, label, parent_const, cut)
     if sprites:
         full = overlay_sprites(full, root_str, sprites, colors, grass_cells(root_str, label))
     if emotes:

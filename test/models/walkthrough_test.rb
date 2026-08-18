@@ -10,19 +10,21 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing Route 4 and Vermilion twice" do
+  test "the game covers the 52 Kanto stops, drawing three of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 52 numbered stops (1..52), two of them walked twice: Route 4 (stop 10) wraps Mt. Moon, and
+    # 52 numbered stops (1..52), three of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
-    # needs. Each pass is its own section, so 54 sections share 52 numbers.
-    assert_equal 54, g.locations.size
+    # needs, and Route 10 (stop 22) is cut in half by Rock Tunnel. Each pass is its own section,
+    # so 55 sections share 52 numbers.
+    assert_equal 55, g.locations.size
     assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
       g.locations.select { |loc| loc.order == 17 }.map(&:slug)
+    assert_equal %w[route-10 route-10-south], g.locations.select { |loc| loc.order == 22 }.map(&:slug)
   end
 
   test "both passes of a stop walked twice list the same water" do
@@ -767,11 +769,11 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "only pinless NPC gifts fall back to a positional progress key" do
     loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
 
-    assert_equal 20, loose.size
+    assert_equal 21, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
                    "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
-                   "Oak's Parcel", "Old Rod", "Poké Flute", "Pokédex", "Potion", "S.S. Ticket",
-                   "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
+                   "Oak's Parcel", "Old Amber", "Old Rod", "Poké Flute", "Pokédex", "Potion",
+                   "S.S. Ticket", "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
     assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
       "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
   end

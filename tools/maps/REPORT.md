@@ -1,9 +1,9 @@
 # Asset generation report
 
 - location maps: **99** across 52 locations
-- markers: **969** (318 trainer, 119 item, 50 hidden, 482 exit)
-- step shots: **36** (map/scene in a step slot)
-- standalone scenes: **260** (dialog / battle / NPC, not step-bound)
+- markers: **967** (318 trainer, 119 item, 50 hidden, 480 exit)
+- step shots: **39** (map/scene in a step slot)
+- standalone scenes: **264** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -41,7 +41,7 @@
 - `pokemon-tower-6f`: 3 trainer, 2 item, 2 exit
 - `pokemon-tower-7f`: 1 exit
 - `power-plant`: 14 item, 2 hidden, 2 exit
-- `rock-tunnel-1f`: 7 trainer, 8 exit
+- `rock-tunnel-1f`: 7 trainer, 6 exit
 - `rock-tunnel-b1f`: 8 trainer, 4 exit
 - `rocket-hideout-b1f`: 5 trainer, 2 item, 1 hidden, 4 exit
 - `rocket-hideout-b2f`: 1 trainer, 4 item, 4 exit
@@ -114,6 +114,9 @@
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
+- `digletts-cave` step 11: walkthrough/yellow/scenes/route-2-pewter-cut.png
+- `digletts-cave` step 12: walkthrough/yellow/scenes/pewter-museum-cut.png
+- `digletts-cave` step 13: walkthrough/yellow/scenes/museum-old-amber.png
 - `digletts-cave` step 3: walkthrough/yellow/scenes/route-2-digletts-exit.png
 - `digletts-cave` step 5: walkthrough/yellow/scenes/route-2-cut-tree.png
 - `digletts-cave` step 9: walkthrough/yellow/scenes/route-2-viridian-cut.png
@@ -227,11 +230,13 @@
 - `mt-moon-jessie-james` (screen): walkthrough/yellow/scenes/mt-moon-jessie-james.png
 - `mt-moon-magikarp` (dialog): walkthrough/yellow/scenes/mt-moon-magikarp.png
 - `mt-moon-moon-stone` (screen): walkthrough/yellow/scenes/mt-moon-moon-stone.png
+- `museum-old-amber` (dialog): walkthrough/yellow/scenes/museum-old-amber.png
 - `oaks-lab-poke-balls` (screen): walkthrough/yellow/scenes/oaks-lab-poke-balls.png
 - `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
 - `pallet-town-exit` (screen): walkthrough/yellow/scenes/pallet-town-exit.png
 - `pewter-heal-prep` (screen): walkthrough/yellow/scenes/pewter-heal-prep.png
 - `pewter-jigglypuff` (screen): walkthrough/yellow/scenes/pewter-jigglypuff.png
+- `pewter-museum-cut` (screen): walkthrough/yellow/scenes/pewter-museum-cut.png
 - `pokemon-mansion-hidden-max-revive` (dialog): walkthrough/yellow/scenes/pokemon-mansion-hidden-max-revive.png
 - `pokemon-mansion-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/pokemon-mansion-hidden-moon-stone.png
 - `pokemon-mansion-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/pokemon-mansion-hidden-rare-candy.png
@@ -310,6 +315,7 @@
 - `route-2-flash` (screen): walkthrough/yellow/scenes/route-2-flash.png
 - `route-2-hp-up` (screen): walkthrough/yellow/scenes/route-2-hp-up.png
 - `route-2-moon-stone` (screen): walkthrough/yellow/scenes/route-2-moon-stone.png
+- `route-2-pewter-cut` (screen): walkthrough/yellow/scenes/route-2-pewter-cut.png
 - `route-2-trade-house` (screen): walkthrough/yellow/scenes/route-2-trade-house.png
 - `route-2-trade-house-inside` (screen): walkthrough/yellow/scenes/route-2-trade-house-inside.png
 - `route-2-viridian-cut` (screen): walkthrough/yellow/scenes/route-2-viridian-cut.png
@@ -397,6 +403,7 @@
 - `victory-road-moltres` (screen): walkthrough/yellow/scenes/victory-road-moltres.png
 - `viridian-city-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-city-hidden-potion.png
 - `viridian-city-tm42` (screen): walkthrough/yellow/scenes/viridian-city-tm42.png
+- `viridian-city-tm42-gift` (dialog): walkthrough/yellow/scenes/viridian-city-tm42-gift.png
 - `viridian-forest-hidden-antidote` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-antidote.png
 - `viridian-forest-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-potion.png
 - `viridian-forest-item-pok-ball` (screen): walkthrough/yellow/scenes/viridian-forest-item-pok-ball.png

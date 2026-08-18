@@ -1,7 +1,12 @@
 <section class="pn-wt-section" id="<%= trivia.anchor %>">
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trivia_eyebrow") %></div>
   <h3 class="pn-wt-band__h3"><%= t(trivia.title_key) %></h3>
-  <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
+  <div class="pn-wt-trivia__lead">
+    <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
+    <% if trivia.art? %>
+      <%= r2_image_tag trivia.art, alt: "", class: "pn-wt-trivia__art", loading: "lazy" %>
+    <% end %>
+  </div>
   <% if trivia.shot&.map? %>
     <div class="pn-wt-trivia__shot"><%= render "shot", shot: trivia.shot %></div>
   <% end %>
@@ -28,5 +33,10 @@
     <% end %>
   </div>
   <% end %>
-  <div class="pn-wt-trivia__note"><%= t(trivia.note_key) %></div>
+  <div class="pn-wt-trivia__note">
+    <% if trivia.note_icon? %>
+      <%= r2_image_tag trivia.note_icon, alt: "", class: "pn-wt-trivia__note-icon", loading: "lazy" %>
+    <% end %>
+    <span><%= t(trivia.note_key) %></span>
+  </div>
 </section>

@@ -68,12 +68,23 @@ class Frame:
                             self.width_px, self.height_px)
 
 
+# Two doorways that name the same destination *and* the same warp slot in it drop you on the
+# identical tile, so if they also sit within a few cells of each other they are one doorway written
+# down twice. Gen 1 does that at a cave mouth: beside the ladder it keeps a spare warp a few cells
+# into the rock, so walking off the map edge bounces you out rather than stranding you. That spare
+# is not a door anyone can reach, and drawing it puts a second "Back outside" pin on solid stone.
+# Distance is what separates it from two real doors that happen to share an outdoor tile, like the
+# Pokemon Mansion's two south exits, which are twenty cells apart.
+SPARE_WARP_REACH = 4
+
+
 def group_warps(warps):
     """Collapse warp_events into one entry per real doorway.
 
     A gate is several adjacent tiles all pointing at the same map, so group by destination and
     4-neighbour adjacency. Union-find rather than a greedy first-match pass, because two cells
-    can belong together only via a third that appears later in the file."""
+    can belong together only via a third that appears later in the file. Whatever survives that,
+    `drop_spare_warps` then thins of the edge-bounce duplicates described above."""
     parent = list(range(len(warps)))
 
     def find(i):
@@ -95,7 +106,27 @@ def group_warps(warps):
     groups = {}
     for i, warp in enumerate(warps):
         groups.setdefault(find(i), []).append((i, warp))
-    return [_warp_group(members) for members in groups.values()]
+    return drop_spare_warps([_warp_group(members) for members in groups.values()])
+
+
+def drop_spare_warps(groups):
+    """Drop any doorway that repeats an earlier one's destination slot from a few cells away.
+
+    Runs on whole groups rather than single tiles, so the middle tile of a wide gate is never
+    mistaken for a duplicate of its own neighbours: those are already one group by adjacency."""
+    kept = []
+    for group in groups:
+        if not any(_is_spare_of(group, other) for other in kept):
+            kept.append(group)
+    return kept
+
+
+def _is_spare_of(group, other):
+    if (group["dest"], group["to"]) != (other["dest"], other["to"]):
+        return False
+    gx, gy = group["anchor"]
+    ox, oy = other["anchor"]
+    return abs(gx - ox) + abs(gy - oy) <= SPARE_WARP_REACH
 
 
 def _warp_group(members):
@@ -289,17 +320,20 @@ def cell_is_land(root_str, map_label, tileset, width_blocks, cell):
     return any(tile in walkable for tile in tiles)
 
 
-def cell_is_standable(root_str, map_label, tileset, width_blocks, cell):
+def cell_is_standable(root_str, map_label, tileset, width_blocks, cell, blueprint=None):
     """True when a sprite can stand on a cell the way the game decides it: its lower-left tile is
     walkable. That is the exact tile Gen 1 keys collision off (`hTilePlayerStandingOn` = `lda_coord
     8, 9`, the sprite's lower-left background tile, in engine/overworld/movement.asm), so a cell
     whose top is open but whose feet sit on a hedge/fence reads as blocked here. Stricter and more
     faithful than `cell_is_land`, which passes on *any* open sub-tile; use this to place a sprite the
     shot draws whole (the hero, the follower), and keep `cell_is_land` for the looser 'could the
-    player ever occupy this' that water framing and exit markers want."""
+    player ever occupy this' that water framing and exit markers want.
+
+    `blueprint` asks the same question of a map in a state it does not ship in, e.g. after the
+    player has cut a tree open."""
     walkable = sources.parse_collision_tiles(root_str, tileset)
     tileset_file = sources.tileset_basename(root_str, tileset)
-    tiles = sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell)
+    tiles = sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell, blueprint)
     return tiles[2] in walkable
 
 

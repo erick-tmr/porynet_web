@@ -167,7 +167,7 @@ module Walkthrough
       { slug: "digletts-cave", special: true, locs: %w[digletts-cave] },
       { slug: "leg-07", special: false, locs: %w[route-9 route-10] },
       { slug: "rock-tunnel", special: true, locs: %w[rock-tunnel] },
-      { slug: "leg-08", special: false, locs: %w[lavender-town route-8 route-7 celadon-city] },
+      { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 route-7 celadon-city] },
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-09", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
@@ -406,7 +406,8 @@ module Walkthrough
         route_3, route_4_mt_moon, mt_moon, route_4, cerulean_city, route_24, route_25,
         route_5, underground_path, route_6, vermilion_city, ss_anne, route_11,
         vermilion_city_return, digletts_cave,
-        route_9, route_10, rock_tunnel, lavender_town, route_8, route_7, celadon_city, rocket_hideout,
+        route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8, route_7, celadon_city,
+        rocket_hideout,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
@@ -417,13 +418,15 @@ module Walkthrough
 
     # A stop the guide walks twice has map data under one slug only. The second pass reads the
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
-    MAP_SOURCE = { "vermilion-city-return" => "vermilion-city" }.freeze
+    MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
+                   "route-10-south" => "route-10" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
-    # over them. Diglett's Cave surfaces on Route 2 and the detour carries on into Viridian City,
-    # so both pages have to hand the reader the same markers and the same ticks.
+    # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
+    # up to Pewter, so every page has to hand the reader the same markers and the same ticks.
     MAP_EXTRA = {
-      "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City" }
+      "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City",
+                           "pewter-city" => "Pewter City" }
     }.freeze
 
     def self.maps_for(slug, data)
@@ -542,7 +545,7 @@ module Walkthrough
 
     # Curated captions stamped onto specific trainers by their OPP_CLASS:party id, keyed by
     # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings; Route 4's east-plateau
-    # Lass carries an "unreachable on the way down" heads-up.
+    # Lass and Route 10's Power Plant Pokémaniac carry "you cannot reach this one yet" heads-ups.
     def self.trainer_notes(slug)
       b = base(slug)
       case slug
@@ -550,6 +553,8 @@ module Walkthrough
         { "SWIMMER:1" => "#{b}.gym.notes.swimmer", "MISTY:1" => "#{b}.gym.notes.misty" }
       when "route-4"
         { "LASS:4" => "#{b}.trainers.lass.note" }
+      when "route-10"
+        { "POKEMANIAC:1" => "#{b}.trainers.pokemaniac.note" }
       else
         {}
       end
@@ -603,7 +608,21 @@ module Walkthrough
 
     def self.tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
 
-    def self.roster_for(slug) = roster.fetch("trainers", {}).fetch(MAP_SOURCE.fetch(slug, slug), [])
+    # Route 10 is one map walked twice, so its six trainers have to be dealt out between the two
+    # passes. Three pockets, not two: the Jr Trainer below the Poké Center is on the north half,
+    # the Hikers, a Pokémaniac and the second Jr Trainer are past the tunnel, and the Pokémaniac
+    # guarding the Power Plant's door stands on a middle strip walled off by water. That one is
+    # listed on the north half, where the walkthrough tells you to come back for it with Surf.
+    ROSTER_SPLIT = {
+      "route-10" => %w[JR_TRAINER_F:7 POKEMANIAC:1],
+      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8]
+    }.freeze
+
+    def self.roster_for(slug)
+      entries = roster.fetch("trainers", {}).fetch(MAP_SOURCE.fetch(slug, slug), [])
+      half = ROSTER_SPLIT[slug]
+      half ? entries.select { |entry| half.include?(entry["opp"]) } : entries
+    end
 
     def self.roster
       @roster ||= JSON.parse(File.read(File.join(__dir__, "yellow_trainers.json"))).freeze
@@ -957,7 +976,7 @@ module Walkthrough
       defs.each_with_index.map do |d, i|
         n = i + 1
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
-          items: step_items(base, n, d),
+          items: step_items(base, n, d), map: d[:map],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
       end
@@ -1371,17 +1390,24 @@ module Walkthrough
     def self.digletts_cave
       loc("digletts-cave", "CAVE", "Diglett's Cave", 20,
         title: "Diglett's Cave → Viridian Detour", steps: [
-          { pins: { south: "digletts-cave/exit-37-31" } },
-          {},
-          { scene: "route-2-digletts-exit", pins: { north: "digletts-cave/exit-5-5" } },
-          { pins: { house: "route-2/exit-15-19" } },
-          { scene: "route-2-cut-tree", pins: { gate: "route-2/exit-16-35" } },
-          { items: [ [ "HM05 Flash", "flash" ] ], gift: %w[route-2 flash], scene: "route-2-flash" },
-          { item: [ "HP Up", "hp-up" ], scene: "route-2-hp-up" },
-          { item: [ "Moon Stone", "moon-stone" ], scene: "route-2-moon-stone" },
-          { scene: "route-2-viridian-cut", pins: { south: "route-2/exit-south" } },
-          { items: [ [ "TM42 Dream Eater", "tm42" ] ], gift: %w[viridian-city tm42],
-            scene: "viridian-city-tm42", pins: { fisher: "viridian-city/npc-tm42" } },
+          { map: "digletts-cave", pins: { south: "digletts-cave/exit-37-31" } },
+          { map: "digletts-cave" },
+          { map: "digletts-cave", scene: "route-2-digletts-exit",
+            pins: { north: "digletts-cave/exit-5-5" } },
+          { map: "route-2", pins: { house: "route-2/exit-15-19" } },
+          { map: "route-2", scene: "route-2-cut-tree", pins: { gate: "route-2/exit-16-35" } },
+          { map: "route-2", items: [ [ "HM05 Flash", "flash" ] ], gift: %w[route-2 flash],
+            scene: "route-2-flash" },
+          { map: "route-2", item: [ "HP Up", "hp-up" ], scene: "route-2-hp-up" },
+          { map: "route-2", item: [ "Moon Stone", "moon-stone" ], scene: "route-2-moon-stone" },
+          { map: "route-2", scene: "route-2-viridian-cut", pins: { south: "route-2/exit-south" } },
+          { map: "viridian-city", items: [ [ "TM42 Dream Eater", "tm42" ] ],
+            gift: %w[viridian-city tm42], scene: "viridian-city-tm42-gift",
+            pins: { fisher: "viridian-city/npc-tm42" } },
+          { map: "pewter-city", scene: "route-2-pewter-cut" },
+          { map: "pewter-city", scene: "pewter-museum-cut",
+            pins: { museum: "pewter-city/exit-19-5" } },
+          { map: "pewter-city", item: [ "Old Amber", "old-amber" ], scene: "museum-old-amber" },
           { html: true, link: StepLink.new(leg: "leg-07", anchor: "route-9-step-1") }
         ],
         encounters: [
@@ -1391,7 +1417,9 @@ module Walkthrough
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
           house: "route-2-trade-house", inside: "route-2-trade-house-inside",
           tick: "route-2/trade-0") ],
-        oak_queue: [ oak("digletts-cave", "050", 1) ])
+        oak_queue: [ oak("digletts-cave", "050", 1) ],
+        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave",
+          art: "walkthrough/art/dugtrio.png", note_icon: "walkthrough/items/repel.png"))
     end
 
     def self.pokemon_tower
@@ -1971,11 +1999,9 @@ module Walkthrough
     def self.route_10
       loc("route-10", "ROUTE", "Route 10", 22, steps: [
           { scene: "route-10-rock-tunnel", pins: { center: "route-10/exit-11-19", north: "route-10/exit-8-17" } },
-          {},
           { hidden: [ "Super Potion", "super-potion", "route-10-hidden-super-potion", "route-10-super-potion" ] },
-          { pins: { north: "route-10/exit-8-17" } },
-          { hidden: [ "Max Ether", "max-ether", "route-10-hidden-max-ether", "route-10-max-ether" ], pins: { south: "route-10/exit-8-53" } },
-          { pins: { lavender: "route-10/exit-south" } }
+          {},
+          { pins: { north: "route-10/exit-8-17" } }
         ],
         encounters: [
           enc("route-10", "081", "GRASS", "50%", "16–22", "COMMON", "081", "082"),
@@ -1992,6 +2018,18 @@ module Walkthrough
           enc("route-10", "099", "SUPER ROD", "10%", "25", "UNCOMMON", "098", "099")
         ],
         oak_queue: [ oak("route-10", "081", 1) ])
+    end
+
+    # Rock Tunnel splits Route 10 in two, so the guide walks it twice: the Poké Center and the
+    # north mouth on the way in, the road to Lavender once you surface at the south mouth. The
+    # south half borrows the north half's map (MAP_SOURCE), so both pages hand the reader the same
+    # markers and the same ticks.
+    def self.route_10_south
+      loc("route-10-south", "ROUTE", "Route 10", 22, steps: [
+          { hidden: [ "Max Ether", "max-ether", "route-10-hidden-max-ether", "route-10-max-ether" ],
+            pins: { south: "route-10/exit-8-53" } },
+          { pins: { lavender: "route-10/exit-south" } }
+        ])
     end
 
     def self.rock_tunnel
@@ -2164,10 +2202,10 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {})
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {}, map: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link, pins: pins)
+        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map)
     end
 
     # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
@@ -2336,9 +2374,10 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil)
+    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil, art: nil, note_icon: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map, art: art,
+        note_icon: note_icon)
     end
 
     def self.missable(base, anchor:, after_step:)

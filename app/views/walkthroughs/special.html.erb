@@ -21,18 +21,21 @@
   <p class="pn-wt-loc__lead"><%= t(@location.intro_key) %></p>
 </section>
 
-<% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
-
-<section class="pn-wt-section">
-  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
-  <h2 class="pn-h2"><%= t("walkthrough.ui.steps_h2") %></h2>
-  <div class="pn-wt-steps">
-    <% @location.steps.each do |step| %>
-      <%= render "step", step: step, slug: @location.slug %>
-      <% if @location.missable_after?(step.n) %><%= render "missable", missable: @location.missable %><% end %>
+<% groups = @location.step_groups %>
+<% if groups.any? %>
+  <% groups.each_with_index do |(area, steps), index| %>
+    <% if area %>
+      <section class="pn-wt-section pn-wt-maps">
+        <%= render "area_map_block", loc: @location, area: area, show_howto: index.zero? %>
+      </section>
     <% end %>
-  </div>
-</section>
+    <%= render "steps_section", loc: @location, steps: steps, heading: index.zero? %>
+    <% if @location.trivia&.after?(area) %><%= render "trivia", trivia: @location.trivia %><% end %>
+  <% end %>
+<% else %>
+  <% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
+  <%= render "steps_section", loc: @location, steps: @location.steps, heading: true %>
+<% end %>
 
 <% if @location.later? %><%= render "later_section", loc: @location %><% end %>
 
@@ -50,7 +53,7 @@
   </section>
 <% end %>
 
-<% if @location.trivia? %><%= render "trivia", trivia: @location.trivia %><% end %>
+<% if @location.trivia&.loose? %><%= render "trivia", trivia: @location.trivia %><% end %>
 
 <% if @location.trainers.any? %>
   <section class="pn-wt-section">

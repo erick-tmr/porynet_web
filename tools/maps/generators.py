@@ -81,7 +81,7 @@ def _follower(root, spec, hero_grid, hero_dir, sprites):
 
 def gen_map_scene(root, spec):
     """A full map with manual sprites, auto NPCs, and/or directional arrows."""
-    image, colors = compositor.render_map(root, spec["map"], spec.get("parent"))
+    image, colors = compositor.render_map(root, spec["map"], spec.get("parent"), spec.get("cut", ()))
     sprites = [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
     if spec.get("auto_npcs"):
         sprites += auto_npcs(root, spec["map"], show=spec.get("show", ()), hide=spec.get("hide", ()))
@@ -133,8 +133,8 @@ def gen_screen_scene(root, spec):
 
     `player` is the hero's grid cell (defaults to a marker location for hidden-item shots);
     the hero faces `player_dir` (default DOWN). `sprites` places extra NPCs manually (e.g. the
-    rival you meet), auto NPCs are shown at their real cells, and `focus` overrides the camera
-    center (defaults to the hero)."""
+    rival you meet), auto NPCs are shown at their real cells, `focus` overrides the camera
+    center (defaults to the hero), and `cut` fells the cuttable trees the scene is set after."""
     sprites = _screen_sprites(root, spec)
     trailing = _follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"), sprites)
     if trailing:
@@ -144,7 +144,7 @@ def gen_screen_scene(root, spec):
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
     image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", spec["player"]),
                                         spec.get("parent"), sprites, spec.get("arrows", []), lines,
-                                        emotes=emotes, markers=markers)
+                                        emotes=emotes, markers=markers, cut=spec.get("cut", ()))
     return image, spec["name"], {}
 
 

@@ -85,10 +85,29 @@ def _cell_walkable(root, map_label, cell):
     return markers.cell_is_walkable(root, map_label, tileset, width_blocks, cell)
 
 
-def _cell_standable(root, map_label, cell):
+def _reachable(root, map_label, start, goal, cut=()):
+    """Whether `goal` is walkable-connected to `start` on this map, in the state `cut` describes.
+    Used to prove a shot's route exists rather than trusting the eye on a screenshot."""
+    const, tileset = sources.parse_headers(root)[map_label]
+    _index, width, height = sources.parse_map_constants(root)[0][const]
+    blueprint = compositor.cut_trees(root, sources.load_blueprint(root, map_label), width, cut)
+    seen, queue = {start}, [start]
+    while queue:
+        x, y = queue.pop()
+        for cell in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+            if cell in seen or not (0 <= cell[0] < width * 2 and 0 <= cell[1] < height * 2):
+                continue
+            if markers.cell_is_standable(root, map_label, tileset, width, cell, blueprint):
+                seen.add(cell)
+                queue.append(cell)
+    return goal in seen
+
+
+def _cell_standable(root, map_label, cell, cut=()):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
-    return markers.cell_is_standable(root, map_label, tileset, width_blocks, cell)
+    blueprint = compositor.cut_trees(root, sources.load_blueprint(root, map_label), width_blocks, cut)
+    return markers.cell_is_standable(root, map_label, tileset, width_blocks, cell, blueprint)
 
 
 def _cell_land(root, map_label, cell):
@@ -271,6 +290,86 @@ def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
             for cell in cells:
                 assert _cell_walkable(root, spec["map"], cell), \
                     f"{spec['name']} ({fname}): hero cell {cell} on {spec['map']} is not walkable floor"
+
+
+def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
+    """The strict version of the walkable check, over every spec file rather than the interaction
+    ones: a cell counts only if its lower-left tile is open, the tile Gen 1 keys collision off.
+
+    `cell_is_walkable` passes on any open sub-tile, which is why a hero can sit on a rock whose
+    top half is sky and still look fine to a test. Regressions this catches: the Route 10 hero
+    perched on the tree row below the Poke Center, the Snorlax shot standing in the bushes south
+    of the fence, and the Articuno hero inside the rock wall under the chamber. A scene declaring
+    `cut` is judged in the state it draws, and a hero out on the water says so with
+    `player_sprite` (see the surf test below)."""
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if "map" not in spec or spec.get("player_sprite"):
+                continue
+            cells = [tuple(spec["player"])] if "player" in spec else []
+            cells += [tuple(s["grid"]) for s in spec.get("sprites", []) if s.get("sprite") == "SPRITE_RED"]
+            for cell in cells:
+                assert _cell_standable(root, spec["map"], cell, spec.get("cut", ())), \
+                    f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
+
+
+def test_route_10_super_potion_is_taken_from_the_stump_of_the_cut_tree(root):
+    """The item sits in the cliff at (9, 17), and the only cell that can face it is (9, 18), a
+    cuttable tree. Standing in Rock Tunnel's mouth at (8, 17) faces it too, but that tile is the
+    warp: you arrive there out of the cave, and the step comes before you ever go in. So the shot
+    is set after Cut, on the tree's own cell."""
+    spec = _item_spec("route-10-hidden-super-potion")
+    tree = tuple(spec["cut"][0])
+
+    assert tuple(spec["player"]) == tree, "the hero stands where the tree was"
+    assert not _cell_standable(root, "Route10", tree), "the cell is a tree until you cut it"
+    assert _cell_standable(root, "Route10", tree, spec["cut"]), "and open ground once you have"
+    assert (8, 17) in {(x, y) for x, y, _dest, _to in sources.parse_warp_events(root, "Route10")}, \
+        "the other cell that faces the item is the tunnel mouth, not somewhere to stand"
+
+
+def test_the_tm42_gift_shot_is_set_after_the_tree_the_step_tells_you_to_cut(root):
+    """The Fisher is walled into the plot by one cuttable tree, so the frame of him handing TM42
+    over cannot still show the tree standing. The hero is inside the fence, next to him, and the
+    box is the game's own `<PLAYER> received / TM42!`."""
+    spec = next(s for s in json.loads((SPECS / "later_items.json").read_text())
+                if s["name"] == "viridian-city-tm42-gift")
+    fisher = next(o for o in sources.parse_object_events(root, "ViridianCity")
+                  if o["sprite_const"] == "SPRITE_FISHER")
+    (px, py), (fx, fy) = spec["player"], fisher["grid"]
+
+    assert abs(px - fx) + abs(py - fy) == 1, "the hero is close enough to talk to him"
+    assert spec["dialog"]["lines"] == ["<PLAYER> received", "TM42!"]
+    assert not _cell_standable(root, "ViridianCity", tuple(spec["cut"][0])), "the tree is there to cut"
+    assert _cell_standable(root, "ViridianCity", tuple(spec["player"]), spec["cut"]), \
+        "and the hero stands on open ground inside the plot"
+
+
+def test_the_old_amber_shot_faces_the_scientist_who_actually_hands_it_over(root):
+    """Four people stand in Museum 1F and only MUSEUM1F_SCIENTIST2 runs GiveItem OLD_AMBER, so the
+    frame has to face that one. The amber itself is switched off, because the script that gives it
+    hides the display object in the same run that prints the box this shot draws."""
+    spec = _step_shot("museum-old-amber")
+    giver = next(o for o in sources.parse_object_events(root, "Museum1F")
+                 if o["sprite_const"] == "SPRITE_SCIENTIST" and o["grid"] == (15, 2))
+    (px, py), (gx, gy) = spec["player"], giver["grid"]
+
+    assert abs(px - gx) + abs(py - gy) == 1, "the hero is close enough to talk to him"
+    assert spec["dialog"]["lines"] == ["<PLAYER> received", "OLD AMBER!"]
+    assert spec["hide"] == ["MUSEUM1F_OLD_AMBER"], "the case is empty once he has handed it over"
+    drawn = {tuple(s["grid"]) for s in generators._screen_sprites(root, spec)}
+    assert (16, 2) not in drawn, "the amber is gone from its case"
+
+
+def test_the_museum_back_door_is_the_only_way_to_the_old_amber(root):
+    """Museum 1F is two rooms with no door between them: the front entrance reaches the west half
+    only, and the scientist with the amber stands in the east half. That is why the step spends a
+    Cut on the tree beside Pewter's back entrance rather than walking in the front."""
+    warps = sources.parse_warp_events(root, "Museum1F")
+    front, back = (warps[0][0], warps[0][1]), (warps[2][0], warps[2][1])
+
+    assert _reachable(root, "Museum1F", back, (15, 3)), "the back door reaches him"
+    assert not _reachable(root, "Museum1F", front, (15, 3)), "the front door does not"
 
 
 def test_interaction_scenes_never_stand_the_hero_on_another_object(root):

@@ -1,0 +1,12 @@
+<section class="pn-wt-section">
+  <% if heading %>
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
+    <h2 class="pn-h2"><%= t("walkthrough.ui.steps_h2") %></h2>
+  <% end %>
+  <div class="pn-wt-steps">
+    <% steps.each do |step| %>
+      <%= render "step", step: step, slug: loc.slug %>
+      <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
+    <% end %>
+  </div>
+</section>
