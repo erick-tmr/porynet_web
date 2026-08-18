@@ -9,14 +9,15 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector ".pn-mm-layer.is-ready"
   end
 
-  # Click a map pin after centering it in its scroll frame. A pin parked at the very edge of a tall
-  # map (the bottom exit) sits under the frame's clip, so Cuprite's own scroll-and-click can compute
-  # a hit point off the button and the click is silently dropped (the hint never opens). Centering
-  # it first, well clear of any edge, makes the click land every time.
-  def click_pin(selector)
-    pin = find(selector)
-    pin.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
-    pin.click
+  # Click something after centering it, well clear of any edge. Cuprite scrolls an element into
+  # view and then clicks a computed point, so anything that shifts in between takes the click
+  # somewhere else and the page silently never reacts. Two things do that on these pages: a pin
+  # parked at the very edge of a tall map sits under its frame's clip, and a section head far down
+  # a long page moves as the sprites above it finish loading.
+  def click_centered(selector)
+    node = find(selector)
+    node.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
+    node.click
   end
 
   test "the map draws a marker for everything the game data holds" do
@@ -40,7 +41,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
   test "ticking a trainer survives a reload" do
     visit_forest
-    click_pin("#{TRAINER} .pn-mm__hit")
+    click_centered("#{TRAINER} .pn-mm__hit")
 
     assert_selector "#{TRAINER}.is-done"
     assert_selector ".pn-mm-legend__row[data-marker-id='trainer-30-33'].is-done"
@@ -61,7 +62,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
   test "an exit raises its hint without becoming a chore" do
     visit_forest
-    click_pin(".pn-mm[data-marker-id='exit-15-47'] .pn-mm__hit")
+    click_centered(".pn-mm[data-marker-id='exit-15-47'] .pn-mm__hit")
 
     assert_selector ".pn-mm[data-marker-id='exit-15-47'].is-selected"
     assert_no_selector ".pn-mm[data-marker-id='exit-15-47'].is-done"
@@ -184,7 +185,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "#{section}.is-ready.is-open"
     assert_selector "#{section} .pn-wt-catch", count: 4
 
-    find("#{section} .pn-wt-catchsec__head").click
+    click_centered("#{section} .pn-wt-catchsec__head")
     assert_no_selector "#{section} .pn-wt-catch", visible: true
 
     visit FOREST
@@ -192,7 +193,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "#{section}.is-ready"
     assert_no_selector "#{section} .pn-wt-catch", visible: true
 
-    find("#{section} .pn-wt-catchsec__head").click
+    click_centered("#{section} .pn-wt-catchsec__head")
     assert_selector "#{section} .pn-wt-catch", count: 4
   end
 
@@ -284,7 +285,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "#{card}.is-done"
     assert_selector "#{pin}.is-done"
 
-    click_pin("#{pin} .pn-mm__hit")
+    click_centered("#{pin} .pn-mm__hit")
     assert_no_selector "#{card}.is-done"
   end
 
@@ -329,7 +330,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
     within ".pn-mm-block[data-map-markers-map-value='pallet-town']" do
       assert_selector ".pn-mm-legend__chip--npc", text: "N1"
-      click_pin("#{npc} .pn-mm__hit")
+      click_centered("#{npc} .pn-mm__hit")
 
       assert_selector "#{npc}.is-selected"
       assert_no_selector "#{npc}.is-done"
