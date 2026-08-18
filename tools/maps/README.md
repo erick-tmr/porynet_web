@@ -190,8 +190,8 @@ Yellow (Pikachu) without special-casing either.
 
 For Yellow specifically the follower is Pikachu, drawn into every scene that draws the hero
 (screen/dialog scenes, and `map` scenes that place a `SPRITE_RED`). The pre-Pikachu intro shots
-(the bedroom, the Oak's Lab starter/rival scenes) and the surfing Articuno shot set
-`"follower": false`.
+(the bedroom, the Oak's Lab starter/rival scenes) and the shots that leave the hero out surfing
+set `"follower": false`.
 
 ## Finding the data in pokeyellow
 

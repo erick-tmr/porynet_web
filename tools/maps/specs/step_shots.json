@@ -637,20 +637,20 @@
     "name": "route-10-rock-tunnel",
     "map": "Route10",
     "player": [
-      8,
-      19
+      11,
+      21
     ],
     "player_dir": "UP",
     "focus": [
-      9,
-      19
+      11,
+      20
     ],
     "arrows": [
       {
         "dir": "up",
         "grid": [
-          8,
-          17
+          11,
+          20
         ]
       }
     ]
@@ -686,15 +686,14 @@
     "step": 3,
     "name": "seafoam-articuno",
     "map": "SeafoamIslandsB4F",
-    "follower": false,
     "player": [
       6,
-      3
+      2
     ],
     "player_dir": "UP",
     "focus": [
       6,
-      2
+      1
     ],
     "sprites": [
       {
@@ -792,13 +791,13 @@
     "name": "route-16-snorlax",
     "map": "Route16",
     "player": [
-      26,
-      12
+      27,
+      10
     ],
-    "player_dir": "UP",
+    "player_dir": "LEFT",
     "focus": [
       26,
-      11
+      10
     ],
     "sprites": [
       {

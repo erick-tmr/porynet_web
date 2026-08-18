@@ -85,10 +85,11 @@ def _cell_walkable(root, map_label, cell):
     return markers.cell_is_walkable(root, map_label, tileset, width_blocks, cell)
 
 
-def _cell_standable(root, map_label, cell):
+def _cell_standable(root, map_label, cell, cut=()):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
-    return markers.cell_is_standable(root, map_label, tileset, width_blocks, cell)
+    blueprint = compositor.cut_trees(root, sources.load_blueprint(root, map_label), width_blocks, cut)
+    return markers.cell_is_standable(root, map_label, tileset, width_blocks, cell, blueprint)
 
 
 def _cell_land(root, map_label, cell):
@@ -271,6 +272,27 @@ def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
             for cell in cells:
                 assert _cell_walkable(root, spec["map"], cell), \
                     f"{spec['name']} ({fname}): hero cell {cell} on {spec['map']} is not walkable floor"
+
+
+def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
+    """The strict version of the walkable check, over every spec file rather than the interaction
+    ones: a cell counts only if its lower-left tile is open, the tile Gen 1 keys collision off.
+
+    `cell_is_walkable` passes on any open sub-tile, which is why a hero can sit on a rock whose
+    top half is sky and still look fine to a test. Regressions this catches: the Route 10 hero
+    perched on the tree row below the Poke Center, the Snorlax shot standing in the bushes south
+    of the fence, and the Articuno hero inside the rock wall under the chamber. A scene declaring
+    `cut` is judged in the state it draws, and a hero out on the water says so with
+    `player_sprite` (see the surf test below)."""
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if "map" not in spec or spec.get("player_sprite"):
+                continue
+            cells = [tuple(spec["player"])] if "player" in spec else []
+            cells += [tuple(s["grid"]) for s in spec.get("sprites", []) if s.get("sprite") == "SPRITE_RED"]
+            for cell in cells:
+                assert _cell_standable(root, spec["map"], cell, spec.get("cut", ())), \
+                    f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
 
 
 def test_interaction_scenes_never_stand_the_hero_on_another_object(root):
