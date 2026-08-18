@@ -254,6 +254,20 @@ def parse_border_block(root_str, map_label):
 
 
 @cache
+def parse_cut_tree_blocks(root_str):
+    """Return {block with a cuttable tree: the block the game swaps in once it is cut}.
+
+    `CutTreeBlockSwaps` (data/tilesets/cut_tree_blocks.asm) is the table the overworld reads after
+    the Cut animation, so a scene set after the cut renders the same ground the game would."""
+    out = {}
+    for line in _read(root_str, "data/tilesets/cut_tree_blocks.asm").splitlines():
+        m = re.match(r"\s*db \$([0-9A-Fa-f]+), \$([0-9A-Fa-f]+)", line)
+        if m:
+            out[int(m.group(1), 16)] = int(m.group(2), 16)
+    return out
+
+
+@cache
 def parse_hidden_objects(root_str):
     """Return {map_const: {object_const, ...}} for objects the game starts with switched off.
 
@@ -406,10 +420,13 @@ def parse_collision_tiles(root_str, tileset_const):
     return frozenset(int(t.strip().lstrip("$"), 16) for t in match.group(1).split(","))
 
 
-def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y):
-    """The four 8px tiles making up one 16px movement cell."""
+def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y, blueprint=None):
+    """The four 8px tiles making up one 16px movement cell.
+
+    `blueprint` overrides the map's own block layout, so a caller can ask what a cell becomes in a
+    state the map does not ship in (a felled cut tree, via `compositor.cut_trees`)."""
     blocks = load_blockset(root_str, tileset_file)
-    blueprint = load_blueprint(root_str, map_label)
+    blueprint = load_blueprint(root_str, map_label) if blueprint is None else blueprint
     block = blocks[blueprint[(cell_y // 2) * width_blocks + (cell_x // 2)]]
     top, left = (cell_y % 2) * 2, (cell_x % 2) * 2
     return [block[(top + dy) * BLOCK_TILES + left + dx] for dy in range(2) for dx in range(2)]

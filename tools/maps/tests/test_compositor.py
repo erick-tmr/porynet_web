@@ -1,4 +1,7 @@
+import pytest
+
 import compositor
+import sources
 
 
 def test_dir_to_frame():
@@ -89,3 +92,37 @@ def test_a_sprite_off_the_grass_is_drawn_whole(root):
     blended = compositor.overlay_sprites(canvas.copy(), root, sprite, colors, grass)
 
     assert plain.tobytes() == blended.tobytes()
+
+
+def test_cutting_a_tree_swaps_the_block_the_game_swaps(root):
+    """One cell names one tree, but Gen 1 replaces the whole 32px block around it, so the cut has
+    to be applied at block resolution or the felled tile would not line up with the game's."""
+    width = sources.parse_map_constants(root)[0]["VIRIDIAN_CITY"][1]
+    blueprint = sources.load_blueprint(root, "ViridianCity")
+    index = (22 // 2) * width + (8 // 2)
+    assert blueprint[index] == 0x34, "the Fisher's plot is walled by block $34"
+
+    cut = compositor.cut_trees(root, blueprint, width, [(8, 22)])
+
+    assert cut[index] == 0x6F
+    assert list(blueprint) == list(sources.load_blueprint(root, "ViridianCity")), \
+        "the cached blueprint is untouched"
+    assert cut[:index] == list(blueprint[:index]), "no other block moves"
+
+
+def test_cutting_a_cell_that_holds_no_cuttable_tree_raises(root):
+    """A spec pointing at plain ground is an authoring mistake: the shot would silently draw the
+    same picture as one with no `cut` at all."""
+    width = sources.parse_map_constants(root)[0]["VIRIDIAN_CITY"][1]
+    blueprint = sources.load_blueprint(root, "ViridianCity")
+
+    with pytest.raises(ValueError, match="no cuttable tree"):
+        compositor.cut_trees(root, blueprint, width, [(7, 23)])
+
+
+def test_a_map_with_nothing_cut_is_the_map_the_game_ships(root):
+    plain, _ = compositor.render_map(root, "ViridianCity")
+    cut, _ = compositor.render_map(root, "ViridianCity", None, [(8, 22)])
+
+    assert plain.size == cut.size
+    assert plain.tobytes() != cut.tobytes(), "felling the tree changes the picture"

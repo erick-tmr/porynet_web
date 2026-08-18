@@ -219,3 +219,13 @@ def test_markers_by_map(root):
     antidote = next(m for m in vf if m["item_const"] == "ANTIDOTE")
     assert antidote["label"] == "Antidote"
     assert antidote["grid"] == [16, 42]
+
+
+def test_cut_tree_blocks(root):
+    """`CutTreeBlockSwaps` is the table the game reads after the Cut animation. Viridian's plot
+    tree is block $34, which becomes $6f: the tree goes, the bushes sharing its block stay."""
+    swaps = sources.parse_cut_tree_blocks(root)
+
+    assert swaps[0x34] == 0x6F
+    assert swaps[0x35] == 0x4C
+    assert -1 not in swaps and 0xFF not in swaps, "the terminator is not a swap"

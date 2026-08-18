@@ -289,17 +289,20 @@ def cell_is_land(root_str, map_label, tileset, width_blocks, cell):
     return any(tile in walkable for tile in tiles)
 
 
-def cell_is_standable(root_str, map_label, tileset, width_blocks, cell):
+def cell_is_standable(root_str, map_label, tileset, width_blocks, cell, blueprint=None):
     """True when a sprite can stand on a cell the way the game decides it: its lower-left tile is
     walkable. That is the exact tile Gen 1 keys collision off (`hTilePlayerStandingOn` = `lda_coord
     8, 9`, the sprite's lower-left background tile, in engine/overworld/movement.asm), so a cell
     whose top is open but whose feet sit on a hedge/fence reads as blocked here. Stricter and more
     faithful than `cell_is_land`, which passes on *any* open sub-tile; use this to place a sprite the
     shot draws whole (the hero, the follower), and keep `cell_is_land` for the looser 'could the
-    player ever occupy this' that water framing and exit markers want."""
+    player ever occupy this' that water framing and exit markers want.
+
+    `blueprint` asks the same question of a map in a state it does not ship in, e.g. after the
+    player has cut a tree open."""
     walkable = sources.parse_collision_tiles(root_str, tileset)
     tileset_file = sources.tileset_basename(root_str, tileset)
-    tiles = sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell)
+    tiles = sources.cell_tiles(root_str, map_label, tileset_file, width_blocks, *cell, blueprint)
     return tiles[2] in walkable
 
 
