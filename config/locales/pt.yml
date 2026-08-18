@@ -1603,6 +1603,10 @@ pt:
             "11":
               title: "Volte para Cerulean"
               text_html: "Refaça o caminho: suba a Rota 2, atravesse o túnel até a Rota 11, e de Vermilion pegue o Underground Path até Cerulean e a <a href=\"%{href}\">Rota 9</a>."
+          trivia:
+            title: "O melhor lugar para upar até aqui"
+            intro: "Diglett é 94% desta caverna e Dugtrio os outros 6%. A Gen 1 paga experiência base vezes o nível dividido por sete, então um Diglett Lv 20 dá cerca de 230 EXP e um Dugtrio Lv 30 cerca de 655. Nada que você consiga farmar tão cedo paga assim, e os 35 de HP base do Dugtrio fazem ele cair em um ou dois golpes."
+            note: "Cuidado com os níveis e o tipo. Dugtrio aparece entre Lv 29 e 31, igual ou acima do seu time logo depois do Lt. Surge, e 120 de Velocidade base garante que ele ataca primeiro. Ele é Terra puro, então Pikachu não o acerta, e um tipo Voador não toma nada do Dig dele."
           oak:
             diglett: "Por toda parte aqui → Dugtrio, um tipo Terra rápido. Pegue a base."
         route_9:

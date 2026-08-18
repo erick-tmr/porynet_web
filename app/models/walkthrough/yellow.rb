@@ -1409,7 +1409,8 @@ module Walkthrough
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
           house: "route-2-trade-house", inside: "route-2-trade-house-inside",
           tick: "route-2/trade-0") ],
-        oak_queue: [ oak("digletts-cave", "050", 1) ])
+        oak_queue: [ oak("digletts-cave", "050", 1) ],
+        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding"))
     end
 
     def self.pokemon_tower
