@@ -106,6 +106,14 @@
     </div>
   </div>
 
+  <% if entry&.later? %>
+    <div class="pn-wt-catch__later">
+      <%= r2_image_tag "pokemon/yellow/#{entry.later.dex}.png", alt: "",
+                       class: "pn-wt-catch__later-sprite" %>
+      <span class="pn-wt-catch__later-text"><%= later_stage_note(entry.later) %></span>
+    </div>
+  <% end %>
+
   <% if enc.tip_key %>
     <div class="pn-wt-catch__tip"><b><%= t("walkthrough.ui.tip") %></b> · <%= t(enc.tip_key) %></div>
   <% end %>

@@ -199,8 +199,8 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   test "the Living Dex stepper counts bodies and registers the species on the first one" do
     visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
 
-    card = ".pn-wt-catch[data-body-counter-dex-value='010']"
-    row = ".pn-wt-ldrow[data-body-counter-dex-value='010']"
+    card = ".pn-wt-catch[data-body-counter-dex-value='011']"
+    row = ".pn-wt-ldrow[data-body-counter-dex-value='011']"
     within(find("#{card} .pn-wt-stepper__count")) { assert_text "0" }
 
     find("#{card} .pn-wt-stepper__btn--add").click
@@ -218,7 +218,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     assert_selector "#{card}.is-met"
     assert_selector "#{row}.is-met"
 
-    assert_selector ".pn-wt-ldstage[data-progress-id='010'].is-done"
+    assert_selector ".pn-wt-ldstage[data-progress-id='011'].is-done"
   end
 
   test "ticking a card caught fills its body in the Living Dex queue, and un-ticking clears it" do
@@ -240,10 +240,28 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     within(find("#{row} .pn-wt-ldrow__prog")) { assert_text "0 / 1" }
   end
 
+  # A quota on a card is a decision, so the card has to carry the reason for it: one Pidgey here,
+  # because Route 13 hands out the Pidgeotto that fills the two stages above it. With Living Dex
+  # off there is no quota to explain, so the line goes away with the rest of the mode.
+  test "a catch card names the stage above its quota, and drops the line when the mode is off" do
+    visit_with_modes "/walkthroughs/yellow/leg-01", "living"
+
+    card = ".pn-wt-catch[data-body-counter-dex-value='016']"
+
+    assert_selector "#{card} .pn-wt-catchbadge--living", text: "LIVING DEX ×1"
+    assert_selector "#{card} .pn-wt-catch__later-text",
+      text: "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop."
+
+    visit_with_modes "/walkthroughs/yellow/leg-01"
+
+    assert_selector card
+    assert_no_selector "#{card} .pn-wt-catch__later-text"
+  end
+
   test "a body registers the species, and stepping again never un-registers it" do
     visit_with_modes "/walkthroughs/yellow/viridian-forest", "living"
 
-    card = ".pn-wt-catch[data-body-counter-dex-value='011']"
+    card = ".pn-wt-catch[data-body-counter-dex-value='010']"
     find("#{card} .pn-wt-stepper__btn--add").click
 
     assert_selector "#{card}.is-met"

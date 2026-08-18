@@ -174,6 +174,8 @@ module ApplicationHelper
 
   def challenge_why(entry) = t(entry.why_key, **entry.why_args)
 
+  def later_stage_note(later) = t(later.note_key, **later.args)
+
   def challenge_note_text(note) = t("walkthrough.ui.note_#{note.kind}", **note.args)
 
   def challenge_note_tag(note) = t("walkthrough.ui.note_tag_#{note.kind}")

@@ -121,6 +121,15 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "The only Caterpie in the game. Miss it here and you miss it.", challenge_why(entry)
   end
 
+  test "a later-stage note reads from its kind, so the card cannot print a raw key" do
+    later = Walkthrough::LaterStage.new(dex: "017", name: "Pidgeotto", kind: :catch,
+      args: { name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" })
+
+    assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop.",
+      later_stage_note(later)
+    assert later.catch?
+  end
+
   test "a note reads from its kind, so a new kind cannot render an untranslated tag" do
     note = Walkthrough::ChallengeNote.new(kind: :one_copy, args: { names: "Bulbasaur", count: 1 })
 
@@ -249,7 +258,7 @@ class ApplicationHelperTest < ActionView::TestCase
       dex: dex, name: "Caterpie", at: "viridian-forest", stop_name: "Viridian Forest", qty: 2,
       covers: [ dex ], chain: [ dex ], fresh: true, boxed: false, done_at: nil, how: "GRASS",
       rate: "50%", best: nil,
-      why_key: nil, why_args: {}, **overrides
+      why_key: nil, why_args: {}, later: nil, **overrides
     )
   end
 end

@@ -60,20 +60,67 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "bodies are counted so every stage of a family ends up in its own box" do
-    assert_equal 2, challenge.bodies_for(game, "010"), "one Caterpie stays, one becomes Butterfree"
-    assert_equal 1, challenge.bodies_for(game, "011"), "a wild Metapod fills its own slot"
-    assert_equal 3, challenge.bodies_for(game, "016"),
-      "Pidgeotto only spawns ten legs later, so Pidgey carries both stages above it"
-    assert_equal 2, challenge.bodies_for(game, "019"), "same for Rattata, whose Raticate waits for Route 21"
-    assert_equal 0, challenge.bodies_for(game, "020"), "and Raticate is not worth a ball once it is covered"
+    assert_equal 1, challenge.bodies_for(game, "010"),
+      "Metapod is 25% of the same forest, so one Caterpie is all the forest owes"
+    assert_equal 2, challenge.bodies_for(game, "011"),
+      "one Metapod stays, one takes the ten levels to the Butterfree nothing spawns"
     assert_equal 1, challenge.bodies_for(game, "001"), "the only Bulbasaur in the game is a single gift"
   end
 
-  test "a stage nobody can catch is sourced from the best-odds ancestor, not the nearest" do
-    assert_equal "016", challenge.body_source(game, "018")
-    assert_equal "010", challenge.body_source(game, "012"),
-      "Caterpie at 50% beats Metapod at 25% as the body that walks up the line"
-    assert_nil challenge.body_source(game, "010"), "the root of a line has no ancestor to draw on"
+  # The whole point of the 4% line: a stage you can walk up to is a stage you catch. Pidgeot used
+  # to cost a third Pidgey walked 36 levels; Route 13 hands out Pidgeotto at 15%, so the Pidgey
+  # card drops to one and the two stages above it come off the pair of Pidgeotto instead.
+  test "a stage that spawns at a reasonable rate is caught there, not evolved up to" do
+    assert_equal "017", challenge.body_source(game, "018")
+    assert_equal 1, challenge.bodies_for(game, "016")
+    assert_equal 2, challenge.bodies_for(game, "017")
+    assert_equal "020", challenge.body_source(game, "020"),
+      "40% of the Pokémon Mansion beats levelling a second Rattata to 20"
+    assert_equal 1, challenge.bodies_for(game, "019")
+  end
+
+  test "a stage under the line is grown from the best-odds ancestor, never hunted" do
+    assert_equal 1, challenge.top_rate(game, "085"), "Dodrio is 1% of Route 17 and nowhere better"
+    assert_equal "084", challenge.body_source(game, "085")
+    assert_equal 2, challenge.bodies_for(game, "084"), "so a second Doduo carries it"
+    assert_equal "011", challenge.body_source(game, "012"),
+      "Butterfree comes off the nearest rung that clears the line, not the roomiest one"
+    assert_equal "010", challenge.body_source(game, "010"), "the root of a line sources itself"
+  end
+
+  # A 6% Slowbro sits on Seafoam water the guide crosses long before HM03, so it is not odds you
+  # can take. Only the stops that hand you the tool count, which leaves the 1% cave spawn.
+  test "odds you cannot work yet are not odds, so they never drop a quota" do
+    assert_equal 1, challenge.top_rate(game, "080")
+    assert_equal "079", challenge.body_source(game, "080")
+    assert_equal 2, challenge.bodies_for(game, "079")
+  end
+
+  # A quota only reads as a decision next to the stage above it, so every species the queue takes
+  # carries the one line that explains it: caught on its own odds, grown from a spare body, or
+  # stopped dead by a trade.
+  test "a queued species says how the stage above it gets filled" do
+    kinds = {
+      [ "leg-01", "016" ] => :catch, [ "leg-10", "084" ] => :rare,
+      [ "viridian-forest", "011" ] => :level, [ "mt-moon", "035" ] => :stone,
+      [ "victory-road", "075" ] => :trade, [ "leg-01", "025" ] => :refused
+    }
+    found = kinds.keys.to_h { |slug, dex| [ [ slug, dex ], plan(slug).entry_for(dex).later ] }
+
+    assert_equal kinds, found.transform_values(&:kind)
+    assert_equal({ name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" },
+      found[[ "leg-01", "016" ]].args)
+    assert_equal "017", found[[ "leg-01", "016" ]].dex, "the note draws the stage it names"
+    assert_equal({ name: "Clefable", base: "Clefairy", stone: "Moon Stone" },
+      found[[ "mt-moon", "035" ]].args)
+  end
+
+  test "a species the page only points at carries no quota line to explain" do
+    assert_nil plan("viridian-forest").entry_for("016").later,
+      "Route 1 owns the Pidgey row, so the forest card just sends you back to it"
+    assert_nil plan("leg-10").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
+    assert_equal "walkthrough.ui.ld_why_later", plan("leg-01").entry_for("016").why_key,
+      "one Pidgey is the whole point, so the row says which stop takes the rest of the line"
   end
 
   test "a rare ancestor still owes a spare body when the stage above it has no other source" do
@@ -95,7 +142,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     forest = plan("viridian-forest")
 
     assert_equal [ "Caterpie", "Metapod" ], forest.queue.map(&:name)
-    assert_equal 3, forest.bodies
+    assert_equal 3, forest.bodies, "one Caterpie, and the pair of Metapod that carries Butterfree"
     assert_equal [ "Pidgey", "Pidgeotto" ], forest.boxed.map(&:name),
       "Route 1 and Route 21 own these, so the forest only points at them"
   end
@@ -106,7 +153,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
 
     assert_equal 1, oddish.size, "Oddish is on Route 24 and Route 25 but owes one row"
     assert_equal "route-24", oddish.first.at
-    assert_equal 3, oddish.first.qty
+    assert_equal 1, oddish.first.qty, "Gloom is 10% of Cerulean Cave, so it carries Vileplume too"
     assert_equal 11, leg.entries.size
     assert_equal [ "Bulbasaur", "Oddish", "Bellsprout", "Charmander" ], leg.queue.map(&:name)
   end

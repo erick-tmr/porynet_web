@@ -292,8 +292,17 @@ module Walkthrough
     def covers?(slug) = slugs.include?(slug)
   end
 
+  # The stage directly above a queued species, and how the plan means to fill it: caught on its own
+  # odds, grown from a spare body taken here, or out of reach on one cartridge. This is what makes
+  # a quota legible on the card, so `kind` names the line to print and `args` fills its blanks.
+  LaterStage = Data.define(:dex, :name, :kind, :args) do
+    def catch? = kind == :catch
+    def note_key = "walkthrough.ui.ld_later_#{kind}"
+  end
+
   PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :covers, :chain, :fresh, :boxed,
-    :done_at, :how, :rate, :best, :why_key, :why_args) do
+    :done_at, :how, :rate, :best, :why_key, :why_args, :later) do
+    def later? = !later.nil?
     def fresh? = fresh
     def boxed? = boxed
     def best? = !best.nil?

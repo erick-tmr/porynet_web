@@ -423,6 +423,13 @@ en:
       ld_progress_met: "QUOTA MET ✓"
       ld_add: "Log one caught"
       ld_remove: "Remove one"
+      ld_later_catch: "%{stop} has %{name} at %{rate}, so one %{base} covers this stop."
+      ld_later_rare: "%{stop} has %{name} at only %{rate}, so grow the spare %{base} instead of hunting one."
+      ld_later_level: "%{name} is never wild, so the spare %{base} levels to %{level}."
+      ld_later_stone: "%{name} is never wild, so the spare %{base} takes the %{stone}."
+      ld_later_trade: "%{name} only comes from a trade, so one cartridge stops the line at %{base}."
+      ld_later_refused: "%{base} refuses the Thunder Stone in Yellow, so %{name} only ever arrives by trade."
+      ld_why_later: "One is enough: %{stop} has %{name} at %{rate}, so take the rest of the line there instead of walking this one up."
       ld_why_stages: "%{count} specimens. One stays %{name}, the rest walk up the line so every stage owns one."
       ld_why_gift: "%{stop} hands over the only %{name} in the cartridge. There is no second one to find."
       ld_why_sole: "The only %{name} in the game. Miss it here and you miss it."
@@ -1136,7 +1143,7 @@ en:
               text_html: "Catch a Caterpie or Metapod before you go; its Butterfree learns Confusion, a rare good answer to Brock. Leave by exit %{north} onto Route 2, then into Pewter City."
           tips:
             caterpie: "Everywhere in the grass. Evolves fast into Butterfree, whose Confusion dents Brock."
-            metapod: "Or just evolve your Caterpie at Lv 7. Cheaper than hunting the 25% spawn."
+            metapod: "A 25% spawn, so taking one straight is easy. A Caterpie also gets here at Lv 7."
             pidgey: "Common here too if you still need one for the dex."
             pidgeotto: "A rare 1% spawn. A free evolved flyer if you're patient."
           oak:

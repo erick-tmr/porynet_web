@@ -423,6 +423,13 @@ pt:
       ld_progress_met: "COTA CUMPRIDA ✓"
       ld_add: "Registrar mais um capturado"
       ld_remove: "Remover um"
+      ld_later_catch: "%{stop} tem %{name} a %{rate}, então um %{base} basta nesta parada."
+      ld_later_rare: "%{stop} tem %{name} a apenas %{rate}, então evolua o %{base} extra em vez de caçar um."
+      ld_later_level: "%{name} nunca aparece selvagem, então o %{base} extra sobe até o nível %{level}."
+      ld_later_stone: "%{name} nunca aparece selvagem, então o %{base} extra recebe a %{stone}."
+      ld_later_trade: "%{name} só vem de troca, então em um cartucho a linha para no %{base}."
+      ld_later_refused: "%{base} recusa a Thunder Stone no Yellow, então %{name} só chega por troca."
+      ld_why_later: "Um basta: %{stop} tem %{name} a %{rate}, então pegue o resto da linha lá em vez de subir esta."
       ld_why_stages: "%{count} espécimes. Um segue %{name}, o resto sobe a linha para cada estágio ter o seu."
       ld_why_gift: "%{stop} entrega o único %{name} do cartucho. Não existe um segundo para procurar."
       ld_why_sole: "O único %{name} do jogo. Se perder aqui, perdeu de vez."
@@ -1136,7 +1143,7 @@ pt:
               text_html: "Capture um Caterpie ou Metapod antes de ir; o Butterfree aprende Confusion, uma resposta rara e boa ao Brock. Saia pela saída %{north} para a Rota 2 e então para Pewter City."
           tips:
             caterpie: "Por toda a grama. Evolui rápido para Butterfree, cujo Confusion machuca o Brock."
-            metapod: "Ou só evolua seu Caterpie no Nv 7. Mais barato que caçar o spawn de 25%."
+            metapod: "Um spawn de 25%, então pegar um direto é fácil. Um Caterpie também chega aqui no Nv 7."
             pidgey: "Comum aqui também se ainda precisar de um para a dex."
             pidgeotto: "Um spawn raro de 1%. Um voador evoluído de graça se tiver paciência."
           oak:

@@ -1,6 +1,8 @@
 module Walkthrough
   module Challenge
-    WORTH_CATCHING_RATE = 5
+    # A wild spawn at this rate or better is an easier body than levelling one up from the stage
+    # below, so anything that clears the bar is caught on its own rather than evolved into.
+    WORTH_CATCHING_RATE = 4
     CROWDED_PAGE = 6
 
     def self.play_order(legs) = legs.flat_map { |leg| leg_order(leg) }
@@ -71,8 +73,11 @@ module Walkthrough
       game.locations.flat_map(&:encounters).select { |enc| enc.dex == dex && enc.wild? }
     end
 
+    # The best odds the run really offers, read off the stops the guide can work rather than every
+    # table the species appears in: a 6% Slowbro on water you cross long before HM03 is not odds
+    # you can take, so it cannot be the reason a quota drops.
     def self.top_rate(game, dex)
-      wild_encounters(game, dex).filter_map { |enc| Yellow.parse_rate(enc.rate) }.max
+      stops_with(game, dex).filter_map { |loc| stop_rate(loc, dex) }.max
     end
 
     def self.repeatable?(game, dex) = wild_encounters(game, dex).any?
@@ -82,37 +87,33 @@ module Walkthrough
       !rate.nil? && rate >= WORTH_CATCHING_RATE
     end
 
-    def self.home_index(game, dex)
-      stop = dex && home_stop(game, dex)
-      stop && play_order(game.legs).index(stop)
-    end
+    # The rungs a body for `dex` could be caught as, nearest first: the species itself, then back
+    # down its ancestry.
+    def self.rungs(dex) = [ dex ] + ancestors_of(dex).reverse
 
-    def self.self_sourced?(game, dex)
-      return true unless evolvable?(dex)
-      return false unless worth_catching?(game, dex)
-
-      base = home_index(game, ancestors_of(dex).first)
-      base.nil? || home_index(game, dex) <= base
-    end
-
-    # The stage you farm a spare body from: any ancestor with a percentage encounter rate, which is
-    # what makes it re-catchable at all (a "-" rate is a one-off like a revived fossil). Rate ranks
-    # those candidates but does not gate them, so an evolution-only stage still owes a spare body
-    # even when its ancestor sits under WORTH_CATCHING_RATE, as Clefable does on a 1% Clefairy.
+    # The stage you catch to fill `dex`'s box slot. The nearest rung that spawns at
+    # WORTH_CATCHING_RATE or better takes it, because a ball is cheaper than the levels: Pidgeot
+    # comes off a second Pidgeotto, 15% of the grass on Route 13, never off a Pidgey walked the
+    # whole line. A stage nothing grows into is caught or not had at all, and nil means no body in
+    # the line can fill this slot.
     def self.body_source(game, dex)
-      ancestors_of(dex).select { |stage| top_rate(game, stage) }.max_by { |stage| top_rate(game, stage) }
+      return dex unless evolvable?(dex)
+
+      rungs(dex).find { |stage| worth_catching?(game, stage) } || best_odds(game, ancestors_of(dex))
     end
 
-    def self.dependents(game, dex)
-      Evolutions.chain_for(dex).select do |stage|
-        !self_sourced?(game, stage) && body_source(game, stage) == dex
-      end
+    # Where a stage under the bar has to come from: the ancestor with the best odds, and only an
+    # ancestor, because a spawn too rare to be worth hunting is no better hunted one stage up. It
+    # is what still owes Clefable a body off a 1% Clefairy. A "-" rate is a one-off like a revived
+    # fossil, so only a percentage counts as a spare body.
+    def self.best_odds(game, stages)
+      stages.select { |stage| top_rate(game, stage) }.max_by { |stage| top_rate(game, stage) }
     end
+
+    def self.self_sourced?(game, dex) = body_source(game, dex) == dex
 
     def self.covered_by(game, dex)
-      return [ dex ] unless repeatable?(game, dex)
-
-      (self_sourced?(game, dex) ? [ dex ] : []) + dependents(game, dex)
+      Evolutions.chain_for(dex).select { |stage| body_source(game, stage) == dex }
     end
 
     def self.bodies_for(game, dex) = covered_by(game, dex).size
@@ -153,30 +154,81 @@ module Walkthrough
 
     def self.build_entry(game, span, dex, home, shown)
       covers = covered_by(game, dex)
-      qty = covers.size
-      best = game.best_catches[dex]
-      found = encounter_at(shown, dex)
-      why = why_for(shown, found, qty, best)
       here = home.slug == shown.slug
+      later = here && covers.any? ? later_for(game, dex) : nil
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
-        stop_name: shown.name, qty: qty, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
+        stop_name: shown.name, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
         boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,
-        how: found.how, rate: found.rate, best: best, why_key: why.first, why_args: why.last)
+        later: later, **catch_facts(game, shown, dex, covers, later))
     end
 
-    def self.why_for(loc, found, qty, best)
+    def self.catch_facts(game, shown, dex, covers, later)
+      best = game.best_catches[dex]
+      found = encounter_at(shown, dex)
+      why = why_for(shown, found, covers.size, best, later)
+      { qty: covers.size, how: found.how, rate: found.rate, best: best,
+        why_key: why.first, why_args: why.last }
+    end
+
+    # The stage directly above this one, told the way the plan means to fill it. A branching line
+    # (Eevee's three stones) has no single stage above, so it takes the branch this body is owed
+    # for, and says nothing at all when the line grows from neither this stage nor its own odds.
+    def self.later_for(game, dex)
+      steps = Evolutions.out_of(dex)
+      step = steps.find { |evo| body_source(game, evo.to) == dex } || steps.first
+      step && later_stage(game, dex, step)
+    end
+
+    def self.later_stage(game, dex, step)
+      kind, extra = later_kind(game, dex, step)
+      return nil if kind.nil?
+
+      LaterStage.new(dex: step.to, name: Yellow::NAMES.fetch(step.to), kind: kind,
+        args: { name: Yellow::NAMES.fetch(step.to), base: Yellow::NAMES.fetch(dex) }.merge(extra))
+    end
+
+    def self.later_kind(game, dex, step)
+      later = step.to
+      return [ :refused, {} ] if Evolutions.refused?(later)
+      return [ :trade, {} ] if unreachable?(game, later)
+      return [ :catch, spawn_args(game, later) ] if self_sourced?(game, later)
+      return grown_kind(game, later, step) if body_source(game, later) == dex
+
+      nil
+    end
+
+    # A stage you grow from a spare body either has odds too long to be worth a ball, or no wild
+    # spawn at all, in which case the line prints the evolution the spare body owes instead.
+    def self.grown_kind(game, later, step)
+      return [ :rare, spawn_args(game, later) ] if top_rate(game, later)
+      return [ :level, { level: step.arg } ] if step.level?
+
+      [ :stone, { stone: step.arg } ]
+    end
+
+    def self.spawn_args(game, dex)
+      stop = home_stop(game, dex)
+      { stop: stop.name, rate: best_encounter_at(stop, dex).rate }
+    end
+
+    def self.best_encounter_at(loc, dex)
+      loc.encounters.select { |enc| enc.dex == dex }.max_by { |enc| Yellow.parse_rate(enc.rate) || 0 }
+    end
+
+    def self.why_for(loc, found, qty, best, later)
       given = { name: found.name, stop: loc.name }
       return [ "walkthrough.ui.ld_why_gift", given ] if found.gift?
 
-      wild_why(loc, found, qty, best, given)
+      wild_why(loc, found, qty, best, later, given)
     end
 
-    def self.wild_why(loc, found, qty, best, given)
+    def self.wild_why(loc, found, qty, best, later, given)
       return [ "walkthrough.ui.ld_why_stages", { count: qty, name: found.name } ] if qty > 1
 
       override = loc.oak_queue.find { |owed| owed.dex == found.dex }
       return [ override.why_key, {} ] if override
       return [ "walkthrough.ui.ld_why_sole", { name: found.name } ] if best&.only
+      return [ "walkthrough.ui.ld_why_later", later.args ] if later&.catch?
 
       [ "walkthrough.ui.ld_why_best", given ]
     end
@@ -238,7 +290,7 @@ module Walkthrough
       FamilyStage.new(dex: dex, name: Yellow::NAMES.fetch(dex),
         step_key: traded ? "walkthrough.ui.step_trade" : step_key(step),
         step_args: traded ? {} : step_args(step),
-        owed: traded || (!self_sourced?(game, dex) && body_source(game, dex).nil?))
+        owed: traded || body_source(game, dex).nil?)
     end
 
     def self.step_key(step)
