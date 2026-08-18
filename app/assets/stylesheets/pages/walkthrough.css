@@ -1248,6 +1248,15 @@ a.pn-wt-route__card:hover {
   font-size: 17px;
   color: #6b6880;
   margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.pn-wt-trivia__note-icon {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  margin-top: -3px;
 }
 
 /* ---- badge guide ---- */

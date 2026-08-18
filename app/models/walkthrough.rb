@@ -109,9 +109,11 @@ module Walkthrough
   # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map, :art) do
-    def initialize(after_map: nil, art: nil, **rest) = super
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map, :art,
+    :note_icon) do
+    def initialize(after_map: nil, art: nil, note_icon: nil, **rest) = super
     def art? = !art.nil?
+    def note_icon? = !note_icon.nil?
     def after?(area) = !after_map.nil? && area&.name == after_map
     def loose? = after_map.nil?
   end

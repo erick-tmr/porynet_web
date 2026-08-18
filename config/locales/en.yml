@@ -1617,7 +1617,7 @@ en:
           trivia:
             title: "The best grinding spot yet"
             intro: "Diglett fills 94% of this cave and Dugtrio takes the other 6%. Gen 1 pays base experience times level over seven, so a Lv 20 Diglett gives about 230 EXP and a Lv 30 Dugtrio about 655. Nothing else you can farm this early pays like that, and Dugtrio's 35 base HP means it drops in a hit or two."
-            note: "Repel filters by level in Gen 1: it blocks anything under the level of your first party slot, and Diglett stops at Lv 22. Lead with Lv 23 or more and every encounter left is a Dugtrio. Mind what you send in, though: Lv 29 to 31, 120 base Speed, and pure Ground, so Pikachu cannot touch it."
+            note: "The famous Repel trick already works in Gen 1: it blocks anything under the level of your first party slot, and Diglett stops at Lv 22, so a Lv 23 lead leaves nothing but Dugtrio. Mind what you send in, though: Lv 29 to 31, 120 base Speed, pure Ground, so Pikachu cannot touch it."
           oak:
             diglett: "Everywhere here → Dugtrio, a fast Ground type. Grab the base."
         route_9:

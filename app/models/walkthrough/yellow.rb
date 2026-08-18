@@ -1419,7 +1419,7 @@ module Walkthrough
           tick: "route-2/trade-0") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ],
         trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave",
-          art: "walkthrough/art/dugtrio.png"))
+          art: "walkthrough/art/dugtrio.png", note_icon: "walkthrough/items/repel.png"))
     end
 
     def self.pokemon_tower
@@ -2374,9 +2374,10 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil, art: nil)
+    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil, art: nil, note_icon: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map, art: art)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map, art: art,
+        note_icon: note_icon)
     end
 
     def self.missable(base, anchor:, after_step:)

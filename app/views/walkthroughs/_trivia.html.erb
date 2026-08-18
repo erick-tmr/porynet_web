@@ -33,5 +33,10 @@
     <% end %>
   </div>
   <% end %>
-  <div class="pn-wt-trivia__note"><%= t(trivia.note_key) %></div>
+  <div class="pn-wt-trivia__note">
+    <% if trivia.note_icon? %>
+      <%= r2_image_tag trivia.note_icon, alt: "", class: "pn-wt-trivia__note-icon", loading: "lazy" %>
+    <% end %>
+    <span><%= t(trivia.note_key) %></span>
+  </div>
 </section>

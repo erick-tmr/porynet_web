@@ -1617,7 +1617,7 @@ pt:
           trivia:
             title: "O melhor lugar para upar até aqui"
             intro: "Diglett é 94% desta caverna e Dugtrio os outros 6%. A Gen 1 paga experiência base vezes o nível dividido por sete, então um Diglett Lv 20 dá cerca de 230 EXP e um Dugtrio Lv 30 cerca de 655. Nada que você consiga farmar tão cedo paga assim, e os 35 de HP base do Dugtrio fazem ele cair em um ou dois golpes."
-            note: "Repel filtra por nível na Gen 1: bloqueia tudo abaixo do nível do primeiro Pokémon da sua party, e Diglett para no Lv 22. Lidere com Lv 23 ou mais e todo encontro restante é um Dugtrio. Só cuidado com quem você manda: Lv 29 a 31, 120 de Velocidade base, e Terra puro, então Pikachu não o acerta."
+            note: "O famoso truque do Repel já funciona na Gen 1: ele bloqueia tudo abaixo do nível do primeiro Pokémon da sua party, e Diglett para no Lv 22, então um líder Lv 23 deixa só Dugtrio. Só cuidado com quem você manda: Lv 29 a 31, 120 de Velocidade base, e Terra puro, então Pikachu não o acerta."
           oak:
             diglett: "Por toda parte aqui → Dugtrio, um tipo Terra rápido. Pegue a base."
         route_9:
