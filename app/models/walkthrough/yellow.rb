@@ -1404,7 +1404,7 @@ module Walkthrough
           { map: "viridian-city", items: [ [ "TM42 Dream Eater", "tm42" ] ],
             gift: %w[viridian-city tm42], scene: "viridian-city-tm42-gift",
             pins: { fisher: "viridian-city/npc-tm42" } },
-          { map: "pewter-city" },
+          { map: "pewter-city", scene: "route-2-pewter-cut" },
           { map: "pewter-city", scene: "pewter-museum-cut",
             pins: { museum: "pewter-city/exit-19-5" } },
           { map: "pewter-city", item: [ "Old Amber", "old-amber" ], scene: "museum-old-amber" },
@@ -1418,7 +1418,8 @@ module Walkthrough
           house: "route-2-trade-house", inside: "route-2-trade-house-inside",
           tick: "route-2/trade-0") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ],
-        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave"))
+        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave",
+          art: "walkthrough/art/dugtrio.png"))
     end
 
     def self.pokemon_tower
@@ -2373,9 +2374,9 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil)
+    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil, art: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map, art: art)
     end
 
     def self.missable(base, anchor:, after_step:)

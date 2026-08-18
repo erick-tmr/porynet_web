@@ -599,6 +599,23 @@
   {
     "type": "screen",
     "slug": "digletts-cave",
+    "step": 11,
+    "name": "route-2-pewter-cut",
+    "map": "Route2",
+    "player": [
+      5,
+      11
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      10
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
     "step": 12,
     "name": "pewter-museum-cut",
     "map": "PewterCity",

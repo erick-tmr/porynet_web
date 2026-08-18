@@ -213,8 +213,9 @@ class WalkthroughMapTest < ActiveSupport::TestCase
 
     assert_equal %w[digletts-cave route-2 viridian-city pewter-city],
       groups.filter_map { |area, _steps| area&.name }
-    assert_equal [ 3, 6, 1, 3, 1 ], groups.map { |_area, steps| steps.size }
-    assert_nil groups.last.first, "the sign-off leaves for the next leg and belongs to no map"
+    assert_equal [ 3, 6, 1, 4 ], groups.map { |_area, steps| steps.size }
+    assert_equal "pewter-city", groups.last.first.name,
+      "the sign-off names no map, so it stays in the block before rather than breaking the rail"
     assert_equal (1..14).to_a, groups.flat_map(&:last).map(&:n), "every step lands in exactly one group"
   end
 

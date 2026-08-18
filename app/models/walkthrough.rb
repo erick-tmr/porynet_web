@@ -109,8 +109,9 @@ module Walkthrough
   # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map) do
-    def initialize(after_map: nil, **rest) = super
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map, :art) do
+    def initialize(after_map: nil, art: nil, **rest) = super
+    def art? = !art.nil?
     def after?(area) = !after_map.nil? && area&.name == after_map
     def loose? = after_map.nil?
   end
@@ -406,8 +407,19 @@ module Walkthrough
     def step_groups
       return [] if steps.none?(&:map?)
 
-      steps.chunk_while { |before, after| before.map == after.map }
-        .map { |run| [ area_map_named(run.first.map), run ] }
+      runs = steps.chunk_while { |before, after| before.map == after.map }
+      runs.each_with_object([]) { |run, groups| absorb_run(groups, run) }
+    end
+
+    # A run of steps naming no map (the sign-off that leaves for the next leg) has no map to draw
+    # above it, so it joins the block before rather than opening a bare one. The rail down the left
+    # of the steps runs first-child to last-child inside one block, so an orphan block would break
+    # the line between two consecutive steps.
+    def absorb_run(groups, run)
+      area = area_map_named(run.first.map)
+      return groups << [ area, run ] if area || groups.empty?
+
+      groups[-1] = [ groups.last.first, groups.last.last + run ]
     end
 
     def area_map_named(name) = area_maps.find { |area| area.name == name }
