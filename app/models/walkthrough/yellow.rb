@@ -65,7 +65,7 @@ module Walkthrough
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
         from_key: (from ? "#{b}.gifts.#{key}.from" : nil),
         unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock,
-        needs_badge: badge, places: places)
+        needs_badge: badge, places: places, at_map: slug)
     end
 
     # A species spread over several floors has no single hand-typed rate that is true; the card
@@ -150,7 +150,8 @@ module Walkthrough
         receive: { dex: receive, name: NAMES.fetch(receive) },
         nick: nick, npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
         where_key: "#{b}.trades.#{key}.where", note_key: "#{b}.trades.#{key}.note",
-        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL), tick: tick
+        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL), tick: tick,
+        at_map: slug
       )
     end
 

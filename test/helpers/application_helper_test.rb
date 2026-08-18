@@ -70,7 +70,7 @@ class ApplicationHelperTest < ActionView::TestCase
   def encounter(dex, name)
     Walkthrough::Encounter.new(
       dex: dex, name: name, how: "GRASS", rate: "10%", level: "10",
-      rarity: "COMMON", tip_key: nil, evo_line: []
+      rarity: "COMMON", tip_key: nil, evo_line: [], at_map: "viridian-forest"
     )
   end
 
@@ -128,6 +128,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop.",
       later_stage_note(later)
     assert later.catch?
+  end
+
+  test "a section heading drops to an h3 inside a band, where the stop already owns the h2" do
+    assert_equal %(<h3 class="pn-wt-band__h3">Trades here</h3>), wt_heading("Trades here", :band)
+    assert_equal %(<h2 class="pn-h2">Trades here</h2>), wt_heading("Trades here", :page)
   end
 
   test "a note reads from its kind, so a new kind cannot render an untranslated tag" do

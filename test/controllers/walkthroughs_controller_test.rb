@@ -238,6 +238,22 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-trade__title", text: "Dugtrio"
   end
 
+  # The Viridian detour draws four maps in the order you walk them, so the Diglett cards belong
+  # under the cave and the Mr. Mime trade under Route 2, each below the steps that reach it.
+  test "a stop drawn map by map hangs each map's catches and trades off that map" do
+    get walkthrough_leg_path(game: "yellow", leg: "digletts-cave")
+
+    assert_response :success
+    marks = css_select(".pn-mm-titlebar__name, .pn-wt-catchsecs, .pn-wt-trades").map do |node|
+      node["class"] == "pn-mm-titlebar__name" ? node.text.tr("◈", "").strip : node["class"]
+    end
+
+    assert_equal [ "DIGLETT'S CAVE", "pn-wt-catchsecs", "ROUTE 2", "pn-wt-trades",
+                   "VIRIDIAN CITY", "PEWTER CITY" ], marks
+    assert_select ".pn-wt-catchsecs .pn-wt-catch__name", text: "Diglett"
+    assert_select ".pn-wt-trade__title", text: "Mr. Mime"
+  end
+
   test "a no-maze gym renders a dedicated section with an inside trainer and badge" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-03")
 

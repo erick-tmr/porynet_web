@@ -22,6 +22,7 @@
 </section>
 
 <% groups = @location.step_groups %>
+<% drawn = groups.filter_map(&:first).map(&:name) %>
 <% if groups.any? %>
   <% groups.each_with_index do |(area, steps), index| %>
     <% if area %>
@@ -30,7 +31,13 @@
       </section>
     <% end %>
     <%= render "steps_section", loc: @location, steps: steps, heading: index.zero? %>
+    <% here = @location.encounters_on(area&.name) %>
+    <% if here.any? %>
+      <%= render "catch_here", loc: @location, encounters: here, plan: plan, level: :page %>
+    <% end %>
     <% if @location.trivia&.after?(area) %><%= render "trivia", trivia: @location.trivia %><% end %>
+    <% swaps = @location.trades_on(area&.name) %>
+    <% if swaps.any? %><%= render "trades_here", loc: @location, trades: swaps, level: :page %><% end %>
   <% end %>
 <% else %>
   <% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
@@ -39,18 +46,9 @@
 
 <% if @location.later? %><%= render "later_section", loc: @location %><% end %>
 
-<% if @location.encounters.any? %>
-  <section class="pn-wt-section">
-    <div class="pn-wt-catch__head">
-      <div>
-        <div class="pn-eyebrow-label"><%= t("walkthrough.ui.catch_eyebrow", count: @location.encounters.size) %></div>
-        <h2 class="pn-h2"><%= t("walkthrough.ui.catch_h2") %></h2>
-        <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.catch_hint") %></div>
-      </div>
-      <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: @location.catchable_count) %></div>
-    </div>
-    <%= render "catch_sections", loc: @location, plan: plan %>
-  </section>
+<% elsewhere = @location.encounters_off(drawn) %>
+<% if elsewhere.any? %>
+  <%= render "catch_here", loc: @location, encounters: elsewhere, plan: plan, level: :page %>
 <% end %>
 
 <% if @location.trivia&.loose? %><%= render "trivia", trivia: @location.trivia %><% end %>
@@ -63,18 +61,8 @@
   </section>
 <% end %>
 
-<% if @location.trades.any? %>
-  <section class="pn-wt-section">
-    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trades_eyebrow", count: @location.trades.size) %></div>
-    <h2 class="pn-h2"><%= t("walkthrough.ui.trades_h2") %></h2>
-    <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
-    <div class="pn-wt-trades">
-      <% @location.trades.each_with_index do |trade, i| %>
-        <%= render "trade", trade: trade, id: trade.tick || "#{@location.slug}/trade-#{i}" %>
-      <% end %>
-    </div>
-  </section>
-<% end %>
+<% left = @location.trades_off(drawn) %>
+<% if left.any? %><%= render "trades_here", loc: @location, trades: left, level: :page %><% end %>
 
 <%= render "challenges", plan: plan, multi: false %>
 

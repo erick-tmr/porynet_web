@@ -395,6 +395,28 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal detour.title, game.leg!("digletts-cave").from, "the index card and nav read the title"
   end
 
+  # The detour walks four maps and draws them one at a time, so what lives on a map has to hang
+  # off it rather than pile up at the foot of a page that ends three maps later.
+  test "what lives on a borrowed map is pinned to that map" do
+    detour = loc("digletts-cave")
+    drawn = detour.step_groups.filter_map(&:first).map(&:name)
+
+    assert_equal %w[digletts-cave route-2 viridian-city pewter-city], drawn
+    assert_equal %w[050 051], detour.encounters_on("digletts-cave").map(&:dex)
+    assert_empty detour.encounters_on("route-2"), "no Diglett lives up on the route"
+    assert_equal "Mr. Mime", detour.trades_on("route-2").sole.receive[:name]
+    assert_empty detour.encounters_off(drawn)
+    assert_empty detour.trades_off(drawn), "every card on this page has a map to sit under"
+  end
+
+  test "a stop that draws its maps together keeps its catches below the steps" do
+    forest = loc("viridian-forest")
+
+    assert_empty forest.step_groups, "the forest is one map, so its steps never name one"
+    assert_equal forest.encounters, forest.encounters_off([]),
+      "with no map drawn on its own, every card stays loose"
+  end
+
   test "a stop with nothing to add to its name is titled by it" do
     plain = loc("route-11")
 
@@ -847,7 +869,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   def encounter_by(how)
     Walkthrough::Encounter.new(dex: "016", name: "Pidgey", how: how, rate: "50%", level: "3",
-      rarity: "COMMON", tip_key: nil, evo_line: [])
+      rarity: "COMMON", tip_key: nil, evo_line: [], at_map: "route-1")
   end
 
   def stub_location(slug, encounters)

@@ -61,7 +61,7 @@ module Walkthrough
   end
 
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line,
-    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places) do
+    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map) do
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
@@ -274,7 +274,7 @@ module Walkthrough
   # trade shown on two stops (the one that flags it, the one that walks to it) carries the tick id
   # of the first, so trading once ticks it on both.
   Trade = Data.define(:give, :receive, :nick, :npc_key, :title_key, :where_key, :note_key, :house,
-    :inside, :tick) do
+    :inside, :tick, :at_map) do
     def initialize(tick: nil, **rest) = super
   end
 
@@ -392,8 +392,10 @@ module Walkthrough
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
 
-    def encounter_sections
-      grouped = encounters.group_by(&:section)
+    def encounter_sections = sections_for(encounters)
+
+    def sections_for(list)
+      grouped = list.group_by(&:section)
       missing = grouped.keys - SECTION_ICONS.keys
       raise UnknownEncounterSection, "#{slug}: no section for #{missing.join(', ')}" if missing.any?
 
@@ -402,6 +404,15 @@ module Walkthrough
         EncounterSection.new(code: code, icon: icon, encounters: found) if found
       end
     end
+
+    # A stop that borrows other places' maps draws them one at a time, and what lives on a map
+    # belongs under it: the Diglett cards under the cave, the Mr. Mime trade under Route 2, rather
+    # than both piled at the end of a walk that finishes four maps away. Anything naming a map the
+    # page does not draw stays where it always was, below the steps.
+    def encounters_on(map) = encounters.select { |enc| enc.at_map == map }
+    def encounters_off(maps) = encounters.reject { |enc| maps.include?(enc.at_map) }
+    def trades_on(map) = trades.select { |trade| trade.at_map == map }
+    def trades_off(maps) = trades.reject { |trade| maps.include?(trade.at_map) }
     def badge? = !badge.nil?
     def gym? = !gym.nil?
     def gym_finale? = gym_finale

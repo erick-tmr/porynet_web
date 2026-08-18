@@ -160,6 +160,15 @@ module ApplicationHelper
     t(key, rate: entry.rate)
   end
 
+  # A section inside a band sits under that stop's own h2, so it leads with an h3; a page built
+  # around a single stop leads with the h2 itself.
+  SECTION_HEADING = { band: [ :h3, "pn-wt-band__h3" ], page: [ :h2, "pn-h2" ] }.freeze
+
+  def wt_heading(text, level)
+    name, css = SECTION_HEADING.fetch(level)
+    content_tag(name, text, class: css)
+  end
+
   def catch_tally(ids)
     t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
   end

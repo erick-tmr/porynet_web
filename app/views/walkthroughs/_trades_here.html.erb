@@ -1,0 +1,10 @@
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trades_eyebrow", count: trades.size) %></div>
+  <%= wt_heading(t("walkthrough.ui.trades_h2"), level) %>
+  <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
+  <div class="pn-wt-trades">
+    <% trades.each do |trade| %>
+      <%= render "trade", trade: trade, id: trade.tick || "#{loc.slug}/trade-#{loc.trades.index(trade)}" %>
+    <% end %>
+  </div>
+</section>
