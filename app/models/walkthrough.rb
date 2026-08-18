@@ -61,7 +61,7 @@ module Walkthrough
   end
 
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line,
-    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places) do
+    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map) do
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def wild? = !gift?
@@ -261,8 +261,8 @@ module Walkthrough
   # `note_key` is an optional locale key for a hand-authored caption on the card (e.g. the Mew
   # glitch warnings on the Cerulean Swimmer and Misty).
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key,
-    :tick, :note_key) do
-    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, **rest) = super
+    :tick, :note_key, :floor) do
+    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, floor: nil, **rest) = super
     def marker_key? = !marker_key.nil?
     def note_key? = !note_key.nil?
     # A boss (the rival, a Team Rocket duo) carries a battle face-off shot; those get their own
@@ -274,7 +274,7 @@ module Walkthrough
   # trade shown on two stops (the one that flags it, the one that walks to it) carries the tick id
   # of the first, so trading once ticks it on both.
   Trade = Data.define(:give, :receive, :nick, :npc_key, :title_key, :where_key, :note_key, :house,
-    :inside, :tick) do
+    :inside, :tick, :at_map) do
     def initialize(tick: nil, **rest) = super
   end
 
@@ -292,8 +292,17 @@ module Walkthrough
     def covers?(slug) = slugs.include?(slug)
   end
 
+  # The stage directly above a queued species, and how the plan means to fill it: caught on its own
+  # odds, grown from a spare body taken here, or out of reach on one cartridge. This is what makes
+  # a quota legible on the card, so `kind` names the line to print and `args` fills its blanks.
+  LaterStage = Data.define(:dex, :name, :kind, :args) do
+    def catch? = kind == :catch
+    def note_key = "walkthrough.ui.ld_later_#{kind}"
+  end
+
   PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :covers, :chain, :fresh, :boxed,
-    :done_at, :how, :rate, :best, :why_key, :why_args) do
+    :done_at, :how, :rate, :best, :why_key, :why_args, :later) do
+    def later? = !later.nil?
     def fresh? = fresh
     def boxed? = boxed
     def best? = !best.nil?
@@ -383,8 +392,10 @@ module Walkthrough
     def wild_encounters = encounters.select(&:wild?)
     def catchable_count = wild_encounters.size
 
-    def encounter_sections
-      grouped = encounters.group_by(&:section)
+    def encounter_sections = sections_for(encounters)
+
+    def sections_for(list)
+      grouped = list.group_by(&:section)
       missing = grouped.keys - SECTION_ICONS.keys
       raise UnknownEncounterSection, "#{slug}: no section for #{missing.join(', ')}" if missing.any?
 
@@ -393,6 +404,15 @@ module Walkthrough
         EncounterSection.new(code: code, icon: icon, encounters: found) if found
       end
     end
+
+    # A stop that borrows other places' maps draws them one at a time, and what lives on a map
+    # belongs under it: the Diglett cards under the cave, the Mr. Mime trade under Route 2, rather
+    # than both piled at the end of a walk that finishes four maps away. Anything naming a map the
+    # page does not draw stays where it always was, below the steps.
+    def encounters_on(map) = encounters.select { |enc| enc.at_map == map }
+    def encounters_off(maps) = encounters.reject { |enc| maps.include?(enc.at_map) }
+    def trades_on(map) = trades.select { |trade| trade.at_map == map }
+    def trades_off(maps) = trades.reject { |trade| maps.include?(trade.at_map) }
     def badge? = !badge.nil?
     def gym? = !gym.nil?
     def gym_finale? = gym_finale

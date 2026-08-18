@@ -160,6 +160,23 @@ module ApplicationHelper
     t(key, rate: entry.rate)
   end
 
+  # A section inside a band sits under that stop's own h2, so it leads with an h3; a page built
+  # around a single stop leads with the h2 itself.
+  SECTION_HEADING = { band: [ :h3, "pn-wt-band__h3" ], page: [ :h2, "pn-h2" ] }.freeze
+
+  def wt_heading(text, level)
+    name, css = SECTION_HEADING.fetch(level)
+    content_tag(name, text, class: css)
+  end
+
+  # Which floor a trainer stands on, drawn only where a stop has more than one to tell apart. A
+  # boss met in a scripted scene has no floor in the game's roster, so that card goes without.
+  def trainer_floor_chip(floor)
+    return if floor.nil?
+
+    tag.span(floor, class: "pn-wt-trainer__floor", title: t("walkthrough.ui.trainer_floor_hint"))
+  end
+
   def catch_tally(ids)
     t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
   end
@@ -173,6 +190,8 @@ module ApplicationHelper
   end
 
   def challenge_why(entry) = t(entry.why_key, **entry.why_args)
+
+  def later_stage_note(later) = t(later.note_key, **later.args)
 
   def challenge_note_text(note) = t("walkthrough.ui.note_#{note.kind}", **note.args)
 

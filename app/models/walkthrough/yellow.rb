@@ -65,7 +65,7 @@ module Walkthrough
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
         from_key: (from ? "#{b}.gifts.#{key}.from" : nil),
         unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock,
-        needs_badge: badge, places: places)
+        needs_badge: badge, places: places, at_map: slug)
     end
 
     # A species spread over several floors has no single hand-typed rate that is true; the card
@@ -150,7 +150,8 @@ module Walkthrough
         receive: { dex: receive, name: NAMES.fetch(receive) },
         nick: nick, npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
         where_key: "#{b}.trades.#{key}.where", note_key: "#{b}.trades.#{key}.note",
-        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL), tick: tick
+        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL), tick: tick,
+        at_map: slug
       )
     end
 
@@ -594,7 +595,8 @@ module Walkthrough
 
     def self.enrich(card, entry)
       card.with(where: card.where || Shot.new(image: entry["where"], label: WHERE_LABEL),
-        marker_key: card.marker_key || entry["key"], tick: card.tick || tick_for(entry))
+        marker_key: card.marker_key || entry["key"], tick: card.tick || tick_for(entry),
+        floor: floor_of(entry))
     end
 
     def self.roster_trainer(entry)
@@ -603,8 +605,13 @@ module Walkthrough
         team: entry["team"].map { |m| mon(m["dex"], m["lvl"]) },
         sprite: trainer_sprite(label, nil),
         where: Shot.new(image: entry["where"], label: WHERE_LABEL), battle: nil,
-        opp: entry["opp"], marker_key: entry["key"], tick: tick_for(entry))
+        opp: entry["opp"], marker_key: entry["key"], tick: tick_for(entry),
+        floor: floor_of(entry))
     end
+
+    # A one-floor map leaves the field empty, and every trainer inside a gym reads "Gym", neither
+    # of which tells a reader anything a card does not already say.
+    def self.floor_of(entry) = entry["floor"].presence
 
     def self.tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
 

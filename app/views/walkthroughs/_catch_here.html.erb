@@ -1,0 +1,17 @@
+<section class="pn-wt-section">
+  <div class="pn-wt-catch__head">
+    <div>
+      <div class="pn-eyebrow-label"><%= t("walkthrough.ui.catch_eyebrow", count: encounters.size) %></div>
+      <%= wt_heading(t("walkthrough.ui.catch_h2"), level) %>
+      <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.catch_hint") %></div>
+    </div>
+    <div class="pn-wt-catch__count">
+      <%= t("walkthrough.ui.catch_targets", count: encounters.count(&:wild?)) %>
+    </div>
+  </div>
+  <div class="pn-wt-catchsecs">
+    <% loc.sections_for(encounters).each do |section| %>
+      <%= render "catch_section", section: section, loc: loc, plan: plan %>
+    <% end %>
+  </div>
+</section>

@@ -12,6 +12,7 @@
 .pn-mode-living-on .pn-wt-catchpill--living { display: inline-flex; }
 .pn-mode-oak-on .pn-wt-catchpill--oak { display: inline-flex; }
 .pn-mode-living-on .pn-wt-catch__count { display: flex; }
+.pn-mode-living-on .pn-wt-catch__later { display: flex; }
 .pn-mode-living-on .pn-wt-chip__work { display: inline-block; }
 
 .porynet:not(.pn-mode-living-on):not(.pn-mode-oak-on) .pn-wt-modesoff { display: block; }
@@ -879,6 +880,29 @@
   border-top: 2px dashed #171622;
   margin-top: 14px;
   padding-top: 12px;
+}
+
+.pn-wt-catch__later {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  border-top: 2px dashed #171622;
+  margin-top: 14px;
+  padding-top: 11px;
+}
+
+.pn-wt-catch__later-sprite {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  object-fit: contain;
+}
+
+.pn-wt-catch__later-text {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  line-height: 1.25;
+  color: #3a3850;
 }
 
 .pn-wt-catch__owned {

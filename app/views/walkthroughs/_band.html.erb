@@ -37,17 +37,7 @@
 <% if loc.later? %><%= render "later_section", loc: loc %><% end %>
 
 <% if loc.encounters.any? %>
-  <section class="pn-wt-section">
-    <div class="pn-wt-catch__head">
-      <div>
-        <div class="pn-eyebrow-label"><%= t("walkthrough.ui.catch_eyebrow", count: loc.encounters.size) %></div>
-        <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.catch_h2") %></h3>
-        <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.catch_hint") %></div>
-      </div>
-      <div class="pn-wt-catch__count"><%= t("walkthrough.ui.catch_targets", count: loc.catchable_count) %></div>
-    </div>
-    <%= render "catch_sections", loc: loc, plan: plan %>
-  </section>
+  <%= render "catch_here", loc: loc, encounters: loc.encounters, plan: plan, level: :band %>
   <% if loc.slug == "cerulean-city" %><%= render "pikachu_friendship" %><% end %>
 <% end %>
 
@@ -62,16 +52,7 @@
 <% end %>
 
 <% if loc.trades.any? %>
-  <section class="pn-wt-section">
-    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trades_eyebrow", count: loc.trades.size) %></div>
-    <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.trades_h2") %></h3>
-    <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
-    <div class="pn-wt-trades">
-      <% loc.trades.each_with_index do |trade, i| %>
-        <%= render "trade", trade: trade, id: trade.tick || "#{loc.slug}/trade-#{i}" %>
-      <% end %>
-    </div>
-  </section>
+  <%= render "trades_here", loc: loc, trades: loc.trades, level: :band %>
 <% end %>
 
 <% if loc.band_gym? %>

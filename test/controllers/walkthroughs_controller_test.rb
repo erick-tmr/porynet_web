@@ -238,6 +238,40 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-trade__title", text: "Dugtrio"
   end
 
+  # The Viridian detour draws four maps in the order you walk them, so the Diglett cards belong
+  # under the cave and the Mr. Mime trade under Route 2, each below the steps that reach it.
+  test "a stop drawn map by map hangs each map's catches and trades off that map" do
+    get walkthrough_leg_path(game: "yellow", leg: "digletts-cave")
+
+    assert_response :success
+    marks = css_select(".pn-mm-titlebar__name, .pn-wt-catchsecs, .pn-wt-trades").map do |node|
+      node["class"] == "pn-mm-titlebar__name" ? node.text.tr("◈", "").strip : node["class"]
+    end
+
+    assert_equal [ "DIGLETT'S CAVE", "pn-wt-catchsecs", "ROUTE 2", "pn-wt-trades",
+                   "VIRIDIAN CITY", "PEWTER CITY" ], marks
+    assert_select ".pn-wt-catchsecs .pn-wt-catch__name", text: "Diglett"
+    assert_select ".pn-wt-trade__title", text: "Mr. Mime"
+  end
+
+  test "a multi-floor dungeon badges each trainer with the floor it waits on" do
+    get walkthrough_leg_path(game: "yellow", leg: "rock-tunnel")
+
+    assert_response :success
+    floors = css_select(".pn-wt-trainer__floor").map(&:text)
+
+    assert_equal({ "1F" => 7, "B1F" => 8 }, floors.tally)
+    assert_select ".pn-wt-trainer__floor[title=?]", "Which floor this trainer waits on"
+  end
+
+  test "a stop that is all one floor badges nobody" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-03")
+
+    assert_response :success
+    assert_select ".pn-wt-trainer", minimum: 1
+    assert_select ".pn-wt-trainer__floor", false, "nothing to tell apart on a route or in a gym"
+  end
+
   test "a no-maze gym renders a dedicated section with an inside trainer and badge" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-03")
 

@@ -70,7 +70,7 @@ class ApplicationHelperTest < ActionView::TestCase
   def encounter(dex, name)
     Walkthrough::Encounter.new(
       dex: dex, name: name, how: "GRASS", rate: "10%", level: "10",
-      rarity: "COMMON", tip_key: nil, evo_line: []
+      rarity: "COMMON", tip_key: nil, evo_line: [], at_map: "viridian-forest"
     )
   end
 
@@ -119,6 +119,26 @@ class ApplicationHelperTest < ActionView::TestCase
     entry = plan_entry("010", why_key: "walkthrough.ui.ld_why_sole", why_args: { name: "Caterpie" })
 
     assert_equal "The only Caterpie in the game. Miss it here and you miss it.", challenge_why(entry)
+  end
+
+  test "a later-stage note reads from its kind, so the card cannot print a raw key" do
+    later = Walkthrough::LaterStage.new(dex: "017", name: "Pidgeotto", kind: :catch,
+      args: { name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" })
+
+    assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop.",
+      later_stage_note(later)
+    assert later.catch?
+  end
+
+  test "a section heading drops to an h3 inside a band, where the stop already owns the h2" do
+    assert_equal %(<h3 class="pn-wt-band__h3">Trades here</h3>), wt_heading("Trades here", :band)
+    assert_equal %(<h2 class="pn-h2">Trades here</h2>), wt_heading("Trades here", :page)
+  end
+
+  test "a trainer with no floor on record gets no badge at all" do
+    assert_nil trainer_floor_chip(nil)
+    assert_equal %(<span class="pn-wt-trainer__floor" title="Which floor this trainer waits on">B1F</span>),
+      trainer_floor_chip("B1F")
   end
 
   test "a note reads from its kind, so a new kind cannot render an untranslated tag" do
@@ -249,7 +269,7 @@ class ApplicationHelperTest < ActionView::TestCase
       dex: dex, name: "Caterpie", at: "viridian-forest", stop_name: "Viridian Forest", qty: 2,
       covers: [ dex ], chain: [ dex ], fresh: true, boxed: false, done_at: nil, how: "GRASS",
       rate: "50%", best: nil,
-      why_key: nil, why_args: {}, **overrides
+      why_key: nil, why_args: {}, later: nil, **overrides
     )
   end
 end
