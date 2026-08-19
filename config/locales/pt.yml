@@ -1762,15 +1762,12 @@ pt:
               title: "Pegue o Underground Path"
               text_html: "Os guardas de Saffron querem uma bebida. Pule-os túnelando a oeste %{path} sob a cidade até a Rota 7."
         route_7:
-          note: "Rota-portão até Celadon. Pidgey e Abra."
-          intro: "Uma tela de estrada entre Saffron e Celadon, de portão a portão. Sem grama, sem treinadores, nada largado no chão."
+          note: "Faixa curta até Celadon. Pidgey e Abra."
+          intro: "Uma tela de estrada entre Saffron e Celadon, com um trecho de mato alto na parte de cima. Sem treinadores e nada largado no chão."
           steps:
             "1":
               title: "Cruze até Celadon"
-              text_html: "Você surge do Underground Path %{path} na Rota 7, a faixa verde curta entre Saffron e Celadon. Caminhe a oeste por ela."
-            "2":
-              title: "Entre em Celadon"
-              text_html: "Passe pelo portão %{gate} na ponta oeste e saia %{west} em Celadon City, a maior cidade de Kanto."
+              text_html: "O mato alto ocupa a parte de cima da faixa: entre nele se ainda quiser um Pidgey, Abra ou Jigglypuff. Senão, siga direto a oeste %{west} até Celadon, a maior cidade de Kanto."
         celadon_city:
           store:
             blurb: "A maior loja de Kanto: seis andares de Poké Balls, TMs, pedras de evolução, vitaminas e bebidas de máquina. Pegue o elevador para qualquer andar e veja o que ele vende e por quanto."

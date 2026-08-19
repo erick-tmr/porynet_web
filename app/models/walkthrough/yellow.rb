@@ -2100,8 +2100,8 @@ module Walkthrough
     end
 
     def self.route_7
-      loc("route-7", "ROUTE", "Route 7", 26, steps: 2,
-        pins: { 1 => { path: "route-7/exit-5-13" }, 2 => { gate: "route-7/exit-11-9", west: "route-7/exit-west" } },
+      loc("route-7", "ROUTE", "Route 7", 26, steps: 1,
+        pins: { 1 => { west: "route-7/exit-west" } },
         encounters: [
           enc("route-7", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
           enc("route-7", "063", "GRASS", "25%", "15–26", "UNCOMMON", "063", "064", "065"),
