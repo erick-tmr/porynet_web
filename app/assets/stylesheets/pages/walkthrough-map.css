@@ -362,17 +362,25 @@
    The legend beside the map stays fully interactive, so nothing becomes unreachable. */
 .pn-mm-block:not(.is-labelled) .pn-mm__pin { display: none; }
 
-/* Leader line: when a crowded row nudges a label down into a lower lane, an elbow runs from the
-   pin down to it, so the label still reads as part of its marker instead of floating free. Drawn
-   on ::before, behind the pin and label; emerges from under the pin. */
+/* Leader line: when a crowded row deals a label into another one, an elbow runs from the pin to
+   it, so the label still reads as part of its marker instead of floating free. Drawn on ::before,
+   behind the pin and label; emerges from under the pin. A crowd opens both ways, so the elbow
+   goes up as readily as down. */
 .is-labelled .pn-mm.has-lane .pn-mm__hit::before {
   content: "";
   position: absolute;
   top: 0;
   width: 22px;
-  height: calc(var(--lane, 0) * 26px);
+  height: calc(var(--lane-rise, 0) * 26px);
   border-bottom: 2px solid #7a8199;
   pointer-events: none;
+}
+
+.is-labelled .pn-mm.has-lane--up .pn-mm__hit::before {
+  top: auto;
+  bottom: 0;
+  border-bottom: 0;
+  border-top: 2px solid #7a8199;
 }
 .pn-mm[data-align="r"].has-lane .pn-mm__hit::before { left: 0; border-left: 2px solid #7a8199; }
 .pn-mm[data-align="l"].has-lane .pn-mm__hit::before { right: 0; border-right: 2px solid #7a8199; }
