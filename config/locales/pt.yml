@@ -258,6 +258,26 @@ pt:
       tap_when_collected: "Toque ao coletar"
       tap_to_undo: "Toque para desfazer"
       map_marker_named: "%{name} (%{key})"
+      dex_bar: "POKéDEX · REGISTRADO COMO VISTO"
+      dex_no: "N° DEX"
+      dex_ht: "ALT"
+      dex_wt: "PESO"
+      dex_in_game: "NO JOGO"
+      dex_seen_badge: "VISTO %{num}"
+      dex_seen_chip: "VISTO ✓"
+      dex_art_alt: "%{name}, arte de Ken Sugimori"
+      grind_eyebrow: "PONTO DE GRIND"
+      grind_exp_label: "EXP POR NOCAUTE"
+      grind_vs: "VS"
+      grind_share: "%{rate} dos passos"
+      grind_levels: "Lv %{range}"
+      grind_exp_at: "exp no Lv %{level}"
+      grind_type: "TIPO"
+      grind_hp: "HP BASE"
+      grind_speed: "VEL BASE"
+      grind_tips: "DICAS DE LUTA"
+      grind_repel_title: "O TRUQUE DO REPEL"
+      grind_repel_note: "já funciona na 1ª geração"
       map_marker_hint: "Procure esta letra no mapa acima"
       map_marker_step: "IR PARA O PASSO %{n}"
       map_filter_all: "TUDO"
@@ -1476,47 +1496,49 @@ pt:
           intro: "Um transatlântico atracado por uma visita só. Quatro conveses, dezessete treinadores e um capitão enjoado que paga uma massagem nas costas com um HM."
           steps:
             "1":
-              title: "Embarque e siga a oeste no 1F"
-              text_html: "Mostre o S.S. Ticket na doca e suba a bordo. Siga a oeste pelo corredor do 1F até a segunda cabine a partir da ponta oeste %{cabin}."
+              title: "Embarque e desça direto"
+              text_html: "Mostre o S.S. Ticket no cais e embarque. Siga a leste até a escada %{down} no canto e desça ao deque da tripulação. Cinco cabines seguem a oeste dali; comece pela mais próxima %{cabin}."
             "2":
-              title: "Pegue o TM08 na cabine oeste"
-              text: "Uma bola no fundo do quarto guarda o TM08 Body Slam, um golpe Normal pesado que paralisa cerca de um terço das vezes."
-              items:
-                tm-body-slam: "No fundo da cabine do 1F, a segunda porta a partir da ponta oeste do corredor."
-            "3":
-              title: "Desça ao convés da tripulação"
-              text_html: "De volta ao corredor, siga a leste passando pela entrada até a escada %{down} no canto. O B1F corre para oeste dali, com cinco cabines; comece pela mais próxima %{cabin}."
-            "4":
               title: "Max Potion na primeira cabine"
-              text: "Uma bola fica junto à parede do fundo, passando das camas. A Max Potion cura um Pokémon por completo, boa de guardar para o Surge."
+              text: "Uma bola está encostada na parede do fundo, passando os beliches. Um Max Potion cura tudo de um Pokémon, guarde para o Surge."
               items:
                 max-potion: "Junto à parede do fundo da cabine mais a leste do B1F."
-            "5":
+            "3":
               title: "Ether duas portas adiante"
-              text_html: "Siga a oeste até a cabine %{cabin}. Um Ether está no chão ao lado da cama, dez PP de volta num único golpe."
+              text_html: "Siga a oeste até a cabine %{cabin}. Um Ether está no chão ao lado do beliche, dez PP de volta em um golpe."
               items:
                 ether: "No chão da terceira cabine do B1F a partir do leste, ao lado da cama."
-            "6":
+            "4":
               title: "TM44 Rest na porta seguinte"
-              text_html: "A porta seguinte a oeste %{cabin} guarda o TM44 Rest. Ele apaga o usuário por dois turnos e o acorda com a vida cheia, uma cura grátis no aperto."
+              text_html: "A próxima porta a oeste %{cabin} guarda o TM44 Rest. Ele derruba o usuário por dois turnos e o acorda com HP cheio, uma cura grátis no aperto."
               items:
                 tm-rest: "Ao lado da cama, na quarta cabine do B1F a partir do leste."
-            "7":
+            "5":
               title: "Hyper Potion no travesseiro"
-              text_html: "A última cabine %{cabin} fica na ponta oeste. Fique ao lado da cabeceira e aperte A de frente para o travesseiro; nada aparece na tela, mas há uma Hyper Potion ali."
+              text_html: "A última cabine %{cabin} fica na ponta oeste. Fique na cabeceira da cama e aperte A virado para o travesseiro; nada aparece na tela, mas há um Hyper Potion ali."
               hidden:
                 hyper-potion: "No travesseiro da cama, na cabine mais a oeste do B1F. Aperte A de frente para ele, pela esquerda; nada aparece na tela."
-            "8":
+            "6":
+              title: "Suba e limpe o 1F da popa à proa"
+              text_html: "Pegue a escada %{up} para o 1F e limpe as seis cabines de leste a oeste, começando pela popa. A segunda a partir do oeste %{cabin} guarda o TM08 Body Slam, um golpe Normal pesado que paralisa bastante."
+              items:
+                tm-body-slam: "No fundo da cabine do 1F, a segunda porta a partir da ponta oeste do corredor."
+            "7":
               title: "Great Ball na lixeira da cozinha"
-              text_html: "Suba a escada %{up} de volta ao 1F, depois vá a oeste por todo o corredor e ao sul pela brecha %{kitchen}. Na cozinha, a mais baixa das três lixeiras da parede leste esconde uma Great Ball."
+              text_html: "Siga a oeste por todo o corredor e desça pelo vão %{kitchen}. Na cozinha, a mais baixa das três lixeiras da parede leste esconde uma Great Ball."
               hidden:
                 great-ball: "A mais baixa das três lixeiras na parede leste da cozinha. Aperte A de frente para ela; nada aparece na tela."
+            "8":
+              title: "Suba direto ao deque da proa"
+              text_html: "Pegue a escada %{up} para o 2F, atravesse até %{down} e siga direto ao 3F, depois a oeste por aquele corredor e saia na proa %{deck}."
             "9":
-              title: "Saia para o convés da proa"
-              text_html: "Saia da cozinha, pegue a escada %{up} para o 2F e a %{down} para o 3F, depois siga a oeste e saia na proa %{deck}. Dois Sailors ali são XP grátis antes do rival."
+              title: "Derrote os dois Sailors"
+              text: "Dois Sailors ocupam o deque da proa, XP grátis antes do rival. Vença os dois, volte ao 2F e comece pelas cabines."
             "10":
               title: "O registro de Snorlax no 2F"
               text_html: "De volta ao corredor do 2F, a primeira cabine %{cabin} não tem itens, só um homem que te mostra o Snorlax. Falar com ele registra o bicho como visto."
+              catch_at_count: "2 NO TOTAL, AMBOS LV 30"
+              catch_at_html: "Capture depois na <b>Rota 12</b> ou na <b>Rota 16</b>, quando a Poké Flute for sua."
             "11":
               title: "Max Ether na porta seguinte"
               text_html: "A cabine seguinte a leste %{cabin} tem uma bola no fundo do quarto: um Max Ether, que recarrega todo o PP de um golpe."
@@ -1529,7 +1551,7 @@ pt:
                 rare-candy: "Junto à parede oeste da quarta cabine do 2F a partir do oeste."
             "13":
               title: "Cure a equipe antes do rival"
-              text_html: "Siga a leste pelo corredor e o rival %{rival} aparece para a luta. Cure a equipe com itens antes: não há Centro a bordo, e essa é a última luta do navio."
+              text: "Siga a leste pelo corredor e o rival aparece para a luta. Cure a equipe com itens antes: não há Centro a bordo, e essa é a última luta do navio."
             "14":
               title: "HM01 Cut com o Capitão"
               text_html: "Pegue a escada atrás dele %{stairs} até a cabine do Capitão e alivie o enjoo dele pelo HM01 Cut. Ensine o golpe e desça; o navio parte de vez. Depois siga <a href=\"%{href}\">a leste para a Rota 11</a>."
@@ -1622,10 +1644,24 @@ pt:
             "14":
               title: "Volte para Cerulean pelo Mt. Moon"
               text_html: "Saia de Pewter a leste para a Rota 3, atravesse o Mt. Moon e desça a Rota 4 até Cerulean. De lá é a leste para a <a href=\"%{href}\">Rota 9</a> e o Rock Tunnel."
-          trivia:
-            title: "O melhor lugar para upar até aqui"
-            intro: "Diglett é 94% desta caverna e Dugtrio os outros 6%. A Gen 1 paga experiência base vezes o nível dividido por sete, então um Diglett Lv 20 dá cerca de 230 EXP e um Dugtrio Lv 30 cerca de 655. Nada que você consiga farmar tão cedo paga assim, e os 35 de HP base do Dugtrio fazem ele cair em um ou dois golpes."
-            note: "O famoso truque do Repel já funciona na Gen 1: ele bloqueia tudo abaixo do nível do primeiro Pokémon da sua party, e Diglett para no Lv 22, então um líder Lv 23 deixa só Dugtrio. Só cuidado com quem você manda: Lv 29 a 31, 120 de Velocidade base, e Terra puro, então Pikachu não o acerta."
+          grind:
+            title: "O melhor ponto de grind até agora"
+            intro: "Só dois Pokémon vivem aqui embaixo, e mais nada. A 1ª geração paga experiência base vezes o nível dividido por sete, então os dois rendem mais por nocaute que qualquer outra coisa farmável tão cedo."
+            formula: "exp base × nível ÷ 7"
+            tips:
+              diglett: "Dez de HP base, então quase qualquer golpe resolve de primeira. Só tem Dig e Growl, e Growl apenas enrola você."
+              dugtrio: "Ataca primeiro com 120 de Velocidade e Elétrico não faz nada nele. Ainda são 35 de HP base, então Água, Planta ou Gelo derrubam rápido."
+            steps:
+              "1":
+                title: "Lidere com um nível alto"
+                body_html: "O Repel bloqueia tudo abaixo do primeiro slot da equipe. Diglett para no Lv 22, então um líder de pelo menos <b>Lv %{level}</b> deixa só Dugtrio."
+              "2":
+                title: "Borrife e caminhe"
+                body_html: "Um Repel cobre 100 passos. Percorra o túnel de ponta a ponta e borrife de novo assim que a mensagem avisar que acabou."
+              "3":
+                title: "Garanta %{exp} por luta"
+                body_html: "Todo encontro restante é um Dugtrio de Lv 29 a 31, cerca de três Diglett de experiência pelos mesmos dois turnos de trabalho."
+            warn: "Não mande o PIKACHU. Dugtrio é Terrestre puro, então golpes Elétricos não fazem nada, e ele ataca primeiro."
           oak:
             diglett: "Por toda parte aqui → Dugtrio, um tipo Terra rápido. Pegue a base."
         route_9:

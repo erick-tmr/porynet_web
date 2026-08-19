@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **99** across 52 locations
-- markers: **967** (318 trainer, 119 item, 50 hidden, 480 exit)
+- markers: **966** (317 trainer, 119 item, 50 hidden, 480 exit)
 - step shots: **39** (map/scene in a step slot)
 - standalone scenes: **264** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
@@ -95,9 +95,9 @@
 - `silph-co-10f`: 2 trainer, 3 item, 6 exit
 - `silph-co-11f`: 2 trainer, 4 exit
 - `ss-anne-1f`: 4 trainer, 1 item, 1 hidden, 10 exit
-- `ss-anne-2f`: 5 trainer, 2 item, 9 exit
-- `ss-anne-3f`: 2 trainer, 2 exit
 - `ss-anne-b1f`: 6 trainer, 3 item, 1 hidden, 6 exit
+- `ss-anne-2f`: 4 trainer, 2 item, 9 exit
+- `ss-anne-3f`: 2 trainer, 2 exit
 - `underground-path`: 2 hidden, 2 exit
 - `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit

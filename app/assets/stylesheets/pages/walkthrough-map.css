@@ -164,15 +164,21 @@
   color: #8fa6c8;
 }
 
-/* Wraps the canvas so a landscape map can scroll sideways without the border box moving. In
-   portrait it does nothing. */
+/* Wraps the canvas so a map can scroll sideways without the border box moving. A map is never
+   drawn below 1x, whichever way round it is: squeezed into a phone column a deck's labels pile
+   into each other and the picture stops being readable at all, so the frame scrolls instead. The
+   vertical padding gives a tapped marker's hint room to sit inside that frame, which clips
+   whatever leaves it. */
 .pn-mm-viewport {
   min-width: 0;
+  overflow-x: auto;
+  padding-block: 40px;
 }
 
 .pn-mm-canvas {
   position: relative;
   line-height: 0;
+  width: max(100%, var(--mm-native-w, 100%));
   max-width: calc(var(--mm-native-w, 100%) * var(--mm-max-zoom));
   margin-inline: auto;
 }
@@ -594,10 +600,8 @@
 
 /* --- landscape template --------------------------------------------------- */
 /* A wide, short map (a route) reads badly squeezed into the side-by-side column, so it takes the
-   full page width: the how-to moves above the map and the legend spreads out beneath it. The map
-   keeps its native pixel width (never scaled below 1x) and the frame scrolls sideways when the
-   map is wider than the page; the vertical padding gives a tapped marker's hint room to sit
-   inside the scroll frame, which clips whatever leaves it. */
+   full page width: the how-to moves above the map and the legend spreads out beneath it. The
+   never-below-1x scrolling frame is the base behaviour every map gets. */
 
 [data-map-orient="landscape"] .pn-mm-split { grid-template-columns: 1fr; }
 [data-map-orient="landscape"] .pn-mm-howto--side { display: none; }
@@ -612,15 +616,6 @@
 
 [data-map-orient="landscape"] .pn-mm-howto--top .pn-mm-howto__title { white-space: nowrap; }
 [data-map-orient="landscape"] .pn-mm-howto--top .pn-mm-howto__body { flex: 1; min-width: 220px; margin: 0; }
-
-[data-map-orient="landscape"] .pn-mm-viewport {
-  overflow-x: auto;
-  padding-block: 40px;
-}
-
-[data-map-orient="landscape"] .pn-mm-canvas {
-  width: max(100%, var(--mm-native-w, 100%));
-}
 
 /* The legend groups lay out as fixed-size columns: ~200px each, as many as fit. On the full-width
    page that lands the design's five (trainer, NPC, item, hidden, exit) side by side, and it reflows

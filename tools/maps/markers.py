@@ -264,13 +264,15 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
 
 
 def map_trainers(root_str, map_label):
-    """The trainers a map pins, in the order their keys are numbered.
+    """The trainers a map pins: the ones really standing there when you walk in.
 
-    The raw object list, so a trainer the game ships switched off is in here: SSAnne2F's rival is
-    walked on by a script and still holds a pin where he ends up. The roster reads this too rather
-    than counting for itself, because a floor whose two halves count differently prints one letter
-    on the card and another on the map."""
-    return [obj for obj in sources._object_events(root_str, map_label) if obj["kind"] == "trainer"]
+    A trainer the game ships hidden is not, so he gets no pin and takes no letter. The S.S. Anne's
+    2F rival is the only one in Kanto: a script walks him into the corridor when you try to leave,
+    and a pin for him put a letter on empty carpet and pushed the four cabin trainers down one.
+    The roster reads this same list rather than counting for itself, because a floor counted two
+    different ways prints one letter on the card and another on the map."""
+    return [obj for obj in sources.parse_object_events(root_str, map_label, include_battlers=True)
+            if obj["kind"] == "trainer"]
 
 
 def map_cells(root_str, map_const):

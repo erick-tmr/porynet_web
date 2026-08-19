@@ -955,7 +955,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
@@ -967,7 +967,7 @@ module Walkthrough
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
-        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia
+        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia, grind: grind
       )
     end
 
@@ -983,7 +983,7 @@ module Walkthrough
       defs.each_with_index.map do |d, i|
         n = i + 1
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
-          items: step_items(base, n, d), map: d[:map],
+          items: step_items(base, n, d), map: d[:map], dex_seen: d[:dex_seen],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
       end
@@ -1331,9 +1331,10 @@ module Walkthrough
     end
 
     def self.ss_anne
+      # Straight below to the crew deck, back up through 1F stern to bow, then over 2F to the
+      # bow deck and down again, so each floor is swept once and the ship is crossed twice
+      # instead of four times.
       loc("ss-anne", "BUILDING", "S.S. Anne", 18, steps: [
-          { pins: { cabin: "ss-anne-1f/exit-11-8" } },
-          { item: [ "TM Body Slam", "tm-body-slam" ], scene: "ss-anne-item-tm-body-slam" },
           { pins: { down: "ss-anne-1f/exit-37-15", cabin: "ss-anne-b1f/exit-23-3" } },
           { item: [ "Max Potion", "max-potion" ], scene: "ss-anne-item-max-potion" },
           { item: [ "Ether", "ether" ], scene: "ss-anne-item-ether",
@@ -1343,17 +1344,20 @@ module Walkthrough
           { hidden: [ "Hyper Potion", "hyper-potion", "ss-anne-hidden-hyper-potion",
                       "ss-anne-hyper-potion" ],
             pins: { cabin: "ss-anne-b1f/exit-7-3" } },
+          { item: [ "TM Body Slam", "tm-body-slam" ], scene: "ss-anne-item-tm-body-slam",
+            pins: { up: "ss-anne-b1f/exit-27-5", cabin: "ss-anne-1f/exit-11-8" } },
           { hidden: [ "Great Ball", "great-ball", "ss-anne-hidden-great-ball",
                       "ss-anne-great-ball" ],
-            pins: { up: "ss-anne-b1f/exit-27-5", kitchen: "ss-anne-1f/exit-3-16" } },
+            pins: { kitchen: "ss-anne-1f/exit-3-16" } },
           { pins: { up: "ss-anne-1f/exit-2-6", down: "ss-anne-2f/exit-2-12",
                     deck: "ss-anne-3f/exit-0-3" } },
-          { pins: { cabin: "ss-anne-2f/exit-9-11" } },
+          {},
+          { pins: { cabin: "ss-anne-2f/exit-9-11" }, dex_seen: [ "143" ] },
           { item: [ "Max Ether", "max-ether" ], scene: "ss-anne-item-max-ether",
             pins: { cabin: "ss-anne-2f/exit-13-11" } },
           { item: [ "Rare Candy", "rare-candy" ], scene: "ss-anne-item-rare-candy",
             pins: { cabin: "ss-anne-2f/exit-21-11" } },
-          { pins: { rival: "ss-anne-2f/trainer-36-4" } },
+          {},
           { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut",
             pins: { stairs: "ss-anne-2f/exit-36-4" },
             link: StepLink.new(leg: "leg-06", anchor: "route-11-step-1") }
@@ -1394,6 +1398,15 @@ module Walkthrough
     # down the east side for Flash, the Mr. Mime trade, the Moon Stone and the HP Up, on into
     # Viridian for the Dream Eater TM, then back through the tunnel for Cerulean. Route 2 and
     # Viridian City lend their maps (MAP_EXTRA) so every pin the detour names is on this page.
+    # Shared by the encounter cards and the grind spot, which reads the same rates and level bands
+    # rather than repeating them.
+    def self.digletts_cave_encounters
+      @digletts_cave_encounters ||= [
+        enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
+        enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
+      ].freeze
+    end
+
     def self.digletts_cave
       loc("digletts-cave", "CAVE", "Diglett's Cave", 20,
         title: "Diglett's Cave → Viridian Detour", steps: [
@@ -1418,15 +1431,17 @@ module Walkthrough
           { html: true, link: StepLink.new(leg: "leg-07", anchor: "route-9-step-1") }
         ],
         encounters: [
-          enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
-          enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
+          *digletts_cave_encounters
         ],
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
           house: "route-2-trade-house", inside: "route-2-trade-house-inside",
           tick: "route-2/trade-0") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ],
-        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave",
-          art: "walkthrough/art/dugtrio.png", note_icon: "walkthrough/items/repel.png"))
+        grind: grind_spot(base("digletts-cave"), anchor: "diglett-grinding",
+          after_map: "digletts-cave", art: "walkthrough/art/dugtrio.png",
+          note_icon: "walkthrough/items/repel.png",
+          encounters: digletts_cave_encounters,
+          mons: [ [ "050", "common", 20 ], [ "051", "rare", 30 ] ]))
     end
 
     def self.pokemon_tower
@@ -2209,10 +2224,27 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {}, map: nil)
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {},
+                  map: nil, dex_seen: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map)
+        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map,
+        dex_seen: dex_seen && dex_seen(base, n, *dex_seen))
+    end
+
+    # The dex screen for a species a step shows you but does not let you catch. The numbers, the
+    # species line and the entry text all come out of the game; only the "catch it later" line is
+    # ours, so only that one is a locale key.
+    def self.dex_seen(base, n, num)
+      entry = dex_facts.fetch(num)
+      DexSeen.new(num: num, name: entry.fetch("name"), species: entry.fetch("species"),
+        types: entry.fetch("types"), height: entry.fetch("height"), weight: entry.fetch("weight"),
+        text: entry.fetch("text"), art: "walkthrough/yellow/art/#{mon_key(num)}-sugimori.png",
+        catch_key: "#{base}.steps.#{n}.catch_at")
+    end
+
+    def self.dex_facts
+      @dex_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_dex.json"))).fetch("dex").freeze
     end
 
     # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
@@ -2381,10 +2413,49 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil, art: nil, note_icon: nil)
+    def self.trivia(base, anchor:, cards: [], shot: nil, art: nil, note_icon: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map, art: art,
-        note_icon: note_icon)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, art: art, note_icon: note_icon)
+    end
+
+    # The grinding spot card: two species side by side with what each knockout pays, and the Repel
+    # trick that leaves only the better one. `mons` are (dex, tone, sample level) triples; every
+    # number on the card is worked out from the game's own base stats and the location's own
+    # encounter rows, so nothing here can drift from what the cartridge does.
+    GRIND_EXP_DIVISOR = 7
+    GRIND_STEPS = 3
+
+    def self.grind_spot(base, anchor:, after_map:, art:, note_icon:, encounters:, mons:)
+      rows = mons.map { |dex, tone, level| grind_mon(base, encounters, dex, tone, level) }
+      best = rows.map(&:exp).max
+      GrindSpot.new(anchor: anchor, after_map: after_map, art: art, note_icon: note_icon,
+        title_key: "#{base}.grind.title", intro_key: "#{base}.grind.intro",
+        formula_key: "#{base}.grind.formula", warn_key: "#{base}.grind.warn",
+        mons: rows.map { |mon| mon.with(fill: grind_fill(mon.exp, best)) },
+        lead_level: rows.first.levels.split("–").last.to_i + 1,
+        steps: (1..GRIND_STEPS).map do |n|
+          GrindStep.new(n: n, title_key: "#{base}.grind.steps.#{n}.title",
+            body_key: "#{base}.grind.steps.#{n}.body_html")
+        end)
+    end
+
+    # The bar under each figure, as a percentage of the best on offer, in fives. A width has to be
+    # a class rather than an inline style (the CSP blocks those), so it lands on one of twenty-one
+    # steps; a bar comparing two numbers reads the same at that granularity.
+    GRIND_FILL_STEP = 5
+
+    def self.grind_fill(exp, best)
+      (exp * 100.0 / best / GRIND_FILL_STEP).round * GRIND_FILL_STEP
+    end
+
+    def self.grind_mon(base, encounters, dex, tone, level)
+      row = encounters.find { |e| e.dex == dex }
+      entry = dex_facts.fetch(dex)
+      GrindMon.new(dex: dex, name: row.name, tone: tone, rarity: row.rarity, share: row.rate,
+        levels: row.level, level: level, fill: 0,
+        exp: entry.fetch("base_exp") * level / GRIND_EXP_DIVISOR,
+        type: entry.fetch("types").first, hp: entry.fetch("hp"), speed: entry.fetch("speed"),
+        tips_key: "#{base}.grind.tips.#{mon_key(dex)}")
     end
 
     def self.missable(base, anchor:, after_step:)

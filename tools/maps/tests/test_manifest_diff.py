@@ -9,9 +9,10 @@ import json
 import manifest_diff
 
 
-def marker(marker_id, cat="hidden", ref="POTION", grid=(4, 5), x=10.0, y=20.0, name="Potion"):
+def marker(marker_id, cat="hidden", ref="POTION", grid=(4, 5), x=10.0, y=20.0, name="Potion",
+           key=None):
     return {"id": marker_id, "cat": cat, "ref": ref, "grid": list(grid),
-            "x": x, "y": y, "name": name}
+            "x": x, "y": y, "name": name, "key": key}
 
 
 def manifest(*entries):
@@ -45,6 +46,29 @@ def test_removed_marker():
     delta, = manifest_diff.diff_manifests(old, new)
     assert [m["id"] for m in delta.removed] == ["item-9-9"]
     assert delta.added == [] and delta.moved == []
+
+
+def test_a_marker_that_holds_its_place_but_changes_letter_is_a_reletter():
+    """A pin's letter is its position along the walk, so editing one waypoint in `paths.ROUTES`
+    renumbers a floor without moving anything an inch. That still reletters what every step, card
+    and legend row points at, so it has to be declared like any other drift."""
+    old = manifest(entry(markers=[marker("trainer-2-2", cat="trainer", ref="LASS:1", key="T3")]))
+    new = manifest(entry(markers=[marker("trainer-2-2", cat="trainer", ref="LASS:1", key="T1")]))
+
+    delta, = manifest_diff.diff_manifests(old, new)
+    (before, after), = delta.relettered
+    assert (before["key"], after["key"]) == ("T3", "T1")
+    assert delta.moved == [] and delta.added == [] and delta.removed == []
+
+
+def test_a_marker_that_moves_and_reletters_is_reported_as_the_move():
+    """One line per pin: a marker that shifted is described by where it went, and its new letter
+    rides along in the description rather than printing the same pin twice."""
+    old = manifest(entry(markers=[marker("exit-north", cat="exit", grid=(1, 0), key="E1")]))
+    new = manifest(entry(markers=[marker("exit-north", cat="exit", grid=(3, 0), key="E2")]))
+
+    delta, = manifest_diff.diff_manifests(old, new)
+    assert len(delta.moved) == 1 and delta.relettered == []
 
 
 def test_stable_id_that_changes_position_is_a_move():
@@ -117,6 +141,16 @@ def test_render_markdown_lists_every_change_kind():
     assert "moved `exit-north` [1,0]" in out
     assert "added `trainer-2-2`" in out
     assert "removed `item-9-9`" in out
+
+
+def test_render_markdown_counts_and_lists_relettered_pins():
+    old = manifest(entry(markers=[marker("trainer-2-2", cat="trainer", ref="LASS:1", key="T3")]))
+    new = manifest(entry(markers=[marker("trainer-2-2", cat="trainer", ref="LASS:1", key="T1")]))
+
+    out = manifest_diff.render_markdown(manifest_diff.diff_manifests(old, new))
+    assert "| Map | Status | Added | Removed | Moved | Relettered |" in out
+    assert "| `pallet-town` | changed | 0 | 0 | 0 | 1 |" in out
+    assert "relettered T3 -> T1 `trainer-2-2` [4,5]" in out
 
 
 def test_render_markdown_omits_the_size_line_when_only_markers_changed():

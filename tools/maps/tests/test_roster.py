@@ -4,13 +4,16 @@ import markers
 import roster
 import sources
 
+# Lettered and dealt out in the order that clears them with the least walking back, which Route 3
+# names outright in paths.ROUTES: neither the map file's order nor plain distance from the Pewter
+# gate puts the Lass on the entrance row ahead of the Bug Catcher up the bank.
 ROUTE_3 = [
-    ("T1", "BUG_CATCHER:4", 100, [("010", 10), ("013", 10), ("010", 10)]),
-    ("T2", "YOUNGSTER:1", 165, [("019", 11), ("023", 11)]),
-    ("T3", "LASS:1", 135, [("016", 9), ("016", 9)]),
+    ("T1", "LASS:1", 135, [("016", 9), ("016", 9)]),
+    ("T2", "BUG_CATCHER:4", 100, [("010", 10), ("013", 10), ("010", 10)]),
+    ("T3", "YOUNGSTER:1", 165, [("019", 11), ("023", 11)]),
     ("T4", "BUG_CATCHER:5", 90, [("013", 9), ("014", 9), ("010", 9), ("011", 9)]),
-    ("T5", "LASS:2", 150, [("019", 10), ("032", 10)]),
-    ("T6", "YOUNGSTER:2", 210, [("021", 14)]),
+    ("T5", "YOUNGSTER:2", 210, [("021", 14)]),
+    ("T6", "LASS:2", 150, [("019", 10), ("032", 10)]),
     ("T7", "BUG_CATCHER:6", 110, [("010", 11), ("011", 11)]),
     ("T8", "LASS:3", 210, [("039", 14)]),
 ]
@@ -24,7 +27,7 @@ def built(root):
 
 def test_route_3_reproduces_the_hand_authored_cards(root):
     """The load-bearing test: this one assertion pins the reward formula, both party formats,
-    the dex mapping and the card order all at once."""
+    the dex mapping and the walking order all at once."""
     entries, _ = built(root)
     got = [(e["key"], e["opp"], e["reward"], [(m["dex"], m["lvl"]) for m in e["team"]])
            for e in entries["route-3"]]
@@ -82,11 +85,15 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
 
 def test_gym_floors_are_keyed_like_any_other_map(root):
     """A gym map draws keyed trainer pins, so its cards claim the same keys: the pin is how you
-    tell which card is the Jr. Trainer by the door and which is the leader at the back."""
+    tell which card is the Jr. Trainer by the door and which is the leader at the back.
+
+    Pewter shows the lettering following the walk rather than the map file, which declares Brock
+    first: the Jr. Trainer stands seven steps inside the door and takes T1, Brock eleven steps in
+    at the back of the room and takes T2."""
     entries, _ = built(root)
     gym = [e for e in entries["pewter-city"] if e["floor"] == "Gym"]
 
-    assert [e["key"] for e in gym] == ["T1", "T2"]
+    assert [(e["key"], e["opp"]) for e in gym] == [("T1", "JR_TRAINER_M:1"), ("T2", "BROCK:1")]
 
 
 def test_every_trainer_on_the_ship_is_pinned_on_the_deck_it_is_fought_on(root):

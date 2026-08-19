@@ -12,6 +12,7 @@ class. Those are product decisions and stay in the Rails model.
 import decks
 import locations
 import markers
+import paths
 import sources
 
 PLAYER_CELLS = 2
@@ -167,32 +168,45 @@ def _map_trainers(root_str, map_label):
 
 def _floor_trainers(root_str, label, floor):
     """Every trainer pinned on one drawn floor, in the order its pins are numbered, as (source map,
-    that map's own floor label, trainer, whether the roster carries a card for it).
+    that map's own floor label, trainer).
 
     A deck runs the count across the corridor and every room hung off it, in the order decks.py
-    places them, because they share one picture and one run of keys. The count includes trainers
-    the game ships switched off, which the roster has no card for: the ship's rival is walked onto
-    2F by a script and his pin still takes T1, so the cabin trainers behind him have to count him
-    or every letter on that deck is off by one."""
+    places them, because they share one picture and one run of keys."""
     rooms = locations.attached(label)
-    places = (decks.plan(root_str, label, floor, rooms).placements if rooms
+    places = (decks.numbered_order(root_str, decks.plan(root_str, label, floor, rooms)) if rooms
               else [decks.Placement(label, floor, None, (0, 0))])
 
     out = []
     for place in places:
-        carded = {tuple(o["grid"]) for o in _map_trainers(root_str, place.label)}
-        out += [(place.label, place.floor, obj, tuple(obj["grid"]) in carded)
-                for obj in markers.map_trainers(root_str, place.label)
+        here = [obj for obj in markers.map_trainers(root_str, place.label)
                 if place.cells is None or decks.holds(place, obj["grid"])]
+        order = decks.room_order(root_str, label, place) if rooms else None
+        out += [(place.label, place.floor, obj) for obj in (order(here) if order else here)]
     return out
+
+
+def _keyed_trainers(root_str, label, floor):
+    """One floor's carded trainers as (key, source map, home floor, trainer), in walking order.
+
+    Both the order and the letter come off the walk, the same one `decks.area_markers` numbers the
+    pins by, so a card and its pin always name the same trainer T1.
+
+    A deck is already in the order it is cleared and cannot be sorted again here: its trainers come
+    off several maps at once, so their cells are not comparable, and `decks.numbered_order` has
+    settled the sequence for both this and the pins."""
+    trainers = _floor_trainers(root_str, label, floor)
+    if not locations.attached(label):
+        trainers = paths.walked(root_str, label, trainers, lambda entry: entry[2]["grid"])
+    return [(markers.marker_key("trainer", index), source, home, obj)
+            for index, (source, home, obj) in enumerate(trainers)]
 
 
 def build_roster(root_str):
     """Return ({slug: [entry]}, [where-scene spec]).
 
     Entries come out in the order the page shows them: floor by floor, and within a floor in the
-    order the map file declares them, which is the order markers.marker_key numbered the pins.
-    A location's extra maps come last; they have no drawn map, so their cards carry no letter."""
+    order the hero walks past them. A location's extra maps come last; they have no drawn map, so
+    their cards carry no letter."""
     headers = sources.parse_headers(root_str)
     roster, specs = {}, []
 
@@ -202,11 +216,7 @@ def build_roster(root_str):
             if label not in headers:
                 continue
             area = locations.image_name(slug, floor)
-            for index, (source, home, obj, carded) in enumerate(
-                    _floor_trainers(root_str, label, floor)):
-                if not carded:
-                    continue
-                key = markers.marker_key("trainer", index)
+            for key, source, home, obj in _keyed_trainers(root_str, label, floor):
                 name = scene_name(locations.image_name(slug, home), obj)
                 specs.append(where_spec(root_str, source, parent, obj, name))
                 entries.append(entry_for(root_str, area, floor, obj, key, name))

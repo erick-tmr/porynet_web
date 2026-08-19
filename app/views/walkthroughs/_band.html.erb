@@ -42,6 +42,7 @@
 <% end %>
 
 <% if loc.trivia? %><%= render "trivia", trivia: loc.trivia %><% end %>
+<% if loc.grind? %><%= render "grind_spot", grind: loc.grind %><% end %>
 
 <% if loc.trainers.any? %>
   <section class="pn-wt-section">

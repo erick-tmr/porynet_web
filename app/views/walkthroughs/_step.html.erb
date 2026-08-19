@@ -34,6 +34,10 @@
           </div>
         <% end %>
 
+        <% if step.dex_seen? %>
+          <%= render "dex_seen", dex: step.dex_seen %>
+        <% end %>
+
         <% if step.hidden? %>
           <div class="pn-wt-hidden-grid">
             <% step.hidden.each_with_index do |hidden, i| %>

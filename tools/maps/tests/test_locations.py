@@ -25,12 +25,16 @@ def test_extra_trainer_maps():
     assert locations.extra_trainer_maps("route-1") == []
 
 
-def test_the_ship_draws_one_map_per_deck():
+def test_the_ship_draws_one_map_per_deck_in_the_order_it_is_walked():
     """Four decks, not nine floors. The cabins, the kitchen and the bow are drawn into the deck
     they open off (decks.py), so nobody has to match a corridor of identical doors against a grid
-    of identical cabins by letter."""
+    of identical cabins by letter.
+
+    They come out in the order the guide boards them rather than the order the ship is stacked:
+    you step aboard on 1F and go straight below, so the crew deck is the second map on the page and
+    the second run of trainer cards under it."""
     assert [label for label, _, _ in locations.location_maps()["ss-anne"]] == [
-        "SSAnne1F", "SSAnne2F", "SSAnne3F", "SSAnneB1F"]
+        "SSAnne1F", "SSAnneB1F", "SSAnne2F", "SSAnne3F"]
 
 
 def test_every_attached_room_hangs_off_a_map_that_is_drawn():

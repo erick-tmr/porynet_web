@@ -88,8 +88,21 @@ previous render instead, with nothing in the logs. Upload every time the images 
   and `roster.py` so those two need not import each other.
 - `roster.py` — every trainer the walkthrough can send you into, with team, prize and a generated
   screenshot of where the fight happens. All four facts come from the disassembly.
+- `paths.py` — the order the hero reaches a floor's trainers, item balls and hidden items, which
+  is what letters their pins.
+  `ROUTES` names the hero's way across each map (by marker id, the same strings the walkthrough's
+  step pins use: the doorway it is entered by, then any landmark the flood alone would put in the
+  wrong order) and a breadth-first flood over the game's own collision measures
+  everything from there, so T1 is the first trainer on the floor and I1 the first item ball, rather
+  than whichever the assembler listed first. Exits are left alone; a staircase wears one letter
+  across both floors it joins. Two Ruby tests hold this to the authored steps: every page has to
+  collect its items, and meet the trainers its steps name, in ascending letter order. A floor entered more than once lists one doorway per visit. Numbering runs once,
+  in `decks.area_markers`, so a pin and its card cannot disagree.
+- `dex.py` — the Pokédex screen the game prints for a species: the species line, height, weight,
+  types and the description, joined back into one paragraph from the screen rows it is stored as.
+  Feeds the "registered as seen" block on a step where an NPC shows you a Pokémon you cannot catch.
 - `build.py` — the entrypoint: renders every area map, dispatches the specs, saves the PNGs and
-  writes the manifest, the roster and the report.
+  writes the manifest, the roster, the dex and the report.
 - `parse_hidden.py` — thin CLI over `sources.markers_by_map` to dump hidden items + coins.
 
 ## Adding images

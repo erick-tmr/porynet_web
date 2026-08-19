@@ -48,10 +48,12 @@ _DUNGEONS = {
     "pokemon-mansion": _floors("PokemonMansion", ["1F", "2F", "3F", "B1F"], "CINNABAR_ISLAND"),
     # One entry per deck; the cabins, kitchen and bow are drawn into the deck they open off (see
     # _ATTACHED below and decks.py), not listed here as floors of their own.
+    # Decks in the order the guide walks them, not the order the ship is stacked: you board on 1F
+    # and go straight below, so B1F comes second and the two upper decks follow.
     "ss-anne": [("SSAnne1F", "1F", "VERMILION_CITY"),
+                ("SSAnneB1F", "B1F", "VERMILION_CITY"),
                 ("SSAnne2F", "2F", "VERMILION_CITY"),
-                ("SSAnne3F", "3F", "VERMILION_CITY"),
-                ("SSAnneB1F", "B1F", "VERMILION_CITY")],
+                ("SSAnne3F", "3F", "VERMILION_CITY")],
     "underground-path": [("UndergroundPathNorthSouth", "", None)],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],

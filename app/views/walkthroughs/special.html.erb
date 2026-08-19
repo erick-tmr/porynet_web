@@ -35,7 +35,7 @@
     <% if here.any? %>
       <%= render "catch_here", loc: @location, encounters: here, plan: plan, level: :page %>
     <% end %>
-    <% if @location.trivia&.after?(area) %><%= render "trivia", trivia: @location.trivia %><% end %>
+    <% if @location.grind&.after?(area) %><%= render "grind_spot", grind: @location.grind %><% end %>
     <% swaps = @location.trades_on(area&.name) %>
     <% if swaps.any? %><%= render "trades_here", loc: @location, trades: swaps, level: :page %><% end %>
   <% end %>
@@ -51,7 +51,7 @@
   <%= render "catch_here", loc: @location, encounters: elsewhere, plan: plan, level: :page %>
 <% end %>
 
-<% if @location.trivia&.loose? %><%= render "trivia", trivia: @location.trivia %><% end %>
+<% if @location.trivia? %><%= render "trivia", trivia: @location.trivia %><% end %>
 
 <% if @location.trainers.any? %>
   <section class="pn-wt-section">
