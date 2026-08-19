@@ -1960,52 +1960,49 @@ en:
               title: "Climb with the Silph Scope"
               text: "Step in from Lavender Town and start up. With the Silph Scope on, the wild Gastly, Haunter and Cubone that haunt every floor finally take shape, so you can battle them instead of fumbling in the dark."
             "2":
-              title: "Beat your rival on 2F"
-              text: "Blue ambushes you crossing the second floor, his team around Lv 25. His Eevee wears whichever form your earlier results locked in, so lead with a counter to it, then take the west stairs up."
-            "3":
               title: "Snag the Escape Rope on 3F"
               text: "On the third floor, a lone ball waits against the very top wall, dead center. Walk up to it for an Escape Rope, your instant bail-out if the ghosts wear you down."
               items:
                 escape-rope: "Top-center of 3F, against the north wall; approach from below."
-            "4":
+            "3":
               title: "Grab the Elixir on 4F"
               text: "Up on the fourth floor, the first of three balls sits near the middle of the room. Step to it from the right for an Elixir, which tops up the PP of every move at once."
               items:
                 elixir: "Center of 4F, approached from the east."
-            "5":
+            "4":
               title: "Drop south for the HP Up"
               text: "Just below the Elixir, tucked against the lower wall, a second ball holds an HP Up, a permanent boost to one Pokémon's max HP. Reach it from the left."
               items:
                 hp-up: "South edge of 4F, directly below the Elixir."
-            "6":
+            "5":
               title: "Pocket the Awakening"
               text: "A few steps west along the middle row, the last 4F ball is an Awakening, a one-shot cure for Sleep and handy against the Tower's drowsy ghosts. Then make for the west stairs."
               items:
                 awakening: "Center-west of 4F, west of the Elixir, near the stairs up."
-            "7":
+            "6":
               title: "Feel for the hidden Elixir on 5F"
               text: "Coming onto the fifth floor from the west stairs, step a couple of tiles in and face south. Press A on the empty tile just below you for a hidden Elixir; nothing shows on-screen, but it drops into your bag."
               hidden:
                 elixir: "Just southeast of the 5F west stairs. Press A facing down on the empty tile; no ball is visible."
-            "8":
+            "7":
               title: "Bag the Nugget"
               text: "A little further into the fifth floor, a ball sits low on the west side. Grab it from the right for a Nugget, worth a fat pile of cash at any shop."
               items:
                 nugget: "West-south area of 5F, a few tiles past the hidden Elixir; approach from the right."
-            "9":
+            "8":
               title: "Claim the Rare Candy on 6F"
               text: "The sixth floor's prize sits over on the west side, up near the top. Walk up to it for a Rare Candy, an instant level for whichever Pokémon needs it most."
               items:
                 rare-candy: "West side of 6F, toward the top; approach from below."
-            "10":
+            "9":
               title: "Grab the X Accuracy"
               text: "Back across to the southeast, the last Tower ball is an X Accuracy, a battle item that sharpens your next few hits. From here it is a short walk to the stairs the ghost guards."
               items:
                 x-accuracy: "Southeast of 6F; approach from the right."
-            "11":
+            "10":
               title: "Clear the ghost Marowak"
               text: "A Lv 30 ghost Marowak stands over the stairs up, mourning among the graves. The Silph Scope lets you see and fight it, so knock it out to clear the way. It can never be caught, only laid to rest."
-            "12":
+            "11":
               title: "Free Mr. Fuji on 7F"
               text: "At the top, Jessie & James block the way to Mr. Fuji. Beat the pair and speak to the old man to free him. He hands over the Poké Flute, which wakes the Snorlax on Routes 12 and 16."
               items:

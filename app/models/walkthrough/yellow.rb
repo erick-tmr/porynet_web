@@ -1448,7 +1448,6 @@ module Walkthrough
     def self.pokemon_tower
       loc("pokemon-tower", "DUNGEON", "Pokémon Tower", 29, steps: [
           {},
-          {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope" },
           { item: [ "Elixir", "elixir" ], scene: "pokemon-tower-item-elixir" },
           { item: [ "HP Up", "hp-up" ], scene: "pokemon-tower-item-hp-up" },
@@ -1466,9 +1465,6 @@ module Walkthrough
           enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105")
         ],
         trainers: [
-          rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25),
-            where: scene_shot("pokemon-tower-rival", "WHERE"),
-            battle: scene_shot("battle-pokemon-tower-rival", "BATTLE")),
           tr("TEAM ROCKET", "Jessie & James", 810,
             mon("052", 27), mon("024", 27), mon("110", 27),
             where: scene_shot("pokemon-tower-jessie-james", "WHERE"),

@@ -1960,52 +1960,49 @@ pt:
               title: "Suba com o Silph Scope"
               text: "Entre vindo de Lavender Town e comece a subir. Com o Silph Scope ativo, os Gastly, Haunter e Cubone selvagens que assombram cada andar finalmente tomam forma, então dá pra batalhar em vez de tatear no escuro."
             "2":
-              title: "Vença seu rival no 2F"
-              text: "O Blue te embosca no segundo andar, com a equipe por volta do Nv 25. O Eevee dele tem a forma que seus resultados anteriores travaram, então comece com um counter e suba pela escada oeste."
-            "3":
               title: "Pegue o Escape Rope no 3F"
               text: "No terceiro andar, uma ball solitária espera colada na parede de cima, bem no centro. Suba até ela pra pegar um Escape Rope, sua saída na hora se os fantasmas te desgastarem."
               items:
                 escape-rope: "Centro-topo do 3F, contra a parede norte; aproxime por baixo."
-            "4":
+            "3":
               title: "Pegue o Elixir no 4F"
               text: "No quarto andar, a primeira de três balls fica perto do meio da sala. Chegue por ela pela direita pra levar um Elixir, que recarrega o PP de todos os golpes de uma vez."
               items:
                 elixir: "Centro do 4F, aproximado pela direita."
-            "5":
+            "4":
               title: "Desça pro HP Up"
               text: "Logo abaixo do Elixir, encostada na parede de baixo, uma segunda ball guarda um HP Up, um aumento permanente no HP máximo de um Pokémon. Alcance pela esquerda."
               items:
                 hp-up: "Borda sul do 4F, logo abaixo do Elixir."
-            "6":
+            "5":
               title: "Embolse o Awakening"
               text: "Alguns passos a oeste pela fileira do meio, a última ball do 4F é um Awakening, uma cura na hora pra Sleep e útil contra os fantasmas sonolentos da Torre. Depois siga pra escada oeste."
               items:
                 awakening: "Centro-oeste do 4F, a oeste do Elixir, perto da escada de subida."
-            "7":
+            "6":
               title: "Tateie o Elixir oculto no 5F"
               text: "Chegando ao quinto andar pela escada oeste, entre um ou dois tiles e vire pra baixo. Aperte A no tile vazio logo à sua frente pra achar um Elixir oculto; nada aparece na tela, mas ele cai na sua bag."
               hidden:
                 elixir: "Logo a sudeste da escada oeste do 5F. Aperte A virado pra baixo no tile vazio; nenhuma ball aparece."
-            "8":
+            "7":
               title: "Garanta o Nugget"
               text: "Um pouco mais adentro do quinto andar, uma ball fica embaixo, no lado oeste. Pegue pela direita pra levar um Nugget, que vale um bom bolo de dinheiro em qualquer loja."
               items:
                 nugget: "Área oeste-sul do 5F, alguns tiles depois do Elixir oculto; aproxime pela direita."
-            "9":
+            "8":
               title: "Fisgue o Rare Candy no 6F"
               text: "O prêmio do sexto andar fica lá no lado oeste, perto do topo. Suba até ele pra pegar um Rare Candy, um nível na hora pro Pokémon que mais precisar."
               items:
                 rare-candy: "Lado oeste do 6F, mais pro topo; aproxime por baixo."
-            "10":
+            "9":
               title: "Pegue o X Accuracy"
               text: "De volta pro sudeste, a última ball da Torre é um X Accuracy, um item de batalha que afia seus próximos golpes. Daqui é um pulo até a escada que o fantasma guarda."
               items:
                 x-accuracy: "Sudeste do 6F; aproxime pela direita."
-            "11":
+            "10":
               title: "Limpe o Marowak fantasma"
               text: "Um Marowak fantasma Nv 30 fica sobre a escada de subida, de luto entre os túmulos. O Silph Scope deixa você vê-lo e enfrentá-lo, então derrube-o pra abrir caminho. Ele nunca pode ser capturado, só posto pra descansar."
-            "12":
+            "11":
               title: "Solte o Mr. Fuji no 7F"
               text: "No topo, Jessie & James bloqueiam o caminho até o Mr. Fuji. Vença a dupla e fale com o velho para libertá-lo. Ele entrega o Poké Flute, que acorda os Snorlax das Rotas 12 e 16."
               items:
