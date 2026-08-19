@@ -115,6 +115,41 @@ def test_a_floor_dropped_into_from_three_ladders_is_lettered_pocket_by_pocket(ro
         ("T1", "ROCKET:2"), ("T2", "ROCKET:3"), ("T3", "ROCKET:1"), ("T4", "SUPER_NERD:2")]
 
 
+def test_route_9_walks_the_low_road_before_the_pocket_above_it(root):
+    """Route 9 is crossed on one-way ledges, which the flood reads as walls it can climb, so it
+    ranked all nine on how far east they stand. Walked, you reach the Youngster on the low road
+    before the Bug Catcher up in the northern bowl, and the Hiker down in the southeast hollow
+    before the Bug Catcher on the shelf above him; straight distance had both pairs the other way
+    about."""
+    assert lettered(root, "Route9", "") == [
+        ("T1", "JR_TRAINER_F:5"), ("T2", "HIKER:11"), ("T3", "YOUNGSTER:14"),
+        ("T4", "BUG_CATCHER:13"), ("T5", "HIKER:5"), ("T6", "BUG_CATCHER:14"),
+        ("T7", "JR_TRAINER_M:8"), ("T8", "HIKER:6"), ("T9", "JR_TRAINER_F:6")]
+
+
+def test_rock_tunnel_1f_is_lettered_stretch_by_sealed_stretch(root):
+    """1F is three stretches with no way between them on foot: the north mouth's, which holds the
+    Pokémaniac and the ladder down; the middle pocket, reached only by climbing back up from B1F;
+    and the southern one that owns the mouth to Lavender. The flood walks the rock between them,
+    which put a middle-pocket Hiker ahead of the Pokémaniac you meet before ever leaving the first
+    stretch."""
+    assert lettered(root, "RockTunnel1F", "1F") == [
+        ("T1", "POKEMANIAC:7"), ("T2", "HIKER:12"), ("T3", "HIKER:13"), ("T4", "HIKER:14"),
+        ("T5", "JR_TRAINER_F:17"), ("T6", "JR_TRAINER_F:19"), ("T7", "JR_TRAINER_F:18")]
+
+
+def test_rock_tunnel_b1f_is_lettered_around_the_loop_it_is_walked(root):
+    """B1F is crossed twice, with the climb into 1F's middle pocket between the halves: in at the
+    southeast ladder, west along the bottom, up the middle and back east for the ladder under that
+    pocket, then down its other ladder and west again for the top-left corner. Sorted on distance
+    from the one door, the Jr. Trainer at the west end of the bottom run came fifth, behind three
+    trainers the walk does not reach until it has turned around."""
+    assert lettered(root, "RockTunnelB1F", "B1F") == [
+        ("T1", "POKEMANIAC:5"), ("T2", "JR_TRAINER_F:10"), ("T3", "POKEMANIAC:4"),
+        ("T4", "HIKER:10"), ("T5", "HIKER:11"), ("T6", "JR_TRAINER_F:9"),
+        ("T7", "HIKER:9"), ("T8", "POKEMANIAC:3")]
+
+
 def test_a_gym_ends_on_its_leader(root):
     """Every gym is one room off one door, so the walk always finishes at the back of it and the
     leader wears the last letter rather than whichever one the map file happened to give them."""

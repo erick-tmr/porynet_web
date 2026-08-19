@@ -4515,24 +4515,9 @@
         "name": "rock-tunnel-1f",
         "markers": [
           {
-            "id": "trainer-7-5",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 18.75,
-            "y": 15.278,
-            "grid": [
-              7,
-              5
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:12",
-            "lane": 0
-          },
-          {
             "id": "trainer-23-8",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 58.75,
             "y": 23.611,
             "grid": [
@@ -4545,24 +4530,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-17-15",
+            "id": "trainer-7-5",
             "cat": "trainer",
-            "key": "T3",
-            "x": 43.75,
-            "y": 43.056,
+            "key": "T2",
+            "x": 18.75,
+            "y": 15.278,
             "grid": [
-              17,
-              15
+              7,
+              5
             ],
             "align": "r",
             "name": "Hiker",
-            "ref": "HIKER:14",
+            "ref": "HIKER:12",
             "lane": 0
           },
           {
             "id": "trainer-5-16",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 13.75,
             "y": 45.833,
             "grid": [
@@ -4572,6 +4557,21 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-17-15",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 43.75,
+            "y": 43.056,
+            "grid": [
+              17,
+              15
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:14",
             "lane": 0
           },
           {
@@ -4746,9 +4746,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-20-21",
+            "id": "trainer-14-28",
             "cat": "trainer",
             "key": "T2",
+            "x": 36.25,
+            "y": 79.167,
+            "grid": [
+              14,
+              28
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:10",
+            "lane": 0
+          },
+          {
+            "id": "trainer-20-21",
+            "cat": "trainer",
+            "key": "T3",
             "x": 51.25,
             "y": 59.722,
             "grid": [
@@ -4763,7 +4778,7 @@
           {
             "id": "trainer-30-10",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T4",
             "x": 76.25,
             "y": 29.167,
             "grid": [
@@ -4778,7 +4793,7 @@
           {
             "id": "trainer-33-5",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T5",
             "x": 83.75,
             "y": 15.278,
             "grid": [
@@ -4788,21 +4803,6 @@
             "align": "l",
             "name": "Hiker",
             "ref": "HIKER:11",
-            "lane": 0
-          },
-          {
-            "id": "trainer-14-28",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 36.25,
-            "y": 79.167,
-            "grid": [
-              14,
-              28
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:10",
             "lane": 0
           },
           {
@@ -9995,24 +9995,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-22-2",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 37.5,
-            "y": 13.889,
-            "grid": [
-              22,
-              2
-            ],
-            "align": "r",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:13",
-            "lane": 0
-          },
-          {
             "id": "trainer-24-7",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 40.833,
             "y": 41.667,
             "grid": [
@@ -10025,19 +10010,34 @@
             "lane": 0
           },
           {
-            "id": "trainer-31-7",
+            "id": "trainer-22-2",
             "cat": "trainer",
-            "key": "T5",
-            "x": 52.5,
-            "y": 41.667,
+            "key": "T4",
+            "x": 37.5,
+            "y": 13.889,
             "grid": [
-              31,
-              7
+              22,
+              2
             ],
             "align": "r",
-            "name": "Jr.Trainer\u2642",
-            "ref": "JR_TRAINER_M:8",
-            "lane": 1
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-45-15",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 75.833,
+            "y": 86.111,
+            "grid": [
+              45,
+              15
+            ],
+            "align": "l",
+            "name": "Hiker",
+            "ref": "HIKER:5",
+            "lane": 0
           },
           {
             "id": "trainer-40-8",
@@ -10055,19 +10055,19 @@
             "lane": 2
           },
           {
-            "id": "trainer-45-15",
+            "id": "trainer-31-7",
             "cat": "trainer",
             "key": "T7",
-            "x": 75.833,
-            "y": 86.111,
+            "x": 52.5,
+            "y": 41.667,
             "grid": [
-              45,
-              15
+              31,
+              7
             ],
-            "align": "l",
-            "name": "Hiker",
-            "ref": "HIKER:5",
-            "lane": 0
+            "align": "r",
+            "name": "Jr.Trainer\u2642",
+            "ref": "JR_TRAINER_M:8",
+            "lane": 1
           },
           {
             "id": "trainer-43-3",
