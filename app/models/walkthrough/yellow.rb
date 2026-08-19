@@ -2077,8 +2077,13 @@ module Walkthrough
     end
 
     def self.lavender_town
-      loc("lavender-town", "TOWN", "Lavender Town", 24, steps: 3,
-        pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } })
+      loc("lavender-town", "TOWN", "Lavender Town", 24, steps: 2,
+        pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } },
+        trainers: [
+          rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25),
+            where: scene_shot("pokemon-tower-rival", "WHERE"),
+            battle: scene_shot("battle-pokemon-tower-rival", "BATTLE"))
+        ])
     end
 
     def self.route_8

@@ -1747,13 +1747,10 @@ pt:
           steps:
             "1":
               title: "Tente a Torre"
-              text_html: "Entre na Pokémon Tower %{tower}, no lado leste da cidade. Você encontra um fantasma invencível no 6F: ele exige o Silph Scope, então volte depois de invadir o esconderijo da Rocket."
+              text_html: "Entre na Pokémon Tower %{tower}, no lado leste da cidade. O Blue espera a poucos passos dentro do 2F, com time perto do Lv 25. Vença-o e siga subindo, até um fantasma invencível barrar o 6F."
             "2":
-              title: "Desvie pelo Silph Scope"
-              text_html: "Vá a oeste %{west} pela Rota 8 até Celadon e destrua o Rocket Hideout pelo Silph Scope."
-            "3":
-              title: "Volte pelo Poké Flute"
-              text: "Volte, limpe a Torre e solte o Mr. Fuji. Ele dá o Poké Flute para acordar os Snorlax dorminhocos."
+              title: "Pegue a estrada a oeste"
+              text_html: "Saia a oeste %{west} da cidade para a Rota 8. Leve um Pokémon que saiba Cut: o mato alto de lá fica cercado atrás de uma árvore, e o Kadabra aparece nele e em nenhum outro lugar."
         route_8:
           note: "A oeste até Celadon. Pidgey, Abra, Jigglypuff."
           intro: "A estrada a oeste de Lavender até o portão leste de Saffron, com nove treinadores nela. Kadabra selvagem aparece aqui e em nenhum outro lugar."

@@ -1747,13 +1747,10 @@ en:
           steps:
             "1":
               title: "Try the Tower"
-              text_html: "Enter Pokémon Tower %{tower} on the east side of town. You will hit an unbeatable ghost on 6F: it needs the Silph Scope, so come back once you have raided the Rocket Hideout."
+              text_html: "Enter Pokémon Tower %{tower} on the east side of town. Blue waits a few steps onto 2F, his team around Lv 25. Beat him and climb on, until a ghost you cannot fight blocks 6F."
             "2":
-              title: "Detour for the Silph Scope"
-              text_html: "Head west %{west} via Route 8 to Celadon and take down the Rocket Hideout for the Silph Scope."
-            "3":
-              title: "Return for the Poké Flute"
-              text: "Come back, clear the Tower, and free Mr. Fuji. He gives the Poké Flute to wake the sleeping Snorlax."
+              title: "Take the road west"
+              text_html: "Head west %{west} out of town onto Route 8. Bring a Pokémon that knows Cut: the tall grass there is fenced in behind a tree, and Kadabra turns up in it and nowhere else."
         route_8:
           note: "West to Celadon. Pidgey, Abra, Jigglypuff."
           intro: "The road west from Lavender to Saffron's east gate, nine trainers along it. Wild Kadabra turns up here and nowhere else."
