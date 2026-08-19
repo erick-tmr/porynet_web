@@ -4772,8 +4772,68 @@
       {
         "map": "route-8",
         "floor": "",
-        "marker": "trainer-26-6",
+        "marker": "trainer-26-3",
         "key": "T4",
+        "opp": "LASS:13",
+        "cls": "LASS",
+        "reward": 345,
+        "team": [
+          {
+            "dex": "029",
+            "lvl": 23
+          },
+          {
+            "dex": "030",
+            "lvl": 23
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-3.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-4",
+        "key": "T5",
+        "opp": "SUPER_NERD:5",
+        "cls": "SUPER_NERD",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "109",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-4.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-5",
+        "key": "T6",
+        "opp": "LASS:14",
+        "cls": "LASS",
+        "reward": 360,
+        "team": [
+          {
+            "dex": "052",
+            "lvl": 24
+          },
+          {
+            "dex": "052",
+            "lvl": 24
+          },
+          {
+            "dex": "052",
+            "lvl": 24
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-8-trainer-26-5.png"
+      },
+      {
+        "map": "route-8",
+        "floor": "",
+        "marker": "trainer-26-6",
+        "key": "T7",
         "opp": "LASS:15",
         "cls": "LASS",
         "reward": 285,
@@ -4800,66 +4860,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-8-trainer-26-6.png"
-      },
-      {
-        "map": "route-8",
-        "floor": "",
-        "marker": "trainer-26-5",
-        "key": "T5",
-        "opp": "LASS:14",
-        "cls": "LASS",
-        "reward": 360,
-        "team": [
-          {
-            "dex": "052",
-            "lvl": 24
-          },
-          {
-            "dex": "052",
-            "lvl": 24
-          },
-          {
-            "dex": "052",
-            "lvl": 24
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-8-trainer-26-5.png"
-      },
-      {
-        "map": "route-8",
-        "floor": "",
-        "marker": "trainer-26-4",
-        "key": "T6",
-        "opp": "SUPER_NERD:5",
-        "cls": "SUPER_NERD",
-        "reward": 650,
-        "team": [
-          {
-            "dex": "109",
-            "lvl": 26
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-8-trainer-26-4.png"
-      },
-      {
-        "map": "route-8",
-        "floor": "",
-        "marker": "trainer-26-3",
-        "key": "T7",
-        "opp": "LASS:13",
-        "cls": "LASS",
-        "reward": 345,
-        "team": [
-          {
-            "dex": "029",
-            "lvl": 23
-          },
-          {
-            "dex": "030",
-            "lvl": 23
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-8-trainer-26-3.png"
       },
       {
         "map": "route-8",

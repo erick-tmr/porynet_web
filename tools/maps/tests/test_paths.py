@@ -127,6 +127,19 @@ def test_route_9_walks_the_low_road_before_the_pocket_above_it(root):
         ("T7", "JR_TRAINER_M:8"), ("T8", "HIKER:6"), ("T9", "JR_TRAINER_F:6")]
 
 
+def test_route_8_takes_its_column_of_four_from_the_top(root):
+    """Four of Route 8's nine stand one above the other in the corridor halfway along, and they
+    are cleared in a single pass down it: you come west along the top of the field and take the
+    north end first. The flood walks in along the bottom row instead, which lettered the column
+    upside down and described a walk that climbs it only to come back down for the road west."""
+    column = [pin for pin in lettered(root, "Route8", "") if pin[0] in {"T4", "T5", "T6", "T7"}]
+
+    assert column == [("T4", "LASS:13"), ("T5", "SUPER_NERD:5"),
+                      ("T6", "LASS:14"), ("T7", "LASS:15")]
+    assert [tuple(pins(root, "Route8", "")[key]["grid"]) for key in ("T4", "T5", "T6", "T7")] == [
+        (26, 3), (26, 4), (26, 5), (26, 6)]
+
+
 def test_rock_tunnel_1f_is_lettered_stretch_by_sealed_stretch(root):
     """1F is three stretches with no way between them on foot: the north mouth's, which holds the
     Pokémaniac and the ladder down; the middle pocket, reached only by climbing back up from B1F;

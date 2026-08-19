@@ -49,7 +49,11 @@ ROUTES = {
         "exit-17-13", "trainer-0-15", "trainer-10-21", "trainer-11-21", "trainer-19-26",
         "trainer-11-30", "trainer-11-31"
     ),
-    "Route8": ("exit-east",),                       # out of Lavender
+    # Out of Lavender. The four standing in a column halfway along are cleared in one pass down
+    # it, so you come west along the top row and take them from the north end; the flood arrives
+    # on the bottom row and letters the column upside down, which is a walk that climbs it and
+    # then comes back down for the road west.
+    "Route8": ("exit-east", "trainer-51-12", "trainer-46-13", "trainer-26-3"),
     # Out of Cerulean, and the way across is a staircase of one-way ledges the flood cannot see:
     # it walks up drops the player can only fall down, so it reads the route as open field and
     # ranks nine trainers on how far east they sit. Walked, the low road comes before the pocket

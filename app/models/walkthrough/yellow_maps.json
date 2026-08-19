@@ -9779,39 +9779,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-26-6",
+            "id": "trainer-26-3",
             "cat": "trainer",
             "key": "T4",
             "x": 44.167,
-            "y": 36.111,
+            "y": 19.444,
             "grid": [
               26,
-              6
+              3
             ],
             "align": "r",
             "name": "Lass",
-            "ref": "LASS:15",
+            "ref": "LASS:13",
             "lane": 1
-          },
-          {
-            "id": "trainer-26-5",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 44.167,
-            "y": 30.556,
-            "grid": [
-              26,
-              5
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:14",
-            "lane": 0
           },
           {
             "id": "trainer-26-4",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T5",
             "x": 44.167,
             "y": 25.0,
             "grid": [
@@ -9824,18 +9809,33 @@
             "lane": 2
           },
           {
-            "id": "trainer-26-3",
+            "id": "trainer-26-5",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T6",
             "x": 44.167,
-            "y": 19.444,
+            "y": 30.556,
             "grid": [
               26,
-              3
+              5
             ],
             "align": "r",
             "name": "Lass",
-            "ref": "LASS:13",
+            "ref": "LASS:14",
+            "lane": 0
+          },
+          {
+            "id": "trainer-26-6",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 44.167,
+            "y": 36.111,
+            "grid": [
+              26,
+              6
+            ],
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:15",
             "lane": 1
           },
           {
