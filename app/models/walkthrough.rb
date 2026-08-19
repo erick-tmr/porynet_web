@@ -20,6 +20,7 @@ module Walkthrough
   }.freeze
 
   GIFT_SECTION = "GIFT"
+  GAME_CORNER_METHOD = "GAME CORNER".freeze
 
   SECTION_ICONS = {
     GIFT_SECTION => "walkthrough/items/poke-ball.png",
@@ -64,6 +65,9 @@ module Walkthrough
     :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map) do
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
+    # Bought over a counter rather than hunted, so what the card carries where a rate would go is
+    # a price in coins, and the counter restocks forever.
+    def purchased? = how == GAME_CORNER_METHOD
     def wild? = !gift?
     def section = gift? ? GIFT_SECTION : how
     # The earliest stop whose `order` can register this species: everything walked into is open

@@ -65,7 +65,25 @@ class ApplicationHelperTest < ActionView::TestCase
       best_catch_reason(best, encounter("150", "Mewtwo"))
   end
 
+  test "best_catch_reason says a prize counter restocks rather than warning you off missing it" do
+    best = Walkthrough::BestCatch.new(dex: "037", slug: "celadon-city", rate: nil, only: true)
+
+    assert_equal "The only place in the game to get Vulpix, and the counter never runs out.",
+      best_catch_reason(best, prize("037", "Vulpix"))
+  end
+
+  test "a prize card carries a coin price where a wild card carries a rate" do
+    assert_equal "COINS", catch_stat_label(prize("037", "Vulpix"))
+    assert_equal "1,000", catch_stat_value(prize("037", "Vulpix"))
+    assert_equal "RATE", catch_stat_label(encounter("016", "Pidgey"))
+    assert_equal "10%", catch_stat_value(encounter("016", "Pidgey"))
+  end
+
   private
+
+  def prize(dex, name)
+    encounter(dex, name).with(how: "GAME CORNER", rate: "1000")
+  end
 
   def encounter(dex, name)
     Walkthrough::Encounter.new(

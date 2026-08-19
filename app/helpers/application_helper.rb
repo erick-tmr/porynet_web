@@ -261,8 +261,19 @@ module ApplicationHelper
   end
 
   def sole_catch_reason(best, encounter)
+    return t("walkthrough.ui.best_reason_only_prize", name: encounter.name) if encounter.purchased?
     return t("walkthrough.ui.best_reason_only", name: encounter.name) unless best.rate?
 
     t("walkthrough.ui.best_reason_only_rate", name: encounter.name, rate: best.rate)
+  end
+
+  # A prize counter prints a price where a wild card prints odds, and it restocks, so neither the
+  # label nor the plain number a rate would carry is right for it.
+  def catch_stat_label(encounter)
+    t(encounter.purchased? ? "walkthrough.ui.coins" : "walkthrough.ui.rate")
+  end
+
+  def catch_stat_value(encounter)
+    encounter.purchased? ? number_with_delimiter(encounter.rate) : encounter.rate
   end
 end

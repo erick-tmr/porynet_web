@@ -79,6 +79,30 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 1, challenge.bodies_for(game, "019")
   end
 
+  # A trade evolution is not something one cartridge can perform, so Oak will never register it,
+  # but a box still holds one: you hand the Kadabra over and your partner hands it back. What that
+  # costs is a second Kadabra, and counted as unreachable the four of them fell off the plan
+  # entirely rather than asking for it.
+  test "a stage behind a trade still costs a spare body of the stage below" do
+    { "064" => "065", "067" => "068", "075" => "076", "093" => "094" }.each do |below, traded|
+      assert_equal below, challenge.body_source(game, traded),
+        "#{Walkthrough::Yellow::NAMES.fetch(traded)} comes off a spare #{Walkthrough::Yellow::NAMES.fetch(below)}"
+      assert_equal 2, challenge.bodies_for(game, below),
+        "one stays put, one goes out to be traded back"
+    end
+  end
+
+  # The prize counter carries a price where a wild card carries a percentage, which reads as no
+  # odds at all. Left at that the only Vulpix in the game could source nothing, and Ninetales,
+  # whose one route into a box is a Fire Stone on a spare Vulpix, went missing from the plan.
+  test "a prize counter sources bodies the way a common spawn does" do
+    assert challenge.purchasable?(game, "037"), "Vulpix is bought at the Game Corner"
+    refute challenge.purchasable?(game, "016"), "a Pidgey is not for sale anywhere"
+    assert_nil challenge.top_rate(game, "037"), "a coin price is not a rate"
+    assert_equal "037", challenge.body_source(game, "038")
+    assert_equal 2, challenge.bodies_for(game, "037")
+  end
+
   test "a stage under the line is grown from the best-odds ancestor, never hunted" do
     assert_equal 1, challenge.top_rate(game, "085"), "Dodrio is 1% of Route 17 and nowhere better"
     assert_equal "084", challenge.body_source(game, "085")
