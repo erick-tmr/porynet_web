@@ -24,6 +24,7 @@ import pathlib
 
 import compositor
 import decks
+import dex
 import encounters
 import follower
 import generators
@@ -40,6 +41,7 @@ SPECS_DIR = pathlib.Path(__file__).resolve().parent / "specs"
 MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
 PLACES = REPO / "app/models/walkthrough/yellow_places.json"
 ROSTER = REPO / "app/models/walkthrough/yellow_trainers.json"
+DEX = REPO / "app/models/walkthrough/yellow_dex.json"
 ENCOUNTERS = REPO / "app/models/walkthrough/yellow_encounters.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
 
@@ -164,6 +166,9 @@ def main():
     ROSTER.write_text(json.dumps(
         {"source": "pret/pokeyellow", "count": sum(len(v) for v in trainers.values()),
          "trainers": trainers}, indent=2))
+    DEX.write_text(json.dumps(
+        {"source": "pret/pokeyellow", "dex": dex.build_dex(root)},
+        indent=2, ensure_ascii=False) + "\n")
     wild = encounters.build_encounters(root)
     ENCOUNTERS.write_text(json.dumps(
         {"source": "pret/pokeyellow", "encounters": wild}, indent=2) + "\n")

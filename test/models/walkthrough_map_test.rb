@@ -101,14 +101,49 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate fisher, :tickable?, "an NPC is a signpost, not a chore"
   end
 
+  # The letters run 1, 2, 3 down the page because the pins are lettered along the walk and the steps
+  # were written along the same walk: the western Poké Ball is the first thing you can pick up, and
+  # the Antidote by the gate the first thing you can feel for. Read off the map file they came out
+  # I3, I1, I2, so a reader following the steps watched the letters jump about.
   test "every card carries the key its pin wears, so the two name one thing" do
     forest = location("viridian-forest")
     items = forest.steps.flat_map(&:items)
     hidden = forest.steps.flat_map(&:hidden)
 
-    assert_equal [ "I3", "I1", "I2" ], items.map(&:key)
+    assert_equal [ "I1", "I2", "I3" ], items.map(&:key)
     assert_equal "viridian-forest/item-1-31", items.first.tick
-    assert_equal({ "Antidote" => "H2", "Potion" => "H1" }, hidden.to_h { |h| [ h.name, h.key ] })
+    assert_equal({ "Antidote" => "H1", "Potion" => "H2" }, hidden.to_h { |h| [ h.name, h.key ] })
+  end
+
+  # The check that keeps tools/maps/paths.py honest. The pins are lettered by a flood over the
+  # game's own collision, which walks straight through boulders, spin tiles and barred doors
+  # because the shipped map does not know they are shut. The steps are the real route, so wherever
+  # the two disagree the route names the landmarks it turns at (paths.ROUTES) until they agree.
+  # A letter series that counts backwards down a page is the bug this catches.
+  test "every page collects its items in letter order" do
+    backwards = game.locations.flat_map do |loc|
+      loc.steps.flat_map { |step| step.items + step.hidden }
+        .filter_map { |item| [ item.tick&.split("/")&.first, item.key ] if item.key }
+        .group_by { |map, key| [ map, key[0] ] }
+        .filter_map do |(map, letter), pairs|
+          numbers = pairs.map { |_map, key| key[1..].to_i }
+          "#{loc.slug} #{map} #{letter}: #{numbers.inspect}" if numbers != numbers.sort
+        end
+    end
+
+    assert_empty backwards, "these pages count their letters backwards"
+  end
+
+  # The same check for the trainers a step points at by pin: Viridian Forest names five of them,
+  # and a reader walking the steps meets T1 through T5 in that order.
+  test "every page meets the trainers its steps name in letter order" do
+    backwards = game.locations.filter_map do |loc|
+      numbers = loc.steps.flat_map { |step| step.marks.to_a }
+        .filter_map { |_name, key| key[1..].to_i if key.start_with?("T") }
+      "#{loc.slug}: #{numbers.inspect}" if numbers != numbers.sort
+    end
+
+    assert_empty backwards, "these pages meet their trainers out of order"
   end
 
   test "a step that names a pin resolves it to the key that pin wears today" do
@@ -135,10 +170,12 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_nil pins.fetch("exit-1-0")
   end
 
+  # The Moon Stone is I2 because Route 2's two balls are lettered the way the Diglett's Cave detour
+  # walks them: the HP Up first, then the Moon Stone below it.
   test "a locked later item names its pin, and names none when the game gives it no ball" do
     route_2 = location("route-2").later.to_h { |l| [ l.name, l.key ] }
 
-    assert_equal "I1", route_2.fetch("Moon Stone")
+    assert_equal "I2", route_2.fetch("Moon Stone")
     assert_nil route_2.fetch("HM05 Flash"), "Flash is handed over by Oak's aide, not lying on a tile"
   end
 
@@ -227,15 +264,16 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate loc.steps.first, :map?
   end
 
-  test "trivia pinned to a map is drawn with that map, not at the end of the walk" do
-    trivia = location("digletts-cave").trivia
+  # The Diglett's Cave stop walks off its own map and on through Route 2, so a block about what
+  # lives in the cave has to be drawn under the cave rather than at the foot of a page that ends
+  # two maps away from it.
+  test "a grind spot pinned to a map is drawn with that map, not at the end of the walk" do
+    grind = location("digletts-cave").grind
     cave, route_2 = location("digletts-cave").area_maps.first(2)
 
-    assert trivia.after?(cave)
-    refute trivia.after?(route_2)
-    refute trivia.after?(nil)
-    refute_predicate trivia, :loose?
-    assert_predicate location("pewter-city").trivia, :loose?
+    assert grind.after?(cave)
+    refute grind.after?(route_2)
+    refute grind.after?(nil)
   end
 
   test "a curated NPC pin marks the giver the map data cannot name" do
@@ -298,7 +336,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     lass = location("viridian-forest").trainers.find { |trainer| trainer.cls == "LASS" }
 
     assert_equal "LASS:19", lass.opp
-    assert_equal "T4", lass.marker_key
+    assert_equal "T1", lass.marker_key
     assert_predicate lass, :marker_key?
   end
 
@@ -316,7 +354,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     brock = location("pewter-city").gym.leader
 
     assert_equal "BROCK:1", brock.opp
-    assert_equal "T1", brock.marker_key
+    assert_equal "T2", brock.marker_key
     assert_predicate brock, :marker_key?
   end
 

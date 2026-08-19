@@ -109,14 +109,27 @@ module Walkthrough
   # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map, :art,
-    :note_icon) do
-    def initialize(after_map: nil, art: nil, note_icon: nil, **rest) = super
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon) do
+    def initialize(art: nil, note_icon: nil, **rest) = super
     def art? = !art.nil?
     def note_icon? = !note_icon.nil?
-    def after?(area) = !after_map.nil? && area&.name == after_map
-    def loose? = after_map.nil?
   end
+  # One species worth farming at a grinding spot, and what the game pays for it. `exp` is Gen 1's
+  # own arithmetic, base experience times level over seven, so the figure on the card is the one
+  # the battle really awards; `fill` is that against the best on offer here, which is what the bar
+  # under it draws. Everything but the tips comes out of the game (tools/maps/dex.py).
+  GrindMon = Data.define(:dex, :name, :tone, :rarity, :share, :levels, :level, :exp, :fill,
+                         :type, :hp, :speed, :tips_key)
+
+  # A place worth stopping at to level up: what lives there, what each one pays, and the Repel
+  # trick that filters the cheap one out. `lead_level` is one above the top level the common
+  # species reaches, which is exactly what Repel needs to leave only the rare one.
+  GrindStep = Data.define(:n, :title_key, :body_key)
+  GrindSpot = Data.define(:anchor, :after_map, :title_key, :intro_key, :art, :formula_key,
+                          :mons, :note_icon, :lead_level, :steps, :warn_key) do
+    def after?(area) = area&.name == after_map
+  end
+
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -234,9 +247,14 @@ module Walkthrough
     def marker_counts = markers.group_by(&:cat).transform_values(&:size)
     def tickable_count = markers.count(&:tickable?)
     def markers_in(cat) = markers.select { |marker| marker.cat == cat }
-    # A map half-again wider than it is tall reads as a horizontal strip; it gets the full-width
-    # landscape template (map on top, legend spread beneath) instead of the side-by-side split.
-    def landscape? = width * 2 >= height * 3
+    # A map half-again wider than it is tall reads as a horizontal strip, and so does one simply
+    # too wide for the column the split template would give it: the map shares that row with the
+    # legend at 1.55fr of 2.55, which is about 675px with the page at its widest, and a picture
+    # wider than that can only be shown there by scrolling a frame narrower than itself. Either
+    # way it takes the full-width landscape template, map on top and legend spread beneath.
+    SPLIT_COLUMN_PX = 675
+
+    def landscape? = width * 2 >= height * 3 || width > SPLIT_COLUMN_PX
   end
 
   StepLink = Data.define(:leg, :anchor)
@@ -246,14 +264,22 @@ module Walkthrough
   # today. Authored as ids, never as letters: a letter is the marker's position in its map's run, so
   # one new item ball would shift every letter after it and silently re-point the prose. `marks` is
   # the resolved { token => letter } the view actually interpolates.
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map) do
-    def initialize(pins: {}, marks: {}, map: nil, **rest) = super
+  # A Pokémon a step registers in the dex without catching it: an NPC shows it to you and the
+  # entry fills in as seen. Everything but `catch_key` is the game's own dex screen, generated
+  # from the disassembly (tools/maps/dex.py), so the card cannot drift from what the game prints.
+  # `catch_key` is the locale line telling the reader where the catch itself happens.
+  DexSeen = Data.define(:num, :name, :species, :types, :height, :weight, :text, :art, :catch_key)
+
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map,
+    :dex_seen) do
+    def initialize(pins: {}, marks: {}, map: nil, dex_seen: nil, **rest) = super
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?
     def link? = !link.nil?
     def marks? = marks.any?
     def map? = !map.nil?
+    def dex_seen? = !dex_seen.nil?
   end
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
@@ -365,19 +391,21 @@ module Walkthrough
   Location = Data.define(
     :slug, :kind, :name, :title, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
-    :area_maps, :later, :trivia, :missable, :mart
+    :area_maps, :later, :trivia, :missable, :mart, :grind
   ) do
     def initialize(name:, title: nil, gym: nil, gym_after: nil, gym_finale: false, area_maps: [],
-      later: [], trivia: nil, missable: nil, trades: [], mart: nil, **rest)
+      later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil, **rest)
       super(name: name, title: title || name, gym: gym, gym_after: gym_after,
         gym_finale: gym_finale, area_maps: area_maps,
-        later: later, trivia: trivia, missable: missable, trades: trades, mart: mart, **rest)
+        later: later, trivia: trivia, missable: missable, trades: trades, mart: mart,
+        grind: grind, **rest)
     end
 
     def mart? = !mart.nil?
     def area_maps? = area_maps.any?
     def later? = later.any?
     def trivia? = !trivia.nil?
+    def grind? = !grind.nil?
     def missable_after?(step_n) = !missable.nil? && missable.after_step == step_n
 
     # What this stop can actually add to the dex when you walk it. The cards still list every

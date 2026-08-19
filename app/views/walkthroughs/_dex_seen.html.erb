@@ -1,0 +1,52 @@
+<%# The dex screen a step fills in when an NPC shows you a Pokémon you cannot catch yet. Every
+    fact but the closing line is the game's own (tools/maps/dex.py reads it out of the
+    disassembly); the closing line is the guide telling you where the catch really happens. %>
+<div class="pn-wt-dex">
+  <div class="pn-wt-dex__bar"><%= t("walkthrough.ui.dex_bar") %></div>
+  <div class="pn-wt-dex__body">
+    <div class="pn-wt-dex__art">
+      <span class="pn-wt-dex__ghost" aria-hidden="true"><%= dex.num %></span>
+      <%= r2_image_tag dex.art, alt: t("walkthrough.ui.dex_art_alt", name: dex.name),
+            class: "pn-wt-dex__img", loading: "lazy" %>
+      <span class="pn-wt-dex__seen"><%= t("walkthrough.ui.dex_seen_badge", num: dex.num) %></span>
+    </div>
+
+    <div class="pn-wt-dex__facts">
+      <div class="pn-wt-dex__head">
+        <div>
+          <div class="pn-wt-dex__label"><%= t("walkthrough.ui.dex_no") %></div>
+          <div class="pn-wt-dex__num"><%= dex.num %></div>
+        </div>
+        <div class="pn-wt-dex__ident">
+          <div class="pn-wt-dex__name"><%= dex.name %></div>
+          <div class="pn-wt-dex__species"><%= dex.species %></div>
+        </div>
+        <% dex.types.each do |type| %>
+          <span class="pn-wt-dex__type"><%= type %></span>
+        <% end %>
+      </div>
+
+      <div class="pn-wt-dex__stats">
+        <% [ [ t("walkthrough.ui.dex_ht"), dex.height ],
+             [ t("walkthrough.ui.dex_wt"), dex.weight ],
+             [ t("walkthrough.ui.dex_in_game"), t("#{dex.catch_key}_count") ] ].each do |label, value| %>
+          <div class="pn-wt-dex__stat">
+            <span class="pn-wt-dex__stat-key"><%= label %></span>
+            <span class="pn-wt-dex__leader" aria-hidden="true"></span>
+            <span class="pn-wt-dex__stat-val"><%= value %></span>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-wt-dex__entry">
+        <p class="pn-wt-dex__entry-text"><%= dex.text %></p>
+        <span class="pn-wt-dex__more" aria-hidden="true">▼</span>
+      </div>
+
+      <div class="pn-wt-dex__foot">
+        <span class="pn-wt-dex__chip"><%= t("walkthrough.ui.dex_seen_chip") %></span>
+        <span class="pn-wt-dex__catch"><%= t("#{dex.catch_key}_html") %></span>
+      </div>
+    </div>
+  </div>
+</div>

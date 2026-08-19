@@ -1,0 +1,2483 @@
+{
+  "source": "pret/pokeyellow",
+  "dex": {
+    "001": {
+      "name": "Bulbasaur",
+      "species": "SEED POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "2'04\" (0.7 m)",
+      "weight": "15.0 lbs (6.8 kg)",
+      "text": "It can go for days without eating a single morsel. In the bulb on its back, it stores energy.",
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "speed": 45,
+      "special": 65,
+      "base_exp": 64
+    },
+    "002": {
+      "name": "Ivysaur",
+      "species": "SEED POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "29.0 lbs (13.2 kg)",
+      "text": "The bulb on its back grows by drawing energy. It gives off an aroma when it is ready to bloom.",
+      "hp": 60,
+      "attack": 62,
+      "defense": 63,
+      "speed": 60,
+      "special": 80,
+      "base_exp": 141
+    },
+    "003": {
+      "name": "Venusaur",
+      "species": "SEED POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "6'07\" (2.0 m)",
+      "weight": "221.0 lbs (100.2 kg)",
+      "text": "The flower on its back catches the sun's rays. The sunlight is then absorbed and used for energy.",
+      "hp": 80,
+      "attack": 82,
+      "defense": 83,
+      "speed": 80,
+      "special": 100,
+      "base_exp": 208
+    },
+    "004": {
+      "name": "Charmander",
+      "species": "LIZARD POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "19.0 lbs (8.6 kg)",
+      "text": "The flame at the tip of its tail makes a sound as it burns. You can only hear it in quiet places.",
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "speed": 65,
+      "special": 50,
+      "base_exp": 65
+    },
+    "005": {
+      "name": "Charmeleon",
+      "species": "FLAME POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "42.0 lbs (19.1 kg)",
+      "text": "Tough fights could excite this POKéMON. When excited, it may blow out bluish-white flames.",
+      "hp": 58,
+      "attack": 64,
+      "defense": 58,
+      "speed": 80,
+      "special": 65,
+      "base_exp": 142
+    },
+    "006": {
+      "name": "Charizard",
+      "species": "FLAME POKéMON",
+      "types": [
+        "FIRE",
+        "FLYING"
+      ],
+      "height": "5'07\" (1.7 m)",
+      "weight": "200.0 lbs (90.7 kg)",
+      "text": "When expelling a blast of super hot fire, the red flame at the tip of its tail burns more intensely.",
+      "hp": 78,
+      "attack": 84,
+      "defense": 78,
+      "speed": 100,
+      "special": 85,
+      "base_exp": 209
+    },
+    "007": {
+      "name": "Squirtle",
+      "species": "TINYTURTLE POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "20.0 lbs (9.1 kg)",
+      "text": "Shoots water at prey while in the water. Withdraws into its shell when in danger.",
+      "hp": 44,
+      "attack": 48,
+      "defense": 65,
+      "speed": 43,
+      "special": 50,
+      "base_exp": 66
+    },
+    "008": {
+      "name": "Wartortle",
+      "species": "TURTLE POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "50.0 lbs (22.7 kg)",
+      "text": "When tapped, this POKéMON will pull in its head, but its tail will still stick out a little bit.",
+      "hp": 59,
+      "attack": 63,
+      "defense": 80,
+      "speed": 58,
+      "special": 65,
+      "base_exp": 143
+    },
+    "009": {
+      "name": "Blastoise",
+      "species": "SHELLFISH POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "189.0 lbs (85.7 kg)",
+      "text": "Once it takes aim at its enemy, it blasts out water with even more force than a fire hose.",
+      "hp": 79,
+      "attack": 83,
+      "defense": 100,
+      "speed": 78,
+      "special": 85,
+      "base_exp": 210
+    },
+    "010": {
+      "name": "Caterpie",
+      "species": "WORM POKéMON",
+      "types": [
+        "BUG"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "6.0 lbs (2.7 kg)",
+      "text": "If you touch the feeler on top of its head, it will release a horrible stink to protect itself.",
+      "hp": 45,
+      "attack": 30,
+      "defense": 35,
+      "speed": 45,
+      "special": 20,
+      "base_exp": 53
+    },
+    "011": {
+      "name": "Metapod",
+      "species": "COCOON POKéMON",
+      "types": [
+        "BUG"
+      ],
+      "height": "2'04\" (0.7 m)",
+      "weight": "22.0 lbs (10.0 kg)",
+      "text": "Hardens its shell to protect itself. However, a large impact may cause it to pop out of its shell.",
+      "hp": 50,
+      "attack": 20,
+      "defense": 55,
+      "speed": 30,
+      "special": 25,
+      "base_exp": 72
+    },
+    "012": {
+      "name": "Butterfree",
+      "species": "BUTTERFLY POKéMON",
+      "types": [
+        "BUG",
+        "FLYING"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "71.0 lbs (32.2 kg)",
+      "text": "Its wings, covered with poisonous powders, repel water. This allows it to fly in the rain.",
+      "hp": 60,
+      "attack": 45,
+      "defense": 50,
+      "speed": 70,
+      "special": 80,
+      "base_exp": 160
+    },
+    "013": {
+      "name": "Weedle",
+      "species": "HAIRY BUG POKéMON",
+      "types": [
+        "BUG",
+        "POISON"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "7.0 lbs (3.2 kg)",
+      "text": "Beware of the sharp stinger on its head. It hides in grass and bushes where it eats leaves.",
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "speed": 50,
+      "special": 20,
+      "base_exp": 52
+    },
+    "014": {
+      "name": "Kakuna",
+      "species": "COCOON POKéMON",
+      "types": [
+        "BUG",
+        "POISON"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "22.0 lbs (10.0 kg)",
+      "text": "Able to move only slightly. When endangered, it may stick out its stinger and poison its enemy.",
+      "hp": 45,
+      "attack": 25,
+      "defense": 50,
+      "speed": 35,
+      "special": 25,
+      "base_exp": 71
+    },
+    "015": {
+      "name": "Beedrill",
+      "species": "POISON BEE POKéMON",
+      "types": [
+        "BUG",
+        "POISON"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "65.0 lbs (29.5 kg)",
+      "text": "It has 3 poisonous stingers on its forelegs and its tail. They are used to jab its enemy repeatedly.",
+      "hp": 65,
+      "attack": 80,
+      "defense": 40,
+      "speed": 75,
+      "special": 45,
+      "base_exp": 159
+    },
+    "016": {
+      "name": "Pidgey",
+      "species": "TINY BIRD POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "4.0 lbs (1.8 kg)",
+      "text": "Very docile. If attacked, it will often kick up sand to protect itself rather than fight back.",
+      "hp": 40,
+      "attack": 45,
+      "defense": 40,
+      "speed": 56,
+      "special": 35,
+      "base_exp": 55
+    },
+    "017": {
+      "name": "Pidgeotto",
+      "species": "BIRD POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "This POKéMON is full of vitality. It constantly flies around its large territory in search of prey.",
+      "hp": 63,
+      "attack": 60,
+      "defense": 55,
+      "speed": 71,
+      "special": 50,
+      "base_exp": 113
+    },
+    "018": {
+      "name": "Pidgeot",
+      "species": "BIRD POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "87.0 lbs (39.5 kg)",
+      "text": "This POKéMON flies at Mach 2 speed, seeking prey. Its large talons are feared as wicked weapons.",
+      "hp": 83,
+      "attack": 80,
+      "defense": 75,
+      "speed": 91,
+      "special": 70,
+      "base_exp": 172
+    },
+    "019": {
+      "name": "Rattata",
+      "species": "RAT POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "8.0 lbs (3.6 kg)",
+      "text": "Will chew on any-thing with its fangs. If you see one, it is certain that 40 more live in the area.",
+      "hp": 30,
+      "attack": 56,
+      "defense": 35,
+      "speed": 72,
+      "special": 25,
+      "base_exp": 57
+    },
+    "020": {
+      "name": "Raticate",
+      "species": "RAT POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "2'04\" (0.7 m)",
+      "weight": "41.0 lbs (18.6 kg)",
+      "text": "Its hind feet are webbed. They act as flippers, so it can swim in rivers and hunt for prey.",
+      "hp": 55,
+      "attack": 81,
+      "defense": 60,
+      "speed": 97,
+      "special": 50,
+      "base_exp": 116
+    },
+    "021": {
+      "name": "Spearow",
+      "species": "TINY BIRD POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "4.0 lbs (1.8 kg)",
+      "text": "Inept at flying high. However, it can fly around very fast to protect its ter-ritory.",
+      "hp": 40,
+      "attack": 60,
+      "defense": 30,
+      "speed": 70,
+      "special": 31,
+      "base_exp": 58
+    },
+    "022": {
+      "name": "Fearow",
+      "species": "BEAK POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "84.0 lbs (38.1 kg)",
+      "text": "A POKéMON that dates back many years. If it senses danger, it flies high and away, instantly.",
+      "hp": 65,
+      "attack": 90,
+      "defense": 65,
+      "speed": 100,
+      "special": 61,
+      "base_exp": 162
+    },
+    "023": {
+      "name": "Ekans",
+      "species": "SNAKE POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "6'07\" (2.0 m)",
+      "weight": "15.0 lbs (6.8 kg)",
+      "text": "The older it gets, the longer it grows. At night, it wraps its long body around tree branches to rest.",
+      "hp": 35,
+      "attack": 60,
+      "defense": 44,
+      "speed": 55,
+      "special": 40,
+      "base_exp": 62
+    },
+    "024": {
+      "name": "Arbok",
+      "species": "COBRA POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "11'06\" (3.5 m)",
+      "weight": "143.0 lbs (64.9 kg)",
+      "text": "The frightening patterns on its belly have been studied. Six variations have been confirmed.",
+      "hp": 60,
+      "attack": 85,
+      "defense": 69,
+      "speed": 80,
+      "special": 65,
+      "base_exp": 147
+    },
+    "025": {
+      "name": "Pikachu",
+      "species": "MOUSE POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "13.0 lbs (5.9 kg)",
+      "text": "It keeps its tail raised to monitor its surroundings. If you yank its tail, it will try to bite you.",
+      "hp": 35,
+      "attack": 55,
+      "defense": 30,
+      "speed": 90,
+      "special": 50,
+      "base_exp": 82
+    },
+    "026": {
+      "name": "Raichu",
+      "species": "MOUSE POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "When electricity builds up inside its body, it becomes feisty. It also glows in the dark.",
+      "hp": 60,
+      "attack": 90,
+      "defense": 55,
+      "speed": 100,
+      "special": 90,
+      "base_exp": 122
+    },
+    "027": {
+      "name": "Sandshrew",
+      "species": "MOUSE POKéMON",
+      "types": [
+        "GROUND"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "26.0 lbs (11.8 kg)",
+      "text": "Its body is dry. When it gets cold at night, its hide is said to become coated with a fine dew.",
+      "hp": 50,
+      "attack": 75,
+      "defense": 85,
+      "speed": 40,
+      "special": 30,
+      "base_exp": 93
+    },
+    "028": {
+      "name": "Sandslash",
+      "species": "MOUSE POKéMON",
+      "types": [
+        "GROUND"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "65.0 lbs (29.5 kg)",
+      "text": "It is skilled at slashing enemies with its claws. If broken, they start to grow back in a day.",
+      "hp": 75,
+      "attack": 100,
+      "defense": 110,
+      "speed": 65,
+      "special": 55,
+      "base_exp": 163
+    },
+    "029": {
+      "name": "Nidoran F",
+      "species": "POISON PIN POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "15.0 lbs (6.8 kg)",
+      "text": "A mild-mannered POKéMON that does not like to fight. Beware, its small horns secrete venom.",
+      "hp": 55,
+      "attack": 47,
+      "defense": 52,
+      "speed": 41,
+      "special": 40,
+      "base_exp": 59
+    },
+    "030": {
+      "name": "Nidorina",
+      "species": "POISON PIN POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "44.0 lbs (20.0 kg)",
+      "text": "When resting deep in its burrow, its thorns always retract. This is proof that it is relaxed.",
+      "hp": 70,
+      "attack": 62,
+      "defense": 67,
+      "speed": 56,
+      "special": 55,
+      "base_exp": 117
+    },
+    "031": {
+      "name": "Nidoqueen",
+      "species": "DRILL POKéMON",
+      "types": [
+        "POISON",
+        "GROUND"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "132.0 lbs (59.9 kg)",
+      "text": "Tough scales cover the sturdy body of this POKéMON. It appears that the scales grow in cycles.",
+      "hp": 90,
+      "attack": 82,
+      "defense": 87,
+      "speed": 76,
+      "special": 75,
+      "base_exp": 194
+    },
+    "032": {
+      "name": "Nidoran M",
+      "species": "POISON PIN POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "20.0 lbs (9.1 kg)",
+      "text": "Its large ears are always kept upright. If it senses danger, it will attack with a poisonous sting.",
+      "hp": 46,
+      "attack": 57,
+      "defense": 40,
+      "speed": 50,
+      "special": 40,
+      "base_exp": 60
+    },
+    "033": {
+      "name": "Nidorino",
+      "species": "POISON PIN POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "2'11\" (0.9 m)",
+      "weight": "43.0 lbs (19.5 kg)",
+      "text": "Its horns contain venom. If they are stabbed into an enemy, the impact makes the poison leak out.",
+      "hp": 61,
+      "attack": 72,
+      "defense": 57,
+      "speed": 65,
+      "special": 55,
+      "base_exp": 118
+    },
+    "034": {
+      "name": "Nidoking",
+      "species": "DRILL POKéMON",
+      "types": [
+        "POISON",
+        "GROUND"
+      ],
+      "height": "4'07\" (1.4 m)",
+      "weight": "137.0 lbs (62.1 kg)",
+      "text": "Its steel-like hide adds to its powerful tackle. Its horns are so hard, they can pierce a diamond.",
+      "hp": 81,
+      "attack": 92,
+      "defense": 77,
+      "speed": 85,
+      "special": 75,
+      "base_exp": 195
+    },
+    "035": {
+      "name": "Clefairy",
+      "species": "FAIRY POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "17.0 lbs (7.7 kg)",
+      "text": "Adored for their cute looks and playfulness. They are thought to be rare, as they do not appear often.",
+      "hp": 70,
+      "attack": 45,
+      "defense": 48,
+      "speed": 35,
+      "special": 60,
+      "base_exp": 68
+    },
+    "036": {
+      "name": "Clefable",
+      "species": "FAIRY POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "88.0 lbs (39.9 kg)",
+      "text": "They appear to be very protective of their own world. It is a kind of fairy, rarely seen by people.",
+      "hp": 95,
+      "attack": 70,
+      "defense": 73,
+      "speed": 60,
+      "special": 85,
+      "base_exp": 129
+    },
+    "037": {
+      "name": "Vulpix",
+      "species": "FOX POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "22.0 lbs (10.0 kg)",
+      "text": "Both its fur and its tails are beautiful. As it grows, the tails split and form more tails.",
+      "hp": 38,
+      "attack": 41,
+      "defense": 40,
+      "speed": 65,
+      "special": 65,
+      "base_exp": 63
+    },
+    "038": {
+      "name": "Ninetales",
+      "species": "FOX POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "44.0 lbs (20.0 kg)",
+      "text": "According to an enduring legend, 9 noble saints were united and reincarnated as this POKéMON.",
+      "hp": 73,
+      "attack": 76,
+      "defense": 75,
+      "speed": 100,
+      "special": 100,
+      "base_exp": 178
+    },
+    "039": {
+      "name": "Jigglypuff",
+      "species": "BALLOON POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "12.0 lbs (5.4 kg)",
+      "text": "Uses its alluring eyes to enrapture its foe. It then sings a pleasing melody that lulls the foe to sleep.",
+      "hp": 115,
+      "attack": 45,
+      "defense": 20,
+      "speed": 20,
+      "special": 25,
+      "base_exp": 76
+    },
+    "040": {
+      "name": "Wigglytuff",
+      "species": "BALLOON POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "26.0 lbs (11.8 kg)",
+      "text": "Its body is full of elasticity. By inhaling deeply, it can continue to inflate itself without limit.",
+      "hp": 140,
+      "attack": 70,
+      "defense": 45,
+      "speed": 45,
+      "special": 50,
+      "base_exp": 109
+    },
+    "041": {
+      "name": "Zubat",
+      "species": "BAT POKéMON",
+      "types": [
+        "POISON",
+        "FLYING"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "17.0 lbs (7.7 kg)",
+      "text": "Emits ultrasonic cries while it flies. They act as a sonar used to check for ob-jects in its way.",
+      "hp": 40,
+      "attack": 45,
+      "defense": 35,
+      "speed": 55,
+      "special": 40,
+      "base_exp": 54
+    },
+    "042": {
+      "name": "Golbat",
+      "species": "BAT POKéMON",
+      "types": [
+        "POISON",
+        "FLYING"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "121.0 lbs (54.9 kg)",
+      "text": "It attacks in a stealthy manner, without warning. Its sharp fangs are used to bite and suck blood.",
+      "hp": 75,
+      "attack": 80,
+      "defense": 70,
+      "speed": 90,
+      "special": 75,
+      "base_exp": 171
+    },
+    "043": {
+      "name": "Oddish",
+      "species": "WEED POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "12.0 lbs (5.4 kg)",
+      "text": "It may be mistaken for a clump of weeds. If you try to yank it out of the ground, it shrieks horribly.",
+      "hp": 45,
+      "attack": 50,
+      "defense": 55,
+      "speed": 30,
+      "special": 75,
+      "base_exp": 78
+    },
+    "044": {
+      "name": "Gloom",
+      "species": "WEED POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "19.0 lbs (8.6 kg)",
+      "text": "Smells incredibly foul! However, around 1 out of 1,000 people enjoy sniffing its nose-bending stink.",
+      "hp": 60,
+      "attack": 65,
+      "defense": 70,
+      "speed": 40,
+      "special": 85,
+      "base_exp": 132
+    },
+    "045": {
+      "name": "Vileplume",
+      "species": "FLOWER POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "41.0 lbs (18.6 kg)",
+      "text": "Flaps its broad flower petals to scatter its poisonous pollen. The flapping sound is very loud.",
+      "hp": 75,
+      "attack": 80,
+      "defense": 85,
+      "speed": 50,
+      "special": 100,
+      "base_exp": 184
+    },
+    "046": {
+      "name": "Paras",
+      "species": "MUSHROOM POKéMON",
+      "types": [
+        "BUG",
+        "GRASS"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "12.0 lbs (5.4 kg)",
+      "text": "Burrows under the ground to gnaw on tree roots. The mushrooms on its back absorb most of the nutrition.",
+      "hp": 35,
+      "attack": 70,
+      "defense": 55,
+      "speed": 25,
+      "special": 55,
+      "base_exp": 70
+    },
+    "047": {
+      "name": "Parasect",
+      "species": "MUSHROOM POKéMON",
+      "types": [
+        "BUG",
+        "GRASS"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "65.0 lbs (29.5 kg)",
+      "text": "The bug host is drained of energy by the mushrooms on its back. They appear to do all the thinking.",
+      "hp": 60,
+      "attack": 95,
+      "defense": 80,
+      "speed": 30,
+      "special": 80,
+      "base_exp": 128
+    },
+    "048": {
+      "name": "Venonat",
+      "species": "INSECT POKéMON",
+      "types": [
+        "BUG",
+        "POISON"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "Its large eyes act as radars. In a bright place, you can see that they are clusters of many tiny eyes.",
+      "hp": 60,
+      "attack": 55,
+      "defense": 50,
+      "speed": 45,
+      "special": 40,
+      "base_exp": 75
+    },
+    "049": {
+      "name": "Venomoth",
+      "species": "POISONMOTH POKéMON",
+      "types": [
+        "BUG",
+        "POISON"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "28.0 lbs (12.7 kg)",
+      "text": "The powdery scales on its wings are hard to remove. They also contain poison that leaks out on contact.",
+      "hp": 70,
+      "attack": 65,
+      "defense": 60,
+      "speed": 90,
+      "special": 90,
+      "base_exp": 138
+    },
+    "050": {
+      "name": "Diglett",
+      "species": "MOLE POKéMON",
+      "types": [
+        "GROUND"
+      ],
+      "height": "0'08\" (0.2 m)",
+      "weight": "2.0 lbs (0.9 kg)",
+      "text": "It prefers dark places. It spends most of its time underground, though it may pop up in caves.",
+      "hp": 10,
+      "attack": 55,
+      "defense": 25,
+      "speed": 95,
+      "special": 45,
+      "base_exp": 81
+    },
+    "051": {
+      "name": "Dugtrio",
+      "species": "MOLE POKéMON",
+      "types": [
+        "GROUND"
+      ],
+      "height": "2'04\" (0.7 m)",
+      "weight": "73.0 lbs (33.1 kg)",
+      "text": "A team of triplets that can burrow over 60 MPH. Due to this, some people think it's an earthquake.",
+      "hp": 35,
+      "attack": 80,
+      "defense": 50,
+      "speed": 120,
+      "special": 70,
+      "base_exp": 153
+    },
+    "052": {
+      "name": "Meowth",
+      "species": "SCRATCHCAT POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "9.0 lbs (4.1 kg)",
+      "text": "Appears to be more active at night. It loves round and shiny things. It can't stop from picking them up.",
+      "hp": 40,
+      "attack": 45,
+      "defense": 35,
+      "speed": 90,
+      "special": 40,
+      "base_exp": 69
+    },
+    "053": {
+      "name": "Persian",
+      "species": "CLASSY CAT POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "71.0 lbs (32.2 kg)",
+      "text": "The gem in its forehead glows on its own! It walks with all the grace and elegance of a proud queen.",
+      "hp": 65,
+      "attack": 70,
+      "defense": 60,
+      "speed": 115,
+      "special": 65,
+      "base_exp": 148
+    },
+    "054": {
+      "name": "Psyduck",
+      "species": "DUCK POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "43.0 lbs (19.5 kg)",
+      "text": "Always tormented by headaches. It uses psychic powers, but it is not known if it intends to do so.",
+      "hp": 50,
+      "attack": 52,
+      "defense": 48,
+      "speed": 55,
+      "special": 50,
+      "base_exp": 80
+    },
+    "055": {
+      "name": "Golduck",
+      "species": "DUCK POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "5'07\" (1.7 m)",
+      "weight": "169.0 lbs (76.7 kg)",
+      "text": "Its slim and long limbs end in broad flippers. They are used for swim-ming gracefully in lakes.",
+      "hp": 80,
+      "attack": 82,
+      "defense": 78,
+      "speed": 85,
+      "special": 80,
+      "base_exp": 174
+    },
+    "056": {
+      "name": "Mankey",
+      "species": "PIG MONKEY POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "62.0 lbs (28.1 kg)",
+      "text": "An agile POKéMON that lives in trees. It angers easily and will not hesitate to attack anything.",
+      "hp": 40,
+      "attack": 80,
+      "defense": 35,
+      "speed": 70,
+      "special": 35,
+      "base_exp": 74
+    },
+    "057": {
+      "name": "Primeape",
+      "species": "PIG MONKEY POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "71.0 lbs (32.2 kg)",
+      "text": "It stops being angry only when nobody else is around. To view this moment is very difficult.",
+      "hp": 65,
+      "attack": 105,
+      "defense": 60,
+      "speed": 95,
+      "special": 60,
+      "base_exp": 149
+    },
+    "058": {
+      "name": "Growlithe",
+      "species": "PUPPY POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "2'04\" (0.7 m)",
+      "weight": "42.0 lbs (19.1 kg)",
+      "text": "A POKéMON with a friendly nature. However, it will bark fiercely at anything invading its territory.",
+      "hp": 55,
+      "attack": 70,
+      "defense": 45,
+      "speed": 60,
+      "special": 50,
+      "base_exp": 91
+    },
+    "059": {
+      "name": "Arcanine",
+      "species": "LEGENDARY POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "6'03\" (1.9 m)",
+      "weight": "342.0 lbs (155.1 kg)",
+      "text": "A legendary POKéMON in China. Many people are charmed by its grace and beauty while running.",
+      "hp": 90,
+      "attack": 110,
+      "defense": 80,
+      "speed": 95,
+      "special": 80,
+      "base_exp": 213
+    },
+    "060": {
+      "name": "Poliwag",
+      "species": "TADPOLE POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "27.0 lbs (12.2 kg)",
+      "text": "The direction of the spiral on the belly differs by area. It is more adept at swimming than walking.",
+      "hp": 40,
+      "attack": 50,
+      "defense": 40,
+      "speed": 90,
+      "special": 40,
+      "base_exp": 77
+    },
+    "061": {
+      "name": "Poliwhirl",
+      "species": "TADPOLE POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "44.0 lbs (20.0 kg)",
+      "text": "Under attack, it uses its belly spiral to put the foe to sleep. It then makes its escape.",
+      "hp": 65,
+      "attack": 65,
+      "defense": 65,
+      "speed": 90,
+      "special": 50,
+      "base_exp": 131
+    },
+    "062": {
+      "name": "Poliwrath",
+      "species": "TADPOLE POKéMON",
+      "types": [
+        "WATER",
+        "FIGHTING"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "119.0 lbs (54.0 kg)",
+      "text": "Swims powerfully using all the muscles in its body. It can even overtake champion swimmers.",
+      "hp": 90,
+      "attack": 85,
+      "defense": 95,
+      "speed": 70,
+      "special": 70,
+      "base_exp": 185
+    },
+    "063": {
+      "name": "Abra",
+      "species": "PSI POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "2'11\" (0.9 m)",
+      "weight": "43.0 lbs (19.5 kg)",
+      "text": "Sleeps 18 hours a day. If it senses danger, it will teleport itself to safety even as it sleeps.",
+      "hp": 25,
+      "attack": 20,
+      "defense": 15,
+      "speed": 90,
+      "special": 105,
+      "base_exp": 73
+    },
+    "064": {
+      "name": "Kadabra",
+      "species": "PSI POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "125.0 lbs (56.7 kg)",
+      "text": "Many odd things happen if this POKéMON is close by. For example, it makes clocks run backwards.",
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "speed": 105,
+      "special": 120,
+      "base_exp": 145
+    },
+    "065": {
+      "name": "Alakazam",
+      "species": "PSI POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "106.0 lbs (48.1 kg)",
+      "text": "A POKéMON that can memorize anything. It never forgets what it learns--that's why this POKéMON is smart.",
+      "hp": 55,
+      "attack": 50,
+      "defense": 45,
+      "speed": 120,
+      "special": 135,
+      "base_exp": 186
+    },
+    "066": {
+      "name": "Machop",
+      "species": "SUPERPOWER POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "43.0 lbs (19.5 kg)",
+      "text": "Very powerful in spite of its small size. Its mastery of many types of martial arts makes it very tough.",
+      "hp": 70,
+      "attack": 80,
+      "defense": 50,
+      "speed": 35,
+      "special": 35,
+      "base_exp": 88
+    },
+    "067": {
+      "name": "Machoke",
+      "species": "SUPERPOWER POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "155.0 lbs (70.3 kg)",
+      "text": "The belt around its waist holds back its energy. Without it, this POKéMON would be unstoppable.",
+      "hp": 80,
+      "attack": 100,
+      "defense": 70,
+      "speed": 45,
+      "special": 50,
+      "base_exp": 146
+    },
+    "068": {
+      "name": "Machamp",
+      "species": "SUPERPOWER POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "287.0 lbs (130.2 kg)",
+      "text": "One arm alone can move mountains. Using all four arms, this POKéMON fires off awesome punches.",
+      "hp": 90,
+      "attack": 130,
+      "defense": 80,
+      "speed": 55,
+      "special": 65,
+      "base_exp": 193
+    },
+    "069": {
+      "name": "Bellsprout",
+      "species": "FLOWER POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "2'04\" (0.7 m)",
+      "weight": "9.0 lbs (4.1 kg)",
+      "text": "Prefers hot and humid places. It ensnares tiny insects with its vines and devours them.",
+      "hp": 50,
+      "attack": 75,
+      "defense": 35,
+      "speed": 40,
+      "special": 70,
+      "base_exp": 84
+    },
+    "070": {
+      "name": "Weepinbell",
+      "species": "FLYCATCHER POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "14.0 lbs (6.4 kg)",
+      "text": "When hungry, it swallows anything that moves. Its hapless prey is melted inside by strong acids.",
+      "hp": 65,
+      "attack": 90,
+      "defense": 50,
+      "speed": 55,
+      "special": 85,
+      "base_exp": 151
+    },
+    "071": {
+      "name": "Victreebel",
+      "species": "FLYCATCHER POKéMON",
+      "types": [
+        "GRASS",
+        "POISON"
+      ],
+      "height": "5'07\" (1.7 m)",
+      "weight": "34.0 lbs (15.4 kg)",
+      "text": "Lures prey with the sweet aroma of honey. Swallowed whole, the prey is melted in a day, bones and all.",
+      "hp": 80,
+      "attack": 105,
+      "defense": 65,
+      "speed": 70,
+      "special": 100,
+      "base_exp": 191
+    },
+    "072": {
+      "name": "Tentacool",
+      "species": "JELLYFISH POKéMON",
+      "types": [
+        "WATER",
+        "POISON"
+      ],
+      "height": "2'11\" (0.9 m)",
+      "weight": "100.0 lbs (45.4 kg)",
+      "text": "It can sometimes be found all dry and shriveled up on a beach. Toss it back into the sea to revive it.",
+      "hp": 40,
+      "attack": 40,
+      "defense": 35,
+      "speed": 70,
+      "special": 100,
+      "base_exp": 105
+    },
+    "073": {
+      "name": "Tentacruel",
+      "species": "JELLYFISH POKéMON",
+      "types": [
+        "WATER",
+        "POISON"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "121.0 lbs (54.9 kg)",
+      "text": "Its 80 tentacles can stretch and contract freely. They wrap around prey and weaken it with poison.",
+      "hp": 80,
+      "attack": 70,
+      "defense": 65,
+      "speed": 100,
+      "special": 120,
+      "base_exp": 205
+    },
+    "074": {
+      "name": "Geodude",
+      "species": "ROCK POKéMON",
+      "types": [
+        "ROCK",
+        "GROUND"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "44.0 lbs (20.0 kg)",
+      "text": "Commonly found near mountain trails, etc. If you step on one by accident, it gets angry.",
+      "hp": 40,
+      "attack": 80,
+      "defense": 100,
+      "speed": 20,
+      "special": 30,
+      "base_exp": 86
+    },
+    "075": {
+      "name": "Graveler",
+      "species": "ROCK POKéMON",
+      "types": [
+        "ROCK",
+        "GROUND"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "232.0 lbs (105.2 kg)",
+      "text": "Often seen rolling down mountain trails. Obstacles are just things to roll straight over, not avoid.",
+      "hp": 55,
+      "attack": 95,
+      "defense": 115,
+      "speed": 35,
+      "special": 45,
+      "base_exp": 134
+    },
+    "076": {
+      "name": "Golem",
+      "species": "MEGATON POKéMON",
+      "types": [
+        "ROCK",
+        "GROUND"
+      ],
+      "height": "4'07\" (1.4 m)",
+      "weight": "662.0 lbs (300.3 kg)",
+      "text": "Once it sheds its skin, its body turns tender and whitish. Its hide hardens when it's exposed to air.",
+      "hp": 80,
+      "attack": 110,
+      "defense": 130,
+      "speed": 45,
+      "special": 55,
+      "base_exp": 177
+    },
+    "077": {
+      "name": "Ponyta",
+      "species": "FIRE HORSE POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "Capable of jumping incredibly high. Its hooves and sturdy legs absorb the impact of a hard landing.",
+      "hp": 50,
+      "attack": 85,
+      "defense": 55,
+      "speed": 90,
+      "special": 65,
+      "base_exp": 152
+    },
+    "078": {
+      "name": "Rapidash",
+      "species": "FIRE HORSE POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "5'07\" (1.7 m)",
+      "weight": "209.0 lbs (94.8 kg)",
+      "text": "Just loves to run. If it sees some-thing faster than itself, it will give chase at top speed.",
+      "hp": 65,
+      "attack": 100,
+      "defense": 70,
+      "speed": 105,
+      "special": 80,
+      "base_exp": 192
+    },
+    "079": {
+      "name": "Slowpoke",
+      "species": "DOPEY POKéMON",
+      "types": [
+        "WATER",
+        "PSYCHIC"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "79.0 lbs (35.8 kg)",
+      "text": "Incredibly slow and sluggish. It is quite content to loll about without worrying about the time.",
+      "hp": 90,
+      "attack": 65,
+      "defense": 65,
+      "speed": 15,
+      "special": 40,
+      "base_exp": 99
+    },
+    "080": {
+      "name": "Slowbro",
+      "species": "HERMITCRAB POKéMON",
+      "types": [
+        "WATER",
+        "PSYCHIC"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "173.0 lbs (78.5 kg)",
+      "text": "Lives lazily by the sea. If the SHELLDER on its tail comes off, it becomes a SLOWPOKE again.",
+      "hp": 95,
+      "attack": 75,
+      "defense": 110,
+      "speed": 30,
+      "special": 80,
+      "base_exp": 164
+    },
+    "081": {
+      "name": "Magnemite",
+      "species": "MAGNET POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "13.0 lbs (5.9 kg)",
+      "text": "It is born with the ability to defy gravity. It floats in air on powerful electro-magnetic waves.",
+      "hp": 25,
+      "attack": 35,
+      "defense": 70,
+      "speed": 45,
+      "special": 95,
+      "base_exp": 89
+    },
+    "082": {
+      "name": "Magneton",
+      "species": "MAGNET POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "132.0 lbs (59.9 kg)",
+      "text": "Generates strange radio signals. It raises the tem-perature by 3.6F degrees within 3,300 feet.",
+      "hp": 50,
+      "attack": 60,
+      "defense": 95,
+      "speed": 70,
+      "special": 120,
+      "base_exp": 161
+    },
+    "083": {
+      "name": "Farfetchd",
+      "species": "WILD DUCK POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "33.0 lbs (15.0 kg)",
+      "text": "Lives where reedy plants grow. They are rarely seen, so it's thought their numbers are decreasing.",
+      "hp": 52,
+      "attack": 65,
+      "defense": 55,
+      "speed": 60,
+      "special": 58,
+      "base_exp": 94
+    },
+    "084": {
+      "name": "Doduo",
+      "species": "TWIN BIRD POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "4'07\" (1.4 m)",
+      "weight": "86.0 lbs (39.0 kg)",
+      "text": "Its short wings make flying dif-ficult. Instead, this POKéMON runs at high speed on developed legs.",
+      "hp": 35,
+      "attack": 85,
+      "defense": 45,
+      "speed": 75,
+      "special": 35,
+      "base_exp": 96
+    },
+    "085": {
+      "name": "Dodrio",
+      "species": "TRIPLEBIRD POKéMON",
+      "types": [
+        "NORMAL",
+        "FLYING"
+      ],
+      "height": "5'11\" (1.8 m)",
+      "weight": "188.0 lbs (85.3 kg)",
+      "text": "One of DODUO's 2 heads splits to form a unique species. It runs close to 40 MPH in prairies.",
+      "hp": 60,
+      "attack": 110,
+      "defense": 70,
+      "speed": 100,
+      "special": 60,
+      "base_exp": 158
+    },
+    "086": {
+      "name": "Seel",
+      "species": "SEA LION POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "198.0 lbs (89.8 kg)",
+      "text": "Loves freezing cold conditions. Relishes swimming in a frigid cli-mate of around 14F degrees.",
+      "hp": 65,
+      "attack": 45,
+      "defense": 55,
+      "speed": 45,
+      "special": 70,
+      "base_exp": 100
+    },
+    "087": {
+      "name": "Dewgong",
+      "species": "SEA LION POKéMON",
+      "types": [
+        "WATER",
+        "ICE"
+      ],
+      "height": "5'07\" (1.7 m)",
+      "weight": "265.0 lbs (120.2 kg)",
+      "text": "Its entire body is a snowy-white. Unharmed by even intense cold, it swims powerfully in icy waters.",
+      "hp": 90,
+      "attack": 70,
+      "defense": 80,
+      "speed": 70,
+      "special": 95,
+      "base_exp": 176
+    },
+    "088": {
+      "name": "Grimer",
+      "species": "SLUDGE POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "2'11\" (0.9 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "Made of hardened sludge. It smells too putrid to touch. Even weeds won't grow in its path.",
+      "hp": 80,
+      "attack": 80,
+      "defense": 50,
+      "speed": 25,
+      "special": 40,
+      "base_exp": 90
+    },
+    "089": {
+      "name": "Muk",
+      "species": "SLUDGE POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "Smells so awful, it can cause fainting. Through degeneration, it lost its sense of smell.",
+      "hp": 105,
+      "attack": 105,
+      "defense": 75,
+      "speed": 50,
+      "special": 65,
+      "base_exp": 157
+    },
+    "090": {
+      "name": "Shellder",
+      "species": "BIVALVE POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "9.0 lbs (4.1 kg)",
+      "text": "The shell can withstand any attack. However, when it is open, the tender body is exposed.",
+      "hp": 30,
+      "attack": 65,
+      "defense": 100,
+      "speed": 40,
+      "special": 45,
+      "base_exp": 97
+    },
+    "091": {
+      "name": "Cloyster",
+      "species": "BIVALVE POKéMON",
+      "types": [
+        "WATER",
+        "ICE"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "292.0 lbs (132.4 kg)",
+      "text": "For protection, it uses its harder-than-diamonds shell. It also shoots spikes from the shell.",
+      "hp": 50,
+      "attack": 95,
+      "defense": 180,
+      "speed": 70,
+      "special": 85,
+      "base_exp": 203
+    },
+    "092": {
+      "name": "Gastly",
+      "species": "GAS POKéMON",
+      "types": [
+        "GHOST",
+        "POISON"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "0.2 lbs (0.1 kg)",
+      "text": "Said to appear in decrepit, deserted buildings. It has no real shape as it appears to be made of a gas.",
+      "hp": 30,
+      "attack": 35,
+      "defense": 30,
+      "speed": 80,
+      "special": 100,
+      "base_exp": 95
+    },
+    "093": {
+      "name": "Haunter",
+      "species": "GAS POKéMON",
+      "types": [
+        "GHOST",
+        "POISON"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "0.2 lbs (0.1 kg)",
+      "text": "By licking, it saps the victim's life. It causes shaking that won't stop until the victim's demise.",
+      "hp": 45,
+      "attack": 50,
+      "defense": 45,
+      "speed": 95,
+      "special": 115,
+      "base_exp": 126
+    },
+    "094": {
+      "name": "Gengar",
+      "species": "SHADOW POKéMON",
+      "types": [
+        "GHOST",
+        "POISON"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "89.0 lbs (40.4 kg)",
+      "text": "A GENGAR is close by if you feel a sudden chill. It may be trying to lay a curse on you.",
+      "hp": 60,
+      "attack": 65,
+      "defense": 60,
+      "speed": 110,
+      "special": 130,
+      "base_exp": 190
+    },
+    "095": {
+      "name": "Onix",
+      "species": "ROCK SNAKE POKéMON",
+      "types": [
+        "ROCK",
+        "GROUND"
+      ],
+      "height": "28'10\" (8.8 m)",
+      "weight": "463.0 lbs (210.0 kg)",
+      "text": "Burrows at high speed in search of food. The tunnels it leaves are used as homes by DIGLETTs.",
+      "hp": 35,
+      "attack": 45,
+      "defense": 160,
+      "speed": 70,
+      "special": 30,
+      "base_exp": 108
+    },
+    "096": {
+      "name": "Drowzee",
+      "species": "HYPNOSIS POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "71.0 lbs (32.2 kg)",
+      "text": "If you sleep by it all the time, it will sometimes show you dreams it has eaten in the past.",
+      "hp": 60,
+      "attack": 48,
+      "defense": 45,
+      "speed": 42,
+      "special": 90,
+      "base_exp": 102
+    },
+    "097": {
+      "name": "Hypno",
+      "species": "HYPNOSIS POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "167.0 lbs (75.7 kg)",
+      "text": "Avoid eye contact if you come across one. It will try to put you to sleep by using its pendulum.",
+      "hp": 85,
+      "attack": 73,
+      "defense": 70,
+      "speed": 67,
+      "special": 115,
+      "base_exp": 165
+    },
+    "098": {
+      "name": "Krabby",
+      "species": "RIVER CRAB POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "14.0 lbs (6.4 kg)",
+      "text": "Its pincers are superb weapons. They sometimes break off during battle, but they grow back fast.",
+      "hp": 30,
+      "attack": 105,
+      "defense": 90,
+      "speed": 50,
+      "special": 25,
+      "base_exp": 115
+    },
+    "099": {
+      "name": "Kingler",
+      "species": "PINCER POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "132.0 lbs (59.9 kg)",
+      "text": "One claw grew massively and as hard as steel. It has 10,000-HP strength. However, it is too heavy.",
+      "hp": 55,
+      "attack": 130,
+      "defense": 115,
+      "speed": 75,
+      "special": 50,
+      "base_exp": 206
+    },
+    "100": {
+      "name": "Voltorb",
+      "species": "BALL POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "23.0 lbs (10.4 kg)",
+      "text": "It is said to camouflage itself as a # BALL. It will self-destruct with very little stimulus.",
+      "hp": 40,
+      "attack": 30,
+      "defense": 50,
+      "speed": 100,
+      "special": 55,
+      "base_exp": 103
+    },
+    "101": {
+      "name": "Electrode",
+      "species": "BALL POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "147.0 lbs (66.7 kg)",
+      "text": "Stores electrical energy inside its body. Even the slightest shock could trigger a huge explosion.",
+      "hp": 60,
+      "attack": 50,
+      "defense": 70,
+      "speed": 140,
+      "special": 80,
+      "base_exp": 150
+    },
+    "102": {
+      "name": "Exeggcute",
+      "species": "EGG POKéMON",
+      "types": [
+        "GRASS",
+        "PSYCHIC"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "6.0 lbs (2.7 kg)",
+      "text": "The heads attract each other and spin around. There must be 6 heads for it to maintain balance.",
+      "hp": 60,
+      "attack": 40,
+      "defense": 80,
+      "speed": 40,
+      "special": 60,
+      "base_exp": 98
+    },
+    "103": {
+      "name": "Exeggutor",
+      "species": "COCONUT POKéMON",
+      "types": [
+        "GRASS",
+        "PSYCHIC"
+      ],
+      "height": "6'07\" (2.0 m)",
+      "weight": "265.0 lbs (120.2 kg)",
+      "text": "Its cries are very noisy. This is because each of the 3 heads thinks about whatever it likes.",
+      "hp": 95,
+      "attack": 95,
+      "defense": 85,
+      "speed": 55,
+      "special": 125,
+      "base_exp": 212
+    },
+    "104": {
+      "name": "Cubone",
+      "species": "LONELY POKéMON",
+      "types": [
+        "GROUND"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "14.0 lbs (6.4 kg)",
+      "text": "Wears the skull of its deceased mother. Its cries echo inside the skull and come out as a sad melody.",
+      "hp": 50,
+      "attack": 50,
+      "defense": 95,
+      "speed": 35,
+      "special": 40,
+      "base_exp": 87
+    },
+    "105": {
+      "name": "Marowak",
+      "species": "BONEKEEPER POKéMON",
+      "types": [
+        "GROUND"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "99.0 lbs (44.9 kg)",
+      "text": "Small and weak, this POKéMON is adept with its bone club. It has grown more vicious over the ages.",
+      "hp": 60,
+      "attack": 80,
+      "defense": 110,
+      "speed": 45,
+      "special": 50,
+      "base_exp": 124
+    },
+    "106": {
+      "name": "Hitmonlee",
+      "species": "KICKING POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "110.0 lbs (49.9 kg)",
+      "text": "When kicking, the sole of its foot turns as hard as a diamond on im-pact and destroys its enemy.",
+      "hp": 50,
+      "attack": 120,
+      "defense": 53,
+      "speed": 87,
+      "special": 35,
+      "base_exp": 139
+    },
+    "107": {
+      "name": "Hitmonchan",
+      "species": "PUNCHING POKéMON",
+      "types": [
+        "FIGHTING"
+      ],
+      "height": "4'07\" (1.4 m)",
+      "weight": "111.0 lbs (50.3 kg)",
+      "text": "Punches in cork-screw fashion. It can punch its way through a concrete wall in the same way as a drill.",
+      "hp": 50,
+      "attack": 105,
+      "defense": 79,
+      "speed": 76,
+      "special": 35,
+      "base_exp": 140
+    },
+    "108": {
+      "name": "Lickitung",
+      "species": "LICKING POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "144.0 lbs (65.3 kg)",
+      "text": "Its tongue spans almost 7 feet and moves more freely than its forelegs. Its licks can cause paralysis.",
+      "hp": 90,
+      "attack": 55,
+      "defense": 75,
+      "speed": 30,
+      "special": 60,
+      "base_exp": 127
+    },
+    "109": {
+      "name": "Koffing",
+      "species": "POISON GAS POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "2.0 lbs (0.9 kg)",
+      "text": "In hot places, its internal gases could expand and explode without any warning. Be very careful!",
+      "hp": 40,
+      "attack": 65,
+      "defense": 95,
+      "speed": 35,
+      "special": 60,
+      "base_exp": 114
+    },
+    "110": {
+      "name": "Weezing",
+      "species": "POISON GAS POKéMON",
+      "types": [
+        "POISON"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "21.0 lbs (9.5 kg)",
+      "text": "It lives and grows by absorbing dust, germs and poison gases that are contained in toxic waste and garbage.",
+      "hp": 65,
+      "attack": 90,
+      "defense": 120,
+      "speed": 60,
+      "special": 85,
+      "base_exp": 173
+    },
+    "111": {
+      "name": "Rhyhorn",
+      "species": "SPIKES POKéMON",
+      "types": [
+        "GROUND",
+        "ROCK"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "254.0 lbs (115.2 kg)",
+      "text": "A POKéMON with a one-track mind. Once it charges, it won't stop running until it falls asleep.",
+      "hp": 80,
+      "attack": 85,
+      "defense": 95,
+      "speed": 25,
+      "special": 30,
+      "base_exp": 135
+    },
+    "112": {
+      "name": "Rhydon",
+      "species": "DRILL POKéMON",
+      "types": [
+        "GROUND",
+        "ROCK"
+      ],
+      "height": "6'03\" (1.9 m)",
+      "weight": "265.0 lbs (120.2 kg)",
+      "text": "Walks on its hind legs. Shows signs of intelligence. Its armor-like hide even repels molten lava.",
+      "hp": 105,
+      "attack": 130,
+      "defense": 120,
+      "speed": 40,
+      "special": 45,
+      "base_exp": 204
+    },
+    "113": {
+      "name": "Chansey",
+      "species": "EGG POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "76.0 lbs (34.5 kg)",
+      "text": "A gentle and kind-hearted POKéMON that shares its nutritious eggs if it sees an injured POKéMON.",
+      "hp": 250,
+      "attack": 5,
+      "defense": 5,
+      "speed": 50,
+      "special": 105,
+      "base_exp": 255
+    },
+    "114": {
+      "name": "Tangela",
+      "species": "VINE POKéMON",
+      "types": [
+        "GRASS"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "77.0 lbs (34.9 kg)",
+      "text": "Its identity is obscured by masses of thick, blue vines. The vines are said to never stop growing.",
+      "hp": 65,
+      "attack": 55,
+      "defense": 115,
+      "speed": 60,
+      "special": 100,
+      "base_exp": 166
+    },
+    "115": {
+      "name": "Kangaskhan",
+      "species": "PARENT POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "7'03\" (2.2 m)",
+      "weight": "176.0 lbs (79.8 kg)",
+      "text": "Raises its young in its belly pouch. Won't run from any fight to keep its young protected.",
+      "hp": 105,
+      "attack": 95,
+      "defense": 80,
+      "speed": 90,
+      "special": 40,
+      "base_exp": 175
+    },
+    "116": {
+      "name": "Horsea",
+      "species": "DRAGON POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "18.0 lbs (8.2 kg)",
+      "text": "If it senses any danger, it will vigorously spray water or a special type of ink from its mouth.",
+      "hp": 30,
+      "attack": 40,
+      "defense": 70,
+      "speed": 60,
+      "special": 70,
+      "base_exp": 83
+    },
+    "117": {
+      "name": "Seadra",
+      "species": "DRAGON POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "3'11\" (1.2 m)",
+      "weight": "55.0 lbs (24.9 kg)",
+      "text": "Touching the back fin causes numb-ness. It hooks its tail to coral to stay in place while sleeping.",
+      "hp": 55,
+      "attack": 65,
+      "defense": 95,
+      "speed": 85,
+      "special": 95,
+      "base_exp": 155
+    },
+    "118": {
+      "name": "Goldeen",
+      "species": "GOLDFISH POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "2'00\" (0.6 m)",
+      "weight": "33.0 lbs (15.0 kg)",
+      "text": "When it is time for them to lay eggs, they can be seen swimming up rivers and falls in large groups.",
+      "hp": 45,
+      "attack": 67,
+      "defense": 60,
+      "speed": 63,
+      "special": 50,
+      "base_exp": 111
+    },
+    "119": {
+      "name": "Seaking",
+      "species": "GOLDFISH POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "86.0 lbs (39.0 kg)",
+      "text": "It is the male's job to make a nest by carving out boulders in a stream using the horn on its head.",
+      "hp": 80,
+      "attack": 92,
+      "defense": 65,
+      "speed": 68,
+      "special": 80,
+      "base_exp": 170
+    },
+    "120": {
+      "name": "Staryu",
+      "species": "STARSHAPE POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "76.0 lbs (34.5 kg)",
+      "text": "As long as the center section is unharmed, it can grow back fully even if it is chopped to bits.",
+      "hp": 30,
+      "attack": 45,
+      "defense": 55,
+      "speed": 85,
+      "special": 70,
+      "base_exp": 106
+    },
+    "121": {
+      "name": "Starmie",
+      "species": "MYSTERIOUS POKéMON",
+      "types": [
+        "WATER",
+        "PSYCHIC"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "176.0 lbs (79.8 kg)",
+      "text": "The center section is named the core. People think it is communicating when it glows in 7 colors.",
+      "hp": 60,
+      "attack": 75,
+      "defense": 85,
+      "speed": 115,
+      "special": 100,
+      "base_exp": 207
+    },
+    "122": {
+      "name": "Mr Mime",
+      "species": "BARRIER POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "120.0 lbs (54.4 kg)",
+      "text": "Always practices its pantomime act. It makes enemies believe something exists that really doesn't.",
+      "hp": 40,
+      "attack": 45,
+      "defense": 65,
+      "speed": 90,
+      "special": 100,
+      "base_exp": 136
+    },
+    "123": {
+      "name": "Scyther",
+      "species": "MANTIS POKéMON",
+      "types": [
+        "BUG",
+        "FLYING"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "123.0 lbs (55.8 kg)",
+      "text": "Leaps out of tall grass and slices prey with its scythes. The move-ment looks like that of a ninja.",
+      "hp": 70,
+      "attack": 110,
+      "defense": 80,
+      "speed": 105,
+      "special": 55,
+      "base_exp": 187
+    },
+    "124": {
+      "name": "Jynx",
+      "species": "HUMANSHAPE POKéMON",
+      "types": [
+        "ICE",
+        "PSYCHIC"
+      ],
+      "height": "4'07\" (1.4 m)",
+      "weight": "90.0 lbs (40.8 kg)",
+      "text": "Appears to move to a rhythm of its own, as if it were dancing. It wiggles its hips as it walks.",
+      "hp": 65,
+      "attack": 50,
+      "defense": 35,
+      "speed": 95,
+      "special": 95,
+      "base_exp": 137
+    },
+    "125": {
+      "name": "Electabuzz",
+      "species": "ELECTRIC POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "3'07\" (1.1 m)",
+      "weight": "66.0 lbs (29.9 kg)",
+      "text": "If a major power outage occurs, it is certain that this POKéMON has eaten electricity at a power plant.",
+      "hp": 65,
+      "attack": 83,
+      "defense": 57,
+      "speed": 105,
+      "special": 85,
+      "base_exp": 156
+    },
+    "126": {
+      "name": "Magmar",
+      "species": "SPITFIRE POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "98.0 lbs (44.5 kg)",
+      "text": "Born in an active volcano. Its body is always cloaked in flames, so it looks like a big ball of fire.",
+      "hp": 65,
+      "attack": 95,
+      "defense": 57,
+      "speed": 93,
+      "special": 85,
+      "base_exp": 167
+    },
+    "127": {
+      "name": "Pinsir",
+      "species": "STAGBEETLE POKéMON",
+      "types": [
+        "BUG"
+      ],
+      "height": "4'11\" (1.5 m)",
+      "weight": "121.0 lbs (54.9 kg)",
+      "text": "Grips its prey in its pincers and squeezes hard! It can't move if it's cold, so it lives in warm places.",
+      "hp": 65,
+      "attack": 125,
+      "defense": 100,
+      "speed": 85,
+      "special": 55,
+      "base_exp": 200
+    },
+    "128": {
+      "name": "Tauros",
+      "species": "WILD BULL POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "4'07\" (1.4 m)",
+      "weight": "195.0 lbs (88.5 kg)",
+      "text": "A rowdy POKéMON with a lot of stamina. Once running, it won't stop until it hits something.",
+      "hp": 75,
+      "attack": 100,
+      "defense": 95,
+      "speed": 110,
+      "special": 70,
+      "base_exp": 211
+    },
+    "129": {
+      "name": "Magikarp",
+      "species": "FISH POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "2'11\" (0.9 m)",
+      "weight": "22.0 lbs (10.0 kg)",
+      "text": "Famous for being very unreliable. It can be found swimming in seas, lakes, rivers and shallow puddles.",
+      "hp": 20,
+      "attack": 10,
+      "defense": 55,
+      "speed": 80,
+      "special": 20,
+      "base_exp": 20
+    },
+    "130": {
+      "name": "Gyarados",
+      "species": "ATROCIOUS POKéMON",
+      "types": [
+        "WATER",
+        "FLYING"
+      ],
+      "height": "21'04\" (6.5 m)",
+      "weight": "518.0 lbs (235.0 kg)",
+      "text": "Brutally vicious and enormously destructive. Known for totally destroying cities in ancient times.",
+      "hp": 95,
+      "attack": 125,
+      "defense": 79,
+      "speed": 81,
+      "special": 100,
+      "base_exp": 214
+    },
+    "131": {
+      "name": "Lapras",
+      "species": "TRANSPORT POKéMON",
+      "types": [
+        "WATER",
+        "ICE"
+      ],
+      "height": "8'02\" (2.5 m)",
+      "weight": "485.0 lbs (220.0 kg)",
+      "text": "A gentle soul that can read the minds of people. It can ferry people across the sea on its back.",
+      "hp": 130,
+      "attack": 85,
+      "defense": 80,
+      "speed": 60,
+      "special": 95,
+      "base_exp": 219
+    },
+    "132": {
+      "name": "Ditto",
+      "species": "TRANSFORM POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "9.0 lbs (4.1 kg)",
+      "text": "When it spots an enemy, its body transfigures into an almost perfect copy of its oppo-nent.",
+      "hp": 48,
+      "attack": 48,
+      "defense": 48,
+      "speed": 48,
+      "special": 48,
+      "base_exp": 61
+    },
+    "133": {
+      "name": "Eevee",
+      "species": "EVOLUTION POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "1'00\" (0.3 m)",
+      "weight": "14.0 lbs (6.4 kg)",
+      "text": "Its genetic code is unstable, so it could evolve in a variety of ways. There are only a few alive.",
+      "hp": 55,
+      "attack": 55,
+      "defense": 50,
+      "speed": 55,
+      "special": 65,
+      "base_exp": 92
+    },
+    "134": {
+      "name": "Vaporeon",
+      "species": "BUBBLE JET POKéMON",
+      "types": [
+        "WATER"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "64.0 lbs (29.0 kg)",
+      "text": "Its cell structure is similar to water molecules. It will melt away and become invis-ible in water.",
+      "hp": 130,
+      "attack": 65,
+      "defense": 60,
+      "speed": 65,
+      "special": 110,
+      "base_exp": 196
+    },
+    "135": {
+      "name": "Jolteon",
+      "species": "LIGHTNING POKéMON",
+      "types": [
+        "ELECTRIC"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "54.0 lbs (24.5 kg)",
+      "text": "A sensitive POKéMON that easily becomes sad or angry. Every time its mood changes, it charges power.",
+      "hp": 65,
+      "attack": 65,
+      "defense": 60,
+      "speed": 130,
+      "special": 110,
+      "base_exp": 197
+    },
+    "136": {
+      "name": "Flareon",
+      "species": "FLAME POKéMON",
+      "types": [
+        "FIRE"
+      ],
+      "height": "2'11\" (0.9 m)",
+      "weight": "55.0 lbs (24.9 kg)",
+      "text": "It has a flame chamber inside its body. It inhales, then blows out fire that is over 3,000F degrees.",
+      "hp": 65,
+      "attack": 130,
+      "defense": 60,
+      "speed": 65,
+      "special": 110,
+      "base_exp": 198
+    },
+    "137": {
+      "name": "Porygon",
+      "species": "VIRTUAL POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "2'07\" (0.8 m)",
+      "weight": "80.0 lbs (36.3 kg)",
+      "text": "The only POKéMON people anticipate can fly into space. None has managed the feat yet, however.",
+      "hp": 65,
+      "attack": 60,
+      "defense": 70,
+      "speed": 40,
+      "special": 75,
+      "base_exp": 130
+    },
+    "138": {
+      "name": "Omanyte",
+      "species": "SPIRAL POKéMON",
+      "types": [
+        "ROCK",
+        "WATER"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "17.0 lbs (7.7 kg)",
+      "text": "An ancient POKéMON that was recovered from a fossil. It swims by cleverly twisting its 10 tentacles about.",
+      "hp": 35,
+      "attack": 40,
+      "defense": 100,
+      "speed": 35,
+      "special": 90,
+      "base_exp": 120
+    },
+    "139": {
+      "name": "Omastar",
+      "species": "SPIRAL POKéMON",
+      "types": [
+        "ROCK",
+        "WATER"
+      ],
+      "height": "3'03\" (1.0 m)",
+      "weight": "77.0 lbs (34.9 kg)",
+      "text": "Sharp beaks ring its mouth. Its shell was too big for it to move freely, so it became extinct.",
+      "hp": 70,
+      "attack": 60,
+      "defense": 125,
+      "speed": 55,
+      "special": 115,
+      "base_exp": 199
+    },
+    "140": {
+      "name": "Kabuto",
+      "species": "SHELLFISH POKéMON",
+      "types": [
+        "ROCK",
+        "WATER"
+      ],
+      "height": "1'08\" (0.5 m)",
+      "weight": "25.0 lbs (11.3 kg)",
+      "text": "A POKéMON that was recovered from a fossil. It uses the eyes on its back while hiding on the sea floor.",
+      "hp": 30,
+      "attack": 80,
+      "defense": 90,
+      "speed": 55,
+      "special": 45,
+      "base_exp": 119
+    },
+    "141": {
+      "name": "Kabutops",
+      "species": "SHELLFISH POKéMON",
+      "types": [
+        "ROCK",
+        "WATER"
+      ],
+      "height": "4'03\" (1.3 m)",
+      "weight": "89.0 lbs (40.4 kg)",
+      "text": "A slim and fast swimmer. It slices its prey with its sharp sickles and drinks the body fluids.",
+      "hp": 60,
+      "attack": 115,
+      "defense": 105,
+      "speed": 80,
+      "special": 70,
+      "base_exp": 201
+    },
+    "142": {
+      "name": "Aerodactyl",
+      "species": "FOSSIL POKéMON",
+      "types": [
+        "ROCK",
+        "FLYING"
+      ],
+      "height": "5'11\" (1.8 m)",
+      "weight": "130.0 lbs (59.0 kg)",
+      "text": "A savage POKéMON that died out in ancient times. It was resurrected using DNA taken from amber.",
+      "hp": 80,
+      "attack": 105,
+      "defense": 65,
+      "speed": 130,
+      "special": 60,
+      "base_exp": 202
+    },
+    "143": {
+      "name": "Snorlax",
+      "species": "SLEEPING POKéMON",
+      "types": [
+        "NORMAL"
+      ],
+      "height": "6'11\" (2.1 m)",
+      "weight": "1014.0 lbs (459.9 kg)",
+      "text": "Will eat anything, even if the food happens to be a little moldy. It never gets an upset stomach.",
+      "hp": 160,
+      "attack": 110,
+      "defense": 65,
+      "speed": 30,
+      "special": 65,
+      "base_exp": 154
+    },
+    "144": {
+      "name": "Articuno",
+      "species": "FREEZE POKéMON",
+      "types": [
+        "ICE",
+        "FLYING"
+      ],
+      "height": "5'07\" (1.7 m)",
+      "weight": "122.0 lbs (55.3 kg)",
+      "text": "A legendary bird POKéMON. It freezes water that is contained in winter air and makes it snow.",
+      "hp": 90,
+      "attack": 85,
+      "defense": 100,
+      "speed": 85,
+      "special": 125,
+      "base_exp": 215
+    },
+    "145": {
+      "name": "Zapdos",
+      "species": "ELECTRIC POKéMON",
+      "types": [
+        "ELECTRIC",
+        "FLYING"
+      ],
+      "height": "5'03\" (1.6 m)",
+      "weight": "116.0 lbs (52.6 kg)",
+      "text": "This legendary bird POKéMON is said to appear when the sky turns dark and lightning showers down.",
+      "hp": 90,
+      "attack": 90,
+      "defense": 85,
+      "speed": 100,
+      "special": 125,
+      "base_exp": 216
+    },
+    "146": {
+      "name": "Moltres",
+      "species": "FLAME POKéMON",
+      "types": [
+        "FIRE",
+        "FLYING"
+      ],
+      "height": "6'07\" (2.0 m)",
+      "weight": "132.0 lbs (59.9 kg)",
+      "text": "A legendary bird POKéMON. As it flaps its flaming wings, even the night sky will turn red.",
+      "hp": 90,
+      "attack": 100,
+      "defense": 90,
+      "speed": 90,
+      "special": 125,
+      "base_exp": 217
+    },
+    "147": {
+      "name": "Dratini",
+      "species": "DRAGON POKéMON",
+      "types": [
+        "DRAGON"
+      ],
+      "height": "5'11\" (1.8 m)",
+      "weight": "7.0 lbs (3.2 kg)",
+      "text": "The existence of this mythical POKéMON was only recently confirmed by a fisherman who caught one.",
+      "hp": 41,
+      "attack": 64,
+      "defense": 45,
+      "speed": 50,
+      "special": 50,
+      "base_exp": 67
+    },
+    "148": {
+      "name": "Dragonair",
+      "species": "DRAGON POKéMON",
+      "types": [
+        "DRAGON"
+      ],
+      "height": "13'01\" (4.0 m)",
+      "weight": "36.0 lbs (16.3 kg)",
+      "text": "According to a witness, its body was surrounded by a strange aura that gave it a mystical look.",
+      "hp": 61,
+      "attack": 84,
+      "defense": 65,
+      "speed": 70,
+      "special": 70,
+      "base_exp": 144
+    },
+    "149": {
+      "name": "Dragonite",
+      "species": "DRAGON POKéMON",
+      "types": [
+        "DRAGON",
+        "FLYING"
+      ],
+      "height": "7'03\" (2.2 m)",
+      "weight": "463.0 lbs (210.0 kg)",
+      "text": "It is said that this POKéMON lives somewhere in the sea and that it flies. However, it is only a rumor.",
+      "hp": 91,
+      "attack": 134,
+      "defense": 95,
+      "speed": 80,
+      "special": 100,
+      "base_exp": 218
+    },
+    "150": {
+      "name": "Mewtwo",
+      "species": "GENETIC POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "6'07\" (2.0 m)",
+      "weight": "269.0 lbs (122.0 kg)",
+      "text": "Its DNA is almost the same as MEW's. However, its size and disposition are vastly dif-ferent.",
+      "hp": 106,
+      "attack": 110,
+      "defense": 90,
+      "speed": 130,
+      "special": 154,
+      "base_exp": 220
+    },
+    "151": {
+      "name": "Mew",
+      "species": "NEW SPECIE POKéMON",
+      "types": [
+        "PSYCHIC"
+      ],
+      "height": "1'04\" (0.4 m)",
+      "weight": "9.0 lbs (4.1 kg)",
+      "text": "When viewed through a micro-scope, this POKéMON's short, fine, delicate hair can be seen.",
+      "hp": 100,
+      "attack": 100,
+      "defense": 100,
+      "speed": 100,
+      "special": 100,
+      "base_exp": 64
+    }
+  }
+}

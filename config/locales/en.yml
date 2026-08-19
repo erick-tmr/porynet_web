@@ -258,6 +258,26 @@ en:
       tap_when_collected: "Tap when collected"
       tap_to_undo: "Tap to undo"
       map_marker_named: "%{name} (%{key})"
+      dex_bar: "POKéDEX · REGISTERED AS SEEN"
+      dex_no: "DEX NO."
+      dex_ht: "HT"
+      dex_wt: "WT"
+      dex_in_game: "IN GAME"
+      dex_seen_badge: "SEEN %{num}"
+      dex_seen_chip: "SEEN ✓"
+      dex_art_alt: "%{name}, art by Ken Sugimori"
+      grind_eyebrow: "GRIND SPOT"
+      grind_exp_label: "EXP PER KNOCKOUT"
+      grind_vs: "VS"
+      grind_share: "%{rate} of steps"
+      grind_levels: "Lv %{range}"
+      grind_exp_at: "exp at Lv %{level}"
+      grind_type: "TYPE"
+      grind_hp: "BASE HP"
+      grind_speed: "BASE SPD"
+      grind_tips: "BATTLE TIPS"
+      grind_repel_title: "THE REPEL TRICK"
+      grind_repel_note: "works in Gen 1 already"
       map_marker_hint: "Find this letter on the map above"
       map_marker_step: "GO TO STEP %{n}"
       map_filter_all: "ALL"
@@ -1476,47 +1496,49 @@ en:
           intro: "A liner in dock for one visit only. Four decks, seventeen trainers, and a seasick captain who pays for a back rub with an HM."
           steps:
             "1":
-              title: "Board and head west along 1F"
-              text_html: "Show the S.S. Ticket at the dock and step aboard. Head west down the 1F corridor to the second cabin from the west end %{cabin}."
+              title: "Board and go straight below"
+              text_html: "Show the S.S. Ticket at the dock and step aboard. Head east to the stairs %{down} in the far corner and drop to the crew deck. Five cabins run west from there; start with the nearest %{cabin}."
             "2":
-              title: "Take TM08 from the west cabin"
-              text: "A ball at the bottom of the room holds TM08 Body Slam, a heavy Normal move that paralyzes about a third of the time."
-              items:
-                tm-body-slam: "At the bottom of the 1F cabin, second door from the west end of the corridor."
-            "3":
-              title: "Down to the crew deck"
-              text_html: "Back in the corridor, head east past the entrance to the stairs %{down} in the far corner. B1F runs west from there past five crew cabins; start with the nearest %{cabin}."
-            "4":
               title: "Max Potion in the first cabin"
               text: "A ball sits against the far wall past the bunks. A Max Potion is a full heal for one Pokémon, worth holding for Surge."
               items:
                 max-potion: "Against the far wall of the easternmost B1F cabin."
-            "5":
+            "3":
               title: "Ether two doors along"
               text_html: "Carry on west to cabin %{cabin}. An Ether rests on the floor beside the bunk, ten PP back on a single move."
               items:
                 ether: "On the floor of the third B1F cabin from the east, beside the bunk."
-            "6":
+            "4":
               title: "TM44 Rest next door"
               text_html: "Next door west %{cabin} holds TM44 Rest. It knocks the user out for two turns and wakes it at full HP, a free heal in a pinch."
               items:
                 tm-rest: "Beside the bed in the fourth B1F cabin from the east."
-            "7":
+            "5":
               title: "Hyper Potion on the pillow"
               text_html: "The last cabin %{cabin} sits at the west end. Stand at the head of the bed and press A facing the pillow; nothing shows on-screen, but a Hyper Potion is there."
               hidden:
                 hyper-potion: "On the pillow of the bed in the westernmost B1F cabin. Press A facing it from the left; nothing shows on-screen."
-            "8":
+            "6":
+              title: "Back up and sweep 1F stern to bow"
+              text_html: "Take the stairs %{up} to 1F and clear its six cabins east to west, starting at the stern end. The second from the west %{cabin} holds TM08 Body Slam, a heavy Normal move that often paralyzes."
+              items:
+                tm-body-slam: "At the bottom of the 1F cabin, second door from the west end of the corridor."
+            "7":
               title: "Great Ball in the kitchen bin"
-              text_html: "Take the stairs %{up} back to 1F, then west the length of the corridor and south through the gap %{kitchen}. In the kitchen, the lowest of the three bins on the east wall hides a Great Ball."
+              text_html: "Carry on west the length of the corridor and south through the gap %{kitchen}. In the kitchen, the lowest of the three bins on the east wall hides a Great Ball."
               hidden:
                 great-ball: "The lowest of the three trash cans on the kitchen's east wall. Press A facing it; nothing shows on-screen."
+            "8":
+              title: "Climb straight to the bow deck"
+              text_html: "Take the stairs %{up} to 2F, cross to %{down} and carry straight on to 3F, then west along that corridor and out onto the bow %{deck}."
             "9":
-              title: "Out to the bow deck"
-              text_html: "Leave the kitchen, take the stairs %{up} to 2F and %{down} to 3F, then west along that corridor and out onto the bow %{deck}. Two Sailors up there are free XP before the rival."
+              title: "Clear the two Sailors"
+              text: "Two Sailors hold the bow deck, free XP before the rival. Beat them both, then head back down to 2F and start on its cabins."
             "10":
               title: "Snorlax's dex entry on 2F"
               text_html: "Back in the 2F corridor, the first cabin %{cabin} holds no items, just a man who shows you Snorlax. Talking to him registers it as seen."
+              catch_at_count: "2 TOTAL, BOTH LV 30"
+              catch_at_html: "Catch it later on <b>Route 12</b> or <b>Route 16</b>, once the Poké Flute is yours."
             "11":
               title: "Max Ether next door"
               text_html: "The next cabin east %{cabin} has a ball at the back of the room: a Max Ether, which refills one move's PP completely."
@@ -1529,7 +1551,7 @@ en:
                 rare-candy: "Against the west wall of the fourth 2F cabin from the west."
             "13":
               title: "Heal before the rival"
-              text_html: "Keep east down the corridor and the rival %{rival} steps out for a fight. Top the team up with items first: there is no Center aboard, and this is the last fight on the ship."
+              text: "Keep east down the corridor and the rival steps out for a fight. Top the team up with items first: there is no Center aboard, and this is the last fight on the ship."
             "14":
               title: "HM01 Cut from the Captain"
               text_html: "Take the stairs behind him %{stairs} up to the Captain's cabin and soothe his seasickness for HM01 Cut. Teach it and step off; the ship sails for good. Then head <a href=\"%{href}\">east to Route 11</a>."
@@ -1622,10 +1644,24 @@ en:
             "14":
               title: "Back to Cerulean through Mt. Moon"
               text_html: "Out of Pewter east onto Route 3, straight through Mt. Moon and down Route 4 into Cerulean. From there it is east to <a href=\"%{href}\">Route 9</a> and Rock Tunnel."
-          trivia:
+          grind:
             title: "The best grinding spot yet"
-            intro: "Diglett fills 94% of this cave and Dugtrio takes the other 6%. Gen 1 pays base experience times level over seven, so a Lv 20 Diglett gives about 230 EXP and a Lv 30 Dugtrio about 655. Nothing else you can farm this early pays like that, and Dugtrio's 35 base HP means it drops in a hit or two."
-            note: "The famous Repel trick already works in Gen 1: it blocks anything under the level of your first party slot, and Diglett stops at Lv 22, so a Lv 23 lead leaves nothing but Dugtrio. Mind what you send in, though: Lv 29 to 31, 120 base Speed, pure Ground, so Pikachu cannot touch it."
+            intro: "Two Pokémon live down here and nothing else does. Gen 1 pays base experience times level over seven, so both of them hand out more per knockout than anything else you can farm this early."
+            formula: "base exp × level ÷ 7"
+            tips:
+              diglett: "Ten base HP, so almost any attack ends it in one. Dig and Growl are all it has, and Growl only stalls you."
+              dugtrio: "It moves first at 120 Speed and Electric does nothing to it. Still only 35 base HP, so Water, Grass or Ice ends it fast."
+            steps:
+              "1":
+                title: "Lead with a high level"
+                body_html: "Repel blocks anything below your first party slot. Diglett stops at Lv 22, so a lead of at least <b>Lv %{level}</b> leaves nothing but Dugtrio."
+              "2":
+                title: "Spray, then walk"
+                body_html: "One Repel covers 100 steps. Pace the tunnel end to end and re-spray the moment the message says it wore off."
+              "3":
+                title: "Bank %{exp} a fight"
+                body_html: "Every roll left is a Lv 29 to 31 Dugtrio, about three Diglett of experience for the same two turns of work."
+            warn: "Do not send in PIKACHU. Dugtrio is pure Ground, so Electric moves do nothing at all, and it swings first."
           oak:
             diglett: "Everywhere here → Dugtrio, a fast Ground type. Grab the base."
         route_9:

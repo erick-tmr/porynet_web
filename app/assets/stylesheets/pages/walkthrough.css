@@ -244,7 +244,7 @@
 
 .pn-wt-species {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: 9px;
   margin-top: 14px;
 }
@@ -352,7 +352,7 @@
 
 .pn-wt-oakq {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(70px, 100%), 1fr));
   gap: 12px;
   margin-top: 18px;
   justify-items: center;
@@ -747,7 +747,10 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-step__main {
   flex: 1;
-  min-width: 280px;
+  /* Wide enough to push the shot onto its own row rather than squeeze beside it, but never wider
+     than the card: a bare 280px cannot shrink, so on a phone the directions ran out over the
+     card's own border. */
+  min-width: min(280px, 100%);
 }
 .pn-wt-step__title {
   font-family: "Pixelify Sans", system-ui, sans-serif;
@@ -812,7 +815,7 @@ a.pn-wt-route__card:hover {
 /* hidden items */
 .pn-wt-hidden-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 14px;
   margin-top: 14px;
 }
@@ -1169,7 +1172,7 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-trivia-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 18px;
   margin-top: 26px;
 }
@@ -1279,7 +1282,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-badges__key--obey { background: #d8f0fb; }
 .pn-wt-badge-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 18px;
   margin-top: 22px;
 }
@@ -1667,7 +1670,7 @@ a.pn-wt-route__card:hover {
 
 .pn-wt-catch-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 18px;
   margin-top: 26px;
 }
@@ -3099,7 +3102,7 @@ a.pn-wt-route__card:hover {
   }
 
   .pn-wt-oakq {
-    grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(62px, 100%), 1fr));
     gap: 9px;
   }
 }
@@ -3185,7 +3188,7 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-mart__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 12px;
   padding: 16px;
 }
@@ -3581,7 +3584,7 @@ a.pn-wt-route__card:hover {
 
 .pn-wt-store__trade-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
   gap: 12px;
   margin-top: 13px;
 }
@@ -3627,7 +3630,9 @@ a.pn-wt-route__card:hover {
 
 @media (max-width: 900px) {
   .pn-wt-store__stats { grid-template-columns: 1fr 1fr; }
-  .pn-wt-store__body { grid-template-columns: 1fr; }
+  /* minmax(0, ...) rather than a bare 1fr: the floor list refuses to shrink below its widest row,
+     so a lone 1fr track stayed a thousand pixels wide and took the whole page sideways with it. */
+  .pn-wt-store__body { grid-template-columns: minmax(0, 1fr); }
   .pn-wt-store__elevator { position: static; }
   .pn-wt-store__elevator-list {
     flex-direction: row;
@@ -3726,4 +3731,575 @@ a.pn-wt-route__card:hover {
 
 @media (max-width: 900px) {
   .pn-fs__cards { grid-template-columns: 1fr; }
+}
+
+/* Dex entry, seen only: the screen a step fills in when an NPC shows you a Pokémon you cannot
+   catch yet. Sits inside the step card, under the directions. */
+.pn-wt-dex {
+  margin-top: 16px;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  background: #eaf8ff;
+}
+
+.pn-wt-dex__bar {
+  background: var(--accent2);
+  border-bottom: 3px solid var(--ink);
+  padding: 8px 12px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--ink);
+}
+
+.pn-wt-dex__body {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+}
+
+.pn-wt-dex__art {
+  position: relative;
+  min-height: 240px;
+  background: var(--cream);
+  border-right: 3px solid var(--ink);
+  background-image:
+    linear-gradient(#17162210 2px, transparent 2px),
+    linear-gradient(90deg, #17162210 2px, transparent 2px);
+  background-size: 26px 26px;
+}
+
+.pn-wt-dex__ghost {
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 34px;
+  letter-spacing: 2px;
+  color: #17162214;
+}
+
+/* Painted art, not a game rip, so it keeps its own smoothing against the global pixelated. */
+.pn-wt-dex__img {
+  position: absolute;
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.pn-wt-dex__seen {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--accent2);
+  border-top: 2px solid var(--ink);
+  border-right: 2px solid var(--ink);
+  padding: 5px 7px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--ink);
+}
+
+.pn-wt-dex__facts { padding: 16px 18px; }
+
+.pn-wt-dex__head {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pn-wt-dex__label {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.pn-wt-dex__num {
+  margin-top: 6px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.pn-wt-dex__ident { flex: 1; min-width: 160px; }
+
+.pn-wt-dex__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.pn-wt-dex__species {
+  margin-top: 4px;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.pn-wt-dex__type {
+  background: #fff;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 7px 9px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--ink);
+}
+
+.pn-wt-dex__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 2px dashed var(--ink);
+}
+
+.pn-wt-dex__stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.pn-wt-dex__stat-key { letter-spacing: 1px; }
+.pn-wt-dex__leader { flex: 1; border-bottom: 2px dotted #17162255; }
+
+.pn-wt-dex__entry {
+  margin-top: 14px;
+  background: var(--ui-dark);
+  border: 3px solid var(--ink);
+  padding: 14px 16px 12px;
+}
+
+.pn-wt-dex__entry-text {
+  margin: 0;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  line-height: 1.45;
+  color: #cfe1f5;
+  text-wrap: pretty;
+}
+
+.pn-wt-dex__more {
+  display: block;
+  margin-top: 6px;
+  text-align: right;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: var(--neon-cyan);
+}
+
+.pn-wt-dex__foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.pn-wt-dex__chip {
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 2px 9px;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.pn-wt-dex__catch {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.pn-wt-dex__catch b { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .pn-wt-dex__body { grid-template-columns: 1fr; }
+  .pn-wt-dex__art { border-right: 0; border-bottom: 3px solid var(--ink); }
+}
+
+
+/* Grinding spot: the two species that live there, what each knockout pays, and the Repel trick
+   that leaves only the better one. */
+.pn-wt-grind__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pn-wt-grind__tick {
+  width: 12px;
+  height: 12px;
+  background: var(--amber);
+  border: 2px solid var(--ink);
+}
+
+.pn-wt-grind__lead {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 10px;
+}
+
+.pn-wt-grind__intro {
+  margin: 0;
+  max-width: 660px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Painted art, not a game rip, so it keeps its own smoothing against the global pixelated. */
+.pn-wt-grind__art {
+  width: 200px;
+  max-width: 38%;
+  height: auto;
+  flex: 0 0 auto;
+  image-rendering: auto;
+}
+
+.pn-wt-grind__card {
+  margin-top: 26px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.pn-wt-grind__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 13px 18px;
+  background: #f4eeda;
+  border-bottom: 3px solid var(--ink);
+}
+
+.pn-wt-grind__bar-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.pn-wt-grind__formula {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #6b6880;
+  background: #fffdf6;
+  border: 2px solid var(--ink);
+  padding: 0 8px;
+}
+
+.pn-wt-grind__vs-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.pn-wt-grind__vs {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  padding: 6px 7px;
+}
+
+.pn-wt-grind__mon { padding: 22px; }
+
+.pn-wt-grind__mon--rare {
+  border-left: 3px solid var(--ink);
+  background: #fffdf6;
+}
+
+.pn-wt-grind__rarity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pn-wt-grind__chip {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  border: 2px solid var(--ink);
+  padding: 5px 7px;
+  color: var(--ink);
+}
+
+.pn-wt-grind__mon--common .pn-wt-grind__chip { background: var(--amber); }
+.pn-wt-grind__mon--rare .pn-wt-grind__chip { background: var(--accent); }
+
+.pn-wt-grind__share {
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  color: #6b6880;
+}
+
+.pn-wt-grind__ident {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.pn-wt-grind__sprite {
+  width: 96px;
+  height: 96px;
+  flex: none;
+  border: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pn-wt-grind__mon--common .pn-wt-grind__sprite { background: #fff6dd; }
+.pn-wt-grind__mon--rare .pn-wt-grind__sprite { background: #ffe9f0; }
+.pn-wt-grind__sprite img { width: 88%; height: 88%; object-fit: contain; }
+
+.pn-wt-grind__num {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1;
+  color: #6b6880;
+}
+
+.pn-wt-grind__name {
+  margin-top: 2px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.pn-wt-grind__mon--common .pn-wt-grind__name { color: #c9a227; }
+.pn-wt-grind__mon--rare .pn-wt-grind__name { color: var(--accent); }
+
+.pn-wt-grind__levels {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: #6b6880;
+}
+
+.pn-wt-grind__exp {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.pn-wt-grind__exp-num {
+  font-family: "Press Start 2P", monospace;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.pn-wt-grind__mon--rare .pn-wt-grind__exp-num { color: var(--accent); }
+
+.pn-wt-grind__exp-at {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #6b6880;
+  padding-bottom: 3px;
+}
+
+.pn-wt-grind__meter {
+  height: 18px;
+  margin-top: 9px;
+  border: 2px solid var(--ink);
+  background: #efe8d3;
+  padding: 2px;
+}
+
+.pn-wt-grind__meter-fill { display: block; height: 100%; }
+.pn-wt-grind__mon--common .pn-wt-grind__meter-fill { background: var(--amber); }
+.pn-wt-grind__mon--rare .pn-wt-grind__meter-fill { background: var(--accent); }
+
+.pn-wt-grind__meter-fill--0 { width: 0%; }
+.pn-wt-grind__meter-fill--5 { width: 5%; }
+.pn-wt-grind__meter-fill--10 { width: 10%; }
+.pn-wt-grind__meter-fill--15 { width: 15%; }
+.pn-wt-grind__meter-fill--20 { width: 20%; }
+.pn-wt-grind__meter-fill--25 { width: 25%; }
+.pn-wt-grind__meter-fill--30 { width: 30%; }
+.pn-wt-grind__meter-fill--35 { width: 35%; }
+.pn-wt-grind__meter-fill--40 { width: 40%; }
+.pn-wt-grind__meter-fill--45 { width: 45%; }
+.pn-wt-grind__meter-fill--50 { width: 50%; }
+.pn-wt-grind__meter-fill--55 { width: 55%; }
+.pn-wt-grind__meter-fill--60 { width: 60%; }
+.pn-wt-grind__meter-fill--65 { width: 65%; }
+.pn-wt-grind__meter-fill--70 { width: 70%; }
+.pn-wt-grind__meter-fill--75 { width: 75%; }
+.pn-wt-grind__meter-fill--80 { width: 80%; }
+.pn-wt-grind__meter-fill--85 { width: 85%; }
+.pn-wt-grind__meter-fill--90 { width: 90%; }
+.pn-wt-grind__meter-fill--95 { width: 95%; }
+.pn-wt-grind__meter-fill--100 { width: 100%; }
+
+.pn-wt-grind__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pn-wt-grind__stat {
+  border: 2px solid var(--ink);
+  background: #f7f1de;
+  padding: 7px 8px;
+}
+
+.pn-wt-grind__stat-key {
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: #6b6880;
+}
+
+.pn-wt-grind__stat-val {
+  margin-top: 5px;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.pn-wt-grind__tips {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 2px dashed #cfc6ad;
+}
+
+.pn-wt-grind__tips-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+}
+
+.pn-wt-grind__mon--common .pn-wt-grind__tips-label { color: #c9a227; }
+.pn-wt-grind__mon--rare .pn-wt-grind__tips-label { color: var(--accent); }
+
+.pn-wt-grind__tips-text {
+  margin: 7px 0 0;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+
+.pn-wt-grind__repel {
+  margin-top: 22px;
+  background: var(--ui-dark);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 24px;
+}
+
+.pn-wt-grind__repel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pn-wt-grind__repel-icon { width: 30px; height: 30px; flex: none; }
+
+.pn-wt-grind__repel-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--neon-cyan);
+}
+
+.pn-wt-grind__repel-rule { flex: 1; height: 2px; background: #232a45; }
+
+.pn-wt-grind__repel-note {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: var(--neon-magenta);
+}
+
+.pn-wt-grind__steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pn-wt-grind__step {
+  border: 2px solid #232a45;
+  background: #0e1224;
+  padding: 16px;
+}
+
+.pn-wt-grind__step-n {
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: var(--neon-magenta);
+}
+
+.pn-wt-grind__step-title {
+  margin-top: 9px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  color: #e8ecff;
+}
+
+.pn-wt-grind__step-body {
+  margin: 7px 0 0;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.35;
+  color: #a9b6dd;
+}
+
+.pn-wt-grind__step-body b { color: var(--neon-cyan); font-weight: inherit; }
+
+.pn-wt-grind__warn {
+  position: relative;
+  margin-top: 20px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  padding: 14px 16px 18px;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.pn-wt-grind__warn-arrow {
+  position: absolute;
+  right: 12px;
+  bottom: 6px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+}
+
+@media (max-width: 900px) {
+  .pn-wt-grind__vs-grid { grid-template-columns: 1fr; }
+  .pn-wt-grind__vs { display: none; }
+  .pn-wt-grind__mon--rare { border-left: 0; border-top: 3px solid var(--ink); }
+  .pn-wt-grind__lead { flex-wrap: wrap; gap: 18px; }
+}
+
+@media (max-width: 620px) {
+  .pn-wt-grind__stats { grid-template-columns: 1fr; }
 }

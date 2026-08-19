@@ -38,12 +38,33 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     end
   end
 
+  # Both the letters and the card order come off the walk (tools/maps/paths.py measures it), so a
+  # route entered at one end runs T1 to T10 straight down the page.
   test "a route that authored nothing is filled from the game" do
     route = location("route-11")
 
     assert_equal 10, route.trainers.size
     assert_equal %w[T1 T2 T3 T4 T5 T6 T7 T8 T9 T10], route.trainers.map(&:marker_key)
     assert(route.trainers.all? { |card| card.where.map? })
+  end
+
+  # Route 10 is one map split down the middle by Rock Tunnel and walked as two pages, so each half
+  # is walked from its own mouth: the north pair from Route 9, the four below from the tunnel's
+  # south mouth. Both pages draw that one map, and a pin can only wear one letter, so the lettering
+  # runs over the whole route once and the second page picks up where the first left off.
+  test "a stop walked twice letters each pass from the door it comes in by" do
+    assert_equal %w[T1 T2], location("route-10").trainers.map(&:marker_key)
+    assert_equal %w[T3 T4 T5 T6], location("route-10-south").trainers.map(&:marker_key)
+  end
+
+  # A gym is one room off one door, so it letters from the door inwards and always ends on the
+  # leader: the Jr. Trainer is T1 and Brock, at the back of the room, is T2. The map file declares
+  # Brock first.
+  test "a gym letters its trainers from the door inwards" do
+    gym = location("pewter-city").gym
+
+    assert_equal %w[T1], gym.trainers.map(&:marker_key)
+    assert_equal "T2", gym.leader.marker_key
   end
 
   test "an authored card replaces its generated twin rather than joining it" do
@@ -81,11 +102,14 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_empty location("route-1").trainers
   end
 
+  # Erika takes T5 rather than the last letter: Celadon's gym keeps beating you to her with three
+  # more trainers deeper in the room, and the lettering follows the walk, not the billing.
   test "gym trainers come from the gym floor and claim its pin keys" do
     gym = location("celadon-city").gym
 
     assert_equal 7, gym.trainers.size
-    assert_equal %w[T2 T3 T4 T5 T6 T7 T8], gym.trainers.map(&:marker_key).sort
+    assert_equal %w[T1 T2 T3 T4 T6 T7 T8], gym.trainers.map(&:marker_key).sort
+    assert_equal "T5", gym.leader.marker_key
     assert_equal "Erika", gym.leader.name
     assert_equal "ERIKA:1", gym.leader.opp
   end

@@ -110,6 +110,58 @@ def test_a_deck_numbers_its_pins_once_across_the_corridor_and_every_room(root):
     assert [p["key"] for p in pins if p["cat"] == "hidden"] == ["H1"]
 
 
+def test_a_swept_deck_clears_across_its_rooms_and_inside_them(root):
+    """The ship's cabins hang off one corridor and the stairs land you partway along it, so those
+    floors are swept from one end rather than nearest-door-first. That has to reach inside a cabin
+    too: two trainers share a room on each of them, and a room is far too small for the corridor's
+    walk to say which of the pair you meet first. 1F sweeps right to left, 2F the other way."""
+    for corridor, floor, reverse in (("SSAnne1F", "1F", True), ("SSAnne2F", "2F", False)):
+        deck = decks.plan(root, corridor, floor, locations.attached(corridor))
+        doors = [place.door[0] for place in decks.numbered_order(root, deck)[1:] if place.door]
+        across = [pin["x"] for pin in decks.area_markers(root, corridor, floor, 0, 0)
+                  if pin["cat"] == "trainer"]
+
+        assert doors == sorted(doors, reverse=reverse), f"{corridor}: rooms out of order"
+        assert across == sorted(across, reverse=reverse), f"{corridor}: pins out of order"
+
+
+def test_a_walked_deck_orders_a_cabin_from_its_own_doorway(root):
+    """B1F is walked, not swept, so a cabin holding two hands you the one by the door first. The
+    map file lists the pair the other way round, and the corridor's walk cannot tell them apart:
+    both are through the same door, and it stops at the doorway."""
+    room = [pin for pin in decks.area_markers(root, "SSAnneB1F", "B1F", 0, 0)
+            if pin["cat"] == "trainer" and pin["key"] in ("T5", "T6")]
+
+    assert [tuple(pin["grid"]) for pin in room] == [(0, 4), (0, 2)]
+    assert [pin["ref"] for pin in room] == ["FISHER:2", "SAILOR:7"]
+
+
+def test_a_deck_numbers_its_rooms_in_the_order_you_pass_their_doors(root):
+    """The crew deck runs west from the stairs you come down, so its cabins letter east to west.
+    The map file lists those doorways the other way round, and the layout is settled in that order
+    too and must not move (rooms are packed into rows as they are staged, so a reshuffle would
+    redraw the picture), which is why only the numbering is sorted."""
+    deck = decks.plan(root, "SSAnneB1F", "B1F", locations.attached("SSAnneB1F"))
+    order = decks.numbered_order(root, deck)
+    doors = [place.door for place in order[1:]]
+
+    assert order[0].label == "SSAnneB1F", "the corridor always counts first"
+    assert doors == sorted(doors, key=lambda door: -door[0]), "east to west, away from the stairs"
+    assert doors != [place.door for place in deck.placements[1:]], \
+        "the layout stages them the other way round, and numbering no longer follows it"
+    assert sorted(doors) == sorted(place.door for place in deck.placements[1:]), \
+        "the same rooms either way: only their order differs"
+
+
+def test_a_deck_lands_its_cabin_items_in_the_order_the_steps_collect_them(root):
+    """What that buys: B1F's five cabins hold four items, and the guide takes them from the cabin
+    nearest the stairs outwards. Numbered by the map file they came out backwards, so a reader
+    working down the page counted I3, I2, I1."""
+    pins = {p["id"]: p["key"] for p in decks.area_markers(root, "SSAnneB1F", "B1F", 0, 0)}
+
+    assert [pins["item-12-11"], pins["item-20-2"], pins["item-10-2"]] == ["I1", "I2", "I3"]
+
+
 def test_a_rooms_own_door_back_to_the_corridor_is_not_pinned_a_second_time(root):
     """Both ends of that doorway are now on one picture with a connector between them, so the room
     side is dropped: two pins for one door would spend two letters saying the same thing."""
@@ -124,13 +176,17 @@ def test_a_rooms_own_door_back_to_the_corridor_is_not_pinned_a_second_time(root)
 def test_a_deck_keeps_every_trainer_item_and_hidden_item_its_maps_hold(root):
     """The crop is the risk this whole module carries: a cabin clipped a few cells short still
     renders a plausible room, with an item ball quietly outside the frame. Count what the game
-    puts on the corridor and its rooms, and expect every one of them on the deck."""
+    puts on the corridor and its rooms, and expect every one of them on the deck.
+
+    What the game puts there, not what its file lists: 2F's rival is walked into the corridor by a
+    script and is not standing there when you arrive, so he is one of the objects `markers` leaves
+    unpinned rather than one lost to a crop."""
     for corridor, floor in SHIP:
         deck = _plan(root, corridor, floor)
         expected = 0
         for label in {p.label for p in deck.placements}:
             const = sources.parse_headers(root)[label][0]
-            objects = sources._object_events(root, label)
+            objects = sources.parse_object_events(root, label, include_battlers=True)
             expected += len([o for o in objects if o["kind"] in ("trainer", "item")])
             expected += len(sources.markers_by_map(root).get(const, []))
         drawn = [p for p in decks.area_markers(root, corridor, floor, 0, 0) if p["cat"] != "exit"]

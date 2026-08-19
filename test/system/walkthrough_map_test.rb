@@ -14,10 +14,20 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   # somewhere else and the page silently never reacts. Two things do that on these pages: a pin
   # parked at the very edge of a tall map sits under its frame's clip, and a section head far down
   # a long page moves as the sprites above it finish loading.
+  #
+  # Centring is what starts those sprites loading, so it is done twice with the network settling in
+  # between: the first scroll brings them into range, and the second re-centres whatever the page
+  # reflowed to once they arrived. By then nothing is left in flight to move it again.
   def click_centered(selector)
     node = find(selector)
-    node.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
+    centre(node)
+    page.driver.browser.network.wait_for_idle(timeout: Capybara.default_max_wait_time)
+    centre(node)
     node.click
+  end
+
+  def centre(node)
+    node.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
   end
 
   test "the map draws a marker for everything the game data holds" do

@@ -20,6 +20,7 @@ from PIL import ImageDraw
 import compositor
 import locations
 import markers
+import paths
 import sources
 
 CELL = sources.UNIT_PX
@@ -34,7 +35,8 @@ OPPOSITE = {"north": "south", "south": "north", "west": "east", "east": "west"}
 # `cells` is the half-open crop of the source map that is drawn, in cells; `origin` where that
 # crop's top-left corner lands on the deck, in pixels. The corridor is a placement like any other,
 # always first, cropped to the whole map.
-Placement = namedtuple("Placement", "label floor cells origin")
+Placement = namedtuple("Placement", "label floor cells origin door arrival",
+                       defaults=(None, None))
 Deck = namedtuple("Deck", "width height placements connectors")
 
 
@@ -130,12 +132,13 @@ def plan(root_str, corridor_label, floor, rooms):
         axis = 0 if side in ("north", "south") else 1
         start = here[axis] - there[axis]
         row = _row_for(rows[side], (start, start + size[axis]), size[1 - axis])
-        staged.append((label, room_floor, crop, side, row, start, size, here, there))
+        staged.append((label, room_floor, crop, side, row, start, size, here, there,
+                       door["anchor"], far["anchor"]))
 
     placements = [Placement(corridor_label, floor, (0, 0, *[n // CELL for n in corridor_size]),
                             (0, 0))]
     connectors = []
-    for label, room_floor, crop, side, row, start, size, here, there in staged:
+    for label, room_floor, crop, side, row, start, size, here, there, anchor, arrival in staged:
         depth = GAP + sum(r["extent"] + GAP for r in rows[side][:row])
         origin = {
             "south": (start, corridor_size[1] + depth),
@@ -143,7 +146,7 @@ def plan(root_str, corridor_label, floor, rooms):
             "east": (corridor_size[0] + depth, start),
             "west": (-depth - size[0], start),
         }[side]
-        placements.append(Placement(label, room_floor, crop, origin))
+        placements.append(Placement(label, room_floor, crop, origin, anchor, arrival))
         connectors.append((here, (origin[0] + there[0], origin[1] + there[1])))
 
     return _normalize(placements, connectors)
@@ -197,6 +200,41 @@ def _bounds(place):
             place.origin[1] + (place.cells[3] - place.cells[1]) * CELL - 1)
 
 
+def numbered_order(root_str, deck):
+    """A deck's placements in the order its pins are numbered: the corridor, then the rooms in the
+    order they are cleared.
+
+    That is the order you walk past their doors, or right to left for a deck swept that way (see
+    paths.RIGHT_TO_LEFT). The layout is settled separately and must not move, because rooms are
+    packed into rows by the order they are staged and a reshuffle would redraw the picture. This
+    only decides who counts first, so a cabin two doors along the corridor letters after the one
+    nearest the stairs however the map file lists the doorways."""
+    corridor, rooms = deck.placements[0], deck.placements[1:]
+    sweep = paths.sweep_key(corridor.label)
+    if sweep:
+        return [corridor] + sorted(rooms, key=lambda place: sweep(place.door))
+    return [corridor] + sorted(
+        rooms, key=lambda place: paths.walk_rank(root_str, corridor.label, place.door))
+
+
+def room_order(root_str, corridor_label, place):
+    """How one placement's own pins are ordered, or None to leave them as the map file lists them.
+
+    Two trainers sharing one cabin have to come out the way the floor is cleared, and the corridor's
+    walk says nothing about which of them you reach first. A swept deck sweeps inside its rooms the
+    same way it sweeps across them; a walked one measures from the room's own doorway, so a cabin
+    you enter from the foot of the beds hands you the sailor by the door before the one behind him.
+    The corridor itself is walked like any other floor."""
+    sweep = paths.sweep_key(corridor_label)
+    if sweep:
+        return lambda entries: sorted(entries, key=lambda entry: sweep(entry["grid"]))
+    if place.arrival is None:
+        return None
+    distance = paths.reach(root_str, place.label, place.arrival)
+    return lambda entries: sorted(entries, key=lambda entry: paths.distance_to(distance,
+                                                                              entry["grid"]))
+
+
 def deck_markers(root_str, deck):
     """Every marker on a deck, measured on the composite and numbered once across the whole thing.
 
@@ -206,14 +244,17 @@ def deck_markers(root_str, deck):
     corridor = deck.placements[0]
     home = sources.parse_headers(root_str)[corridor.label][0]
     out = []
-    for place in deck.placements:
+    for place in numbered_order(root_str, deck):
         const = sources.parse_headers(root_str)[place.label][0]
         frame = markers.Frame(deck.width, deck.height, place.cells, place.origin)
         entries = markers.build_markers(root_str, place.label, const, deck.width, deck.height,
                                         frame=frame, keyed=False)
         if place is not corridor:
             entries = [e for e in entries if not (e["cat"] == "exit" and e["ref"] == home)]
-        out += entries
+        elif not paths.sweep_key(corridor.label):
+            entries = paths.walked_markers(root_str, corridor.label, entries)
+        order = room_order(root_str, corridor.label, place)
+        out += paths.sort_markers(entries, order) if order else entries
 
     ids = [entry["id"] for entry in out]
     if len(set(ids)) != len(ids):
@@ -251,7 +292,9 @@ def area_markers(root_str, label, floor, width_px, height_px):
     rooms = locations.attached(label)
     if not rooms:
         const = sources.parse_headers(root_str)[label][0]
-        return markers.build_markers(root_str, label, const, width_px, height_px)
+        pins = markers.build_markers(root_str, label, const, width_px, height_px, keyed=False)
+        pins = markers.assign_keys(paths.walked_markers(root_str, label, pins))
+        return markers.assign_label_lanes(pins, width_px, height_px)
     return deck_markers(root_str, plan(root_str, label, floor, rooms))
 
 

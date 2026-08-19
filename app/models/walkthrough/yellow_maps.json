@@ -272,24 +272,9 @@
         "name": "celadon-city-gym",
         "markers": [
           {
-            "id": "trainer-4-3",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 45.0,
-            "y": 19.444,
-            "grid": [
-              4,
-              3
-            ],
-            "align": "r",
-            "name": "Erika",
-            "ref": "ERIKA:1",
-            "lane": 1
-          },
-          {
             "id": "trainer-2-11",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 25.0,
             "y": 63.889,
             "grid": [
@@ -304,7 +289,7 @@
           {
             "id": "trainer-7-10",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 75.0,
             "y": 58.333,
             "grid": [
@@ -314,6 +299,21 @@
             "align": "l",
             "name": "Beauty",
             "ref": "BEAUTY:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-1-5",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 15.0,
+            "y": 30.556,
+            "grid": [
+              1,
+              5
+            ],
+            "align": "r",
+            "name": "Beauty",
+            "ref": "BEAUTY:2",
             "lane": 0
           },
           {
@@ -332,19 +332,19 @@
             "lane": 1
           },
           {
-            "id": "trainer-1-5",
+            "id": "trainer-4-3",
             "cat": "trainer",
             "key": "T5",
-            "x": 15.0,
-            "y": 30.556,
+            "x": 45.0,
+            "y": 19.444,
             "grid": [
-              1,
-              5
+              4,
+              3
             ],
             "align": "r",
-            "name": "Beauty",
-            "ref": "BEAUTY:2",
-            "lane": 0
+            "name": "Erika",
+            "ref": "ERIKA:1",
+            "lane": 1
           },
           {
             "id": "trainer-6-3",
@@ -435,24 +435,9 @@
             "lane": 0
           },
           {
-            "id": "item-7-11",
-            "cat": "item",
-            "key": "I2",
-            "x": 25.0,
-            "y": 63.889,
-            "grid": [
-              7,
-              11
-            ],
-            "align": "r",
-            "name": "Max Elixir",
-            "ref": "MAX_ELIXER",
-            "lane": 1
-          },
-          {
             "id": "item-29-9",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 98.333,
             "y": 52.778,
             "grid": [
@@ -467,7 +452,7 @@
           {
             "id": "item-18-3",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 61.667,
             "y": 19.444,
             "grid": [
@@ -478,6 +463,21 @@
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
             "lane": 0
+          },
+          {
+            "id": "item-7-11",
+            "cat": "item",
+            "key": "I4",
+            "x": 25.0,
+            "y": 63.889,
+            "grid": [
+              7,
+              11
+            ],
+            "align": "r",
+            "name": "Max Elixir",
+            "ref": "MAX_ELIXER",
+            "lane": 1
           },
           {
             "id": "hidden-18-7",
@@ -826,39 +826,9 @@
         "name": "cerulean-cave-b1f",
         "markers": [
           {
-            "id": "item-27-13",
-            "cat": "item",
-            "key": "I1",
-            "x": 91.667,
-            "y": 75.0,
-            "grid": [
-              27,
-              13
-            ],
-            "align": "l",
-            "name": "Mewtwo, 70",
-            "ref": "MEWTWO, 70",
-            "lane": 0
-          },
-          {
-            "id": "item-26-1",
-            "cat": "item",
-            "key": "I2",
-            "x": 88.333,
-            "y": 8.333,
-            "grid": [
-              26,
-              1
-            ],
-            "align": "l",
-            "name": "Ultra Ball",
-            "ref": "ULTRA_BALL",
-            "lane": 0
-          },
-          {
             "id": "item-2-13",
             "cat": "item",
-            "key": "I3",
+            "key": "I1",
             "x": 8.333,
             "y": 75.0,
             "grid": [
@@ -873,7 +843,7 @@
           {
             "id": "item-3-13",
             "cat": "item",
-            "key": "I4",
+            "key": "I2",
             "x": 11.667,
             "y": 75.0,
             "grid": [
@@ -888,7 +858,7 @@
           {
             "id": "item-15-3",
             "cat": "item",
-            "key": "I5",
+            "key": "I3",
             "x": 51.667,
             "y": 19.444,
             "grid": [
@@ -898,6 +868,36 @@
             "align": "r",
             "name": "Max Elixir",
             "ref": "MAX_ELIXER",
+            "lane": 0
+          },
+          {
+            "id": "item-26-1",
+            "cat": "item",
+            "key": "I4",
+            "x": 88.333,
+            "y": 8.333,
+            "grid": [
+              26,
+              1
+            ],
+            "align": "l",
+            "name": "Ultra Ball",
+            "ref": "ULTRA_BALL",
+            "lane": 0
+          },
+          {
+            "id": "item-27-13",
+            "cat": "item",
+            "key": "I5",
+            "x": 91.667,
+            "y": 75.0,
+            "grid": [
+              27,
+              13
+            ],
+            "align": "l",
+            "name": "Mewtwo, 70",
+            "ref": "MEWTWO, 70",
             "lane": 0
           },
           {
@@ -1221,18 +1221,18 @@
         "name": "cerulean-city-gym",
         "markers": [
           {
-            "id": "trainer-4-2",
+            "id": "trainer-8-7",
             "cat": "trainer",
             "key": "T1",
-            "x": 45.0,
-            "y": 17.857,
+            "x": 85.0,
+            "y": 53.571,
             "grid": [
-              4,
-              2
+              8,
+              7
             ],
-            "align": "r",
-            "name": "Misty",
-            "ref": "MISTY:1",
+            "align": "l",
+            "name": "Swimmer",
+            "ref": "SWIMMER:1",
             "lane": 0
           },
           {
@@ -1251,18 +1251,18 @@
             "lane": 1
           },
           {
-            "id": "trainer-8-7",
+            "id": "trainer-4-2",
             "cat": "trainer",
             "key": "T3",
-            "x": 85.0,
-            "y": 53.571,
+            "x": 45.0,
+            "y": 17.857,
             "grid": [
-              8,
-              7
+              4,
+              2
             ],
-            "align": "l",
-            "name": "Swimmer",
-            "ref": "SWIMMER:1",
+            "align": "r",
+            "name": "Misty",
+            "ref": "MISTY:1",
             "lane": 0
           },
           {
@@ -1422,18 +1422,18 @@
         "name": "cinnabar-island-gym",
         "markers": [
           {
-            "id": "trainer-3-3",
+            "id": "trainer-17-8",
             "cat": "trainer",
             "key": "T1",
-            "x": 17.5,
-            "y": 19.444,
+            "x": 87.5,
+            "y": 47.222,
             "grid": [
-              3,
-              3
+              17,
+              8
             ],
-            "align": "r",
-            "name": "Blaine",
-            "ref": "BLAINE:1",
+            "align": "l",
+            "name": "Burglar",
+            "ref": "BURGLAR:4",
             "lane": 1
           },
           {
@@ -1452,24 +1452,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-17-8",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 87.5,
-            "y": 47.222,
-            "grid": [
-              17,
-              8
-            ],
-            "align": "l",
-            "name": "Burglar",
-            "ref": "BURGLAR:4",
-            "lane": 1
-          },
-          {
             "id": "trainer-11-4",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 57.5,
             "y": 25.0,
             "grid": [
@@ -1484,7 +1469,7 @@
           {
             "id": "trainer-11-8",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T4",
             "x": 57.5,
             "y": 47.222,
             "grid": [
@@ -1499,7 +1484,7 @@
           {
             "id": "trainer-11-14",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T5",
             "x": 57.5,
             "y": 80.556,
             "grid": [
@@ -1514,7 +1499,7 @@
           {
             "id": "trainer-3-14",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T6",
             "x": 17.5,
             "y": 80.556,
             "grid": [
@@ -1529,7 +1514,7 @@
           {
             "id": "trainer-3-8",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T7",
             "x": 17.5,
             "y": 47.222,
             "grid": [
@@ -1540,6 +1525,21 @@
             "name": "Super Nerd",
             "ref": "SUPER_NERD:12",
             "lane": 0
+          },
+          {
+            "id": "trainer-3-3",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 17.5,
+            "y": 19.444,
+            "grid": [
+              3,
+              3
+            ],
+            "align": "r",
+            "name": "Blaine",
+            "ref": "BLAINE:1",
+            "lane": 1
           },
           {
             "id": "exit-16-17",
@@ -1828,24 +1828,9 @@
         "name": "fuchsia-city-gym",
         "markers": [
           {
-            "id": "trainer-4-10",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 45.0,
-            "y": 58.333,
-            "grid": [
-              4,
-              10
-            ],
-            "align": "r",
-            "name": "Koga",
-            "ref": "KOGA:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-8-13",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 85.0,
             "y": 75.0,
             "grid": [
@@ -1856,6 +1841,21 @@
             "name": "Juggler",
             "ref": "JUGGLER:7",
             "lane": 1
+          },
+          {
+            "id": "trainer-1-12",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 15.0,
+            "y": 69.444,
+            "grid": [
+              1,
+              12
+            ],
+            "align": "r",
+            "name": "Juggler",
+            "ref": "JUGGLER:8",
+            "lane": 0
           },
           {
             "id": "trainer-7-8",
@@ -1873,39 +1873,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-1-12",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 15.0,
-            "y": 69.444,
-            "grid": [
-              1,
-              12
-            ],
-            "align": "r",
-            "name": "Juggler",
-            "ref": "JUGGLER:8",
-            "lane": 0
-          },
-          {
-            "id": "trainer-3-5",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 35.0,
-            "y": 30.556,
-            "grid": [
-              3,
-              5
-            ],
-            "align": "r",
-            "name": "Tamer",
-            "ref": "TAMER:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-8-2",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T4",
             "x": 85.0,
             "y": 13.889,
             "grid": [
@@ -1920,7 +1890,7 @@
           {
             "id": "trainer-2-7",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T5",
             "x": 25.0,
             "y": 41.667,
             "grid": [
@@ -1930,6 +1900,36 @@
             "align": "r",
             "name": "Juggler",
             "ref": "JUGGLER:4",
+            "lane": 0
+          },
+          {
+            "id": "trainer-3-5",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 35.0,
+            "y": 30.556,
+            "grid": [
+              3,
+              5
+            ],
+            "align": "r",
+            "name": "Tamer",
+            "ref": "TAMER:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-4-10",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 45.0,
+            "y": 58.333,
+            "grid": [
+              4,
+              10
+            ],
+            "align": "r",
+            "name": "Koga",
+            "ref": "KOGA:1",
             "lane": 0
           },
           {
@@ -2170,69 +2170,9 @@
         "name": "mt-moon-1f",
         "markers": [
           {
-            "id": "trainer-5-6",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 13.75,
-            "y": 18.056,
-            "grid": [
-              5,
-              6
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:1",
-            "lane": 1
-          },
-          {
-            "id": "trainer-12-16",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 31.25,
-            "y": 45.833,
-            "grid": [
-              12,
-              16
-            ],
-            "align": "r",
-            "name": "Youngster",
-            "ref": "YOUNGSTER:3",
-            "lane": 1
-          },
-          {
-            "id": "trainer-30-4",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 76.25,
-            "y": 12.5,
-            "grid": [
-              30,
-              4
-            ],
-            "align": "l",
-            "name": "Lass",
-            "ref": "LASS:5",
-            "lane": 0
-          },
-          {
-            "id": "trainer-24-31",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 61.25,
-            "y": 87.5,
-            "grid": [
-              24,
-              31
-            ],
-            "align": "r",
-            "name": "Super Nerd",
-            "ref": "SUPER_NERD:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-16-23",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T1",
             "x": 41.25,
             "y": 65.278,
             "grid": [
@@ -2247,7 +2187,7 @@
           {
             "id": "trainer-7-22",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T2",
             "x": 18.75,
             "y": 62.5,
             "grid": [
@@ -2260,9 +2200,24 @@
             "lane": 0
           },
           {
+            "id": "trainer-24-31",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 61.25,
+            "y": 87.5,
+            "grid": [
+              24,
+              31
+            ],
+            "align": "r",
+            "name": "Super Nerd",
+            "ref": "SUPER_NERD:1",
+            "lane": 0
+          },
+          {
             "id": "trainer-30-27",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T4",
             "x": 76.25,
             "y": 76.389,
             "grid": [
@@ -2275,9 +2230,69 @@
             "lane": 0
           },
           {
-            "id": "item-2-20",
+            "id": "trainer-30-4",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 76.25,
+            "y": 12.5,
+            "grid": [
+              30,
+              4
+            ],
+            "align": "l",
+            "name": "Lass",
+            "ref": "LASS:5",
+            "lane": 0
+          },
+          {
+            "id": "trainer-12-16",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 31.25,
+            "y": 45.833,
+            "grid": [
+              12,
+              16
+            ],
+            "align": "r",
+            "name": "Youngster",
+            "ref": "YOUNGSTER:3",
+            "lane": 1
+          },
+          {
+            "id": "trainer-5-6",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 13.75,
+            "y": 18.056,
+            "grid": [
+              5,
+              6
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:1",
+            "lane": 1
+          },
+          {
+            "id": "item-5-32",
             "cat": "item",
             "key": "I1",
+            "x": 13.75,
+            "y": 90.278,
+            "grid": [
+              5,
+              32
+            ],
+            "align": "r",
+            "name": "TM Water Gun",
+            "ref": "TM_WATER_GUN",
+            "lane": 0
+          },
+          {
+            "id": "item-2-20",
+            "cat": "item",
+            "key": "I2",
             "x": 6.25,
             "y": 56.944,
             "grid": [
@@ -2290,24 +2305,24 @@
             "lane": 0
           },
           {
-            "id": "item-2-2",
+            "id": "item-20-33",
             "cat": "item",
-            "key": "I2",
-            "x": 6.25,
-            "y": 6.944,
+            "key": "I3",
+            "x": 51.25,
+            "y": 93.056,
             "grid": [
-              2,
-              2
+              20,
+              33
             ],
             "align": "r",
-            "name": "Moon Stone",
-            "ref": "MOON_STONE",
+            "name": "Potion",
+            "ref": "POTION",
             "lane": 0
           },
           {
             "id": "item-35-31",
             "cat": "item",
-            "key": "I3",
+            "key": "I4",
             "x": 88.75,
             "y": 87.5,
             "grid": [
@@ -2322,7 +2337,7 @@
           {
             "id": "item-36-23",
             "cat": "item",
-            "key": "I4",
+            "key": "I5",
             "x": 91.25,
             "y": 65.278,
             "grid": [
@@ -2335,33 +2350,18 @@
             "lane": 0
           },
           {
-            "id": "item-20-33",
-            "cat": "item",
-            "key": "I5",
-            "x": 51.25,
-            "y": 93.056,
-            "grid": [
-              20,
-              33
-            ],
-            "align": "r",
-            "name": "Potion",
-            "ref": "POTION",
-            "lane": 0
-          },
-          {
-            "id": "item-5-32",
+            "id": "item-2-2",
             "cat": "item",
             "key": "I6",
-            "x": 13.75,
-            "y": 90.278,
+            "x": 6.25,
+            "y": 6.944,
             "grid": [
-              5,
-              32
+              2,
+              2
             ],
             "align": "r",
-            "name": "TM Water Gun",
-            "ref": "TM_WATER_GUN",
+            "name": "Moon Stone",
+            "ref": "MOON_STONE",
             "lane": 0
           },
           {
@@ -2587,24 +2587,9 @@
         "name": "mt-moon-b2f",
         "markers": [
           {
-            "id": "trainer-12-8",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 31.25,
-            "y": 23.611,
-            "grid": [
-              12,
-              8
-            ],
-            "align": "r",
-            "name": "Super Nerd",
-            "ref": "SUPER_NERD:2",
-            "lane": 1
-          },
-          {
             "id": "trainer-15-22",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 38.75,
             "y": 62.5,
             "grid": [
@@ -2619,7 +2604,7 @@
           {
             "id": "trainer-29-11",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 73.75,
             "y": 31.944,
             "grid": [
@@ -2634,7 +2619,7 @@
           {
             "id": "trainer-29-17",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 73.75,
             "y": 48.611,
             "grid": [
@@ -2644,6 +2629,21 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:1",
+            "lane": 1
+          },
+          {
+            "id": "trainer-12-8",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 31.25,
+            "y": 23.611,
+            "grid": [
+              12,
+              8
+            ],
+            "align": "r",
+            "name": "Super Nerd",
+            "ref": "SUPER_NERD:2",
             "lane": 1
           },
           {
@@ -2677,24 +2677,9 @@
             "lane": 0
           },
           {
-            "id": "hidden-18-12",
-            "cat": "hidden",
-            "key": "H1",
-            "x": 46.25,
-            "y": 34.722,
-            "grid": [
-              18,
-              12
-            ],
-            "align": "r",
-            "name": "Moon Stone",
-            "ref": "MOON_STONE",
-            "lane": 1
-          },
-          {
             "id": "hidden-33-9",
             "cat": "hidden",
-            "key": "H2",
+            "key": "H1",
             "x": 83.75,
             "y": 26.389,
             "grid": [
@@ -2705,6 +2690,21 @@
             "name": "Ether",
             "ref": "ETHER",
             "lane": 0
+          },
+          {
+            "id": "hidden-18-12",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 46.25,
+            "y": 34.722,
+            "grid": [
+              18,
+              12
+            ],
+            "align": "r",
+            "name": "Moon Stone",
+            "ref": "MOON_STONE",
+            "lane": 1
           },
           {
             "id": "exit-25-9",
@@ -3044,24 +3044,9 @@
         "name": "pewter-city-gym",
         "markers": [
           {
-            "id": "trainer-4-1",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 45.0,
-            "y": 10.714,
-            "grid": [
-              4,
-              1
-            ],
-            "align": "r",
-            "name": "Brock",
-            "ref": "BROCK:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-3-6",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 35.0,
             "y": 46.429,
             "grid": [
@@ -3071,6 +3056,21 @@
             "align": "r",
             "name": "Jr.Trainer\u2642",
             "ref": "JR_TRAINER_M:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-4-1",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 45.0,
+            "y": 10.714,
+            "grid": [
+              4,
+              1
+            ],
+            "align": "r",
+            "name": "Brock",
+            "ref": "BROCK:1",
             "lane": 0
           },
           {
@@ -3117,24 +3117,9 @@
             "lane": 0
           },
           {
-            "id": "item-14-3",
-            "cat": "item",
-            "key": "I1",
-            "x": 48.333,
-            "y": 12.5,
-            "grid": [
-              14,
-              3
-            ],
-            "align": "r",
-            "name": "Escape Rope",
-            "ref": "ESCAPE_ROPE",
-            "lane": 0
-          },
-          {
             "id": "item-18-21",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 61.667,
             "y": 76.786,
             "grid": [
@@ -3144,6 +3129,21 @@
             "align": "r",
             "name": "Carbos",
             "ref": "CARBOS",
+            "lane": 0
+          },
+          {
+            "id": "item-14-3",
+            "cat": "item",
+            "key": "I2",
+            "x": 48.333,
+            "y": 12.5,
+            "grid": [
+              14,
+              3
+            ],
+            "align": "r",
+            "name": "Escape Rope",
+            "ref": "ESCAPE_ROPE",
             "lane": 0
           },
           {
@@ -3376,24 +3376,9 @@
             "lane": 2
           },
           {
-            "id": "item-1-16",
-            "cat": "item",
-            "key": "I1",
-            "x": 5.0,
-            "y": 91.667,
-            "grid": [
-              1,
-              16
-            ],
-            "align": "r",
-            "name": "Max Potion",
-            "ref": "MAX_POTION",
-            "lane": 0
-          },
-          {
             "id": "item-25-5",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 85.0,
             "y": 30.556,
             "grid": [
@@ -3403,6 +3388,21 @@
             "align": "l",
             "name": "Iron",
             "ref": "IRON",
+            "lane": 0
+          },
+          {
+            "id": "item-1-16",
+            "cat": "item",
+            "key": "I2",
+            "x": 5.0,
+            "y": 91.667,
+            "grid": [
+              1,
+              16
+            ],
+            "align": "r",
+            "name": "Max Potion",
+            "ref": "MAX_POTION",
             "lane": 0
           },
           {
@@ -3481,24 +3481,9 @@
         "name": "pokemon-mansion-b1f",
         "markers": [
           {
-            "id": "trainer-16-23",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 55.0,
-            "y": 83.929,
-            "grid": [
-              16,
-              23
-            ],
-            "align": "r",
-            "name": "Burglar",
-            "ref": "BURGLAR:9",
-            "lane": 0
-          },
-          {
             "id": "trainer-27-11",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 91.667,
             "y": 41.071,
             "grid": [
@@ -3511,18 +3496,33 @@
             "lane": 0
           },
           {
-            "id": "item-10-2",
-            "cat": "item",
-            "key": "I1",
-            "x": 35.0,
-            "y": 8.929,
+            "id": "trainer-16-23",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 55.0,
+            "y": 83.929,
             "grid": [
-              10,
-              2
+              16,
+              23
             ],
             "align": "r",
-            "name": "Rare Candy",
-            "ref": "RARE_CANDY",
+            "name": "Burglar",
+            "ref": "BURGLAR:9",
+            "lane": 0
+          },
+          {
+            "id": "item-19-25",
+            "cat": "item",
+            "key": "I1",
+            "x": 65.0,
+            "y": 91.071,
+            "grid": [
+              19,
+              25
+            ],
+            "align": "l",
+            "name": "TM Blizzard",
+            "ref": "TM_BLIZZARD",
             "lane": 0
           },
           {
@@ -3541,18 +3541,18 @@
             "lane": 0
           },
           {
-            "id": "item-19-25",
+            "id": "item-5-13",
             "cat": "item",
             "key": "I3",
-            "x": 65.0,
-            "y": 91.071,
+            "x": 18.333,
+            "y": 48.214,
             "grid": [
-              19,
-              25
+              5,
+              13
             ],
-            "align": "l",
-            "name": "TM Blizzard",
-            "ref": "TM_BLIZZARD",
+            "align": "r",
+            "name": "Secret Key",
+            "ref": "SECRET_KEY",
             "lane": 0
           },
           {
@@ -3571,18 +3571,18 @@
             "lane": 0
           },
           {
-            "id": "item-5-13",
+            "id": "item-10-2",
             "cat": "item",
             "key": "I5",
-            "x": 18.333,
-            "y": 48.214,
+            "x": 35.0,
+            "y": 8.929,
             "grid": [
-              5,
-              13
+              10,
+              2
             ],
             "align": "r",
-            "name": "Secret Key",
-            "ref": "SECRET_KEY",
+            "name": "Rare Candy",
+            "ref": "RARE_CANDY",
             "lane": 0
           },
           {
@@ -3715,9 +3715,24 @@
         "name": "pokemon-tower-3f",
         "markers": [
           {
-            "id": "trainer-12-3",
+            "id": "trainer-10-13",
             "cat": "trainer",
             "key": "T1",
+            "x": 52.5,
+            "y": 75.0,
+            "grid": [
+              10,
+              13
+            ],
+            "align": "r",
+            "name": "Channeler",
+            "ref": "CHANNELER:8",
+            "lane": 0
+          },
+          {
+            "id": "trainer-12-3",
+            "cat": "trainer",
+            "key": "T2",
             "x": 62.5,
             "y": 19.444,
             "grid": [
@@ -3732,7 +3747,7 @@
           {
             "id": "trainer-9-8",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 47.5,
             "y": 47.222,
             "grid": [
@@ -3742,21 +3757,6 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:6",
-            "lane": 0
-          },
-          {
-            "id": "trainer-10-13",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 52.5,
-            "y": 75.0,
-            "grid": [
-              10,
-              13
-            ],
-            "align": "r",
-            "name": "Channeler",
-            "ref": "CHANNELER:8",
             "lane": 0
           },
           {
@@ -3818,24 +3818,9 @@
         "name": "pokemon-tower-4f",
         "markers": [
           {
-            "id": "trainer-5-10",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 27.5,
-            "y": 58.333,
-            "grid": [
-              5,
-              10
-            ],
-            "align": "r",
-            "name": "Channeler",
-            "ref": "CHANNELER:9",
-            "lane": 2
-          },
-          {
             "id": "trainer-15-7",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 77.5,
             "y": 41.667,
             "grid": [
@@ -3850,7 +3835,7 @@
           {
             "id": "trainer-14-12",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 72.5,
             "y": 69.444,
             "grid": [
@@ -3861,6 +3846,21 @@
             "name": "Channeler",
             "ref": "CHANNELER:12",
             "lane": 0
+          },
+          {
+            "id": "trainer-5-10",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 27.5,
+            "y": 58.333,
+            "grid": [
+              5,
+              10
+            ],
+            "align": "r",
+            "name": "Channeler",
+            "ref": "CHANNELER:9",
+            "lane": 2
           },
           {
             "id": "item-12-10",
@@ -3878,24 +3878,9 @@
             "lane": 4
           },
           {
-            "id": "item-9-10",
-            "cat": "item",
-            "key": "I2",
-            "x": 47.5,
-            "y": 58.333,
-            "grid": [
-              9,
-              10
-            ],
-            "align": "r",
-            "name": "Awakening",
-            "ref": "AWAKENING",
-            "lane": 3
-          },
-          {
             "id": "item-12-16",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 62.5,
             "y": 91.667,
             "grid": [
@@ -3906,6 +3891,21 @@
             "name": "HP Up",
             "ref": "HP_UP",
             "lane": 0
+          },
+          {
+            "id": "item-9-10",
+            "cat": "item",
+            "key": "I3",
+            "x": 47.5,
+            "y": 58.333,
+            "grid": [
+              9,
+              10
+            ],
+            "align": "r",
+            "name": "Awakening",
+            "ref": "AWAKENING",
+            "lane": 3
           },
           {
             "id": "exit-3-9",
@@ -3951,24 +3951,9 @@
         "name": "pokemon-tower-5f",
         "markers": [
           {
-            "id": "trainer-17-7",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 87.5,
-            "y": 41.667,
-            "grid": [
-              17,
-              7
-            ],
-            "align": "l",
-            "name": "Channeler",
-            "ref": "CHANNELER:14",
-            "lane": 0
-          },
-          {
             "id": "trainer-14-3",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 72.5,
             "y": 19.444,
             "grid": [
@@ -3978,6 +3963,21 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:16",
+            "lane": 0
+          },
+          {
+            "id": "trainer-17-7",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 87.5,
+            "y": 41.667,
+            "grid": [
+              17,
+              7
+            ],
+            "align": "l",
+            "name": "Channeler",
+            "ref": "CHANNELER:14",
             "lane": 0
           },
           {
@@ -4099,24 +4099,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-9-5",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 47.5,
-            "y": 30.556,
-            "grid": [
-              9,
-              5
-            ],
-            "align": "r",
-            "name": "Channeler",
-            "ref": "CHANNELER:20",
-            "lane": 0
-          },
-          {
             "id": "trainer-16-5",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 82.5,
             "y": 30.556,
             "grid": [
@@ -4127,6 +4112,21 @@
             "name": "Channeler",
             "ref": "CHANNELER:21",
             "lane": 1
+          },
+          {
+            "id": "trainer-9-5",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 47.5,
+            "y": 30.556,
+            "grid": [
+              9,
+              5
+            ],
+            "align": "r",
+            "name": "Channeler",
+            "ref": "CHANNELER:20",
+            "lane": 0
           },
           {
             "id": "item-6-8",
@@ -4230,9 +4230,24 @@
         "name": "power-plant",
         "markers": [
           {
-            "id": "item-9-20",
+            "id": "item-7-25",
             "cat": "item",
             "key": "I1",
+            "x": 18.75,
+            "y": 70.833,
+            "grid": [
+              7,
+              25
+            ],
+            "align": "r",
+            "name": "Carbos",
+            "ref": "CARBOS",
+            "lane": 0
+          },
+          {
+            "id": "item-9-20",
+            "cat": "item",
+            "key": "I2",
             "x": 23.75,
             "y": 56.944,
             "grid": [
@@ -4243,21 +4258,6 @@
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
             "lane": 0
-          },
-          {
-            "id": "item-32-18",
-            "cat": "item",
-            "key": "I2",
-            "x": 81.25,
-            "y": 51.389,
-            "grid": [
-              32,
-              18
-            ],
-            "align": "l",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 1
           },
           {
             "id": "item-21-25",
@@ -4275,39 +4275,24 @@
             "lane": 0
           },
           {
-            "id": "item-25-18",
+            "id": "item-32-18",
             "cat": "item",
             "key": "I4",
-            "x": 63.75,
+            "x": 81.25,
             "y": 51.389,
             "grid": [
-              25,
+              32,
               18
             ],
             "align": "l",
-            "name": "Electrode, 43",
-            "ref": "ELECTRODE, 43",
-            "lane": 0
-          },
-          {
-            "id": "item-23-34",
-            "cat": "item",
-            "key": "I5",
-            "x": 58.75,
-            "y": 95.833,
-            "grid": [
-              23,
-              34
-            ],
-            "align": "r",
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-26-28",
             "cat": "item",
-            "key": "I6",
+            "key": "I5",
             "x": 66.25,
             "y": 79.167,
             "grid": [
@@ -4320,24 +4305,69 @@
             "lane": 0
           },
           {
-            "id": "item-21-14",
+            "id": "item-20-32",
             "cat": "item",
-            "key": "I7",
-            "x": 53.75,
-            "y": 40.278,
+            "key": "I6",
+            "x": 51.25,
+            "y": 90.278,
             "grid": [
-              21,
-              14
+              20,
+              32
             ],
             "align": "r",
+            "name": "TM Reflect",
+            "ref": "TM_REFLECT",
+            "lane": 0
+          },
+          {
+            "id": "item-23-34",
+            "cat": "item",
+            "key": "I7",
+            "x": 58.75,
+            "y": 95.833,
+            "grid": [
+              23,
+              34
+            ],
+            "align": "r",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 0
+          },
+          {
+            "id": "item-25-18",
+            "cat": "item",
+            "key": "I8",
+            "x": 63.75,
+            "y": 51.389,
+            "grid": [
+              25,
+              18
+            ],
+            "align": "l",
             "name": "Electrode, 43",
             "ref": "ELECTRODE, 43",
             "lane": 0
           },
           {
+            "id": "item-26-32",
+            "cat": "item",
+            "key": "I9",
+            "x": 66.25,
+            "y": 90.278,
+            "grid": [
+              26,
+              32
+            ],
+            "align": "l",
+            "name": "TM Thunder",
+            "ref": "TM_THUNDER",
+            "lane": 1
+          },
+          {
             "id": "item-37-32",
             "cat": "item",
-            "key": "I8",
+            "key": "I10",
             "x": 93.75,
             "y": 90.278,
             "grid": [
@@ -4348,36 +4378,6 @@
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
             "lane": 1
-          },
-          {
-            "id": "item-4-9",
-            "cat": "item",
-            "key": "I9",
-            "x": 11.25,
-            "y": 26.389,
-            "grid": [
-              4,
-              9
-            ],
-            "align": "r",
-            "name": "Zapdos, 50",
-            "ref": "ZAPDOS, 50",
-            "lane": 0
-          },
-          {
-            "id": "item-7-25",
-            "cat": "item",
-            "key": "I10",
-            "x": 18.75,
-            "y": 70.833,
-            "grid": [
-              7,
-              25
-            ],
-            "align": "r",
-            "name": "Carbos",
-            "ref": "CARBOS",
-            "lane": 0
           },
           {
             "id": "item-28-3",
@@ -4410,33 +4410,33 @@
             "lane": 1
           },
           {
-            "id": "item-26-32",
+            "id": "item-21-14",
             "cat": "item",
             "key": "I13",
-            "x": 66.25,
-            "y": 90.278,
+            "x": 53.75,
+            "y": 40.278,
             "grid": [
-              26,
-              32
-            ],
-            "align": "l",
-            "name": "TM Thunder",
-            "ref": "TM_THUNDER",
-            "lane": 1
-          },
-          {
-            "id": "item-20-32",
-            "cat": "item",
-            "key": "I14",
-            "x": 51.25,
-            "y": 90.278,
-            "grid": [
-              20,
-              32
+              21,
+              14
             ],
             "align": "r",
-            "name": "TM Reflect",
-            "ref": "TM_REFLECT",
+            "name": "Electrode, 43",
+            "ref": "ELECTRODE, 43",
+            "lane": 0
+          },
+          {
+            "id": "item-4-9",
+            "cat": "item",
+            "key": "I14",
+            "x": 11.25,
+            "y": 26.389,
+            "grid": [
+              4,
+              9
+            ],
+            "align": "r",
+            "name": "Zapdos, 50",
+            "ref": "ZAPDOS, 50",
             "lane": 0
           },
           {
@@ -4530,18 +4530,18 @@
             "lane": 0
           },
           {
-            "id": "trainer-5-16",
+            "id": "trainer-23-8",
             "cat": "trainer",
             "key": "T2",
-            "x": 13.75,
-            "y": 45.833,
+            "x": 58.75,
+            "y": 23.611,
             "grid": [
-              5,
-              16
+              23,
+              8
             ],
             "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:13",
+            "name": "Pok\u00e9maniac",
+            "ref": "POKEMANIAC:7",
             "lane": 0
           },
           {
@@ -4560,18 +4560,18 @@
             "lane": 0
           },
           {
-            "id": "trainer-23-8",
+            "id": "trainer-5-16",
             "cat": "trainer",
             "key": "T4",
-            "x": 58.75,
-            "y": 23.611,
+            "x": 13.75,
+            "y": 45.833,
             "grid": [
-              23,
-              8
+              5,
+              16
             ],
             "align": "r",
-            "name": "Pok\u00e9maniac",
-            "ref": "POKEMANIAC:7",
+            "name": "Hiker",
+            "ref": "HIKER:13",
             "lane": 0
           },
           {
@@ -4590,24 +4590,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-22-24",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 56.25,
-            "y": 68.056,
-            "grid": [
-              22,
-              24
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:18",
-            "lane": 0
-          },
-          {
             "id": "trainer-32-24",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T6",
             "x": 81.25,
             "y": 68.056,
             "grid": [
@@ -4618,6 +4603,21 @@
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:19",
             "lane": 1
+          },
+          {
+            "id": "trainer-22-24",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 56.25,
+            "y": 68.056,
+            "grid": [
+              22,
+              24
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:18",
+            "lane": 0
           },
           {
             "id": "exit-15-3",
@@ -4731,54 +4731,24 @@
         "name": "rock-tunnel-b1f",
         "markers": [
           {
-            "id": "trainer-11-13",
+            "id": "trainer-26-30",
             "cat": "trainer",
             "key": "T1",
-            "x": 28.75,
-            "y": 37.5,
+            "x": 66.25,
+            "y": 84.722,
             "grid": [
-              11,
-              13
+              26,
+              30
             ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:9",
-            "lane": 0
-          },
-          {
-            "id": "trainer-6-10",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 16.25,
-            "y": 29.167,
-            "grid": [
-              6,
-              10
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:9",
-            "lane": 0
-          },
-          {
-            "id": "trainer-3-5",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 8.75,
-            "y": 15.278,
-            "grid": [
-              3,
-              5
-            ],
-            "align": "r",
+            "align": "l",
             "name": "Pok\u00e9maniac",
-            "ref": "POKEMANIAC:3",
+            "ref": "POKEMANIAC:5",
             "lane": 0
           },
           {
             "id": "trainer-20-21",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T2",
             "x": 51.25,
             "y": 59.722,
             "grid": [
@@ -4793,7 +4763,7 @@
           {
             "id": "trainer-30-10",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T3",
             "x": 76.25,
             "y": 29.167,
             "grid": [
@@ -4806,24 +4776,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-14-28",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 36.25,
-            "y": 79.167,
-            "grid": [
-              14,
-              28
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:10",
-            "lane": 0
-          },
-          {
             "id": "trainer-33-5",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T4",
             "x": 83.75,
             "y": 15.278,
             "grid": [
@@ -4836,18 +4791,63 @@
             "lane": 0
           },
           {
-            "id": "trainer-26-30",
+            "id": "trainer-14-28",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 36.25,
+            "y": 79.167,
+            "grid": [
+              14,
+              28
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:10",
+            "lane": 0
+          },
+          {
+            "id": "trainer-11-13",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 28.75,
+            "y": 37.5,
+            "grid": [
+              11,
+              13
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:9",
+            "lane": 0
+          },
+          {
+            "id": "trainer-6-10",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 16.25,
+            "y": 29.167,
+            "grid": [
+              6,
+              10
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:9",
+            "lane": 0
+          },
+          {
+            "id": "trainer-3-5",
             "cat": "trainer",
             "key": "T8",
-            "x": 66.25,
-            "y": 84.722,
+            "x": 8.75,
+            "y": 15.278,
             "grid": [
-              26,
-              30
+              3,
+              5
             ],
-            "align": "l",
+            "align": "r",
             "name": "Pok\u00e9maniac",
-            "ref": "POKEMANIAC:5",
+            "ref": "POKEMANIAC:3",
             "lane": 0
           },
           {
@@ -4960,9 +4960,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-18-17",
+            "id": "trainer-28-18",
             "cat": "trainer",
             "key": "T3",
+            "x": 95.0,
+            "y": 66.071,
+            "grid": [
+              28,
+              18
+            ],
+            "align": "l",
+            "name": "Rocket",
+            "ref": "ROCKET:12",
+            "lane": 1
+          },
+          {
+            "id": "trainer-18-17",
+            "cat": "trainer",
+            "key": "T4",
             "x": 61.667,
             "y": 62.5,
             "grid": [
@@ -4977,7 +4992,7 @@
           {
             "id": "trainer-15-25",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T5",
             "x": 51.667,
             "y": 91.071,
             "grid": [
@@ -4987,21 +5002,6 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:11",
-            "lane": 1
-          },
-          {
-            "id": "trainer-28-18",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 95.0,
-            "y": 66.071,
-            "grid": [
-              28,
-              18
-            ],
-            "align": "l",
-            "name": "Rocket",
-            "ref": "ROCKET:12",
             "lane": 1
           },
           {
@@ -5142,24 +5142,9 @@
             "lane": 0
           },
           {
-            "id": "item-1-11",
-            "cat": "item",
-            "key": "I1",
-            "x": 5.0,
-            "y": 41.071,
-            "grid": [
-              1,
-              11
-            ],
-            "align": "r",
-            "name": "Moon Stone",
-            "ref": "MOON_STONE",
-            "lane": 0
-          },
-          {
             "id": "item-16-8",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 55.0,
             "y": 30.357,
             "grid": [
@@ -5174,7 +5159,7 @@
           {
             "id": "item-6-12",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 21.667,
             "y": 44.643,
             "grid": [
@@ -5185,6 +5170,21 @@
             "name": "TM Horn Drill",
             "ref": "TM_HORN_DRILL",
             "lane": 1
+          },
+          {
+            "id": "item-1-11",
+            "cat": "item",
+            "key": "I3",
+            "x": 5.0,
+            "y": 41.071,
+            "grid": [
+              1,
+              11
+            ],
+            "align": "r",
+            "name": "Moon Stone",
+            "ref": "MOON_STONE",
+            "lane": 0
           },
           {
             "id": "item-3-21",
@@ -5279,24 +5279,9 @@
         "name": "rocket-hideout-b3f",
         "markers": [
           {
-            "id": "trainer-10-22",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 35.0,
-            "y": 80.357,
-            "grid": [
-              10,
-              22
-            ],
-            "align": "r",
-            "name": "Rocket",
-            "ref": "ROCKET:14",
-            "lane": 0
-          },
-          {
             "id": "trainer-26-12",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 88.333,
             "y": 44.643,
             "grid": [
@@ -5309,24 +5294,24 @@
             "lane": 0
           },
           {
-            "id": "item-26-17",
-            "cat": "item",
-            "key": "I1",
-            "x": 88.333,
-            "y": 62.5,
+            "id": "trainer-10-22",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 35.0,
+            "y": 80.357,
             "grid": [
-              26,
-              17
+              10,
+              22
             ],
-            "align": "l",
-            "name": "TM Double Edge",
-            "ref": "TM_DOUBLE_EDGE",
+            "align": "r",
+            "name": "Rocket",
+            "ref": "ROCKET:14",
             "lane": 0
           },
           {
             "id": "item-20-14",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 68.333,
             "y": 51.786,
             "grid": [
@@ -5336,6 +5321,21 @@
             "align": "l",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
+            "lane": 0
+          },
+          {
+            "id": "item-26-17",
+            "cat": "item",
+            "key": "I2",
+            "x": 88.333,
+            "y": 62.5,
+            "grid": [
+              26,
+              17
+            ],
+            "align": "l",
+            "name": "TM Double Edge",
+            "ref": "TM_DOUBLE_EDGE",
             "lane": 0
           },
           {
@@ -5397,24 +5397,9 @@
         "name": "rocket-hideout-b4f",
         "markers": [
           {
-            "id": "trainer-25-3",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 85.0,
-            "y": 14.583,
-            "grid": [
-              25,
-              3
-            ],
-            "align": "l",
-            "name": "Giovanni",
-            "ref": "GIOVANNI:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-11-2",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 38.333,
             "y": 10.417,
             "grid": [
@@ -5427,19 +5412,34 @@
             "lane": 2
           },
           {
-            "id": "item-10-12",
+            "id": "trainer-25-3",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 85.0,
+            "y": 14.583,
+            "grid": [
+              25,
+              3
+            ],
+            "align": "l",
+            "name": "Giovanni",
+            "ref": "GIOVANNI:1",
+            "lane": 0
+          },
+          {
+            "id": "item-10-2",
             "cat": "item",
             "key": "I1",
             "x": 35.0,
-            "y": 52.083,
+            "y": 10.417,
             "grid": [
               10,
-              12
+              2
             ],
             "align": "r",
-            "name": "HP Up",
-            "ref": "HP_UP",
-            "lane": 0
+            "name": "Lift Key",
+            "ref": "LIFT_KEY",
+            "lane": 1
           },
           {
             "id": "item-9-4",
@@ -5457,9 +5457,24 @@
             "lane": 1
           },
           {
-            "id": "item-12-20",
+            "id": "item-10-12",
             "cat": "item",
             "key": "I3",
+            "x": 35.0,
+            "y": 52.083,
+            "grid": [
+              10,
+              12
+            ],
+            "align": "r",
+            "name": "HP Up",
+            "ref": "HP_UP",
+            "lane": 0
+          },
+          {
+            "id": "item-12-20",
+            "cat": "item",
+            "key": "I4",
             "x": 41.667,
             "y": 85.417,
             "grid": [
@@ -5474,7 +5489,7 @@
           {
             "id": "item-25-2",
             "cat": "item",
-            "key": "I4",
+            "key": "I5",
             "x": 85.0,
             "y": 10.417,
             "grid": [
@@ -5485,21 +5500,6 @@
             "name": "Silph Scope",
             "ref": "SILPH_SCOPE",
             "lane": 3
-          },
-          {
-            "id": "item-10-2",
-            "cat": "item",
-            "key": "I5",
-            "x": 35.0,
-            "y": 10.417,
-            "grid": [
-              10,
-              2
-            ],
-            "align": "r",
-            "name": "Lift Key",
-            "ref": "LIFT_KEY",
-            "lane": 1
           },
           {
             "id": "hidden-25-1",
@@ -5607,9 +5607,24 @@
         "name": "route-10",
         "markers": [
           {
-            "id": "trainer-10-44",
+            "id": "trainer-7-25",
             "cat": "trainer",
             "key": "T1",
+            "x": 37.5,
+            "y": 35.417,
+            "grid": [
+              7,
+              25
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:7",
+            "lane": 0
+          },
+          {
+            "id": "trainer-10-44",
+            "cat": "trainer",
+            "key": "T2",
             "x": 52.5,
             "y": 61.806,
             "grid": [
@@ -5622,9 +5637,24 @@
             "lane": 0
           },
           {
+            "id": "trainer-7-54",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 37.5,
+            "y": 75.694,
+            "grid": [
+              7,
+              54
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:8",
+            "lane": 2
+          },
+          {
             "id": "trainer-3-57",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T4",
             "x": 17.5,
             "y": 79.861,
             "grid": [
@@ -5634,36 +5664,6 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:7",
-            "lane": 0
-          },
-          {
-            "id": "trainer-14-64",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 72.5,
-            "y": 89.583,
-            "grid": [
-              14,
-              64
-            ],
-            "align": "l",
-            "name": "Pok\u00e9maniac",
-            "ref": "POKEMANIAC:2",
-            "lane": 0
-          },
-          {
-            "id": "trainer-7-25",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 37.5,
-            "y": 35.417,
-            "grid": [
-              7,
-              25
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:7",
             "lane": 0
           },
           {
@@ -5682,19 +5682,19 @@
             "lane": 0
           },
           {
-            "id": "trainer-7-54",
+            "id": "trainer-14-64",
             "cat": "trainer",
             "key": "T6",
-            "x": 37.5,
-            "y": 75.694,
+            "x": 72.5,
+            "y": 89.583,
             "grid": [
-              7,
-              54
+              14,
+              64
             ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:8",
-            "lane": 2
+            "align": "l",
+            "name": "Pok\u00e9maniac",
+            "ref": "POKEMANIAC:2",
+            "lane": 0
           },
           {
             "id": "hidden-9-17",
@@ -5840,39 +5840,9 @@
         "name": "route-11",
         "markers": [
           {
-            "id": "trainer-10-14",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 17.5,
-            "y": 80.556,
-            "grid": [
-              10,
-              14
-            ],
-            "align": "r",
-            "name": "Gambler",
-            "ref": "GAMBLER:1",
-            "lane": 0
-          },
-          {
-            "id": "trainer-26-9",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 44.167,
-            "y": 52.778,
-            "grid": [
-              26,
-              9
-            ],
-            "align": "r",
-            "name": "Gambler",
-            "ref": "GAMBLER:2",
-            "lane": 0
-          },
-          {
             "id": "trainer-13-5",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T1",
             "x": 22.5,
             "y": 30.556,
             "grid": [
@@ -5885,24 +5855,24 @@
             "lane": 1
           },
           {
-            "id": "trainer-36-11",
+            "id": "trainer-10-14",
             "cat": "trainer",
-            "key": "T4",
-            "x": 60.833,
-            "y": 63.889,
+            "key": "T2",
+            "x": 17.5,
+            "y": 80.556,
             "grid": [
-              36,
-              11
+              10,
+              14
             ],
             "align": "r",
-            "name": "Engineer",
-            "ref": "ENGINEER:2",
+            "name": "Gambler",
+            "ref": "GAMBLER:1",
             "lane": 0
           },
           {
             "id": "trainer-22-4",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T3",
             "x": 37.5,
             "y": 25.0,
             "grid": [
@@ -5915,24 +5885,39 @@
             "lane": 0
           },
           {
-            "id": "trainer-45-7",
+            "id": "trainer-22-12",
             "cat": "trainer",
-            "key": "T6",
-            "x": 75.833,
-            "y": 41.667,
+            "key": "T4",
+            "x": 37.5,
+            "y": 69.444,
             "grid": [
-              45,
-              7
+              22,
+              12
             ],
-            "align": "l",
+            "align": "r",
+            "name": "Youngster",
+            "ref": "YOUNGSTER:12",
+            "lane": 0
+          },
+          {
+            "id": "trainer-26-9",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 44.167,
+            "y": 52.778,
+            "grid": [
+              26,
+              9
+            ],
+            "align": "r",
             "name": "Gambler",
-            "ref": "GAMBLER:3",
+            "ref": "GAMBLER:2",
             "lane": 0
           },
           {
             "id": "trainer-33-3",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T6",
             "x": 55.833,
             "y": 19.444,
             "grid": [
@@ -5945,9 +5930,39 @@
             "lane": 0
           },
           {
-            "id": "trainer-43-5",
+            "id": "trainer-36-11",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 60.833,
+            "y": 63.889,
+            "grid": [
+              36,
+              11
+            ],
+            "align": "r",
+            "name": "Engineer",
+            "ref": "ENGINEER:2",
+            "lane": 0
+          },
+          {
+            "id": "trainer-45-7",
             "cat": "trainer",
             "key": "T8",
+            "x": 75.833,
+            "y": 41.667,
+            "grid": [
+              45,
+              7
+            ],
+            "align": "l",
+            "name": "Gambler",
+            "ref": "GAMBLER:3",
+            "lane": 0
+          },
+          {
+            "id": "trainer-43-5",
+            "cat": "trainer",
+            "key": "T9",
             "x": 72.5,
             "y": 30.556,
             "grid": [
@@ -5962,7 +5977,7 @@
           {
             "id": "trainer-45-16",
             "cat": "trainer",
-            "key": "T9",
+            "key": "T10",
             "x": 75.833,
             "y": 91.667,
             "grid": [
@@ -5972,21 +5987,6 @@
             "align": "l",
             "name": "Engineer",
             "ref": "ENGINEER:3",
-            "lane": 0
-          },
-          {
-            "id": "trainer-22-12",
-            "cat": "trainer",
-            "key": "T10",
-            "x": 37.5,
-            "y": 69.444,
-            "grid": [
-              22,
-              12
-            ],
-            "align": "r",
-            "name": "Youngster",
-            "ref": "YOUNGSTER:12",
             "lane": 0
           },
           {
@@ -6364,9 +6364,24 @@
         "name": "route-13",
         "markers": [
           {
-            "id": "trainer-49-10",
+            "id": "trainer-50-5",
             "cat": "trainer",
             "key": "T1",
+            "x": 84.167,
+            "y": 30.556,
+            "grid": [
+              50,
+              5
+            ],
+            "align": "l",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:15",
+            "lane": 0
+          },
+          {
+            "id": "trainer-49-10",
+            "cat": "trainer",
+            "key": "T2",
             "x": 82.5,
             "y": 58.333,
             "grid": [
@@ -6381,7 +6396,7 @@
           {
             "id": "trainer-48-10",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 80.833,
             "y": 58.333,
             "grid": [
@@ -6394,69 +6409,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-27-9",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 45.833,
-            "y": 52.778,
-            "grid": [
-              27,
-              9
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:13",
-            "lane": 0
-          },
-          {
-            "id": "trainer-23-10",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 39.167,
-            "y": 58.333,
-            "grid": [
-              23,
-              10
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:14",
-            "lane": 1
-          },
-          {
-            "id": "trainer-50-5",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 84.167,
-            "y": 30.556,
-            "grid": [
-              50,
-              5
-            ],
-            "align": "l",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:15",
-            "lane": 0
-          },
-          {
-            "id": "trainer-12-4",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 20.833,
-            "y": 25.0,
-            "grid": [
-              12,
-              4
-            ],
-            "align": "r",
-            "name": "Bird Keeper",
-            "ref": "BIRD_KEEPER:2",
-            "lane": 0
-          },
-          {
             "id": "trainer-33-6",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T4",
             "x": 55.833,
             "y": 36.111,
             "grid": [
@@ -6471,7 +6426,7 @@
           {
             "id": "trainer-32-6",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T5",
             "x": 54.167,
             "y": 36.111,
             "grid": [
@@ -6481,6 +6436,51 @@
             "align": "r",
             "name": "Beauty",
             "ref": "BEAUTY:5",
+            "lane": 0
+          },
+          {
+            "id": "trainer-27-9",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 45.833,
+            "y": 52.778,
+            "grid": [
+              27,
+              9
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-23-10",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 39.167,
+            "y": 58.333,
+            "grid": [
+              23,
+              10
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:14",
+            "lane": 1
+          },
+          {
+            "id": "trainer-12-4",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 20.833,
+            "y": 25.0,
+            "grid": [
+              12,
+              4
+            ],
+            "align": "r",
+            "name": "Bird Keeper",
+            "ref": "BIRD_KEEPER:2",
             "lane": 0
           },
           {
@@ -6514,24 +6514,9 @@
             "lane": 0
           },
           {
-            "id": "hidden-1-14",
-            "cat": "hidden",
-            "key": "H1",
-            "x": 2.5,
-            "y": 80.556,
-            "grid": [
-              1,
-              14
-            ],
-            "align": "r",
-            "name": "PP Up",
-            "ref": "PP_UP",
-            "lane": 0
-          },
-          {
             "id": "hidden-16-13",
             "cat": "hidden",
-            "key": "H2",
+            "key": "H1",
             "x": 27.5,
             "y": 75.0,
             "grid": [
@@ -6541,6 +6526,21 @@
             "align": "r",
             "name": "Calcium",
             "ref": "CALCIUM",
+            "lane": 0
+          },
+          {
+            "id": "hidden-1-14",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 2.5,
+            "y": 80.556,
+            "grid": [
+              1,
+              14
+            ],
+            "align": "r",
+            "name": "PP Up",
+            "ref": "PP_UP",
             "lane": 0
           },
           {
@@ -6589,24 +6589,9 @@
         "name": "route-14",
         "markers": [
           {
-            "id": "trainer-4-4",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 22.5,
-            "y": 8.333,
-            "grid": [
-              4,
-              4
-            ],
-            "align": "r",
-            "name": "Bird Keeper",
-            "ref": "BIRD_KEEPER:14",
-            "lane": 0
-          },
-          {
             "id": "trainer-15-6",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 77.5,
             "y": 12.037,
             "grid": [
@@ -6616,6 +6601,21 @@
             "align": "l",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:15",
+            "lane": 0
+          },
+          {
+            "id": "trainer-4-4",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 22.5,
+            "y": 8.333,
+            "grid": [
+              4,
+              4
+            ],
+            "align": "r",
+            "name": "Bird Keeper",
+            "ref": "BIRD_KEEPER:14",
             "lane": 0
           },
           {
@@ -6649,9 +6649,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-15-31",
+            "id": "trainer-15-30",
             "cat": "trainer",
             "key": "T5",
+            "x": 77.5,
+            "y": 56.481,
+            "grid": [
+              15,
+              30
+            ],
+            "align": "l",
+            "name": "Biker",
+            "ref": "BIKER:15",
+            "lane": 1
+          },
+          {
+            "id": "trainer-15-31",
+            "cat": "trainer",
+            "key": "T6",
             "x": 77.5,
             "y": 58.333,
             "grid": [
@@ -6664,34 +6679,19 @@
             "lane": 3
           },
           {
-            "id": "trainer-6-49",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 32.5,
-            "y": 91.667,
-            "grid": [
-              6,
-              49
-            ],
-            "align": "r",
-            "name": "Bird Keeper",
-            "ref": "BIRD_KEEPER:5",
-            "lane": 0
-          },
-          {
-            "id": "trainer-5-39",
+            "id": "trainer-4-31",
             "cat": "trainer",
             "key": "T7",
-            "x": 27.5,
-            "y": 73.148,
+            "x": 22.5,
+            "y": 58.333,
             "grid": [
-              5,
-              39
+              4,
+              31
             ],
             "align": "r",
             "name": "Biker",
-            "ref": "BIKER:13",
-            "lane": 0
+            "ref": "BIKER:2",
+            "lane": 2
           },
           {
             "id": "trainer-4-30",
@@ -6709,34 +6709,34 @@
             "lane": 0
           },
           {
-            "id": "trainer-15-30",
+            "id": "trainer-5-39",
             "cat": "trainer",
             "key": "T9",
-            "x": 77.5,
-            "y": 56.481,
+            "x": 27.5,
+            "y": 73.148,
             "grid": [
-              15,
-              30
-            ],
-            "align": "l",
-            "name": "Biker",
-            "ref": "BIKER:15",
-            "lane": 1
-          },
-          {
-            "id": "trainer-4-31",
-            "cat": "trainer",
-            "key": "T10",
-            "x": 22.5,
-            "y": 58.333,
-            "grid": [
-              4,
-              31
+              5,
+              39
             ],
             "align": "r",
             "name": "Biker",
-            "ref": "BIKER:2",
-            "lane": 2
+            "ref": "BIKER:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-6-49",
+            "cat": "trainer",
+            "key": "T10",
+            "x": 32.5,
+            "y": 91.667,
+            "grid": [
+              6,
+              49
+            ],
+            "align": "r",
+            "name": "Bird Keeper",
+            "ref": "BIRD_KEEPER:5",
+            "lane": 0
           },
           {
             "id": "exit-west",
@@ -6784,24 +6784,9 @@
         "name": "route-15",
         "markers": [
           {
-            "id": "trainer-41-11",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 69.167,
-            "y": 63.889,
-            "grid": [
-              41,
-              11
-            ],
-            "align": "l",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:20",
-            "lane": 2
-          },
-          {
             "id": "trainer-53-10",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 89.167,
             "y": 58.333,
             "grid": [
@@ -6814,39 +6799,9 @@
             "lane": 2
           },
           {
-            "id": "trainer-31-13",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 52.5,
-            "y": 75.0,
-            "grid": [
-              31,
-              13
-            ],
-            "align": "r",
-            "name": "Bird Keeper",
-            "ref": "BIRD_KEEPER:6",
-            "lane": 0
-          },
-          {
-            "id": "trainer-35-13",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 59.167,
-            "y": 75.0,
-            "grid": [
-              35,
-              13
-            ],
-            "align": "r",
-            "name": "Bird Keeper",
-            "ref": "BIRD_KEEPER:7",
-            "lane": 1
-          },
-          {
             "id": "trainer-53-11",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T2",
             "x": 89.167,
             "y": 63.889,
             "grid": [
@@ -6859,24 +6814,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-41-10",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 69.167,
-            "y": 58.333,
-            "grid": [
-              41,
-              10
-            ],
-            "align": "l",
-            "name": "Beauty",
-            "ref": "BEAUTY:10",
-            "lane": 0
-          },
-          {
             "id": "trainer-48-10",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T3",
             "x": 80.833,
             "y": 58.333,
             "grid": [
@@ -6891,7 +6831,7 @@
           {
             "id": "trainer-46-10",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T4",
             "x": 77.5,
             "y": 58.333,
             "grid": [
@@ -6904,9 +6844,39 @@
             "lane": 1
           },
           {
+            "id": "trainer-41-10",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 69.167,
+            "y": 58.333,
+            "grid": [
+              41,
+              10
+            ],
+            "align": "l",
+            "name": "Beauty",
+            "ref": "BEAUTY:10",
+            "lane": 0
+          },
+          {
+            "id": "trainer-41-11",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 69.167,
+            "y": 63.889,
+            "grid": [
+              41,
+              11
+            ],
+            "align": "l",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:20",
+            "lane": 2
+          },
+          {
             "id": "trainer-37-5",
             "cat": "trainer",
-            "key": "T9",
+            "key": "T7",
             "x": 62.5,
             "y": 30.556,
             "grid": [
@@ -6916,6 +6886,36 @@
             "align": "l",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:22",
+            "lane": 0
+          },
+          {
+            "id": "trainer-35-13",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 59.167,
+            "y": 75.0,
+            "grid": [
+              35,
+              13
+            ],
+            "align": "r",
+            "name": "Bird Keeper",
+            "ref": "BIRD_KEEPER:7",
+            "lane": 1
+          },
+          {
+            "id": "trainer-31-13",
+            "cat": "trainer",
+            "key": "T9",
+            "x": 52.5,
+            "y": 75.0,
+            "grid": [
+              31,
+              13
+            ],
+            "align": "r",
+            "name": "Bird Keeper",
+            "ref": "BIRD_KEEPER:6",
             "lane": 0
           },
           {
@@ -7672,9 +7672,24 @@
             "lane": 1
           },
           {
-            "id": "trainer-13-25",
+            "id": "trainer-9-13",
             "cat": "trainer",
             "key": "T3",
+            "x": 47.5,
+            "y": 25.0,
+            "grid": [
+              9,
+              13
+            ],
+            "align": "r",
+            "name": "Swimmer",
+            "ref": "SWIMMER:7",
+            "lane": 0
+          },
+          {
+            "id": "trainer-13-25",
+            "cat": "trainer",
+            "key": "T4",
             "x": 67.5,
             "y": 47.222,
             "grid": [
@@ -7689,7 +7704,7 @@
           {
             "id": "trainer-4-27",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T5",
             "x": 22.5,
             "y": 50.926,
             "grid": [
@@ -7704,7 +7719,7 @@
           {
             "id": "trainer-16-31",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T6",
             "x": 82.5,
             "y": 58.333,
             "grid": [
@@ -7717,34 +7732,19 @@
             "lane": 0
           },
           {
-            "id": "trainer-9-13",
+            "id": "trainer-9-42",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T7",
             "x": 47.5,
-            "y": 25.0,
+            "y": 78.704,
             "grid": [
               9,
-              13
+              42
             ],
             "align": "r",
             "name": "Swimmer",
-            "ref": "SWIMMER:7",
+            "ref": "SWIMMER:8",
             "lane": 0
-          },
-          {
-            "id": "trainer-8-43",
-            "cat": "trainer",
-            "key": "T7",
-            "x": 42.5,
-            "y": 80.556,
-            "grid": [
-              8,
-              43
-            ],
-            "align": "r",
-            "name": "Beauty",
-            "ref": "BEAUTY:12",
-            "lane": 1
           },
           {
             "id": "trainer-11-43",
@@ -7762,24 +7762,9 @@
             "lane": 2
           },
           {
-            "id": "trainer-9-42",
-            "cat": "trainer",
-            "key": "T9",
-            "x": 47.5,
-            "y": 78.704,
-            "grid": [
-              9,
-              42
-            ],
-            "align": "r",
-            "name": "Swimmer",
-            "ref": "SWIMMER:8",
-            "lane": 0
-          },
-          {
             "id": "trainer-10-44",
             "cat": "trainer",
-            "key": "T10",
+            "key": "T9",
             "x": 52.5,
             "y": 82.407,
             "grid": [
@@ -7790,6 +7775,21 @@
             "name": "Beauty",
             "ref": "BEAUTY:14",
             "lane": 0
+          },
+          {
+            "id": "trainer-8-43",
+            "cat": "trainer",
+            "key": "T10",
+            "x": 42.5,
+            "y": 80.556,
+            "grid": [
+              8,
+              43
+            ],
+            "align": "r",
+            "name": "Beauty",
+            "ref": "BEAUTY:12",
+            "lane": 1
           },
           {
             "id": "exit-5-9",
@@ -7854,24 +7854,9 @@
         "name": "route-2",
         "markers": [
           {
-            "id": "item-13-54",
-            "cat": "item",
-            "key": "I1",
-            "x": 67.5,
-            "y": 75.694,
-            "grid": [
-              13,
-              54
-            ],
-            "align": "l",
-            "name": "Moon Stone",
-            "ref": "MOON_STONE",
-            "lane": 0
-          },
-          {
             "id": "item-13-45",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 67.5,
             "y": 63.194,
             "grid": [
@@ -7881,6 +7866,21 @@
             "align": "l",
             "name": "HP Up",
             "ref": "HP_UP",
+            "lane": 0
+          },
+          {
+            "id": "item-13-54",
+            "cat": "item",
+            "key": "I2",
+            "x": 67.5,
+            "y": 75.694,
+            "grid": [
+              13,
+              54
+            ],
+            "align": "l",
+            "name": "Moon Stone",
+            "ref": "MOON_STONE",
             "lane": 0
           },
           {
@@ -8046,9 +8046,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-68-11",
+            "id": "trainer-87-13",
             "cat": "trainer",
             "key": "T2",
+            "x": 87.5,
+            "y": 75.0,
+            "grid": [
+              87,
+              13
+            ],
+            "align": "l",
+            "name": "Swimmer",
+            "ref": "SWIMMER:11",
+            "lane": 0
+          },
+          {
+            "id": "trainer-68-11",
+            "cat": "trainer",
+            "key": "T3",
             "x": 68.5,
             "y": 63.889,
             "grid": [
@@ -8063,7 +8078,7 @@
           {
             "id": "trainer-45-10",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T4",
             "x": 45.5,
             "y": 58.333,
             "grid": [
@@ -8078,7 +8093,7 @@
           {
             "id": "trainer-55-14",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T5",
             "x": 55.5,
             "y": 80.556,
             "grid": [
@@ -8093,7 +8108,7 @@
           {
             "id": "trainer-38-13",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T6",
             "x": 38.5,
             "y": 75.0,
             "grid": [
@@ -8103,21 +8118,6 @@
             "align": "r",
             "name": "Swimmer",
             "ref": "SWIMMER:10",
-            "lane": 0
-          },
-          {
-            "id": "trainer-87-13",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 87.5,
-            "y": 75.0,
-            "grid": [
-              87,
-              13
-            ],
-            "align": "l",
-            "name": "Swimmer",
-            "ref": "SWIMMER:11",
             "lane": 0
           },
           {
@@ -8260,84 +8260,9 @@
         "name": "route-21",
         "markers": [
           {
-            "id": "trainer-4-24",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 22.5,
-            "y": 27.222,
-            "grid": [
-              4,
-              24
-            ],
-            "align": "r",
-            "name": "Fisherman",
-            "ref": "FISHER:7",
-            "lane": 0
-          },
-          {
-            "id": "trainer-6-25",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 32.5,
-            "y": 28.333,
-            "grid": [
-              6,
-              25
-            ],
-            "align": "r",
-            "name": "Fisherman",
-            "ref": "FISHER:9",
-            "lane": 1
-          },
-          {
-            "id": "trainer-10-31",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 52.5,
-            "y": 35.0,
-            "grid": [
-              10,
-              31
-            ],
-            "align": "r",
-            "name": "Swimmer",
-            "ref": "SWIMMER:12",
-            "lane": 0
-          },
-          {
-            "id": "trainer-12-30",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 62.5,
-            "y": 33.889,
-            "grid": [
-              12,
-              30
-            ],
-            "align": "l",
-            "name": "Cue Ball",
-            "ref": "CUE_BALL:9",
-            "lane": 0
-          },
-          {
-            "id": "trainer-16-63",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 82.5,
-            "y": 70.556,
-            "grid": [
-              16,
-              63
-            ],
-            "align": "l",
-            "name": "Swimmer",
-            "ref": "SWIMMER:13",
-            "lane": 0
-          },
-          {
             "id": "trainer-5-71",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T1",
             "x": 27.5,
             "y": 79.444,
             "grid": [
@@ -8352,7 +8277,7 @@
           {
             "id": "trainer-15-71",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T2",
             "x": 77.5,
             "y": 79.444,
             "grid": [
@@ -8365,9 +8290,24 @@
             "lane": 1
           },
           {
+            "id": "trainer-16-63",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 82.5,
+            "y": 70.556,
+            "grid": [
+              16,
+              63
+            ],
+            "align": "l",
+            "name": "Swimmer",
+            "ref": "SWIMMER:13",
+            "lane": 0
+          },
+          {
             "id": "trainer-14-56",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T4",
             "x": 72.5,
             "y": 62.778,
             "grid": [
@@ -8382,7 +8322,7 @@
           {
             "id": "trainer-17-57",
             "cat": "trainer",
-            "key": "T9",
+            "key": "T5",
             "x": 87.5,
             "y": 63.889,
             "grid": [
@@ -8393,6 +8333,66 @@
             "name": "Fisherman",
             "ref": "FISHER:10",
             "lane": 1
+          },
+          {
+            "id": "trainer-10-31",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 52.5,
+            "y": 35.0,
+            "grid": [
+              10,
+              31
+            ],
+            "align": "r",
+            "name": "Swimmer",
+            "ref": "SWIMMER:12",
+            "lane": 0
+          },
+          {
+            "id": "trainer-12-30",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 62.5,
+            "y": 33.889,
+            "grid": [
+              12,
+              30
+            ],
+            "align": "l",
+            "name": "Cue Ball",
+            "ref": "CUE_BALL:9",
+            "lane": 0
+          },
+          {
+            "id": "trainer-6-25",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 32.5,
+            "y": 28.333,
+            "grid": [
+              6,
+              25
+            ],
+            "align": "r",
+            "name": "Fisherman",
+            "ref": "FISHER:9",
+            "lane": 1
+          },
+          {
+            "id": "trainer-4-24",
+            "cat": "trainer",
+            "key": "T9",
+            "x": 22.5,
+            "y": 27.222,
+            "grid": [
+              4,
+              24
+            ],
+            "align": "r",
+            "name": "Fisherman",
+            "ref": "FISHER:7",
+            "lane": 0
           },
           {
             "id": "exit-north",
@@ -8502,18 +8502,18 @@
         "name": "route-23",
         "markers": [
           {
-            "id": "hidden-9-44",
+            "id": "hidden-8-90",
             "cat": "hidden",
             "key": "H1",
-            "x": 47.5,
-            "y": 30.903,
+            "x": 42.5,
+            "y": 62.847,
             "grid": [
-              9,
-              44
+              8,
+              90
             ],
             "align": "r",
-            "name": "Full Restore",
-            "ref": "FULL_RESTORE",
+            "name": "Max Ether",
+            "ref": "MAX_ETHER",
             "lane": 0
           },
           {
@@ -8532,18 +8532,18 @@
             "lane": 0
           },
           {
-            "id": "hidden-8-90",
+            "id": "hidden-9-44",
             "cat": "hidden",
             "key": "H3",
-            "x": 42.5,
-            "y": 62.847,
+            "x": 47.5,
+            "y": 30.903,
             "grid": [
-              8,
-              90
+              9,
+              44
             ],
             "align": "r",
-            "name": "Max Ether",
-            "ref": "MAX_ETHER",
+            "name": "Full Restore",
+            "ref": "FULL_RESTORE",
             "lane": 0
           },
           {
@@ -8643,48 +8643,48 @@
         "name": "route-24",
         "markers": [
           {
-            "id": "trainer-11-15",
+            "id": "trainer-11-31",
             "cat": "trainer",
             "key": "T1",
             "x": 57.5,
-            "y": 43.056,
+            "y": 87.5,
             "grid": [
               11,
-              15
+              31
             ],
             "align": "r",
-            "name": "Rocket",
-            "ref": "ROCKET:6",
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:9",
             "lane": 0
           },
           {
-            "id": "trainer-5-20",
+            "id": "trainer-10-28",
             "cat": "trainer",
             "key": "T2",
-            "x": 27.5,
-            "y": 56.944,
+            "x": 52.5,
+            "y": 79.167,
             "grid": [
-              5,
-              20
+              10,
+              28
             ],
             "align": "r",
-            "name": "Jr.Trainer\u2642",
-            "ref": "JR_TRAINER_M:2",
-            "lane": 1
+            "name": "Lass",
+            "ref": "LASS:8",
+            "lane": 0
           },
           {
-            "id": "trainer-11-19",
+            "id": "trainer-11-25",
             "cat": "trainer",
             "key": "T3",
             "x": 57.5,
-            "y": 54.167,
+            "y": 70.833,
             "grid": [
               11,
-              19
+              25
             ],
             "align": "r",
-            "name": "Jr.Trainer\u2642",
-            "ref": "JR_TRAINER_M:3",
+            "name": "Youngster",
+            "ref": "YOUNGSTER:4",
             "lane": 0
           },
           {
@@ -8703,49 +8703,49 @@
             "lane": 0
           },
           {
-            "id": "trainer-11-25",
+            "id": "trainer-11-19",
             "cat": "trainer",
             "key": "T5",
             "x": 57.5,
-            "y": 70.833,
+            "y": 54.167,
             "grid": [
               11,
-              25
+              19
             ],
             "align": "r",
-            "name": "Youngster",
-            "ref": "YOUNGSTER:4",
+            "name": "Jr.Trainer\u2642",
+            "ref": "JR_TRAINER_M:3",
             "lane": 0
           },
           {
-            "id": "trainer-10-28",
+            "id": "trainer-11-15",
             "cat": "trainer",
             "key": "T6",
-            "x": 52.5,
-            "y": 79.167,
+            "x": 57.5,
+            "y": 43.056,
             "grid": [
-              10,
-              28
+              11,
+              15
             ],
             "align": "r",
-            "name": "Lass",
-            "ref": "LASS:8",
+            "name": "Rocket",
+            "ref": "ROCKET:6",
             "lane": 0
           },
           {
-            "id": "trainer-11-31",
+            "id": "trainer-5-20",
             "cat": "trainer",
             "key": "T7",
-            "x": 57.5,
-            "y": 87.5,
+            "x": 27.5,
+            "y": 56.944,
             "grid": [
-              11,
-              31
+              5,
+              20
             ],
             "align": "r",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:9",
-            "lane": 0
+            "name": "Jr.Trainer\u2642",
+            "ref": "JR_TRAINER_M:2",
+            "lane": 1
           },
           {
             "id": "item-10-5",
@@ -8808,9 +8808,24 @@
         "name": "route-25",
         "markers": [
           {
-            "id": "trainer-14-2",
+            "id": "trainer-8-4",
             "cat": "trainer",
             "key": "T1",
+            "x": 14.167,
+            "y": 25.0,
+            "grid": [
+              8,
+              4
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:2",
+            "lane": 0
+          },
+          {
+            "id": "trainer-14-2",
+            "cat": "trainer",
+            "key": "T2",
             "x": 24.167,
             "y": 13.889,
             "grid": [
@@ -8823,9 +8838,24 @@
             "lane": 1
           },
           {
+            "id": "trainer-13-7",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 22.5,
+            "y": 41.667,
+            "grid": [
+              13,
+              7
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:4",
+            "lane": 0
+          },
+          {
             "id": "trainer-18-5",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T4",
             "x": 30.833,
             "y": 30.556,
             "grid": [
@@ -8838,24 +8868,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-24-4",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 40.833,
-            "y": 25.0,
-            "grid": [
-              24,
-              4
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2642",
-            "ref": "JR_TRAINER_M:2",
-            "lane": 0
-          },
-          {
             "id": "trainer-18-8",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T5",
             "x": 30.833,
             "y": 47.222,
             "grid": [
@@ -8868,9 +8883,39 @@
             "lane": 1
           },
           {
+            "id": "trainer-23-9",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 39.167,
+            "y": 52.778,
+            "grid": [
+              23,
+              9
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:3",
+            "lane": 0
+          },
+          {
+            "id": "trainer-24-4",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 40.833,
+            "y": 25.0,
+            "grid": [
+              24,
+              4
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2642",
+            "ref": "JR_TRAINER_M:2",
+            "lane": 0
+          },
+          {
             "id": "trainer-32-3",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T8",
             "x": 54.167,
             "y": 19.444,
             "grid": [
@@ -8885,7 +8930,7 @@
           {
             "id": "trainer-37-4",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T9",
             "x": 62.5,
             "y": 25.0,
             "grid": [
@@ -8896,51 +8941,6 @@
             "name": "Lass",
             "ref": "LASS:10",
             "lane": 3
-          },
-          {
-            "id": "trainer-8-4",
-            "cat": "trainer",
-            "key": "T7",
-            "x": 14.167,
-            "y": 25.0,
-            "grid": [
-              8,
-              4
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:2",
-            "lane": 0
-          },
-          {
-            "id": "trainer-23-9",
-            "cat": "trainer",
-            "key": "T8",
-            "x": 39.167,
-            "y": 52.778,
-            "grid": [
-              23,
-              9
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:3",
-            "lane": 0
-          },
-          {
-            "id": "trainer-13-7",
-            "cat": "trainer",
-            "key": "T9",
-            "x": 22.5,
-            "y": 41.667,
-            "grid": [
-              13,
-              7
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:4",
-            "lane": 0
           },
           {
             "id": "item-22-2",
@@ -8958,24 +8958,9 @@
             "lane": 0
           },
           {
-            "id": "hidden-38-3",
-            "cat": "hidden",
-            "key": "H1",
-            "x": 64.167,
-            "y": 19.444,
-            "grid": [
-              38,
-              3
-            ],
-            "align": "l",
-            "name": "Ether",
-            "ref": "ETHER",
-            "lane": 2
-          },
-          {
             "id": "hidden-10-1",
             "cat": "hidden",
-            "key": "H2",
+            "key": "H1",
             "x": 17.5,
             "y": 8.333,
             "grid": [
@@ -8986,6 +8971,21 @@
             "name": "Elixir",
             "ref": "ELIXER",
             "lane": 0
+          },
+          {
+            "id": "hidden-38-3",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 64.167,
+            "y": 19.444,
+            "grid": [
+              38,
+              3
+            ],
+            "align": "l",
+            "name": "Ether",
+            "ref": "ETHER",
+            "lane": 2
           },
           {
             "id": "exit-45-3",
@@ -9033,9 +9033,24 @@
         "name": "route-3",
         "markers": [
           {
-            "id": "trainer-10-6",
+            "id": "trainer-16-9",
             "cat": "trainer",
             "key": "T1",
+            "x": 23.571,
+            "y": 52.778,
+            "grid": [
+              16,
+              9
+            ],
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-10-6",
+            "cat": "trainer",
+            "key": "T2",
             "x": 15.0,
             "y": 36.111,
             "grid": [
@@ -9050,7 +9065,7 @@
           {
             "id": "trainer-14-4",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 20.714,
             "y": 25.0,
             "grid": [
@@ -9060,21 +9075,6 @@
             "align": "r",
             "name": "Youngster",
             "ref": "YOUNGSTER:1",
-            "lane": 0
-          },
-          {
-            "id": "trainer-16-9",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 23.571,
-            "y": 52.778,
-            "grid": [
-              16,
-              9
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:1",
             "lane": 0
           },
           {
@@ -9093,24 +9093,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-23-4",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 33.571,
-            "y": 25.0,
-            "grid": [
-              23,
-              4
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:2",
-            "lane": 0
-          },
-          {
             "id": "trainer-22-9",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T5",
             "x": 32.143,
             "y": 52.778,
             "grid": [
@@ -9120,6 +9105,21 @@
             "align": "r",
             "name": "Youngster",
             "ref": "YOUNGSTER:2",
+            "lane": 0
+          },
+          {
+            "id": "trainer-23-4",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 33.571,
+            "y": 25.0,
+            "grid": [
+              23,
+              4
+            ],
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:2",
             "lane": 0
           },
           {
@@ -9452,9 +9452,24 @@
         "name": "route-6",
         "markers": [
           {
-            "id": "trainer-10-21",
+            "id": "trainer-0-15",
             "cat": "trainer",
             "key": "T1",
+            "x": 2.5,
+            "y": 43.056,
+            "grid": [
+              0,
+              15
+            ],
+            "align": "r",
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:10",
+            "lane": 0
+          },
+          {
+            "id": "trainer-10-21",
+            "cat": "trainer",
+            "key": "T2",
             "x": 52.5,
             "y": 59.722,
             "grid": [
@@ -9469,7 +9484,7 @@
           {
             "id": "trainer-11-21",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 57.5,
             "y": 59.722,
             "grid": [
@@ -9482,34 +9497,19 @@
             "lane": 1
           },
           {
-            "id": "trainer-0-15",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 2.5,
-            "y": 43.056,
-            "grid": [
-              0,
-              15
-            ],
-            "align": "r",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:10",
-            "lane": 0
-          },
-          {
-            "id": "trainer-11-31",
+            "id": "trainer-19-26",
             "cat": "trainer",
             "key": "T4",
-            "x": 57.5,
-            "y": 87.5,
+            "x": 97.5,
+            "y": 73.611,
             "grid": [
-              11,
-              31
+              19,
+              26
             ],
-            "align": "r",
-            "name": "Jr.Trainer\u2642",
-            "ref": "JR_TRAINER_M:5",
-            "lane": 1
+            "align": "l",
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:11",
+            "lane": 0
           },
           {
             "id": "trainer-11-30",
@@ -9527,19 +9527,19 @@
             "lane": 0
           },
           {
-            "id": "trainer-19-26",
+            "id": "trainer-11-31",
             "cat": "trainer",
             "key": "T6",
-            "x": 97.5,
-            "y": 73.611,
+            "x": 57.5,
+            "y": 87.5,
             "grid": [
-              19,
-              26
+              11,
+              31
             ],
-            "align": "l",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:11",
-            "lane": 0
+            "align": "r",
+            "name": "Jr.Trainer\u2642",
+            "ref": "JR_TRAINER_M:5",
+            "lane": 1
           },
           {
             "id": "exit-9-1",
@@ -9734,33 +9734,33 @@
         "name": "route-8",
         "markers": [
           {
-            "id": "trainer-8-5",
+            "id": "trainer-51-12",
             "cat": "trainer",
             "key": "T1",
-            "x": 14.167,
-            "y": 30.556,
+            "x": 85.833,
+            "y": 69.444,
             "grid": [
-              8,
-              5
+              51,
+              12
             ],
-            "align": "r",
-            "name": "Super Nerd",
-            "ref": "SUPER_NERD:3",
+            "align": "l",
+            "name": "Lass",
+            "ref": "LASS:16",
             "lane": 0
           },
           {
-            "id": "trainer-13-9",
+            "id": "trainer-46-13",
             "cat": "trainer",
             "key": "T2",
-            "x": 22.5,
-            "y": 52.778,
+            "x": 77.5,
+            "y": 75.0,
             "grid": [
-              13,
-              9
+              46,
+              13
             ],
-            "align": "r",
+            "align": "l",
             "name": "Gambler",
-            "ref": "GAMBLER:5",
+            "ref": "GAMBLER:7",
             "lane": 0
           },
           {
@@ -9779,54 +9779,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-26-3",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 44.167,
-            "y": 19.444,
-            "grid": [
-              26,
-              3
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:13",
-            "lane": 1
-          },
-          {
-            "id": "trainer-26-4",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 44.167,
-            "y": 25.0,
-            "grid": [
-              26,
-              4
-            ],
-            "align": "r",
-            "name": "Super Nerd",
-            "ref": "SUPER_NERD:5",
-            "lane": 2
-          },
-          {
-            "id": "trainer-26-5",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 44.167,
-            "y": 30.556,
-            "grid": [
-              26,
-              5
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:14",
-            "lane": 0
-          },
-          {
             "id": "trainer-26-6",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T4",
             "x": 44.167,
             "y": 36.111,
             "grid": [
@@ -9839,33 +9794,78 @@
             "lane": 1
           },
           {
-            "id": "trainer-46-13",
+            "id": "trainer-26-5",
             "cat": "trainer",
-            "key": "T8",
-            "x": 77.5,
-            "y": 75.0,
+            "key": "T5",
+            "x": 44.167,
+            "y": 30.556,
             "grid": [
-              46,
-              13
+              26,
+              5
             ],
-            "align": "l",
-            "name": "Gambler",
-            "ref": "GAMBLER:7",
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:14",
             "lane": 0
           },
           {
-            "id": "trainer-51-12",
+            "id": "trainer-26-4",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 44.167,
+            "y": 25.0,
+            "grid": [
+              26,
+              4
+            ],
+            "align": "r",
+            "name": "Super Nerd",
+            "ref": "SUPER_NERD:5",
+            "lane": 2
+          },
+          {
+            "id": "trainer-26-3",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 44.167,
+            "y": 19.444,
+            "grid": [
+              26,
+              3
+            ],
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:13",
+            "lane": 1
+          },
+          {
+            "id": "trainer-13-9",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 22.5,
+            "y": 52.778,
+            "grid": [
+              13,
+              9
+            ],
+            "align": "r",
+            "name": "Gambler",
+            "ref": "GAMBLER:5",
+            "lane": 0
+          },
+          {
+            "id": "trainer-8-5",
             "cat": "trainer",
             "key": "T9",
-            "x": 85.833,
-            "y": 69.444,
+            "x": 14.167,
+            "y": 30.556,
             "grid": [
-              51,
-              12
+              8,
+              5
             ],
-            "align": "l",
-            "name": "Lass",
-            "ref": "LASS:16",
+            "align": "r",
+            "name": "Super Nerd",
+            "ref": "SUPER_NERD:3",
             "lane": 0
           },
           {
@@ -9980,9 +9980,39 @@
             "lane": 0
           },
           {
-            "id": "trainer-24-7",
+            "id": "trainer-16-15",
             "cat": "trainer",
             "key": "T2",
+            "x": 27.5,
+            "y": 86.111,
+            "grid": [
+              16,
+              15
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:11",
+            "lane": 1
+          },
+          {
+            "id": "trainer-22-2",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 37.5,
+            "y": 13.889,
+            "grid": [
+              22,
+              2
+            ],
+            "align": "r",
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-24-7",
+            "cat": "trainer",
+            "key": "T4",
             "x": 40.833,
             "y": 41.667,
             "grid": [
@@ -9997,7 +10027,7 @@
           {
             "id": "trainer-31-7",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T5",
             "x": 52.5,
             "y": 41.667,
             "grid": [
@@ -10010,69 +10040,24 @@
             "lane": 1
           },
           {
-            "id": "trainer-48-8",
+            "id": "trainer-40-8",
             "cat": "trainer",
-            "key": "T4",
-            "x": 80.833,
+            "key": "T6",
+            "x": 67.5,
             "y": 47.222,
             "grid": [
-              48,
+              40,
               8
             ],
             "align": "l",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:6",
-            "lane": 0
-          },
-          {
-            "id": "trainer-16-15",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 27.5,
-            "y": 86.111,
-            "grid": [
-              16,
-              15
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:11",
-            "lane": 1
-          },
-          {
-            "id": "trainer-43-3",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 72.5,
-            "y": 19.444,
-            "grid": [
-              43,
-              3
-            ],
-            "align": "l",
-            "name": "Hiker",
-            "ref": "HIKER:6",
-            "lane": 0
-          },
-          {
-            "id": "trainer-22-2",
-            "cat": "trainer",
-            "key": "T7",
-            "x": 37.5,
-            "y": 13.889,
-            "grid": [
-              22,
-              2
-            ],
-            "align": "r",
             "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:13",
-            "lane": 0
+            "ref": "BUG_CATCHER:14",
+            "lane": 2
           },
           {
             "id": "trainer-45-15",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T7",
             "x": 75.833,
             "y": 86.111,
             "grid": [
@@ -10085,19 +10070,34 @@
             "lane": 0
           },
           {
-            "id": "trainer-40-8",
+            "id": "trainer-43-3",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 72.5,
+            "y": 19.444,
+            "grid": [
+              43,
+              3
+            ],
+            "align": "l",
+            "name": "Hiker",
+            "ref": "HIKER:6",
+            "lane": 0
+          },
+          {
+            "id": "trainer-48-8",
             "cat": "trainer",
             "key": "T9",
-            "x": 67.5,
+            "x": 80.833,
             "y": 47.222,
             "grid": [
-              40,
+              48,
               8
             ],
             "align": "l",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:14",
-            "lane": 2
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:6",
+            "lane": 0
           },
           {
             "id": "item-10-15",
@@ -10284,9 +10284,39 @@
         "name": "safari-zone-east",
         "markers": [
           {
-            "id": "item-21-10",
+            "id": "item-15-12",
             "cat": "item",
             "key": "I1",
+            "x": 51.667,
+            "y": 48.077,
+            "grid": [
+              15,
+              12
+            ],
+            "align": "r",
+            "name": "TM Egg Bomb",
+            "ref": "TM_EGG_BOMB",
+            "lane": 0
+          },
+          {
+            "id": "item-20-13",
+            "cat": "item",
+            "key": "I2",
+            "x": 68.333,
+            "y": 51.923,
+            "grid": [
+              20,
+              13
+            ],
+            "align": "l",
+            "name": "Carbos",
+            "ref": "CARBOS",
+            "lane": 1
+          },
+          {
+            "id": "item-21-10",
+            "cat": "item",
+            "key": "I3",
             "x": 71.667,
             "y": 40.385,
             "grid": [
@@ -10301,7 +10331,7 @@
           {
             "id": "item-3-7",
             "cat": "item",
-            "key": "I2",
+            "key": "I4",
             "x": 11.667,
             "y": 28.846,
             "grid": [
@@ -10311,36 +10341,6 @@
             "align": "r",
             "name": "Max Potion",
             "ref": "MAX_POTION",
-            "lane": 0
-          },
-          {
-            "id": "item-20-13",
-            "cat": "item",
-            "key": "I3",
-            "x": 68.333,
-            "y": 51.923,
-            "grid": [
-              20,
-              13
-            ],
-            "align": "l",
-            "name": "Carbos",
-            "ref": "CARBOS",
-            "lane": 1
-          },
-          {
-            "id": "item-15-12",
-            "cat": "item",
-            "key": "I4",
-            "x": 51.667,
-            "y": 48.077,
-            "grid": [
-              15,
-              12
-            ],
-            "align": "r",
-            "name": "TM Egg Bomb",
-            "ref": "TM_EGG_BOMB",
             "lane": 0
           },
           {
@@ -10528,19 +10528,19 @@
         "name": "safari-zone-west",
         "markers": [
           {
-            "id": "item-8-20",
+            "id": "item-19-7",
             "cat": "item",
             "key": "I1",
-            "x": 28.333,
-            "y": 78.846,
+            "x": 65.0,
+            "y": 28.846,
             "grid": [
-              8,
-              20
+              19,
+              7
             ],
-            "align": "r",
-            "name": "Max Potion",
-            "ref": "MAX_POTION",
-            "lane": 0
+            "align": "l",
+            "name": "Gold Teeth",
+            "ref": "GOLD_TEETH",
+            "lane": 1
           },
           {
             "id": "item-9-7",
@@ -10558,9 +10558,24 @@
             "lane": 0
           },
           {
-            "id": "item-18-18",
+            "id": "item-8-20",
             "cat": "item",
             "key": "I3",
+            "x": 28.333,
+            "y": 78.846,
+            "grid": [
+              8,
+              20
+            ],
+            "align": "r",
+            "name": "Max Potion",
+            "ref": "MAX_POTION",
+            "lane": 0
+          },
+          {
+            "id": "item-18-18",
+            "cat": "item",
+            "key": "I4",
             "x": 61.667,
             "y": 71.154,
             "grid": [
@@ -10571,21 +10586,6 @@
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
             "lane": 0
-          },
-          {
-            "id": "item-19-7",
-            "cat": "item",
-            "key": "I4",
-            "x": 65.0,
-            "y": 28.846,
-            "grid": [
-              19,
-              7
-            ],
-            "align": "l",
-            "name": "Gold Teeth",
-            "ref": "GOLD_TEETH",
-            "lane": 1
           },
           {
             "id": "hidden-6-5",
@@ -10912,49 +10912,49 @@
         "name": "saffron-city-gym",
         "markers": [
           {
-            "id": "trainer-9-8",
+            "id": "trainer-17-13",
             "cat": "trainer",
             "key": "T1",
-            "x": 47.5,
-            "y": 47.222,
-            "grid": [
-              9,
-              8
-            ],
-            "align": "r",
-            "name": "Sabrina",
-            "ref": "SABRINA:1",
-            "lane": 2
-          },
-          {
-            "id": "trainer-10-1",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 52.5,
-            "y": 8.333,
-            "grid": [
-              10,
-              1
-            ],
-            "align": "r",
-            "name": "Channeler",
-            "ref": "CHANNELER:22",
-            "lane": 0
-          },
-          {
-            "id": "trainer-17-1",
-            "cat": "trainer",
-            "key": "T3",
             "x": 87.5,
-            "y": 8.333,
+            "y": 75.0,
             "grid": [
               17,
-              1
+              13
             ],
             "align": "l",
             "name": "Psychic",
-            "ref": "PSYCHIC_TR:1",
+            "ref": "PSYCHIC_TR:3",
             "lane": 1
+          },
+          {
+            "id": "trainer-17-7",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 87.5,
+            "y": 41.667,
+            "grid": [
+              17,
+              7
+            ],
+            "align": "l",
+            "name": "Psychic",
+            "ref": "PSYCHIC_TR:2",
+            "lane": 1
+          },
+          {
+            "id": "trainer-3-13",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 17.5,
+            "y": 75.0,
+            "grid": [
+              3,
+              13
+            ],
+            "align": "r",
+            "name": "Channeler",
+            "ref": "CHANNELER:24",
+            "lane": 0
           },
           {
             "id": "trainer-3-7",
@@ -10972,54 +10972,39 @@
             "lane": 0
           },
           {
-            "id": "trainer-17-7",
+            "id": "trainer-17-1",
             "cat": "trainer",
             "key": "T5",
             "x": 87.5,
-            "y": 41.667,
+            "y": 8.333,
             "grid": [
               17,
-              7
+              1
             ],
             "align": "l",
             "name": "Psychic",
-            "ref": "PSYCHIC_TR:2",
+            "ref": "PSYCHIC_TR:1",
             "lane": 1
           },
           {
-            "id": "trainer-3-13",
+            "id": "trainer-10-1",
             "cat": "trainer",
             "key": "T6",
-            "x": 17.5,
-            "y": 75.0,
+            "x": 52.5,
+            "y": 8.333,
             "grid": [
-              3,
-              13
+              10,
+              1
             ],
             "align": "r",
             "name": "Channeler",
-            "ref": "CHANNELER:24",
+            "ref": "CHANNELER:22",
             "lane": 0
-          },
-          {
-            "id": "trainer-17-13",
-            "cat": "trainer",
-            "key": "T7",
-            "x": 87.5,
-            "y": 75.0,
-            "grid": [
-              17,
-              13
-            ],
-            "align": "l",
-            "name": "Psychic",
-            "ref": "PSYCHIC_TR:3",
-            "lane": 1
           },
           {
             "id": "trainer-3-1",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T7",
             "x": 17.5,
             "y": 8.333,
             "grid": [
@@ -11030,6 +11015,21 @@
             "name": "Psychic",
             "ref": "PSYCHIC_TR:4",
             "lane": 0
+          },
+          {
+            "id": "trainer-9-8",
+            "cat": "trainer",
+            "key": "T8",
+            "x": 47.5,
+            "y": 47.222,
+            "grid": [
+              9,
+              8
+            ],
+            "align": "r",
+            "name": "Sabrina",
+            "ref": "SABRINA:1",
+            "lane": 2
           },
           {
             "id": "exit-8-17",
@@ -12230,39 +12230,24 @@
         "name": "silph-co-2f",
         "markers": [
           {
-            "id": "trainer-5-12",
+            "id": "trainer-24-7",
             "cat": "trainer",
             "key": "T1",
-            "x": 18.333,
-            "y": 69.444,
-            "grid": [
-              5,
-              12
-            ],
-            "align": "r",
-            "name": "Scientist",
-            "ref": "SCIENTIST:2",
-            "lane": 0
-          },
-          {
-            "id": "trainer-24-13",
-            "cat": "trainer",
-            "key": "T2",
             "x": 81.667,
-            "y": 75.0,
+            "y": 41.667,
             "grid": [
               24,
-              13
+              7
             ],
             "align": "l",
-            "name": "Scientist",
-            "ref": "SCIENTIST:3",
+            "name": "Rocket",
+            "ref": "ROCKET:24",
             "lane": 0
           },
           {
             "id": "trainer-16-11",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 55.0,
             "y": 63.889,
             "grid": [
@@ -12275,18 +12260,33 @@
             "lane": 0
           },
           {
-            "id": "trainer-24-7",
+            "id": "trainer-24-13",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 81.667,
-            "y": 41.667,
+            "y": 75.0,
             "grid": [
               24,
-              7
+              13
             ],
             "align": "l",
-            "name": "Rocket",
-            "ref": "ROCKET:24",
+            "name": "Scientist",
+            "ref": "SCIENTIST:3",
+            "lane": 0
+          },
+          {
+            "id": "trainer-5-12",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 18.333,
+            "y": 69.444,
+            "grid": [
+              5,
+              12
+            ],
+            "align": "r",
+            "name": "Scientist",
+            "ref": "SCIENTIST:2",
             "lane": 0
           },
           {
@@ -12642,9 +12642,24 @@
         "name": "silph-co-4f",
         "markers": [
           {
-            "id": "trainer-9-14",
+            "id": "trainer-26-10",
             "cat": "trainer",
             "key": "T1",
+            "x": 88.333,
+            "y": 58.333,
+            "grid": [
+              26,
+              10
+            ],
+            "align": "l",
+            "name": "Rocket",
+            "ref": "ROCKET:27",
+            "lane": 0
+          },
+          {
+            "id": "trainer-9-14",
+            "cat": "trainer",
+            "key": "T2",
             "x": 31.667,
             "y": 80.556,
             "grid": [
@@ -12659,7 +12674,7 @@
           {
             "id": "trainer-14-6",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 48.333,
             "y": 36.111,
             "grid": [
@@ -12672,39 +12687,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-26-10",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 88.333,
-            "y": 58.333,
-            "grid": [
-              26,
-              10
-            ],
-            "align": "l",
-            "name": "Rocket",
-            "ref": "ROCKET:27",
-            "lane": 0
-          },
-          {
-            "id": "item-3-9",
-            "cat": "item",
-            "key": "I1",
-            "x": 11.667,
-            "y": 52.778,
-            "grid": [
-              3,
-              9
-            ],
-            "align": "r",
-            "name": "Full Heal",
-            "ref": "FULL_HEAL",
-            "lane": 0
-          },
-          {
             "id": "item-4-7",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 15.0,
             "y": 41.667,
             "grid": [
@@ -12719,7 +12704,7 @@
           {
             "id": "item-5-8",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 18.333,
             "y": 47.222,
             "grid": [
@@ -12730,6 +12715,21 @@
             "name": "Escape Rope",
             "ref": "ESCAPE_ROPE",
             "lane": 2
+          },
+          {
+            "id": "item-3-9",
+            "cat": "item",
+            "key": "I3",
+            "x": 11.667,
+            "y": 52.778,
+            "grid": [
+              3,
+              9
+            ],
+            "align": "r",
+            "name": "Full Heal",
+            "ref": "FULL_HEAL",
+            "lane": 0
           },
           {
             "id": "exit-24-0",
@@ -12860,54 +12860,9 @@
         "name": "silph-co-5f",
         "markers": [
           {
-            "id": "trainer-8-16",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 28.333,
-            "y": 91.667,
-            "grid": [
-              8,
-              16
-            ],
-            "align": "r",
-            "name": "Rocket",
-            "ref": "ROCKET:28",
-            "lane": 2
-          },
-          {
-            "id": "trainer-8-3",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 28.333,
-            "y": 19.444,
-            "grid": [
-              8,
-              3
-            ],
-            "align": "r",
-            "name": "Scientist",
-            "ref": "SCIENTIST:6",
-            "lane": 0
-          },
-          {
-            "id": "trainer-18-10",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 61.667,
-            "y": 58.333,
-            "grid": [
-              18,
-              10
-            ],
-            "align": "r",
-            "name": "Juggler",
-            "ref": "JUGGLER:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-28-4",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T1",
             "x": 95.0,
             "y": 25.0,
             "grid": [
@@ -12920,18 +12875,63 @@
             "lane": 1
           },
           {
-            "id": "item-2-13",
-            "cat": "item",
-            "key": "I1",
-            "x": 8.333,
-            "y": 75.0,
+            "id": "trainer-18-10",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 61.667,
+            "y": 58.333,
             "grid": [
-              2,
-              13
+              18,
+              10
             ],
             "align": "r",
-            "name": "TM Take Down",
-            "ref": "TM_TAKE_DOWN",
+            "name": "Juggler",
+            "ref": "JUGGLER:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-8-3",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 28.333,
+            "y": 19.444,
+            "grid": [
+              8,
+              3
+            ],
+            "align": "r",
+            "name": "Scientist",
+            "ref": "SCIENTIST:6",
+            "lane": 0
+          },
+          {
+            "id": "trainer-8-16",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 28.333,
+            "y": 91.667,
+            "grid": [
+              8,
+              16
+            ],
+            "align": "r",
+            "name": "Rocket",
+            "ref": "ROCKET:28",
+            "lane": 2
+          },
+          {
+            "id": "item-21-16",
+            "cat": "item",
+            "key": "I1",
+            "x": 71.667,
+            "y": 91.667,
+            "grid": [
+              21,
+              16
+            ],
+            "align": "l",
+            "name": "Card Key",
+            "ref": "CARD_KEY",
             "lane": 0
           },
           {
@@ -12950,18 +12950,18 @@
             "lane": 0
           },
           {
-            "id": "item-21-16",
+            "id": "item-2-13",
             "cat": "item",
             "key": "I3",
-            "x": 71.667,
-            "y": 91.667,
+            "x": 8.333,
+            "y": 75.0,
             "grid": [
-              21,
-              16
+              2,
+              13
             ],
-            "align": "l",
-            "name": "Card Key",
-            "ref": "CARD_KEY",
+            "align": "r",
+            "name": "TM Take Down",
+            "ref": "TM_TAKE_DOWN",
             "lane": 0
           },
           {
@@ -13277,9 +13277,24 @@
         "name": "silph-co-7f",
         "markers": [
           {
-            "id": "trainer-13-1",
+            "id": "trainer-20-2",
             "cat": "trainer",
             "key": "T1",
+            "x": 78.846,
+            "y": 13.889,
+            "grid": [
+              20,
+              2
+            ],
+            "align": "l",
+            "name": "Rocket",
+            "ref": "ROCKET:33",
+            "lane": 0
+          },
+          {
+            "id": "trainer-13-1",
+            "cat": "trainer",
+            "key": "T2",
             "x": 51.923,
             "y": 8.333,
             "grid": [
@@ -13294,7 +13309,7 @@
           {
             "id": "trainer-2-13",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 9.615,
             "y": 75.0,
             "grid": [
@@ -13304,21 +13319,6 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:8",
-            "lane": 0
-          },
-          {
-            "id": "trainer-20-2",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 78.846,
-            "y": 13.889,
-            "grid": [
-              20,
-              2
-            ],
-            "align": "l",
-            "name": "Rocket",
-            "ref": "ROCKET:33",
             "lane": 0
           },
           {
@@ -13493,24 +13493,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-10-2",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 40.385,
-            "y": 13.889,
-            "grid": [
-              10,
-              2
-            ],
-            "align": "r",
-            "name": "Scientist",
-            "ref": "SCIENTIST:9",
-            "lane": 0
-          },
-          {
             "id": "trainer-12-15",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 48.077,
             "y": 86.111,
             "grid": [
@@ -13520,6 +13505,21 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:36",
+            "lane": 0
+          },
+          {
+            "id": "trainer-10-2",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 40.385,
+            "y": 13.889,
+            "grid": [
+              10,
+              2
+            ],
+            "align": "r",
+            "name": "Scientist",
+            "ref": "SCIENTIST:9",
             "lane": 0
           },
           {
@@ -13651,18 +13651,18 @@
         "name": "silph-co-9f",
         "markers": [
           {
-            "id": "trainer-2-4",
+            "id": "trainer-13-16",
             "cat": "trainer",
             "key": "T1",
-            "x": 9.615,
-            "y": 25.0,
+            "x": 51.923,
+            "y": 91.667,
             "grid": [
-              2,
-              4
+              13,
+              16
             ],
             "align": "r",
             "name": "Rocket",
-            "ref": "ROCKET:37",
+            "ref": "ROCKET:38",
             "lane": 0
           },
           {
@@ -13681,18 +13681,18 @@
             "lane": 0
           },
           {
-            "id": "trainer-13-16",
+            "id": "trainer-2-4",
             "cat": "trainer",
             "key": "T3",
-            "x": 51.923,
-            "y": 91.667,
+            "x": 9.615,
+            "y": 25.0,
             "grid": [
-              13,
-              16
+              2,
+              4
             ],
             "align": "r",
             "name": "Rocket",
-            "ref": "ROCKET:38",
+            "ref": "ROCKET:37",
             "lane": 0
           },
           {
@@ -13805,24 +13805,9 @@
         "name": "silph-co-10f",
         "markers": [
           {
-            "id": "trainer-1-9",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 9.375,
-            "y": 52.778,
-            "grid": [
-              1,
-              9
-            ],
-            "align": "r",
-            "name": "Rocket",
-            "ref": "ROCKET:39",
-            "lane": 0
-          },
-          {
             "id": "trainer-10-2",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 65.625,
             "y": 13.889,
             "grid": [
@@ -13832,6 +13817,21 @@
             "align": "l",
             "name": "Scientist",
             "ref": "SCIENTIST:11",
+            "lane": 0
+          },
+          {
+            "id": "trainer-1-9",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 9.375,
+            "y": 52.778,
+            "grid": [
+              1,
+              9
+            ],
+            "align": "r",
+            "name": "Rocket",
+            "ref": "ROCKET:39",
             "lane": 0
           },
           {
@@ -13991,24 +13991,9 @@
         "name": "silph-co-11f",
         "markers": [
           {
-            "id": "trainer-6-9",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 36.111,
-            "y": 52.778,
-            "grid": [
-              6,
-              9
-            ],
-            "align": "r",
-            "name": "Giovanni",
-            "ref": "GIOVANNI:2",
-            "lane": 0
-          },
-          {
             "id": "trainer-15-9",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 86.111,
             "y": 52.778,
             "grid": [
@@ -14019,6 +14004,21 @@
             "name": "Rocket",
             "ref": "ROCKET:40",
             "lane": 1
+          },
+          {
+            "id": "trainer-6-9",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 36.111,
+            "y": 52.778,
+            "grid": [
+              6,
+              9
+            ],
+            "align": "r",
+            "name": "Giovanni",
+            "ref": "GIOVANNI:2",
+            "lane": 0
           },
           {
             "id": "exit-9-0",
@@ -14270,24 +14270,39 @@
             "lane": 0
           },
           {
-            "id": "trainer-11-14",
+            "id": "trainer-2-3",
             "cat": "trainer",
             "key": "T1",
-            "x": 36.047,
+            "x": 84.884,
+            "y": 53.409,
+            "grid": [
+              2,
+              3
+            ],
+            "align": "l",
+            "name": "Gentleman",
+            "ref": "GENTLEMAN:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-11-4",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 63.953,
             "y": 55.682,
             "grid": [
               11,
-              14
+              4
             ],
-            "align": "r",
-            "name": "Youngster",
-            "ref": "YOUNGSTER:8",
-            "lane": 0
+            "align": "l",
+            "name": "Gentleman",
+            "ref": "GENTLEMAN:2",
+            "lane": 1
           },
           {
             "id": "trainer-13-11",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 40.698,
             "y": 48.864,
             "grid": [
@@ -14297,6 +14312,21 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:11",
+            "lane": 0
+          },
+          {
+            "id": "trainer-11-14",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 36.047,
+            "y": 55.682,
+            "grid": [
+              11,
+              14
+            ],
+            "align": "r",
+            "name": "Youngster",
+            "ref": "YOUNGSTER:8",
             "lane": 0
           },
           {
@@ -14313,36 +14343,6 @@
             "name": "TM Body Slam",
             "ref": "TM_BODY_SLAM",
             "lane": 2
-          },
-          {
-            "id": "trainer-11-4",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 63.953,
-            "y": 55.682,
-            "grid": [
-              11,
-              4
-            ],
-            "align": "l",
-            "name": "Gentleman",
-            "ref": "GENTLEMAN:2",
-            "lane": 1
-          },
-          {
-            "id": "trainer-2-3",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 84.884,
-            "y": 53.409,
-            "grid": [
-              2,
-              3
-            ],
-            "align": "l",
-            "name": "Gentleman",
-            "ref": "GENTLEMAN:1",
-            "lane": 0
           },
           {
             "id": "hidden-13-9",
@@ -14362,6 +14362,267 @@
         ]
       },
       {
+        "image": "walkthrough/yellow/maps/ss-anne-b1f.png",
+        "width": 480,
+        "height": 256,
+        "floor": "B1F",
+        "name": "ss-anne-b1f",
+        "markers": [
+          {
+            "id": "exit-23-3",
+            "cat": "exit",
+            "key": "E11",
+            "x": 78.333,
+            "y": 71.875,
+            "grid": [
+              23,
+              3
+            ],
+            "align": "l",
+            "name": "Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 3
+          },
+          {
+            "id": "exit-19-3",
+            "cat": "exit",
+            "key": "E12",
+            "x": 65.0,
+            "y": 71.875,
+            "grid": [
+              19,
+              3
+            ],
+            "align": "l",
+            "name": "Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 2
+          },
+          {
+            "id": "exit-15-3",
+            "cat": "exit",
+            "key": "E13",
+            "x": 51.667,
+            "y": 71.875,
+            "grid": [
+              15,
+              3
+            ],
+            "align": "r",
+            "name": "Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-11-3",
+            "cat": "exit",
+            "key": "E14",
+            "x": 38.333,
+            "y": 71.875,
+            "grid": [
+              11,
+              3
+            ],
+            "align": "r",
+            "name": "Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 1
+          },
+          {
+            "id": "exit-7-3",
+            "cat": "exit",
+            "key": "E15",
+            "x": 25.0,
+            "y": 71.875,
+            "grid": [
+              7,
+              3
+            ],
+            "align": "r",
+            "name": "Rooms",
+            "ref": "SS_ANNE_B1F_ROOMS",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-27-5",
+            "cat": "exit",
+            "key": "E9",
+            "x": 91.667,
+            "y": 84.375,
+            "grid": [
+              27,
+              5
+            ],
+            "align": "l",
+            "name": "1F",
+            "ref": "SS_ANNE_1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "item-12-11",
+            "cat": "item",
+            "key": "I1",
+            "x": 76.667,
+            "y": 9.375,
+            "grid": [
+              12,
+              11
+            ],
+            "align": "l",
+            "name": "Max Potion",
+            "ref": "MAX_POTION",
+            "lane": 2
+          },
+          {
+            "id": "trainer-0-13",
+            "cat": "trainer",
+            "key": "T1",
+            "x": 56.667,
+            "y": 21.875,
+            "grid": [
+              0,
+              13
+            ],
+            "align": "r",
+            "name": "Sailor",
+            "ref": "SAILOR:3",
+            "lane": 0
+          },
+          {
+            "id": "trainer-2-11",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 63.333,
+            "y": 9.375,
+            "grid": [
+              2,
+              11
+            ],
+            "align": "l",
+            "name": "Sailor",
+            "ref": "SAILOR:4",
+            "lane": 1
+          },
+          {
+            "id": "trainer-22-2",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 50.0,
+            "y": 15.625,
+            "grid": [
+              22,
+              2
+            ],
+            "align": "r",
+            "name": "Sailor",
+            "ref": "SAILOR:6",
+            "lane": 5
+          },
+          {
+            "id": "item-20-2",
+            "cat": "item",
+            "key": "I2",
+            "x": 43.333,
+            "y": 15.625,
+            "grid": [
+              20,
+              2
+            ],
+            "align": "r",
+            "name": "Ether",
+            "ref": "ETHER",
+            "lane": 4
+          },
+          {
+            "id": "trainer-12-3",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 36.667,
+            "y": 21.875,
+            "grid": [
+              12,
+              3
+            ],
+            "align": "r",
+            "name": "Sailor",
+            "ref": "SAILOR:5",
+            "lane": 0
+          },
+          {
+            "id": "item-10-2",
+            "cat": "item",
+            "key": "I3",
+            "x": 30.0,
+            "y": 15.625,
+            "grid": [
+              10,
+              2
+            ],
+            "align": "r",
+            "name": "TM Rest",
+            "ref": "TM_REST",
+            "lane": 3
+          },
+          {
+            "id": "trainer-0-4",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 16.667,
+            "y": 28.125,
+            "grid": [
+              0,
+              4
+            ],
+            "align": "r",
+            "name": "Fisherman",
+            "ref": "FISHER:2",
+            "lane": 1
+          },
+          {
+            "id": "trainer-0-2",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 16.667,
+            "y": 15.625,
+            "grid": [
+              0,
+              2
+            ],
+            "align": "r",
+            "name": "Sailor",
+            "ref": "SAILOR:7",
+            "lane": 2
+          },
+          {
+            "id": "hidden-3-1",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 26.667,
+            "y": 9.375,
+            "grid": [
+              3,
+              1
+            ],
+            "align": "r",
+            "name": "Hyper Potion",
+            "ref": "HYPER_POTION",
+            "lane": 0
+          }
+        ]
+      },
+      {
         "image": "walkthrough/yellow/maps/ss-anne-2f.png",
         "width": 640,
         "height": 416,
@@ -14369,24 +14630,9 @@
         "name": "ss-anne-2f",
         "markers": [
           {
-            "id": "trainer-36-4",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 91.25,
-            "y": 48.077,
-            "grid": [
-              36,
-              4
-            ],
-            "align": "l",
-            "name": "Rival1",
-            "ref": "RIVAL1:1",
-            "lane": 0
-          },
-          {
             "id": "exit-9-11",
             "cat": "exit",
-            "key": "E11",
+            "key": "E16",
             "x": 23.75,
             "y": 75.0,
             "grid": [
@@ -14403,7 +14649,7 @@
           {
             "id": "exit-13-11",
             "cat": "exit",
-            "key": "E12",
+            "key": "E17",
             "x": 33.75,
             "y": 75.0,
             "grid": [
@@ -14420,7 +14666,7 @@
           {
             "id": "exit-17-11",
             "cat": "exit",
-            "key": "E13",
+            "key": "E18",
             "x": 43.75,
             "y": 75.0,
             "grid": [
@@ -14437,7 +14683,7 @@
           {
             "id": "exit-21-11",
             "cat": "exit",
-            "key": "E14",
+            "key": "E19",
             "x": 53.75,
             "y": 75.0,
             "grid": [
@@ -14454,7 +14700,7 @@
           {
             "id": "exit-25-11",
             "cat": "exit",
-            "key": "E15",
+            "key": "E20",
             "x": 63.75,
             "y": 75.0,
             "grid": [
@@ -14471,7 +14717,7 @@
           {
             "id": "exit-29-11",
             "cat": "exit",
-            "key": "E16",
+            "key": "E21",
             "x": 73.75,
             "y": 75.0,
             "grid": [
@@ -14505,7 +14751,7 @@
           {
             "id": "exit-2-12",
             "cat": "exit",
-            "key": "E17",
+            "key": "E22",
             "x": 6.25,
             "y": 78.846,
             "grid": [
@@ -14522,7 +14768,7 @@
           {
             "id": "exit-36-4",
             "cat": "exit",
-            "key": "E18",
+            "key": "E23",
             "x": 91.25,
             "y": 48.077,
             "grid": [
@@ -14534,12 +14780,12 @@
             "ref": "SS_ANNE_CAPTAINS_ROOM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-10-2",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 27.5,
             "y": 9.615,
             "grid": [
@@ -14554,7 +14800,7 @@
           {
             "id": "trainer-13-4",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 35.0,
             "y": 17.308,
             "grid": [
@@ -14584,7 +14830,7 @@
           {
             "id": "trainer-0-14",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 47.5,
             "y": 17.308,
             "grid": [
@@ -14599,7 +14845,7 @@
           {
             "id": "trainer-2-11",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T4",
             "x": 52.5,
             "y": 5.769,
             "grid": [
@@ -14638,7 +14884,7 @@
           {
             "id": "exit-0-3",
             "cat": "exit",
-            "key": "E19",
+            "key": "E24",
             "x": 53.571,
             "y": 50.0,
             "grid": [
@@ -14655,7 +14901,7 @@
           {
             "id": "exit-19-3",
             "cat": "exit",
-            "key": "E17",
+            "key": "E22",
             "x": 98.81,
             "y": 50.0,
             "grid": [
@@ -14670,24 +14916,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-4-4",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 10.714,
-            "y": 32.143,
-            "grid": [
-              4,
-              4
-            ],
-            "align": "r",
-            "name": "Sailor",
-            "ref": "SAILOR:1",
-            "lane": 0
-          },
-          {
             "id": "trainer-10-8",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 25.0,
             "y": 60.714,
             "grid": [
@@ -14698,267 +14929,21 @@
             "name": "Sailor",
             "ref": "SAILOR:2",
             "lane": 0
-          }
-        ]
-      },
-      {
-        "image": "walkthrough/yellow/maps/ss-anne-b1f.png",
-        "width": 480,
-        "height": 256,
-        "floor": "B1F",
-        "name": "ss-anne-b1f",
-        "markers": [
-          {
-            "id": "exit-23-3",
-            "cat": "exit",
-            "key": "E20",
-            "x": 78.333,
-            "y": 71.875,
-            "grid": [
-              23,
-              3
-            ],
-            "align": "l",
-            "name": "Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 3
           },
           {
-            "id": "exit-19-3",
-            "cat": "exit",
-            "key": "E21",
-            "x": 65.0,
-            "y": 71.875,
-            "grid": [
-              19,
-              3
-            ],
-            "align": "l",
-            "name": "Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 2
-          },
-          {
-            "id": "exit-15-3",
-            "cat": "exit",
-            "key": "E22",
-            "x": 51.667,
-            "y": 71.875,
-            "grid": [
-              15,
-              3
-            ],
-            "align": "r",
-            "name": "Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "exit-11-3",
-            "cat": "exit",
-            "key": "E23",
-            "x": 38.333,
-            "y": 71.875,
-            "grid": [
-              11,
-              3
-            ],
-            "align": "r",
-            "name": "Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 1
-          },
-          {
-            "id": "exit-7-3",
-            "cat": "exit",
-            "key": "E24",
-            "x": 25.0,
-            "y": 71.875,
-            "grid": [
-              7,
-              3
-            ],
-            "align": "r",
-            "name": "Rooms",
-            "ref": "SS_ANNE_B1F_ROOMS",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "exit-27-5",
-            "cat": "exit",
-            "key": "E9",
-            "x": 91.667,
-            "y": 84.375,
-            "grid": [
-              27,
-              5
-            ],
-            "align": "l",
-            "name": "1F",
-            "ref": "SS_ANNE_1F",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 0
-          },
-          {
-            "id": "trainer-0-2",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 16.667,
-            "y": 15.625,
-            "grid": [
-              0,
-              2
-            ],
-            "align": "r",
-            "name": "Sailor",
-            "ref": "SAILOR:7",
-            "lane": 2
-          },
-          {
-            "id": "trainer-0-4",
+            "id": "trainer-4-4",
             "cat": "trainer",
             "key": "T2",
-            "x": 16.667,
-            "y": 28.125,
+            "x": 10.714,
+            "y": 32.143,
             "grid": [
-              0,
+              4,
               4
             ],
             "align": "r",
-            "name": "Fisherman",
-            "ref": "FISHER:2",
-            "lane": 1
-          },
-          {
-            "id": "hidden-3-1",
-            "cat": "hidden",
-            "key": "H1",
-            "x": 26.667,
-            "y": 9.375,
-            "grid": [
-              3,
-              1
-            ],
-            "align": "r",
-            "name": "Hyper Potion",
-            "ref": "HYPER_POTION",
+            "name": "Sailor",
+            "ref": "SAILOR:1",
             "lane": 0
-          },
-          {
-            "id": "trainer-12-3",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 36.667,
-            "y": 21.875,
-            "grid": [
-              12,
-              3
-            ],
-            "align": "r",
-            "name": "Sailor",
-            "ref": "SAILOR:5",
-            "lane": 0
-          },
-          {
-            "id": "item-10-2",
-            "cat": "item",
-            "key": "I1",
-            "x": 30.0,
-            "y": 15.625,
-            "grid": [
-              10,
-              2
-            ],
-            "align": "r",
-            "name": "TM Rest",
-            "ref": "TM_REST",
-            "lane": 3
-          },
-          {
-            "id": "trainer-22-2",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 50.0,
-            "y": 15.625,
-            "grid": [
-              22,
-              2
-            ],
-            "align": "r",
-            "name": "Sailor",
-            "ref": "SAILOR:6",
-            "lane": 5
-          },
-          {
-            "id": "item-20-2",
-            "cat": "item",
-            "key": "I2",
-            "x": 43.333,
-            "y": 15.625,
-            "grid": [
-              20,
-              2
-            ],
-            "align": "r",
-            "name": "Ether",
-            "ref": "ETHER",
-            "lane": 4
-          },
-          {
-            "id": "trainer-0-13",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 56.667,
-            "y": 21.875,
-            "grid": [
-              0,
-              13
-            ],
-            "align": "r",
-            "name": "Sailor",
-            "ref": "SAILOR:3",
-            "lane": 0
-          },
-          {
-            "id": "trainer-2-11",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 63.333,
-            "y": 9.375,
-            "grid": [
-              2,
-              11
-            ],
-            "align": "l",
-            "name": "Sailor",
-            "ref": "SAILOR:4",
-            "lane": 1
-          },
-          {
-            "id": "item-12-11",
-            "cat": "item",
-            "key": "I3",
-            "x": 76.667,
-            "y": 9.375,
-            "grid": [
-              12,
-              11
-            ],
-            "align": "l",
-            "name": "Max Potion",
-            "ref": "MAX_POTION",
-            "lane": 2
           }
         ]
       }
@@ -15241,39 +15226,9 @@
         "name": "vermilion-city-gym",
         "markers": [
           {
-            "id": "trainer-5-1",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 55.0,
-            "y": 8.333,
-            "grid": [
-              5,
-              1
-            ],
-            "align": "r",
-            "name": "Lt.Surge",
-            "ref": "LT_SURGE:1",
-            "lane": 0
-          },
-          {
-            "id": "trainer-9-6",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 95.0,
-            "y": 36.111,
-            "grid": [
-              9,
-              6
-            ],
-            "align": "l",
-            "name": "Gentleman",
-            "ref": "GENTLEMAN:3",
-            "lane": 0
-          },
-          {
             "id": "trainer-3-8",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T1",
             "x": 35.0,
             "y": 47.222,
             "grid": [
@@ -15288,7 +15243,7 @@
           {
             "id": "trainer-0-10",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T2",
             "x": 5.0,
             "y": 58.333,
             "grid": [
@@ -15298,6 +15253,36 @@
             "align": "r",
             "name": "Sailor",
             "ref": "SAILOR:8",
+            "lane": 0
+          },
+          {
+            "id": "trainer-9-6",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 95.0,
+            "y": 36.111,
+            "grid": [
+              9,
+              6
+            ],
+            "align": "l",
+            "name": "Gentleman",
+            "ref": "GENTLEMAN:3",
+            "lane": 0
+          },
+          {
+            "id": "trainer-5-1",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 55.0,
+            "y": 8.333,
+            "grid": [
+              5,
+              1
+            ],
+            "align": "r",
+            "name": "Lt.Surge",
+            "ref": "LT_SURGE:1",
             "lane": 0
           },
           {
@@ -15402,24 +15387,9 @@
             "lane": 0
           },
           {
-            "id": "item-11-0",
-            "cat": "item",
-            "key": "I1",
-            "x": 57.5,
-            "y": 2.778,
-            "grid": [
-              11,
-              0
-            ],
-            "align": "r",
-            "name": "TM Sky Attack",
-            "ref": "TM_SKY_ATTACK",
-            "lane": 0
-          },
-          {
             "id": "item-9-2",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 47.5,
             "y": 13.889,
             "grid": [
@@ -15430,6 +15400,21 @@
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
             "lane": 2
+          },
+          {
+            "id": "item-11-0",
+            "cat": "item",
+            "key": "I2",
+            "x": 57.5,
+            "y": 2.778,
+            "grid": [
+              11,
+              0
+            ],
+            "align": "r",
+            "name": "TM Sky Attack",
+            "ref": "TM_SKY_ATTACK",
+            "lane": 0
           },
           {
             "id": "exit-8-17",
@@ -15475,39 +15460,24 @@
         "name": "victory-road-2f",
         "markers": [
           {
-            "id": "trainer-12-9",
+            "id": "trainer-4-2",
             "cat": "trainer",
             "key": "T1",
-            "x": 41.667,
-            "y": 52.778,
+            "x": 15.0,
+            "y": 13.889,
             "grid": [
-              12,
-              9
+              4,
+              2
             ],
             "align": "r",
-            "name": "Blackbelt",
-            "ref": "BLACKBELT:9",
-            "lane": 0
-          },
-          {
-            "id": "trainer-21-13",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 71.667,
-            "y": 75.0,
-            "grid": [
-              21,
-              13
-            ],
-            "align": "l",
-            "name": "Juggler",
-            "ref": "JUGGLER:2",
+            "name": "Pok\u00e9maniac",
+            "ref": "POKEMANIAC:6",
             "lane": 0
           },
           {
             "id": "trainer-19-8",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T2",
             "x": 65.0,
             "y": 47.222,
             "grid": [
@@ -15520,18 +15490,33 @@
             "lane": 3
           },
           {
-            "id": "trainer-4-2",
+            "id": "trainer-21-13",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 71.667,
+            "y": 75.0,
+            "grid": [
+              21,
+              13
+            ],
+            "align": "l",
+            "name": "Juggler",
+            "ref": "JUGGLER:2",
+            "lane": 0
+          },
+          {
+            "id": "trainer-12-9",
             "cat": "trainer",
             "key": "T4",
-            "x": 15.0,
-            "y": 13.889,
+            "x": 41.667,
+            "y": 52.778,
             "grid": [
-              4,
-              2
+              12,
+              9
             ],
             "align": "r",
-            "name": "Pok\u00e9maniac",
-            "ref": "POKEMANIAC:6",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:9",
             "lane": 0
           },
           {
@@ -15550,9 +15535,24 @@
             "lane": 0
           },
           {
-            "id": "item-11-5",
+            "id": "item-11-0",
             "cat": "item",
             "key": "I1",
+            "x": 38.333,
+            "y": 2.778,
+            "grid": [
+              11,
+              0
+            ],
+            "align": "r",
+            "name": "Guard Spec",
+            "ref": "GUARD_SPEC",
+            "lane": 0
+          },
+          {
+            "id": "item-11-5",
+            "cat": "item",
+            "key": "I2",
             "x": 38.333,
             "y": 30.556,
             "grid": [
@@ -15565,39 +15565,9 @@
             "lane": 0
           },
           {
-            "id": "item-27-5",
-            "cat": "item",
-            "key": "I2",
-            "x": 91.667,
-            "y": 30.556,
-            "grid": [
-              27,
-              5
-            ],
-            "align": "l",
-            "name": "TM Submission",
-            "ref": "TM_SUBMISSION",
-            "lane": 1
-          },
-          {
-            "id": "item-18-9",
-            "cat": "item",
-            "key": "I3",
-            "x": 61.667,
-            "y": 52.778,
-            "grid": [
-              18,
-              9
-            ],
-            "align": "r",
-            "name": "Full Heal",
-            "ref": "FULL_HEAL",
-            "lane": 1
-          },
-          {
             "id": "item-9-11",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 31.667,
             "y": 63.889,
             "grid": [
@@ -15610,19 +15580,34 @@
             "lane": 0
           },
           {
-            "id": "item-11-0",
+            "id": "item-18-9",
             "cat": "item",
-            "key": "I5",
-            "x": 38.333,
-            "y": 2.778,
+            "key": "I4",
+            "x": 61.667,
+            "y": 52.778,
             "grid": [
-              11,
-              0
+              18,
+              9
             ],
             "align": "r",
-            "name": "Guard Spec",
-            "ref": "GUARD_SPEC",
-            "lane": 0
+            "name": "Full Heal",
+            "ref": "FULL_HEAL",
+            "lane": 1
+          },
+          {
+            "id": "item-27-5",
+            "cat": "item",
+            "key": "I5",
+            "x": 91.667,
+            "y": 30.556,
+            "grid": [
+              27,
+              5
+            ],
+            "align": "l",
+            "name": "TM Submission",
+            "ref": "TM_SUBMISSION",
+            "lane": 1
           },
           {
             "id": "hidden-5-2",
@@ -15781,9 +15766,24 @@
             "lane": 1
           },
           {
-            "id": "trainer-7-13",
+            "id": "trainer-13-3",
             "cat": "trainer",
             "key": "T2",
+            "x": 45.0,
+            "y": 19.444,
+            "grid": [
+              13,
+              3
+            ],
+            "align": "r",
+            "name": "Cooltrainer\u2640",
+            "ref": "COOLTRAINER_F:3",
+            "lane": 0
+          },
+          {
+            "id": "trainer-7-13",
+            "cat": "trainer",
+            "key": "T3",
             "x": 25.0,
             "y": 75.0,
             "grid": [
@@ -15798,7 +15798,7 @@
           {
             "id": "trainer-6-14",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T4",
             "x": 21.667,
             "y": 80.556,
             "grid": [
@@ -15809,21 +15809,6 @@
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:3",
             "lane": 1
-          },
-          {
-            "id": "trainer-13-3",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 45.0,
-            "y": 19.444,
-            "grid": [
-              13,
-              3
-            ],
-            "align": "r",
-            "name": "Cooltrainer\u2640",
-            "ref": "COOLTRAINER_F:3",
-            "lane": 0
           },
           {
             "id": "item-26-5",
@@ -16097,9 +16082,24 @@
         "name": "viridian-forest",
         "markers": [
           {
-            "id": "trainer-30-33",
+            "id": "trainer-2-41",
             "cat": "trainer",
             "key": "T1",
+            "x": 7.353,
+            "y": 86.458,
+            "grid": [
+              2,
+              41
+            ],
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:19",
+            "lane": 0
+          },
+          {
+            "id": "trainer-30-33",
+            "cat": "trainer",
+            "key": "T2",
             "x": 89.706,
             "y": 69.792,
             "grid": [
@@ -16114,7 +16114,7 @@
           {
             "id": "trainer-30-19",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T3",
             "x": 89.706,
             "y": 40.625,
             "grid": [
@@ -16127,39 +16127,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-2-18",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 7.353,
-            "y": 38.542,
-            "grid": [
-              2,
-              18
-            ],
-            "align": "r",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:3",
-            "lane": 1
-          },
-          {
-            "id": "trainer-2-41",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 7.353,
-            "y": 86.458,
-            "grid": [
-              2,
-              41
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:19",
-            "lane": 0
-          },
-          {
             "id": "trainer-13-17",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T4",
             "x": 39.706,
             "y": 36.458,
             "grid": [
@@ -16172,9 +16142,39 @@
             "lane": 0
           },
           {
-            "id": "item-25-11",
+            "id": "trainer-2-18",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 7.353,
+            "y": 38.542,
+            "grid": [
+              2,
+              18
+            ],
+            "align": "r",
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:3",
+            "lane": 1
+          },
+          {
+            "id": "item-1-31",
             "cat": "item",
             "key": "I1",
+            "x": 4.412,
+            "y": 65.625,
+            "grid": [
+              1,
+              31
+            ],
+            "align": "r",
+            "name": "Pok\u00e9 Ball",
+            "ref": "POKE_BALL",
+            "lane": 0
+          },
+          {
+            "id": "item-25-11",
+            "cat": "item",
+            "key": "I2",
             "x": 75.0,
             "y": 23.958,
             "grid": [
@@ -16189,7 +16189,7 @@
           {
             "id": "item-12-29",
             "cat": "item",
-            "key": "I2",
+            "key": "I3",
             "x": 36.765,
             "y": 61.458,
             "grid": [
@@ -16202,39 +16202,9 @@
             "lane": 0
           },
           {
-            "id": "item-1-31",
-            "cat": "item",
-            "key": "I3",
-            "x": 4.412,
-            "y": 65.625,
-            "grid": [
-              1,
-              31
-            ],
-            "align": "r",
-            "name": "Pok\u00e9 Ball",
-            "ref": "POKE_BALL",
-            "lane": 0
-          },
-          {
-            "id": "hidden-1-18",
-            "cat": "hidden",
-            "key": "H1",
-            "x": 4.412,
-            "y": 38.542,
-            "grid": [
-              1,
-              18
-            ],
-            "align": "r",
-            "name": "Potion",
-            "ref": "POTION",
-            "lane": 0
-          },
-          {
             "id": "hidden-16-42",
             "cat": "hidden",
-            "key": "H2",
+            "key": "H1",
             "x": 48.529,
             "y": 88.542,
             "grid": [
@@ -16244,6 +16214,21 @@
             "align": "r",
             "name": "Antidote",
             "ref": "ANTIDOTE",
+            "lane": 0
+          },
+          {
+            "id": "hidden-1-18",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 4.412,
+            "y": 38.542,
+            "grid": [
+              1,
+              18
+            ],
+            "align": "r",
+            "name": "Potion",
+            "ref": "POTION",
             "lane": 0
           },
           {
@@ -16292,18 +16277,18 @@
         "name": "viridian-gym",
         "markers": [
           {
-            "id": "trainer-2-1",
+            "id": "trainer-11-11",
             "cat": "trainer",
             "key": "T1",
-            "x": 12.5,
-            "y": 8.333,
+            "x": 57.5,
+            "y": 63.889,
             "grid": [
-              2,
-              1
+              11,
+              11
             ],
             "align": "r",
-            "name": "Giovanni",
-            "ref": "GIOVANNI:3",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:6",
             "lane": 0
           },
           {
@@ -16322,54 +16307,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-11-11",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 57.5,
-            "y": 63.889,
-            "grid": [
-              11,
-              11
-            ],
-            "align": "r",
-            "name": "Blackbelt",
-            "ref": "BLACKBELT:6",
-            "lane": 0
-          },
-          {
-            "id": "trainer-10-7",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 52.5,
-            "y": 41.667,
-            "grid": [
-              10,
-              7
-            ],
-            "align": "r",
-            "name": "Tamer",
-            "ref": "TAMER:3",
-            "lane": 1
-          },
-          {
-            "id": "trainer-3-7",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 17.5,
-            "y": 41.667,
-            "grid": [
-              3,
-              7
-            ],
-            "align": "r",
-            "name": "Blackbelt",
-            "ref": "BLACKBELT:7",
-            "lane": 0
-          },
-          {
             "id": "trainer-13-5",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T3",
             "x": 67.5,
             "y": 30.556,
             "grid": [
@@ -16382,24 +16322,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-10-1",
-            "cat": "trainer",
-            "key": "T7",
-            "x": 52.5,
-            "y": 8.333,
-            "grid": [
-              10,
-              1
-            ],
-            "align": "r",
-            "name": "Blackbelt",
-            "ref": "BLACKBELT:8",
-            "lane": 0
-          },
-          {
             "id": "trainer-2-16",
             "cat": "trainer",
-            "key": "T8",
+            "key": "T4",
             "x": 12.5,
             "y": 91.667,
             "grid": [
@@ -16412,9 +16337,54 @@
             "lane": 0
           },
           {
+            "id": "trainer-10-7",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 52.5,
+            "y": 41.667,
+            "grid": [
+              10,
+              7
+            ],
+            "align": "r",
+            "name": "Tamer",
+            "ref": "TAMER:3",
+            "lane": 1
+          },
+          {
+            "id": "trainer-10-1",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 52.5,
+            "y": 8.333,
+            "grid": [
+              10,
+              1
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:8",
+            "lane": 0
+          },
+          {
+            "id": "trainer-3-7",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 17.5,
+            "y": 41.667,
+            "grid": [
+              3,
+              7
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:7",
+            "lane": 0
+          },
+          {
             "id": "trainer-6-5",
             "cat": "trainer",
-            "key": "T9",
+            "key": "T8",
             "x": 32.5,
             "y": 30.556,
             "grid": [
@@ -16424,6 +16394,21 @@
             "align": "r",
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:1",
+            "lane": 0
+          },
+          {
+            "id": "trainer-2-1",
+            "cat": "trainer",
+            "key": "T9",
+            "x": 12.5,
+            "y": 8.333,
+            "grid": [
+              2,
+              1
+            ],
+            "align": "r",
+            "name": "Giovanni",
+            "ref": "GIOVANNI:3",
             "lane": 0
           },
           {
