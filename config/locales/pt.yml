@@ -557,7 +557,9 @@ pt:
       next: "PRÓXIMO ▶"
       lv: "Nv %{n}"
       title_leg: "%{name} · Guia de %{game}"
-      leg_tag: "%{label} · %{count} PARADAS"
+      leg_tag:
+        one: "%{label} · %{count} PARADA"
+        other: "%{label} · %{count} PARADAS"
       leg_stops: "PARADAS NESTE TRECHO"
       leg_catchable: "CAPTURÁVEIS AQUI"
       leg_new: "NOVOS NA DEX"
@@ -616,18 +618,20 @@ pt:
         leg_07:
           lead: "A leste e ao sul de Cerulean rumo ao labirinto escuro do Rock Tunnel."
         leg_08:
-          lead: "Do Rock Tunnel a Lavender, depois a oeste até a loja de departamentos de Celadon e o ginásio da Erika."
+          lead: "Do Rock Tunnel a Lavender, depois a estrada a oeste rumo a Celadon."
         leg_09:
-          lead: "As rotas de pesca ao sul até Fuchsia, depois a Safari Zone antes do ginásio do Koga."
+          lead: "Celadon: a loja de departamentos, o Game Corner embaixo dela e a Rainbow Badge da Erika."
         leg_10:
-          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
+          lead: "As rotas de pesca ao sul até Fuchsia, depois a Safari Zone antes do ginásio do Koga."
         leg_11:
-          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
+          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
         leg_12:
-          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
+          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_13:
-          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
         leg_14:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_15:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"

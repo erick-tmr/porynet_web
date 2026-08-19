@@ -557,7 +557,9 @@ en:
       next: "NEXT ▶"
       lv: "Lv %{n}"
       title_leg: "%{name} · %{game} Walkthrough"
-      leg_tag: "%{label} · %{count} STOPS"
+      leg_tag:
+        one: "%{label} · %{count} STOP"
+        other: "%{label} · %{count} STOPS"
       leg_stops: "STOPS IN THIS LEG"
       leg_catchable: "CATCHABLE HERE"
       leg_new: "NEW TO DEX"
@@ -616,18 +618,20 @@ en:
         leg_07:
           lead: "East and south from Cerulean toward the dark maze of Rock Tunnel."
         leg_08:
-          lead: "Out of Rock Tunnel to Lavender, then west to Celadon's department store and Erika's gym."
+          lead: "Out of Rock Tunnel to Lavender, then the road west toward Celadon."
         leg_09:
-          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
+          lead: "Celadon: the department store, the Game Corner under it, and Erika's Rainbow Badge."
         leg_10:
-          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
+          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
         leg_11:
-          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
+          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
         leg_12:
-          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
+          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_13:
-          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
         leg_14:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_15:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
       mew_glitch:
         meta_title: "The Mew Glitch · %{game} Walkthrough"

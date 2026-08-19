@@ -102,9 +102,7 @@ module Walkthrough
     # in the game could not source anything: Ninetales, whose one route into the box is a Fire
     # Stone on a spare Vulpix, dropped off the plan with nothing owing it.
     def self.purchasable?(game, dex)
-      game.locations.any? do |loc|
-        loc.encounters.any? { |enc| enc.dex == dex && enc.purchased? }
-      end
+      game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.purchased? }
     end
 
     def self.worth_catching?(game, dex)

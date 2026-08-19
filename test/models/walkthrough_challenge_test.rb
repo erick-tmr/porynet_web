@@ -22,7 +22,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 27, assigned.size
+    assert_equal 28, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
@@ -31,7 +31,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
 
   test "the Safari Zone and Silph Co. land in the window their gym closes" do
     assert game.windows[4].covers?("safari-zone"), "the Safari Zone is inside the Koga window"
-    assert_equal "Koga", plan("leg-09").window.leader
+    assert_equal "Koga", plan("leg-10").window.leader
     assert game.windows[5].covers?("silph-co"), "Silph Co. is inside the Sabrina window"
     assert_equal "Sabrina", plan("silph-co").window.leader
   end
@@ -125,7 +125,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   # stopped dead by a trade.
   test "a queued species says how the stage above it gets filled" do
     kinds = {
-      [ "leg-01", "016" ] => :catch, [ "leg-10", "084" ] => :rare,
+      [ "leg-01", "016" ] => :catch, [ "leg-11", "084" ] => :rare,
       [ "viridian-forest", "011" ] => :level, [ "mt-moon", "035" ] => :stone,
       [ "victory-road", "075" ] => :trade, [ "leg-01", "025" ] => :refused
     }
@@ -142,7 +142,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "a species the page only points at carries no quota line to explain" do
     assert_nil plan("viridian-forest").entry_for("016").later,
       "Route 1 owns the Pidgey row, so the forest card just sends you back to it"
-    assert_nil plan("leg-10").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
+    assert_nil plan("leg-11").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
     assert_equal "walkthrough.ui.ld_why_later", plan("leg-01").entry_for("016").why_key,
       "one Pidgey is the whole point, so the row says which stop takes the rest of the line"
   end
@@ -295,7 +295,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "a page can owe an Oak reminder without owing a single catch" do
-    gym = plan("leg-13")
+    gym = plan("leg-14")
 
     refute gym.living?
     assert gym.oak?

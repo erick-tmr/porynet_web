@@ -35,7 +35,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 27 PARADAS"
+    assert_includes response.body, "A ROTA · 28 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -197,7 +197,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a leg renders in Portuguese with a gym band, fossils and its leader" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12", locale: :pt)
+    get walkthrough_leg_path(game: "yellow", leg: "leg-13", locale: :pt)
 
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
@@ -209,7 +209,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a location renders its in-game trades with give and receive sprites" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
 
     assert_response :success
     assert_select ".pn-eyebrow-label", text: /IN-GAME TRADES/
@@ -221,7 +221,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "each trade card is a tick target that carries a toast and a traded badge" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
 
     assert_response :success
     assert_select ".pn-wt-trade[role='button'][data-kind='collected'][data-progress-id]", 3
@@ -383,7 +383,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the Safari Zone sits inside the Koga window now that it precedes his gym" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-10")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
@@ -392,7 +392,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the endgame page names the League rather than a leader it does not have" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"
@@ -479,7 +479,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "Celadon renders the multi-floor department store with an elevator" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-08")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
 
     assert_response :success
     assert_select "[data-controller='dept-store']"
@@ -488,8 +488,16 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     # a sold TM shows its number and move, the rooftop trades a drink for one
     assert_select ".pn-wt-mart__name", text: "TM09 · Take Down"
     assert_select ".pn-wt-store__trade-move", text: "Ice Beam"
-    # Lavender's plain mart sits in the same leg, so both mart shapes render together
+  end
+
+  # The other mart shape, on the leg that now ends at Route 7: a town counter with no floors and
+  # no elevator, which is what every stop but Celadon has.
+  test "a plain town mart renders as a single counter" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-08")
+
+    assert_response :success
     assert_select ".pn-wt-mart"
+    assert_select "[data-controller='dept-store']", false
   end
 
   test "the Mew glitch page renders its hero, phases, and level calculator" do
@@ -650,7 +658,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a section header tallies only the species its own method finds" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
 
     assert_response :success
     assert_select "#catchsec-cinnabar-island-fossil .pn-wt-catchsec__label", text: "Revived fossils"
