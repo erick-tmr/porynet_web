@@ -14,9 +14,9 @@ module Walkthrough
   # four legs before the Old Rod exists.
   METHOD_UNLOCK = {
     "OLD ROD" => 17,     # Vermilion City, the Fishing Guru
-    "SUPER ROD" => 30,   # Route 12, the Super Rod house
-    "GOOD ROD" => 34,    # Fuchsia City, the Good Rod house
-    "SURF" => 35         # Safari Zone, HM03 in the Secret House
+    "SUPER ROD" => 31,   # Route 12, the Super Rod house
+    "GOOD ROD" => 35,    # Fuchsia City, the Good Rod house
+    "SURF" => 36         # Safari Zone, HM03 in the Secret House
   }.freeze
 
   GIFT_SECTION = "GIFT"

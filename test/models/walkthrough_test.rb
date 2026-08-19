@@ -15,12 +15,12 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 52 numbered stops (1..52), three of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), three of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
     # needs, and Route 10 (stop 22) is cut in half by Rock Tunnel. Each pass is its own section,
-    # so 55 sections share 52 numbers.
-    assert_equal 55, g.locations.size
-    assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
+    # so 56 sections share 53 numbers.
+    assert_equal 56, g.locations.size
+    assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
       g.locations.select { |loc| loc.order == 17 }.map(&:slug)
@@ -161,8 +161,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     silph = game.locations.index(loc("silph-co"))
 
     assert_operator silph, :<, saffron
-    assert_equal 39, loc("silph-co").order
-    assert_equal 40, loc("saffron-city").order
+    assert_equal 40, loc("silph-co").order
+    assert_equal 41, loc("saffron-city").order
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-11"))
   end
 

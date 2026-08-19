@@ -148,6 +148,7 @@ ROUTES = {
     "SilphCo11F": ("exit-9-0",),
     "PowerPlant": ("exit-4-35",),                   # the south door you Surf up to
     "UndergroundPathNorthSouth": ("exit-5-4",),     # down from the Route 5 house
+    "UndergroundPathWestEast": ("exit-47-2",),      # down from the Route 8 house, walked west
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
     "CeruleanCave2F": ("exit-1-3",),
     "CeruleanCaveB1F": ("exit-3-6", "item-2-13", "item-3-13", "hidden-8-14", "item-15-3", "item-26-1"),

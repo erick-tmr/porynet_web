@@ -55,6 +55,7 @@ _DUNGEONS = {
                 ("SSAnne2F", "2F", "VERMILION_CITY"),
                 ("SSAnne3F", "3F", "VERMILION_CITY")],
     "underground-path": [("UndergroundPathNorthSouth", "", None)],
+    "underground-path-west-east": [("UndergroundPathWestEast", "", None)],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],

@@ -1767,6 +1767,20 @@ pt:
             "2":
               title: "Pegue o Underground Path"
               text_html: "Os guardas de Saffron querem uma bebida. Pule-os túnelando a oeste %{path} sob a cidade até a Rota 7."
+        underground_path_west_east:
+          note: "O segundo túnel de Saffron. Um Nugget e um Elixir no chão."
+          intro: "O outro corredor sob Saffron City, indo a oeste da Rota 8 até a Rota 7. Sem treinadores, nada selvagem, e dois itens ocultos no chão que não mostram nada na tela."
+          steps:
+            "1":
+              title: "Desça da Rota 8 e vá a oeste pelo Elixir"
+              text_html: "A casa da Rota 8 deixa você na escada %{in}, na segunda faixa. Siga a oeste e desça até a faixa de baixo: aperte A no ladrilho dezenove a leste da escada oposta para um Elixir oculto, PP cheio em todos os golpes."
+              hidden:
+                elixir: "Faixa de baixo do túnel, dezenove ladrilhos a leste da escada da Rota 7. Fique acima dele e aperte A virado para baixo. Nada aparece na tela."
+            "2":
+              title: "Suba uma faixa pelo Nugget"
+              text_html: "Continue a oeste e suba três faixas, de volta à que você entrou. Aperte A virado para baixo dez ladrilhos a leste da escada da Rota 7 para um Nugget oculto, que vale ¥5000 em qualquer balcão. A escada %{out} fica abaixo, a oeste."
+              hidden:
+                nugget: "A faixa da entrada, dez ladrilhos a leste da escada da Rota 7 e três faixas acima dela. Aperte A virado para baixo. Nada aparece na tela."
         route_7:
           note: "Faixa curta até Celadon. Pidgey e Abra."
           intro: "Uma tela de estrada entre Saffron e Celadon, com um trecho de mato alto na parte de cima. Sem treinadores e nada largado no chão."

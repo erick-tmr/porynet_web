@@ -168,7 +168,7 @@ module Walkthrough
       { slug: "digletts-cave", special: true, locs: %w[digletts-cave] },
       { slug: "leg-07", special: false, locs: %w[route-9 route-10] },
       { slug: "rock-tunnel", special: true, locs: %w[rock-tunnel] },
-      { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 route-7] },
+      { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 underground-path-west-east route-7] },
       { slug: "leg-09", special: false, locs: %w[celadon-city] },
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
@@ -408,7 +408,8 @@ module Walkthrough
         route_3, route_4_mt_moon, mt_moon, route_4, cerulean_city, route_24, route_25,
         route_5, underground_path, route_6, vermilion_city, ss_anne, route_11,
         vermilion_city_return, digletts_cave,
-        route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8, route_7, celadon_city,
+        route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8,
+        underground_path_west_east, route_7, celadon_city,
         rocket_hideout,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
@@ -1446,7 +1447,7 @@ module Walkthrough
     end
 
     def self.pokemon_tower
-      loc("pokemon-tower", "DUNGEON", "Pokémon Tower", 29, steps: [
+      loc("pokemon-tower", "DUNGEON", "Pokémon Tower", 30, steps: [
           {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope" },
           { item: [ "Elixir", "elixir" ], scene: "pokemon-tower-item-elixir" },
@@ -1474,7 +1475,7 @@ module Walkthrough
     end
 
     def self.route_12
-      loc("route-12", "ROUTE", "Route 12", 30, steps: [
+      loc("route-12", "ROUTE", "Route 12", 31, steps: [
           { pins: { gate: "route-12/exit-10-21" } },
           { item: [ "TM Pay Day", "tm-pay-day" ], scene: "route-12-item-tm-pay-day" },
           { scene: "route-12-snorlax" },
@@ -1504,7 +1505,7 @@ module Walkthrough
     end
 
     def self.route_13
-      loc("route-13", "ROUTE", "Route 13", 31, steps: [
+      loc("route-13", "ROUTE", "Route 13", 32, steps: [
           {},
           { hidden: [ "Calcium", "calcium", "route-13-hidden-calcium", "route-13-calcium" ] },
           { hidden: [ "PP Up", "pp-up", "route-13-hidden-pp-up", "route-13-pp-up" ] },
@@ -1531,7 +1532,7 @@ module Walkthrough
     end
 
     def self.route_14
-      loc("route-14", "ROUTE", "Route 14", 32, steps: 2, pins: { 2 => { west: "route-14/exit-west" } },
+      loc("route-14", "ROUTE", "Route 14", 33, steps: 2, pins: { 2 => { west: "route-14/exit-west" } },
         encounters: [
           enc("route-14", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
           enc("route-14", "069", "GRASS", "30%", "26–28", "COMMON", "069", "070", "071"),
@@ -1544,7 +1545,7 @@ module Walkthrough
     end
 
     def self.route_15
-      loc("route-15", "ROUTE", "Route 15", 33, steps: [
+      loc("route-15", "ROUTE", "Route 15", 34, steps: [
           { items: [ [ "Exp. All", "exp_all" ] ], pins: { east: "route-15/exit-east" } },
           { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage" },
           { pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
@@ -1561,7 +1562,7 @@ module Walkthrough
     end
 
     def self.fuchsia_city
-      loc("fuchsia-city", "CITY", "Fuchsia City", 34, steps: 4, gym_after: 3, gym_finale: true, badge: "SOUL",
+      loc("fuchsia-city", "CITY", "Fuchsia City", 35, steps: 4, gym_after: 3, gym_finale: true, badge: "SOUL",
         pins: { 1 => { center: "fuchsia-city/exit-19-27", mart: "fuchsia-city/exit-5-13", gym: "fuchsia-city/exit-5-27" },
                 3 => { safari: "fuchsia-city/exit-18-3" },
                 4 => { warden: "fuchsia-city/exit-27-27" } },
@@ -1581,7 +1582,7 @@ module Walkthrough
     end
 
     def self.safari_zone
-      loc("safari-zone", "DUNGEON", "Safari Zone", 35, steps: [
+      loc("safari-zone", "DUNGEON", "Safari Zone", 36, steps: [
           {},
           {},
           { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
@@ -1630,7 +1631,7 @@ module Walkthrough
     end
 
     def self.route_16
-      loc("route-16", "ROUTE", "Route 16", 36, steps: 3, shots: [ 2 ],
+      loc("route-16", "ROUTE", "Route 16", 37, steps: 3, shots: [ 2 ],
         pins: { 1 => { house: "route-16/exit-7-5" }, 2 => { gate: "route-16/exit-17-10" },
                 3 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
         key_items: { 1 => [ [ "HM02 Fly", "hm02_fly" ] ] },
@@ -1646,7 +1647,7 @@ module Walkthrough
     end
 
     def self.route_17
-      loc("route-17", "ROUTE", "Route 17", 37, steps: [
+      loc("route-17", "ROUTE", "Route 17", 38, steps: [
           { pins: { north: "route-17/exit-north" } },
           { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
           { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
@@ -1670,7 +1671,7 @@ module Walkthrough
     end
 
     def self.route_18
-      loc("route-18", "ROUTE", "Route 18", 38, steps: 2,
+      loc("route-18", "ROUTE", "Route 18", 39, steps: 2,
         pins: { 2 => { gate: "route-18/exit-33-8", east: "route-18/exit-east" } },
         encounters: [
           enc("route-18", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
@@ -1689,7 +1690,7 @@ module Walkthrough
     end
 
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 40, steps: 3, gym_after: 2, badge: "MARSH",
+      loc("saffron-city", "CITY", "Saffron City", 41, steps: 3, gym_after: 2, badge: "MARSH",
         pins: { 2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
                 3 => { dojo: "saffron-city/exit-26-3" } },
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
@@ -1701,7 +1702,7 @@ module Walkthrough
     end
 
     def self.silph_co
-      loc("silph-co", "BUILDING", "Silph Co.", 39, steps: [
+      loc("silph-co", "BUILDING", "Silph Co.", 40, steps: [
           {},
           { item: [ "Hyper Potion", "hyper-potion" ], scene: "silph-co-item-hyper-potion" },
           { item: [ "Max Revive", "max-revive" ], scene: "silph-co-item-max-revive" },
@@ -1737,7 +1738,7 @@ module Walkthrough
     end
 
     def self.route_19
-      loc("route-19", "ROUTE", "Route 19", 41, steps: 2, pins: { 2 => { west: "route-19/exit-west" } },
+      loc("route-19", "ROUTE", "Route 19", 42, steps: 2, pins: { 2 => { west: "route-19/exit-west" } },
         encounters: [
           enc("route-19", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-19", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
@@ -1750,7 +1751,7 @@ module Walkthrough
     end
 
     def self.route_20
-      loc("route-20", "ROUTE", "Route 20", 42, steps: 2, pins: { 2 => { east: "route-20/exit-58-9" } },
+      loc("route-20", "ROUTE", "Route 20", 43, steps: 2, pins: { 2 => { east: "route-20/exit-58-9" } },
         encounters: [
           enc("route-20", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-20", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
@@ -1763,7 +1764,7 @@ module Walkthrough
     end
 
     def self.seafoam_islands
-      loc("seafoam-islands", "CAVE", "Seafoam Islands", 43, steps: [
+      loc("seafoam-islands", "CAVE", "Seafoam Islands", 44, steps: [
           {},
           {},
           { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
@@ -1795,7 +1796,7 @@ module Walkthrough
     end
 
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 3, gym_after: 2, badge: "VOLCANO",
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 46, steps: 3, gym_after: 2, badge: "VOLCANO",
         pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
                 2 => { lab: "cinnabar-island/exit-6-9" } },
         encounters: [
@@ -1824,7 +1825,7 @@ module Walkthrough
     end
 
     def self.pokemon_mansion
-      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 46,
+      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 47,
         pins: { 5 => { up: "pokemon-mansion-1f/exit-5-10" },
                 6 => { up: "pokemon-mansion-2f/exit-7-10" },
                 10 => { down: "pokemon-mansion-1f/exit-21-23" } },
@@ -1859,7 +1860,7 @@ module Walkthrough
     end
 
     def self.viridian_gym
-      loc("viridian-gym", "GYM", "Viridian Gym", 48, steps: [
+      loc("viridian-gym", "GYM", "Viridian Gym", 49, steps: [
           {},
           { item: [ "Revive", "revive" ], scene: "viridian-gym-item-revive" },
           {},
@@ -1871,7 +1872,7 @@ module Walkthrough
     end
 
     def self.victory_road
-      loc("victory-road", "CAVE", "Victory Road", 49,
+      loc("victory-road", "CAVE", "Victory Road", 50,
         pins: { 4 => { up: "victory-road-1f/exit-1-1" },
                 12 => { up: "victory-road-2f/exit-23-7" },
                 15 => { down: "victory-road-2f/exit-23-7", out: "victory-road-2f/exit-29-7" } },
@@ -1905,7 +1906,7 @@ module Walkthrough
     end
 
     def self.route_23
-      loc("route-23", "ROUTE", "Route 23", 50, steps: [
+      loc("route-23", "ROUTE", "Route 23", 51, steps: [
           { pins: { gate: "route-23/exit-south" } },
           { hidden: [ "Max Ether", "max-ether", "route-23-hidden-max-ether", "route-23-max-ether" ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "route-23-hidden-ultra-ball", "route-23-ultra-ball" ] },
@@ -1927,7 +1928,7 @@ module Walkthrough
     end
 
     def self.indigo_plateau
-      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 51, steps: 3,
+      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, steps: 3,
         trainers: [
           tr("ELITE FOUR", "Lorelei", 5544,
             mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56),
@@ -1948,7 +1949,7 @@ module Walkthrough
     end
 
     def self.cerulean_cave
-      loc("cerulean-cave", "CAVE", "Cerulean Cave", 52,
+      loc("cerulean-cave", "CAVE", "Cerulean Cave", 53,
         pins: { 7 => { up: "cerulean-cave-1f/exit-1-3" },
                 13 => { down: "cerulean-cave-2f/exit-3-11", lower: "cerulean-cave-1f/exit-0-6" } },
         steps: [
@@ -2096,8 +2097,22 @@ module Walkthrough
         ])
     end
 
+    # The second of Saffron's two tunnels, and the one the guide takes: Route 8 down, Route 7 up,
+    # under the guards who want a drink. Nothing lives down here and nobody walks it, but two
+    # hidden items sit on the floor and neither shows on-screen.
+    def self.underground_path_west_east
+      loc("underground-path-west-east", "TUNNEL", "Underground Path", 26, steps: [
+          { pins: { in: "underground-path-west-east/exit-47-2" },
+            hidden: [ "Elixir", "elixir", "underground-path-west-east-hidden-elixir",
+                      "underground-path-west-east-elixir" ] },
+          { pins: { out: "underground-path-west-east/exit-2-5" },
+            hidden: [ "Nugget", "nugget", "underground-path-west-east-hidden-nugget",
+                      "underground-path-west-east-nugget" ] }
+        ])
+    end
+
     def self.route_7
-      loc("route-7", "ROUTE", "Route 7", 26, steps: 1,
+      loc("route-7", "ROUTE", "Route 7", 27, steps: 1,
         pins: { 1 => { west: "route-7/exit-west" } },
         encounters: [
           enc("route-7", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
@@ -2109,7 +2124,7 @@ module Walkthrough
     end
 
     def self.celadon_city
-      loc("celadon-city", "CITY", "Celadon City", 27, steps: [
+      loc("celadon-city", "CITY", "Celadon City", 28, steps: [
           { pins: { east: "celadon-city/exit-east", center: "celadon-city/exit-41-9" } },
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
           { pins: { store: "celadon-city/exit-8-13" } },
@@ -2133,7 +2148,7 @@ module Walkthrough
     end
 
     def self.rocket_hideout
-      loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 28,
+      loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 29,
         pins: { 6 => { down: "rocket-hideout-b1f/exit-23-2" },
                 11 => { down: "rocket-hideout-b2f/exit-21-8" },
                 15 => { down: "rocket-hideout-b3f/exit-19-18" },
@@ -2177,7 +2192,7 @@ module Walkthrough
     end
 
     def self.power_plant
-      loc("power-plant", "BUILDING", "Power Plant", 44, steps: [
+      loc("power-plant", "BUILDING", "Power Plant", 45, steps: [
           { pins: { door: "power-plant/exit-4-35" } },
           { item: [ "Carbos", "carbos" ], scene: "power-plant-item-carbos" },
           {},
@@ -2209,7 +2224,7 @@ module Walkthrough
     end
 
     def self.route_21
-      loc("route-21", "ROUTE", "Route 21", 47, steps: 2,
+      loc("route-21", "ROUTE", "Route 21", 48, steps: 2,
         encounters: [
           enc("route-21", "016", "GRASS", "55%", "11–17", "COMMON", "016", "017", "018"),
           enc("route-21", "019", "GRASS", "30%", "13–15", "COMMON", "019", "020"),

@@ -2430,6 +2430,50 @@
   },
   {
     "type": "dialog",
+    "name": "underground-path-west-east-hidden-elixir",
+    "map": "UndergroundPathWestEast",
+    "player": [
+      21,
+      4
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      21,
+      5
+    ],
+    "auto_npcs": true,
+    "marker": [
+      21,
+      5
+    ],
+    "dialog": {
+      "found_item": "ELIXIR"
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "underground-path-west-east-hidden-nugget",
+    "map": "UndergroundPathWestEast",
+    "player": [
+      12,
+      1
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      12,
+      2
+    ],
+    "auto_npcs": true,
+    "marker": [
+      12,
+      2
+    ],
+    "dialog": {
+      "found_item": "NUGGET"
+    }
+  },
+  {
+    "type": "dialog",
     "name": "vermilion-city-hidden-max-ether",
     "map": "VermilionCity",
     "player": [

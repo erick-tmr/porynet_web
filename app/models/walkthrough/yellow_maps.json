@@ -15023,6 +15023,81 @@
         ]
       }
     ],
+    "underground-path-west-east": [
+      {
+        "image": "walkthrough/yellow/maps/underground-path-west-east.png",
+        "width": 800,
+        "height": 128,
+        "floor": "",
+        "name": "underground-path-west-east",
+        "markers": [
+          {
+            "id": "hidden-21-5",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 43.0,
+            "y": 68.75,
+            "grid": [
+              21,
+              5
+            ],
+            "align": "r",
+            "name": "Elixir",
+            "ref": "ELIXER",
+            "lane": 0
+          },
+          {
+            "id": "hidden-12-2",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 25.0,
+            "y": 31.25,
+            "grid": [
+              12,
+              2
+            ],
+            "align": "r",
+            "name": "Nugget",
+            "ref": "NUGGET",
+            "lane": 0
+          },
+          {
+            "id": "exit-2-5",
+            "cat": "exit",
+            "key": "E1",
+            "x": 5.0,
+            "y": 68.75,
+            "grid": [
+              2,
+              5
+            ],
+            "align": "r",
+            "name": "Underground Path Route 7",
+            "ref": "UNDERGROUND_PATH_ROUTE_7",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-47-2",
+            "cat": "exit",
+            "key": "E2",
+            "x": 95.0,
+            "y": 31.25,
+            "grid": [
+              47,
+              2
+            ],
+            "align": "l",
+            "name": "Underground Path Route 8",
+            "ref": "UNDERGROUND_PATH_ROUTE_8",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      }
+    ],
     "vermilion-city": [
       {
         "image": "walkthrough/yellow/maps/vermilion-city.png",
@@ -17759,6 +17834,18 @@
     },
     "underground-path-hidden-x-special": {
       "image": "walkthrough/yellow/scenes/underground-path-hidden-x-special.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "underground-path-west-east-hidden-elixir": {
+      "image": "walkthrough/yellow/scenes/underground-path-west-east-hidden-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "underground-path-west-east-hidden-nugget": {
+      "image": "walkthrough/yellow/scenes/underground-path-west-east-hidden-nugget.png",
       "width": 160,
       "height": 144,
       "type": "dialog"
