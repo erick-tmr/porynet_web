@@ -2589,9 +2589,12 @@ a.pn-wt-route__card:hover {
   margin-top: 30px;
 }
 .pn-wt-switchbar__inner {
-  max-width: 1200px;
-  margin: 0 auto;
+  /* Left edge lines up with the 1200px column the bands below sit in, but the chips are navigation
+     rather than prose, so they run on into the gutter instead of scrolling inside a box narrower
+     than the window. Boxed at 1200 they scrolled on a screen with 200px to spare: Living Dex mode
+     hangs a body count on any stop that owes one, and two of those on one leg is all it took. */
   padding: 11px 28px;
+  padding-left: max(28px, calc((100% - 1200px) / 2 + 28px));
   display: flex;
   align-items: center;
   gap: 12px;
