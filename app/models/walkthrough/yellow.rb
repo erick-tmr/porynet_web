@@ -486,9 +486,16 @@ module Walkthrough
       return loc if maps.empty?
 
       letters = maps.flat_map { |m| m.markers.map { |k| [ "#{m.name}/#{k.id}", k.key ] } }.to_h
-      loc.with(steps: loc.steps.map do |step|
-        step.pins.any? ? step.with(marks: step.pins.transform_values { |id| letters.fetch(id) }) : step
-      end)
+      loc.with(steps: loc.steps.map { |step| marked(step, letters) },
+        trivia: loc.trivia && marked(loc.trivia, letters))
+    end
+
+    # A step and a trivia section both point at map pins the same way, so they are marked the same
+    # way: whatever the prose named, swapped for the letter that pin is wearing right now.
+    def self.marked(block, letters)
+      return block if block.pins.empty?
+
+      block.with(marks: block.pins.transform_values { |id| letters.fetch(id) })
     end
 
     def self.link_steps(loc, maps)
@@ -2079,6 +2086,7 @@ module Walkthrough
       loc("lavender-town", "TOWN", "Lavender Town", 24, steps: 2,
         pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } },
         trivia: trivia(b, anchor: "name-rater", tagged: true,
+          pins: { house: "lavender-town/exit-7-13" },
           shot: scene_shot("lavender-name-rater", "NAME RATER"),
           warning: trivia_warning(b, "122", "MILES")),
         trainers: [
@@ -2435,10 +2443,11 @@ module Walkthrough
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
     def self.trivia(base, anchor:, cards: [], shot: nil, art: nil, note_icon: nil, tagged: false,
-      warning: nil)
-      Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
+      warning: nil, pins: {})
+      Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title",
+        intro_key: "#{base}.trivia.#{pins.any? ? 'intro_html' : 'intro'}",
         note_key: "#{base}.trivia.note", cards: cards, shot: shot, art: art, note_icon: note_icon,
-        tag_key: (tagged ? "#{base}.trivia.tag" : nil), warning: warning)
+        tag_key: (tagged ? "#{base}.trivia.tag" : nil), warning: warning, pins: pins)
     end
 
     # `name` is the nickname the cartridge ships, so it lives here rather than in the copy: MILES

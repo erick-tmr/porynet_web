@@ -1756,11 +1756,11 @@ en:
           trivia:
             tag: "NAME RATER"
             title: "The Name Rater lives here"
-            intro: "Lavender holds the one man in Kanto who will change a Pokémon's nickname. His house sits on the west side, between the Cubone girl's place and the Mart. Show him a Pokémon, he reads its name back with a verdict, then lets you type a new one."
+            intro_html: "Lavender holds the one man in Kanto who will change a Pokémon's nickname. His house %{house} sits on the west side, between the Cubone girl's place and the Mart. Show him a Pokémon, he reads its name back with a verdict, then lets you type a new one."
             note: "Not to be confused with Viridian's nickname house: that one is a tip house with a pet Spearow called SPEARY. The renaming happens here."
             warning:
               title: "Traded Pokémon can't be renamed"
-              body: "The Name Rater checks who caught it. Hand him a Pokémon that came from a trade and he refuses, so the name it arrived with is the name it keeps for the rest of the save. Only Pokémon you caught yourself can be changed."
+              body: "He checks the original trainer's name and ID against yours, and a Pokémon from a trade fails on both. Instead of renaming it he calls the name truly impeccable and hands it back, so the one it arrived with is the one it keeps."
               specimen: "Route 2 trade · Mr. Mime"
           steps:
             "1":

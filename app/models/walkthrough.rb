@@ -114,8 +114,8 @@ module Walkthrough
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
   Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon,
-    :tag_key, :warning) do
-    def initialize(art: nil, note_icon: nil, tag_key: nil, warning: nil, **rest) = super
+    :tag_key, :warning, :pins, :marks) do
+    def initialize(art: nil, note_icon: nil, tag_key: nil, warning: nil, pins: {}, marks: {}, **rest) = super
     def art? = !art.nil?
     def note_icon? = !note_icon.nil?
     # A section that is about one particular thing says so in its eyebrow ("TRIVIA · NAME RATER"),

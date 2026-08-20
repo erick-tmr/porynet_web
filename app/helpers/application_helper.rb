@@ -44,6 +44,12 @@ module ApplicationHelper
       href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
+  # A trivia section points at a pin the way a step does: it names the door it is talking about and
+  # the letter that door is wearing goes in.
+  def trivia_intro(trivia)
+    t(trivia.intro_key, **trivia.marks.transform_values { |key| map_mark(key) })
+  end
+
   # The letter a step's prose points at, wearing the chip the map pin and legend row give it.
   def map_mark(key)
     tag.span(key, class: "pn-wt-mark", title: t("walkthrough.ui.map_marker_hint"))

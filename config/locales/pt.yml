@@ -1756,11 +1756,11 @@ pt:
           trivia:
             tag: "NAME RATER"
             title: "O Name Rater mora aqui"
-            intro: "Lavender guarda o único homem de Kanto que troca o apelido de um Pokémon. A casa dele fica no lado oeste, entre a casa da menina do Cubone e o Mart. Mostre um Pokémon, ele lê o nome de volta com um veredito e deixa você digitar outro."
+            intro_html: "Lavender guarda o único homem de Kanto que troca o apelido de um Pokémon. A casa dele %{house} fica no lado oeste, entre a casa da menina do Cubone e o Mart. Mostre um Pokémon, ele lê o nome de volta com um veredito e deixa você digitar outro."
             note: "Não confunda com a casa dos apelidos de Viridian: aquela é uma casa de dicas com um Spearow de estimação chamado SPEARY. A troca de nome acontece aqui."
             warning:
               title: "Pokémon de troca não podem ser renomeados"
-              body: "O Name Rater confere quem capturou. Entregue um Pokémon que veio de uma troca e ele recusa, então o nome com que ele chegou é o nome que ele mantém pelo resto do save. Só dá para mudar os que você mesmo capturou."
+              body: "Ele confere o nome e o ID do treinador original com os seus, e um Pokémon de troca falha nos dois. Em vez de renomear, ele diz que o nome é impecável e devolve, então o nome com que ele chegou é o que ele mantém."
               specimen: "Troca da Rota 2 · Mr. Mime"
           steps:
             "1":

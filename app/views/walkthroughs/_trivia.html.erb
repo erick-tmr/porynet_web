@@ -4,7 +4,7 @@
   </div>
   <h3 class="pn-wt-band__h3"><%= t(trivia.title_key) %></h3>
   <div class="pn-wt-trivia__lead">
-    <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
+    <p class="pn-wt-trivia__intro"><%= trivia_intro(trivia) %></p>
     <% if trivia.art? %>
       <%= r2_image_tag trivia.art, alt: "", class: "pn-wt-trivia__art", loading: "lazy" %>
     <% elsif trivia.shot&.map? %>
