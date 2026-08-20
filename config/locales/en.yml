@@ -242,6 +242,9 @@ en:
       later_need: "NEED"
       later_return: "RETURN AFTER"
       trivia_eyebrow: "TRIVIA"
+      trivia_eyebrow_tagged: "TRIVIA · %{tag}"
+      trivia_warning: "IMPORTANT"
+      trivia_locked_name: "LOCKED NAME"
       missable_badge: "MISSABLE"
       missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
@@ -378,6 +381,7 @@ en:
       best_reason_armed_only: "The only stop you reach already equipped for %{name}. The rest come before the rod."
       best_reason_only: "The only place in the game to catch %{name}. Miss it here and you miss it."
       best_reason_only_rate: "The only place in the game to catch %{name}, at %{rate}."
+      best_reason_only_prize: "The only place in the game to get %{name}, and the counter never runs out."
       catch_targets: "%{count} catch targets"
       catch_tally_html: "%{done} / %{total} CAUGHT"
       catchsec_count:
@@ -408,6 +412,7 @@ en:
       catchsec_game_corner_label: "Game Corner"
       catchsec_game_corner_hint: "Bought with coins. Bring money or patience."
       rate: "RATE"
+      coins: "COINS"
       level: "LEVEL"
       floors_label: "RATE BY FLOOR"
       floors_level: "LEVEL"
@@ -448,7 +453,7 @@ en:
       ld_later_rare: "%{stop} has %{name} at only %{rate}, so grow the spare %{base} instead of hunting one."
       ld_later_level: "%{name} is never wild, so the spare %{base} levels to %{level}."
       ld_later_stone: "%{name} is never wild, so the spare %{base} takes the %{stone}."
-      ld_later_trade: "%{name} only comes from a trade, so one cartridge stops the line at %{base}."
+      ld_later_trade: "%{name} only comes from a trade, so the spare %{base} is the one you hand over and take back."
       ld_later_refused: "%{base} refuses the Thunder Stone in Yellow, so %{name} only ever arrives by trade."
       ld_why_later: "One is enough: %{stop} has %{name} at %{rate}, so take the rest of the line there instead of walking this one up."
       ld_why_stages: "%{count} specimens. One stays %{name}, the rest walk up the line so every stage owns one."
@@ -555,7 +560,9 @@ en:
       next: "NEXT ▶"
       lv: "Lv %{n}"
       title_leg: "%{name} · %{game} Walkthrough"
-      leg_tag: "%{label} · %{count} STOPS"
+      leg_tag:
+        one: "%{label} · %{count} STOP"
+        other: "%{label} · %{count} STOPS"
       leg_stops: "STOPS IN THIS LEG"
       leg_catchable: "CATCHABLE HERE"
       leg_new: "NEW TO DEX"
@@ -614,18 +621,20 @@ en:
         leg_07:
           lead: "East and south from Cerulean toward the dark maze of Rock Tunnel."
         leg_08:
-          lead: "Out of Rock Tunnel to Lavender, then west to Celadon's department store and Erika's gym."
+          lead: "Out of Rock Tunnel to Lavender, then the road west toward Celadon."
         leg_09:
-          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
+          lead: "Celadon: the department store, the Game Corner under it, and Erika's Rainbow Badge."
         leg_10:
-          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
+          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
         leg_11:
-          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
+          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
         leg_12:
-          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
+          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_13:
-          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
         leg_14:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_15:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
       mew_glitch:
         meta_title: "The Mew Glitch · %{game} Walkthrough"
@@ -1744,16 +1753,22 @@ en:
             buy: "Great Balls for the Tower's Gastly line and a couple of Revives. Super Repel thins the ghosts."
           note: "The ghost town. Pokémon Tower looms."
           intro: "Kanto's smallest town, and its graveyard. Pokémon Tower stands over a handful of houses, with Team Rocket somewhere inside it."
+          trivia:
+            tag: "NAME RATER"
+            title: "The Name Rater lives here"
+            intro_html: "Lavender holds the one man in Kanto who will change a Pokémon's nickname. His house %{house} sits on the west side, between the Cubone girl's place and the Mart. Show him a Pokémon, he reads its name back with a verdict, then lets you type a new one."
+            note: "Not to be confused with Viridian's nickname house: that one is a tip house with a pet Spearow called SPEARY. The renaming happens here."
+            warning:
+              title: "Traded Pokémon can't be renamed"
+              body: "He checks the original trainer's name and ID against yours, and a Pokémon from a trade fails on both. Instead of renaming it he calls the name truly impeccable and hands it back, so the one it arrived with is the one it keeps."
+              specimen: "Route 2 trade · Mr. Mime"
           steps:
             "1":
               title: "Try the Tower"
-              text_html: "Enter Pokémon Tower %{tower} on the east side of town. You will hit an unbeatable ghost on 6F: it needs the Silph Scope, so come back once you have raided the Rocket Hideout."
+              text_html: "Enter Pokémon Tower %{tower} on the east side of town. Blue waits a few steps onto 2F, his team around Lv 25. Beat him and climb on, until a ghost you cannot fight blocks 6F."
             "2":
-              title: "Detour for the Silph Scope"
-              text_html: "Head west %{west} via Route 8 to Celadon and take down the Rocket Hideout for the Silph Scope."
-            "3":
-              title: "Return for the Poké Flute"
-              text: "Come back, clear the Tower, and free Mr. Fuji. He gives the Poké Flute to wake the sleeping Snorlax."
+              title: "Take the road west"
+              text_html: "Head west %{west} out of town onto Route 8. Bring a Pokémon that knows Cut: the tall grass there is fenced in behind a tree, and Kadabra turns up in it and nowhere else."
         route_8:
           note: "West to Celadon. Pidgey, Abra, Jigglypuff."
           intro: "The road west from Lavender to Saffron's east gate, nine trainers along it. Wild Kadabra turns up here and nowhere else."
@@ -1764,16 +1779,27 @@ en:
             "2":
               title: "Take the Underground Path"
               text_html: "The Saffron guards want a drink. Skip them by tunnelling west %{path} under the city to Route 7."
+        underground_path_west_east:
+          note: "The second Saffron tunnel. A Nugget and an Elixir on the floor."
+          intro: "The other corridor under Saffron City, running west from Route 8 to Route 7. No trainers, nothing wild, and two hidden items lying on the floor that show nothing on-screen."
+          steps:
+            "1":
+              title: "Hug the bottom wall west"
+              text_html: "Stairs %{in} from the Route 8 house drop you on the second lane. Drop to the bottom wall and follow it west, pressing A facing west about halfway along: a hidden Elixir, full PP on every move."
+              hidden:
+                elixir: "On the bottom wall, roughly the middle of the tunnel. Walk the wall west and press A facing west. Nothing shows on-screen."
+            "2":
+              title: "Climb back up for the Nugget"
+              text_html: "Walk nine tiles west and three lanes up from there, back on the lane you came in on. Press A facing west again for a hidden Nugget, ¥5000 at any counter. Stairs %{out} are below."
+              hidden:
+                nugget: "On the lane you walk in on, three above the bottom wall, near the Route 7 end. Press A facing west. Nothing shows on-screen."
         route_7:
-          note: "Gate route into Celadon. Pidgey and Abra."
-          intro: "One screen of road between Saffron and Celadon, gate to gate. No grass, no trainers, nothing lying on the ground."
+          note: "Short strip into Celadon. Pidgey and Abra."
+          intro: "One screen of road between Saffron and Celadon, with a patch of tall grass across the top. No trainers, and nothing lying on the ground."
           steps:
             "1":
               title: "Cross to Celadon"
-              text_html: "You surface from the Underground Path %{path} on Route 7, the short green strip between Saffron and Celadon. Walk west along it."
-            "2":
-              title: "Enter Celadon"
-              text_html: "Pass through the gate %{gate} at the western end and step out %{west} into Celadon City, the biggest city in Kanto."
+              text_html: "Tall grass fills the top of the strip: step in if you still want a Pidgey, Abra or Jigglypuff. Otherwise head straight west %{west} into Celadon, the biggest city in Kanto."
         celadon_city:
           store:
             blurb: "The biggest shop in Kanto: six floors of Poké Balls, TMs, evolution stones, vitamins and vending drinks. Ride the elevator to any floor to see what it sells and for how much."
@@ -1960,52 +1986,49 @@ en:
               title: "Climb with the Silph Scope"
               text: "Step in from Lavender Town and start up. With the Silph Scope on, the wild Gastly, Haunter and Cubone that haunt every floor finally take shape, so you can battle them instead of fumbling in the dark."
             "2":
-              title: "Beat your rival on 2F"
-              text: "Blue ambushes you crossing the second floor, his team around Lv 25. His Eevee wears whichever form your earlier results locked in, so lead with a counter to it, then take the west stairs up."
-            "3":
               title: "Snag the Escape Rope on 3F"
               text: "On the third floor, a lone ball waits against the very top wall, dead center. Walk up to it for an Escape Rope, your instant bail-out if the ghosts wear you down."
               items:
                 escape-rope: "Top-center of 3F, against the north wall; approach from below."
-            "4":
+            "3":
               title: "Grab the Elixir on 4F"
               text: "Up on the fourth floor, the first of three balls sits near the middle of the room. Step to it from the right for an Elixir, which tops up the PP of every move at once."
               items:
                 elixir: "Center of 4F, approached from the east."
-            "5":
+            "4":
               title: "Drop south for the HP Up"
               text: "Just below the Elixir, tucked against the lower wall, a second ball holds an HP Up, a permanent boost to one Pokémon's max HP. Reach it from the left."
               items:
                 hp-up: "South edge of 4F, directly below the Elixir."
-            "6":
+            "5":
               title: "Pocket the Awakening"
               text: "A few steps west along the middle row, the last 4F ball is an Awakening, a one-shot cure for Sleep and handy against the Tower's drowsy ghosts. Then make for the west stairs."
               items:
                 awakening: "Center-west of 4F, west of the Elixir, near the stairs up."
-            "7":
+            "6":
               title: "Feel for the hidden Elixir on 5F"
               text: "Coming onto the fifth floor from the west stairs, step a couple of tiles in and face south. Press A on the empty tile just below you for a hidden Elixir; nothing shows on-screen, but it drops into your bag."
               hidden:
                 elixir: "Just southeast of the 5F west stairs. Press A facing down on the empty tile; no ball is visible."
-            "8":
+            "7":
               title: "Bag the Nugget"
               text: "A little further into the fifth floor, a ball sits low on the west side. Grab it from the right for a Nugget, worth a fat pile of cash at any shop."
               items:
                 nugget: "West-south area of 5F, a few tiles past the hidden Elixir; approach from the right."
-            "9":
+            "8":
               title: "Claim the Rare Candy on 6F"
               text: "The sixth floor's prize sits over on the west side, up near the top. Walk up to it for a Rare Candy, an instant level for whichever Pokémon needs it most."
               items:
                 rare-candy: "West side of 6F, toward the top; approach from below."
-            "10":
+            "9":
               title: "Grab the X Accuracy"
               text: "Back across to the southeast, the last Tower ball is an X Accuracy, a battle item that sharpens your next few hits. From here it is a short walk to the stairs the ghost guards."
               items:
                 x-accuracy: "Southeast of 6F; approach from the right."
-            "11":
+            "10":
               title: "Clear the ghost Marowak"
               text: "A Lv 30 ghost Marowak stands over the stairs up, mourning among the graves. The Silph Scope lets you see and fight it, so knock it out to clear the way. It can never be caught, only laid to rest."
-            "12":
+            "11":
               title: "Free Mr. Fuji on 7F"
               text: "At the top, Jessie & James block the way to Mr. Fuji. Beat the pair and speak to the old man to free him. He hands over the Poké Flute, which wakes the Snorlax on Routes 12 and 16."
               items:

@@ -28,9 +28,14 @@ export default class extends Controller {
     this.markerTargets.forEach((marker) => {
       marker.style.setProperty("--mx", `${marker.dataset.x}%`)
       marker.style.setProperty("--my", `${marker.dataset.y}%`)
-      marker.style.setProperty("--lane", marker.dataset.lane)
-      // A label nudged into a lower lane gets a leader line back to its pin (drawn in CSS).
-      marker.classList.toggle("has-lane", Number(marker.dataset.lane) > 0)
+      const lane = Number(marker.dataset.lane)
+      marker.style.setProperty("--lane", lane)
+      // A label dealt out of its own row gets a leader line back to its pin (drawn in CSS). The
+      // line is drawn from its length, so the row it came from goes out unsigned, and the
+      // direction rides on a class instead.
+      marker.style.setProperty("--lane-rise", Math.abs(lane))
+      marker.classList.toggle("has-lane", lane !== 0)
+      marker.classList.toggle("has-lane--up", lane < 0)
     })
     // A landscape map holds its own native pixel width so its CSS never scales the pixel art
     // below 1x; the frame scrolls instead. Portrait maps ignore the property.

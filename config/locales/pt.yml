@@ -242,6 +242,9 @@ pt:
       later_need: "PRECISA"
       later_return: "VOLTE APÓS"
       trivia_eyebrow: "CURIOSIDADE"
+      trivia_eyebrow_tagged: "CURIOSIDADE · %{tag}"
+      trivia_warning: "IMPORTANTE"
+      trivia_locked_name: "NOME TRAVADO"
       missable_badge: "PERDÍVEL"
       missable_tip: "DICA DE NÍVEL"
       map_eyebrow: "MAPA DA ÁREA"
@@ -378,6 +381,7 @@ pt:
       best_reason_armed_only: "A única parada onde você chega já equipado para %{name}. As outras vêm antes da vara."
       best_reason_only: "O único lugar do jogo para capturar %{name}. Se perder aqui, perdeu de vez."
       best_reason_only_rate: "O único lugar do jogo para capturar %{name}, com %{rate}."
+      best_reason_only_prize: "O único lugar do jogo para conseguir %{name}, e o balcão nunca acaba."
       catch_targets: "%{count} metas de captura"
       catch_tally_html: "%{done} / %{total} CAPTURADOS"
       catchsec_count:
@@ -408,6 +412,7 @@ pt:
       catchsec_game_corner_label: "Game Corner"
       catchsec_game_corner_hint: "Comprados com fichas. Traga dinheiro ou paciência."
       rate: "TAXA"
+      coins: "MOEDAS"
       level: "NÍVEL"
       floors_label: "TAXA POR ANDAR"
       floors_level: "NÍVEL"
@@ -448,7 +453,7 @@ pt:
       ld_later_rare: "%{stop} tem %{name} a apenas %{rate}, então evolua o %{base} extra em vez de caçar um."
       ld_later_level: "%{name} nunca aparece selvagem, então o %{base} extra sobe até o nível %{level}."
       ld_later_stone: "%{name} nunca aparece selvagem, então o %{base} extra recebe a %{stone}."
-      ld_later_trade: "%{name} só vem de troca, então em um cartucho a linha para no %{base}."
+      ld_later_trade: "%{name} só vem de troca, então o %{base} extra é o que você entrega e recebe de volta."
       ld_later_refused: "%{base} recusa a Thunder Stone no Yellow, então %{name} só chega por troca."
       ld_why_later: "Um basta: %{stop} tem %{name} a %{rate}, então pegue o resto da linha lá em vez de subir esta."
       ld_why_stages: "%{count} espécimes. Um segue %{name}, o resto sobe a linha para cada estágio ter o seu."
@@ -555,7 +560,9 @@ pt:
       next: "PRÓXIMO ▶"
       lv: "Nv %{n}"
       title_leg: "%{name} · Guia de %{game}"
-      leg_tag: "%{label} · %{count} PARADAS"
+      leg_tag:
+        one: "%{label} · %{count} PARADA"
+        other: "%{label} · %{count} PARADAS"
       leg_stops: "PARADAS NESTE TRECHO"
       leg_catchable: "CAPTURÁVEIS AQUI"
       leg_new: "NOVOS NA DEX"
@@ -614,18 +621,20 @@ pt:
         leg_07:
           lead: "A leste e ao sul de Cerulean rumo ao labirinto escuro do Rock Tunnel."
         leg_08:
-          lead: "Do Rock Tunnel a Lavender, depois a oeste até a loja de departamentos de Celadon e o ginásio da Erika."
+          lead: "Do Rock Tunnel a Lavender, depois a estrada a oeste rumo a Celadon."
         leg_09:
-          lead: "As rotas de pesca ao sul até Fuchsia, depois a Safari Zone antes do ginásio do Koga."
+          lead: "Celadon: a loja de departamentos, o Game Corner embaixo dela e a Rainbow Badge da Erika."
         leg_10:
-          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
+          lead: "As rotas de pesca ao sul até Fuchsia, depois a Safari Zone antes do ginásio do Koga."
         leg_11:
-          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
+          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
         leg_12:
-          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
+          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_13:
-          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
         leg_14:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_15:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"
@@ -1744,16 +1753,22 @@ pt:
             buy: "Great Balls para a linha do Gastly na Tower e alguns Revives. Super Repel reduz os fantasmas."
           note: "A cidade fantasma. A Pokémon Tower se ergue."
           intro: "A menor cidade de Kanto, e o cemitério dela. A Pokémon Tower se ergue sobre um punhado de casas, com a Equipe Rocket em algum andar."
+          trivia:
+            tag: "NAME RATER"
+            title: "O Name Rater mora aqui"
+            intro_html: "Lavender guarda o único homem de Kanto que troca o apelido de um Pokémon. A casa dele %{house} fica no lado oeste, entre a casa da menina do Cubone e o Mart. Mostre um Pokémon, ele lê o nome de volta com um veredito e deixa você digitar outro."
+            note: "Não confunda com a casa dos apelidos de Viridian: aquela é uma casa de dicas com um Spearow de estimação chamado SPEARY. A troca de nome acontece aqui."
+            warning:
+              title: "Pokémon de troca não podem ser renomeados"
+              body: "Ele confere o nome e o ID do treinador original com os seus, e um Pokémon de troca falha nos dois. Em vez de renomear, ele diz que o nome é impecável e devolve, então o nome com que ele chegou é o que ele mantém."
+              specimen: "Troca da Rota 2 · Mr. Mime"
           steps:
             "1":
               title: "Tente a Torre"
-              text_html: "Entre na Pokémon Tower %{tower}, no lado leste da cidade. Você encontra um fantasma invencível no 6F: ele exige o Silph Scope, então volte depois de invadir o esconderijo da Rocket."
+              text_html: "Entre na Pokémon Tower %{tower}, no lado leste da cidade. O Blue espera a poucos passos dentro do 2F, com time perto do Lv 25. Vença-o e siga subindo, até um fantasma invencível barrar o 6F."
             "2":
-              title: "Desvie pelo Silph Scope"
-              text_html: "Vá a oeste %{west} pela Rota 8 até Celadon e destrua o Rocket Hideout pelo Silph Scope."
-            "3":
-              title: "Volte pelo Poké Flute"
-              text: "Volte, limpe a Torre e solte o Mr. Fuji. Ele dá o Poké Flute para acordar os Snorlax dorminhocos."
+              title: "Pegue a estrada a oeste"
+              text_html: "Saia a oeste %{west} da cidade para a Rota 8. Leve um Pokémon que saiba Cut: o mato alto de lá fica cercado atrás de uma árvore, e o Kadabra aparece nele e em nenhum outro lugar."
         route_8:
           note: "A oeste até Celadon. Pidgey, Abra, Jigglypuff."
           intro: "A estrada a oeste de Lavender até o portão leste de Saffron, com nove treinadores nela. Kadabra selvagem aparece aqui e em nenhum outro lugar."
@@ -1764,16 +1779,27 @@ pt:
             "2":
               title: "Pegue o Underground Path"
               text_html: "Os guardas de Saffron querem uma bebida. Pule-os túnelando a oeste %{path} sob a cidade até a Rota 7."
+        underground_path_west_east:
+          note: "O segundo túnel de Saffron. Um Nugget e um Elixir no chão."
+          intro: "O outro corredor sob Saffron City, indo a oeste da Rota 8 até a Rota 7. Sem treinadores, nada selvagem, e dois itens ocultos no chão que não mostram nada na tela."
+          steps:
+            "1":
+              title: "Cole na parede de baixo rumo a oeste"
+              text_html: "A escada %{in} da casa da Rota 8 deixa você na segunda faixa. Desça até a parede de baixo e siga por ela a oeste, apertando A virado para oeste lá pela metade do caminho: um Elixir oculto, PP cheio em todos os golpes."
+              hidden:
+                elixir: "Na parede de baixo, mais ou menos no meio do túnel. Ande pela parede a oeste e aperte A virado para oeste. Nada aparece na tela."
+            "2":
+              title: "Suba de novo pelo Nugget"
+              text_html: "Ande nove ladrilhos a oeste e três faixas acima dali, de volta à faixa em que você entrou. Aperte A virado para oeste de novo para um Nugget oculto, ¥5000 em qualquer balcão. A escada %{out} fica abaixo."
+              hidden:
+                nugget: "Na faixa em que você entra, três acima da parede de baixo, perto do lado da Rota 7. Aperte A virado para oeste. Nada aparece na tela."
         route_7:
-          note: "Rota-portão até Celadon. Pidgey e Abra."
-          intro: "Uma tela de estrada entre Saffron e Celadon, de portão a portão. Sem grama, sem treinadores, nada largado no chão."
+          note: "Faixa curta até Celadon. Pidgey e Abra."
+          intro: "Uma tela de estrada entre Saffron e Celadon, com um trecho de mato alto na parte de cima. Sem treinadores e nada largado no chão."
           steps:
             "1":
               title: "Cruze até Celadon"
-              text_html: "Você surge do Underground Path %{path} na Rota 7, a faixa verde curta entre Saffron e Celadon. Caminhe a oeste por ela."
-            "2":
-              title: "Entre em Celadon"
-              text_html: "Passe pelo portão %{gate} na ponta oeste e saia %{west} em Celadon City, a maior cidade de Kanto."
+              text_html: "O mato alto ocupa a parte de cima da faixa: entre nele se ainda quiser um Pidgey, Abra ou Jigglypuff. Senão, siga direto a oeste %{west} até Celadon, a maior cidade de Kanto."
         celadon_city:
           store:
             blurb: "A maior loja de Kanto: seis andares de Poké Balls, TMs, pedras de evolução, vitaminas e bebidas de máquina. Pegue o elevador para qualquer andar e veja o que ele vende e por quanto."
@@ -1960,52 +1986,49 @@ pt:
               title: "Suba com o Silph Scope"
               text: "Entre vindo de Lavender Town e comece a subir. Com o Silph Scope ativo, os Gastly, Haunter e Cubone selvagens que assombram cada andar finalmente tomam forma, então dá pra batalhar em vez de tatear no escuro."
             "2":
-              title: "Vença seu rival no 2F"
-              text: "O Blue te embosca no segundo andar, com a equipe por volta do Nv 25. O Eevee dele tem a forma que seus resultados anteriores travaram, então comece com um counter e suba pela escada oeste."
-            "3":
               title: "Pegue o Escape Rope no 3F"
               text: "No terceiro andar, uma ball solitária espera colada na parede de cima, bem no centro. Suba até ela pra pegar um Escape Rope, sua saída na hora se os fantasmas te desgastarem."
               items:
                 escape-rope: "Centro-topo do 3F, contra a parede norte; aproxime por baixo."
-            "4":
+            "3":
               title: "Pegue o Elixir no 4F"
               text: "No quarto andar, a primeira de três balls fica perto do meio da sala. Chegue por ela pela direita pra levar um Elixir, que recarrega o PP de todos os golpes de uma vez."
               items:
                 elixir: "Centro do 4F, aproximado pela direita."
-            "5":
+            "4":
               title: "Desça pro HP Up"
               text: "Logo abaixo do Elixir, encostada na parede de baixo, uma segunda ball guarda um HP Up, um aumento permanente no HP máximo de um Pokémon. Alcance pela esquerda."
               items:
                 hp-up: "Borda sul do 4F, logo abaixo do Elixir."
-            "6":
+            "5":
               title: "Embolse o Awakening"
               text: "Alguns passos a oeste pela fileira do meio, a última ball do 4F é um Awakening, uma cura na hora pra Sleep e útil contra os fantasmas sonolentos da Torre. Depois siga pra escada oeste."
               items:
                 awakening: "Centro-oeste do 4F, a oeste do Elixir, perto da escada de subida."
-            "7":
+            "6":
               title: "Tateie o Elixir oculto no 5F"
               text: "Chegando ao quinto andar pela escada oeste, entre um ou dois tiles e vire pra baixo. Aperte A no tile vazio logo à sua frente pra achar um Elixir oculto; nada aparece na tela, mas ele cai na sua bag."
               hidden:
                 elixir: "Logo a sudeste da escada oeste do 5F. Aperte A virado pra baixo no tile vazio; nenhuma ball aparece."
-            "8":
+            "7":
               title: "Garanta o Nugget"
               text: "Um pouco mais adentro do quinto andar, uma ball fica embaixo, no lado oeste. Pegue pela direita pra levar um Nugget, que vale um bom bolo de dinheiro em qualquer loja."
               items:
                 nugget: "Área oeste-sul do 5F, alguns tiles depois do Elixir oculto; aproxime pela direita."
-            "9":
+            "8":
               title: "Fisgue o Rare Candy no 6F"
               text: "O prêmio do sexto andar fica lá no lado oeste, perto do topo. Suba até ele pra pegar um Rare Candy, um nível na hora pro Pokémon que mais precisar."
               items:
                 rare-candy: "Lado oeste do 6F, mais pro topo; aproxime por baixo."
-            "10":
+            "9":
               title: "Pegue o X Accuracy"
               text: "De volta pro sudeste, a última ball da Torre é um X Accuracy, um item de batalha que afia seus próximos golpes. Daqui é um pulo até a escada que o fantasma guarda."
               items:
                 x-accuracy: "Sudeste do 6F; aproxime pela direita."
-            "11":
+            "10":
               title: "Limpe o Marowak fantasma"
               text: "Um Marowak fantasma Nv 30 fica sobre a escada de subida, de luto entre os túmulos. O Silph Scope deixa você vê-lo e enfrentá-lo, então derrube-o pra abrir caminho. Ele nunca pode ser capturado, só posto pra descansar."
-            "12":
+            "11":
               title: "Solte o Mr. Fuji no 7F"
               text: "No topo, Jessie & James bloqueiam o caminho até o Mr. Fuji. Vença a dupla e fale com o velho para libertá-lo. Ele entrega o Poké Flute, que acorda os Snorlax das Rotas 12 e 16."
               items:

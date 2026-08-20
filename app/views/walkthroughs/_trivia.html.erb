@@ -1,15 +1,16 @@
 <section class="pn-wt-section" id="<%= trivia.anchor %>">
-  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trivia_eyebrow") %></div>
+  <div class="pn-eyebrow-label">
+    <%= trivia.tag? ? t("walkthrough.ui.trivia_eyebrow_tagged", tag: t(trivia.tag_key)) : t("walkthrough.ui.trivia_eyebrow") %>
+  </div>
   <h3 class="pn-wt-band__h3"><%= t(trivia.title_key) %></h3>
   <div class="pn-wt-trivia__lead">
-    <p class="pn-wt-trivia__intro"><%= t(trivia.intro_key) %></p>
+    <p class="pn-wt-trivia__intro"><%= trivia_intro(trivia) %></p>
     <% if trivia.art? %>
       <%= r2_image_tag trivia.art, alt: "", class: "pn-wt-trivia__art", loading: "lazy" %>
+    <% elsif trivia.shot&.map? %>
+      <div class="pn-wt-trivia__shot"><%= render "shot", shot: trivia.shot %></div>
     <% end %>
   </div>
-  <% if trivia.shot&.map? %>
-    <div class="pn-wt-trivia__shot"><%= render "shot", shot: trivia.shot %></div>
-  <% end %>
   <% if trivia.cards.any? %>
   <div class="pn-wt-trivia-grid">
     <% trivia.cards.each do |card| %>
@@ -32,6 +33,9 @@
       </div>
     <% end %>
   </div>
+  <% end %>
+  <% if trivia.warning? %>
+    <%= render "trivia_warning", warning: trivia.warning %>
   <% end %>
   <div class="pn-wt-trivia__note">
     <% if trivia.note_icon? %>

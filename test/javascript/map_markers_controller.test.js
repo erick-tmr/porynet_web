@@ -29,7 +29,7 @@ const FIXTURE = `
           <button id="hit-trainer" class="pn-mm__hit" data-action="click->map-markers#hit" aria-pressed="false"></button>
         </div>
         <div id="m-npc" class="pn-mm" data-map-markers-target="marker" data-role="marker"
-             data-marker-id="npc-technology" data-cat="npc" data-x="57.5" data-y="80.5" data-lane="0">
+             data-marker-id="npc-technology" data-cat="npc" data-x="57.5" data-y="80.5" data-lane="-2">
           <button id="hit-npc" class="pn-mm__hit" data-action="click->map-markers#hit"></button>
         </div>
         <div id="m-hidden" class="pn-mm" data-map-markers-target="marker" data-role="marker"
@@ -79,11 +79,28 @@ describe("placement", () => {
     expect(el("m-hidden").style.getPropertyValue("--lane")).toBe("1");
   });
 
+  it("sends a label's row out signed and its leader line's length unsigned", async () => {
+    await mount();
+
+    expect(el("m-npc").style.getPropertyValue("--lane")).toBe("-2");
+    expect(el("m-npc").style.getPropertyValue("--lane-rise")).toBe("2");
+    expect(el("m-hidden").style.getPropertyValue("--lane-rise")).toBe("1");
+  });
+
   it("flags a nudged label so it gets a leader line back to its pin", async () => {
     await mount();
 
     expect(has("m-hidden", "has-lane")).toBe(true); // lane 1
+    expect(has("m-npc", "has-lane")).toBe(true); // lane -2
     expect(has("m-trainer", "has-lane")).toBe(false); // lane 0
+  });
+
+  it("points the leader line up for a label dealt above its pin", async () => {
+    await mount();
+
+    expect(has("m-npc", "has-lane--up")).toBe(true); // lane -2
+    expect(has("m-hidden", "has-lane--up")).toBe(false); // lane 1
+    expect(has("m-trainer", "has-lane--up")).toBe(false); // lane 0
   });
 
   it("reveals the layer only once the markers have been placed", async () => {

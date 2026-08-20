@@ -444,23 +444,69 @@ def label_span(entry, width_px):
     return (entry["x"] - offset - width, entry["x"] - offset)
 
 
+# How far from its own row a label may be dealt, in lanes either way. A leader line long enough to
+# cross the map is harder to follow than the overlap it was drawn to fix, so a crowd past this
+# takes the least-covered row it can reach rather than fanning out forever.
+LABEL_LANE_REACH = 5
+
+# Two labels exactly one row apart are stacked, not overlapping. The percentages they are measured
+# in are rounded, so that case has to be let through rather than caught by a hair.
+LANE_EPSILON = 1e-9
+
+
+def lane_seats(y, row_pct):
+    """The rows a label may be dealt into, its own first, then one down, one up, two down, and so
+    on. A row that would carry the label off the top or bottom of the map is not offered."""
+    yield 0
+    for n in range(1, LABEL_LANE_REACH + 1):
+        if y + n * row_pct <= 100:
+            yield n
+        if y - n * row_pct >= 0:
+            yield -n
+
+
+# A map is never drawn smaller than its own pixels: the canvas holds its native width and the frame
+# scrolls rather than shrinking the pixel art, and a wide column stretches it to about twice that.
+# A label does not stretch with it. Its text stays 9px and the row it is dealt into a flat 26px, so
+# the same crowd reads differently at either end of that range: a label dealt upward drifts back
+# toward its neighbour above as the map grows under it. A row is chosen against the whole range
+# rather than against the one size the PNG happens to be.
+LABEL_ZOOMS = (1.0, 1.25, 1.5, 2.0)
+
+
+def label_covers(span, y, taken, row_pct, zoom):
+    """How many already-dealt labels one at `y` covering `span` would print over, at one zoom."""
+    return sum(1 for t in taken
+               if abs(t["y"] + t["lane"] * row_pct - y) + LANE_EPSILON < row_pct
+               and t["spans"][zoom][0] < span[1] and span[0] < t["spans"][zoom][1])
+
+
 def assign_label_lanes(entries, width_px, height_px):
-    """Stack labels that would print over each other into lanes, nudging the later one down.
+    """Deal labels that would print over each other into rows of their own.
 
     Viridian Forest's hidden Potion and the Bug Catcher one cell to its right would otherwise
-    write their names on the same pixels. Nudging one down always works, where flipping it to
-    the marker's other side does not: both of those hug the left edge, so a flipped label would
-    hang off the map. Labels that merely share a row but sit far apart are left flat."""
-    row_pct = LABEL_PX / height_px * 100
+    write their names on the same pixels. Moving one off its own row always works, where flipping
+    it to the marker's other side does not: both of those hug the left edge, so a flipped label
+    would hang off the map. Labels that merely share a row but sit far apart are left flat.
+
+    A lane is a row the label is drawn in, not a column it is filed under: what decides a clash is
+    where a label ends up, so a label dealt down one row has to be measured against its new
+    neighbours and not just against the ones sharing its lane number. Route 8's four Lasses stand
+    in a line one cell apart, and lane-by-lane they came out 1, 2, 0, 1: no two shared a lane, and
+    every one of them printed over the label of the trainer above or below. Rows are offered
+    nearest-first and either way, so a crowd opens outward from where it stands instead of
+    cascading down the map, and a label with nowhere clean to go takes the row it covers least,
+    counted over every size the map is drawn at (`LABEL_ZOOMS`)."""
+    rows = {zoom: LABEL_PX / (height_px * zoom) * 100 for zoom in LABEL_ZOOMS}
+    native = LABEL_PX / height_px * 100
     taken = []
     for entry in sorted(entries, key=lambda e: (e["y"], e["x"])):
-        span = label_span(entry, width_px)
-        lane = 0
-        while any(t["lane"] == lane and abs(t["y"] - entry["y"]) < row_pct
-                  and t["span"][0] < span[1] and span[0] < t["span"][1] for t in taken):
-            lane += 1
-        entry["lane"] = lane
-        taken.append({**entry, "span": span})
+        spans = {zoom: label_span(entry, width_px * zoom) for zoom in LABEL_ZOOMS}
+        seats = [(sum(label_covers(spans[zoom], entry["y"] + lane * rows[zoom], taken, rows[zoom], zoom)
+                      for zoom in LABEL_ZOOMS), lane)
+                 for lane in lane_seats(entry["y"], native)]
+        entry["lane"] = min(seats, key=lambda seat: seat[0])[1]
+        taken.append({**entry, "spans": spans})
     return entries
 
 

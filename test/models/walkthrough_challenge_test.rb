@@ -22,7 +22,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 27, assigned.size
+    assert_equal 28, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
@@ -31,7 +31,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
 
   test "the Safari Zone and Silph Co. land in the window their gym closes" do
     assert game.windows[4].covers?("safari-zone"), "the Safari Zone is inside the Koga window"
-    assert_equal "Koga", plan("leg-09").window.leader
+    assert_equal "Koga", plan("leg-10").window.leader
     assert game.windows[5].covers?("silph-co"), "Silph Co. is inside the Sabrina window"
     assert_equal "Sabrina", plan("silph-co").window.leader
   end
@@ -79,6 +79,30 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 1, challenge.bodies_for(game, "019")
   end
 
+  # A trade evolution is not something one cartridge can perform, so Oak will never register it,
+  # but a box still holds one: you hand the Kadabra over and your partner hands it back. What that
+  # costs is a second Kadabra, and counted as unreachable the four of them fell off the plan
+  # entirely rather than asking for it.
+  test "a stage behind a trade still costs a spare body of the stage below" do
+    { "064" => "065", "067" => "068", "075" => "076", "093" => "094" }.each do |below, traded|
+      assert_equal below, challenge.body_source(game, traded),
+        "#{Walkthrough::Yellow::NAMES.fetch(traded)} comes off a spare #{Walkthrough::Yellow::NAMES.fetch(below)}"
+      assert_equal 2, challenge.bodies_for(game, below),
+        "one stays put, one goes out to be traded back"
+    end
+  end
+
+  # The prize counter carries a price where a wild card carries a percentage, which reads as no
+  # odds at all. Left at that the only Vulpix in the game could source nothing, and Ninetales,
+  # whose one route into a box is a Fire Stone on a spare Vulpix, went missing from the plan.
+  test "a prize counter sources bodies the way a common spawn does" do
+    assert challenge.purchasable?(game, "037"), "Vulpix is bought at the Game Corner"
+    refute challenge.purchasable?(game, "016"), "a Pidgey is not for sale anywhere"
+    assert_nil challenge.top_rate(game, "037"), "a coin price is not a rate"
+    assert_equal "037", challenge.body_source(game, "038")
+    assert_equal 2, challenge.bodies_for(game, "037")
+  end
+
   test "a stage under the line is grown from the best-odds ancestor, never hunted" do
     assert_equal 1, challenge.top_rate(game, "085"), "Dodrio is 1% of Route 17 and nowhere better"
     assert_equal "084", challenge.body_source(game, "085")
@@ -101,7 +125,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   # stopped dead by a trade.
   test "a queued species says how the stage above it gets filled" do
     kinds = {
-      [ "leg-01", "016" ] => :catch, [ "leg-10", "084" ] => :rare,
+      [ "leg-01", "016" ] => :catch, [ "leg-11", "084" ] => :rare,
       [ "viridian-forest", "011" ] => :level, [ "mt-moon", "035" ] => :stone,
       [ "victory-road", "075" ] => :trade, [ "leg-01", "025" ] => :refused
     }
@@ -118,7 +142,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "a species the page only points at carries no quota line to explain" do
     assert_nil plan("viridian-forest").entry_for("016").later,
       "Route 1 owns the Pidgey row, so the forest card just sends you back to it"
-    assert_nil plan("leg-10").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
+    assert_nil plan("leg-11").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
     assert_equal "walkthrough.ui.ld_why_later", plan("leg-01").entry_for("016").why_key,
       "one Pidgey is the whole point, so the row says which stop takes the rest of the line"
   end
@@ -271,7 +295,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "a page can owe an Oak reminder without owing a single catch" do
-    gym = plan("leg-13")
+    gym = plan("leg-14")
 
     refute gym.living?
     assert gym.oak?

@@ -44,6 +44,12 @@ module ApplicationHelper
       href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
+  # A trivia section points at a pin the way a step does: it names the door it is talking about and
+  # the letter that door is wearing goes in.
+  def trivia_intro(trivia)
+    t(trivia.intro_key, **trivia.marks.transform_values { |key| map_mark(key) })
+  end
+
   # The letter a step's prose points at, wearing the chip the map pin and legend row give it.
   def map_mark(key)
     tag.span(key, class: "pn-wt-mark", title: t("walkthrough.ui.map_marker_hint"))
@@ -261,8 +267,19 @@ module ApplicationHelper
   end
 
   def sole_catch_reason(best, encounter)
+    return t("walkthrough.ui.best_reason_only_prize", name: encounter.name) if encounter.purchased?
     return t("walkthrough.ui.best_reason_only", name: encounter.name) unless best.rate?
 
     t("walkthrough.ui.best_reason_only_rate", name: encounter.name, rate: best.rate)
+  end
+
+  # A prize counter prints a price where a wild card prints odds, and it restocks, so neither the
+  # label nor the plain number a rate would carry is right for it.
+  def catch_stat_label(encounter)
+    t(encounter.purchased? ? "walkthrough.ui.coins" : "walkthrough.ui.rate")
+  end
+
+  def catch_stat_value(encounter)
+    encounter.purchased? ? number_with_delimiter(encounter.rate) : encounter.rate
   end
 end

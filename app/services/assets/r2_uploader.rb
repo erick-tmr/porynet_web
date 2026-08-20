@@ -4,7 +4,21 @@ require "json"
 module Assets
   class R2Uploader
     CONTENT_TYPE = "image/png".freeze
-    CACHE_CONTROL = "public, max-age=31536000, immutable".freeze
+    # Most keys hold bytes that never change once written: a ripped sprite, a badge, a piece of
+    # hand-prepared art. Those are worth a year and never asking again.
+    IMMUTABLE_CACHE = "public, max-age=31536000, immutable".freeze
+
+    # The generated tree is the exception, and it is the one a reader watches: `build.py` rewrites
+    # a map or a scene in place under the key it already had. `immutable` promises what that file
+    # does not keep, and a browser takes the promise literally, holding the old picture through a
+    # reload and any amount of regenerating. R2 sends a strong ETag, so asking about one of these
+    # costs a 304 and no body.
+    REGENERATED_PREFIX = "walkthrough/yellow/".freeze
+    REGENERATED_CACHE = "public, max-age=0, must-revalidate".freeze
+
+    def self.cache_control(key)
+      key.to_s.start_with?(REGENERATED_PREFIX) ? REGENERATED_CACHE : IMMUTABLE_CACHE
+    end
     # A gitignored fingerprint file next to the images: object key -> content digest of what was
     # last uploaded. A re-run sends only the images whose bytes actually changed, which matters
     # because the renderer is deterministic: regenerating an unchanged map leaves byte-identical
@@ -65,7 +79,7 @@ module Assets
         key: key,
         body: File.binread(path),
         content_type: CONTENT_TYPE,
-        cache_control: CACHE_CONTROL
+        cache_control: self.class.cache_control(key)
       )
     end
 

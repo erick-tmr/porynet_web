@@ -257,6 +257,46 @@ def test_lanes_keep_stacking_past_two():
     assert lanes([ row(10.0, 5), row(10.1, 6), row(10.2, 7) ]) == [ 0, 1, 2 ]
 
 
+def settled(rows, height_px=768):
+    """Where each label ends up down the map, in percent, once its lane is applied."""
+    row_pct = markers.LABEL_PX / height_px * 100
+    return [e["y"] + e["lane"] * row_pct for e in markers.assign_label_lanes(rows, 544, height_px)]
+
+
+def test_a_label_is_measured_where_it_lands_not_by_the_lane_it_is_filed_under():
+    """Four markers a fraction of a row apart, the shape Route 8's column of Lasses makes. Counting
+    clashes lane by lane they came out 1, 2, 0, 1: no two shared a lane number, so each read as
+    settled, and every one of them still printed over the label above or below it."""
+    ends = settled([ row(10.0, 5), row(11.0, 5), row(12.0, 5), row(13.0, 5) ])
+    row_pct = markers.LABEL_PX / 768 * 100
+
+    assert len(ends) == 4
+    assert all(abs(a - b) + markers.LANE_EPSILON >= row_pct
+               for i, a in enumerate(ends) for b in ends[i + 1:])
+
+
+def test_a_crowd_opens_both_ways_rather_than_cascading_down():
+    """Four labels stacked on one spot open outward from it, taking the row below, the next one
+    below, then the second row above. Dealt downward only they march off the bottom of the map
+    instead, which is how a page ends up with a name printed past its own picture."""
+    assert lanes([ row(50.0, 5), row(50.1, 5), row(50.2, 5), row(50.3, 5) ]) == [ 0, 1, 2, -2 ]
+
+
+def test_no_label_is_dealt_off_the_map():
+    assert list(markers.lane_seats(0.0, 20.0)) == [ 0, 1, 2, 3, 4, 5 ]
+    assert list(markers.lane_seats(100.0, 20.0)) == [ 0, -1, -2, -3, -4, -5 ]
+    assert list(markers.lane_seats(50.0, 60.0)) == [ 0 ]
+
+
+def test_a_label_with_nowhere_clean_to_go_takes_the_row_it_covers_least():
+    """Past its reach a label stops looking, so a map too crowded to lay out cleanly still keeps
+    every label within a leader line of its own pin."""
+    crowd = [ row(50.0 + n / 100, 5) for n in range(2 * markers.LABEL_LANE_REACH + 4) ]
+
+    assert all(abs(e["lane"]) <= markers.LABEL_LANE_REACH
+               for e in markers.assign_label_lanes(crowd, 544, 768))
+
+
 def test_a_longer_name_reserves_more_room():
     """A short name clears its neighbour; the same pair collides once the name grows."""
     assert lanes([ row(10.0, 2, "TM"), row(10.0, 12) ]) == [ 0, 0 ]

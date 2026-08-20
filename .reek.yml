@@ -80,6 +80,10 @@ detectors:
       - Walkthrough::MartFloor  # same defaults shim: a store floor omits what it lacks
                                 # (a note, a gift, trades), so its keywords are the floor's
                                 # own optional members, not a call signature.
+      - Walkthrough::Trivia     # same defaults shim: a section states only the pieces it has,
+                                # since one carries artwork and another a screenshot, one names
+                                # the pin its prose points at and another names none, and only
+                                # one so far has a rule loud enough to warn about.
   BooleanParameter:
     exclude:
       - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder
