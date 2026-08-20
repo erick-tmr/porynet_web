@@ -1772,15 +1772,15 @@ en:
           intro: "The other corridor under Saffron City, running west from Route 8 to Route 7. No trainers, nothing wild, and two hidden items lying on the floor that show nothing on-screen."
           steps:
             "1":
-              title: "Down from Route 8, then west for the Elixir"
-              text_html: "The Route 8 house drops you at stairs %{in}, on the second lane down. Walk west and drop to the bottom lane: press A on the tile nineteen east of the far stairs for a hidden Elixir, full PP on every move."
+              title: "Hug the bottom wall west"
+              text_html: "Stairs %{in} from the Route 8 house drop you on the second lane. Drop to the bottom wall and follow it west, pressing A facing west about halfway along: a hidden Elixir, full PP on every move."
               hidden:
-                elixir: "Bottom lane of the tunnel, nineteen tiles east of the Route 7 stairs. Stand above it and press A facing down. Nothing shows on-screen."
+                elixir: "On the bottom wall, roughly the middle of the tunnel. Walk the wall west and press A facing west. Nothing shows on-screen."
             "2":
-              title: "Back up a lane for the Nugget"
-              text_html: "Carry on west and climb three lanes, back to the one you came in on. Press A facing down ten tiles east of the Route 7 stairs for a hidden Nugget, worth ¥5000 at any counter. Stairs %{out} are below to the west."
+              title: "Climb back up for the Nugget"
+              text_html: "Walk nine tiles west and three lanes up from there, back on the lane you came in on. Press A facing west again for a hidden Nugget, ¥5000 at any counter. Stairs %{out} are below."
               hidden:
-                nugget: "The entrance lane, ten tiles east of the Route 7 stairs and three lanes above them. Press A facing down. Nothing shows on-screen."
+                nugget: "On the lane you walk in on, three above the bottom wall, near the Route 7 end. Press A facing west. Nothing shows on-screen."
         route_7:
           note: "Short strip into Celadon. Pidgey and Abra."
           intro: "One screen of road between Saffron and Celadon, with a patch of tall grass across the top. No trainers, and nothing lying on the ground."

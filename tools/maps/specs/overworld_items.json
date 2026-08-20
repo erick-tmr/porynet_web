@@ -2433,10 +2433,10 @@
     "name": "underground-path-west-east-hidden-elixir",
     "map": "UndergroundPathWestEast",
     "player": [
-      21,
-      4
+      22,
+      5
     ],
-    "player_dir": "DOWN",
+    "player_dir": "LEFT",
     "focus": [
       21,
       5
@@ -2455,10 +2455,10 @@
     "name": "underground-path-west-east-hidden-nugget",
     "map": "UndergroundPathWestEast",
     "player": [
-      12,
-      1
+      13,
+      2
     ],
-    "player_dir": "DOWN",
+    "player_dir": "LEFT",
     "focus": [
       12,
       2

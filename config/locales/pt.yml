@@ -1772,15 +1772,15 @@ pt:
           intro: "O outro corredor sob Saffron City, indo a oeste da Rota 8 até a Rota 7. Sem treinadores, nada selvagem, e dois itens ocultos no chão que não mostram nada na tela."
           steps:
             "1":
-              title: "Desça da Rota 8 e vá a oeste pelo Elixir"
-              text_html: "A casa da Rota 8 deixa você na escada %{in}, na segunda faixa. Siga a oeste e desça até a faixa de baixo: aperte A no ladrilho dezenove a leste da escada oposta para um Elixir oculto, PP cheio em todos os golpes."
+              title: "Cole na parede de baixo rumo a oeste"
+              text_html: "A escada %{in} da casa da Rota 8 deixa você na segunda faixa. Desça até a parede de baixo e siga por ela a oeste, apertando A virado para oeste lá pela metade do caminho: um Elixir oculto, PP cheio em todos os golpes."
               hidden:
-                elixir: "Faixa de baixo do túnel, dezenove ladrilhos a leste da escada da Rota 7. Fique acima dele e aperte A virado para baixo. Nada aparece na tela."
+                elixir: "Na parede de baixo, mais ou menos no meio do túnel. Ande pela parede a oeste e aperte A virado para oeste. Nada aparece na tela."
             "2":
-              title: "Suba uma faixa pelo Nugget"
-              text_html: "Continue a oeste e suba três faixas, de volta à que você entrou. Aperte A virado para baixo dez ladrilhos a leste da escada da Rota 7 para um Nugget oculto, que vale ¥5000 em qualquer balcão. A escada %{out} fica abaixo, a oeste."
+              title: "Suba de novo pelo Nugget"
+              text_html: "Ande nove ladrilhos a oeste e três faixas acima dali, de volta à faixa em que você entrou. Aperte A virado para oeste de novo para um Nugget oculto, ¥5000 em qualquer balcão. A escada %{out} fica abaixo."
               hidden:
-                nugget: "A faixa da entrada, dez ladrilhos a leste da escada da Rota 7 e três faixas acima dela. Aperte A virado para baixo. Nada aparece na tela."
+                nugget: "Na faixa em que você entra, três acima da parede de baixo, perto do lado da Rota 7. Aperte A virado para oeste. Nada aparece na tela."
         route_7:
           note: "Faixa curta até Celadon. Pidgey e Abra."
           intro: "Uma tela de estrada entre Saffron e Celadon, com um trecho de mato alto na parte de cima. Sem treinadores e nada largado no chão."
