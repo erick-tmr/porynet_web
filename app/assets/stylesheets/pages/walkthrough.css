@@ -1170,6 +1170,128 @@ a.pn-wt-route__card:hover {
   max-width: 360px;
   margin-top: 22px;
 }
+/* Beside the intro rather than under it, so a section with a screenshot reads the way one with
+   artwork already does. */
+.pn-wt-trivia__lead .pn-wt-trivia__shot {
+  width: 240px;
+  flex: 0 0 auto;
+  margin-top: 0;
+}
+
+/* ---- the one rule a trivia section warns about ---- */
+.pn-wt-triviawarn {
+  margin-top: 26px;
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+}
+.pn-wt-triviawarn__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #ffc23d;
+  border-bottom: 3px solid #171622;
+}
+.pn-wt-triviawarn__sign {
+  display: block;
+  flex: none;
+}
+.pn-wt-triviawarn__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 1px;
+  color: #171622;
+}
+.pn-wt-triviawarn__stripe {
+  flex: 1 1 auto;
+  min-width: 24px;
+  height: 8px;
+  background: repeating-linear-gradient(135deg, #171622 0 6px, transparent 6px 12px);
+}
+.pn-wt-triviawarn__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 20px 18px;
+}
+.pn-wt-triviawarn__main {
+  flex: 1 1 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pn-wt-triviawarn__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.05;
+  color: #171622;
+}
+.pn-wt-triviawarn__text {
+  margin: 0;
+  max-width: 620px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #3a3850;
+  text-wrap: pretty;
+}
+.pn-wt-triviawarn__specimen {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #ffe1ea;
+  border: 3px solid #171622;
+}
+.pn-wt-triviawarn__sprite {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fbf5e6;
+  border: 2px solid #171622;
+}
+.pn-wt-triviawarn__sprite img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+.pn-wt-triviawarn__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pn-wt-triviawarn__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #6b6880;
+}
+/* Struck through in the same pink the section's chip is bordered with: the name is still legible,
+   which is the point, but it is plainly not up for changing. */
+.pn-wt-triviawarn__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  color: #171622;
+  text-decoration: line-through 3px #ff5d8f;
+}
+.pn-wt-triviawarn__where {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  line-height: 1;
+  color: #3a3850;
+}
 .pn-wt-trivia-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));

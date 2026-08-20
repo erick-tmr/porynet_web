@@ -242,6 +242,9 @@ en:
       later_need: "NEED"
       later_return: "RETURN AFTER"
       trivia_eyebrow: "TRIVIA"
+      trivia_eyebrow_tagged: "TRIVIA · %{tag}"
+      trivia_warning: "IMPORTANT"
+      trivia_locked_name: "LOCKED NAME"
       missable_badge: "MISSABLE"
       missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
@@ -1750,6 +1753,15 @@ en:
             buy: "Great Balls for the Tower's Gastly line and a couple of Revives. Super Repel thins the ghosts."
           note: "The ghost town. Pokémon Tower looms."
           intro: "Kanto's smallest town, and its graveyard. Pokémon Tower stands over a handful of houses, with Team Rocket somewhere inside it."
+          trivia:
+            tag: "NAME RATER"
+            title: "The Name Rater lives here"
+            intro: "Lavender holds the one man in Kanto who will change a Pokémon's nickname. His house sits on the west side, between the Cubone girl's place and the Mart. Show him a Pokémon, he reads its name back with a verdict, then lets you type a new one."
+            note: "Not to be confused with Viridian's nickname house: that one is a tip house with a pet Spearow called SPEARY. The renaming happens here."
+            warning:
+              title: "Traded Pokémon can't be renamed"
+              body: "The Name Rater checks who caught it. Hand him a Pokémon that came from a trade and he refuses, so the name it arrived with is the name it keeps for the rest of the save. Only Pokémon you caught yourself can be changed."
+              specimen: "Route 2 trade · Mr. Mime"
           steps:
             "1":
               title: "Try the Tower"

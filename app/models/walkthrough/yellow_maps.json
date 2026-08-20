@@ -18365,6 +18365,12 @@
       "width": 160,
       "height": 144,
       "type": "dialog"
+    },
+    "lavender-name-rater": {
+      "image": "walkthrough/yellow/scenes/lavender-name-rater.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     }
   }
 }

@@ -3,7 +3,7 @@
 - location maps: **100** across 53 locations
 - markers: **970** (317 trainer, 119 item, 52 hidden, 482 exit)
 - step shots: **39** (map/scene in a step slot)
-- standalone scenes: **266** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **267** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -208,6 +208,7 @@
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
 - `indigo-lance` (screen): walkthrough/yellow/scenes/indigo-lance.png
 - `indigo-lorelei` (screen): walkthrough/yellow/scenes/indigo-lorelei.png
+- `lavender-name-rater` (dialog): walkthrough/yellow/scenes/lavender-name-rater.png
 - `mew-glitch-abra` (screen): walkthrough/yellow/scenes/mew-glitch-abra.png
 - `mew-glitch-bridge` (screen): walkthrough/yellow/scenes/mew-glitch-bridge.png
 - `mew-glitch-center` (screen): walkthrough/yellow/scenes/mew-glitch-center.png

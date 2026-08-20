@@ -113,11 +113,21 @@ module Walkthrough
   # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon) do
-    def initialize(art: nil, note_icon: nil, **rest) = super
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon,
+    :tag_key, :warning) do
+    def initialize(art: nil, note_icon: nil, tag_key: nil, warning: nil, **rest) = super
     def art? = !art.nil?
     def note_icon? = !note_icon.nil?
+    # A section that is about one particular thing says so in its eyebrow ("TRIVIA · NAME RATER"),
+    # because a page can carry more than one and "TRIVIA" alone stops telling them apart.
+    def tag? = !tag_key.nil?
+    def warning? = !warning.nil?
   end
+
+  # The one rule a trivia section exists to warn about, and the single specimen in this save it
+  # bites on: the Mr. Mime you traded for cannot be renamed, and here is its name, struck out.
+  TriviaWarning = Data.define(:title_key, :body_key, :specimen)
+  TriviaSpecimen = Data.define(:dex, :name, :note_key)
   # One species worth farming at a grinding spot, and what the game pays for it. `exp` is Gen 1's
   # own arithmetic, base experience times level over seven, so the figure on the card is the one
   # the battle really awards; `fill` is that against the best on offer here, which is what the bar

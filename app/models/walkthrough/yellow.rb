@@ -2075,8 +2075,12 @@ module Walkthrough
     end
 
     def self.lavender_town
+      b = base("lavender-town")
       loc("lavender-town", "TOWN", "Lavender Town", 24, steps: 2,
         pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } },
+        trivia: trivia(b, anchor: "name-rater", tagged: true,
+          shot: scene_shot("lavender-name-rater", "NAME RATER"),
+          warning: trivia_warning(b, "122", "MILES")),
         trainers: [
           rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25),
             where: scene_shot("pokemon-tower-rival", "WHERE"),
@@ -2430,9 +2434,21 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil, art: nil, note_icon: nil)
+    def self.trivia(base, anchor:, cards: [], shot: nil, art: nil, note_icon: nil, tagged: false,
+      warning: nil)
       Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, art: art, note_icon: note_icon)
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, art: art, note_icon: note_icon,
+        tag_key: (tagged ? "#{base}.trivia.tag" : nil), warning: warning)
+    end
+
+    # `name` is the nickname the cartridge ships, so it lives here rather than in the copy: MILES
+    # is what the Route 2 scientist calls his Mr. Mime whichever language you read the guide in.
+    def self.trivia_warning(base, dex, name)
+      TriviaWarning.new(
+        title_key: "#{base}.trivia.warning.title", body_key: "#{base}.trivia.warning.body",
+        specimen: TriviaSpecimen.new(dex: dex, name: name,
+          note_key: "#{base}.trivia.warning.specimen")
+      )
     end
 
     # The grinding spot card: two species side by side with what each knockout pays, and the Repel
