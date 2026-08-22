@@ -11,7 +11,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal %w[01 02 03 04 05 06 07 08 09], game.windows.map(&:label)
     assert_equal [ "Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni", nil ],
       game.windows.map(&:leader)
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city fuchsia-city
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city
                     saffron-city cinnabar-island viridian-gym cerulean-cave],
       game.windows.map { |win| win.slugs.last }
     assert game.windows.last.final?, "nothing closes the run but the League"
@@ -22,7 +22,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 28, assigned.size
+    assert_equal 29, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
@@ -31,7 +31,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
 
   test "the Safari Zone and Silph Co. land in the window their gym closes" do
     assert game.windows[4].covers?("safari-zone"), "the Safari Zone is inside the Koga window"
-    assert_equal "Koga", plan("leg-10").window.leader
+    assert_equal "Koga", plan("leg-11").window.leader
     assert game.windows[5].covers?("silph-co"), "Silph Co. is inside the Sabrina window"
     assert_equal "Sabrina", plan("silph-co").window.leader
   end
@@ -125,7 +125,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   # stopped dead by a trade.
   test "a queued species says how the stage above it gets filled" do
     kinds = {
-      [ "leg-01", "016" ] => :catch, [ "leg-11", "084" ] => :rare,
+      [ "leg-01", "016" ] => :catch, [ "leg-12", "084" ] => :rare,
       [ "viridian-forest", "011" ] => :level, [ "mt-moon", "035" ] => :stone,
       [ "victory-road", "075" ] => :trade, [ "leg-01", "025" ] => :refused
     }
@@ -142,7 +142,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "a species the page only points at carries no quota line to explain" do
     assert_nil plan("viridian-forest").entry_for("016").later,
       "Route 1 owns the Pidgey row, so the forest card just sends you back to it"
-    assert_nil plan("leg-11").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
+    assert_nil plan("leg-12").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
     assert_equal "walkthrough.ui.ld_why_later", plan("leg-01").entry_for("016").why_key,
       "one Pidgey is the whole point, so the row says which stop takes the rest of the line"
   end
@@ -281,9 +281,15 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       "Caterpie and Metapod share a family, so the ledger draws it once"
   end
 
-  test "a page with nothing to catch and nothing owed renders no challenge at all" do
-    refute plan("rocket-hideout").any?, "the hideout has no species of its own"
-    assert_empty plan("rocket-hideout").entries
+  # The hideout used to be the one page that owed nothing: Erika closed her window on the page
+  # before it. Now that the badge is taken after the hideout, the page still has no species of its
+  # own but does carry her deadline, which is the whole reason the walk was reordered.
+  test "a page with no species of its own still carries the gym deadline ahead of it" do
+    hideout = plan("rocket-hideout")
+
+    assert_empty hideout.entries, "the hideout has no species of its own"
+    assert hideout.any?, "but Erika is still ahead of it, so the page owes her window"
+    assert_equal "Erika", hideout.window.leader
   end
 
   test "the ship owes Oak nothing to catch, but still sits inside Surge's window" do
@@ -295,7 +301,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "a page can owe an Oak reminder without owing a single catch" do
-    gym = plan("leg-14")
+    gym = plan("leg-15")
 
     refute gym.living?
     assert gym.oak?

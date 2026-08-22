@@ -171,17 +171,18 @@ module Walkthrough
       { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 underground-path-west-east route-7] },
       { slug: "leg-09", special: false, locs: %w[celadon-city] },
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
+      { slug: "leg-10", special: false, locs: %w[celadon-city-return] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
-      { slug: "leg-10", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
+      { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
-      { slug: "leg-11", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
-      { slug: "leg-12", special: false, locs: %w[route-19 route-20] },
+      { slug: "leg-12", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
+      { slug: "leg-13", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "power-plant", special: true, locs: %w[power-plant] },
-      { slug: "leg-13", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
-      { slug: "leg-14", special: false, locs: %w[viridian-gym] },
+      { slug: "leg-14", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
+      { slug: "leg-15", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-15", special: false, locs: %w[route-23] },
+      { slug: "leg-16", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
@@ -410,7 +411,7 @@ module Walkthrough
         vermilion_city_return, digletts_cave,
         route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8,
         underground_path_west_east, route_7, celadon_city,
-        rocket_hideout,
+        rocket_hideout, celadon_city_return,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
@@ -422,6 +423,7 @@ module Walkthrough
     # A stop the guide walks twice has map data under one slug only. The second pass reads the
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
+                   "celadon-city-return" => "celadon-city",
                    "route-10-south" => "route-10" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
@@ -2141,11 +2143,9 @@ module Walkthrough
           { pins: { mansion: "celadon-city/exit-24-9" } },
           { pins: { store: "celadon-city/exit-8-13" } },
           {},
-          { pins: { gym: "celadon-city/exit-12-27" } },
-          { items: [ [ "Coin Case", "coin_case" ] ],
-            pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } },
+          { pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } },
           {}
-        ], badge: "RAINBOW",
+        ],
         encounters: [
           enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("celadon-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -2156,18 +2156,35 @@ module Walkthrough
           enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
         ],
         trainers: [],
-        gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
-          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32), battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ])),
         oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
     end
 
-    def self.rocket_hideout
-      loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 29,
-        pins: { 6 => { down: "rocket-hideout-b1f/exit-23-2" },
-                11 => { down: "rocket-hideout-b2f/exit-21-8" },
-                15 => { down: "rocket-hideout-b3f/exit-19-18" },
-                20 => { lift: "rocket-hideout-b4f/exit-24-15" } },
+    # The walkthrough clears the Rocket Hideout before it takes the badge, so Celadon is walked
+    # twice and the gym rides on the second visit, the way Vermilion's does after the S.S. Anne.
+    def self.celadon_city_return
+      b = base("celadon-city-return")
+      Location.new(
+        slug: "celadon-city-return", kind: "CITY", name: "Celadon City", order: 28,
+        badge: "RAINBOW", note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
+          step(b, 1, pins: { gym: "celadon-city/exit-12-27" }),
+          step(b, 2)
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
+        gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
+          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32),
+            battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ]))
+      )
+    end
+
+    def self.rocket_hideout
+      loc("rocket-hideout", "DUNGEON", "Game Corner / Rocket Hideout", 29,
+        pins: { 7 => { down: "rocket-hideout-b1f/exit-23-2" },
+                12 => { down: "rocket-hideout-b2f/exit-21-8" },
+                16 => { down: "rocket-hideout-b3f/exit-19-18" },
+                21 => { lift: "rocket-hideout-b4f/exit-24-15" } },
+        steps: [
+          { items: [ [ "Coin Case", "coin_case" ] ] },
           {},
           {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },

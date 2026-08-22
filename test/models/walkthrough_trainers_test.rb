@@ -105,7 +105,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
   # Erika takes T5 rather than the last letter: Celadon's gym keeps beating you to her with three
   # more trainers deeper in the room, and the lettering follows the walk, not the billing.
   test "gym trainers come from the gym floor and claim its pin keys" do
-    gym = location("celadon-city").gym
+    gym = location("celadon-city-return").gym
 
     assert_equal 7, gym.trainers.size
     assert_equal %w[T1 T2 T3 T4 T6 T7 T8], gym.trainers.map(&:marker_key).sort

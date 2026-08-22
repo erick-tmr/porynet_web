@@ -35,7 +35,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 28 PARADAS"
+    assert_includes response.body, "A ROTA · 29 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -197,7 +197,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a leg renders in Portuguese with a gym band, fossils and its leader" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-13", locale: :pt)
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14", locale: :pt)
 
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
@@ -209,7 +209,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a location renders its in-game trades with give and receive sprites" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
 
     assert_response :success
     assert_select ".pn-eyebrow-label", text: /IN-GAME TRADES/
@@ -221,7 +221,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "each trade card is a tick target that carries a toast and a traded badge" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
 
     assert_response :success
     assert_select ".pn-wt-trade[role='button'][data-kind='collected'][data-progress-id]", 3
@@ -301,6 +301,38 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym__puzzle"
     assert_select ".pn-wt-gym__pstep", count: 3
     assert_select ".pn-wt-shot--pstep"
+  end
+
+  # Celadon is walked twice: the city page leaves the gym alone so the hideout is cleared first,
+  # and the return page is nothing but Erika, the way Vermilion's is nothing but Lt. Surge.
+  test "Celadon leaves the gym to its return leg" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-gym", false, "no gym card on the first pass"
+    assert_select ".pn-wt-band__badge", false
+    assert_select ".pn-wt-step__title", text: "Find the Game Corner"
+    assert_select ".pn-wt-step__title", text: /Erika/, count: 0
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-10")
+
+    assert_response :success
+    assert_select ".pn-wt-band__badge", text: "GYM · RAINBOW"
+    assert_select ".pn-wt-gym__leader-name", text: /Erika/
+    assert_select ".pn-wt-step__title", text: "Cut into the greenhouse"
+  end
+
+  # The Coin Case gates the coins, so it moved onto the page that spends them.
+  test "the Coin Case is picked up on the Game Corner page" do
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+
+    assert_response :success
+    assert_select ".pn-wt-loc__title", text: "Game Corner / Rocket Hideout"
+    assert_select ".pn-wt-step__title", text: "Pick up the Coin Case"
+    assert_select ".pn-wt-item__name", text: "Coin Case"
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+    assert_select ".pn-wt-item__name", text: "Coin Case", count: 0
   end
 
   # The prize counters are parsed out of prizes.asm, so the section is the one place a reader can
@@ -421,7 +453,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the Safari Zone sits inside the Koga window now that it precedes his gym" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-10")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-11")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
@@ -430,7 +462,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the endgame page names the League rather than a leader it does not have" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-16")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"
@@ -730,7 +762,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a section header tallies only the species its own method finds" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
 
     assert_response :success
     assert_select "#catchsec-cinnabar-island-fossil .pn-wt-catchsec__label", text: "Revived fossils"
