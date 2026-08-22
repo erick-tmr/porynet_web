@@ -220,6 +220,17 @@
 }
 .pn-nav__panel-link.is-active { color: #2af0ff; text-shadow: 0 0 8px #2af0ff; }
 
+/* the crumb the wide bar shows, kept in the panel once the bar collapses */
+.pn-nav__panel-crumb {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: #8fa6c8;
+  padding: 13px 28px;
+  border-bottom: 1px solid #1a2740;
+}
+.pn-nav__panel-crumb a { color: #2af0ff; }
+
 .pn-nav__panel-mode {
   cursor: pointer;
   text-align: left;
@@ -262,5 +273,6 @@
   .pn-wordmark { font-size: 15px; }
   .pn-nav__bar { padding: 12px 18px; }
   .pn-nav__panel-link,
+  .pn-nav__panel-crumb,
   .pn-nav__panel-mode { padding: 15px 18px; }
 }

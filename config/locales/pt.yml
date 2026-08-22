@@ -568,6 +568,8 @@ pt:
       leg_new: "NOVOS NA DEX"
       leg_obtainable: "OAK · OBTENÍVEIS"
       jump_to: "IR PARA"
+      stop_prev: "Parada anterior"
+      stop_next: "Próxima parada"
       stops_count: "%{count} PARADAS"
       special_stop: "ESPECIAL"
     yellow:

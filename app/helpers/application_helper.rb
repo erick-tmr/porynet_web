@@ -11,6 +11,8 @@ module ApplicationHelper
     leg.single? ? leg.from : "#{leg.from} → #{leg.to}"
   end
 
+  def stop_number(location) = format("%02d", location.order)
+
   def r2_asset_url(path)
     "#{Rails.application.config.x.r2_public_host}/#{path}"
   end

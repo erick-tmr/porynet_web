@@ -3,7 +3,7 @@
 <% plan = @game.plan_for(@leg) %>
 <% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
 <% content_for :head do %>
-  <% sheets = %w[pages/walkthrough pages/walkthrough-map pages/walkthrough-challenge] %>
+  <% sheets = %w[components/leg-switch pages/walkthrough pages/walkthrough-map pages/walkthrough-challenge] %>
   <% sheets << "pages/mew-glitch" if @leg.locations.any? { |loc| %w[cerulean-city route-24].include?(loc.slug) } %>
   <%= stylesheet_link_tag(*sheets, "data-turbo-track": "reload") %>
 <% end %>
@@ -51,32 +51,18 @@
 <% if @leg.single? %>
   <%= render "band", loc: @leg.locations.first, plan: plan %>
 <% else %>
-  <div data-controller="leg-switcher">
-    <div class="pn-wt-switchbar">
-      <div class="pn-wt-switchbar__inner">
-        <span class="pn-wt-switchbar__label"><%= t("walkthrough.ui.jump_to") %></span>
-        <div class="pn-wt-switchbar__chips">
-          <% @leg.locations.each do |loc| %>
-            <% work = plan.queue_at(loc.slug) %>
-            <button type="button" class="pn-wt-chip" data-leg-switcher-target="chip" data-slug="<%= loc.slug %>" data-action="leg-switcher#jump">
-              <span class="pn-wt-chip__no"><%= format("%02d", loc.order) %></span>
-              <span class="pn-wt-chip__kind"><%= loc.kind %></span>
-              <%= loc.name %>
-              <% if work.any? %>
-                <span class="pn-wt-chip__work"><%= t("walkthrough.ui.work_tag_bodies", count: work.sum(&:qty)) %></span>
-              <% end %>
-            </button>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <% @leg.locations.each do |loc| %>
-      <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-slug="<%= loc.slug %>">
+  <% stops = @leg.locations.map { |loc| [ loc, plan.queue_at(loc.slug).sum(&:qty) ] } %>
+  <div class="pn-legsw-host" data-controller="leg-switcher"
+       data-action="keydown.esc@window->leg-switcher#closeSheet">
+    <%= render "leg_switch", stops: stops %>
+    <% @leg.locations.each_with_index do |loc, i| %>
+      <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-stop="<%= i %>" data-slug="<%= loc.slug %>">
         <%= render "band", loc: loc, plan: plan %>
       </div>
     <% end %>
     <% if @leg.finale %>
-      <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-slug="<%= @leg.finale.slug %>">
+      <div class="pn-wt-band-wrap" data-leg-switcher-target="band"
+           data-stop="<%= @leg.locations.index(@leg.finale) %>" data-slug="<%= @leg.finale.slug %>">
         <%= render "gym_finale", loc: @leg.finale %>
       </div>
     <% end %>

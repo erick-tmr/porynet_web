@@ -568,6 +568,8 @@ en:
       leg_new: "NEW TO DEX"
       leg_obtainable: "OAK · OBTAINABLE"
       jump_to: "JUMP TO"
+      stop_prev: "Previous stop"
+      stop_next: "Next stop"
       stops_count: "%{count} STOPS"
       special_stop: "SPECIAL"
     yellow:

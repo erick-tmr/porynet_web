@@ -1,0 +1,248 @@
+/* ---- leg stop switcher: sticks under the nav, steps on narrow screens ---- */
+.pn-legsw {
+  --pn-legsw-h: 58px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: var(--pn-nav-h, 68px);
+  z-index: 45;
+  background: rgba(251, 245, 230, 0.94);
+  backdrop-filter: blur(5px);
+  border-top: 2px solid #171622;
+  border-bottom: 2px solid #171622;
+  margin-top: 30px;
+}
+.pn-legsw__inner {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 9px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pn-legsw__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #6b6880;
+  flex: none;
+}
+
+/* ---- wide: one rail of chips, the active one held in view by the controller ---- */
+.pn-legsw__rail {
+  display: flex;
+  gap: 9px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  padding: 2px 0;
+}
+.pn-legsw__rail::-webkit-scrollbar { display: none; }
+.pn-legsw__chip {
+  cursor: pointer;
+  flex: none;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 7px 13px;
+  border: 2px solid #171622;
+  background: #fff;
+  color: #171622;
+  box-shadow: 2px 2px 0 #171622;
+  white-space: nowrap;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+.pn-legsw__chip:hover { transform: translate(2px, 2px); box-shadow: none; }
+.pn-legsw__chip.is-active { background: #171622; color: #FBF5E6; }
+.pn-legsw__no {
+  font-family: "VT323", monospace;
+  font-size: 14px;
+  opacity: 0.75;
+}
+.pn-legsw__kind {
+  font-family: "VT323", monospace;
+  font-size: 13px;
+  color: #15503a;
+  background: #d8f5df;
+  border: 1px solid #171622;
+  padding: 0 6px;
+}
+.pn-legsw__chip.is-active .pn-legsw__kind { color: #171622; }
+/* the body count a stop owes: only Living Dex mode reveals it (walkthrough-challenge.css) */
+.pn-legsw__work {
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: #FFC23D;
+  border: 1px solid #171622;
+  padding: 3px 4px;
+}
+
+/* ---- narrow: previous / current / next stepper ---- */
+.pn-legsw__stepper { display: none; }
+.pn-legsw__arrow {
+  cursor: pointer;
+  flex: none;
+  width: 46px;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #171622;
+  background: #fff;
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 #171622;
+}
+.pn-legsw__arrow:disabled {
+  cursor: default;
+  opacity: 0.32;
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+.pn-legsw__current {
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  padding: 6px 12px;
+  background: #171622;
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 rgba(23, 22, 34, 0.35);
+  color: #FBF5E6;
+}
+.pn-legsw__current-no {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #FFC23D;
+  flex: none;
+}
+.pn-legsw__current-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.1;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pn-legsw__count {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #8fa6c8;
+  flex: none;
+}
+.pn-legsw__caret {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #2af0ff;
+  flex: none;
+}
+.pn-legsw__caret-glyph--close { display: none; }
+.pn-legsw.is-open .pn-legsw__caret-glyph--open { display: none; }
+.pn-legsw.is-open .pn-legsw__caret-glyph--close { display: inline; }
+
+/* ---- the whole stop list, opened from the stepper ---- */
+.pn-legsw__sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 2px);
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  max-height: 62vh;
+  overflow-y: auto;
+  background: #FBF5E6;
+  border-bottom: 3px solid #171622;
+  box-shadow: 0 10px 0 rgba(23, 22, 34, 0.22);
+}
+.pn-legsw.is-open .pn-legsw__sheet { display: flex; }
+.pn-legsw__row {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 10px 22px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #d9cfb6;
+  color: #171622;
+}
+.pn-legsw__row:last-child { border-bottom: none; }
+.pn-legsw__row.is-active { background: #171622; color: #FBF5E6; }
+.pn-legsw__row-no {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  opacity: 0.7;
+  flex: none;
+  width: 24px;
+}
+.pn-legsw__row-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  flex: 1;
+  min-width: 0;
+}
+.pn-legsw__row.is-active .pn-legsw__kind { color: #171622; }
+
+/* ---- hairline progress through the leg ---- */
+.pn-legsw__meter {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  gap: 2px;
+  height: 4px;
+  padding: 0 28px;
+  background: transparent;
+}
+.pn-legsw__seg {
+  flex: 1;
+  background: #ddd2b8;
+}
+.pn-legsw__seg.is-done { background: #171622; }
+.pn-legsw__seg.is-here { background: #FF5D8F; }
+
+/* ---- a jumped-to band clears both sticky bars ---- */
+.pn-legsw-host .pn-wt-band-wrap {
+  scroll-margin-top: calc(var(--pn-nav-h, 68px) + var(--pn-legsw-h, 58px) + 10px);
+}
+
+@media (max-width: 900px) {
+  .pn-legsw__label,
+  .pn-legsw__rail { display: none; }
+  .pn-legsw__inner { padding: 8px 18px; gap: 8px; }
+  .pn-legsw__stepper {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+  .pn-legsw__meter { padding: 0 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-legsw__chip { transition: none; }
+  .pn-legsw__chip:hover { transform: none; box-shadow: 2px 2px 0 #171622; }
+}

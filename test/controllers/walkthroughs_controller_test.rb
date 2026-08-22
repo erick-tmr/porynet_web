@@ -45,7 +45,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__crumb-here", text: "LEG 01"
     assert_select ".pn-wt-loc__title", /Pallet Town/
     assert_select "[data-controller='leg-switcher']"
-    assert_select ".pn-wt-chip", count: 2
+    assert_select ".pn-legsw__chip", count: 2
     assert_select ".pn-wt-band__title", text: "Pallet Town"
     assert_select ".pn-wt-band__title", text: "Route 1"
     assert_select ".pn-wt-catch__name", text: "Pidgey"
@@ -191,8 +191,8 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "[data-controller='leg-switcher']"
-    assert_select ".pn-wt-chip[data-slug='vermilion-city-return']"
-    assert_select ".pn-wt-chip[data-slug='route-11']"
+    assert_select ".pn-legsw__chip[data-slug='vermilion-city-return']"
+    assert_select ".pn-legsw__chip[data-slug='route-11']"
     assert_select ".pn-wt-band__title", text: "Route 11"
   end
 
@@ -309,7 +309,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pn-nav__crumb-here", text: "VIRIDIAN FOREST"
     assert_select ".pn-wt-loc__title", /Forest/
-    assert_select ".pn-wt-chip", false
+    assert_select ".pn-legsw__chip", false
     assert_select "img.pn-wt-shot__img[src*=?]", "scenes/viridian-forest-hidden-antidote"
     assert_select ".pn-wt-pin--viridian-forest-antidote"
   end
@@ -352,7 +352,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-ldrow", count: 4
     assert_select ".pn-wt-ldrow__spot", text: "ROUTE 24"
     assert_select ".pn-wt-bandledger", count: 4
-    assert_select ".pn-wt-chip__work"
+    assert_select ".pn-legsw__work"
     assert_select ".pn-wt-catchbadge--elsewhere", text: /DO IT AT ROUTE 24/
     assert_select ".pn-wt-catchbadge--boxed", text: "ALREADY BOXED"
 

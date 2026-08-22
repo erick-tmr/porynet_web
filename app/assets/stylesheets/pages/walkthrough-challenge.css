@@ -13,7 +13,7 @@
 .pn-mode-oak-on .pn-wt-catchpill--oak { display: inline-flex; }
 .pn-mode-living-on .pn-wt-catch__count { display: flex; }
 .pn-mode-living-on .pn-wt-catch__later { display: flex; }
-.pn-mode-living-on .pn-wt-chip__work { display: inline-block; }
+.pn-mode-living-on .pn-legsw__work { display: inline-block; }
 
 .porynet:not(.pn-mode-living-on):not(.pn-mode-oak-on) .pn-wt-modesoff { display: block; }
 
@@ -915,17 +915,6 @@
 .pn-wt-catch.is-done { background: color-mix(in srgb, var(--done-green) 14%, #fff); }
 .pn-wt-catch.is-done .pn-wt-catch__sprite { background: color-mix(in srgb, var(--done-green) 20%, #fff); }
 .pn-wt-catch.is-met .pn-wt-stepper__count { background: color-mix(in srgb, var(--done-green) 22%, #fff); }
-
-.pn-wt-chip__work {
-  display: none;
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  color: #171622;
-  background: var(--neon-cyan);
-  border: 2px solid #171622;
-  padding: 3px 5px;
-  margin-left: 6px;
-}
 
 @media (max-width: 900px) {
   .pn-wt-ld__inner { padding: 36px 18px; }

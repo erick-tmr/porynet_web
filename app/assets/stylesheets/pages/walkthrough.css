@@ -555,8 +555,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym-tr,
 .pn-wt-gym__leader,
 .pn-wt-oaktile,
-.pn-wt-ldstage,
-.pn-wt-chip {
+.pn-wt-ldstage {
   transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
 }
 
@@ -611,8 +610,7 @@ a.pn-wt-route__card:hover {
   .pn-wt-gym-tr,
   .pn-wt-gym__leader,
   .pn-wt-oaktile,
-  .pn-wt-ldstage,
-  .pn-wt-chip { transition: none; }
+  .pn-wt-ldstage { transition: none; }
 
   .pn-wt-item:hover,
   .pn-wt-item:active,
@@ -633,8 +631,7 @@ a.pn-wt-route__card:hover {
   .pn-wt-oaktile:hover,
   .pn-wt-oaktile:active,
   .pn-wt-ldstage:hover,
-  .pn-wt-ldstage:active,
-  .pn-wt-chip:hover { transform: none; }
+  .pn-wt-ldstage:active { transform: none; }
 }
 
 /* ---- location header ---- */
@@ -2577,75 +2574,7 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-legstat__num--accent { color: var(--accent); }
 
-/* ---- sticky jump switcher ---- */
-.pn-wt-switchbar {
-  position: sticky;
-  top: 98px;
-  z-index: 40;
-  background: rgba(251, 245, 230, 0.92);
-  backdrop-filter: blur(4px);
-  border-top: 2px solid #171622;
-  border-bottom: 2px solid #171622;
-  margin-top: 30px;
-}
-.pn-wt-switchbar__inner {
-  /* Left edge lines up with the 1200px column the bands below sit in, but the chips are navigation
-     rather than prose, so they run on into the gutter instead of scrolling inside a box narrower
-     than the window. Boxed at 1200 they scrolled on a screen with 200px to spare: Living Dex mode
-     hangs a body count on any stop that owes one, and two of those on one leg is all it took. */
-  padding: 11px 28px;
-  padding-left: max(28px, calc((100% - 1200px) / 2 + 28px));
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow-x: auto;
-}
-.pn-wt-switchbar__label {
-  font-family: "Press Start 2P", monospace;
-  font-size: 9px;
-  color: #6b6880;
-  flex: none;
-  letter-spacing: 1px;
-}
-.pn-wt-switchbar__chips {
-  display: flex;
-  gap: 9px;
-  flex: none;
-}
-.pn-wt-chip {
-  cursor: pointer;
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 7px 13px;
-  border: 2px solid #171622;
-  background: #fff;
-  color: #171622;
-  box-shadow: 2px 2px 0 #171622;
-}
-.pn-wt-chip:hover { transform: translate(2px, 2px); box-shadow: none; }
-.pn-wt-chip.is-active { background: #171622; color: #FBF5E6; }
-.pn-wt-chip__no {
-  font-family: "VT323", monospace;
-  font-size: 14px;
-  opacity: 0.75;
-}
-.pn-wt-chip__kind {
-  font-family: "VT323", monospace;
-  font-size: 13px;
-  color: #15503a;
-  background: #d8f5df;
-  border: 1px solid #171622;
-  padding: 0 6px;
-}
-.pn-wt-chip.is-active .pn-wt-chip__kind { color: #171622; }
-
 /* ---- location bands ---- */
-.pn-wt-band-wrap { scroll-margin-top: 170px; }
 .pn-wt-band-head { border-top: 3px solid #171622; }
 .pn-wt-band-head__inner {
   max-width: 1200px;
@@ -3181,7 +3110,6 @@ a.pn-wt-route__card:hover {
   .pn-wt-trades { grid-template-columns: 1fr; }
 
   .pn-wt-legstats { grid-template-columns: 1fr 1fr; }
-  .pn-wt-switchbar { top: 0; }
   .pn-wt-nav__link { flex-basis: 100%; }
 
   .pn-wt-hero__title { font-size: 40px; }
