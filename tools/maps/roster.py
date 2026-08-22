@@ -221,12 +221,12 @@ def build_roster(root_str):
                 specs.append(where_spec(root_str, source, parent, obj, name))
                 entries.append(entry_for(root_str, area, floor, obj, key, name))
 
-        for label, parent in locations.extra_trainer_maps(slug):
+        for label, parent, floor in locations.extra_trainer_maps(slug):
             area = locations.image_name(slug, label.lower())
             for obj in _map_trainers(root_str, label):
                 name = scene_name(area, obj)
                 specs.append(where_spec(root_str, label, parent, obj, name))
-                entries.append(entry_for(root_str, area, "", obj, None, name))
+                entries.append(entry_for(root_str, area, floor, obj, None, name))
 
         if entries:
             roster[slug] = entries

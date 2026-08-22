@@ -662,7 +662,7 @@ pt:
         leg_08:
           lead: "Do Rock Tunnel a Lavender, depois a estrada a oeste rumo a Celadon."
         leg_09:
-          lead: "Celadon: a loja de seis andares, as trocas do terraço e o Game Corner que esconde a entrada da Equipe Rocket."
+          lead: "Celadon: a loja de seis andares, as trocas do terraço e o fliperama no fim da rua."
         leg_10:
           lead: "De volta por Celadon com o esconderijo limpo, para cortar caminho até a estufa da Erika e pegar a Rainbow Badge."
         leg_11:
@@ -1894,7 +1894,7 @@ pt:
                 pp-up: "No topo da faixa de grama de um tile no extremo leste, a sudeste do Centro Pokémon, de frente para a árvore que a fecha. Olhe para cima e aperte A; nada aparece."
             "2":
               title: "Pegue o Eevee no telhado"
-              text_html: "A Celadon Mansion %{mansion} fica a oeste do Centro Pokémon. Suba os três lances até o telhado e pegue a Poké Ball na casinha lá em cima: um Eevee de Nv 25, pronto para qualquer pedra de evolução."
+              text_html: "Entre pela porta dos fundos da Celadon Mansion %{mansion}, não pela da frente: só a escada de trás chega ao telhado. Três lances acima, uma casinha guarda uma Poké Ball com um Eevee de Nv 25, pronto para qualquer pedra."
             "3":
               title: "Compre na Dept. Store"
               text_html: "Entre na loja de seis andares %{store} no lado oeste. O homem do 3F te dá o TM18 Counter de graça, e o 4F vende as pedras de evolução, mais uma Poké Doll que a Copycat de Saffron troca pelo TM31 Mimic."
@@ -1902,18 +1902,15 @@ pt:
               title: "Compre as bebidas do terraço e troque"
               text: "Pegue o elevador até o terraço e compre quatro bebidas nas máquinas. A garota ao lado delas troca uma por cada TM13 Ice Beam, TM48 Rock Slide e TM49 Tri Attack; a quarta é para os guardas de Saffron."
             "5":
-              title: "Ache o Game Corner"
-              text_html: "O Game Corner %{corner} fica no meio da cidade, com o restaurante que guarda a Coin Case %{diner} logo ao sul. O fliperama é fachada: um pôster na parede norte esconde o interruptor para o esconderijo da Equipe Rocket."
-            "6":
               title: "Abra Saffron com uma bebida"
               text: "Vá a leste até o portão da Rota 7 e entregue uma Fresh Water ao guarda. Qualquer uma das três bebidas serve, mas a Fresh Water é a mais barata, ¥200. Uma bebida abre os quatro portões de Saffron de vez."
+            "6":
+              title: "Ache o Game Corner"
+              text_html: "O Game Corner %{corner} fica no meio da cidade, com o restaurante que guarda a Coin Case %{diner} a algumas portas ao sul. Entre pela porta da frente."
           tips:
             eevee: "Grátis no Condominiums. Evolua com uma pedra em Vaporeon, Jolteon ou Flareon."
-            porygon: "O único Porygon do jogo. 9999 fichas do Game Corner, e não há outro jeito."
-            vulpix: "Só por troca na natureza no Yellow. O Game Corner (1000 fichas) é sua fonte fácil."
           oak:
             eevee: "Presente → um entre Vaporeon / Jolteon / Flareon. Registre a base uma vez."
-            porygon: "Exclusivo do Game Corner. O único Porygon que você terá. Pegue um."
           gifts:
             eevee:
               from: "DO TELHADO DA MANSÃO"
@@ -1928,6 +1925,11 @@ pt:
               title: "Guarde a insígnia e siga"
               text: "A Rainbow Badge faz Pokémon trocados obedecerem até o Nv 50 e libera Strength fora de batalha. A Erika entrega o TM21 Mega Drain junto. A torre de Lavender é a próxima, com o Silph Scope na mão."
         rocket_hideout:
+          oak:
+            porygon: "Exclusivo do Game Corner. O único Porygon que você terá. Pegue um."
+          tips:
+            porygon: "O único Porygon do jogo. 9999 fichas do Game Corner, e não há outro jeito."
+            vulpix: "Só por troca na natureza no Yellow. O Game Corner (1000 fichas) é sua fonte fácil."
           prizes:
             note_vulpix: "O único Vulpix do Yellow. Ele nunca aparece na natureza, então este balcão é a única chance dessa vaga na dex."
             note_porygon: "O único Porygon do jogo, pelo preço mais alto da sala. Nada mais preenche essa vaga na dex."

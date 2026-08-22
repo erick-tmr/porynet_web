@@ -2140,23 +2140,21 @@ module Walkthrough
     def self.celadon_city
       loc("celadon-city", "CITY", "Celadon City", 28, steps: [
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
-          { pins: { mansion: "celadon-city/exit-24-9" } },
+          { pins: { mansion: "celadon-city/exit-24-3" } },
           { pins: { store: "celadon-city/exit-8-13" } },
           {},
-          { pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } },
-          {}
+          {},
+          { pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } }
         ],
         encounters: [
           enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("celadon-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
           enc("celadon-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
           enc("celadon-city", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119"),
-          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true),
-          enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
-          enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
+          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true)
         ],
         trainers: [],
-        oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
+        oak_queue: [ oak("celadon-city", "133", 1) ])
     end
 
     # The walkthrough clears the Rocket Hideout before it takes the badge, so Celadon is walked
@@ -2210,6 +2208,11 @@ module Walkthrough
           { hidden: [ "Super Potion", "super-potion", "rocket-hideout-hidden-super-potion", "rocket-hideout-super-potion" ] },
           {}
         ],
+        encounters: [
+          enc("rocket-hideout", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
+          enc("rocket-hideout", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
+        ],
+        oak_queue: [ oak("rocket-hideout", "137", 1) ],
         trainers: [
           tr("TEAM ROCKET", "Jessie & James", 750,
             mon("109", 25), mon("052", 25), mon("023", 25),

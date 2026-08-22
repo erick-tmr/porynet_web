@@ -174,26 +174,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-5-3.png"
-      },
-      {
-        "map": "celadon-city-gamecorner",
-        "floor": "",
-        "marker": "trainer-9-5",
-        "key": null,
-        "opp": "ROCKET:7",
-        "cls": "ROCKET",
-        "reward": 600,
-        "team": [
-          {
-            "dex": "020",
-            "lvl": 20
-          },
-          {
-            "dex": "041",
-            "lvl": 20
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/celadon-city-gamecorner-trainer-9-5.png"
       }
     ],
     "cerulean-city": [
@@ -1792,6 +1772,26 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/rocket-hideout-b4f-trainer-25-3.png"
+      },
+      {
+        "map": "rocket-hideout-gamecorner",
+        "floor": "Game Corner",
+        "marker": "trainer-9-5",
+        "key": null,
+        "opp": "ROCKET:7",
+        "cls": "ROCKET",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 20
+          },
+          {
+            "dex": "041",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-gamecorner-trainer-9-5.png"
       }
     ],
     "route-10": [

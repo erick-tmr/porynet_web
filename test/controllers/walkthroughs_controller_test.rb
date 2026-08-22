@@ -313,6 +313,11 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-band__badge", false
     assert_select ".pn-wt-step__title", text: "Find the Game Corner"
     assert_select ".pn-wt-step__title", text: /Erika/, count: 0
+    # Saffron opens before the arcade, because the arcade is where the next page picks up
+    steps = css_select(".pn-wt-step__title").map { |el| el.text.strip }
+    assert_operator steps.index("Open Saffron with a drink"), :<, steps.index("Find the Game Corner")
+    # and the Mansion step sends you round the back: the front stairwell cannot reach the roof
+    assert_select ".pn-wt-step__text", text: /back door/
 
     get walkthrough_leg_path(game: "yellow", leg: "leg-10")
 

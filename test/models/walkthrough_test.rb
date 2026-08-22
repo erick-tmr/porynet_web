@@ -317,7 +317,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "a multi-word method slugs into one key for the id, the class and the copy" do
-    section = loc("celadon-city").encounter_sections.find { |s| s.code == "GAME CORNER" }
+    section = loc("rocket-hideout").encounter_sections.find { |s| s.code == "GAME CORNER" }
 
     assert_equal "game-corner", section.key
     assert_equal "walkthrough.ui.catchsec_game_corner_label", section.label_key

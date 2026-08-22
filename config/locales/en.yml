@@ -662,7 +662,7 @@ en:
         leg_08:
           lead: "Out of Rock Tunnel to Lavender, then the road west toward Celadon."
         leg_09:
-          lead: "Celadon: the six-floor department store, the rooftop trades, and the Game Corner hiding Team Rocket's way in."
+          lead: "Celadon: the six-floor department store, the rooftop trades, and the arcade at the end of the street."
         leg_10:
           lead: "Back across Celadon with the hideout cleared, to cut into Erika's greenhouse and take the Rainbow Badge."
         leg_11:
@@ -1894,7 +1894,7 @@ en:
                 pp-up: "At the top of the one-tile grass lane on the far east edge, southeast of the Pokémon Center, facing the tree that caps it. Face up and press A; nothing appears."
             "2":
               title: "Take the Eevee off the roof"
-              text_html: "The Celadon Mansion %{mansion} sits west of the Pokémon Center. Climb the three flights to the roof and take the Poké Ball in the house up there: an Eevee at Lv 25, ready for any evolution stone."
+              text_html: "Take the Celadon Mansion's back door %{mansion}, not the front: only the rear stairwell reaches the roof. Three flights up, a house holds a Poké Ball with an Eevee at Lv 25, ready for any stone."
             "3":
               title: "Shop the Dept. Store"
               text_html: "Head into the six-floor department store %{store} on the west side. The man on 3F hands you TM18 Counter free, and 4F sells the evolution stones, plus a Poké Doll the Copycat in Saffron trades TM31 Mimic for."
@@ -1902,18 +1902,15 @@ en:
               title: "Buy the roof drinks and trade them"
               text: "Take the lift to the roof and buy four drinks from the vending machines. The girl beside them trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's gate guards."
             "5":
-              title: "Find the Game Corner"
-              text_html: "The Game Corner %{corner} sits mid-town, with the restaurant that stocks its Coin Case %{diner} just south. The arcade is a front: a poster on its north wall hides the switch into Team Rocket's hideout."
-            "6":
               title: "Open Saffron with a drink"
               text: "Walk east to the Route 7 gate and hand the guard a Fresh Water. Any of the three drinks works, but Fresh Water is the cheapest at ¥200. One drink opens all four Saffron gates for good."
+            "6":
+              title: "Find the Game Corner"
+              text_html: "The Game Corner %{corner} stands mid-town, with the restaurant that keeps its Coin Case %{diner} a few doors south. Walk in through the front."
           tips:
             eevee: "Free in the Condominiums. Evolve it with a stone into Vaporeon, Jolteon or Flareon."
-            porygon: "The only Porygon in the game. 9999 Game Corner coins, but nowhere else to get it."
-            vulpix: "Trade-only in the wild in Yellow. The Game Corner (1000 coins) is your easy source."
           oak:
             eevee: "Gift → one of Vaporeon / Jolteon / Flareon. Register the base once."
-            porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
           gifts:
             eevee:
               from: "FROM THE MANSION ROOF"
@@ -1928,6 +1925,11 @@ en:
               title: "Bank the badge and move on"
               text: "The Rainbow Badge makes traded Pokémon obey up to Lv 50 and lets one use Strength outside battle. Erika hands over TM21 Mega Drain with it. Lavender's tower is next, Silph Scope in hand."
         rocket_hideout:
+          oak:
+            porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
+          tips:
+            porygon: "The only Porygon in the game. 9999 Game Corner coins, but nowhere else to get it."
+            vulpix: "Trade-only in the wild in Yellow. The Game Corner (1000 coins) is your easy source."
           prizes:
             note_vulpix: "The only Vulpix in Yellow. It never shows up in the wild, so this counter is the one shot at the dex slot."
             note_porygon: "The only Porygon in the game, at the steepest price in the room. Nothing else fills this dex slot."

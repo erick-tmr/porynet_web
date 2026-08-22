@@ -83,8 +83,11 @@ def attached(map_label):
 _EXTRA_TRAINER_MAPS = {
     # The three *Rooms maps and the bow moved into _DUNGEONS above. They must not stay here too:
     # roster.py walks this list separately from location_maps, so a map in both is counted twice.
-    "saffron-city": [("FightingDojo", "SAFFRON_CITY")],
-    "celadon-city": [("GameCorner", "CELADON_CITY")],
+    "saffron-city": [("FightingDojo", "SAFFRON_CITY", "")],
+    # The Game Corner's lone Rocket guards the stairs down, so he rosters with the hideout he is
+    # standing on rather than with the town the arcade happens to sit in. He is named by the room
+    # instead of a floor, because every other card on that page reads B1F to B4F and he is upstairs.
+    "rocket-hideout": [("GameCorner", "CELADON_CITY", "Game Corner")],
 }
 
 
@@ -107,6 +110,7 @@ def location_maps():
 
 
 def extra_trainer_maps(slug):
+    """(map label, palette parent, floor label) for each map a location rosters but does not draw."""
     return _EXTRA_TRAINER_MAPS.get(slug, [])
 
 

@@ -20,7 +20,12 @@ def test_extra_trainer_maps():
     The three cabin *Rooms maps used to live here. They are drawn now, so they moved to _DUNGEONS;
     a map listed in both would have its trainers counted twice, since roster.py walks this list
     separately from location_maps."""
-    assert [label for label, _ in locations.extra_trainer_maps("saffron-city")] == ["FightingDojo"]
+    assert [label for label, _, _ in locations.extra_trainer_maps("saffron-city")] == ["FightingDojo"]
+    # the arcade's Rocket rosters with the hideout, named by his room rather than a floor
+    assert locations.extra_trainer_maps("rocket-hideout") == [
+        ("GameCorner", "CELADON_CITY", "Game Corner")
+    ]
+    assert locations.extra_trainer_maps("celadon-city") == [], "the town no longer carries him"
     assert locations.extra_trainer_maps("ss-anne") == [], "the bow is drawn now, not just walked"
     assert locations.extra_trainer_maps("route-1") == []
 

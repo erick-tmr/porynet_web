@@ -281,15 +281,15 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       "Caterpie and Metapod share a family, so the ledger draws it once"
   end
 
-  # The hideout used to be the one page that owed nothing: Erika closed her window on the page
-  # before it. Now that the badge is taken after the hideout, the page still has no species of its
-  # own but does carry her deadline, which is the whole reason the walk was reordered.
-  test "a page with no species of its own still carries the gym deadline ahead of it" do
+  # The hideout used to owe nothing at all: it had no species of its own, and Erika closed her
+  # window on the page before it. It now carries the Game Corner's two counter-only prizes and
+  # sits inside her window, which is the whole reason the walk was reordered.
+  test "the Game Corner's prizes are owed on the page that sells them, before Erika" do
     hideout = plan("rocket-hideout")
 
-    assert_empty hideout.entries, "the hideout has no species of its own"
-    assert hideout.any?, "but Erika is still ahead of it, so the page owes her window"
-    assert_equal "Erika", hideout.window.leader
+    assert_equal %w[137 037], hideout.entries.map(&:dex), "Porygon and Vulpix, counter-only"
+    assert hideout.entries.all? { |e| e.best.only }, "neither turns up anywhere else in Yellow"
+    assert_equal "Erika", hideout.window.leader, "and her badge is still ahead of the page"
   end
 
   test "the ship owes Oak nothing to catch, but still sits inside Surge's window" do
