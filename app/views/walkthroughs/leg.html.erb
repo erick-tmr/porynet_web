@@ -51,7 +51,7 @@
 <% stops = @leg.locations.map { |loc| [ loc, plan.queue_at(loc.slug).sum(&:qty) ] } %>
 <div class="pn-legsw-host" data-controller="leg-switcher"
      data-action="keydown.esc@window->leg-switcher#closeSheet">
-  <%= render "leg_switch", stops: stops %>
+  <%= render "shared/stop_bar", stops: stops %>
   <% @leg.locations.each_with_index do |loc, i| %>
     <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-stop="<%= i %>" data-slug="<%= loc.slug %>">
       <%= render "band", loc: loc, plan: plan %>

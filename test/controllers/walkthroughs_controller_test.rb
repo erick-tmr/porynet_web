@@ -303,6 +303,18 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-shot--pstep"
   end
 
+  # The bar is one shared component and every walkthrough page carries it, so a special stop gets
+  # the same plate a one-stop leg does, and it has to sit inside a host tall enough to stick to.
+  test "a special stop carries the shared bar inside a host that wraps the page" do
+    get walkthrough_leg_path(game: "yellow", leg: "mt-moon")
+
+    assert_response :success
+    assert_select ".pn-legsw-host .pn-legsw--solo .pn-legsw__current-name", text: "Mt. Moon"
+    assert_select ".pn-legsw-host .pn-wt-steps"
+    assert_select ".pn-legsw-host .pn-wt-ld"
+    assert_select ".pn-legsw__chip", false
+  end
+
   test "a special stop renders its own dedicated page with hidden-item pins" do
     get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
 
