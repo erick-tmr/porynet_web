@@ -2137,13 +2137,13 @@ module Walkthrough
 
     def self.celadon_city
       loc("celadon-city", "CITY", "Celadon City", 28, steps: [
-          { pins: { east: "celadon-city/exit-east", center: "celadon-city/exit-41-9" } },
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
+          { pins: { mansion: "celadon-city/exit-24-9" } },
           { pins: { store: "celadon-city/exit-8-13" } },
           {},
+          { pins: { gym: "celadon-city/exit-12-27" } },
           { items: [ [ "Coin Case", "coin_case" ] ],
-            pins: { mansion: "celadon-city/exit-24-9", diner: "celadon-city/exit-31-27", gym: "celadon-city/exit-12-27" } },
-          { pins: { corner: "celadon-city/exit-28-19" } },
+            pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } },
           {}
         ], badge: "RAINBOW",
         encounters: [

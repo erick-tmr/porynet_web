@@ -1845,13 +1845,13 @@ en:
           intro: "Kanto's biggest city: a six-floor department store, Erika's greenhouse gym, and a Game Corner with Team Rocket's hideout underneath it."
           steps:
             "1":
-              title: "Arrive from Route 7"
-              text_html: "Step in from the Route 7 gate %{east} on the east side. Kanto's biggest city holds a six-floor department store, a Game Corner and Erika's Grass gym. Heal at the Center %{center} up the road first."
-            "2":
-              title: "Search the northeast trees"
-              text: "Before heading into town, wade up the tall grass along the eastern edge to its northeast corner. Stand one tile below the lone tree, face up and press A for a hidden PP Up."
+              title: "Sweep the east lane for a PP Up"
+              text: "Follow the street past the Game Corner east to the town's edge, then north up the one-tile lane of tall grass. It dead-ends at a tree: stand below it, face up and press A for a hidden PP Up."
               hidden:
-                pp-up: "Top of the far-east tall-grass strip, at the tree capping its north end (just southeast of the Pokémon Center). Face up and press A; nothing appears."
+                pp-up: "At the top of the one-tile grass lane on the far east edge, southeast of the Pokémon Center, facing the tree that caps it. Face up and press A; nothing appears."
+            "2":
+              title: "Take the Eevee off the roof"
+              text_html: "The Celadon Mansion %{mansion} sits west of the Pokémon Center. Climb the three flights to the roof and take the Poké Ball in the house up there: an Eevee at Lv 25, ready for any evolution stone."
             "3":
               title: "Shop the Dept. Store"
               text_html: "Head into the six-floor department store %{store} on the west side. The man on 3F hands you TM18 Counter free, and 4F sells the evolution stones, plus a Poké Doll the Copycat in Saffron trades TM31 Mimic for."
@@ -1859,13 +1859,13 @@ en:
               title: "Buy the roof drinks and trade them"
               text: "Take the lift to the roof and buy four drinks from the vending machines. The girl beside them trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's gate guards."
             "5":
-              title: "Take the Eevee, then the Gym"
-              text_html: "Collect the gift Eevee atop the Celadon Mansion %{mansion}, behind the Center, and the Coin Case from the restaurant %{diner}. Then the Gym %{gym} behind the trees: Fire, Flying or Psychic beats Erika, and Cut skips the maze."
+              title: "Beat Erika for the Rainbow Badge"
+              text_html: "Head southwest to the Gym %{gym}. Inside is a hedge maze of small trees: Cut fells them for a straight run at Erika, whose Grass team folds to Fire, Flying or Psychic."
+            "6":
+              title: "Coin Case, then the Game Corner"
+              text_html: "Take the Coin Case from the man in the restaurant %{diner}, then the Game Corner %{corner}. Win coins for Porygon and Vulpix, and find the poster with the switch behind it: it opens Team Rocket's hideout."
               items:
                 coin_case: "From the man slumped in the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
-            "6":
-              title: "Hit the Game Corner"
-              text_html: "Win coins for prizes like Porygon and Vulpix, then find the poster switch inside %{corner} to enter the Rocket Hideout."
             "7":
               title: "Open Saffron with a drink"
               text: "Walk east to the Route 7 gate and hand the guard a Fresh Water. Any of the three drinks works, but Fresh Water is the cheapest at ¥200. One drink opens all four Saffron gates for good."

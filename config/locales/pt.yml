@@ -1845,13 +1845,13 @@ pt:
           intro: "A maior cidade de Kanto: uma loja de departamentos de seis andares, o ginásio-estufa da Erika e um Game Corner com o esconderijo da Equipe Rocket embaixo."
           steps:
             "1":
-              title: "Chegue pela Route 7"
-              text_html: "Entre pelo portão da Rota 7 %{east}, no lado leste. A maior cidade de Kanto tem uma loja de seis andares, um Game Corner e o ginásio de Grama da Erika. Cure no Centro %{center} logo adiante."
-            "2":
-              title: "Vasculhe as árvores do nordeste"
-              text: "Antes de entrar na cidade, suba pela grama alta da borda leste até o canto nordeste. Fique um tile abaixo da árvore solitária, olhe para cima e aperte A para um PP Up escondido."
+              title: "Vasculhe a faixa leste por um PP Up"
+              text: "Siga a rua que passa pelo Game Corner até a borda leste da cidade, depois suba a faixa de grama alta de um tile. Ela termina numa árvore: fique abaixo dela, olhe para cima e aperte A para um PP Up escondido."
               hidden:
-                pp-up: "No topo da faixa de grama alta do extremo leste, na árvore que fecha a ponta norte (a sudeste do Centro Pokémon). Olhe para cima e aperte A; nada aparece."
+                pp-up: "No topo da faixa de grama de um tile no extremo leste, a sudeste do Centro Pokémon, de frente para a árvore que a fecha. Olhe para cima e aperte A; nada aparece."
+            "2":
+              title: "Pegue o Eevee no telhado"
+              text_html: "A Celadon Mansion %{mansion} fica a oeste do Centro Pokémon. Suba os três lances até o telhado e pegue a Poké Ball na casinha lá em cima: um Eevee de Nv 25, pronto para qualquer pedra de evolução."
             "3":
               title: "Compre na Dept. Store"
               text_html: "Entre na loja de seis andares %{store} no lado oeste. O homem do 3F te dá o TM18 Counter de graça, e o 4F vende as pedras de evolução, mais uma Poké Doll que a Copycat de Saffron troca pelo TM31 Mimic."
@@ -1859,13 +1859,13 @@ pt:
               title: "Compre as bebidas do terraço e troque"
               text: "Pegue o elevador até o terraço e compre quatro bebidas nas máquinas. A garota ao lado delas troca uma por cada TM13 Ice Beam, TM48 Rock Slide e TM49 Tri Attack; a quarta é para os guardas de Saffron."
             "5":
-              title: "Pegue o Eevee, depois o Ginásio"
-              text_html: "Pegue o Eevee no alto da Celadon Mansion %{mansion}, atrás do Centro, e a Coin Case no restaurante %{diner}. Depois o Ginásio %{gym} atrás das árvores: Fogo, Voador ou Psíquico vence a Erika, e Cut pula o labirinto."
+              title: "Vença a Erika pela Rainbow Badge"
+              text_html: "Vá a sudoeste até o Ginásio %{gym}. Dentro há um labirinto de arvorezinhas: Cut derruba elas e abre caminho reto até a Erika, cujo time de Grama cai para Fogo, Voador ou Psíquico."
+            "6":
+              title: "Coin Case, depois o Game Corner"
+              text_html: "Pegue a Coin Case com o homem do restaurante %{diner}, depois vá ao Game Corner %{corner}. Ganhe fichas por Porygon e Vulpix, e ache o pôster com o interruptor atrás dele: ele abre o esconderijo da Equipe Rocket."
               items:
                 coin_case: "Com o homem caído no restaurante de Celadon, ao sul do Game Corner. Guarda as fichas que você ganha nos caça-níqueis."
-            "6":
-              title: "Vá ao Game Corner"
-              text_html: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o interruptor no pôster lá dentro %{corner} para entrar no Esconderijo Rocket."
             "7":
               title: "Abra Saffron com uma bebida"
               text: "Vá a leste até o portão da Rota 7 e entregue uma Fresh Water ao guarda. Qualquer uma das três bebidas serve, mas a Fresh Water é a mais barata, ¥200. Uma bebida abre os quatro portões de Saffron de vez."
