@@ -208,6 +208,37 @@ describe("leg_switcher_controller", () => {
     expect(bar().classList.contains("is-open")).toBe(false);
   });
 
+  // A one-stop leg renders the same bar with only the plate in it.
+  const solo = `
+    <div class="pn-legsw-host" data-controller="leg-switcher"
+         data-action="keydown.esc@window->leg-switcher#closeSheet">
+      <div class="bar pn-legsw--solo" data-leg-switcher-target="bar">
+        <div class="pn-legsw__plate">28 Celadon City</div>
+      </div>
+      <div class="band" data-leg-switcher-target="band" data-stop="0"></div>
+    </div>
+  `;
+
+  it("still measures the sticky offsets for a one-stop leg, and paints nothing", async () => {
+    await mount(solo);
+    document.querySelector(".pn-nav").getBoundingClientRect = () => ({ height: 66 });
+    bar().getBoundingClientRect = () => ({ height: 62 });
+    scroll();
+
+    const host = document.querySelector(".pn-legsw-host");
+    expect(host.style.getPropertyValue("--pn-nav-h")).toBe("66px");
+    expect(host.style.getPropertyValue("--pn-legsw-h")).toBe("62px");
+  });
+
+  it("has nothing to open on a one-stop leg, so the sheet handlers stay quiet", async () => {
+    await mount(solo);
+
+    at(".band", 0).dispatchEvent(new Event("pointerdown", { bubbles: true }));
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+
+    expect(bar().classList.contains("is-open")).toBe(false);
+  });
+
   it("detaches its listeners and the resize observer on disconnect", async () => {
     await mount(leg);
     const removeSpy = vi.spyOn(window, "removeEventListener");

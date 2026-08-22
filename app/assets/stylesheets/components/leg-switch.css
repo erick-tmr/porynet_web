@@ -88,6 +88,22 @@
   padding: 3px 4px;
 }
 
+/* ---- one-stop leg: the same bar, reduced to a "you are here" plate ---- */
+.pn-legsw--solo .pn-legsw__inner { padding-top: 8px; padding-bottom: 8px; }
+.pn-legsw__plate {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 12px;
+  background: #171622;
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 rgba(23, 22, 34, 0.35);
+  color: #FBF5E6;
+}
+
 /* ---- narrow: previous / current / next stepper ---- */
 .pn-legsw__stepper { display: none; }
 .pn-legsw__arrow {
@@ -240,6 +256,7 @@
     min-width: 0;
   }
   .pn-legsw__meter { padding: 0 18px; }
+  .pn-legsw__plate { flex: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

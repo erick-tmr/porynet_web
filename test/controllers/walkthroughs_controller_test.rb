@@ -478,6 +478,21 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-badge-row__text", text: "Trocados até o Nv 30"
   end
 
+  # Every leg page carries the same sticky bar. A leg with one stop has nothing to switch between,
+  # so it keeps the plate and drops the rail, the stepper, the sheet and the meter.
+  test "a one-stop leg gets the bar reduced to a plate" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select "[data-controller='leg-switcher']"
+    assert_select ".pn-legsw--solo .pn-legsw__plate .pn-legsw__current-name", text: "Celadon City"
+    assert_select ".pn-legsw--solo .pn-legsw__plate .pn-legsw__current-no", text: "28"
+    assert_select ".pn-legsw__chip", false
+    assert_select ".pn-legsw__stepper", false
+    assert_select ".pn-legsw__sheet", false
+    assert_select ".pn-legsw__meter", false
+  end
+
   test "Celadon renders the multi-floor department store with an elevator" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-09")
 

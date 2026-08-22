@@ -48,26 +48,22 @@
   </div>
 </section>
 
-<% if @leg.single? %>
-  <%= render "band", loc: @leg.locations.first, plan: plan %>
-<% else %>
-  <% stops = @leg.locations.map { |loc| [ loc, plan.queue_at(loc.slug).sum(&:qty) ] } %>
-  <div class="pn-legsw-host" data-controller="leg-switcher"
-       data-action="keydown.esc@window->leg-switcher#closeSheet">
-    <%= render "leg_switch", stops: stops %>
-    <% @leg.locations.each_with_index do |loc, i| %>
-      <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-stop="<%= i %>" data-slug="<%= loc.slug %>">
-        <%= render "band", loc: loc, plan: plan %>
-      </div>
-    <% end %>
-    <% if @leg.finale %>
-      <div class="pn-wt-band-wrap" data-leg-switcher-target="band"
-           data-stop="<%= @leg.locations.index(@leg.finale) %>" data-slug="<%= @leg.finale.slug %>">
-        <%= render "gym_finale", loc: @leg.finale %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<% stops = @leg.locations.map { |loc| [ loc, plan.queue_at(loc.slug).sum(&:qty) ] } %>
+<div class="pn-legsw-host" data-controller="leg-switcher"
+     data-action="keydown.esc@window->leg-switcher#closeSheet">
+  <%= render "leg_switch", stops: stops %>
+  <% @leg.locations.each_with_index do |loc, i| %>
+    <div class="pn-wt-band-wrap" data-leg-switcher-target="band" data-stop="<%= i %>" data-slug="<%= loc.slug %>">
+      <%= render "band", loc: loc, plan: plan %>
+    </div>
+  <% end %>
+  <% if @leg.finale %>
+    <div class="pn-wt-band-wrap" data-leg-switcher-target="band"
+         data-stop="<%= @leg.locations.index(@leg.finale) %>" data-slug="<%= @leg.finale.slug %>">
+      <%= render "gym_finale", loc: @leg.finale %>
+    </div>
+  <% end %>
+</div>
 
 <%= render "challenges", plan: plan, multi: !@leg.single? %>
 

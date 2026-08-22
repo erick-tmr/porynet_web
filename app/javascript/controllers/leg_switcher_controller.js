@@ -56,9 +56,11 @@ export default class extends Controller {
     if (!this.barTarget.contains(event.target)) this.#setOpen(false);
   }
 
+  // A one-stop leg gets the same bar reduced to a plate: it still needs the offsets measured so
+  // it parks under the nav, but there is nothing to spy on, step through or open.
   reposition() {
     this.#measure();
-    this.#paint(this.#spy());
+    if (this.hasChipTarget) this.#paint(this.#spy());
   }
 
   #measure() {
@@ -96,6 +98,8 @@ export default class extends Controller {
   }
 
   #setOpen(open) {
+    if (!this.hasSheetToggleTarget) return;
+
     this.barTarget.classList.toggle("is-open", open);
     this.sheetToggleTarget.setAttribute("aria-expanded", String(open));
   }
