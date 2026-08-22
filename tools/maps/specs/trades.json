@@ -26,5 +26,9 @@
   { "type": "screen", "name": "cinnabar-lab-trade-buffy", "map": "CinnabarLabTradeRoom",
     "player": [2, 4], "player_dir": "LEFT", "focus": [2, 4], "auto_npcs": true, "parent": "CINNABAR_ISLAND" },
   { "type": "screen", "name": "cinnabar-lab-trade-cezanne", "map": "CinnabarLabTradeRoom",
-    "player": [4, 5], "player_dir": "RIGHT", "focus": [5, 5], "auto_npcs": true, "parent": "CINNABAR_ISLAND" }
+    "player": [4, 5], "player_dir": "RIGHT", "focus": [5, 5], "auto_npcs": true, "parent": "CINNABAR_ISLAND" },
+
+  { "type": "screen", "name": "celadon-roof-girl", "map": "CeladonMartRoof",
+    "parent": "CELADON_CITY", "player": [6, 5], "player_dir": "LEFT", "focus": [8, 4],
+    "auto_npcs": true }
 ]

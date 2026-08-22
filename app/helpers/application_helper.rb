@@ -89,12 +89,14 @@ module ApplicationHelper
     end
   end
 
-  def progress_slot(role, ids, **options)
-    options.deep_merge(data: { progress_toggle_target: role, kind: "caught",
+  # Every tally on a walkthrough page counts catches, bar the rooftop trades, which count the
+  # drinks the girl has taken. The slot has to name the kind it reads or it counts the wrong set.
+  def progress_slot(role, ids, kind: "caught", **options)
+    options.deep_merge(data: { progress_toggle_target: role, kind: kind,
                                progress_ids: ids.join(" ") })
   end
 
-  def progress_count(ids) = tag.span(0, **progress_slot("count", ids))
+  def progress_count(ids, kind: "caught") = tag.span(0, **progress_slot("count", ids, kind: kind))
 
   def progress_remaining(ids) = tag.span(ids.size, **progress_slot("remaining", ids))
 

@@ -2391,6 +2391,7 @@ module Walkthrough
           trades: celadon_trades)
       ]
       Mart.new(slug: "celadon-city", blurb_key: "#{b}.store.blurb", floors: floors,
+        roof: celadon_roof_trades,
         count: floors.sum { |floor| floor.counters.sum { |counter| counter.items.size } })
     end
 
@@ -2410,13 +2411,26 @@ module Walkthrough
     end
 
     def self.celadon_trades
+      b = base("celadon-city")
       [ [ "Fresh Water", "TM13 Ice Beam" ], [ "Soda Pop", "TM48 Rock Slide" ],
         [ "Lemonade", "TM49 Tri Attack" ] ].map do |drink, tm|
         facts = item_catalog.fetch(tm)
         MartTrade.new(drink: drink, drink_sprite: item_sprite(drink),
+          price: item_catalog.fetch(drink)["price"],
           tm_short: "TM#{format('%02d', facts['tm'])}", tm_sprite: "tm-#{facts['type']}",
-          move: facts["move"])
+          move: facts["move"], mtype: facts["type"],
+          note_key: "#{b}.store.trades.#{item_key(tm)}")
       end
+    end
+
+    # Four drinks, because the girl takes three and a Saffron gate guard wants the fourth.
+    def self.celadon_roof_trades
+      buys = [ [ 2, "Fresh Water" ], [ 1, "Soda Pop" ], [ 1, "Lemonade" ] ].map do |qty, name|
+        DrinkBuy.new(qty: qty, name: name, sprite: item_sprite(name),
+          cost: qty * item_catalog.fetch(name)["price"])
+      end
+      RoofTrades.new(shot: scene_shot("celadon-roof-girl", "WHERE"), trades: celadon_trades,
+        buys: buys, total: buys.sum(&:cost))
     end
 
     def self.item(base, n, name, key, at: nil, tick: nil)

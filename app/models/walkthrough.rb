@@ -201,7 +201,14 @@ module Walkthrough
   end
 
   # A Celadon rooftop drink the thirsty girl swaps for a TM.
-  MartTrade = Data.define(:drink, :drink_sprite, :tm_short, :tm_sprite, :move)
+  MartTrade = Data.define(:drink, :drink_sprite, :price, :tm_short, :tm_sprite, :move, :mtype,
+    :note_key)
+
+  # One line of the rooftop shopping list: how many of a drink to buy, and what that costs.
+  DrinkBuy = Data.define(:qty, :name, :sprite, :cost)
+
+  # The rooftop trade section: where the girl stands, what she pays, and the bag you need first.
+  RoofTrades = Data.define(:shot, :trades, :buys, :total)
 
   # One floor of the Celadon Dept. Store: its label, what kind of counter it is, an optional free
   # TM gift, its item counters, and (rooftop only) the drink -> TM trades.
@@ -220,11 +227,13 @@ module Walkthrough
 
   # A place you can shop. A city Mart carries `counters`; the Celadon Dept. Store carries `floors`
   # and the store-header stats read off them.
-  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors) do
-    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], **rest)
-      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors, **rest)
+  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors, :roof) do
+    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], roof: nil, **rest)
+      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors,
+        roof: roof, **rest)
     end
 
+    def roof? = !roof.nil?
     def multi? = floors.any?
     def blurb? = !blurb_key.nil?
     def buy? = !buy_key.nil?

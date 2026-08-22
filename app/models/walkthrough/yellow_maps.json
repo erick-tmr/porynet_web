@@ -18264,6 +18264,12 @@
       "height": 144,
       "type": "screen"
     },
+    "celadon-roof-girl": {
+      "image": "walkthrough/yellow/scenes/celadon-roof-girl.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "mt-moon-jessie-james": {
       "image": "walkthrough/yellow/scenes/mt-moon-jessie-james.png",
       "width": 160,

@@ -1,0 +1,96 @@
+<section class="pn-wt-section pn-wt-roof" id="roof-trades">
+  <div class="pn-eyebrow-label pn-eyebrow-label--trade">
+    <span class="pn-wt-roof__dot" aria-hidden="true"></span><%= t("walkthrough.ui.roof_eyebrow", count: roof.trades.size) %>
+  </div>
+  <h3 class="pn-wt-roof__title"><%= t("walkthrough.ui.roof_h3_html") %></h3>
+  <p class="pn-wt-roof__lead"><%= t("walkthrough.ui.roof_lead") %></p>
+
+  <div class="pn-wt-roof__grid">
+    <aside class="pn-wt-roof__where">
+      <div class="pn-wt-roof__shot">
+        <%= r2_image_tag roof.shot.image, alt: "", class: "pn-wt-roof__shot-img" %>
+        <span class="pn-wt-roof__shot-label"><%= roof.shot.label %></span>
+      </div>
+      <div class="pn-wt-roof__how">
+        <div class="pn-wt-roof__how-title"><%= t("walkthrough.ui.roof_how") %></div>
+        <ol class="pn-wt-roof__how-list">
+          <% 1.upto(3) do |n| %>
+            <li class="pn-wt-roof__how-step">
+              <span class="pn-wt-roof__how-no"><%= n %></span>
+              <span class="pn-wt-roof__how-text"><%= t("walkthrough.ui.roof_how_#{n}") %></span>
+            </li>
+          <% end %>
+        </ol>
+      </div>
+    </aside>
+
+    <div class="pn-wt-roof__main">
+      <div class="pn-wt-roof__bar">
+        <span class="pn-wt-roof__bar-title"><%= t("walkthrough.ui.roof_bar") %></span>
+        <span class="pn-wt-roof__bar-right">
+          <span class="pn-wt-roof__bar-hint"><%= t("walkthrough.ui.roof_tap") %></span>
+          <span class="pn-wt-roof__bar-count"><%= progress_count(roof.trades.map { |t| "celadon-city/trade/#{t.tm_short}" }, kind: "traded") %>/<%= roof.trades.size %></span>
+        </span>
+      </div>
+
+      <div class="pn-wt-roof__rows">
+        <% roof.trades.each do |trade| %>
+          <div class="pn-wt-roof__row" <%= tag.attributes(tickable("traded", "celadon-city/trade/#{trade.tm_short}")) %>>
+            <%= progress_toast("trade", name: trade.tm_short) %>
+            <span class="pn-wt-roof__tag"><%= t("walkthrough.ui.roof_tag") %></span>
+            <span class="pn-wt-roof__tag pn-wt-roof__tag--done"><%= t("walkthrough.ui.roof_tag_done") %></span>
+            <span class="pn-wt-roof__side">
+              <span class="pn-wt-roof__tile">
+                <%= r2_image_tag "walkthrough/items/#{trade.drink_sprite}.png", alt: "", class: "pn-wt-roof__icon" %>
+              </span>
+              <span class="pn-wt-roof__side-name"><%= trade.drink %></span>
+              <span class="pn-wt-roof__side-price"><%= poke_dollar(trade.price) %></span>
+            </span>
+            <span class="pn-wt-roof__arrow" aria-hidden="true">▶</span>
+            <span class="pn-wt-roof__side">
+              <span class="pn-wt-roof__tile pn-wt-roof__tile--tm">
+                <%= r2_image_tag "walkthrough/items/#{trade.tm_sprite}.png", alt: "", class: "pn-wt-roof__icon" %>
+              </span>
+              <span class="pn-wt-roof__side-name"><%= trade.tm_short %></span>
+            </span>
+            <span class="pn-wt-roof__detail">
+              <span class="pn-wt-roof__move-row">
+                <span class="pn-wt-roof__move"><%= trade.move %></span>
+                <span class="pn-wt-roof__type pn-wt-roof__type--<%= trade.mtype %>"><%= t("walkthrough.ui.types.#{trade.mtype}").upcase %></span>
+              </span>
+              <span class="pn-wt-roof__note"><%= t(trade.note_key) %></span>
+            </span>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-wt-roof__foot">
+        <div class="pn-wt-roof__list">
+          <div class="pn-wt-roof__list-title"><%= t("walkthrough.ui.roof_buy") %></div>
+          <div class="pn-wt-roof__list-rows">
+            <% roof.buys.each do |buy| %>
+              <div class="pn-wt-roof__list-row">
+                <span><%= t("walkthrough.ui.roof_buy_line", qty: buy.qty, name: buy.name) %></span>
+                <span class="pn-wt-roof__list-cost"><%= poke_dollar(buy.cost) %></span>
+              </div>
+            <% end %>
+            <div class="pn-wt-roof__list-row pn-wt-roof__list-row--total">
+              <span class="pn-wt-roof__total-label"><%= t("walkthrough.ui.roof_total") %></span>
+              <span class="pn-wt-roof__total"><%= poke_dollar(roof.total) %></span>
+            </div>
+          </div>
+        </div>
+        <div class="pn-wt-roof__spare">
+          <span class="pn-wt-roof__spare-tag"><%= t("walkthrough.ui.roof_spare_tag") %></span>
+          <span class="pn-wt-roof__tile">
+            <%= r2_image_tag "walkthrough/items/fresh-water.png", alt: "", class: "pn-wt-roof__icon" %>
+          </span>
+          <span class="pn-wt-roof__spare-body">
+            <span class="pn-wt-roof__spare-title"><%= t("walkthrough.ui.roof_spare_title") %></span>
+            <span class="pn-wt-roof__spare-text"><%= t("walkthrough.ui.roof_spare_text") %></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

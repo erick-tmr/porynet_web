@@ -3,7 +3,7 @@
 - location maps: **100** across 53 locations
 - markers: **970** (317 trainer, 119 item, 52 hidden, 482 exit)
 - step shots: **39** (map/scene in a step slot)
-- standalone scenes: **267** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **268** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -180,6 +180,7 @@
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
+- `celadon-roof-girl` (screen): walkthrough/yellow/scenes/celadon-roof-girl.png
 - `cerulean-cave-hidden-pp-up-16-13` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-16-13.png
 - `cerulean-cave-hidden-pp-up-18-7` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-18-7.png
 - `cerulean-cave-hidden-pp-up-8-14` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-8-14.png

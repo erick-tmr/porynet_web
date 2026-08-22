@@ -512,9 +512,28 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-controller='dept-store']"
     assert_select ".pn-wt-store__entry", 6
     assert_select ".pn-wt-store__stat-num", text: "9"
-    # a sold TM shows its number and move, the rooftop trades a drink for one
+    # a sold TM shows its number and move; the rooftop swaps live in their own section, so the
+    # store's ROOF floor only points down at them
     assert_select ".pn-wt-mart__name", text: "TM09 · Take Down"
-    assert_select ".pn-wt-store__trade-move", text: "Ice Beam"
+    assert_select ".pn-wt-store__tradelink[href='#roof-trades']"
+  end
+
+  # The girl on the roof pays a TM per drink. The section names every one and totals the shopping
+  # list, because you buy four drinks and only three of them are hers.
+  test "the rooftop trades render as their own section, priced from the game" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select "#roof-trades .pn-wt-roof__row", 3
+    assert_select ".pn-wt-roof__row .pn-wt-roof__side-name", text: "Fresh Water"
+    assert_select ".pn-wt-roof__row .pn-wt-roof__side-name", text: "TM13"
+    assert_select ".pn-wt-roof__move", text: "Ice Beam"
+    assert_select ".pn-wt-roof__move", text: "Rock Slide"
+    assert_select ".pn-wt-roof__move", text: "Tri Attack"
+    assert_select ".pn-wt-roof__side-price .pn-money-value__n", text: "200"
+    assert_select ".pn-wt-roof__total .pn-money-value__n", text: "1,050"
+    assert_select ".pn-wt-roof__shot-img[src*=?]", "scenes/celadon-roof-girl"
+    assert_select ".pn-wt-roof__row[data-progress-id='celadon-city/trade/TM13']"
   end
 
   # The other mart shape, on the leg that now ends at Route 7: a town counter with no floors and

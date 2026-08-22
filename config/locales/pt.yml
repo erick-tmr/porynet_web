@@ -567,6 +567,24 @@ pt:
       leg_catchable: "CAPTURÁVEIS AQUI"
       leg_new: "NOVOS NA DEX"
       leg_obtainable: "OAK · OBTENÍVEIS"
+      roof_link: "A garota daqui troca uma bebida por uma TM. As %{count} trocas, listadas em detalhe abaixo."
+      roof_eyebrow: "PRAÇA DA COBERTURA · %{count} TROCAS"
+      roof_h3_html: "A garota sedenta <span class=\"pn-wt-roof__accent\">troca TMs</span>"
+      roof_lead: "Fale com a garota no lado oeste do terraço e entregue uma bebida das máquinas atrás de você. Ela paga uma TM por bebida, uma vez cada. Compre primeiro, depois fale com ela três vezes."
+      roof_how: "COMO TROCAR"
+      roof_how_1: "Pegue o elevador até o terraço e compre as bebidas nas três máquinas."
+      roof_how_2: "Vá a oeste até a garota que anda pelo lado esquerdo do terraço."
+      roof_how_3: "Fale com ela e escolha uma bebida. Repita até as três TMs serem suas."
+      roof_bar: "BEBIDA ▶ TM"
+      roof_tap: "toque numa linha quando trocar"
+      roof_tag: "TROCA"
+      roof_tag_done: "TROCADO ✓"
+      roof_buy: "COMPRE ANTES DE FALAR"
+      roof_buy_line: "%{qty} × %{name}"
+      roof_total: "TOTAL"
+      roof_spare_tag: "GUARDE PARA DEPOIS"
+      roof_spare_title: "Guarde a quarta bebida"
+      roof_spare_text: "As três trocas deixam uma bebida na mochila. Não beba numa batalha: um guarda do portão de Saffron quer uma, e qualquer das três serve."
       jump_to: "IR PARA"
       stop_prev: "Parada anterior"
       stop_next: "Próxima parada"
@@ -1804,6 +1822,10 @@ pt:
               text_html: "O mato alto ocupa a parte de cima da faixa: entre nele se ainda quiser um Pidgey, Abra ou Jigglypuff. Senão, siga direto a oeste %{west} até Celadon, a maior cidade de Kanto."
         celadon_city:
           store:
+            trades:
+              ice_beam: "O melhor golpe de Gelo do jogo, e pode congelar. Dê a um tipo Água e ele cobre Grama, Terra, Voador e Dragão."
+              rock_slide: "Cobertura de Pedra que a maioria dos tipos Terra e Pedra aprende, e a resposta aos Voador e Inseto que riem deles."
+              tri_attack: "Um golpe especial Normal sem contrapartida. Bom em Porygon, Dodrio ou Chansey, que não aprendem muito mais."
             blurb: "A maior loja de Kanto: seis andares de Poké Balls, TMs, pedras de evolução, vitaminas e bebidas de máquina. Pegue o elevador para qualquer andar e veja o que ele vende e por quanto."
             floors:
               "1F":

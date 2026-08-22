@@ -622,7 +622,9 @@ def test_collision_flags_the_counter_the_dewgong_hero_once_sat_on(root):
 
 def test_every_trade_scene_is_a_uniquely_named_screen():
     entries = json.loads((SPECS / "trades.json").read_text())
-    assert len(entries) == 12, "5 overworld + 7 interior trade scenes"
+    # The rooftop girl is a trade in the walkthrough's sense (a drink for a TM) rather than a
+    # Pokemon swap, so she rides in this file with the rest of them.
+    assert len(entries) == 13, "5 overworld + 7 interior trade scenes, plus the Celadon roof"
     assert all(s["type"] == "screen" for s in entries)
     names = [s["name"] for s in entries]
     assert len(names) == len(set(names)), "scene names are unique keys in the manifest"

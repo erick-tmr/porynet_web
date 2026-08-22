@@ -77,6 +77,13 @@ detectors:
       - Walkthrough::MartItem   # same defaults shim: an item states only the facts it has
                                 # (a TM its number/move/type, a pick its rec note), each
                                 # keyword the struct's own optional member.
+      - Walkthrough::Mart       # same defaults shim: a town counter states none of the
+                                # department-store keywords (floors, a rooftop trade section,
+                                # its own buy note), so each is an optional member the plain
+                                # case omits, not a call signature.
+      - ApplicationHelper#progress_slot  # `kind:` is which set of ticks the slot counts, and it
+                                # defaults to the one every caller but the rooftop trades wants.
+                                # An optional switch on a two-argument helper, not a clump.
       - Walkthrough::MartFloor  # same defaults shim: a store floor omits what it lacks
                                 # (a note, a gift, trades), so its keywords are the floor's
                                 # own optional members, not a call signature.
