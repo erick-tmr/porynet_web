@@ -4356,3 +4356,14 @@ a.pn-wt-route__card:hover {
 @media (max-width: 620px) {
   .pn-wt-grind__stats { grid-template-columns: 1fr; }
 }
+
+/* On a phone, 28px gutters each side of a 375px screen spend 15% of the width on nothing. The
+   design's own bar drops to 18px at this size, so the sections follow it. The department store
+   is what the extra width is for: it nests a floor border and a floor body inside the section,
+   and a mart row that lost 102px on the way in had 95px left for an item's name, enough to wrap
+   "TM08 · Razor Wind" three ways. */
+@media (max-width: 620px) {
+  .pn-wt-section { padding-left: 18px; padding-right: 18px; }
+  .pn-wt-store__floor-body { padding: 14px 12px; }
+  .pn-wt-mart__row { gap: 10px; padding: 10px 11px; }
+}
