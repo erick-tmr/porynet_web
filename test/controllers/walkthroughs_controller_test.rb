@@ -327,16 +327,21 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-step__title", text: "Cut into the greenhouse"
   end
 
-  # The Coin Case gates the coins, so it moved onto the page that spends them.
-  test "the Coin Case is picked up on the Game Corner page" do
-    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+  # The Coin Case is collected where it is handed over, in Celadon, right after the Eevee. The
+  # Game Corner page still names it in a stat tile, but only Celadon has the step and the tick.
+  test "the Coin Case is collected in Celadon, with its own shot" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
 
     assert_response :success
-    assert_select ".pn-wt-loc__title", text: "Game Corner / Rocket Hideout"
-    assert_select ".pn-wt-step__title", text: "Pick up the Coin Case"
+    assert_select ".pn-wt-step__title", text: "Collect the Coin Case"
     assert_select ".pn-wt-item__name", text: "Coin Case"
+    assert_select ".pn-wt-shot__map-img[src*=?]", "celadon-diner-coin-case"
 
-    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+    steps = css_select(".pn-wt-step__title").map { |el| el.text.strip }
+    assert_operator steps.index("Take the Eevee off the roof"), :<, steps.index("Collect the Coin Case")
+
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+    assert_select ".pn-wt-loc__title", text: "Game Corner / Rocket Hideout"
     assert_select ".pn-wt-item__name", text: "Coin Case", count: 0
   end
 

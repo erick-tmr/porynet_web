@@ -2,8 +2,8 @@
 
 - location maps: **100** across 53 locations
 - markers: **970** (317 trainer, 119 item, 52 hidden, 482 exit)
-- step shots: **40** (map/scene in a step slot)
-- standalone scenes: **269** (dialog / battle / NPC, not step-bound)
+- step shots: **41** (map/scene in a step slot)
+- standalone scenes: **270** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -112,7 +112,8 @@
 
 ## Step shots
 
-- `celadon-city` step 4: walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
+- `celadon-city` step 3: walkthrough/yellow/scenes/celadon-diner-coin-case.png
+- `celadon-city` step 5: walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
@@ -181,6 +182,7 @@
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
+- `celadon-diner-coin-case` (screen): walkthrough/yellow/scenes/celadon-diner-coin-case.png
 - `celadon-mart-3f-tm18` (screen): walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
 - `celadon-roof-girl` (screen): walkthrough/yellow/scenes/celadon-roof-girl.png
 - `cerulean-cave-hidden-pp-up-16-13` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-16-13.png

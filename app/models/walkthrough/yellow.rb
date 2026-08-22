@@ -2141,12 +2141,14 @@ module Walkthrough
       loc("celadon-city", "CITY", "Celadon City", 28, steps: [
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
           { pins: { mansion: "celadon-city/exit-24-3" } },
+          { items: [ [ "Coin Case", "coin_case" ] ], scene: "celadon-diner-coin-case",
+            pins: { diner: "celadon-city/exit-31-27" } },
           { pins: { store: "celadon-city/exit-8-13" } },
           { items: [ [ "TM18 Counter", "tm18_counter" ] ], gift: [ "celadon-city", "tm18-counter" ],
             scene: "celadon-mart-3f-tm18" },
           {},
           {},
-          { pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } }
+          { pins: { corner: "celadon-city/exit-28-19" } }
         ],
         encounters: [
           enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
@@ -2179,12 +2181,11 @@ module Walkthrough
 
     def self.rocket_hideout
       loc("rocket-hideout", "DUNGEON", "Game Corner / Rocket Hideout", 29,
-        pins: { 7 => { down: "rocket-hideout-b1f/exit-23-2" },
-                12 => { down: "rocket-hideout-b2f/exit-21-8" },
-                16 => { down: "rocket-hideout-b3f/exit-19-18" },
-                21 => { lift: "rocket-hideout-b4f/exit-24-15" } },
+        pins: { 6 => { down: "rocket-hideout-b1f/exit-23-2" },
+                11 => { down: "rocket-hideout-b2f/exit-21-8" },
+                15 => { down: "rocket-hideout-b3f/exit-19-18" },
+                20 => { lift: "rocket-hideout-b4f/exit-24-15" } },
         steps: [
-          { items: [ [ "Coin Case", "coin_case" ] ] },
           {},
           {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },

@@ -157,9 +157,11 @@ PASS_THROUGH_MAX_GAP = 8
 def label_pass_through_doors(exits):
     """A building you walk straight through has a front door onto the street and a back door behind
     it, both warping to the same interior; left alone the two doors print the same name twice. Tag
-    the door facing the street (larger grid y) 'enter' and the one behind it 'exit'. A pass-through
-    is a destination reached by exactly two doors in the same column and close together, which
-    excludes a cave's far-apart mouths or a multi-floor stairwell."""
+    the door facing the street (larger grid y) 'front' and the one behind it 'back'. Both are ways
+    in, which is why neither is called an exit: Celadon Mansion's rear door is the only one whose
+    stairwell reaches the roof, so a reader sent to "the exit" is sent to the wrong half. A
+    pass-through is a destination reached by exactly two doors in the same column and close
+    together, which excludes a cave's far-apart mouths or a multi-floor stairwell."""
     by_dest = defaultdict(list)
     for marker in exits:
         by_dest[marker["ref"]].append(marker)
@@ -170,8 +172,8 @@ def label_pass_through_doors(exits):
         same_column = back["grid"][0] == front["grid"][0]
         close = front["grid"][1] - back["grid"][1] <= PASS_THROUGH_MAX_GAP
         if same_column and close:
-            front["name"] += " (enter)"
-            back["name"] += " (exit)"
+            front["name"] += " (front)"
+            back["name"] += " (back)"
 
 
 # Town and city maps whose own doorways repeat the town name.

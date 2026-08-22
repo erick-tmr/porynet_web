@@ -122,13 +122,14 @@ def cerulean_exits(root):
             if m["cat"] == "exit"]
 
 
-def test_a_pass_through_house_splits_into_an_enter_and_a_back_exit(root):
+def test_a_pass_through_house_splits_into_a_front_and_a_back_door(root):
     """The Badge House and Trashed House each warp to one interior through a front door and a
     door behind, so both would otherwise print the same name twice. The door facing the street
-    (larger grid y) is the entrance; the one behind it is the back exit."""
+    (larger grid y) is the front; the one behind it is the back. Neither is an exit: both are
+    ways in, and for Celadon Mansion the back one is the only way to the roof."""
     by_name = {m["name"]: m for m in cerulean_exits(root)}
     for house in ("Trashed House", "Badge House"):
-        assert by_name[f"{house} (enter)"]["grid"][1] > by_name[f"{house} (exit)"]["grid"][1]
+        assert by_name[f"{house} (front)"]["grid"][1] > by_name[f"{house} (back)"]["grid"][1]
 
 
 def test_the_split_generalises_to_every_town_and_the_route_gates(root):
@@ -136,7 +137,7 @@ def test_the_split_generalises_to_every_town_and_the_route_gates(root):
     are all walk-throughs, so they split the same way."""
     celadon = [m["name"] for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 640, 576)
                if m["cat"] == "exit"]
-    assert "Mansion 1F (enter)" in celadon and "Mansion 1F (exit)" in celadon
+    assert "Mansion 1F (front)" in celadon and "Mansion 1F (back)" in celadon
 
 
 def test_lone_pass_through_door_is_left_unlabelled():

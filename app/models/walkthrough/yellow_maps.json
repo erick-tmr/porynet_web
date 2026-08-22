@@ -69,7 +69,7 @@
               9
             ],
             "align": "r",
-            "name": "Mansion 1F (enter)",
+            "name": "Mansion 1F (front)",
             "ref": "CELADON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -86,7 +86,7 @@
               3
             ],
             "align": "r",
-            "name": "Mansion 1F (exit)",
+            "name": "Mansion 1F (back)",
             "ref": "CELADON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -984,7 +984,7 @@
               11
             ],
             "align": "l",
-            "name": "Trashed House (enter)",
+            "name": "Trashed House (front)",
             "ref": "CERULEAN_TRASHED_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1103,7 +1103,7 @@
               9
             ],
             "align": "l",
-            "name": "Trashed House (exit)",
+            "name": "Trashed House (back)",
             "ref": "CERULEAN_TRASHED_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1120,7 +1120,7 @@
               11
             ],
             "align": "r",
-            "name": "Badge House (enter)",
+            "name": "Badge House (front)",
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1137,7 +1137,7 @@
               9
             ],
             "align": "r",
-            "name": "Badge House (exit)",
+            "name": "Badge House (back)",
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1744,7 +1744,7 @@
               27
             ],
             "align": "l",
-            "name": "Good Rod House (enter)",
+            "name": "Good Rod House (front)",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1761,7 +1761,7 @@
               24
             ],
             "align": "l",
-            "name": "Good Rod House (exit)",
+            "name": "Good Rod House (back)",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6261,7 +6261,7 @@
               15
             ],
             "align": "r",
-            "name": "Route 12 Gate 1F (exit)",
+            "name": "Route 12 Gate 1F (back)",
             "ref": "ROUTE_12_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6278,7 +6278,7 @@
               21
             ],
             "align": "r",
-            "name": "Route 12 Gate 1F (enter)",
+            "name": "Route 12 Gate 1F (front)",
             "ref": "ROUTE_12_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -16769,8 +16769,13 @@
       }
     },
     "celadon-city": {
-      "4": {
+      "5": {
         "image": "walkthrough/yellow/scenes/celadon-mart-3f-tm18.png",
+        "width": 160,
+        "height": 144
+      },
+      "3": {
+        "image": "walkthrough/yellow/scenes/celadon-diner-coin-case.png",
         "width": 160,
         "height": 144
       }
@@ -18201,6 +18206,12 @@
     },
     "celadon-mart-3f-tm18": {
       "image": "walkthrough/yellow/scenes/celadon-mart-3f-tm18.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "celadon-diner-coin-case": {
+      "image": "walkthrough/yellow/scenes/celadon-diner-coin-case.png",
       "width": 160,
       "height": 144,
       "type": "screen"

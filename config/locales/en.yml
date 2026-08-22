@@ -1898,22 +1898,27 @@ en:
               title: "Take the Eevee off the roof"
               text_html: "Take the Celadon Mansion's back door %{mansion}, not the front: only the rear stairwell reaches the roof. Three flights up, a house holds a Poké Ball with an Eevee at Lv 25, ready for any stone."
             "3":
+              title: "Collect the Coin Case"
+              text_html: "The restaurant %{diner} is south of the arcade. A man slumped at the far table lost everything at the slots and gives you his Coin Case; without it the Game Corner will not sell you a coin."
+              items:
+                coin_case: "From the man slumped at the far table of the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
+            "4":
               title: "Shop the Dept. Store"
               text_html: "Head into the department store %{store} on the west side. The lift runs 1F to 5F: 4F sells the evolution stones and a Poké Doll, which the Copycat in Saffron trades TM31 Mimic for."
-            "4":
+            "5":
               title: "Take the free TM18 from the 3F clerk"
               text: "The clerk behind the desk on 3F hands TM18 Counter over for nothing, once. Counter returns double the damage of the last physical hit that landed on its user, which answers Normal and Fighting leads."
               items:
                 tm18_counter: "From the clerk behind the desk on the TV Game Shop floor. He gives it once, then only talks about it."
-            "5":
-              title: "Buy the roof drinks and trade them"
-              text: "Ride to 5F and climb the stairs to the roof, then buy four drinks from the machines. The girl west of them trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's guards."
             "6":
+              title: "Buy the roof drinks and trade them"
+              text: "Ride to 5F, take the stairs to the roof and buy four drinks. The girl west of the machines trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's guards."
+            "7":
               title: "Open Saffron with a drink"
               text: "Walk east to the Route 7 gate and hand the guard a Fresh Water. Any of the three drinks works, but Fresh Water is the cheapest at ¥200. One drink opens all four Saffron gates for good."
-            "7":
+            "8":
               title: "Find the Game Corner"
-              text_html: "The Game Corner %{corner} stands mid-town, with the restaurant that keeps its Coin Case %{diner} a few doors south. Walk in through the front."
+              text_html: "The Game Corner %{corner} stands mid-town, a few doors up the street from the restaurant. Walk in through the front."
           tips:
             eevee: "Free in the Condominiums. Evolve it with a stone into Vaporeon, Jolteon or Flareon."
           oak:
@@ -1945,112 +1950,107 @@ en:
           intro: "Four basement floors under the Game Corner, tiled with arrows that shove you along until a wall stops you. Giovanni runs the place."
           steps:
             "1":
-              title: "Pick up the Coin Case"
-              text: "The Game Corner will not sell you a single coin without one. It is with the man slumped at a table in the Celadon restaurant, south of the arcade, and he hands it over for nothing."
-              items:
-                coin_case: "From the man slumped in the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
-            "2":
               title: "Open the stairs"
               text: "In the Celadon Game Corner, a man in black stands guard by the lone poster on the north wall. Beat him, press the switch hidden behind the poster, and the staircase down to B1F grinds open."
-            "3":
+            "2":
               title: "Ride the spin tiles"
               text: "B1F is laced with arrow tiles that launch you in a straight line until a wall or stop tile catches you. Line up every spin before you step on, and work the tiles to reach the item balls."
-            "4":
+            "3":
               title: "Slide west for the Escape Rope"
               text: "Spin your way into the western half of B1F, where an Escape Rope sits on a ball. Pocket it now; it can whisk you straight out of the hideout if the maze ever gets the better of you."
               items:
                 escape-rope: "West half of B1F. Step onto the ball at grid (11,14)."
-            "5":
+            "4":
               title: "Grab the Hyper Potion"
               text: "Just southwest of the Escape Rope, another ball holds a Hyper Potion. Grab it for a hefty 200 HP heal to carry into the grunt fights below."
               items:
                 hyper-potion: "West side of B1F, one row southwest of the Escape Rope ball."
-            "6":
+            "5":
               title: "Feel for the hidden PP Up"
               text: "Back near the center of B1F, close to where you came in, stand on the tile at (20,15) and press A facing east. A hidden PP Up is buried on the square beside you, though nothing shows on-screen."
               hidden:
                 pp-up: "Center of B1F. Press A facing east from grid (20,15). Nothing shows on-screen."
-            "7":
+            "6":
               title: "Take the stairs to B2F"
               text_html: "Spin back toward the northeast corner of B1F and take staircase %{down} down to B2F, the next ring of the spinner maze."
-            "8":
+            "7":
               title: "Bag the Nugget"
               text: "Near the middle of B2F a ball holds a Nugget, a pricey lump worth a tidy sum at any shop. Line up the tiles and step to it from the west."
               items:
                 nugget: "Center of B2F, on the ball at grid (16,8)."
-            "9":
+            "8":
               title: "Pick up TM07 (Horn Drill)"
               text: "Slide to the western strip of B2F for TM07, Horn Drill, a one-hit KO move that only lands on slower foes. Grab the ball and tuck the TM away."
               items:
                 tm-horn-drill: "West side of B2F, on the ball at grid (6,12)."
-            "10":
+            "9":
               title: "Claim the Moon Stone"
               text: "In the far northwest corner of B2F sits a Moon Stone, the evolution stone for Nidoran, Clefairy and Jigglypuff. It hides easily against the wall, so make the trip for it."
               items:
                 moon-stone: "Far northwest corner of B2F, on the ball at grid (1,11)."
-            "11":
+            "10":
               title: "Grab the Super Potion"
               text: "Down in the southwest of B2F, one more ball holds a Super Potion. Snag it before you leave the floor."
               items:
                 super-potion: "Southwest of B2F, on the ball at grid (3,21)."
-            "12":
+            "11":
               title: "Drop to B3F"
               text_html: "Return to the north of B2F and take stairs %{down} down to B3F. The Rockets here hit a little harder, so keep your lead healthy."
-            "13":
+            "12":
               title: "Snag the Rare Candy"
               text: "A Rare Candy rests on a ball near the middle of B3F. One free level for any Pokémon; save it for whatever you are trying to push over an evolution or a gym."
               items:
                 rare-candy: "Center of B3F, on the ball at grid (20,14)."
-            "14":
+            "13":
               title: "Pick up TM10 (Double-Edge)"
               text: "Over on the east side of B3F, a ball holds TM10, Double-Edge, a heavy Normal hit that recoils a quarter of the damage back on you. Grab it."
               items:
                 tm-double-edge: "East side of B3F, on the ball at grid (26,17)."
-            "15":
+            "14":
               title: "Feel for the hidden Nugget"
               text: "One tile east of the Double-Edge ball, stand at (27,18) and press A facing up. A second hidden Nugget is buried right there, with nothing shown on-screen. Two Nuggets from this hideout is a nice payday."
               hidden:
                 nugget: "East edge of B3F, one tile east of the TM10 ball. Press A facing up from (27,18). Nothing shows on-screen."
-            "16":
+            "15":
               title: "Descend to B4F"
               text_html: "Take the last staircase %{down} down to B4F, the bottom of the hideout. Giovanni is down here, but a locked elevator stands between you and his office."
-            "17":
+            "16":
               title: "Take the Lift Key from the grunt's room"
               text: "In the northwest room of B4F, a lone Rocket Grunt guards a ball. Beat him and grab the Lift Key, the switch that finally powers the elevator to Giovanni's office."
               items:
                 lift-key: "Northwest room of B4F, on the ball at grid (10,2), beside the Rocket Grunt."
-            "18":
+            "17":
               title: "Grab TM02 (Razor Wind)"
               text: "Two tiles south of the Lift Key, in the same northwest room, a ball holds TM02, Razor Wind, a two-turn Normal move. Scoop it up while you are here."
               items:
                 tm-razor-wind: "Northwest room of B4F, on the ball at grid (9,4), just south of the Lift Key ball."
-            "19":
+            "18":
               title: "Collect the HP Up"
               text: "Still in the western half of B4F, a little south of the Lift Key room, a ball holds an HP Up. A permanent HP boost for one Pokémon; grab it."
               items:
                 hp-up: "West of B4F, on the ball at grid (10,12), south of the Lift Key room."
-            "20":
+            "19":
               title: "Pick up the Iron"
               text: "Down in the south of B4F, a ball holds an Iron, the vitamin that permanently raises Defense. Work the tiles down to it before you head for the elevator."
               items:
                 iron: "South of B4F, on the ball at grid (12,20)."
-            "21":
+            "20":
               title: "Ride the elevator to Giovanni"
               text_html: "With the Lift Key, cross to the elevator %{lift} in the east of B4F and ride it into the sealed corridor. Jessie & James block the way; past them lies the office."
-            "22":
+            "21":
               title: "Beat Giovanni"
               text: "Giovanni waits at the top of the corridor: Onix (Lv 25), Rhyhorn (Lv 24), Persian (Lv 29). Water or Grass melts the first two, anything fast handles Persian. The ball behind him is then yours."
-            "23":
+            "22":
               title: "Take the Silph Scope"
               text: "With Giovanni gone, step up and grab the ball on the tile he was guarding. Inside is the Silph Scope, the device that reveals the ghosts haunting Pokémon Tower in Lavender Town."
               items:
                 silph-scope: "Top of Giovanni's corridor, northeast B4F, on the ball at grid (25,2)."
-            "24":
+            "23":
               title: "Feel for the hidden Super Potion"
               text: "Stand on the Silph Scope tile at the top of the corridor and press A facing up. A hidden Super Potion sits on the square above, with nothing shown on-screen."
               hidden:
                 super-potion: "Very top of Giovanni's corridor. Stand on the Silph Scope tile (25,2) and press A facing up. Nothing shows on-screen."
-            "25":
+            "24":
               title: "Leave for Pokémon Tower"
               text: "That is the whole hideout swept. Escape Rope out or ride the elevator back to B1F, and head for Lavender Town: the Silph Scope opens up Pokémon Tower next."
         pokemon_tower:
