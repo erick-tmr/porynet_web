@@ -1,0 +1,87 @@
+<section class="pn-wt-gc" id="prize-room">
+  <div class="pn-wt-gc__grid" aria-hidden="true"></div>
+  <div class="pn-wt-gc__inner">
+    <div class="pn-eyebrow-label pn-wt-gc__eyebrow">
+      <span class="pn-wt-gc__dot" aria-hidden="true"></span><%= t("walkthrough.ui.gc_eyebrow") %>
+    </div>
+    <h3 class="pn-wt-gc__title"><%= t("walkthrough.ui.gc_h3_html") %></h3>
+    <p class="pn-wt-gc__lead"><%= t("walkthrough.ui.gc_lead") %></p>
+
+    <div class="pn-wt-gc__stats">
+      <div class="pn-wt-gc__stat">
+        <span class="pn-wt-gc__stat-tile">
+          <%= r2_image_tag "walkthrough/items/coin-case.png", alt: "", class: "pn-wt-gc__stat-icon" %>
+        </span>
+        <span class="pn-wt-gc__stat-body">
+          <span class="pn-wt-gc__stat-title"><%= t("walkthrough.ui.gc_case_title") %></span>
+          <span class="pn-wt-gc__stat-text"><%= t("walkthrough.ui.gc_case_text") %></span>
+        </span>
+      </div>
+      <div class="pn-wt-gc__stat">
+        <span class="pn-wt-gc__stat-tile pn-wt-gc__stat-tile--coin">
+          <span class="pn-wt-gc__coin" aria-hidden="true"></span>
+        </span>
+        <span class="pn-wt-gc__stat-body">
+          <span class="pn-wt-gc__stat-title"><%= t("walkthrough.ui.gc_buy_title") %></span>
+          <span class="pn-wt-gc__stat-text"><%= t("walkthrough.ui.gc_buy_text") %></span>
+        </span>
+      </div>
+      <div class="pn-wt-gc__stat">
+        <span class="pn-wt-gc__stat-tile pn-wt-gc__stat-tile--piles">
+          <span class="pn-wt-gc__pile" aria-hidden="true"></span>
+          <span class="pn-wt-gc__pile" aria-hidden="true"></span>
+          <span class="pn-wt-gc__pile" aria-hidden="true"></span>
+        </span>
+        <span class="pn-wt-gc__stat-body">
+          <span class="pn-wt-gc__stat-title"><%= t("walkthrough.ui.gc_piles_title", count: room.piles) %></span>
+          <span class="pn-wt-gc__stat-text"><%= t("walkthrough.ui.gc_piles_text") %></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="pn-wt-gc__windows">
+      <% room.windows.each do |window| %>
+        <div class="pn-wt-gc__window">
+          <div class="pn-wt-gc__window-head">
+            <span class="pn-wt-gc__window-name"><%= t("walkthrough.ui.gc_window_#{window.id}") %></span>
+            <span class="pn-wt-gc__window-sub"><%= t("walkthrough.ui.gc_window_#{window.id}_sub") %></span>
+          </div>
+          <div class="pn-wt-gc__prizes">
+            <% window.prizes.each do |prize| %>
+              <div class="pn-wt-gc__prize<%= " is-pick" if prize.note? %>">
+                <% if prize.note? %>
+                  <span class="pn-wt-gc__pick"><%= t("walkthrough.ui.pick") %></span>
+                <% end %>
+                <span class="pn-wt-gc__prize-tile">
+                  <%= r2_image_tag prize.sprite, alt: "", class: "pn-wt-gc__prize-icon" %>
+                </span>
+                <span class="pn-wt-gc__prize-body">
+                  <span class="pn-wt-gc__prize-name"><%= prize.name %></span>
+                  <span class="pn-wt-gc__prize-meta">
+                    <% if prize.mon? %>
+                      <%= t("walkthrough.ui.lv", n: prize.level) %>
+                    <% else %>
+                      <%= t("walkthrough.ui.tm_type_desc", type: t("walkthrough.ui.types.#{prize.mtype}")) %>
+                    <% end %>
+                  </span>
+                  <% if prize.note? %>
+                    <span class="pn-wt-gc__prize-note">▸ <%= t(prize.note_key) %></span>
+                  <% end %>
+                </span>
+                <span class="pn-wt-gc__prize-cost">
+                  <span class="pn-wt-gc__coins"><%= number_with_delimiter(prize.coins) %></span>
+                  <span class="pn-wt-gc__coins-label"><%= t("walkthrough.ui.gc_coins") %></span>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pn-wt-gc__know">
+      <span class="pn-wt-gc__know-tag"><%= t("walkthrough.ui.gc_know_tag") %></span>
+      <p class="pn-wt-gc__know-text"><%= t("walkthrough.ui.gc_know_text", coins: number_with_delimiter(room.dearest.coins), yen: number_with_delimiter(room.payout)) %></p>
+    </div>
+  </div>
+</section>

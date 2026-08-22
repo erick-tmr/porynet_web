@@ -24,6 +24,10 @@
 <div class="pn-legsw-host" data-controller="leg-switcher">
 <%= render "shared/stop_bar", stops: [ [ @location, plan.queue_at(@location.slug).sum(&:qty) ] ] %>
 
+<% if @location.slug == "rocket-hideout" %>
+  <%= render "prize_room", room: Walkthrough::Yellow.game_corner_prizes %>
+<% end %>
+
 <% groups = @location.step_groups %>
 <% drawn = groups.filter_map(&:first).map(&:name) %>
 <% if groups.any? %>

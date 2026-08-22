@@ -1575,6 +1575,41 @@
       "move": "Whirlwind",
       "type": "normal"
     },
+    "TM01 Mega Punch": {
+      "const": "TM_MEGA_PUNCH",
+      "price": 3000,
+      "tm": 1,
+      "move": "Mega Punch",
+      "type": "normal"
+    },
+    "TM02 Razor Wind": {
+      "const": "TM_RAZOR_WIND",
+      "price": 2000,
+      "tm": 2,
+      "move": "Razor Wind",
+      "type": "normal"
+    },
+    "TM03 Swords Dance": {
+      "const": "TM_SWORDS_DANCE",
+      "price": 2000,
+      "tm": 3,
+      "move": "Swords Dance",
+      "type": "normal"
+    },
+    "TM04 Whirlwind": {
+      "const": "TM_WHIRLWIND",
+      "price": 1000,
+      "tm": 4,
+      "move": "Whirlwind",
+      "type": "normal"
+    },
+    "TM05 Mega Kick": {
+      "const": "TM_MEGA_KICK",
+      "price": 3000,
+      "tm": 5,
+      "move": "Mega Kick",
+      "type": "normal"
+    },
     "TM06 Toxic": {
       "const": "TM_TOXIC",
       "price": 4000,
@@ -1582,11 +1617,46 @@
       "move": "Toxic",
       "type": "poison"
     },
+    "TM07 Horn Drill": {
+      "const": "TM_HORN_DRILL",
+      "price": 2000,
+      "tm": 7,
+      "move": "Horn Drill",
+      "type": "normal"
+    },
+    "TM08 Body Slam": {
+      "const": "TM_BODY_SLAM",
+      "price": 4000,
+      "tm": 8,
+      "move": "Body Slam",
+      "type": "normal"
+    },
+    "TM09 Take Down": {
+      "const": "TM_TAKE_DOWN",
+      "price": 3000,
+      "tm": 9,
+      "move": "Take Down",
+      "type": "normal"
+    },
+    "TM10 Double Edge": {
+      "const": "TM_DOUBLE_EDGE",
+      "price": 4000,
+      "tm": 10,
+      "move": "Double Edge",
+      "type": "normal"
+    },
     "TM11 Bubblebeam": {
       "const": "TM_BUBBLEBEAM",
       "price": 2000,
       "tm": 11,
       "move": "Bubblebeam",
+      "type": "water"
+    },
+    "TM12 Water Gun": {
+      "const": "TM_WATER_GUN",
+      "price": 1000,
+      "tm": 12,
+      "move": "Water Gun",
       "type": "water"
     },
     "TM13 Ice Beam": {
@@ -1596,12 +1666,54 @@
       "move": "Ice Beam",
       "type": "ice"
     },
+    "TM14 Blizzard": {
+      "const": "TM_BLIZZARD",
+      "price": 5000,
+      "tm": 14,
+      "move": "Blizzard",
+      "type": "ice"
+    },
+    "TM15 Hyper Beam": {
+      "const": "TM_HYPER_BEAM",
+      "price": 5000,
+      "tm": 15,
+      "move": "Hyper Beam",
+      "type": "normal"
+    },
+    "TM16 Pay Day": {
+      "const": "TM_PAY_DAY",
+      "price": 5000,
+      "tm": 16,
+      "move": "Pay Day",
+      "type": "normal"
+    },
+    "TM17 Submission": {
+      "const": "TM_SUBMISSION",
+      "price": 3000,
+      "tm": 17,
+      "move": "Submission",
+      "type": "fighting"
+    },
     "TM18 Counter": {
       "const": "TM_COUNTER",
       "price": 2000,
       "tm": 18,
       "move": "Counter",
       "type": "fighting"
+    },
+    "TM19 Seismic Toss": {
+      "const": "TM_SEISMIC_TOSS",
+      "price": 3000,
+      "tm": 19,
+      "move": "Seismic Toss",
+      "type": "fighting"
+    },
+    "TM20 Rage": {
+      "const": "TM_RAGE",
+      "price": 2000,
+      "tm": 20,
+      "move": "Rage",
+      "type": "normal"
     },
     "TM21 Mega Drain": {
       "const": "TM_MEGA_DRAIN",
@@ -1610,12 +1722,40 @@
       "move": "Mega Drain",
       "type": "grass"
     },
+    "TM22 Solarbeam": {
+      "const": "TM_SOLARBEAM",
+      "price": 5000,
+      "tm": 22,
+      "move": "Solarbeam",
+      "type": "grass"
+    },
+    "TM23 Dragon Rage": {
+      "const": "TM_DRAGON_RAGE",
+      "price": 5000,
+      "tm": 23,
+      "move": "Dragon Rage",
+      "type": "dragon"
+    },
     "TM24 Thunderbolt": {
       "const": "TM_THUNDERBOLT",
       "price": 2000,
       "tm": 24,
       "move": "Thunderbolt",
       "type": "electric"
+    },
+    "TM25 Thunder": {
+      "const": "TM_THUNDER",
+      "price": 5000,
+      "tm": 25,
+      "move": "Thunder",
+      "type": "electric"
+    },
+    "TM26 Earthquake": {
+      "const": "TM_EARTHQUAKE",
+      "price": 4000,
+      "tm": 26,
+      "move": "Earthquake",
+      "type": "ground"
     },
     "TM27 Fissure": {
       "const": "TM_FISSURE",
@@ -1638,12 +1778,33 @@
       "move": "Psychic",
       "type": "psychic"
     },
+    "TM30 Teleport": {
+      "const": "TM_TELEPORT",
+      "price": 1000,
+      "tm": 30,
+      "move": "Teleport",
+      "type": "psychic"
+    },
     "TM31 Mimic": {
       "const": "TM_MIMIC",
       "price": 2000,
       "tm": 31,
       "move": "Mimic",
       "type": "normal"
+    },
+    "TM32 Double Team": {
+      "const": "TM_DOUBLE_TEAM",
+      "price": 1000,
+      "tm": 32,
+      "move": "Double Team",
+      "type": "normal"
+    },
+    "TM33 Reflect": {
+      "const": "TM_REFLECT",
+      "price": 1000,
+      "tm": 33,
+      "move": "Reflect",
+      "type": "psychic"
     },
     "TM34 Bide": {
       "const": "TM_BIDE",
@@ -1666,6 +1827,13 @@
       "move": "Selfdestruct",
       "type": "normal"
     },
+    "TM37 Egg Bomb": {
+      "const": "TM_EGG_BOMB",
+      "price": 2000,
+      "tm": 37,
+      "move": "Egg Bomb",
+      "type": "normal"
+    },
     "TM38 Fire Blast": {
       "const": "TM_FIRE_BLAST",
       "price": 5000,
@@ -1678,6 +1846,13 @@
       "price": 2000,
       "tm": 39,
       "move": "Swift",
+      "type": "normal"
+    },
+    "TM40 Skull Bash": {
+      "const": "TM_SKULL_BASH",
+      "price": 4000,
+      "tm": 40,
+      "move": "Skull Bash",
       "type": "normal"
     },
     "TM41 Softboiled": {
@@ -1694,12 +1869,40 @@
       "move": "Dream Eater",
       "type": "psychic"
     },
+    "TM43 Sky Attack": {
+      "const": "TM_SKY_ATTACK",
+      "price": 5000,
+      "tm": 43,
+      "move": "Sky Attack",
+      "type": "flying"
+    },
+    "TM44 Rest": {
+      "const": "TM_REST",
+      "price": 2000,
+      "tm": 44,
+      "move": "Rest",
+      "type": "psychic"
+    },
+    "TM45 Thunder Wave": {
+      "const": "TM_THUNDER_WAVE",
+      "price": 2000,
+      "tm": 45,
+      "move": "Thunder Wave",
+      "type": "electric"
+    },
     "TM46 Psywave": {
       "const": "TM_PSYWAVE",
       "price": 4000,
       "tm": 46,
       "move": "Psywave",
       "type": "psychic"
+    },
+    "TM47 Explosion": {
+      "const": "TM_EXPLOSION",
+      "price": 3000,
+      "tm": 47,
+      "move": "Explosion",
+      "type": "normal"
     },
     "TM48 Rock Slide": {
       "const": "TM_ROCK_SLIDE",
@@ -1713,6 +1916,13 @@
       "price": 4000,
       "tm": 49,
       "move": "Tri Attack",
+      "type": "normal"
+    },
+    "TM50 Substitute": {
+      "const": "TM_SUBSTITUTE",
+      "price": 2000,
+      "tm": 50,
+      "move": "Substitute",
       "type": "normal"
     },
     "Thunder Stone": {
@@ -1750,5 +1960,67 @@
       "const": "X_SPEED",
       "price": 350
     }
+  },
+  "prizes": {
+    "windows": [
+      {
+        "window": "mon1",
+        "prizes": [
+          {
+            "dex": "063",
+            "level": 15,
+            "coins": 230
+          },
+          {
+            "dex": "037",
+            "level": 18,
+            "coins": 1000
+          },
+          {
+            "dex": "040",
+            "level": 22,
+            "coins": 2680
+          }
+        ]
+      },
+      {
+        "window": "mon2",
+        "prizes": [
+          {
+            "dex": "123",
+            "level": 30,
+            "coins": 6500
+          },
+          {
+            "dex": "127",
+            "level": 30,
+            "coins": 6500
+          },
+          {
+            "dex": "137",
+            "level": 26,
+            "coins": 9999
+          }
+        ]
+      },
+      {
+        "window": "tms",
+        "prizes": [
+          {
+            "item": "TM23 Dragon Rage",
+            "coins": 3300
+          },
+          {
+            "item": "TM15 Hyper Beam",
+            "coins": 5500
+          },
+          {
+            "item": "TM50 Substitute",
+            "coins": 7700
+          }
+        ]
+      }
+    ],
+    "coin_piles": 12
   }
 }

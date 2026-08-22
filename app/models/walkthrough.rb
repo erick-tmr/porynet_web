@@ -204,6 +204,23 @@ module Walkthrough
   MartTrade = Data.define(:drink, :drink_sprite, :price, :tm_short, :tm_sprite, :move, :mtype,
     :note_key)
 
+  # One prize on a Game Corner counter: a species with the level it comes at, or a TM.
+  Prize = Data.define(:name, :sprite, :level, :mtype, :coins, :note_key) do
+    def note? = !note_key.nil?
+    def mon? = !level.nil?
+  end
+
+  # One of the three prize counters, and the section that draws all of them.
+  PrizeWindow = Data.define(:id, :prizes)
+  PrizeRoom = Data.define(:windows, :piles) do
+    # The counter sells coins in one size only: 50 for 1000 yen (text/GameCorner.asm).
+    COINS_PER_BUY = 50
+    BUY_PRICE = 1000
+
+    def dearest = windows.flat_map(&:prizes).max_by(&:coins)
+    def payout = (dearest.coins / COINS_PER_BUY.to_f).ceil * BUY_PRICE
+  end
+
   # One line of the rooftop shopping list: how many of a drink to buy, and what that costs.
   DrinkBuy = Data.define(:qty, :name, :sprite, :cost)
 

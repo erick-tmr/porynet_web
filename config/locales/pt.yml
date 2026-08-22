@@ -188,6 +188,7 @@ pt:
       mart_kind_vending: "BEBIDAS"
       tm_type_desc: "Golpe do tipo %{type}."
       types:
+        dragon: "Dragão"
         normal: "Normal"
         psychic: "Psíquico"
         fighting: "Lutador"
@@ -567,6 +568,24 @@ pt:
       leg_catchable: "CAPTURÁVEIS AQUI"
       leg_new: "NOVOS NA DEX"
       leg_obtainable: "OAK · OBTENÍVEIS"
+      gc_eyebrow: "ROCKET GAME CORNER · TROCA DE PRÊMIOS"
+      gc_h3_html: "Fichas entram, <span class=\"pn-wt-gc__accent\">prêmios saem</span>"
+      gc_lead: "A sala de prêmios é a porta à direita dos caça-níqueis. Três balcões, cada um com seu estoque, e todo preço abaixo é o que o Yellow cobra."
+      gc_case_title: "Coin Case primeiro"
+      gc_case_text: "O homem do restaurante de Celadon te entrega. Sem a case, sem fichas."
+      gc_buy_title: "50 fichas por ¥1.000"
+      gc_buy_text: "O único tamanho que o balcão vende. Os caça-níqueis saem mais barato, se você tiver paciência."
+      gc_piles_title: "%{count} montes de fichas no chão"
+      gc_piles_text: "Aperte A nos tiles entre as máquinas. Cada monte vale 10, 20 ou 100 fichas."
+      gc_window_mon1: "BALCÃO ESQUERDO"
+      gc_window_mon1_sub: "Pokémon baratos"
+      gc_window_mon2: "BALCÃO DO MEIO"
+      gc_window_mon2_sub: "Pokémon raros"
+      gc_window_tms: "BALCÃO DIREITO"
+      gc_window_tms_sub: "TMs"
+      gc_coins: "fichas"
+      gc_know_tag: "VALE SABER"
+      gc_know_text: "Comprar todas as fichas do prêmio de %{coins} custa ¥%{yen}, então trate os caça-níqueis como o preço real. Scyther e Pinsir custam os mesmos 6.500 aqui, e é assim que você tem os dois numa run em vez de escolher um."
       roof_link: "A garota daqui troca uma bebida por uma TM. As %{count} trocas, listadas em detalhe abaixo."
       roof_eyebrow: "PRAÇA DA COBERTURA · %{count} TROCAS"
       roof_h3_html: "A garota sedenta <span class=\"pn-wt-roof__accent\">troca TMs</span>"
@@ -1902,6 +1921,10 @@ pt:
             eevee:
               from: "DO TELHADO DA MANSÃO"
         rocket_hideout:
+          prizes:
+            note_vulpix: "O único Vulpix do Yellow. Ele nunca aparece na natureza, então este balcão é a única chance dessa vaga na dex."
+            note_porygon: "O único Porygon do jogo, pelo preço mais alto da sala. Nada mais preenche essa vaga na dex."
+            note_hyper_beam: "O golpe mais forte da Gen 1, e ele pula o turno de recarga por completo se derrubar o alvo."
           note: "A base da Team Rocket. Pegue o Silph Scope."
           intro: "Quatro andares de subsolo sob o Game Corner, forrados de setas que te empurram até uma parede te parar. Quem manda ali é o Giovanni."
           steps:

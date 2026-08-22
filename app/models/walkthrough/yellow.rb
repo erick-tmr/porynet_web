@@ -2423,6 +2423,46 @@ module Walkthrough
       end
     end
 
+    def self.prize_facts
+      @prize_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_places.json")))
+        .fetch("prizes").freeze
+    end
+
+    # The Game Corner's three counters, straight off the tables the prize menus read.
+    def self.game_corner_prizes
+      b = base("rocket-hideout")
+      windows = prize_facts.fetch("windows").map do |window|
+        PrizeWindow.new(id: window.fetch("window"),
+          prizes: window.fetch("prizes").map { |facts| prize(b, facts) })
+      end
+      PrizeRoom.new(windows: windows, piles: prize_facts.fetch("coin_piles"))
+    end
+
+    def self.prize(base_key, facts)
+      coins = facts.fetch("coins")
+      if (dex = facts["dex"])
+        entry = dex_facts.fetch(dex)
+        Prize.new(name: entry.fetch("name"), sprite: "pokemon/yellow/#{dex}.png",
+          level: facts.fetch("level"), mtype: nil, coins: coins,
+          note_key: prize_note_key(base_key, entry.fetch("name")))
+      else
+        name = facts.fetch("item")
+        item = item_catalog.fetch(name)
+        Prize.new(name: name, sprite: "walkthrough/items/tm-#{item.fetch('type')}.png",
+          level: nil, mtype: item.fetch("type"), coins: coins,
+          note_key: prize_note_key(base_key, item.fetch("move")))
+      end
+    end
+
+    # Only the prizes worth a paragraph carry one; the rest state their price and stop.
+    PRIZE_NOTES = [ "Vulpix", "Porygon", "Hyper Beam" ].freeze
+
+    def self.prize_note_key(base_key, name)
+      return nil unless PRIZE_NOTES.include?(name)
+
+      "#{base_key}.prizes.note_#{name.downcase.tr(' ', '_')}"
+    end
+
     # Four drinks, because the girl takes three and a Saffron gate guard wants the fourth.
     def self.celadon_roof_trades
       buys = [ [ 2, "Fresh Water" ], [ 1, "Soda Pop" ], [ 1, "Lemonade" ] ].map do |qty, name|

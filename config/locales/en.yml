@@ -188,6 +188,7 @@ en:
       mart_kind_vending: "VENDING"
       tm_type_desc: "%{type}-type move."
       types:
+        dragon: "Dragon"
         normal: "Normal"
         psychic: "Psychic"
         fighting: "Fighting"
@@ -567,6 +568,24 @@ en:
       leg_catchable: "CATCHABLE HERE"
       leg_new: "NEW TO DEX"
       leg_obtainable: "OAK · OBTAINABLE"
+      gc_eyebrow: "ROCKET GAME CORNER · PRIZE EXCHANGE"
+      gc_h3_html: "Coins in, <span class=\"pn-wt-gc__accent\">prizes out</span>"
+      gc_lead: "The prize room is the door right of the slot machines. Three counters, each with its own stock, and every price below is the one Yellow charges."
+      gc_case_title: "Coin Case first"
+      gc_case_text: "The man in the Celadon restaurant hands it over. No case, no coins."
+      gc_buy_title: "50 coins for ¥1,000"
+      gc_buy_text: "The only size the counter sells. The slots are cheaper if you have the patience."
+      gc_piles_title: "%{count} coin piles on the floor"
+      gc_piles_text: "Press A on the tiles between the machines. Each pile is worth 10, 20 or 100 coins."
+      gc_window_mon1: "LEFT COUNTER"
+      gc_window_mon1_sub: "Cheap Pokémon"
+      gc_window_mon2: "MIDDLE COUNTER"
+      gc_window_mon2_sub: "Rare Pokémon"
+      gc_window_tms: "RIGHT COUNTER"
+      gc_window_tms_sub: "TMs"
+      gc_coins: "coins"
+      gc_know_tag: "WORTH KNOWING"
+      gc_know_text: "Buying every coin for the %{coins}-coin prize costs ¥%{yen}, so treat the slots as the real price. Scyther and Pinsir are the same 6,500 here, which is how you own both in one run instead of picking one."
       roof_link: "The girl up here swaps a drink for a TM. All %{count} trades, listed in full below."
       roof_eyebrow: "ROOFTOP SQUARE · %{count} TRADES"
       roof_h3_html: "The thirsty girl <span class=\"pn-wt-roof__accent\">trades TMs</span>"
@@ -1902,6 +1921,10 @@ en:
             eevee:
               from: "FROM THE MANSION ROOF"
         rocket_hideout:
+          prizes:
+            note_vulpix: "The only Vulpix in Yellow. It never shows up in the wild, so this counter is the one shot at the dex slot."
+            note_porygon: "The only Porygon in the game, at the steepest price in the room. Nothing else fills this dex slot."
+            note_hyper_beam: "The strongest attack in Gen 1, and it skips its recharge turn entirely if it faints the target."
           note: "Team Rocket's base. Get the Silph Scope."
           intro: "Four basement floors under the Game Corner, tiled with arrows that shove you along until a wall stops you. Giovanni runs the place."
           steps:

@@ -132,6 +132,48 @@ def item_price(root_str, const):
     return parse_prices(root_str).get(const, 0)
 
 
+_PRIZE_ENTRIES = re.compile(r"^PrizeMenu(\w+)Entries:\n((?:\s*db .+\n)+)", re.M)
+_PRIZE_COSTS = re.compile(r"^PrizeMenu(\w+)Cost:\n((?:\s*bcd2 .+\n)+)", re.M)
+_PRIZE_LEVEL = re.compile(r"^\s*db (\w+),\s*(\d+)", re.M)
+
+
+def build_prizes(root_str):
+    """Return the Game Corner's three prize windows, in the order the counters stand in.
+
+    Nothing here is authored. The stock and the coin price of each window come from
+    data/events/prizes.asm, which lists a menu's entries and its costs as parallel tables, and a
+    prize Pokemon's level from data/events/prize_mon_levels.asm. A species is emitted as its dex
+    number so it joins the sprite the rest of the walkthrough draws it with, and a TM as the same
+    display name the item catalog is keyed by."""
+    text = sources._read(root_str, "data/events/prizes.asm")
+    entries = {name: re.findall(r"^\s*db (\w+)", body, re.M)
+               for name, body in _PRIZE_ENTRIES.findall(text)}
+    costs = {name: [int(c) for c in re.findall(r"^\s*bcd2 (\d+)", body, re.M)]
+             for name, body in _PRIZE_COSTS.findall(text)}
+    levels = {mon: int(level) for mon, level in
+              _PRIZE_LEVEL.findall(sources._read(root_str, "data/events/prize_mon_levels.asm"))}
+    dex = sources.parse_dex_numbers(root_str)
+
+    windows = []
+    for name in ("Mon1", "Mon2", "TMs"):
+        prizes = []
+        for const, coins in zip(entries[name], costs[name], strict=True):
+            if const in dex:
+                prizes.append({"dex": f"{dex[const]:03d}", "level": levels[const], "coins": coins})
+            else:
+                prizes.append({"item": tm_display_name(root_str, const), "coins": coins})
+        windows.append({"window": name.lower(), "prizes": prizes})
+    return {"windows": windows, "coin_piles": count_coin_piles(root_str)}
+
+
+def count_coin_piles(root_str):
+    """How many hidden coin piles lie on the Game Corner floor, from data/events/hidden_coins.asm.
+    Every entry in the table is on GAME_CORNER; the count is what a reader sweeping the room
+    wants, not the coordinates, which the map markers already carry."""
+    text = sources._read(root_str, "data/events/hidden_coins.asm")
+    return len(re.findall(r"^\s*hidden_coin GAME_CORNER,", text, re.M))
+
+
 def build_item_catalog(root_str):
     """Return {display name: facts} for every item a mart, gift or vending machine offers, so the
     walkthrough can price and picture it. Keyed by the same display string that appears in a
@@ -163,9 +205,12 @@ def build_item_catalog(root_str):
     for const in _EXTRA_ITEMS:
         add(const, sources.item_display_name(const))
     # Every TM, not just the sold/gifted ones, so a TM picked up off the ground can still name its
-    # type-badge sprite. Keyed by the same display string the map's item marker uses.
+    # type-badge sprite. Under both display strings, because the two things that name a TM
+    # disagree: a map's item marker calls it "TM Dragon Rage" and a gift or a Game Corner prize
+    # calls it "TM23 Dragon Rage", and either has to find the same entry.
     for const in parse_tm_numbers(root_str):
         add(const, sources.item_display_name(const))
+        add(const, tm_display_name(root_str, const))
     return dict(sorted(catalog.items()))
 
 

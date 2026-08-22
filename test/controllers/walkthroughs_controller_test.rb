@@ -303,6 +303,32 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-shot--pstep"
   end
 
+  # The prize counters are parsed out of prizes.asm, so the section is the one place a reader can
+  # see what 9,999 coins actually buys without opening the ROM.
+  test "the Rocket Hideout carries the Game Corner prize counters, priced from the game" do
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+
+    assert_response :success
+    assert_select "#prize-room .pn-wt-gc__window", 3
+    assert_select "#prize-room .pn-wt-gc__prize", 9
+    assert_select ".pn-wt-gc__prize-name", text: "Porygon"
+    assert_select ".pn-wt-gc__prize-name", text: "TM23 Dragon Rage"
+    assert_select ".pn-wt-gc__coins", text: "9,999"
+    assert_select ".pn-wt-gc__coins", text: "3,300"
+    assert_select ".pn-wt-gc__stat-title", text: "12 coin piles on the floor"
+    # only the three prizes that owe an explanation carry one
+    assert_select ".pn-wt-gc__prize.is-pick", 3
+    assert_select ".pn-wt-gc__know-text", text: /¥200,000/
+  end
+
+  # It belongs to the hideout's page, not to every stop that happens to have a mart.
+  test "no other special stop draws the prize counters" do
+    get walkthrough_leg_path(game: "yellow", leg: "mt-moon")
+
+    assert_response :success
+    assert_select "#prize-room", false
+  end
+
   # The bar is one shared component and every walkthrough page carries it, so a special stop gets
   # the same plate a one-stop leg does, and it has to sit inside a host tall enough to stick to.
   test "a special stop carries the shared bar inside a host that wraps the page" do
