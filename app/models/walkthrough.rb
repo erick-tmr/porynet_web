@@ -220,6 +220,8 @@ module Walkthrough
     COINS_PER_BUY = 50
     BUY_PRICE = 1000
 
+    def coins_per_buy = COINS_PER_BUY
+    def buy_price = BUY_PRICE
     def dearest = windows.flat_map(&:prizes).max_by(&:coins)
     def payout = (dearest.coins / COINS_PER_BUY.to_f).ceil * BUY_PRICE
   end

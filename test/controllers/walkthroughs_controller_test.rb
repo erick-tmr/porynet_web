@@ -356,6 +356,12 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     # only the three prizes that owe an explanation carry one
     assert_select ".pn-wt-gc__prize.is-pick", 3
     assert_select ".pn-wt-gc__know-text", text: /¥200,000/
+
+    # the arcade's own art, credited, and the coin price stated with the site's money mark
+    assert_select ".pn-wt-gc__art-img[src*=?]", "art/celadon-game-corner"
+    assert_select ".pn-wt-gc__art-credit", text: /GAME FREAK/
+    assert_select ".pn-wt-gc__stat-tile--coin .pn-money"
+    assert_select ".pn-wt-gc__stat-title .pn-money-value__n", text: "1,000"
   end
 
   # It belongs to the hideout's page, not to every stop that happens to have a mart.

@@ -7,6 +7,13 @@
     <h3 class="pn-wt-gc__title"><%= t("walkthrough.ui.gc_h3_html") %></h3>
     <p class="pn-wt-gc__lead"><%= t("walkthrough.ui.gc_lead") %></p>
 
+    <figure class="pn-wt-gc__art">
+      <%= r2_image_tag "walkthrough/art/celadon-game-corner.png",
+            alt: t("walkthrough.ui.gc_art_alt"), class: "pn-wt-gc__art-img" %>
+      <span class="pn-wt-gc__art-tag"><%= t("walkthrough.ui.gc_art_tag") %></span>
+      <figcaption class="pn-wt-gc__art-credit"><%= t("walkthrough.ui.gc_art_credit") %></figcaption>
+    </figure>
+
     <div class="pn-wt-gc__stats">
       <div class="pn-wt-gc__stat">
         <span class="pn-wt-gc__stat-tile">
@@ -19,10 +26,10 @@
       </div>
       <div class="pn-wt-gc__stat">
         <span class="pn-wt-gc__stat-tile pn-wt-gc__stat-tile--coin">
-          <span class="pn-wt-gc__coin" aria-hidden="true"></span>
+          <span class="pn-money pn-wt-gc__money" role="img" aria-label="<%= t("walkthrough.ui.poke_dollar") %>"></span>
         </span>
         <span class="pn-wt-gc__stat-body">
-          <span class="pn-wt-gc__stat-title"><%= t("walkthrough.ui.gc_buy_title") %></span>
+          <span class="pn-wt-gc__stat-title"><%= t("walkthrough.ui.gc_buy_title_html", coins: room.coins_per_buy, price: poke_dollar(room.buy_price)) %></span>
           <span class="pn-wt-gc__stat-text"><%= t("walkthrough.ui.gc_buy_text") %></span>
         </span>
       </div>
