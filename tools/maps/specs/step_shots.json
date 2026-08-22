@@ -943,5 +943,10 @@
         "POK\u00e9 BALLs!"
       ]
     }
-  }
+  },
+  {"type": "screen", "slug": "celadon-city", "step": 4, "name": "celadon-mart-3f-tm18",
+   "map": "CeladonMart3F", "parent": "CELADON_CITY", "player": [16, 3], "player_dir": "DOWN",
+   "focus": [16, 4], "auto_npcs": true,
+   "sprites": [{"sprite": "SPRITE_CLERK", "grid": [16, 5], "dir": "UP"}],
+   "dialog": {"lines": ["<PLAYER> received", "TM18!"]}}
 ]

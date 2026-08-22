@@ -5100,3 +5100,23 @@ a.pn-wt-route__card:hover {
   .pn-wt-gc__inner { padding: 30px 18px 34px; }
   .pn-wt-gc__title { font-size: 30px; }
 }
+
+/* the store's free TM is a collectable like any other, so it ticks and shows it */
+.pn-wt-store__gift--tick {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+.pn-wt-store__gift--tick:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #171622; }
+.pn-wt-store__gift--tick:active { transform: translate(1px, 1px); box-shadow: none; }
+.pn-wt-store__gift--tick.is-done { background: color-mix(in srgb, var(--done-green) 22%, #fff); }
+.pn-wt-store__gift--tick.is-done .pn-wt-store__gift-price::after {
+  content: " ✓";
+  color: #15503a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-store__gift--tick { transition: none; }
+  .pn-wt-store__gift--tick:hover,
+  .pn-wt-store__gift--tick:active { transform: none; }
+}

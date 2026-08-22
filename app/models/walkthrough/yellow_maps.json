@@ -16767,6 +16767,13 @@
         "width": 160,
         "height": 144
       }
+    },
+    "celadon-city": {
+      "4": {
+        "image": "walkthrough/yellow/scenes/celadon-mart-3f-tm18.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {
@@ -18188,6 +18195,12 @@
     },
     "oaks-lab-poke-balls": {
       "image": "walkthrough/yellow/scenes/oaks-lab-poke-balls.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "celadon-mart-3f-tm18": {
+      "image": "walkthrough/yellow/scenes/celadon-mart-3f-tm18.png",
       "width": 160,
       "height": 144,
       "type": "screen"

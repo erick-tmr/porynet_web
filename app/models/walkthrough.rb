@@ -179,12 +179,15 @@ module Walkthrough
   # What a place sells, one row per item. Its price and (for a TM) number/move/type come from the
   # generated item catalog in yellow_places.json; `desc_key` is a shared localized blurb, `rec_key`
   # the note behind a ★ recommended pick. `mtype` names a TM's sprite (tm-<type>).
-  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key) do
+  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key,
+    :tick) do
     def initialize(price: nil, desc_key: nil, tm_no: nil, move: nil, mtype: nil, rec: false,
-      rec_key: nil, **rest)
+      rec_key: nil, tick: nil, **rest)
       super(price: price, desc_key: desc_key, tm_no: tm_no, move: move, mtype: mtype, rec: rec,
-        rec_key: rec_key, **rest)
+        rec_key: rec_key, tick: tick, **rest)
     end
+
+    def tick? = !tick.nil?
 
     def price? = !price.nil?
     def desc? = !desc_key.nil?

@@ -2142,6 +2142,8 @@ module Walkthrough
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
           { pins: { mansion: "celadon-city/exit-24-3" } },
           { pins: { store: "celadon-city/exit-8-13" } },
+          { items: [ [ "TM18 Counter", "tm18_counter" ] ], gift: [ "celadon-city", "tm18-counter" ],
+            scene: "celadon-mart-3f-tm18" },
           {},
           {},
           { pins: { diner: "celadon-city/exit-31-27", corner: "celadon-city/exit-28-19" } }
@@ -2349,13 +2351,13 @@ module Walkthrough
       item_sprite(name).tr("-", "_")
     end
 
-    def self.mart_item(name, rec: false, rec_key: nil, desc_key: nil)
+    def self.mart_item(name, rec: false, rec_key: nil, desc_key: nil, tick: nil)
       facts = item_catalog.fetch(name)
       tm = facts["tm"]
       MartItem.new(name: name, sprite: (tm ? "tm-#{facts['type']}" : item_sprite(name)),
         price: facts["price"], desc_key: mart_desc_key(name, tm, desc_key),
         tm_no: tm, move: facts["move"], mtype: facts["type"],
-        rec: (rec || !rec_key.nil?), rec_key: rec_key)
+        rec: (rec || !rec_key.nil?), rec_key: rec_key, tick: tick)
     end
 
     # A TM's own description would be a lie (Gen 1 gives them none), so a sold TM shows the type of
@@ -2397,9 +2399,10 @@ module Walkthrough
           dept_counter("2F", "mart_tm_counter", tms, rec: [ "TM Take Down" ])
         ]),
         dept_floor("3F", "free_tm", note: true,
-          gift: mart_item("TM18 Counter", desc_key: "#{b}.store.floors.3F.gift_desc")),
+          gift: mart_item("TM18 Counter", desc_key: "#{b}.store.floors.3F.gift_desc",
+            tick: gift_tick("celadon-city", "tm18-counter"))),
         dept_floor("4F", "shop", counters: [
-          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Poké Doll", "Water Stone" ])
+          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Poké Doll" ])
         ]),
         dept_floor("5F", "shop", counters: [
           dept_counter("5F", "mart_vitamins", vitamins),

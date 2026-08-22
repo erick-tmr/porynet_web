@@ -591,7 +591,7 @@ pt:
       roof_h3_html: "A garota sedenta <span class=\"pn-wt-roof__accent\">troca TMs</span>"
       roof_lead: "Fale com a garota no lado oeste do terraço e entregue uma bebida das máquinas atrás de você. Ela paga uma TM por bebida, uma vez cada. Compre primeiro, depois fale com ela três vezes."
       roof_how: "COMO TROCAR"
-      roof_how_1: "Pegue o elevador até o terraço e compre as bebidas nas três máquinas."
+      roof_how_1: "O elevador para no 5F. Suba a escada de lá até o terraço e compre as bebidas nas três máquinas."
       roof_how_2: "Vá a oeste até a garota que anda pelo lado esquerdo do terraço."
       roof_how_3: "Fale com ela e escolha uma bebida. Repita até as três TMs serem suas."
       roof_bar: "BEBIDA ▶ TM"
@@ -1847,7 +1847,7 @@ pt:
               ice_beam: "O melhor golpe de Gelo do jogo, e pode congelar. Dê a um tipo Água e ele cobre Grama, Terra, Voador e Dragão."
               rock_slide: "Cobertura de Pedra que a maioria dos tipos Terra e Pedra aprende, e a resposta aos Voador e Inseto que riem deles."
               tri_attack: "Um golpe especial Normal sem contrapartida. Bom em Porygon, Dodrio ou Chansey, que não aprendem muito mais."
-            blurb: "A maior loja de Kanto: seis andares de Poké Balls, TMs, pedras de evolução, vitaminas e bebidas de máquina. Pegue o elevador para qualquer andar e veja o que ele vende e por quanto."
+            blurb: "A maior loja de Kanto: cinco andares de Poké Balls, TMs, pedras de evolução e vitaminas, com um terraço de máquinas acima. O elevador atende do 1F ao 5F; o terraço é pela escada do 5F."
             floors:
               "1F":
                 name: "Balcão de Serviço"
@@ -1870,7 +1870,6 @@ pt:
                 motto: '"Especial de evolução: todas as pedras em estoque!"'
                 rec:
                   poke_doll: "O único balcão de Kanto que vende uma. A Copycat de Saffron entrega o TM31 Mimic por ela, então compre a boneca agora e a TM custa só bater na porta dela."
-                  water_stone: "A única loja de Water Stone de Kanto. Evolua seu Eevee em Vaporeon aqui."
               "5F":
                 name: "Farmácia"
                 motto: '"Deixe seu Pokémon no máximo."'
@@ -1897,14 +1896,19 @@ pt:
               text_html: "Entre pela porta dos fundos da Celadon Mansion %{mansion}, não pela da frente: só a escada de trás chega ao telhado. Três lances acima, uma casinha guarda uma Poké Ball com um Eevee de Nv 25, pronto para qualquer pedra."
             "3":
               title: "Compre na Dept. Store"
-              text_html: "Entre na loja de seis andares %{store} no lado oeste. O homem do 3F te dá o TM18 Counter de graça, e o 4F vende as pedras de evolução, mais uma Poké Doll que a Copycat de Saffron troca pelo TM31 Mimic."
+              text_html: "Entre na loja de departamentos %{store} no lado oeste. O elevador vai do 1F ao 5F: o 4F vende as pedras de evolução e uma Poké Doll, que a Copycat de Saffron troca pelo TM31 Mimic."
             "4":
-              title: "Compre as bebidas do terraço e troque"
-              text: "Pegue o elevador até o terraço e compre quatro bebidas nas máquinas. A garota ao lado delas troca uma por cada TM13 Ice Beam, TM48 Rock Slide e TM49 Tri Attack; a quarta é para os guardas de Saffron."
+              title: "Pegue o TM18 grátis com o balconista do 3F"
+              text: "O balconista atrás da mesa do 3F entrega o TM18 Counter de graça, uma vez só. Counter devolve o dobro do dano do último golpe físico que acertou quem o usa, o que responde a líderes Normal e Lutador."
+              items:
+                tm18_counter: "Com o balconista atrás da mesa da Loja de Video Game. Ele dá uma vez, depois só fala sobre a TM."
             "5":
+              title: "Compre as bebidas do terraço e troque"
+              text: "Suba até o 5F e pegue a escada para o terraço, depois compre quatro bebidas nas máquinas. A garota a oeste delas troca uma por cada TM13 Ice Beam, TM48 Rock Slide e TM49 Tri Attack; a quarta é para os guardas."
+            "6":
               title: "Abra Saffron com uma bebida"
               text: "Vá a leste até o portão da Rota 7 e entregue uma Fresh Water ao guarda. Qualquer uma das três bebidas serve, mas a Fresh Water é a mais barata, ¥200. Uma bebida abre os quatro portões de Saffron de vez."
-            "6":
+            "7":
               title: "Ache o Game Corner"
               text_html: "O Game Corner %{corner} fica no meio da cidade, com o restaurante que guarda a Coin Case %{diner} a algumas portas ao sul. Entre pela porta da frente."
           tips:

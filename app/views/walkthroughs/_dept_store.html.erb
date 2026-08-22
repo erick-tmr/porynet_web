@@ -66,7 +66,9 @@
             <% end %>
 
             <% if floor.gift? %>
-              <div class="pn-wt-store__gift">
+              <div class="pn-wt-store__gift<%= " pn-wt-store__gift--tick" if floor.gift.tick? %>"
+                   <%= tag.attributes(tickable("collected", floor.gift.tick)) if floor.gift.tick? %>>
+                <% if floor.gift.tick? %><%= progress_toast("item", name: floor.gift.name) %><% end %>
                 <span class="pn-wt-store__gift-flag"><%= t("walkthrough.ui.free_won") %></span>
                 <span class="pn-wt-mart__tile pn-wt-store__gift-tile">
                   <%= r2_image_tag "walkthrough/items/#{floor.gift.sprite}.png", alt: "", class: "pn-wt-mart__icon" %>

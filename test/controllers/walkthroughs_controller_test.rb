@@ -581,6 +581,30 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-store__tradelink[href='#roof-trades']"
   end
 
+  # The free TM is a collectable, so it ticks, and the store card and the step's card have to be
+  # the same tick or collecting it on one leaves the other unticked.
+  test "the free TM18 gets its own step and ticks with the store's gift card" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-step__title", text: "Take the free TM18 from the 3F clerk"
+    assert_select ".pn-wt-shot__map-img[src*=?]", "celadon-mart-3f-tm18"
+
+    tick = "celadon-city/gift-tm18-counter"
+    assert_select ".pn-wt-store__gift[data-progress-id=?]", tick
+    assert_select ".pn-wt-item[data-progress-id=?]", tick
+  end
+
+  # Which stone to put on an Eevee is the reader's call, so the counter states the stock and
+  # stops there; only the Poke Doll keeps a pick, because nowhere else in Kanto sells one.
+  test "the stone counter recommends nothing" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-mart__name", text: "Water Stone"
+    assert_select ".pn-wt-mart__rec", text: /Vaporeon/, count: 0
+  end
+
   # The girl on the roof pays a TM per drink. The section names every one and totals the shopping
   # list, because you buy four drinks and only three of them are hers.
   test "the rooftop trades render as their own section, priced from the game" do

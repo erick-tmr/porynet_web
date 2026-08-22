@@ -591,7 +591,7 @@ en:
       roof_h3_html: "The thirsty girl <span class=\"pn-wt-roof__accent\">trades TMs</span>"
       roof_lead: "Talk to the girl on the west side of the roof and hand her a drink from the machines behind you. She pays a TM for each one, once per drink. Buy first, then speak to her three times."
       roof_how: "HOW TO TRADE"
-      roof_how_1: "Take the lift to ROOF and buy your drinks from the three vending machines."
+      roof_how_1: "The lift stops at 5F. Take the stairs from there up to the roof, and buy your drinks from the three machines."
       roof_how_2: "Walk west to the girl pacing the left side of the roof."
       roof_how_3: "Talk to her and pick a drink. Repeat until all three TMs are yours."
       roof_bar: "DRINK ▶ TM"
@@ -1847,7 +1847,7 @@ en:
               ice_beam: "The best Ice attack in the game and it can freeze. Give it to a Water type and it covers Grass, Ground, Flying and Dragon."
               rock_slide: "Rock coverage most Ground and Rock types can learn, and the answer to the Flying and Bug types that laugh at them."
               tri_attack: "A Normal special attack with no drawback. Handy on Porygon, Dodrio or Chansey, none of which learn much else."
-            blurb: "The biggest shop in Kanto: six floors of Poké Balls, TMs, evolution stones, vitamins and vending drinks. Ride the elevator to any floor to see what it sells and for how much."
+            blurb: "The biggest shop in Kanto: five floors of Poké Balls, TMs, evolution stones and vitamins, with a vending rooftop above them. The lift serves 1F to 5F; the roof is up the stairs from 5F."
             floors:
               "1F":
                 name: "Service Counter"
@@ -1870,7 +1870,6 @@ en:
                 motto: '"Evolution special: every stone in stock!"'
                 rec:
                   poke_doll: "The only counter in Kanto that sells one. The Copycat in Saffron hands over TM31 Mimic for it, so buy the doll now and the TM costs you a knock on her door."
-                  water_stone: "The only Water Stone shop in Kanto. Evolve your Eevee into Vaporeon here."
               "5F":
                 name: "Pharmacy"
                 motto: '"Boost your Pokémon to the max."'
@@ -1897,14 +1896,19 @@ en:
               text_html: "Take the Celadon Mansion's back door %{mansion}, not the front: only the rear stairwell reaches the roof. Three flights up, a house holds a Poké Ball with an Eevee at Lv 25, ready for any stone."
             "3":
               title: "Shop the Dept. Store"
-              text_html: "Head into the six-floor department store %{store} on the west side. The man on 3F hands you TM18 Counter free, and 4F sells the evolution stones, plus a Poké Doll the Copycat in Saffron trades TM31 Mimic for."
+              text_html: "Head into the department store %{store} on the west side. The lift runs 1F to 5F: 4F sells the evolution stones and a Poké Doll, which the Copycat in Saffron trades TM31 Mimic for."
             "4":
-              title: "Buy the roof drinks and trade them"
-              text: "Take the lift to the roof and buy four drinks from the vending machines. The girl beside them trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's gate guards."
+              title: "Take the free TM18 from the 3F clerk"
+              text: "The clerk behind the desk on 3F hands TM18 Counter over for nothing, once. Counter returns double the damage of the last physical hit that landed on its user, which answers Normal and Fighting leads."
+              items:
+                tm18_counter: "From the clerk behind the desk on the TV Game Shop floor. He gives it once, then only talks about it."
             "5":
+              title: "Buy the roof drinks and trade them"
+              text: "Ride to 5F and climb the stairs to the roof, then buy four drinks from the machines. The girl west of them trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's guards."
+            "6":
               title: "Open Saffron with a drink"
               text: "Walk east to the Route 7 gate and hand the guard a Fresh Water. Any of the three drinks works, but Fresh Water is the cheapest at ¥200. One drink opens all four Saffron gates for good."
-            "6":
+            "7":
               title: "Find the Game Corner"
               text_html: "The Game Corner %{corner} stands mid-town, with the restaurant that keeps its Coin Case %{diner} a few doors south. Walk in through the front."
           tips:
