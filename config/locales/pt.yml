@@ -1826,6 +1826,7 @@ pt:
                 name: "Presentes do Sábio"
                 motto: '"Especial de evolução: todas as pedras em estoque!"'
                 rec:
+                  poke_doll: "O único balcão de Kanto que vende uma. A Copycat de Saffron entrega o TM31 Mimic por ela, então compre a boneca agora e a TM custa só bater na porta dela."
                   water_stone: "A única loja de Water Stone de Kanto. Evolua seu Eevee em Vaporeon aqui."
               "5F":
                 name: "Farmácia"
@@ -1833,7 +1834,7 @@ pt:
               "ROOF":
                 name: "Praça da Cobertura"
                 motto: '"Máquinas de bebida e uma criança com muita sede."'
-                note: "Compre uma de cada bebida para a garota sedenta e ela troca cada uma por uma TM. Pegue uma Fresh Water extra para os guardas do portão de Saffron enquanto está aqui."
+                note: "Três máquinas de bebida e uma garota que quer o que elas vendem. Uma de cada bebida compra uma de cada TM com ela, e qualquer quarta bebida te passa pelos guardas do portão de Saffron."
                 rec:
                   fresh_water: "Troque uma com a garota pela TM13 Ice Beam."
                   soda_pop: "Troque uma pela TM48 Rock Slide."
@@ -1853,15 +1854,21 @@ pt:
                 pp-up: "No topo da faixa de grama alta do extremo leste, na árvore que fecha a ponta norte (a sudeste do Centro Pokémon). Olhe para cima e aperte A; nada aparece."
             "3":
               title: "Compre na Dept. Store"
-              text_html: "Vá à loja de seis andares %{store} no lado oeste. Pegue o TM18 Counter grátis no 3F e pedras de evolução no 4F. Compre quatro bebidas no terraço: três viram TMs, uma é para os guardas de Saffron."
+              text_html: "Entre na loja de seis andares %{store} no lado oeste. O homem do 3F te dá o TM18 Counter de graça, e o 4F vende as pedras de evolução, mais uma Poké Doll que a Copycat de Saffron troca pelo TM31 Mimic."
             "4":
+              title: "Compre as bebidas do terraço e troque"
+              text: "Pegue o elevador até o terraço e compre quatro bebidas nas máquinas. A garota ao lado delas troca uma por cada TM13 Ice Beam, TM48 Rock Slide e TM49 Tri Attack; a quarta é para os guardas de Saffron."
+            "5":
               title: "Pegue o Eevee, depois o Ginásio"
               text_html: "Pegue o Eevee no alto da Celadon Mansion %{mansion}, atrás do Centro, e a Coin Case no restaurante %{diner}. Depois o Ginásio %{gym} atrás das árvores: Fogo, Voador ou Psíquico vence a Erika, e Cut pula o labirinto."
               items:
                 coin_case: "Com o homem caído no restaurante de Celadon, ao sul do Game Corner. Guarda as fichas que você ganha nos caça-níqueis."
-            "5":
+            "6":
               title: "Vá ao Game Corner"
               text_html: "Ganhe fichas por prêmios como Porygon e Vulpix, depois ache o interruptor no pôster lá dentro %{corner} para entrar no Esconderijo Rocket."
+            "7":
+              title: "Abra Saffron com uma bebida"
+              text: "Vá a leste até o portão da Rota 7 e entregue uma Fresh Water ao guarda. Qualquer uma das três bebidas serve, mas a Fresh Water é a mais barata, ¥200. Uma bebida abre os quatro portões de Saffron de vez."
           tips:
             eevee: "Grátis no Condominiums. Evolua com uma pedra em Vaporeon, Jolteon ou Flareon."
             porygon: "O único Porygon do jogo. 9999 fichas do Game Corner, e não há outro jeito."

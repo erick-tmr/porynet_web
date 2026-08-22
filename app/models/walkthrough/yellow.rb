@@ -2140,10 +2140,12 @@ module Walkthrough
           { pins: { east: "celadon-city/exit-east", center: "celadon-city/exit-41-9" } },
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
           { pins: { store: "celadon-city/exit-8-13" } },
+          {},
           { items: [ [ "Coin Case", "coin_case" ] ],
             pins: { mansion: "celadon-city/exit-24-9", diner: "celadon-city/exit-31-27", gym: "celadon-city/exit-12-27" } },
-          { pins: { corner: "celadon-city/exit-28-19" } }
-        ], gym_after: 2, badge: "RAINBOW",
+          { pins: { corner: "celadon-city/exit-28-19" } },
+          {}
+        ], badge: "RAINBOW",
         encounters: [
           enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("celadon-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -2377,7 +2379,7 @@ module Walkthrough
         dept_floor("3F", "free_tm", note: true,
           gift: mart_item("TM18 Counter", desc_key: "#{b}.store.floors.3F.gift_desc")),
         dept_floor("4F", "shop", counters: [
-          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Water Stone" ])
+          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Poké Doll", "Water Stone" ])
         ]),
         dept_floor("5F", "shop", counters: [
           dept_counter("5F", "mart_vitamins", vitamins),

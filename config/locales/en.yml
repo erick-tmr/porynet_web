@@ -1826,6 +1826,7 @@ en:
                 name: "Wiseman Gifts"
                 motto: '"Evolution special: every stone in stock!"'
                 rec:
+                  poke_doll: "The only counter in Kanto that sells one. The Copycat in Saffron hands over TM31 Mimic for it, so buy the doll now and the TM costs you a knock on her door."
                   water_stone: "The only Water Stone shop in Kanto. Evolve your Eevee into Vaporeon here."
               "5F":
                 name: "Pharmacy"
@@ -1833,7 +1834,7 @@ en:
               "ROOF":
                 name: "Rooftop Square"
                 motto: '"Vending machines and a very thirsty kid."'
-                note: "Buy one of each drink for the thirsty girl and she trades each for a TM. Grab an extra Fresh Water for the Saffron gate guards while you are here."
+                note: "Three vending machines and a girl who wants what they sell. One of each drink buys one of each TM from her, and any fourth drink gets you past the Saffron gate guards."
                 rec:
                   fresh_water: "Trade one to the girl for TM13 Ice Beam."
                   soda_pop: "Trade one for TM48 Rock Slide."
@@ -1853,15 +1854,21 @@ en:
                 pp-up: "Top of the far-east tall-grass strip, at the tree capping its north end (just southeast of the Pokémon Center). Face up and press A; nothing appears."
             "3":
               title: "Shop the Dept. Store"
-              text_html: "Head to the six-floor department store %{store} on the west side. Take the free TM18 Counter from the 3F clerk and buy evolution stones on 4F. Buy four rooftop drinks: three trade for TMs up there, one is for Saffron's guards."
+              text_html: "Head into the six-floor department store %{store} on the west side. The man on 3F hands you TM18 Counter free, and 4F sells the evolution stones, plus a Poké Doll the Copycat in Saffron trades TM31 Mimic for."
             "4":
+              title: "Buy the roof drinks and trade them"
+              text: "Take the lift to the roof and buy four drinks from the vending machines. The girl beside them trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's gate guards."
+            "5":
               title: "Take the Eevee, then the Gym"
               text_html: "Collect the gift Eevee atop the Celadon Mansion %{mansion}, behind the Center, and the Coin Case from the restaurant %{diner}. Then the Gym %{gym} behind the trees: Fire, Flying or Psychic beats Erika, and Cut skips the maze."
               items:
                 coin_case: "From the man slumped in the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
-            "5":
+            "6":
               title: "Hit the Game Corner"
               text_html: "Win coins for prizes like Porygon and Vulpix, then find the poster switch inside %{corner} to enter the Rocket Hideout."
+            "7":
+              title: "Open Saffron with a drink"
+              text: "Walk east to the Route 7 gate and hand the guard a Fresh Water. Any of the three drinks works, but Fresh Water is the cheapest at ¥200. One drink opens all four Saffron gates for good."
           tips:
             eevee: "Free in the Condominiums. Evolve it with a stone into Vaporeon, Jolteon or Flareon."
             porygon: "The only Porygon in the game. 9999 Game Corner coins, but nowhere else to get it."
