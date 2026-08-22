@@ -276,3 +276,18 @@
   .pn-nav__panel-crumb,
   .pn-nav__panel-mode { padding: 15px 18px; }
 }
+
+/* Below about 370px the brand and the actions stop fitting on one row. Nothing in that row can
+   shrink (a pixel wordmark does not reflow, the lang and burger are bordered boxes), so the row
+   overflows and the burger is what falls off the right edge. Buy the width back from the logo
+   tile, one more wordmark step and the gaps. */
+@media (max-width: 400px) {
+  .pn-nav__bar { padding: 10px 14px; gap: 12px; }
+  .pn-nav__brand { gap: 10px; }
+  .pn-nav__brand .pn-logo-tile { width: 44px; height: 44px; }
+  .pn-nav__brand .pn-logo-tile__img { width: 36px; height: 36px; }
+  .pn-wordmark { font-size: 13px; }
+  .pn-nav__links { gap: 12px; }
+  .pn-nav__lang { padding: 10px; }
+  .pn-nav__burger { padding: 10px 11px; }
+}

@@ -927,3 +927,16 @@
   .pn-wt-oakgroup__grid,
   .pn-wt-oaklocked__grid { grid-template-columns: 1fr; }
 }
+
+/* Below about 370px two pixel-font pills are what push the page into a horizontal scroll: the
+   statbar's caption and a stage row's status, both held on one line by white-space: nowrap. A
+   Living Dex card's min-content is the widest of those rows, so the card outgrows its own grid
+   track. Let all three wrap instead. */
+@media (max-width: 400px) {
+  .pn-wt-statbar { padding: 14px; }
+  .pn-wt-statbar__tag { white-space: normal; }
+  .pn-wt-ld__inner { padding: 30px 14px; }
+  .pn-wt-ldfam__card { padding: 12px; }
+  .pn-wt-ldstage__todo,
+  .pn-wt-ldstage__done { white-space: normal; }
+}
