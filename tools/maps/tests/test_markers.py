@@ -479,3 +479,21 @@ def test_two_real_doors_sharing_an_outdoor_tile_both_survive(root):
 
     assert len(out) == 2, "both south exits keep their pin"
     assert abs(out[0][0] - out[1][0]) > markers.SPARE_WARP_REACH
+
+
+def test_a_warp_the_game_can_never_fire_gets_no_pin(root):
+    """Celadon's map declares a door at (39, 19) into CELADON_MART_5F that no player can use.
+
+    Nothing is drawn there: the cell is the same wall as the block around it, while the doors
+    beside it carry the overworld's own warp tile. Pinned, it named a second Poke Mart in a town
+    whose only shop is the department store."""
+    celadon = [m for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 800, 576)
+               if m["cat"] == "exit"]
+    assert not [m for m in celadon if m["ref"] == "CELADON_MART_5F"], "the dead door is not pinned"
+    assert [m for m in celadon if m["ref"] == "GAME_CORNER"], "the real doors beside it still are"
+
+    warp_tiles = {0x1B, 0x58}  # data/tilesets/warp_tile_ids.asm, .OverworldWarpTileIDs
+    tiles = sources.cell_tiles(root, "CeladonCity", "overworld", 25, 39, 19)
+    assert not warp_tiles & set(tiles), "it is wall, not a door"
+    assert warp_tiles & set(sources.cell_tiles(root, "CeladonCity", "overworld", 25, 28, 19)), \
+        "the Game Corner door beside it is one"

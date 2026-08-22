@@ -144,26 +144,9 @@
             "lane": 0
           },
           {
-            "id": "exit-39-19",
-            "cat": "exit",
-            "key": "E8",
-            "x": 79.0,
-            "y": 54.167,
-            "grid": [
-              39,
-              19
-            ],
-            "align": "l",
-            "name": "Mart 5F",
-            "ref": "CELADON_MART_5F",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": -1
-          },
-          {
             "id": "exit-33-19",
             "cat": "exit",
-            "key": "E9",
+            "key": "E8",
             "x": 67.0,
             "y": 54.167,
             "grid": [
@@ -180,7 +163,7 @@
           {
             "id": "exit-31-27",
             "cat": "exit",
-            "key": "E10",
+            "key": "E9",
             "x": 63.0,
             "y": 76.389,
             "grid": [
@@ -197,7 +180,7 @@
           {
             "id": "exit-35-27",
             "cat": "exit",
-            "key": "E11",
+            "key": "E10",
             "x": 71.0,
             "y": 76.389,
             "grid": [
@@ -214,7 +197,7 @@
           {
             "id": "exit-43-27",
             "cat": "exit",
-            "key": "E12",
+            "key": "E11",
             "x": 87.0,
             "y": 76.389,
             "grid": [
@@ -231,7 +214,7 @@
           {
             "id": "exit-west",
             "cat": "exit",
-            "key": "E13",
+            "key": "E12",
             "x": 1.0,
             "y": 51.389,
             "grid": [
@@ -248,7 +231,7 @@
           {
             "id": "exit-east",
             "cat": "exit",
-            "key": "E14",
+            "key": "E13",
             "x": 99.0,
             "y": 31.944,
             "grid": [

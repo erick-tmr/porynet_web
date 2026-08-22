@@ -154,6 +154,20 @@ EXIT_GLYPHS = {"north": "▲", "south": "▼", "west": "◀", "east": "▶", "in
 PASS_THROUGH_MAX_GAP = 8
 
 
+# Warps the map file declares but the game can never fire, so they must not be pinned.
+#
+# Celadon City (39, 19) claims to lead to CELADON_MART_5F. Nothing is drawn there: its four tiles
+# are $4b/$4b/$1a/$1a, the same wall as the rest of the block, while every door the player really
+# uses on that map carries $1b, the overworld's own warp tile (data/tilesets/warp_tile_ids.asm).
+# The cell is not walkable either, and CeladonMart5F has no warp back to the city, so there is no
+# way in and no way out. Left alone it pins a blank wall and calls it a second Poke Mart, on a
+# town whose only shop is the department store.
+#
+# There is no general rule to catch this: an elevator, an Elite Four door and a route gate all
+# look the same to each test that would find it, so the one piece of dead data is named instead.
+DEAD_WARPS = frozenset({("CeladonCity", (39, 19))})
+
+
 def label_pass_through_doors(exits):
     """A building you walk straight through has a front door onto the street and a back door behind
     it, both warping to the same interior; left alone the two doors print the same name twice. Tag
@@ -247,6 +261,8 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
     warp_markers = []
     for group in group_warps(sources.parse_warp_events(root_str, map_label)):
         anchor = group["anchor"]
+        if (map_label, tuple(anchor)) in DEAD_WARPS:
+            continue
         edge = map_edge(anchor[0], anchor[1], width_cells, height_cells)
         entry = _marker("exit", anchor, group["center"], frame,
                         name=sources.place_display_name(group["dest"]), ref=group["dest"])

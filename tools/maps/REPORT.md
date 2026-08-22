@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **100** across 53 locations
-- markers: **970** (317 trainer, 119 item, 52 hidden, 482 exit)
+- markers: **969** (317 trainer, 119 item, 52 hidden, 481 exit)
 - step shots: **41** (map/scene in a step slot)
 - standalone scenes: **270** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
@@ -9,7 +9,7 @@
 
 ## Markers per map
 
-- `celadon-city`: 1 hidden, 14 exit
+- `celadon-city`: 1 hidden, 13 exit
 - `celadon-city-gym`: 8 trainer, 1 exit
 - `cerulean-cave-1f`: 4 item, 1 hidden, 8 exit
 - `cerulean-cave-2f`: 4 item, 1 hidden, 6 exit

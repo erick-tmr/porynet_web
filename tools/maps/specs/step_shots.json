@@ -952,5 +952,6 @@
   {"type": "screen", "slug": "celadon-city", "step": 3, "name": "celadon-diner-coin-case",
    "map": "CeladonDiner", "parent": "CELADON_CITY", "player": [1, 1], "player_dir": "LEFT",
    "focus": [1, 4], "auto_npcs": true,
+   "sprites": [{"sprite": "SPRITE_GYM_GUIDE", "grid": [0, 1], "dir": "RIGHT"}],
    "dialog": {"lines": ["<PLAYER> received", "COIN CASE!"]}}
 ]
