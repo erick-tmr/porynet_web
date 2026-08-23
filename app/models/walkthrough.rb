@@ -389,8 +389,13 @@ module Walkthrough
   end
 
   OakTile = Data.define(:dex, :name, :via_key, :via_args)
-  OakGroup = Data.define(:kind, :tiles, :note_key) do
+  # `pick` is how many of the group's tiles a run can actually register, when that is fewer than
+  # the tiles shown: three Eevee stones are three species, but one Eevee only ever becomes one.
+  OakGroup = Data.define(:kind, :tiles, :note_key, :pick) do
+    def initialize(pick: nil, **rest) = super(pick: pick, **rest)
+
     def any? = tiles.any?
+    def required = pick || tiles.size
   end
   LockedEntry = Data.define(:dex, :name, :gate_key, :gate_args, :where_key, :where_args)
 

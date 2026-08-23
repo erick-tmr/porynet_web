@@ -48,11 +48,11 @@
     <div class="pn-wt-oakgroups">
       <% plan.groups.select(&:any?).each do |group| %>
         <%= render "oak_group", kind: group.kind, tiles: group.tiles,
-                   note: t(group.note_key) %>
+                   note: t(group.note_key), pick: group.required %>
       <% end %>
       <% if plan.earlier.any? %>
         <%= render "oak_group", kind: "earlier", tiles: plan.earlier,
-                   note: t("walkthrough.ui.oak_group_earlier_note") %>
+                   note: t("walkthrough.ui.oak_group_earlier_note"), pick: plan.earlier.size %>
       <% end %>
     </div>
 

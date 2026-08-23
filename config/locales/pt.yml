@@ -501,6 +501,8 @@ pt:
       oak_group_evolve: "EVOLUINDO"
       oak_group_catch_note: "Tudo o que deve um primeiro registro até este ponto da jornada."
       oak_group_evolve_note: "Sem captura: estes se registram assim que algo seu cresce."
+      oak_group_choice: "ESCOLHA UM"
+      oak_group_choice_note: "Um Eevee, uma pedra. A que você usar registra; as outras duas precisam de um segundo Eevee por troca."
       oak_group_earlier: "PARADAS ANTERIORES"
       oak_group_earlier_note: "Ainda devidos nesta janela de insígnia, das paradas antes desta página."
       oak_tally_html: "%{done} / %{total}"

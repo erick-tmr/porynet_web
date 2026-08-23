@@ -331,10 +331,26 @@ module Walkthrough
       here = leg_order(leg).map(&:slug)
       caught, grown = owed_here(game, leg, due)
         .partition { |dex| catchable_stop(game, dex, reached) }
-      [ OakGroup.new(kind: :catch, note_key: "walkthrough.ui.oak_group_catch_note",
-          tiles: caught.map { |dex| tile_for(game, dex, reached, here) }),
-        OakGroup.new(kind: :evolve, note_key: "walkthrough.ui.oak_group_evolve_note",
-          tiles: grown.map { |dex| tile_for(game, dex, reached, here) }) ]
+      choice, grown = grown.partition { |dex| one_specimen_line?(game, dex, grown) }
+      [ oak_group(:catch, game, caught, reached, here),
+        oak_group(:evolve, game, grown, reached, here),
+        oak_group(:choice, game, choice, reached, here, pick: 1) ]
+    end
+
+    def self.oak_group(kind, game, dexes, reached, here, pick: nil)
+      OakGroup.new(kind: kind, pick: pick,
+        note_key: "walkthrough.ui.oak_group_#{kind}_note",
+        tiles: dexes.map { |dex| tile_for(game, dex, reached, here) })
+    end
+
+    # Several stone evolutions off one base the game only ever hands over once. Eevee is the whole
+    # of it in Yellow: it has no wild source anywhere, so the Water, Thunder and Fire Stones are
+    # three species but one choice, and asking for all three asks for two trades.
+    def self.one_specimen_line?(game, dex, grown)
+      base = Evolutions.into(dex).first&.from
+      return false if base.nil? || game.best_catches[base]
+
+      grown.count { |other| Evolutions.into(other).first&.from == base } > 1
     end
 
     def self.owed_here(game, leg, due)

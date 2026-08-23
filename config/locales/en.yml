@@ -501,6 +501,8 @@ en:
       oak_group_evolve: "BY EVOLVING"
       oak_group_catch_note: "Everything that owes a first registration by this point in the run."
       oak_group_evolve_note: "No catching needed: these register the moment something you own grows up."
+      oak_group_choice: "PICK ONE"
+      oak_group_choice_note: "One Eevee, one stone. Whichever you use registers; the other two need a second Eevee from a trade."
       oak_group_earlier: "EARLIER STOPS"
       oak_group_earlier_note: "Still owed from this badge window, from the stops before this page."
       oak_tally_html: "%{done} / %{total}"

@@ -29,6 +29,8 @@
     "player": [4, 5], "player_dir": "RIGHT", "focus": [5, 5], "auto_npcs": true, "parent": "CINNABAR_ISLAND" },
 
   { "type": "screen", "name": "celadon-roof-girl", "map": "CeladonMartRoof",
-    "parent": "CELADON_CITY", "player": [6, 5], "player_dir": "LEFT", "focus": [8, 4],
-    "auto_npcs": true }
+    "parent": "CELADON_CITY", "player": [6, 5], "player_dir": "LEFT", "focus": [7, 4],
+    "auto_npcs": true,
+    "sprites": [{ "sprite": "SPRITE_LITTLE_GIRL", "grid": [5, 5], "dir": "RIGHT" }],
+    "dialog": { "lines": ["I'm thirsty!", "I want something"] } }
 ]

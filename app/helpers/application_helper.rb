@@ -191,8 +191,10 @@ module ApplicationHelper
     t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
   end
 
-  def oak_tally(ids)
-    t("walkthrough.ui.oak_tally_html", total: ids.size, done: progress_count(ids))
+  # A group whose run can only register some of what it shows counts against that, not the tiles:
+  # three Eevee stones on one Eevee is one registration, however many cards are on screen.
+  def oak_tally(ids, pick: ids.size)
+    t("walkthrough.ui.oak_tally_html", total: pick, done: progress_count(ids))
   end
 
   def ledger_filled(ids)

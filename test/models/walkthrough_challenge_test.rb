@@ -342,4 +342,18 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       assert page.window, "#{leg.slug} sits outside every window"
     end
   end
+
+  # One Eevee is one evolution. Listing Vaporeon, Jolteon and Flareon as three things to register
+  # asks a single-cartridge run for two trades it never said it wanted.
+  test "the Eevee stones are one pick, not three registrations" do
+    groups = plan("leg-09").groups.select(&:any?).to_h { |g| [ g.kind, g ] }
+
+    assert_equal %w[Vileplume Victreebel], groups[:evolve].tiles.map(&:name),
+      "the Gloom and Weepinbell lines stay, because both bases are catchable over and over"
+    assert_nil groups[:evolve].pick, "so that group wants all of them"
+
+    choice = groups.fetch(:choice)
+    assert_equal %w[Vaporeon Jolteon Flareon], choice.tiles.map(&:name)
+    assert_equal 1, choice.pick, "whichever stone you use is the one that registers"
+  end
 end
