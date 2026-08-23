@@ -325,6 +325,24 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-band__badge", text: "GYM · RAINBOW"
     assert_select ".pn-wt-gym__leader-name", text: /Erika/
     assert_select ".pn-wt-step__title", text: "Cut into the greenhouse"
+    assert_select ".pn-wt-gym__needs-badge", text: "NEEDS · HM01 CUT"
+  end
+
+  # Route 16's grass is in reach the moment Erika is beaten, but every species in it is easier
+  # somewhere else, so the queue is empty. The section still draws: "nothing here is worth a slot,
+  # and here is where to get each of them" is the answer a living-dex reader came for, and a card
+  # that says only ELSEWHERE leaves them hunting for the where.
+  test "a leg whose catches are all better elsewhere still answers the living dex" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-10")
+
+    assert_response :success
+    assert_select ".pn-wt-ld"
+    assert_select ".pn-wt-ldrow", count: 0
+    assert_select ".pn-wt-ldq__none"
+    assert_select ".pn-wt-ld__ledger-head", count: 0
+    assert_select ".pn-wt-catchbadge--elsewhere", text: "DO IT AT ROUTE 17"
+    assert_select ".pn-wt-catchbadge--elsewhere", text: "DO IT AT POKÉMON MANSION"
+    assert_select ".pn-wt-ldnote__text", text: /Doduo has better odds at Route 17/
   end
 
   # The Coin Case is collected where it is handed over, in Celadon, right after the Eevee. The

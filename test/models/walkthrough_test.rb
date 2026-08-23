@@ -10,17 +10,18 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing four of them twice" do
+  test "the game covers the 52 Kanto stops, drawing five of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 53 numbered stops (1..53), four of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), five of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
-    # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, and Celadon (stop 28) is left and
-    # come back to so the Rocket Hideout is cleared before Erika. Each pass is its own section,
-    # so 57 sections share 53 numbers.
-    assert_equal 57, g.locations.size
+    # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
+    # back to so the Rocket Hideout is cleared before Erika, and Route 16 (stop 37) is dipped into
+    # early for Fly and walked properly at Cycling Road. Each pass is its own section, so 58
+    # sections share 53 numbers.
+    assert_equal 58, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
@@ -28,6 +29,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[route-10 route-10-south], g.locations.select { |loc| loc.order == 22 }.map(&:slug)
     assert_equal %w[celadon-city celadon-city-return],
       g.locations.select { |loc| loc.order == 28 }.map(&:slug)
+    assert_equal %w[route-16-fly route-16], g.locations.select { |loc| loc.order == 37 }.map(&:slug)
   end
 
   test "both passes of a stop walked twice list the same water" do

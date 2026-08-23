@@ -171,7 +171,7 @@ module Walkthrough
       { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 underground-path-west-east route-7] },
       { slug: "leg-09", special: false, locs: %w[celadon-city] },
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
-      { slug: "leg-10", special: false, locs: %w[celadon-city-return] },
+      { slug: "leg-10", special: false, locs: %w[celadon-city-return route-16-fly] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
@@ -411,7 +411,7 @@ module Walkthrough
         vermilion_city_return, digletts_cave,
         route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8,
         underground_path_west_east, route_7, celadon_city,
-        rocket_hideout, celadon_city_return,
+        rocket_hideout, celadon_city_return, route_16_fly,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
@@ -424,6 +424,7 @@ module Walkthrough
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
                    "celadon-city-return" => "celadon-city",
+                   "route-16-fly" => "route-16",
                    "route-10-south" => "route-10" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
@@ -434,11 +435,25 @@ module Walkthrough
                            "pewter-city" => "Pewter City" }
     }.freeze
 
+    # A stop that borrows another stop's map takes the whole map's people with it, and some of them
+    # cannot be reached on this visit. Route 16's six Bikers sit past the sleeping Snorlax, and the
+    # Fly detour has no Poké Flute: the cut tree opens onto the upper half of the route, which
+    # holds the Fly house and nothing else, so the road with the Bikers on it is sealed until leg
+    # 12 comes back with the Flute. Neither their pins nor their cards belong on this page. One
+    # table decides both, so a pin and a card cannot disagree about who is standing there.
+    OUT_OF_REACH = { "route-16-fly" => %w[trainer] }.freeze
+
     def self.maps_for(slug, data)
-      own = data.fetch(MAP_SOURCE.fetch(slug, slug), [])
+      own = drop_pins(data.fetch(MAP_SOURCE.fetch(slug, slug), []), OUT_OF_REACH.fetch(slug, []))
       own + MAP_EXTRA.fetch(slug, {}).flat_map do |from, title|
         data.fetch(from, []).map { |map| map.with(title: title) }
       end
+    end
+
+    def self.drop_pins(maps, cats)
+      return maps if cats.empty?
+
+      maps.map { |map| map.with(markers: map.markers.reject { |pin| cats.include?(pin.cat) }) }
     end
 
     # The leg-3 approach section has no map data of its own; it borrows Route 4's map so the same
@@ -702,6 +717,8 @@ module Walkthrough
     }.freeze
 
     def self.roster_for(slug)
+      return [] if OUT_OF_REACH.fetch(slug, []).include?("trainer")
+
       entries = roster.fetch("trainers", {}).fetch(MAP_SOURCE.fetch(slug, slug), [])
       half = ROSTER_SPLIT[slug]
       half ? entries.select { |entry| half.include?(entry["opp"]) } : entries
@@ -1123,12 +1140,13 @@ module Walkthrough
 
     def self.rival(reward, *team, where: nil, battle: nil, opp: nil) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle, opp: opp)
 
-    def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [])
+    def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [], needs: nil)
       b = base(slug)
       Gym.new(
         type: type, name: name, intro_key: "#{b}.gym.intro",
         shot: shot("GYM"), badge: badge, badge_img: badge_img(badge),
-        tm: tm, puzzle: puzzle, trainers: trainers, leader: leader
+        tm: tm, puzzle: puzzle, trainers: trainers, leader: leader,
+        needs: needs, needs_key: needs && "#{b}.gym.needs"
       )
     end
 
@@ -1704,19 +1722,25 @@ module Walkthrough
         ])
     end
 
+    # Route 16's one grass table, listed by both passes: the strip the Fly detour cuts into is the
+    # same patch leg 12 walks past on the way to Cycling Road, so the same five turn up on both
+    # pages and one catch ticks off on either.
+    def self.route_16_grass
+      [
+        enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
+        enc("route-16", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
+        enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
+        enc("route-16", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
+        enc("route-16", "022", "GRASS", "5%", "24", "RARE", "021", "022")
+      ]
+    end
+
     def self.route_16
-      loc("route-16", "ROUTE", "Route 16", 37, steps: 3, shots: [ 2 ],
-        pins: { 1 => { house: "route-16/exit-7-5" }, 2 => { gate: "route-16/exit-17-10" },
-                3 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
-        key_items: { 1 => [ [ "HM02 Fly", "hm02_fly" ] ] },
-        encounters: [
-          enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
-          enc("route-16", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
-          enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
-          enc("route-16", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
-          enc("route-16", "022", "GRASS", "5%", "24", "RARE", "021", "022"),
-          enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
-        ],
+      loc("route-16", "ROUTE", "Route 16", 37, steps: 2, shots: [ 1 ],
+        pins: { 1 => { gate: "route-16/exit-17-10" },
+                2 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
+        encounters: route_16_grass +
+          [ enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true) ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
     end
 
@@ -2235,13 +2259,30 @@ module Walkthrough
         badge: "RAINBOW", note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
           step(b, 1, pins: { gym: "celadon-city/exit-12-27" }),
-          step(b, 2)
+          step(b, 2, pins: { west: "celadon-city/exit-west" })
         ], gym_after: 1,
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
           leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32),
-            battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ]))
+            battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ]),
+          needs: "HM01 CUT")
       )
+    end
+
+    # Fly sits one route west of Celadon, and the walkthrough picks it up the moment Erika is beaten
+    # rather than at Cycling Road, where the route is properly walked: the badge run turns round for
+    # Lavender here, so a ride back to every town already visited is worth more now than it will be
+    # eight stops later. The stop borrows Route 16's map and leaves the Snorlax, the road and the
+    # grass to leg 12, which shares that map's pins and its ticks.
+    def self.route_16_fly
+      loc("route-16-fly", "ROUTE", "Route 16", 37, title: "Route 16 Fly Detour",
+        steps: [
+          { pins: { east: "route-16/exit-east", gate: "route-16/exit-24-4",
+                    out: "route-16/exit-17-4", house: "route-16/exit-7-5" } },
+          { items: [ [ "HM02 Fly", "hm02_fly" ] ], scene: "route-16-fly-gift" },
+          {}
+        ],
+        encounters: route_16_grass, trainers: [], oak_queue: [ oak("route-16", "084", 1) ])
     end
 
     # The two arrow-tile floors, named once so the step defs below can point at the legs of their

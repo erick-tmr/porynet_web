@@ -452,6 +452,7 @@ pt:
       ld_stat_clear: "TUDO CAPTURADO AQUI ✓"
       ld_stat_species: "ESPÉCIES NA FILA"
       ld_stat_elsewhere: "MELHOR LUGAR É OUTRO"
+      ld_queue_none: "Nada nesta etapa vale um espaço na caixa: tudo ao alcance tem chances melhores mais adiante. As notas abaixo dizem onde."
       ld_queue_tag: "FILA DE CAPTURA · SÓ NO MELHOR LUGAR"
       ld_qty_html: "×%{count}"
       ld_progress_met: "COTA CUMPRIDA ✓"
@@ -473,7 +474,6 @@ pt:
       ld_spot_good: "BOM LUGAR · %{rate}"
       ld_spot_given: "%{how}"
       ld_caught_progress_html: "%{have} / %{want} CAPTURADOS"
-      badge_elsewhere: "EM OUTRO LUGAR"
       ld_fold_show: "MOSTRAR A FILA DE CAPTURA"
       ld_fold_hide: "OCULTAR A FILA DE CAPTURA"
       oak_fold_show: "MOSTRAR AS LISTAS DE ESPÉCIES"
@@ -556,6 +556,7 @@ pt:
       gym_tag: "◆ GINÁSIO"
       gym_type: "TIPO %{type}"
       gym_short: "GINÁSIO"
+      gym_needs: "EXIGE · %{hm}"
       gym_puzzle: "PUZZLE · SOLUÇÃO"
       gym_trainers_inside: "TREINADORES · %{count}"
       gym_trainer: "TREINADOR DO GINÁSIO"
@@ -1894,7 +1895,8 @@ pt:
                   soda_pop: "Troque uma pela TM48 Rock Slide."
                   lemonade: "Troque uma pela TM49 Tri Attack."
           gym:
-            intro: "Um jardim de arvorezinhas escondendo vários treinadores, depois a Erika. O Tangela (Nv 30), o Weepinbell (Nv 32) e o Gloom (Nv 32) dela caem para Fogo, Voador, Psíquico ou Gelo, então lidere com um desses e carregue curas de status para o Sleep Powder e o Stun Spore deles. Corte as arvorezinhas para chegar mais rápido nela."
+            intro: "Um jardim de arvorezinhas escondendo vários treinadores, depois a Erika. O Tangela (Nv 30), o Weepinbell (Nv 32) e o Gloom (Nv 32) dela caem para Fogo, Voador, Psíquico ou Gelo, então lidere com um desses e carregue curas de status para o Sleep Powder e o Stun Spore deles."
+            needs: "A Erika e três dos sete treinadores ficam atrás de arbustos que só o Cut abre. Sem um Pokémon que o conheça, você enfrenta os outros quatro e mais nada."
           note: "Ginásio da Erika. Rainbow Badge. Loja, Eevee e o Game Corner."
           intro: "A maior cidade de Kanto: uma loja de departamentos de seis andares, o ginásio-estufa da Erika e um Game Corner com o esconderijo da Equipe Rocket embaixo."
           steps:
@@ -1937,14 +1939,29 @@ pt:
               from: "DO TELHADO DA MANSÃO"
         celadon_city_return:
           note: "De volta para a Erika. Rainbow Badge e o TM21 Mega Drain."
-          intro: "Segunda passada por Celadon, com o esconderijo esvaziado e o Silph Scope na mochila. O que resta na cidade é a estufa atrás das árvores."
+          intro: "Segunda passada por Celadon, com o esconderijo esvaziado e o Silph Scope na mochila. Só resta o ginásio-estufa na cidade, e o Fly espera uma rota a oeste."
           steps:
             "1":
               title: "Corte caminho até a estufa"
-              text_html: "O Ginásio %{gym} fica no canto sudoeste, cercado de arvorezinhas. Corte uma e entre: o piso lá dentro é outro labirinto de arbustos, e a Erika espera no fundo dele."
+              text_html: "O Ginásio %{gym} fica no canto sudoeste da cidade. Lá dentro é um labirinto de arbustos, e o Cut é o único jeito de atravessar, então leve um Pokémon que o conheça."
             "2":
-              title: "Guarde a insígnia e siga"
-              text: "A Rainbow Badge faz Pokémon trocados obedecerem até o Nv 50 e libera Strength fora de batalha. A Erika entrega o TM21 Mega Drain junto. A torre de Lavender é a próxima, com o Silph Scope na mão."
+              title: "Guarde a insígnia e siga a oeste"
+              text_html: "A Rainbow Badge faz Pokémon trocados obedecerem até o Nv 50 e libera Strength fora de batalha, mais o TM21 Mega Drain. Siga com o Cut no time pela estrada oeste %{west} até a Rota 16, onde o Fly espera."
+        route_16_fly:
+          note: "Uma rota a oeste de Celadon. HM02 Fly."
+          intro: "A estrada a oeste de Celadon, com um Snorlax dormindo atravessado nela. Esta ida alcança uma coisa só depois da árvore: a casa isolada acima do portão, onde uma garota entrega o Fly."
+          steps:
+            "1":
+              title: "Corte a árvore e atravesse até a casa"
+              text_html: "Você entra vindo de Celadon %{east} pelo caminho de baixo. Corte a arvorezinha cinco passos adiante; o mato depois dela tem Doduo. Siga a oeste pelo portão %{gate}, saia pela porta oposta %{out} e chegue à casa %{house}."
+            "2":
+              title: "Pegue o HM02 Fly com a garota"
+              text: "A garota lá dentro chama o lugar de refúgio secreto e te dá o HM02 por guardar segredo. O Fly leva você a qualquer cidade já visitada, e a Thunder Badge já libera isso."
+              items:
+                hm02_fly: "Com a garota na casa no topo da Rota 16, depois de uma árvore de Cut. Ensina Fly entre cidades."
+            "3":
+              title: "Voe direto para Lavender"
+              text: "Ensine Fly para qualquer coisa com asas e use ali mesmo. A estrada ao sul fica fechada até o Poké Flute acordar o Snorlax, e a torre de Lavender é a próxima, com o Silph Scope na mochila."
         rocket_hideout:
           oak:
             porygon: "Exclusivo do Game Corner. O único Porygon que você terá. Pegue um."
@@ -2356,14 +2373,9 @@ pt:
           intro: "O portão norte da Cycling Road, com um segundo Snorlax dormindo na passagem. Depois dele a estrada só corre num sentido: ladeira abaixo."
           steps:
             "1":
-              title: "Pegue o HM02 Fly"
-              text_html: "Corte a árvore a noroeste para chegar à casa isolada %{house} e pegar o HM02 Fly, que leva você a qualquer cidade já visitada."
-              items:
-                hm02_fly: "Com a garota na casa no topo da Rota 16, depois de uma árvore de Cut. Ensina Fly entre cidades."
-            "2":
               title: "Acorde o Snorlax"
               text_html: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão %{gate}."
-            "3":
+            "2":
               title: "Suba na Cycling Road"
               text_html: "Pedale a Bicycle pelo portão norte %{gate} até a Rota 17 %{south}, a Cycling Road. Não dá para atravessar a pé, então a bike não é opcional aqui."
           tips:

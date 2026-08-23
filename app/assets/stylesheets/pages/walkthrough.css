@@ -2845,13 +2845,57 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-trainers--gym .pn-wt-trainer__note-label { color: var(--gym-accent); }
 
+/* A gym floor is a tiny map: Celadon's is ten tiles across. Drawn to fit a height it landed at
+   1.25x, where pixelated upscaling smears every other row and the pin labels sit on top of each
+   other. It is drawn at a flat 2x of its own pixels instead, the same never-below-native rule the
+   area maps follow, so the art stays sharp and the pins get the room to lane apart. The native
+   width arrives from the map-markers controller (the page forbids inline styles); a screen too
+   narrow for 2x falls back to fitting the column. */
 .pn-wt-gym__canvas {
   position: relative;
   line-height: 0;
+  width: calc(var(--mm-native-w, 100%) * 2);
+  max-width: 100%;
 }
 .pn-wt-shot--gym .pn-wt-shot__map-img {
-  width: auto;
-  height: clamp(240px, 30vw, 360px);
+  width: 100%;
+  height: auto;
+}
+.pn-wt-shot--gym .pn-wt-shot__ph--gym {
+  min-height: 360px;
+}
+
+/* An HM the floor cannot be finished without. It reads as a stop sign rather than a note: amber on
+   the dark card, above the puzzle and the trainer cards, because a reader who scrolls past it has
+   already walked in with the wrong party. */
+.pn-wt-gym__needs {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  border: 2px solid var(--amber);
+  background: #1c1608;
+  padding: 14px 16px;
+  margin-top: 18px;
+}
+.pn-wt-gym__needs-badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.4;
+  color: #171622;
+  background: var(--amber);
+  padding: 7px 9px;
+  white-space: nowrap;
+}
+.pn-wt-gym__needs-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #f4e3b4;
+  margin: 0;
+  flex: 1;
+  min-width: 240px;
 }
 
 .pn-wt-gym__puzzle {

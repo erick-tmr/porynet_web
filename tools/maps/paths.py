@@ -86,7 +86,12 @@ ROUTES = {
     "PewterGym": ("exit-4-13",),
     "CeruleanGym": ("exit-4-13",),
     "VermilionGym": ("exit-4-17",),
-    "CeladonGym": ("exit-4-17",),
+    # Erika's chamber is sealed until you cut into it, and a gym hedge is solid to the shipped
+    # collision, so the flood stops outside and the four people in there would fall back to
+    # map-file order. They are named outright instead: the leader first, since the chamber is hers
+    # and her letter anchors it, then the three around her in the order you meet them coming
+    # through the east hedge.
+    "CeladonGym": ("exit-4-17", "trainer-4-3", "trainer-6-3", "trainer-5-3", "trainer-3-3"),
     "FuchsiaGym": ("exit-4-17",),
     "CinnabarGym": ("exit-16-17",),
     "SaffronGym": ("exit-8-17",),

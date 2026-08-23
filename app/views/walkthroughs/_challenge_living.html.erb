@@ -45,11 +45,15 @@
     </button>
 
     <div id="pn-ld-body" data-disclosure-target="body">
-    <div class="pn-wt-ldq">
-      <% plan.queue.each do |entry| %>
-        <%= render "ld_row", entry: entry, multi: multi %>
-      <% end %>
-    </div>
+    <% if plan.queue.any? %>
+      <div class="pn-wt-ldq">
+        <% plan.queue.each do |entry| %>
+          <%= render "ld_row", entry: entry, multi: multi %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="pn-wt-ldq__none"><%= t("walkthrough.ui.ld_queue_none") %></p>
+    <% end %>
 
     <% if plan.notes.any? %>
       <div class="pn-wt-ldnotes">
@@ -59,20 +63,22 @@
       </div>
     <% end %>
 
-    <div class="pn-wt-ld__ledger-head">
-      <div>
-        <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.ld_ledger_eyebrow") %></div>
-        <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.ld_ledger_h3") %></h3>
-        <p class="pn-wt-ld__ledger-lead"><%= t("walkthrough.ui.ld_ledger_lead") %></p>
+    <% if plan.families.any? %>
+      <div class="pn-wt-ld__ledger-head">
+        <div>
+          <div class="pn-eyebrow-label pn-eyebrow-label--ink"><%= t("walkthrough.ui.ld_ledger_eyebrow") %></div>
+          <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.ld_ledger_h3") %></h3>
+          <p class="pn-wt-ld__ledger-lead"><%= t("walkthrough.ui.ld_ledger_lead") %></p>
+        </div>
+        <div class="pn-wt-ld__filled"><%= ledger_filled(stage_ids) %></div>
       </div>
-      <div class="pn-wt-ld__filled"><%= ledger_filled(stage_ids) %></div>
-    </div>
 
-    <div class="pn-wt-ldfam">
-      <% plan.families.each do |family| %>
-        <%= render "ld_family", family: family %>
-      <% end %>
-    </div>
+      <div class="pn-wt-ldfam">
+        <% plan.families.each do |family| %>
+          <%= render "ld_family", family: family %>
+        <% end %>
+      </div>
+    <% end %>
     </div>
   </div>
 </section>

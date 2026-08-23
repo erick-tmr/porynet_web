@@ -138,24 +138,8 @@
       {
         "map": "celadon-city-gym",
         "floor": "Gym",
-        "marker": "trainer-3-3",
-        "key": "T7",
-        "opp": "BEAUTY:3",
-        "cls": "BEAUTY",
-        "reward": 1820,
-        "team": [
-          {
-            "dex": "102",
-            "lvl": 26
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-3-3.png"
-      },
-      {
-        "map": "celadon-city-gym",
-        "floor": "Gym",
         "marker": "trainer-5-3",
-        "key": "T8",
+        "key": "T7",
         "opp": "COOLTRAINER_F:1",
         "cls": "COOLTRAINER_F",
         "reward": 840,
@@ -174,6 +158,22 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-5-3.png"
+      },
+      {
+        "map": "celadon-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-3",
+        "key": "T8",
+        "opp": "BEAUTY:3",
+        "cls": "BEAUTY",
+        "reward": 1820,
+        "team": [
+          {
+            "dex": "102",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/celadon-city-gym-trainer-3-3.png"
       }
     ],
     "cerulean-city": [

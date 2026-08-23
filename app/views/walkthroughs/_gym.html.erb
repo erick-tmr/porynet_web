@@ -13,7 +13,8 @@
         </div>
         <div class="pn-wt-gym__shot-wrap" data-controller="map-markers"
              data-map-markers-game-value="<%= @game.slug %>"
-             data-map-markers-map-value="<%= gym.area&.name %>">
+             data-map-markers-map-value="<%= gym.area&.name %>"
+             data-map-markers-native-w-value="<%= gym.area&.width %>">
           <div class="pn-wt-shot pn-wt-shot--gym">
             <% if gym.area? %>
               <div class="pn-wt-gym__canvas" data-map-markers-target="canvas"
@@ -33,6 +34,13 @@
           </div>
         </div>
       </div>
+
+      <% if gym.needs? %>
+        <div class="pn-wt-gym__needs">
+          <span class="pn-wt-gym__needs-badge"><%= t("walkthrough.ui.gym_needs", hm: gym.needs) %></span>
+          <p class="pn-wt-gym__needs-text"><%= t(gym.needs_key) %></p>
+        </div>
+      <% end %>
 
       <% if gym.puzzle? %>
         <div class="pn-wt-gym__puzzle">

@@ -273,6 +273,19 @@
   margin-top: 22px;
 }
 
+/* Stands in for the queue on a leg where nothing is worth a box slot. It reads as the answer, not
+   as an empty container, so it takes the row's own weight rather than a grey placeholder. */
+.pn-wt-ldq__none {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #d5e2f5;
+  margin: 22px 0 0;
+  max-width: 720px;
+  text-wrap: pretty;
+}
+
 .pn-wt-ldrow {
   display: flex;
   flex-direction: column;

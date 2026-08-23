@@ -314,9 +314,9 @@ class WalkthroughMapTest < ActiveSupport::TestCase
 
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
     assert_equal [ %w[celadon-city celadon-city-return], %w[pewter-city digletts-cave],
-                   %w[route-10 route-10-south], %w[route-2 digletts-cave],
-                   %w[route-4-mt-moon route-4], %w[vermilion-city vermilion-city-return],
-                   %w[viridian-city digletts-cave] ],
+                   %w[route-10 route-10-south], %w[route-16-fly route-16],
+                   %w[route-2 digletts-cave], %w[route-4-mt-moon route-4],
+                   %w[vermilion-city vermilion-city-return], %w[viridian-city digletts-cave] ],
       pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
   end
 
@@ -329,6 +329,19 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "Route 2", borrowed[1].caption
     assert_predicate borrowed[1], :captioned?
     refute_predicate borrowed.first, :captioned?
+  end
+
+  # The Fly detour dips into Route 16 the moment Erika is beaten, one Poké Flute short of waking
+  # the Snorlax lying across the road. The cut tree opens onto the upper half of the route, which
+  # holds the Fly house and nothing else, so the six Bikers on the lower road cannot be reached on
+  # that visit and neither their pins nor their cards belong on its page.
+  test "a stop that borrows a map drops the people it cannot reach yet" do
+    detour, proper = location("route-16-fly"), location("route-16")
+
+    assert_equal %w[exit], detour.area_maps.sole.markers.map(&:cat).uniq
+    assert_empty detour.trainers
+    assert_equal 6, proper.area_maps.sole.markers.count { |m| m.cat == "trainer" }
+    assert_equal 6, proper.trainers.size
   end
 
   test "borrowing a map leaves the lender's own page untouched" do

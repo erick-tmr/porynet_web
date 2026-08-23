@@ -233,8 +233,44 @@ def test_neighbours_on_one_row_take_separate_lanes(root):
 
 
 def test_every_label_stays_on_the_side_its_marker_is_on(root):
+    """The forest has room for all of its names, so every one of them keeps the side its x picks."""
     for entry in build(root):
         assert entry["align"] == ("l" if entry["x"] > markers.LABEL_FLIP_PCT else "r")
+
+
+def test_a_label_that_would_hang_off_the_map_takes_the_other_side():
+    """Which side a label reads better on is picked from its marker's x, before the text exists.
+    A long name just inside that line then writes itself past the wall and the frame clips it:
+    Celadon Gym's Cooltrainer stands mid-room and ran a quarter of its width off the picture."""
+    inside = {**row(20.0, 55.0, "Beauty"), "key": "T8"}
+    hangs_off = {**row(20.0, 55.0, "Cooltrainer♀"), "key": "T7"}
+    markers.assign_label_lanes([ inside ], 160, 288)
+    markers.assign_label_lanes([ hangs_off ], 160, 288)
+
+    assert inside["align"] == "r"
+    assert hangs_off["align"] == "l"
+    assert markers.label_span(hangs_off, 160)[0] >= 0
+
+
+def test_a_label_too_wide_for_either_side_keeps_the_one_it_reads_best_on():
+    """Only overridden when the other side actually works. A name wider than the map fits nowhere,
+    so it stays where its marker puts it rather than swapping one overflow for another."""
+    huge = {**row(50.0, 55.0, "Underground Path Route 5 North Entrance"), "key": "E1"}
+    markers.assign_label_lanes([ huge ], 160, 288)
+
+    assert huge["align"] == "r"
+
+
+def test_celadon_gyms_chamber_labels_all_fit_inside_the_picture(root):
+    """The case that started it: four names in Erika's chamber, two cells apart on a ten-cell map.
+    Every one of them has to land inside the frame, at the 2x the gym card draws its map at."""
+    const = sources.parse_headers(root)["CeladonGym"][0]
+    pins = markers.build_markers(root, "CeladonGym", const, 160, 288)
+
+    for pin in pins:
+        left, right = markers.label_span(pin, 160 * 2.0)
+        assert left >= 0, pin["name"]
+        assert right <= 101, pin["name"]
 
 
 def lanes(rows):
