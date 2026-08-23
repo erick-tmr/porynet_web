@@ -58,6 +58,12 @@ one hand on the D-pad: give them the move and the payoff, nothing else.
 - **Concrete beats hedged.** Real directions (north, the east wall, one tile below), real numbers
   (Lv 50, 1%, ¥500), real names. Say "press A facing it; nothing shows on-screen", the stock line
   for hidden items, rather than describing how hidden items work again.
+- **Never a grid coordinate.** "On the ball at grid (11,14)" is a fact about the map file, not an
+  instruction: nobody plays with a finger on a numbered tile, and finding it would mean counting
+  squares from a corner. Name the landmark instead ("at the foot of the crates, against the room's
+  south wall"). Relative counts off a named thing are fine ("one tile east of the Double-Edge
+  ball"). The grid is the right thing to reason *from* while writing, and `tools/maps` prints it,
+  but it stops at the model; `test/i18n_parity_test.rb` fails on any locale string that carries one.
 - **Friendly, not chatty.** Second person, imperative, warm asides where they earn their place
   ("never sell it", "you get one shot at it"). No hype, no filler adjectives, no jokes that age.
 - Same rules for PT, at the same lengths: translate the intent, do not pad. `en` and `pt` step

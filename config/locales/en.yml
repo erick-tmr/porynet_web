@@ -1968,12 +1968,12 @@ en:
               title: "Feel for the hidden PP Up"
               text: "On B1F, walk south down the aisle between the two columns of potted plants. From the tile beside the bottom-right pot, press A facing it: a hidden PP Up, nothing shown on-screen."
               hidden:
-                pp-up: "B1F, foot of the right-hand plant column. Stand at (20,15) and press A facing east. Nothing shows on-screen."
+                pp-up: "B1F, the bottom pot in the right-hand plant column. Stand in the aisle beside it, face east and press A. Nothing shows on-screen."
             "4":
               title: "Take the west Rocket and the Escape Rope"
               text_html: "Back at the entrance, follow the top corridor west to the Rocket %{west}. The room below him holds an Escape Rope: pocket it and the maze downstairs can never strand you."
               items:
-                escape-rope: "West side of B1F, in the room below the first Rocket. On the ball at grid (11,14)."
+                escape-rope: "West room of B1F, below the first Rocket. On the ball at the foot of the crates, against the room's south wall."
             "5":
               title: "Clear the east Rocket and drop to B2F"
               text_html: "A second Rocket %{east} holds the doorway on the east side. Beat him, then come back to the entrance and take the right-hand stairway %{down} down to B2F."
@@ -1984,12 +1984,12 @@ en:
               title: "Beat the guard, take TM10 (Double-Edge)"
               text_html: "A Rocket %{guard} stands a few tiles below the stairs. Past him the path winds down the east wall to TM10, Double-Edge: heavy Normal damage with a quarter of it recoiled back at you."
               items:
-                tm-double-edge: "East wall of B3F, at the bottom of the winding path. On the ball at grid (26,17)."
+                tm-double-edge: "East side of B3F, on the room's bottom row, at the foot of the narrow path down from the Rocket."
             "8":
               title: "Feel for the hidden Nugget"
-              text: "One tile east of the Double-Edge ball, stand at (27,18) and press A facing up. A Nugget is buried there with nothing shown on-screen; it sells for ¥5000."
+              text: "One tile east of the Double-Edge ball is an empty square. Stand below it, face up and press A: a Nugget, with nothing shown on-screen. It sells for ¥5000."
               hidden:
-                nugget: "East edge of B3F, one tile east of the TM10 ball. Press A facing up from (27,18). Nothing shows on-screen."
+                nugget: "East edge of B3F, one tile east of the TM10 ball. Stand one tile south of it, face up and press A. Nothing shows on-screen."
             "9":
               title: "Learn the arrow tiles"
               text: "Left of the staircase the floor turns to arrows. Each one slides you the way it points until a wall or a stop tile, four small blue squares, catches you. You cannot steer mid-slide."
@@ -1997,7 +1997,7 @@ en:
               title: "Snag the Rare Candy"
               text: "Head south and step onto the downward arrow; a stop tile catches you in a crevice. The Rare Candy is on your right, one free level for any teammate."
               items:
-                rare-candy: "Centre of B3F, in the maze crevice below the staircase. On the ball at grid (20,14)."
+                rare-candy: "Centre of B3F, in the one-tile alcove above the maze's lower row. The downward arrow drops you three tiles west of it."
             "11":
               title: "Take the west Rocket and drop to B4F"
               text_html: "Ride the upward arrow out of the crevice and work west across the maze to the Rocket %{west}. The gap south leads round to the staircase %{down} down to B4F."
@@ -2005,17 +2005,17 @@ en:
               title: "Collect the HP Up"
               text: "From the B4F stairs go a little south, then west. An HP Up waits on the table there, a permanent HP boost for whichever Pokémon you feed it to."
               items:
-                hp-up: "West half of B4F, on the table south of the staircase. On the ball at grid (10,12)."
+                hp-up: "West half of B4F, on the table in the room southwest of the staircase."
             "13":
               title: "Grab TM02 (Razor Wind)"
               text: "Back past the staircase and north into the small room. West of the tables sits TM02, Razor Wind, a Normal move that charges one turn and strikes on the next."
               items:
-                tm-razor-wind: "Northwest room of B4F, west of the tables. On the ball at grid (9,4)."
+                tm-razor-wind: "Northwest room of B4F, west of the tables."
             "14":
               title: "Beat the grunt for the Lift Key"
               text_html: "Loop around the tables to the Rocket %{grunt} at the top of the room. Beat him and take the Lift Key off the ball beside him: it is what powers the elevator."
               items:
-                lift-key: "Northwest room of B4F, beside the Rocket. On the ball at grid (10,2)."
+                lift-key: "Northwest room of B4F, on the ball beside the Rocket."
             "15":
               title: "Climb back up to B2F"
               text_html: "Take the staircase %{up} to B3F. Ride the upward arrow, then the second upward arrow northwest of it; from that stop tile head northeast to the staircase %{above} up to B2F."
@@ -2023,22 +2023,22 @@ en:
               title: "Claim the Moon Stone"
               text: "Enter B2F's maze on the lower of the two leftward arrows. From the stop tile, loop a little south for a Moon Stone, the evolution stone for Nidoran, Clefairy and Jigglypuff."
               items:
-                moon-stone: "Far northwest corner of B2F, south of the maze's first stop tile. On the ball at grid (1,11)."
+                moon-stone: "Far northwest corner of B2F, in the one-tile nook against the west wall. Step up into it from below."
             "17":
               title: "Bag the Nugget"
               text: "Return to that stop tile and follow the north wall east. A Nugget sits at the end of the run, another ¥5000 the next time you pass a shop."
               items:
-                nugget: "North side of B2F, along the wall east of the first stop tile. On the ball at grid (16,8)."
+                nugget: "North side of B2F, in the pillar row under the top corridor. Drop down from the corridor and take one step east."
             "18":
               title: "Pick up TM07 (Horn Drill)"
               text: "Back to the stop tile once more, then take the rightward arrow just below it. You come to rest beside TM07, Horn Drill, a one-hit KO that only lands on slower foes."
               items:
-                tm-horn-drill: "West side of B2F, at the end of the rightward arrow below the stop tile. On the ball at grid (6,12)."
+                tm-horn-drill: "West side of B2F, in the alcove below the row the rightward arrow throws you along. Walk back west two and step down."
             "19":
               title: "Take the Super Potion and climb out"
               text_html: "Work the arrows south and west to the far corner for a Super Potion, 50 HP a go. Then ride out east and take the staircase %{up} up to B1F."
               items:
-                super-potion: "Southwest corner of B2F, at the end of the maze. On the ball at grid (3,21)."
+                super-potion: "Southwest corner of B2F, at the end of the maze."
             "20":
               title: "Walk the sealed room anticlockwise"
               text_html: "This corner of B1F touches nothing else on the floor. Drop to the bottom run and go west: a Rocket %{lower} is waiting halfway along it."
@@ -2046,7 +2046,7 @@ en:
               title: "Grab the Hyper Potion"
               text: "Carry on west, up the left-hand run and into the top-left corner. A Hyper Potion is on the ball there, 200 HP in one go and the best heal you own."
               items:
-                hyper-potion: "Top-left corner of B1F's sealed southwest room. On the ball at grid (9,17)."
+                hyper-potion: "Top-left corner of B1F's sealed southwest room."
             "22":
               title: "Close the loop on the second Rocket"
               text_html: "Head east along the top run to the Rocket %{upper} standing on it. Beat him and drop down the right-hand side back to the staircase %{back} to B2F."
@@ -2060,7 +2060,7 @@ en:
               title: "Pick up the Iron"
               text: "Head west from the lift and down into the south room. An Iron sits on the table there, a permanent Defense boost. Then double back to the lift."
               items:
-                iron: "South room of B4F, west and down from the elevator. On the ball at grid (12,20)."
+                iron: "South room of B4F, on the table west of the elevator."
             "26":
               title: "Beat Giovanni"
               text_html: "Giovanni %{giovanni} waits at the top of the office: Onix (Lv 25), Rhyhorn (Lv 24), Persian (Lv 29). Water or Grass melts the first two; anything fast handles Persian."
@@ -2068,12 +2068,12 @@ en:
               title: "Take the Silph Scope"
               text: "Step onto the ball on the tile behind him. The Silph Scope is inside, and it is the only thing that makes the ghosts in Lavender's Pokémon Tower solid enough to fight."
               items:
-                silph-scope: "Top of Giovanni's office, northeast B4F. On the ball at grid (25,2)."
+                silph-scope: "Top of Giovanni's office, northeast B4F, on the tile he was guarding."
             "28":
               title: "Feel behind the machine"
               text: "Stand on the tile the Silph Scope ball was on and press A facing up. A hidden Super Potion is tucked into the machine above, with nothing shown on-screen."
               hidden:
-                super-potion: "Top of Giovanni's office. Stand at (25,2), where the Silph Scope ball was, and press A facing up. Nothing shows on-screen."
+                super-potion: "Top of Giovanni's office. Stand where the Silph Scope ball was, face up and press A. Nothing shows on-screen."
             "29":
               title: "Open the gate on the way out"
               text_html: "Ride the lift %{lift} up to B1F. One last Rocket %{last} stands beside it, and beating him opens the shutter north of the lift, the only way back to the stairs."
