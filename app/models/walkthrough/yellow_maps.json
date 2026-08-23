@@ -5151,24 +5151,9 @@
         "name": "rocket-hideout-b1f",
         "markers": [
           {
-            "id": "trainer-26-8",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 88.333,
-            "y": 30.357,
-            "grid": [
-              26,
-              8
-            ],
-            "align": "l",
-            "name": "Rocket",
-            "ref": "ROCKET:8",
-            "lane": 0
-          },
-          {
             "id": "trainer-12-6",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 41.667,
             "y": 23.214,
             "grid": [
@@ -5181,19 +5166,34 @@
             "lane": 0
           },
           {
-            "id": "trainer-28-18",
+            "id": "trainer-26-8",
             "cat": "trainer",
-            "key": "T3",
-            "x": 95.0,
-            "y": 66.071,
+            "key": "T2",
+            "x": 88.333,
+            "y": 30.357,
             "grid": [
-              28,
-              18
+              26,
+              8
             ],
             "align": "l",
             "name": "Rocket",
-            "ref": "ROCKET:12",
-            "lane": -1
+            "ref": "ROCKET:8",
+            "lane": 0
+          },
+          {
+            "id": "trainer-15-25",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 51.667,
+            "y": 91.071,
+            "grid": [
+              15,
+              25
+            ],
+            "align": "r",
+            "name": "Rocket",
+            "ref": "ROCKET:11",
+            "lane": 1
           },
           {
             "id": "trainer-18-17",
@@ -5211,19 +5211,19 @@
             "lane": 1
           },
           {
-            "id": "trainer-15-25",
+            "id": "trainer-28-18",
             "cat": "trainer",
             "key": "T5",
-            "x": 51.667,
-            "y": 91.071,
+            "x": 95.0,
+            "y": 66.071,
             "grid": [
-              15,
-              25
+              28,
+              18
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rocket",
-            "ref": "ROCKET:11",
-            "lane": 1
+            "ref": "ROCKET:12",
+            "lane": -1
           },
           {
             "id": "item-11-14",
@@ -5363,9 +5363,24 @@
             "lane": 0
           },
           {
-            "id": "item-16-8",
+            "id": "item-1-11",
             "cat": "item",
             "key": "I1",
+            "x": 5.0,
+            "y": 41.071,
+            "grid": [
+              1,
+              11
+            ],
+            "align": "r",
+            "name": "Moon Stone",
+            "ref": "MOON_STONE",
+            "lane": 1
+          },
+          {
+            "id": "item-16-8",
+            "cat": "item",
+            "key": "I2",
             "x": 55.0,
             "y": 30.357,
             "grid": [
@@ -5380,7 +5395,7 @@
           {
             "id": "item-6-12",
             "cat": "item",
-            "key": "I2",
+            "key": "I3",
             "x": 21.667,
             "y": 44.643,
             "grid": [
@@ -5391,21 +5406,6 @@
             "name": "TM Horn Drill",
             "ref": "TM_HORN_DRILL",
             "lane": 2
-          },
-          {
-            "id": "item-1-11",
-            "cat": "item",
-            "key": "I3",
-            "x": 5.0,
-            "y": 41.071,
-            "grid": [
-              1,
-              11
-            ],
-            "align": "r",
-            "name": "Moon Stone",
-            "ref": "MOON_STONE",
-            "lane": 1
           },
           {
             "id": "item-3-21",
@@ -5530,24 +5530,9 @@
             "lane": 0
           },
           {
-            "id": "item-20-14",
-            "cat": "item",
-            "key": "I1",
-            "x": 68.333,
-            "y": 51.786,
-            "grid": [
-              20,
-              14
-            ],
-            "align": "l",
-            "name": "Rare Candy",
-            "ref": "RARE_CANDY",
-            "lane": 0
-          },
-          {
             "id": "item-26-17",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 88.333,
             "y": 62.5,
             "grid": [
@@ -5557,6 +5542,21 @@
             "align": "l",
             "name": "TM Double Edge",
             "ref": "TM_DOUBLE_EDGE",
+            "lane": 0
+          },
+          {
+            "id": "item-20-14",
+            "cat": "item",
+            "key": "I2",
+            "x": 68.333,
+            "y": 51.786,
+            "grid": [
+              20,
+              14
+            ],
+            "align": "l",
+            "name": "Rare Candy",
+            "ref": "RARE_CANDY",
             "lane": 0
           },
           {
@@ -5648,19 +5648,19 @@
             "lane": 4
           },
           {
-            "id": "item-10-2",
+            "id": "item-10-12",
             "cat": "item",
             "key": "I1",
             "x": 35.0,
-            "y": 10.417,
+            "y": 52.083,
             "grid": [
               10,
-              2
+              12
             ],
             "align": "r",
-            "name": "Lift Key",
-            "ref": "LIFT_KEY",
-            "lane": 1
+            "name": "HP Up",
+            "ref": "HP_UP",
+            "lane": 3
           },
           {
             "id": "item-9-4",
@@ -5678,19 +5678,19 @@
             "lane": 5
           },
           {
-            "id": "item-10-12",
+            "id": "item-10-2",
             "cat": "item",
             "key": "I3",
             "x": 35.0,
-            "y": 52.083,
+            "y": 10.417,
             "grid": [
               10,
-              12
+              2
             ],
             "align": "r",
-            "name": "HP Up",
-            "ref": "HP_UP",
-            "lane": 3
+            "name": "Lift Key",
+            "ref": "LIFT_KEY",
+            "lane": 1
           },
           {
             "id": "item-12-20",

@@ -19,6 +19,15 @@ class WalkthroughMapTest < ActiveSupport::TestCase
       .group_by(&:name).transform_values { |cards| cards.map(&:tick).to_set }
   end
 
+  # [map name, letter] for every trainer pin a stop's steps name, in the order they name them.
+  def trainer_marks(loc)
+    loc.steps.flat_map do |step|
+      step.marks.filter_map do |name, key|
+        [ step.pins.fetch(name).split("/").first, key ] if key.start_with?("T")
+      end
+    end
+  end
+
   def marker(**overrides)
     Walkthrough::MapMarker.new(
       **{ id: "item-1-2", cat: "item", name: "Potion", x: 10.0, y: 20.0, align: "r", ref: "POTION" }
@@ -135,12 +144,15 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   end
 
   # The same check for the trainers a step points at by pin: Viridian Forest names five of them,
-  # and a reader walking the steps meets T1 through T5 in that order.
+  # and a reader walking the steps meets T1 through T5 in that order. Per map, like the items,
+  # because a stop that walks several floors gets a T1 on each of them: the Rocket Hideout takes
+  # its four basements in seven visits, so its page reads T1 five times before it is done.
   test "every page meets the trainers its steps name in letter order" do
-    backwards = game.locations.filter_map do |loc|
-      numbers = loc.steps.flat_map { |step| step.marks.to_a }
-        .filter_map { |_name, key| key[1..].to_i if key.start_with?("T") }
-      "#{loc.slug}: #{numbers.inspect}" if numbers != numbers.sort
+    backwards = game.locations.flat_map do |loc|
+      trainer_marks(loc).group_by(&:first).filter_map do |map, pairs|
+        numbers = pairs.map { |_map, key| key[1..].to_i }
+        "#{loc.slug} #{map}: #{numbers.inspect}" if numbers != numbers.sort
+      end
     end
 
     assert_empty backwards, "these pages meet their trainers out of order"
