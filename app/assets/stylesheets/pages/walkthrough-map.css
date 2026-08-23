@@ -174,11 +174,14 @@
    drawn below 1x, whichever way round it is: squeezed into a phone column a deck's labels pile
    into each other and the picture stops being readable at all, so the frame scrolls instead. The
    vertical padding gives a tapped marker's hint room to sit inside that frame, which clips
-   whatever leaves it. */
+   whatever leaves it. The horizontal padding is half a pin (28px), because a pin sits centred on
+   its tile: a doorway on the very edge of a map hangs half of itself past the picture, and without
+   the gutter those few pixels raise a scrollbar under a map that otherwise fits exactly. */
 .pn-mm-viewport {
   min-width: 0;
   overflow-x: auto;
   padding-block: 40px;
+  padding-inline: 14px;
 }
 
 .pn-mm-canvas {

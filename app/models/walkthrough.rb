@@ -412,6 +412,11 @@ module Walkthrough
 
   PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :covers, :chain, :fresh, :boxed,
     :done_at, :how, :rate, :best, :why_key, :why_args, :later) do
+    # The stop the plan wants this body caught at. A card shown away from that stop names it, so a
+    # reader who finds a species in the grass in front of them is told where to get it instead of
+    # just being told not to bother here. `done_at` carries it when the home is off this leg
+    # entirely; when the home is on this leg but another page, `stop_name` is already that page.
+    def catch_at = done_at || stop_name
     def later? = !later.nil?
     def fresh? = fresh
     def boxed? = boxed
@@ -447,7 +452,11 @@ module Walkthrough
     def due_count = due.size
     def queue_at(slug) = queue.select { |entry| entry.at == slug }
     def entry_for(dex) = entries.find { |entry| entry.dex == dex }
-    def living? = queue.any?
+    # A leg with catchable species but an empty queue still gets the section: every one of them is
+    # better caught later, and "nothing here is worth a box slot" is the answer a living-dex reader
+    # came for. A leg with nothing catchable at all (the S.S. Anne, Viridian's gym) has no question
+    # to answer and stays quiet.
+    def living? = queue.any? || entries.any?
     def oak? = groups.any?(&:any?) || earlier.any?
     def any? = living? || oak?
   end
@@ -463,10 +472,15 @@ module Walkthrough
     def shot? = !shot.nil?
   end
 
+  # `needs` is the HM a floor cannot be finished without, as the game spells it, and `needs_key`
+  # the line saying what is behind it. A gym whose leader sits past a barrier has to say so before
+  # the reader walks in with the wrong party, not after.
   Gym = Data.define(
-    :type, :name, :intro_key, :shot, :area, :badge, :badge_img, :tm, :puzzle, :trainers, :leader
+    :type, :name, :intro_key, :shot, :area, :badge, :badge_img, :tm, :puzzle, :trainers, :leader,
+    :needs, :needs_key
   ) do
-    def initialize(area: nil, **rest) = super
+    def initialize(area: nil, needs: nil, needs_key: nil, **rest) = super
+    def needs? = !needs.nil?
     def puzzle? = puzzle.any?
     def trainers? = trainers.any?
     def area? = !area.nil?

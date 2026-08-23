@@ -172,6 +172,16 @@ def test_a_gym_ends_on_its_leader(root):
         assert lettered(root, label, floor)[-1][1] == leader, label
 
 
+def test_celadon_gyms_sealed_chamber_is_lettered_the_way_you_walk_it(root):
+    """Erika's four sit in a chamber walled off by hedges, and a gym hedge is solid to the shipped
+    collision, so the flood reaches the four in the open and stops. Left to itself the chamber fell
+    back to map-file order, which put the Beauty on the west side ahead of the Cooltrainer you pass
+    first. The route names the chamber outright, so the letters now run the way you cross it."""
+    assert lettered(root, "CeladonGym", "Gym") == [
+        ("T1", "LASS:17"), ("T2", "BEAUTY:1"), ("T3", "BEAUTY:2"), ("T4", "JR_TRAINER_F:11"),
+        ("T5", "ERIKA:1"), ("T6", "LASS:18"), ("T7", "COOLTRAINER_F:1"), ("T8", "BEAUTY:3")]
+
+
 def test_saffron_gym_is_walked_over_its_teleport_pads(root):
     """Its eight rooms are sealed: no two share a wall, and the front door reaches nobody on foot.
     The pads are the only way through, so they count as steps there and nowhere else."""

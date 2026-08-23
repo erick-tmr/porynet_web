@@ -452,6 +452,7 @@ en:
       ld_stat_clear: "ALL CAUGHT HERE ✓"
       ld_stat_species: "SPECIES QUEUED"
       ld_stat_elsewhere: "BEST PLACE IS ELSEWHERE"
+      ld_queue_none: "Nothing on this leg is worth a box slot: everything in reach has better odds further on. The notes below say where."
       ld_queue_tag: "CATCH QUEUE · BEST PLACE ONLY"
       ld_qty_html: "×%{count}"
       ld_progress_met: "QUOTA MET ✓"
@@ -473,7 +474,6 @@ en:
       ld_spot_good: "GOOD PLACE · %{rate}"
       ld_spot_given: "%{how}"
       ld_caught_progress_html: "%{have} / %{want} CAUGHT"
-      badge_elsewhere: "ELSEWHERE"
       ld_fold_show: "SHOW THE CATCH QUEUE"
       ld_fold_hide: "HIDE THE CATCH QUEUE"
       oak_fold_show: "SHOW THE SPECIES LISTS"
@@ -556,6 +556,7 @@ en:
       gym_tag: "◆ GYM"
       gym_type: "%{type}-TYPE"
       gym_short: "GYM"
+      gym_needs: "NEEDS · %{hm}"
       gym_puzzle: "PUZZLE · SOLUTION"
       gym_trainers_inside: "TRAINERS INSIDE · %{count}"
       gym_trainer: "GYM TRAINER"
@@ -1894,7 +1895,8 @@ en:
                   soda_pop: "Trade one for TM48 Rock Slide."
                   lemonade: "Trade one for TM49 Tri Attack."
           gym:
-            intro: "A garden of small trees hiding several trainers, then Erika. Her Tangela (Lv 30), Weepinbell (Lv 32) and Gloom (Lv 32) fold to Fire, Flying, Psychic or Ice, so lead with one of those and carry status heals for their Sleep Powder and Stun Spore. Cut the small trees to reach her faster."
+            intro: "A garden of small trees hiding several trainers, then Erika. Her Tangela (Lv 30), Weepinbell (Lv 32) and Gloom (Lv 32) fold to Fire, Flying, Psychic or Ice, so lead with one of those and carry status heals for their Sleep Powder and Stun Spore."
+            needs: "Erika and three of the seven trainers sit behind hedges that only Cut opens. Without a Pokémon that knows it you can fight the other four and nothing else."
           note: "Erika's Gym. Rainbow Badge. Dept. Store, Eevee and the Game Corner."
           intro: "Kanto's biggest city: a six-floor department store, Erika's greenhouse gym, and a Game Corner with Team Rocket's hideout underneath it."
           steps:
@@ -1937,14 +1939,29 @@ en:
               from: "FROM THE MANSION ROOF"
         celadon_city_return:
           note: "Back for Erika. Rainbow Badge and TM21 Mega Drain."
-          intro: "Second time through Celadon, with the hideout emptied and the Silph Scope in your bag. The only thing left in town is the greenhouse behind the trees."
+          intro: "Second time through Celadon, with the hideout emptied and the Silph Scope in your bag. The greenhouse gym is all that is left in town, and Fly waits one route west."
           steps:
             "1":
               title: "Cut into the greenhouse"
-              text_html: "The Gym %{gym} is in the southwest corner, walled off by small trees. Cut one and go in: the floor inside is another hedge maze, and Erika waits at the back of it."
+              text_html: "The Gym %{gym} sits in the southwest corner of town. Inside is a hedge maze, and Cut is the only way through it, so put a Pokémon that knows it in your party first."
             "2":
-              title: "Bank the badge and move on"
-              text: "The Rainbow Badge makes traded Pokémon obey up to Lv 50 and lets one use Strength outside battle. Erika hands over TM21 Mega Drain with it. Lavender's tower is next, Silph Scope in hand."
+              title: "Bank the badge and head west"
+              text_html: "The Rainbow Badge makes traded Pokémon obey up to Lv 50 and lets one use Strength outside battle, plus TM21 Mega Drain. Keep your Cut user and take the west road %{west} to Route 16, where Fly waits."
+        route_16_fly:
+          note: "One route west of Celadon. HM02 Fly."
+          intro: "The road west out of Celadon, with a Snorlax asleep across it. This trip reaches exactly one thing past the tree: the lone house above the gate, where a girl hands over Fly."
+          steps:
+            "1":
+              title: "Cut in and cross to the house"
+              text_html: "You come in from Celadon %{east} on the lower path. Cut the small tree five tiles along; the grass past it holds Doduo. Head west into the gatehouse %{gate}, out its far door %{out}, on to the house %{house}."
+            "2":
+              title: "Take HM02 Fly from the girl"
+              text: "The girl inside calls the place her secret retreat and gives you HM02 for keeping quiet. Fly drops you at any town you have already visited, and the Thunder Badge already allows it."
+              items:
+                hm02_fly: "From the girl in the house at the top of Route 16, past a Cut tree. Teaches Fly between towns."
+            "3":
+              title: "Fly straight to Lavender"
+              text: "Teach Fly to anything with wings and use it here. The road south is shut until the Poké Flute wakes the Snorlax, and Lavender's tower is next with the Silph Scope in your bag."
         rocket_hideout:
           oak:
             porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
@@ -2356,14 +2373,9 @@ en:
           intro: "The north gate of Cycling Road, with a second Snorlax asleep in the doorway. Past it the road runs one way only, downhill."
           steps:
             "1":
-              title: "Grab HM02 Fly"
-              text_html: "Cut the tree in the NW to reach the house %{house} and pick up HM02 Fly."
-              items:
-                hm02_fly: "From the girl in the house at the top of Route 16, past a Cut tree. Teaches Fly between towns."
-            "2":
               title: "Wake the Snorlax"
               text_html: "Play the Poké Flute at the Snorlax on the path (Lv 30) and battle it to clear the gate %{gate}."
-            "3":
+            "2":
               title: "Mount Cycling Road"
               text_html: "Ride the Bicycle through the north gate %{gate} onto Route 17 %{south}, the Cycling Road. You cannot walk it, so the Bike is not optional here."
           tips:

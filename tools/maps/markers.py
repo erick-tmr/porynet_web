@@ -462,6 +462,28 @@ def label_span(entry, width_px):
     return (entry["x"] - offset - width, entry["x"] - offset)
 
 
+def fit_label_side(entries, width_px):
+    """Flip any label that would hang off the map to the marker's other side.
+
+    Which side a label reads better on is decided from the marker's x alone (`LABEL_FLIP_PCT`),
+    before its text exists, so a long name just inside that line writes itself off the edge and the
+    frame clips it: Celadon Gym's Cooltrainer stands mid-room and "T7 Cooltrainer" ran a quarter of
+    its width past the wall. The side is only overridden when it actually fails and the other side
+    actually works, so a label with nowhere to fit keeps the side it reads best on."""
+    for entry in entries:
+        if entry.get("name") is None:
+            continue
+        flipped = {**entry, "align": "l" if entry["align"] == "r" else "r"}
+        here, there = label_span(entry, width_px), label_span(flipped, width_px)
+        if not _inside(here) and _inside(there):
+            entry["align"] = flipped["align"]
+    return entries
+
+
+def _inside(span):
+    return span[0] >= 0 and span[1] <= 100
+
+
 # How far from its own row a label may be dealt, in lanes either way. A leader line long enough to
 # cross the map is harder to follow than the overlap it was drawn to fix, so a crowd past this
 # takes the least-covered row it can reach rather than fanning out forever.
@@ -514,7 +536,9 @@ def assign_label_lanes(entries, width_px, height_px):
     every one of them printed over the label of the trainer above or below. Rows are offered
     nearest-first and either way, so a crowd opens outward from where it stands instead of
     cascading down the map, and a label with nowhere clean to go takes the row it covers least,
-    counted over every size the map is drawn at (`LABEL_ZOOMS`)."""
+    counted over every size the map is drawn at (`LABEL_ZOOMS`). Which side each label sits on is
+    settled first (`fit_label_side`), because the side decides the band a row has to keep clear."""
+    fit_label_side(entries, width_px)
     rows = {zoom: LABEL_PX / (height_px * zoom) * 100 for zoom in LABEL_ZOOMS}
     native = LABEL_PX / height_px * 100
     taken = []
