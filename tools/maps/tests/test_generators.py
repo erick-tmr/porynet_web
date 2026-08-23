@@ -811,3 +811,50 @@ def test_the_gym_puzzle_shot_quotes_the_games_own_second_switch_line(root):
 
     for line in spec["dialog"]["lines"]:
         assert line in quoted, f"{line!r} is not a line of _VermilionGymTrashSuccessText3"
+
+
+# Whoever the game hangs the '!' on. A trainer flashes it on spotting you, which is a fact in the
+# game's own sight table (`data/trainers/...`, read by parse_trainer_sight): an engage distance of
+# zero, or no trainer header at all, means the fight only ever starts when you press A. Giovanni
+# under the Game Corner has no header, so the '!' the hideout's WHERE shot used to draw was
+# claiming a battle the player would never trigger by walking up the corridor.
+def _emote_sprites(root, spec):
+    objs = {tuple(o["grid"]): o for o
+            in sources.parse_object_events(root, spec["map"], include_battlers=True)}
+    sight = sources.parse_trainer_sight(root, spec["map"])
+    return [(sprite, sight.get((objs.get(tuple(sprite["grid"])) or {}).get("text_const"), 0))
+            for sprite in spec.get("sprites", []) if sprite.get("emote")]
+
+
+def test_only_a_trainer_who_engages_on_sight_flashes_the_bubble(root):
+    """Every authored scene, not just the ones that had it wrong: a '!' over a sprite has to be
+    backed by that object's own engage distance. The roster's generated shots already ask
+    (roster.spots_player); this is the same question put to the hand-written specs."""
+    for fname in INTERACTION_SPEC_FILES:
+        for spec in json.loads((SPECS / fname).read_text()):
+            for sprite, distance in _emote_sprites(root, spec):
+                assert distance > 0, (
+                    f"{spec['name']} ({fname}): {sprite['sprite']} at {sprite['grid']} flashes a "
+                    f"'!' but the game gives it no sightline, so it is talked to, not spotted")
+
+
+def test_a_scripted_ambush_hangs_the_bubble_over_the_hero(root):
+    """Jessie & James are not spotted, they jump you: the cutscene sets wEmotionBubbleSpriteIndex
+    to 0, the player, in MtMoonB2F, RocketHideoutB4F and PokemonTower7F alike. So the bubble is
+    drawn on the hero's cell, not on the pair blocking the way."""
+    spec = _trainer_spec("rocket-hideout-jessie-james")
+    drawn = generators._emotes(spec)
+
+    assert drawn == [{"name": "shock", "grid": [24, 12]}], "over the hero at (24,12), not Jessie"
+    assert all(_trainer_spec(name).get("player_emote") == "shock" for name in
+               ("mt-moon-jessie-james", "pokemon-tower-jessie-james")), "the other two ambushes too"
+
+
+def test_giovanni_is_talked_into_a_fight_so_his_shot_shows_no_bubble(root):
+    """The case that started this. RocketHideoutB4F's trainer header table holds one entry, the
+    Rocket with the Lift Key; Giovanni's battle is started by RocketHideoutB4FGiovanniText, which
+    only runs when you press A on him."""
+    sight = sources.parse_trainer_sight(root, "RocketHideoutB4F")
+
+    assert set(sight) == {"TEXT_ROCKETHIDEOUTB4F_ROCKET"}, "Giovanni has no sightline to spot with"
+    assert generators._emotes(_trainer_spec("rocket-hideout-giovanni")) == []

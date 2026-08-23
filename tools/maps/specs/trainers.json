@@ -19,8 +19,7 @@
           9,
           3
         ],
-        "dir": "LEFT",
-        "emote": "shock"
+        "dir": "LEFT"
       },
       {
         "sprite": "SPRITE_JAMES",
@@ -30,7 +29,8 @@
         ],
         "dir": "LEFT"
       }
-    ]
+    ],
+    "player_emote": "shock"
   },
   {
     "type": "screen",
@@ -52,8 +52,7 @@
           20,
           2
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -101,8 +100,7 @@
           25,
           3
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -126,8 +124,7 @@
           24,
           10
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       },
       {
         "sprite": "SPRITE_JAMES",
@@ -137,7 +134,8 @@
         ],
         "dir": "DOWN"
       }
-    ]
+    ],
+    "player_emote": "shock"
   },
   {
     "type": "screen",
@@ -159,8 +157,7 @@
           14,
           5
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -184,8 +181,7 @@
           10,
           8
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       },
       {
         "sprite": "SPRITE_JAMES",
@@ -195,7 +191,8 @@
         ],
         "dir": "DOWN"
       }
-    ]
+    ],
+    "player_emote": "shock"
   },
   {
     "type": "screen",
@@ -217,8 +214,7 @@
           3,
           7
         ],
-        "dir": "UP",
-        "emote": "shock"
+        "dir": "UP"
       }
     ]
   },
@@ -242,8 +238,7 @@
           6,
           9
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -267,8 +262,7 @@
           5,
           2
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -292,8 +286,7 @@
           5,
           2
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -317,8 +310,7 @@
           5,
           2
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -342,8 +334,7 @@
           6,
           1
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -367,8 +358,7 @@
           4,
           2
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   },
@@ -393,8 +383,7 @@
           5,
           3
         ],
-        "dir": "DOWN",
-        "emote": "shock"
+        "dir": "DOWN"
       }
     ]
   }
