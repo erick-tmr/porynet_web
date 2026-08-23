@@ -2190,6 +2190,7 @@ module Walkthrough
                     man: "rocket-hideout-game-corner/npc-man-20",
                     fisher: "rocket-hideout-game-corner/npc-guru-20" } },
           { pins: { rocket: "rocket-hideout-game-corner/trainer-9-5",
+                    poster: "rocket-hideout-game-corner/npc-poster",
                     stairs: "rocket-hideout-game-corner/exit-17-4" } },
           {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },

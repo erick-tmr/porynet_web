@@ -367,6 +367,7 @@ en:
       map_place_note_pokemon_mansion: "The burned-out mansion. Its maze hides the Secret Key to Cinnabar's Gym, and diary pages telling of Mewtwo."
       map_place_note_silph_co: "Silph Co., seized by Team Rocket. Fight up through the floors to Giovanni, and the Master Ball, at the top."
       map_place_note_rocket_hideout: "Team Rocket's base under the Game Corner. Giovanni waits at the bottom, guarding the Silph Scope."
+      map_npc_game_corner_poster: "The Rocket stands in front of this one. Press A on it once he is beaten: a switch behind it opens the stairway to the right."
       map_npc_game_corner_guru_10: "Talk to him once for 10 free coins. He only hands them over if the Coin Case is already in your bag."
       map_npc_game_corner_man_20: "Down on his luck and giving up: 20 coins, once, and only with the Coin Case on you."
       map_npc_game_corner_guru_20: "Another 20 coins for the asking, once. Coin Case required, like the rest of them."
@@ -1959,7 +1960,7 @@ en:
               text_html: "Twelve piles between the machines pay 240 coins in all, one of them 100. Press A on each; nothing shows on-screen. Three players hand over 50 more: %{guru}, %{man} and %{fisher}."
             "2":
               title: "Beat the Rocket, then read the poster"
-              text_html: "The Rocket %{rocket} guarding the back wall stands in front of the one poster with no stock behind it. Beat him, then press A on the poster %{stairs}: it slides aside and opens the staircase down."
+              text_html: "The Rocket %{rocket} stands in front of the poster %{poster} on the back wall. Beat him, then press A on it: the switch behind opens a stairway in the wall to the right %{stairs}."
             "3":
               title: "Ride the spin tiles"
               text: "B1F is laced with arrow tiles that launch you in a straight line until a wall or stop tile catches you. Line up every spin before you step on, and work the tiles to reach the item balls."

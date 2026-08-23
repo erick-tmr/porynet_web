@@ -61,6 +61,17 @@
   ],
   "rocket-hideout-game-corner": [
     {
+      "id": "npc-poster",
+      "name": "The poster",
+      "grid": [
+        9,
+        4
+      ],
+      "lane": 1,
+      "note": "map_npc_game_corner_poster",
+      "ref": "SPRITE_POKE_BALL"
+    },
+    {
       "id": "npc-guru-10",
       "name": "10 coins",
       "grid": [

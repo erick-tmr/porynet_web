@@ -367,6 +367,7 @@ pt:
       map_place_note_pokemon_mansion: "A mansão incendiada. O labirinto esconde a Secret Key do Ginásio de Cinnabar e páginas de diário sobre o Mewtwo."
       map_place_note_silph_co: "A Silph Co., tomada pela Equipe Rocket. Suba lutando pelos andares até Giovanni, e a Master Ball, no topo."
       map_place_note_rocket_hideout: "A base da Equipe Rocket embaixo do Game Corner. Giovanni espera lá no fundo, guardando a Silph Scope."
+      map_npc_game_corner_poster: "O Rocket fica na frente deste. Aperte A nele depois de vencê-lo: um interruptor atrás abre a escada à direita."
       map_npc_game_corner_guru_10: "Fale com ele uma vez por 10 fichas grátis. Ele só entrega se a Coin Case já estiver na sua mochila."
       map_npc_game_corner_man_20: "Sem sorte e desistindo: 20 fichas, uma vez só, e só com a Coin Case com você."
       map_npc_game_corner_guru_20: "Mais 20 fichas só de pedir, uma vez. Precisa da Coin Case, como os outros."
@@ -1959,7 +1960,7 @@ pt:
               text_html: "Doze montes entre as máquinas pagam 240 fichas no total, um deles 100. Aperte A em cada; nada aparece na tela. Três jogadores dão mais 50: %{guru}, %{man} e %{fisher}."
             "2":
               title: "Vença o Rocket, depois leia o pôster"
-              text_html: "O Rocket %{rocket} que guarda a parede do fundo fica na frente do único pôster sem estoque atrás. Vença ele, depois aperte A no pôster %{stairs}: ele desliza e abre a escada para baixo."
+              text_html: "O Rocket %{rocket} fica na frente do pôster %{poster} da parede do fundo. Vença ele, depois aperte A nele: o interruptor atrás abre uma escada na parede à direita %{stairs}."
             "3":
               title: "Deslize pelas placas giratórias"
               text: "O B1F é forrado de placas de seta que te lançam em linha reta até uma parede ou placa de parada te segurar. Alinhe cada giro antes de pisar e use as placas para alcançar os item balls."

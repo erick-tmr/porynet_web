@@ -361,11 +361,17 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, piles.count { |l| l.include?("100 coins") }, "one pile is worth the other eleven"
 
     # three players hand coins over on top of the piles, and the sweep step points at each
-    givers = css_select(".pn-mm:has(.pn-mm__pin--npc) .pn-mm__label")
-      .map { |el| el.text.split.last(2).join(" ") }
-    assert_equal [ "10 coins", "20 coins", "20 coins" ], givers.sort
+    npcs = css_select(".pn-mm:has(.pn-mm__pin--npc) .pn-mm__label")
+      .map { |el| el.text.split.drop(1).join(" ") }
+    assert_equal [ "10 coins", "20 coins", "20 coins" ], npcs.grep(/coins/).sort
     sweep = css_select(".pn-wt-step").find { |el| el.text.include?("Sweep the arcade") }
     assert_equal 3, sweep.css(".pn-wt-mark").count { |m| m.text.strip.start_with?("N") }
+
+    # and the poster the switch hides is pinned too, so the step can point at the tile itself
+    assert_includes npcs, "The poster"
+    poster = css_select(".pn-wt-step").find { |el| el.text.include?("read the poster") }
+    assert_equal %w[T N E], poster.css(".pn-wt-mark").map { |m| m.text.strip[0] },
+      "the Rocket, then the poster he stands in front of, then what it opens"
   end
 
   # The prize counters are parsed out of prizes.asm, so the section is the one place a reader can
