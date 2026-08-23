@@ -2186,7 +2186,9 @@ module Walkthrough
                 16 => { down: "rocket-hideout-b3f/exit-19-18" },
                 21 => { lift: "rocket-hideout-b4f/exit-24-15" } },
         steps: [
-          {},
+          { pins: { guru: "rocket-hideout-game-corner/npc-guru-10",
+                    man: "rocket-hideout-game-corner/npc-man-20",
+                    fisher: "rocket-hideout-game-corner/npc-guru-20" } },
           { pins: { rocket: "rocket-hideout-game-corner/trainer-9-5",
                     stairs: "rocket-hideout-game-corner/exit-17-4" } },
           {},

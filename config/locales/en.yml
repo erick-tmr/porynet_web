@@ -367,6 +367,9 @@ en:
       map_place_note_pokemon_mansion: "The burned-out mansion. Its maze hides the Secret Key to Cinnabar's Gym, and diary pages telling of Mewtwo."
       map_place_note_silph_co: "Silph Co., seized by Team Rocket. Fight up through the floors to Giovanni, and the Master Ball, at the top."
       map_place_note_rocket_hideout: "Team Rocket's base under the Game Corner. Giovanni waits at the bottom, guarding the Silph Scope."
+      map_npc_game_corner_guru_10: "Talk to him once for 10 free coins. He only hands them over if the Coin Case is already in your bag."
+      map_npc_game_corner_man_20: "Down on his luck and giving up: 20 coins, once, and only with the Coin Case on you."
+      map_npc_game_corner_guru_20: "Another 20 coins for the asking, once. Coin Case required, like the rest of them."
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
       map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion."
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
@@ -1953,7 +1956,7 @@ en:
           steps:
             "1":
               title: "Sweep the arcade floor for coins"
-              text: "Twelve piles lie between the machines, worth 240 coins together: ten of them 10 or 20, and one 100. Press A on each tile; nothing shows on-screen until you take it."
+              text_html: "Twelve piles between the machines pay 240 coins in all, one of them 100. Press A on each; nothing shows on-screen. Three players hand over 50 more: %{guru}, %{man} and %{fisher}."
             "2":
               title: "Beat the Rocket, then read the poster"
               text_html: "The Rocket %{rocket} guarding the back wall stands in front of the one poster with no stock behind it. Beat him, then press A on the poster %{stairs}: it slides aside and opens the staircase down."
