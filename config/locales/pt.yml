@@ -1952,107 +1952,110 @@ pt:
           intro: "Quatro andares de subsolo sob o Game Corner, forrados de setas que te empurram até uma parede te parar. Quem manda ali é o Giovanni."
           steps:
             "1":
-              title: "Abra a escada"
-              text: "No Game Corner de Celadon, um homem de preto vigia o pôster solitário na parede norte. Vença ele, aperte o botão escondido atrás do pôster e a escada para o B1F se abre."
+              title: "Vasculhe o salão por fichas"
+              text: "Doze montes ficam entre as máquinas, 240 fichas no total: dez deles de 10 ou 20, e um de 100. Aperte A em cada tile; nada aparece na tela até você pegar."
             "2":
+              title: "Vença o Rocket, depois leia o pôster"
+              text_html: "O Rocket %{rocket} que guarda a parede do fundo fica na frente do único pôster sem estoque atrás. Vença ele, depois aperte A no pôster %{stairs}: ele desliza e abre a escada para baixo."
+            "3":
               title: "Deslize pelas placas giratórias"
               text: "O B1F é forrado de placas de seta que te lançam em linha reta até uma parede ou placa de parada te segurar. Alinhe cada giro antes de pisar e use as placas para alcançar os item balls."
-            "3":
+            "4":
               title: "Deslize a oeste pelo Escape Rope"
               text: "Gire até a metade oeste do B1F, onde um Escape Rope está num ball. Guarde ele agora; pode te tirar direto do esconderijo se o labirinto te vencer."
               items:
                 escape-rope: "Metade oeste do B1F. Pise no ball na grade (11,14)."
-            "4":
+            "5":
               title: "Pegue a Hyper Potion"
               text: "Logo a sudoeste do Escape Rope, outro ball guarda uma Hyper Potion. Pegue para uma boa cura de 200 HP para levar às batalhas contra os grunts lá embaixo."
               items:
                 hyper-potion: "Lado oeste do B1F, uma fileira a sudoeste do ball do Escape Rope."
-            "5":
+            "6":
               title: "Procure o PP Up oculto"
               text: "De volta ao centro do B1F, perto de onde você entrou, fique na casa (20,15) e aperte A virado para leste. Um PP Up oculto está enterrado na casa ao seu lado, mesmo que nada apareça na tela."
               hidden:
                 pp-up: "Centro do B1F. Aperte A virado para leste em (20,15). Nada aparece na tela."
-            "6":
+            "7":
               title: "Desça a escada para o B2F"
               text_html: "Gire de volta ao canto nordeste do B1F e desça a escada %{down} para o B2F, o próximo anel do labirinto giratório."
-            "7":
+            "8":
               title: "Pegue o Nugget"
               text: "Perto do meio do B2F um ball guarda um Nugget, uma pepita cara que vende por uma boa grana em qualquer loja. Alinhe as placas e chegue nele pelo oeste."
               items:
                 nugget: "Centro do B2F, no ball na grade (16,8)."
-            "8":
+            "9":
               title: "Pegue o TM07 (Horn Drill)"
               text: "Deslize para a faixa oeste do B2F pelo TM07, Horn Drill, um golpe de nocaute imediato que só acerta em alvos mais lentos. Pegue o ball e guarde o TM."
               items:
                 tm-horn-drill: "Lado oeste do B2F, no ball na grade (6,12)."
-            "9":
+            "10":
               title: "Pegue a Moon Stone"
               text: "No canto extremo noroeste do B2F fica uma Moon Stone, a pedra de evolução de Nidoran, Clefairy e Jigglypuff. Ela se esconde fácil colada na parede, então faça a viagem até ela."
               items:
                 moon-stone: "Canto extremo noroeste do B2F, no ball na grade (1,11)."
-            "10":
+            "11":
               title: "Pegue a Super Potion"
               text: "Lá no sudoeste do B2F, mais um ball guarda uma Super Potion. Pegue antes de deixar o andar."
               items:
                 super-potion: "Sudoeste do B2F, no ball na grade (3,21)."
-            "11":
+            "12":
               title: "Desça para o B3F"
               text_html: "Volte ao norte do B2F e desça a escada %{down} para o B3F. Os Rockets aqui batem um pouco mais forte, então mantenha seu líder saudável."
-            "12":
+            "13":
               title: "Pegue o Rare Candy"
               text: "Um Rare Candy descansa num ball perto do meio do B3F. Um nível de graça para qualquer Pokémon; guarde para o que você quiser empurrar por cima de uma evolução ou um ginásio."
               items:
                 rare-candy: "Centro do B3F, no ball na grade (20,14)."
-            "13":
+            "14":
               title: "Pegue o TM10 (Double-Edge)"
               text: "No lado leste do B3F, um ball guarda o TM10, Double-Edge, um golpe Normal pesado que devolve um quarto do dano em recuo sobre você. Pegue ele."
               items:
                 tm-double-edge: "Lado leste do B3F, no ball na grade (26,17)."
-            "14":
+            "15":
               title: "Procure o Nugget oculto"
               text: "Uma casa a leste do ball do Double-Edge, fique em (27,18) e aperte A virado para cima. Um segundo Nugget oculto está enterrado ali mesmo, sem nada aparecer na tela. Dois Nuggets deste esconderijo é uma boa bolada."
               hidden:
                 nugget: "Borda leste do B3F, uma casa a leste do ball do TM10. Aperte A virado para cima em (27,18). Nada aparece na tela."
-            "15":
+            "16":
               title: "Desça para o B4F"
               text_html: "Desça a última escada %{down} para o B4F, o fundo do esconderijo. Giovanni está aqui embaixo, mas um elevador trancado separa você do escritório dele."
-            "16":
+            "17":
               title: "Pegue a Lift Key na sala do grunt"
               text: "Na sala noroeste do B4F, um Rocket Grunt solitário guarda um ball. Vença ele e pegue a Lift Key, a chave que enfim liga o elevador até o escritório do Giovanni."
               items:
                 lift-key: "Sala noroeste do B4F, no ball na grade (10,2), ao lado do Rocket Grunt."
-            "17":
+            "18":
               title: "Pegue o TM02 (Razor Wind)"
               text: "Duas casas ao sul da Lift Key, na mesma sala noroeste, um ball guarda o TM02, Razor Wind, um golpe Normal de dois turnos. Pegue enquanto está por aqui."
               items:
                 tm-razor-wind: "Sala noroeste do B4F, no ball na grade (9,4), logo ao sul do ball da Lift Key."
-            "18":
+            "19":
               title: "Pegue o HP Up"
               text: "Ainda na metade oeste do B4F, um pouco ao sul da sala da Lift Key, um ball guarda um HP Up. Um aumento permanente de HP para um Pokémon; pegue ele."
               items:
                 hp-up: "Oeste do B4F, no ball na grade (10,12), ao sul da sala da Lift Key."
-            "19":
+            "20":
               title: "Pegue o Iron"
               text: "Lá no sul do B4F, um ball guarda um Iron, a vitamina que aumenta a Defesa de forma permanente. Deslize pelas placas até ele antes de ir ao elevador."
               items:
                 iron: "Sul do B4F, no ball na grade (12,20)."
-            "20":
+            "21":
               title: "Pegue o elevador até o Giovanni"
               text_html: "Com a Lift Key, atravesse até o elevador %{lift} no leste do B4F e desça ao corredor selado. Jessie & James bloqueiam a passagem; depois deles fica o escritório."
-            "21":
+            "22":
               title: "Vença o Giovanni"
               text: "Giovanni espera no topo do corredor: Onix (Nv 25), Rhyhorn (Nv 24), Persian (Nv 29). Água ou Grama derrete os dois primeiros, e algo rápido resolve o Persian. O ball atrás dele então é seu."
-            "22":
+            "23":
               title: "Pegue o Silph Scope"
               text: "Com o Giovanni fora do caminho, avance e pegue o ball na casa que ele guardava. Dentro está o Silph Scope, o aparelho que revela os fantasmas que assombram a Pokémon Tower em Lavender Town."
               items:
                 silph-scope: "Topo do corredor do Giovanni, nordeste do B4F, no ball na grade (25,2)."
-            "23":
+            "24":
               title: "Procure a Super Potion oculta"
               text: "Fique na casa do Silph Scope, no topo do corredor, e aperte A virado para cima. Uma Super Potion oculta está na casa acima, sem nada aparecer na tela."
               hidden:
                 super-potion: "Bem no topo do corredor do Giovanni. Fique na casa do Silph Scope (25,2) e aperte A virado para cima. Nada aparece na tela."
-            "24":
+            "25":
               title: "Saia rumo à Pokémon Tower"
               text: "É o esconderijo inteiro varrido. Use um Escape Rope ou pegue o elevador de volta ao B1F e siga para Lavender Town: o Silph Scope libera a Pokémon Tower a seguir."
         pokemon_tower:

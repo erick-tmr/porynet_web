@@ -345,6 +345,22 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-item__name", text: "Coin Case", count: 0
   end
 
+  # The arcade floor is where the page starts: twelve coin piles and the poster the stairs hide
+  # behind. One step sweeps the lot, because the map pins track them one by one.
+  test "the Game Corner floor is drawn, with every coin pile priced" do
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+
+    assert_response :success
+    assert_select ".pn-mm-canvas__img[src*=?]", "rocket-hideout-game-corner"
+    assert_select ".pn-wt-step__title", text: "Sweep the arcade floor for coins"
+    assert_select ".pn-wt-step__title", text: "Beat the Rocket, then read the poster"
+
+    piles = css_select(".pn-mm__label").map { |el| el.text.strip }.grep(/coins/)
+    assert_equal 8, piles.count { |l| l.include?("10 coins") }
+    assert_equal 3, piles.count { |l| l.include?("20 coins") }
+    assert_equal 1, piles.count { |l| l.include?("100 coins") }, "one pile is worth the other eleven"
+  end
+
   # The prize counters are parsed out of prizes.asm, so the section is the one place a reader can
   # see what 9,999 coins actually buys without opening the ROM.
   test "the Rocket Hideout carries the Game Corner prize counters, priced from the game" do

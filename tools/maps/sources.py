@@ -673,14 +673,29 @@ def parse_hidden_events(root_str):
     return out
 
 
+# What a pile actually pays. hidden_events.asm declares the amount as COIN+<n>, but the routine
+# that reads it (engine/events/hidden_items.asm) tests 10, then 20, then 40, and answers the 40
+# case with .bcd20 under a comment admitting it: "should be bcd40". Anything it does not
+# recognise falls through to 100. So the one pile marked 40 hands over 20, and the guide says 20.
+COIN_PAYOUT = {10: 10, 20: 20, 40: 20}
+
+_COIN_EVENT = re.compile(r"^\s*hidden_event\s+(\d+),\s*(\d+), HiddenCoins, COIN\+(\d+)", re.M)
+
+
 @cache
 def parse_coins(root_str):
-    """Return [(map_const, x, y)] for hidden coins."""
+    """Return [(map_const, x, y, coins)] for hidden coins, coins being what the game really pays.
+
+    The coordinates come from hidden_coins.asm, the table the pickup walks to find its index, and
+    the amount from the matching hidden_event, which is where COIN+<n> is written."""
+    events = _COIN_EVENT.findall(_read(root_str, "data/events/hidden_events.asm"))
+    amounts = {(int(x), int(y)): COIN_PAYOUT.get(int(n), 100) for x, y, n in events}
     out = []
     for line in _read(root_str, "data/events/hidden_coins.asm").splitlines():
         m = re.match(r"\s*hidden_coin\s+(\w+)\s*,\s*(\d+)\s*,\s*(\d+)", line)
         if m:
-            out.append((m.group(1), int(m.group(2)), int(m.group(3))))
+            x, y = int(m.group(2)), int(m.group(3))
+            out.append((m.group(1), x, y, amounts[(x, y)]))
     return out
 
 
@@ -692,8 +707,8 @@ def markers_by_map(root_str):
         out.setdefault(const, []).append(
             {"kind": "item", "item_const": item, "label": item_display_name(item),
              "grid": [x, y], "px": _cell_px(x, y)})
-    for const, x, y in parse_coins(root_str):
+    for const, x, y, coins in parse_coins(root_str):
         out.setdefault(const, []).append(
-            {"kind": "coin", "item_const": "COIN", "label": "Coins",
+            {"kind": "coin", "item_const": "COIN", "label": f"{coins} coins",
              "grid": [x, y], "px": _cell_px(x, y)})
     return out

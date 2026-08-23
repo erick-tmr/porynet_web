@@ -2181,12 +2181,14 @@ module Walkthrough
 
     def self.rocket_hideout
       loc("rocket-hideout", "DUNGEON", "Game Corner / Rocket Hideout", 29,
-        pins: { 6 => { down: "rocket-hideout-b1f/exit-23-2" },
-                11 => { down: "rocket-hideout-b2f/exit-21-8" },
-                15 => { down: "rocket-hideout-b3f/exit-19-18" },
-                20 => { lift: "rocket-hideout-b4f/exit-24-15" } },
+        pins: { 7 => { down: "rocket-hideout-b1f/exit-23-2" },
+                12 => { down: "rocket-hideout-b2f/exit-21-8" },
+                16 => { down: "rocket-hideout-b3f/exit-19-18" },
+                21 => { lift: "rocket-hideout-b4f/exit-24-15" } },
         steps: [
           {},
+          { pins: { rocket: "rocket-hideout-game-corner/trainer-9-5",
+                    stairs: "rocket-hideout-game-corner/exit-17-4" } },
           {},
           { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },
           { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },

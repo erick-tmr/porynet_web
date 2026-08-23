@@ -4938,9 +4938,9 @@
               14
             ],
             "align": "l",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "hidden-12-15",
@@ -4953,7 +4953,7 @@
               15
             ],
             "align": "l",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
             "lane": -5
           },
@@ -4968,9 +4968,9 @@
               16
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
-            "lane": -4
+            "lane": -1
           },
           {
             "id": "hidden-9-15",
@@ -4983,9 +4983,9 @@
               15
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "hidden-15-8",
@@ -4998,7 +4998,7 @@
               8
             ],
             "align": "l",
-            "name": "Coins",
+            "name": "100 coins",
             "ref": "COIN",
             "lane": 2
           },
@@ -5013,9 +5013,9 @@
               12
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "20 coins",
             "ref": "COIN",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "hidden-11-7",
@@ -5028,7 +5028,7 @@
               7
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "20 coins",
             "ref": "COIN",
             "lane": 1
           },
@@ -5043,7 +5043,7 @@
               16
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
             "lane": -3
           },
@@ -5058,7 +5058,7 @@
               14
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
             "lane": -3
           },
@@ -5073,7 +5073,7 @@
               12
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
             "lane": 3
           },
@@ -5088,7 +5088,7 @@
               11
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "20 coins",
             "ref": "COIN",
             "lane": 2
           },
@@ -5103,7 +5103,7 @@
               8
             ],
             "align": "r",
-            "name": "Coins",
+            "name": "10 coins",
             "ref": "COIN",
             "lane": 0
           },

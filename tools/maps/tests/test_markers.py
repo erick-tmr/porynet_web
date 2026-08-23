@@ -497,3 +497,19 @@ def test_a_warp_the_game_can_never_fire_gets_no_pin(root):
     assert not warp_tiles & set(tiles), "it is wall, not a door"
     assert warp_tiles & set(sources.cell_tiles(root, "CeladonCity", "overworld", 25, 28, 19)), \
         "the Game Corner door beside it is one"
+
+
+def test_a_coin_pile_is_pinned_with_what_it_pays(root):
+    """The twelve Game Corner piles are not worth the same, and the guide says which is which.
+
+    hidden_events.asm writes each amount as COIN+<n>, but the pickup routine answers the 40 case
+    with .bcd20 under a comment admitting the bug, so the pile marked 40 pays 20 and the pin says
+    20. Eight tens, three twenties and the single hundred come to 240."""
+    piles = [c for c in sources.parse_coins(root) if c[0] == "GAME_CORNER"]
+    assert len(piles) == 12
+    assert sum(coins for _c, _x, _y, coins in piles) == 240
+    assert sorted(coins for _c, _x, _y, coins in piles) == [10] * 8 + [20] * 3 + [100]
+    assert (("GAME_CORNER", 11, 7, 20)) in piles, "the pile written COIN+40 hands over 20"
+
+    labels = {m["label"] for m in sources.markers_by_map(root)["GAME_CORNER"]}
+    assert "100 coins" in labels and "10 coins" in labels

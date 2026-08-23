@@ -356,4 +356,18 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal %w[Vaporeon Jolteon Flareon], choice.tiles.map(&:name)
     assert_equal 1, choice.pick, "whichever stone you use is the one that registers"
   end
+
+  # Both halves of the rule matter, and so does the page it is asked on.
+  test "a line is a pick only when its base is uncatchable and its siblings are on the page" do
+    assert challenge.one_specimen_line?(game, "134", %w[134 135 136]),
+      "Vaporeon shares an uncatchable Eevee with two siblings"
+    refute challenge.one_specimen_line?(game, "134", %w[134]),
+      "on a page showing one stone there is nothing to choose between"
+    refute challenge.one_specimen_line?(game, "045", %w[045 071]),
+      "Vileplume's Gloom is catchable over and over, so it is not a choice"
+    refute challenge.one_specimen_line?(game, "133", %w[133]),
+      "nothing evolves into Eevee, so it has no base to share"
+    refute challenge.one_specimen_line?(game, "134", %w[134 133]),
+      "Eevee itself is on the page as a catch, not as a sibling stone"
+  end
 end
