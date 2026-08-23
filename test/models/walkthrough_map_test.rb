@@ -121,14 +121,14 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate hideout.steps.find { |step| step.n == 1 }, :step_map?, "the arcade has no maze"
   end
 
-  # Only the maze steps. Half of each floor's legs are corridor walks (in at the door, round to
-  # the Rocket, out to the stairs) and a picture of a corridor is a picture of nothing, so those
-  # steps carry none. Which legs ride an arrow is the game's answer, pinned in test_spinners.py;
-  # this is the guide agreeing with it.
+  # Only the maze steps. The rest of each floor's legs are corridor walks (in at the door, round
+  # to the Rocket, out to the stairs) and a picture of a corridor is a picture of nothing, so
+  # those steps carry none. Which legs go into the maze is the game's answer, pinned in
+  # test_spinners.py; this is the guide agreeing with it.
   test "a step that only walks a corridor carries no map" do
     mapped = location("rocket-hideout").steps.select(&:step_map?).map(&:n)
 
-    assert_equal [ 9, 10, 14, 15, 17, 18 ], mapped
+    assert_equal [ 9, 10, 14, 15, 16, 17, 18, 19 ], mapped
   end
 
   # The viewBox is x, y, width, height in that order, which is the sort of thing that looks fine
@@ -136,7 +136,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   test "a step's crop is a 4:3 window on the part of the floor it walks" do
     boxes = location("rocket-hideout").steps.filter_map { |step| step.step_map&.box }
 
-    assert_equal 6, boxes.size
+    assert_equal 8, boxes.size
     boxes.each do |x, y, w, h|
       assert_equal w * 3 / 4, h, "every frame is the same shape"
       assert_operator x + w, :<=, 480
@@ -146,13 +146,14 @@ class WalkthroughMapTest < ActiveSupport::TestCase
       .find { |step| step.n == 15 }.step_map.view_box
   end
 
-  # A step can own two legs in a row: walk to the ball, then out of the room. Both are drawn, and
-  # they keep the colours they wear on the overview so the two pictures agree.
+  # A step can own two legs in a row when they are one move: beat the Rocket blocking the way,
+  # then take the stairs behind him. Both are drawn, and they keep the colours they wear on the
+  # overview so the two pictures agree.
   test "a step that owns a run of legs draws them all, in their own colours" do
-    out = location("rocket-hideout").steps.find { |step| step.n == 18 }.step_map
+    out = location("rocket-hideout").steps.find { |step| step.n == 10 }.step_map
 
-    assert_equal [ 6, 7 ], out.legs.map(&:n)
-    assert_equal [ 6, 7 ], out.legs.map(&:hue)
+    assert_equal [ 5, 6 ], out.legs.map(&:n)
+    assert_equal [ 5, 6 ], out.legs.map(&:hue)
   end
 
   test "markers_in narrows to one category" do

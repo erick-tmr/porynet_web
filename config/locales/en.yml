@@ -2032,49 +2032,52 @@ en:
               items:
                 tm-horn-drill: "West side of B2F, in the alcove below the row the rightward arrow throws you along. Walk back west two and step down."
             "18":
-              title: "Take the Super Potion and climb out"
-              text_html: "Work the arrows south and west to the far corner for a Super Potion, 50 HP a go. Then ride out east and take the staircase %{up} up to B1F."
+              title: "Take the Super Potion"
+              text: "Work the arrows south and west to the far corner of the maze. A Super Potion sits on the ball there, 50 HP a go."
               items:
                 super-potion: "Southwest corner of B2F, at the end of the maze."
             "19":
+              title: "Ride out east to B1F"
+              text_html: "The arrows run east out of the maze from here. Ride them to the far side and take the staircase %{up} up to B1F."
+            "20":
               title: "Walk the sealed room anticlockwise"
               text_html: "This corner of B1F touches nothing else on the floor. Drop to the bottom run and go west: a Rocket %{lower} is waiting halfway along it."
-            "20":
+            "21":
               title: "Grab the Hyper Potion"
               text: "Carry on west, up the left-hand run and into the top-left corner. A Hyper Potion is on the ball there, 200 HP in one go and the best heal you own."
               items:
                 hyper-potion: "Top-left corner of B1F's sealed southwest room."
-            "21":
+            "22":
               title: "Close the loop on the second Rocket"
               text_html: "Head east along the top run to the Rocket %{upper} standing on it. Beat him and drop down the right-hand side back to the staircase %{back} to B2F."
-            "22":
+            "23":
               title: "Ride the lift to B4F"
               text_html: "With the Lift Key in your bag, cross B2F to the elevator %{lift} on the east side and press B4F. It lands you on the far side of the gate."
-            "23":
+            "24":
               title: "Jessie & James jump the lift"
               text: "The doors open onto Jessie & James: Koffing, Meowth and Ekans, all Lv 25. Ground or Psychic clears the poison pair in a hit each; Meowth is only a nuisance."
-            "24":
+            "25":
               title: "Pick up the Iron"
               text: "Head west from the lift and down into the south room. An Iron sits on the table there, a permanent Defense boost. Then double back to the lift."
               items:
                 iron: "South room of B4F, on the table west of the elevator."
-            "25":
+            "26":
               title: "Beat Giovanni"
               text_html: "Giovanni %{giovanni} waits at the top of the office: Onix (Lv 25), Rhyhorn (Lv 24), Persian (Lv 29). Water or Grass melts the first two; anything fast handles Persian."
-            "26":
+            "27":
               title: "Take the Silph Scope"
               text: "Step onto the ball on the tile behind him. The Silph Scope is inside, and it is the only thing that makes the ghosts in Lavender's Pokémon Tower solid enough to fight."
               items:
                 silph-scope: "Top of Giovanni's office, northeast B4F, on the tile he was guarding."
-            "27":
+            "28":
               title: "Feel behind the machine"
               text: "Stand on the tile the Silph Scope ball was on and press A facing up. A hidden Super Potion is tucked into the machine above, with nothing shown on-screen."
               hidden:
                 super-potion: "Top of Giovanni's office. Stand where the Silph Scope ball was, face up and press A. Nothing shows on-screen."
-            "28":
+            "29":
               title: "Open the gate on the way out"
               text_html: "Ride the lift %{lift} up to B1F. One last Rocket %{last} stands beside it, and beating him opens the shutter north of the lift, the only way back to the stairs."
-            "29":
+            "30":
               title: "Head for the Gym"
               text_html: "North through the shutter, west along the corridor and up the left staircase to the arcade, then out %{out}. Heal, buy status cures, and bring a Cut user to the Gym."
         pokemon_tower:

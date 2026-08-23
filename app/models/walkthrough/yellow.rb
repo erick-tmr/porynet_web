@@ -2245,10 +2245,11 @@ module Walkthrough
     end
 
     # The two arrow-tile floors, named once so the step defs below can point at the legs of their
-    # drawn routes without repeating the map name. Only a step whose walk actually rides an arrow
-    # carries a `line:`, and so a map of its own: half of each floor's legs are plain corridor
-    # walks (in at the door, round to the Rocket, out to the stairs), and a picture of a corridor
-    # is a picture of nothing. `test_spinners.py` pins which legs those are.
+    # drawn routes without repeating the map name. A step carries a `line:`, and so a map of its
+    # own, when its walk goes into the maze: not only the rides, since threading between the
+    # arrows to follow a wall out is just as hard to read off prose as the ride in. The rest are
+    # plain corridor walks (in at the door, round to the Rocket, out to the stairs), and a picture
+    # of a corridor is a picture of nothing. `test_spinners.py` pins which legs those are.
     B2F = "rocket-hideout-b2f".freeze
     B3F = "rocket-hideout-b3f".freeze
 
@@ -2283,11 +2284,12 @@ module Walkthrough
             line: [ B3F, 7 ] },
           { item: [ "Moon Stone", "moon-stone" ], scene: "rocket-hideout-item-moon-stone",
             line: [ B2F, 3 ] },
-          { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget" },
+          { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget", line: [ B2F, 4 ] },
           { item: [ "TM Horn Drill", "tm-horn-drill" ], scene: "rocket-hideout-item-tm-horn-drill",
             line: [ B2F, 5 ] },
           { item: [ "Super Potion", "super-potion" ], scene: "rocket-hideout-item-super-potion",
-            pins: { up: "rocket-hideout-b2f/exit-21-22" }, line: [ B2F, 6, 7 ] },
+            line: [ B2F, 6 ] },
+          { pins: { up: "rocket-hideout-b2f/exit-21-22" }, line: [ B2F, 7 ] },
           { pins: { lower: "rocket-hideout-b1f/trainer-15-25" } },
           { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },
           { pins: { upper: "rocket-hideout-b1f/trainer-18-17",

@@ -149,17 +149,25 @@ def test_the_committed_route_matches_a_fresh_solve(root, name):
         f"{name}: the drawn route drifted from the game; rerun tools/maps/build.py")
 
 
-@pytest.mark.parametrize(("label", "spun"), [
-    ("RocketHideoutB2F", [3, 5, 6, 7]),
-    ("RocketHideoutB3F", [4, 5, 7]),
+@pytest.mark.parametrize(("label", "rides", "in_maze"), [
+    ("RocketHideoutB2F", [3, 5, 6, 7], [3, 4, 5, 6, 7]),
+    ("RocketHideoutB3F", [4, 5, 7], [4, 5, 7]),
 ])
-def test_which_legs_actually_ride_an_arrow(root, label, spun):
-    """Half of an arrow floor's legs are plain corridor walks: in at the door, round to the
-    Rocket, out to the stairs. Only the rest are the maze, and only those steps get a map of their
-    own in the guide (the `line:` entries in yellow.rb). This is the game's answer to which is
-    which, so a change to the solver that quietly turned a ride into a walk fails here."""
+def test_which_legs_go_into_the_maze(root, label, rides, in_maze):
+    """Which steps get a map of their own in the guide (the `line:` entries in yellow.rb).
+
+    Not "rides an arrow", which is the narrower question: B2F's walk from the Moon Stone to the
+    Nugget threads between the arrows without stepping on one, and following the north wall out of
+    a maze you were thrown into is exactly as hard to read off prose as the ride in was. So the
+    test is whether a leg goes into the patch of floor the arrows occupy at all. The rest are
+    plain corridor walks, in at the door and round to the stairs, and a picture of a corridor is a
+    picture of nothing."""
     tiles = set(arrow_tiles(root, label))
+    xs, ys = zip(*tiles, strict=True)
     legs = route(root, label, paths.route_cells(root, label))
 
-    assert [n for n, cells in enumerate(legs, 1)
-            if any(cell in tiles for cell in cells)] == spun
+    def in_the_maze(cells):
+        return any(min(xs) <= x <= max(xs) and min(ys) <= y <= max(ys) for x, y in cells)
+
+    assert [n for n, cells in enumerate(legs, 1) if any(c in tiles for c in cells)] == rides
+    assert [n for n, cells in enumerate(legs, 1) if in_the_maze(cells)] == in_maze

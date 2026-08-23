@@ -2032,49 +2032,52 @@ pt:
               items:
                 tm-horn-drill: "Lado oeste do B2F, no nicho abaixo da fileira em que a seta para a direita te joga. Volte duas casas a oeste e desça."
             "18":
-              title: "Pegue a Super Potion e suba"
-              text_html: "Trabalhe as setas ao sul e a oeste até o canto extremo pela Super Potion, 50 HP por vez. Depois saia a leste e pegue a escada %{up} até o B1F."
+              title: "Pegue a Super Potion"
+              text: "Trabalhe as setas ao sul e a oeste até o canto extremo do labirinto. Uma Super Potion está no ball ali, 50 HP por vez."
               items:
                 super-potion: "Canto sudoeste do B2F, no fim do labirinto."
             "19":
+              title: "Saia a leste rumo ao B1F"
+              text_html: "Daqui as setas correm para leste, para fora do labirinto. Pegue-as até o outro lado e suba a escada %{up} para o B1F."
+            "20":
               title: "Percorra a sala isolada no sentido anti-horário"
               text_html: "Este canto do B1F não se liga a nada mais do andar. Desça até o trecho de baixo e vá a oeste: um Rocket %{lower} espera no meio dele."
-            "20":
+            "21":
               title: "Pegue a Hyper Potion"
               text: "Siga a oeste, suba pelo trecho da esquerda e entre no canto superior esquerdo. Uma Hyper Potion está no ball ali, 200 HP de uma vez e a melhor cura que você tem."
               items:
                 hyper-potion: "Canto superior esquerdo da sala isolada a sudoeste do B1F."
-            "21":
+            "22":
               title: "Feche a volta no segundo Rocket"
               text_html: "Vá a leste pelo trecho de cima até o Rocket %{upper} parado nele. Vença ele e desça pelo lado direito de volta à escada %{back} para o B2F."
-            "22":
+            "23":
               title: "Pegue o elevador até o B4F"
               text_html: "Com a Lift Key na mochila, atravesse o B2F até o elevador %{lift} do lado leste e aperte B4F. Ele te deixa do outro lado do portão."
-            "23":
+            "24":
               title: "Jessie & James pulam no elevador"
               text: "As portas abrem em Jessie & James: Koffing, Meowth e Ekans, todos Nv 25. Terra ou Psíquico derruba a dupla venenosa num golpe cada; o Meowth só atrapalha."
-            "24":
+            "25":
               title: "Pegue o Iron"
               text: "Vá a oeste do elevador e desça até a sala sul. Um Iron está na mesa ali, um aumento permanente de Defesa. Depois volte ao elevador."
               items:
                 iron: "Sala sul do B4F, na mesa a oeste do elevador."
-            "25":
+            "26":
               title: "Vença o Giovanni"
               text_html: "Giovanni %{giovanni} espera no alto do escritório: Onix (Nv 25), Rhyhorn (Nv 24), Persian (Nv 29). Água ou Grama derrete os dois primeiros; algo rápido resolve o Persian."
-            "26":
+            "27":
               title: "Pegue o Silph Scope"
               text: "Pise no ball na casa atrás dele. Dentro está o Silph Scope, a única coisa que deixa os fantasmas da Pokémon Tower de Lavender sólidos o bastante para lutar."
               items:
                 silph-scope: "Alto do escritório do Giovanni, nordeste do B4F, na casa que ele guardava."
-            "27":
+            "28":
               title: "Procure atrás da máquina"
               text: "Fique na casa onde estava o ball do Silph Scope e aperte A virado para cima. Uma Super Potion oculta está enfiada na máquina acima, sem nada aparecer na tela."
               hidden:
                 super-potion: "Alto do escritório do Giovanni. Fique onde estava o ball do Silph Scope, vire para cima e aperte A. Nada aparece na tela."
-            "28":
+            "29":
               title: "Abra o portão na saída"
               text_html: "Suba de elevador %{lift} até o B1F. Um último Rocket %{last} está ao lado dele, e vencer esse abre a porta ao norte do elevador, o único caminho de volta às escadas."
-            "29":
+            "30":
               title: "Siga para o Ginásio"
               text_html: "Ao norte pela porta, a oeste pelo corredor e suba a escada da esquerda até o salão, depois saia %{out}. Cure, compre curas de status e leve alguém com Cut ao Ginásio."
         pokemon_tower:
