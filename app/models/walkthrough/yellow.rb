@@ -687,7 +687,7 @@ module Walkthrough
             npc_marker(n, m["width"], m["height"], key_letter(i))
           end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-            name: m["name"], markers: base + npcs)
+            name: m["name"], markers: base + npcs, route: m.fetch("route", []))
         end
       end
     end

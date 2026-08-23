@@ -255,6 +255,7 @@ en:
       map_labels: "LABELS:"
       map_labels_on: "ON"
       map_labels_off: "OFF"
+      map_route: "ROUTE:"
       map_howto: "HOW TO USE"
       map_howto_body: "Tap any pin, or a legend row, to tick it off. A hint pops up to confirm; tap again to undo."
       map_legend: "LEGEND"

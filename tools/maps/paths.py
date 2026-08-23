@@ -139,11 +139,14 @@ ROUTES = {
         "exit-21-24", "trainer-15-25", "trainer-18-17", "item-9-17",
         "exit-24-19", "trainer-28-18"
     ),
-    # Crossed twice. The first pass only loops round to the Rocket and drops to B3F; the west maze
-    # is run on the way back up, and its four balls come off the arrows in an order no straight
-    # line explains, the Moon Stone in the far corner first and the Nugget by the north wall after.
+    # Crossed three times. The first pass only loops round to the Rocket and drops to B3F; the west
+    # maze is run on the way back up, and its four balls come off the arrows in an order no
+    # straight line explains, the Moon Stone in the far corner first and the Nugget by the north
+    # wall after; the last pass is the walk from the B1F stairs to the lift. Both closing doorways
+    # are named so the drawn route covers the whole visit, not just as far as the last ball.
     "RocketHideoutB2F": ("exit-27-8", "trainer-20-12", "exit-21-8",
-                         "item-1-11", "item-16-8", "item-6-12", "item-3-21"),
+                         "item-1-11", "item-16-8", "item-6-12", "item-3-21",
+                         "exit-21-22", "exit-24-19"),
     # In at the northeast stairs: the Rocket below them, the TM and the Nugget buried beside it
     # down the east wall, then back past the stairs into the maze for the Rare Candy and out west
     # to the second Rocket.

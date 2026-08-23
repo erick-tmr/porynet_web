@@ -38,9 +38,11 @@ class MapDelta:
     moved: list = field(default_factory=list)
     relettered: list = field(default_factory=list)
     resized: tuple = None
+    rerouted: tuple = None
 
     def empty(self):
-        return not (self.added or self.removed or self.moved or self.relettered or self.resized)
+        return not (self.added or self.removed or self.moved or self.relettered
+                    or self.resized or self.rerouted)
 
 
 def _entries(manifest):
@@ -56,6 +58,12 @@ def _describe(marker):
     grid = marker.get("grid")
     where = f"[{grid[0]},{grid[1]}]" if grid else "?"
     return f"`{marker['id']}` {where} {marker.get('name') or marker.get('ref') or ''}".strip()
+
+
+def _route_shape(entry):
+    """A drawn route as "legs x points", which is enough to see in a report that it changed."""
+    route = entry.get("route", [])
+    return f"{len(route)} leg(s), {sum(len(leg) for leg in route)} point(s)"
 
 
 def _pair_by_identity(old_only, new_only):
@@ -88,6 +96,10 @@ def diff_entry(old, new):
     delta = MapDelta(name=new["name"])
     if (old["width"], old["height"]) != (new["width"], new["height"]):
         delta.resized = ((old["width"], old["height"]), (new["width"], new["height"]))
+    # A drawn route is manifest too, and it can change with every marker left where it was: edit
+    # a waypoint in paths.ROUTES and the line takes a different way round while nothing moves.
+    if old.get("route", []) != new.get("route", []):
+        delta.rerouted = (_route_shape(old), _route_shape(new))
 
     old_markers = {m["id"]: m for m in old["markers"]}
     new_markers = {m["id"]: m for m in new["markers"]}
@@ -141,6 +153,9 @@ def render_markdown(deltas):
         if delta.resized:
             before, after = delta.resized
             lines.append(f"- resized {before[0]}x{before[1]} -> {after[0]}x{after[1]}")
+        if delta.rerouted:
+            before, after = delta.rerouted
+            lines.append(f"- rerouted {before} -> {after}")
         for before, after in delta.moved:
             lines.append(f"- moved {_describe(before)} -> {_describe(after)}")
         for before, after in delta.relettered:

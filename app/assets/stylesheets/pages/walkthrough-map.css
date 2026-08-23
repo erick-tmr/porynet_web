@@ -12,6 +12,14 @@
   --mm-row-done: #E8F2EA;
   --mm-row-selected: #FFEDC5;
   --mm-max-zoom: 2.5;
+  /* One hue per leg of a drawn route. The map underneath is Gen 1 green, so these are the five
+     that stay legible on it and apart from each other; the arrow tiles themselves are pale blue,
+     so no leg is blue. */
+  --mm-route-1: #E01B24;
+  --mm-route-2: #FF6FD8;
+  --mm-route-3: #7B2FF7;
+  --mm-route-4: #FF8A00;
+  --mm-route-5: #111827;
   margin-top: 10px;
 }
 
@@ -119,6 +127,12 @@
   padding: 5px 13px;
 }
 
+.pn-mm-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .pn-mm-toggle.is-on { background: var(--neon-cyan); }
 .pn-mm-toggle__on { display: none; }
 .pn-mm-toggle.is-on .pn-mm-toggle__on { display: inline; }
@@ -189,6 +203,58 @@
   height: auto;
   image-rendering: pixelated;
 }
+
+/* The drawn way round an arrow-tile floor, in the map's own pixel coordinates so the polyline
+   lands on the tiles it was solved for however the picture is scaled. Under the markers, over the
+   art: a pin has to stay readable where the line runs through it. Strokes do not scale with the
+   picture, so the line stays the same weight whether the map is at 1x or zoomed. */
+.pn-mm-route {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pn-mm-block:not(.is-routed) .pn-mm-route { display: none; }
+
+/* Every leg is drawn twice: a dark casing, then the colour on top of it. The floor under the line
+   is a green check with white crates all over it, and a bare coloured stroke disappears into both
+   in turn. The casing is what keeps one line one line. */
+.pn-mm-route__casing,
+.pn-mm-route__line {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.pn-mm-route__casing {
+  stroke: #0b0b12;
+  stroke-width: 6;
+  opacity: 0.75;
+}
+
+.pn-mm-route__line {
+  stroke: var(--mm-route-1);
+  stroke-width: 3;
+}
+
+.pn-mm-route__head {
+  fill: var(--mm-route-1);
+  stroke: #0b0b12;
+  stroke-width: 1.5;
+  paint-order: stroke;
+}
+
+.pn-mm-route__leg--2 .pn-mm-route__line { stroke: var(--mm-route-2); }
+.pn-mm-route__leg--2 .pn-mm-route__head { fill: var(--mm-route-2); }
+.pn-mm-route__leg--3 .pn-mm-route__line { stroke: var(--mm-route-3); }
+.pn-mm-route__leg--3 .pn-mm-route__head { fill: var(--mm-route-3); }
+.pn-mm-route__leg--4 .pn-mm-route__line { stroke: var(--mm-route-4); }
+.pn-mm-route__leg--4 .pn-mm-route__head { fill: var(--mm-route-4); }
+.pn-mm-route__leg--5 .pn-mm-route__line { stroke: var(--mm-route-5); }
+.pn-mm-route__leg--5 .pn-mm-route__head { fill: var(--mm-route-5); }
 
 /* Markers render server-side but stay dark until the controller has placed them, so nothing
    piles up in the top-left corner on a slow connection. Without JS the legend still lists

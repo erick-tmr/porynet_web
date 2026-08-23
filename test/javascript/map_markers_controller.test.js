@@ -20,6 +20,8 @@ const FIXTURE = `
             data-map-markers-target="filter" data-action="click->map-markers#filter"></button>
     <button id="toggle" class="pn-mm-toggle"
             data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels"></button>
+    <button id="route-toggle" class="pn-mm-toggle"
+            data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute"></button>
     <span id="counter" data-map-markers-target="counterDone">0</span>
 
     <div id="canvas" data-map-markers-target="canvas" data-action="click->map-markers#dismiss">
@@ -333,5 +335,24 @@ describe("filters and labels", () => {
     el("toggle").click();
     await flush();
     expect(has("block", "is-labelled")).toBe(true);
+  });
+
+  // The route is the answer to the maze, so a reader working it out for themselves can put it
+  // away. It starts drawn, like the labels do, and the two toggle independently.
+  it("starts routed and toggles off and on again without touching the labels", async () => {
+    await mount();
+
+    expect(has("block", "is-routed")).toBe(true);
+    expect(has("route-toggle", "is-on")).toBe(true);
+
+    el("route-toggle").click();
+    await flush();
+    expect(has("block", "is-routed")).toBe(false);
+    expect(el("route-toggle").getAttribute("aria-pressed")).toBe("false");
+    expect(has("block", "is-labelled")).toBe(true);
+
+    el("route-toggle").click();
+    await flush();
+    expect(has("block", "is-routed")).toBe(true);
   });
 });

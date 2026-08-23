@@ -35,12 +35,22 @@
         </button>
       <% end %>
     </div>
-    <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
-            data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels">
-      <%= t("walkthrough.ui.map_labels") %>
-      <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
-      <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
-    </button>
+    <div class="pn-mm-toggles">
+      <% if area.route? %>
+        <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
+                data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
+          <%= t("walkthrough.ui.map_route") %>
+          <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+          <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+        </button>
+      <% end %>
+      <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
+              data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels">
+        <%= t("walkthrough.ui.map_labels") %>
+        <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+        <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+      </button>
+    </div>
   </div>
 
   <% if show_howto %><%= render "map_howto", place: "top" %><% end %>
@@ -55,6 +65,7 @@
         <div class="pn-mm-canvas" data-map-markers-target="canvas"
              data-action="click->map-markers#dismiss">
           <%= r2_image_tag area.image, alt: "", class: "pn-mm-canvas__img", loading: "lazy" %>
+          <% if area.route? %><%= render "map_route", area: area %><% end %>
           <div class="pn-mm-layer" data-map-markers-target="layer">
             <% area.markers.each do |marker| %>
               <%= render "map_marker", marker: marker, slug: loc.slug %>

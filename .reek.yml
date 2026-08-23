@@ -40,6 +40,8 @@ detectors:
     accept:
       - i                 # plain loop index in the grid/box builders
       - l                 # plain element var in the legs/locations finders
+      - x                 # a map point is (x, y); anything longer reads worse
+      - y
     exclude:
       - Walkthrough::Yellow   # see the data-builder note below
   # Walkthrough::Yellow is a pure data source (like LandingData): terse builders

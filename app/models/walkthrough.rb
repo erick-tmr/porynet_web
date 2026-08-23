@@ -284,8 +284,15 @@ module Walkthrough
   # A map says which slice of the location it draws: `floor` for a dungeon's own floors, and
   # `title` for a map a stop borrows from another location, since the page is named after the stop
   # and a borrowed map has to name the place it really draws.
-  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title) do
-    def initialize(name: "", markers: [], title: nil, **rest) = super
+  #
+  # `route` is the way round an arrow-tile floor, one leg per stretch between the things the walk
+  # collects, each a list of [x, y] points in the image's own pixels. Only the floors where the
+  # game states how you move carry one (tools/maps/spinners.py); everywhere else it is empty and
+  # nothing is drawn.
+  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title, :route) do
+    def initialize(name: "", markers: [], title: nil, route: [], **rest) = super
+    def route? = route.any?
+    def route_legs = route.each_with_index.map { |points, i| RouteLeg.new(points: points, n: i + 1) }
     def caption = title || floor
     def captioned? = !caption.empty?
     def markers? = markers.any?
@@ -300,6 +307,25 @@ module Walkthrough
     SPLIT_COLUMN_PX = 675
 
     def landscape? = width * 2 >= height * 3 || width > SPLIT_COLUMN_PX
+  end
+
+  # One stretch of a drawn route. `n` is which leg it is, counting from 1, and `hue` cycles a small
+  # palette off it: two rides through the same maze cross each other often, and one colour for the
+  # lot reads as a scribble.
+  RouteLeg = Data.define(:points, :n) do
+    HUES = 5
+
+    def line = points.map { |x, y| "#{x},#{y}" }.join(" ")
+    def tip = points.last
+    def hue = (n - 1) % HUES + 1
+
+    # Which way the leg's last step is heading, in degrees, so the arrowhead on its tip points the
+    # way the hero was going. A leg of one cell has no last step and simply points east.
+    def heading
+      to_x, to_y = tip
+      from_x, from_y = points[-2] || tip
+      (Math.atan2(to_y - from_y, to_x - from_x) * 180 / Math::PI).round(1)
+    end
   end
 
   StepLink = Data.define(:leg, :anchor)

@@ -70,6 +70,33 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate south, :tickable?
   end
 
+  # The drawn way round an arrow-tile floor. The points come out of the game (tools/maps/
+  # spinners.py reads the pushes each arrow tile applies), so what is checked here is the handling:
+  # that a floor with no maze carries no line, and that a leg hands the view what an SVG needs.
+  test "an arrow-tile floor carries the way round it, and an ordinary one carries none" do
+    b2f = location("rocket-hideout").area_maps.find { |area| area.floor == "B2F" }
+
+    assert_predicate b2f, :route?
+    assert_equal 8, b2f.route_legs.size, "one leg per stretch between the stops the walk names"
+    refute_predicate forest_map, :route?, "the forest has no arrows to solve"
+    assert_empty forest_map.route_legs
+  end
+
+  test "a leg gives the view its polyline, its arrowhead and a colour to tell it apart by" do
+    leg = Walkthrough::RouteLeg.new(points: [ [ 8, 8 ], [ 24, 8 ], [ 24, 40 ] ], n: 2)
+
+    assert_equal "8,8 24,8 24,40", leg.line
+    assert_equal [ 24, 40 ], leg.tip
+    assert_equal 2, leg.hue
+    assert_in_delta 90.0, leg.heading, 0.01, "the last step runs south, so the head points south"
+  end
+
+  # Five hues, so the sixth leg of a long floor starts the palette again rather than running out.
+  test "a leg of one cell points east, and the palette wraps" do
+    assert_in_delta 0.0, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 1).heading, 0.01
+    assert_equal 1, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 6).hue
+  end
+
   test "markers_in narrows to one category" do
     assert_equal 3, forest_map.markers_in("item").size
     assert_empty forest_map.markers_in("nonsense")
