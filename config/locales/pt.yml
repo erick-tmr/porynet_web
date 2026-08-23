@@ -1991,93 +1991,90 @@ pt:
               hidden:
                 nugget: "Borda leste do B3F, uma casa a leste do ball do TM10. Fique uma casa ao sul dele, vire para cima e aperte A. Nada aparece na tela."
             "9":
-              title: "Entenda as placas de seta"
-              text: "À esquerda da escada o piso vira setas. Cada uma te desliza na direção que aponta até uma parede ou uma placa de parada, quatro quadradinhos azuis, te segurar. Não dá para virar no meio."
-            "10":
-              title: "Pegue o Rare Candy"
-              text: "Vá ao sul e pise na seta para baixo; uma placa de parada te segura numa fresta. O Rare Candy está à sua direita, um nível de graça para qualquer companheiro."
+              title: "Deslize pelas setas até o Rare Candy"
+              text: "A oeste da escada este mesmo andar vira placas de seta: cada uma te desliza na direção que aponta até uma parede ou placa de parada te segurar. Pegue a de baixo; o Rare Candy fica no nicho a leste."
               items:
-                rare-candy: "Centro do B3F, na fresta de uma casa acima da fileira de baixo do labirinto. A seta para baixo te deixa três casas a oeste dela."
-            "11":
+                rare-candy: "Centro do B3F, no nicho de uma casa acima da fileira de baixo do labirinto. A seta para baixo te deixa três casas a oeste dele."
+            "10":
               title: "Vença o Rocket a oeste e desça ao B4F"
-              text_html: "Pegue a seta para cima para sair da fresta e atravesse o labirinto a oeste até o Rocket %{west}. A brecha ao sul dá a volta até a escada %{down} para o B4F."
-            "12":
+              text_html: "Pegue a seta para cima para sair do nicho e atravesse o labirinto a oeste até o Rocket %{west}. A brecha ao sul dá a volta até a escada %{down} para o B4F."
+            "11":
               title: "Pegue o HP Up"
               text: "Da escada do B4F vá um pouco ao sul, depois a oeste. Um HP Up espera na mesa ali, um aumento permanente de HP para o Pokémon que você escolher."
               items:
                 hp-up: "Metade oeste do B4F, na mesa da sala a sudoeste da escada."
-            "13":
+            "12":
               title: "Pegue o TM02 (Razor Wind)"
               text: "Volte pela escada e siga ao norte até a salinha. A oeste das mesas está o TM02, Razor Wind, um golpe Normal que carrega num turno e acerta no seguinte."
               items:
                 tm-razor-wind: "Sala noroeste do B4F, a oeste das mesas."
-            "14":
+            "13":
               title: "Vença o grunt pela Lift Key"
               text_html: "Contorne as mesas até o Rocket %{grunt} no alto da sala. Vença ele e pegue a Lift Key no ball ao lado dele: é ela que liga o elevador."
               items:
                 lift-key: "Sala noroeste do B4F, no ball ao lado do Rocket."
-            "15":
+            "14":
               title: "Suba de volta ao B2F"
               text_html: "Pegue a escada %{up} até o B3F. Pise na seta para cima, depois na segunda seta para cima a noroeste dela; da placa de parada siga a nordeste até a escada %{above} para o B2F."
-            "16":
+            "15":
               title: "Pegue a Moon Stone"
               text: "Entre no labirinto do B2F pela mais baixa das duas setas para a esquerda. Da placa de parada, contorne um pouco ao sul até a Moon Stone, a pedra de Nidoran, Clefairy e Jigglypuff."
               items:
                 moon-stone: "Canto extremo noroeste do B2F, no nicho de uma casa junto à parede oeste. Suba nele por baixo."
-            "17":
+            "16":
               title: "Pegue o Nugget"
               text: "Volte àquela placa de parada e siga a parede norte para leste. Um Nugget está no fim do trecho, mais ¥5000 na próxima loja que você passar."
               items:
                 nugget: "Lado norte do B2F, na fileira de pilastras sob o corredor de cima. Desça do corredor e dê um passo a leste."
-            "18":
+            "17":
               title: "Pegue o TM07 (Horn Drill)"
               text: "Volte à placa de parada mais uma vez e pegue a seta para a direita logo abaixo dela. Você para ao lado do TM07, Horn Drill, um nocaute imediato que só pega alvos mais lentos."
               items:
                 tm-horn-drill: "Lado oeste do B2F, no nicho abaixo da fileira em que a seta para a direita te joga. Volte duas casas a oeste e desça."
-            "19":
+            "18":
               title: "Pegue a Super Potion e suba"
               text_html: "Trabalhe as setas ao sul e a oeste até o canto extremo pela Super Potion, 50 HP por vez. Depois saia a leste e pegue a escada %{up} até o B1F."
               items:
                 super-potion: "Canto sudoeste do B2F, no fim do labirinto."
-            "20":
+            "19":
               title: "Percorra a sala isolada no sentido anti-horário"
               text_html: "Este canto do B1F não se liga a nada mais do andar. Desça até o trecho de baixo e vá a oeste: um Rocket %{lower} espera no meio dele."
-            "21":
+            "20":
               title: "Pegue a Hyper Potion"
               text: "Siga a oeste, suba pelo trecho da esquerda e entre no canto superior esquerdo. Uma Hyper Potion está no ball ali, 200 HP de uma vez e a melhor cura que você tem."
               items:
                 hyper-potion: "Canto superior esquerdo da sala isolada a sudoeste do B1F."
-            "22":
+            "21":
               title: "Feche a volta no segundo Rocket"
               text_html: "Vá a leste pelo trecho de cima até o Rocket %{upper} parado nele. Vença ele e desça pelo lado direito de volta à escada %{back} para o B2F."
-            "23":
+            "22":
               title: "Pegue o elevador até o B4F"
               text_html: "Com a Lift Key na mochila, atravesse o B2F até o elevador %{lift} do lado leste e aperte B4F. Ele te deixa do outro lado do portão."
-            "24":
+            "23":
               title: "Jessie & James pulam no elevador"
               text: "As portas abrem em Jessie & James: Koffing, Meowth e Ekans, todos Nv 25. Terra ou Psíquico derruba a dupla venenosa num golpe cada; o Meowth só atrapalha."
-            "25":
+            "24":
               title: "Pegue o Iron"
               text: "Vá a oeste do elevador e desça até a sala sul. Um Iron está na mesa ali, um aumento permanente de Defesa. Depois volte ao elevador."
               items:
                 iron: "Sala sul do B4F, na mesa a oeste do elevador."
-            "26":
+            "25":
               title: "Vença o Giovanni"
               text_html: "Giovanni %{giovanni} espera no alto do escritório: Onix (Nv 25), Rhyhorn (Nv 24), Persian (Nv 29). Água ou Grama derrete os dois primeiros; algo rápido resolve o Persian."
-            "27":
+            "26":
               title: "Pegue o Silph Scope"
               text: "Pise no ball na casa atrás dele. Dentro está o Silph Scope, a única coisa que deixa os fantasmas da Pokémon Tower de Lavender sólidos o bastante para lutar."
               items:
                 silph-scope: "Alto do escritório do Giovanni, nordeste do B4F, na casa que ele guardava."
-            "28":
+            "27":
               title: "Procure atrás da máquina"
               text: "Fique na casa onde estava o ball do Silph Scope e aperte A virado para cima. Uma Super Potion oculta está enfiada na máquina acima, sem nada aparecer na tela."
               hidden:
                 super-potion: "Alto do escritório do Giovanni. Fique onde estava o ball do Silph Scope, vire para cima e aperte A. Nada aparece na tela."
-            "29":
+            "28":
               title: "Abra o portão na saída"
               text_html: "Suba de elevador %{lift} até o B1F. Um último Rocket %{last} está ao lado dele, e vencer esse abre a porta ao norte do elevador, o único caminho de volta às escadas."
-            "30":
+            "29":
               title: "Siga para o Ginásio"
               text_html: "Ao norte pela porta, a oeste pelo corredor e suba a escada da esquerda até o salão, depois saia %{out}. Cure, compre curas de status e leve alguém com Cut ao Ginásio."
         pokemon_tower:

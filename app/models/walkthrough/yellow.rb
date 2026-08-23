@@ -2271,7 +2271,6 @@ module Walkthrough
           { item: [ "TM Double Edge", "tm-double-edge" ], scene: "rocket-hideout-item-tm-double-edge",
             pins: { guard: "rocket-hideout-b3f/trainer-26-12" } },
           { hidden: [ "Nugget", "nugget", "rocket-hideout-hidden-nugget", "rocket-hideout-nugget" ] },
-          {},
           { item: [ "Rare Candy", "rare-candy" ], scene: "rocket-hideout-item-rare-candy",
             line: [ B3F, 4 ] },
           { pins: { west: "rocket-hideout-b3f/trainer-10-22",

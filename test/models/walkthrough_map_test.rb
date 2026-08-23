@@ -113,7 +113,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   # what a reader actually follows.
   test "a step that rides the arrows carries its own crop of the floor" do
     hideout = location("rocket-hideout")
-    moon_stone = hideout.steps.find { |step| step.n == 16 }
+    moon_stone = hideout.steps.find { |step| step.n == 15 }
 
     assert_predicate moon_stone, :step_map?
     assert_equal [ 3 ], moon_stone.step_map.legs.map(&:n)
@@ -128,7 +128,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   test "a step that only walks a corridor carries no map" do
     mapped = location("rocket-hideout").steps.select(&:step_map?).map(&:n)
 
-    assert_equal [ 10, 11, 16, 18, 19 ], mapped
+    assert_equal [ 9, 10, 15, 17, 18 ], mapped
   end
 
   # The viewBox is x, y, width, height in that order, which is the sort of thing that looks fine
@@ -143,13 +143,13 @@ class WalkthroughMapTest < ActiveSupport::TestCase
       assert_operator y + h, :<=, 448
     end
     assert_equal "0 80 400 300", location("rocket-hideout").steps
-      .find { |step| step.n == 16 }.step_map.view_box
+      .find { |step| step.n == 15 }.step_map.view_box
   end
 
   # A step can own two legs in a row: walk to the ball, then out of the room. Both are drawn, and
   # they keep the colours they wear on the overview so the two pictures agree.
   test "a step that owns a run of legs draws them all, in their own colours" do
-    out = location("rocket-hideout").steps.find { |step| step.n == 19 }.step_map
+    out = location("rocket-hideout").steps.find { |step| step.n == 18 }.step_map
 
     assert_equal [ 6, 7 ], out.legs.map(&:n)
     assert_equal [ 6, 7 ], out.legs.map(&:hue)
