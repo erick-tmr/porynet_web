@@ -80,7 +80,9 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
                     assert pin["key"] == entry["key"]
                 checked += 1
 
-    assert checked == 317  # +2: the bow's Sailors joined the cabin trainers on drawn maps
+    # +2: the bow's Sailors joined the cabin trainers on drawn maps
+    # +1: the Game Corner's Rocket, now that the arcade is drawn with the hideout he guards
+    assert checked == 318
 
 
 def test_gym_floors_are_keyed_like_any_other_map(root):

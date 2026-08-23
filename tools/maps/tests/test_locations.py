@@ -21,11 +21,11 @@ def test_extra_trainer_maps():
     a map listed in both would have its trainers counted twice, since roster.py walks this list
     separately from location_maps."""
     assert [label for label, _, _ in locations.extra_trainer_maps("saffron-city")] == ["FightingDojo"]
-    # the arcade's Rocket rosters with the hideout, named by his room rather than a floor
-    assert locations.extra_trainer_maps("rocket-hideout") == [
-        ("GameCorner", "CELADON_CITY", "Game Corner")
-    ]
-    assert locations.extra_trainer_maps("celadon-city") == [], "the town no longer carries him"
+    # the arcade is drawn with the hideout, so it is a floor rather than a roster-only map
+    assert locations.extra_trainer_maps("rocket-hideout") == []
+    assert locations.extra_trainer_maps("celadon-city") == [], "the town does not carry it either"
+    floors = locations.location_maps()["rocket-hideout"]
+    assert floors[0] == ("GameCorner", "Game Corner", "CELADON_CITY"), "the arcade is drawn first"
     assert locations.extra_trainer_maps("ss-anne") == [], "the bow is drawn now, not just walked"
     assert locations.extra_trainer_maps("route-1") == []
 

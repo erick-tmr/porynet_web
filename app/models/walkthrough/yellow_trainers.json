@@ -1542,6 +1542,26 @@
     ],
     "rocket-hideout": [
       {
+        "map": "rocket-hideout-game-corner",
+        "floor": "Game Corner",
+        "marker": "trainer-9-5",
+        "key": "T1",
+        "opp": "ROCKET:7",
+        "cls": "ROCKET",
+        "reward": 600,
+        "team": [
+          {
+            "dex": "020",
+            "lvl": 20
+          },
+          {
+            "dex": "041",
+            "lvl": 20
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/rocket-hideout-game-corner-trainer-9-5.png"
+      },
+      {
         "map": "rocket-hideout-b1f",
         "floor": "B1F",
         "marker": "trainer-26-8",
@@ -1772,26 +1792,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/rocket-hideout-b4f-trainer-25-3.png"
-      },
-      {
-        "map": "rocket-hideout-gamecorner",
-        "floor": "Game Corner",
-        "marker": "trainer-9-5",
-        "key": null,
-        "opp": "ROCKET:7",
-        "cls": "ROCKET",
-        "reward": 600,
-        "team": [
-          {
-            "dex": "020",
-            "lvl": 20
-          },
-          {
-            "dex": "041",
-            "lvl": 20
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/rocket-hideout-gamecorner-trainer-9-5.png"
       }
     ],
     "route-10": [

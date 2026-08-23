@@ -44,7 +44,10 @@ _DUNGEONS = {
     "silph-co": _floors("SilphCo",
                         ["1F", "2F", "3F", "4F", "5F", "6F", "7F", "8F", "9F", "10F", "11F"],
                         "SAFFRON_CITY"),
-    "rocket-hideout": _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY"),
+    # The arcade is drawn with the hideout it opens into: it is where the Rocket guarding the
+    # stairs stands and where the twelve hidden coin piles are, and neither belongs to the town.
+    "rocket-hideout": ([("GameCorner", "Game Corner", "CELADON_CITY")] +
+                       _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY")),
     "pokemon-mansion": _floors("PokemonMansion", ["1F", "2F", "3F", "B1F"], "CINNABAR_ISLAND"),
     # One entry per deck; the cabins, kitchen and bow are drawn into the deck they open off (see
     # _ATTACHED below and decks.py), not listed here as floors of their own.
@@ -84,10 +87,6 @@ _EXTRA_TRAINER_MAPS = {
     # The three *Rooms maps and the bow moved into _DUNGEONS above. They must not stay here too:
     # roster.py walks this list separately from location_maps, so a map in both is counted twice.
     "saffron-city": [("FightingDojo", "SAFFRON_CITY", "")],
-    # The Game Corner's lone Rocket guards the stairs down, so he rosters with the hideout he is
-    # standing on rather than with the town the arcade happens to sit in. He is named by the room
-    # instead of a floor, because every other card on that page reads B1F to B4F and he is upstairs.
-    "rocket-hideout": [("GameCorner", "CELADON_CITY", "Game Corner")],
 }
 
 

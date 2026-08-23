@@ -4906,6 +4906,244 @@
     ],
     "rocket-hideout": [
       {
+        "image": "walkthrough/yellow/maps/rocket-hideout-game-corner.png",
+        "width": 320,
+        "height": 288,
+        "floor": "Game Corner",
+        "name": "rocket-hideout-game-corner",
+        "markers": [
+          {
+            "id": "trainer-9-5",
+            "cat": "trainer",
+            "key": "T1",
+            "x": 47.5,
+            "y": 30.556,
+            "grid": [
+              9,
+              5
+            ],
+            "align": "r",
+            "name": "Rocket",
+            "ref": "ROCKET:7",
+            "lane": 1
+          },
+          {
+            "id": "hidden-16-14",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 82.5,
+            "y": 80.556,
+            "grid": [
+              16,
+              14
+            ],
+            "align": "l",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 2
+          },
+          {
+            "id": "hidden-12-15",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 62.5,
+            "y": 86.111,
+            "grid": [
+              12,
+              15
+            ],
+            "align": "l",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": -5
+          },
+          {
+            "id": "hidden-10-16",
+            "cat": "hidden",
+            "key": "H3",
+            "x": 52.5,
+            "y": 91.667,
+            "grid": [
+              10,
+              16
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": -4
+          },
+          {
+            "id": "hidden-9-15",
+            "cat": "hidden",
+            "key": "H4",
+            "x": 47.5,
+            "y": 86.111,
+            "grid": [
+              9,
+              15
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 0
+          },
+          {
+            "id": "hidden-15-8",
+            "cat": "hidden",
+            "key": "H5",
+            "x": 77.5,
+            "y": 47.222,
+            "grid": [
+              15,
+              8
+            ],
+            "align": "l",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 2
+          },
+          {
+            "id": "hidden-9-12",
+            "cat": "hidden",
+            "key": "H6",
+            "x": 47.5,
+            "y": 69.444,
+            "grid": [
+              9,
+              12
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 1
+          },
+          {
+            "id": "hidden-11-7",
+            "cat": "hidden",
+            "key": "H7",
+            "x": 57.5,
+            "y": 41.667,
+            "grid": [
+              11,
+              7
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 1
+          },
+          {
+            "id": "hidden-1-16",
+            "cat": "hidden",
+            "key": "H8",
+            "x": 7.5,
+            "y": 91.667,
+            "grid": [
+              1,
+              16
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": -3
+          },
+          {
+            "id": "hidden-3-14",
+            "cat": "hidden",
+            "key": "H9",
+            "x": 17.5,
+            "y": 80.556,
+            "grid": [
+              3,
+              14
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": -3
+          },
+          {
+            "id": "hidden-4-12",
+            "cat": "hidden",
+            "key": "H10",
+            "x": 22.5,
+            "y": 69.444,
+            "grid": [
+              4,
+              12
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 3
+          },
+          {
+            "id": "hidden-3-11",
+            "cat": "hidden",
+            "key": "H11",
+            "x": 17.5,
+            "y": 63.889,
+            "grid": [
+              3,
+              11
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 2
+          },
+          {
+            "id": "hidden-0-8",
+            "cat": "hidden",
+            "key": "H12",
+            "x": 2.5,
+            "y": 47.222,
+            "grid": [
+              0,
+              8
+            ],
+            "align": "r",
+            "name": "Coins",
+            "ref": "COIN",
+            "lane": 0
+          },
+          {
+            "id": "exit-15-17",
+            "cat": "exit",
+            "key": "E1",
+            "x": 80.0,
+            "y": 97.222,
+            "grid": [
+              15,
+              17
+            ],
+            "align": "l",
+            "name": "Back outside",
+            "ref": "LAST_MAP",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-17-4",
+            "cat": "exit",
+            "key": "E2",
+            "x": 87.5,
+            "y": 25.0,
+            "grid": [
+              17,
+              4
+            ],
+            "align": "l",
+            "name": "Rocket Hideout B1F",
+            "ref": "ROCKET_HIDEOUT_B1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      },
+      {
         "image": "walkthrough/yellow/maps/rocket-hideout-b1f.png",
         "width": 480,
         "height": 448,
@@ -5035,7 +5273,7 @@
           {
             "id": "exit-23-2",
             "cat": "exit",
-            "key": "E1",
+            "key": "E3",
             "x": 78.333,
             "y": 8.929,
             "grid": [
@@ -5069,7 +5307,7 @@
           {
             "id": "exit-24-19",
             "cat": "exit",
-            "key": "E3",
+            "key": "E4",
             "x": 83.333,
             "y": 69.643,
             "grid": [
@@ -5086,7 +5324,7 @@
           {
             "id": "exit-21-24",
             "cat": "exit",
-            "key": "E4",
+            "key": "E5",
             "x": 71.667,
             "y": 87.5,
             "grid": [
@@ -5187,7 +5425,7 @@
           {
             "id": "exit-27-8",
             "cat": "exit",
-            "key": "E1",
+            "key": "E3",
             "x": 91.667,
             "y": 30.357,
             "grid": [
@@ -5204,7 +5442,7 @@
           {
             "id": "exit-21-8",
             "cat": "exit",
-            "key": "E5",
+            "key": "E6",
             "x": 71.667,
             "y": 30.357,
             "grid": [
@@ -5221,7 +5459,7 @@
           {
             "id": "exit-24-19",
             "cat": "exit",
-            "key": "E6",
+            "key": "E7",
             "x": 83.333,
             "y": 69.643,
             "grid": [
@@ -5238,7 +5476,7 @@
           {
             "id": "exit-21-22",
             "cat": "exit",
-            "key": "E4",
+            "key": "E5",
             "x": 71.667,
             "y": 80.357,
             "grid": [
@@ -5339,7 +5577,7 @@
           {
             "id": "exit-25-6",
             "cat": "exit",
-            "key": "E5",
+            "key": "E6",
             "x": 85.0,
             "y": 23.214,
             "grid": [
@@ -5356,7 +5594,7 @@
           {
             "id": "exit-19-18",
             "cat": "exit",
-            "key": "E7",
+            "key": "E8",
             "x": 65.0,
             "y": 66.071,
             "grid": [
@@ -5502,7 +5740,7 @@
           {
             "id": "exit-19-10",
             "cat": "exit",
-            "key": "E7",
+            "key": "E8",
             "x": 65.0,
             "y": 43.75,
             "grid": [
@@ -5519,7 +5757,7 @@
           {
             "id": "exit-24-15",
             "cat": "exit",
-            "key": "E8",
+            "key": "E9",
             "x": 83.333,
             "y": 64.583,
             "grid": [

@@ -121,6 +121,9 @@ ROUTES = {
     # are named instead.
     "RockTunnelB1F": ("exit-33-25", "trainer-14-28", "trainer-20-21", "trainer-30-10",
                       "exit-23-11"),
+    # In off the street at the bottom of the room, so the coin sweep runs from the door. The floor
+    # is open carpet with the machines as islands, so the flood orders the twelve piles on its own.
+    "GameCorner": ("exit-15-17",),
     "RocketHideoutB1F": ("exit-21-2",),
     "RocketHideoutB2F": ("exit-27-8", "item-16-8", "item-6-12", "item-1-11", "item-3-21"),
     "RocketHideoutB3F": ("exit-25-6", "item-20-14", "item-26-17", "hidden-27-17"),
