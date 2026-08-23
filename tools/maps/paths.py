@@ -124,11 +124,41 @@ ROUTES = {
     # In off the street at the bottom of the room, so the coin sweep runs from the door. The floor
     # is open carpet with the machines as islands, so the flood orders the twelve piles on its own.
     "GameCorner": ("exit-15-17",),
-    "RocketHideoutB1F": ("exit-21-2",),
-    "RocketHideoutB2F": ("exit-27-8", "item-16-8", "item-6-12", "item-1-11", "item-3-21"),
-    "RocketHideoutB3F": ("exit-25-6", "item-20-14", "item-26-17", "hidden-27-17"),
+    # Four floors walked in seven visits, and every floor is a case the flood cannot see. Three of
+    # them are spin-tile mazes: an arrow tile is plain floor to the shipped collision, so the flood
+    # strolls across a room the player can only cross by being fired at a wall and bouncing off a
+    # stop tile. Every pin is named for that reason, in the order the walk reaches it.
+    #
+    # B1F is three rooms with no way between them on foot, though the flood joins two of them by
+    # walking through the gate the last Rocket opens. Off the Game Corner stairs you take the
+    # plant corridor's hidden PP Up, the Rocket on the west and the Escape Rope in the room under
+    # him, then the one on the east; the southwest room is only ever entered by climbing back up
+    # from B2F; and the last Rocket is met stepping out of the lift.
+    "RocketHideoutB1F": (
+        "exit-21-2", "hidden-21-15", "trainer-12-6", "item-11-14", "trainer-26-8",
+        "exit-21-24", "trainer-15-25", "trainer-18-17", "item-9-17",
+        "exit-24-19", "trainer-28-18"
+    ),
+    # Crossed three times. The first pass only loops round to the Rocket and drops to B3F; the west
+    # maze is run on the way back up, and its four balls come off the arrows in an order no
+    # straight line explains, the Moon Stone in the far corner first and the Nugget by the north
+    # wall after; the last pass is the walk from the B1F stairs to the lift. Both closing doorways
+    # are named so the drawn route covers the whole visit, not just as far as the last ball.
+    "RocketHideoutB2F": ("exit-27-8", "trainer-20-12", "exit-21-8",
+                         "item-1-11", "item-16-8", "item-6-12", "item-3-21",
+                         "exit-21-22", "exit-24-19"),
+    # In at the northeast stairs: the Rocket below them, the TM and the Nugget buried beside it
+    # down the east wall, then back past the stairs into the maze for the Rare Candy and out west
+    # to the second Rocket. The stairs are named twice because the floor is crossed twice: the
+    # climb back up from B4F is its own ride through the maze, and the guide draws it.
+    "RocketHideoutB3F": ("exit-25-6", "trainer-26-12", "item-26-17", "hidden-27-17",
+                         "item-20-14", "trainer-10-22", "exit-19-18", "exit-25-6"),
+    # Also crossed twice, and the second visit arrives by lift on the far side of a gate. The
+    # first sweeps the west wing for the Lift Key; the second comes out of the lift for the Iron
+    # and Giovanni's room.
     "RocketHideoutB4F": (
-        "exit-19-10", "item-10-2", "item-9-4", "item-10-12", "item-12-20", "item-25-2", "hidden-25-1"
+        "exit-19-10", "item-10-12", "item-9-4", "trainer-11-2", "item-10-2",
+        "exit-24-15", "item-12-20", "hidden-25-1", "trainer-25-3", "item-25-2"
     ),
     "PokemonTower3F": ("exit-3-9",),
     "PokemonTower4F": ("exit-18-9", "item-12-10", "item-12-16", "item-9-10"),

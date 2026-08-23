@@ -1,0 +1,19 @@
+<%# A step's own copy of the floor, cropped to the stretch it walks. The crop, the scaling and the
+    line are all one SVG: a viewBox is an attribute, so the frame needs no inline style and no
+    JavaScript to place it, and the picture is the same R2 image the area map draws. %>
+<figure class="pn-wt-stepmap">
+  <svg class="pn-wt-stepmap__svg" viewBox="<%= map.view_box %>" role="img"
+       aria-label="<%= t("walkthrough.ui.step_map_alt", n: step.n) %>">
+    <image class="pn-wt-stepmap__img" href="<%= r2_asset_url(map.image) %>"
+           x="0" y="0" width="<%= map.width %>" height="<%= map.height %>" />
+    <% map.legs.each do |leg| %>
+      <g class="pn-mm-route__leg pn-mm-route__leg--<%= leg.hue %>">
+        <polyline class="pn-mm-route__casing" points="<%= leg.line %>" />
+        <polyline class="pn-mm-route__line" points="<%= leg.line %>" />
+        <path class="pn-mm-route__head" d="M0 0 L-9 -5 L-9 5 Z"
+              transform="translate(<%= leg.tip.first %> <%= leg.tip.last %>) rotate(<%= leg.heading %>)" />
+      </g>
+    <% end %>
+  </svg>
+  <figcaption class="pn-wt-stepmap__cap"><%= t("walkthrough.ui.step_map_cap") %></figcaption>
+</figure>

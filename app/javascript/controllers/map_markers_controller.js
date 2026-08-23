@@ -14,13 +14,15 @@ import { isSet, load, save, subscribe, toggle } from "lib/progress_store"
 const NON_TICKABLE = new Set(["exit", "npc"])
 
 export default class extends Controller {
-  static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle", "counterDone"]
+  static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle",
+    "routeToggle", "counterDone"]
   static values = {
     game: { type: String, default: "yellow" },
     map: String,
     nativeW: Number,
     filter: { type: String, default: "all" },
     labels: { type: Boolean, default: true },
+    route: { type: Boolean, default: false },
     hint: { type: String, default: "" },
   }
 
@@ -84,6 +86,13 @@ export default class extends Controller {
     this.labelsValue = !this.labelsValue
   }
 
+  // The whole way round an arrow-tile floor, drawn over the overview. Off to begin with: each
+  // step already carries its own crop of this map with just that step's leg on it, so the
+  // overview's job is the floor, and all eight legs at once is for the reader who asks.
+  toggleRoute() {
+    this.routeValue = !this.routeValue
+  }
+
   filterValueChanged() {
     this.markerTargets.forEach((marker) => {
       marker.classList.toggle("is-filtered", !this.#matchesFilter(marker.dataset.cat))
@@ -95,10 +104,19 @@ export default class extends Controller {
   }
 
   labelsValueChanged() {
+    this.#pressed(this.labelToggleTargets, this.labelsValue)
     this.element.classList.toggle("is-labelled", this.labelsValue)
-    this.labelToggleTargets.forEach((button) => {
-      button.classList.toggle("is-on", this.labelsValue)
-      button.setAttribute("aria-pressed", String(this.labelsValue))
+  }
+
+  routeValueChanged() {
+    this.#pressed(this.routeToggleTargets, this.routeValue)
+    this.element.classList.toggle("is-routed", this.routeValue)
+  }
+
+  #pressed(buttons, on) {
+    buttons.forEach((button) => {
+      button.classList.toggle("is-on", on)
+      button.setAttribute("aria-pressed", String(on))
     })
   }
 

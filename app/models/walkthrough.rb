@@ -7,6 +7,12 @@ module Walkthrough
 
   DENSE_TRAINERS = 6
 
+  # Colours a drawn route cycles through, one per leg. Enough of them that the longest floor never
+  # reuses one (B2F's eight is the most any floor asks for), because a step draws its own leg on
+  # its own copy of the map and the two have to agree about which line is which. The hexes are in
+  # walkthrough-map.css; this is only how many there are.
+  ROUTE_HUES = 8
+
   # A rod or Surf encounter is only a catch once you hold the tool, and the guide hands each one
   # over at a fixed stop. Keyed by method, valued by that stop's `order`, so a fishing card on an
   # early route counts toward the dex from the stop that arms you rather than from the route the
@@ -284,8 +290,15 @@ module Walkthrough
   # A map says which slice of the location it draws: `floor` for a dungeon's own floors, and
   # `title` for a map a stop borrows from another location, since the page is named after the stop
   # and a borrowed map has to name the place it really draws.
-  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title) do
-    def initialize(name: "", markers: [], title: nil, **rest) = super
+  #
+  # `route` is the way round an arrow-tile floor, one leg per stretch between the things the walk
+  # collects, each a list of [x, y] points in the image's own pixels. Only the floors where the
+  # game states how you move carry one (tools/maps/spinners.py); everywhere else it is empty and
+  # nothing is drawn.
+  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title, :route) do
+    def initialize(name: "", markers: [], title: nil, route: [], **rest) = super
+    def route? = route.any?
+    def route_legs = route.each_with_index.map { |points, i| RouteLeg.new(points: points, n: i + 1) }
     def caption = title || floor
     def captioned? = !caption.empty?
     def markers? = markers.any?
@@ -302,6 +315,23 @@ module Walkthrough
     def landscape? = width * 2 >= height * 3 || width > SPLIT_COLUMN_PX
   end
 
+  # One stretch of a drawn route. `n` is which leg it is, counting from 1, and `hue` cycles a small
+  # palette off it: two rides through the same maze cross each other often, and one colour for the
+  # lot reads as a scribble.
+  RouteLeg = Data.define(:points, :n) do
+    def line = points.map { |x, y| "#{x},#{y}" }.join(" ")
+    def tip = points.last
+    def hue = (n - 1) % ROUTE_HUES + 1
+
+    # Which way the leg's last step is heading, in degrees, so the arrowhead on its tip points the
+    # way the hero was going. A leg of one cell has no last step and simply points east.
+    def heading
+      to_x, to_y = tip
+      from_x, from_y = points[-2] || tip
+      (Math.atan2(to_y - from_y, to_x - from_x) * 180 / Math::PI).round(1)
+    end
+  end
+
   StepLink = Data.define(:leg, :anchor)
 
   # `pins` names the map markers this step's prose points at, as { token => "map-name/marker-id" }.
@@ -315,9 +345,18 @@ module Walkthrough
   # `catch_key` is the locale line telling the reader where the catch itself happens.
   DexSeen = Data.define(:num, :name, :species, :types, :height, :weight, :text, :art, :catch_key)
 
+  # A step's own copy of the floor it is on, cropped to the stretch of route it walks: the same
+  # image the area map draws, an SVG viewBox over the part that matters, and the legs to draw on
+  # it. The overview at the top of the page shows the floor; this shows the reader where they are.
+  StepMap = Data.define(:image, :width, :height, :box, :legs) do
+    def view_box = box.join(" ")
+  end
+
   Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map,
-    :dex_seen) do
-    def initialize(pins: {}, marks: {}, map: nil, dex_seen: nil, **rest) = super
+    :dex_seen, :line, :step_map) do
+    def initialize(pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
+    def line? = !line.nil?
+    def step_map? = !step_map.nil?
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?

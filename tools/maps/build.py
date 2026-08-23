@@ -34,6 +34,7 @@ import markers
 import places
 import roster
 import sources
+import spinners
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 IMG_ROOT = REPO / "app/assets/images/walkthrough/yellow"
@@ -128,8 +129,12 @@ def main():
             name = locations.image_name(slug, floor)
             image, pins = draw_area(root, label, floor, parent)
             key = save_png(image, "maps", name, args.force)
-            entries.append({"image": key, "width": image.width, "height": image.height,
-                            "floor": floor, "name": name, "markers": pins})
+            entry = {"image": key, "width": image.width, "height": image.height,
+                     "floor": floor, "name": name, "markers": pins}
+            line = spinners.drawn_route(root, label)
+            if line:
+                entry["route"] = line
+            entries.append(entry)
             labels.append(label)
             warps[label] = sources.parse_warp_events(root, label)
             consts[label] = headers[label][0]

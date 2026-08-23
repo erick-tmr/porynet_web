@@ -119,6 +119,12 @@
   padding: 5px 13px;
 }
 
+.pn-mm-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .pn-mm-toggle.is-on { background: var(--neon-cyan); }
 .pn-mm-toggle__on { display: none; }
 .pn-mm-toggle.is-on .pn-mm-toggle__on { display: inline; }
@@ -188,6 +194,71 @@
   width: 100%;
   height: auto;
   image-rendering: pixelated;
+}
+
+/* The drawn way round an arrow-tile floor, in the map's own pixel coordinates so the polyline
+   lands on the tiles it was solved for however the picture is scaled. Under the markers, over the
+   art: a pin has to stay readable where the line runs through it. Strokes do not scale with the
+   picture, so the line stays the same weight whether the map is at 1x or zoomed. */
+.pn-mm-route {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pn-mm-block:not(.is-routed) .pn-mm-route { display: none; }
+
+/* Every leg is drawn twice: a dark casing, then the colour on top of it. The floor under the line
+   is a green check with white crates all over it, and a bare coloured stroke disappears into both
+   in turn. The casing is what keeps one line one line. */
+.pn-mm-route__casing,
+.pn-mm-route__line {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* One hue per leg, and enough of them that the longest floor never reuses one: eight legs on
+   B2F, eight colours. The palette hangs off the leg itself rather than off the map block, because
+   a step draws its own leg outside that block (see .pn-wt-stepmap), and the two have to agree
+   about which colour a leg is. The overrides come after, so they win on source order. */
+.pn-mm-route__leg {
+  --leg: #FF2D3A;
+  --leg-casing: #0b0b12;
+}
+
+.pn-mm-route__leg--2 { --leg: #FF8A00; }
+.pn-mm-route__leg--3 { --leg: #FFD400; }
+.pn-mm-route__leg--4 { --leg: #FF6FD8; }
+.pn-mm-route__leg--5 { --leg: #A972FF; }
+.pn-mm-route__leg--6 { --leg: #3B82F6; }
+.pn-mm-route__leg--7 { --leg: #FFFFFF; }
+
+/* The one leg dark enough to vanish into its own casing, so it wears a light one instead. */
+.pn-mm-route__leg--8 {
+  --leg: #111318;
+  --leg-casing: #f4f6fb;
+}
+
+.pn-mm-route__casing {
+  stroke: var(--leg-casing);
+  stroke-width: 6;
+  opacity: 0.8;
+}
+
+.pn-mm-route__line {
+  stroke: var(--leg);
+  stroke-width: 3;
+}
+
+.pn-mm-route__head {
+  fill: var(--leg);
+  stroke: var(--leg-casing);
+  stroke-width: 1.5;
+  paint-order: stroke;
 }
 
 /* Markers render server-side but stay dark until the controller has placed them, so nothing
@@ -970,3 +1041,35 @@
 .pn-wt-trainer--compact .pn-wt-trainer__card { padding: 12px 14px; }
 .pn-wt-trainer--compact .pn-wt-trainer__shots { gap: 8px; }
 .pn-wt-trainer--compact .pn-wt-team-mon { gap: 6px; }
+
+/* --- a step's own map ------------------------------------------------------ */
+
+/* The crop, the scale and the line are all the SVG's: its viewBox is the window onto the floor,
+   so the frame needs no inline style and no JavaScript to place it. The stroke widths here are in
+   the map's own pixels rather than screen pixels, because this frame is a fixed zoom rather than
+   something the reader can scale, and a hairline over a 200px window would vanish. */
+.pn-wt-stepmap {
+  margin: 14px 0 0;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  background: var(--ink);
+  max-width: 420px;
+}
+
+.pn-wt-stepmap__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pn-wt-stepmap__img { image-rendering: pixelated; }
+
+.pn-wt-stepmap__cap {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  background: var(--ink);
+  padding: 3px 8px;
+  line-height: 1.3;
+}

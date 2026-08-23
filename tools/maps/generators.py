@@ -127,6 +127,18 @@ def _screen_sprites(root, spec):
     return sprites
 
 
+# The '!' bubble belongs to whoever the game hangs it on. A trainer who engages on sight flashes
+# it over their own head, so it rides on that sprite; a scripted ambush hangs it over the hero
+# instead (`wEmotionBubbleSpriteIndex` is 0, the player, in every Jessie & James cutscene), so a
+# scene says `player_emote` and it lands on the hero's cell.
+def _emotes(spec):
+    on_sprites = [{"name": s["emote"], "grid": s["grid"]}
+                  for s in spec.get("sprites", []) if s.get("emote")]
+    if spec.get("player_emote"):
+        return [{"name": spec["player_emote"], "grid": spec["player"]}, *on_sprites]
+    return on_sprites
+
+
 def gen_screen_scene(root, spec):
     """A 160x144 GB screen centered on the hero, with optional directional arrows and a
     bottom dialog box.
@@ -139,7 +151,7 @@ def gen_screen_scene(root, spec):
     trailing = _follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"), sprites)
     if trailing:
         sprites = [*sprites, trailing]
-    emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
+    emotes = _emotes(spec)
     markers = [{"grid": spec["marker"], "fill": spec.get("marker_color")}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
     image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", spec["player"]),

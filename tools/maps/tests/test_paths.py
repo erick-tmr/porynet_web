@@ -266,3 +266,42 @@ def test_the_roster_letters_a_card_the_way_its_pin_is_lettered(root):
     trainers, _specs = roster.build_roster(root)
 
     assert [(e["key"], e["opp"]) for e in trainers["route-10"]] == lettered(root, "Route10", "")
+
+
+def test_the_hideout_b1f_is_lettered_across_its_three_sealed_rooms(root):
+    """B1F is one map and three rooms, and no two of them join up in play. Off the Game Corner
+    stairs you take the Rocket on the west corridor and the one holding the east doorway; the
+    southwest room is reached only by climbing back up from B2F; and the fifth is met stepping out
+    of the lift, on the far side of a door that only opens once he is beaten. The flood walks
+    straight through that door, so measured from the entrance it read the east Rocket first and put
+    the two the guide meets last in the middle."""
+    assert lettered(root, "RocketHideoutB1F", "B1F") == [
+        ("T1", "ROCKET:9"), ("T2", "ROCKET:8"), ("T3", "ROCKET:11"),
+        ("T4", "ROCKET:10"), ("T5", "ROCKET:12")]
+    assert [tuple(pins(root, "RocketHideoutB1F", "B1F", cat="item")[key]["grid"])
+            for key in ("I1", "I2")] == [(11, 14), (9, 17)]
+
+
+def test_the_hideout_mazes_letter_their_balls_the_way_the_arrows_deal_them(root):
+    """An arrow tile is plain floor to the shipped collision, so the flood strolls across a maze
+    the player can only cross by being fired at a wall. On B2F that put the Nugget by the north
+    wall first and the Moon Stone in the far corner third, where the arrows hand them over the
+    other way about; on B3F it read the Rare Candy before the TM down the east wall, which is
+    picked up before the maze is entered at all."""
+    b2f = pins(root, "RocketHideoutB2F", "B2F", cat="item")
+    b3f = pins(root, "RocketHideoutB3F", "B3F", cat="item")
+
+    assert [b2f[key]["name"] for key in ("I1", "I2", "I3", "I4")] == [
+        "Moon Stone", "Nugget", "TM Horn Drill", "Super Potion"]
+    assert [b3f[key]["name"] for key in ("I1", "I2")] == ["TM Double Edge", "Rare Candy"]
+
+
+def test_the_hideout_b4f_splits_its_balls_between_the_stairs_and_the_lift(root):
+    """B4F is walked twice and the second visit arrives by lift, past a gate the stairs cannot
+    reach. The first sweep takes the HP Up, the TM and the Lift Key in the west wing; the Iron and
+    the Silph Scope wait for the lift, so they letter last however near the stairs they sit."""
+    items = pins(root, "RocketHideoutB4F", "B4F", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3", "I4", "I5")] == [
+        "HP Up", "TM Razor Wind", "Lift Key", "Iron", "Silph Scope"]
+    assert lettered(root, "RocketHideoutB4F", "B4F") == [("T1", "ROCKET:18"), ("T2", "GIOVANNI:1")]

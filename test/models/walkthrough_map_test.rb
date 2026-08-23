@@ -19,6 +19,15 @@ class WalkthroughMapTest < ActiveSupport::TestCase
       .group_by(&:name).transform_values { |cards| cards.map(&:tick).to_set }
   end
 
+  # [map name, letter] for every trainer pin a stop's steps name, in the order they name them.
+  def trainer_marks(loc)
+    loc.steps.flat_map do |step|
+      step.marks.filter_map do |name, key|
+        [ step.pins.fetch(name).split("/").first, key ] if key.start_with?("T")
+      end
+    end
+  end
+
   def marker(**overrides)
     Walkthrough::MapMarker.new(
       **{ id: "item-1-2", cat: "item", name: "Potion", x: 10.0, y: 20.0, align: "r", ref: "POTION" }
@@ -59,6 +68,92 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "▼", south.glyph_or_key, "but the pin still shows which way it goes"
     assert_equal 50.0, south.x, "a four-tile gate sits at the centre of its tiles"
     refute_predicate south, :tickable?
+  end
+
+  # The drawn way round an arrow-tile floor. The points come out of the game (tools/maps/
+  # spinners.py reads the pushes each arrow tile applies), so what is checked here is the handling:
+  # that a floor with no maze carries no line, and that a leg hands the view what an SVG needs.
+  test "an arrow-tile floor carries the way round it, and an ordinary one carries none" do
+    b2f = location("rocket-hideout").area_maps.find { |area| area.floor == "B2F" }
+
+    assert_predicate b2f, :route?
+    assert_equal 8, b2f.route_legs.size, "one leg per stretch between the stops the walk names"
+    refute_predicate forest_map, :route?, "the forest has no arrows to solve"
+    assert_empty forest_map.route_legs
+  end
+
+  test "a leg gives the view its polyline, its arrowhead and a colour to tell it apart by" do
+    leg = Walkthrough::RouteLeg.new(points: [ [ 8, 8 ], [ 24, 8 ], [ 24, 40 ] ], n: 2)
+
+    assert_equal "8,8 24,8 24,40", leg.line
+    assert_equal [ 24, 40 ], leg.tip
+    assert_equal 2, leg.hue
+    assert_in_delta 90.0, leg.heading, 0.01, "the last step runs south, so the head points south"
+  end
+
+  test "a leg of one cell points east" do
+    assert_in_delta 0.0, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 1).heading, 0.01
+  end
+
+  # The palette wraps rather than running out, so the guard is that it never has to: a floor with
+  # more legs than hues would give two of them the same colour, and a step's own map and the
+  # overview would then disagree about which line is which.
+  test "no floor needs more colours than the palette has" do
+    legs = game.locations.flat_map(&:area_maps).select(&:route?)
+      .to_h { |area| [ area.name, area.route_legs.size ] }
+
+    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7 }, legs)
+    assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
+    assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
+      .find { |area| area.name == "rocket-hideout-b2f" }.route_legs.map(&:hue)
+  end
+
+  # Each step that rides the arrows carries its own copy of the floor, cropped to the stretch it
+  # walks. The overview at the top of the page shows the whole floor with no line on it; these are
+  # what a reader actually follows.
+  test "a step that rides the arrows carries its own crop of the floor" do
+    hideout = location("rocket-hideout")
+    moon_stone = hideout.steps.find { |step| step.n == 15 }
+
+    assert_predicate moon_stone, :step_map?
+    assert_equal [ 3 ], moon_stone.step_map.legs.map(&:n)
+    assert_equal "walkthrough/yellow/maps/rocket-hideout-b2f.png", moon_stone.step_map.image
+    refute_predicate hideout.steps.find { |step| step.n == 1 }, :step_map?, "the arcade has no maze"
+  end
+
+  # Only the maze steps. The rest of each floor's legs are corridor walks (in at the door, round
+  # to the Rocket, out to the stairs) and a picture of a corridor is a picture of nothing, so
+  # those steps carry none. Which legs go into the maze is the game's answer, pinned in
+  # test_spinners.py; this is the guide agreeing with it.
+  test "a step that only walks a corridor carries no map" do
+    mapped = location("rocket-hideout").steps.select(&:step_map?).map(&:n)
+
+    assert_equal [ 9, 10, 14, 15, 16, 17, 18, 19 ], mapped
+  end
+
+  # The viewBox is x, y, width, height in that order, which is the sort of thing that looks fine
+  # until every frame on the page is the wrong shape. 4:3 whichever way the leg runs.
+  test "a step's crop is a 4:3 window on the part of the floor it walks" do
+    boxes = location("rocket-hideout").steps.filter_map { |step| step.step_map&.box }
+
+    assert_equal 8, boxes.size
+    boxes.each do |x, y, w, h|
+      assert_equal w * 3 / 4, h, "every frame is the same shape"
+      assert_operator x + w, :<=, 480
+      assert_operator y + h, :<=, 448
+    end
+    assert_equal "0 80 400 300", location("rocket-hideout").steps
+      .find { |step| step.n == 15 }.step_map.view_box
+  end
+
+  # A step can own two legs in a row when they are one move: beat the Rocket blocking the way,
+  # then take the stairs behind him. Both are drawn, and they keep the colours they wear on the
+  # overview so the two pictures agree.
+  test "a step that owns a run of legs draws them all, in their own colours" do
+    out = location("rocket-hideout").steps.find { |step| step.n == 10 }.step_map
+
+    assert_equal [ 5, 6 ], out.legs.map(&:n)
+    assert_equal [ 5, 6 ], out.legs.map(&:hue)
   end
 
   test "markers_in narrows to one category" do
@@ -135,12 +230,15 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   end
 
   # The same check for the trainers a step points at by pin: Viridian Forest names five of them,
-  # and a reader walking the steps meets T1 through T5 in that order.
+  # and a reader walking the steps meets T1 through T5 in that order. Per map, like the items,
+  # because a stop that walks several floors gets a T1 on each of them: the Rocket Hideout takes
+  # its four basements in seven visits, so its page reads T1 five times before it is done.
   test "every page meets the trainers its steps name in letter order" do
-    backwards = game.locations.filter_map do |loc|
-      numbers = loc.steps.flat_map { |step| step.marks.to_a }
-        .filter_map { |_name, key| key[1..].to_i if key.start_with?("T") }
-      "#{loc.slug}: #{numbers.inspect}" if numbers != numbers.sort
+    backwards = game.locations.flat_map do |loc|
+      trainer_marks(loc).group_by(&:first).filter_map do |map, pairs|
+        numbers = pairs.map { |_map, key| key[1..].to_i }
+        "#{loc.slug} #{map}: #{numbers.inspect}" if numbers != numbers.sort
+      end
     end
 
     assert_empty backwards, "these pages meet their trainers out of order"

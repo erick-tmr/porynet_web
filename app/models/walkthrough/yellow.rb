@@ -459,7 +459,8 @@ module Walkthrough
     def self.attach_maps(loc, maps)
       gym_map = maps.find { |m| m.floor == "Gym" }
       header = maps.reject { |m| m.floor == "Gym" }
-      loc = apply_trainer_notes(mark_steps(tick_items(merge_trainers(loc), header), header))
+      loc = apply_trainer_notes(map_steps(mark_steps(tick_items(merge_trainers(loc), header), header),
+        header))
       header = link_steps(loc, header)
       return loc.with(area_maps: header) unless loc.gym && gym_map
 
@@ -498,6 +499,70 @@ module Walkthrough
       return block if block.pins.empty?
 
       block.with(marks: block.pins.transform_values { |id| letters.fetch(id) })
+    end
+
+    # How much floor a step's own map shows around the stretch it walks, in map pixels. Tight
+    # enough that a short hop fills the frame, wide enough that the reader can see which part of
+    # the floor they are looking at rather than a patch of green with a line on it.
+    STEP_MAP_PAD = 40
+    STEP_MAP_MIN = 240
+
+    # A step that walks a stretch of a drawn route gets its own copy of the floor, cropped to it.
+    # Authored as ["map name", first leg, last leg]: the legs are the route's own, so a step and
+    # the overview cannot disagree about which way round the maze goes, and a step that owns two
+    # in a row (walk to the ball, then out of the room) draws them both.
+    def self.map_steps(loc, maps)
+      by_name = maps.to_h { |map| [ map.name, map ] }
+      loc.with(steps: loc.steps.map do |step|
+        next step unless step.line?
+
+        step.with(step_map: step_map(by_name.fetch(step.line.first), *step.line.drop(1)))
+      end)
+    end
+
+    def self.step_map(area, first, last = first)
+      legs = area.route_legs[(first - 1)..(last - 1)]
+      StepMap.new(image: area.image, width: area.width, height: area.height,
+        box: crop_box(legs, floor_bounds(area)), legs: legs)
+    end
+
+    # The part of the picture worth cropping into, as [x0, y0, x1, y1]. A map's image is the whole
+    # grid and a floor rarely fills it: B2F leaves six rows of black above its own top wall, and a
+    # frame centred near the top would spend a quarter of itself on that. Every point of the route
+    # is somewhere the player stands, so the box they span, opened out by a margin and kept inside
+    # the image, is a fair read on where the floor is.
+    def self.floor_bounds(area)
+      xs, ys = area.route.flatten(1).transpose
+      [ [ xs.min - STEP_MAP_PAD, 0 ].max, [ ys.min - STEP_MAP_PAD, 0 ].max,
+        [ xs.max + STEP_MAP_PAD, area.width ].min, [ ys.max + STEP_MAP_PAD, area.height ].min ]
+    end
+
+    # The crop, as the SVG viewBox [x, y, w, h]: a window the size of the leg plus a margin,
+    # centred on it and slid back inside the picture so a leg against the wall does not crop to
+    # empty space beyond the map's edge.
+    def self.crop_box(legs, bounds)
+      left, top, right, bottom = bounds
+      xs, ys = legs.flat_map(&:points).transpose
+      box_w, box_h = window(xs.max - xs.min, ys.max - ys.min, right - left, bottom - top)
+      [ left + slide(xs.min + xs.max - left * 2, box_w, right - left),
+        top + slide(ys.min + ys.max - top * 2, box_h, bottom - top), box_w, box_h ]
+    end
+
+    # How big a window to cut. Always 4:3, whichever way the leg runs: a leg that goes straight
+    # down a corridor would otherwise crop to a tall slot, and a page of frames all different
+    # shapes reads as a mess next to one where each is the same window onto a different place.
+    def self.window(span_x, span_y, width, height)
+      wide = [ span_x + STEP_MAP_PAD * 2, STEP_MAP_MIN ].max
+      tall = [ span_y + STEP_MAP_PAD * 2, STEP_MAP_MIN * 3 / 4 ].max
+      box_w = [ [ wide, tall * 4 / 3 ].max, width, height * 4 / 3 ].min
+      [ box_w, box_w * 3 / 4 ]
+    end
+
+    # Where one axis of that window starts: centred on the leg, then slid back inside the floor.
+    # `window` never returns a span wider than the floor, so the far clamp only ever guards
+    # against a zero-width one.
+    def self.slide(span_ends, span, limit)
+      ((span_ends - span) / 2).clamp(0, [ limit - span, 0 ].max)
     end
 
     def self.link_steps(loc, maps)
@@ -687,7 +752,7 @@ module Walkthrough
             npc_marker(n, m["width"], m["height"], key_letter(i))
           end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-            name: m["name"], markers: base + npcs)
+            name: m["name"], markers: base + npcs, route: m.fetch("route", []))
         end
       end
     end
@@ -994,7 +1059,7 @@ module Walkthrough
       defs.each_with_index.map do |d, i|
         n = i + 1
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
-          items: step_items(base, n, d), map: d[:map], dex_seen: d[:dex_seen],
+          items: step_items(base, n, d), map: d[:map], dex_seen: d[:dex_seen], line: d[:line],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
       end
@@ -2179,12 +2244,17 @@ module Walkthrough
       )
     end
 
+    # The two arrow-tile floors, named once so the step defs below can point at the legs of their
+    # drawn routes without repeating the map name. A step carries a `line:`, and so a map of its
+    # own, when its walk goes into the maze: not only the rides, since threading between the
+    # arrows to follow a wall out is just as hard to read off prose as the ride in. The rest are
+    # plain corridor walks (in at the door, round to the Rocket, out to the stairs), and a picture
+    # of a corridor is a picture of nothing. `test_spinners.py` pins which legs those are.
+    B2F = "rocket-hideout-b2f".freeze
+    B3F = "rocket-hideout-b3f".freeze
+
     def self.rocket_hideout
       loc("rocket-hideout", "DUNGEON", "Game Corner / Rocket Hideout", 29,
-        pins: { 7 => { down: "rocket-hideout-b1f/exit-23-2" },
-                12 => { down: "rocket-hideout-b2f/exit-21-8" },
-                16 => { down: "rocket-hideout-b3f/exit-19-18" },
-                21 => { lift: "rocket-hideout-b4f/exit-24-15" } },
         steps: [
           { pins: { guru: "rocket-hideout-game-corner/npc-guru-10",
                     man: "rocket-hideout-game-corner/npc-man-20",
@@ -2192,29 +2262,47 @@ module Walkthrough
           { pins: { rocket: "rocket-hideout-game-corner/trainer-9-5",
                     poster: "rocket-hideout-game-corner/npc-poster",
                     stairs: "rocket-hideout-game-corner/exit-17-4" } },
-          {},
-          { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },
-          { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },
           { hidden: [ "PP Up", "pp-up", "rocket-hideout-hidden-pp-up", "rocket-hideout-pp-up" ] },
-          { html: true },
-          { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget" },
-          { item: [ "TM Horn Drill", "tm-horn-drill" ], scene: "rocket-hideout-item-tm-horn-drill" },
-          { item: [ "Moon Stone", "moon-stone" ], scene: "rocket-hideout-item-moon-stone" },
-          { item: [ "Super Potion", "super-potion" ], scene: "rocket-hideout-item-super-potion" },
-          { html: true },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "rocket-hideout-item-rare-candy" },
-          { item: [ "TM Double Edge", "tm-double-edge" ], scene: "rocket-hideout-item-tm-double-edge" },
+          { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope",
+            pins: { west: "rocket-hideout-b1f/trainer-12-6" } },
+          { pins: { east: "rocket-hideout-b1f/trainer-26-8",
+                    down: "rocket-hideout-b1f/exit-23-2" } },
+          { pins: { rocket: "rocket-hideout-b2f/trainer-20-12",
+                    down: "rocket-hideout-b2f/exit-21-8" } },
+          { item: [ "TM Double Edge", "tm-double-edge" ], scene: "rocket-hideout-item-tm-double-edge",
+            pins: { guard: "rocket-hideout-b3f/trainer-26-12" } },
           { hidden: [ "Nugget", "nugget", "rocket-hideout-hidden-nugget", "rocket-hideout-nugget" ] },
-          { html: true },
-          { item: [ "Lift Key", "lift-key" ], scene: "rocket-hideout-item-lift-key" },
-          { item: [ "TM Razor Wind", "tm-razor-wind" ], scene: "rocket-hideout-item-tm-razor-wind" },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "rocket-hideout-item-rare-candy",
+            line: [ B3F, 4 ] },
+          { pins: { west: "rocket-hideout-b3f/trainer-10-22",
+                    down: "rocket-hideout-b3f/exit-19-18" }, line: [ B3F, 5, 6 ] },
           { item: [ "HP Up", "hp-up" ], scene: "rocket-hideout-item-hp-up" },
-          { item: [ "Iron", "iron" ], scene: "rocket-hideout-item-iron" },
-          { html: true },
+          { item: [ "TM Razor Wind", "tm-razor-wind" ], scene: "rocket-hideout-item-tm-razor-wind" },
+          { item: [ "Lift Key", "lift-key" ], scene: "rocket-hideout-item-lift-key",
+            pins: { grunt: "rocket-hideout-b4f/trainer-11-2" } },
+          { pins: { up: "rocket-hideout-b4f/exit-19-10", above: "rocket-hideout-b3f/exit-25-6" },
+            line: [ B3F, 7 ] },
+          { item: [ "Moon Stone", "moon-stone" ], scene: "rocket-hideout-item-moon-stone",
+            line: [ B2F, 3 ] },
+          { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget", line: [ B2F, 4 ] },
+          { item: [ "TM Horn Drill", "tm-horn-drill" ], scene: "rocket-hideout-item-tm-horn-drill",
+            line: [ B2F, 5 ] },
+          { item: [ "Super Potion", "super-potion" ], scene: "rocket-hideout-item-super-potion",
+            line: [ B2F, 6 ] },
+          { pins: { up: "rocket-hideout-b2f/exit-21-22" }, line: [ B2F, 7 ] },
+          { pins: { lower: "rocket-hideout-b1f/trainer-15-25" } },
+          { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },
+          { pins: { upper: "rocket-hideout-b1f/trainer-18-17",
+                    back: "rocket-hideout-b1f/exit-21-24" } },
+          { pins: { lift: "rocket-hideout-b2f/exit-24-19" } },
           {},
+          { item: [ "Iron", "iron" ], scene: "rocket-hideout-item-iron" },
+          { pins: { giovanni: "rocket-hideout-b4f/trainer-25-3" } },
           { item: [ "Silph Scope", "silph-scope" ], scene: "rocket-hideout-item-silph-scope" },
           { hidden: [ "Super Potion", "super-potion", "rocket-hideout-hidden-super-potion", "rocket-hideout-super-potion" ] },
-          {}
+          { pins: { lift: "rocket-hideout-b1f/exit-24-19",
+                    last: "rocket-hideout-b1f/trainer-28-18" } },
+          { pins: { out: "rocket-hideout-game-corner/exit-15-17" } }
         ],
         encounters: [
           enc("rocket-hideout", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
@@ -2284,10 +2372,10 @@ module Walkthrough
     end
 
     def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {},
-                  map: nil, dex_seen: nil)
+                  map: nil, dex_seen: nil, line: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map,
+        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map, line: line,
         dex_seen: dex_seen && dex_seen(base, n, *dex_seen))
     end
 
