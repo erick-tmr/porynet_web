@@ -1,15 +1,15 @@
 # Asset generation report
 
-- location maps: **99** across 52 locations
-- markers: **966** (317 trainer, 119 item, 50 hidden, 480 exit)
-- step shots: **39** (map/scene in a step slot)
-- standalone scenes: **264** (dialog / battle / NPC, not step-bound)
+- location maps: **101** across 53 locations
+- markers: **984** (318 trainer, 119 item, 64 hidden, 483 exit)
+- step shots: **41** (map/scene in a step slot)
+- standalone scenes: **270** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
 ## Markers per map
 
-- `celadon-city`: 1 hidden, 14 exit
+- `celadon-city`: 1 hidden, 13 exit
 - `celadon-city-gym`: 8 trainer, 1 exit
 - `cerulean-cave-1f`: 4 item, 1 hidden, 8 exit
 - `cerulean-cave-2f`: 4 item, 1 hidden, 6 exit
@@ -43,6 +43,7 @@
 - `power-plant`: 14 item, 2 hidden, 2 exit
 - `rock-tunnel-1f`: 7 trainer, 6 exit
 - `rock-tunnel-b1f`: 8 trainer, 4 exit
+- `rocket-hideout-game-corner`: 1 trainer, 12 hidden, 2 exit
 - `rocket-hideout-b1f`: 5 trainer, 2 item, 1 hidden, 4 exit
 - `rocket-hideout-b2f`: 1 trainer, 4 item, 4 exit
 - `rocket-hideout-b3f`: 2 trainer, 2 item, 1 hidden, 2 exit
@@ -99,6 +100,7 @@
 - `ss-anne-2f`: 4 trainer, 2 item, 9 exit
 - `ss-anne-3f`: 2 trainer, 2 exit
 - `underground-path`: 2 hidden, 2 exit
+- `underground-path-west-east`: 2 hidden, 2 exit
 - `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit
 - `vermilion-city-dock`: 2 exit
@@ -111,6 +113,8 @@
 
 ## Step shots
 
+- `celadon-city` step 3: walkthrough/yellow/scenes/celadon-diner-coin-case.png
+- `celadon-city` step 5: walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
@@ -179,6 +183,9 @@
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
+- `celadon-diner-coin-case` (screen): walkthrough/yellow/scenes/celadon-diner-coin-case.png
+- `celadon-mart-3f-tm18` (screen): walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
+- `celadon-roof-girl` (screen): walkthrough/yellow/scenes/celadon-roof-girl.png
 - `cerulean-cave-hidden-pp-up-16-13` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-16-13.png
 - `cerulean-cave-hidden-pp-up-18-7` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-18-7.png
 - `cerulean-cave-hidden-pp-up-8-14` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-8-14.png
@@ -207,6 +214,7 @@
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
 - `indigo-lance` (screen): walkthrough/yellow/scenes/indigo-lance.png
 - `indigo-lorelei` (screen): walkthrough/yellow/scenes/indigo-lorelei.png
+- `lavender-name-rater` (dialog): walkthrough/yellow/scenes/lavender-name-rater.png
 - `mew-glitch-abra` (screen): walkthrough/yellow/scenes/mew-glitch-abra.png
 - `mew-glitch-bridge` (screen): walkthrough/yellow/scenes/mew-glitch-bridge.png
 - `mew-glitch-center` (screen): walkthrough/yellow/scenes/mew-glitch-center.png
@@ -386,6 +394,8 @@
 - `ss-anne-rival` (screen): walkthrough/yellow/scenes/ss-anne-rival.png
 - `underground-path-hidden-full-restore` (dialog): walkthrough/yellow/scenes/underground-path-hidden-full-restore.png
 - `underground-path-hidden-x-special` (dialog): walkthrough/yellow/scenes/underground-path-hidden-x-special.png
+- `underground-path-west-east-hidden-elixir` (dialog): walkthrough/yellow/scenes/underground-path-west-east-hidden-elixir.png
+- `underground-path-west-east-hidden-nugget` (dialog): walkthrough/yellow/scenes/underground-path-west-east-hidden-nugget.png
 - `vermilion-city-hidden-max-ether` (dialog): walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png
 - `vermilion-gym-second-switch` (dialog): walkthrough/yellow/scenes/vermilion-gym-second-switch.png
 - `vermilion-squirtle` (screen): walkthrough/yellow/scenes/vermilion-squirtle.png

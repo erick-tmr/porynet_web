@@ -94,8 +94,8 @@ class WalkthroughPlaceTest < ActiveSupport::TestCase
   end
 
   test "a pass-through house marks both doors, each carrying the same interior facts" do
-    enter = exit_marker("Trashed House (enter)", slug: "cerulean-city")
-    back = exit_marker("Trashed House (exit)", slug: "cerulean-city")
+    enter = exit_marker("Trashed House (front)", slug: "cerulean-city")
+    back = exit_marker("Trashed House (back)", slug: "cerulean-city")
 
     assert enter && back, "the Trashed House shows a front door and a back door"
     assert_equal "CERULEAN_TRASHED_HOUSE", enter.ref

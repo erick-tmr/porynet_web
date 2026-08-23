@@ -122,13 +122,14 @@ def cerulean_exits(root):
             if m["cat"] == "exit"]
 
 
-def test_a_pass_through_house_splits_into_an_enter_and_a_back_exit(root):
+def test_a_pass_through_house_splits_into_a_front_and_a_back_door(root):
     """The Badge House and Trashed House each warp to one interior through a front door and a
     door behind, so both would otherwise print the same name twice. The door facing the street
-    (larger grid y) is the entrance; the one behind it is the back exit."""
+    (larger grid y) is the front; the one behind it is the back. Neither is an exit: both are
+    ways in, and for Celadon Mansion the back one is the only way to the roof."""
     by_name = {m["name"]: m for m in cerulean_exits(root)}
     for house in ("Trashed House", "Badge House"):
-        assert by_name[f"{house} (enter)"]["grid"][1] > by_name[f"{house} (exit)"]["grid"][1]
+        assert by_name[f"{house} (front)"]["grid"][1] > by_name[f"{house} (back)"]["grid"][1]
 
 
 def test_the_split_generalises_to_every_town_and_the_route_gates(root):
@@ -136,7 +137,7 @@ def test_the_split_generalises_to_every_town_and_the_route_gates(root):
     are all walk-throughs, so they split the same way."""
     celadon = [m["name"] for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 640, 576)
                if m["cat"] == "exit"]
-    assert "Mansion 1F (enter)" in celadon and "Mansion 1F (exit)" in celadon
+    assert "Mansion 1F (front)" in celadon and "Mansion 1F (back)" in celadon
 
 
 def test_lone_pass_through_door_is_left_unlabelled():
@@ -255,6 +256,46 @@ def test_lanes_stay_flat_when_labels_share_a_row_but_sit_far_apart():
 
 def test_lanes_keep_stacking_past_two():
     assert lanes([ row(10.0, 5), row(10.1, 6), row(10.2, 7) ]) == [ 0, 1, 2 ]
+
+
+def settled(rows, height_px=768):
+    """Where each label ends up down the map, in percent, once its lane is applied."""
+    row_pct = markers.LABEL_PX / height_px * 100
+    return [e["y"] + e["lane"] * row_pct for e in markers.assign_label_lanes(rows, 544, height_px)]
+
+
+def test_a_label_is_measured_where_it_lands_not_by_the_lane_it_is_filed_under():
+    """Four markers a fraction of a row apart, the shape Route 8's column of Lasses makes. Counting
+    clashes lane by lane they came out 1, 2, 0, 1: no two shared a lane number, so each read as
+    settled, and every one of them still printed over the label above or below it."""
+    ends = settled([ row(10.0, 5), row(11.0, 5), row(12.0, 5), row(13.0, 5) ])
+    row_pct = markers.LABEL_PX / 768 * 100
+
+    assert len(ends) == 4
+    assert all(abs(a - b) + markers.LANE_EPSILON >= row_pct
+               for i, a in enumerate(ends) for b in ends[i + 1:])
+
+
+def test_a_crowd_opens_both_ways_rather_than_cascading_down():
+    """Four labels stacked on one spot open outward from it, taking the row below, the next one
+    below, then the second row above. Dealt downward only they march off the bottom of the map
+    instead, which is how a page ends up with a name printed past its own picture."""
+    assert lanes([ row(50.0, 5), row(50.1, 5), row(50.2, 5), row(50.3, 5) ]) == [ 0, 1, 2, -2 ]
+
+
+def test_no_label_is_dealt_off_the_map():
+    assert list(markers.lane_seats(0.0, 20.0)) == [ 0, 1, 2, 3, 4, 5 ]
+    assert list(markers.lane_seats(100.0, 20.0)) == [ 0, -1, -2, -3, -4, -5 ]
+    assert list(markers.lane_seats(50.0, 60.0)) == [ 0 ]
+
+
+def test_a_label_with_nowhere_clean_to_go_takes_the_row_it_covers_least():
+    """Past its reach a label stops looking, so a map too crowded to lay out cleanly still keeps
+    every label within a leader line of its own pin."""
+    crowd = [ row(50.0 + n / 100, 5) for n in range(2 * markers.LABEL_LANE_REACH + 4) ]
+
+    assert all(abs(e["lane"]) <= markers.LABEL_LANE_REACH
+               for e in markers.assign_label_lanes(crowd, 544, 768))
 
 
 def test_a_longer_name_reserves_more_room():
@@ -438,3 +479,37 @@ def test_two_real_doors_sharing_an_outdoor_tile_both_survive(root):
 
     assert len(out) == 2, "both south exits keep their pin"
     assert abs(out[0][0] - out[1][0]) > markers.SPARE_WARP_REACH
+
+
+def test_a_warp_the_game_can_never_fire_gets_no_pin(root):
+    """Celadon's map declares a door at (39, 19) into CELADON_MART_5F that no player can use.
+
+    Nothing is drawn there: the cell is the same wall as the block around it, while the doors
+    beside it carry the overworld's own warp tile. Pinned, it named a second Poke Mart in a town
+    whose only shop is the department store."""
+    celadon = [m for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 800, 576)
+               if m["cat"] == "exit"]
+    assert not [m for m in celadon if m["ref"] == "CELADON_MART_5F"], "the dead door is not pinned"
+    assert [m for m in celadon if m["ref"] == "GAME_CORNER"], "the real doors beside it still are"
+
+    warp_tiles = {0x1B, 0x58}  # data/tilesets/warp_tile_ids.asm, .OverworldWarpTileIDs
+    tiles = sources.cell_tiles(root, "CeladonCity", "overworld", 25, 39, 19)
+    assert not warp_tiles & set(tiles), "it is wall, not a door"
+    assert warp_tiles & set(sources.cell_tiles(root, "CeladonCity", "overworld", 25, 28, 19)), \
+        "the Game Corner door beside it is one"
+
+
+def test_a_coin_pile_is_pinned_with_what_it_pays(root):
+    """The twelve Game Corner piles are not worth the same, and the guide says which is which.
+
+    hidden_events.asm writes each amount as COIN+<n>, but the pickup routine answers the 40 case
+    with .bcd20 under a comment admitting the bug, so the pile marked 40 pays 20 and the pin says
+    20. Eight tens, three twenties and the single hundred come to 240."""
+    piles = [c for c in sources.parse_coins(root) if c[0] == "GAME_CORNER"]
+    assert len(piles) == 12
+    assert sum(coins for _c, _x, _y, coins in piles) == 240
+    assert sorted(coins for _c, _x, _y, coins in piles) == [10] * 8 + [20] * 3 + [100]
+    assert (("GAME_CORNER", 11, 7, 20)) in piles, "the pile written COIN+40 hands over 20"
+
+    labels = {m["label"] for m in sources.markers_by_map(root)["GAME_CORNER"]}
+    assert "100 coins" in labels and "10 coins" in labels

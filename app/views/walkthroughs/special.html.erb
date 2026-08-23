@@ -2,8 +2,8 @@
 <% content_for :title, t("walkthrough.ui.title_location", name: @location.title, game: @game.name) %>
 <% plan = @game.plan_for(@leg) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "pages/walkthrough-challenge",
-                          "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "components/leg-switch", "pages/walkthrough", "pages/walkthrough-map",
+                          "pages/walkthrough-challenge", "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -20,6 +20,13 @@
   <h1 class="pn-wt-loc__title"><%= accent_last(@location.title) %></h1>
   <p class="pn-wt-loc__lead"><%= t(@location.intro_key) %></p>
 </section>
+
+<div class="pn-legsw-host" data-controller="leg-switcher">
+<%= render "shared/stop_bar", stops: [ [ @location, plan.queue_at(@location.slug).sum(&:qty) ] ] %>
+
+<% if @location.slug == "rocket-hideout" %>
+  <%= render "prize_room", room: Walkthrough::Yellow.game_corner_prizes %>
+<% end %>
 
 <% groups = @location.step_groups %>
 <% drawn = groups.filter_map(&:first).map(&:name) %>
@@ -65,5 +72,6 @@
 <% if left.any? %><%= render "trades_here", loc: @location, trades: left, level: :page %><% end %>
 
 <%= render "challenges", plan: plan, multi: false %>
+</div>
 
 <%= render "leg_nav", game: @game, leg: @leg %>

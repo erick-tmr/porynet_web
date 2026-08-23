@@ -188,6 +188,7 @@ en:
       mart_kind_vending: "VENDING"
       tm_type_desc: "%{type}-type move."
       types:
+        dragon: "Dragon"
         normal: "Normal"
         psychic: "Psychic"
         fighting: "Fighting"
@@ -242,6 +243,9 @@ en:
       later_need: "NEED"
       later_return: "RETURN AFTER"
       trivia_eyebrow: "TRIVIA"
+      trivia_eyebrow_tagged: "TRIVIA · %{tag}"
+      trivia_warning: "IMPORTANT"
+      trivia_locked_name: "LOCKED NAME"
       missable_badge: "MISSABLE"
       missable_tip: "LEVEL-UP TIP"
       map_eyebrow: "AREA MAP"
@@ -363,6 +367,10 @@ en:
       map_place_note_pokemon_mansion: "The burned-out mansion. Its maze hides the Secret Key to Cinnabar's Gym, and diary pages telling of Mewtwo."
       map_place_note_silph_co: "Silph Co., seized by Team Rocket. Fight up through the floors to Giovanni, and the Master Ball, at the top."
       map_place_note_rocket_hideout: "Team Rocket's base under the Game Corner. Giovanni waits at the bottom, guarding the Silph Scope."
+      map_npc_game_corner_poster: "The Rocket stands in front of this one. Press A on it once he is beaten: a switch behind it opens the stairway to the right."
+      map_npc_game_corner_guru_10: "Talk to him once for 10 free coins. He only hands them over if the Coin Case is already in your bag."
+      map_npc_game_corner_man_20: "Down on his luck and giving up: 20 coins, once, and only with the Coin Case on you."
+      map_npc_game_corner_guru_20: "Another 20 coins for the asking, once. Coin Case required, like the rest of them."
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
       map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion."
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
@@ -378,6 +386,7 @@ en:
       best_reason_armed_only: "The only stop you reach already equipped for %{name}. The rest come before the rod."
       best_reason_only: "The only place in the game to catch %{name}. Miss it here and you miss it."
       best_reason_only_rate: "The only place in the game to catch %{name}, at %{rate}."
+      best_reason_only_prize: "The only place in the game to get %{name}, and the counter never runs out."
       catch_targets: "%{count} catch targets"
       catch_tally_html: "%{done} / %{total} CAUGHT"
       catchsec_count:
@@ -408,6 +417,7 @@ en:
       catchsec_game_corner_label: "Game Corner"
       catchsec_game_corner_hint: "Bought with coins. Bring money or patience."
       rate: "RATE"
+      coins: "COINS"
       level: "LEVEL"
       floors_label: "RATE BY FLOOR"
       floors_level: "LEVEL"
@@ -448,7 +458,7 @@ en:
       ld_later_rare: "%{stop} has %{name} at only %{rate}, so grow the spare %{base} instead of hunting one."
       ld_later_level: "%{name} is never wild, so the spare %{base} levels to %{level}."
       ld_later_stone: "%{name} is never wild, so the spare %{base} takes the %{stone}."
-      ld_later_trade: "%{name} only comes from a trade, so one cartridge stops the line at %{base}."
+      ld_later_trade: "%{name} only comes from a trade, so the spare %{base} is the one you hand over and take back."
       ld_later_refused: "%{base} refuses the Thunder Stone in Yellow, so %{name} only ever arrives by trade."
       ld_why_later: "One is enough: %{stop} has %{name} at %{rate}, so take the rest of the line there instead of walking this one up."
       ld_why_stages: "%{count} specimens. One stays %{name}, the rest walk up the line so every stage owns one."
@@ -495,6 +505,8 @@ en:
       oak_group_evolve: "BY EVOLVING"
       oak_group_catch_note: "Everything that owes a first registration by this point in the run."
       oak_group_evolve_note: "No catching needed: these register the moment something you own grows up."
+      oak_group_choice: "PICK ONE"
+      oak_group_choice_note: "One Eevee, one stone. Whichever you use registers; the other two need a second Eevee from a trade."
       oak_group_earlier: "EARLIER STOPS"
       oak_group_earlier_note: "Still owed from this badge window, from the stops before this page."
       oak_tally_html: "%{done} / %{total}"
@@ -555,12 +567,55 @@ en:
       next: "NEXT ▶"
       lv: "Lv %{n}"
       title_leg: "%{name} · %{game} Walkthrough"
-      leg_tag: "%{label} · %{count} STOPS"
+      leg_tag:
+        one: "%{label} · %{count} STOP"
+        other: "%{label} · %{count} STOPS"
       leg_stops: "STOPS IN THIS LEG"
       leg_catchable: "CATCHABLE HERE"
       leg_new: "NEW TO DEX"
       leg_obtainable: "OAK · OBTAINABLE"
+      gc_art_alt: "The Celadon Game Corner arcade floor, crowded with Pokémon at the machines"
+      gc_art_tag: "GAME CORNER"
+      gc_art_credit: "Official art. © Pokémon / Nintendo / Creatures / GAME FREAK"
+      gc_eyebrow: "ROCKET GAME CORNER · PRIZE EXCHANGE"
+      gc_h3_html: "Coins in, <span class=\"pn-wt-gc__accent\">prizes out</span>"
+      gc_lead: "The prize room is the door right of the slot machines. Three counters, each with its own stock, and every price below is the one Yellow charges."
+      gc_case_title: "Coin Case first"
+      gc_case_text: "The man in the Celadon restaurant hands it over. No case, no coins."
+      gc_buy_title_html: "%{coins} coins for %{price}"
+      gc_buy_text: "The only size the counter sells. The slots are cheaper if you have the patience."
+      gc_piles_title: "%{count} coin piles on the floor"
+      gc_piles_text: "Press A on the tiles between the machines. Each pile is worth 10, 20 or 100 coins."
+      gc_window_mon1: "LEFT COUNTER"
+      gc_window_mon1_sub: "Cheap Pokémon"
+      gc_window_mon2: "MIDDLE COUNTER"
+      gc_window_mon2_sub: "Rare Pokémon"
+      gc_window_tms: "RIGHT COUNTER"
+      gc_window_tms_sub: "TMs"
+      gc_coins: "coins"
+      gc_know_tag: "WORTH KNOWING"
+      gc_know_text: "Buying every coin for the %{coins}-coin prize costs ¥%{yen}, so treat the slots as the real price. Scyther and Pinsir are the same 6,500 here, which is how you own both in one run instead of picking one."
+      roof_link: "The girl up here swaps a drink for a TM. All %{count} trades, listed in full below."
+      roof_eyebrow: "ROOFTOP SQUARE · %{count} TRADES"
+      roof_h3_html: "The thirsty girl <span class=\"pn-wt-roof__accent\">trades TMs</span>"
+      roof_lead: "Talk to the girl on the west side of the roof and hand her a drink from the machines behind you. She pays a TM for each one, once per drink. Buy first, then speak to her three times."
+      roof_how: "HOW TO TRADE"
+      roof_how_1: "The lift stops at 5F. Take the stairs from there up to the roof, and buy your drinks from the three machines."
+      roof_how_2: "Walk west to the girl pacing the left side of the roof."
+      roof_how_3: "Talk to her and pick a drink. Repeat until all three TMs are yours."
+      roof_bar: "DRINK ▶ TM"
+      roof_tap: "tap a row when you have traded it"
+      roof_tag: "TRADE"
+      roof_tag_done: "TRADED ✓"
+      roof_buy: "BUY BEFORE YOU TALK"
+      roof_buy_line: "%{qty} × %{name}"
+      roof_total: "TOTAL"
+      roof_spare_tag: "SAVE FOR LATER"
+      roof_spare_title: "Keep the fourth drink"
+      roof_spare_text: "The three trades leave one drink in the bag. Do not drink it in a battle: a guard on the Saffron gate wants one, and any of the three will do."
       jump_to: "JUMP TO"
+      stop_prev: "Previous stop"
+      stop_next: "Next stop"
       stops_count: "%{count} STOPS"
       special_stop: "SPECIAL"
     yellow:
@@ -614,18 +669,22 @@ en:
         leg_07:
           lead: "East and south from Cerulean toward the dark maze of Rock Tunnel."
         leg_08:
-          lead: "Out of Rock Tunnel to Lavender, then west to Celadon's department store and Erika's gym."
+          lead: "Out of Rock Tunnel to Lavender, then the road west toward Celadon."
         leg_09:
-          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
+          lead: "Celadon: the six-floor department store, the rooftop trades, and the arcade at the end of the street."
         leg_10:
-          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
+          lead: "Back across Celadon with the hideout cleared, to cut into Erika's greenhouse and take the Rainbow Badge."
         leg_11:
-          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
+          lead: "The southern fishing routes down to Fuchsia, then the Safari Zone before Koga's gym."
         leg_12:
-          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
+          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
         leg_13:
-          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_14:
+          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
+        leg_15:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_16:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
       mew_glitch:
         meta_title: "The Mew Glitch · %{game} Walkthrough"
@@ -1744,16 +1803,22 @@ en:
             buy: "Great Balls for the Tower's Gastly line and a couple of Revives. Super Repel thins the ghosts."
           note: "The ghost town. Pokémon Tower looms."
           intro: "Kanto's smallest town, and its graveyard. Pokémon Tower stands over a handful of houses, with Team Rocket somewhere inside it."
+          trivia:
+            tag: "NAME RATER"
+            title: "The Name Rater lives here"
+            intro_html: "Lavender holds the one man in Kanto who will change a Pokémon's nickname. His house %{house} sits on the west side, between the Cubone girl's place and the Mart. Show him a Pokémon, he reads its name back with a verdict, then lets you type a new one."
+            note: "Not to be confused with Viridian's nickname house: that one is a tip house with a pet Spearow called SPEARY. The renaming happens here."
+            warning:
+              title: "Traded Pokémon can't be renamed"
+              body: "He checks the original trainer's name and ID against yours, and a Pokémon from a trade fails on both. Instead of renaming it he calls the name truly impeccable and hands it back, so the one it arrived with is the one it keeps."
+              specimen: "Route 2 trade · Mr. Mime"
           steps:
             "1":
               title: "Try the Tower"
-              text_html: "Enter Pokémon Tower %{tower} on the east side of town. You will hit an unbeatable ghost on 6F: it needs the Silph Scope, so come back once you have raided the Rocket Hideout."
+              text_html: "Enter Pokémon Tower %{tower} on the east side of town. Blue waits a few steps onto 2F, his team around Lv 25. Beat him and climb on, until a ghost you cannot fight blocks 6F."
             "2":
-              title: "Detour for the Silph Scope"
-              text_html: "Head west %{west} via Route 8 to Celadon and take down the Rocket Hideout for the Silph Scope."
-            "3":
-              title: "Return for the Poké Flute"
-              text: "Come back, clear the Tower, and free Mr. Fuji. He gives the Poké Flute to wake the sleeping Snorlax."
+              title: "Take the road west"
+              text_html: "Head west %{west} out of town onto Route 8. Bring a Pokémon that knows Cut: the tall grass there is fenced in behind a tree, and Kadabra turns up in it and nowhere else."
         route_8:
           note: "West to Celadon. Pidgey, Abra, Jigglypuff."
           intro: "The road west from Lavender to Saffron's east gate, nine trainers along it. Wild Kadabra turns up here and nowhere else."
@@ -1764,19 +1829,34 @@ en:
             "2":
               title: "Take the Underground Path"
               text_html: "The Saffron guards want a drink. Skip them by tunnelling west %{path} under the city to Route 7."
+        underground_path_west_east:
+          note: "The second Saffron tunnel. A Nugget and an Elixir on the floor."
+          intro: "The other corridor under Saffron City, running west from Route 8 to Route 7. No trainers, nothing wild, and two hidden items lying on the floor that show nothing on-screen."
+          steps:
+            "1":
+              title: "Hug the bottom wall west"
+              text_html: "Stairs %{in} from the Route 8 house drop you on the second lane. Drop to the bottom wall and follow it west, pressing A facing west about halfway along: a hidden Elixir, full PP on every move."
+              hidden:
+                elixir: "On the bottom wall, roughly the middle of the tunnel. Walk the wall west and press A facing west. Nothing shows on-screen."
+            "2":
+              title: "Climb back up for the Nugget"
+              text_html: "Walk nine tiles west and three lanes up from there, back on the lane you came in on. Press A facing west again for a hidden Nugget, ¥5000 at any counter. Stairs %{out} are below."
+              hidden:
+                nugget: "On the lane you walk in on, three above the bottom wall, near the Route 7 end. Press A facing west. Nothing shows on-screen."
         route_7:
-          note: "Gate route into Celadon. Pidgey and Abra."
-          intro: "One screen of road between Saffron and Celadon, gate to gate. No grass, no trainers, nothing lying on the ground."
+          note: "Short strip into Celadon. Pidgey and Abra."
+          intro: "One screen of road between Saffron and Celadon, with a patch of tall grass across the top. No trainers, and nothing lying on the ground."
           steps:
             "1":
               title: "Cross to Celadon"
-              text_html: "You surface from the Underground Path %{path} on Route 7, the short green strip between Saffron and Celadon. Walk west along it."
-            "2":
-              title: "Enter Celadon"
-              text_html: "Pass through the gate %{gate} at the western end and step out %{west} into Celadon City, the biggest city in Kanto."
+              text_html: "Tall grass fills the top of the strip: step in if you still want a Pidgey, Abra or Jigglypuff. Otherwise head straight west %{west} into Celadon, the biggest city in Kanto."
         celadon_city:
           store:
-            blurb: "The biggest shop in Kanto: six floors of Poké Balls, TMs, evolution stones, vitamins and vending drinks. Ride the elevator to any floor to see what it sells and for how much."
+            trades:
+              ice_beam: "The best Ice attack in the game and it can freeze. Give it to a Water type and it covers Grass, Ground, Flying and Dragon."
+              rock_slide: "Rock coverage most Ground and Rock types can learn, and the answer to the Flying and Bug types that laugh at them."
+              tri_attack: "A Normal special attack with no drawback. Handy on Porygon, Dodrio or Chansey, none of which learn much else."
+            blurb: "The biggest shop in Kanto: five floors of Poké Balls, TMs, evolution stones and vitamins, with a vending rooftop above them. The lift serves 1F to 5F; the roof is up the stairs from 5F."
             floors:
               "1F":
                 name: "Service Counter"
@@ -1798,14 +1878,14 @@ en:
                 name: "Wiseman Gifts"
                 motto: '"Evolution special: every stone in stock!"'
                 rec:
-                  water_stone: "The only Water Stone shop in Kanto. Evolve your Eevee into Vaporeon here."
+                  poke_doll: "The only counter in Kanto that sells one. The Copycat in Saffron hands over TM31 Mimic for it, so buy the doll now and the TM costs you a knock on her door."
               "5F":
                 name: "Pharmacy"
                 motto: '"Boost your Pokémon to the max."'
               "ROOF":
                 name: "Rooftop Square"
                 motto: '"Vending machines and a very thirsty kid."'
-                note: "Buy one of each drink for the thirsty girl and she trades each for a TM. Grab an extra Fresh Water for the Saffron gate guards while you are here."
+                note: "Three vending machines and a girl who wants what they sell. One of each drink buys one of each TM from her, and any fourth drink gets you past the Saffron gate guards."
                 rec:
                   fresh_water: "Trade one to the girl for TM13 Ice Beam."
                   soda_pop: "Trade one for TM48 Rock Slide."
@@ -1816,140 +1896,170 @@ en:
           intro: "Kanto's biggest city: a six-floor department store, Erika's greenhouse gym, and a Game Corner with Team Rocket's hideout underneath it."
           steps:
             "1":
-              title: "Arrive from Route 7"
-              text_html: "Step in from the Route 7 gate %{east} on the east side. Kanto's biggest city holds a six-floor department store, a Game Corner and Erika's Grass gym. Heal at the Center %{center} up the road first."
-            "2":
-              title: "Search the northeast trees"
-              text: "Before heading into town, wade up the tall grass along the eastern edge to its northeast corner. Stand one tile below the lone tree, face up and press A for a hidden PP Up."
+              title: "Sweep the east lane for a PP Up"
+              text: "Follow the street past the Game Corner east to the town's edge, then north up the one-tile lane of tall grass. It dead-ends at a tree: stand below it, face up and press A for a hidden PP Up."
               hidden:
-                pp-up: "Top of the far-east tall-grass strip, at the tree capping its north end (just southeast of the Pokémon Center). Face up and press A; nothing appears."
+                pp-up: "At the top of the one-tile grass lane on the far east edge, southeast of the Pokémon Center, facing the tree that caps it. Face up and press A; nothing appears."
+            "2":
+              title: "Take the Eevee off the roof"
+              text_html: "Take the Celadon Mansion's back door %{mansion}, not the front: only the rear stairwell reaches the roof. Three flights up, a house holds a Poké Ball with an Eevee at Lv 25, ready for any stone."
             "3":
-              title: "Shop the Dept. Store"
-              text_html: "Head to the six-floor department store %{store} on the west side. Take the free TM18 Counter from the 3F clerk and buy evolution stones on 4F. Buy four rooftop drinks: three trade for TMs up there, one is for Saffron's guards."
-            "4":
-              title: "Take the Eevee, then the Gym"
-              text_html: "Collect the gift Eevee atop the Celadon Mansion %{mansion}, behind the Center, and the Coin Case from the restaurant %{diner}. Then the Gym %{gym} behind the trees: Fire, Flying or Psychic beats Erika, and Cut skips the maze."
+              title: "Collect the Coin Case"
+              text_html: "The restaurant %{diner} is south of the arcade. A man slumped at the far table lost everything at the slots and gives you his Coin Case; without it the Game Corner will not sell you a coin."
               items:
-                coin_case: "From the man slumped in the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
+                coin_case: "From the man slumped at the far table of the Celadon restaurant, south of the Game Corner. Holds the coins you win at the slots."
+            "4":
+              title: "Shop the Dept. Store"
+              text_html: "Head into the department store %{store} on the west side. The lift runs 1F to 5F: 4F sells the evolution stones and a Poké Doll, which the Copycat in Saffron trades TM31 Mimic for."
             "5":
-              title: "Hit the Game Corner"
-              text_html: "Win coins for prizes like Porygon and Vulpix, then find the poster switch inside %{corner} to enter the Rocket Hideout."
+              title: "Take the free TM18 from the 3F clerk"
+              text: "The clerk behind the desk on 3F hands TM18 Counter over for nothing, once. Counter returns double the damage of the last physical hit that landed on its user, which answers Normal and Fighting leads."
+              items:
+                tm18_counter: "From the clerk behind the desk on the TV Game Shop floor. He gives it once, then only talks about it."
+            "6":
+              title: "Buy the roof drinks and trade them"
+              text: "Ride to 5F, take the stairs to the roof and buy four drinks. The girl west of the machines trades one each for TM13 Ice Beam, TM48 Rock Slide and TM49 Tri Attack; the fourth is for Saffron's guards."
+            "7":
+              title: "Open Saffron with a drink"
+              text: "Walk east to the Route 7 gate and hand the guard a Fresh Water. Any of the three drinks works, but Fresh Water is the cheapest at ¥200. One drink opens all four Saffron gates for good."
+            "8":
+              title: "Find the Game Corner"
+              text_html: "The Game Corner %{corner} stands mid-town, a few doors up the street from the restaurant. Walk in through the front."
           tips:
             eevee: "Free in the Condominiums. Evolve it with a stone into Vaporeon, Jolteon or Flareon."
-            porygon: "The only Porygon in the game. 9999 Game Corner coins, but nowhere else to get it."
-            vulpix: "Trade-only in the wild in Yellow. The Game Corner (1000 coins) is your easy source."
           oak:
             eevee: "Gift → one of Vaporeon / Jolteon / Flareon. Register the base once."
-            porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
           gifts:
             eevee:
               from: "FROM THE MANSION ROOF"
+        celadon_city_return:
+          note: "Back for Erika. Rainbow Badge and TM21 Mega Drain."
+          intro: "Second time through Celadon, with the hideout emptied and the Silph Scope in your bag. The only thing left in town is the greenhouse behind the trees."
+          steps:
+            "1":
+              title: "Cut into the greenhouse"
+              text_html: "The Gym %{gym} is in the southwest corner, walled off by small trees. Cut one and go in: the floor inside is another hedge maze, and Erika waits at the back of it."
+            "2":
+              title: "Bank the badge and move on"
+              text: "The Rainbow Badge makes traded Pokémon obey up to Lv 50 and lets one use Strength outside battle. Erika hands over TM21 Mega Drain with it. Lavender's tower is next, Silph Scope in hand."
         rocket_hideout:
+          oak:
+            porygon: "Game Corner exclusive. The only Porygon you'll get. Grab one."
+          tips:
+            porygon: "The only Porygon in the game. 9999 Game Corner coins, but nowhere else to get it."
+            vulpix: "Trade-only in the wild in Yellow. The Game Corner (1000 coins) is your easy source."
+          prizes:
+            note_vulpix: "The only Vulpix in Yellow. It never shows up in the wild, so this counter is the one shot at the dex slot."
+            note_porygon: "The only Porygon in the game, at the steepest price in the room. Nothing else fills this dex slot."
+            note_hyper_beam: "The strongest attack in Gen 1, and it skips its recharge turn entirely if it faints the target."
           note: "Team Rocket's base. Get the Silph Scope."
           intro: "Four basement floors under the Game Corner, tiled with arrows that shove you along until a wall stops you. Giovanni runs the place."
           steps:
             "1":
-              title: "Open the stairs"
-              text: "In the Celadon Game Corner, a man in black stands guard by the lone poster on the north wall. Beat him, press the switch hidden behind the poster, and the staircase down to B1F grinds open."
+              title: "Sweep the arcade floor for coins"
+              text_html: "Twelve piles between the machines pay 240 coins in all, one of them 100. Press A on each; nothing shows on-screen. Three players hand over 50 more: %{guru}, %{man} and %{fisher}."
             "2":
+              title: "Beat the Rocket, then read the poster"
+              text_html: "The Rocket %{rocket} stands in front of the poster %{poster} on the back wall. Beat him, then press A on it: the switch behind opens a stairway in the wall to the right %{stairs}."
+            "3":
               title: "Ride the spin tiles"
               text: "B1F is laced with arrow tiles that launch you in a straight line until a wall or stop tile catches you. Line up every spin before you step on, and work the tiles to reach the item balls."
-            "3":
+            "4":
               title: "Slide west for the Escape Rope"
               text: "Spin your way into the western half of B1F, where an Escape Rope sits on a ball. Pocket it now; it can whisk you straight out of the hideout if the maze ever gets the better of you."
               items:
                 escape-rope: "West half of B1F. Step onto the ball at grid (11,14)."
-            "4":
+            "5":
               title: "Grab the Hyper Potion"
               text: "Just southwest of the Escape Rope, another ball holds a Hyper Potion. Grab it for a hefty 200 HP heal to carry into the grunt fights below."
               items:
                 hyper-potion: "West side of B1F, one row southwest of the Escape Rope ball."
-            "5":
+            "6":
               title: "Feel for the hidden PP Up"
               text: "Back near the center of B1F, close to where you came in, stand on the tile at (20,15) and press A facing east. A hidden PP Up is buried on the square beside you, though nothing shows on-screen."
               hidden:
                 pp-up: "Center of B1F. Press A facing east from grid (20,15). Nothing shows on-screen."
-            "6":
+            "7":
               title: "Take the stairs to B2F"
               text_html: "Spin back toward the northeast corner of B1F and take staircase %{down} down to B2F, the next ring of the spinner maze."
-            "7":
+            "8":
               title: "Bag the Nugget"
               text: "Near the middle of B2F a ball holds a Nugget, a pricey lump worth a tidy sum at any shop. Line up the tiles and step to it from the west."
               items:
                 nugget: "Center of B2F, on the ball at grid (16,8)."
-            "8":
+            "9":
               title: "Pick up TM07 (Horn Drill)"
               text: "Slide to the western strip of B2F for TM07, Horn Drill, a one-hit KO move that only lands on slower foes. Grab the ball and tuck the TM away."
               items:
                 tm-horn-drill: "West side of B2F, on the ball at grid (6,12)."
-            "9":
+            "10":
               title: "Claim the Moon Stone"
               text: "In the far northwest corner of B2F sits a Moon Stone, the evolution stone for Nidoran, Clefairy and Jigglypuff. It hides easily against the wall, so make the trip for it."
               items:
                 moon-stone: "Far northwest corner of B2F, on the ball at grid (1,11)."
-            "10":
+            "11":
               title: "Grab the Super Potion"
               text: "Down in the southwest of B2F, one more ball holds a Super Potion. Snag it before you leave the floor."
               items:
                 super-potion: "Southwest of B2F, on the ball at grid (3,21)."
-            "11":
+            "12":
               title: "Drop to B3F"
               text_html: "Return to the north of B2F and take stairs %{down} down to B3F. The Rockets here hit a little harder, so keep your lead healthy."
-            "12":
+            "13":
               title: "Snag the Rare Candy"
               text: "A Rare Candy rests on a ball near the middle of B3F. One free level for any Pokémon; save it for whatever you are trying to push over an evolution or a gym."
               items:
                 rare-candy: "Center of B3F, on the ball at grid (20,14)."
-            "13":
+            "14":
               title: "Pick up TM10 (Double-Edge)"
               text: "Over on the east side of B3F, a ball holds TM10, Double-Edge, a heavy Normal hit that recoils a quarter of the damage back on you. Grab it."
               items:
                 tm-double-edge: "East side of B3F, on the ball at grid (26,17)."
-            "14":
+            "15":
               title: "Feel for the hidden Nugget"
               text: "One tile east of the Double-Edge ball, stand at (27,18) and press A facing up. A second hidden Nugget is buried right there, with nothing shown on-screen. Two Nuggets from this hideout is a nice payday."
               hidden:
                 nugget: "East edge of B3F, one tile east of the TM10 ball. Press A facing up from (27,18). Nothing shows on-screen."
-            "15":
+            "16":
               title: "Descend to B4F"
               text_html: "Take the last staircase %{down} down to B4F, the bottom of the hideout. Giovanni is down here, but a locked elevator stands between you and his office."
-            "16":
+            "17":
               title: "Take the Lift Key from the grunt's room"
               text: "In the northwest room of B4F, a lone Rocket Grunt guards a ball. Beat him and grab the Lift Key, the switch that finally powers the elevator to Giovanni's office."
               items:
                 lift-key: "Northwest room of B4F, on the ball at grid (10,2), beside the Rocket Grunt."
-            "17":
+            "18":
               title: "Grab TM02 (Razor Wind)"
               text: "Two tiles south of the Lift Key, in the same northwest room, a ball holds TM02, Razor Wind, a two-turn Normal move. Scoop it up while you are here."
               items:
                 tm-razor-wind: "Northwest room of B4F, on the ball at grid (9,4), just south of the Lift Key ball."
-            "18":
+            "19":
               title: "Collect the HP Up"
               text: "Still in the western half of B4F, a little south of the Lift Key room, a ball holds an HP Up. A permanent HP boost for one Pokémon; grab it."
               items:
                 hp-up: "West of B4F, on the ball at grid (10,12), south of the Lift Key room."
-            "19":
+            "20":
               title: "Pick up the Iron"
               text: "Down in the south of B4F, a ball holds an Iron, the vitamin that permanently raises Defense. Work the tiles down to it before you head for the elevator."
               items:
                 iron: "South of B4F, on the ball at grid (12,20)."
-            "20":
+            "21":
               title: "Ride the elevator to Giovanni"
               text_html: "With the Lift Key, cross to the elevator %{lift} in the east of B4F and ride it into the sealed corridor. Jessie & James block the way; past them lies the office."
-            "21":
+            "22":
               title: "Beat Giovanni"
               text: "Giovanni waits at the top of the corridor: Onix (Lv 25), Rhyhorn (Lv 24), Persian (Lv 29). Water or Grass melts the first two, anything fast handles Persian. The ball behind him is then yours."
-            "22":
+            "23":
               title: "Take the Silph Scope"
               text: "With Giovanni gone, step up and grab the ball on the tile he was guarding. Inside is the Silph Scope, the device that reveals the ghosts haunting Pokémon Tower in Lavender Town."
               items:
                 silph-scope: "Top of Giovanni's corridor, northeast B4F, on the ball at grid (25,2)."
-            "23":
+            "24":
               title: "Feel for the hidden Super Potion"
               text: "Stand on the Silph Scope tile at the top of the corridor and press A facing up. A hidden Super Potion sits on the square above, with nothing shown on-screen."
               hidden:
                 super-potion: "Very top of Giovanni's corridor. Stand on the Silph Scope tile (25,2) and press A facing up. Nothing shows on-screen."
-            "24":
+            "25":
               title: "Leave for Pokémon Tower"
               text: "That is the whole hideout swept. Escape Rope out or ride the elevator back to B1F, and head for Lavender Town: the Silph Scope opens up Pokémon Tower next."
         pokemon_tower:
@@ -1960,52 +2070,49 @@ en:
               title: "Climb with the Silph Scope"
               text: "Step in from Lavender Town and start up. With the Silph Scope on, the wild Gastly, Haunter and Cubone that haunt every floor finally take shape, so you can battle them instead of fumbling in the dark."
             "2":
-              title: "Beat your rival on 2F"
-              text: "Blue ambushes you crossing the second floor, his team around Lv 25. His Eevee wears whichever form your earlier results locked in, so lead with a counter to it, then take the west stairs up."
-            "3":
               title: "Snag the Escape Rope on 3F"
               text: "On the third floor, a lone ball waits against the very top wall, dead center. Walk up to it for an Escape Rope, your instant bail-out if the ghosts wear you down."
               items:
                 escape-rope: "Top-center of 3F, against the north wall; approach from below."
-            "4":
+            "3":
               title: "Grab the Elixir on 4F"
               text: "Up on the fourth floor, the first of three balls sits near the middle of the room. Step to it from the right for an Elixir, which tops up the PP of every move at once."
               items:
                 elixir: "Center of 4F, approached from the east."
-            "5":
+            "4":
               title: "Drop south for the HP Up"
               text: "Just below the Elixir, tucked against the lower wall, a second ball holds an HP Up, a permanent boost to one Pokémon's max HP. Reach it from the left."
               items:
                 hp-up: "South edge of 4F, directly below the Elixir."
-            "6":
+            "5":
               title: "Pocket the Awakening"
               text: "A few steps west along the middle row, the last 4F ball is an Awakening, a one-shot cure for Sleep and handy against the Tower's drowsy ghosts. Then make for the west stairs."
               items:
                 awakening: "Center-west of 4F, west of the Elixir, near the stairs up."
-            "7":
+            "6":
               title: "Feel for the hidden Elixir on 5F"
               text: "Coming onto the fifth floor from the west stairs, step a couple of tiles in and face south. Press A on the empty tile just below you for a hidden Elixir; nothing shows on-screen, but it drops into your bag."
               hidden:
                 elixir: "Just southeast of the 5F west stairs. Press A facing down on the empty tile; no ball is visible."
-            "8":
+            "7":
               title: "Bag the Nugget"
               text: "A little further into the fifth floor, a ball sits low on the west side. Grab it from the right for a Nugget, worth a fat pile of cash at any shop."
               items:
                 nugget: "West-south area of 5F, a few tiles past the hidden Elixir; approach from the right."
-            "9":
+            "8":
               title: "Claim the Rare Candy on 6F"
               text: "The sixth floor's prize sits over on the west side, up near the top. Walk up to it for a Rare Candy, an instant level for whichever Pokémon needs it most."
               items:
                 rare-candy: "West side of 6F, toward the top; approach from below."
-            "10":
+            "9":
               title: "Grab the X Accuracy"
               text: "Back across to the southeast, the last Tower ball is an X Accuracy, a battle item that sharpens your next few hits. From here it is a short walk to the stairs the ghost guards."
               items:
                 x-accuracy: "Southeast of 6F; approach from the right."
-            "11":
+            "10":
               title: "Clear the ghost Marowak"
               text: "A Lv 30 ghost Marowak stands over the stairs up, mourning among the graves. The Silph Scope lets you see and fight it, so knock it out to clear the way. It can never be caught, only laid to rest."
-            "12":
+            "11":
               title: "Free Mr. Fuji on 7F"
               text: "At the top, Jessie & James block the way to Mr. Fuji. Beat the pair and speak to the old man to free him. He hands over the Poké Flute, which wakes the Snorlax on Routes 12 and 16."
               items:

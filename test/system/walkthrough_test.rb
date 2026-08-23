@@ -5,6 +5,10 @@ class WalkthroughTest < ApplicationSystemTestCase
     Capybara.current_session.current_window.resize_to(width, height)
   end
 
+  def rect(selector)
+    page.evaluate_script("document.querySelector('#{selector}').getBoundingClientRect().toJSON()")
+  end
+
   test "the shared menu moves between the landing page and the walkthrough" do
     visit root_path
 
@@ -32,7 +36,7 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_current_path walkthrough_leg_path(game: "yellow", leg: "leg-01")
     assert_selector ".pn-wt-band__title", text: "Pallet Town"
     assert_selector ".pn-wt-band__title", text: "Route 1"
-    assert_selector ".pn-wt-chip", minimum: 2
+    assert_selector ".pn-legsw__chip", minimum: 2
 
     find(".pn-wt-nav__link--next").click
     assert_current_path walkthrough_leg_path(game: "yellow", leg: "leg-02")
@@ -90,6 +94,30 @@ class WalkthroughTest < ApplicationSystemTestCase
     resize_to(1400, 1000)
   end
 
+  test "on a narrow window the jump bar is a stepper that opens the whole stop list" do
+    resize_to(430, 900)
+
+    visit walkthrough_leg_path(game: "yellow", leg: "leg-08")
+
+    assert_no_selector ".pn-legsw__rail", visible: true
+    assert_selector ".pn-legsw__current-name", text: "Route 10"
+    assert_selector ".pn-legsw__count", text: "1/5"
+
+    find(".pn-legsw__current").click
+    assert_selector ".pn-legsw__sheet", visible: true
+    find(".pn-legsw__row-name", text: "Route 8").click
+
+    assert_no_selector ".pn-legsw__sheet", visible: true
+    assert_selector ".pn-legsw__current-name", text: "Route 8"
+    assert_selector ".pn-legsw__count", text: "3/5"
+    assert_selector ".pn-legsw__seg.is-here", count: 1
+
+    # the bar parks flush under the nav at whatever height the nav measures
+    assert_in_delta rect(".pn-nav")["bottom"], rect(".pn-legsw")["top"], 1
+  ensure
+    resize_to(1400, 1000)
+  end
+
   test "a special stop opens its dedicated page and the language toggle stays put" do
     visit walkthrough_path(game: "yellow")
 
@@ -97,7 +125,7 @@ class WalkthroughTest < ApplicationSystemTestCase
 
     assert_current_path walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
     assert_selector ".pn-wt-loc__title", text: "Forest"
-    assert_no_selector ".pn-wt-chip"
+    assert_no_selector ".pn-legsw__chip"
 
     click_link "PT"
 

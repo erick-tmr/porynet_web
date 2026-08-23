@@ -59,6 +59,20 @@ module Walkthrough
       Evolutions.into(dex).any? { |evo| performable?(evo, Evolutions::STONE_SOURCES.values) }
     end
 
+    # Whether a box slot for `dex` can be filled by growing something into it, which is a wider
+    # question than whether Oak will register it. A trade evolution is not performable on one
+    # cartridge, so it can never stand registered by the deadline, but a living dex still holds an
+    # Alakazam: you hand a Kadabra over and your partner hands it back. What that costs is a spare
+    # body of the stage below, which is exactly what a filled slot is measured in here. Alakazam,
+    # Machamp, Golem and Gengar are the four, and left out of this they fell off the plan entirely
+    # rather than asking anyone for the second Kadabra they need.
+    def self.fillable?(dex)
+      Evolutions.into(dex).any? do |evo|
+        !Evolutions.refused?(evo.to) &&
+          (evo.trade? || performable?(evo, Evolutions::STONE_SOURCES.values))
+      end
+    end
+
     def self.ancestors_of(dex)
       line = []
       stage = dex
@@ -82,7 +96,18 @@ module Walkthrough
 
     def self.repeatable?(game, dex) = wild_encounters(game, dex).any?
 
+    # A prize counter is not a spawn: it never runs out and it never rolls against you, so a body
+    # off it is as good as the coins and better than any odds. It carries a price where a wild
+    # card carries a percentage, which reads as no rate at all, and left at that the only Vulpix
+    # in the game could not source anything: Ninetales, whose one route into the box is a Fire
+    # Stone on a spare Vulpix, dropped off the plan with nothing owing it.
+    def self.purchasable?(game, dex)
+      game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.purchased? }
+    end
+
     def self.worth_catching?(game, dex)
+      return true if purchasable?(game, dex)
+
       rate = top_rate(game, dex)
       !rate.nil? && rate >= WORTH_CATCHING_RATE
     end
@@ -97,7 +122,7 @@ module Walkthrough
     # whole line. A stage nothing grows into is caught or not had at all, and nil means no body in
     # the line can fill this slot.
     def self.body_source(game, dex)
-      return dex unless evolvable?(dex)
+      return dex unless fillable?(dex)
 
       rungs(dex).find { |stage| worth_catching?(game, stage) } || best_odds(game, ancestors_of(dex))
     end
@@ -306,10 +331,26 @@ module Walkthrough
       here = leg_order(leg).map(&:slug)
       caught, grown = owed_here(game, leg, due)
         .partition { |dex| catchable_stop(game, dex, reached) }
-      [ OakGroup.new(kind: :catch, note_key: "walkthrough.ui.oak_group_catch_note",
-          tiles: caught.map { |dex| tile_for(game, dex, reached, here) }),
-        OakGroup.new(kind: :evolve, note_key: "walkthrough.ui.oak_group_evolve_note",
-          tiles: grown.map { |dex| tile_for(game, dex, reached, here) }) ]
+      choice, grown = grown.partition { |dex| one_specimen_line?(game, dex, grown) }
+      [ oak_group(:catch, game, caught, reached, here),
+        oak_group(:evolve, game, grown, reached, here),
+        oak_group(:choice, game, choice, reached, here, pick: 1) ]
+    end
+
+    def self.oak_group(kind, game, dexes, reached, here, pick: nil)
+      OakGroup.new(kind: kind, pick: pick,
+        note_key: "walkthrough.ui.oak_group_#{kind}_note",
+        tiles: dexes.map { |dex| tile_for(game, dex, reached, here) })
+    end
+
+    # Several stone evolutions off one base the game only ever hands over once. Eevee is the whole
+    # of it in Yellow: it has no wild source anywhere, so the Water, Thunder and Fire Stones are
+    # three species but one choice, and asking for all three asks for two trades.
+    def self.one_specimen_line?(game, dex, grown)
+      base = Evolutions.into(dex).first&.from
+      return false if base.nil? || game.best_catches[base]
+
+      grown.count { |other| Evolutions.into(other).first&.from == base } > 1
     end
 
     def self.owed_here(game, leg, due)

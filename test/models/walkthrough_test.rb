@@ -10,21 +10,24 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing three of them twice" do
+  test "the game covers the 52 Kanto stops, drawing four of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 52 numbered stops (1..52), three of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), four of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
-    # needs, and Route 10 (stop 22) is cut in half by Rock Tunnel. Each pass is its own section,
-    # so 55 sections share 52 numbers.
-    assert_equal 55, g.locations.size
-    assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
+    # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, and Celadon (stop 28) is left and
+    # come back to so the Rocket Hideout is cleared before Erika. Each pass is its own section,
+    # so 57 sections share 53 numbers.
+    assert_equal 57, g.locations.size
+    assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
       g.locations.select { |loc| loc.order == 17 }.map(&:slug)
     assert_equal %w[route-10 route-10-south], g.locations.select { |loc| loc.order == 22 }.map(&:slug)
+    assert_equal %w[celadon-city celadon-city-return],
+      g.locations.select { |loc| loc.order == 28 }.map(&:slug)
   end
 
   test "both passes of a stop walked twice list the same water" do
@@ -37,10 +40,10 @@ class WalkthroughTest < ActiveSupport::TestCase
       "the second pass must never win the star over the first"
   end
 
-  test "the location sections group into 27 ordered legs with no gaps or dupes" do
+  test "the location sections group into 29 ordered legs with no gaps or dupes" do
     g = game
-    assert_equal 27, g.legs.size
-    assert_equal (1..27).to_a, g.legs.map(&:order)
+    assert_equal 29, g.legs.size
+    assert_equal (1..29).to_a, g.legs.map(&:order)
     covered = g.legs.flat_map { |l| l.locations.map(&:slug) }
     assert_equal g.locations.map(&:slug).sort, covered.sort
     assert_equal covered.size, covered.uniq.size
@@ -116,10 +119,10 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "the eight gym locations carry badges" do
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city fuchsia-city saffron-city cinnabar-island viridian-gym],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city saffron-city cinnabar-island viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
-    assert_equal %w[cinnabar-island], game.leg!("leg-12").gyms.map(&:slug)
-    assert_equal %w[viridian-gym], game.leg!("leg-13").gyms.map(&:slug)
+    assert_equal %w[cinnabar-island], game.leg!("leg-14").gyms.map(&:slug)
+    assert_equal %w[viridian-gym], game.leg!("leg-15").gyms.map(&:slug)
   end
 
   test "Pewter splits its steps around the gym, in the band" do
@@ -153,17 +156,17 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert fuchsia.gym_finale?
     assert_equal [ 1, 2, 3 ], fuchsia.lead_steps.map(&:n)
     assert_equal [ 4 ], fuchsia.finale_steps.map(&:n), "HM04 Strength lands with the gym, not before it"
-    assert_equal fuchsia, game.leg!("leg-09").finale
+    assert_equal fuchsia, game.leg!("leg-11").finale
   end
 
-  test "Silph Co. is freed before Saffron's gym opens, as the leg-10 lead promises" do
+  test "Silph Co. is freed before Saffron's gym opens, as the leg-12 lead promises" do
     saffron = game.locations.index(loc("saffron-city"))
     silph = game.locations.index(loc("silph-co"))
 
     assert_operator silph, :<, saffron
-    assert_equal 39, loc("silph-co").order
-    assert_equal 40, loc("saffron-city").order
-    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-10"))
+    assert_equal 40, loc("silph-co").order
+    assert_equal 41, loc("saffron-city").order
+    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-12"))
   end
 
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do
@@ -314,7 +317,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "a multi-word method slugs into one key for the id, the class and the copy" do
-    section = loc("celadon-city").encounter_sections.find { |s| s.code == "GAME CORNER" }
+    section = loc("rocket-hideout").encounter_sections.find { |s| s.code == "GAME CORNER" }
 
     assert_equal "game-corner", section.key
     assert_equal "walkthrough.ui.catchsec_game_corner_label", section.label_key
@@ -397,7 +400,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "a one-floor stop leaves the floor blank, and so does a gym" do
     assert_empty loc("route-3").trainers.filter_map(&:floor), "a route is all one floor"
-    assert_equal [ "Gym" ], loc("celadon-city").gym.trainers.map(&:floor).uniq,
+    assert_equal [ "Gym" ], loc("celadon-city-return").gym.trainers.map(&:floor).uniq,
       "every trainer in a gym reads the same, so no card can single one out"
   end
 

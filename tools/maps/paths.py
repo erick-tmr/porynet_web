@@ -49,8 +49,21 @@ ROUTES = {
         "exit-17-13", "trainer-0-15", "trainer-10-21", "trainer-11-21", "trainer-19-26",
         "trainer-11-30", "trainer-11-31"
     ),
-    "Route8": ("exit-east",),                       # out of Lavender
-    "Route9": ("exit-west",),                       # out of Cerulean
+    # Out of Lavender. The four standing in a column halfway along are cleared in one pass down
+    # it, so you come west along the top row and take them from the north end; the flood arrives
+    # on the bottom row and letters the column upside down, which is a walk that climbs it and
+    # then comes back down for the road west.
+    "Route8": ("exit-east", "trainer-51-12", "trainer-46-13", "trainer-26-3"),
+    # Out of Cerulean, and the way across is a staircase of one-way ledges the flood cannot see:
+    # it walks up drops the player can only fall down, so it reads the route as open field and
+    # ranks nine trainers on how far east they sit. Walked, the low road comes before the pocket
+    # above it every time: the Youngster on the road before the Bug Catcher up in the northern
+    # bowl, the Hiker in the southeast hollow before the Bug Catcher on the shelf over it, then up
+    # onto the ridge and out along the top.
+    "Route9": (
+        "exit-west", "trainer-13-10", "trainer-16-15", "trainer-24-7", "trainer-22-2",
+        "trainer-45-15", "trainer-40-8", "trainer-31-7", "trainer-43-3", "trainer-48-8"
+    ),
     "Route10": ("exit-west", "exit-8-53"),          # from Route 9, then back out of Rock Tunnel
     "Route11": ("exit-west",),                      # east out of Vermilion, off the ship
     "Route12": ("exit-north",),                     # down from Lavender
@@ -93,8 +106,24 @@ ROUTES = {
         "trainer-12-16", "item-2-2", "trainer-5-6"
     ),
     "MtMoonB2F": ("exit-15-27", "exit-25-9", "exit-21-17"),
-    "RockTunnel1F": ("exit-15-3", "exit-37-17"),
-    "RockTunnelB1F": ("exit-33-25",),
+    # 1F is three sealed stretches, not one floor. The north mouth's holds the Pokémaniac and the
+    # ladder down; the middle pocket is reached only by climbing back up from B1F, entered by one
+    # of its ladders and left by the other; the southern stretch owns the mouth to Lavender. Rock
+    # is no barrier to the flood, which walks between them and hands the middle pocket's Hikers to
+    # whichever door they sit nearest, so every doorway of the crossing is named, and the
+    # Pokémaniac with them: the walk meets him before it has left the first stretch.
+    "RockTunnel1F": ("exit-15-3", "trainer-23-8", "exit-5-3", "exit-17-11", "exit-37-17",
+                     "exit-15-33"),
+    # Crossed twice, with the climb into 1F's middle pocket between the halves: in at the
+    # southeast ladder, west along the bottom, up the middle and back east to the ladder under
+    # that pocket, then down its other ladder and west again for the top-left corner. The flood
+    # walks the rock, so it sorts that loop by how near the door each trainer ends up; the turns
+    # are named instead.
+    "RockTunnelB1F": ("exit-33-25", "trainer-14-28", "trainer-20-21", "trainer-30-10",
+                      "exit-23-11"),
+    # In off the street at the bottom of the room, so the coin sweep runs from the door. The floor
+    # is open carpet with the machines as islands, so the flood orders the twelve piles on its own.
+    "GameCorner": ("exit-15-17",),
     "RocketHideoutB1F": ("exit-21-2",),
     "RocketHideoutB2F": ("exit-27-8", "item-16-8", "item-6-12", "item-1-11", "item-3-21"),
     "RocketHideoutB3F": ("exit-25-6", "item-20-14", "item-26-17", "hidden-27-17"),
@@ -122,6 +151,7 @@ ROUTES = {
     "SilphCo11F": ("exit-9-0",),
     "PowerPlant": ("exit-4-35",),                   # the south door you Surf up to
     "UndergroundPathNorthSouth": ("exit-5-4",),     # down from the Route 5 house
+    "UndergroundPathWestEast": ("exit-47-2",),      # down from the Route 8 house, walked west
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
     "CeruleanCave2F": ("exit-1-3",),
     "CeruleanCaveB1F": ("exit-3-6", "item-2-13", "item-3-13", "hidden-8-14", "item-15-3", "item-26-1"),

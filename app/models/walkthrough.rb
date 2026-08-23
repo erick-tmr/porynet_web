@@ -14,12 +14,13 @@ module Walkthrough
   # four legs before the Old Rod exists.
   METHOD_UNLOCK = {
     "OLD ROD" => 17,     # Vermilion City, the Fishing Guru
-    "SUPER ROD" => 30,   # Route 12, the Super Rod house
-    "GOOD ROD" => 34,    # Fuchsia City, the Good Rod house
-    "SURF" => 35         # Safari Zone, HM03 in the Secret House
+    "SUPER ROD" => 31,   # Route 12, the Super Rod house
+    "GOOD ROD" => 35,    # Fuchsia City, the Good Rod house
+    "SURF" => 36         # Safari Zone, HM03 in the Secret House
   }.freeze
 
   GIFT_SECTION = "GIFT"
+  GAME_CORNER_METHOD = "GAME CORNER".freeze
 
   SECTION_ICONS = {
     GIFT_SECTION => "walkthrough/items/poke-ball.png",
@@ -64,6 +65,9 @@ module Walkthrough
     :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map) do
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
+    # Bought over a counter rather than hunted, so what the card carries where a rate would go is
+    # a price in coins, and the counter restocks forever.
+    def purchased? = how == GAME_CORNER_METHOD
     def wild? = !gift?
     def section = gift? ? GIFT_SECTION : how
     # The earliest stop whose `order` can register this species: everything walked into is open
@@ -109,11 +113,21 @@ module Walkthrough
   # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon) do
-    def initialize(art: nil, note_icon: nil, **rest) = super
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon,
+    :tag_key, :warning, :pins, :marks) do
+    def initialize(art: nil, note_icon: nil, tag_key: nil, warning: nil, pins: {}, marks: {}, **rest) = super
     def art? = !art.nil?
     def note_icon? = !note_icon.nil?
+    # A section that is about one particular thing says so in its eyebrow ("TRIVIA · NAME RATER"),
+    # because a page can carry more than one and "TRIVIA" alone stops telling them apart.
+    def tag? = !tag_key.nil?
+    def warning? = !warning.nil?
   end
+
+  # The one rule a trivia section exists to warn about, and the single specimen in this save it
+  # bites on: the Mr. Mime you traded for cannot be renamed, and here is its name, struck out.
+  TriviaWarning = Data.define(:title_key, :body_key, :specimen)
+  TriviaSpecimen = Data.define(:dex, :name, :note_key)
   # One species worth farming at a grinding spot, and what the game pays for it. `exp` is Gen 1's
   # own arithmetic, base experience times level over seven, so the figure on the card is the one
   # the battle really awards; `fill` is that against the best on offer here, which is what the bar
@@ -165,12 +179,15 @@ module Walkthrough
   # What a place sells, one row per item. Its price and (for a TM) number/move/type come from the
   # generated item catalog in yellow_places.json; `desc_key` is a shared localized blurb, `rec_key`
   # the note behind a ★ recommended pick. `mtype` names a TM's sprite (tm-<type>).
-  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key) do
+  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key,
+    :tick) do
     def initialize(price: nil, desc_key: nil, tm_no: nil, move: nil, mtype: nil, rec: false,
-      rec_key: nil, **rest)
+      rec_key: nil, tick: nil, **rest)
       super(price: price, desc_key: desc_key, tm_no: tm_no, move: move, mtype: mtype, rec: rec,
-        rec_key: rec_key, **rest)
+        rec_key: rec_key, tick: tick, **rest)
     end
+
+    def tick? = !tick.nil?
 
     def price? = !price.nil?
     def desc? = !desc_key.nil?
@@ -187,7 +204,33 @@ module Walkthrough
   end
 
   # A Celadon rooftop drink the thirsty girl swaps for a TM.
-  MartTrade = Data.define(:drink, :drink_sprite, :tm_short, :tm_sprite, :move)
+  MartTrade = Data.define(:drink, :drink_sprite, :price, :tm_short, :tm_sprite, :move, :mtype,
+    :note_key)
+
+  # One prize on a Game Corner counter: a species with the level it comes at, or a TM.
+  Prize = Data.define(:name, :sprite, :level, :mtype, :coins, :note_key) do
+    def note? = !note_key.nil?
+    def mon? = !level.nil?
+  end
+
+  # One of the three prize counters, and the section that draws all of them.
+  PrizeWindow = Data.define(:id, :prizes)
+  PrizeRoom = Data.define(:windows, :piles) do
+    # The counter sells coins in one size only: 50 for 1000 yen (text/GameCorner.asm).
+    COINS_PER_BUY = 50
+    BUY_PRICE = 1000
+
+    def coins_per_buy = COINS_PER_BUY
+    def buy_price = BUY_PRICE
+    def dearest = windows.flat_map(&:prizes).max_by(&:coins)
+    def payout = (dearest.coins / COINS_PER_BUY.to_f).ceil * BUY_PRICE
+  end
+
+  # One line of the rooftop shopping list: how many of a drink to buy, and what that costs.
+  DrinkBuy = Data.define(:qty, :name, :sprite, :cost)
+
+  # The rooftop trade section: where the girl stands, what she pays, and the bag you need first.
+  RoofTrades = Data.define(:shot, :trades, :buys, :total)
 
   # One floor of the Celadon Dept. Store: its label, what kind of counter it is, an optional free
   # TM gift, its item counters, and (rooftop only) the drink -> TM trades.
@@ -206,11 +249,13 @@ module Walkthrough
 
   # A place you can shop. A city Mart carries `counters`; the Celadon Dept. Store carries `floors`
   # and the store-header stats read off them.
-  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors) do
-    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], **rest)
-      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors, **rest)
+  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors, :roof) do
+    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], roof: nil, **rest)
+      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors,
+        roof: roof, **rest)
     end
 
+    def roof? = !roof.nil?
     def multi? = floors.any?
     def blurb? = !blurb_key.nil?
     def buy? = !buy_key.nil?
@@ -344,8 +389,13 @@ module Walkthrough
   end
 
   OakTile = Data.define(:dex, :name, :via_key, :via_args)
-  OakGroup = Data.define(:kind, :tiles, :note_key) do
+  # `pick` is how many of the group's tiles a run can actually register, when that is fewer than
+  # the tiles shown: three Eevee stones are three species, but one Eevee only ever becomes one.
+  OakGroup = Data.define(:kind, :tiles, :note_key, :pick) do
+    def initialize(pick: nil, **rest) = super(pick: pick, **rest)
+
     def any? = tiles.any?
+    def required = pick || tiles.size
   end
   LockedEntry = Data.define(:dex, :name, :gate_key, :gate_args, :where_key, :where_args)
 

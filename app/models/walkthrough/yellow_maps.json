@@ -69,7 +69,7 @@
               9
             ],
             "align": "r",
-            "name": "Mansion 1F (enter)",
+            "name": "Mansion 1F (front)",
             "ref": "CELADON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -86,7 +86,7 @@
               3
             ],
             "align": "r",
-            "name": "Mansion 1F (exit)",
+            "name": "Mansion 1F (back)",
             "ref": "CELADON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -144,26 +144,9 @@
             "lane": 0
           },
           {
-            "id": "exit-39-19",
-            "cat": "exit",
-            "key": "E8",
-            "x": 79.0,
-            "y": 54.167,
-            "grid": [
-              39,
-              19
-            ],
-            "align": "l",
-            "name": "Mart 5F",
-            "ref": "CELADON_MART_5F",
-            "edge": "inner",
-            "glyph": "\u25b2",
-            "lane": 2
-          },
-          {
             "id": "exit-33-19",
             "cat": "exit",
-            "key": "E9",
+            "key": "E8",
             "x": 67.0,
             "y": 54.167,
             "grid": [
@@ -180,7 +163,7 @@
           {
             "id": "exit-31-27",
             "cat": "exit",
-            "key": "E10",
+            "key": "E9",
             "x": 63.0,
             "y": 76.389,
             "grid": [
@@ -197,7 +180,7 @@
           {
             "id": "exit-35-27",
             "cat": "exit",
-            "key": "E11",
+            "key": "E10",
             "x": 71.0,
             "y": 76.389,
             "grid": [
@@ -214,7 +197,7 @@
           {
             "id": "exit-43-27",
             "cat": "exit",
-            "key": "E12",
+            "key": "E11",
             "x": 87.0,
             "y": 76.389,
             "grid": [
@@ -231,7 +214,7 @@
           {
             "id": "exit-west",
             "cat": "exit",
-            "key": "E13",
+            "key": "E12",
             "x": 1.0,
             "y": 51.389,
             "grid": [
@@ -248,7 +231,7 @@
           {
             "id": "exit-east",
             "cat": "exit",
-            "key": "E14",
+            "key": "E13",
             "x": 99.0,
             "y": 31.944,
             "grid": [
@@ -359,7 +342,7 @@
             "align": "l",
             "name": "Lass",
             "ref": "LASS:18",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "trainer-3-3",
@@ -389,7 +372,7 @@
             "align": "r",
             "name": "Cooltrainer\u2640",
             "ref": "COOLTRAINER_F:1",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-4-17",
@@ -447,7 +430,7 @@
             "align": "l",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "item-18-3",
@@ -462,7 +445,7 @@
             "align": "r",
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-7-11",
@@ -509,7 +492,7 @@
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 1
+            "lane": -2
           },
           {
             "id": "exit-27-1",
@@ -560,7 +543,7 @@
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-7-1",
@@ -652,7 +635,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-16-7",
@@ -682,7 +665,7 @@
             "align": "l",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "item-27-9",
@@ -697,7 +680,7 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "hidden-16-13",
@@ -814,7 +797,7 @@
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           }
         ]
       },
@@ -984,11 +967,11 @@
               11
             ],
             "align": "l",
-            "name": "Trashed House (enter)",
+            "name": "Trashed House (front)",
             "ref": "CERULEAN_TRASHED_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-13-15",
@@ -1005,7 +988,7 @@
             "ref": "CERULEAN_MELANIES_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-19-17",
@@ -1022,7 +1005,7 @@
             "ref": "CERULEAN_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-30-19",
@@ -1039,7 +1022,7 @@
             "ref": "CERULEAN_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-13-25",
@@ -1090,7 +1073,7 @@
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-27-9",
@@ -1103,7 +1086,7 @@
               9
             ],
             "align": "l",
-            "name": "Trashed House (exit)",
+            "name": "Trashed House (back)",
             "ref": "CERULEAN_TRASHED_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1120,11 +1103,11 @@
               11
             ],
             "align": "r",
-            "name": "Badge House (enter)",
+            "name": "Badge House (front)",
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-9-9",
@@ -1137,7 +1120,7 @@
               9
             ],
             "align": "r",
-            "name": "Badge House (exit)",
+            "name": "Badge House (back)",
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1744,7 +1727,7 @@
               27
             ],
             "align": "l",
-            "name": "Good Rod House (enter)",
+            "name": "Good Rod House (front)",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1761,7 +1744,7 @@
               24
             ],
             "align": "l",
-            "name": "Good Rod House (exit)",
+            "name": "Good Rod House (back)",
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -1840,7 +1823,7 @@
             "align": "l",
             "name": "Juggler",
             "ref": "JUGGLER:7",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-1-12",
@@ -1855,7 +1838,7 @@
             "align": "r",
             "name": "Juggler",
             "ref": "JUGGLER:8",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-7-8",
@@ -1930,7 +1913,7 @@
             "align": "r",
             "name": "Koga",
             "ref": "KOGA:1",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-4-17",
@@ -2071,7 +2054,7 @@
             "ref": "LAVENDER_MART",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-3-13",
@@ -2317,7 +2300,7 @@
             "align": "r",
             "name": "Potion",
             "ref": "POTION",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-35-31",
@@ -2379,7 +2362,7 @@
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 0
+            "lane": -2
           },
           {
             "id": "exit-5-5",
@@ -2599,7 +2582,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-29-11",
@@ -2614,7 +2597,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:3",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-29-17",
@@ -2629,7 +2612,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:1",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-12-8",
@@ -2659,7 +2642,7 @@
             "align": "l",
             "name": "HP Up",
             "ref": "HP_UP",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-29-5",
@@ -2704,7 +2687,7 @@
             "align": "r",
             "name": "Moon Stone",
             "ref": "MOON_STONE",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "exit-25-9",
@@ -2721,7 +2704,7 @@
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-21-17",
@@ -2738,7 +2721,7 @@
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-15-27",
@@ -3358,7 +3341,7 @@
             "align": "r",
             "name": "Burglar",
             "ref": "BURGLAR:8",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-20-11",
@@ -3373,7 +3356,7 @@
             "align": "l",
             "name": "Scientist",
             "ref": "SCIENTIST:12",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "item-25-5",
@@ -3469,7 +3452,7 @@
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           }
         ]
       },
@@ -3508,7 +3491,7 @@
             "align": "r",
             "name": "Burglar",
             "ref": "BURGLAR:9",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-19-25",
@@ -3523,7 +3506,7 @@
             "align": "l",
             "name": "TM Blizzard",
             "ref": "TM_BLIZZARD",
-            "lane": 0
+            "lane": -4
           },
           {
             "id": "item-1-22",
@@ -3727,7 +3710,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:8",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-12-3",
@@ -3845,7 +3828,7 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:12",
-            "lane": 0
+            "lane": -5
           },
           {
             "id": "trainer-5-10",
@@ -4008,7 +3991,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:18",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "item-6-14",
@@ -4023,7 +4006,7 @@
             "align": "r",
             "name": "Nugget",
             "ref": "NUGGET",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "hidden-4-12",
@@ -4038,7 +4021,7 @@
             "align": "r",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-3-9",
@@ -4096,7 +4079,7 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:19",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-16-5",
@@ -4141,7 +4124,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-14-14",
@@ -4156,7 +4139,7 @@
             "align": "l",
             "name": "X Accuracy",
             "ref": "X_ACCURACY",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-18-9",
@@ -4173,7 +4156,7 @@
             "ref": "POKEMON_TOWER_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-9-16",
@@ -4190,7 +4173,7 @@
             "ref": "POKEMON_TOWER_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -1
           }
         ]
       },
@@ -4332,7 +4315,7 @@
             "align": "r",
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
-            "lane": 0
+            "lane": -3
           },
           {
             "id": "item-25-18",
@@ -4515,24 +4498,9 @@
         "name": "rock-tunnel-1f",
         "markers": [
           {
-            "id": "trainer-7-5",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 18.75,
-            "y": 15.278,
-            "grid": [
-              7,
-              5
-            ],
-            "align": "r",
-            "name": "Hiker",
-            "ref": "HIKER:12",
-            "lane": 0
-          },
-          {
             "id": "trainer-23-8",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 58.75,
             "y": 23.611,
             "grid": [
@@ -4545,24 +4513,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-17-15",
+            "id": "trainer-7-5",
             "cat": "trainer",
-            "key": "T3",
-            "x": 43.75,
-            "y": 43.056,
+            "key": "T2",
+            "x": 18.75,
+            "y": 15.278,
             "grid": [
-              17,
-              15
+              7,
+              5
             ],
             "align": "r",
             "name": "Hiker",
-            "ref": "HIKER:14",
+            "ref": "HIKER:12",
             "lane": 0
           },
           {
             "id": "trainer-5-16",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 13.75,
             "y": 45.833,
             "grid": [
@@ -4572,6 +4540,21 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-17-15",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 43.75,
+            "y": 43.056,
+            "grid": [
+              17,
+              15
+            ],
+            "align": "r",
+            "name": "Hiker",
+            "ref": "HIKER:14",
             "lane": 0
           },
           {
@@ -4746,9 +4729,24 @@
             "lane": 0
           },
           {
-            "id": "trainer-20-21",
+            "id": "trainer-14-28",
             "cat": "trainer",
             "key": "T2",
+            "x": 36.25,
+            "y": 79.167,
+            "grid": [
+              14,
+              28
+            ],
+            "align": "r",
+            "name": "Jr.Trainer\u2640",
+            "ref": "JR_TRAINER_F:10",
+            "lane": 0
+          },
+          {
+            "id": "trainer-20-21",
+            "cat": "trainer",
+            "key": "T3",
             "x": 51.25,
             "y": 59.722,
             "grid": [
@@ -4763,7 +4761,7 @@
           {
             "id": "trainer-30-10",
             "cat": "trainer",
-            "key": "T3",
+            "key": "T4",
             "x": 76.25,
             "y": 29.167,
             "grid": [
@@ -4778,7 +4776,7 @@
           {
             "id": "trainer-33-5",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T5",
             "x": 83.75,
             "y": 15.278,
             "grid": [
@@ -4788,21 +4786,6 @@
             "align": "l",
             "name": "Hiker",
             "ref": "HIKER:11",
-            "lane": 0
-          },
-          {
-            "id": "trainer-14-28",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 36.25,
-            "y": 79.167,
-            "grid": [
-              14,
-              28
-            ],
-            "align": "r",
-            "name": "Jr.Trainer\u2640",
-            "ref": "JR_TRAINER_F:10",
             "lane": 0
           },
           {
@@ -4923,6 +4906,244 @@
     ],
     "rocket-hideout": [
       {
+        "image": "walkthrough/yellow/maps/rocket-hideout-game-corner.png",
+        "width": 320,
+        "height": 288,
+        "floor": "Game Corner",
+        "name": "rocket-hideout-game-corner",
+        "markers": [
+          {
+            "id": "trainer-9-5",
+            "cat": "trainer",
+            "key": "T1",
+            "x": 47.5,
+            "y": 30.556,
+            "grid": [
+              9,
+              5
+            ],
+            "align": "r",
+            "name": "Rocket",
+            "ref": "ROCKET:7",
+            "lane": 1
+          },
+          {
+            "id": "hidden-16-14",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 82.5,
+            "y": 80.556,
+            "grid": [
+              16,
+              14
+            ],
+            "align": "l",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": 0
+          },
+          {
+            "id": "hidden-12-15",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 62.5,
+            "y": 86.111,
+            "grid": [
+              12,
+              15
+            ],
+            "align": "l",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": -5
+          },
+          {
+            "id": "hidden-10-16",
+            "cat": "hidden",
+            "key": "H3",
+            "x": 52.5,
+            "y": 91.667,
+            "grid": [
+              10,
+              16
+            ],
+            "align": "r",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": -1
+          },
+          {
+            "id": "hidden-9-15",
+            "cat": "hidden",
+            "key": "H4",
+            "x": 47.5,
+            "y": 86.111,
+            "grid": [
+              9,
+              15
+            ],
+            "align": "r",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": 1
+          },
+          {
+            "id": "hidden-15-8",
+            "cat": "hidden",
+            "key": "H5",
+            "x": 77.5,
+            "y": 47.222,
+            "grid": [
+              15,
+              8
+            ],
+            "align": "l",
+            "name": "100 coins",
+            "ref": "COIN",
+            "lane": 2
+          },
+          {
+            "id": "hidden-9-12",
+            "cat": "hidden",
+            "key": "H6",
+            "x": 47.5,
+            "y": 69.444,
+            "grid": [
+              9,
+              12
+            ],
+            "align": "r",
+            "name": "20 coins",
+            "ref": "COIN",
+            "lane": 0
+          },
+          {
+            "id": "hidden-11-7",
+            "cat": "hidden",
+            "key": "H7",
+            "x": 57.5,
+            "y": 41.667,
+            "grid": [
+              11,
+              7
+            ],
+            "align": "r",
+            "name": "20 coins",
+            "ref": "COIN",
+            "lane": 1
+          },
+          {
+            "id": "hidden-1-16",
+            "cat": "hidden",
+            "key": "H8",
+            "x": 7.5,
+            "y": 91.667,
+            "grid": [
+              1,
+              16
+            ],
+            "align": "r",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": -3
+          },
+          {
+            "id": "hidden-3-14",
+            "cat": "hidden",
+            "key": "H9",
+            "x": 17.5,
+            "y": 80.556,
+            "grid": [
+              3,
+              14
+            ],
+            "align": "r",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": -3
+          },
+          {
+            "id": "hidden-4-12",
+            "cat": "hidden",
+            "key": "H10",
+            "x": 22.5,
+            "y": 69.444,
+            "grid": [
+              4,
+              12
+            ],
+            "align": "r",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": 3
+          },
+          {
+            "id": "hidden-3-11",
+            "cat": "hidden",
+            "key": "H11",
+            "x": 17.5,
+            "y": 63.889,
+            "grid": [
+              3,
+              11
+            ],
+            "align": "r",
+            "name": "20 coins",
+            "ref": "COIN",
+            "lane": 2
+          },
+          {
+            "id": "hidden-0-8",
+            "cat": "hidden",
+            "key": "H12",
+            "x": 2.5,
+            "y": 47.222,
+            "grid": [
+              0,
+              8
+            ],
+            "align": "r",
+            "name": "10 coins",
+            "ref": "COIN",
+            "lane": 0
+          },
+          {
+            "id": "exit-15-17",
+            "cat": "exit",
+            "key": "E1",
+            "x": 80.0,
+            "y": 97.222,
+            "grid": [
+              15,
+              17
+            ],
+            "align": "l",
+            "name": "Back outside",
+            "ref": "LAST_MAP",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "exit-17-4",
+            "cat": "exit",
+            "key": "E2",
+            "x": 87.5,
+            "y": 25.0,
+            "grid": [
+              17,
+              4
+            ],
+            "align": "l",
+            "name": "Rocket Hideout B1F",
+            "ref": "ROCKET_HIDEOUT_B1F",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      },
+      {
         "image": "walkthrough/yellow/maps/rocket-hideout-b1f.png",
         "width": 480,
         "height": 448,
@@ -4972,7 +5193,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:12",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "trainer-18-17",
@@ -4987,7 +5208,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:10",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-15-25",
@@ -5032,7 +5253,7 @@
             "align": "r",
             "name": "Hyper Potion",
             "ref": "HYPER_POTION",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "hidden-21-15",
@@ -5052,7 +5273,7 @@
           {
             "id": "exit-23-2",
             "cat": "exit",
-            "key": "E1",
+            "key": "E3",
             "x": 78.333,
             "y": 8.929,
             "grid": [
@@ -5086,7 +5307,7 @@
           {
             "id": "exit-24-19",
             "cat": "exit",
-            "key": "E3",
+            "key": "E4",
             "x": 83.333,
             "y": 69.643,
             "grid": [
@@ -5098,12 +5319,12 @@
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-21-24",
             "cat": "exit",
-            "key": "E4",
+            "key": "E5",
             "x": 71.667,
             "y": 87.5,
             "grid": [
@@ -5169,7 +5390,7 @@
             "align": "r",
             "name": "TM Horn Drill",
             "ref": "TM_HORN_DRILL",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "item-1-11",
@@ -5184,7 +5405,7 @@
             "align": "r",
             "name": "Moon Stone",
             "ref": "MOON_STONE",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-3-21",
@@ -5204,7 +5425,7 @@
           {
             "id": "exit-27-8",
             "cat": "exit",
-            "key": "E1",
+            "key": "E3",
             "x": 91.667,
             "y": 30.357,
             "grid": [
@@ -5216,12 +5437,12 @@
             "ref": "ROCKET_HIDEOUT_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-21-8",
             "cat": "exit",
-            "key": "E5",
+            "key": "E6",
             "x": 71.667,
             "y": 30.357,
             "grid": [
@@ -5238,7 +5459,7 @@
           {
             "id": "exit-24-19",
             "cat": "exit",
-            "key": "E6",
+            "key": "E7",
             "x": 83.333,
             "y": 69.643,
             "grid": [
@@ -5255,7 +5476,7 @@
           {
             "id": "exit-21-22",
             "cat": "exit",
-            "key": "E4",
+            "key": "E5",
             "x": 71.667,
             "y": 80.357,
             "grid": [
@@ -5356,7 +5577,7 @@
           {
             "id": "exit-25-6",
             "cat": "exit",
-            "key": "E5",
+            "key": "E6",
             "x": 85.0,
             "y": 23.214,
             "grid": [
@@ -5373,7 +5594,7 @@
           {
             "id": "exit-19-18",
             "cat": "exit",
-            "key": "E7",
+            "key": "E8",
             "x": 65.0,
             "y": 66.071,
             "grid": [
@@ -5424,7 +5645,7 @@
             "align": "l",
             "name": "Giovanni",
             "ref": "GIOVANNI:1",
-            "lane": 0
+            "lane": 4
           },
           {
             "id": "item-10-2",
@@ -5454,7 +5675,7 @@
             "align": "r",
             "name": "TM Razor Wind",
             "ref": "TM_RAZOR_WIND",
-            "lane": 1
+            "lane": 5
           },
           {
             "id": "item-10-12",
@@ -5469,7 +5690,7 @@
             "align": "r",
             "name": "HP Up",
             "ref": "HP_UP",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "item-12-20",
@@ -5484,7 +5705,7 @@
             "align": "r",
             "name": "Iron",
             "ref": "IRON",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-25-2",
@@ -5519,7 +5740,7 @@
           {
             "id": "exit-19-10",
             "cat": "exit",
-            "key": "E7",
+            "key": "E8",
             "x": 65.0,
             "y": 43.75,
             "grid": [
@@ -5531,12 +5752,12 @@
             "ref": "ROCKET_HIDEOUT_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-24-15",
             "cat": "exit",
-            "key": "E8",
+            "key": "E9",
             "x": 83.333,
             "y": 64.583,
             "grid": [
@@ -5548,7 +5769,7 @@
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 3
           }
         ]
       }
@@ -5664,7 +5885,7 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:7",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-3-61",
@@ -5679,7 +5900,7 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:8",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-14-64",
@@ -5694,7 +5915,7 @@
             "align": "l",
             "name": "Pok\u00e9maniac",
             "ref": "POKEMANIAC:2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "hidden-9-17",
@@ -5741,7 +5962,7 @@
             "ref": "ROCK_TUNNEL_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-8-17",
@@ -5942,7 +6163,7 @@
             "align": "r",
             "name": "Engineer",
             "ref": "ENGINEER:2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-45-7",
@@ -5957,7 +6178,7 @@
             "align": "l",
             "name": "Gambler",
             "ref": "GAMBLER:3",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-43-5",
@@ -6019,7 +6240,7 @@
             "ref": "ROUTE_11_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-58-8",
@@ -6261,7 +6482,7 @@
               15
             ],
             "align": "r",
-            "name": "Route 12 Gate 1F (exit)",
+            "name": "Route 12 Gate 1F (back)",
             "ref": "ROUTE_12_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6278,7 +6499,7 @@
               21
             ],
             "align": "r",
-            "name": "Route 12 Gate 1F (enter)",
+            "name": "Route 12 Gate 1F (front)",
             "ref": "ROUTE_12_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6451,7 +6672,7 @@
             "align": "r",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:13",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-23-10",
@@ -6466,7 +6687,7 @@
             "align": "r",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:14",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-12-4",
@@ -6676,7 +6897,7 @@
             "align": "l",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:4",
-            "lane": 3
+            "lane": -2
           },
           {
             "id": "trainer-4-31",
@@ -6811,7 +7032,7 @@
             "align": "l",
             "name": "Beauty",
             "ref": "BEAUTY:9",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-48-10",
@@ -6901,7 +7122,7 @@
             "align": "r",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:7",
-            "lane": 1
+            "lane": -5
           },
           {
             "id": "trainer-31-13",
@@ -6916,7 +7137,7 @@
             "align": "r",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:6",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-18-13",
@@ -7040,7 +7261,7 @@
             "align": "r",
             "name": "Biker",
             "ref": "BIKER:5",
-            "lane": 2
+            "lane": -2
           },
           {
             "id": "trainer-14-13",
@@ -7055,7 +7276,7 @@
             "align": "r",
             "name": "Cue Ball",
             "ref": "CUE_BALL:1",
-            "lane": 1
+            "lane": -4
           },
           {
             "id": "trainer-11-12",
@@ -7070,7 +7291,7 @@
             "align": "r",
             "name": "Cue Ball",
             "ref": "CUE_BALL:2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-9-11",
@@ -7530,7 +7751,7 @@
             "align": "l",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:8",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-40-15",
@@ -7545,7 +7766,7 @@
             "align": "l",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:9",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-42-13",
@@ -7560,7 +7781,7 @@
             "align": "l",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:10",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-33-8",
@@ -7774,7 +7995,7 @@
             "align": "r",
             "name": "Beauty",
             "ref": "BEAUTY:14",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-8-43",
@@ -8347,7 +8568,7 @@
             "align": "r",
             "name": "Swimmer",
             "ref": "SWIMMER:12",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-12-30",
@@ -8655,7 +8876,7 @@
             "align": "r",
             "name": "Bug Catcher",
             "ref": "BUG_CATCHER:9",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-10-28",
@@ -8670,7 +8891,7 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:8",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-11-25",
@@ -8685,7 +8906,7 @@
             "align": "r",
             "name": "Youngster",
             "ref": "YOUNGSTER:4",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-10-22",
@@ -8700,7 +8921,7 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:7",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-11-19",
@@ -8850,7 +9071,7 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:4",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-18-5",
@@ -8880,7 +9101,7 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:9",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-23-9",
@@ -8895,7 +9116,7 @@
             "align": "r",
             "name": "Hiker",
             "ref": "HIKER:3",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-24-4",
@@ -8910,7 +9131,7 @@
             "align": "r",
             "name": "Jr.Trainer\u2642",
             "ref": "JR_TRAINER_M:2",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-32-3",
@@ -8940,7 +9161,7 @@
             "align": "l",
             "name": "Lass",
             "ref": "LASS:10",
-            "lane": 3
+            "lane": 4
           },
           {
             "id": "item-22-2",
@@ -9105,7 +9326,7 @@
             "align": "r",
             "name": "Youngster",
             "ref": "YOUNGSTER:2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-23-4",
@@ -9135,7 +9356,7 @@
             "align": "r",
             "name": "Bug Catcher",
             "ref": "BUG_CATCHER:6",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-33-10",
@@ -9686,7 +9907,7 @@
             "ref": "UNDERGROUND_PATH_ROUTE_7",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-west",
@@ -9776,42 +9997,27 @@
             "align": "l",
             "name": "Super Nerd",
             "ref": "SUPER_NERD:4",
-            "lane": 0
+            "lane": -1
           },
           {
-            "id": "trainer-26-6",
+            "id": "trainer-26-3",
             "cat": "trainer",
             "key": "T4",
             "x": 44.167,
-            "y": 36.111,
+            "y": 19.444,
             "grid": [
               26,
-              6
+              3
             ],
             "align": "r",
             "name": "Lass",
-            "ref": "LASS:15",
+            "ref": "LASS:13",
             "lane": 1
-          },
-          {
-            "id": "trainer-26-5",
-            "cat": "trainer",
-            "key": "T5",
-            "x": 44.167,
-            "y": 30.556,
-            "grid": [
-              26,
-              5
-            ],
-            "align": "r",
-            "name": "Lass",
-            "ref": "LASS:14",
-            "lane": 0
           },
           {
             "id": "trainer-26-4",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T5",
             "x": 44.167,
             "y": 25.0,
             "grid": [
@@ -9824,19 +10030,34 @@
             "lane": 2
           },
           {
-            "id": "trainer-26-3",
+            "id": "trainer-26-5",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T6",
             "x": 44.167,
-            "y": 19.444,
+            "y": 30.556,
             "grid": [
               26,
-              3
+              5
             ],
             "align": "r",
             "name": "Lass",
-            "ref": "LASS:13",
-            "lane": 1
+            "ref": "LASS:14",
+            "lane": 3
+          },
+          {
+            "id": "trainer-26-6",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 44.167,
+            "y": 36.111,
+            "grid": [
+              26,
+              6
+            ],
+            "align": "r",
+            "name": "Lass",
+            "ref": "LASS:15",
+            "lane": 4
           },
           {
             "id": "trainer-13-9",
@@ -9995,24 +10216,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-22-2",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 37.5,
-            "y": 13.889,
-            "grid": [
-              22,
-              2
-            ],
-            "align": "r",
-            "name": "Bug Catcher",
-            "ref": "BUG_CATCHER:13",
-            "lane": 0
-          },
-          {
             "id": "trainer-24-7",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 40.833,
             "y": 41.667,
             "grid": [
@@ -10025,19 +10231,34 @@
             "lane": 0
           },
           {
-            "id": "trainer-31-7",
+            "id": "trainer-22-2",
             "cat": "trainer",
-            "key": "T5",
-            "x": 52.5,
-            "y": 41.667,
+            "key": "T4",
+            "x": 37.5,
+            "y": 13.889,
             "grid": [
-              31,
-              7
+              22,
+              2
             ],
             "align": "r",
-            "name": "Jr.Trainer\u2642",
-            "ref": "JR_TRAINER_M:8",
-            "lane": 1
+            "name": "Bug Catcher",
+            "ref": "BUG_CATCHER:13",
+            "lane": 0
+          },
+          {
+            "id": "trainer-45-15",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 75.833,
+            "y": 86.111,
+            "grid": [
+              45,
+              15
+            ],
+            "align": "l",
+            "name": "Hiker",
+            "ref": "HIKER:5",
+            "lane": 0
           },
           {
             "id": "trainer-40-8",
@@ -10055,19 +10276,19 @@
             "lane": 2
           },
           {
-            "id": "trainer-45-15",
+            "id": "trainer-31-7",
             "cat": "trainer",
             "key": "T7",
-            "x": 75.833,
-            "y": 86.111,
+            "x": 52.5,
+            "y": 41.667,
             "grid": [
-              45,
-              15
+              31,
+              7
             ],
-            "align": "l",
-            "name": "Hiker",
-            "ref": "HIKER:5",
-            "lane": 0
+            "align": "r",
+            "name": "Jr.Trainer\u2642",
+            "ref": "JR_TRAINER_M:8",
+            "lane": 1
           },
           {
             "id": "trainer-43-3",
@@ -10097,7 +10318,7 @@
             "align": "l",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:6",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "item-10-15",
@@ -10296,7 +10517,7 @@
             "align": "r",
             "name": "TM Egg Bomb",
             "ref": "TM_EGG_BOMB",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-20-13",
@@ -10311,7 +10532,7 @@
             "align": "l",
             "name": "Carbos",
             "ref": "CARBOS",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "item-21-10",
@@ -10465,7 +10686,7 @@
             "ref": "SAFARI_ZONE_WEST",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "exit-20-35",
@@ -10540,7 +10761,7 @@
             "align": "l",
             "name": "Gold Teeth",
             "ref": "GOLD_TEETH",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "item-9-7",
@@ -10555,7 +10776,7 @@
             "align": "r",
             "name": "TM Double Team",
             "ref": "TM_DOUBLE_TEAM",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-8-20",
@@ -10600,7 +10821,7 @@
             "align": "r",
             "name": "Revive",
             "ref": "REVIVE",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -10668,7 +10889,7 @@
             "ref": "SAFARI_ZONE_SECRET_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-11-11",
@@ -10685,7 +10906,7 @@
             "ref": "SAFARI_ZONE_WEST_REST_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           }
         ]
       }
@@ -10924,7 +11145,7 @@
             "align": "l",
             "name": "Psychic",
             "ref": "PSYCHIC_TR:3",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "trainer-17-7",
@@ -10939,7 +11160,7 @@
             "align": "l",
             "name": "Psychic",
             "ref": "PSYCHIC_TR:2",
-            "lane": 1
+            "lane": 5
           },
           {
             "id": "trainer-3-13",
@@ -10954,7 +11175,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:24",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "trainer-3-7",
@@ -10969,7 +11190,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:23",
-            "lane": 0
+            "lane": 5
           },
           {
             "id": "trainer-17-1",
@@ -11029,7 +11250,7 @@
             "align": "r",
             "name": "Sabrina",
             "ref": "SABRINA:1",
-            "lane": 2
+            "lane": 5
           },
           {
             "id": "exit-8-17",
@@ -11046,7 +11267,7 @@
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-1-3",
@@ -11063,7 +11284,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-5-3",
@@ -11080,7 +11301,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-1-5",
@@ -11097,7 +11318,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 5
           },
           {
             "id": "exit-5-5",
@@ -11114,7 +11335,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 4
           },
           {
             "id": "exit-1-9",
@@ -11131,7 +11352,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 5
           },
           {
             "id": "exit-5-9",
@@ -11148,7 +11369,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "exit-1-11",
@@ -11165,7 +11386,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -4
           },
           {
             "id": "exit-5-11",
@@ -11182,7 +11403,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -5
           },
           {
             "id": "exit-1-15",
@@ -11199,7 +11420,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "exit-5-15",
@@ -11250,7 +11471,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-9-3",
@@ -11267,7 +11488,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 3
           },
           {
             "id": "exit-11-3",
@@ -11284,7 +11505,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-9-5",
@@ -11301,7 +11522,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 5
           },
           {
             "id": "exit-11-5",
@@ -11318,7 +11539,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 5
           },
           {
             "id": "exit-11-11",
@@ -11335,7 +11556,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -4
           },
           {
             "id": "exit-11-15",
@@ -11369,7 +11590,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 4
           },
           {
             "id": "exit-19-3",
@@ -11386,7 +11607,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 4
+            "lane": 5
           },
           {
             "id": "exit-15-5",
@@ -11403,7 +11624,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": -2
           },
           {
             "id": "exit-19-5",
@@ -11437,7 +11658,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 5
           },
           {
             "id": "exit-19-9",
@@ -11471,7 +11692,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-19-11",
@@ -11488,7 +11709,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 3
+            "lane": -2
           },
           {
             "id": "exit-15-15",
@@ -11505,7 +11726,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-19-15",
@@ -11522,7 +11743,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 3
+            "lane": -1
           },
           {
             "id": "exit-15-17",
@@ -11539,7 +11760,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 3
+            "lane": -1
           },
           {
             "id": "exit-19-17",
@@ -11556,7 +11777,7 @@
             "ref": "SAFFRON_GYM",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 4
+            "lane": 0
           }
         ]
       }
@@ -11695,7 +11916,7 @@
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-13-7",
@@ -11712,7 +11933,7 @@
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-19-15",
@@ -11804,7 +12025,7 @@
             "align": "r",
             "name": "Nugget",
             "ref": "NUGGET",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "exit-5-3",
@@ -11872,7 +12093,7 @@
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -5
           },
           {
             "id": "exit-25-3",
@@ -11981,7 +12202,7 @@
             "ref": "SEAFOAM_ISLANDS_B4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-25-4",
@@ -12049,7 +12270,7 @@
             "ref": "SEAFOAM_ISLANDS_B4F",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 1
+            "lane": -5
           }
         ]
       },
@@ -12088,7 +12309,7 @@
             "align": "l",
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "exit-20-17",
@@ -12242,7 +12463,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:24",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-16-11",
@@ -12372,7 +12593,7 @@
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-27-15",
@@ -12430,7 +12651,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:25",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-7-9",
@@ -12445,7 +12666,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:4",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-8-5",
@@ -12460,7 +12681,7 @@
             "align": "r",
             "name": "Hyper Potion",
             "ref": "HYPER_POTION",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-26-0",
@@ -12528,7 +12749,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-3-3",
@@ -12562,7 +12783,7 @@
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-27-3",
@@ -12579,7 +12800,7 @@
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-3-11",
@@ -12596,7 +12817,7 @@
             "ref": "SILPH_CO_9F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-11-11",
@@ -12613,7 +12834,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "exit-27-15",
@@ -12630,7 +12851,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           }
         ]
       },
@@ -12654,7 +12875,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:27",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-9-14",
@@ -12684,7 +12905,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:5",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-4-7",
@@ -12714,7 +12935,7 @@
             "align": "r",
             "name": "Escape Rope",
             "ref": "ESCAPE_ROPE",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "item-3-9",
@@ -12729,7 +12950,7 @@
             "align": "r",
             "name": "Full Heal",
             "ref": "FULL_HEAL",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-24-0",
@@ -12797,7 +13018,7 @@
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "exit-17-3",
@@ -12814,7 +13035,7 @@
             "ref": "SILPH_CO_6F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-3-15",
@@ -12872,7 +13093,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:29",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-18-10",
@@ -12887,7 +13108,7 @@
             "align": "r",
             "name": "Juggler",
             "ref": "JUGGLER:1",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-8-3",
@@ -12902,7 +13123,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:6",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-8-16",
@@ -12917,7 +13138,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:28",
-            "lane": 2
+            "lane": -2
           },
           {
             "id": "item-21-16",
@@ -12932,7 +13153,7 @@
             "align": "l",
             "name": "Card Key",
             "ref": "CARD_KEY",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "item-4-6",
@@ -12947,7 +13168,7 @@
             "align": "r",
             "name": "Protein",
             "ref": "PROTEIN",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-2-13",
@@ -12977,7 +13198,7 @@
             "align": "r",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "exit-24-0",
@@ -13045,7 +13266,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-9-15",
@@ -13079,7 +13300,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-3-15",
@@ -13120,7 +13341,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:30",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-7-8",
@@ -13135,7 +13356,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:7",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-14-15",
@@ -13197,7 +13418,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-14-0",
@@ -13231,7 +13452,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-3-3",
@@ -13248,7 +13469,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-23-3",
@@ -13265,7 +13486,7 @@
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           }
         ]
       },
@@ -13289,7 +13510,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:33",
-            "lane": 0
+            "lane": 4
           },
           {
             "id": "trainer-13-1",
@@ -13319,7 +13540,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:8",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-19-14",
@@ -13334,7 +13555,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:34",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-1-9",
@@ -13349,7 +13570,7 @@
             "align": "r",
             "name": "Calcium",
             "ref": "CALCIUM",
-            "lane": 0
+            "lane": -2
           },
           {
             "id": "item-24-11",
@@ -13364,7 +13585,7 @@
             "align": "l",
             "name": "TM Swords Dance",
             "ref": "TM_SWORDS_DANCE",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-16-0",
@@ -13432,7 +13653,7 @@
             "ref": "SILPH_CO_11F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 4
           },
           {
             "id": "exit-5-3",
@@ -13449,7 +13670,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 5
           },
           {
             "id": "exit-21-15",
@@ -13466,7 +13687,7 @@
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -4
           }
         ]
       },
@@ -13490,7 +13711,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:35",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-12-15",
@@ -13520,7 +13741,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:9",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-16-0",
@@ -13537,7 +13758,7 @@
             "ref": "SILPH_CO_9F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-14-0",
@@ -13571,7 +13792,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-3-11",
@@ -13588,7 +13809,7 @@
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-3-15",
@@ -13605,7 +13826,7 @@
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-11-5",
@@ -13622,7 +13843,7 @@
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-11-9",
@@ -13639,7 +13860,7 @@
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           }
         ]
       },
@@ -13663,7 +13884,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:38",
-            "lane": 0
+            "lane": -4
           },
           {
             "id": "trainer-21-13",
@@ -13693,7 +13914,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:37",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "hidden-2-15",
@@ -13742,7 +13963,7 @@
             "ref": "SILPH_CO_8F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-18-0",
@@ -13759,7 +13980,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-9-3",
@@ -13776,7 +13997,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-17-15",
@@ -13817,7 +14038,7 @@
             "align": "l",
             "name": "Scientist",
             "ref": "SCIENTIST:11",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-1-9",
@@ -13862,7 +14083,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-5-11",
@@ -13911,7 +14132,7 @@
             "ref": "SILPH_CO_11F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-12-0",
@@ -13928,7 +14149,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-9-11",
@@ -13962,7 +14183,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "exit-13-7",
@@ -14069,7 +14290,7 @@
             "ref": "LAST_MAP",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-3-2",
@@ -14086,7 +14307,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           }
         ]
       }
@@ -14131,7 +14352,7 @@
             "ref": "SS_ANNE_1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-23-8",
@@ -14383,7 +14604,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-19-3",
@@ -14400,7 +14621,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-15-3",
@@ -14417,7 +14638,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-11-3",
@@ -14451,7 +14672,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-27-5",
@@ -14498,7 +14719,7 @@
             "align": "r",
             "name": "Sailor",
             "ref": "SAILOR:3",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-2-11",
@@ -14558,7 +14779,7 @@
             "align": "r",
             "name": "Sailor",
             "ref": "SAILOR:5",
-            "lane": 0
+            "lane": 5
           },
           {
             "id": "item-10-2",
@@ -14588,7 +14809,7 @@
             "align": "r",
             "name": "Fisherman",
             "ref": "FISHER:2",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-0-2",
@@ -14712,7 +14933,7 @@
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-29-11",
@@ -14729,7 +14950,7 @@
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "exit-2-4",
@@ -14810,7 +15031,7 @@
             "align": "r",
             "name": "Fisherman",
             "ref": "FISHER:1",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-12-1",
@@ -14840,7 +15061,7 @@
             "align": "r",
             "name": "Gentleman",
             "ref": "GENTLEMAN:5",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-2-11",
@@ -15016,6 +15237,81 @@
             "align": "r",
             "name": "Underground Path Route 6",
             "ref": "UNDERGROUND_PATH_ROUTE_6",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          }
+        ]
+      }
+    ],
+    "underground-path-west-east": [
+      {
+        "image": "walkthrough/yellow/maps/underground-path-west-east.png",
+        "width": 800,
+        "height": 128,
+        "floor": "",
+        "name": "underground-path-west-east",
+        "markers": [
+          {
+            "id": "hidden-21-5",
+            "cat": "hidden",
+            "key": "H1",
+            "x": 43.0,
+            "y": 68.75,
+            "grid": [
+              21,
+              5
+            ],
+            "align": "r",
+            "name": "Elixir",
+            "ref": "ELIXER",
+            "lane": 0
+          },
+          {
+            "id": "hidden-12-2",
+            "cat": "hidden",
+            "key": "H2",
+            "x": 25.0,
+            "y": 31.25,
+            "grid": [
+              12,
+              2
+            ],
+            "align": "r",
+            "name": "Nugget",
+            "ref": "NUGGET",
+            "lane": 0
+          },
+          {
+            "id": "exit-2-5",
+            "cat": "exit",
+            "key": "E1",
+            "x": 5.0,
+            "y": 68.75,
+            "grid": [
+              2,
+              5
+            ],
+            "align": "r",
+            "name": "Underground Path Route 7",
+            "ref": "UNDERGROUND_PATH_ROUTE_7",
+            "edge": "inner",
+            "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "exit-47-2",
+            "cat": "exit",
+            "key": "E2",
+            "x": 95.0,
+            "y": 31.25,
+            "grid": [
+              47,
+              2
+            ],
+            "align": "l",
+            "name": "Underground Path Route 8",
+            "ref": "UNDERGROUND_PATH_ROUTE_8",
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
@@ -15369,7 +15665,7 @@
             "align": "r",
             "name": "Cooltrainer\u2640",
             "ref": "COOLTRAINER_F:5",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-3-2",
@@ -15384,7 +15680,7 @@
             "align": "r",
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:5",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-9-2",
@@ -15399,7 +15695,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 2
+            "lane": 3
           },
           {
             "id": "item-11-0",
@@ -15472,7 +15768,7 @@
             "align": "r",
             "name": "Pok\u00e9maniac",
             "ref": "POKEMANIAC:6",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-19-8",
@@ -15487,7 +15783,7 @@
             "align": "l",
             "name": "Tamer",
             "ref": "TAMER:5",
-            "lane": 3
+            "lane": 5
           },
           {
             "id": "trainer-21-13",
@@ -15502,7 +15798,7 @@
             "align": "l",
             "name": "Juggler",
             "ref": "JUGGLER:2",
-            "lane": 0
+            "lane": -3
           },
           {
             "id": "trainer-12-9",
@@ -15517,7 +15813,7 @@
             "align": "r",
             "name": "Blackbelt",
             "ref": "BLACKBELT:9",
-            "lane": 0
+            "lane": -5
           },
           {
             "id": "trainer-26-3",
@@ -15562,7 +15858,7 @@
             "align": "r",
             "name": "Moltres, 50",
             "ref": "MOLTRES, 50",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "item-9-11",
@@ -15577,7 +15873,7 @@
             "align": "r",
             "name": "TM Mega Kick",
             "ref": "TM_MEGA_KICK",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-18-9",
@@ -15592,7 +15888,7 @@
             "align": "r",
             "name": "Full Heal",
             "ref": "FULL_HEAL",
-            "lane": 1
+            "lane": 5
           },
           {
             "id": "item-27-5",
@@ -15607,7 +15903,7 @@
             "align": "l",
             "name": "TM Submission",
             "ref": "TM_SUBMISSION",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "hidden-5-2",
@@ -15622,7 +15918,7 @@
             "align": "r",
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
-            "lane": 2
+            "lane": 3
           },
           {
             "id": "hidden-26-7",
@@ -15637,7 +15933,7 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-0-8",
@@ -15671,7 +15967,7 @@
             "ref": "LAST_MAP",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 3
+            "lane": 5
           },
           {
             "id": "exit-23-7",
@@ -15688,7 +15984,7 @@
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-25-14",
@@ -15705,7 +16001,7 @@
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-27-7",
@@ -15722,7 +16018,7 @@
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 4
           },
           {
             "id": "exit-1-1",
@@ -16289,7 +16585,7 @@
             "align": "r",
             "name": "Blackbelt",
             "ref": "BLACKBELT:6",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-12-7",
@@ -16304,7 +16600,7 @@
             "align": "l",
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:9",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-13-5",
@@ -16349,7 +16645,7 @@
             "align": "r",
             "name": "Tamer",
             "ref": "TAMER:3",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "trainer-10-1",
@@ -16379,7 +16675,7 @@
             "align": "r",
             "name": "Blackbelt",
             "ref": "BLACKBELT:7",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-6-5",
@@ -16424,7 +16720,7 @@
             "align": "l",
             "name": "Revive",
             "ref": "REVIVE",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "exit-16-17",
@@ -16441,7 +16737,7 @@
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 1
+            "lane": 0
           }
         ]
       }
@@ -16689,6 +16985,18 @@
     "route-12": {
       "1": {
         "image": "walkthrough/yellow/scenes/route-12-snorlax.png",
+        "width": 160,
+        "height": 144
+      }
+    },
+    "celadon-city": {
+      "5": {
+        "image": "walkthrough/yellow/scenes/celadon-mart-3f-tm18.png",
+        "width": 160,
+        "height": 144
+      },
+      "3": {
+        "image": "walkthrough/yellow/scenes/celadon-diner-coin-case.png",
         "width": 160,
         "height": 144
       }
@@ -17763,6 +18071,18 @@
       "height": 144,
       "type": "dialog"
     },
+    "underground-path-west-east-hidden-elixir": {
+      "image": "walkthrough/yellow/scenes/underground-path-west-east-hidden-elixir.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "underground-path-west-east-hidden-nugget": {
+      "image": "walkthrough/yellow/scenes/underground-path-west-east-hidden-nugget.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
     "vermilion-city-hidden-max-ether": {
       "image": "walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png",
       "width": 160,
@@ -18105,6 +18425,18 @@
       "height": 144,
       "type": "screen"
     },
+    "celadon-mart-3f-tm18": {
+      "image": "walkthrough/yellow/scenes/celadon-mart-3f-tm18.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "celadon-diner-coin-case": {
+      "image": "walkthrough/yellow/scenes/celadon-diner-coin-case.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "route-2-trade-house": {
       "image": "walkthrough/yellow/scenes/route-2-trade-house.png",
       "width": 160,
@@ -18173,6 +18505,12 @@
     },
     "cinnabar-lab-trade-cezanne": {
       "image": "walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "celadon-roof-girl": {
+      "image": "walkthrough/yellow/scenes/celadon-roof-girl.png",
       "width": 160,
       "height": 144,
       "type": "screen"
@@ -18275,6 +18613,12 @@
     },
     "mt-moon-magikarp": {
       "image": "walkthrough/yellow/scenes/mt-moon-magikarp.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "lavender-name-rater": {
+      "image": "walkthrough/yellow/scenes/lavender-name-rater.png",
       "width": 160,
       "height": 144,
       "type": "dialog"

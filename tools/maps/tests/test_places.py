@@ -142,3 +142,27 @@ def test_item_catalog_prices_and_pictures_every_shop_item(root):
     referenced = {name for facts in built.values() for name in facts.get("stock", [])}
     referenced |= {gift["name"] for facts in built.values() for gift in facts.get("gift_item", [])}
     assert referenced <= set(catalog)
+
+
+def test_prize_windows_come_off_the_game_corner_counters(root):
+    # Three counters, read in the order they stand in: two Pokemon windows and one of TMs. The
+    # entries and the costs are parallel tables in prizes.asm, so a slip pairs the wrong price
+    # with the wrong prize; Porygon at 9999 is the one every reader is counting coins for.
+    windows = places.build_prizes(root)["windows"]
+    assert [w["window"] for w in windows] == ["mon1", "mon2", "tms"]
+    assert all(len(w["prizes"]) == 3 for w in windows)
+
+    assert windows[0]["prizes"][1] == {"dex": "037", "level": 18, "coins": 1000}, "Vulpix"
+    assert windows[1]["prizes"] == [
+        {"dex": "123", "level": 30, "coins": 6500},
+        {"dex": "127", "level": 30, "coins": 6500},
+        {"dex": "137", "level": 26, "coins": 9999},
+    ]
+    assert windows[2]["prizes"][1] == {"item": "TM15 Hyper Beam", "coins": 5500}
+    assert all("level" not in p for p in windows[2]["prizes"]), "a TM has no level"
+
+
+def test_the_game_corner_floor_is_swept_by_the_pile_count(root):
+    # Twelve piles, each worth 10, 20 or 100 coins, and every entry in the table is on this one
+    # map. A reader sweeping the room wants the number, not twelve coordinates.
+    assert places.build_prizes(root)["coin_piles"] == 12

@@ -555,8 +555,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym-tr,
 .pn-wt-gym__leader,
 .pn-wt-oaktile,
-.pn-wt-ldstage,
-.pn-wt-chip {
+.pn-wt-ldstage {
   transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
 }
 
@@ -611,8 +610,7 @@ a.pn-wt-route__card:hover {
   .pn-wt-gym-tr,
   .pn-wt-gym__leader,
   .pn-wt-oaktile,
-  .pn-wt-ldstage,
-  .pn-wt-chip { transition: none; }
+  .pn-wt-ldstage { transition: none; }
 
   .pn-wt-item:hover,
   .pn-wt-item:active,
@@ -633,8 +631,7 @@ a.pn-wt-route__card:hover {
   .pn-wt-oaktile:hover,
   .pn-wt-oaktile:active,
   .pn-wt-ldstage:hover,
-  .pn-wt-ldstage:active,
-  .pn-wt-chip:hover { transform: none; }
+  .pn-wt-ldstage:active { transform: none; }
 }
 
 /* ---- location header ---- */
@@ -1169,6 +1166,128 @@ a.pn-wt-route__card:hover {
 .pn-wt-trivia__shot {
   max-width: 360px;
   margin-top: 22px;
+}
+/* Beside the intro rather than under it, so a section with a screenshot reads the way one with
+   artwork already does. */
+.pn-wt-trivia__lead .pn-wt-trivia__shot {
+  width: 240px;
+  flex: 0 0 auto;
+  margin-top: 0;
+}
+
+/* ---- the one rule a trivia section warns about ---- */
+.pn-wt-triviawarn {
+  margin-top: 26px;
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+}
+.pn-wt-triviawarn__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #ffc23d;
+  border-bottom: 3px solid #171622;
+}
+.pn-wt-triviawarn__sign {
+  display: block;
+  flex: none;
+}
+.pn-wt-triviawarn__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 1px;
+  color: #171622;
+}
+.pn-wt-triviawarn__stripe {
+  flex: 1 1 auto;
+  min-width: 24px;
+  height: 8px;
+  background: repeating-linear-gradient(135deg, #171622 0 6px, transparent 6px 12px);
+}
+.pn-wt-triviawarn__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 20px 18px;
+}
+.pn-wt-triviawarn__main {
+  flex: 1 1 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pn-wt-triviawarn__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.05;
+  color: #171622;
+}
+.pn-wt-triviawarn__text {
+  margin: 0;
+  max-width: 620px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #3a3850;
+  text-wrap: pretty;
+}
+.pn-wt-triviawarn__specimen {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #ffe1ea;
+  border: 3px solid #171622;
+}
+.pn-wt-triviawarn__sprite {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fbf5e6;
+  border: 2px solid #171622;
+}
+.pn-wt-triviawarn__sprite img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+.pn-wt-triviawarn__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pn-wt-triviawarn__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #6b6880;
+}
+/* Struck through in the same pink the section's chip is bordered with: the name is still legible,
+   which is the point, but it is plainly not up for changing. */
+.pn-wt-triviawarn__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  color: #171622;
+  text-decoration: line-through 3px #ff5d8f;
+}
+.pn-wt-triviawarn__where {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  line-height: 1;
+  color: #3a3850;
 }
 .pn-wt-trivia-grid {
   display: grid;
@@ -2455,72 +2574,7 @@ a.pn-wt-route__card:hover {
 }
 .pn-wt-legstat__num--accent { color: var(--accent); }
 
-/* ---- sticky jump switcher ---- */
-.pn-wt-switchbar {
-  position: sticky;
-  top: 98px;
-  z-index: 40;
-  background: rgba(251, 245, 230, 0.92);
-  backdrop-filter: blur(4px);
-  border-top: 2px solid #171622;
-  border-bottom: 2px solid #171622;
-  margin-top: 30px;
-}
-.pn-wt-switchbar__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 11px 28px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow-x: auto;
-}
-.pn-wt-switchbar__label {
-  font-family: "Press Start 2P", monospace;
-  font-size: 9px;
-  color: #6b6880;
-  flex: none;
-  letter-spacing: 1px;
-}
-.pn-wt-switchbar__chips {
-  display: flex;
-  gap: 9px;
-  flex: none;
-}
-.pn-wt-chip {
-  cursor: pointer;
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 7px 13px;
-  border: 2px solid #171622;
-  background: #fff;
-  color: #171622;
-  box-shadow: 2px 2px 0 #171622;
-}
-.pn-wt-chip:hover { transform: translate(2px, 2px); box-shadow: none; }
-.pn-wt-chip.is-active { background: #171622; color: #FBF5E6; }
-.pn-wt-chip__no {
-  font-family: "VT323", monospace;
-  font-size: 14px;
-  opacity: 0.75;
-}
-.pn-wt-chip__kind {
-  font-family: "VT323", monospace;
-  font-size: 13px;
-  color: #15503a;
-  background: #d8f5df;
-  border: 1px solid #171622;
-  padding: 0 6px;
-}
-.pn-wt-chip.is-active .pn-wt-chip__kind { color: #171622; }
-
 /* ---- location bands ---- */
-.pn-wt-band-wrap { scroll-margin-top: 170px; }
 .pn-wt-band-head { border-top: 3px solid #171622; }
 .pn-wt-band-head__inner {
   max-width: 1200px;
@@ -3056,7 +3110,6 @@ a.pn-wt-route__card:hover {
   .pn-wt-trades { grid-template-columns: 1fr; }
 
   .pn-wt-legstats { grid-template-columns: 1fr 1fr; }
-  .pn-wt-switchbar { top: 0; }
   .pn-wt-nav__link { flex-basis: 100%; }
 
   .pn-wt-hero__title { font-size: 40px; }
@@ -4302,4 +4355,811 @@ a.pn-wt-route__card:hover {
 
 @media (max-width: 620px) {
   .pn-wt-grind__stats { grid-template-columns: 1fr; }
+}
+
+/* On a phone, 28px gutters each side of a 375px screen spend 15% of the width on nothing. The
+   design's own bar drops to 18px at this size, so the sections follow it. The department store
+   is what the extra width is for: it nests a floor border and a floor body inside the section,
+   and a mart row that lost 102px on the way in had 95px left for an item's name, enough to wrap
+   "TM08 · Razor Wind" three ways. */
+@media (max-width: 620px) {
+  .pn-wt-section { padding-left: 18px; padding-right: 18px; }
+  .pn-wt-store__floor-body { padding: 14px 12px; }
+  .pn-wt-mart__row { gap: 10px; padding: 10px 11px; }
+}
+
+/* ---- rooftop trades: the thirsty girl's three drink-for-TM swaps ---- */
+.pn-wt-roof__dot {
+  width: 11px;
+  height: 11px;
+  background: #6f4ce6;
+  border: 2px solid #171622;
+}
+.pn-eyebrow-label--trade {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #6f4ce6;
+}
+.pn-wt-roof__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  margin: 12px 0 0;
+}
+.pn-wt-roof__accent {
+  color: #6f4ce6;
+  text-shadow: 2px 2px 0 #171622;
+}
+.pn-wt-roof__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 11px 0 0;
+  color: #3a3850;
+  text-wrap: pretty;
+}
+.pn-wt-roof__grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 22px;
+  align-items: start;
+  margin-top: 22px;
+}
+
+.pn-wt-roof__where {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #171622;
+}
+.pn-wt-roof__shot {
+  position: relative;
+  border-bottom: 3px solid #171622;
+  aspect-ratio: 10 / 9;
+  overflow: hidden;
+  background: #FBF5E6;
+}
+.pn-wt-roof__shot-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-roof__shot-label {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: var(--amber);
+  padding: 5px 7px;
+}
+.pn-wt-roof__how { padding: 15px 16px; }
+.pn-wt-roof__how-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+}
+.pn-wt-roof__how-list {
+  display: grid;
+  gap: 9px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pn-wt-roof__how-step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.pn-wt-roof__how-no {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #fff;
+  background: #171622;
+  padding: 5px 6px;
+}
+.pn-wt-roof__how-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.35;
+  color: #3a3850;
+}
+
+.pn-wt-roof__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: #171622;
+  border: 3px solid #171622;
+  padding: 12px 15px;
+}
+.pn-wt-roof__bar-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--cream);
+  letter-spacing: 1px;
+}
+.pn-wt-roof__bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pn-wt-roof__bar-hint {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #8fa6c8;
+}
+.pn-wt-roof__bar-count {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #fff;
+  background: #6f4ce6;
+  border: 2px solid #6f4ce6;
+  padding: 6px 8px;
+}
+
+.pn-wt-roof__rows {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+.pn-wt-roof__row {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 4px 4px 0 #171622;
+  padding: 15px 17px;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+.pn-wt-roof__row:hover { transform: translate(1px, 1px); box-shadow: 3px 3px 0 #171622; }
+.pn-wt-roof__row.is-done { background: color-mix(in srgb, #6f4ce6 12%, #fff); }
+.pn-wt-roof__tag {
+  position: absolute;
+  top: -11px;
+  right: 13px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: #FBF5E6;
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 #171622;
+  padding: 6px 8px;
+}
+.pn-wt-roof__tag--done {
+  display: none;
+  color: #fff;
+  background: #6f4ce6;
+}
+.pn-wt-roof__row.is-done .pn-wt-roof__tag { display: none; }
+.pn-wt-roof__row.is-done .pn-wt-roof__tag--done { display: block; }
+.pn-wt-roof__side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 92px;
+  flex: none;
+}
+.pn-wt-roof__tile {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border: 2px solid #171622;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-wt-roof__tile--tm { background: color-mix(in srgb, #6f4ce6 14%, #fff); }
+.pn-wt-roof__icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-roof__side-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.05;
+  text-align: center;
+}
+.pn-wt-roof__side-price {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+  line-height: 1;
+}
+.pn-wt-roof__arrow {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  color: #6f4ce6;
+}
+.pn-wt-roof__detail {
+  flex: 1;
+  min-width: 150px;
+}
+.pn-wt-roof__move-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.pn-wt-roof__move {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+}
+.pn-wt-roof__type {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  border: 2px solid #171622;
+  padding: 5px 6px;
+}
+.pn-wt-roof__type--ice { background: #7fd8ef; }
+.pn-wt-roof__type--rock { background: #c9a227; }
+.pn-wt-roof__type--normal { background: #c9c6ad; }
+.pn-wt-roof__note {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #3a3850;
+  line-height: 1.25;
+  margin-top: 6px;
+  text-wrap: pretty;
+}
+
+.pn-wt-roof__foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+  align-items: start;
+}
+.pn-wt-roof__list {
+  background: #fff;
+  border: 3px solid #171622;
+  box-shadow: 4px 4px 0 #171622;
+  padding: 14px 16px;
+}
+.pn-wt-roof__list-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+}
+.pn-wt-roof__list-rows {
+  display: grid;
+  gap: 7px;
+  margin-top: 11px;
+}
+.pn-wt-roof__list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.pn-wt-roof__list-cost {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #3a3850;
+}
+.pn-wt-roof__list-row--total {
+  border-top: 2px solid #171622;
+  padding-top: 8px;
+  margin-top: 3px;
+}
+.pn-wt-roof__total-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+}
+.pn-wt-roof__total {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #171622;
+  background: var(--amber);
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 #171622;
+  padding: 7px 9px;
+}
+.pn-wt-roof__spare {
+  position: relative;
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  background: color-mix(in srgb, var(--accent2) 13%, #fff);
+  border: 3px solid var(--accent2);
+  box-shadow: 4px 4px 0 #171622;
+  padding: 22px 16px 14px;
+}
+.pn-wt-roof__spare-tag {
+  position: absolute;
+  top: -11px;
+  left: 14px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  background: var(--accent2);
+  border: 2px solid #171622;
+  box-shadow: 2px 2px 0 #171622;
+  padding: 6px 8px;
+}
+.pn-wt-roof__spare .pn-wt-roof__tile {
+  width: 52px;
+  height: 52px;
+}
+.pn-wt-roof__spare .pn-wt-roof__icon {
+  width: 42px;
+  height: 42px;
+}
+.pn-wt-roof__spare-body {
+  flex: 1;
+  min-width: 0;
+}
+.pn-wt-roof__spare-title {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.1;
+}
+.pn-wt-roof__spare-text {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #3a3850;
+  margin-top: 5px;
+  text-wrap: pretty;
+}
+
+@media (max-width: 900px) {
+  .pn-wt-roof__grid,
+  .pn-wt-roof__foot { grid-template-columns: 1fr; }
+  .pn-wt-roof__title { font-size: 30px; }
+  .pn-wt-roof__row {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 17px 13px 13px;
+  }
+  .pn-wt-roof__detail { flex-basis: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-roof__row { transition: none; }
+  .pn-wt-roof__row:hover { transform: none; box-shadow: 4px 4px 0 #171622; }
+}
+
+.pn-wt-store__tradelink {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: color-mix(in srgb, #6f4ce6 10%, #fff);
+  border: 2px solid #6f4ce6;
+  box-shadow: 3px 3px 0 #171622;
+  padding: 12px 14px;
+  color: #171622;
+}
+.pn-wt-store__tradelink:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 #171622; }
+.pn-wt-store__tradelink-tag {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #fff;
+  background: #6f4ce6;
+  border: 2px solid #171622;
+  padding: 6px 8px;
+}
+.pn-wt-store__tradelink-text {
+  flex: 1;
+  min-width: 0;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+.pn-wt-store__tradelink-caret {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #6f4ce6;
+}
+
+/* ---- Game Corner prize exchange: the one neon-dark section on a cream page ---- */
+.pn-wt-gc {
+  position: relative;
+  margin-top: 34px;
+  background: #080a16;
+  border-top: 3px solid #ff3dae;
+  border-bottom: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 26px #ff3dae44;
+  overflow: hidden;
+}
+.pn-wt-gc__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#2af0ff14 2px, transparent 2px),
+    linear-gradient(90deg, #ff3dae14 2px, transparent 2px);
+  background-size: 44px 44px;
+}
+.pn-wt-gc__inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 38px 28px 42px;
+}
+.pn-wt-gc__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--amber);
+  text-shadow: 0 0 10px #FFC23D88;
+}
+.pn-wt-gc__dot {
+  width: 11px;
+  height: 11px;
+  background: var(--amber);
+  border: 2px solid var(--amber);
+  box-shadow: 0 0 10px var(--amber);
+}
+.pn-wt-gc__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  margin: 12px 0 0;
+  color: #fff;
+}
+.pn-wt-gc__accent {
+  color: #ff3dae;
+  text-shadow: 0 0 10px #ff3dae, 0 0 26px #ff3dae99;
+}
+.pn-wt-gc__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 11px 0 0;
+  color: #cfe1f5;
+  text-wrap: pretty;
+}
+
+.pn-wt-gc__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+.pn-wt-gc__stat {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: #0c1226;
+  border: 2px solid #28324e;
+  padding: 13px 15px;
+}
+.pn-wt-gc__stat-tile {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border: 2px solid var(--amber);
+  background: #141a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-wt-gc__stat-tile--coin { box-shadow: 0 0 12px #FFC23D55; }
+.pn-wt-gc__stat-tile--piles {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 12px #2af0ff55;
+  overflow: visible;
+}
+.pn-wt-gc__stat-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-gc__money {
+  width: 32px;
+  height: 32px;
+  margin-right: 0;
+  filter: drop-shadow(0 0 8px #FFC23D88);
+}
+.pn-wt-gc__pile {
+  position: absolute;
+  width: 22px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 2px solid #171622;
+  box-shadow: 0 0 8px #FFC23D88;
+}
+.pn-wt-gc__pile:nth-child(1) { left: 5px; bottom: 5px; }
+.pn-wt-gc__pile:nth-child(2) { left: 9px; bottom: 13px; }
+.pn-wt-gc__pile:nth-child(3) { left: 13px; bottom: 21px; background: #ffe08a; }
+.pn-wt-gc__stat-body {
+  flex: 1;
+  min-width: 0;
+}
+.pn-wt-gc__stat-title {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.1;
+  color: #fff;
+}
+.pn-wt-gc__stat-text {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #8fa6c8;
+  line-height: 1.25;
+  margin-top: 3px;
+}
+
+.pn-wt-gc__windows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+  align-items: start;
+}
+.pn-wt-gc__window {
+  background: #0c1226;
+  border: 3px solid #28324e;
+  box-shadow: 0 0 18px #00000066;
+}
+.pn-wt-gc__window-head {
+  background: #141a2e;
+  border-bottom: 2px solid #28324e;
+  padding: 13px 15px;
+}
+.pn-wt-gc__window-name {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #fff;
+}
+.pn-wt-gc__window-sub {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #8fa6c8;
+  margin-top: 5px;
+}
+.pn-wt-gc__prizes {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+.pn-wt-gc__prize {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #141a2e;
+  border: 2px solid #28324e;
+  padding: 10px 12px;
+}
+.pn-wt-gc__prize.is-pick {
+  background: #1a1a2e;
+  border-color: var(--amber);
+  box-shadow: 0 0 16px #FFC23D44;
+  padding-top: 16px;
+}
+.pn-wt-gc__pick {
+  position: absolute;
+  top: -9px;
+  left: 10px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: #171622;
+  background: var(--amber);
+  border: 2px solid var(--amber);
+  box-shadow: 0 0 12px #FFC23Daa;
+  padding: 4px 6px;
+}
+.pn-wt-gc__prize-tile {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border: 2px solid #28324e;
+  background: #141a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pn-wt-gc__prize.is-pick .pn-wt-gc__prize-tile { border-color: var(--amber); }
+.pn-wt-gc__prize-icon {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-wt-gc__prize-body {
+  flex: 1;
+  min-width: 0;
+}
+.pn-wt-gc__prize-name {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.1;
+  color: #fff;
+}
+.pn-wt-gc__prize-meta {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #8fa6c8;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+.pn-wt-gc__prize-note {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--amber);
+  line-height: 1.25;
+  margin-top: 4px;
+}
+.pn-wt-gc__prize-cost {
+  flex: none;
+  align-self: center;
+  text-align: right;
+}
+.pn-wt-gc__coins {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--amber);
+  text-shadow: 0 0 10px #FFC23D77;
+}
+.pn-wt-gc__coins-label {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 15px;
+  color: #6b7ba0;
+  margin-top: 3px;
+}
+
+.pn-wt-gc__know {
+  position: relative;
+  background: #0c1226;
+  border: 3px solid #ff3dae;
+  box-shadow: 0 0 22px #ff3dae55;
+  padding: 18px;
+  margin-top: 20px;
+}
+.pn-wt-gc__know-tag {
+  position: absolute;
+  top: -11px;
+  left: 14px;
+  z-index: 2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: #ff3dae;
+  border: 2px solid #ff3dae;
+  box-shadow: 0 0 14px #ff3daeaa;
+  padding: 6px 8px;
+}
+.pn-wt-gc__know-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #cfe1f5;
+  margin: 7px 0 0;
+  max-width: 900px;
+  text-wrap: pretty;
+}
+
+@media (max-width: 900px) {
+  .pn-wt-gc__stats,
+  .pn-wt-gc__windows { grid-template-columns: 1fr; }
+  .pn-wt-gc__inner { padding: 30px 18px 34px; }
+  .pn-wt-gc__title { font-size: 30px; }
+}
+
+/* the store's free TM is a collectable like any other, so it ticks and shows it */
+.pn-wt-store__gift--tick {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+.pn-wt-store__gift--tick:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #171622; }
+.pn-wt-store__gift--tick:active { transform: translate(1px, 1px); box-shadow: none; }
+.pn-wt-store__gift--tick.is-done { background: color-mix(in srgb, var(--done-green) 22%, #fff); }
+.pn-wt-store__gift--tick.is-done .pn-wt-store__gift-price::after {
+  content: " ✓";
+  color: #15503a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-wt-store__gift--tick { transition: none; }
+  .pn-wt-store__gift--tick:hover,
+  .pn-wt-store__gift--tick:active { transform: none; }
+}
+
+/* the arcade floor, painted rather than ripped, so it keeps its own smoothing */
+.pn-wt-gc__art {
+  position: relative;
+  margin: 20px 0 0;
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 24px #2af0ff55;
+  background: #080a16;
+  overflow: hidden;
+  line-height: 0;
+}
+.pn-wt-gc__art-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: auto;
+}
+.pn-wt-gc__art-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  background: var(--amber);
+  border: 2px solid #171622;
+  box-shadow: 0 0 14px #FFC23Daa;
+  padding: 6px 8px;
+}
+.pn-wt-gc__art-credit {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #cfe1f5;
+  background: rgba(8, 10, 22, 0.86);
+  border: 1px solid #2af0ff55;
+  padding: 3px 9px;
+}
+
+@media (max-width: 620px) {
+  .pn-wt-gc__art-credit { font-size: 14px; padding: 2px 6px; }
 }
