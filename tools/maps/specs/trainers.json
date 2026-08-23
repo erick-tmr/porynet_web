@@ -81,14 +81,14 @@
     ]
   },
   {
-    "type": "screen",
+    "type": "dialog",
     "name": "rocket-hideout-giovanni",
     "map": "RocketHideoutB4F",
     "player": [
-      25,
-      6
+      24,
+      3
     ],
-    "player_dir": "UP",
+    "player_dir": "RIGHT",
     "focus": [
       25,
       4
@@ -100,9 +100,15 @@
           25,
           3
         ],
-        "dir": "DOWN"
+        "dir": "LEFT"
       }
-    ]
+    ],
+    "dialog": {
+      "lines": [
+        "So! I must say, I",
+        "am impressed you"
+      ]
+    }
   },
   {
     "type": "screen",

@@ -149,9 +149,10 @@ ROUTES = {
                          "exit-21-22", "exit-24-19"),
     # In at the northeast stairs: the Rocket below them, the TM and the Nugget buried beside it
     # down the east wall, then back past the stairs into the maze for the Rare Candy and out west
-    # to the second Rocket.
+    # to the second Rocket. The stairs are named twice because the floor is crossed twice: the
+    # climb back up from B4F is its own ride through the maze, and the guide draws it.
     "RocketHideoutB3F": ("exit-25-6", "trainer-26-12", "item-26-17", "hidden-27-17",
-                         "item-20-14", "trainer-10-22", "exit-19-18"),
+                         "item-20-14", "trainer-10-22", "exit-19-18", "exit-25-6"),
     # Also crossed twice, and the second visit arrives by lift on the far side of a gate. The
     # first sweeps the west wing for the Lift Key; the second comes out of the lift for the Iron
     # and Giovanni's room.

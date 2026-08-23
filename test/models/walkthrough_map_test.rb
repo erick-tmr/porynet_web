@@ -102,7 +102,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     legs = game.locations.flat_map(&:area_maps).select(&:route?)
       .to_h { |area| [ area.name, area.route_legs.size ] }
 
-    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 6 }, legs)
+    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7 }, legs)
     assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
     assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
       .find { |area| area.name == "rocket-hideout-b2f" }.route_legs.map(&:hue)
@@ -128,7 +128,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   test "a step that only walks a corridor carries no map" do
     mapped = location("rocket-hideout").steps.select(&:step_map?).map(&:n)
 
-    assert_equal [ 9, 10, 15, 17, 18 ], mapped
+    assert_equal [ 9, 10, 14, 15, 17, 18 ], mapped
   end
 
   # The viewBox is x, y, width, height in that order, which is the sort of thing that looks fine
@@ -136,7 +136,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
   test "a step's crop is a 4:3 window on the part of the floor it walks" do
     boxes = location("rocket-hideout").steps.filter_map { |step| step.step_map&.box }
 
-    assert_equal 5, boxes.size
+    assert_equal 6, boxes.size
     boxes.each do |x, y, w, h|
       assert_equal w * 3 / 4, h, "every frame is the same shape"
       assert_operator x + w, :<=, 480

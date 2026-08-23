@@ -8,6 +8,7 @@ import compositor
 import follower
 import generators
 import markers
+import roster
 import sources
 
 SPECS = pathlib.Path(__file__).resolve().parents[1] / "specs"
@@ -858,3 +859,36 @@ def test_giovanni_is_talked_into_a_fight_so_his_shot_shows_no_bubble(root):
 
     assert set(sight) == {"TEXT_ROCKETHIDEOUTB4F_ROCKET"}, "Giovanni has no sightline to spot with"
     assert generators._emotes(_trainer_spec("rocket-hideout-giovanni")) == []
+
+
+# What a WHERE shot promises. The hero is drawn facing the trainer, which reads as "stand here and
+# press A", so the tiles between them have to be ones the player can walk. Giovanni under the Game
+# Corner was drawn three tiles below his desk with two tables in between: you cannot talk through a
+# table, and the way to him is round one side.
+def _facing_run(root, spec):
+    """The cells from the hero up to the first placed sprite they are looking at, or None."""
+    step = roster.FACINGS[spec.get("player_dir", "DOWN")]
+    placed = {tuple(sprite["grid"]) for sprite in spec.get("sprites", [])}
+    cell, run = tuple(spec["player"]), []
+    for _ in range(12):
+        cell = (cell[0] + step[0], cell[1] + step[1])
+        if cell in placed:
+            return run
+        run.append(cell)
+    return None
+
+
+def test_a_where_shot_stands_the_hero_where_they_could_really_talk(root):
+    """Every authored trainer shot, walked: the hero faces the trainer down a clear line, so the
+    picture cannot show a conversation the floor does not allow."""
+    for spec in json.loads((SPECS / "trainers.json").read_text()):
+        if not spec.get("sprites"):
+            continue
+        run = _facing_run(root, spec)
+
+        assert run is not None, f"{spec['name']}: the hero faces nobody"
+        const, tileset = sources.parse_headers(root)[spec["map"]]
+        _index, width_blocks, _height = sources.parse_map_constants(root)[0][const]
+        for cell in run:
+            assert markers.cell_is_walkable(root, spec["map"], tileset, width_blocks, cell), \
+                f"{spec['name']}: {cell} is between the hero and the trainer, and is solid"

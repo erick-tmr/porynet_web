@@ -151,7 +151,7 @@ def test_the_committed_route_matches_a_fresh_solve(root, name):
 
 @pytest.mark.parametrize(("label", "spun"), [
     ("RocketHideoutB2F", [3, 5, 6, 7]),
-    ("RocketHideoutB3F", [4, 5]),
+    ("RocketHideoutB3F", [4, 5, 7]),
 ])
 def test_which_legs_actually_ride_an_arrow(root, label, spun):
     """Half of an arrow floor's legs are plain corridor walks: in at the door, round to the
