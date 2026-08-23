@@ -256,6 +256,8 @@ pt:
       map_labels_on: "SIM"
       map_labels_off: "NÃO"
       map_route: "ROTA:"
+      step_map_cap: "O CAMINHO"
+      step_map_alt: "Planta do andar para o passo %{n}, com o caminho desenhado"
       map_howto: "COMO USAR"
       map_howto_body: "Toque em qualquer pino, ou numa linha da legenda, para marcar. Uma dica aparece para confirmar; toque de novo para desfazer."
       map_legend: "LEGENDA"

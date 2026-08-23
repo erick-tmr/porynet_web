@@ -256,6 +256,8 @@ en:
       map_labels_on: "ON"
       map_labels_off: "OFF"
       map_route: "ROUTE:"
+      step_map_cap: "THE WAY THERE"
+      step_map_alt: "Floor plan for step %{n}, with the way through drawn on it"
       map_howto: "HOW TO USE"
       map_howto_body: "Tap any pin, or a legend row, to tick it off. A hint pops up to confirm; tap again to undo."
       map_legend: "LEGEND"

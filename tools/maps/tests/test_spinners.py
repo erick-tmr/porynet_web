@@ -14,6 +14,7 @@ import markers
 import paths
 import sources
 import spinners
+from spinners import arrow_tiles, route
 
 MANIFEST = json.loads(
     (pathlib.Path(__file__).resolve().parents[3]
@@ -146,3 +147,19 @@ def test_the_committed_route_matches_a_fresh_solve(root, name):
 
     assert entry["route"] == spinners.drawn_route(root, label), (
         f"{name}: the drawn route drifted from the game; rerun tools/maps/build.py")
+
+
+@pytest.mark.parametrize(("label", "spun"), [
+    ("RocketHideoutB2F", [3, 5, 6, 7]),
+    ("RocketHideoutB3F", [4, 5]),
+])
+def test_which_legs_actually_ride_an_arrow(root, label, spun):
+    """Half of an arrow floor's legs are plain corridor walks: in at the door, round to the
+    Rocket, out to the stairs. Only the rest are the maze, and only those steps get a map of their
+    own in the guide (the `line:` entries in yellow.rb). This is the game's answer to which is
+    which, so a change to the solver that quietly turned a ride into a walk fails here."""
+    tiles = set(arrow_tiles(root, label))
+    legs = route(root, label, paths.route_cells(root, label))
+
+    assert [n for n, cells in enumerate(legs, 1)
+            if any(cell in tiles for cell in cells)] == spun

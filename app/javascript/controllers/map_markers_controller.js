@@ -22,7 +22,7 @@ export default class extends Controller {
     nativeW: Number,
     filter: { type: String, default: "all" },
     labels: { type: Boolean, default: true },
-    route: { type: Boolean, default: true },
+    route: { type: Boolean, default: false },
     hint: { type: String, default: "" },
   }
 
@@ -86,8 +86,9 @@ export default class extends Controller {
     this.labelsValue = !this.labelsValue
   }
 
-  // The drawn way round an arrow-tile floor. Off by choice, not by default: it is the answer to
-  // the maze, and a reader who wants to work it out themselves should be able to put it away.
+  // The whole way round an arrow-tile floor, drawn over the overview. Off to begin with: each
+  // step already carries its own crop of this map with just that step's leg on it, so the
+  // overview's job is the floor, and all eight legs at once is for the reader who asks.
   toggleRoute() {
     this.routeValue = !this.routeValue
   }

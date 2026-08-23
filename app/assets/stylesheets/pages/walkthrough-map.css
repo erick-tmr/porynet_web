@@ -12,14 +12,6 @@
   --mm-row-done: #E8F2EA;
   --mm-row-selected: #FFEDC5;
   --mm-max-zoom: 2.5;
-  /* One hue per leg of a drawn route. The map underneath is Gen 1 green, so these are the five
-     that stay legible on it and apart from each other; the arrow tiles themselves are pale blue,
-     so no leg is blue. */
-  --mm-route-1: #E01B24;
-  --mm-route-2: #FF6FD8;
-  --mm-route-3: #7B2FF7;
-  --mm-route-4: #FF8A00;
-  --mm-route-5: #111827;
   margin-top: 10px;
 }
 
@@ -229,32 +221,45 @@
   stroke-linecap: round;
 }
 
+/* One hue per leg, and enough of them that the longest floor never reuses one: eight legs on
+   B2F, eight colours. The palette hangs off the leg itself rather than off the map block, because
+   a step draws its own leg outside that block (see .pn-wt-stepmap), and the two have to agree
+   about which colour a leg is. The overrides come after, so they win on source order. */
+.pn-mm-route__leg {
+  --leg: #FF2D3A;
+  --leg-casing: #0b0b12;
+}
+
+.pn-mm-route__leg--2 { --leg: #FF8A00; }
+.pn-mm-route__leg--3 { --leg: #FFD400; }
+.pn-mm-route__leg--4 { --leg: #FF6FD8; }
+.pn-mm-route__leg--5 { --leg: #A972FF; }
+.pn-mm-route__leg--6 { --leg: #3B82F6; }
+.pn-mm-route__leg--7 { --leg: #FFFFFF; }
+
+/* The one leg dark enough to vanish into its own casing, so it wears a light one instead. */
+.pn-mm-route__leg--8 {
+  --leg: #111318;
+  --leg-casing: #f4f6fb;
+}
+
 .pn-mm-route__casing {
-  stroke: #0b0b12;
+  stroke: var(--leg-casing);
   stroke-width: 6;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .pn-mm-route__line {
-  stroke: var(--mm-route-1);
+  stroke: var(--leg);
   stroke-width: 3;
 }
 
 .pn-mm-route__head {
-  fill: var(--mm-route-1);
-  stroke: #0b0b12;
+  fill: var(--leg);
+  stroke: var(--leg-casing);
   stroke-width: 1.5;
   paint-order: stroke;
 }
-
-.pn-mm-route__leg--2 .pn-mm-route__line { stroke: var(--mm-route-2); }
-.pn-mm-route__leg--2 .pn-mm-route__head { fill: var(--mm-route-2); }
-.pn-mm-route__leg--3 .pn-mm-route__line { stroke: var(--mm-route-3); }
-.pn-mm-route__leg--3 .pn-mm-route__head { fill: var(--mm-route-3); }
-.pn-mm-route__leg--4 .pn-mm-route__line { stroke: var(--mm-route-4); }
-.pn-mm-route__leg--4 .pn-mm-route__head { fill: var(--mm-route-4); }
-.pn-mm-route__leg--5 .pn-mm-route__line { stroke: var(--mm-route-5); }
-.pn-mm-route__leg--5 .pn-mm-route__head { fill: var(--mm-route-5); }
 
 /* Markers render server-side but stay dark until the controller has placed them, so nothing
    piles up in the top-left corner on a slow connection. Without JS the legend still lists
@@ -1036,3 +1041,35 @@
 .pn-wt-trainer--compact .pn-wt-trainer__card { padding: 12px 14px; }
 .pn-wt-trainer--compact .pn-wt-trainer__shots { gap: 8px; }
 .pn-wt-trainer--compact .pn-wt-team-mon { gap: 6px; }
+
+/* --- a step's own map ------------------------------------------------------ */
+
+/* The crop, the scale and the line are all the SVG's: its viewBox is the window onto the floor,
+   so the frame needs no inline style and no JavaScript to place it. The stroke widths here are in
+   the map's own pixels rather than screen pixels, because this frame is a fixed zoom rather than
+   something the reader can scale, and a hairline over a 200px window would vanish. */
+.pn-wt-stepmap {
+  margin: 14px 0 0;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  background: var(--ink);
+  max-width: 420px;
+}
+
+.pn-wt-stepmap__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pn-wt-stepmap__img { image-rendering: pixelated; }
+
+.pn-wt-stepmap__cap {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  background: var(--ink);
+  padding: 3px 8px;
+  line-height: 1.3;
+}

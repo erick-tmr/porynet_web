@@ -337,22 +337,23 @@ describe("filters and labels", () => {
     expect(has("block", "is-labelled")).toBe(true);
   });
 
-  // The route is the answer to the maze, so a reader working it out for themselves can put it
-  // away. It starts drawn, like the labels do, and the two toggle independently.
-  it("starts routed and toggles off and on again without touching the labels", async () => {
+  // The overview starts without the route on it: every step already carries its own crop of this
+  // map with just that step's leg drawn, so all eight legs at once is for the reader who asks.
+  it("starts unrouted and toggles on and off again without touching the labels", async () => {
     await mount();
 
-    expect(has("block", "is-routed")).toBe(true);
-    expect(has("route-toggle", "is-on")).toBe(true);
-
-    el("route-toggle").click();
-    await flush();
     expect(has("block", "is-routed")).toBe(false);
-    expect(el("route-toggle").getAttribute("aria-pressed")).toBe("false");
+    expect(has("route-toggle", "is-on")).toBe(false);
     expect(has("block", "is-labelled")).toBe(true);
 
     el("route-toggle").click();
     await flush();
     expect(has("block", "is-routed")).toBe(true);
+    expect(el("route-toggle").getAttribute("aria-pressed")).toBe("true");
+    expect(has("block", "is-labelled")).toBe(true);
+
+    el("route-toggle").click();
+    await flush();
+    expect(has("block", "is-routed")).toBe(false);
   });
 });

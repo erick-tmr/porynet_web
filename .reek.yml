@@ -73,6 +73,10 @@ detectors:
       - Walkthrough::MapMarker  # same defaults shim: its keywords are the marker's own
                                 # optional members (key/glyph/edge/lane/note), each named
                                 # so a caller can omit it, not a call signature.
+      - Walkthrough::Step       # same defaults shim: a plain beat names no pins, sits on no
+                                # particular map, shows no dex screen and walks no stretch of a
+                                # drawn route, so each keyword is an optional member the common
+                                # case omits.
       - Walkthrough::BestCatch  # same defaults shim: a sole appearance states no runner-up and
                                 # a ranked one states no only/armed_only flag, so every keyword
                                 # is an optional member the other case omits.

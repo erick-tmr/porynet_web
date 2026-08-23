@@ -91,10 +91,68 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_in_delta 90.0, leg.heading, 0.01, "the last step runs south, so the head points south"
   end
 
-  # Five hues, so the sixth leg of a long floor starts the palette again rather than running out.
-  test "a leg of one cell points east, and the palette wraps" do
+  test "a leg of one cell points east" do
     assert_in_delta 0.0, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 1).heading, 0.01
-    assert_equal 1, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 6).hue
+  end
+
+  # The palette wraps rather than running out, so the guard is that it never has to: a floor with
+  # more legs than hues would give two of them the same colour, and a step's own map and the
+  # overview would then disagree about which line is which.
+  test "no floor needs more colours than the palette has" do
+    legs = game.locations.flat_map(&:area_maps).select(&:route?)
+      .to_h { |area| [ area.name, area.route_legs.size ] }
+
+    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 6 }, legs)
+    assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
+    assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
+      .find { |area| area.name == "rocket-hideout-b2f" }.route_legs.map(&:hue)
+  end
+
+  # Each step that rides the arrows carries its own copy of the floor, cropped to the stretch it
+  # walks. The overview at the top of the page shows the whole floor with no line on it; these are
+  # what a reader actually follows.
+  test "a step that rides the arrows carries its own crop of the floor" do
+    hideout = location("rocket-hideout")
+    moon_stone = hideout.steps.find { |step| step.n == 16 }
+
+    assert_predicate moon_stone, :step_map?
+    assert_equal [ 3 ], moon_stone.step_map.legs.map(&:n)
+    assert_equal "walkthrough/yellow/maps/rocket-hideout-b2f.png", moon_stone.step_map.image
+    refute_predicate hideout.steps.find { |step| step.n == 1 }, :step_map?, "the arcade has no maze"
+  end
+
+  # Only the maze steps. Half of each floor's legs are corridor walks (in at the door, round to
+  # the Rocket, out to the stairs) and a picture of a corridor is a picture of nothing, so those
+  # steps carry none. Which legs ride an arrow is the game's answer, pinned in test_spinners.py;
+  # this is the guide agreeing with it.
+  test "a step that only walks a corridor carries no map" do
+    mapped = location("rocket-hideout").steps.select(&:step_map?).map(&:n)
+
+    assert_equal [ 10, 11, 16, 18, 19 ], mapped
+  end
+
+  # The viewBox is x, y, width, height in that order, which is the sort of thing that looks fine
+  # until every frame on the page is the wrong shape. 4:3 whichever way the leg runs.
+  test "a step's crop is a 4:3 window on the part of the floor it walks" do
+    boxes = location("rocket-hideout").steps.filter_map { |step| step.step_map&.box }
+
+    assert_equal 5, boxes.size
+    boxes.each do |x, y, w, h|
+      assert_equal w * 3 / 4, h, "every frame is the same shape"
+      assert_operator x + w, :<=, 480
+      assert_operator y + h, :<=, 448
+    end
+    assert_equal "0 80 400 300", location("rocket-hideout").steps
+      .find { |step| step.n == 16 }.step_map.view_box
+  end
+
+  # A step can own two legs in a row: walk to the ball, then out of the room. Both are drawn, and
+  # they keep the colours they wear on the overview so the two pictures agree.
+  test "a step that owns a run of legs draws them all, in their own colours" do
+    out = location("rocket-hideout").steps.find { |step| step.n == 19 }.step_map
+
+    assert_equal [ 6, 7 ], out.legs.map(&:n)
+    assert_equal [ 6, 7 ], out.legs.map(&:hue)
   end
 
   test "markers_in narrows to one category" do

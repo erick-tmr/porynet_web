@@ -37,7 +37,7 @@
     </div>
     <div class="pn-mm-toggles">
       <% if area.route? %>
-        <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
+        <button type="button" class="pn-mm-toggle" aria-pressed="false"
                 data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
           <%= t("walkthrough.ui.map_route") %>
           <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
