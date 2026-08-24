@@ -66,10 +66,33 @@ ROUTES = {
     ),
     "Route10": ("exit-west", "exit-8-53"),          # from Route 9, then back out of Rock Tunnel
     "Route11": ("exit-west",),                      # east out of Vermilion, off the ship
-    "Route12": ("exit-north",),                     # down from Lavender
-    "Route13": ("exit-north",),
+    # Down from Lavender, then out of the gate's south door: the flood cannot walk through the
+    # building, so from the north end alone every pin on the route reads as unreachable and the
+    # whole page falls back to map-file order. Past the door the boards are the walk but the flood
+    # swims the bay between them, which hands the Fisherman on the east planks to the reader before
+    # the one two rows above him on the west side, so the seven are named outright.
+    "Route12": ("exit-north", "exit-10-21", "trainer-14-31", "trainer-5-39", "trainer-12-40",
+                "trainer-9-52", "trainer-14-76", "trainer-6-87", "trainer-11-92"),
+    # Down out of Route 12 and west along the ledges. The exit is on the west side, so the
+    # southwest pocket, one Bird Keeper and the buried PP Up, is a detour taken on the way past
+    # rather than the last thing on the road, and the Biker beside the gate is the last one you
+    # meet on the way out. Measuring from the doorway alone the flood deals all three out
+    # backwards, so the tail of the route is named.
+    "Route13": (
+        "exit-north", "trainer-50-5", "trainer-49-10", "trainer-48-10", "trainer-33-6",
+        "trainer-32-6", "trainer-27-9", "trainer-23-10", "trainer-7-13", "trainer-12-4",
+        "trainer-10-7"
+    ),
     "Route14": ("exit-east",),
-    "Route15": ("exit-east",),
+    # Two lanes with a run of one-way ledges between them, so the flood walks up drops you can
+    # only fall down and reads the route as one open field. Walked, the top lane is taken first
+    # (in off Route 14, west past the Jr. Trainer to TM20 Rage in the corner), then back east to
+    # hop the ledge down, and the bottom lane is swept right to left on the way to Fuchsia.
+    "Route15": (
+        "exit-east", "trainer-37-5", "trainer-53-10", "trainer-53-11", "trainer-48-10",
+        "trainer-46-10", "trainer-41-10", "trainer-41-11", "trainer-35-13", "trainer-31-13",
+        "trainer-18-13"
+    ),
     "Route16": ("exit-east",),                      # out of Celadon
     "Route17": ("exit-north",),
     "Route18": ("exit-north",),
