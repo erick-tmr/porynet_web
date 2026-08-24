@@ -1428,7 +1428,7 @@ module Walkthrough
       # Straight below to the crew deck, back up through 1F stern to bow, then over 2F to the
       # bow deck and down again, so each floor is swept once and the ship is crossed twice
       # instead of four times.
-      loc("ss-anne", "BUILDING", "S.S. Anne", 18, steps: [
+      loc("ss-anne", "SHIP", "S.S. Anne", 18, steps: [
           { pins: { down: "ss-anne-1f/exit-37-15", cabin: "ss-anne-b1f/exit-23-3" } },
           { item: [ "Max Potion", "max-potion" ], scene: "ss-anne-item-max-potion" },
           { item: [ "Ether", "ether" ], scene: "ss-anne-item-ether",
@@ -1539,7 +1539,7 @@ module Walkthrough
     end
 
     def self.pokemon_tower
-      loc("pokemon-tower", "DUNGEON", "Pokémon Tower", 30, steps: [
+      loc("pokemon-tower", "BUILDING", "Pokémon Tower", 30, steps: [
           { pins: { up: "pokemon-tower-1f/exit-18-9", west: "pokemon-tower-2f/exit-3-9" } },
           { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope",
             pins: { first: "pokemon-tower-3f/trainer-12-3",
@@ -1566,7 +1566,8 @@ module Walkthrough
                     across: "pokemon-tower-6f/trainer-9-5" } },
           { pins: { up: "pokemon-tower-6f/exit-9-16" } },
           {},
-          { items: [ [ "Poké Flute", "poke_flute" ] ] }
+          { items: [ [ "Poké Flute", "poke_flute" ] ] },
+          {}
         ],
         encounters: [
           enc("pokemon-tower", "092", "FLOORS", "94%", "18–29", "COMMON", "092", "093", "094", tip: true),
@@ -1804,9 +1805,9 @@ module Walkthrough
     end
 
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 41, steps: 3, gym_after: 2, badge: "MARSH",
-        pins: { 2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
-                3 => { dojo: "saffron-city/exit-26-3" } },
+      loc("saffron-city", "CITY", "Saffron City", 41, steps: 2, gym_after: 1, badge: "MARSH",
+        pins: { 1 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
+                2 => { dojo: "saffron-city/exit-26-3" } },
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
@@ -2311,7 +2312,7 @@ module Walkthrough
     B3F = "rocket-hideout-b3f".freeze
 
     def self.rocket_hideout
-      loc("rocket-hideout", "DUNGEON", "Game Corner / Rocket Hideout", 29,
+      loc("rocket-hideout", "BUILDING", "Game Corner / Rocket Hideout", 29,
         steps: [
           { pins: { guru: "rocket-hideout-game-corner/npc-guru-10",
                     man: "rocket-hideout-game-corner/npc-man-20",

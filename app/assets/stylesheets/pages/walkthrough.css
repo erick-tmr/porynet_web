@@ -2589,6 +2589,7 @@ a.pn-wt-route__card:hover {
 .pn-wt-band-head--dungeon,
 .pn-wt-band-head--tunnel,
 .pn-wt-band-head--building,
+.pn-wt-band-head--ship,
 .pn-wt-band-head--gym { background: color-mix(in srgb, #171622 7%, #FBF5E6); }
 .pn-wt-band__tags {
   display: flex;

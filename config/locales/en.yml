@@ -2163,6 +2163,9 @@ en:
               text: "Speak to the old man at the top of the room. He hands over the Poké Flute and walks you home to his house in Lavender Town."
               items:
                 poke_flute: "From Mr. Fuji atop the tower, once the ghost Marowak is laid to rest. Wakes the Snorlax blocking Routes 12 and 16."
+            "15":
+              title: "Head south for Route 12"
+              text: "Leave Lavender by the south road onto Route 12. The Poké Flute wakes the Snorlax sleeping across the pier there, and the fishing routes run all the way down to Fuchsia."
           tips:
             gastly: "The only Gengar line in the game. Evolve Gastly to Haunter, then Gengar by trade."
             cubone: "5F and 6F only, and the tower is its one home in Kanto. Catch a spare: Ricky, in the Route 5 Underground Path house, trades a Machoke for one."
@@ -2462,12 +2465,9 @@ en:
           intro: "Kanto's capital under Rocket occupation, a guard on every gate. Silph Co. stands in the middle, and the city keeps two fighting halls: Sabrina's gym and the Dojo."
           steps:
             "1":
-              title: "Bribe the guards"
-              text: "Every gate into Saffron is blocked by a thirsty guard. Buy a drink from Celadon's rooftop vending machines and hand it over to be waved through."
-            "2":
               title: "Free Silph Co. first"
               text_html: "The gym %{gym} stays locked until you clear Rocket-held Silph Co. %{silph} (see Silph Co.), then enter and solve the teleport-pad maze to Sabrina."
-            "3":
+            "2":
               title: "Claim a fighter"
               text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} to take a free Hitmonlee or Hitmonchan."
           oak:
