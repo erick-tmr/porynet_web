@@ -2462,12 +2462,9 @@ en:
           intro: "Kanto's capital under Rocket occupation, a guard on every gate. Silph Co. stands in the middle, and the city keeps two fighting halls: Sabrina's gym and the Dojo."
           steps:
             "1":
-              title: "Bribe the guards"
-              text: "Every gate into Saffron is blocked by a thirsty guard. Buy a drink from Celadon's rooftop vending machines and hand it over to be waved through."
-            "2":
               title: "Free Silph Co. first"
               text_html: "The gym %{gym} stays locked until you clear Rocket-held Silph Co. %{silph} (see Silph Co.), then enter and solve the teleport-pad maze to Sabrina."
-            "3":
+            "2":
               title: "Claim a fighter"
               text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} to take a free Hitmonlee or Hitmonchan."
           oak:

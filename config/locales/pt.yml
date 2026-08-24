@@ -2462,12 +2462,9 @@ pt:
           intro: "A capital de Kanto sob ocupação Rocket, um guarda em cada portão. A Silph Co. fica no centro, e a cidade tem dois salões de luta: o ginásio da Sabrina e o Dojo."
           steps:
             "1":
-              title: "Suborne os guardas"
-              text: "Todo portão de Saffron está bloqueado por um guarda com sede. Compre uma bebida nas máquinas do terraço de Celadon e entregue para ser liberado."
-            "2":
               title: "Liberte a Silph Co. primeiro"
               text_html: "O ginasio %{gym} fica trancado ate você limpar a Silph Co. %{silph} tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
-            "3":
+            "2":
               title: "Reivindique um lutador"
               text_html: "Vença o Karate Master no Fighting Dojo %{dojo} para levar um Hitmonlee ou Hitmonchan grátis. Só dá para escolher um, então o outro se perde."
           oak:
