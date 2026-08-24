@@ -2163,6 +2163,9 @@ pt:
               text: "Fale com o velho no topo da sala. Ele entrega o Poké Flute e te leva de volta pra casa dele em Lavender Town."
               items:
                 poke_flute: "Com o Mr. Fuji no topo da torre, depois que o Marowak fantasma descansa. Acorda o Snorlax que bloqueia as Rotas 12 e 16."
+            "15":
+              title: "Siga ao sul para a Rota 12"
+              text: "Saia de Lavender pela estrada ao sul até a Rota 12. O Poké Flute acorda o Snorlax deitado no meio do píer, e as rotas de pesca descem até Fuchsia."
           tips:
             gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar por troca."
             cubone: "Só no 5F e no 6F, e a torre é a única casa dele em Kanto. Pegue um extra: o Ricky, na casa do Underground Path da Rota 5, troca um Machoke por ele."

@@ -1566,7 +1566,8 @@ module Walkthrough
                     across: "pokemon-tower-6f/trainer-9-5" } },
           { pins: { up: "pokemon-tower-6f/exit-9-16" } },
           {},
-          { items: [ [ "Poké Flute", "poke_flute" ] ] }
+          { items: [ [ "Poké Flute", "poke_flute" ] ] },
+          {}
         ],
         encounters: [
           enc("pokemon-tower", "092", "FLOORS", "94%", "18–29", "COMMON", "092", "093", "094", tip: true),
