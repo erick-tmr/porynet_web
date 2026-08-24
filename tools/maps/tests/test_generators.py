@@ -892,3 +892,96 @@ def test_a_where_shot_stands_the_hero_where_they_could_really_talk(root):
         for cell in run:
             assert markers.cell_is_walkable(root, spec["map"], tileset, width_blocks, cell), \
                 f"{spec['name']}: {cell} is between the hero and the trainer, and is solid"
+
+
+# --- talking to an NPC -------------------------------------------------------
+#
+# A Gen 1 conversation has a fixed shape and a scene of one has to draw it: you can only talk to
+# someone you are facing, and the moment you do they turn to face you (MakeNPCFacePlayer in
+# engine/overworld/movement.asm). These hold the build to it, because the mistake is invisible in
+# a spec and obvious in the PNG: a shopkeeper handing you a rod while looking at the wall.
+
+def _talking_spec(**over):
+    spec = {"type": "dialog", "name": "test-scene", "map": "Route12SuperRodHouse",
+            "player": [2, 5], "player_dir": "UP",
+            "sprites": [{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "DOWN"}],
+            "dialog": {"lines": ["<PLAYER> received", "a SUPER ROD!"]}}
+    return {**spec, **over}
+
+
+def _check(root, spec):
+    generators._check_talking(root, spec, generators._screen_sprites(root, spec))
+
+
+def test_a_spoken_to_npc_faces_the_player(root):
+    _check(root, _talking_spec())
+
+
+def test_an_npc_left_looking_away_fails_the_build(root):
+    spec = _talking_spec(sprites=[{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "RIGHT"}])
+
+    with pytest.raises(ValueError, match="drawn facing RIGHT"):
+        _check(root, spec)
+
+
+def test_a_hero_stood_beside_rather_than_facing_the_npc_fails_the_build(root):
+    """You cannot talk to someone you are not facing, so this frame cannot happen in the game."""
+    spec = _talking_spec(player=[1, 4], player_dir="UP")
+
+    with pytest.raises(ValueError, match="nobody there"):
+        _check(root, spec)
+
+
+def test_a_text_box_that_is_not_a_conversation_opts_out(root):
+    """Playing the Poké Flute at the sleeping Snorlax prints a line without anyone being spoken
+    to, so nothing turns and the check has to stay out of it."""
+    spec = _talking_spec(talking=False,
+                         sprites=[{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "RIGHT"}])
+
+    _check(root, spec)
+
+
+def test_a_scene_with_no_dialog_box_is_not_a_conversation(root):
+    spec = _talking_spec(sprites=[{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "RIGHT"}])
+    del spec["dialog"]
+
+    _check(root, spec)
+
+
+def test_a_mart_clerk_is_talked_to_over_his_counter(root):
+    """The one thing the game lets you talk across. The Viridian clerk stands at (0,5) behind the
+    counter at (1,5) and the player buys from (2,5), so the reach is two cells, not one."""
+    spec = {"type": "screen", "name": "test-mart", "map": "ViridianMart",
+            "player": [2, 5], "player_dir": "LEFT", "auto_npcs": True,
+            "dialog": {"lines": ["<PLAYER> got", "OAK's PARCEL!"]}}
+
+    _check(root, spec)
+    partner = generators._talked_to(root, spec, "LEFT", generators._screen_sprites(root, spec))
+    assert partner["file"] == "clerk", "the counter is not a wall between them"
+
+
+def test_nothing_reaches_across_two_plain_floor_tiles(root):
+    """The two-cell reach is the counter's, not a general rule: an NPC one tile further away over
+    open floor is not being talked to."""
+    spec = _talking_spec(sprites=[{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 3], "dir": "RIGHT"}])
+
+    assert generators._talked_to(root, spec, "UP",
+                                 generators._screen_sprites(root, spec)) is None
+
+
+def test_every_shipped_scene_draws_a_conversation_the_game_could_show(root):
+    """The whole spec library, so a new scene cannot land facing the wrong way."""
+    import build
+
+    for spec in build.load_specs():
+        if spec["type"] in generators.SCREEN_TYPES:
+            _check(root, spec)
+
+
+def test_a_found_item_box_is_never_a_conversation(root):
+    """Pressing A at a tile prints _FoundItemText with nobody on the other end. Whoever happens to
+    be standing in the next cell is a bystander, not someone you are talking to."""
+    spec = {"type": "dialog", "name": "test-hidden", "map": "ViridianForest",
+            "player": [16, 42], "player_dir": "DOWN", "dialog": {"found_item": "ANTIDOTE"}}
+
+    _check(root, spec)
