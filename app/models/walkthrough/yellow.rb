@@ -1540,22 +1540,38 @@ module Walkthrough
 
     def self.pokemon_tower
       loc("pokemon-tower", "DUNGEON", "Pokémon Tower", 30, steps: [
-          {},
-          { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope" },
+          { pins: { up: "pokemon-tower-1f/exit-18-9", west: "pokemon-tower-2f/exit-3-9" } },
+          { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope",
+            pins: { first: "pokemon-tower-3f/trainer-12-3",
+                    south: "pokemon-tower-3f/trainer-10-13" } },
+          { pins: { last: "pokemon-tower-3f/trainer-9-8", up: "pokemon-tower-3f/exit-18-9",
+                    near: "pokemon-tower-4f/trainer-15-7",
+                    below: "pokemon-tower-4f/trainer-14-12" } },
           { item: [ "Elixir", "elixir" ], scene: "pokemon-tower-item-elixir" },
-          { item: [ "HP Up", "hp-up" ], scene: "pokemon-tower-item-hp-up" },
           { item: [ "Awakening", "awakening" ], scene: "pokemon-tower-item-awakening" },
-          { hidden: [ "Elixir", "elixir", "pokemon-tower-hidden-elixir", "pokemon-tower-elixir" ] },
-          { item: [ "Nugget", "nugget" ], scene: "pokemon-tower-item-nugget" },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-tower-item-rare-candy" },
-          { item: [ "X Accuracy", "x-accuracy" ], scene: "pokemon-tower-item-x-accuracy" },
+          { item: [ "HP Up", "hp-up" ], scene: "pokemon-tower-item-hp-up" },
+          { hidden: [ "Elixir", "elixir", "pokemon-tower-hidden-elixir", "pokemon-tower-elixir" ],
+            pins: { west: "pokemon-tower-4f/trainer-5-10", up: "pokemon-tower-4f/exit-3-9" } },
+          { pins: { heal: "pokemon-tower-5f/npc-purified-zone",
+                    quiet: "pokemon-tower-5f/npc-silent-channeler",
+                    north: "pokemon-tower-5f/trainer-14-3",
+                    east: "pokemon-tower-5f/trainer-17-7" } },
+          { item: [ "Nugget", "nugget" ], scene: "pokemon-tower-item-nugget",
+            pins: { west: "pokemon-tower-5f/trainer-6-10", guard: "pokemon-tower-5f/trainer-9-16",
+                    up: "pokemon-tower-5f/exit-18-9" } },
+          { item: [ "X Accuracy", "x-accuracy" ], scene: "pokemon-tower-item-x-accuracy",
+            pins: { first: "pokemon-tower-6f/trainer-12-10" } },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-tower-item-rare-candy",
+            pins: { north: "pokemon-tower-6f/trainer-16-5",
+                    across: "pokemon-tower-6f/trainer-9-5" } },
+          { pins: { up: "pokemon-tower-6f/exit-9-16" } },
           {},
           { items: [ [ "Poké Flute", "poke_flute" ] ] }
         ],
         encounters: [
           enc("pokemon-tower", "092", "FLOORS", "94%", "18–29", "COMMON", "092", "093", "094", tip: true),
           enc("pokemon-tower", "093", "FLOORS", "6%", "20–29", "RARE", "092", "093", "094"),
-          enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105")
+          enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105", tip: true)
         ],
         trainers: [
           tr("TEAM ROCKET", "Jessie & James", 810,

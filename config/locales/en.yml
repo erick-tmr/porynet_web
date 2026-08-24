@@ -379,6 +379,8 @@ en:
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
       map_npc_viridian_tm42: "A Fisher dozing on a fenced plot, walled in by a cuttable tree. Wake him and he gives you TM42, Dream Eater."
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
+      map_npc_tower_purified_zone: "Four tiles that heal your party in full, every time you step on them. The tower's free Pokémon Center, halfway up the climb."
+      map_npc_tower_silent_channeler: "The one Channeler in the tower who is not a trainer. She stands beside the healing tiles and only talks."
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
       catch_h2: "What you can catch here"
@@ -2102,58 +2104,68 @@ en:
           intro: "Seven floors of graves above Lavender Town, most landings held by a Channeler. Gastly haunts this tower and nowhere else in Kanto."
           steps:
             "1":
-              title: "Climb with the Silph Scope"
-              text: "Step in from Lavender Town and start up. With the Silph Scope on, the wild Gastly, Haunter and Cubone that haunt every floor finally take shape, so you can battle them instead of fumbling in the dark."
+              title: "Climb through 1F and 2F"
+              text_html: "Nothing on the ground floor needs you. Take the staircase %{up} on the right up to 2F, where you already beat Blue, then cross to the west staircase %{west} and climb to 3F."
             "2":
-              title: "Snag the Escape Rope on 3F"
-              text: "On the third floor, a lone ball waits against the very top wall, dead center. Walk up to it for an Escape Rope, your instant bail-out if the ghosts wear you down."
+              title: "Start up 3F and take the Escape Rope"
+              text_html: "Wild Pokémon appear from this floor up, and only the Silph Scope makes them fightable. Head north to the first Channeler %{first}; two tiles past her, a ball holds an Escape Rope. The next Channeler %{south} holds the bottom row."
               items:
-                escape-rope: "Top-center of 3F, against the north wall; approach from below."
+                escape-rope: "Top of 3F, two tiles north of the first Channeler, against the north wall. Approach from below."
             "3":
-              title: "Grab the Elixir on 4F"
-              text: "Up on the fourth floor, the first of three balls sits near the middle of the room. Step to it from the right for an Elixir, which tops up the PP of every move at once."
-              items:
-                elixir: "Center of 4F, approached from the east."
+              title: "Clear 3F and climb into 4F"
+              text_html: "The last Channeler %{last} on 3F stands a few rows above her. Beat her and take the east staircase %{up} to 4F, where two more, %{near} and %{below}, wait just left of the door."
             "4":
-              title: "Drop south for the HP Up"
-              text: "Just below the Elixir, tucked against the lower wall, a second ball holds an HP Up, a permanent boost to one Pokémon's max HP. Reach it from the left."
+              title: "Grab the Elixir"
+              text: "Past the pair, a ball sits out in the middle of the floor. It holds an Elixir, which restores the PP of every move a Pokémon knows."
               items:
-                hp-up: "South edge of 4F, directly below the Elixir."
+                elixir: "Middle of 4F, west of the two Channelers by the east stairs."
             "5":
               title: "Pocket the Awakening"
-              text: "A few steps west along the middle row, the last 4F ball is an Awakening, a one-shot cure for Sleep and handy against the Tower's drowsy ghosts. Then make for the west stairs."
+              text: "A few tiles west along the same row is an Awakening. It wakes one Pokémon from Sleep, the status that costs you whole turns on a climb this long."
               items:
-                awakening: "Center-west of 4F, west of the Elixir, near the stairs up."
+                awakening: "Middle row of 4F, a few tiles west of the Elixir."
             "6":
-              title: "Feel for the hidden Elixir on 5F"
-              text: "Coming onto the fifth floor from the west stairs, step a couple of tiles in and face south. Press A on the empty tile just below you for a hidden Elixir; nothing shows on-screen, but it drops into your bag."
-              hidden:
-                elixir: "Just southeast of the 5F west stairs. Press A facing down on the empty tile; no ball is visible."
+              title: "Drop south for the HP Up"
+              text: "Come back to the Elixir's column and follow it straight down into the notch at the floor's south edge. The ball there is an HP Up, a permanent lift to one Pokémon's max HP."
+              items:
+                hp-up: "South edge of 4F, in the notch directly below the Elixir."
             "7":
-              title: "Bag the Nugget"
-              text: "A little further into the fifth floor, a ball sits low on the west side. Grab it from the right for a Nugget, worth a fat pile of cash at any shop."
-              items:
-                nugget: "West-south area of 5F, a few tiles past the hidden Elixir; approach from the right."
+              title: "Clear 4F and feel for the hidden Elixir"
+              text_html: "Beat 4F's last Channeler %{west} on the west side and take the staircase %{up} up to 5F. Drop south into the walled alcove below it, face the bottom wall and press A: a hidden Elixir, nothing shown on-screen."
+              hidden:
+                elixir: "5F, in the alcove south of the west stairs. Face the bottom wall and press A. Nothing shows on-screen."
             "8":
-              title: "Claim the Rare Candy on 6F"
-              text: "The sixth floor's prize sits over on the west side, up near the top. Walk up to it for a Rare Candy, an instant level for whichever Pokémon needs it most."
-              items:
-                rare-candy: "West side of 6F, toward the top; approach from below."
+              title: "Heal free, then clear the top of 5F"
+              text_html: "Four pale tiles %{heal} mid-floor heal your party in full, free and unlimited; the Channeler %{quiet} beside them never fights. Healed up, take the northernmost Channeler %{north}, then the one %{east} on the east wall."
             "9":
-              title: "Grab the X Accuracy"
-              text: "Back across to the southeast, the last Tower ball is an X Accuracy, a battle item that sharpens your next few hits. From here it is a short walk to the stairs the ghost guards."
+              title: "Sweep west for the Nugget"
+              text_html: "Cross back west past the healing tiles for the Channeler %{west}. A ball below her holds a Nugget, ¥5000 at any counter, with a last Channeler %{guard} standing over it. Then east to the stairs %{up}."
               items:
-                x-accuracy: "Southeast of 6F; approach from the right."
+                nugget: "West side of 5F, on the ball just below the third Channeler. Approach from the right."
             "10":
-              title: "Clear the ghost Marowak"
-              text: "A Lv 30 ghost Marowak stands over the stairs up, mourning among the graves. The Silph Scope lets you see and fight it, so knock it out to clear the way. It can never be caught, only laid to rest."
+              title: "Step onto 6F and take the X Accuracy"
+              text_html: "A Channeler %{first} waits to your left as you arrive. Beat her, then drop south to the ball behind her for an X Accuracy, which sharpens your hits for one battle."
+              items:
+                x-accuracy: "Southeast of 6F, a short drop south of the floor's first Channeler."
             "11":
-              title: "Free Mr. Fuji on 7F"
-              text: "At the top, Jessie & James block the way to Mr. Fuji. Beat the pair and speak to the old man to free him. He hands over the Poké Flute, which wakes the Snorlax on Routes 12 and 16."
+              title: "Round 6F and take the Rare Candy"
+              text_html: "Climb back north for the Channeler %{north}, then round the rows to the last one %{across}. Just past her a Rare Candy plugs the only gap through: take it for the free level, and to open the path south."
+              items:
+                rare-candy: "West side of 6F, past the last Channeler. Its ball plugs the gap through to the stairs."
+            "12":
+              title: "Lay the ghost Marowak to rest"
+              text_html: "Approach the staircase %{up} and a Lv 30 Marowak attacks. Only the Silph Scope makes it fightable. It has one attacking move and folds to Water, Ice or Grass. It can never be caught."
+            "13":
+              title: "Beat Jessie & James on 7F"
+              text: "The pair are waiting at the top, Lv 27 across a Meowth, an Arbok and a Weezing. Beat them and the back of the room is clear."
+            "14":
+              title: "Free Mr. Fuji"
+              text: "Speak to the old man at the top of the room. He hands over the Poké Flute and walks you home to his house in Lavender Town."
               items:
                 poke_flute: "From Mr. Fuji atop the tower, once the ghost Marowak is laid to rest. Wakes the Snorlax blocking Routes 12 and 16."
           tips:
             gastly: "The only Gengar line in the game. Evolve Gastly to Haunter, then Gengar by trade."
+            cubone: "5F and 6F only, and the tower is its one home in Kanto. Catch a spare: Ricky, in the Route 5 Underground Path house, trades a Machoke for one."
           oak:
             gastly: "Ghost-heavy floors → Haunter, then Gengar by trade. The only line in-game."
             cubone: "A rare Tower catch → Marowak, a strong Ground type."

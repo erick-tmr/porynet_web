@@ -1,6 +1,6 @@
 import json
 import pathlib
-from collections import Counter
+from collections import Counter, deque
 
 import decks
 import locations
@@ -315,3 +315,68 @@ def test_the_hideout_b4f_splits_its_balls_between_the_stairs_and_the_lift(root):
     assert [items[key]["name"] for key in ("I1", "I2", "I3", "I4", "I5")] == [
         "HP Up", "TM Razor Wind", "Lift Key", "Iron", "Silph Scope"]
     assert lettered(root, "RocketHideoutB4F", "B4F") == [("T1", "ROCKET:18"), ("T2", "GIOVANNI:1")]
+
+
+def test_the_tower_letters_each_floor_the_way_its_lap_is_walked(root):
+    """Every Pokemon Tower floor is a ring of gravestone rows with one doorway in and another out,
+    so the walk is a lap and plain distance from the door reads most of it backwards. On 3F the
+    lap climbs north to the Channeler under the Escape Rope before the long drop to the one on the
+    bottom row; the flood, measuring from the west stairs, hands over the bottom row first."""
+    assert lettered(root, "PokemonTower3F", "3F") == [
+        ("T1", "CHANNELER:5"), ("T2", "CHANNELER:8"), ("T3", "CHANNELER:6")]
+    assert lettered(root, "PokemonTower5F", "5F") == [
+        ("T1", "CHANNELER:16"), ("T2", "CHANNELER:14"),
+        ("T3", "CHANNELER:17"), ("T4", "CHANNELER:18")]
+
+
+def test_tower_4f_takes_the_awakening_before_doubling_back_for_the_hp_up(root):
+    """The three balls sit in an L: the Elixir mid-floor, the Awakening one row west of it, and the
+    HP Up alone in a notch on the south edge. You clear the row before dropping into the notch, so
+    the Awakening is second; distance from the east stairs puts the notch there instead."""
+    items = pins(root, "PokemonTower4F", "4F", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3")] == ["Elixir", "Awakening", "HP Up"]
+    assert lettered(root, "PokemonTower4F", "4F") == [
+        ("T1", "CHANNELER:10"), ("T2", "CHANNELER:12"), ("T3", "CHANNELER:9")]
+
+
+def test_tower_6f_picks_up_the_x_accuracy_on_the_way_in_not_the_rare_candy(root):
+    """The X Accuracy is a short drop south off the first Channeler, a few tiles from the doorway.
+    The Rare Candy is over on the west side, reached by going up over the top of the floor and back
+    down, and its ball plugs the only gap through to the stairs, so it is the last thing collected
+    even though the flood rates it the nearer of the two."""
+    items = pins(root, "PokemonTower6F", "6F", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2")] == ["X Accuracy", "Rare Candy"]
+    assert lettered(root, "PokemonTower6F", "6F") == [
+        ("T1", "CHANNELER:19"), ("T2", "CHANNELER:21"), ("T3", "CHANNELER:20")]
+
+
+def test_the_rare_candy_ball_really_is_6fs_only_way_through(root):
+    """Why the Rare Candy letters last however near the door it sits, and why the step tells you
+    you have to take it: its ball stands in the one gap in the gravestone wall between the floor
+    and the stairs down. The shipped collision does not know a ball occupies a tile, so the flood
+    strolls past it; block that one cell and the stairs fall off the map."""
+    label = "PokemonTower6F"
+    const, tileset = sources.parse_headers(root)[label]
+    _index, width_blocks, _height = sources.parse_map_constants(root)[0][const]
+    width_cells, height_cells = markers.map_cells(root, const)
+
+    def open_cell(cell):
+        return 0 <= cell[0] < width_cells and 0 <= cell[1] < height_cells and \
+            markers.cell_is_walkable(root, label, tileset, width_blocks, cell)
+
+    def flood(start, blocked):
+        seen, queue = {start}, deque([start])
+        while queue:
+            x, y = queue.popleft()
+            for cell in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                if cell != blocked and cell not in seen and open_cell(cell):
+                    seen.add(cell)
+                    queue.append(cell)
+        return seen
+
+    door, stairs, candy = (18, 9), (9, 16), (6, 8)
+
+    assert stairs not in flood(door, candy)
+    assert stairs in flood(door, None)

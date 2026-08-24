@@ -379,6 +379,8 @@ pt:
       map_npc_route24_charmander: "Na colina de grama acima da ponte, este garoto te dá um Charmander grátis (Nv 10). Pegue."
       map_npc_viridian_tm42: "Um Pescador cochilando num terreno cercado, fechado por uma árvore cortável. Acorde-o e ele te dá o TM42, Dream Eater."
       map_npc_silph_master_ball: "Derrote o Giovanni e o presidente te agradece com a Master Ball, a única do jogo."
+      map_npc_tower_purified_zone: "Quatro tiles que curam sua equipe por completo, toda vez que você pisa neles. O Centro Pokémon grátis da torre, no meio da subida."
+      map_npc_tower_silent_channeler: "A única Channeler da torre que não é treinadora. Ela fica ao lado dos tiles de cura e só conversa."
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
       catch_h2: "O que dá para capturar aqui"
@@ -2102,58 +2104,68 @@ pt:
           intro: "Sete andares de túmulos sobre Lavender Town, quase todos guardados por uma Channeler. Gastly assombra esta torre e nenhum outro lugar de Kanto."
           steps:
             "1":
-              title: "Suba com o Silph Scope"
-              text: "Entre vindo de Lavender Town e comece a subir. Com o Silph Scope ativo, os Gastly, Haunter e Cubone selvagens que assombram cada andar finalmente tomam forma, então dá pra batalhar em vez de tatear no escuro."
+              title: "Suba o 1F e o 2F"
+              text_html: "Nada no térreo precisa de você. Pegue a escada %{up} da direita até o 2F, onde você já venceu o Blue, depois atravesse até a escada oeste %{west} e suba pro 3F."
             "2":
-              title: "Pegue o Escape Rope no 3F"
-              text: "No terceiro andar, uma ball solitária espera colada na parede de cima, bem no centro. Suba até ela pra pegar um Escape Rope, sua saída na hora se os fantasmas te desgastarem."
+              title: "Comece o 3F e pegue o Escape Rope"
+              text_html: "Pokémon selvagens aparecem deste andar pra cima, e só o Silph Scope os torna enfrentáveis. Siga ao norte até a primeira Channeler %{first}; dois tiles depois dela, uma ball guarda um Escape Rope. A próxima Channeler %{south} segura a fileira de baixo."
               items:
-                escape-rope: "Centro-topo do 3F, contra a parede norte; aproxime por baixo."
+                escape-rope: "Topo do 3F, dois tiles ao norte da primeira Channeler, contra a parede norte. Aproxime por baixo."
             "3":
-              title: "Pegue o Elixir no 4F"
-              text: "No quarto andar, a primeira de três balls fica perto do meio da sala. Chegue por ela pela direita pra levar um Elixir, que recarrega o PP de todos os golpes de uma vez."
-              items:
-                elixir: "Centro do 4F, aproximado pela direita."
+              title: "Limpe o 3F e suba pro 4F"
+              text_html: "A última Channeler %{last} do 3F fica algumas fileiras acima dela. Vença-a e pegue a escada leste %{up} até o 4F, onde mais duas, %{near} e %{below}, esperam à esquerda da porta."
             "4":
-              title: "Desça pro HP Up"
-              text: "Logo abaixo do Elixir, encostada na parede de baixo, uma segunda ball guarda um HP Up, um aumento permanente no HP máximo de um Pokémon. Alcance pela esquerda."
+              title: "Pegue o Elixir"
+              text: "Passando pela dupla, uma ball fica solta no meio do andar. Ela guarda um Elixir, que recarrega o PP de todos os golpes de um Pokémon."
               items:
-                hp-up: "Borda sul do 4F, logo abaixo do Elixir."
+                elixir: "Meio do 4F, a oeste das duas Channelers junto à escada leste."
             "5":
               title: "Embolse o Awakening"
-              text: "Alguns passos a oeste pela fileira do meio, a última ball do 4F é um Awakening, uma cura na hora pra Sleep e útil contra os fantasmas sonolentos da Torre. Depois siga pra escada oeste."
+              text: "Alguns tiles a oeste na mesma fileira está um Awakening. Ele acorda um Pokémon de Sleep, o status que custa turnos inteiros numa subida tão longa."
               items:
-                awakening: "Centro-oeste do 4F, a oeste do Elixir, perto da escada de subida."
+                awakening: "Fileira do meio do 4F, alguns tiles a oeste do Elixir."
             "6":
-              title: "Tateie o Elixir oculto no 5F"
-              text: "Chegando ao quinto andar pela escada oeste, entre um ou dois tiles e vire pra baixo. Aperte A no tile vazio logo à sua frente pra achar um Elixir oculto; nada aparece na tela, mas ele cai na sua bag."
-              hidden:
-                elixir: "Logo a sudeste da escada oeste do 5F. Aperte A virado pra baixo no tile vazio; nenhuma ball aparece."
+              title: "Desça ao sul pelo HP Up"
+              text: "Volte pra coluna do Elixir e siga direto pra baixo até o recuo na borda sul do andar. A ball ali é um HP Up, um aumento permanente no HP máximo de um Pokémon."
+              items:
+                hp-up: "Borda sul do 4F, no recuo logo abaixo do Elixir."
             "7":
-              title: "Garanta o Nugget"
-              text: "Um pouco mais adentro do quinto andar, uma ball fica embaixo, no lado oeste. Pegue pela direita pra levar um Nugget, que vale um bom bolo de dinheiro em qualquer loja."
-              items:
-                nugget: "Área oeste-sul do 5F, alguns tiles depois do Elixir oculto; aproxime pela direita."
+              title: "Limpe o 4F e tateie o Elixir oculto"
+              text_html: "Vença a última Channeler %{west} do 4F, no lado oeste, e pegue a escada %{up} até o 5F. Desça até o recuo murado logo abaixo, encare a parede de baixo e aperte A: um Elixir oculto, nada aparece na tela."
+              hidden:
+                elixir: "5F, no recuo ao sul da escada oeste. Encare a parede de baixo e aperte A. Nada aparece na tela."
             "8":
-              title: "Fisgue o Rare Candy no 6F"
-              text: "O prêmio do sexto andar fica lá no lado oeste, perto do topo. Suba até ele pra pegar um Rare Candy, um nível na hora pro Pokémon que mais precisar."
-              items:
-                rare-candy: "Lado oeste do 6F, mais pro topo; aproxime por baixo."
+              title: "Cure de graça e limpe o topo do 5F"
+              text_html: "Quatro tiles claros %{heal} no meio do andar curam sua equipe por completo, de graça e sem limite; a Channeler %{quiet} ao lado deles nunca batalha. Curado, enfrente a Channeler mais ao norte %{north}, depois a %{east} na parede leste."
             "9":
-              title: "Pegue o X Accuracy"
-              text: "De volta pro sudeste, a última ball da Torre é um X Accuracy, um item de batalha que afia seus próximos golpes. Daqui é um pulo até a escada que o fantasma guarda."
+              title: "Varra o oeste pelo Nugget"
+              text_html: "Atravesse de volta a oeste dos tiles de cura até a Channeler %{west}. Uma ball abaixo dela guarda um Nugget, ¥5000 em qualquer balcão, com uma última Channeler %{guard} em cima. Depois siga a leste até a escada %{up}."
               items:
-                x-accuracy: "Sudeste do 6F; aproxime pela direita."
+                nugget: "Lado oeste do 5F, na ball logo abaixo da terceira Channeler. Aproxime pela direita."
             "10":
-              title: "Limpe o Marowak fantasma"
-              text: "Um Marowak fantasma Nv 30 fica sobre a escada de subida, de luto entre os túmulos. O Silph Scope deixa você vê-lo e enfrentá-lo, então derrube-o pra abrir caminho. Ele nunca pode ser capturado, só posto pra descansar."
+              title: "Chegue ao 6F e pegue o X Accuracy"
+              text_html: "Uma Channeler %{first} espera à sua esquerda na chegada. Vença-a e desça até a ball atrás dela pra pegar um X Accuracy, que afia seus golpes por uma batalha."
+              items:
+                x-accuracy: "Sudeste do 6F, uma descida curta ao sul da primeira Channeler do andar."
             "11":
-              title: "Solte o Mr. Fuji no 7F"
-              text: "No topo, Jessie & James bloqueiam o caminho até o Mr. Fuji. Vença a dupla e fale com o velho para libertá-lo. Ele entrega o Poké Flute, que acorda os Snorlax das Rotas 12 e 16."
+              title: "Contorne o 6F e pegue o Rare Candy"
+              text_html: "Suba de volta ao norte pela Channeler %{north}, depois contorne as fileiras até a última %{across}. Logo depois dela, um Rare Candy tampa a única passagem: pegue pelo nível de graça, e pra abrir o caminho ao sul."
+              items:
+                rare-candy: "Lado oeste do 6F, depois da última Channeler. A ball tampa a passagem até a escada."
+            "12":
+              title: "Ponha o Marowak fantasma pra descansar"
+              text_html: "Chegue perto da escada %{up} e um Marowak Nv 30 ataca. Só o Silph Scope o torna enfrentável. Ele tem um único golpe de ataque e cai fácil pra Água, Gelo ou Grama. Nunca pode ser capturado."
+            "13":
+              title: "Vença Jessie & James no 7F"
+              text: "A dupla espera no topo, Nv 27 entre um Meowth, um Arbok e um Weezing. Vença os dois e o fundo da sala fica livre."
+            "14":
+              title: "Solte o Mr. Fuji"
+              text: "Fale com o velho no topo da sala. Ele entrega o Poké Flute e te leva de volta pra casa dele em Lavender Town."
               items:
                 poke_flute: "Com o Mr. Fuji no topo da torre, depois que o Marowak fantasma descansa. Acorda o Snorlax que bloqueia as Rotas 12 e 16."
           tips:
             gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar por troca."
+            cubone: "Só no 5F e no 6F, e a torre é a única casa dele em Kanto. Pegue um extra: o Ricky, na casa do Underground Path da Rota 5, troca um Machoke por ele."
           oak:
             gastly: "Andares cheios de fantasmas → Haunter, depois Gengar por troca. A única linha do jogo."
             cubone: "Uma captura rara da Torre → Marowak, um tipo Terra forte."

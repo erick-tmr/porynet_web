@@ -992,24 +992,8 @@
       {
         "map": "pokemon-tower-3f",
         "floor": "3F",
-        "marker": "trainer-10-13",
-        "key": "T1",
-        "opp": "CHANNELER:8",
-        "cls": "CHANNELER",
-        "reward": 660,
-        "team": [
-          {
-            "dex": "092",
-            "lvl": 22
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/pokemon-tower-3f-trainer-10-13.png"
-      },
-      {
-        "map": "pokemon-tower-3f",
-        "floor": "3F",
         "marker": "trainer-12-3",
-        "key": "T2",
+        "key": "T1",
         "opp": "CHANNELER:5",
         "cls": "CHANNELER",
         "reward": 690,
@@ -1020,6 +1004,22 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/pokemon-tower-3f-trainer-12-3.png"
+      },
+      {
+        "map": "pokemon-tower-3f",
+        "floor": "3F",
+        "marker": "trainer-10-13",
+        "key": "T2",
+        "opp": "CHANNELER:8",
+        "cls": "CHANNELER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 22
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-tower-3f-trainer-10-13.png"
       },
       {
         "map": "pokemon-tower-3f",

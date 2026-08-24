@@ -3698,24 +3698,9 @@
         "name": "pokemon-tower-3f",
         "markers": [
           {
-            "id": "trainer-10-13",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 52.5,
-            "y": 75.0,
-            "grid": [
-              10,
-              13
-            ],
-            "align": "r",
-            "name": "Channeler",
-            "ref": "CHANNELER:8",
-            "lane": 0
-          },
-          {
             "id": "trainer-12-3",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 62.5,
             "y": 19.444,
             "grid": [
@@ -3725,6 +3710,21 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:5",
+            "lane": 0
+          },
+          {
+            "id": "trainer-10-13",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 52.5,
+            "y": 75.0,
+            "grid": [
+              10,
+              13
+            ],
+            "align": "r",
+            "name": "Channeler",
+            "ref": "CHANNELER:8",
             "lane": 0
           },
           {
@@ -3861,24 +3861,9 @@
             "lane": 3
           },
           {
-            "id": "item-12-16",
-            "cat": "item",
-            "key": "I2",
-            "x": 62.5,
-            "y": 91.667,
-            "grid": [
-              12,
-              16
-            ],
-            "align": "l",
-            "name": "HP Up",
-            "ref": "HP_UP",
-            "lane": 0
-          },
-          {
             "id": "item-9-10",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 47.5,
             "y": 58.333,
             "grid": [
@@ -3889,6 +3874,21 @@
             "name": "Awakening",
             "ref": "AWAKENING",
             "lane": 2
+          },
+          {
+            "id": "item-12-16",
+            "cat": "item",
+            "key": "I3",
+            "x": 62.5,
+            "y": 91.667,
+            "grid": [
+              12,
+              16
+            ],
+            "align": "l",
+            "name": "HP Up",
+            "ref": "HP_UP",
+            "lane": 0
           },
           {
             "id": "exit-3-9",
@@ -4112,24 +4112,9 @@
             "lane": 0
           },
           {
-            "id": "item-6-8",
-            "cat": "item",
-            "key": "I1",
-            "x": 32.5,
-            "y": 47.222,
-            "grid": [
-              6,
-              8
-            ],
-            "align": "r",
-            "name": "Rare Candy",
-            "ref": "RARE_CANDY",
-            "lane": 1
-          },
-          {
             "id": "item-14-14",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 72.5,
             "y": 80.556,
             "grid": [
@@ -4140,6 +4125,21 @@
             "name": "X Accuracy",
             "ref": "X_ACCURACY",
             "lane": 0
+          },
+          {
+            "id": "item-6-8",
+            "cat": "item",
+            "key": "I2",
+            "x": 32.5,
+            "y": 47.222,
+            "grid": [
+              6,
+              8
+            ],
+            "align": "r",
+            "name": "Rare Candy",
+            "ref": "RARE_CANDY",
+            "lane": 1
           },
           {
             "id": "exit-18-9",
