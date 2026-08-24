@@ -1321,7 +1321,13 @@
       5,
       89
     ],
-    "auto_npcs": true
+    "auto_npcs": true,
+    "cut": [
+      [
+        6,
+        89
+      ]
+    ]
   },
   {
     "type": "dialog",

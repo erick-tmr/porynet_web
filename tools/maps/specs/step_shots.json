@@ -885,32 +885,11 @@
       }
     ]
   },
-  {
-    "type": "screen",
-    "slug": "route-12",
-    "step": 1,
-    "name": "route-12-snorlax",
-    "map": "Route12",
-    "player": [
-      10,
-      64
-    ],
-    "player_dir": "UP",
-    "focus": [
-      10,
-      63
-    ],
-    "sprites": [
-      {
-        "sprite": "SPRITE_SNORLAX",
-        "grid": [
-          10,
-          62
-        ],
-        "dir": "DOWN"
-      }
-    ]
-  },
+  {"type": "dialog", "slug": "route-12", "step": 2, "name": "route-12-snorlax",
+   "map": "Route12", "player": [10, 61], "player_dir": "DOWN", "focus": [10, 62],
+   "talking": false,
+   "sprites": [{"sprite": "SPRITE_SNORLAX", "grid": [10, 62], "dir": "DOWN"}],
+   "dialog": {"lines": ["<PLAYER> played the", "POK\u00e9 FLUTE."]}},
   {
     "type": "screen",
     "slug": "route-22",
@@ -958,5 +937,17 @@
    "map": "Route16FlyHouse", "player": [2, 4], "player_dir": "UP", "focus": [3, 4],
    "auto_npcs": true,
    "sprites": [{"sprite": "SPRITE_BRUNETTE_GIRL", "grid": [2, 3], "dir": "DOWN"}],
-   "dialog": {"lines": ["<PLAYER> received", "HM02!"]}}
+   "dialog": {"lines": ["<PLAYER> received", "HM02!"]}},
+  {"type": "dialog", "slug": "route-12", "step": 1, "name": "route-12-gate-tm39",
+   "map": "Route12Gate2F", "player": [3, 5], "player_dir": "UP",
+   "sprites": [{"sprite": "SPRITE_BRUNETTE_GIRL", "grid": [3, 4], "dir": "DOWN"}],
+   "dialog": {"lines": ["<PLAYER> received", "TM39!"]}},
+  {"type": "dialog", "slug": "route-12", "step": 4, "name": "route-12-super-rod-gift",
+   "map": "Route12SuperRodHouse", "player": [2, 5], "player_dir": "UP",
+   "sprites": [{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "DOWN"}],
+   "dialog": {"lines": ["<PLAYER> received", "a SUPER ROD!"]}},
+  {"type": "dialog", "slug": "route-15", "step": 3, "name": "route-15-gate-exp-all",
+   "map": "Route15Gate2F", "player": [4, 3], "player_dir": "UP",
+   "sprites": [{"sprite": "SPRITE_SCIENTIST", "grid": [4, 2], "dir": "DOWN"}],
+   "dialog": {"lines": ["<PLAYER> got the", "EXP.ALL!"]}}
 ]
