@@ -165,10 +165,24 @@ ROUTES = {
         "exit-19-10", "item-10-12", "item-9-4", "trainer-11-2", "item-10-2",
         "exit-24-15", "item-12-20", "hidden-25-1", "trainer-25-3", "item-25-2"
     ),
-    "PokemonTower3F": ("exit-3-9",),
-    "PokemonTower4F": ("exit-18-9", "item-12-10", "item-12-16", "item-9-10"),
+    # Up from 2F on the west stairs. Every tower floor is a ring of gravestone rows walked as a
+    # lap, so plain distance from the door reads most of them backwards. Here the lap goes north
+    # first, to the Channeler standing under the Escape Rope, then all the way down to the one on
+    # the bottom row and back up to the last before the east stairs out.
+    "PokemonTower3F": ("exit-3-9", "trainer-12-3", "trainer-10-13", "trainer-9-8"),
+    # In from 3F on the east stairs, and the two Channelers waiting on the left of the doorway come
+    # before the balls: the Elixir mid-floor, the Awakening one row west of it, then back to that
+    # column and down into the notch on the south edge for the HP Up. The last Channeler stands
+    # over by the west stairs out, so she letters after all three.
+    "PokemonTower4F": ("exit-18-9", "trainer-15-7", "trainer-14-12",
+                       "item-12-10", "item-9-10", "item-12-16", "trainer-5-10"),
     "PokemonTower5F": ("exit-3-9",),
-    "PokemonTower6F": ("exit-18-9", "item-6-8", "item-14-14"),
+    # In from 5F on the east stairs. The X Accuracy is a short drop south off the first Channeler,
+    # so it is picked up long before the Rare Candy: that one sits over on the west side, reached
+    # by going up over the top of the floor and back down, and its ball plugs the only gap through
+    # to the stairs down. Distance from the door alone hands them over the other way round.
+    "PokemonTower6F": ("exit-18-9", "trainer-12-10", "item-14-14",
+                       "trainer-16-5", "trainer-9-5", "item-6-8"),
     "PokemonMansion1F": ("exit-4-27", "item-18-21", "hidden-8-16", "item-14-3"),
     "PokemonMansion3F": ("exit-7-10", "item-25-5", "item-1-16", "hidden-1-9"),
     "PokemonMansionB1F": (

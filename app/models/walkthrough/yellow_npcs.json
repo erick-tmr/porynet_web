@@ -101,5 +101,30 @@
       "note": "map_npc_game_corner_guru_20",
       "ref": "SPRITE_FISHING_GURU"
     }
+  ],
+  "pokemon-tower-5f": [
+    {
+      "id": "npc-purified-zone",
+      "name": "Free healing",
+      "grid": [
+        10,
+        8
+      ],
+      "align": "r",
+      "note": "map_npc_tower_purified_zone",
+      "ref": "SPRITE_POKE_BALL"
+    },
+    {
+      "id": "npc-silent-channeler",
+      "name": "Not a trainer",
+      "grid": [
+        12,
+        8
+      ],
+      "align": "r",
+      "lane": 4,
+      "note": "map_npc_tower_silent_channeler",
+      "ref": "SPRITE_CHANNELER"
+    }
   ]
 }

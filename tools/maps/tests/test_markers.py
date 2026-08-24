@@ -178,6 +178,44 @@ def test_strip_town_prefix_leaves_non_town_maps_alone():
     assert exits[0]["name"] == "Route 2 Gate"
 
 
+def test_a_dungeon_staircase_is_labelled_by_the_floor_it_reaches(root):
+    """Pokemon Tower 6F's two staircases read 'Pokemon Tower 5F' and 'Pokemon Tower 7F' on a map
+    already titled Pokemon Tower. At the size the tower is served the longer of them ran off the
+    right edge and printed over the X Accuracy below it, with no clean lane left to deal it into.
+    The floor is the whole message, so that is all the label keeps."""
+    exits = {m["ref"]: m["name"]
+             for m in markers.build_markers(root, "PokemonTower6F", "POKEMON_TOWER_6F", 320, 288)
+             if m["cat"] == "exit"}
+
+    assert exits == {"POKEMON_TOWER_5F": "5F", "POKEMON_TOWER_7F": "7F"}
+
+
+def test_the_way_out_of_a_dungeon_keeps_its_full_name(root):
+    """Only a staircase between two floors of one place is shortened. The tower's ground floor
+    opens onto Lavender Town, which shares nothing with it and stays spelled out."""
+    exits = [m["name"] for m in markers.build_markers(root, "PokemonTower1F", "POKEMON_TOWER_1F",
+                                                      320, 288) if m["cat"] == "exit"]
+
+    assert sorted(exits) == ["2F", "Back outside"]
+
+
+def test_a_shared_first_word_is_not_a_shared_dungeon():
+    """What the rule must not do. Matching on leading words alone turned Diglett's Cave's exit to
+    Route 2 into 'Cave Route 2' and the Indigo Plateau lobby into 'Plateau Lobby': both maps share
+    a word with their neighbour and neither is a floor of it."""
+    cave = [{"name": "Digletts Cave Route 2"}]
+    markers.strip_floor_prefix(cave, "DIGLETTS_CAVE")
+    assert cave[0]["name"] == "Digletts Cave Route 2"
+
+    plateau = [{"name": "Indigo Plateau Lobby"}]
+    markers.strip_floor_prefix(plateau, "INDIGO_PLATEAU")
+    assert plateau[0]["name"] == "Indigo Plateau Lobby"
+
+    hideout = [{"name": "Rocket Hideout B2F"}, {"name": "Rocket Hideout Elevator"}]
+    markers.strip_floor_prefix(hideout, "ROCKET_HIDEOUT_B1F")
+    assert [m["name"] for m in hideout] == ["B2F", "Rocket Hideout Elevator"]
+
+
 def test_a_road_across_a_pond_anchors_to_the_road_not_the_water(root):
     """Cerulean's pond touches its north and west edges, so the generic 'water is crossed by Surf'
     rule would drop the Route 24 and Route 4 markers on the water. They belong on the Nugget Bridge

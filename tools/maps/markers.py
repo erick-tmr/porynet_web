@@ -15,6 +15,7 @@ bare route-order number, because the steps count ladders rather than naming them
 Positions come out as percentages of the rendered PNG, so the page can lay markers over an
 image scaled to any width without knowing the tile size.
 """
+import re
 from collections import defaultdict
 
 import sources
@@ -209,6 +210,33 @@ def strip_town_prefix(exits, map_const):
             marker["name"] = marker["name"][len(prefix):]
 
 
+# A floor's own name, as the map constants spell it: 'B2F', '1F', '11F'.
+FLOOR_SUFFIX = re.compile(r"^B?\d+F$")
+
+
+def strip_floor_prefix(exits, map_const):
+    """The same redundancy one floor up: inside a dungeon every staircase repeats the dungeon.
+
+    Pokemon Tower 6F's two doorways read 'Pokemon Tower 5F' and 'Pokemon Tower 7F' on a map already
+    titled Pokemon Tower, and the pair are the widest labels the floor draws: at the size the tower
+    is served, 'E7 Pokemon Tower 7F' runs off the right edge of the map and prints over the
+    X Accuracy below it, with no lane left clean to deal it into. What the reader needs is the
+    floor, so a staircase between two floors of one dungeon keeps only that: '7F'.
+
+    Both ends have to be floors of the same place. Matching on shared words alone was enough to
+    turn Diglett's Cave's exit to Route 2 into 'Cave Route 2' and the Indigo Plateau lobby into
+    'Plateau Lobby', so the dungeon has to match whole and what is left has to name a floor.
+    Anything else keeps its full name, which is how 1F still says 'Back outside'."""
+    here = sources.place_display_name(map_const).rsplit(" ", 1)
+    if len(here) < 2 or not FLOOR_SUFFIX.match(here[1]):
+        return
+    prefix = here[0] + " "
+    for marker in exits:
+        floor = marker["name"][len(prefix):]
+        if marker["name"].startswith(prefix) and FLOOR_SUFFIX.match(floor):
+            marker["name"] = floor
+
+
 def map_edge(grid_x, grid_y, width_cells, height_cells):
     """Which map edge a cell sits on, or 'inner' for a doorway inside the map."""
     if grid_y <= 0:
@@ -269,6 +297,7 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
         warp_markers.append({**entry, "edge": edge, "glyph": EXIT_GLYPHS[edge]})
     label_pass_through_doors(warp_markers)
     strip_town_prefix(warp_markers, map_const)
+    strip_floor_prefix(warp_markers, map_const)
     out += warp_markers
 
     tileset = sources.parse_headers(root_str)[map_label][1]
