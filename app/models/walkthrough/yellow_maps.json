@@ -430,7 +430,7 @@
             "align": "l",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "item-18-3",
@@ -445,7 +445,7 @@
             "align": "r",
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-7-11",
@@ -460,7 +460,7 @@
             "align": "r",
             "name": "Max Elixir",
             "ref": "MAX_ELIXER",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "hidden-18-7",
@@ -505,11 +505,11 @@
               1
             ],
             "align": "l",
-            "name": "Cerulean Cave 2F",
+            "name": "2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-23-7",
@@ -522,7 +522,7 @@
               7
             ],
             "align": "l",
-            "name": "Cerulean Cave 2F",
+            "name": "2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -538,8 +538,8 @@
               18,
               9
             ],
-            "align": "l",
-            "name": "Cerulean Cave 2F",
+            "align": "r",
+            "name": "2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -556,7 +556,7 @@
               1
             ],
             "align": "r",
-            "name": "Cerulean Cave 2F",
+            "name": "2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -573,7 +573,7 @@
               3
             ],
             "align": "r",
-            "name": "Cerulean Cave 2F",
+            "name": "2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -590,11 +590,11 @@
               11
             ],
             "align": "r",
-            "name": "Cerulean Cave 2F",
+            "name": "2F",
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-0-6",
@@ -607,7 +607,7 @@
               6
             ],
             "align": "r",
-            "name": "Cerulean Cave B1F",
+            "name": "B1F",
             "ref": "CERULEAN_CAVE_B1F",
             "edge": "west",
             "glyph": "\u25c0",
@@ -635,7 +635,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-16-7",
@@ -665,7 +665,7 @@
             "align": "l",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "item-27-9",
@@ -695,7 +695,7 @@
             "align": "r",
             "name": "PP Up",
             "ref": "PP_UP",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-29-1",
@@ -708,11 +708,11 @@
               1
             ],
             "align": "l",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-22-6",
@@ -725,7 +725,7 @@
               6
             ],
             "align": "l",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -742,7 +742,7 @@
               7
             ],
             "align": "l",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -759,7 +759,7 @@
               1
             ],
             "align": "r",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -776,7 +776,7 @@
               3
             ],
             "align": "r",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -793,11 +793,11 @@
               11
             ],
             "align": "r",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           }
         ]
       },
@@ -909,7 +909,7 @@
               6
             ],
             "align": "r",
-            "name": "Cerulean Cave 1F",
+            "name": "1F",
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2375,7 +2375,7 @@
               5
             ],
             "align": "r",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2392,7 +2392,7 @@
               11
             ],
             "align": "r",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2409,7 +2409,7 @@
               15
             ],
             "align": "l",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2435,7 +2435,7 @@
               5
             ],
             "align": "r",
-            "name": "Mt. Moon 1F",
+            "name": "1F",
             "ref": "MT_MOON_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2452,7 +2452,7 @@
               11
             ],
             "align": "l",
-            "name": "Mt. Moon B2F",
+            "name": "B2F",
             "ref": "MT_MOON_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2469,7 +2469,7 @@
               9
             ],
             "align": "l",
-            "name": "Mt. Moon 1F",
+            "name": "1F",
             "ref": "MT_MOON_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2486,7 +2486,7 @@
               15
             ],
             "align": "l",
-            "name": "Mt. Moon 1F",
+            "name": "1F",
             "ref": "MT_MOON_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2503,7 +2503,7 @@
               17
             ],
             "align": "l",
-            "name": "Mt. Moon B2F",
+            "name": "B2F",
             "ref": "MT_MOON_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2520,7 +2520,7 @@
               27
             ],
             "align": "r",
-            "name": "Mt. Moon B2F",
+            "name": "B2F",
             "ref": "MT_MOON_B2F",
             "edge": "south",
             "glyph": "\u25bc",
@@ -2537,7 +2537,7 @@
               3
             ],
             "align": "l",
-            "name": "Mt. Moon B2F",
+            "name": "B2F",
             "ref": "MT_MOON_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2582,7 +2582,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-29-11",
@@ -2597,7 +2597,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:3",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-29-17",
@@ -2612,7 +2612,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:1",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-12-8",
@@ -2627,7 +2627,7 @@
             "align": "r",
             "name": "Super Nerd",
             "ref": "SUPER_NERD:2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-25-21",
@@ -2642,7 +2642,7 @@
             "align": "l",
             "name": "HP Up",
             "ref": "HP_UP",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-29-5",
@@ -2687,7 +2687,7 @@
             "align": "r",
             "name": "Moon Stone",
             "ref": "MOON_STONE",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "exit-25-9",
@@ -2700,11 +2700,11 @@
               9
             ],
             "align": "l",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-21-17",
@@ -2717,11 +2717,11 @@
               17
             ],
             "align": "r",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-15-27",
@@ -2734,7 +2734,7 @@
               27
             ],
             "align": "r",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -2751,7 +2751,7 @@
               7
             ],
             "align": "r",
-            "name": "Mt. Moon B1F",
+            "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3172,7 +3172,7 @@
               10
             ],
             "align": "r",
-            "name": "Pokemon Mansion 2F",
+            "name": "2F",
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3189,7 +3189,7 @@
               23
             ],
             "align": "l",
-            "name": "Pokemon Mansion B1F",
+            "name": "B1F",
             "ref": "POKEMON_MANSION_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3262,7 +3262,7 @@
               10
             ],
             "align": "r",
-            "name": "Pokemon Mansion 1F",
+            "name": "1F",
             "ref": "POKEMON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3279,7 +3279,7 @@
               10
             ],
             "align": "r",
-            "name": "Pokemon Mansion 3F",
+            "name": "3F",
             "ref": "POKEMON_MANSION_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3296,7 +3296,7 @@
               14
             ],
             "align": "l",
-            "name": "Pokemon Mansion 3F",
+            "name": "3F",
             "ref": "POKEMON_MANSION_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3313,7 +3313,7 @@
               1
             ],
             "align": "r",
-            "name": "Pokemon Mansion 3F",
+            "name": "3F",
             "ref": "POKEMON_MANSION_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3414,7 +3414,7 @@
               10
             ],
             "align": "r",
-            "name": "Pokemon Mansion 2F",
+            "name": "2F",
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3431,7 +3431,7 @@
               1
             ],
             "align": "r",
-            "name": "Pokemon Mansion 2F",
+            "name": "2F",
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3448,11 +3448,11 @@
               14
             ],
             "align": "l",
-            "name": "Pokemon Mansion 2F",
+            "name": "2F",
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           }
         ]
       },
@@ -3491,7 +3491,7 @@
             "align": "r",
             "name": "Burglar",
             "ref": "BURGLAR:9",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "item-19-25",
@@ -3506,7 +3506,7 @@
             "align": "l",
             "name": "TM Blizzard",
             "ref": "TM_BLIZZARD",
-            "lane": -4
+            "lane": 1
           },
           {
             "id": "item-1-22",
@@ -3594,11 +3594,11 @@
               22
             ],
             "align": "l",
-            "name": "Pokemon Mansion 1F",
+            "name": "1F",
             "ref": "POKEMON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       }
@@ -3639,7 +3639,7 @@
               9
             ],
             "align": "l",
-            "name": "Pokemon Tower 2F",
+            "name": "2F",
             "ref": "POKEMON_TOWER_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3665,7 +3665,7 @@
               9
             ],
             "align": "r",
-            "name": "Pokemon Tower 3F",
+            "name": "3F",
             "ref": "POKEMON_TOWER_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3682,11 +3682,11 @@
               9
             ],
             "align": "l",
-            "name": "Pokemon Tower 1F",
+            "name": "1F",
             "ref": "POKEMON_TOWER_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -3710,7 +3710,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:8",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-12-3",
@@ -3768,11 +3768,11 @@
               9
             ],
             "align": "r",
-            "name": "Pokemon Tower 2F",
+            "name": "2F",
             "ref": "POKEMON_TOWER_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-18-9",
@@ -3785,11 +3785,11 @@
               9
             ],
             "align": "l",
-            "name": "Pokemon Tower 4F",
+            "name": "4F",
             "ref": "POKEMON_TOWER_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           }
         ]
       },
@@ -3828,7 +3828,7 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:12",
-            "lane": -5
+            "lane": 3
           },
           {
             "id": "trainer-5-10",
@@ -3843,7 +3843,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:9",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "item-12-10",
@@ -3858,7 +3858,7 @@
             "align": "l",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 4
+            "lane": 3
           },
           {
             "id": "item-12-16",
@@ -3888,7 +3888,7 @@
             "align": "r",
             "name": "Awakening",
             "ref": "AWAKENING",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "exit-3-9",
@@ -3901,7 +3901,7 @@
               9
             ],
             "align": "r",
-            "name": "Pokemon Tower 5F",
+            "name": "5F",
             "ref": "POKEMON_TOWER_5F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -3918,11 +3918,11 @@
               9
             ],
             "align": "l",
-            "name": "Pokemon Tower 3F",
+            "name": "3F",
             "ref": "POKEMON_TOWER_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -3976,7 +3976,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:17",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-9-16",
@@ -3991,7 +3991,7 @@
             "align": "r",
             "name": "Channeler",
             "ref": "CHANNELER:18",
-            "lane": -1
+            "lane": -2
           },
           {
             "id": "item-6-14",
@@ -4006,7 +4006,7 @@
             "align": "r",
             "name": "Nugget",
             "ref": "NUGGET",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "hidden-4-12",
@@ -4021,7 +4021,7 @@
             "align": "r",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-3-9",
@@ -4034,7 +4034,7 @@
               9
             ],
             "align": "r",
-            "name": "Pokemon Tower 4F",
+            "name": "4F",
             "ref": "POKEMON_TOWER_4F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4051,11 +4051,11 @@
               9
             ],
             "align": "l",
-            "name": "Pokemon Tower 6F",
+            "name": "6F",
             "ref": "POKEMON_TOWER_6F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -4079,7 +4079,7 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:19",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "trainer-16-5",
@@ -4139,7 +4139,7 @@
             "align": "l",
             "name": "X Accuracy",
             "ref": "X_ACCURACY",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-18-9",
@@ -4152,7 +4152,7 @@
               9
             ],
             "align": "l",
-            "name": "Pokemon Tower 5F",
+            "name": "5F",
             "ref": "POKEMON_TOWER_5F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4169,11 +4169,11 @@
               16
             ],
             "align": "r",
-            "name": "Pokemon Tower 7F",
+            "name": "7F",
             "ref": "POKEMON_TOWER_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           }
         ]
       },
@@ -4195,7 +4195,7 @@
               16
             ],
             "align": "r",
-            "name": "Pokemon Tower 6F",
+            "name": "6F",
             "ref": "POKEMON_TOWER_6F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4617,7 +4617,7 @@
             "ref": "LAST_MAP",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-15-33",
@@ -4647,7 +4647,7 @@
               3
             ],
             "align": "l",
-            "name": "Rock Tunnel B1F",
+            "name": "B1F",
             "ref": "ROCK_TUNNEL_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4664,7 +4664,7 @@
               3
             ],
             "align": "r",
-            "name": "Rock Tunnel B1F",
+            "name": "B1F",
             "ref": "ROCK_TUNNEL_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4681,7 +4681,7 @@
               11
             ],
             "align": "r",
-            "name": "Rock Tunnel B1F",
+            "name": "B1F",
             "ref": "ROCK_TUNNEL_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4698,7 +4698,7 @@
               17
             ],
             "align": "l",
-            "name": "Rock Tunnel B1F",
+            "name": "B1F",
             "ref": "ROCK_TUNNEL_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4844,7 +4844,7 @@
               25
             ],
             "align": "l",
-            "name": "Rock Tunnel 1F",
+            "name": "1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4861,7 +4861,7 @@
               3
             ],
             "align": "l",
-            "name": "Rock Tunnel 1F",
+            "name": "1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4878,7 +4878,7 @@
               11
             ],
             "align": "r",
-            "name": "Rock Tunnel 1F",
+            "name": "1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -4895,7 +4895,7 @@
               3
             ],
             "align": "r",
-            "name": "Rock Tunnel 1F",
+            "name": "1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -5281,7 +5281,7 @@
               2
             ],
             "align": "l",
-            "name": "Rocket Hideout B2F",
+            "name": "B2F",
             "ref": "ROCKET_HIDEOUT_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -5332,7 +5332,7 @@
               24
             ],
             "align": "l",
-            "name": "Rocket Hideout B2F",
+            "name": "B2F",
             "ref": "ROCKET_HIDEOUT_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -5375,7 +5375,7 @@
             "align": "r",
             "name": "Moon Stone",
             "ref": "MOON_STONE",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-16-8",
@@ -5405,7 +5405,7 @@
             "align": "r",
             "name": "TM Horn Drill",
             "ref": "TM_HORN_DRILL",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "item-3-21",
@@ -5433,11 +5433,11 @@
               8
             ],
             "align": "l",
-            "name": "Rocket Hideout B1F",
+            "name": "B1F",
             "ref": "ROCKET_HIDEOUT_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-21-8",
@@ -5450,7 +5450,7 @@
               8
             ],
             "align": "l",
-            "name": "Rocket Hideout B3F",
+            "name": "B3F",
             "ref": "ROCKET_HIDEOUT_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -5484,11 +5484,11 @@
               22
             ],
             "align": "l",
-            "name": "Rocket Hideout B1F",
+            "name": "B1F",
             "ref": "ROCKET_HIDEOUT_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ],
         "route": [
@@ -6667,7 +6667,7 @@
               6
             ],
             "align": "l",
-            "name": "Rocket Hideout B2F",
+            "name": "B2F",
             "ref": "ROCKET_HIDEOUT_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -6684,7 +6684,7 @@
               18
             ],
             "align": "l",
-            "name": "Rocket Hideout B4F",
+            "name": "B4F",
             "ref": "ROCKET_HIDEOUT_B4F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -7514,7 +7514,7 @@
               10
             ],
             "align": "l",
-            "name": "Rocket Hideout B3F",
+            "name": "B3F",
             "ref": "ROCKET_HIDEOUT_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13601,7 +13601,7 @@
               5
             ],
             "align": "r",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13618,7 +13618,7 @@
               3
             ],
             "align": "l",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13635,7 +13635,7 @@
               15
             ],
             "align": "l",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13661,7 +13661,7 @@
               2
             ],
             "align": "r",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13678,11 +13678,11 @@
               5
             ],
             "align": "r",
-            "name": "Seafoam Islands 1F",
+            "name": "1F",
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-13-7",
@@ -13695,11 +13695,11 @@
               7
             ],
             "align": "r",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-19-15",
@@ -13712,7 +13712,7 @@
               15
             ],
             "align": "l",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13729,11 +13729,11 @@
               15
             ],
             "align": "l",
-            "name": "Seafoam Islands 1F",
+            "name": "1F",
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-25-11",
@@ -13746,7 +13746,7 @@
               11
             ],
             "align": "l",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13763,11 +13763,11 @@
               3
             ],
             "align": "l",
-            "name": "Seafoam Islands 1F",
+            "name": "1F",
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -13791,7 +13791,7 @@
             "align": "r",
             "name": "Nugget",
             "ref": "NUGGET",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-5-3",
@@ -13804,7 +13804,7 @@
               3
             ],
             "align": "r",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13821,7 +13821,7 @@
               13
             ],
             "align": "r",
-            "name": "Seafoam Islands B3F",
+            "name": "B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13838,7 +13838,7 @@
               7
             ],
             "align": "r",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13855,11 +13855,11 @@
               15
             ],
             "align": "l",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -5
+            "lane": 0
           },
           {
             "id": "exit-25-3",
@@ -13872,11 +13872,11 @@
               3
             ],
             "align": "l",
-            "name": "Seafoam Islands B3F",
+            "name": "B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-25-11",
@@ -13889,7 +13889,7 @@
               11
             ],
             "align": "l",
-            "name": "Seafoam Islands B1F",
+            "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13906,11 +13906,11 @@
               14
             ],
             "align": "l",
-            "name": "Seafoam Islands B3F",
+            "name": "B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -13947,7 +13947,7 @@
               12
             ],
             "align": "r",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13964,11 +13964,11 @@
               6
             ],
             "align": "r",
-            "name": "Seafoam Islands B4F",
+            "name": "B4F",
             "ref": "SEAFOAM_ISLANDS_B4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-25-4",
@@ -13981,7 +13981,7 @@
               4
             ],
             "align": "l",
-            "name": "Seafoam Islands B4F",
+            "name": "B4F",
             "ref": "SEAFOAM_ISLANDS_B4F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -13998,7 +13998,7 @@
               3
             ],
             "align": "l",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14015,7 +14015,7 @@
               14
             ],
             "align": "l",
-            "name": "Seafoam Islands B2F",
+            "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14032,11 +14032,11 @@
               17
             ],
             "align": "l",
-            "name": "Seafoam Islands B4F",
+            "name": "B4F",
             "ref": "SEAFOAM_ISLANDS_B4F",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": -5
+            "lane": -2
           }
         ]
       },
@@ -14088,7 +14088,7 @@
               17
             ],
             "align": "l",
-            "name": "Seafoam Islands B3F",
+            "name": "B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "south",
             "glyph": "\u25bc",
@@ -14105,7 +14105,7 @@
               7
             ],
             "align": "r",
-            "name": "Seafoam Islands B3F",
+            "name": "B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14122,7 +14122,7 @@
               4
             ],
             "align": "l",
-            "name": "Seafoam Islands B3F",
+            "name": "B3F",
             "ref": "SEAFOAM_ISLANDS_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14167,11 +14167,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 2F",
+            "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-20-0",
@@ -14201,7 +14201,7 @@
               10
             ],
             "align": "r",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14229,7 +14229,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:24",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-16-11",
@@ -14287,11 +14287,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 1F",
+            "name": "1F",
             "ref": "SILPH_CO_1F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -14304,11 +14304,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -14338,7 +14338,7 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14355,11 +14355,11 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 8F",
+            "name": "8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-27-15",
@@ -14372,11 +14372,11 @@
               15
             ],
             "align": "l",
-            "name": "Silph Co 8F",
+            "name": "8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-9-15",
@@ -14389,7 +14389,7 @@
               15
             ],
             "align": "r",
-            "name": "Silph Co 6F",
+            "name": "6F",
             "ref": "SILPH_CO_6F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14417,7 +14417,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:25",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "trainer-7-9",
@@ -14432,7 +14432,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:4",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "item-8-5",
@@ -14447,7 +14447,7 @@
             "align": "r",
             "name": "Hyper Potion",
             "ref": "HYPER_POTION",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -14460,11 +14460,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 2F",
+            "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-24-0",
@@ -14477,11 +14477,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 4F",
+            "name": "4F",
             "ref": "SILPH_CO_4F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-20-0",
@@ -14511,11 +14511,11 @@
               11
             ],
             "align": "l",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-3-3",
@@ -14528,7 +14528,7 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 5F",
+            "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14545,11 +14545,11 @@
               15
             ],
             "align": "r",
-            "name": "Silph Co 5F",
+            "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-27-3",
@@ -14562,11 +14562,11 @@
               3
             ],
             "align": "l",
-            "name": "Silph Co 2F",
+            "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-3-11",
@@ -14579,11 +14579,11 @@
               11
             ],
             "align": "r",
-            "name": "Silph Co 9F",
+            "name": "9F",
             "ref": "SILPH_CO_9F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-11-11",
@@ -14596,11 +14596,11 @@
               11
             ],
             "align": "r",
-            "name": "Silph Co 7F",
+            "name": "7F",
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "exit-27-15",
@@ -14613,11 +14613,11 @@
               15
             ],
             "align": "l",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -14641,7 +14641,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:27",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "trainer-9-14",
@@ -14671,7 +14671,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:5",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "item-4-7",
@@ -14729,11 +14729,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -14746,11 +14746,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 5F",
+            "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -14780,11 +14780,11 @@
               7
             ],
             "align": "r",
-            "name": "Silph Co 10F",
+            "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": -1
           },
           {
             "id": "exit-17-3",
@@ -14797,11 +14797,11 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 6F",
+            "name": "6F",
             "ref": "SILPH_CO_6F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-3-15",
@@ -14814,11 +14814,11 @@
               15
             ],
             "align": "r",
-            "name": "Silph Co 10F",
+            "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-17-11",
@@ -14831,7 +14831,7 @@
               11
             ],
             "align": "r",
-            "name": "Silph Co 10F",
+            "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -14859,7 +14859,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:29",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-18-10",
@@ -14874,7 +14874,7 @@
             "align": "r",
             "name": "Juggler",
             "ref": "JUGGLER:1",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-8-3",
@@ -14889,7 +14889,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:6",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "trainer-8-16",
@@ -14904,7 +14904,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:28",
-            "lane": -2
+            "lane": -4
           },
           {
             "id": "item-21-16",
@@ -14919,7 +14919,7 @@
             "align": "l",
             "name": "Card Key",
             "ref": "CARD_KEY",
-            "lane": -1
+            "lane": -2
           },
           {
             "id": "item-4-6",
@@ -14934,7 +14934,7 @@
             "align": "r",
             "name": "Protein",
             "ref": "PROTEIN",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "item-2-13",
@@ -14964,7 +14964,7 @@
             "align": "r",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-24-0",
@@ -14977,11 +14977,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 6F",
+            "name": "6F",
             "ref": "SILPH_CO_6F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -14994,11 +14994,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 4F",
+            "name": "4F",
             "ref": "SILPH_CO_4F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -15028,11 +15028,11 @@
               3
             ],
             "align": "l",
-            "name": "Silph Co 7F",
+            "name": "7F",
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-9-15",
@@ -15045,11 +15045,11 @@
               15
             ],
             "align": "r",
-            "name": "Silph Co 9F",
+            "name": "9F",
             "ref": "SILPH_CO_9F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-11-5",
@@ -15062,11 +15062,11 @@
               5
             ],
             "align": "r",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-3-15",
@@ -15079,7 +15079,7 @@
               15
             ],
             "align": "r",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15107,7 +15107,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:30",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-7-8",
@@ -15122,7 +15122,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:7",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-14-15",
@@ -15180,7 +15180,7 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 7F",
+            "name": "7F",
             "ref": "SILPH_CO_7F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15197,7 +15197,7 @@
               0
             ],
             "align": "r",
-            "name": "Silph Co 5F",
+            "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15231,11 +15231,11 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 4F",
+            "name": "4F",
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-23-3",
@@ -15248,11 +15248,11 @@
               3
             ],
             "align": "l",
-            "name": "Silph Co 2F",
+            "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           }
         ]
       },
@@ -15276,7 +15276,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:33",
-            "lane": 4
+            "lane": 3
           },
           {
             "id": "trainer-13-1",
@@ -15291,7 +15291,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:32",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-2-13",
@@ -15306,7 +15306,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:8",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "trainer-19-14",
@@ -15321,7 +15321,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:34",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "item-1-9",
@@ -15336,7 +15336,7 @@
             "align": "r",
             "name": "Calcium",
             "ref": "CALCIUM",
-            "lane": -2
+            "lane": 0
           },
           {
             "id": "item-24-11",
@@ -15351,7 +15351,7 @@
             "align": "l",
             "name": "TM Swords Dance",
             "ref": "TM_SWORDS_DANCE",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "exit-16-0",
@@ -15364,7 +15364,7 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 8F",
+            "name": "8F",
             "ref": "SILPH_CO_8F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15381,11 +15381,11 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 6F",
+            "name": "6F",
             "ref": "SILPH_CO_6F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-18-0",
@@ -15415,11 +15415,11 @@
               7
             ],
             "align": "r",
-            "name": "Silph Co 11F",
+            "name": "11F",
             "ref": "SILPH_CO_11F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 0
           },
           {
             "id": "exit-5-3",
@@ -15432,11 +15432,11 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 5
+            "lane": 1
           },
           {
             "id": "exit-21-15",
@@ -15449,11 +15449,11 @@
               15
             ],
             "align": "l",
-            "name": "Silph Co 5F",
+            "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -4
+            "lane": 1
           }
         ]
       },
@@ -15520,7 +15520,7 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 9F",
+            "name": "9F",
             "ref": "SILPH_CO_9F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15537,7 +15537,7 @@
               0
             ],
             "align": "r",
-            "name": "Silph Co 7F",
+            "name": "7F",
             "ref": "SILPH_CO_7F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15571,11 +15571,11 @@
               11
             ],
             "align": "r",
-            "name": "Silph Co 8F",
+            "name": "8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-3-15",
@@ -15588,11 +15588,11 @@
               15
             ],
             "align": "r",
-            "name": "Silph Co 2F",
+            "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-11-5",
@@ -15605,7 +15605,7 @@
               5
             ],
             "align": "r",
-            "name": "Silph Co 2F",
+            "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15622,7 +15622,7 @@
               9
             ],
             "align": "r",
-            "name": "Silph Co 8F",
+            "name": "8F",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15708,7 +15708,7 @@
               0
             ],
             "align": "r",
-            "name": "Silph Co 10F",
+            "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15725,7 +15725,7 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 8F",
+            "name": "8F",
             "ref": "SILPH_CO_8F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15759,7 +15759,7 @@
               3
             ],
             "align": "r",
-            "name": "Silph Co 3F",
+            "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15776,11 +15776,11 @@
               15
             ],
             "align": "l",
-            "name": "Silph Co 5F",
+            "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -15876,8 +15876,8 @@
               8,
               0
             ],
-            "align": "l",
-            "name": "Silph Co 9F",
+            "align": "r",
+            "name": "9F",
             "ref": "SILPH_CO_9F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15894,7 +15894,7 @@
               0
             ],
             "align": "l",
-            "name": "Silph Co 11F",
+            "name": "11F",
             "ref": "SILPH_CO_11F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -15927,8 +15927,8 @@
               9,
               11
             ],
-            "align": "l",
-            "name": "Silph Co 4F",
+            "align": "r",
+            "name": "4F",
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -15945,11 +15945,11 @@
               15
             ],
             "align": "l",
-            "name": "Silph Co 4F",
+            "name": "4F",
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": -5
           },
           {
             "id": "exit-13-7",
@@ -15962,7 +15962,7 @@
               7
             ],
             "align": "l",
-            "name": "Silph Co 4F",
+            "name": "4F",
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -16017,8 +16017,8 @@
               9,
               0
             ],
-            "align": "l",
-            "name": "Silph Co 10F",
+            "align": "r",
+            "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "north",
             "glyph": "\u25b2",
@@ -16069,7 +16069,7 @@
               2
             ],
             "align": "r",
-            "name": "Silph Co 7F",
+            "name": "7F",
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -17431,7 +17431,7 @@
             "align": "r",
             "name": "Cooltrainer\u2640",
             "ref": "COOLTRAINER_F:5",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-3-2",
@@ -17461,7 +17461,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "item-11-0",
@@ -17506,7 +17506,7 @@
               1
             ],
             "align": "r",
-            "name": "Victory Road 2F",
+            "name": "2F",
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -17534,7 +17534,7 @@
             "align": "r",
             "name": "Pok\u00e9maniac",
             "ref": "POKEMANIAC:6",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-19-8",
@@ -17549,7 +17549,7 @@
             "align": "l",
             "name": "Tamer",
             "ref": "TAMER:5",
-            "lane": 5
+            "lane": 3
           },
           {
             "id": "trainer-21-13",
@@ -17564,7 +17564,7 @@
             "align": "l",
             "name": "Juggler",
             "ref": "JUGGLER:2",
-            "lane": -3
+            "lane": -5
           },
           {
             "id": "trainer-12-9",
@@ -17579,7 +17579,7 @@
             "align": "r",
             "name": "Blackbelt",
             "ref": "BLACKBELT:9",
-            "lane": -5
+            "lane": 4
           },
           {
             "id": "trainer-26-3",
@@ -17624,7 +17624,7 @@
             "align": "r",
             "name": "Moltres, 50",
             "ref": "MOLTRES, 50",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "item-9-11",
@@ -17639,7 +17639,7 @@
             "align": "r",
             "name": "TM Mega Kick",
             "ref": "TM_MEGA_KICK",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "item-18-9",
@@ -17684,7 +17684,7 @@
             "align": "r",
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "hidden-26-7",
@@ -17699,7 +17699,7 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-0-8",
@@ -17712,11 +17712,11 @@
               8
             ],
             "align": "r",
-            "name": "Victory Road 1F",
+            "name": "1F",
             "ref": "VICTORY_ROAD_1F",
             "edge": "west",
             "glyph": "\u25c0",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-29-7",
@@ -17733,7 +17733,7 @@
             "ref": "LAST_MAP",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 5
+            "lane": 3
           },
           {
             "id": "exit-23-7",
@@ -17746,11 +17746,11 @@
               7
             ],
             "align": "l",
-            "name": "Victory Road 3F",
+            "name": "3F",
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-25-14",
@@ -17763,11 +17763,11 @@
               14
             ],
             "align": "l",
-            "name": "Victory Road 3F",
+            "name": "3F",
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-27-7",
@@ -17780,11 +17780,11 @@
               7
             ],
             "align": "l",
-            "name": "Victory Road 3F",
+            "name": "3F",
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 0
           },
           {
             "id": "exit-1-1",
@@ -17797,11 +17797,11 @@
               1
             ],
             "align": "r",
-            "name": "Victory Road 3F",
+            "name": "3F",
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -17913,7 +17913,7 @@
               7
             ],
             "align": "l",
-            "name": "Victory Road 2F",
+            "name": "2F",
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -17930,7 +17930,7 @@
               8
             ],
             "align": "l",
-            "name": "Victory Road 2F",
+            "name": "2F",
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -17947,7 +17947,7 @@
               15
             ],
             "align": "l",
-            "name": "Victory Road 2F",
+            "name": "2F",
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
@@ -17964,7 +17964,7 @@
               0
             ],
             "align": "r",
-            "name": "Victory Road 2F",
+            "name": "2F",
             "ref": "VICTORY_ROAD_2F",
             "edge": "north",
             "glyph": "\u25b2",
