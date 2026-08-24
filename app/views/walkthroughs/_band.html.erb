@@ -36,6 +36,8 @@
   </div>
 </section>
 
+<% if loc.slug == "route-15" %><%= render "exp_share" %><% end %>
+
 <% if loc.later? %><%= render "later_section", loc: loc %><% end %>
 
 <% if loc.encounters.any? %>
