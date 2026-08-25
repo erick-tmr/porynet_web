@@ -373,9 +373,13 @@ def test_a_label_with_nowhere_clean_to_go_takes_the_row_it_covers_least():
 
 
 def test_a_longer_name_reserves_more_room():
-    """A short name clears its neighbour; the same pair collides once the name grows."""
+    """A short name clears its neighbour; the same pair collides once the name grows.
+
+    Which of the two moves is the long one: it is the label whose box reaches over the other's pin,
+    so lifting it off that row is what uncovers the marker. The neighbour, whose own short label
+    covers nothing, keeps the row it stands on."""
     assert lanes([ row(10.0, 2, "TM"), row(10.0, 12) ]) == [ 0, 0 ]
-    assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 0, 1 ]
+    assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 1, 0 ]
 
 
 def test_a_narrow_map_measures_labels_against_the_width_it_is_drawn_at():

@@ -15,13 +15,14 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 53 numbered stops (1..53), five of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), six of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
     # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
-    # back to so the Rocket Hideout is cleared before Erika, and Route 16 (stop 37) is dipped into
-    # early for Fly and walked properly at Cycling Road. Each pass is its own section, so 58
-    # sections share 53 numbers.
-    assert_equal 58, g.locations.size
+    # back to so the Rocket Hideout is cleared before Erika, Fuchsia (stop 35) is left and come
+    # back to so the Safari Zone hands over the Gold Teeth before Koga, and Route 16 (stop 37) is
+    # dipped into early for Fly and walked properly at Cycling Road. Each pass is its own section,
+    # so 59 sections share 53 numbers.
+    assert_equal 59, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
@@ -29,6 +30,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[route-10 route-10-south], g.locations.select { |loc| loc.order == 22 }.map(&:slug)
     assert_equal %w[celadon-city celadon-city-return],
       g.locations.select { |loc| loc.order == 28 }.map(&:slug)
+    assert_equal %w[fuchsia-city fuchsia-city-return],
+      g.locations.select { |loc| loc.order == 35 }.map(&:slug)
     assert_equal %w[route-16-fly route-16], g.locations.select { |loc| loc.order == 37 }.map(&:slug)
   end
 
@@ -42,10 +45,10 @@ class WalkthroughTest < ActiveSupport::TestCase
       "the second pass must never win the star over the first"
   end
 
-  test "the location sections group into 29 ordered legs with no gaps or dupes" do
+  test "the location sections group into 31 ordered legs with no gaps or dupes" do
     g = game
-    assert_equal 29, g.legs.size
-    assert_equal (1..29).to_a, g.legs.map(&:order)
+    assert_equal 31, g.legs.size
+    assert_equal (1..31).to_a, g.legs.map(&:order)
     covered = g.legs.flat_map { |l| l.locations.map(&:slug) }
     assert_equal g.locations.map(&:slug).sort, covered.sort
     assert_equal covered.size, covered.uniq.size
@@ -121,10 +124,10 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "the eight gym locations carry badges" do
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city saffron-city cinnabar-island viridian-gym],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city-return saffron-city cinnabar-island viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
-    assert_equal %w[cinnabar-island], game.leg!("leg-14").gyms.map(&:slug)
-    assert_equal %w[viridian-gym], game.leg!("leg-15").gyms.map(&:slug)
+    assert_equal %w[cinnabar-island], game.leg!("leg-15").gyms.map(&:slug)
+    assert_equal %w[viridian-gym], game.leg!("leg-16").gyms.map(&:slug)
   end
 
   test "Pewter splits its steps around the gym, in the band" do
@@ -152,23 +155,31 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end
 
-  test "Fuchsia holds Koga back until the Safari Zone has handed over Surf and the Gold Teeth" do
-    fuchsia = loc("fuchsia-city")
-    refute fuchsia.band_gym?, "the gym must not render before the Safari Zone band"
-    assert fuchsia.gym_finale?
-    assert_equal [ 1, 2, 3 ], fuchsia.lead_steps.map(&:n)
-    assert_equal [ 4 ], fuchsia.finale_steps.map(&:n), "HM04 Strength lands with the gym, not before it"
-    assert_equal fuchsia, game.leg!("leg-11").finale
+  # The Safari Zone stands between the two passes: it is a page of its own, so Koga cannot close
+  # the leg he used to close. The badge moves onto the second pass with the Warden's trade, the
+  # way Erika's does after the Rocket Hideout.
+  test "Fuchsia is walked twice, with Koga on the pass that follows the Safari Zone" do
+    first, back = loc("fuchsia-city"), loc("fuchsia-city-return")
+
+    assert_nil first.gym, "the gym belongs to the second pass"
+    assert_nil first.badge
+    assert_equal %w[fuchsia-city], game.leg!("leg-11").locations.map(&:slug).last(1)
+    assert_equal %w[safari-zone], game.leg!("safari-zone").locations.map(&:slug)
+    assert_equal %w[fuchsia-city-return], game.leg!("leg-12").locations.map(&:slug)
+    assert back.band_gym?, "a one-stop leg renders its gym in the band, not as a finale"
+    assert_equal [ 1 ], back.lead_steps.map(&:n)
+    assert_equal [ 2 ], back.after_steps.map(&:n)
+    assert_equal "HM04 Strength", back.steps.first.items.sole.name
   end
 
-  test "Silph Co. is freed before Saffron's gym opens, as the leg-12 lead promises" do
+  test "Silph Co. is freed before Saffron's gym opens, as the leg-13 lead promises" do
     saffron = game.locations.index(loc("saffron-city"))
     silph = game.locations.index(loc("silph-co"))
 
     assert_operator silph, :<, saffron
     assert_equal 40, loc("silph-co").order
     assert_equal 41, loc("saffron-city").order
-    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-12"))
+    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-13"))
   end
 
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do
@@ -820,11 +831,11 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "only pinless NPC gifts fall back to a positional progress key" do
     loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
 
-    assert_equal 21, loose.size
+    assert_equal 22, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
                    "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
                    "Oak's Parcel", "Old Amber", "Old Rod", "Poké Flute", "Pokédex", "Potion",
-                   "S.S. Ticket", "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
+                   "S.S. Ticket", "Super Rod", "TM39 Swift", "Town Map" ], loose.map(&:name).uniq.sort
     assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
       "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
   end

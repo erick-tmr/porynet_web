@@ -2166,48 +2166,8 @@
       {
         "map": "route-12",
         "floor": "",
-        "marker": "trainer-11-92",
-        "key": "T3",
-        "opp": "JR_TRAINER_M:9",
-        "cls": "JR_TRAINER_M",
-        "reward": 580,
-        "team": [
-          {
-            "dex": "032",
-            "lvl": 29
-          },
-          {
-            "dex": "033",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-12-trainer-11-92.png"
-      },
-      {
-        "map": "route-12",
-        "floor": "",
-        "marker": "trainer-14-76",
-        "key": "T4",
-        "opp": "ROCKER:2",
-        "cls": "ROCKER",
-        "reward": 725,
-        "team": [
-          {
-            "dex": "100",
-            "lvl": 29
-          },
-          {
-            "dex": "101",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-12-trainer-14-76.png"
-      },
-      {
-        "map": "route-12",
-        "floor": "",
         "marker": "trainer-12-40",
-        "key": "T5",
+        "key": "T3",
         "opp": "FISHER:5",
         "cls": "FISHER",
         "reward": 945,
@@ -2223,7 +2183,7 @@
         "map": "route-12",
         "floor": "",
         "marker": "trainer-9-52",
-        "key": "T6",
+        "key": "T4",
         "opp": "FISHER:6",
         "cls": "FISHER",
         "reward": 735,
@@ -2250,8 +2210,28 @@
       {
         "map": "route-12",
         "floor": "",
+        "marker": "trainer-14-76",
+        "key": "T5",
+        "opp": "ROCKER:2",
+        "cls": "ROCKER",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 29
+          },
+          {
+            "dex": "101",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-14-76.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
         "marker": "trainer-6-87",
-        "key": "T7",
+        "key": "T6",
         "opp": "FISHER:11",
         "cls": "FISHER",
         "reward": 840,
@@ -2266,6 +2246,26 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-12-trainer-6-87.png"
+      },
+      {
+        "map": "route-12",
+        "floor": "",
+        "marker": "trainer-11-92",
+        "key": "T7",
+        "opp": "JR_TRAINER_M:9",
+        "cls": "JR_TRAINER_M",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "032",
+            "lvl": 29
+          },
+          {
+            "dex": "033",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-12-trainer-11-92.png"
       }
     ],
     "route-13": [
@@ -2440,8 +2440,36 @@
       {
         "map": "route-13",
         "floor": "",
-        "marker": "trainer-12-4",
+        "marker": "trainer-7-13",
         "key": "T8",
+        "opp": "BIRD_KEEPER:3",
+        "cls": "BIRD_KEEPER",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "016",
+            "lvl": 26
+          },
+          {
+            "dex": "017",
+            "lvl": 26
+          },
+          {
+            "dex": "021",
+            "lvl": 26
+          },
+          {
+            "dex": "022",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-13-trainer-7-13.png"
+      },
+      {
+        "map": "route-13",
+        "floor": "",
+        "marker": "trainer-12-4",
+        "key": "T9",
         "opp": "BIRD_KEEPER:2",
         "cls": "BIRD_KEEPER",
         "reward": 625,
@@ -2473,7 +2501,7 @@
         "map": "route-13",
         "floor": "",
         "marker": "trainer-10-7",
-        "key": "T9",
+        "key": "T10",
         "opp": "BIKER:1",
         "cls": "BIKER",
         "reward": 560,
@@ -2492,34 +2520,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-13-trainer-10-7.png"
-      },
-      {
-        "map": "route-13",
-        "floor": "",
-        "marker": "trainer-7-13",
-        "key": "T10",
-        "opp": "BIRD_KEEPER:3",
-        "cls": "BIRD_KEEPER",
-        "reward": 650,
-        "team": [
-          {
-            "dex": "016",
-            "lvl": 26
-          },
-          {
-            "dex": "017",
-            "lvl": 26
-          },
-          {
-            "dex": "021",
-            "lvl": 26
-          },
-          {
-            "dex": "022",
-            "lvl": 26
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-13-trainer-7-13.png"
       }
     ],
     "route-14": [
@@ -2752,8 +2752,24 @@
       {
         "map": "route-15",
         "floor": "",
-        "marker": "trainer-53-10",
+        "marker": "trainer-37-5",
         "key": "T1",
+        "opp": "JR_TRAINER_F:22",
+        "cls": "JR_TRAINER_F",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "035",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-15-trainer-37-5.png"
+      },
+      {
+        "map": "route-15",
+        "floor": "",
+        "marker": "trainer-53-10",
+        "key": "T2",
         "opp": "JR_TRAINER_F:21",
         "cls": "JR_TRAINER_F",
         "reward": 580,
@@ -2773,7 +2789,7 @@
         "map": "route-15",
         "floor": "",
         "marker": "trainer-53-11",
-        "key": "T2",
+        "key": "T3",
         "opp": "BEAUTY:9",
         "cls": "BEAUTY",
         "reward": 2030,
@@ -2793,7 +2809,7 @@
         "map": "route-15",
         "floor": "",
         "marker": "trainer-48-10",
-        "key": "T3",
+        "key": "T4",
         "opp": "BIKER:3",
         "cls": "BIKER",
         "reward": 500,
@@ -2825,7 +2841,7 @@
         "map": "route-15",
         "floor": "",
         "marker": "trainer-46-10",
-        "key": "T4",
+        "key": "T5",
         "opp": "BIKER:4",
         "cls": "BIKER",
         "reward": 560,
@@ -2849,7 +2865,7 @@
         "map": "route-15",
         "floor": "",
         "marker": "trainer-41-10",
-        "key": "T5",
+        "key": "T6",
         "opp": "BEAUTY:10",
         "cls": "BEAUTY",
         "reward": 2030,
@@ -2869,7 +2885,7 @@
         "map": "route-15",
         "floor": "",
         "marker": "trainer-41-11",
-        "key": "T6",
+        "key": "T7",
         "opp": "JR_TRAINER_F:20",
         "cls": "JR_TRAINER_F",
         "reward": 560,
@@ -2888,22 +2904,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-15-trainer-41-11.png"
-      },
-      {
-        "map": "route-15",
-        "floor": "",
-        "marker": "trainer-37-5",
-        "key": "T7",
-        "opp": "JR_TRAINER_F:22",
-        "cls": "JR_TRAINER_F",
-        "reward": 660,
-        "team": [
-          {
-            "dex": "035",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-15-trainer-37-5.png"
       },
       {
         "map": "route-15",

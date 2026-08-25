@@ -1,0 +1,83 @@
+<% xa = Walkthrough::Yellow.exp_share %>
+<% mg = "#{Walkthrough::Yellow::K}.exp_share" %>
+<section id="<%= xa.anchor %>" class="pn-wt-section">
+  <div class="pn-eyebrow-label pn-eyebrow-label--cyan"><%= t("#{mg}.eyebrow") %></div>
+  <div class="pn-xa__lead">
+    <span class="pn-xa__icon"><%= r2_image_tag xa.sprite, alt: "", loading: "lazy" %></span>
+    <div>
+      <h3 class="pn-wt-band__h3"><%= t("#{mg}.title_html") %></h3>
+      <p class="pn-xa__intro"><%= t("#{mg}.intro") %></p>
+    </div>
+  </div>
+
+  <div class="pn-xa" data-controller="exp-share"
+       data-exp-share-party-value="<%= xa.party %>"
+       data-exp-share-fighters-value="<%= xa.fighters %>">
+    <div class="pn-xa__ctl">
+      <% %w[party fighters].each do |key| %>
+        <div class="pn-xa__ctl-group">
+          <span class="pn-xa__ctl-label"><%= t("#{mg}.#{key}") %></span>
+          <div class="pn-xa__ctl-btns" role="group" aria-label="<%= t("#{mg}.#{key}") %>">
+            <% (1..xa.max_party).each do |n| %>
+              <button type="button" class="pn-xa__btn" data-exp-share-target="button"
+                      data-key="<%= key %>" data-n="<%= n %>" data-action="exp-share#pick"
+                      aria-pressed="false"><%= n %></button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <span class="pn-xa__handed" data-exp-share-target="tone">
+        <%= t("#{mg}.handed_html", pct: tag.b(data: { "exp-share-target": "handed" })) %>
+      </span>
+    </div>
+
+    <div class="pn-xa__body">
+      <div class="pn-xa__bar-label"><%= t("#{mg}.bar_label") %></div>
+      <div class="pn-xa__bar" data-exp-share-target="bar" aria-hidden="true">
+        <% (1..xa.max_party).each do |n| %>
+          <span class="pn-xa__seg" data-exp-share-target="seg" data-n="<%= n %>">
+            <b class="pn-xa__seg-tick" data-exp-share-target="segTick"></b>
+          </span>
+        <% end %>
+        <span class="pn-xa__seg pn-xa__seg--lost" data-exp-share-target="lostSeg"></span>
+      </div>
+      <div class="pn-xa__scale" aria-hidden="true">
+        <% [ 0, 25, 50, 75 ].each { |n| %><span class="pn-xa__scale-num"><%= n %></span><% } %>
+      </div>
+
+      <div class="pn-xa__legend">
+        <% xa.legend.map(&:row).uniq.each do |row| %>
+          <div class="pn-xa__leg pn-xa__leg--<%= row %>">
+            <span class="pn-xa__swatch" aria-hidden="true"></span>
+            <span class="pn-xa__leg-label"><%= t("#{mg}.legend.#{row}.label") %></span>
+            <span class="pn-xa__leg-amount" data-exp-share-target="amount" data-row="<%= row %>"
+                  data-nobody="<%= t("#{mg}.nobody") %>"></span>
+            <span class="pn-xa__leg-text">
+              <% xa.legend.select { |l| l.row == row }.each do |line| %>
+                <span data-exp-share-target="legendText" data-row="<%= row %>"
+                      data-state="<%= line.state %>" hidden><%= t(line.text_key) %></span>
+              <% end %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-xa__verdict">
+        <% xa.verdicts.each do |verdict| %>
+          <p class="pn-xa__verdict-text" data-exp-share-target="verdict"
+             data-tone="<%= verdict.tone %>" hidden><%= t(verdict.text_key) %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn-xa__trivia">
+    <% xa.trivia.each do |row| %>
+      <div class="pn-xa__trivia-row">
+        <span class="pn-xa__trivia-tag"><%= t(row.tag_key) %></span>
+        <span class="pn-xa__trivia-title"><%= t(row.title_key) %></span>
+        <span class="pn-xa__trivia-text"><%= t(row.text_key) %></span>
+      </div>
+    <% end %>
+  </div>
+</section>

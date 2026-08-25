@@ -550,6 +550,24 @@ def label_covers(span, y, taken, row_pct, zoom):
                and t["spans"][zoom][0] < span[1] and span[0] < t["spans"][zoom][1])
 
 
+def label_hides(span, y, entries, row_pct, cell, owner):
+    """How many pins a label at `y` covering `span` would sit on top of.
+
+    A lane clear of other labels is not the same as a lane clear of the map: Route 15's lower lane
+    stands its trainers in pairs, and a label dealt into the gap between two of them printed its
+    box over the sprite of a third. What the reader is looking for is the person, so a pin covered
+    counts against a seat the same way a label covered does. A pin counts as hidden when the box is
+    over it, not when the two touch: half a sprite has to be inside the band, so the pin a label just
+    reaches past on its way out is left alone. Without that, a label clears its neighbour's name by
+    a pixel and is still dealt a lane for grazing the pin under it, which is most labels on a busy
+    map. `owner` is left out of the count: a label never covers the pin it belongs to."""
+    half = cell / 2
+    return sum(1 for e in entries
+               if e is not owner
+               and span[0] + half < e["x"] < span[1] - half
+               and abs(e["y"] - y) < row_pct / 2)
+
+
 def assign_label_lanes(entries, width_px, height_px):
     """Deal labels that would print over each other into rows of their own.
 
@@ -566,16 +584,30 @@ def assign_label_lanes(entries, width_px, height_px):
     nearest-first and either way, so a crowd opens outward from where it stands instead of
     cascading down the map, and a label with nowhere clean to go takes the row it covers least,
     counted over every size the map is drawn at (`LABEL_ZOOMS`). Which side each label sits on is
-    settled first (`fit_label_side`), because the side decides the band a row has to keep clear."""
+    settled first (`fit_label_side`), because the side decides the band a row has to keep clear.
+
+    Between two rows that overlap the same number of labels, the one that sits on fewer pins wins.
+    Route 15 stands its trainers in pairs along a lane, and a label with a clean row either way
+    took the one that printed its box over the sprite of the trainer beside it, hiding the very
+    thing the reader was hunting for. It breaks the tie rather than deciding the seat: a label
+    driven off its own row to clear a sprite, only to land on a neighbour's name, reads worse than
+    the sprite it was moved to save."""
     fit_label_side(entries, width_px)
     rows = {zoom: LABEL_PX / (height_px * zoom) * 100 for zoom in LABEL_ZOOMS}
     native = LABEL_PX / height_px * 100
+    cells = {zoom: CELL_PX / (width_px * zoom) * 100 for zoom in LABEL_ZOOMS}
     taken = []
     for entry in sorted(entries, key=lambda e: (e["y"], e["x"])):
         spans = {zoom: label_span(entry, width_px * zoom) for zoom in LABEL_ZOOMS}
-        seats = [(sum(label_covers(spans[zoom], entry["y"] + lane * rows[zoom], taken, rows[zoom], zoom)
-                      for zoom in LABEL_ZOOMS), lane)
-                 for lane in lane_seats(entry["y"], native)]
+        seats = []
+        for lane in lane_seats(entry["y"], native):
+            hides = sum(label_hides(spans[zoom], entry["y"] + lane * rows[zoom], entries,
+                                    rows[zoom], cells[zoom], entry)
+                        for zoom in LABEL_ZOOMS)
+            covers = sum(label_covers(spans[zoom], entry["y"] + lane * rows[zoom], taken,
+                                      rows[zoom], zoom)
+                         for zoom in LABEL_ZOOMS)
+            seats.append(((covers, hides), lane))
         entry["lane"] = min(seats, key=lambda seat: seat[0])[1]
         taken.append({**entry, "spans": spans})
     return entries

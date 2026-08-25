@@ -406,6 +406,28 @@ def grass_tile(root_str, tileset_const):
 
 
 @cache
+def parse_counter_tiles(root_str):
+    """Return {tileset_const: frozenset of counter tile ids} from the tileset headers.
+
+    A counter is the one thing the game lets you talk across: a Mart clerk stands behind his,
+    the player stands in front, and the text still fires. Each tileset header names up to three
+    of them (Mart/Pokecenter $18,$19,$1E; a gate or museum $17,$32), and -1 means none, which is
+    every outdoor tileset."""
+    out = {}
+    for line in _read(root_str, "data/tilesets/tileset_headers.asm").splitlines():
+        m = re.match(r"\s*tileset\s+(\w+)\s*,\s*(-1|\$[0-9A-Fa-f]+)\s*,"
+                     r"\s*(-1|\$[0-9A-Fa-f]+)\s*,\s*(-1|\$[0-9A-Fa-f]+)", line)
+        if m:
+            ids = [g for g in m.groups()[1:] if g != "-1"]
+            out[m.group(1)] = frozenset(int(g.lstrip("$"), 16) for g in ids)
+    return out
+
+
+def counter_tiles(root_str, tileset_const):
+    return parse_counter_tiles(root_str).get(_snake_to_camel(tileset_const), frozenset())
+
+
+@cache
 def parse_collision_tiles(root_str, tileset_const):
     """The tile ids you can walk on in this tileset, from data/tilesets/collision_tile_ids.asm.
 

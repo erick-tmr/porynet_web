@@ -50,6 +50,31 @@ def test_route_10_splits_at_the_tunnel_so_each_half_walks_from_its_own_mouth(roo
         ("T4", "HIKER:7"), ("T5", "HIKER:8"), ("T6", "POKEMANIAC:2")]
 
 
+def test_route_12_walks_the_pier_rather_than_swimming_the_bay(root):
+    """Silence Bridge is a pier, so the flood has two ways to get it wrong at once.
+
+    The gate building splits the route in half and the flood cannot walk through it, so from the
+    north end alone every pin was unreachable and the page fell back to map-file order: the Jr.
+    Trainer at the very bottom read as T3, above the Rocker and two Fishermen he stands well past.
+    Naming the gate's south door fixes that, but the bay is open water the flood swims, which still
+    hands over the Fisherman on the east planks before the one two rows above him on the west side.
+    The seven are named outright, so the letters run the way the boards do: down the east side, back
+    west, down to the Rocker, into the Cut-walled alcove, and out at the bottom."""
+    assert [tuple(pins(root, "Route12", "")[key]["grid"]) for key in
+            ("T1", "T2", "T3", "T4", "T5", "T6", "T7")] == [
+        (14, 31), (5, 39), (12, 40), (9, 52), (14, 76), (6, 87), (11, 92)]
+
+
+def test_route_13_takes_the_southwest_pocket_on_the_way_to_the_west_gate(root):
+    """The tail of Route 13, which the flood reads backwards.
+
+    Its exit is on the west side, so the pocket in the southwest corner (a Bird Keeper standing
+    over the buried PP Up) is a detour taken on the way past, and the Biker beside the gate is the
+    last trainer on the road. Ranked from the doorway alone all three came out the other way up."""
+    assert [tuple(pins(root, "Route13", "")[key]["grid"]) for key in ("T8", "T9", "T10")] == [
+        (7, 13), (12, 4), (10, 7)]
+
+
 def test_viridian_forest_matches_the_order_the_steps_already_walk(root):
     """The forest's steps name their trainers by pin, so the walk has an authored answer to check
     against: the Lass by the gate is T1, the two Bug Catchers up the east side T2 and T3, the one

@@ -698,6 +698,15 @@ module Walkthrough
   BadgeRule = Data.define(:no, :label_key, :title_key, :text_key)
   BadgeGuide = Data.define(:anchor, :cards, :rules)
 
+  # The Exp. All hands its share out in two passes, and the arithmetic below is the game's own.
+  # `fighters` and `party` are the state the section opens on; the rest is copy the reader toggles
+  # between, rendered server-side so no user-facing string lives in the controller.
+  ExpShare = Data.define(:anchor, :sprite, :max_party, :party, :fighters, :verdicts, :legend,
+    :trivia)
+  ExpVerdict = Data.define(:tone, :text_key)
+  ExpLegendText = Data.define(:row, :state, :text_key)
+  ExpTrivia = Data.define(:tag_key, :title_key, :text_key)
+
   def self.games = { "yellow" => Yellow.game }
 
   def self.find(slug) = games[slug]

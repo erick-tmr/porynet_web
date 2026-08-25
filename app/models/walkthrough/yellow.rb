@@ -102,6 +102,33 @@ module Walkthrough
         rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
     end
 
+    # Gen 1 pays the Exp. All out in two passes and feeds the second one the first one's leftovers.
+    # In engine/battle/core.asm the enemy's base exp is halved, that half goes to the Pokémon that
+    # fought (DivideExpDataByNumMonsGainingExp divides it by the number of them, in place), then
+    # every party member's gain flag is set and the same routine runs again over the value it has
+    # already divided. So the party pass shares 50/fighters rather than the other 50, and with more
+    # than one Pokémon sent out the difference is paid to nobody at all.
+    #
+    # One verdict per tone and both texts of each two-way legend row are rendered, and the
+    # controller picks; that keeps every string in the locale files.
+    EXP_TONES = %w[solo switch crowd].freeze
+    EXP_LEGEND = [ [ "fighters", %w[any] ], [ "bench", %w[some none] ],
+                   [ "lost", %w[some none] ] ].freeze
+    EXP_TRIVIA = %w[off_switch one_only stat_exp].freeze
+
+    def self.exp_share
+      b = "#{K}.exp_share"
+      ExpShare.new(anchor: "exp-all", sprite: "walkthrough/items/exp-all.png",
+        max_party: 6, party: 6, fighters: 2,
+        verdicts: EXP_TONES.map { |tone| ExpVerdict.new(tone: tone, text_key: "#{b}.verdict.#{tone}") },
+        legend: EXP_LEGEND.flat_map { |row, states|
+          states.map { |state| ExpLegendText.new(row: row, state: state,
+            text_key: "#{b}.legend.#{row}.#{state}") }
+        },
+        trivia: EXP_TRIVIA.map { |key| ExpTrivia.new(tag_key: "#{b}.trivia.#{key}.tag",
+          title_key: "#{b}.trivia.#{key}.title", text_key: "#{b}.trivia.#{key}.text") })
+    end
+
     # The eight badges in case order, with what each one switches on: `boost` names the stat every
     # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
     # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym
@@ -173,16 +200,18 @@ module Walkthrough
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
       { slug: "leg-10", special: false, locs: %w[celadon-city-return route-16-fly] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
-      { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
+      { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city] },
+      { slug: "safari-zone", special: true, locs: %w[safari-zone] },
+      { slug: "leg-12", special: false, locs: %w[fuchsia-city-return] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
-      { slug: "leg-12", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
-      { slug: "leg-13", special: false, locs: %w[route-19 route-20] },
+      { slug: "leg-13", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
+      { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "power-plant", special: true, locs: %w[power-plant] },
-      { slug: "leg-14", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
-      { slug: "leg-15", special: false, locs: %w[viridian-gym] },
+      { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
+      { slug: "leg-16", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-16", special: false, locs: %w[route-23] },
+      { slug: "leg-17", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
@@ -413,6 +442,7 @@ module Walkthrough
         underground_path_west_east, route_7, celadon_city,
         rocket_hideout, celadon_city_return, route_16_fly,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
+        fuchsia_city_return,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
@@ -424,6 +454,7 @@ module Walkthrough
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
                    "celadon-city-return" => "celadon-city",
+                   "fuchsia-city-return" => "fuchsia-city",
                    "route-16-fly" => "route-16",
                    "route-10-south" => "route-10" }.freeze
 
@@ -1048,7 +1079,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil)
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [])
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
@@ -1060,7 +1091,8 @@ module Walkthrough
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
-        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia, grind: grind
+        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia, grind: grind,
+        later: later
       )
     end
 
@@ -1585,14 +1617,17 @@ module Walkthrough
 
     def self.route_12
       loc("route-12", "ROUTE", "Route 12", 31, steps: [
-          { pins: { gate: "route-12/exit-10-21" } },
-          { item: [ "TM Pay Day", "tm-pay-day" ], scene: "route-12-item-tm-pay-day" },
+          { items: [ [ "TM39 Swift", "tm_swift" ] ], scene: "route-12-gate-tm39",
+            pins: { gate: "route-12/exit-10-15" } },
           { scene: "route-12-snorlax" },
           { hidden: [ "Hyper Potion", "hyper-potion", "route-12-hidden-hyper-potion", "route-12-hyper-potion" ] },
-          { items: [ [ "Super Rod", "super_rod" ] ], pins: { guru: "route-12/exit-11-77" } },
+          { items: [ [ "Super Rod", "super_rod" ] ], scene: "route-12-super-rod-gift",
+            pins: { guru: "route-12/exit-11-77" } },
           { item: [ "Iron", "iron" ], scene: "route-12-item-iron" },
           { pins: { south: "route-12/exit-south" } }
         ],
+        later: [ later("route-12", "tm_pay_day", "TM Pay Day", "ITEM", "Surf",
+          "route-12-item-tm-pay-day") ],
         encounters: [
           enc("route-12", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
           enc("route-12", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
@@ -1655,9 +1690,11 @@ module Walkthrough
 
     def self.route_15
       loc("route-15", "ROUTE", "Route 15", 34, steps: [
-          { items: [ [ "Exp. All", "exp_all" ] ], pins: { east: "route-15/exit-east" } },
-          { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage" },
-          { pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
+          { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage",
+            pins: { east: "route-15/exit-east" } },
+          {},
+          { items: [ [ "Exp. All", "exp_all" ] ], scene: "route-15-gate-exp-all",
+            pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
         ],
         encounters: [
           enc("route-15", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
@@ -1671,11 +1708,10 @@ module Walkthrough
     end
 
     def self.fuchsia_city
-      loc("fuchsia-city", "CITY", "Fuchsia City", 35, steps: 4, gym_after: 3, gym_finale: true, badge: "SOUL",
+      loc("fuchsia-city", "CITY", "Fuchsia City", 35, steps: 3,
         pins: { 1 => { center: "fuchsia-city/exit-19-27", mart: "fuchsia-city/exit-5-13", gym: "fuchsia-city/exit-5-27" },
-                3 => { safari: "fuchsia-city/exit-18-3" },
-                4 => { warden: "fuchsia-city/exit-27-27" } },
-        key_items: { 2 => [ [ "Good Rod", "good_rod" ] ], 4 => [ [ "HM04 Strength", "hm04_strength" ] ] },
+                3 => { safari: "fuchsia-city/exit-18-3" } },
+        key_items: { 2 => [ [ "Good Rod", "good_rod" ] ] },
         encounters: [
           enc("fuchsia-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("fuchsia-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -1684,10 +1720,28 @@ module Walkthrough
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
         trainers: [],
+        oak_queue: [ oak("fuchsia-city", "130", 1) ])
+    end
+
+    # Koga is the one gym the guide cannot take on the way in: the Safari Zone next door holds the
+    # Gold Teeth the Warden trades for HM04 Strength, and the park's own gate turns you out the
+    # moment your steps run down. So the city is walked twice, and the badge belongs to the second
+    # pass, the way Celadon's does after the hideout.
+    def self.fuchsia_city_return
+      b = base("fuchsia-city-return")
+      Location.new(
+        slug: "fuchsia-city-return", kind: "CITY", name: "Fuchsia City", order: 35,
+        badge: "SOUL", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, items: [ item(b, 1, "HM04 Strength", "hm04_strength") ],
+            pins: { warden: "fuchsia-city/exit-27-27", gym: "fuchsia-city/exit-5-27" }),
+          step(b, 2, pins: { center: "fuchsia-city/exit-19-27" })
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
           leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE"), opp: [ "KOGA", 1 ]),
-          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ]),
-        oak_queue: [ oak("fuchsia-city", "130", 1) ])
+          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ])
+      )
     end
 
     def self.safari_zone

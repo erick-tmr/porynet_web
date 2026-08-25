@@ -2,8 +2,8 @@
 
 - location maps: **101** across 53 locations
 - markers: **984** (318 trainer, 119 item, 64 hidden, 483 exit)
-- step shots: **42** (map/scene in a step slot)
-- standalone scenes: **271** (dialog / battle / NPC, not step-bound)
+- step shots: **45** (map/scene in a step slot)
+- standalone scenes: **274** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -133,7 +133,10 @@
 - `rock-tunnel` step 1: walkthrough/yellow/scenes/rock-tunnel-flash.png
 - `route-1` step 1: walkthrough/yellow/scenes/route-1-north.png
 - `route-10` step 1: walkthrough/yellow/scenes/route-10-rock-tunnel.png
-- `route-12` step 1: walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12` step 1: walkthrough/yellow/scenes/route-12-gate-tm39.png
+- `route-12` step 2: walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12` step 4: walkthrough/yellow/scenes/route-12-super-rod-gift.png
+- `route-15` step 3: walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-16` step 1: walkthrough/yellow/scenes/route-16-snorlax.png
 - `route-16-fly` step 2: walkthrough/yellow/scenes/route-16-fly-gift.png
 - `route-2` step 2: walkthrough/yellow/scenes/viridian-forest-south-gate.png
@@ -304,12 +307,15 @@
 - `route-11-gate` (screen): walkthrough/yellow/scenes/route-11-gate.png
 - `route-11-gate-inside` (screen): walkthrough/yellow/scenes/route-11-gate-inside.png
 - `route-11-hidden-escape-rope` (dialog): walkthrough/yellow/scenes/route-11-hidden-escape-rope.png
+- `route-12-gate-tm39` (dialog): walkthrough/yellow/scenes/route-12-gate-tm39.png
 - `route-12-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/route-12-hidden-hyper-potion.png
 - `route-12-item-iron` (screen): walkthrough/yellow/scenes/route-12-item-iron.png
 - `route-12-item-tm-pay-day` (screen): walkthrough/yellow/scenes/route-12-item-tm-pay-day.png
-- `route-12-snorlax` (screen): walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12-snorlax` (dialog): walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12-super-rod-gift` (dialog): walkthrough/yellow/scenes/route-12-super-rod-gift.png
 - `route-13-hidden-calcium` (dialog): walkthrough/yellow/scenes/route-13-hidden-calcium.png
 - `route-13-hidden-pp-up` (dialog): walkthrough/yellow/scenes/route-13-hidden-pp-up.png
+- `route-15-gate-exp-all` (dialog): walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-15-item-tm-rage` (screen): walkthrough/yellow/scenes/route-15-item-tm-rage.png
 - `route-16-fly-gift` (dialog): walkthrough/yellow/scenes/route-16-fly-gift.png
 - `route-16-snorlax` (screen): walkthrough/yellow/scenes/route-16-snorlax.png

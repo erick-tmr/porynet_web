@@ -35,7 +35,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 29 PARADAS"
+    assert_includes response.body, "A ROTA · 31 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -197,7 +197,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a leg renders in Portuguese with a gym band, fossils and its leader" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-14", locale: :pt)
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15", locale: :pt)
 
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
@@ -209,7 +209,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a location renders its in-game trades with give and receive sprites" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select ".pn-eyebrow-label", text: /IN-GAME TRADES/
@@ -221,7 +221,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "each trade card is a tick target that carries a toast and a traded badge" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select ".pn-wt-trade[role='button'][data-kind='collected'][data-progress-id]", 3
@@ -515,17 +515,25 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-oakgroup__label--earlier", false
   end
 
-  test "the Safari Zone sits inside the Koga window now that it precedes his gym" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-11")
+  # The park is a page of its own now, so the two halves of Koga's window render apart: the walk
+  # down to Fuchsia, the Safari Zone, then the pass back through town that takes the badge.
+  test "the Safari Zone is its own page inside the Koga window, one leg ahead of his gym" do
+    get walkthrough_leg_path(game: "yellow", leg: "safari-zone")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
-    assert_select ".pn-wt-band__title", text: "Safari Zone"
+    assert_select ".pn-nav__crumb-here", text: "SAFARI ZONE"
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+
+    assert_response :success
+    assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
+    assert_select ".pn-wt-band__title", text: "Fuchsia City"
     assert_select ".pn-wt-gym__leader-name", text: /\AKoga\b/
   end
 
   test "the endgame page names the League rather than a leader it does not have" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-16")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-17")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"
@@ -778,6 +786,22 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
       "beating her on the map and on her card must write the same key"
   end
 
+  # The Exp. All is handed over on Route 15, so the explainer of what it does sits on that band,
+  # under the steps that collect it. Every string it can show is rendered up front and the
+  # controller only toggles, so the section has to ship all three verdicts and both halves of each
+  # two-way legend row.
+  test "Route 15 carries the Exp. All explainer under the step that collects it" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-11")
+
+    assert_response :success
+    assert_select "#exp-all .pn-xa[data-controller='exp-share']"
+    assert_select ".pn-xa__btn", 12, "six party sizes and six fighter counts"
+    assert_select ".pn-xa__verdict-text[hidden]", 3
+    assert_select "[data-exp-share-target='legendText'][data-row='bench'][hidden]", 2
+    assert_select ".pn-xa__trivia-row", 3
+    assert_select ".pn-xa__trivia-title", text: "The PC is the toggle"
+  end
+
   test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 
@@ -849,7 +873,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a section header tallies only the species its own method finds" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select "#catchsec-cinnabar-island-fossil .pn-wt-catchsec__label", text: "Revived fossils"

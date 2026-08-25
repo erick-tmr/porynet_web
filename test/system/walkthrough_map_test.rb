@@ -10,20 +10,28 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   end
 
   # Click something after centering it, well clear of any edge. Cuprite scrolls an element into
-  # view and then clicks a computed point, so anything that shifts in between takes the click
-  # somewhere else and the page silently never reacts. Two things do that on these pages: a pin
-  # parked at the very edge of a tall map sits under its frame's clip, and a section head far down
-  # a long page moves as the sprites above it finish loading.
+  # view and then clicks a computed point, so a pin parked at the very edge of a tall map would
+  # otherwise sit under its frame's clip and swallow the click.
   #
-  # Centring is what starts those sprites loading, so it is done twice with the network settling in
-  # between: the first scroll brings them into range, and the second re-centres whatever the page
-  # reflowed to once they arrived. By then nothing is left in flight to move it again.
+  # The map arriving from R2 used to grow its frame and shove everything below it down the page,
+  # which is what the second centring below is for. The image now carries its own width and height,
+  # so the canvas holds that space from the first paint and nothing below it moves.
   def click_centered(selector)
     node = find(selector)
     centre(node)
-    page.driver.browser.network.wait_for_idle(timeout: Capybara.default_max_wait_time)
+    settle_network
     centre(node)
     node.click
+  end
+
+  # Best effort, and never the thing that fails a test. These pages ask R2 for thirty-odd sprites,
+  # which can outlast any cap worth setting, and a wait that raises when they do is one more way
+  # for a green change to come back red. Now that the map reserves its own space there is nothing
+  # left in flight that can move a target, so a slow fetch is just a slow fetch.
+  def settle_network
+    page.driver.browser.network.wait_for_idle(timeout: Capybara.default_max_wait_time)
+  rescue Ferrum::PendingConnectionsError
+    nil
   end
 
   def centre(node)

@@ -622,7 +622,9 @@ pt:
       jump_to: "IR PARA"
       stop_prev: "Parada anterior"
       stop_next: "Próxima parada"
-      stops_count: "%{count} PARADAS"
+      stops_count:
+        one: "%{count} PARADA"
+        other: "%{count} PARADAS"
       special_stop: "ESPECIAL"
     yellow:
       marquee:
@@ -681,16 +683,18 @@ pt:
         leg_10:
           lead: "De volta por Celadon com o esconderijo limpo, para cortar caminho até a estufa da Erika e pegar a Rainbow Badge."
         leg_11:
-          lead: "As rotas de pesca ao sul até Fuchsia, depois a Safari Zone antes do ginásio do Koga."
+          lead: "As rotas de pesca ao sul até Fuchsia e as tarefas que preparam a cidade para a Safari Zone."
         leg_12:
-          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
+          lead: "De volta a Fuchsia com os Gold Teeth: troque-os com o Warden pelo Strength e enfrente o labirinto de paredes invisíveis do Koga."
         leg_13:
-          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
+          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
         leg_14:
-          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
+          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_15:
-          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
         leg_16:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_17:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"
@@ -999,6 +1003,44 @@ pt:
         why:
           title: "POR QUE IMPORTA"
           text_html: "Na maior parte é novidade: o humor do Pikachu só muda a carinha dele no mapa. O único ganho real é aqui em Cerulean, onde a Melanie só entrega o Bulbasaur com <b>147 ou mais</b>. Mantenha o Pikachu fora do PC até lá."
+      exp_share:
+        eyebrow: "CURIOSIDADE · MECÂNICA DE ITEM"
+        title_html: "O Exp. All é <span class=\"pn-xa__hl\">quebrado em silêncio</span>"
+        intro: "Vale saber o que ele faz antes de carregá-lo. A Gen 1 paga a divisão em duas passagens e alimenta a segunda com as sobras da primeira, então, a menos que você mantenha um só Pokémon na luta, uma fatia de cada nocaute não vai para ninguém."
+        party: "TIME"
+        fighters: "EM CAMPO"
+        nobody: "ninguém"
+        handed_html: "%{pct}% do bolo vai parar em alguém"
+        bar_label: "UM NOCAUTE · 100% DA EXPERIÊNCIA"
+        legend:
+          fighters:
+            label: "EM CAMPO"
+            any: "Metade do bolo é dividida entre os Pokémon que lutaram, e cada um deles ainda pega uma fatia do time."
+          bench:
+            label: "RESERVA"
+            some: "A passagem do time deveria ser a outra metade. Em vez disso o jogo copia o que um lutador acabou de receber e divide isso pelo time inteiro, reserva incluída."
+            none: "Ninguém está de fora, então a passagem do time só reforça os lutadores de novo. Ela ainda roda, e ainda está no tamanho errado."
+          lost:
+            label: "NUNCA PAGO"
+            some: "O resto dessa segunda metade não é entregue a ninguém. A experiência de status some junto."
+            none: "Com um lutador só, a cópia tem o mesmo tamanho da metade que falta, então o bolo inteiro é distribuído."
+        verdict:
+          solo: "Um lutador só é o único caso que o código acerta, porque a fatia que ele copia é exatamente metade do bolo. Comece com o Pokémon que você quer treinar, não troque, e a reserva pega carona de graça."
+          switch: "Uma única troca custa um quarto da batalha, e custa de novo a cada nocaute pelo resto da luta."
+          crowd: "Com essa quantidade em campo, a fatia copiada virou um fiapo e a maior parte da experiência não vai para lugar nenhum. Guarde o item no PC antes de batalhas assim."
+        trivia:
+          off_switch:
+            tag: "SEM BOTÃO DE DESLIGAR"
+            title: "O PC é o interruptor"
+            text: "Ele funciona só por estar na mochila, sem opção no menu. Guardá-lo no PC é o único jeito de parar o efeito."
+          one_only:
+            tag: "UM POR CARTUCHO"
+            title: "Dá para jogar fora para sempre"
+            text: "O jogo deixa você descartá-lo como qualquer item comum, e nenhum caminho legítimo entrega um segundo."
+          stat_exp:
+            tag: "EXPERIÊNCIA DE STATUS"
+            title: "A barra também é o seu status"
+            text: "A mesma divisão pela metade roda sobre os cinco status base, então a stat exp se reparte igual ao bolo acima. Mesmo no melhor caso, um lutador sozinho com o item guarda 58,3% do que teria ganho sem ele, e isso são pontos permanentes a menos nos status finais."
       badge_guide:
         eyebrow: "CURIOSIDADE · CASA DAS INSÍGNIAS"
         title: "As Insígnias de Ginásio, explicadas"
@@ -2175,34 +2217,35 @@ pt:
         route_12:
           note: "Silence Bridge. Oddish, Bellsprout e um Snorlax."
           intro: "Um píer de pesca descendo a costa leste de Kanto, quase todo sobre água aberta. Um Snorlax dorme atravessado nas tábuas na metade do caminho."
+          later:
+            tm_pay_day:
+              where: "Uma Poké Ball numa lasca de píer na metade norte da Silence Bridge. Água aberta a cerca, então nada chega ate ela a pe nesta passagem."
+              after: "Volte com Surf (HM03, da Safari Zone) e reme para leste saindo das tábuas. Pay Day espalha moedas que você recolhe depois da batalha."
           steps:
             "1":
               title: "Desça de Lavender Town"
-              text_html: "Entre pelo norte, vindo de Lavender Town, na Silence Bridge, uma longa ponte de pesca sobre água aberta. Suba ao 2F do portão %{gate} pelo TM39 Swift grátis e depois desça pelo trecho sul."
-            "2":
-              title: "Pegue o TM18 Pay Day"
-              text: "No meio do trecho norte, uma Poké Ball está sobre as tábuas do píer. Ande até ela pelo TM18 Pay Day, que espalha moedas recolhidas depois da batalha."
+              text_html: "Entre pelo norte na Silence Bridge, uma ponte de pesca sobre água aberta. Suba ao 2F do portão %{gate} pelo TM39 Swift grátis. Leve um Pokémon com Cut e deixe o TM16 Pay Day: ele exige Surf."
               items:
-                tm-pay-day: "Sobre as tábuas do píer, na metade norte da Silence Bridge."
-            "3":
+                tm_swift: "Com a garota no 2F do portão da Rota 12, subindo a escada. Swift nunca erra: ignora quedas de precisão e Double Team."
+            "2":
               title: "Acorde o Snorlax"
-              text: "No meio, um Snorlax Nv 30 bloqueia o único caminho. Toque o Poke Flute para acordá-lo, depois batalhe ou nocauteie para abrir a passagem sul. É um de só dois no jogo, então leve balls."
-            "4":
+              text: "No meio, um Snorlax Nv 30 bloqueia o único caminho. Toque o Poké Flute para acordá-lo, depois batalhe ou nocauteie para abrir a passagem sul. É um de só dois no jogo, então leve balls."
+            "3":
               title: "Vasculhe o beco oeste"
               text: "Logo depois do Snorlax, siga a estreita ponte de terra a oeste ate um beco sem saida murado. Fique no piso mais a oeste e aperte A virado para leste para um Hyper Potion oculto. Nada aparece na tela."
               hidden:
                 hyper-potion: "O beco sem saida no extremo oeste da ponte de terra do Snorlax. Vire para leste no piso mais a oeste e aperte A. Nada aparece na tela."
-            "5":
+            "4":
               title: "Desca pela ponte"
-              text_html: "Continue ao sul pela ponte, enfrentando o Rocker e o ultimo Fisherman conforme o caminho permitir. Entre na casa do Fishing Guru %{guru} pelo caminho para pegar o Super Rod, a melhor vara do jogo."
+              text_html: "Continue ao sul pela ponte, enfrentando o Rocker e o ultimo Fisherman conforme o caminho permitir. Entre na casa do Fishing Guru %{guru} pelo Super Rod: responda SIM quando ele perguntar se você gosta de pescar."
               items:
                 super_rod: "Com o Fishing Guru na casa no meio da Silence Bridge. A melhor vara, pesca a maior variedade de Pokémon de Água."
-            "6":
+            "5":
               title: "Pegue o Iron no beco"
-              text: "Perto do extremo sul, logo após o ultimo Fisherman, uma Poke Ball fica num beco murado do lado oeste. Entre e pegue o Iron, que aumenta permanentemente a Defesa de um Pokémon."
+              text: "Perto do extremo sul, logo após o ultimo Fisherman, uma árvore cortável fecha um beco murado do lado oeste. Corte, entre e pegue o Iron, que aumenta permanentemente a Defesa de um Pokémon."
               items:
-                iron: "Beco do lado oeste perto da saida sul, ao lado do Fisherman do sul. A Poke Ball encostada na parede."
-            "7":
+                iron: "Beco do lado oeste perto da saida sul, ao lado do Fisherman do sul. Uma árvore cortável e a única entrada."
+            "6":
               title: "Siga para a Rota 13"
               text_html: "Limpe o ultimo Jr. Trainer e atravesse a grama alta la embaixo (Oddish, Bellsprout e o raro Farfetch'd) ate a saida sul %{south} para a Rota 13."
           tips:
@@ -2249,18 +2292,18 @@ pt:
           intro: "A última estrada até Fuchsia, um campo cercado de arbustos com dez treinadores espalhados."
           steps:
             "1":
-              title: "Cruze o campo cercado"
-              text_html: "Entre em Route 15 pelo lado de Route 14 %{east}, e siga para oeste pelo campo cercado. Uma dupla fileira de Bird Keepers, Beauties, Bikers e Jr. Trainers lota a pista, então recupere o HP antes de encarar."
+              title: "Pegue a pista de cima pelo TM20 Rage"
+              text_html: "Entre vindo de Route 14 %{east} pela pista de cima e siga a oeste, enfrentando a Jr. Trainer no caminho. Uma Poké Ball no fim guarda o TM20 Rage, que aumenta o Ataque a cada golpe sofrido."
+              items:
+                tm-rage: "No extremo oeste da pista de cima, na altura da cancela de Fuchsia. A pista só se entra pelo lado de Route 14: os barrancos abaixo dela só descem."
+            "2":
+              title: "Volte e limpe a pista de baixo"
+              text: "Refaça o caminho a leste pela pista de cima, pule o barranco e trabalhe a pista de baixo da direita para a esquerda. Bikers, Beauties, Bird Keepers e Jr. Trainers ficam em duplas, então cure antes de começar."
+            "3":
+              title: "Pela cancela até Fuchsia"
+              text_html: "Saia pela cancela %{gate} no extremo oeste. O Assistente do Oak espera no 2F dela com o Exp. All, depois de 50 espécies capturadas, e daí é direto para Fuchsia City %{west}."
               items:
                 exp_all: "Com o Assistente do Oak no 2F da cancela, depois de capturar 50 espécies. Divide o EXP das lutas com todo o time."
-            "2":
-              title: "Pegue o TM20 Rage no canto noroeste"
-              text: "Perto do fim oeste do campo, corte para o norte, saindo da pista principal. Uma Poke Ball encravada no canto noroeste guarda o TM20 Rage, logo antes da cancela para Fuchsia."
-              items:
-                tm-rage: "Canto noroeste da rota, na fileira de cima, a leste da cancela de Fuchsia."
-            "3":
-              title: "Entre em Fuchsia"
-              text_html: "Volte para a pista principal e atravesse a oeste pela cancela %{gate}, saindo direto em Fuchsia City %{west} e na sua Safari Zone."
         fuchsia_city:
           mart:
             blurb: "Fuchsia vende Ultra Balls e Hyper Potions, o kit para a Safari Zone e o ginásio do Koga."
@@ -2276,7 +2319,7 @@ pt:
           steps:
             "1":
               title: "Cure e reabasteça"
-              text_html: "Chegue pela Rota 15, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} para depois: a Safari Zone guarda o HM03 Surf e os Gold Teeth, e o Koga fecha esta etapa."
+              text_html: "Chegue pela Rota 15, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} para depois: a Safari Zone ao lado vem antes do Koga."
             "2":
               title: "Pesque no lago do Warden"
               text: "Use o Super Rod no lago atrás do portão da Safari Zone por um Gyarados selvagem. É uma captura exclusiva do Yellow aqui, e bem mais barata que criar um Magikarp."
@@ -2285,15 +2328,22 @@ pt:
             "3":
               title: "Explore a Safari Zone"
               text_html: "Siga ao norte para a Safari Zone %{safari}. A sala de prêmios guarda o HM03 Surf, e os Gold Teeth que você acha lá dentro compram o HM04 Strength com o Warden."
-            "4":
-              title: "Troque pelo Strength, depois encare o Koga"
-              text_html: "Devolva os Gold Teeth ao Warden %{warden} pelo HM04 Strength e pegue o Rare Candy lá dentro. Depois tateie o labirinto de paredes invisíveis do ginásio: leve um tipo Psíquico ou Fogo rápido e Antídotos para o Toxic do Koga."
-              items:
-                hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
           tips:
             gyarados: "Super Rod no lago do Warden por um Gyarados selvagem. Sem grind de Magikarp."
           oak:
             gyarados: "Pesque um direto do lago do Warden. Um atalho raro do Yellow para Gyarados."
+        fuchsia_city_return:
+          note: "De volta pelo Koga. Soul Badge e TM06 Toxic."
+          intro: "Fuchsia de novo, com os Gold Teeth na mochila. O Warden os troca pelo Strength, e o labirinto de paredes invisíveis do Koga é a última coisa que resta na cidade."
+          steps:
+            "1":
+              title: "Troque os Gold Teeth pelo Strength"
+              text_html: "Entregue os Gold Teeth ao Warden %{warden} e ele te dá o HM04 Strength. Ensine o golpe e empurre a pedra do quarto dos fundos para pegar o Rare Candy atrás dela. O Ginásio %{gym} é o próximo."
+              items:
+                hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
+            "2":
+              title: "Guarde a Soul Badge e voe embora"
+              text_html: "A Soul Badge aumenta a Defesa e libera Surf fora de batalha, além do TM06 Toxic. Cure no Centro %{center} e voe para Saffron: a Silph Co. está ocupada pela Rocket."
         safari_zone:
           note: "Parque de captura de 500 passos. Scyther, Pinsir, Chansey, Dratini e mais."
           intro: "Quatro áreas cercadas sem treinadores e sem Poké Balls comuns. A entrada dá trinta Safari Balls e exatamente 502 passos, e Kangaskhan, Tauros, Scyther, Pinsir e Dratini não vivem em outro lugar."

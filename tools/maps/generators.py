@@ -139,6 +139,80 @@ def _emotes(spec):
     return on_sprites
 
 
+# The two halves of a Gen 1 conversation, which a shot of one has to draw or it shows something
+# the game never puts on screen. You can only talk to someone you are facing, and the moment you
+# do they turn to face you back: `MakeNPCFacePlayer` in engine/overworld/movement.asm, "Make an
+# NPC face the player if the player has spoken to him or her". The one exception in the whole
+# game is rubbing the S.S. Anne captain's back (BIT_NO_NPC_FACE_PLAYER), and the one thing you
+# may talk across is a counter, which the tilesets name (sources.parse_counter_tiles).
+#
+# A `found_item` box is never a conversation: pressing A at a tile prints _FoundItemText with
+# nobody on the other end, so those are skipped outright. Anything else sets `talking: false` when
+# its text box is not a conversation either: an item used on someone (the Poké Flute at the
+# sleeping Snorlax) prints its line without anyone being spoken to, so nobody turns.
+TALK_EXEMPT = frozenset({"poke_ball", "boulder"})
+FACING_BACK = {"UP": "DOWN", "DOWN": "UP", "LEFT": "RIGHT", "RIGHT": "LEFT"}
+STEP_OF = {"UP": (0, -1), "DOWN": (0, 1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
+
+
+def _facing_of(sprite):
+    """The direction an overlay sprite looks, back from the (frame, flip) pair it carries."""
+    return next((d for d, pair in compositor.DIR_TO_FRAME.items()
+                 if pair == (sprite["frame"], sprite["flip"])), None)
+
+
+def _talked_to(root, spec, hero_dir, cast):
+    """The sprite the hero is talking to, or None: whoever stands in the cell they face, reaching
+    over one counter tile the way the game does."""
+    hx, hy = spec["player"]
+    dx, dy = STEP_OF[hero_dir]
+    const, tileset = sources.parse_headers(root)[spec["map"]]
+    _index, width_blocks, _height = sources.parse_map_constants(root)[0][const]
+    counters = sources.counter_tiles(root, tileset)
+    tileset_file = sources.tileset_basename(root, tileset)
+    for reach in (1, 2):
+        cell = (hx + dx * reach, hy + dy * reach)
+        found = next((s for s in cast if tuple(s["grid"]) == cell), None)
+        if found:
+            return found
+        tiles = sources.cell_tiles(root, spec["map"], tileset_file, width_blocks, *cell)
+        if not counters or not any(tile in counters for tile in tiles):
+            return None
+    return None
+
+
+def _check_talking(root, spec, cast):
+    """Fail the build on a conversation the game could not have shown.
+
+    Two things go wrong in a hand-written spec, and both draw a frame that cannot happen: the hero
+    stood beside the person they are supposedly talking to rather than facing them, and the person
+    left looking whichever way the map file parks them rather than turning to the hero."""
+    dialog = spec.get("dialog")
+    if not dialog or "found_item" in dialog or not spec.get("talking", True):
+        return
+    hero_dir = spec.get("player_dir", "DOWN")
+    people = [s for s in cast
+              if s["file"] not in TALK_EXEMPT and tuple(s["grid"]) != tuple(spec["player"])]
+    partner = _talked_to(root, spec, hero_dir, people)
+    if partner is None:
+        placed = {tuple(s["grid"]) for s in spec.get("sprites", [])}
+        beside = [cell for cell in ((spec["player"][0] + dx, spec["player"][1] + dy)
+                                    for dx, dy in STEP_OF.values()) if cell in placed]
+        if beside:
+            raise ValueError(
+                f"{spec['name']}: the hero faces {hero_dir} with nobody there, but the scene puts "
+                f"someone at {beside[0]}. You cannot talk to a sprite you are not facing; turn the "
+                f"hero toward them, or set \"talking\": false if this text box is not a conversation.")
+        return
+    looking = _facing_of(partner)
+    if looking != FACING_BACK[hero_dir]:
+        raise ValueError(
+            f"{spec['name']}: the hero faces {hero_dir} and is talking to {partner['file']} at "
+            f"{partner['grid']}, who is drawn facing {looking}. Spoken to, an NPC turns to the "
+            f"player (MakeNPCFacePlayer), so it has to be {FACING_BACK[hero_dir]}. Set that "
+            f"sprite's dir, or \"talking\": false if this text box is not a conversation.")
+
+
 def gen_screen_scene(root, spec):
     """A 160x144 GB screen centered on the hero, with optional directional arrows and a
     bottom dialog box.
@@ -148,6 +222,7 @@ def gen_screen_scene(root, spec):
     rival you meet), auto NPCs are shown at their real cells, `focus` overrides the camera
     center (defaults to the hero), and `cut` fells the cuttable trees the scene is set after."""
     sprites = _screen_sprites(root, spec)
+    _check_talking(root, spec, sprites)
     trailing = _follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"), sprites)
     if trailing:
         sprites = [*sprites, trailing]
