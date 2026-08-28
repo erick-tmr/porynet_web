@@ -1911,9 +1911,9 @@ module Walkthrough
     end
 
     def self.route_16
-      loc("route-16", "ROUTE", "Route 16", 37, steps: 2, shots: [ 1 ],
-        pins: { 1 => { gate: "route-16/exit-17-10" },
-                2 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
+      loc("route-16", "ROUTE", "Route 16", 37, steps: 2, shots: [ 2 ],
+        pins: { 1 => { south: "route-16/exit-south", gate: "route-16/exit-17-4" },
+                2 => { gate: "route-16/exit-17-10", east: "route-16/exit-east" } },
         encounters: route_16_grass +
           [ enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true) ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
@@ -1921,13 +1921,13 @@ module Walkthrough
 
     def self.route_17
       loc("route-17", "ROUTE", "Route 17", 38, steps: [
-          { pins: { north: "route-17/exit-north" } },
-          { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
-          { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
-          { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
-          { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
+          { pins: { south: "route-17/exit-south" } },
           { hidden: [ "Max Elixir", "max-elixir", "route-17-hidden-max-elixir", "route-17-max-elixir" ] },
-          { pins: { south: "route-17/exit-south" } }
+          { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
+          { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
+          { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
+          { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
+          { pins: { north: "route-17/exit-north" } }
         ],
         encounters: [
           enc("route-17", "084", "GRASS", "50%", "26–28", "COMMON", "084", "085"),
@@ -1945,7 +1945,8 @@ module Walkthrough
 
     def self.route_18
       loc("route-18", "ROUTE", "Route 18", 39, steps: 2,
-        pins: { 2 => { gate: "route-18/exit-33-8", east: "route-18/exit-east" } },
+        pins: { 1 => { east: "route-18/exit-east" },
+                2 => { gate: "route-18/exit-33-8", north: "route-18/exit-north" } },
         encounters: [
           enc("route-18", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-18", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
@@ -1964,8 +1965,8 @@ module Walkthrough
 
     def self.saffron_city
       loc("saffron-city", "CITY", "Saffron City", 41, steps: 2,
-        pins: { 1 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
-                2 => { dojo: "saffron-city/exit-26-3" } },
+        pins: { 1 => { dojo: "saffron-city/exit-26-3" },
+                2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" } },
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
         oak_queue: [ oak("saffron-city", "106", 1) ])

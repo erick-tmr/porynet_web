@@ -2491,7 +2491,7 @@ en:
               text_html: "The Soul Badge raises Defense and switches Surf on outside battle, plus TM06 Toxic. Heal at the Center %{center}, teach Surf, and take the <a href=\"%{href}\">second Safari trip</a> for the Nugget and the two balls the clock cut short."
             "3":
               title: "Head west for Cycling Road"
-              text_html: "Leave town by the west gate %{west} onto Route 18, then climb Cycling Road north. Saffron is at the top of it, and Silph Co. is under Rocket occupation until you get there."
+              text_html: "Leave town by the west gate %{west} onto Route 18, then climb Cycling Road north. A second Snorlax (Lv 30) sleeps across the path at the top, so bring the Poké Flute. Saffron City is the next stop past it."
         safari_zone:
           note: "502-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
           intro: "Four fenced areas with no trainers and no ordinary Poké Balls. Entry buys thirty Safari Balls and exactly 502 steps, and Kangaskhan, Tauros, Scyther, Pinsir and Dratini live nowhere else."
@@ -2590,11 +2590,11 @@ en:
           intro: "The north gate of Cycling Road, with a second Snorlax asleep in the doorway. Past it the road runs one way only, downhill."
           steps:
             "1":
-              title: "Wake the Snorlax"
-              text_html: "Play the Poké Flute at the Snorlax on the path (Lv 30) and battle it to clear the gate %{gate}."
+              title: "Come up off Cycling Road"
+              text_html: "Out of the road's top gate %{gate} onto Route 16 %{south}. Six more riders line the strip east of it, between you and Celadon."
             "2":
-              title: "Mount Cycling Road"
-              text_html: "Ride the Bicycle through the north gate %{gate} onto Route 17 %{south}, the Cycling Road. You cannot walk it, so the Bike is not optional here."
+              title: "Wake the Snorlax and head in"
+              text_html: "A Snorlax (Lv 30) sleeps across the path by Celadon's gate %{gate}. Play the Poké Flute and battle it to clear the way east %{east}. Saffron is one gate on from Celadon, so walk it or Fly."
           tips:
             snorlax: "The second and last Snorlax. Same Lv 30 wall. Sleep it, then throw balls."
           oak:
@@ -2605,36 +2605,36 @@ en:
           intro: "Cycling Road: a long downhill run you can only take on the Bike, walled by ledges that stop you turning back. Ten Bikers and five hidden items line it."
           steps:
             "1":
-              title: "Ride south down Cycling Road"
-              text_html: "Enter from the north gate %{north} and mount the Bike, since Cycling Road cannot be crossed on foot. Coast down the one-way slope, stopping in the grass strips for a shot at Ponyta."
+              title: "Start up Cycling Road"
+              text_html: "In through the south gate %{south} and onto the Bike, since the road cannot be crossed on foot. Slip through one of the two gaps in the bottom ledges and climb, stopping in the grass strips for a shot at Ponyta."
             "2":
-              title: "Sweep the top lane"
-              text: "Just past the north gate, the slope opens onto its first stretch. Hug the east lane and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
+              title: "Dig at the foot of the slope"
+              text: "Just above the ledges, past the Cycling Road Ends sign, stop center-left and press A for a hidden Max Elixir; nothing shows on-screen."
               hidden:
-                rare-candy: "East lane, near the top by the north gate. Press A on the empty tile; nothing appears."
+                max-elixir: "Center-left, near the bottom by the Cycling Road Ends sign. Press A; nothing appears."
             "3":
-              title: "Search the center strip"
-              text: "About a third of the way down, drift to the center-left of the road. Press A on the plain tile there to dig out a hidden Full Restore; nothing shows on-screen."
+              title: "Comb the west lane"
+              text: "Keep climbing to the Bikers guarding the lower third and swing into the west lane. Press A on the empty tile there for a hidden Max Revive; nothing shows on-screen."
               hidden:
-                full-restore: "Center-left of the road, roughly a third down. Press A on the bare tile; nothing appears."
+                max-revive: "West lane, lower third of the road. Press A on the bare tile; nothing appears."
             "4":
               title: "Check the east fence"
               text: "Around the Trainer Tips sign, veer to the far east edge of the road. Press A against the fence tile for a hidden PP Up; nothing shows on-screen."
               hidden:
                 pp-up: "Far east edge, level with the Trainer Tips sign. Press A on the fence tile; nothing appears."
             "5":
-              title: "Comb the west lane"
-              text: "Lower down, swing to the west lane near the Bikers guarding this stretch. Press A on the empty tile there for a hidden Max Revive; nothing shows on-screen."
+              title: "Search the center strip"
+              text: "About a third from the top, drift to the center-left of the road. Press A on the plain tile there to dig out a hidden Full Restore; nothing shows on-screen."
               hidden:
-                max-revive: "West lane, lower third of the road. Press A on the bare tile; nothing appears."
+                full-restore: "Center-left of the road, roughly a third down. Press A on the bare tile; nothing appears."
             "6":
-              title: "Dig near the bottom"
-              text: "Near the foot of the slope, before the Cycling Road Ends sign, stop center-left and press A for a hidden Max Elixir; nothing shows on-screen."
+              title: "Sweep the top lane"
+              text: "The last stretch before the north gate. Hug the east lane and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
               hidden:
-                max-elixir: "Center-left, near the bottom by the Cycling Road Ends sign. Press A; nothing appears."
+                rare-candy: "East lane, near the top by the north gate. Press A on the empty tile; nothing appears."
             "7":
-              title: "Exit to Route 18"
-              text_html: "At the foot of the slope, past the Cycling Road Ends sign, roll through the south gate %{south} onto Route 18."
+              title: "Out of the top gate"
+              text_html: "Past the last pair of Bikers, ride out through the north gate %{north} onto Route 16."
           oak:
             ponyta: "A fiery grass catch → Rapidash. One of few Fire types in Yellow."
         route_18:
@@ -2648,11 +2648,11 @@ en:
               note: "A ready-made Parasect that levels fast thanks to the traded-XP bonus. Tangela is a Safari Zone catch."
           steps:
             "1":
-              title: "Cross east"
-              text: "Beat the three Bird Keepers strung along the narrow strip of land at the foot of the Cycling Road, where the route pinches between the water."
+              title: "Cross west"
+              text_html: "Out of Fuchsia's west gate %{east} onto the narrow strip at the foot of Cycling Road, where the route pinches between the water. Three Bird Keepers are strung along it."
             "2":
-              title: "Enter Fuchsia"
-              text_html: "Carry on east through the gate %{gate} and into Fuchsia City %{east}, home of the Safari Zone and Koga's gym."
+              title: "Reach the foot of the road"
+              text_html: "Carry on west through the gate %{gate} to the bottom of Cycling Road %{north}. Two gaps in the ledges at its foot are what let you walk back up it."
         saffron_city:
           mart:
             blurb: "Saffron's Mart stocks Max Repel and Full Heal, open once Team Rocket clears out of the city."
@@ -2667,11 +2667,11 @@ en:
           intro: "Kanto's capital under Rocket occupation, a guard on every gate. Silph Co. stands in the middle, and the city keeps two fighting halls: Sabrina's gym and the Dojo."
           steps:
             "1":
-              title: "Free Silph Co. first"
-              text_html: "The gym %{gym} stays locked while Rocket holds Silph Co. %{silph}, so the tower comes first and Sabrina waits for the way back through town."
+              title: "Clear the Fighting Dojo"
+              text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} and take a free Hitmonlee or Hitmonchan. Only one of the pair, so pick the one your team is missing."
             "2":
-              title: "Claim a fighter"
-              text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} to take a free Hitmonlee or Hitmonchan."
+              title: "Free Silph Co."
+              text_html: "The gym %{gym} stays locked while Rocket holds Silph Co. %{silph}, so the tower comes next and Sabrina waits for the way back through town."
           oak:
             hitmonlee: "Free from the Dojo. Pick Hitmonlee or Hitmonchan (you only get one)."
         saffron_city_return:

@@ -93,12 +93,21 @@ ROUTES = {
         "trainer-46-10", "trainer-41-10", "trainer-41-11", "trainer-35-13", "trainer-31-13",
         "trainer-18-13"
     ),
-    "Route16": ("exit-east",),                      # out of Celadon
-    "Route17": ("exit-north",),
+    "Route16": ("exit-south",),                     # up out of Cycling Road, then east to Celadon
+    # Climbed, not coasted: the guide comes up from Fuchsia, so the road is lettered from its foot.
+    # The only ledges on it are the seven along the bottom row, and two gaps in them let you walk
+    # back up, so the climb is real; everything above that row is open both ways. Naming the ten
+    # is what fixes the pairs level with each other, which the flood deals out left-first: the
+    # rider takes the near side of the road going up, so the right of each pair comes first.
+    "Route17": (
+        "exit-south", "trainer-10-118", "trainer-14-98", "trainer-5-98", "trainer-2-68",
+        "trainer-17-58", "trainer-14-34", "trainer-7-32", "trainer-12-19", "trainer-4-18",
+        "trainer-11-16"
+    ),
     # Three Bird Keepers in a cluster by the Fuchsia gate, and the flood splits the pair on the
     # right the wrong way round: the one on the upper shelf is met before the one below it, whichever
     # end of the route you come in from, so the order is named.
-    "Route18": ("exit-north", "trainer-36-11", "trainer-42-13", "trainer-40-15"),
+    "Route18": ("exit-east", "trainer-36-11", "trainer-42-13", "trainer-40-15"),
     "Route19": ("exit-north",),                     # out of Fuchsia
     "Route20": ("exit-east",),
     "Route2": ("exit-south", "item-13-45", "item-13-54"),

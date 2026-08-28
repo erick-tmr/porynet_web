@@ -2491,7 +2491,7 @@ pt:
               text_html: "A Soul Badge aumenta a Defesa e libera o Surf fora de batalha, além do TM06 Toxic. Cure no Centro %{center}, ensine o Surf e faça a <a href=\"%{href}\">segunda ida à Safari</a> pelo Nugget e pelas duas bolas que o contador cortou."
             "3":
               title: "Siga a oeste pela Cycling Road"
-              text_html: "Saia da cidade pela cancela oeste %{west} para a Rota 18, depois suba a Cycling Road ao norte. Saffron fica no topo dela, e a Silph Co. está tomada pela Rocket até você chegar lá."
+              text_html: "Saia da cidade pela cancela oeste %{west} para a Rota 18, depois suba a Cycling Road ao norte. Um segundo Snorlax (Nv 30) dorme atravessado no caminho lá em cima, então leve a Poké Flute. Saffron City é a próxima parada depois dele."
         safari_zone:
           note: "Parque de captura de 502 passos. Scyther, Pinsir, Chansey, Dratini e mais."
           intro: "Quatro áreas cercadas sem treinadores e sem Poké Balls comuns. A entrada dá trinta Safari Balls e exatamente 502 passos, e Kangaskhan, Tauros, Scyther, Pinsir e Dratini não vivem em outro lugar."
@@ -2590,11 +2590,11 @@ pt:
           intro: "O portão norte da Cycling Road, com um segundo Snorlax dormindo na passagem. Depois dele a estrada só corre num sentido: ladeira abaixo."
           steps:
             "1":
-              title: "Acorde o Snorlax"
-              text_html: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão %{gate}."
+              title: "Suba da Cycling Road"
+              text_html: "Saia pela cancela do topo da estrada %{gate} para a Rota 16 %{south}. Mais seis pilotos ocupam a faixa a leste dela, entre você e Celadon."
             "2":
-              title: "Suba na Cycling Road"
-              text_html: "Pedale a Bicycle pelo portão norte %{gate} até a Rota 17 %{south}, a Cycling Road. Não dá para atravessar a pé, então a bike não é opcional aqui."
+              title: "Acorde o Snorlax e entre"
+              text_html: "Um Snorlax (Nv 30) dorme atravessado no caminho junto da cancela de Celadon %{gate}. Toque a Poké Flute e enfrente-o para liberar o caminho a leste %{east}. Saffron fica uma cancela depois de Celadon, então vá a pé ou de Fly."
           tips:
             snorlax: "O segundo e último Snorlax. A mesma parede Nv 30. Faça dormir, depois jogue balls."
           oak:
@@ -2605,36 +2605,36 @@ pt:
           intro: "Cycling Road: uma descida longa que só dá para fazer de Bike, murada por desníveis que impedem a volta. Dez Bikers e cinco itens ocultos a acompanham."
           steps:
             "1":
-              title: "Desça de bike pela Cycling Road"
-              text_html: "Entre pelo portão norte %{north} e monte a bike, já que a Cycling Road não dá para cruzar a pé. Desça a ladeira de mão única, parando nas faixas de grama por uma chance de Ponyta."
+              title: "Comece a subir a Cycling Road"
+              text_html: "Entre pela cancela sul %{south} e monte na Bike, já que a estrada não pode ser cruzada a pé. Passe por uma das duas brechas nas beiradas de baixo e suba, parando nas faixas de mato por uma chance de Ponyta."
             "2":
-              title: "Vasculhe a faixa do topo"
-              text: "Logo depois do portão norte, a ladeira se abre no primeiro trecho. Cole na faixa leste e aperte A no ladrilho vazio ali por um Rare Candy oculto; nada aparece na tela."
+              title: "Cave no pé da subida"
+              text: "Logo acima das beiradas, passando a placa Cycling Road Ends, pare no centro-esquerda e aperte A por um Max Elixir escondido. Nada aparece na tela."
               hidden:
-                rare-candy: "Faixa leste, perto do topo junto ao portão norte. Aperte A no ladrilho vazio; nada surge."
+                max-elixir: "Centro-esquerda, perto do fim da estrada junto da placa Cycling Road Ends. Aperte A; nada aparece."
             "3":
-              title: "Revire o trecho central"
-              text: "A cerca de um terço da descida, vá para o centro-esquerda da pista. Aperte A no ladrilho comum ali para desenterrar um Full Restore oculto; nada aparece na tela."
-              hidden:
-                full-restore: "Centro-esquerda da pista, mais ou menos um terço abaixo. Aperte A no ladrilho vazio; nada surge."
-            "4":
-              title: "Cheque a cerca leste"
-              text: "Perto da placa de Dicas de Treinador, vire para a beira leste da pista. Aperte A junto ao ladrilho da cerca por um PP Up oculto; nada aparece na tela."
-              hidden:
-                pp-up: "Beira leste, na altura da placa de Dicas de Treinador. Aperte A no ladrilho da cerca; nada surge."
-            "5":
               title: "Vasculhe a faixa oeste"
-              text: "Mais abaixo, vá para a faixa oeste perto dos Bikers que guardam este trecho. Aperte A no ladrilho vazio ali por um Max Revive oculto; nada aparece na tela."
+              text: "Continue subindo até os Bikers do terço de baixo e vá para a faixa oeste. Aperte A na casa vazia por um Max Revive escondido. Nada aparece na tela."
               hidden:
-                max-revive: "Faixa oeste, terço inferior da pista. Aperte A no ladrilho vazio; nada surge."
+                max-revive: "Faixa oeste, terço de baixo da estrada. Aperte A na casa vazia; nada aparece."
+            "4":
+              title: "Confira a cerca leste"
+              text: "Perto da placa Trainer Tips, vá para a borda leste da estrada. Aperte A contra a casa da cerca por um PP Up escondido. Nada aparece na tela."
+              hidden:
+                pp-up: "Borda leste, na altura da placa Trainer Tips. Aperte A na casa da cerca; nada aparece."
+            "5":
+              title: "Procure na faixa central"
+              text: "Mais ou menos a um terço do topo, vá para o centro-esquerda da estrada. Aperte A na casa lisa para desenterrar um Full Restore escondido. Nada aparece na tela."
+              hidden:
+                full-restore: "Centro-esquerda da estrada, mais ou menos a um terço. Aperte A na casa vazia; nada aparece."
             "6":
-              title: "Cave perto do fim"
-              text: "Perto do pé da ladeira, antes da placa de fim da Cycling Road, pare no centro-esquerda e aperte A por um Max Elixir oculto; nada aparece na tela."
+              title: "Varra a faixa do topo"
+              text: "O último trecho antes da cancela norte. Cole na faixa leste e aperte A na casa vazia por um Rare Candy escondido. Nada aparece na tela."
               hidden:
-                max-elixir: "Centro-esquerda, perto do fim junto à placa de fim da Cycling Road. Aperte A; nada surge."
+                rare-candy: "Faixa leste, perto do topo junto da cancela norte. Aperte A na casa vazia; nada aparece."
             "7":
-              title: "Saia para a Rota 18"
-              text_html: "No pé da ladeira, passando a placa de fim da Cycling Road, atravesse o portão sul %{south} até a Rota 18."
+              title: "Saia pela cancela do topo"
+              text_html: "Passando a última dupla de Bikers, saia pela cancela norte %{north} para a Rota 16."
           oak:
             ponyta: "Uma captura de fogo na grama → Rapidash. Um dos poucos tipos Fogo do Yellow."
         route_18:
@@ -2648,11 +2648,11 @@ pt:
               note: "Um Parasect pronto que sobe de nível rápido pelo bônus de XP de troca. Tangela é uma captura na Zona Safári."
           steps:
             "1":
-              title: "Cruze a leste"
-              text: "Vença os três Bird Keepers espalhados pela estreita faixa de terra no pé da Cycling Road, onde a rota se aperta entre as águas."
+              title: "Atravesse a oeste"
+              text_html: "Saia pela cancela oeste de Fuchsia %{east} para a faixa estreita no pé da Cycling Road, onde a rota se aperta entre a água. Três Bird Keepers estão espalhados por ela."
             "2":
-              title: "Entre em Fuchsia"
-              text_html: "Siga a leste pelo portão %{gate} e entre %{east} em Fuchsia City, casa da Safari Zone e do ginásio do Koga."
+              title: "Chegue ao pé da estrada"
+              text_html: "Siga a oeste pela cancela %{gate} até a base da Cycling Road %{north}. Duas brechas nas beiradas do pé dela são o que deixa você subir a pé."
         saffron_city:
           mart:
             blurb: "O Mart de Saffron tem Max Repel e Full Heal, aberto assim que a Equipe Rocket deixa a cidade."
@@ -2667,11 +2667,11 @@ pt:
           intro: "A capital de Kanto sob ocupação Rocket, um guarda em cada portão. A Silph Co. fica no centro, e a cidade tem dois salões de luta: o ginásio da Sabrina e o Dojo."
           steps:
             "1":
-              title: "Liberte a Silph Co. primeiro"
-              text_html: "O ginásio %{gym} fica trancado enquanto a Rocket segura a Silph Co. %{silph}, então a torre vem primeiro e a Sabrina espera a volta pela cidade."
+              title: "Limpe o Fighting Dojo"
+              text_html: "Vença o Karate Master no Fighting Dojo %{dojo} e pegue um Hitmonlee ou Hitmonchan de graça. Só um dos dois, então escolha o que falta no seu time."
             "2":
-              title: "Reivindique um lutador"
-              text_html: "Vença o Karate Master no Fighting Dojo %{dojo} para levar um Hitmonlee ou Hitmonchan grátis. Só dá para escolher um, então o outro se perde."
+              title: "Liberte a Silph Co."
+              text_html: "O ginásio %{gym} fica trancado enquanto a Rocket segura a Silph Co. %{silph}, então a torre vem em seguida e a Sabrina espera a volta pela cidade."
           oak:
             hitmonlee: "Grátis do Dojo. Escolha Hitmonlee ou Hitmonchan (só um)."
         saffron_city_return:
