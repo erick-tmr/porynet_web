@@ -1015,6 +1015,21 @@ a.pn-wt-route__card:hover {
 
 /* ---- out of reach ---- */
 .pn-eyebrow-label--later { color: #7a5cff; }
+
+/* The return trip a twice-walked stop carries. Its numbers run on from the first visit, so it is
+   the same list under a second heading rather than a section apart: the eyebrow takes the water
+   blue of the HM that unlocks it, and the lead reads like the page's own. */
+.pn-eyebrow-label--second { color: #1f8fbf; }
+.pn-wt-second__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #3a3850;
+  max-width: 680px;
+  margin: 8px 0 18px;
+}
+
 .pn-wt-later__intro {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 500;

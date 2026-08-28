@@ -1079,7 +1079,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [])
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [], second_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
@@ -1092,7 +1092,8 @@ module Walkthrough
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
         gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia, grind: grind,
-        later: later
+        later: later,
+        second_visit: second_after && SecondVisit.new(after: second_after, lead_key: "#{b}.second_lead")
       )
     end
 
@@ -1759,10 +1760,13 @@ module Walkthrough
           { item: [ "TM Double Team", "tm-double-team" ], scene: "safari-zone-item-tm-double-team" },
           { hidden: [ "Revive", "revive", "safari-zone-hidden-revive", "safari-zone-revive" ] },
           { items: [ [ "HM03 Surf", "hm03_surf" ] ] },
+          {},
+          { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
+          { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive",
+            pins: { west: "safari-zone-center/exit-0-10" } },
           { item: [ "Max Potion", "max-potion-8-20" ], scene: "safari-zone-item-max-potion-8-20", at: [ 8, 20 ] },
-          { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive" },
-          {}
-        ],
+          { pins: { north: "safari-zone-center/exit-14-0", west: "safari-zone-center/exit-0-10" } }
+        ], second_after: 13,
         encounters: [
           enc("safari-zone", "102", "SAFARI", "20%", "20–26", "UNCOMMON", "102", "103"),
           enc("safari-zone", "029", "SAFARI", "20%", "14–36", "UNCOMMON", "029", "030", "031"),
@@ -1790,9 +1794,7 @@ module Walkthrough
         oak_queue: [
           oak("safari-zone", "123", 1), oak("safari-zone", "127", 1),
           oak("safari-zone", "147", 1), oak("safari-zone", "115", 1)
-        ],
-        later: [ later("safari-zone", "nugget", "Nugget", "ITEM", "Surf",
-          "safari-zone-item-nugget") ])
+        ])
     end
 
     # Route 16's one grass table, listed by both passes: the strip the Fly detour cuts into is the

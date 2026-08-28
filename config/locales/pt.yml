@@ -152,6 +152,8 @@ pt:
       mode_tag: "MODO: LIVING DEX ⚙"
       steps_eyebrow: "GUIA · ENTRADA → SAÍDA"
       steps_h2: "Seu caminho, passo a passo"
+      second_eyebrow: "SEGUNDA VISITA · DEPOIS DO KOGA"
+      second_h2: "De volta com o Surf"
       steps_after_eyebrow: "APÓS O GINÁSIO · PARA ONDE IR"
       steps_after_h2: "Para onde ir a seguir"
       steps_finale_eyebrow: "ÚLTIMA PARADA · DE VOLTA AO GINÁSIO"
@@ -2405,22 +2407,27 @@ pt:
               items:
                 hm03_surf: "Com o velho na Casa Secreta, canto extremo da Área 3 da Safari Zone. Precisa da Soul Badge do Koga para funcionar fora de batalha."
             "13":
-              title: "Varra o campo de baixo pelo Max Potion"
-              text: "Desça pelo lado oeste até a metade de baixo da Área 3, capturando no caminho, e pegue a bola com um Max Potion."
+              title: "Gaste o que sobrou do contador"
+              text: "Os passos que sobrarem, gaste no mato: Scyther, Pinsir, Chansey e Tauros não vivem em outro lugar. No zero o portão te põe para fora, e as duas coisas que precisam estar na mochila são o HM03 Surf e os Gold Teeth."
+            "14":
+              title: "Use Surf até o Nugget"
+              text: "Reto para cima a partir do portão, use Surf até a ilha da Área Central e pegue a bola que espera lá: um Nugget, que vale ¥5000 em qualquer balcão de Mart."
+              items:
+                nugget: "Área Central, na ilha reto para cima a partir do portão."
+            "15":
+              title: "Atravesse a oeste pelo Max Revive"
+              text_html: "De volta em terra firme, pegue a porta oeste da Área Central %{west} direto para a Área 3. A primeira bola depois da entrada guarda um Max Revive, uma revivida completa achada no chão."
+              items:
+                max-revive: "Área 3 (Oeste), a poucos passos da entrada leste."
+            "16":
+              title: "Passe o morro pelo Max Potion"
+              text: "Atravesse o morro a oeste e desça pela passagem do outro lado, onde a última bola do parque guarda um Max Potion."
               items:
                 max-potion-8-20: "Área 3 (Oeste), canto inferior esquerdo perto do muro de baixo."
-            "14":
-              title: "Corte a leste pelo Max Revive"
-              text: "Siga a leste pelo campo de baixo e pegue a bola com um Max Revive, a última coisa no chão por aqui."
-              items:
-                max-revive: "Área 3 (Oeste), centro-inferior do mapa."
-            "15":
-              title: "Gaste o que sobrou do contador"
-              text: "Os passos que sobrarem, gaste no mato: Scyther, Pinsir, Chansey e Tauros não vivem em outro lugar, e o Super Rod tira Dratini de qualquer lago da Safari. No zero o portão te põe para fora, com os Gold Teeth na mão."
-          later:
-            nugget:
-              where: "Uma Poké Ball na ilhota no meio da Área Central, cercada de água dos quatro lados. Só o Surf chega lá, e o Surf precisa da Soul Badge do Koga."
-              after: "Uma segunda entrada no parque, ¥500 e mais 502 passos, quando a Soul Badge for sua e o Surf funcionar fora de batalha."
+            "17":
+              title: "Encha o resto do contador com capturas"
+              text_html: "Gaste o resto do contador capturando. A Área Central é o centro de tudo: uma porta ao norte %{north} e uma a oeste %{west}, então qualquer metade fica a poucos passos do portão, e o Super Rod tira Dratini de qualquer lago."
+          second_lead: "A Soul Badge do Koga libera o Surf, então ensine a um tipo Água e pague a entrada de novo. Um ¥500 e mais 502 passos limpam tudo que a primeira ida teve que deixar para trás."
           tips:
             scyther: "Um dos dois grandes brutamontes Inseto do Yellow, aqui junto do Pinsir. Isca, depois Safari Balls."
             pinsir: "O Yellow deixa capturar Pinsir e Scyther na Safari. Pegue este também."

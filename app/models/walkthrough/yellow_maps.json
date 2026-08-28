@@ -12545,24 +12545,9 @@
             "lane": 0
           },
           {
-            "id": "item-8-20",
-            "cat": "item",
-            "key": "I3",
-            "x": 28.333,
-            "y": 78.846,
-            "grid": [
-              8,
-              20
-            ],
-            "align": "r",
-            "name": "Max Potion",
-            "ref": "MAX_POTION",
-            "lane": 0
-          },
-          {
             "id": "item-18-18",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 61.667,
             "y": 71.154,
             "grid": [
@@ -12572,6 +12557,21 @@
             "align": "r",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
+            "lane": 0
+          },
+          {
+            "id": "item-8-20",
+            "cat": "item",
+            "key": "I4",
+            "x": 28.333,
+            "y": 78.846,
+            "grid": [
+              8,
+              20
+            ],
+            "align": "r",
+            "name": "Max Potion",
+            "ref": "MAX_POTION",
             "lane": 0
           },
           {

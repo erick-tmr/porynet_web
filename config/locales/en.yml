@@ -152,6 +152,8 @@ en:
       mode_tag: "MODE: LIVING DEX ⚙"
       steps_eyebrow: "WALKTHROUGH · ENTRANCE → EXIT"
       steps_h2: "Your path, step by step"
+      second_eyebrow: "SECOND VISIT · AFTER KOGA"
+      second_h2: "Back in with Surf"
       steps_after_eyebrow: "AFTER THE GYM · WHERE NEXT"
       steps_after_h2: "Where to go next"
       steps_finale_eyebrow: "LAST STOP · BACK TO THE GYM"
@@ -2405,22 +2407,27 @@ en:
               items:
                 hm03_surf: "From the old man in the Secret House, far corner of Safari Zone Area 3. Needs Koga's Soul Badge before it works outside battle."
             "13":
-              title: "Sweep the lower field for the Max Potion"
-              text: "Drop down the west side into the lower half of Area 3, catching as you go, and take the ball there holding a Max Potion."
+              title: "Spend what is left of the clock"
+              text: "Whatever steps remain, spend them in the grass: Scyther, Pinsir, Chansey and Tauros live nowhere else. The gate turns you out at zero, and the two things that must be in your bag are HM03 Surf and the Gold Teeth."
+            "14":
+              title: "Surf out to the Nugget"
+              text: "Straight up the middle from the gate, Surf onto the island in the Center Area and take the ball waiting there: a Nugget, worth ¥5000 at any Mart counter."
+              items:
+                nugget: "Center Area, on the island up the middle from the gate."
+            "15":
+              title: "Cross west for the Max Revive"
+              text_html: "Back on dry land, take the Center Area's west door %{west} straight into Area 3. The first ball past the entrance holds a Max Revive, a full heal off the floor."
+              items:
+                max-revive: "Area 3 (West), a short walk in from the east entrance."
+            "16":
+              title: "Over the mount for the Max Potion"
+              text: "Cross the mount west and drop through the gap on its far side, where the last ball in the park holds a Max Potion."
               items:
                 max-potion-8-20: "Area 3 (West), lower-left near the bottom wall."
-            "14":
-              title: "Cut east for the Max Revive"
-              text: "Angle east across the lower field and grab the ball holding a Max Revive, the last thing on the ground here."
-              items:
-                max-revive: "Area 3 (West), lower-center of the map."
-            "15":
-              title: "Spend what is left of the clock"
-              text: "Whatever steps remain, spend them in the grass: Scyther, Pinsir, Chansey and Tauros live nowhere else, and the Super Rod pulls Dratini out of any Safari pond. At zero the gate turns you out, Gold Teeth in hand."
-          later:
-            nugget:
-              where: "A Poké Ball on the little island in the middle of the Center Area, ringed by water on all four sides. Only Surf reaches it, and Surf needs Koga's Soul Badge."
-              after: "A second trip into the park, ¥500 and another 502 steps, once the Soul Badge is yours and Surf works outside battle."
+            "17":
+              title: "Fill the rest of the clock with catches"
+              text_html: "Spend the rest of the clock catching. The Center Area is the hub: one door north %{north} and one west %{west}, so either half is a short walk from the gate, and the Super Rod pulls Dratini from any pond."
+          second_lead: "Koga's Soul Badge switches Surf on, so teach it to a Water type and pay your way back in. One ¥500 and 502 more steps clears everything the first trip had to leave behind."
           tips:
             scyther: "One of Yellow's two big bug bruisers, here alongside Pinsir. Bait, then Safari Balls."
             pinsir: "Yellow lets you catch both Pinsir and Scyther in the Safari. Grab this one too."

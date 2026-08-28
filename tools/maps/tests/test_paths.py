@@ -377,6 +377,18 @@ def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
         "Carbos", "TM Egg Bomb", "Max Potion", "Full Restore"]
 
 
+def test_safari_area_3_letters_its_second_visit_from_the_east_door(root):
+    """Area 3 is walked twice. The first trip drops in from Area 2 at the top and sweeps the upper
+    band west, so the Gold Teeth and TM32 letter first. The second comes back from the Center once
+    Surf is legal, and from that east door the Max Revive is a few steps away while the Max Potion
+    is over the mount: measured from the north door alone the flood hands them out the other way
+    round."""
+    items = pins(root, "SafariZoneWest", "West", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3", "I4")] == [
+        "Gold Teeth", "TM Double Team", "Max Revive", "Max Potion"]
+
+
 def test_safari_area_2_takes_tm40_on_the_climb_and_the_protein_at_the_top(root):
     """Area 2 is entered on the east edge and crossed behind the fences by its second stair. TM40
     stands on that climb and the Protein is past the top wall, through the one gap in it, so the

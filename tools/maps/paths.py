@@ -237,7 +237,13 @@ ROUTES = {
     # climb and the Protein is beyond the top wall, reached through the one gap in it, so the walk
     # takes them in that order and comes back down for the southwest door.
     "SafariZoneNorth": ("exit-39-30", "item-19-7", "item-25-1"),
-    "SafariZoneWest": ("exit-20-0", "item-19-7", "item-9-7", "hidden-6-5", "item-8-20", "item-18-18"),
+    # Walked twice, so it lists a doorway per visit. The first trip drops in from Area 2 at the top
+    # and sweeps west along that band: Gold Teeth, TM32, the statue hiding the Revive, the Secret
+    # House. The second comes back in from the Center once Surf is legal, and the east door reaches
+    # the Max Revive in a few steps while the Max Potion is over the mount, which is the opposite of
+    # the order one flood from the north hands out.
+    "SafariZoneWest": ("exit-20-0", "item-19-7", "item-9-7", "hidden-6-5",
+                       "exit-29-22", "item-18-18", "item-8-20"),
     "VictoryRoad1F": ("exit-8-17", "item-9-2", "item-11-0"),
     "VictoryRoad2F": (
         "exit-0-8", "hidden-5-2", "item-11-0", "item-9-11", "item-18-9", "hidden-26-7", "item-27-5"

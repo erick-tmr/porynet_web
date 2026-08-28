@@ -494,14 +494,15 @@ module Walkthrough
   Location = Data.define(
     :slug, :kind, :name, :title, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
-    :area_maps, :later, :trivia, :missable, :mart, :grind
+    :area_maps, :later, :trivia, :missable, :mart, :grind, :second_visit
   ) do
     def initialize(name:, title: nil, gym: nil, gym_after: nil, gym_finale: false, area_maps: [],
-      later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil, **rest)
+      later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil,
+      second_visit: nil, **rest)
       super(name: name, title: title || name, gym: gym, gym_after: gym_after,
         gym_finale: gym_finale, area_maps: area_maps,
         later: later, trivia: trivia, missable: missable, trades: trades, mart: mart,
-        grind: grind, **rest)
+        grind: grind, second_visit: second_visit, **rest)
     end
 
     def mart? = !mart.nil?
@@ -579,11 +580,22 @@ module Walkthrough
 
     # steps that lead up to the gym, then the rest: rendered after the gym in this band, or
     # held back with the gym itself when it closes the whole leg
-    def lead_steps = gym_after ? steps.first(gym_after) : steps
+    def lead_steps = steps.first(gym_after || second_visit&.after || steps.size)
     def trailing_steps = gym_after ? steps.drop(gym_after) : []
+
+    # A stop the guide walks twice, in one numbered sequence split across two headings. The Safari
+    # Zone turns you out when its step clock runs down and holds one prize behind an HM the badge
+    # two stops later unlocks, so its leftovers are a return trip rather than a footnote:
+    # everything past `second_visit.after` is that trip, and the numbers run on through it.
+    def second_visit? = !second_visit.nil?
+    def second_visit_steps = second_visit ? steps.drop(second_visit.after) : []
     def after_steps = gym_finale ? [] : trailing_steps
     def finale_steps = gym_finale ? trailing_steps : []
   end
+
+  # The return trip a twice-walked stop carries: the step its first visit ends on, and the line
+  # that says what changed in between and why you are going back.
+  SecondVisit = Data.define(:after, :lead_key)
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do
     def single? = locations.one?

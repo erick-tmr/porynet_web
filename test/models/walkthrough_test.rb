@@ -151,6 +151,31 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil game.leg!("leg-03").finale
   end
 
+  # The park is the one stop the guide cannot finish in one go: its clock turns you out, and the
+  # Nugget out on the Center Area's island needs a Surf that Koga's badge unlocks two stops later.
+  # So the page runs one numbered sequence across two headings rather than filing the leftovers as
+  # a footnote, and the return trip carries the three things the first trip could not take.
+  test "the Safari Zone splits its steps across the visit that has Surf and the one that does not" do
+    park = loc("safari-zone")
+
+    assert park.second_visit?
+    assert_equal (1..13).to_a, park.lead_steps.map(&:n)
+    assert_equal [ 14, 15, 16, 17 ], park.second_visit_steps.map(&:n)
+    assert_equal [ "Nugget", "Max Revive", "Max Potion" ],
+      park.second_visit_steps.flat_map { |step| step.items.map(&:name) }
+    assert_empty park.later, "the return trip is steps now, not a come-back-later block"
+    assert_equal "HM03 Surf", park.lead_steps.last(2).first.items.sole.name,
+      "the first visit ends on the HM, then the step that spends the rest of the clock"
+  end
+
+  test "a stop with no second visit keeps every step in one block" do
+    plain = loc("rocket-hideout")
+
+    refute plain.second_visit?
+    assert_equal plain.steps, plain.lead_steps
+    assert_empty plain.second_visit_steps
+  end
+
   test "a finale gym only sits on a multi-stop leg, where the leg page can render it" do
     assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end

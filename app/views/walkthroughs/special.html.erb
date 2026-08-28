@@ -48,8 +48,10 @@
   <% end %>
 <% else %>
   <% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
-  <%= render "steps_section", loc: @location, steps: @location.steps, heading: true %>
+  <%= render "steps_section", loc: @location, steps: @location.lead_steps, heading: true %>
 <% end %>
+
+<% if @location.second_visit? %><%= render "second_visit", loc: @location %><% end %>
 
 <% if @location.later? %><%= render "later_section", loc: @location %><% end %>
 
