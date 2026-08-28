@@ -30,7 +30,6 @@
       15
     ],
     "player_dir": "DOWN",
-    "player_sprite": "SPRITE_SEEL",
     "follower": false,
     "focus": [
       29,
@@ -1300,7 +1299,6 @@
       35
     ],
     "player_dir": "RIGHT",
-    "player_sprite": "SPRITE_SEEL",
     "follower": false,
     "focus": [
       14,
@@ -2487,7 +2485,6 @@
       11
     ],
     "player_dir": "RIGHT",
-    "player_sprite": "SPRITE_SEEL",
     "follower": false,
     "focus": [
       13,

@@ -494,14 +494,15 @@ module Walkthrough
   Location = Data.define(
     :slug, :kind, :name, :title, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
-    :area_maps, :later, :trivia, :missable, :mart, :grind
+    :area_maps, :later, :trivia, :missable, :mart, :grind, :second_visit
   ) do
     def initialize(name:, title: nil, gym: nil, gym_after: nil, gym_finale: false, area_maps: [],
-      later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil, **rest)
+      later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil,
+      second_visit: nil, **rest)
       super(name: name, title: title || name, gym: gym, gym_after: gym_after,
         gym_finale: gym_finale, area_maps: area_maps,
         later: later, trivia: trivia, missable: missable, trades: trades, mart: mart,
-        grind: grind, **rest)
+        grind: grind, second_visit: second_visit, **rest)
     end
 
     def mart? = !mart.nil?
@@ -579,11 +580,22 @@ module Walkthrough
 
     # steps that lead up to the gym, then the rest: rendered after the gym in this band, or
     # held back with the gym itself when it closes the whole leg
-    def lead_steps = gym_after ? steps.first(gym_after) : steps
+    def lead_steps = steps.first(gym_after || second_visit&.after || steps.size)
     def trailing_steps = gym_after ? steps.drop(gym_after) : []
+
+    # A stop the guide walks twice, in one numbered sequence split across two headings. The Safari
+    # Zone turns you out when its step clock runs down and holds one prize behind an HM the badge
+    # two stops later unlocks, so its leftovers are a return trip rather than a footnote:
+    # everything past `second_visit.after` is that trip, and the numbers run on through it.
+    def second_visit? = !second_visit.nil?
+    def second_visit_steps = second_visit ? steps.drop(second_visit.after) : []
     def after_steps = gym_finale ? [] : trailing_steps
     def finale_steps = gym_finale ? trailing_steps : []
   end
+
+  # The return trip a twice-walked stop carries: the step its first visit ends on, and the line
+  # that says what changed in between and why you are going back.
+  SecondVisit = Data.define(:after, :lead_key)
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do
     def single? = locations.one?
@@ -687,6 +699,43 @@ module Walkthrough
     def gain? = values.first.positive?
   end
   PikachuFriendship = Data.define(:start, :threshold, :max, :rows)
+
+  # The Safari Zone explainer: why nothing in the Safari bag beats a plain throw. Every figure is
+  # read from the disassembly (ItemUseBall in engine/items/item_effects.asm for the throw,
+  # PrintSafariZoneBattleText in engine/battle/safari_zone.asm for the timers, and the flee roll in
+  # engine/battle/core.asm), except the per-encounter odds, which are simulated over those exact
+  # routines because no closed form covers a turn loop with a flee roll in it.
+  #
+  # `rows` on a panel is whatever that panel tabulates, kept as values rather than sentences so the
+  # copy never has to restate a number the model already holds.
+  CatchStep = Data.define(:n, :title_key, :text_key, :rows, :code_key) do
+    def initialize(code_key: nil, **rest) = super
+    def code? = !code_key.nil?
+    def rows? = rows.any?
+  end
+  CatchRow = Data.define(:label_key, :value, :tone) do
+    def initialize(label_key: nil, tone: nil, **rest) = super
+    def labelled? = !label_key.nil?
+  end
+  # One line of the worked example: which step it is, and what that step costs you on this target.
+  CatchCalc = Data.define(:n, :text_key, :value, :tone)
+  # What an item does to the two numbers that matter, and what is left once its timer runs out.
+  CatchItem = Data.define(:key, :sprite, :rate, :rate_note, :flee, :after_key, :tone)
+  # Flee odds per turn for one target, calm and angry. Ranges, because speed moves with DVs.
+  CatchFlee = Data.define(:label_key, :normal, :angry)
+  # One strategy over a whole encounter, as a percentage of encounters that end in a catch.
+  CatchOdds = Data.define(:label_key, :value, :best)
+  CatchTarget = Data.define(:dex, :name, :label_key, :odds, :note_key) do
+    def note? = !note_key.nil?
+  end
+  CatchPanel = Data.define(:key, :sprites, :eyebrow_key, :title_key, :lead_key, :steps, :formula_key,
+    :calc, :items, :flee, :cards) do
+    def initialize(steps: [], calc: [], items: [], flee: [], cards: [], formula_key: nil, **rest) = super
+    def formula? = !formula_key.nil?
+  end
+  CatchCard = Data.define(:key, :title_key, :text_key)
+  SafariCatching = Data.define(:anchor, :panels, :targets, :cards, :verdict_key, :consolation_key,
+    :sample)
 
   # What a Gym Badge does once it is in the case. `kind` is "boost" (an in-battle stat lift for the
   # whole party) or "obey" (the level a traded Pokémon obeys up to), `level` fills the obedience

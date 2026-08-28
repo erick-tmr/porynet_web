@@ -93,9 +93,35 @@ ROUTES = {
         "trainer-46-10", "trainer-41-10", "trainer-41-11", "trainer-35-13", "trainer-31-13",
         "trainer-18-13"
     ),
-    "Route16": ("exit-east",),                      # out of Celadon
-    "Route17": ("exit-north",),
-    "Route18": ("exit-north",),
+    # Up out of Cycling Road, and the six riders are all west of where you surface, between the
+    # road's top gate and the Fly house. You walk the strip out and back rather than past them, so
+    # they are lettered west to east, which is the order you meet them coming home to Celadon.
+    "Route16": (
+        "exit-south", "trainer-3-12", "trainer-6-10", "trainer-9-11", "trainer-11-12",
+        "trainer-14-13", "trainer-17-12"
+    ),
+    # Climbed, not coasted: the guide comes up from Fuchsia, so the road is lettered from its foot.
+    # The only ledges on it are the seven along the bottom row, and two gaps in them let you walk
+    # back up, so the climb is real; everything above that row is open both ways.
+    #
+    # It is also three roads, not one. Barriers run down the middle of the long stretch, at columns
+    # 4-6 and 10-12, so the right lane, the middle and the left never meet between the foot and the
+    # top and each has to be taken on its own. The right and the middle are climbed, the left is
+    # come down: the middle tops out level with where the left lane opens, so you cross at the top
+    # and sweep it downward rather than dropping to the foot a third time. Distance from the south
+    # gate cannot see any of that, so the whole order is named: it deals the road out in height
+    # bands, hopping a barrier every time two pins sit level with each other.
+    "Route17": (
+        "exit-south", "hidden-8-121", "trainer-10-118",
+        "trainer-14-98", "hidden-17-72", "trainer-17-58", "trainer-14-34",
+        "hidden-8-45", "trainer-7-32",
+        "trainer-2-68", "hidden-4-91", "trainer-5-98",
+        "trainer-4-18", "trainer-12-19", "trainer-11-16", "hidden-15-14"
+    ),
+    # Three Bird Keepers in a cluster by the Fuchsia gate, and the flood splits the pair on the
+    # right the wrong way round: the one on the upper shelf is met before the one below it, whichever
+    # end of the route you come in from, so the order is named.
+    "Route18": ("exit-east", "trainer-36-11", "trainer-42-13", "trainer-40-15"),
     "Route19": ("exit-north",),                     # out of Fuchsia
     "Route20": ("exit-east",),
     "Route2": ("exit-south", "item-13-45", "item-13-54"),
@@ -227,9 +253,23 @@ ROUTES = {
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
     "CeruleanCave2F": ("exit-1-3",),
     "CeruleanCaveB1F": ("exit-3-6", "item-2-13", "item-3-13", "hidden-8-14", "item-15-3", "item-26-1"),
-    "SafariZoneEast": ("exit-0-22", "item-15-12", "item-20-13", "item-21-10", "item-3-7"),
-    "SafariZoneNorth": ("exit-39-30",),
-    "SafariZoneWest": ("exit-20-0", "item-19-7", "item-9-7", "hidden-6-5", "item-8-20", "item-18-18"),
+    # In at the southwest corner, along the bottom and up the first stair onto the mount, so the
+    # Carbos is the first ball reached and the Egg Bomb west of it the second. Then the northwest
+    # corner for the Max Potion, back east for the Full Restore and out of the North door. The
+    # flood ranks the Egg Bomb first because it lies nearest the entrance as the crow flies, which
+    # is a wall away from the stair the player actually climbs.
+    "SafariZoneEast": ("exit-0-22", "item-20-13", "item-15-12", "item-3-7", "item-21-10"),
+    # In from Area 1 on the east side and up the second stair, past the fences. TM40 is on the
+    # climb and the Protein is beyond the top wall, reached through the one gap in it, so the walk
+    # takes them in that order and comes back down for the southwest door.
+    "SafariZoneNorth": ("exit-39-30", "item-19-7", "item-25-1"),
+    # Walked twice, so it lists a doorway per visit. The first trip drops in from Area 2 at the top
+    # and sweeps west along that band: Gold Teeth, TM32, the statue hiding the Revive, the Secret
+    # House. The second comes back in from the Center once Surf is legal, and the east door reaches
+    # the Max Revive in a few steps while the Max Potion is over the mount, which is the opposite of
+    # the order one flood from the north hands out.
+    "SafariZoneWest": ("exit-20-0", "item-19-7", "item-9-7", "hidden-6-5",
+                       "exit-29-22", "item-18-18", "item-8-20"),
     "VictoryRoad1F": ("exit-8-17", "item-9-2", "item-11-0"),
     "VictoryRoad2F": (
         "exit-0-8", "hidden-5-2", "item-11-0", "item-9-11", "item-18-9", "hidden-26-7", "item-27-5"
@@ -262,21 +302,24 @@ STEPS = ((0, 1), (0, -1), (1, 0), (-1, 0))
 
 
 @cache
-def route_cells(root_str, label):
-    """The cells the map's authored route runs through, in order.
+def marker_cells(root_str, label, ids):
+    """The cells a list of the map's own marker ids sits on, in the order given.
 
     Marker ids rather than raw coordinates, so a waypoint reads as the thing it is ('exit-8-53' is
     Rock Tunnel's south mouth on Route 10, 'item-1-31' the Poké Ball in the forest's western dead
     end) and stays the same string the walkthrough's own step pins already use."""
-    ids = ROUTES.get(label)
-    if not ids:
-        return ()
     const, _tileset = sources.parse_headers(root_str)[label]
     width_cells, height_cells = markers.map_cells(root_str, const)
     grids = {entry["id"]: tuple(entry["grid"]) for entry in
              markers.build_markers(root_str, label, const,
                                    width_cells * markers.CELL_PX, height_cells * markers.CELL_PX)}
     return tuple(grids[marker_id] for marker_id in ids)
+
+
+def route_cells(root_str, label):
+    """The cells the map's authored route runs through, in order."""
+    ids = ROUTES.get(label)
+    return marker_cells(root_str, label, ids) if ids else ()
 
 
 @cache

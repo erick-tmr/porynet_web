@@ -11,9 +11,11 @@
           <h3 class="pn-wt-gym__name"><%= gym.name %></h3>
           <p class="pn-wt-gym__intro"><%= t(gym.intro_key) %></p>
         </div>
-        <div class="pn-wt-gym__shot-wrap" data-controller="map-markers"
+        <div class="<%= class_names("pn-wt-gym__shot-wrap", "is-routed" => gym.area&.route?) %>"
+             data-controller="map-markers"
              data-map-markers-game-value="<%= @game.slug %>"
              data-map-markers-map-value="<%= gym.area&.name %>"
+             data-map-markers-route-value="<%= gym.area&.route? %>"
              data-map-markers-native-w-value="<%= gym.area&.width %>">
           <div class="pn-wt-shot pn-wt-shot--gym">
             <% if gym.area? %>
@@ -21,6 +23,7 @@
                    data-action="click->map-markers#dismiss">
                 <%= r2_image_tag gym.area.image, alt: "", class: "pn-wt-shot__map-img", loading: "lazy",
                                  width: gym.area.width, height: gym.area.height %>
+                <% if gym.area.route? %><%= render "map_route", area: gym.area %><% end %>
                 <div class="pn-mm-layer" data-map-markers-target="layer">
                   <% gym.pins.each do |marker| %>
                     <%= render "map_marker", marker: marker %>
@@ -32,6 +35,14 @@
             <% end %>
             <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.gym_short") %></span>
           </div>
+          <% if gym.area&.route? %>
+            <button type="button" class="pn-mm-toggle pn-wt-gym__routebtn is-on" aria-pressed="true"
+                    data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
+              <%= t("walkthrough.ui.map_route") %>
+              <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+              <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+            </button>
+          <% end %>
         </div>
       </div>
 

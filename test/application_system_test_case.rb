@@ -25,11 +25,19 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     visit path
   end
 
+  # `pending_connection_errors` makes Cuprite raise when a navigation finishes with requests still
+  # in flight. Every page here asks R2 for thirty-odd sprites, which is more than any wait worth
+  # setting will cover, so on a slow day that raise lands on whichever page happened to be slowest:
+  # three different specs failed on three consecutive runs of the same green commit, each on a
+  # sprite belonging to a page the change never touched. A slow image is not a broken page, and
+  # nothing here asserts on one, so the run stops treating it as a failure. Capybara's own waiting
+  # matchers still hold every assertion to `default_max_wait_time`.
   driven_by :cuprite, screen_size: [ 1400, 1000 ], options: {
-    headless:        ENV["HEADLESS"] != "0",
-    process_timeout: 20,
-    timeout:         15,
-    js_errors:       true,
-    browser_options: ENV["CI"] ? { "no-sandbox" => nil } : {}
+    headless:                  ENV["HEADLESS"] != "0",
+    process_timeout:           20,
+    timeout:                   15,
+    js_errors:                 true,
+    pending_connection_errors: false,
+    browser_options:           ENV["CI"] ? { "no-sandbox" => nil } : {}
   }
 end

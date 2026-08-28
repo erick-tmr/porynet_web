@@ -143,7 +143,7 @@ class ApplicationHelperTest < ActionView::TestCase
     later = Walkthrough::LaterStage.new(dex: "017", name: "Pidgeotto", kind: :catch,
       args: { name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" })
 
-    assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop.",
+    assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey is all the line asks for.",
       later_stage_note(later)
     assert later.catch?
   end

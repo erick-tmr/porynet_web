@@ -10,7 +10,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing five of them twice" do
+  test "the game covers the 52 Kanto stops, drawing six of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
@@ -19,10 +19,11 @@ class WalkthroughTest < ActiveSupport::TestCase
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
     # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
     # back to so the Rocket Hideout is cleared before Erika, Fuchsia (stop 35) is left and come
-    # back to so the Safari Zone hands over the Gold Teeth before Koga, and Route 16 (stop 37) is
-    # dipped into early for Fly and walked properly at Cycling Road. Each pass is its own section,
-    # so 59 sections share 53 numbers.
-    assert_equal 59, g.locations.size
+    # back to so the Safari Zone hands over the Gold Teeth before Koga, Route 16 (stop 37) is
+    # dipped into early for Fly and walked properly at Cycling Road, and Saffron (stop 41) is
+    # arrived at and come back to because its gym stays Rocket-held until Silph is cleared. Each
+    # pass is its own section, so 60 sections share 53 numbers.
+    assert_equal 60, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
@@ -124,7 +125,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "the eight gym locations carry badges" do
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city-return saffron-city cinnabar-island viridian-gym],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city-return saffron-city-return cinnabar-island viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
     assert_equal %w[cinnabar-island], game.leg!("leg-15").gyms.map(&:slug)
     assert_equal %w[viridian-gym], game.leg!("leg-16").gyms.map(&:slug)
@@ -151,6 +152,31 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil game.leg!("leg-03").finale
   end
 
+  # The park is the one stop the guide cannot finish in one go: its clock turns you out, and the
+  # Nugget out on the Center Area's island needs a Surf that Koga's badge unlocks two stops later.
+  # So the page runs one numbered sequence across two headings rather than filing the leftovers as
+  # a footnote, and the return trip carries the three things the first trip could not take.
+  test "the Safari Zone splits its steps across the visit that has Surf and the one that does not" do
+    park = loc("safari-zone")
+
+    assert park.second_visit?
+    assert_equal (1..13).to_a, park.lead_steps.map(&:n)
+    assert_equal [ 14, 15, 16, 17 ], park.second_visit_steps.map(&:n)
+    assert_equal [ "Nugget", "Max Revive", "Max Potion" ],
+      park.second_visit_steps.flat_map { |step| step.items.map(&:name) }
+    assert_empty park.later, "the return trip is steps now, not a come-back-later block"
+    assert_equal "HM03 Surf", park.lead_steps.last(2).first.items.sole.name,
+      "the first visit ends on the HM, then the step that spends the rest of the clock"
+  end
+
+  test "a stop with no second visit keeps every step in one block" do
+    plain = loc("rocket-hideout")
+
+    refute plain.second_visit?
+    assert_equal plain.steps, plain.lead_steps
+    assert_empty plain.second_visit_steps
+  end
+
   test "a finale gym only sits on a multi-stop leg, where the leg page can render it" do
     assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end
@@ -165,20 +191,28 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil first.badge
     assert_equal %w[fuchsia-city], game.leg!("leg-11").locations.map(&:slug).last(1)
     assert_equal %w[safari-zone], game.leg!("safari-zone").locations.map(&:slug)
-    assert_equal %w[fuchsia-city-return], game.leg!("leg-12").locations.map(&:slug)
+    assert_equal %w[fuchsia-city-return], game.leg!("leg-12").locations.map(&:slug).first(1)
     assert back.band_gym?, "a one-stop leg renders its gym in the band, not as a finale"
     assert_equal [ 1 ], back.lead_steps.map(&:n)
-    assert_equal [ 2 ], back.after_steps.map(&:n)
+    assert_equal [ 2, 3 ], back.after_steps.map(&:n),
+      "after the badge: teach Surf and go back for the park, then west for Cycling Road"
     assert_equal "HM04 Strength", back.steps.first.items.sole.name
   end
 
-  test "Silph Co. is freed before Saffron's gym opens, as the leg-13 lead promises" do
-    saffron = game.locations.index(loc("saffron-city"))
-    silph = game.locations.index(loc("silph-co"))
+  # Saffron's gym is Rocket-held until Silph is cleared, so the city is arrived at, left, and come
+  # back to, the way Fuchsia is around the Safari Zone. The badge travels with the second pass,
+  # which is what puts the Marsh deadline on the page before the gym rather than the page after it.
+  test "Saffron is walked twice, with Sabrina on the pass that follows Silph Co." do
+    first, back = loc("saffron-city"), loc("saffron-city-return")
 
-    assert_operator silph, :<, saffron
-    assert_equal 40, loc("silph-co").order
-    assert_equal 41, loc("saffron-city").order
+    assert_nil first.gym, "the gym belongs to the second pass"
+    assert_nil first.badge
+    assert_equal 41, first.order
+    assert_equal 41, back.order, "same stop, walked twice"
+    assert_equal "MARSH", back.badge
+    assert_equal %w[saffron-city], game.leg!("leg-12").locations.map(&:slug).last(1)
+    assert_equal %w[silph-co], game.leg!("silph-co").locations.map(&:slug)
+    assert_equal %w[saffron-city-return], game.leg!("leg-13").locations.map(&:slug)
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-13"))
   end
 

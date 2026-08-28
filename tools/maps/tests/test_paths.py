@@ -365,6 +365,78 @@ def test_tower_4f_takes_the_awakening_before_doubling_back_for_the_hp_up(root):
         ("T1", "CHANNELER:10"), ("T2", "CHANNELER:12"), ("T3", "CHANNELER:9")]
 
 
+def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
+    """You come into Area 1 at the southwest corner, run the bottom wall east and climb the first
+    stair onto the mount, so the Carbos is the first ball in reach and the Egg Bomb west of it the
+    second. The flood reads the Egg Bomb as nearest the entrance because it measures across the
+    wall the stair goes round. The Full Restore is last: it sits four tiles above the Carbos, but
+    the walk takes the northwest corner before doubling back for it."""
+    items = pins(root, "SafariZoneEast", "East", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3", "I4")] == [
+        "Carbos", "TM Egg Bomb", "Max Potion", "Full Restore"]
+
+
+def test_cycling_road_is_lettered_one_lane_at_a_time(root):
+    """Route 17 is three roads, not one: barriers run down the middle of the long stretch at
+    columns 4-6 and 10-12, so the right lane, the middle and the left never meet between the foot
+    and the top, so each is taken on its own: the right and the middle are climbed from the foot,
+    and the left is come down, because the middle tops out level with where it opens. That is why
+    the letters run up, up, then back down. Distance from the south gate sees none of it and deals
+    the road out in height bands, hopping a barrier whenever two pins sit level with each other."""
+    trainers = pins(root, "Route17", "", cat="trainer")
+    hidden = pins(root, "Route17", "", cat="hidden")
+
+    assert [tuple(trainers[f"T{n}"]["grid"]) for n in range(1, 11)] == [
+        (10, 118), (14, 98), (17, 58), (14, 34), (7, 32),
+        (2, 68), (5, 98), (4, 18), (12, 19), (11, 16)]
+    assert [hidden[f"H{n}"]["name"] for n in range(1, 6)] == [
+        "Max Elixir", "PP Up", "Full Restore", "Max Revive", "Rare Candy"]
+
+
+def test_route_16_letters_its_riders_the_way_you_walk_back_to_celadon(root):
+    """All six sit west of where you surface off Cycling Road, between its top gate and the Fly
+    house, with Celadon the other way. You walk the strip out and back to clear them, so they are
+    lettered west to east: that is the order you meet them on the way home, and the order the far
+    one is furthest from rather than nearest."""
+    drawn = pins(root, "Route16", "")
+
+    assert [tuple(drawn[f"T{n}"]["grid"]) for n in range(1, 7)] == [
+        (3, 12), (6, 10), (9, 11), (11, 12), (14, 13), (17, 12)]
+
+
+def test_route_18_takes_the_upper_bird_keeper_before_the_one_below_it(root):
+    """The three Bird Keepers sit in a cluster by the Fuchsia gate, one out west and a pair on the
+    right. Distance alone splits that pair the wrong way round, putting the one down on the sand
+    ahead of the one on the shelf above it, which is not the order either end of the route meets
+    them in."""
+    drawn = pins(root, "Route18", "")
+
+    assert [tuple(drawn[key]["grid"]) for key in ("T1", "T2", "T3")] == [(36, 11), (42, 13), (40, 15)]
+
+
+def test_safari_area_3_letters_its_second_visit_from_the_east_door(root):
+    """Area 3 is walked twice. The first trip drops in from Area 2 at the top and sweeps the upper
+    band west, so the Gold Teeth and TM32 letter first. The second comes back from the Center once
+    Surf is legal, and from that east door the Max Revive is a few steps away while the Max Potion
+    is over the mount: measured from the north door alone the flood hands them out the other way
+    round."""
+    items = pins(root, "SafariZoneWest", "West", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3", "I4")] == [
+        "Gold Teeth", "TM Double Team", "Max Revive", "Max Potion"]
+
+
+def test_safari_area_2_takes_tm40_on_the_climb_and_the_protein_at_the_top(root):
+    """Area 2 is entered on the east edge and crossed behind the fences by its second stair. TM40
+    stands on that climb and the Protein is past the top wall, through the one gap in it, so the
+    letters run TM40 then Protein; measured from the doorway alone the two tie and fall back the
+    other way."""
+    items = pins(root, "SafariZoneNorth", "North", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2")] == ["TM Skull Bash", "Protein"]
+
+
 def test_tower_6f_picks_up_the_x_accuracy_on_the_way_in_not_the_rare_candy(root):
     """The X Accuracy is a short drop south off the first Channeler, a few tiles from the doorway.
     The Rare Candy is over on the west side, reached by going up over the top of the floor and back

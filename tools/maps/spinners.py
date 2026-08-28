@@ -148,20 +148,44 @@ def route(root_str, map_label, stops):
     return [leg(root_str, map_label, start, end) for start, end in zip(stops, stops[1:], strict=False)]
 
 
+# Floors whose way through is a plain walk rather than a ride, drawn anyway because the walls are
+# invisible: Fuchsia's gym is one open pink room to look at and a maze to cross, and the barriers
+# are real collision in the shipped map, so the solver has the answer the player is denied. Each
+# names its own stops, because a spin floor's stops are its pins in lettering order while this
+# floor's walk ends on the leader, who has to letter last however early you could reach him.
+#
+# A stop is a marker id where one will do and a raw cell where none exists. Fuchsia needs the
+# second kind: shortest-first the line climbs the middle lane and stands on two of the trainers it
+# passes, which is a cell the game will not give you, so the corners it turns are named instead.
+# It leaves along the bottom row, climbs the open right-hand lane clear of T1 and T4, runs the top
+# wall to the far left, and comes down to the cell that faces T6 before dropping to Koga.
+WALKED = {"FuchsiaGym": ("exit-4-17", (9, 16), (9, 1), (1, 1), (2, 5), "trainer-4-10")}
+
+
+def route_stops(root_str, map_label):
+    """The cells a floor's drawn line runs between, or () for a floor that gets no line.
+
+    A line is only ever drawn where the walk is already written down. Everywhere else the pins and
+    the steps are enough and a line would be a guess: outside, the flood that orders the pins walks
+    up ledges the player can only fall down, so a route drawn from it would trace a way across the
+    field that does not exist. Indoors there are no ledges, so the two cases left are the arrow
+    floors, where the game states every push, and the floors in WALKED."""
+    named = WALKED.get(map_label)
+    if named:
+        ids = tuple(stop for stop in named if isinstance(stop, str))
+        cells = dict(zip(ids, paths.marker_cells(root_str, map_label, ids), strict=True))
+        return tuple(cells[stop] if isinstance(stop, str) else stop for stop in named)
+    if not arrow_tiles(root_str, map_label):
+        return ()
+    return paths.route_cells(root_str, map_label)
+
+
 def drawn_route(root_str, map_label):
     """The way round one floor as legs of pixel points, or [] for a floor that gets no line.
 
-    Only an arrow floor gets one, and only where the walk is already written down. Everywhere else
-    the pins and the steps are enough, and a line would be a guess: outside, the flood that orders
-    the pins walks up ledges the player can only fall down, so a route drawn from it would trace a
-    way across the field that does not exist. Here the game states every push, so the line is the
-    game's own answer and cannot drift from the floor it is drawn on.
-
     Points are pixel centres of their cells, so the app can hang an SVG over the map at its own
     size without having to know the grid."""
-    if not arrow_tiles(root_str, map_label):
-        return []
-    stops = paths.route_cells(root_str, map_label)
+    stops = route_stops(root_str, map_label)
     if len(stops) < 2:
         return []
     half = markers.CELL_PX // 2

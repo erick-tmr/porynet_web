@@ -102,6 +102,100 @@ module Walkthrough
         rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
     end
 
+    # Why the Safari Zone's own items make things worse. Every number is the game's: the ball
+    # ranges and BallFactor from ItemUseBall, the status bonuses from its ailment table, the
+    # halve/double and the 1-5 timers from ItemUseBait / ItemUseRock, and the flee roll from
+    # engine/battle/core.asm. The per-encounter odds are simulated over those same routines,
+    # 200k encounters a strategy, because a turn loop with a flee roll in it has no closed form.
+    #
+    # The example targets are the two the park is walked for and the two the reader will burn the
+    # most balls on. Both are catch rate 45, which is what makes the arithmetic transferable.
+    CATCH_BALLS = [ [ "poke", "0–255" ], [ "great", "0–200" ], [ "ultra", "0–150" ],
+                    [ "safari", "0–150" ] ].freeze
+    CATCH_STATUS = [ [ "none", "0" ], [ "minor", "12" ], [ "major", "25" ] ].freeze
+    CATCH_KANGA = [ [ 1, "151", nil ], [ 2, "S = 0", nil ], [ 3, "30.5%", "good" ],
+                    [ 4, "X ≈ 85", nil ], [ 5, "33.6%", "good" ] ].freeze
+    CATCH_ITEMS = [ [ "rock", "45 → 90", "20.3%", "46% → 92%", "bad" ],
+                    [ "bait", "45 → 22", "5.1%", "46% → ~11%", "bad" ] ].freeze
+    CATCH_FLEE = [ [ "kangaskhan_28", "43–49%", "86–98%" ], [ "kangaskhan_33", "50–58%", "99.6%" ],
+                   [ "pinsir_25", "37–43%", "73–86%" ] ].freeze
+    CATCH_ODDS = { "115" => [ [ "balls", "20.0%" ], [ "bait_once", "11.8%" ],
+                              [ "bait_every", "9.9%" ], [ "rock_once", "3.5%" ],
+                              [ "rock_every", "1.5%" ] ],
+                   "127" => [ [ "balls", "22.9%" ], [ "bait_once", "13.8%" ],
+                              [ "rock_once", "7.1%" ] ] }.freeze
+    CATCH_CARDS = %w[rock_leaves bait_expires].freeze
+    CATCH_PANEL_CARDS = { "algorithm" => [], "example" => %w[hybrid flees],
+                          "items" => %w[turn_order] }.freeze
+
+    def self.safari_catching
+      b = "#{K}.safari_catching"
+      SafariCatching.new(anchor: "catching", sample: "200,000",
+        verdict_key: "#{b}.verdict", consolation_key: "#{b}.consolation",
+        panels: [ catch_algorithm(b), catch_example(b), catch_items(b) ],
+        targets: CATCH_ODDS.map { |dex, odds| catch_target(b, dex, odds) },
+        cards: CATCH_CARDS.map { |key| CatchCard.new(key: key, title_key: "#{b}.cards.#{key}.title",
+          text_key: "#{b}.cards.#{key}.text") })
+    end
+
+    def self.catch_target(b, dex, odds)
+      key = mon_key(dex)
+      CatchTarget.new(dex: dex, name: NAMES.fetch(dex), label_key: "#{b}.targets.#{key}.label",
+        note_key: (odds.size < 4 ? "#{b}.targets.#{key}.note" : nil),
+        odds: odds.each_with_index.map { |(row, value), i|
+          CatchOdds.new(label_key: "#{b}.odds.#{row}", value: value, best: i.zero?) })
+    end
+
+    def self.catch_algorithm(b)
+      k = "#{b}.panels.algorithm"
+      CatchPanel.new(key: "algorithm", sprites: [ "walkthrough/items/safari-ball.png" ],
+        eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title", lead_key: "#{k}.lead",
+        formula_key: "#{k}.formula_html",
+        steps: (1..5).map { |n| CatchStep.new(n: n, title_key: "#{k}.steps.#{n}.title",
+          text_key: "#{k}.steps.#{n}.text", rows: catch_step_rows(k, n),
+          code_key: (n > 2 ? "#{k}.steps.#{n}.code" : nil)) })
+    end
+
+    # Steps 1 and 2 tabulate a lookup the game does, so they carry rows of values. Steps 3 to 5
+    # quote the arithmetic itself, which is a listing rather than a table and reads the same in
+    # every language, so those carry a `code_key` and no rows.
+    def self.catch_step_rows(k, step)
+      case step
+      when 1 then CATCH_BALLS.map { |key, value| CatchRow.new(label_key: "#{k}.balls.#{key}",
+        value: value, tone: (key == "safari" ? "here" : nil)) }
+      when 2 then CATCH_STATUS.map { |key, value| CatchRow.new(label_key: "#{k}.status.#{key}",
+        value: value) }
+      else []
+      end
+    end
+
+    def self.catch_example(b)
+      k = "#{b}.panels.example"
+      CatchPanel.new(key: "example", sprites: [ "pokemon/yellow/115.png" ],
+        eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title", lead_key: "#{k}.lead",
+        calc: CATCH_KANGA.map { |n, value, tone| CatchCalc.new(n: n, text_key: "#{k}.calc.#{n}",
+          value: value, tone: tone) },
+        cards: CATCH_PANEL_CARDS.fetch("example").map { |key|
+          CatchCard.new(key: key, title_key: "#{k}.cards.#{key}.title",
+            text_key: "#{k}.cards.#{key}.text") })
+    end
+
+    def self.catch_items(b)
+      k = "#{b}.panels.items"
+      CatchPanel.new(key: "items", eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title",
+        lead_key: "#{k}.lead",
+        sprites: [ "walkthrough/items/rock.png", "walkthrough/items/bait.png" ],
+        items: CATCH_ITEMS.map { |key, rate, note, flee, tone|
+          CatchItem.new(key: key, sprite: "walkthrough/items/#{key}.png", rate: rate,
+            rate_note: note, flee: flee, after_key: "#{k}.items.#{key}.after",
+            tone: (key == "bait" ? tone : nil)) },
+        flee: CATCH_FLEE.map { |key, normal, angry|
+          CatchFlee.new(label_key: "#{k}.flee.#{key}", normal: normal, angry: angry) },
+        cards: CATCH_PANEL_CARDS.fetch("items").map { |key|
+          CatchCard.new(key: key, title_key: "#{k}.cards.#{key}.title",
+            text_key: "#{k}.cards.#{key}.text") })
+    end
+
     # Gen 1 pays the Exp. All out in two passes and feeds the second one the first one's leftovers.
     # In engine/battle/core.asm the enemy's base exp is halved, that half goes to the Pokémon that
     # fought (DivideExpDataByNumMonsGainingExp divides it by the number of them, in place), then
@@ -202,9 +296,12 @@ module Walkthrough
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city] },
       { slug: "safari-zone", special: true, locs: %w[safari-zone] },
-      { slug: "leg-12", special: false, locs: %w[fuchsia-city-return] },
+      # Walked north out of Fuchsia, so the routes come in the order they are met rather than the
+      # order they are numbered: west onto 18, up Cycling Road, out of 16's north gate.
+      { slug: "leg-12", special: false,
+        locs: %w[fuchsia-city-return route-18 route-17 route-16 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
-      { slug: "leg-13", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
+      { slug: "leg-13", special: false, locs: %w[saffron-city-return] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "power-plant", special: true, locs: %w[power-plant] },
@@ -442,7 +539,7 @@ module Walkthrough
         underground_path_west_east, route_7, celadon_city,
         rocket_hideout, celadon_city_return, route_16_fly,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
-        fuchsia_city_return,
+        fuchsia_city_return, saffron_city_return,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
@@ -455,6 +552,7 @@ module Walkthrough
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
                    "celadon-city-return" => "celadon-city",
                    "fuchsia-city-return" => "fuchsia-city",
+                   "saffron-city-return" => "saffron-city",
                    "route-16-fly" => "route-16",
                    "route-10-south" => "route-10" }.freeze
 
@@ -1079,7 +1177,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [])
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [], second_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
@@ -1092,7 +1190,8 @@ module Walkthrough
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
         gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia, grind: grind,
-        later: later
+        later: later,
+        second_visit: second_after && SecondVisit.new(after: second_after, lead_key: "#{b}.second_lead")
       )
     end
 
@@ -1710,6 +1809,7 @@ module Walkthrough
     def self.fuchsia_city
       loc("fuchsia-city", "CITY", "Fuchsia City", 35, steps: 3,
         pins: { 1 => { center: "fuchsia-city/exit-19-27", mart: "fuchsia-city/exit-5-13", gym: "fuchsia-city/exit-5-27" },
+                2 => { rod: "fuchsia-city/exit-31-27", back: "fuchsia-city/exit-31-24" },
                 3 => { safari: "fuchsia-city/exit-18-3" } },
         key_items: { 2 => [ [ "Good Rod", "good_rod" ] ] },
         encounters: [
@@ -1735,12 +1835,14 @@ module Walkthrough
         steps: [
           step(b, 1, items: [ item(b, 1, "HM04 Strength", "hm04_strength") ],
             pins: { warden: "fuchsia-city/exit-27-27", gym: "fuchsia-city/exit-5-27" }),
-          step(b, 2, pins: { center: "fuchsia-city/exit-19-27" })
+          step(b, 2, html: true, pins: { center: "fuchsia-city/exit-19-27" },
+            link: StepLink.new(leg: "safari-zone", anchor: "safari-zone-step-14")),
+          step(b, 3, pins: { west: "fuchsia-city/exit-west" })
         ], gym_after: 1,
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
           leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE"), opp: [ "KOGA", 1 ]),
-          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ])
+          puzzle: [ gstep("fuchsia-city", 1) ])
       )
     end
 
@@ -1748,21 +1850,23 @@ module Walkthrough
       loc("safari-zone", "DUNGEON", "Safari Zone", 36, steps: [
           {},
           {},
-          { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
-          { item: [ "TM Egg Bomb", "tm-egg-bomb" ], scene: "safari-zone-item-tm-egg-bomb" },
           { item: [ "Carbos", "carbos" ], scene: "safari-zone-item-carbos" },
-          { item: [ "Full Restore", "full-restore" ], scene: "safari-zone-item-full-restore" },
+          { item: [ "TM Egg Bomb", "tm-egg-bomb" ], scene: "safari-zone-item-tm-egg-bomb" },
           { item: [ "Max Potion", "max-potion-3-7" ], scene: "safari-zone-item-max-potion-3-7", at: [ 3, 7 ] },
-          { item: [ "Protein", "protein" ], scene: "safari-zone-item-protein" },
+          { item: [ "Full Restore", "full-restore" ], scene: "safari-zone-item-full-restore" },
           { item: [ "TM Skull Bash", "tm-skull-bash" ], scene: "safari-zone-item-tm-skull-bash" },
+          { item: [ "Protein", "protein" ], scene: "safari-zone-item-protein" },
           { item: [ "Gold Teeth", "gold-teeth" ], scene: "safari-zone-item-gold-teeth" },
           { item: [ "TM Double Team", "tm-double-team" ], scene: "safari-zone-item-tm-double-team" },
           { hidden: [ "Revive", "revive", "safari-zone-hidden-revive", "safari-zone-revive" ] },
           { items: [ [ "HM03 Surf", "hm03_surf" ] ] },
+          {},
+          { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
+          { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive",
+            pins: { west: "safari-zone-center/exit-0-10" } },
           { item: [ "Max Potion", "max-potion-8-20" ], scene: "safari-zone-item-max-potion-8-20", at: [ 8, 20 ] },
-          { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive" },
-          {}
-        ],
+          { pins: { north: "safari-zone-center/exit-14-0", west: "safari-zone-center/exit-0-10" } }
+        ], second_after: 13,
         encounters: [
           enc("safari-zone", "102", "SAFARI", "20%", "20–26", "UNCOMMON", "102", "103"),
           enc("safari-zone", "029", "SAFARI", "20%", "14–36", "UNCOMMON", "029", "030", "031"),
@@ -1807,9 +1911,9 @@ module Walkthrough
     end
 
     def self.route_16
-      loc("route-16", "ROUTE", "Route 16", 37, steps: 2, shots: [ 1 ],
-        pins: { 1 => { gate: "route-16/exit-17-10" },
-                2 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
+      loc("route-16", "ROUTE", "Route 16", 37, steps: 2, shots: [ 2 ],
+        pins: { 1 => { south: "route-16/exit-south", gate: "route-16/exit-17-4" },
+                2 => { gate: "route-16/exit-17-10", east: "route-16/exit-east" } },
         encounters: route_16_grass +
           [ enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true) ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
@@ -1817,13 +1921,13 @@ module Walkthrough
 
     def self.route_17
       loc("route-17", "ROUTE", "Route 17", 38, steps: [
-          { pins: { north: "route-17/exit-north" } },
-          { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
-          { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
-          { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
-          { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
+          { pins: { south: "route-17/exit-south" } },
           { hidden: [ "Max Elixir", "max-elixir", "route-17-hidden-max-elixir", "route-17-max-elixir" ] },
-          { pins: { south: "route-17/exit-south" } }
+          { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
+          { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
+          { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
+          { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
+          { pins: { north: "route-17/exit-north" } }
         ],
         encounters: [
           enc("route-17", "084", "GRASS", "50%", "26–28", "COMMON", "084", "085"),
@@ -1841,7 +1945,8 @@ module Walkthrough
 
     def self.route_18
       loc("route-18", "ROUTE", "Route 18", 39, steps: 2,
-        pins: { 2 => { gate: "route-18/exit-33-8", east: "route-18/exit-east" } },
+        pins: { 1 => { east: "route-18/exit-east" },
+                2 => { gate: "route-18/exit-33-8", north: "route-18/exit-north" } },
         encounters: [
           enc("route-18", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-18", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
@@ -1859,15 +1964,29 @@ module Walkthrough
     end
 
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 41, steps: 2, gym_after: 1, badge: "MARSH",
-        pins: { 1 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
-                2 => { dojo: "saffron-city/exit-26-3" } },
+      loc("saffron-city", "CITY", "Saffron City", 41, steps: 2,
+        pins: { 1 => { dojo: "saffron-city/exit-26-3" },
+                2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" } },
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
+        oak_queue: [ oak("saffron-city", "106", 1) ])
+    end
+
+    # Saffron is walked twice for the reason the city itself gives: the gym's doors are Rocket-held
+    # until Silph is cleared, so arriving and challenging Sabrina are two visits with a dungeon
+    # between them. Splitting the page splits the badge off with the second, which is what puts
+    # Oak's deadline for the Marsh Badge in front of the gym that closes it rather than behind.
+    def self.saffron_city_return
+      b = base("saffron-city-return")
+      Location.new(
+        slug: "saffron-city-return", kind: "CITY", name: "Saffron City", order: 41,
+        badge: "MARSH", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1, pins: { gym: "saffron-city/exit-34-3" }) ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE"), opp: [ "SABRINA", 1 ]),
-          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ]),
-        oak_queue: [ oak("saffron-city", "106", 1) ])
+          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ])
+      )
     end
 
     def self.silph_co

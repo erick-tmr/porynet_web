@@ -12,7 +12,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal [ "Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni", nil ],
       game.windows.map(&:leader)
     assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return
-                    fuchsia-city-return saffron-city cinnabar-island viridian-gym cerulean-cave],
+                    fuchsia-city-return saffron-city-return cinnabar-island viridian-gym cerulean-cave],
       game.windows.map { |win| win.slugs.last }
     assert game.windows.last.final?, "nothing closes the run but the League"
     assert_equal "Pewter Gym", game.windows.first.gym_name
@@ -125,7 +125,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   # stopped dead by a trade.
   test "a queued species says how the stage above it gets filled" do
     kinds = {
-      [ "leg-01", "016" ] => :catch, [ "leg-13", "084" ] => :rare,
+      [ "leg-01", "016" ] => :catch, [ "leg-12", "084" ] => :rare,
       [ "viridian-forest", "011" ] => :level, [ "mt-moon", "035" ] => :stone,
       [ "victory-road", "075" ] => :trade, [ "leg-01", "025" ] => :refused
     }
@@ -139,10 +139,18 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       found[[ "mt-moon", "035" ]].args)
   end
 
-  test "a species the page only points at carries no quota line to explain" do
-    assert_nil plan("viridian-forest").entry_for("016").later,
-      "Route 1 owns the Pidgey row, so the forest card just sends you back to it"
-    assert_nil plan("leg-13").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
+  # The card is read where the reader stands, not where the plan files it, so a page that only
+  # points at a species still answers the question its evolution line raises: is the stage above
+  # catchable too, or does the quota owe a second body? Only a species the run never takes stays
+  # silent, because nothing is owed for it anywhere.
+  test "a species the page only points at still says how the stage above it gets filled" do
+    away = plan("viridian-forest").entry_for("016")
+
+    assert_equal :catch, away.later.kind,
+      "Route 1 owns the Pidgey row, but the forest card still says Route 13 has the Pidgeotto"
+    assert_equal({ name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" }, away.later.args)
+    refute away.fresh?, "and it is still the row Route 1 owns, not a second claim on the body"
+    assert_nil plan("leg-12").entry_for("085").later, "nothing is owed for a Dodrio you never catch"
     assert_equal "walkthrough.ui.ld_why_later", plan("leg-01").entry_for("016").why_key,
       "one Pidgey is the whole point, so the row says which stop takes the rest of the line"
   end

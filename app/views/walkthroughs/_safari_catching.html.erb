@@ -1,0 +1,221 @@
+<% sc = Walkthrough::Yellow.safari_catching %>
+<% k = "#{Walkthrough::Yellow::K}.safari_catching" %>
+<section id="<%= sc.anchor %>" class="pn-wt-section pn-sc">
+  <div class="pn-eyebrow-label pn-eyebrow-label--catching"><%= t("#{k}.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{k}.h2") %></h2>
+  <p class="pn-sc__lead"><%= t("#{k}.lead") %></p>
+
+  <div class="pn-sc__panels-label"><%= t("#{k}.panels_label") %></div>
+  <p class="pn-sc__panels-lead"><%= t("#{k}.panels_lead") %></p>
+
+  <% sc.panels.each do |panel| %>
+    <div class="pn-sc__panel" data-controller="disclosure">
+      <button type="button" class="pn-sc__head" data-disclosure-target="toggle"
+              data-action="disclosure#toggle" aria-expanded="false"
+              aria-controls="pn-sc-<%= panel.key %>">
+        <span class="pn-sc__head-icons">
+          <% panel.sprites.each do |sprite| %>
+            <%= r2_image_tag sprite, alt: "", class: "pn-sc__head-icon" %>
+          <% end %>
+        </span>
+        <span class="pn-sc__head-main">
+          <span class="pn-sc__eyebrow"><%= t(panel.eyebrow_key) %></span>
+          <span class="pn-sc__title"><%= t(panel.title_key) %></span>
+        </span>
+        <span class="pn-sc__state">
+          <span class="pn-sc__state-txt pn-sc__state-txt--show"><%= t("#{k}.show") %></span>
+          <span class="pn-sc__state-txt pn-sc__state-txt--hide"><%= t("#{k}.hide") %></span>
+        </span>
+        <span class="pn-sc__chevron" aria-hidden="true">▼</span>
+      </button>
+
+      <div class="pn-sc__body" id="pn-sc-<%= panel.key %>" data-disclosure-target="body" hidden>
+        <p class="pn-sc__body-lead"><%= t(panel.lead_key) %></p>
+
+        <% panel.steps.each do |step| %>
+          <div class="pn-sc__step">
+            <div class="pn-sc__step-main">
+              <div class="pn-sc__step-title">
+                <span class="pn-sc__step-n"><%= t("#{k}.step_n", n: step.n) %></span>
+                <%= t(step.title_key) %>
+              </div>
+              <p class="pn-sc__step-text"><%= t(step.text_key) %></p>
+            </div>
+            <% if step.rows? %>
+              <div class="pn-sc__step-rows">
+                <% step.rows.each do |row| %>
+                  <span class="<%= class_names("pn-sc__row-label", "is-here" => row.tone == "here") %>"><%= t(row.label_key) %></span>
+                  <span class="<%= class_names("pn-sc__row-val", "is-here" => row.tone == "here") %>"><%= row.value %></span>
+                <% end %>
+              </div>
+            <% end %>
+            <% if step.code? %>
+              <pre class="pn-sc__code"><%= t(step.code_key) %></pre>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if panel.formula? %>
+          <div class="pn-sc__formula">
+            <span class="pn-sc__scan" aria-hidden="true"></span>
+            <div class="pn-sc__formula-label"><%= t("#{k}.formula_label") %></div>
+            <pre class="pn-sc__formula-body"><%= t(panel.formula_key) %></pre>
+          </div>
+        <% end %>
+
+        <% if panel.calc.any? %>
+          <div class="pn-sc__calc">
+            <span class="pn-sc__scan" aria-hidden="true"></span>
+            <div class="pn-sc__calc-head">
+              <%= r2_image_tag "pokemon/yellow/115.png", alt: "", class: "pn-sc__calc-sprite" %>
+              <%= r2_image_tag "walkthrough/items/safari-ball.png", alt: "", class: "pn-sc__calc-ball" %>
+              <div>
+                <div class="pn-sc__calc-title"><%= t("#{k}.panels.example.subject") %></div>
+                <div class="pn-sc__calc-sub"><%= t("#{k}.panels.example.stats") %></div>
+              </div>
+            </div>
+            <div class="pn-sc__calc-rows">
+              <% panel.calc.each do |row| %>
+                <span class="pn-sc__calc-n"><%= t("#{k}.step_label", n: row.n) %></span>
+                <span class="pn-sc__calc-text"><%= t(row.text_key) %></span>
+                <span class="<%= class_names("pn-sc__calc-val", "is-good" => row.tone == "good") %>"><%= row.value %></span>
+              <% end %>
+            </div>
+            <div class="pn-sc__calc-out">
+              <span class="pn-sc__calc-big"><%= t("#{k}.panels.example.per_ball") %></span>
+              <p class="pn-sc__calc-note"><%= t("#{k}.panels.example.per_ball_note") %></p>
+            </div>
+          </div>
+        <% end %>
+
+        <% if panel.items.any? %>
+          <div class="pn-sc__items-wrap">
+            <div class="pn-sc__items">
+              <div class="pn-sc__items-row pn-sc__items-row--head">
+                <span></span>
+                <span><%= t("#{k}.col_rate") %></span>
+                <span><%= t("#{k}.col_flee") %></span>
+                <span><%= t("#{k}.col_after") %></span>
+              </div>
+              <% panel.items.each do |item| %>
+                <div class="pn-sc__items-row">
+                  <span class="pn-sc__item-name">
+                    <%= r2_image_tag item.sprite, alt: "", class: "pn-sc__item-icon" %>
+                    <%= t("#{k}.panels.items.items.#{item.key}.name") %>
+                  </span>
+                  <span class="<%= class_names("pn-sc__item-rate", "is-bad" => item.tone == "bad") %>">
+                    <%= item.rate %>
+                    <span class="pn-sc__item-note"><%= t("#{k}.per_ball", rate: item.rate_note) %></span>
+                  </span>
+                  <span class="<%= class_names("pn-sc__item-flee", "is-bad" => item.key == "rock") %>"><%= item.flee %></span>
+                  <span class="<%= class_names("pn-sc__item-after", "is-bad" => item.tone == "bad") %>"><%= t(item.after_key) %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <p class="pn-sc__items-note"><%= t("#{k}.panels.items.after_note") %></p>
+
+          <div class="pn-sc__two">
+            <div class="pn-sc__turns">
+              <span class="pn-sc__scan" aria-hidden="true"></span>
+              <div class="pn-sc__turns-label"><%= t("#{k}.panels.items.turns_label") %></div>
+              <ol class="pn-sc__turns-list">
+                <% (1..3).each do |n| %>
+                  <li class="pn-sc__turn">
+                    <span class="<%= class_names("pn-sc__turn-n", "is-flee" => n == 3) %>"><%= n %>.</span>
+                    <span><%= t("#{k}.panels.items.turns.#{n}") %></span>
+                  </li>
+                <% end %>
+              </ol>
+            </div>
+            <div>
+              <div class="pn-sc__flee-label"><%= t("#{k}.panels.items.flee_label") %></div>
+              <div class="pn-sc__flee">
+                <div class="pn-sc__flee-row pn-sc__flee-row--head">
+                  <span><%= t("#{k}.col_target") %></span>
+                  <span><%= t("#{k}.col_normal") %></span>
+                  <span><%= t("#{k}.col_angry") %></span>
+                </div>
+                <% panel.flee.each do |row| %>
+                  <div class="pn-sc__flee-row">
+                    <span><%= t(row.label_key) %></span>
+                    <span><%= row.normal %></span>
+                    <span class="pn-sc__flee-angry"><%= row.angry %></span>
+                  </div>
+                <% end %>
+              </div>
+              <p class="pn-sc__flee-note"><%= t("#{k}.panels.items.flee_note") %></p>
+            </div>
+          </div>
+        <% end %>
+
+        <% if panel.cards.any? %>
+          <div class="pn-sc__two pn-sc__two--cards">
+            <% panel.cards.each do |card| %>
+              <div>
+                <div class="pn-sc__card-title"><%= t(card.title_key) %></div>
+                <p class="pn-sc__card-text"><%= t(card.text_key) %></p>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="pn-sc__answer">
+    <div class="pn-sc__answer-head">
+      <div class="pn-sc__answer-tags">
+        <span class="pn-sc__answer-chip"><%= t("#{k}.answer_chip") %></span>
+        <span class="pn-sc__answer-sample"><%= t("#{k}.answer_sample", count: sc.sample) %></span>
+      </div>
+      <h3 class="pn-sc__answer-h3">
+        <%= t("#{k}.answer_lead") %>
+        <span class="pn-sc__answer-mark"><%= t("#{k}.answer_mark") %></span>
+      </h3>
+      <p class="pn-sc__answer-text"><%= t("#{k}.answer_text") %></p>
+    </div>
+
+    <div class="pn-sc__answer-body">
+      <p class="pn-sc__answer-caption"><%= t("#{k}.answer_caption") %></p>
+      <div class="pn-sc__two">
+        <% sc.targets.each do |target| %>
+          <div>
+            <div class="pn-sc__target">
+              <%= r2_image_tag "pokemon/yellow/#{target.dex}.png", alt: "", class: "pn-sc__target-sprite" %>
+              <span class="pn-sc__target-name"><%= t(target.label_key) %></span>
+            </div>
+            <div class="pn-sc__odds">
+              <% target.odds.each do |row| %>
+                <div class="<%= class_names("pn-sc__odds-row", "is-best" => row.best) %>">
+                  <span class="pn-sc__odds-label"><%= t(row.label_key) %></span>
+                  <span class="pn-sc__odds-val"><%= row.value %></span>
+                </div>
+              <% end %>
+            </div>
+            <% if target.note? %>
+              <p class="pn-sc__target-note"><%= t(target.note_key) %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-sc__two pn-sc__two--cards">
+        <% sc.cards.each do |card| %>
+          <div>
+            <div class="pn-sc__card-title"><%= t(card.title_key) %></div>
+            <p class="pn-sc__card-text"><%= t(card.text_key) %></p>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-sc__verdict">
+        <span class="pn-sc__scan" aria-hidden="true"></span>
+        <p class="pn-sc__verdict-text"><%= t(sc.verdict_key) %></p>
+        <p class="pn-sc__verdict-note"><%= t(sc.consolation_key) %></p>
+      </div>
+
+      <p class="pn-sc__source"><%= t("#{k}.source") %></p>
+    </div>
+  </div>
+</section>

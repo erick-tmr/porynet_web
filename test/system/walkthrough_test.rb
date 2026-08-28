@@ -118,6 +118,43 @@ class WalkthroughTest < ApplicationSystemTestCase
     resize_to(1400, 1000)
   end
 
+  # The rate-by-floor rows on one card exist to be read against each other, so the bar is only
+  # honest if every row draws it in the same place at the same width. Sized row by row they were
+  # not: a "Center" chip is wider than a "West" one, and it stole the difference from its own bar,
+  # so two floors at the same rate drew different lengths. The Safari Zone is the page that shows
+  # it, being the one whose floors have names rather than numbers.
+  test "every rate bar on a card is the same size, whatever its floor is called" do
+    visit walkthrough_leg_path(game: "yellow", leg: "safari-zone")
+
+    assert_selector ".pn-wt-floors__list--floors"
+    boxes = page.evaluate_script(<<~JS)
+      [...document.querySelectorAll('.pn-wt-floors__list')].map(list =>
+        [...list.querySelectorAll('.pn-wt-floors__track')].map(track => {
+          const box = track.getBoundingClientRect();
+          return [Math.round(box.x), Math.round(box.width)];
+        }))
+    JS
+
+    refute_empty boxes
+    boxes.each { |card| assert_equal 1, card.uniq.size, "a card's tracks must share one column" }
+  end
+
+  # The catching explainer is three folded panels and the answer they point at. Folded is the point:
+  # a reader who only wants the verdict should see it without scrolling past the arithmetic, and a
+  # reader who wants the arithmetic should get it without leaving the page.
+  test "the Safari catching panels stay folded until asked, and the answer is always out" do
+    visit walkthrough_leg_path(game: "yellow", leg: "safari-zone")
+
+    assert_selector "#catching .pn-sc__verdict-text", text: /Throw a ball every turn/
+    assert_selector "#catching .pn-sc__panel", count: 3
+    assert_no_selector "#catching .pn-sc__body", visible: true
+
+    find(".pn-sc__head[aria-controls='pn-sc-algorithm']").click
+
+    assert_selector "#pn-sc-algorithm", visible: true, text: "BallFactor = 12"
+    assert_selector ".pn-sc__head[aria-controls='pn-sc-algorithm'][aria-expanded='true']"
+  end
+
   test "a special stop opens its dedicated page and the language toggle stays put" do
     visit walkthrough_path(game: "yellow")
 

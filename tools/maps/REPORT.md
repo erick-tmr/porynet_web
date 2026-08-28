@@ -137,7 +137,7 @@
 - `route-12` step 2: walkthrough/yellow/scenes/route-12-snorlax.png
 - `route-12` step 4: walkthrough/yellow/scenes/route-12-super-rod-gift.png
 - `route-15` step 3: walkthrough/yellow/scenes/route-15-gate-exp-all.png
-- `route-16` step 1: walkthrough/yellow/scenes/route-16-snorlax.png
+- `route-16` step 2: walkthrough/yellow/scenes/route-16-snorlax.png
 - `route-16-fly` step 2: walkthrough/yellow/scenes/route-16-fly-gift.png
 - `route-2` step 2: walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `route-22` step 1: walkthrough/yellow/scenes/viridian-to-route-22.png

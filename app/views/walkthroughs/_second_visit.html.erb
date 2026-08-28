@@ -1,0 +1,10 @@
+<section class="pn-wt-section pn-wt-second">
+  <div class="pn-eyebrow-label pn-eyebrow-label--second"><%= t("walkthrough.ui.second_eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("walkthrough.ui.second_h2") %></h2>
+  <p class="pn-wt-second__lead"><%= t(loc.second_visit.lead_key) %></p>
+  <div class="pn-wt-steps">
+    <% loc.second_visit_steps.each do |step| %>
+      <%= render "step", step: step, slug: loc.slug %>
+    <% end %>
+  </div>
+</section>

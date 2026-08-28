@@ -14,6 +14,7 @@ Spec types:
 """
 import compositor
 import follower
+import markers
 import sources
 
 PLAYER_NAME = "PORYNET"    # our default hero name, all caps like a standard Pokemon name
@@ -21,14 +22,22 @@ RIVAL_NAME = "BLUE"        # Yellow's default rival name
 RIVAL_CLASSES = {"RIVAL1", "RIVAL2", "RIVAL3"}
 HERO_SPRITE = "SPRITE_RED"
 
+# Step off dry land and the game swaps the hero's own sprite, and which one it swaps to is the same
+# per-build fact as the follower: LoadSurfingPlayerSpriteGraphics2 (home/overworld.asm) loads
+# SurfingPikachuSprite when the Pokemon carrying you is the starter Pikachu and SeelSprite for
+# every other surfer. Yellow's hero always has that Pikachu, so Yellow rides it and Red/Blue ride
+# the generic blob. `SurfingPikachuSprite` is named by its gfx label because the sheet has no
+# SPRITE_* id: nothing in the world is ever built out of it, the engine only loads it over you.
+SURF_SPRITE = "SPRITE_SEEL"
+PIKACHU_SURF_SPRITE = "SurfingPikachuSprite"
+
 MAP_TYPES = {"map", "arrows", "npc"}
 SCREEN_TYPES = {"dialog", "screen"}
 
 
 def _resolve_sprite(root, entry):
     """Normalize a spec sprite {sprite, grid, dir?/frame?, flip?} to an overlay sprite."""
-    ref = entry["sprite"]
-    file = sources.parse_sprite_table(root).get(ref, ref.lower()) if ref.startswith("SPRITE_") else ref
+    file = sources.sprite_file(root, entry["sprite"])
     if "frame" in entry:
         frame, flip = entry["frame"], entry.get("flip", False)
     else:
@@ -98,6 +107,28 @@ def gen_map_scene(root, spec):
     return image, spec["name"], {}
 
 
+def afloat(root, map_label, cell):
+    """True when a cell is water the hero can only be on by surfing: somewhere they can be, but
+    not dry land. Scenes on a map with no header (a composed backdrop) read as dry."""
+    headers = sources.parse_headers(root)
+    if map_label not in headers:
+        return False
+    const, tileset = headers[map_label]
+    _idx, w_blocks, _h_blocks = sources.parse_map_constants(root)[0][const]
+    return not markers.cell_is_land(root, map_label, tileset, w_blocks, tuple(cell))
+
+
+def hero_sprite(root, spec):
+    """The sprite a scene draws its hero with: the surf sprite out on the water, the walking hero
+    on land, and whatever `player_sprite` names when a spec overrides both."""
+    named = spec.get("player_sprite")
+    if named:
+        return named
+    if afloat(root, spec["map"], spec["player"]):
+        return PIKACHU_SURF_SPRITE if follower.FOLLOWER_SPRITE == "SPRITE_PIKACHU" else SURF_SPRITE
+    return HERO_SPRITE
+
+
 def _screen_sprites(root, spec):
     """The cast a screen scene draws: the hero, any hand-placed sprites, and (unless the scene
     composes its own cast) the map's real people and trainers as landmarks.
@@ -112,10 +143,10 @@ def _screen_sprites(root, spec):
     it comes back (or goes) at its real cell, sprite and facing rather than being retyped as
     `sprites`.
 
-    `player_sprite` swaps the sprite the hero is drawn with, for the shots where the game itself
-    would: Gen 1 puts you on SPRITE_SEEL the moment you step onto water, so a scene standing the
-    hero on a water tile has to say so or it draws someone walking on the sea."""
-    sprites = [_resolve_sprite(root, {"sprite": spec.get("player_sprite", HERO_SPRITE),
+    The hero rides the surf sprite whenever the scene stands them on water, which is read off the
+    map rather than declared, so a shot taken from a water tile cannot draw someone walking on the
+    sea. `player_sprite` overrides that for the rare shot the rule does not cover."""
+    sprites = [_resolve_sprite(root, {"sprite": hero_sprite(root, spec),
                                       "grid": spec["player"],
                                       "dir": spec.get("player_dir", "DOWN")})]
     sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]

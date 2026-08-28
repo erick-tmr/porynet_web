@@ -180,7 +180,7 @@ module Walkthrough
     def self.build_entry(game, span, dex, home, shown)
       covers = covered_by(game, dex)
       here = home.slug == shown.slug
-      later = here && covers.any? ? later_for(game, dex) : nil
+      later = covers.any? ? later_for(game, dex) : nil
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
         stop_name: shown.name, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
         boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,

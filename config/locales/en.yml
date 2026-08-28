@@ -152,6 +152,8 @@ en:
       mode_tag: "MODE: LIVING DEX ⚙"
       steps_eyebrow: "WALKTHROUGH · ENTRANCE → EXIT"
       steps_h2: "Your path, step by step"
+      second_eyebrow: "SECOND VISIT · AFTER KOGA"
+      second_h2: "Back in with Surf"
       steps_after_eyebrow: "AFTER THE GYM · WHERE NEXT"
       steps_after_h2: "Where to go next"
       steps_finale_eyebrow: "LAST STOP · BACK TO THE GYM"
@@ -460,7 +462,7 @@ en:
       ld_progress_met: "QUOTA MET ✓"
       ld_add: "Log one caught"
       ld_remove: "Remove one"
-      ld_later_catch: "%{stop} has %{name} at %{rate}, so one %{base} covers this stop."
+      ld_later_catch: "%{stop} has %{name} at %{rate}, so one %{base} is all the line asks for."
       ld_later_rare: "%{stop} has %{name} at only %{rate}, so grow the spare %{base} instead of hunting one."
       ld_later_level: "%{name} is never wild, so the spare %{base} levels to %{level}."
       ld_later_stone: "%{name} is never wild, so the spare %{base} takes the %{stone}."
@@ -685,9 +687,9 @@ en:
         leg_11:
           lead: "The southern fishing routes down to Fuchsia, and the errands that set the town up for the Safari Zone."
         leg_12:
-          lead: "Back into Fuchsia with the Gold Teeth: trade them to the Warden for Strength, then take Koga's invisible-wall maze."
+          lead: "Koga first, with the Gold Teeth in hand, then the long ride down Cycling Road and north to Saffron's front door."
         leg_13:
-          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
+          lead: "Silph is clear, so the gym opens. One stop, one badge."
         leg_14:
           lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_15:
@@ -972,6 +974,151 @@ en:
           where: "CERULEAN · PRE-MISTY"
           name: "The Mew glitch"
           note: "Catch #151 in-game. Full steps, warnings and a level calculator."
+      safari_catching:
+        eyebrow: "TRIVIA · SAFARI CATCHING"
+        h2: "Why Kangaskhan keeps running"
+        lead: "Inside the park you cannot attack and cannot inflict status, so the two levers that normally help you catch things are gone. Here is what is left, and what to do with it."
+        panels_label: "THE MATH, IF YOU WANT IT"
+        panels_lead: "Three panels of background. Open them to see where the numbers come from, or skip to the answer below."
+        show: "SHOW"
+        hide: "HIDE"
+        step_n: "Step %{n}."
+        step_label: "STEP %{n}"
+        per_ball: "(%{rate}/ball)"
+        formula_label: "THE WHOLE FORMULA"
+        col_rate: "CATCH RATE"
+        col_flee: "FLEE RATE"
+        col_after: "AFTER THE TIMER"
+        col_target: "TARGET"
+        col_normal: "NORMAL"
+        col_angry: "ANGRY"
+        answer_chip: "THE ANSWER"
+        answer_sample: "%{count} simulated encounters"
+        answer_lead: "Just throw balls."
+        answer_mark: "Every turn."
+        answer_text: "Nothing in your Safari bag beats the plain throw. Rocks and bait both look like they help, and both make your odds worse over a whole encounter."
+        answer_caption: "Chance of catching per encounter, using the real turn order and flee rolls."
+        verdict: "Rocks make the Pokémon leave before you can use the bonus. Bait makes the bonus expire before the penalty does. Throw a ball every turn, from turn one."
+        consolation: "And do not feel bad about missing. At roughly 10% per ball with a coin-flip escape every turn, a Kangaskhan slipping away after four balls is the completely ordinary outcome."
+        source: "Every formula here is read from the pret/pokeyellow disassembly. Speed and HP move with DVs, so figures are ranges or midpoints."
+        odds:
+          balls: "Throw balls only"
+          bait_once: "Bait once, then balls"
+          bait_every: "Bait on every reset"
+          rock_once: "Rock once, then balls"
+          rock_every: "Rock on every reset"
+        targets:
+          kangaskhan:
+            label: "KANGASKHAN L28"
+          pinsir:
+            label: "PINSIR L25"
+            note: "Balls per catch: about 9.7 throwing only, against 19.5 if you open with bait."
+        cards:
+          rock_leaves:
+            title: "The rock leaves before you use it"
+            text: "Doubling both the catch rate and the flee rate is close to a wash by itself. You also pay a full turn at 92% flee to set it up, and one time in five the timer expires immediately."
+          bait_expires:
+            title: "Bait's benefit expires first"
+            text: "A few sheltered turns at 5.1% per ball, then flee snaps back to 46% while the catch rate stays halved. The target sticks around longer and is harder to catch, so you burn more balls too."
+        panels:
+          algorithm:
+            eyebrow: "MECHANIC · EVERY BALL YOU THROW"
+            title: "How catching works in Yellow"
+            lead: "Every ball runs the same routine: five steps, two random numbers, some integer division. There is no hidden catch chance stat. A Master Ball exits before any of it as a guaranteed catch."
+            formula_html: |-
+              P(catch) = P(Rand1 &lt; S)                                <span class="pn-sc__note">free catch from status</span>
+                       + P(S ≤ Rand1 ≤ min(catchRate + S, maxRand))  <span class="pn-sc__note">survives step 3</span>
+                         × P2
+
+              where P2 = 1              <span class="pn-sc__note">if W &gt; 255</span>
+                         (X + 1) / 256  <span class="pn-sc__note">otherwise</span>
+            balls:
+              poke: "Poké Ball"
+              great: "Great Ball"
+              ultra: "Ultra Ball"
+              safari: "Safari Ball"
+            status:
+              none: "None"
+              minor: "Burn / Para / Poison"
+              major: "Freeze / Sleep"
+            steps:
+              "1":
+                title: "Roll Rand1 inside the ball's range"
+                text: "The game re-rolls until the byte lands in range, so it is uniform. A smaller range is better, because Rand1 has to come in low to survive step 3."
+              "2":
+                title: "Subtract the status bonus S"
+                text: "If Rand1 is smaller than S the subtraction underflows and the Pokémon is caught instantly, skipping every later check. Sleep hands you a free 25-wide catch band."
+              "3":
+                title: "The catch rate check"
+                text: "The big one, and note what it ignores: current HP. Only the ball's range, the species catch rate and status matter. Kangaskhan and Pinsir are 45, legendaries 3, Caterpie 255."
+                code: |-
+                  if catchRate < Rand1:
+                    the ball fails
+              "4":
+                title: "Compute W from HP"
+                text: "All divisions floor. If W goes over 255 the Pokémon is caught outright, no second roll. That is why damage stops helping below about a third HP."
+                code: |-
+                  BallFactor = 8   Great
+                  BallFactor = 12  other balls
+
+                  W = (MaxHP * 255 / BallFactor)
+                      / max(CurrentHP / 4, 1)
+                  X = min(W, 255)
+              "5":
+                title: "Roll Rand2 against X"
+                text: "Last roll. The wiggle count is worked out after the outcome is already decided, so three wiggles never meant you were close."
+                code: |-
+                  Rand2 = random 0-255
+                  if Rand2 > X: fails
+                  else: caught
+          example:
+            eyebrow: "WORKED EXAMPLE · 10.2% PER BALL"
+            title: "The formula on a Kangaskhan"
+            lead: "The same arithmetic on the thing you came here for, at full health, with no status available to help."
+            subject: "Kangaskhan L28, Safari Ball"
+            stats: "catch rate 45 · speed ~59 · full HP, no status, always"
+            per_ball: "10.2%"
+            per_ball_note: "30.5% × 33.6% per ball, and about 9.7 balls per catch. Fixed for any rate-45 Safari target, since full-HP W barely moves with level."
+            calc:
+              "1": "Safari Ball rolls 0–150, so 151 possible values"
+              "2": "No status is possible here, so S = 0 and there is no free catch band"
+              "3": "Rand1 must land on 0–45, which is 46 of the 151 values"
+              "4": "At full HP the formula collapses to 255 × 4 / 12, so X lands near 85"
+              "5": "Rand2 must come in at or below X, so 86 of 256"
+            cards:
+              hybrid:
+                title: "The Safari Ball is a weak hybrid"
+                text: "Ultra Ball range (0–150) with the Poké Ball's BallFactor of 12. A plain Great Ball on the same target would be 11.4%, so you are locked into something slightly worse than what any Mart sells."
+              flees:
+                title: "And it runs 46% of the time"
+                text: "Flee chance is speed × 2 / 256, rolled every turn. Kangaskhan L28 escapes about 46% per turn, which is why a whole encounter is worth roughly 20%, not 10.2%."
+          items:
+            eyebrow: "ITEMS · TIMERS AND FLEE RATES"
+            title: "What rocks and bait actually do"
+            lead: "Each one changes the current catch rate and the flee rate, then sets a timer of 1 to 5 turns. The timers are exclusive, so throwing one wipes the other. Both cost you a turn, and the flee check still happens on that turn."
+            after_note: "That last column is the whole story. Only the anger timer restores the catch rate. Nothing restores it after bait, so the penalty outlives the shelter it bought you."
+            turns_label: "EVERY SAFARI TURN, IN ORDER"
+            flee_label: "FLEE CHANCE PER TURN"
+            flee_note: "An angry L33 Kangaskhan escapes 99.6% of the time. It will not be there for your next throw."
+            items:
+              rock:
+                name: "Rock"
+                after: "rate reloads to 45"
+              bait:
+                name: "Bait"
+                after: "rate stays 22, forever"
+            flee:
+              kangaskhan_28: "Kangaskhan L28"
+              kangaskhan_33: "Kangaskhan L33"
+              pinsir_25: "Pinsir L25"
+            turns:
+              "1": "You act: ball, bait, rock or run."
+              "2": "The timer ticks down, already on this turn. Roll a 1 and the effect is gone before you act again."
+              "3": "Flee check: random(0-255) < speed × 2, doubled if angry, quartered if eating."
+            cards:
+              turn_order:
+                title: "The timer ticks on the turn you set it"
+                text: "You throw the rock, the counter drops by one straight away, and the flee roll happens before your next throw. A roll of 1 buys you nothing at all."
       pikachu_friendship:
         eyebrow: "MECHANIC · YELLOW ONLY"
         title: "How Pikachu's friendship works"
@@ -2309,11 +2456,9 @@ en:
             blurb: "Fuchsia sells Ultra Balls and Hyper Potions, the kit for the Safari Zone and Koga's gym."
             buy: "Ultra Balls raise your odds on rare late catches. Hyper Potions and a Revive see you through Koga."
           gym:
-            intro: "The gym floor is a maze of invisible walls. Feel your way through, clearing the Jugglers and Tamers inside, then take on Koga. His three Venonat (Lv 44, 46, 48) and Venomoth (Lv 50) lean on Toxic and Double Team, so bring a fast Psychic attacker and carry Antidotes."
+            intro: "The gym floor is a maze of invisible walls, and the map draws the one way through it. Koga's three Venonat (Lv 44, 46, 48) and Venomoth (Lv 50) lean on Toxic and Double Team, so bring a fast Psychic attacker and carry Antidotes."
             puzzle:
-              "1": "The whole room is blocked by invisible walls. Walk into open space until you hit one, then trace along it to find the gaps."
-              "2": "Weave up and around the barriers toward the top of the room, taking each optional trainer as the path lets you reach them."
-              "3": "The last opening leads to Koga. Bring a Psychic or Ground attacker and carry Antidotes for his Toxic."
+              "1": "The whole room is invisible walls. Follow the line: east along the bottom, up the open right-hand lane, west under the top wall, then down the left side and in to Koga. Every trainer it passes is optional."
           note: "Koga's Gym. Soul Badge. Safari Zone next door."
           intro: "A town of low fences wrapped around the Safari Zone's front gate. Koga's gym hides behind invisible walls, and the Warden cannot speak without his teeth."
           steps:
@@ -2321,17 +2466,17 @@ en:
               title: "Heal and stock up"
               text_html: "Arrive from Route 15, heal at the Center %{center} and stock the Mart %{mart}. Leave the Gym %{gym} alone for now: the Safari Zone next door comes before Koga."
             "2":
-              title: "Fish the Warden's pond"
-              text: "Super Rod the pond behind the Safari Zone gate for a wild Gyarados. It is a Yellow-exclusive catch here, and far cheaper than raising a Magikarp."
+              title: "Take the Good Rod and fish the pond"
+              text_html: "The house on the east edge %{rod} holds the Fishing Guru's older brother: answer YES and the Good Rod is yours. His back door %{back} opens into the fenced pond, so Super Rod it there for a wild Gyarados."
               items:
-                good_rod: "From the fisherman in the small house by the west gate. Reels in better catches than the Old Rod."
+                good_rod: "From the Fishing Guru's older brother, in the house on Fuchsia's east edge. Reels in better catches than the Old Rod."
             "3":
               title: "Raid the Safari Zone"
               text_html: "Head north into the Safari Zone %{safari}. Its prize room holds HM03 Surf, and the Gold Teeth you find inside buy HM04 Strength from the Warden."
           tips:
-            gyarados: "Super Rod the Warden's pond for a wild Gyarados. No Magikarp grind needed."
+            gyarados: "Super Rod the fenced pond behind the rod house for a wild Gyarados. No Magikarp grind needed."
           oak:
-            gyarados: "Fish one straight out of the Warden's pond. A rare Yellow shortcut to Gyarados."
+            gyarados: "Fish one straight out of the pond behind the rod house. No Magikarp to raise first."
         fuchsia_city_return:
           note: "Back for Koga. Soul Badge and TM06 Toxic."
           intro: "Fuchsia again, Gold Teeth in your bag. The Warden trades them for Strength, and Koga's maze of invisible walls is the last thing left in town."
@@ -2342,86 +2487,93 @@ en:
               items:
                 hm04_strength: "From the Safari Zone Warden, after you return the Gold Teeth. Teaches Strength to push boulders."
             "2":
-              title: "Bank the Soul Badge and Fly out"
-              text_html: "The Soul Badge raises Defense and lets a Pokémon Surf outside battle, plus TM06 Toxic. Heal at the Center %{center}, then Fly to Saffron: Silph Co. is under Rocket occupation."
+              title: "Teach Surf and go back for the park"
+              text_html: "The Soul Badge raises Defense and switches Surf on outside battle, plus TM06 Toxic. Heal at the Center %{center}, teach Surf, and take the <a href=\"%{href}\">second Safari trip</a> for the Nugget and the two balls the clock cut short."
+            "3":
+              title: "Head west for Cycling Road"
+              text_html: "Leave town by the west gate %{west} onto Route 18, then climb Cycling Road north. A second Snorlax (Lv 30) sleeps across the path at the top, so bring the Poké Flute. Saffron City is the next stop past it."
         safari_zone:
-          note: "500-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
+          note: "502-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
           intro: "Four fenced areas with no trainers and no ordinary Poké Balls. Entry buys thirty Safari Balls and exactly 502 steps, and Kangaskhan, Tauros, Scyther, Pinsir and Dratini live nowhere else."
           steps:
             "1":
               title: "Buy in at the gate"
-              text: "Pay 500 at the gate for 30 Safari Balls and a 500-step clock. No trainers inside, and regular Poké Balls, HMs and fainting are all off the table until you leave."
+              text: "Pay ¥500 at the gate for thirty Safari Balls and 502 steps, enough for the whole loop if you keep moving. Nothing can be weakened here: Bait quarters the flee chance but halves the catch rate, a Rock doubles both."
             "2":
-              title: "Step in and learn the rules"
-              text: "Walk up into the Center Area. Bait freezes a Pokémon in place; a Rock sinks its catch resistance but makes it flee sooner. Nothing here can be worn down first, so those two are your only tools."
+              title: "Head straight east across the Center Area"
+              text: "A lone ball out in the middle holds a Nugget worth ¥5000, but it sits on an island ringed by water and Surf is still locked. Nothing else is out here, so run east into Area 1."
             "3":
-              title: "Grab the Nugget"
-              text: "Straight up the middle of the Center Area, in the grass north of the entrance, sits a lone ball holding a Nugget. Pocket it to sell for a tidy 5000 later."
+              title: "Climb the mount in Area 1 for Carbos"
+              text: "Leave the Center Area by its east edge into Area 1 (East), landing at the southwest corner. Follow the bottom wall east and take the first stair up onto the mount, where a ball holds Carbos, a permanent Speed boost."
               items:
-                nugget: "Center Area, up the middle north of the gate."
+                carbos: "Area 1 (East), on the mount above the southeast corner."
             "4":
-              title: "Cross into Area 1 for TM37"
-              text: "Leave the Center Area by its east edge into Area 1 (East), arriving at the southwest corner. Push toward the middle of the field, where a ball waits with TM37 Egg Bomb."
+              title: "Head west for TM37"
+              text: "Head west along the mount to the next ball, which holds TM37 Egg Bomb. A field TM is a one-off, so pocket it even if nothing on your team wants the move."
               items:
-                tm-egg-bomb: "Area 1 (East), center of the map."
+                tm-egg-bomb: "Area 1 (East), west along the mount from the Carbos."
             "5":
-              title: "Sweep east for Carbos"
-              text: "Head right toward the eastern trees and grab the Carbos ball, a permanent Speed boost for one of your team."
-              items:
-                carbos: "Area 1 (East), east of center."
-            "6":
-              title: "Snag the Full Restore"
-              text: "A few tiles north of the Carbos sits another ball holding a Full Restore, a full-heal-plus-status you will want banked for tough fights."
-              items:
-                full-restore: "Area 1 (East), just north of the Carbos."
-            "7":
-              title: "Double back for the Max Potion"
-              text: "Cross the top of the area back to the far west, where a lone ball near the north exit holds a Max Potion. Grab it, then slip out the northwest corner into Area 2."
+              title: "Cross west for the Max Potion"
+              text: "Carry on west across the area to a lone ball near the north exit, holding a Max Potion, a full-bar heal worth saving for Koga."
               items:
                 max-potion-3-7: "Area 1 (East), far west by the north exit."
+            "6":
+              title: "Back east for the Full Restore"
+              text: "Head back east across the mount for one more ball, a Full Restore, full HP and every status cleared at once. Then run west along the top to the exit into Area 2."
+              items:
+                full-restore: "Area 1 (East), on the mount just north of the Carbos."
+            "7":
+              title: "Cross the fences for TM40"
+              text: "You arrive in Area 2 (North) on its east edge. Take the second stair up to cross behind the fences, then climb north to the ball holding TM40 Skull Bash."
+              items:
+                tm-skull-bash: "Area 2 (North), upper-center below the top wall."
             "8":
-              title: "Climb Area 2 for Protein"
-              text: "You arrive in Area 2 (North) at its southeast corner. Climb all the way to the top wall, where a ball tucked against the fence holds a Protein, a permanent Special boost."
+              title: "Climb to the Protein"
+              text: "Keep climbing to the top wall, where a ball tucked against the fence holds a Protein, a permanent Special boost. Then head west and drop all the way down to the Area 3 exit."
               items:
                 protein: "Area 2 (North), against the top wall."
             "9":
-              title: "Grab TM40 on the way down"
-              text: "Drop down and to the left from the Protein and pick up the ball holding TM40 Skull Bash. From here, make for the southwest corner to cross into Area 3."
+              title: "Drop into Area 3 for the Gold Teeth"
+              text: "You land in Area 3 (West) along its top edge. Head straight down to the ball holding the Gold Teeth, the Warden's lost dentures and the reason Fuchsia's Strength is still locked."
               items:
-                tm-skull-bash: "Area 2 (North), upper-center below the top wall."
+                gold-teeth: "Area 3 (West), below the north entrance."
             "10":
-              title: "Enter Area 3 and find the Gold Teeth"
-              text: "You land in Area 3 (West) along its top edge, where the Secret House waits. Head west across the upper band and grab the ball holding the Gold Teeth, the Warden's lost dentures."
-              items:
-                gold-teeth: "Area 3 (West), upper-center of the map."
-            "11":
               title: "Bag TM32 Double Team"
-              text: "Keep west along the same row and scoop up the ball holding TM32 Double Team before the ground opens toward the Secret House."
+              text: "Follow the row west and scoop up the ball holding TM32 Double Team, one evasion stage per use and the move Koga will stack against you."
               items:
                 tm-double-team: "Area 3 (West), upper-left, west of the Gold Teeth."
-            "12":
-              title: "Probe for the hidden Revive"
-              text: "A couple of tiles west of the TM32 ball, stop and press A facing up on the empty patch of ground. Nothing shows on-screen, but you pocket a hidden Revive."
+            "11":
+              title: "Probe the statue for a Revive"
+              text: "A few tiles west of the TM32 ball stands a statue. Press A facing it; nothing shows on-screen, but you pocket a hidden Revive."
               hidden:
-                revive: "Area 3 (West), two tiles west of the TM32 ball; press A facing up, nothing shows."
-            "13":
+                revive: "Area 3 (West), at the statue west of the TM32 ball; press A facing it, nothing shows."
+            "12":
               title: "Claim HM03 Surf at the Secret House"
-              text: "Step into the Secret House in the far top-left corner. The old man inside hands you HM03 Surf, the whole reason to trek out here. Teach it later and half the map's water opens up."
+              text: "Step into the Secret House in the far top-left corner. The old man hands you HM03 Surf, the whole reason to trek out here. Surf stays locked until Koga's Soul Badge, on the way back through Fuchsia."
               items:
-                hm03_surf: "From the old man in the Secret House, far corner of Safari Zone Area 3. Teaches Surf across open water."
+                hm03_surf: "From the old man in the Secret House, far corner of Safari Zone Area 3. Needs Koga's Soul Badge before it works outside battle."
+            "13":
+              title: "Spend what is left of the clock"
+              text: "Whatever steps remain, spend them in the grass: Scyther, Pinsir, Chansey and Tauros live nowhere else. The gate turns you out at zero, and the two things that must be in your bag are HM03 Surf and the Gold Teeth."
             "14":
-              title: "Drop south for a second Max Potion"
-              text: "Leave the house and follow the west side down to the bottom of the area, where another ball holds a Max Potion."
+              title: "Surf out to the Nugget"
+              text: "Straight up the middle from the gate, Surf onto the island in the Center Area and take the ball waiting there: a Nugget, worth ¥5000 at any Mart counter."
+              items:
+                nugget: "Center Area, on the island up the middle from the gate."
+            "15":
+              title: "Cross west for the Max Revive"
+              text_html: "Back on dry land, take the Center Area's west door %{west} straight into Area 3. The first ball past the entrance holds a Max Revive, a full heal off the floor."
+              items:
+                max-revive: "Area 3 (West), a short walk in from the east entrance."
+            "16":
+              title: "Over the mount for the Max Potion"
+              text: "Cross the mount west and drop through the gap on its far side, where the last ball in the park holds a Max Potion."
               items:
                 max-potion-8-20: "Area 3 (West), lower-left near the bottom wall."
-            "15":
-              title: "Cut east for the Max Revive"
-              text: "Angle east across the lower field and grab the ball holding a Max Revive, the last prize before the exit."
-              items:
-                max-revive: "Area 3 (West), lower-center of the map."
-            "16":
-              title: "Loop back out and pay the Warden"
-              text: "Slip out Area 3's east edge into the Center Area and back through the gate. Super Rod the ponds for Dratini first, then hand the Gold Teeth to Fuchsia's Warden for HM04 Strength."
+            "17":
+              title: "Fill the rest of the clock with catches"
+              text_html: "Spend the rest of the clock catching. The Center Area is the hub: one door north %{north} and one west %{west}, so either half is a short walk from the gate, and the Super Rod pulls Dratini from any pond."
+          second_lead: "Koga's Soul Badge switches Surf on, so teach it to a Water type and pay your way back in. One ¥500 and 502 more steps clears everything the first trip had to leave behind."
           tips:
             scyther: "One of Yellow's two big bug bruisers, here alongside Pinsir. Bait, then Safari Balls."
             pinsir: "Yellow lets you catch both Pinsir and Scyther in the Safari. Grab this one too."
@@ -2438,11 +2590,11 @@ en:
           intro: "The north gate of Cycling Road, with a second Snorlax asleep in the doorway. Past it the road runs one way only, downhill."
           steps:
             "1":
-              title: "Wake the Snorlax"
-              text_html: "Play the Poké Flute at the Snorlax on the path (Lv 30) and battle it to clear the gate %{gate}."
+              title: "Come up off Cycling Road"
+              text_html: "Out of the road's top gate %{gate} onto Route 16 %{south}. Six riders line the strip west of where you surface, so walk it out to the Fly house and back rather than straight on."
             "2":
-              title: "Mount Cycling Road"
-              text_html: "Ride the Bicycle through the north gate %{gate} onto Route 17 %{south}, the Cycling Road. You cannot walk it, so the Bike is not optional here."
+              title: "Wake the Snorlax and head in"
+              text_html: "A Snorlax (Lv 30) sleeps across the path by Celadon's gate %{gate}. Play the Poké Flute and battle it to clear the way east %{east}. Saffron is one gate on from Celadon, so walk it or Fly."
           tips:
             snorlax: "The second and last Snorlax. Same Lv 30 wall. Sleep it, then throw balls."
           oak:
@@ -2450,39 +2602,39 @@ en:
             snorlax: "The last of two Snorlax. Wake with the Poké Flute and catch it now."
         route_17:
           note: "Cycling Road. Doduo, Ponyta, Fearow."
-          intro: "Cycling Road: a long downhill run you can only take on the Bike, walled by ledges that stop you turning back. Ten Bikers and five hidden items line it."
+          intro: "Cycling Road: a long climb you can only take on the Bike, split down the middle by barriers into three lanes that never meet. Ten Bikers and five hidden items line it."
           steps:
             "1":
-              title: "Ride south down Cycling Road"
-              text_html: "Enter from the north gate %{north} and mount the Bike, since Cycling Road cannot be crossed on foot. Coast down the one-way slope, stopping in the grass strips for a shot at Ponyta."
+              title: "Start up Cycling Road"
+              text_html: "In through the south gate %{south} and onto the Bike, since the road cannot be crossed on foot. Two gaps in the bottom ledges let you climb. Barriers split the road into three lanes above them, so it is taken one lane at a time."
             "2":
-              title: "Sweep the top lane"
-              text: "Just past the north gate, the slope opens onto its first stretch. Hug the east lane and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
+              title: "Dig at the foot of the slope"
+              text: "Before the lanes divide, past the Cycling Road Ends sign, stop center-left and press A for a hidden Max Elixir; nothing shows on-screen."
               hidden:
-                rare-candy: "East lane, near the top by the north gate. Press A on the empty tile; nothing appears."
+                max-elixir: "Center-left at the foot of the road, by the Cycling Road Ends sign. Press A; nothing appears."
             "3":
-              title: "Search the center strip"
-              text: "About a third of the way down, drift to the center-left of the road. Press A on the plain tile there to dig out a hidden Full Restore; nothing shows on-screen."
-              hidden:
-                full-restore: "Center-left of the road, roughly a third down. Press A on the bare tile; nothing appears."
-            "4":
-              title: "Check the east fence"
-              text: "Around the Trainer Tips sign, veer to the far east edge of the road. Press A against the fence tile for a hidden PP Up; nothing shows on-screen."
+              title: "Climb the right lane"
+              text: "Take the east lane first and ride it up past the Bikers in it. Level with the Trainer Tips sign, press A against the fence tile for a hidden PP Up; nothing shows on-screen."
               hidden:
                 pp-up: "Far east edge, level with the Trainer Tips sign. Press A on the fence tile; nothing appears."
+            "4":
+              title: "Come back for the middle lane"
+              text: "Drop to the foot of the barriers and climb the center lane instead. Press A on the plain tile about a third from the top for a hidden Full Restore; nothing shows on-screen."
+              hidden:
+                full-restore: "Center lane, roughly a third down from the top. Press A on the bare tile; nothing appears."
             "5":
-              title: "Comb the west lane"
-              text: "Lower down, swing to the west lane near the Bikers guarding this stretch. Press A on the empty tile there for a hidden Max Revive; nothing shows on-screen."
+              title: "Sweep the west lane"
+              text: "The middle lane tops out level with the west one, so cross there and sweep it downward instead of dropping to the foot again. Press A beside the Bikers for a hidden Max Revive; nothing shows on-screen."
               hidden:
                 max-revive: "West lane, lower third of the road. Press A on the bare tile; nothing appears."
             "6":
-              title: "Dig near the bottom"
-              text: "Near the foot of the slope, before the Cycling Road Ends sign, stop center-left and press A for a hidden Max Elixir; nothing shows on-screen."
+              title: "Over the top of the barriers"
+              text: "Back up the west lane, where the three roads join again near the north gate. Hug the east side and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
               hidden:
-                max-elixir: "Center-left, near the bottom by the Cycling Road Ends sign. Press A; nothing appears."
+                rare-candy: "East side, near the top by the north gate. Press A on the empty tile; nothing appears."
             "7":
-              title: "Exit to Route 18"
-              text_html: "At the foot of the slope, past the Cycling Road Ends sign, roll through the south gate %{south} onto Route 18."
+              title: "Out of the top gate"
+              text_html: "Past the last pair of Bikers, ride out through the north gate %{north} onto Route 16."
           oak:
             ponyta: "A fiery grass catch → Rapidash. One of few Fire types in Yellow."
         route_18:
@@ -2496,11 +2648,11 @@ en:
               note: "A ready-made Parasect that levels fast thanks to the traded-XP bonus. Tangela is a Safari Zone catch."
           steps:
             "1":
-              title: "Cross east"
-              text: "Beat the three Bird Keepers strung along the narrow strip of land at the foot of the Cycling Road, where the route pinches between the water."
+              title: "Cross west"
+              text_html: "Out of Fuchsia's west gate %{east} onto the narrow strip at the foot of Cycling Road, where the route pinches between the water. Three Bird Keepers are strung along it."
             "2":
-              title: "Enter Fuchsia"
-              text_html: "Carry on east through the gate %{gate} and into Fuchsia City %{east}, home of the Safari Zone and Koga's gym."
+              title: "Reach the foot of the road"
+              text_html: "Carry on west through the gate %{gate} to the bottom of Cycling Road %{north}. Two gaps in the ledges at its foot are what let you walk back up it."
         saffron_city:
           mart:
             blurb: "Saffron's Mart stocks Max Repel and Full Heal, open once Team Rocket clears out of the city."
@@ -2515,13 +2667,20 @@ en:
           intro: "Kanto's capital under Rocket occupation, a guard on every gate. Silph Co. stands in the middle, and the city keeps two fighting halls: Sabrina's gym and the Dojo."
           steps:
             "1":
-              title: "Free Silph Co. first"
-              text_html: "The gym %{gym} stays locked until you clear Rocket-held Silph Co. %{silph} (see Silph Co.), then enter and solve the teleport-pad maze to Sabrina."
+              title: "Clear the Fighting Dojo"
+              text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} and take a free Hitmonlee or Hitmonchan. Only one of the pair, so pick the one your team is missing."
             "2":
-              title: "Claim a fighter"
-              text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} to take a free Hitmonlee or Hitmonchan."
+              title: "Free Silph Co."
+              text_html: "The gym %{gym} stays locked while Rocket holds Silph Co. %{silph}, so the tower comes next and Sabrina waits for the way back through town."
           oak:
             hitmonlee: "Free from the Dojo. Pick Hitmonlee or Hitmonchan (you only get one)."
+        saffron_city_return:
+          note: "Back for Sabrina. Marsh Badge and TM46 Psywave."
+          intro: "Silph is free and the gym's doors are open at last. Sabrina's Psychics hit harder than anything you have met, and her floor is crossed on teleport pads rather than walked."
+          steps:
+            "1":
+              title: "Take the Marsh Badge"
+              text_html: "The Gym %{gym} is the last thing in Saffron. Sabrina's Kadabra, Mr. Mime and Venomoth all sit at Lv 50 with Psychic, so lead with a Bug move or something that outruns them."
         silph_co:
           note: "Rocket HQ takeover. Lapras and the Master Ball."
           intro: "Eleven floors of offices wired together by teleport pads, with thirty-one Rockets inside. One Card Key opens every locked door in the building."

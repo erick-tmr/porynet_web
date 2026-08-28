@@ -152,6 +152,8 @@ pt:
       mode_tag: "MODO: LIVING DEX ⚙"
       steps_eyebrow: "GUIA · ENTRADA → SAÍDA"
       steps_h2: "Seu caminho, passo a passo"
+      second_eyebrow: "SEGUNDA VISITA · DEPOIS DO KOGA"
+      second_h2: "De volta com o Surf"
       steps_after_eyebrow: "APÓS O GINÁSIO · PARA ONDE IR"
       steps_after_h2: "Para onde ir a seguir"
       steps_finale_eyebrow: "ÚLTIMA PARADA · DE VOLTA AO GINÁSIO"
@@ -460,7 +462,7 @@ pt:
       ld_progress_met: "COTA CUMPRIDA ✓"
       ld_add: "Registrar mais um capturado"
       ld_remove: "Remover um"
-      ld_later_catch: "%{stop} tem %{name} a %{rate}, então um %{base} basta nesta parada."
+      ld_later_catch: "%{stop} tem %{name} a %{rate}, então um %{base} é tudo que a linha pede."
       ld_later_rare: "%{stop} tem %{name} a apenas %{rate}, então evolua o %{base} extra em vez de caçar um."
       ld_later_level: "%{name} nunca aparece selvagem, então o %{base} extra sobe até o nível %{level}."
       ld_later_stone: "%{name} nunca aparece selvagem, então o %{base} extra recebe a %{stone}."
@@ -685,9 +687,9 @@ pt:
         leg_11:
           lead: "As rotas de pesca ao sul até Fuchsia e as tarefas que preparam a cidade para a Safari Zone."
         leg_12:
-          lead: "De volta a Fuchsia com os Gold Teeth: troque-os com o Warden pelo Strength e enfrente o labirinto de paredes invisíveis do Koga."
+          lead: "Koga primeiro, com os Gold Teeth na mão, depois a descida longa pela Cycling Road e o caminho ao norte até a porta de Saffron."
         leg_13:
-          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
+          lead: "A Silph está limpa, então o ginásio abre. Uma parada, uma insígnia."
         leg_14:
           lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_15:
@@ -972,6 +974,151 @@ pt:
           where: "CERULEAN · ANTES DA MISTY"
           name: "O Glitch do Mew"
           note: "Capture o #151 no jogo. Passos completos, avisos e uma calculadora de nível."
+      safari_catching:
+        eyebrow: "CURIOSIDADE · CAPTURA NA SAFARI"
+        h2: "Por que o Kangaskhan sempre foge"
+        lead: "Dentro do parque você não pode atacar nem causar status, então as duas alavancas que normalmente ajudam a capturar sumiram. Aqui está o que sobra, e o que fazer com isso."
+        panels_label: "A MATEMÁTICA, SE VOCÊ QUISER"
+        panels_lead: "Três painéis de contexto. Abra para ver de onde vêm os números, ou pule direto para a resposta abaixo."
+        show: "MOSTRAR"
+        hide: "OCULTAR"
+        step_n: "Passo %{n}."
+        step_label: "PASSO %{n}"
+        per_ball: "(%{rate}/bola)"
+        formula_label: "A FÓRMULA INTEIRA"
+        col_rate: "TAXA DE CAPTURA"
+        col_flee: "TAXA DE FUGA"
+        col_after: "DEPOIS DO TIMER"
+        col_target: "ALVO"
+        col_normal: "NORMAL"
+        col_angry: "IRRITADO"
+        answer_chip: "A RESPOSTA"
+        answer_sample: "%{count} encontros simulados"
+        answer_lead: "Só jogue bolas."
+        answer_mark: "Todo turno."
+        answer_text: "Nada na sua mochila da Safari supera o arremesso simples. Rocks e baits parecem ajudar, e os dois pioram suas chances no encontro inteiro."
+        answer_caption: "Chance de capturar por encontro, usando a ordem real dos turnos e as rolagens de fuga."
+        verdict: "A Rock faz o Pokémon ir embora antes de você usar o bônus. A Bait faz o bônus vencer antes da penalidade. Jogue uma bola todo turno, desde o primeiro."
+        consolation: "E não se sinta mal por errar. A uns 10% por bola com uma fuga de cara ou coroa todo turno, um Kangaskhan escapando depois de quatro bolas é o resultado completamente comum."
+        source: "Cada fórmula aqui foi lida da disassembly pret/pokeyellow. Velocidade e HP variam com os DVs, então os números são faixas ou médias."
+        odds:
+          balls: "Só jogar bolas"
+          bait_once: "Bait uma vez, depois bolas"
+          bait_every: "Bait a cada reset"
+          rock_once: "Rock uma vez, depois bolas"
+          rock_every: "Rock a cada reset"
+        targets:
+          kangaskhan:
+            label: "KANGASKHAN Nv 28"
+          pinsir:
+            label: "PINSIR Nv 25"
+            note: "Bolas por captura: umas 9,7 só arremessando, contra 19,5 se você começar com bait."
+        cards:
+          rock_leaves:
+            title: "A rock vai embora antes de você usar"
+            text: "Dobrar a taxa de captura e a de fuga juntas quase se anula sozinho. Você ainda paga um turno inteiro a 92% de fuga para preparar, e uma vez em cada cinco o timer vence na hora."
+          bait_expires:
+            title: "O bônus da bait vence primeiro"
+            text: "Alguns turnos protegidos a 5,1% por bola, depois a fuga volta para 46% enquanto a taxa de captura continua pela metade. O alvo fica mais tempo e é mais difícil de pegar, então você gasta mais bolas também."
+        panels:
+          algorithm:
+            eyebrow: "MECÂNICA · CADA BOLA QUE VOCÊ JOGA"
+            title: "Como a captura funciona no Yellow"
+            lead: "Toda bola roda a mesma rotina: cinco passos, dois números aleatórios e umas divisões inteiras. Não existe atributo escondido de chance de captura. A Master Ball sai antes de tudo isso como captura garantida."
+            formula_html: |-
+              P(captura) = P(Rand1 &lt; S)                                <span class="pn-sc__note">captura grátis por status</span>
+                         + P(S ≤ Rand1 ≤ min(catchRate + S, maxRand))  <span class="pn-sc__note">passa do passo 3</span>
+                           × P2
+
+              onde P2 = 1              <span class="pn-sc__note">se W &gt; 255</span>
+                        (X + 1) / 256  <span class="pn-sc__note">caso contrário</span>
+            balls:
+              poke: "Poké Ball"
+              great: "Great Ball"
+              ultra: "Ultra Ball"
+              safari: "Safari Ball"
+            status:
+              none: "Nenhum"
+              minor: "Burn / Para / Poison"
+              major: "Freeze / Sleep"
+            steps:
+              "1":
+                title: "Sorteie Rand1 dentro da faixa da bola"
+                text: "O jogo re-sorteia até o byte cair na faixa, então é uniforme. Uma faixa menor é melhor, porque Rand1 precisa vir baixo para sobreviver ao passo 3."
+              "2":
+                title: "Subtraia o bônus de status S"
+                text: "Se Rand1 for menor que S a subtração estoura e o Pokémon é capturado na hora, pulando todas as checagens seguintes. Sleep te dá uma faixa livre de captura de 25."
+              "3":
+                title: "A checagem da taxa de captura"
+                text: "A principal, e repare no que ela ignora: o HP atual. Só a faixa da bola, a taxa da espécie e o status contam. Kangaskhan e Pinsir são 45, lendários 3, Caterpie 255."
+                code: |-
+                  if catchRate < Rand1:
+                    a bola falha
+              "4":
+                title: "Calcule W a partir do HP"
+                text: "Todas as divisões arredondam para baixo. Se W passar de 255 o Pokémon é capturado direto, sem segunda rolagem. É por isso que dar dano para de ajudar abaixo de um terço do HP."
+                code: |-
+                  BallFactor = 8   Great
+                  BallFactor = 12  outras bolas
+
+                  W = (MaxHP * 255 / BallFactor)
+                      / max(HPAtual / 4, 1)
+                  X = min(W, 255)
+              "5":
+                title: "Sorteie Rand2 contra X"
+                text: "Última rolagem. A quantidade de balanços é calculada depois que o resultado já foi decidido, então três balanços nunca significaram que você chegou perto."
+                code: |-
+                  Rand2 = aleatório 0-255
+                  if Rand2 > X: falha
+                  else: capturado
+          example:
+            eyebrow: "EXEMPLO PRÁTICO · 10,2% POR BOLA"
+            title: "A fórmula em um Kangaskhan"
+            lead: "A mesma conta no bicho que você veio buscar, com vida cheia e sem status disponível para ajudar."
+            subject: "Kangaskhan Nv 28, Safari Ball"
+            stats: "taxa de captura 45 · velocidade ~59 · HP cheio, sem status, sempre"
+            per_ball: "10,2%"
+            per_ball_note: "30,5% × 33,6% por bola, e umas 9,7 bolas por captura. Fixo para qualquer alvo de taxa 45 na Safari, já que W com HP cheio quase não muda com o nível."
+            calc:
+              "1": "A Safari Ball sorteia 0–150, então são 151 valores possíveis"
+              "2": "Nenhum status é possível aqui, então S = 0 e não há faixa de captura grátis"
+              "3": "Rand1 precisa cair em 0–45, que são 46 dos 151 valores"
+              "4": "Com HP cheio a fórmula vira 255 × 4 / 12, então X fica perto de 85"
+              "5": "Rand2 precisa vir em X ou abaixo, então 86 de 256"
+            cards:
+              hybrid:
+                title: "A Safari Ball é um híbrido fraco"
+                text: "Faixa de Ultra Ball (0–150) com o BallFactor 12 da Poké Ball. Uma Great Ball comum no mesmo alvo daria 11,4%, então você fica preso a algo um pouco pior do que qualquer Mart vende."
+              flees:
+                title: "E ele foge 46% das vezes"
+                text: "A chance de fuga é velocidade × 2 / 256, rolada todo turno. Kangaskhan Nv 28 escapa uns 46% por turno, e é por isso que o encontro inteiro vale uns 20%, não 10,2%."
+          items:
+            eyebrow: "ITENS · TIMERS E TAXAS DE FUGA"
+            title: "O que rock e bait fazem de verdade"
+            lead: "Cada um muda a taxa de captura atual e a de fuga, depois liga um timer de 1 a 5 turnos. Os timers são exclusivos, então jogar um apaga o outro. Os dois custam um turno, e a checagem de fuga acontece nesse turno mesmo."
+            after_note: "Essa última coluna é a história toda. Só o timer de irritação devolve a taxa de captura. Nada devolve depois da bait, então a penalidade sobrevive ao abrigo que ela comprou."
+            turns_label: "CADA TURNO NA SAFARI, EM ORDEM"
+            flee_label: "CHANCE DE FUGA POR TURNO"
+            flee_note: "Um Kangaskhan Nv 33 irritado escapa 99,6% das vezes. Ele não vai estar lá para o seu próximo arremesso."
+            items:
+              rock:
+                name: "Rock"
+                after: "taxa volta para 45"
+              bait:
+                name: "Bait"
+                after: "taxa fica em 22, para sempre"
+            flee:
+              kangaskhan_28: "Kangaskhan Nv 28"
+              kangaskhan_33: "Kangaskhan Nv 33"
+              pinsir_25: "Pinsir Nv 25"
+            turns:
+              "1": "Você age: bola, bait, rock ou fugir."
+              "2": "O timer desce, já neste turno. Se sair 1, o efeito acaba antes de você agir de novo."
+              "3": "Checagem de fuga: aleatório(0-255) < velocidade × 2, dobrado se irritado, dividido por quatro se comendo."
+            cards:
+              turn_order:
+                title: "O timer desce no turno em que você o liga"
+                text: "Você joga a rock, o contador cai um na hora, e a rolagem de fuga acontece antes do seu próximo arremesso. Um sorteio de 1 não te compra nada."
       pikachu_friendship:
         eyebrow: "MECÂNICA · SÓ NO YELLOW"
         title: "Como funciona a amizade do Pikachu"
@@ -2309,11 +2456,9 @@ pt:
             blurb: "Fuchsia vende Ultra Balls e Hyper Potions, o kit para a Safari Zone e o ginásio do Koga."
             buy: "Ultra Balls aumentam suas chances nas capturas raras. Hyper Potions e um Revive te levam contra o Koga."
           gym:
-            intro: "O chão do ginásio é um labirinto de paredes invisíveis. Vá tateando, vencendo os Jugglers e Tamers lá dentro, e depois enfrente o Koga. Os três Venonat (Nv 44, 46, 48) e o Venomoth (Nv 50) dele apostam em Toxic e Double Team, então leve um atacante Psíquico rápido e carregue Antidotes."
+            intro: "O chão do ginásio é um labirinto de paredes invisíveis, e o mapa desenha o único caminho por ele. Os três Venonat (Nv 44, 46, 48) e o Venomoth (Nv 50) do Koga apostam em Toxic e Double Team, então leve um atacante Psíquico rápido e carregue Antidotes."
             puzzle:
-              "1": "A sala toda e bloqueada por paredes invisiveis. Ande pelo espaco aberto ate esbarrar numa, depois siga ao longo dela para achar as passagens."
-              "2": "Serpenteie para cima e ao redor das barreiras rumo ao topo da sala, pegando cada treinador opcional conforme o caminho permitir."
-              "3": "A ultima abertura leva a Koga. Leve um atacante Psiquico ou Terra e carregue Antidotos para o Toxic dele."
+              "1": "A sala inteira é feita de paredes invisíveis. Siga a linha: a leste pelo fundo, suba a faixa livre da direita, a oeste rente ao muro do topo, depois desça pela esquerda até o Koga. Todo treinador que ela passa é opcional."
           note: "Ginásio do Koga. Soul Badge. Safari Zone ao lado."
           intro: "Uma cidade de cercas baixas em volta do portão da Safari Zone. O ginásio do Koga se esconde atrás de paredes invisíveis, e o Warden não consegue falar sem a dentadura."
           steps:
@@ -2321,17 +2466,17 @@ pt:
               title: "Cure e reabasteça"
               text_html: "Chegue pela Rota 15, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} para depois: a Safari Zone ao lado vem antes do Koga."
             "2":
-              title: "Pesque no lago do Warden"
-              text: "Use o Super Rod no lago atrás do portão da Safari Zone por um Gyarados selvagem. É uma captura exclusiva do Yellow aqui, e bem mais barata que criar um Magikarp."
+              title: "Pegue o Good Rod e pesque no lago"
+              text_html: "A casa da borda leste %{rod} guarda o irmão mais velho do Fishing Guru: responda SIM e o Good Rod é seu. A porta dos fundos %{back} dá no lago cercado, então use o Super Rod ali por um Gyarados selvagem."
               items:
-                good_rod: "Com o pescador na casinha perto da cancela oeste. Pesca melhor que o Old Rod."
+                good_rod: "Com o irmão mais velho do Fishing Guru, na casa da borda leste de Fuchsia. Pesca melhor que o Old Rod."
             "3":
               title: "Explore a Safari Zone"
               text_html: "Siga ao norte para a Safari Zone %{safari}. A sala de prêmios guarda o HM03 Surf, e os Gold Teeth que você acha lá dentro compram o HM04 Strength com o Warden."
           tips:
-            gyarados: "Super Rod no lago do Warden por um Gyarados selvagem. Sem grind de Magikarp."
+            gyarados: "Super Rod no lago cercado atrás da casa do pescador por um Gyarados selvagem. Sem grind de Magikarp."
           oak:
-            gyarados: "Pesque um direto do lago do Warden. Um atalho raro do Yellow para Gyarados."
+            gyarados: "Pesque um direto do lago atrás da casa do pescador. Sem Magikarp para criar antes."
         fuchsia_city_return:
           note: "De volta pelo Koga. Soul Badge e TM06 Toxic."
           intro: "Fuchsia de novo, com os Gold Teeth na mochila. O Warden os troca pelo Strength, e o labirinto de paredes invisíveis do Koga é a última coisa que resta na cidade."
@@ -2342,86 +2487,93 @@ pt:
               items:
                 hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
             "2":
-              title: "Guarde a Soul Badge e voe embora"
-              text_html: "A Soul Badge aumenta a Defesa e libera Surf fora de batalha, além do TM06 Toxic. Cure no Centro %{center} e voe para Saffron: a Silph Co. está ocupada pela Rocket."
+              title: "Ensine Surf e volte para o parque"
+              text_html: "A Soul Badge aumenta a Defesa e libera o Surf fora de batalha, além do TM06 Toxic. Cure no Centro %{center}, ensine o Surf e faça a <a href=\"%{href}\">segunda ida à Safari</a> pelo Nugget e pelas duas bolas que o contador cortou."
+            "3":
+              title: "Siga a oeste pela Cycling Road"
+              text_html: "Saia da cidade pela cancela oeste %{west} para a Rota 18, depois suba a Cycling Road ao norte. Um segundo Snorlax (Nv 30) dorme atravessado no caminho lá em cima, então leve a Poké Flute. Saffron City é a próxima parada depois dele."
         safari_zone:
-          note: "Parque de captura de 500 passos. Scyther, Pinsir, Chansey, Dratini e mais."
+          note: "Parque de captura de 502 passos. Scyther, Pinsir, Chansey, Dratini e mais."
           intro: "Quatro áreas cercadas sem treinadores e sem Poké Balls comuns. A entrada dá trinta Safari Balls e exatamente 502 passos, e Kangaskhan, Tauros, Scyther, Pinsir e Dratini não vivem em outro lugar."
           steps:
             "1":
               title: "Pague a entrada no portão"
-              text: "Pague 500 no portão por 30 Safari Balls e um relógio de 500 passos. Não há treinadores lá dentro, e Poké Balls comuns, HMs e desmaios ficam fora de jogo até você sair."
+              text: "Pague ¥500 no portão por trinta Safari Balls e 502 passos, o bastante para a volta inteira se você não ficar rodando. Nada pode ser enfraquecido aqui: a Bait divide por quatro a chance de fuga mas corta pela metade a de captura, e a Rock dobra as duas."
             "2":
-              title: "Entre e aprenda as regras"
-              text: "Suba para a Área Central. Bait congela um Pokémon no lugar; Rock baixa a resistência de captura mas faz fugir mais cedo. Nada aqui pode ser enfraquecido antes, então essas são suas únicas ferramentas."
+              title: "Vá reto a leste pela Área Central"
+              text: "Uma bola sozinha no meio guarda um Nugget que vale ¥5000, mas ela fica numa ilha cercada de água e o Surf ainda está travado. Não há mais nada por aqui, então corra a leste até a Área 1."
             "3":
-              title: "Pegue o Nugget"
-              text: "Reto pelo meio da Área Central, na grama ao norte da entrada, há uma ball solitária com um Nugget. Guarde para vender por bons 5000 depois."
+              title: "Suba o morro da Área 1 pelo Carbos"
+              text: "Saia da Área Central pela borda leste até a Área 1 (Leste), caindo no canto sudoeste. Siga o muro de baixo a leste e pegue a primeira escada para o morro, onde uma bola guarda o Carbos, um aumento permanente de Velocidade."
               items:
-                nugget: "Área Central, subindo pelo meio ao norte do portão."
+                carbos: "Área 1 (Leste), no morro acima do canto sudeste."
             "4":
-              title: "Cruze para a Área 1 pelo TM37"
-              text: "Saia da Área Central pela borda leste para a Área 1 (Leste), chegando ao canto sudoeste. Avance rumo ao meio do campo, onde uma ball espera com o TM37 Egg Bomb."
+              title: "Vá a oeste pelo TM37"
+              text: "Siga a oeste pelo morro até a próxima bola, que guarda o TM37 Egg Bomb. Um TM de chão é único, então guarde mesmo que ninguém do time queira o golpe."
               items:
-                tm-egg-bomb: "Área 1 (Leste), no centro do mapa."
+                tm-egg-bomb: "Área 1 (Leste), a oeste do Carbos pelo morro."
             "5":
-              title: "Varra o leste pelo Carbos"
-              text: "Siga para a direita rumo às árvores do leste e pegue a ball de Carbos, um aumento permanente de Velocidade para um do seu time."
-              items:
-                carbos: "Área 1 (Leste), a leste do centro."
-            "6":
-              title: "Pegue o Full Restore"
-              text: "Alguns tiles ao norte do Carbos há outra ball com um Full Restore, uma cura total com status que vale guardar para lutas difíceis."
-              items:
-                full-restore: "Área 1 (Leste), logo ao norte do Carbos."
-            "7":
-              title: "Volte pela Max Potion"
-              text: "Atravesse o topo da área de volta ao extremo oeste, onde uma ball perto da saída norte guarda uma Max Potion. Pegue e escape pelo canto noroeste para a Área 2."
+              title: "Atravesse a oeste pelo Max Potion"
+              text: "Continue a oeste pela área até uma bola sozinha perto da saída norte, com um Max Potion, uma cura de barra cheia que vale guardar para o Koga."
               items:
                 max-potion-3-7: "Área 1 (Leste), extremo oeste perto da saída norte."
+            "6":
+              title: "Volte a leste pelo Full Restore"
+              text: "Volte a leste pelo morro por mais uma bola, um Full Restore, HP cheio e todo status limpo de uma vez. Depois corra a oeste pelo topo até a saída para a Área 2."
+              items:
+                full-restore: "Área 1 (Leste), no morro logo ao norte do Carbos."
+            "7":
+              title: "Passe as cercas pelo TM40"
+              text: "Você chega na Área 2 (Norte) pela borda leste. Pegue a segunda escada para passar ao outro lado das cercas, depois suba ao norte até a bola com o TM40 Skull Bash."
+              items:
+                tm-skull-bash: "Área 2 (Norte), centro-superior abaixo do muro do topo."
             "8":
-              title: "Suba a Área 2 pelo Protein"
-              text: "Você chega à Área 2 (Norte) pelo canto sudeste. Suba até a parede do topo, onde uma ball encostada na cerca guarda um Protein, um aumento permanente de Especial."
+              title: "Suba até o Protein"
+              text: "Continue subindo até o muro do topo, onde uma bola encostada na cerca guarda um Protein, um aumento permanente de Especial. Depois siga a oeste e desça tudo até a saída para a Área 3."
               items:
-                protein: "Área 2 (Norte), encostado na parede do topo."
+                protein: "Área 2 (Norte), encostada no muro do topo."
             "9":
-              title: "Pegue o TM40 na descida"
-              text: "Desça e vá à esquerda do Protein e pegue a ball com o TM40 Skull Bash. Daqui, siga para o canto sudoeste para cruzar à Área 3."
+              title: "Entre na Área 3 pelos Gold Teeth"
+              text: "Você chega na Área 3 (Oeste) pela borda de cima. Desça reto até a bola com os Gold Teeth, a dentadura perdida do Warden e o motivo do Strength de Fuchsia ainda estar trancado."
               items:
-                tm-skull-bash: "Área 2 (Norte), centro-superior abaixo da parede do topo."
+                gold-teeth: "Área 3 (Oeste), abaixo da entrada norte."
             "10":
-              title: "Entre na Área 3 e ache o Gold Teeth"
-              text: "Você desce na Área 3 (Oeste) pela borda de cima, onde fica a Secret House. Vá para o oeste pela faixa superior e pegue a ball com o Gold Teeth, a dentadura perdida do Warden."
-              items:
-                gold-teeth: "Área 3 (Oeste), centro-superior do mapa."
-            "11":
               title: "Pegue o TM32 Double Team"
-              text: "Continue para o oeste pela mesma linha e pegue a ball com o TM32 Double Team antes de o terreno abrir rumo à Secret House."
+              text: "Siga a oeste pela mesma linha e pegue a bola com o TM32 Double Team, um nível de evasão por uso e o golpe que o Koga vai empilhar contra você."
               items:
-                tm-double-team: "Área 3 (Oeste), canto superior esquerdo, a oeste do Gold Teeth."
-            "12":
-              title: "Procure o Revive escondido"
-              text: "Alguns tiles a oeste da ball do TM32, pare e aperte A virado para cima no trecho de chão vazio. Nada aparece na tela, mas você guarda um Revive escondido."
+                tm-double-team: "Área 3 (Oeste), canto superior esquerdo, a oeste dos Gold Teeth."
+            "11":
+              title: "Investigue a estátua por um Revive"
+              text: "Algumas casas a oeste da bola do TM32 há uma estátua. Aperte A de frente para ela; nada aparece na tela, mas você embolsa um Revive escondido."
               hidden:
-                revive: "Área 3 (Oeste), dois tiles a oeste da ball do TM32; aperte A virado para cima, nada aparece."
+                revive: "Área 3 (Oeste), na estátua a oeste da bola do TM32; aperte A de frente para ela, nada aparece."
+            "12":
+              title: "Pegue o HM03 Surf na Casa Secreta"
+              text: "Entre na Casa Secreta no canto superior esquerdo. O velho te dá o HM03 Surf, o motivo inteiro de vir até aqui. O Surf fica travado até a Soul Badge do Koga, na volta por Fuchsia."
+              items:
+                hm03_surf: "Com o velho na Casa Secreta, canto extremo da Área 3 da Safari Zone. Precisa da Soul Badge do Koga para funcionar fora de batalha."
             "13":
-              title: "Pegue o HM03 Surf na Secret House"
-              text: "Entre na Secret House no canto superior esquerdo. O velho lá dentro te dá o HM03 Surf, o motivo inteiro de vir até aqui. Ensine depois e metade da água do mapa se abre."
-              items:
-                hm03_surf: "Com o velho na Secret House, no canto da Área 3 da Safari Zone. Ensina Surf pela água aberta."
+              title: "Gaste o que sobrou do contador"
+              text: "Os passos que sobrarem, gaste no mato: Scyther, Pinsir, Chansey e Tauros não vivem em outro lugar. No zero o portão te põe para fora, e as duas coisas que precisam estar na mochila são o HM03 Surf e os Gold Teeth."
             "14":
-              title: "Desça ao sul por outra Max Potion"
-              text: "Saia da casa e siga o lado oeste até o fundo da área, onde outra ball guarda uma Max Potion."
+              title: "Use Surf até o Nugget"
+              text: "Reto para cima a partir do portão, use Surf até a ilha da Área Central e pegue a bola que espera lá: um Nugget, que vale ¥5000 em qualquer balcão de Mart."
               items:
-                max-potion-8-20: "Área 3 (Oeste), canto inferior esquerdo perto da parede de baixo."
+                nugget: "Área Central, na ilha reto para cima a partir do portão."
             "15":
-              title: "Corte a leste pelo Max Revive"
-              text: "Vá para o leste pelo campo inferior e pegue a ball com um Max Revive, o último prêmio antes da saída."
+              title: "Atravesse a oeste pelo Max Revive"
+              text_html: "De volta em terra firme, pegue a porta oeste da Área Central %{west} direto para a Área 3. A primeira bola depois da entrada guarda um Max Revive, uma revivida completa achada no chão."
               items:
-                max-revive: "Área 3 (Oeste), centro-inferior do mapa."
+                max-revive: "Área 3 (Oeste), a poucos passos da entrada leste."
             "16":
-              title: "Dê a volta e pague o Warden"
-              text: "Escape pela borda leste da Área 3 para a Área Central e volte pelo portão. Use o Super Rod nos lagos por Dratini antes, e entregue o Gold Teeth ao Warden de Fuchsia por HM04 Strength."
+              title: "Passe o morro pelo Max Potion"
+              text: "Atravesse o morro a oeste e desça pela passagem do outro lado, onde a última bola do parque guarda um Max Potion."
+              items:
+                max-potion-8-20: "Área 3 (Oeste), canto inferior esquerdo perto do muro de baixo."
+            "17":
+              title: "Encha o resto do contador com capturas"
+              text_html: "Gaste o resto do contador capturando. A Área Central é o centro de tudo: uma porta ao norte %{north} e uma a oeste %{west}, então qualquer metade fica a poucos passos do portão, e o Super Rod tira Dratini de qualquer lago."
+          second_lead: "A Soul Badge do Koga libera o Surf, então ensine a um tipo Água e pague a entrada de novo. Um ¥500 e mais 502 passos limpam tudo que a primeira ida teve que deixar para trás."
           tips:
             scyther: "Um dos dois grandes brutamontes Inseto do Yellow, aqui junto do Pinsir. Isca, depois Safari Balls."
             pinsir: "O Yellow deixa capturar Pinsir e Scyther na Safari. Pegue este também."
@@ -2438,11 +2590,11 @@ pt:
           intro: "O portão norte da Cycling Road, com um segundo Snorlax dormindo na passagem. Depois dele a estrada só corre num sentido: ladeira abaixo."
           steps:
             "1":
-              title: "Acorde o Snorlax"
-              text_html: "Toque o Poké Flute no Snorlax do caminho (Nv 30) e batalhe para liberar o portão %{gate}."
+              title: "Suba da Cycling Road"
+              text_html: "Saia pela cancela do topo da estrada %{gate} para a Rota 16 %{south}. Seis pilotos ocupam a faixa a oeste de onde você sobe, então percorra ela até a casa do Fly e volte, em vez de seguir direto."
             "2":
-              title: "Suba na Cycling Road"
-              text_html: "Pedale a Bicycle pelo portão norte %{gate} até a Rota 17 %{south}, a Cycling Road. Não dá para atravessar a pé, então a bike não é opcional aqui."
+              title: "Acorde o Snorlax e entre"
+              text_html: "Um Snorlax (Nv 30) dorme atravessado no caminho junto da cancela de Celadon %{gate}. Toque a Poké Flute e enfrente-o para liberar o caminho a leste %{east}. Saffron fica uma cancela depois de Celadon, então vá a pé ou de Fly."
           tips:
             snorlax: "O segundo e último Snorlax. A mesma parede Nv 30. Faça dormir, depois jogue balls."
           oak:
@@ -2450,39 +2602,39 @@ pt:
             snorlax: "O último dos dois Snorlax. Acorde com o Poké Flute e capture agora."
         route_17:
           note: "Cycling Road. Doduo, Ponyta, Fearow."
-          intro: "Cycling Road: uma descida longa que só dá para fazer de Bike, murada por desníveis que impedem a volta. Dez Bikers e cinco itens ocultos a acompanham."
+          intro: "Cycling Road: uma subida longa que só dá para fazer de Bike, cortada ao meio por barreiras em três faixas que nunca se encontram. Dez Bikers e cinco itens escondidos ficam nela."
           steps:
             "1":
-              title: "Desça de bike pela Cycling Road"
-              text_html: "Entre pelo portão norte %{north} e monte a bike, já que a Cycling Road não dá para cruzar a pé. Desça a ladeira de mão única, parando nas faixas de grama por uma chance de Ponyta."
+              title: "Comece a subir a Cycling Road"
+              text_html: "Entre pela cancela sul %{south} e monte na Bike, já que a estrada não pode ser cruzada a pé. Duas brechas nas beiradas de baixo deixam você subir. Acima delas as barreiras dividem a estrada em três faixas, então ela é feita uma faixa por vez."
             "2":
-              title: "Vasculhe a faixa do topo"
-              text: "Logo depois do portão norte, a ladeira se abre no primeiro trecho. Cole na faixa leste e aperte A no ladrilho vazio ali por um Rare Candy oculto; nada aparece na tela."
+              title: "Cave no pé da subida"
+              text: "Antes das faixas se dividirem, passando a placa Cycling Road Ends, pare no centro-esquerda e aperte A por um Max Elixir escondido. Nada aparece na tela."
               hidden:
-                rare-candy: "Faixa leste, perto do topo junto ao portão norte. Aperte A no ladrilho vazio; nada surge."
+                max-elixir: "Centro-esquerda no pé da estrada, junto da placa Cycling Road Ends. Aperte A; nada aparece."
             "3":
-              title: "Revire o trecho central"
-              text: "A cerca de um terço da descida, vá para o centro-esquerda da pista. Aperte A no ladrilho comum ali para desenterrar um Full Restore oculto; nada aparece na tela."
+              title: "Suba a faixa da direita"
+              text: "Pegue a faixa leste primeiro e suba por ela passando pelos Bikers. Na altura da placa Trainer Tips, aperte A contra a casa da cerca por um PP Up escondido. Nada aparece na tela."
               hidden:
-                full-restore: "Centro-esquerda da pista, mais ou menos um terço abaixo. Aperte A no ladrilho vazio; nada surge."
+                pp-up: "Borda leste, na altura da placa Trainer Tips. Aperte A na casa da cerca; nada aparece."
             "4":
-              title: "Cheque a cerca leste"
-              text: "Perto da placa de Dicas de Treinador, vire para a beira leste da pista. Aperte A junto ao ladrilho da cerca por um PP Up oculto; nada aparece na tela."
+              title: "Volte pela faixa do meio"
+              text: "Desça até o pé das barreiras e suba pela faixa central. Aperte A na casa lisa a mais ou menos um terço do topo por um Full Restore escondido. Nada aparece na tela."
               hidden:
-                pp-up: "Beira leste, na altura da placa de Dicas de Treinador. Aperte A no ladrilho da cerca; nada surge."
+                full-restore: "Faixa central, mais ou menos a um terço do topo. Aperte A na casa vazia; nada aparece."
             "5":
-              title: "Vasculhe a faixa oeste"
-              text: "Mais abaixo, vá para a faixa oeste perto dos Bikers que guardam este trecho. Aperte A no ladrilho vazio ali por um Max Revive oculto; nada aparece na tela."
+              title: "Varra a faixa oeste"
+              text: "A faixa do meio termina na altura da faixa oeste, então atravesse ali e varra ela para baixo em vez de descer até o pé de novo. Aperte A ao lado dos Bikers por um Max Revive escondido. Nada aparece na tela."
               hidden:
-                max-revive: "Faixa oeste, terço inferior da pista. Aperte A no ladrilho vazio; nada surge."
+                max-revive: "Faixa oeste, terço de baixo da estrada. Aperte A na casa vazia; nada aparece."
             "6":
-              title: "Cave perto do fim"
-              text: "Perto do pé da ladeira, antes da placa de fim da Cycling Road, pare no centro-esquerda e aperte A por um Max Elixir oculto; nada aparece na tela."
+              title: "Por cima das barreiras"
+              text: "Suba de volta pela faixa oeste, onde as três estradas se juntam perto da cancela norte. Cole no lado leste e aperte A na casa vazia por um Rare Candy escondido. Nada aparece na tela."
               hidden:
-                max-elixir: "Centro-esquerda, perto do fim junto à placa de fim da Cycling Road. Aperte A; nada surge."
+                rare-candy: "Lado leste, perto do topo junto da cancela norte. Aperte A na casa vazia; nada aparece."
             "7":
-              title: "Saia para a Rota 18"
-              text_html: "No pé da ladeira, passando a placa de fim da Cycling Road, atravesse o portão sul %{south} até a Rota 18."
+              title: "Saia pela cancela do topo"
+              text_html: "Passando a última dupla de Bikers, saia pela cancela norte %{north} para a Rota 16."
           oak:
             ponyta: "Uma captura de fogo na grama → Rapidash. Um dos poucos tipos Fogo do Yellow."
         route_18:
@@ -2496,11 +2648,11 @@ pt:
               note: "Um Parasect pronto que sobe de nível rápido pelo bônus de XP de troca. Tangela é uma captura na Zona Safári."
           steps:
             "1":
-              title: "Cruze a leste"
-              text: "Vença os três Bird Keepers espalhados pela estreita faixa de terra no pé da Cycling Road, onde a rota se aperta entre as águas."
+              title: "Atravesse a oeste"
+              text_html: "Saia pela cancela oeste de Fuchsia %{east} para a faixa estreita no pé da Cycling Road, onde a rota se aperta entre a água. Três Bird Keepers estão espalhados por ela."
             "2":
-              title: "Entre em Fuchsia"
-              text_html: "Siga a leste pelo portão %{gate} e entre %{east} em Fuchsia City, casa da Safari Zone e do ginásio do Koga."
+              title: "Chegue ao pé da estrada"
+              text_html: "Siga a oeste pela cancela %{gate} até a base da Cycling Road %{north}. Duas brechas nas beiradas do pé dela são o que deixa você subir a pé."
         saffron_city:
           mart:
             blurb: "O Mart de Saffron tem Max Repel e Full Heal, aberto assim que a Equipe Rocket deixa a cidade."
@@ -2515,13 +2667,20 @@ pt:
           intro: "A capital de Kanto sob ocupação Rocket, um guarda em cada portão. A Silph Co. fica no centro, e a cidade tem dois salões de luta: o ginásio da Sabrina e o Dojo."
           steps:
             "1":
-              title: "Liberte a Silph Co. primeiro"
-              text_html: "O ginasio %{gym} fica trancado ate você limpar a Silph Co. %{silph} tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
+              title: "Limpe o Fighting Dojo"
+              text_html: "Vença o Karate Master no Fighting Dojo %{dojo} e pegue um Hitmonlee ou Hitmonchan de graça. Só um dos dois, então escolha o que falta no seu time."
             "2":
-              title: "Reivindique um lutador"
-              text_html: "Vença o Karate Master no Fighting Dojo %{dojo} para levar um Hitmonlee ou Hitmonchan grátis. Só dá para escolher um, então o outro se perde."
+              title: "Liberte a Silph Co."
+              text_html: "O ginásio %{gym} fica trancado enquanto a Rocket segura a Silph Co. %{silph}, então a torre vem em seguida e a Sabrina espera a volta pela cidade."
           oak:
             hitmonlee: "Grátis do Dojo. Escolha Hitmonlee ou Hitmonchan (só um)."
+        saffron_city_return:
+          note: "De volta pela Sabrina. Marsh Badge e TM46 Psywave."
+          intro: "A Silph está livre e as portas do ginásio finalmente abriram. Os Psíquicos da Sabrina batem mais forte que tudo que você enfrentou, e o chão dela é atravessado por painéis de teleporte, não a pé."
+          steps:
+            "1":
+              title: "Pegue a Marsh Badge"
+              text_html: "O Ginásio %{gym} é a última coisa em Saffron. O Kadabra, o Mr. Mime e o Venomoth da Sabrina estão todos no Nv 50 com Psychic, então lidere com um golpe de Inseto ou com algo mais rápido que eles."
         silph_co:
           note: "Tomada da HQ da Rocket. Lapras e a Master Ball."
           intro: "Onze andares de escritórios ligados por plataformas de teletransporte, com trinta e um Rockets dentro. Uma Card Key abre todas as portas trancadas do prédio."

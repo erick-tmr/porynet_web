@@ -2986,104 +2986,8 @@
       {
         "map": "route-16",
         "floor": "",
-        "marker": "trainer-17-12",
-        "key": "T1",
-        "opp": "BIKER:5",
-        "cls": "BIKER",
-        "reward": 580,
-        "team": [
-          {
-            "dex": "088",
-            "lvl": 29
-          },
-          {
-            "dex": "109",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-16-trainer-17-12.png"
-      },
-      {
-        "map": "route-16",
-        "floor": "",
-        "marker": "trainer-14-13",
-        "key": "T2",
-        "opp": "CUE_BALL:1",
-        "cls": "CUE_BALL",
-        "reward": 700,
-        "team": [
-          {
-            "dex": "066",
-            "lvl": 28
-          },
-          {
-            "dex": "056",
-            "lvl": 28
-          },
-          {
-            "dex": "066",
-            "lvl": 28
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-16-trainer-14-13.png"
-      },
-      {
-        "map": "route-16",
-        "floor": "",
-        "marker": "trainer-11-12",
-        "key": "T3",
-        "opp": "CUE_BALL:2",
-        "cls": "CUE_BALL",
-        "reward": 725,
-        "team": [
-          {
-            "dex": "056",
-            "lvl": 29
-          },
-          {
-            "dex": "066",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-16-trainer-11-12.png"
-      },
-      {
-        "map": "route-16",
-        "floor": "",
-        "marker": "trainer-9-11",
-        "key": "T4",
-        "opp": "BIKER:6",
-        "cls": "BIKER",
-        "reward": 660,
-        "team": [
-          {
-            "dex": "110",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-16-trainer-9-11.png"
-      },
-      {
-        "map": "route-16",
-        "floor": "",
-        "marker": "trainer-6-10",
-        "key": "T5",
-        "opp": "CUE_BALL:3",
-        "cls": "CUE_BALL",
-        "reward": 825,
-        "team": [
-          {
-            "dex": "066",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-16-trainer-6-10.png"
-      },
-      {
-        "map": "route-16",
-        "floor": "",
         "marker": "trainer-3-12",
-        "key": "T6",
+        "key": "T1",
         "opp": "BIKER:7",
         "cls": "BIKER",
         "reward": 520,
@@ -3106,198 +3010,110 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-16-trainer-3-12.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-6-10",
+        "key": "T2",
+        "opp": "CUE_BALL:3",
+        "cls": "CUE_BALL",
+        "reward": 825,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-6-10.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-9-11",
+        "key": "T3",
+        "opp": "BIKER:6",
+        "cls": "BIKER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-9-11.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-11-12",
+        "key": "T4",
+        "opp": "CUE_BALL:2",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 29
+          },
+          {
+            "dex": "066",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-11-12.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-14-13",
+        "key": "T5",
+        "opp": "CUE_BALL:1",
+        "cls": "CUE_BALL",
+        "reward": 700,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 28
+          },
+          {
+            "dex": "056",
+            "lvl": 28
+          },
+          {
+            "dex": "066",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-14-13.png"
+      },
+      {
+        "map": "route-16",
+        "floor": "",
+        "marker": "trainer-17-12",
+        "key": "T6",
+        "opp": "BIKER:5",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "088",
+            "lvl": 29
+          },
+          {
+            "dex": "109",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-16-trainer-17-12.png"
       }
     ],
     "route-17": [
       {
         "map": "route-17",
         "floor": "",
-        "marker": "trainer-12-19",
-        "key": "T1",
-        "opp": "CUE_BALL:4",
-        "cls": "CUE_BALL",
-        "reward": 725,
-        "team": [
-          {
-            "dex": "056",
-            "lvl": 29
-          },
-          {
-            "dex": "057",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-12-19.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-11-16",
-        "key": "T2",
-        "opp": "CUE_BALL:5",
-        "cls": "CUE_BALL",
-        "reward": 725,
-        "team": [
-          {
-            "dex": "066",
-            "lvl": 29
-          },
-          {
-            "dex": "067",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-11-16.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-4-18",
-        "key": "T3",
-        "opp": "BIKER:8",
-        "cls": "BIKER",
-        "reward": 560,
-        "team": [
-          {
-            "dex": "110",
-            "lvl": 28
-          },
-          {
-            "dex": "109",
-            "lvl": 28
-          },
-          {
-            "dex": "110",
-            "lvl": 28
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-4-18.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-7-32",
-        "key": "T4",
-        "opp": "BIKER:9",
-        "cls": "BIKER",
-        "reward": 660,
-        "team": [
-          {
-            "dex": "089",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-7-32.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-14-34",
-        "key": "T5",
-        "opp": "BIKER:10",
-        "cls": "BIKER",
-        "reward": 580,
-        "team": [
-          {
-            "dex": "100",
-            "lvl": 29
-          },
-          {
-            "dex": "100",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-14-34.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-17-58",
-        "key": "T6",
-        "opp": "CUE_BALL:6",
-        "cls": "CUE_BALL",
-        "reward": 825,
-        "team": [
-          {
-            "dex": "067",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-17-58.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-2-68",
-        "key": "T7",
-        "opp": "CUE_BALL:7",
-        "cls": "CUE_BALL",
-        "reward": 650,
-        "team": [
-          {
-            "dex": "056",
-            "lvl": 26
-          },
-          {
-            "dex": "056",
-            "lvl": 26
-          },
-          {
-            "dex": "067",
-            "lvl": 26
-          },
-          {
-            "dex": "066",
-            "lvl": 26
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-2-68.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-14-98",
-        "key": "T8",
-        "opp": "CUE_BALL:8",
-        "cls": "CUE_BALL",
-        "reward": 725,
-        "team": [
-          {
-            "dex": "057",
-            "lvl": 29
-          },
-          {
-            "dex": "067",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-14-98.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
-        "marker": "trainer-5-98",
-        "key": "T9",
-        "opp": "BIKER:11",
-        "cls": "BIKER",
-        "reward": 580,
-        "team": [
-          {
-            "dex": "110",
-            "lvl": 29
-          },
-          {
-            "dex": "089",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-17-trainer-5-98.png"
-      },
-      {
-        "map": "route-17",
-        "floor": "",
         "marker": "trainer-10-118",
-        "key": "T10",
+        "key": "T1",
         "opp": "BIKER:12",
         "cls": "BIKER",
         "reward": 500,
@@ -3324,6 +3140,190 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-17-trainer-10-118.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-14-98",
+        "key": "T2",
+        "opp": "CUE_BALL:8",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "057",
+            "lvl": 29
+          },
+          {
+            "dex": "067",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-14-98.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-17-58",
+        "key": "T3",
+        "opp": "CUE_BALL:6",
+        "cls": "CUE_BALL",
+        "reward": 825,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-17-58.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-14-34",
+        "key": "T4",
+        "opp": "BIKER:10",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 29
+          },
+          {
+            "dex": "100",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-14-34.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-7-32",
+        "key": "T5",
+        "opp": "BIKER:9",
+        "cls": "BIKER",
+        "reward": 660,
+        "team": [
+          {
+            "dex": "089",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-7-32.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-2-68",
+        "key": "T6",
+        "opp": "CUE_BALL:7",
+        "cls": "CUE_BALL",
+        "reward": 650,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 26
+          },
+          {
+            "dex": "056",
+            "lvl": 26
+          },
+          {
+            "dex": "067",
+            "lvl": 26
+          },
+          {
+            "dex": "066",
+            "lvl": 26
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-2-68.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-5-98",
+        "key": "T7",
+        "opp": "BIKER:11",
+        "cls": "BIKER",
+        "reward": 580,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 29
+          },
+          {
+            "dex": "089",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-5-98.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-4-18",
+        "key": "T8",
+        "opp": "BIKER:8",
+        "cls": "BIKER",
+        "reward": 560,
+        "team": [
+          {
+            "dex": "110",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "110",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-4-18.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-12-19",
+        "key": "T9",
+        "opp": "CUE_BALL:4",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 29
+          },
+          {
+            "dex": "057",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-12-19.png"
+      },
+      {
+        "map": "route-17",
+        "floor": "",
+        "marker": "trainer-11-16",
+        "key": "T10",
+        "opp": "CUE_BALL:5",
+        "cls": "CUE_BALL",
+        "reward": 725,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 29
+          },
+          {
+            "dex": "067",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-17-trainer-11-16.png"
       }
     ],
     "route-18": [
@@ -3350,24 +3350,8 @@
       {
         "map": "route-18",
         "floor": "",
-        "marker": "trainer-40-15",
-        "key": "T2",
-        "opp": "BIRD_KEEPER:9",
-        "cls": "BIRD_KEEPER",
-        "reward": 850,
-        "team": [
-          {
-            "dex": "085",
-            "lvl": 34
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-18-trainer-40-15.png"
-      },
-      {
-        "map": "route-18",
-        "floor": "",
         "marker": "trainer-42-13",
-        "key": "T3",
+        "key": "T2",
         "opp": "BIRD_KEEPER:10",
         "cls": "BIRD_KEEPER",
         "reward": 650,
@@ -3390,6 +3374,22 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-18-trainer-42-13.png"
+      },
+      {
+        "map": "route-18",
+        "floor": "",
+        "marker": "trainer-40-15",
+        "key": "T3",
+        "opp": "BIRD_KEEPER:9",
+        "cls": "BIRD_KEEPER",
+        "reward": 850,
+        "team": [
+          {
+            "dex": "085",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-18-trainer-40-15.png"
       }
     ],
     "route-19": [
