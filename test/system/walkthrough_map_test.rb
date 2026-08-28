@@ -269,7 +269,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
     assert_selector "#{card} .pn-wt-catchbadge--living", text: "LIVING DEX ×1"
     assert_selector "#{card} .pn-wt-catch__later-text",
-      text: "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop."
+      text: "Route 13 has Pidgeotto at 15%, so one Pidgey is all the line asks for."
 
     visit_with_modes "/walkthroughs/yellow/leg-01"
 

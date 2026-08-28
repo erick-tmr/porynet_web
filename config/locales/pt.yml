@@ -460,7 +460,7 @@ pt:
       ld_progress_met: "COTA CUMPRIDA ✓"
       ld_add: "Registrar mais um capturado"
       ld_remove: "Remover um"
-      ld_later_catch: "%{stop} tem %{name} a %{rate}, então um %{base} basta nesta parada."
+      ld_later_catch: "%{stop} tem %{name} a %{rate}, então um %{base} é tudo que a linha pede."
       ld_later_rare: "%{stop} tem %{name} a apenas %{rate}, então evolua o %{base} extra em vez de caçar um."
       ld_later_level: "%{name} nunca aparece selvagem, então o %{base} extra sobe até o nível %{level}."
       ld_later_stone: "%{name} nunca aparece selvagem, então o %{base} extra recebe a %{stone}."

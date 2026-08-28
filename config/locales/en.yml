@@ -460,7 +460,7 @@ en:
       ld_progress_met: "QUOTA MET ✓"
       ld_add: "Log one caught"
       ld_remove: "Remove one"
-      ld_later_catch: "%{stop} has %{name} at %{rate}, so one %{base} covers this stop."
+      ld_later_catch: "%{stop} has %{name} at %{rate}, so one %{base} is all the line asks for."
       ld_later_rare: "%{stop} has %{name} at only %{rate}, so grow the spare %{base} instead of hunting one."
       ld_later_level: "%{name} is never wild, so the spare %{base} levels to %{level}."
       ld_later_stone: "%{name} is never wild, so the spare %{base} takes the %{stone}."
