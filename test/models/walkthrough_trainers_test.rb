@@ -7,7 +7,9 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
   def game = Walkthrough.find!("yellow")
   def location(slug) = game.locations.find { |l| l.slug == slug }
   def all_cards = game.locations.flat_map { |l| l.trainers + gym_cards(l) }
-  def gym_cards(loc) = loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : []
+  # A gym and the Fighting Dojo both hold their fights behind one door, so both count as cards.
+  def gym_cards(loc) = halls(loc).flat_map { |hall| hall.trainers + [ hall.leader ] }
+  def halls(loc) = [ loc.gym, loc.dojo ].compact
 
   test "the roster is parsed once and handed back frozen" do
     first = Walkthrough::Yellow.roster

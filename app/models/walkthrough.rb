@@ -487,6 +487,38 @@ module Walkthrough
     def pins = area? ? area.markers_in("trainer") : []
   end
 
+  # A hall that fights like a gym and pays like one, without a badge at the end of it: Saffron's
+  # Fighting Dojo. It renders in the gym's own frame and carries the same shape (intro, how it
+  # runs, students, the one at the back), with the badge slot swapped for the prize. `map` is the
+  # game map its roster comes off, which is what routes those trainers here instead of onto the
+  # city page they share a stop with.
+  Dojo = Data.define(:anchor, :map, :name, :type, :intro_key, :when_key, :prize_key, :shot, :area,
+    :steps, :trainers, :leader, :note_key, :choice) do
+    # `area` is filled in once the stop's maps are read, and the dojo's floor is always one of
+    # them, so nothing asks whether it has one.
+    def initialize(area: nil, **rest) = super
+    def pins = area.markers_in("trainer")
+    def cards = trainers + [ leader ]
+    def purse = cards.sum(&:reward)
+  end
+
+  # One of the two Poké Balls behind the Karate Master, and the case for taking it. `stats` are the
+  # four the choice actually turns on, `knows` what it arrives holding and `learns` what it picks
+  # up after. Picking one is a catch, so the card ticks against the species itself: the same tick
+  # the catch card below it carries, and the one the living dex counts.
+  DojoPick = Data.define(:side, :dex, :name, :level, :stats, :knows, :learns, :note_key)
+
+  # `lead` is true for the stat this one of the pair wins, which is the only thing the bar beside
+  # the number is for. `fill` is its share of the better of the two, in the fives a class can carry.
+  DojoStat = Data.define(:key, :value, :fill, :lead)
+
+  DojoMove = Data.define(:name, :level)
+
+  DojoChoice = Data.define(:anchor, :intro_key, :room_key, :rec_key, :picks) do
+    def left = picks.first
+    def right = picks.last
+  end
+
   # `name` is the place the game knows, and it stays on everything anchored to that place: the map
   # titlebar, the catch cards, the challenge planner's "do at" badge. `title` is what the guide
   # calls the stop, which parts company with the name when a stop walks well past its own map
@@ -494,17 +526,18 @@ module Walkthrough
   Location = Data.define(
     :slug, :kind, :name, :title, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
-    :area_maps, :later, :trivia, :missable, :mart, :grind, :second_visit
+    :area_maps, :later, :trivia, :missable, :mart, :grind, :second_visit, :dojo
   ) do
     def initialize(name:, title: nil, gym: nil, gym_after: nil, gym_finale: false, area_maps: [],
       later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil,
-      second_visit: nil, **rest)
+      second_visit: nil, dojo: nil, **rest)
       super(name: name, title: title || name, gym: gym, gym_after: gym_after,
         gym_finale: gym_finale, area_maps: area_maps,
         later: later, trivia: trivia, missable: missable, trades: trades, mart: mart,
-        grind: grind, second_visit: second_visit, **rest)
+        grind: grind, second_visit: second_visit, dojo: dojo, **rest)
     end
 
+    def dojo? = !dojo.nil?
     def mart? = !mart.nil?
     def area_maps? = area_maps.any?
     def later? = later.any?

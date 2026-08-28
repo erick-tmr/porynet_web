@@ -17,10 +17,11 @@ def test_location_maps_shape():
 def test_extra_trainer_maps():
     """Maps a location owns but never draws, whose trainers still belong to it.
 
-    The three cabin *Rooms maps used to live here. They are drawn now, so they moved to _DUNGEONS;
-    a map listed in both would have its trainers counted twice, since roster.py walks this list
-    separately from location_maps."""
-    assert [label for label, _, _ in locations.extra_trainer_maps("saffron-city")] == ["FightingDojo"]
+    Nothing is left in here: the three cabin *Rooms maps moved to _DUNGEONS and the Fighting Dojo
+    to _ANNEXES once each was drawn. A map listed in both would have its trainers counted twice,
+    since roster.py walks this list separately from location_maps."""
+    assert locations.extra_trainer_maps("saffron-city") == [], "the dojo is drawn, not just walked"
+    assert ("FightingDojo", "Dojo", "SAFFRON_CITY") in locations.location_maps()["saffron-city"]
     # the arcade is drawn with the hideout, so it is a floor rather than a roster-only map
     assert locations.extra_trainer_maps("rocket-hideout") == []
     assert locations.extra_trainer_maps("celadon-city") == [], "the town does not carry it either"

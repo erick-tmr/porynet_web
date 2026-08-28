@@ -82,7 +82,8 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
 
     # +2: the bow's Sailors joined the cabin trainers on drawn maps
     # +1: the Game Corner's Rocket, now that the arcade is drawn with the hideout he guards
-    assert checked == 318
+    # +5: the Fighting Dojo's four students and their Karate Master, now that Saffron draws it
+    assert checked == 323
 
 
 def test_gym_floors_are_keyed_like_any_other_map(root):
@@ -199,7 +200,7 @@ def test_the_dojo_hero_stands_between_the_master_and_the_black_belt(root):
     """Regression: the Karate Master's card stood the hero two cells ahead on [5, 5], the cell
     Black Belt 3 occupies, so the shot showed four Black Belts instead of five."""
     _, specs = built(root)
-    spec = next(s for s in specs if s["name"] == "saffron-city-fightingdojo-trainer-5-3")
+    spec = next(s for s in specs if s["name"] == "saffron-city-dojo-trainer-5-3")
 
     assert spec["player"] == [5, 4]
 

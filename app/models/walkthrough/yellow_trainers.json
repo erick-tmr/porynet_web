@@ -5286,90 +5286,10 @@
         "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-9-8.png"
       },
       {
-        "map": "saffron-city-fightingdojo",
-        "floor": "",
-        "marker": "trainer-5-3",
-        "key": null,
-        "opp": "BLACKBELT:1",
-        "cls": "BLACKBELT",
-        "reward": 925,
-        "team": [
-          {
-            "dex": "106",
-            "lvl": 37
-          },
-          {
-            "dex": "107",
-            "lvl": 37
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-5-3.png"
-      },
-      {
-        "map": "saffron-city-fightingdojo",
-        "floor": "",
-        "marker": "trainer-3-4",
-        "key": null,
-        "opp": "BLACKBELT:2",
-        "cls": "BLACKBELT",
-        "reward": 775,
-        "team": [
-          {
-            "dex": "056",
-            "lvl": 31
-          },
-          {
-            "dex": "056",
-            "lvl": 31
-          },
-          {
-            "dex": "057",
-            "lvl": 31
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-3-4.png"
-      },
-      {
-        "map": "saffron-city-fightingdojo",
-        "floor": "",
-        "marker": "trainer-3-6",
-        "key": null,
-        "opp": "BLACKBELT:3",
-        "cls": "BLACKBELT",
-        "reward": 800,
-        "team": [
-          {
-            "dex": "066",
-            "lvl": 32
-          },
-          {
-            "dex": "067",
-            "lvl": 32
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-3-6.png"
-      },
-      {
-        "map": "saffron-city-fightingdojo",
-        "floor": "",
-        "marker": "trainer-5-5",
-        "key": null,
-        "opp": "BLACKBELT:4",
-        "cls": "BLACKBELT",
-        "reward": 900,
-        "team": [
-          {
-            "dex": "057",
-            "lvl": 36
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-5-5.png"
-      },
-      {
-        "map": "saffron-city-fightingdojo",
-        "floor": "",
+        "map": "saffron-city-dojo",
+        "floor": "Dojo",
         "marker": "trainer-5-7",
-        "key": null,
+        "key": "T1",
         "opp": "BLACKBELT:5",
         "cls": "BLACKBELT",
         "reward": 775,
@@ -5387,7 +5307,87 @@
             "lvl": 31
           }
         ],
-        "where": "walkthrough/yellow/scenes/saffron-city-fightingdojo-trainer-5-7.png"
+        "where": "walkthrough/yellow/scenes/saffron-city-dojo-trainer-5-7.png"
+      },
+      {
+        "map": "saffron-city-dojo",
+        "floor": "Dojo",
+        "marker": "trainer-3-6",
+        "key": "T2",
+        "opp": "BLACKBELT:3",
+        "cls": "BLACKBELT",
+        "reward": 800,
+        "team": [
+          {
+            "dex": "066",
+            "lvl": 32
+          },
+          {
+            "dex": "067",
+            "lvl": 32
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-dojo-trainer-3-6.png"
+      },
+      {
+        "map": "saffron-city-dojo",
+        "floor": "Dojo",
+        "marker": "trainer-5-5",
+        "key": "T3",
+        "opp": "BLACKBELT:4",
+        "cls": "BLACKBELT",
+        "reward": 900,
+        "team": [
+          {
+            "dex": "057",
+            "lvl": 36
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-dojo-trainer-5-5.png"
+      },
+      {
+        "map": "saffron-city-dojo",
+        "floor": "Dojo",
+        "marker": "trainer-3-4",
+        "key": "T4",
+        "opp": "BLACKBELT:2",
+        "cls": "BLACKBELT",
+        "reward": 775,
+        "team": [
+          {
+            "dex": "056",
+            "lvl": 31
+          },
+          {
+            "dex": "056",
+            "lvl": 31
+          },
+          {
+            "dex": "057",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-dojo-trainer-3-4.png"
+      },
+      {
+        "map": "saffron-city-dojo",
+        "floor": "Dojo",
+        "marker": "trainer-5-3",
+        "key": "T5",
+        "opp": "BLACKBELT:1",
+        "cls": "BLACKBELT",
+        "reward": 925,
+        "team": [
+          {
+            "dex": "106",
+            "lvl": 37
+          },
+          {
+            "dex": "107",
+            "lvl": 37
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-dojo-trainer-5-3.png"
       }
     ],
     "silph-co": [

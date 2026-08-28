@@ -380,6 +380,7 @@ pt:
       map_npc_route1_potion: "Funcionário do Poké Mart de Viridian. Fale com ele por uma Potion de amostra grátis."
       map_npc_route24_charmander: "Na colina de grama acima da ponte, este garoto te dá um Charmander grátis (Nv 10). Pegue."
       map_npc_viridian_tm42: "Um Pescador cochilando num terreno cercado, fechado por uma árvore cortável. Acorde-o e ele te dá o TM42, Dream Eater."
+      map_npc_celadon_tm41: "Do outro lado do laguinho, no quintal cercado. Fale com ele por TM41, Softboiled, uma cura que só Chansey aprende."
       map_npc_silph_master_ball: "Derrote o Giovanni e o presidente te agradece com a Master Ball, a única do jogo."
       map_npc_tower_purified_zone: "Quatro tiles que curam sua equipe por completo, toda vez que você pisa neles. O Centro Pokémon grátis da torre, no meio da subida."
       map_npc_tower_silent_channeler: "A única Channeler da torre que não é treinadora. Ela fica ao lado dos tiles de cura e só conversa."
@@ -568,6 +569,47 @@ pt:
       gym_leader_label: "LÍDER"
       gym_cleared: "GINÁSIO VENCIDO ✓"
       gym_roster: "EQUIPE"
+      dojo_tag: "◆ GINÁSIO ESPECIAL"
+      dojo_type: "TIPO %{type} · SEM INSÍGNIA"
+      dojo_when: "QUANDO"
+      dojo_purse: "PRÊMIOS"
+      dojo_purse_html: "%{count} treinadores, %{money} no total"
+      dojo_prize: "PRÊMIO"
+      dojo_how: "COMO FUNCIONA"
+      dojo_students: "ALUNOS LÁ DENTRO · %{count}"
+      dojo_student: "ALUNO DO DOJO"
+      dojo_master_label: "O MESTRE"
+      dojo_cleared: "DOJO VENCIDO ✓"
+      dojo_master: "MESTRE DE KARATÊ"
+      dojo_roster: "EQUIPE DELE"
+      dojo_no_badge: "SEM INSÍGNIA · SEM TM"
+      dojo_prize_title: "Um prêmio no lugar da insígnia"
+      dojo_choice_link: "▼ A ESCOLHA"
+      dojo_dex_note: "NOTA DEX"
+      dojo_choice_eyebrow: "DEPOIS DO MESTRE · UMA ESCOLHA, SEM VOLTA"
+      dojo_choice_title: "%{left} ou %{right}"
+      dojo_room_label: "FUNDO DA SALA"
+      dojo_room_title: "Qual bola guarda qual nunca muda."
+      dojo_room_foot: "▲ O MESTRE FICA AQUI · VOCÊ SOBE PELA PORTA"
+      dojo_ball_left: "ESQUERDA"
+      dojo_ball_right: "DIREITA"
+      dojo_side_left: "◀ BOLA DA ESQUERDA"
+      dojo_side_right: "BOLA DA DIREITA ▶"
+      dojo_holds: "guarda"
+      dojo_pick_one: "ESCOLHA UMA"
+      dojo_fighting: "LUTADOR"
+      dojo_arrives: "CHEGA NV %{n}"
+      dojo_knows: "SABE NO NV %{n}"
+      dojo_learns: "APRENDE"
+      dojo_stat_attack: "ATAQUE"
+      dojo_stat_speed: "VELOCID."
+      dojo_stat_defense: "DEFESA"
+      dojo_stat_special: "ESPECIAL"
+      dojo_your_pick: "SUA ESCOLHA ✓"
+      dojo_gone: "PERDIDA ✕"
+      dojo_rec: "ESCOLHA PORYNET"
+      dojo_marked_html: "Marcado: %{name} levado, a outra bola fica fechada."
+      dojo_undo: "↻ DESFAZER"
       badge_collected: "✓ OBTIDA"
       badge_not_earned: "◻ NÃO OBTIDA"
       badge_alt: "Insígnia %{badge}"
@@ -691,7 +733,7 @@ pt:
         leg_13:
           lead: "A Silph está limpa, então o ginásio abre. Uma parada, uma insígnia."
         leg_14:
-          lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
+          lead: "O mar aberto ao sul de Fuchsia, a oeste passando pelas Seafoam Islands até Cinnabar."
         leg_15:
           lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
         leg_16:
@@ -2088,6 +2130,10 @@ pt:
           gym:
             intro: "Um jardim de arvorezinhas escondendo vários treinadores, depois a Erika. O Tangela (Nv 30), o Weepinbell (Nv 32) e o Gloom (Nv 32) dela caem para Fogo, Voador, Psíquico ou Gelo, então lidere com um desses e carregue curas de status para o Sleep Powder e o Stun Spore deles."
             needs: "A Erika e três dos sete treinadores ficam atrás de arbustos que só o Cut abre. Sem um Pokémon que o conheça, você enfrenta os outros quatro e mais nada."
+          later:
+            tm41:
+              where: "No quintal cercado atrás da casinha ao norte do Game Corner. Um laguinho preenche a única abertura e cercas-vivas fecham os dois lados, então ninguém chega a pé."
+              after: "Surfe para o norte pelo laguinho e desça ao lado dele. O HM03 sai da Casa Secreta da Safari Zone, oito paradas adiante."
           note: "Ginásio da Erika. Rainbow Badge. Loja, Eevee e o Game Corner."
           intro: "A maior cidade de Kanto: uma loja de departamentos de seis andares, o ginásio-estufa da Erika e um Game Corner com o esconderijo da Equipe Rocket embaixo."
           steps:
@@ -2663,6 +2709,22 @@ pt:
               "1": "Pise numa plataforma de teletransporte e ela te joga para outra sala. Cada sala tem um treinador e duas plataformas: uma volta, a outra avanca."
               "2": "A linha mais rápida: da entrada pegue a plataforma sudeste, depois a noroeste, depois a sudoeste, e a sudoeste de novo. Cada salto te deixa em cima de um treinador para vencer, e essa sequência te leva à sala da Sabrina."
               "3": "O ultimo teletransporte te deixa ao lado de Sabrina. Psiquico nao tem contra na 1a geracao, entao suba de nível ou lidere com um forte atacante Inseto."
+          dojo:
+            intro: "Um Karate Master e quatro Black Belts, todos do tipo Lutador. Vencê-lo não dá insígnia nem TM. O que ele libera é o par de Poké Balls no fundo da sala: Hitmonlee numa, Hitmonchan na outra, e você só abre uma."
+            when: "a qualquer momento em Saffron, antes ou depois da Silph"
+            prize: "um de dois Pokémon Lutadores, Nv %{level}"
+            steps:
+              "1": "Vença os quatro Black Belts e depois o Karate Master no fundo. A sala inteira é Lutador puro, então um tipo Psíquico ou Voador atravessa tudo. Pikachu também dá conta."
+              "2": "As duas Poké Balls atrás dele abrem assim que ele perde. Aperte A na que você quer: a página da Pokédex que aparece diz o que tem dentro antes de você responder sim."
+            notes:
+              primeape: "Um Pokémon só, cinco níveis acima do resto da sala. O Primeape dele é o golpe mais pesado que você leva antes do Mestre."
+            dex_note: "Ele começa com Hitmonlee e emenda com Hitmonchan, então a luta registra os dois como vistos antes de você escolher."
+            choice:
+              intro: "Duas Poké Balls ficam no fundo do dojo. Nenhuma das duas espécies aparece no mato em lugar nenhum do Yellow, e o dojo entrega exatamente uma delas."
+              room: "As duas ficam encostadas na parede do fundo atrás do Karate Master, uma de cada lado do centro da sala. Ande até a que você quer e aperte A; a página da Pokédex que abre diz o que tem dentro antes de você responder."
+              hitmonlee: "O mais forte dos dois numa luta da 1a geração. Golpes Lutadores usam o Ataque, e 120 de Ataque com Hi Jump Kick é o maior golpe que qualquer um dos dois acerta. Cai rápido se levar troco."
+              hitmonchan: "Os socos elementais são o atrativo e a armadilha: na 1a geração eles usam o Especial, e o Especial dele é 35. Mais resistente e mais divertido, claramente mais fraco. Leve porque você quer."
+              rec: "Hitmonlee, se o resultado importa. Bate mais forte no resto do jogo e não precisa de TM para isso. Hitmonchan tem o melhor sprite e é o pior Pokémon."
           note: "Ginásio da Sabrina. Marsh Badge. Silph Co. e o Dojo."
           intro: "A capital de Kanto sob ocupação Rocket, um guarda em cada portão. A Silph Co. fica no centro, e a cidade tem dois salões de luta: o ginásio da Sabrina e o Dojo."
           steps:
@@ -2672,8 +2734,17 @@ pt:
             "2":
               title: "Liberte a Silph Co."
               text_html: "O ginásio %{gym} fica trancado enquanto a Rocket segura a Silph Co. %{silph}, então a torre vem em seguida e a Sabrina espera a volta pela cidade."
+          tips:
+            hitmonlee: "De graça no dojo, e o que bate mais forte: 120 de Ataque com Hi Jump Kick. Está na bola da esquerda."
+            hitmonchan: "De graça no dojo, e o que tem os socos elementais. Na 1a geração eles usam os 35 de Especial dele, então batem mais fraco do que parecem."
+          gifts:
+            hitmonlee:
+              from: "o Karate Master"
+            hitmonchan:
+              from: "o Karate Master"
           oak:
             hitmonlee: "Grátis do Dojo. Escolha Hitmonlee ou Hitmonchan (só um)."
+            hitmonchan: "A outra metade do prêmio do Dojo. Um save registra um dos dois; o outro vem por troca."
         saffron_city_return:
           note: "De volta pela Sabrina. Marsh Badge e TM46 Psywave."
           intro: "A Silph está livre e as portas do ginásio finalmente abriram. Os Psíquicos da Sabrina batem mais forte que tudo que você enfrentou, e o chão dela é atravessado por painéis de teleporte, não a pé."
@@ -2795,17 +2866,17 @@ pt:
               title: "Siga para a Rota 20"
               text_html: "Siga ao sul até a praia lá embaixo, que abre a oeste %{west} para a Rota 20 e as Seafoam Islands."
         route_20:
-          note: "Rota aquática até Seafoam. Tentacool, Staryu, Shellder."
-          intro: "O canal longo rumo a oeste até Cinnabar, com as Seafoam Islands bem no meio dele. Nada passa a não ser pela caverna ou contornando-a."
+          note: "Água aberta até Cinnabar. Tentacool, Staryu, Shellder."
+          intro: "O canal longo rumo a oeste até Cinnabar, com as Seafoam Islands bem no meio dele. A caverna é um desvio, não um portão: a água aberta contorna os dois lados."
           steps:
             "1":
               title: "Surfe a oeste"
               text: "Limpe os Swimmers espalhados pela metade leste da água enquanto surfa a oeste pelo canal rumo às ilhas."
             "2":
-              title: "Entre em Seafoam"
-              text_html: "A caverna das Seafoam Islands quebra a água no meio da rota. Entre pela boca leste %{east} para começar o quebra-cabeça de pedras."
+              title: "Contorne as ilhas"
+              text_html: "As Seafoam Islands quebram a água no meio do caminho. Contorne-as e siga a oeste para Cinnabar; a boca da caverna %{east} espera até as insígnias acabarem."
         seafoam_islands:
-          note: "Caverna com quebra-cabeça de pedras. Articuno selvagem dentro."
+          note: "Caverna opcional com quebra-cabeça de pedras. Articuno selvagem dentro."
           intro: "Cinco andares de caverna marinha com correntes correndo pelos mais fundos. Nenhum treinador, um quebra-cabeça de pedras e o Articuno no fim."
           steps:
             "1":
@@ -2833,8 +2904,8 @@ pt:
               hidden:
                 ultra-ball: "B4F, canto sudeste extremo ao lado das pedras. Vire para o sul e aperte A. Nada aparece na tela."
             "7":
-              title: "Saia rumo a Cinnabar"
-              text: "Com o Articuno capturado e os bolsos cheios, saia pela boca oeste da caverna no mar aberto e surfe ao sul até Cinnabar Island."
+              title: "Saia da caverna"
+              text: "Com o Articuno capturado e os bolsos cheios, saia pela boca oeste no mar aberto. Voe de Cinnabar; a usina é a última parada antes da Victory Road."
           tips:
             articuno: "Um lendário Nv 50 de uma vez só. Salve antes, faça dormir/paralise, e use a Master Ball ou muitas Ultra Balls."
           oak:
@@ -2911,7 +2982,7 @@ pt:
               text: "O Zapdos (Nv 50) descansa no canto noroeste distante, perto da porta oeste da usina. Salve antes, enfraqueça com Rocha ou Gelo, faça dormir ou paralise, e jogue Ultra Balls. Só há uma chance."
             "18":
               title: "Surfe de volta para a Rota 10"
-              text: "Com o Zapdos capturado e a usina saqueada, saia pela porta sul e surfe de volta para a Rota 10. Daqui e seguir rumo ao Rock Tunnel e Lavender Town."
+              text: "Com o Zapdos capturado e a usina saqueada, saia pela porta sul e surfe de volta para a Rota 10. Agora só resta a Victory Road no mapa."
           tips:
             zapdos: "O lendário Elétrico, um Nv 50 estático de uma vez só. Salve antes de tocar nele, depois faça dormir ou paralise e capture."
           oak:

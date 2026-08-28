@@ -13750,6 +13750,107 @@
             "lane": -1
           }
         ]
+      },
+      {
+        "image": "walkthrough/yellow/maps/saffron-city-dojo.png",
+        "width": 160,
+        "height": 192,
+        "floor": "Dojo",
+        "name": "saffron-city-dojo",
+        "markers": [
+          {
+            "id": "trainer-5-7",
+            "cat": "trainer",
+            "key": "T1",
+            "x": 55.0,
+            "y": 62.5,
+            "grid": [
+              5,
+              7
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:5",
+            "lane": 0
+          },
+          {
+            "id": "trainer-3-6",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 35.0,
+            "y": 54.167,
+            "grid": [
+              3,
+              6
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:3",
+            "lane": 3
+          },
+          {
+            "id": "trainer-5-5",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 55.0,
+            "y": 45.833,
+            "grid": [
+              5,
+              5
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:4",
+            "lane": 0
+          },
+          {
+            "id": "trainer-3-4",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 35.0,
+            "y": 37.5,
+            "grid": [
+              3,
+              4
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:2",
+            "lane": 3
+          },
+          {
+            "id": "trainer-5-3",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 55.0,
+            "y": 29.167,
+            "grid": [
+              5,
+              3
+            ],
+            "align": "r",
+            "name": "Blackbelt",
+            "ref": "BLACKBELT:1",
+            "lane": 0
+          },
+          {
+            "id": "exit-4-11",
+            "cat": "exit",
+            "key": "E2",
+            "x": 50.0,
+            "y": 95.833,
+            "grid": [
+              4,
+              11
+            ],
+            "align": "r",
+            "name": "Back outside",
+            "ref": "LAST_MAP",
+            "edge": "south",
+            "glyph": "\u25bc",
+            "lane": 0
+          }
+        ]
       }
     ],
     "seafoam-islands": [
@@ -19195,6 +19296,12 @@
       "height": 144,
       "type": "screen"
     },
+    "celadon-city-tm41": {
+      "image": "walkthrough/yellow/scenes/celadon-city-tm41.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
     "mew-glitch-route24": {
       "image": "walkthrough/yellow/scenes/mew-glitch-route24.png",
       "width": 160,
@@ -20613,12 +20720,6 @@
     },
     "indigo-champion": {
       "image": "walkthrough/yellow/scenes/indigo-champion.png",
-      "width": 160,
-      "height": 144,
-      "type": "screen"
-    },
-    "saffron-dojo-master": {
-      "image": "walkthrough/yellow/scenes/saffron-dojo-master.png",
       "width": 160,
       "height": 144,
       "type": "screen"

@@ -380,6 +380,7 @@ en:
       map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion."
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
       map_npc_viridian_tm42: "A Fisher dozing on a fenced plot, walled in by a cuttable tree. Wake him and he gives you TM42, Dream Eater."
+      map_npc_celadon_tm41: "Across the pond in the hedged yard. Talk to him for TM41, Softboiled, a heal only Chansey can be taught."
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
       map_npc_tower_purified_zone: "Four tiles that heal your party in full, every time you step on them. The tower's free Pokémon Center, halfway up the climb."
       map_npc_tower_silent_channeler: "The one Channeler in the tower who is not a trainer. She stands beside the healing tiles and only talks."
@@ -568,6 +569,47 @@ en:
       gym_leader_label: "LEADER"
       gym_cleared: "GYM CLEARED ✓"
       gym_roster: "ROSTER"
+      dojo_tag: "◆ SPECIAL GYM"
+      dojo_type: "%{type}-TYPE · NO BADGE"
+      dojo_when: "WHEN"
+      dojo_purse: "PURSE"
+      dojo_purse_html: "%{count} trainers, %{money} total"
+      dojo_prize: "PRIZE"
+      dojo_how: "HOW IT RUNS"
+      dojo_students: "STUDENTS INSIDE · %{count}"
+      dojo_student: "DOJO STUDENT"
+      dojo_master_label: "THE MASTER"
+      dojo_cleared: "DOJO CLEARED ✓"
+      dojo_master: "KARATE MASTER"
+      dojo_roster: "HIS TEAM"
+      dojo_no_badge: "NO BADGE · NO TM"
+      dojo_prize_title: "A prize instead of a badge"
+      dojo_choice_link: "▼ THE CHOICE"
+      dojo_dex_note: "DEX NOTE"
+      dojo_choice_eyebrow: "AFTER THE MASTER · ONE CHOICE, NO TAKEBACKS"
+      dojo_choice_title: "%{left} or %{right}"
+      dojo_room_label: "BACK OF THE ROOM"
+      dojo_room_title: "Which ball holds which never changes."
+      dojo_room_foot: "▲ THE MASTER STANDS HERE · YOU COME UP FROM THE DOOR"
+      dojo_ball_left: "LEFT"
+      dojo_ball_right: "RIGHT"
+      dojo_side_left: "◀ LEFT BALL"
+      dojo_side_right: "RIGHT BALL ▶"
+      dojo_holds: "holds"
+      dojo_pick_one: "PICK ONE"
+      dojo_fighting: "FIGHTING"
+      dojo_arrives: "ARRIVES LV %{n}"
+      dojo_knows: "KNOWS AT LV %{n}"
+      dojo_learns: "LEARNS"
+      dojo_stat_attack: "ATTACK"
+      dojo_stat_speed: "SPEED"
+      dojo_stat_defense: "DEFENSE"
+      dojo_stat_special: "SPECIAL"
+      dojo_your_pick: "YOUR PICK ✓"
+      dojo_gone: "GONE ✕"
+      dojo_rec: "PORYNET PICK"
+      dojo_marked_html: "Marked: %{name} taken, the other ball stays shut."
+      dojo_undo: "↻ UNDO PICK"
       badge_collected: "✓ COLLECTED"
       badge_not_earned: "◻ NOT EARNED"
       badge_alt: "%{badge} Badge"
@@ -691,7 +733,7 @@ en:
         leg_13:
           lead: "Silph is clear, so the gym opens. One stop, one badge."
         leg_14:
-          lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
+          lead: "The open water south of Fuchsia, west past the Seafoam Islands to Cinnabar."
         leg_15:
           lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
         leg_16:
@@ -2088,6 +2130,10 @@ en:
           gym:
             intro: "A garden of small trees hiding several trainers, then Erika. Her Tangela (Lv 30), Weepinbell (Lv 32) and Gloom (Lv 32) fold to Fire, Flying, Psychic or Ice, so lead with one of those and carry status heals for their Sleep Powder and Stun Spore."
             needs: "Erika and three of the seven trainers sit behind hedges that only Cut opens. Without a Pokémon that knows it you can fight the other four and nothing else."
+          later:
+            tm41:
+              where: "In the hedged yard behind the little house north of the Game Corner. A pond fills the only gap and hedges close both sides, so nothing on foot reaches him."
+              after: "Surf north over the pond and step off beside him. HM03 comes out of the Safari Zone's Secret House, eight stops on."
           note: "Erika's Gym. Rainbow Badge. Dept. Store, Eevee and the Game Corner."
           intro: "Kanto's biggest city: a six-floor department store, Erika's greenhouse gym, and a Game Corner with Team Rocket's hideout underneath it."
           steps:
@@ -2663,6 +2709,22 @@ en:
               "1": "Step onto a warp pad and it flings you to another room. Each room has one trainer and two pads: one loops back, one moves you on."
               "2": "The fastest line: from the entrance take the southeast pad, then the northwest pad, then the southwest pad, and the southwest pad once more. Each hop drops you on one trainer to clear, and that sequence lands you in Sabrina's room."
               "3": "The final warp drops you beside Sabrina. Psychic has no counters in Gen 1, so out-level her or lead with a strong Bug attacker."
+          dojo:
+            intro: "A Karate Master and four Black Belts, every one of them Fighting. Beating him earns no badge and no TM. What it unlocks is the pair of Poké Balls at the back of the room: Hitmonlee in one, Hitmonchan in the other, and you only ever open one."
+            when: "any time you are in Saffron, before Silph or after"
+            prize: "one of two Fighting Pokémon, Lv %{level}"
+            steps:
+              "1": "Beat the four Black Belts, then the Karate Master at the back. The whole room is pure Fighting, so a Psychic or a Flying type walks through it. Pikachu is fine too."
+              "2": "The two Poké Balls behind him open the moment he loses. Press A on the one you want: the Pokédex page it shows tells you what is inside before you answer yes."
+            notes:
+              primeape: "One Pokémon, five levels above the rest of the room. His Primeape is the hardest single hit you take before the Master."
+            dex_note: "He leads with Hitmonlee and follows with Hitmonchan, so the fight registers both as seen before you choose."
+            choice:
+              intro: "Two Poké Balls sit at the back of the dojo. Neither species turns up in the wild anywhere in Yellow, and the dojo hands over exactly one of them."
+              room: "Both sit against the top wall behind the Karate Master, one either side of the room's centre. Walk onto the one you want and press A; the Pokédex page it opens tells you what is inside before you answer."
+              hitmonlee: "The stronger of the two in a Gen 1 fight. Fighting moves run off Attack, and 120 Attack behind Hi Jump Kick is the biggest hit either of them ever lands. It folds fast if anything hits back."
+              hitmonchan: "The elemental punches are the selling point and the trap: in Gen 1 they run off Special, and its Special is 35. Tougher and more fun, clearly weaker. Take it because you want it."
+              rec: "Hitmonlee, if the run matters. It hits harder for the rest of the game and needs no TM to do it. Hitmonchan is the better sprite and the worse Pokémon."
           note: "Sabrina's Gym. Marsh Badge. Silph Co. and the Dojo."
           intro: "Kanto's capital under Rocket occupation, a guard on every gate. Silph Co. stands in the middle, and the city keeps two fighting halls: Sabrina's gym and the Dojo."
           steps:
@@ -2672,8 +2734,17 @@ en:
             "2":
               title: "Free Silph Co."
               text_html: "The gym %{gym} stays locked while Rocket holds Silph Co. %{silph}, so the tower comes next and Sabrina waits for the way back through town."
+          tips:
+            hitmonlee: "Free from the dojo, and the harder hitter: 120 Attack behind Hi Jump Kick. The ball on the left holds it."
+            hitmonchan: "Free from the dojo, and the one with the elemental punches. They run off its 35 Special in Gen 1, so they hit softer than they read."
+          gifts:
+            hitmonlee:
+              from: "the Karate Master"
+            hitmonchan:
+              from: "the Karate Master"
           oak:
             hitmonlee: "Free from the Dojo. Pick Hitmonlee or Hitmonchan (you only get one)."
+            hitmonchan: "The other half of the Dojo prize. One save registers one of the pair; the other is a trade."
         saffron_city_return:
           note: "Back for Sabrina. Marsh Badge and TM46 Psywave."
           intro: "Silph is free and the gym's doors are open at last. Sabrina's Psychics hit harder than anything you have met, and her floor is crossed on teleport pads rather than walked."
@@ -2795,17 +2866,17 @@ en:
               title: "Head to Route 20"
               text_html: "Carry on south to the little beach at the bottom, which opens west %{west} into Route 20 and the Seafoam Islands."
         route_20:
-          note: "Water route to Seafoam. Tentacool, Staryu, Shellder."
-          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. Nothing gets past except through the cave or around it."
+          note: "Open water to Cinnabar. Tentacool, Staryu, Shellder."
+          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. The cave is a detour, not a gate: open water runs around both sides."
           steps:
             "1":
               title: "Surf west"
               text: "Clear the Swimmers strung across the east half of the water as you Surf west along the channel toward the islands."
             "2":
-              title: "Enter Seafoam"
-              text_html: "The Seafoam Islands cave breaks the water in the middle of the route. Step in from the eastern mouth %{east} to start the boulder puzzle."
+              title: "Surf past the islands"
+              text_html: "The Seafoam Islands break the water halfway along. Surf around them and keep west for Cinnabar; the cave mouth %{east} keeps until the badges are done."
         seafoam_islands:
-          note: "Boulder-puzzle cave. Wild Articuno inside."
+          note: "Optional boulder-puzzle cave. Wild Articuno inside."
           intro: "Five floors of sea cave with currents running through the lower ones. No trainers at all, one boulder puzzle, and Articuno at the bottom."
           steps:
             "1":
@@ -2833,8 +2904,8 @@ en:
               hidden:
                 ultra-ball: "B4F, far southeast corner beside the boulders. Face south and press A. Nothing shows on-screen."
             "7":
-              title: "Exit toward Cinnabar"
-              text: "With Articuno caught and the pockets full, ride out the far west mouth of the cave onto the open sea and Surf south to Cinnabar Island."
+              title: "Ride back out"
+              text: "With Articuno caught and the pockets full, ride out the far west mouth onto the open sea. Fly from Cinnabar; the Power Plant is the last stop before Victory Road."
           tips:
             articuno: "A one-time Lv 50 legendary. Save first, sleep/paralyze it, and use the Master Ball or a lot of Ultra Balls."
           oak:
@@ -2911,7 +2982,7 @@ en:
               text: "Zapdos (Lv 50) roosts in the far northwest, near the plant's west door. Save first, chip it with Rock or Ice, sleep or paralyze it, then throw Ultra Balls. You get one shot."
             "18":
               title: "Surf back out to Route 10"
-              text: "With Zapdos caught and the plant stripped clean, step out the south door and Surf back onto Route 10. From here it is on toward Rock Tunnel and Lavender Town."
+              text: "With Zapdos caught and the plant stripped clean, step out the south door and Surf back onto Route 10. Nothing is left on the map now but Victory Road."
           tips:
             zapdos: "The Electric legendary, a one-time Lv 50 static. Save before you touch it, then sleep or paralyze and ball it down."
           oak:

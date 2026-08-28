@@ -144,6 +144,9 @@ ROUTES = {
     "FuchsiaGym": ("exit-4-17",),
     "CinnabarGym": ("exit-16-17",),
     "SaffronGym": ("exit-8-17",),
+    # Not a gym, but the same shape: one room off one door, walked up the middle from the mat by
+    # the entrance to the Karate Master at the back.
+    "FightingDojo": ("exit-4-11",),
     "ViridianGym": ("exit-16-17",),
 
     # Caves and buildings, entered by the ladder or staircase the steps take.
