@@ -2012,18 +2012,27 @@ a.pn-wt-route__card:hover {
   font-size: 14px;
   color: #6b6880;
 }
+/* One card's rows are a comparison, so the whole list is one grid rather than a stack of rows
+   that each size themselves: every track then starts and ends in the same place, and two floors
+   at the same rate draw the same bar. Sized per row, a wide "Center" chip pushed its own bar
+   shorter than the "West" bar under it, which reads as the lower rate it is not. */
 .pn-wt-floors__list {
   list-style: none;
   margin: 9px 0 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content max-content;
+  align-items: center;
+  column-gap: 9px;
+  row-gap: 8px;
+}
+/* Cards whose places carry a floor name take the extra column for it. The rest (a route, a city)
+   have no floors at all and would otherwise hold an empty column open. */
+.pn-wt-floors__list--floors {
+  grid-template-columns: max-content max-content 1fr max-content max-content;
 }
 .pn-wt-floors__row {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  display: contents;
 }
 /* A floor label is "1F" on most cards and "Center" or "Seafoam B3F" on the ones whose floors have
    names, so a fixed width fits the short ones and spills the long ones straight out of the box.
@@ -2045,8 +2054,10 @@ a.pn-wt-route__card:hover {
   color: #fbf5e6;
   background: #171622;
 }
+/* A card can pair a named floor with a place that has none (Vermilion City beside its dock). That
+   row holds the column open with an empty cell (`pn-wt-floors__chip-none` in the markup), which
+   needs no styling of its own: the grid column is already as wide as the widest real chip. */
 .pn-wt-floors__how {
-  flex: none;
   font-family: "VT323", monospace;
   font-size: 13px;
   line-height: 1;
@@ -2064,7 +2075,6 @@ a.pn-wt-route__card:hover {
   background: #d8d2f0;
 }
 .pn-wt-floors__track {
-  flex: 1;
   min-width: 0;
   height: 16px;
   border: 2px solid #171622;
@@ -2102,14 +2112,12 @@ a.pn-wt-route__card:hover {
 .pn-wt-floors__bar--w100 { width: 100%; }
 .pn-wt-floors__rate {
   width: 46px;
-  flex: none;
   text-align: right;
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
 }
 .pn-wt-floors__lv {
   width: 48px;
-  flex: none;
   text-align: right;
   font-family: "VT323", monospace;
   font-size: 16px;
