@@ -5464,3 +5464,415 @@ a.pn-wt-route__card:hover {
   .pn-xa__ctl { gap: 14px; }
   .pn-xa__handed { margin-left: 0; }
 }
+
+/* ── Safari Zone catching explainer ────────────────────────────────────────────────────────────
+   Three collapsible panels of background, then the answer they all point at. The panels share the
+   amber disclosure head the Pikachu friendship block uses, since they are the same offer: a heavy
+   explainer that stays folded until asked for. */
+.pn-eyebrow-label--catching { color: #2bb3e0; }
+.pn-sc__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.55;
+  color: #3a3850;
+  max-width: 660px;
+  margin: 10px 0 0;
+  text-wrap: pretty;
+}
+.pn-sc__panels-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #6b6880;
+  border-top: 3px solid #171622;
+  padding-top: 12px;
+  margin-top: 32px;
+}
+.pn-sc__panels-lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #3a3850;
+  max-width: 660px;
+  margin: 12px 0 0;
+}
+
+.pn-sc__panel {
+  border: 3px solid #171622;
+  box-shadow: 6px 6px 0 #171622;
+  background: #fff;
+  margin-top: 20px;
+}
+.pn-sc__head {
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffc23d;
+  border: 0;
+  border-bottom: 0 solid #171622;
+  padding: 16px 18px;
+}
+.pn-sc__head:hover { background: #ffce63; }
+.pn-sc__panel.is-open .pn-sc__head { border-bottom-width: 3px; }
+.pn-sc__head-icons { display: flex; align-items: center; gap: 4px; flex: none; }
+.pn-sc__head-icon { width: 56px; height: 56px; object-fit: contain; }
+.pn-sc__head-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pn-sc__eyebrow {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #7a5a00;
+  letter-spacing: 1px;
+}
+.pn-sc__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.2;
+  margin-top: 7px;
+}
+.pn-sc__state { font-family: "VT323", monospace; font-size: 18px; color: #7a5a00; flex: none; }
+.pn-sc__state-txt--hide { display: none; }
+.pn-sc__panel.is-open .pn-sc__state-txt--show { display: none; }
+.pn-sc__panel.is-open .pn-sc__state-txt--hide { display: inline; }
+.pn-sc__chevron { font-family: "Press Start 2P", monospace; font-size: 13px; flex: none; }
+.pn-sc__panel.is-open .pn-sc__chevron { transform: rotate(180deg); }
+
+.pn-sc__body { padding: 24px 18px 26px; }
+.pn-sc__body-lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #3a3850;
+  margin: 0;
+  max-width: 820px;
+  text-wrap: pretty;
+}
+
+/* A step is prose on the left and the lookup it describes on the right, which stacks on a phone. */
+.pn-sc__step {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  padding: 16px 0;
+  border-top: 2px solid #17162233;
+  align-items: start;
+}
+.pn-sc__step:last-of-type { border-bottom: 2px solid #17162233; }
+.pn-sc__step-title { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 20px; }
+.pn-sc__step-n { color: #ff5d8f; }
+.pn-sc__step-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #3a3850;
+  margin: 6px 0 0;
+}
+.pn-sc__step-rows {
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  color: #3a3850;
+}
+.pn-sc__row-val { color: #171622; }
+.pn-sc__row-label.is-here, .pn-sc__row-val.is-here { color: #171622; font-weight: 700; }
+.pn-sc__code, .pn-sc__formula-body {
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+.pn-sc__code { color: #3a3850; }
+
+/* The dark blocks are the page's "this is the machine talking" voice: neon rule over a grid. */
+.pn-sc__formula, .pn-sc__calc, .pn-sc__turns, .pn-sc__verdict {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 6px 6px 0 #171622;
+  padding: 20px 22px;
+}
+.pn-sc__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(#2af0ff4d 2px, transparent 2px),
+                    linear-gradient(90deg, #2af0ff4d 2px, transparent 2px);
+  background-size: 16px 16px;
+}
+.pn-sc__formula, .pn-sc__calc, .pn-sc__turns {
+  background: #080a16;
+  border: 3px solid #2af0ff;
+  margin-top: 22px;
+}
+.pn-sc__formula { color: #2af0ff; }
+.pn-sc__formula-label, .pn-sc__turns-label, .pn-sc__flee-label, .pn-sc__calc-n {
+  position: relative;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  color: #8fa6c8;
+}
+.pn-sc__formula-body { position: relative; margin-top: 12px; }
+.pn-sc__note { color: #8fa6c8; }
+.pn-sc__flee-label { color: #6b6880; }
+
+.pn-sc__calc-head { position: relative; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.pn-sc__calc-sprite { width: 64px; height: 64px; }
+.pn-sc__calc-ball { width: 40px; height: 40px; object-fit: contain; }
+.pn-sc__calc-title { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 22px; color: #fbf5e6; }
+.pn-sc__calc-sub { font-family: "VT323", monospace; font-size: 19px; color: #8fa6c8; }
+.pn-sc__calc-rows {
+  position: relative;
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  gap: 0 10px;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  color: #cfe1f5;
+}
+.pn-sc__calc-rows > * { padding: 11px 0; border-top: 2px solid #1a2740; }
+.pn-sc__calc-rows > :nth-last-child(-n+3) { border-bottom: 2px solid #1a2740; }
+.pn-sc__calc-val { color: #8fa6c8; }
+.pn-sc__calc-val.is-good { color: #2af0ff; }
+.pn-sc__calc-out { position: relative; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+.pn-sc__calc-big {
+  font-family: "Press Start 2P", monospace;
+  font-size: 32px;
+  color: #171622;
+  background: #cfe6a8;
+  padding: 16px 20px;
+}
+.pn-sc__calc-note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #cfe1f5;
+  max-width: 480px;
+  margin: 0;
+}
+
+/* Four columns of numbers do not fold: collapsing them stacks a header over the wrong cell. The
+   table keeps its shape and scrolls inside its own box, the way the friendship table does. */
+.pn-sc__items-wrap { overflow-x: auto; }
+.pn-sc__items { margin-top: 20px; min-width: 560px; font-family: "VT323", monospace; font-size: 20px; }
+.pn-sc__items-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 2px solid #17162233;
+  align-items: baseline;
+}
+.pn-sc__items-row--head {
+  padding: 10px 0;
+  border-top: 3px solid #171622;
+  border-bottom: 3px solid #171622;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #6b6880;
+}
+.pn-sc__item-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+.pn-sc__item-icon { width: 34px; height: 34px; object-fit: contain; }
+.pn-sc__item-note { color: #6b6880; }
+.pn-sc__item-rate.is-bad, .pn-sc__item-flee.is-bad, .pn-sc__item-after.is-bad { color: #ff5d8f; }
+.pn-sc__items-note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #3a3850;
+  max-width: 660px;
+  margin: 16px 0 0;
+}
+
+.pn-sc__two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 26px; }
+.pn-sc__turns { border-color: #ff3dae; margin-top: 0; }
+.pn-sc__turns .pn-sc__scan {
+  background-image: linear-gradient(#ff3dae4d 2px, transparent 2px),
+                    linear-gradient(90deg, #ff3dae4d 2px, transparent 2px);
+}
+.pn-sc__turns-label { color: #ff9ad8; }
+.pn-sc__turns-list {
+  position: relative;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pn-sc__turn {
+  display: flex;
+  gap: 12px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  color: #cfe1f5;
+}
+.pn-sc__turn-n { font-family: "Press Start 2P", monospace; font-size: 11px; color: #ff3dae; flex: none; }
+.pn-sc__turn-n.is-flee { color: #2af0ff; }
+
+.pn-sc__flee { margin-top: 12px; font-family: "VT323", monospace; font-size: 19px; }
+.pn-sc__flee-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 2px solid #17162233;
+}
+.pn-sc__flee-row--head {
+  border-bottom: 2px solid #171622;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #6b6880;
+}
+.pn-sc__flee-angry { color: #ff5d8f; }
+.pn-sc__flee-note, .pn-sc__target-note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #3a3850;
+  margin: 12px 0 0;
+}
+.pn-sc__card-title { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 700; font-size: 20px; }
+.pn-sc__card-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #3a3850;
+  margin: 6px 0 0;
+}
+
+/* The answer, in the park's own green so it reads as the conclusion rather than a fourth panel. */
+.pn-sc__answer {
+  border: 3px solid #171622;
+  box-shadow: 8px 8px 0 #171622;
+  background: #cfe6a8;
+  margin-top: 40px;
+}
+.pn-sc__answer-head { padding: 26px 26px 24px; }
+.pn-sc__answer-tags { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pn-sc__answer-chip {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #171622;
+  background: #ff5d8f;
+  border: 2px solid #171622;
+  padding: 7px 9px;
+}
+.pn-sc__answer-sample { font-family: "VT323", monospace; font-size: 19px; color: #2f4a1e; }
+.pn-sc__answer-h3 {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin: 16px 0 0;
+}
+.pn-sc__answer-mark { background: #fff; border: 3px solid #171622; padding: 0 8px; }
+.pn-sc__answer-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.55;
+  color: #2f4a1e;
+  max-width: 680px;
+  margin: 16px 0 0;
+  text-wrap: pretty;
+}
+.pn-sc__answer-body { background: #fbf5e6; border-top: 3px solid #171622; padding: 24px 26px 28px; }
+.pn-sc__answer-caption {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #3a3850;
+  max-width: 660px;
+  margin: 0;
+}
+.pn-sc__answer-body .pn-sc__two { margin-top: 22px; }
+.pn-sc__target { display: flex; align-items: center; gap: 10px; }
+.pn-sc__target-sprite { width: 40px; height: 40px; }
+.pn-sc__target-name { font-family: "Press Start 2P", monospace; font-size: 11px; }
+.pn-sc__odds { margin-top: 12px; font-family: "VT323", monospace; font-size: 20px; }
+.pn-sc__odds-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 2px solid #17162233;
+}
+.pn-sc__odds-row.is-best {
+  padding: 9px 0;
+  border-top: 2px solid #171622;
+  border-bottom: 2px solid #171622;
+}
+.pn-sc__odds-row.is-best .pn-sc__odds-label {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+}
+.pn-sc__odds-row.is-best .pn-sc__odds-val { font-family: "Press Start 2P", monospace; font-size: 14px; }
+.pn-sc__odds-row:not(.is-best) .pn-sc__odds-val { color: #ff5d8f; }
+
+.pn-sc__verdict { background: #080a16; border: 3px solid #ffc23d; margin-top: 28px; padding: 24px 26px; }
+.pn-sc__verdict .pn-sc__scan {
+  background-image: linear-gradient(#ffc23d4d 2px, transparent 2px),
+                    linear-gradient(90deg, #ffc23d4d 2px, transparent 2px);
+}
+.pn-sc__verdict-text {
+  position: relative;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.35;
+  color: #cfe6a8;
+  max-width: 760px;
+  margin: 0;
+}
+.pn-sc__verdict-note {
+  position: relative;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #8fa6c8;
+  max-width: 760px;
+  margin: 14px 0 0;
+}
+.pn-sc__source {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #6b6880;
+  border-top: 2px solid #17162233;
+  padding-top: 14px;
+  margin: 28px 0 0;
+}
+
+@media (max-width: 900px) {
+  .pn-sc__step, .pn-sc__two { grid-template-columns: 1fr; gap: 12px; }
+  .pn-sc__calc-rows { grid-template-columns: 90px 1fr; font-size: 18px; }
+  .pn-sc__calc-val { grid-column: 2; text-align: right; padding-top: 0; border-top: 0; }
+  .pn-sc__answer-h3 { font-size: 30px; }
+  .pn-sc__head-icon { width: 42px; height: 42px; }
+  .pn-sc__title { font-size: 20px; }
+  .pn-sc__panels-label, .pn-sc__items-row--head, .pn-sc__flee-row--head { line-height: 1.6; }
+}

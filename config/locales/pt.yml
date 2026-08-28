@@ -974,6 +974,151 @@ pt:
           where: "CERULEAN · ANTES DA MISTY"
           name: "O Glitch do Mew"
           note: "Capture o #151 no jogo. Passos completos, avisos e uma calculadora de nível."
+      safari_catching:
+        eyebrow: "CURIOSIDADE · CAPTURA NA SAFARI"
+        h2: "Por que o Kangaskhan sempre foge"
+        lead: "Dentro do parque você não pode atacar nem causar status, então as duas alavancas que normalmente ajudam a capturar sumiram. Aqui está o que sobra, e o que fazer com isso."
+        panels_label: "A MATEMÁTICA, SE VOCÊ QUISER"
+        panels_lead: "Três painéis de contexto. Abra para ver de onde vêm os números, ou pule direto para a resposta abaixo."
+        show: "MOSTRAR"
+        hide: "OCULTAR"
+        step_n: "Passo %{n}."
+        step_label: "PASSO %{n}"
+        per_ball: "(%{rate}/bola)"
+        formula_label: "A FÓRMULA INTEIRA"
+        col_rate: "TAXA DE CAPTURA"
+        col_flee: "TAXA DE FUGA"
+        col_after: "DEPOIS DO TIMER"
+        col_target: "ALVO"
+        col_normal: "NORMAL"
+        col_angry: "IRRITADO"
+        answer_chip: "A RESPOSTA"
+        answer_sample: "%{count} encontros simulados"
+        answer_lead: "Só jogue bolas."
+        answer_mark: "Todo turno."
+        answer_text: "Nada na sua mochila da Safari supera o arremesso simples. Rocks e baits parecem ajudar, e os dois pioram suas chances no encontro inteiro."
+        answer_caption: "Chance de capturar por encontro, usando a ordem real dos turnos e as rolagens de fuga."
+        verdict: "A Rock faz o Pokémon ir embora antes de você usar o bônus. A Bait faz o bônus vencer antes da penalidade. Jogue uma bola todo turno, desde o primeiro."
+        consolation: "E não se sinta mal por errar. A uns 10% por bola com uma fuga de cara ou coroa todo turno, um Kangaskhan escapando depois de quatro bolas é o resultado completamente comum."
+        source: "Cada fórmula aqui foi lida da disassembly pret/pokeyellow. Velocidade e HP variam com os DVs, então os números são faixas ou médias."
+        odds:
+          balls: "Só jogar bolas"
+          bait_once: "Bait uma vez, depois bolas"
+          bait_every: "Bait a cada reset"
+          rock_once: "Rock uma vez, depois bolas"
+          rock_every: "Rock a cada reset"
+        targets:
+          kangaskhan:
+            label: "KANGASKHAN Nv 28"
+          pinsir:
+            label: "PINSIR Nv 25"
+            note: "Bolas por captura: umas 9,7 só arremessando, contra 19,5 se você começar com bait."
+        cards:
+          rock_leaves:
+            title: "A rock vai embora antes de você usar"
+            text: "Dobrar a taxa de captura e a de fuga juntas quase se anula sozinho. Você ainda paga um turno inteiro a 92% de fuga para preparar, e uma vez em cada cinco o timer vence na hora."
+          bait_expires:
+            title: "O bônus da bait vence primeiro"
+            text: "Alguns turnos protegidos a 5,1% por bola, depois a fuga volta para 46% enquanto a taxa de captura continua pela metade. O alvo fica mais tempo e é mais difícil de pegar, então você gasta mais bolas também."
+        panels:
+          algorithm:
+            eyebrow: "MECÂNICA · CADA BOLA QUE VOCÊ JOGA"
+            title: "Como a captura funciona no Yellow"
+            lead: "Toda bola roda a mesma rotina: cinco passos, dois números aleatórios e umas divisões inteiras. Não existe atributo escondido de chance de captura. A Master Ball sai antes de tudo isso como captura garantida."
+            formula_html: |-
+              P(captura) = P(Rand1 &lt; S)                                <span class="pn-sc__note">captura grátis por status</span>
+                         + P(S ≤ Rand1 ≤ min(catchRate + S, maxRand))  <span class="pn-sc__note">passa do passo 3</span>
+                           × P2
+
+              onde P2 = 1              <span class="pn-sc__note">se W &gt; 255</span>
+                        (X + 1) / 256  <span class="pn-sc__note">caso contrário</span>
+            balls:
+              poke: "Poké Ball"
+              great: "Great Ball"
+              ultra: "Ultra Ball"
+              safari: "Safari Ball"
+            status:
+              none: "Nenhum"
+              minor: "Burn / Para / Poison"
+              major: "Freeze / Sleep"
+            steps:
+              "1":
+                title: "Sorteie Rand1 dentro da faixa da bola"
+                text: "O jogo re-sorteia até o byte cair na faixa, então é uniforme. Uma faixa menor é melhor, porque Rand1 precisa vir baixo para sobreviver ao passo 3."
+              "2":
+                title: "Subtraia o bônus de status S"
+                text: "Se Rand1 for menor que S a subtração estoura e o Pokémon é capturado na hora, pulando todas as checagens seguintes. Sleep te dá uma faixa livre de captura de 25."
+              "3":
+                title: "A checagem da taxa de captura"
+                text: "A principal, e repare no que ela ignora: o HP atual. Só a faixa da bola, a taxa da espécie e o status contam. Kangaskhan e Pinsir são 45, lendários 3, Caterpie 255."
+                code: |-
+                  if catchRate < Rand1:
+                    a bola falha
+              "4":
+                title: "Calcule W a partir do HP"
+                text: "Todas as divisões arredondam para baixo. Se W passar de 255 o Pokémon é capturado direto, sem segunda rolagem. É por isso que dar dano para de ajudar abaixo de um terço do HP."
+                code: |-
+                  BallFactor = 8   Great
+                  BallFactor = 12  outras bolas
+
+                  W = (MaxHP * 255 / BallFactor)
+                      / max(HPAtual / 4, 1)
+                  X = min(W, 255)
+              "5":
+                title: "Sorteie Rand2 contra X"
+                text: "Última rolagem. A quantidade de balanços é calculada depois que o resultado já foi decidido, então três balanços nunca significaram que você chegou perto."
+                code: |-
+                  Rand2 = aleatório 0-255
+                  if Rand2 > X: falha
+                  else: capturado
+          example:
+            eyebrow: "EXEMPLO PRÁTICO · 10,2% POR BOLA"
+            title: "A fórmula em um Kangaskhan"
+            lead: "A mesma conta no bicho que você veio buscar, com vida cheia e sem status disponível para ajudar."
+            subject: "Kangaskhan Nv 28, Safari Ball"
+            stats: "taxa de captura 45 · velocidade ~59 · HP cheio, sem status, sempre"
+            per_ball: "10,2%"
+            per_ball_note: "30,5% × 33,6% por bola, e umas 9,7 bolas por captura. Fixo para qualquer alvo de taxa 45 na Safari, já que W com HP cheio quase não muda com o nível."
+            calc:
+              "1": "A Safari Ball sorteia 0–150, então são 151 valores possíveis"
+              "2": "Nenhum status é possível aqui, então S = 0 e não há faixa de captura grátis"
+              "3": "Rand1 precisa cair em 0–45, que são 46 dos 151 valores"
+              "4": "Com HP cheio a fórmula vira 255 × 4 / 12, então X fica perto de 85"
+              "5": "Rand2 precisa vir em X ou abaixo, então 86 de 256"
+            cards:
+              hybrid:
+                title: "A Safari Ball é um híbrido fraco"
+                text: "Faixa de Ultra Ball (0–150) com o BallFactor 12 da Poké Ball. Uma Great Ball comum no mesmo alvo daria 11,4%, então você fica preso a algo um pouco pior do que qualquer Mart vende."
+              flees:
+                title: "E ele foge 46% das vezes"
+                text: "A chance de fuga é velocidade × 2 / 256, rolada todo turno. Kangaskhan Nv 28 escapa uns 46% por turno, e é por isso que o encontro inteiro vale uns 20%, não 10,2%."
+          items:
+            eyebrow: "ITENS · TIMERS E TAXAS DE FUGA"
+            title: "O que rock e bait fazem de verdade"
+            lead: "Cada um muda a taxa de captura atual e a de fuga, depois liga um timer de 1 a 5 turnos. Os timers são exclusivos, então jogar um apaga o outro. Os dois custam um turno, e a checagem de fuga acontece nesse turno mesmo."
+            after_note: "Essa última coluna é a história toda. Só o timer de irritação devolve a taxa de captura. Nada devolve depois da bait, então a penalidade sobrevive ao abrigo que ela comprou."
+            turns_label: "CADA TURNO NA SAFARI, EM ORDEM"
+            flee_label: "CHANCE DE FUGA POR TURNO"
+            flee_note: "Um Kangaskhan Nv 33 irritado escapa 99,6% das vezes. Ele não vai estar lá para o seu próximo arremesso."
+            items:
+              rock:
+                name: "Rock"
+                after: "taxa volta para 45"
+              bait:
+                name: "Bait"
+                after: "taxa fica em 22, para sempre"
+            flee:
+              kangaskhan_28: "Kangaskhan Nv 28"
+              kangaskhan_33: "Kangaskhan Nv 33"
+              pinsir_25: "Pinsir Nv 25"
+            turns:
+              "1": "Você age: bola, bait, rock ou fugir."
+              "2": "O timer desce, já neste turno. Se sair 1, o efeito acaba antes de você agir de novo."
+              "3": "Checagem de fuga: aleatório(0-255) < velocidade × 2, dobrado se irritado, dividido por quatro se comendo."
+            cards:
+              turn_order:
+                title: "O timer desce no turno em que você o liga"
+                text: "Você joga a rock, o contador cai um na hora, e a rolagem de fuga acontece antes do seu próximo arremesso. Um sorteio de 1 não te compra nada."
       pikachu_friendship:
         eyebrow: "MECÂNICA · SÓ NO YELLOW"
         title: "Como funciona a amizade do Pikachu"

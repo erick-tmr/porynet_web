@@ -59,6 +59,10 @@ detectors:
                                 # Its keywords are the optional subset of the struct's
                                 # own members, not a call signature; collapsing them
                                 # would force all 17 fields at every call site.
+      - Walkthrough::CatchPanel # same defaults shim: a Safari explainer panel tabulates whichever
+                                # of steps/calc/items/flee/cards it happens to have, so the
+                                # keywords are the struct's own optional members. Naming them all
+                                # at three call sites is the alternative, not an improvement.
       - Walkthrough::Place      # same defaults shim: its keywords are the place's own
                                 # optional members, each defaulting to "the game says nothing
                                 # about this", so a caller states only the facts it has.

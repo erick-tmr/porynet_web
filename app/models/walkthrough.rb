@@ -700,6 +700,43 @@ module Walkthrough
   end
   PikachuFriendship = Data.define(:start, :threshold, :max, :rows)
 
+  # The Safari Zone explainer: why nothing in the Safari bag beats a plain throw. Every figure is
+  # read from the disassembly (ItemUseBall in engine/items/item_effects.asm for the throw,
+  # PrintSafariZoneBattleText in engine/battle/safari_zone.asm for the timers, and the flee roll in
+  # engine/battle/core.asm), except the per-encounter odds, which are simulated over those exact
+  # routines because no closed form covers a turn loop with a flee roll in it.
+  #
+  # `rows` on a panel is whatever that panel tabulates, kept as values rather than sentences so the
+  # copy never has to restate a number the model already holds.
+  CatchStep = Data.define(:n, :title_key, :text_key, :rows, :code_key) do
+    def initialize(code_key: nil, **rest) = super
+    def code? = !code_key.nil?
+    def rows? = rows.any?
+  end
+  CatchRow = Data.define(:label_key, :value, :tone) do
+    def initialize(label_key: nil, tone: nil, **rest) = super
+    def labelled? = !label_key.nil?
+  end
+  # One line of the worked example: which step it is, and what that step costs you on this target.
+  CatchCalc = Data.define(:n, :text_key, :value, :tone)
+  # What an item does to the two numbers that matter, and what is left once its timer runs out.
+  CatchItem = Data.define(:key, :sprite, :rate, :rate_note, :flee, :after_key, :tone)
+  # Flee odds per turn for one target, calm and angry. Ranges, because speed moves with DVs.
+  CatchFlee = Data.define(:label_key, :normal, :angry)
+  # One strategy over a whole encounter, as a percentage of encounters that end in a catch.
+  CatchOdds = Data.define(:label_key, :value, :best)
+  CatchTarget = Data.define(:dex, :name, :label_key, :odds, :note_key) do
+    def note? = !note_key.nil?
+  end
+  CatchPanel = Data.define(:key, :sprites, :eyebrow_key, :title_key, :lead_key, :steps, :formula_key,
+    :calc, :items, :flee, :cards) do
+    def initialize(steps: [], calc: [], items: [], flee: [], cards: [], formula_key: nil, **rest) = super
+    def formula? = !formula_key.nil?
+  end
+  CatchCard = Data.define(:key, :title_key, :text_key)
+  SafariCatching = Data.define(:anchor, :panels, :targets, :cards, :verdict_key, :consolation_key,
+    :sample)
+
   # What a Gym Badge does once it is in the case. `kind` is "boost" (an in-battle stat lift for the
   # whole party) or "obey" (the level a traded Pokémon obeys up to), `level` fills the obedience
   # copy, and `field` is the HM the badge switches on outside battle, nil for the last three.

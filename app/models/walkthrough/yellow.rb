@@ -102,6 +102,100 @@ module Walkthrough
         rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
     end
 
+    # Why the Safari Zone's own items make things worse. Every number is the game's: the ball
+    # ranges and BallFactor from ItemUseBall, the status bonuses from its ailment table, the
+    # halve/double and the 1-5 timers from ItemUseBait / ItemUseRock, and the flee roll from
+    # engine/battle/core.asm. The per-encounter odds are simulated over those same routines,
+    # 200k encounters a strategy, because a turn loop with a flee roll in it has no closed form.
+    #
+    # The example targets are the two the park is walked for and the two the reader will burn the
+    # most balls on. Both are catch rate 45, which is what makes the arithmetic transferable.
+    CATCH_BALLS = [ [ "poke", "0–255" ], [ "great", "0–200" ], [ "ultra", "0–150" ],
+                    [ "safari", "0–150" ] ].freeze
+    CATCH_STATUS = [ [ "none", "0" ], [ "minor", "12" ], [ "major", "25" ] ].freeze
+    CATCH_KANGA = [ [ 1, "151", nil ], [ 2, "S = 0", nil ], [ 3, "30.5%", "good" ],
+                    [ 4, "X ≈ 85", nil ], [ 5, "33.6%", "good" ] ].freeze
+    CATCH_ITEMS = [ [ "rock", "45 → 90", "20.3%", "46% → 92%", "bad" ],
+                    [ "bait", "45 → 22", "5.1%", "46% → ~11%", "bad" ] ].freeze
+    CATCH_FLEE = [ [ "kangaskhan_28", "43–49%", "86–98%" ], [ "kangaskhan_33", "50–58%", "99.6%" ],
+                   [ "pinsir_25", "37–43%", "73–86%" ] ].freeze
+    CATCH_ODDS = { "115" => [ [ "balls", "20.0%" ], [ "bait_once", "11.8%" ],
+                              [ "bait_every", "9.9%" ], [ "rock_once", "3.5%" ],
+                              [ "rock_every", "1.5%" ] ],
+                   "127" => [ [ "balls", "22.9%" ], [ "bait_once", "13.8%" ],
+                              [ "rock_once", "7.1%" ] ] }.freeze
+    CATCH_CARDS = %w[rock_leaves bait_expires].freeze
+    CATCH_PANEL_CARDS = { "algorithm" => [], "example" => %w[hybrid flees],
+                          "items" => %w[turn_order] }.freeze
+
+    def self.safari_catching
+      b = "#{K}.safari_catching"
+      SafariCatching.new(anchor: "catching", sample: "200,000",
+        verdict_key: "#{b}.verdict", consolation_key: "#{b}.consolation",
+        panels: [ catch_algorithm(b), catch_example(b), catch_items(b) ],
+        targets: CATCH_ODDS.map { |dex, odds| catch_target(b, dex, odds) },
+        cards: CATCH_CARDS.map { |key| CatchCard.new(key: key, title_key: "#{b}.cards.#{key}.title",
+          text_key: "#{b}.cards.#{key}.text") })
+    end
+
+    def self.catch_target(b, dex, odds)
+      key = mon_key(dex)
+      CatchTarget.new(dex: dex, name: NAMES.fetch(dex), label_key: "#{b}.targets.#{key}.label",
+        note_key: (odds.size < 4 ? "#{b}.targets.#{key}.note" : nil),
+        odds: odds.each_with_index.map { |(row, value), i|
+          CatchOdds.new(label_key: "#{b}.odds.#{row}", value: value, best: i.zero?) })
+    end
+
+    def self.catch_algorithm(b)
+      k = "#{b}.panels.algorithm"
+      CatchPanel.new(key: "algorithm", sprites: [ "walkthrough/items/safari-ball.png" ],
+        eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title", lead_key: "#{k}.lead",
+        formula_key: "#{k}.formula_html",
+        steps: (1..5).map { |n| CatchStep.new(n: n, title_key: "#{k}.steps.#{n}.title",
+          text_key: "#{k}.steps.#{n}.text", rows: catch_step_rows(k, n),
+          code_key: (n > 2 ? "#{k}.steps.#{n}.code" : nil)) })
+    end
+
+    # Steps 1 and 2 tabulate a lookup the game does, so they carry rows of values. Steps 3 to 5
+    # quote the arithmetic itself, which is a listing rather than a table and reads the same in
+    # every language, so those carry a `code_key` and no rows.
+    def self.catch_step_rows(k, step)
+      case step
+      when 1 then CATCH_BALLS.map { |key, value| CatchRow.new(label_key: "#{k}.balls.#{key}",
+        value: value, tone: (key == "safari" ? "here" : nil)) }
+      when 2 then CATCH_STATUS.map { |key, value| CatchRow.new(label_key: "#{k}.status.#{key}",
+        value: value) }
+      else []
+      end
+    end
+
+    def self.catch_example(b)
+      k = "#{b}.panels.example"
+      CatchPanel.new(key: "example", sprites: [ "pokemon/yellow/115.png" ],
+        eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title", lead_key: "#{k}.lead",
+        calc: CATCH_KANGA.map { |n, value, tone| CatchCalc.new(n: n, text_key: "#{k}.calc.#{n}",
+          value: value, tone: tone) },
+        cards: CATCH_PANEL_CARDS.fetch("example").map { |key|
+          CatchCard.new(key: key, title_key: "#{k}.cards.#{key}.title",
+            text_key: "#{k}.cards.#{key}.text") })
+    end
+
+    def self.catch_items(b)
+      k = "#{b}.panels.items"
+      CatchPanel.new(key: "items", eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title",
+        lead_key: "#{k}.lead",
+        sprites: [ "walkthrough/items/rock.png", "walkthrough/items/bait.png" ],
+        items: CATCH_ITEMS.map { |key, rate, note, flee, tone|
+          CatchItem.new(key: key, sprite: "walkthrough/items/#{key}.png", rate: rate,
+            rate_note: note, flee: flee, after_key: "#{k}.items.#{key}.after",
+            tone: (key == "bait" ? tone : nil)) },
+        flee: CATCH_FLEE.map { |key, normal, angry|
+          CatchFlee.new(label_key: "#{k}.flee.#{key}", normal: normal, angry: angry) },
+        cards: CATCH_PANEL_CARDS.fetch("items").map { |key|
+          CatchCard.new(key: key, title_key: "#{k}.cards.#{key}.title",
+            text_key: "#{k}.cards.#{key}.text") })
+    end
+
     # Gen 1 pays the Exp. All out in two passes and feeds the second one the first one's leftovers.
     # In engine/battle/core.asm the enemy's base exp is halved, that half goes to the Pokémon that
     # fought (DivideExpDataByNumMonsGainingExp divides it by the number of them, in place), then

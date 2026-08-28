@@ -974,6 +974,151 @@ en:
           where: "CERULEAN · PRE-MISTY"
           name: "The Mew glitch"
           note: "Catch #151 in-game. Full steps, warnings and a level calculator."
+      safari_catching:
+        eyebrow: "TRIVIA · SAFARI CATCHING"
+        h2: "Why Kangaskhan keeps running"
+        lead: "Inside the park you cannot attack and cannot inflict status, so the two levers that normally help you catch things are gone. Here is what is left, and what to do with it."
+        panels_label: "THE MATH, IF YOU WANT IT"
+        panels_lead: "Three panels of background. Open them to see where the numbers come from, or skip to the answer below."
+        show: "SHOW"
+        hide: "HIDE"
+        step_n: "Step %{n}."
+        step_label: "STEP %{n}"
+        per_ball: "(%{rate}/ball)"
+        formula_label: "THE WHOLE FORMULA"
+        col_rate: "CATCH RATE"
+        col_flee: "FLEE RATE"
+        col_after: "AFTER THE TIMER"
+        col_target: "TARGET"
+        col_normal: "NORMAL"
+        col_angry: "ANGRY"
+        answer_chip: "THE ANSWER"
+        answer_sample: "%{count} simulated encounters"
+        answer_lead: "Just throw balls."
+        answer_mark: "Every turn."
+        answer_text: "Nothing in your Safari bag beats the plain throw. Rocks and bait both look like they help, and both make your odds worse over a whole encounter."
+        answer_caption: "Chance of catching per encounter, using the real turn order and flee rolls."
+        verdict: "Rocks make the Pokémon leave before you can use the bonus. Bait makes the bonus expire before the penalty does. Throw a ball every turn, from turn one."
+        consolation: "And do not feel bad about missing. At roughly 10% per ball with a coin-flip escape every turn, a Kangaskhan slipping away after four balls is the completely ordinary outcome."
+        source: "Every formula here is read from the pret/pokeyellow disassembly. Speed and HP move with DVs, so figures are ranges or midpoints."
+        odds:
+          balls: "Throw balls only"
+          bait_once: "Bait once, then balls"
+          bait_every: "Bait on every reset"
+          rock_once: "Rock once, then balls"
+          rock_every: "Rock on every reset"
+        targets:
+          kangaskhan:
+            label: "KANGASKHAN L28"
+          pinsir:
+            label: "PINSIR L25"
+            note: "Balls per catch: about 9.7 throwing only, against 19.5 if you open with bait."
+        cards:
+          rock_leaves:
+            title: "The rock leaves before you use it"
+            text: "Doubling both the catch rate and the flee rate is close to a wash by itself. You also pay a full turn at 92% flee to set it up, and one time in five the timer expires immediately."
+          bait_expires:
+            title: "Bait's benefit expires first"
+            text: "A few sheltered turns at 5.1% per ball, then flee snaps back to 46% while the catch rate stays halved. The target sticks around longer and is harder to catch, so you burn more balls too."
+        panels:
+          algorithm:
+            eyebrow: "MECHANIC · EVERY BALL YOU THROW"
+            title: "How catching works in Yellow"
+            lead: "Every ball runs the same routine: five steps, two random numbers, some integer division. There is no hidden catch chance stat. A Master Ball exits before any of it as a guaranteed catch."
+            formula_html: |-
+              P(catch) = P(Rand1 &lt; S)                                <span class="pn-sc__note">free catch from status</span>
+                       + P(S ≤ Rand1 ≤ min(catchRate + S, maxRand))  <span class="pn-sc__note">survives step 3</span>
+                         × P2
+
+              where P2 = 1              <span class="pn-sc__note">if W &gt; 255</span>
+                         (X + 1) / 256  <span class="pn-sc__note">otherwise</span>
+            balls:
+              poke: "Poké Ball"
+              great: "Great Ball"
+              ultra: "Ultra Ball"
+              safari: "Safari Ball"
+            status:
+              none: "None"
+              minor: "Burn / Para / Poison"
+              major: "Freeze / Sleep"
+            steps:
+              "1":
+                title: "Roll Rand1 inside the ball's range"
+                text: "The game re-rolls until the byte lands in range, so it is uniform. A smaller range is better, because Rand1 has to come in low to survive step 3."
+              "2":
+                title: "Subtract the status bonus S"
+                text: "If Rand1 is smaller than S the subtraction underflows and the Pokémon is caught instantly, skipping every later check. Sleep hands you a free 25-wide catch band."
+              "3":
+                title: "The catch rate check"
+                text: "The big one, and note what it ignores: current HP. Only the ball's range, the species catch rate and status matter. Kangaskhan and Pinsir are 45, legendaries 3, Caterpie 255."
+                code: |-
+                  if catchRate < Rand1:
+                    the ball fails
+              "4":
+                title: "Compute W from HP"
+                text: "All divisions floor. If W goes over 255 the Pokémon is caught outright, no second roll. That is why damage stops helping below about a third HP."
+                code: |-
+                  BallFactor = 8   Great
+                  BallFactor = 12  other balls
+
+                  W = (MaxHP * 255 / BallFactor)
+                      / max(CurrentHP / 4, 1)
+                  X = min(W, 255)
+              "5":
+                title: "Roll Rand2 against X"
+                text: "Last roll. The wiggle count is worked out after the outcome is already decided, so three wiggles never meant you were close."
+                code: |-
+                  Rand2 = random 0-255
+                  if Rand2 > X: fails
+                  else: caught
+          example:
+            eyebrow: "WORKED EXAMPLE · 10.2% PER BALL"
+            title: "The formula on a Kangaskhan"
+            lead: "The same arithmetic on the thing you came here for, at full health, with no status available to help."
+            subject: "Kangaskhan L28, Safari Ball"
+            stats: "catch rate 45 · speed ~59 · full HP, no status, always"
+            per_ball: "10.2%"
+            per_ball_note: "30.5% × 33.6% per ball, and about 9.7 balls per catch. Fixed for any rate-45 Safari target, since full-HP W barely moves with level."
+            calc:
+              "1": "Safari Ball rolls 0–150, so 151 possible values"
+              "2": "No status is possible here, so S = 0 and there is no free catch band"
+              "3": "Rand1 must land on 0–45, which is 46 of the 151 values"
+              "4": "At full HP the formula collapses to 255 × 4 / 12, so X lands near 85"
+              "5": "Rand2 must come in at or below X, so 86 of 256"
+            cards:
+              hybrid:
+                title: "The Safari Ball is a weak hybrid"
+                text: "Ultra Ball range (0–150) with the Poké Ball's BallFactor of 12. A plain Great Ball on the same target would be 11.4%, so you are locked into something slightly worse than what any Mart sells."
+              flees:
+                title: "And it runs 46% of the time"
+                text: "Flee chance is speed × 2 / 256, rolled every turn. Kangaskhan L28 escapes about 46% per turn, which is why a whole encounter is worth roughly 20%, not 10.2%."
+          items:
+            eyebrow: "ITEMS · TIMERS AND FLEE RATES"
+            title: "What rocks and bait actually do"
+            lead: "Each one changes the current catch rate and the flee rate, then sets a timer of 1 to 5 turns. The timers are exclusive, so throwing one wipes the other. Both cost you a turn, and the flee check still happens on that turn."
+            after_note: "That last column is the whole story. Only the anger timer restores the catch rate. Nothing restores it after bait, so the penalty outlives the shelter it bought you."
+            turns_label: "EVERY SAFARI TURN, IN ORDER"
+            flee_label: "FLEE CHANCE PER TURN"
+            flee_note: "An angry L33 Kangaskhan escapes 99.6% of the time. It will not be there for your next throw."
+            items:
+              rock:
+                name: "Rock"
+                after: "rate reloads to 45"
+              bait:
+                name: "Bait"
+                after: "rate stays 22, forever"
+            flee:
+              kangaskhan_28: "Kangaskhan L28"
+              kangaskhan_33: "Kangaskhan L33"
+              pinsir_25: "Pinsir L25"
+            turns:
+              "1": "You act: ball, bait, rock or run."
+              "2": "The timer ticks down, already on this turn. Roll a 1 and the effect is gone before you act again."
+              "3": "Flee check: random(0-255) < speed × 2, doubled if angry, quartered if eating."
+            cards:
+              turn_order:
+                title: "The timer ticks on the turn you set it"
+                text: "You throw the rock, the counter drops by one straight away, and the flee roll happens before your next throw. A roll of 1 buys you nothing at all."
       pikachu_friendship:
         eyebrow: "MECHANIC · YELLOW ONLY"
         title: "How Pikachu's friendship works"
