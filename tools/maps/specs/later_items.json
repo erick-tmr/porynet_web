@@ -1,31 +1,140 @@
 [
   {
-    "type": "screen", "name": "viridian-city-tm42",
-    "map": "ViridianCity", "player": [9, 22], "player_dir": "LEFT", "focus": [7, 22],
-    "sprites": [{"sprite": "SPRITE_FISHER", "grid": [6, 23], "dir": "DOWN"}]
-  },
-  {
-    "type": "dialog", "name": "viridian-city-tm42-gift",
-    "map": "ViridianCity", "player": [7, 23], "player_dir": "LEFT", "cut": [[8, 22]],
-    "sprites": [{"sprite": "SPRITE_FISHER", "grid": [6, 23], "dir": "RIGHT"}],
-    "dialog": {"lines": ["<PLAYER> received", "TM42!"]}
-  },
-  {
-    "type": "screen", "name": "route-2-moon-stone",
-    "map": "Route2", "player": [13, 55], "player_dir": "UP", "focus": [13, 54],
-    "auto_npcs": true
-  },
-  {
-    "type": "screen", "name": "route-2-hp-up",
-    "map": "Route2", "player": [13, 46], "player_dir": "UP", "focus": [13, 45],
-    "auto_npcs": true
-  },
-  {
-    "type": "screen", "name": "route-2-flash",
-    "map": "Route2Gate", "player": [2, 4], "player_dir": "LEFT", "focus": [3, 4],
+    "type": "screen",
+    "name": "viridian-city-tm42",
+    "map": "ViridianCity",
+    "player": [
+      9,
+      22
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      7,
+      22
+    ],
     "sprites": [
-      {"sprite": "SPRITE_SCIENTIST", "grid": [1, 4], "dir": "RIGHT"},
-      {"sprite": "SPRITE_YOUNGSTER", "grid": [5, 4], "dir": "DOWN"}
+      {
+        "sprite": "SPRITE_FISHER",
+        "grid": [
+          6,
+          23
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "name": "viridian-city-tm42-gift",
+    "map": "ViridianCity",
+    "player": [
+      7,
+      23
+    ],
+    "player_dir": "LEFT",
+    "cut": [
+      [
+        8,
+        22
+      ]
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_FISHER",
+        "grid": [
+          6,
+          23
+        ],
+        "dir": "RIGHT"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "TM42!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "name": "route-2-moon-stone",
+    "map": "Route2",
+    "player": [
+      13,
+      55
+    ],
+    "player_dir": "UP",
+    "focus": [
+      13,
+      54
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "name": "route-2-hp-up",
+    "map": "Route2",
+    "player": [
+      13,
+      46
+    ],
+    "player_dir": "UP",
+    "focus": [
+      13,
+      45
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "name": "route-2-flash",
+    "map": "Route2Gate",
+    "player": [
+      2,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      4
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_SCIENTIST",
+        "grid": [
+          1,
+          4
+        ],
+        "dir": "RIGHT"
+      },
+      {
+        "sprite": "SPRITE_YOUNGSTER",
+        "grid": [
+          5,
+          4
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "name": "celadon-city-tm41",
+    "map": "CeladonCity",
+    "player": [
+      22,
+      17
+    ],
+    "player_dir": "UP",
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "TM41!"
+      ]
+    },
+    "focus": [
+      22,
+      18
     ]
   }
 ]

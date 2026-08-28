@@ -308,12 +308,15 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "Lt. Surge", ship.window.leader
   end
 
+  # Giovanni closes the last window, and the Power Plant now opens after him, so everything it
+  # would have covered has to come out of the Pokémon Mansion instead: Grimer, Muk and Ditto join
+  # the Growlithe line on the reminder rather than being quietly satisfied by a later detour.
   test "a page can owe an Oak reminder without owing a single catch" do
     gym = plan("leg-16")
 
     refute gym.living?
     assert gym.oak?
-    assert_equal 3, gym.earlier.size
+    assert_equal %w[058 059 088 089 132], gym.earlier.map(&:dex)
   end
 
   # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so

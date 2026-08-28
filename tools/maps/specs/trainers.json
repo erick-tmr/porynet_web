@@ -367,30 +367,5 @@
         "dir": "DOWN"
       }
     ]
-  },
-  {
-    "type": "screen",
-    "name": "saffron-dojo-master",
-    "map": "FightingDojo",
-    "parent": "SAFFRON_CITY",
-    "player": [
-      5,
-      4
-    ],
-    "player_dir": "UP",
-    "focus": [
-      5,
-      4
-    ],
-    "sprites": [
-      {
-        "sprite": "SPRITE_HIKER",
-        "grid": [
-          5,
-          3
-        ],
-        "dir": "DOWN"
-      }
-    ]
   }
 ]

@@ -64,6 +64,8 @@
   <%= render "gym", gym: loc.gym, slug: loc.slug %>
 <% end %>
 
+<% if loc.dojo? %><%= render "dojo", dojo: loc.dojo %><% end %>
+
 <% if loc.slug == "route-24" %><%= render "leave_standing" %><% end %>
 
 <% if loc.after_steps.any? %>

@@ -1,7 +1,7 @@
 # Asset generation report
 
-- location maps: **101** across 53 locations
-- markers: **984** (318 trainer, 119 item, 64 hidden, 483 exit)
+- location maps: **102** across 53 locations
+- markers: **990** (323 trainer, 119 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
 - standalone scenes: **274** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
@@ -79,6 +79,7 @@
 - `safari-zone-west`: 4 item, 1 hidden, 5 exit
 - `saffron-city`: 12 exit
 - `saffron-city-gym`: 8 trainer, 31 exit
+- `saffron-city-dojo`: 5 trainer, 1 exit
 - `seafoam-islands-1f`: 5 exit
 - `seafoam-islands-b1f`: 7 exit
 - `seafoam-islands-b2f`: 1 hidden, 7 exit
@@ -187,6 +188,7 @@
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
+- `celadon-city-tm41` (dialog): walkthrough/yellow/scenes/celadon-city-tm41.png
 - `celadon-diner-coin-case` (screen): walkthrough/yellow/scenes/celadon-diner-coin-case.png
 - `celadon-mart-3f-tm18` (screen): walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
 - `celadon-roof-girl` (screen): walkthrough/yellow/scenes/celadon-roof-girl.png
@@ -367,7 +369,6 @@
 - `safari-zone-item-tm-double-team` (screen): walkthrough/yellow/scenes/safari-zone-item-tm-double-team.png
 - `safari-zone-item-tm-egg-bomb` (screen): walkthrough/yellow/scenes/safari-zone-item-tm-egg-bomb.png
 - `safari-zone-item-tm-skull-bash` (screen): walkthrough/yellow/scenes/safari-zone-item-tm-skull-bash.png
-- `saffron-dojo-master` (screen): walkthrough/yellow/scenes/saffron-dojo-master.png
 - `seafoam-articuno` (screen): walkthrough/yellow/scenes/seafoam-articuno.png
 - `seafoam-islands-hidden-max-elixir` (dialog): walkthrough/yellow/scenes/seafoam-islands-hidden-max-elixir.png
 - `seafoam-islands-hidden-nugget` (dialog): walkthrough/yellow/scenes/seafoam-islands-hidden-nugget.png

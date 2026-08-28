@@ -55,6 +55,23 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal covered.size, covered.uniq.size
   end
 
+  # Both are optional Surf detours off routes the badge run has already crossed, so they are held
+  # back to the end: taken in passing they interrupt the ride to Cinnabar, and taken here they are
+  # one sweep for two birds with eight badges in the bag. The stop numbers run with the walk, so
+  # moving them renumbers everything between.
+  test "Seafoam and the Power Plant are swept after the last badge, not on the way past" do
+    order = game.legs.map(&:slug)
+    tail = order[order.index("leg-14")..]
+
+    assert_equal %w[leg-14 leg-15 leg-16 seafoam-islands power-plant victory-road leg-17
+                    indigo-plateau cerulean-cave], tail
+    assert_operator loc("viridian-gym").order, :<, loc("seafoam-islands").order
+    assert_operator loc("power-plant").order, :<, loc("victory-road").order
+    assert_equal [ 44, 45, 46, 47, 48, 49 ],
+      %w[cinnabar-island pokemon-mansion route-21 viridian-gym seafoam-islands power-plant]
+        .map { |slug| loc(slug).order }
+  end
+
   test "leg! finds by slug and raises for an unknown leg" do
     leg = game.leg!("leg-01")
     assert_equal %w[pallet-town route-1], leg.locations.map(&:slug)
@@ -97,7 +114,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 99, g.obtainable_dex.size
+    assert_equal 101, g.obtainable_dex.size,
+      "the two the Fighting Dojo hands over are obtainable; a save only ever registers one"
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
@@ -214,6 +232,59 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[silph-co], game.leg!("silph-co").locations.map(&:slug)
     assert_equal %w[saffron-city-return], game.leg!("leg-13").locations.map(&:slug)
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-13"))
+  end
+
+  # The dojo is a gym in all but the badge, so it lands on the first pass with its own five fights
+  # and the prize the Karate Master hands over in place of one.
+  test "the Fighting Dojo carries its own room, and the second Saffron pass carries none of it" do
+    dojo = loc("saffron-city").dojo
+
+    assert_equal Walkthrough::Yellow::DOJO_MAP, dojo.map
+    assert_equal 4, dojo.trainers.size
+    assert_equal "BLACKBELT:1", dojo.leader.opp
+    assert_equal 4_175, dojo.purse
+    assert(dojo.trainers.all? { |card| card.where.map? })
+    assert_nil loc("saffron-city-return").dojo
+    assert_empty loc("saffron-city-return").trainers,
+      "the dojo's five come off Saffron's one roster; only the pass that owns the dojo shows them"
+  end
+
+  # The dojo's floor is drawn and pinned like a gym's, so it leaves the stop's header maps and the
+  # cards read their letters off it. The pass that borrows Saffron's maps but owns no dojo drops it.
+  test "the dojo's floor is a map of its own, not one of the city's" do
+    dojo = loc("saffron-city").dojo
+
+    assert_equal "saffron-city-dojo", dojo.area.name
+    assert_equal "Dojo", dojo.area.floor
+    assert_equal dojo.area.image, dojo.shot.image
+    assert_equal %w[T1 T2 T3 T4 T5], dojo.pins.map(&:key)
+    assert_equal "T5", dojo.leader.marker_key, "the walk ends on the one at the back"
+    assert_equal %w[saffron-city], loc("saffron-city").area_maps.map(&:name)
+    assert_equal %w[saffron-city], loc("saffron-city-return").area_maps.map(&:name)
+  end
+
+  # You leave with one of the pair and the other ball stays shut, so the choice is drawn from the
+  # game's own numbers: the bar lights up on the stat each one actually wins, and Special ties.
+  test "the dojo choice compares the two the Karate Master leaves behind" do
+    lee, chan = loc("saffron-city").dojo.choice.picks
+
+    assert_equal [ "left", "106", 30 ], [ lee.side, lee.dex, lee.level ]
+    assert_equal [ "right", "107", 30 ], [ chan.side, chan.dex, chan.level ]
+    assert_equal [ "DOUBLE KICK", "MEDITATE" ], lee.knows.map(&:name)
+    assert_equal 33, chan.learns.first.level
+    assert_equal %w[attack speed], lee.stats.select(&:lead).map(&:key)
+    assert_equal %w[defense], chan.stats.select(&:lead).map(&:key)
+    assert_equal 100, lee.stats.first.fill, "the best number on either card fills its bar"
+  end
+
+  # Both halves are listed the way Cinnabar lists all three fossils: a living dex owes the other
+  # even though one cartridge only ever opens one ball.
+  test "both dojo Pokemon are obtainable at Saffron and owed by Oak's deadline" do
+    saffron = loc("saffron-city")
+
+    assert_equal %w[106 107], saffron.encounters.map(&:dex)
+    assert(saffron.encounters.all?(&:gift?))
+    assert_equal %w[106 107], saffron.oak_queue.map(&:dex)
   end
 
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do

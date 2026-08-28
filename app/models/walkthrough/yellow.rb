@@ -303,10 +303,14 @@ module Walkthrough
       { slug: "silph-co", special: true, locs: %w[silph-co] },
       { slug: "leg-13", special: false, locs: %w[saffron-city-return] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
-      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
-      { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
       { slug: "leg-16", special: false, locs: %w[viridian-gym] },
+      # Both are optional Surf detours off routes the badge run has already crossed, and both hold
+      # a bird you get one shot at. Walked in passing they interrupt the run to Cinnabar with a
+      # boulder puzzle and eleven floors of disguised Voltorb; held back to here they are the last
+      # sweep before Victory Road, taken with eight badges, a full team and Fly to reach them.
+      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
+      { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "leg-17", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
@@ -598,19 +602,26 @@ module Walkthrough
       end
     end
 
-    # The gym's own map belongs in the gym section, not the location header, so pull the "Gym"
-    # floor out of the header maps and hand it to the gym as its shot.
+    # A gym's own floor and the Fighting Dojo's belong to their sections, not to the stop's header:
+    # the room is what the section is about, and a page that draws it twice says nothing twice. A
+    # pass that borrows the maps but owns neither hall (Saffron walked the second time) drops both.
+    HALL_FLOORS = { gym: "Gym", dojo: "Dojo" }.freeze
+
     def self.attach_maps(loc, maps)
-      gym_map = maps.find { |m| m.floor == "Gym" }
-      header = maps.reject { |m| m.floor == "Gym" }
+      header = maps.reject { |m| HALL_FLOORS.value?(m.floor) }
       loc = apply_trainer_notes(map_steps(mark_steps(tick_items(merge_trainers(loc), header), header),
         header))
-      header = link_steps(loc, header)
-      return loc.with(area_maps: header) unless loc.gym && gym_map
+      loc = loc.with(area_maps: link_steps(loc, header))
+      HALL_FLOORS.reduce(loc) { |built, (field, floor)| attach_hall(built, field, maps, floor) }
+    end
 
-      loc.with(area_maps: header,
-        gym: loc.gym.with(area: gym_map,
-                          shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
+    def self.attach_hall(loc, field, maps, floor)
+      hall = loc.public_send(field)
+      room = maps.find { |m| m.floor == floor }
+      return loc if hall.nil? || room.nil?
+
+      loc.with(field => hall.with(area: room,
+        shot: Shot.new(image: room.image, label: hall.shot.label)))
     end
 
     def self.merge_trainers(loc)
@@ -761,8 +772,14 @@ module Walkthrough
     end
 
     def self.authored_cards(loc)
-      loc.trainers + (loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : [])
+      loc.trainers + halls(loc).flat_map { |hall| hall.trainers + [ hall.leader ] }
     end
+
+    # A gym and the dojo are the same shape to everything that deals trainers out: a room of
+    # students behind one door with one fight at the back of it.
+    HALLS = %i[gym dojo].freeze
+
+    def self.halls(loc) = HALLS.filter_map { |field| loc.public_send(field) }
 
     # Curated captions stamped onto specific trainers by their OPP_CLASS:party id, keyed by
     # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings; Route 4's east-plateau
@@ -776,6 +793,8 @@ module Walkthrough
         { "LASS:4" => "#{b}.trainers.lass.note" }
       when "route-10"
         { "POKEMANIAC:1" => "#{b}.trainers.pokemaniac.note" }
+      when "saffron-city"
+        { "BLACKBELT:4" => "#{b}.dojo.notes.primeape" }
       else
         {}
       end
@@ -786,11 +805,15 @@ module Walkthrough
       return loc if notes.empty?
 
       loc = loc.with(trainers: loc.trainers.map { |t| note_trainer(t, notes) })
-      return loc if loc.gym.nil?
+      HALLS.reduce(loc) { |noted, field| note_hall(noted, field, notes) }
+    end
 
-      gym = loc.gym
-      loc.with(gym: gym.with(trainers: gym.trainers.map { |t| note_trainer(t, notes) },
-        leader: note_trainer(gym.leader, notes)))
+    def self.note_hall(loc, field, notes)
+      hall = loc.public_send(field)
+      return loc if hall.nil?
+
+      loc.with(field => hall.with(trainers: hall.trainers.map { |t| note_trainer(t, notes) },
+        leader: note_trainer(hall.leader, notes)))
     end
 
     def self.note_trainer(trainer, notes)
@@ -800,13 +823,22 @@ module Walkthrough
 
     def self.gym_entry?(loc, entry) = entry["floor"] == "Gym" || loc.kind == "GYM"
 
+    # The dojo's five sit on their own map inside Saffron's roster, and Saffron is walked twice off
+    # that one roster. Taking them out before the rest is dealt lands them in the dojo on the page
+    # that has one, and nowhere on the page that does not.
     def self.place_trainers(loc, fresh, claimed)
-      gym_fresh, loc_fresh = fresh.partition { |e| gym_entry?(loc, e) }
+      dojo_fresh, rest = fresh.partition { |entry| entry["map"] == DOJO_MAP }
+      gym_fresh, loc_fresh = rest.partition { |entry| gym_entry?(loc, entry) }
       loc = loc.with(trainers: settle(loc.trainers, loc_fresh, claimed))
-      return loc unless loc.gym
+      fill_hall(fill_hall(loc, :gym, gym_fresh, claimed), :dojo, dojo_fresh, claimed)
+    end
 
-      loc.with(gym: loc.gym.with(trainers: settle(loc.gym.trainers, gym_fresh, claimed),
-        leader: claimed.fetch(loc.gym.leader.opp, loc.gym.leader)))
+    def self.fill_hall(loc, field, fresh, claimed)
+      hall = loc.public_send(field)
+      return loc if hall.nil?
+
+      loc.with(field => hall.with(trainers: settle(hall.trainers, fresh, claimed),
+        leader: claimed.fetch(hall.leader.opp, hall.leader)))
     end
 
     def self.settle(authored, fresh, claimed)
@@ -1177,7 +1209,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [], second_after: nil)
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, dojo: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [], second_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
@@ -1189,8 +1221,8 @@ module Walkthrough
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
-        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia, grind: grind,
-        later: later,
+        gym: gym, dojo: dojo, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia,
+        grind: grind, later: later,
         second_visit: second_after && SecondVisit.new(after: second_after, lead_key: "#{b}.second_lead")
       )
     end
@@ -1963,13 +1995,84 @@ module Walkthrough
           house: "route-18-gate", inside: "route-18-gate-inside") ])
     end
 
+    # Both halves of the dojo's prize are listed, the way Cinnabar lists all three fossils: one
+    # cartridge only ever revives one of a pair, but a living dex still owes the other, and the
+    # card that says so is the one that tells you the choice is permanent.
     def self.saffron_city
       loc("saffron-city", "CITY", "Saffron City", 41, steps: 2,
         pins: { 1 => { dojo: "saffron-city/exit-26-3" },
                 2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" } },
-        trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
-          where: scene_shot("saffron-dojo-master", "WHERE")) ],
-        oak_queue: [ oak("saffron-city", "106", 1) ])
+        dojo: fighting_dojo,
+        encounters: [
+          enc("saffron-city", "106", "GIFT", "-", DOJO_LEVEL.to_s, "GIFT", "106", tip: true, from: true),
+          enc("saffron-city", "107", "GIFT", "-", DOJO_LEVEL.to_s, "GIFT", "107", tip: true, from: true)
+        ],
+        oak_queue: [ oak("saffron-city", "106", 1), oak("saffron-city", "107", 1) ])
+    end
+
+    # The Fighting Dojo, read out of the game. The Karate Master is the BLACKBELT party 1 of
+    # data/maps/objects/FightingDojo.asm, his four students are parties 2 to 5, and the two gift
+    # balls sit against the top wall with Hitmonlee on the left. Both are handed over at `ld c, 30`
+    # in scripts/FightingDojo.asm, after the Pokédex page and a yes/no; open one and the other only
+    # answers "Better not get greedy...".
+    DOJO_MAP = "saffron-city-dojo".freeze
+    DOJO_LEVEL = 30
+    DOJO_STEPS = 2
+    MASTER_OPP = [ "BLACKBELT", 1 ].freeze
+
+    # Level-1 learnsets from data/pokemon/base_stats/, the rest from data/pokemon/evos_moves.asm.
+    # Yellow's lists are its own: Hitmonlee gets Hi Jump Kick at 48 here, not the 53 later
+    # generations moved it to, and neither of them learns anything at all before 33.
+    DOJO_PICKS = [
+      [ "left", "106", [ "DOUBLE KICK", "MEDITATE" ],
+        [ [ "ROLLING KICK", 33 ], [ "JUMP KICK", 38 ], [ "FOCUS ENERGY", 43 ],
+          [ "HI JUMP KICK", 48 ], [ "MEGA KICK", 53 ] ] ],
+      [ "right", "107", [ "COMET PUNCH", "AGILITY" ],
+        [ [ "FIRE PUNCH", 33 ], [ "ICE PUNCH", 38 ], [ "THUNDERPUNCH", 43 ],
+          [ "MEGA PUNCH", 48 ], [ "COUNTER", 53 ] ] ]
+    ].freeze
+
+    # The four the choice actually turns on. Both have 50 HP and the same 35 Special, so a full
+    # stat block would spend two rows saying the pair are identical where it matters least.
+    DOJO_STATS = %w[attack speed defense special].freeze
+
+    def self.fighting_dojo
+      b = "#{base('saffron-city')}.dojo"
+      Dojo.new(anchor: "fighting-dojo", map: DOJO_MAP, name: "Saffron Fighting Dojo",
+        type: "FIGHTING", intro_key: "#{b}.intro", when_key: "#{b}.when",
+        prize_key: "#{b}.prize", shot: shot("DOJO"),
+        steps: (1..DOJO_STEPS).map { |n| GymStep.new(n: n, text_key: "#{b}.steps.#{n}", shot: nil) },
+        trainers: [], note_key: "#{b}.dex_note", choice: dojo_choice(b),
+        leader: tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37), opp: MASTER_OPP))
+    end
+
+    def self.dojo_choice(b)
+      best = DOJO_PICKS.flat_map { |_side, dex, *| DOJO_STATS.map { |key| dex_facts.fetch(dex).fetch(key) } }.max
+      DojoChoice.new(anchor: "dojo-choice", intro_key: "#{b}.choice.intro",
+        room_key: "#{b}.choice.room", rec_key: "#{b}.choice.rec",
+        picks: DOJO_PICKS.map { |pick| dojo_pick(b, pick, other_dex(pick.second), best) })
+    end
+
+    def self.other_dex(dex) = DOJO_PICKS.map(&:second).find { |other| other != dex }
+
+    def self.dojo_pick(b, (side, dex, knows, learns), other, best)
+      DojoPick.new(side: side, dex: dex, name: NAMES.fetch(dex), level: DOJO_LEVEL,
+        stats: dojo_stats(dex, other, best),
+        knows: knows.map { |name| DojoMove.new(name: name, level: DOJO_LEVEL) },
+        learns: learns.map { |name, level| DojoMove.new(name: name, level: level) },
+        note_key: "#{b}.choice.#{mon_key(dex)}")
+    end
+
+    # `lead` is the head-to-head: the bar lights up on the stat this one of the pair actually wins,
+    # so the two cards read as one comparison rather than two stat blocks. Special is a tie at 35,
+    # which lights neither and says the true thing about both.
+    def self.dojo_stats(dex, other, best)
+      mine, theirs = dex_facts.fetch(dex), dex_facts.fetch(other)
+      DOJO_STATS.map do |key|
+        value = mine.fetch(key)
+        DojoStat.new(key: key, value: value, fill: fill_step(value, best),
+          lead: value > theirs.fetch(key))
+      end
     end
 
     # Saffron is walked twice for the reason the city itself gives: the gym's doors are Rocket-held
@@ -2052,7 +2155,7 @@ module Walkthrough
     end
 
     def self.seafoam_islands
-      loc("seafoam-islands", "CAVE", "Seafoam Islands", 44, steps: [
+      loc("seafoam-islands", "CAVE", "Seafoam Islands", 48, steps: [
           {},
           {},
           { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
@@ -2084,7 +2187,7 @@ module Walkthrough
     end
 
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 46, steps: 3, gym_after: 2, badge: "VOLCANO",
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 44, steps: 3, gym_after: 2, badge: "VOLCANO",
         pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
                 2 => { lab: "cinnabar-island/exit-6-9" } },
         encounters: [
@@ -2113,7 +2216,7 @@ module Walkthrough
     end
 
     def self.pokemon_mansion
-      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 47,
+      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 45,
         pins: { 5 => { up: "pokemon-mansion-1f/exit-5-10" },
                 6 => { up: "pokemon-mansion-2f/exit-7-10" },
                 10 => { down: "pokemon-mansion-1f/exit-21-23" } },
@@ -2148,7 +2251,7 @@ module Walkthrough
     end
 
     def self.viridian_gym
-      loc("viridian-gym", "GYM", "Viridian Gym", 49, steps: [
+      loc("viridian-gym", "GYM", "Viridian Gym", 47, steps: [
           {},
           { item: [ "Revive", "revive" ], scene: "viridian-gym-item-revive" },
           {},
@@ -2437,6 +2540,7 @@ module Walkthrough
           enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true)
         ],
         trainers: [],
+        later: [ later("celadon-city", "tm41", "TM41 Softboiled", "TM", "Surf", "celadon-city-tm41") ],
         oak_queue: [ oak("celadon-city", "133", 1) ])
     end
 
@@ -2553,7 +2657,7 @@ module Walkthrough
     end
 
     def self.power_plant
-      loc("power-plant", "BUILDING", "Power Plant", 45, steps: [
+      loc("power-plant", "BUILDING", "Power Plant", 49, steps: [
           { pins: { door: "power-plant/exit-4-35" } },
           { item: [ "Carbos", "carbos" ], scene: "power-plant-item-carbos" },
           {},
@@ -2585,7 +2689,7 @@ module Walkthrough
     end
 
     def self.route_21
-      loc("route-21", "ROUTE", "Route 21", 48, steps: 2,
+      loc("route-21", "ROUTE", "Route 21", 46, steps: 2,
         encounters: [
           enc("route-21", "016", "GRASS", "55%", "11–17", "COMMON", "016", "017", "018"),
           enc("route-21", "019", "GRASS", "30%", "13–15", "COMMON", "019", "020"),
@@ -2877,7 +2981,7 @@ module Walkthrough
       GrindSpot.new(anchor: anchor, after_map: after_map, art: art, note_icon: note_icon,
         title_key: "#{base}.grind.title", intro_key: "#{base}.grind.intro",
         formula_key: "#{base}.grind.formula", warn_key: "#{base}.grind.warn",
-        mons: rows.map { |mon| mon.with(fill: grind_fill(mon.exp, best)) },
+        mons: rows.map { |mon| mon.with(fill: fill_step(mon.exp, best)) },
         lead_level: rows.first.levels.split("–").last.to_i + 1,
         steps: (1..GRIND_STEPS).map do |n|
           GrindStep.new(n: n, title_key: "#{base}.grind.steps.#{n}.title",
@@ -2885,13 +2989,13 @@ module Walkthrough
         end)
     end
 
-    # The bar under each figure, as a percentage of the best on offer, in fives. A width has to be
-    # a class rather than an inline style (the CSP blocks those), so it lands on one of twenty-one
-    # steps; a bar comparing two numbers reads the same at that granularity.
-    GRIND_FILL_STEP = 5
+    # A bar's length, as a percentage of the best on offer, in fives. A width has to be a class
+    # rather than an inline style (the CSP blocks those), so it lands on one of twenty-one steps;
+    # a bar comparing two numbers reads the same at that granularity.
+    FILL_STEP = 5
 
-    def self.grind_fill(exp, best)
-      (exp * 100.0 / best / GRIND_FILL_STEP).round * GRIND_FILL_STEP
+    def self.fill_step(value, best)
+      (value * 100.0 / best / FILL_STEP).round * FILL_STEP
     end
 
     def self.grind_mon(base, encounters, dex, tone, level)

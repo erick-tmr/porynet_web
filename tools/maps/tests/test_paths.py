@@ -197,6 +197,17 @@ def test_a_gym_ends_on_its_leader(root):
         assert lettered(root, label, floor)[-1][1] == leader, label
 
 
+def test_the_fighting_dojo_is_walked_from_the_door_up_to_the_master(root):
+    """Not a gym, but the same one room off one door: the four Black Belts letter up the room in
+    the order you pass their lines, and the Karate Master at the back wears the last letter."""
+    walk = lettered(root, "FightingDojo", "Dojo")
+
+    assert [opp for _key, opp in walk] == [
+        "BLACKBELT:5", "BLACKBELT:3", "BLACKBELT:4", "BLACKBELT:2", "BLACKBELT:1"]
+    assert [tuple(pins(root, "FightingDojo", "Dojo")[key]["grid"]) for key in
+            ("T1", "T2", "T3", "T4", "T5")] == [(5, 7), (3, 6), (5, 5), (3, 4), (5, 3)]
+
+
 def test_celadon_gyms_sealed_chamber_is_lettered_the_way_you_walk_it(root):
     """Erika's four sit in a chamber walled off by hedges, and a gym hedge is solid to the shipped
     collision, so the flood reaches the four in the open and stops. Left to itself the chamber fell

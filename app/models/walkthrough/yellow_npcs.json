@@ -126,5 +126,17 @@
       "note": "map_npc_tower_silent_channeler",
       "ref": "SPRITE_CHANNELER"
     }
+  ],
+  "celadon-city": [
+    {
+      "id": "npc-tm41",
+      "name": "TM41 Softboiled",
+      "grid": [
+        22,
+        16
+      ],
+      "note": "map_npc_celadon_tm41",
+      "ref": "TM_SOFTBOILED"
+    }
   ]
 }

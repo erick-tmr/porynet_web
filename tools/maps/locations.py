@@ -83,18 +83,21 @@ def attached(map_label):
     return _ATTACHED.get(map_label, [])
 
 
-_EXTRA_TRAINER_MAPS = {
-    # The three *Rooms maps and the bow moved into _DUNGEONS above. They must not stay here too:
-    # roster.py walks this list separately from location_maps, so a map in both is counted twice.
-    "saffron-city": [("FightingDojo", "SAFFRON_CITY", "")],
-}
+# The three *Rooms maps and the bow moved into _DUNGEONS, and the Fighting Dojo into _ANNEXES.
+# Nothing may stay here as well as there: roster.py walks this list separately from
+# location_maps, so a map in both is counted twice.
+_EXTRA_TRAINER_MAPS = {}
 
 
 # Maps a location owns beyond its town and gym. The Vermilion dock is its own map with its own
 # Super Rod slots (Staryu and Shellder, neither of which the city's own water gives up), so it has
 # to be drawn for those to have anywhere to hang.
+# The Fighting Dojo is a gym in all but the badge, five fights and two prize balls behind one
+# door, so Saffron draws it the way it draws Sabrina's floor rather than leaving the one hall the
+# city sends you into undrawn.
 _ANNEXES = {
     "vermilion-city": [("VermilionDock", "Dock", "VERMILION_CITY")],
+    "saffron-city": [("FightingDojo", "Dojo", "SAFFRON_CITY")],
 }
 
 

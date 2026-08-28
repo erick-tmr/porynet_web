@@ -1,0 +1,52 @@
+<%# One of the two balls, argued for: the four stats that separate the pair, what it arrives
+    holding, what it picks up later, and one line on what that adds up to in a Gen 1 fight. %>
+<div class="pn-wt-pick__card" data-dojo-pick-target="item" data-kind="caught"
+     data-progress-id="<%= pick.dex %>" data-pick-name="<%= pick.name %>"
+     role="button" tabindex="0" aria-pressed="false"
+     data-action="click->dojo-pick#toggle keydown.enter->dojo-pick#toggle keydown.space->dojo-pick#toggle">
+  <span class="pn-wt-pick__flag pn-wt-pick__flag--done"><%= t("walkthrough.ui.dojo_your_pick") %></span>
+  <span class="pn-wt-pick__flag pn-wt-pick__flag--gone"><%= t("walkthrough.ui.dojo_gone") %></span>
+
+  <div class="pn-wt-pick__side">
+    <span class="pn-wt-pick__side-chip"><%= t("walkthrough.ui.dojo_side_#{pick.side}") %></span>
+    <%= r2_image_tag "walkthrough/items/poke-ball.png", alt: "",
+          class: "pn-wt-pick__side-ball", loading: "lazy" %>
+  </div>
+
+  <div class="pn-wt-pick__ident">
+    <span class="pn-wt-pick__art">
+      <%= r2_image_tag "pokemon/yellow/#{pick.dex}.png", alt: "", loading: "lazy" %>
+    </span>
+    <div>
+      <div class="pn-wt-pick__name"><%= pick.name %></div>
+      <div class="pn-wt-pick__chips">
+        <span class="pn-wt-pick__chip">#<%= pick.dex %></span>
+        <span class="pn-wt-pick__chip"><%= t("walkthrough.ui.dojo_fighting") %></span>
+        <span class="pn-wt-pick__chip pn-wt-pick__chip--solid"><%= t("walkthrough.ui.dojo_arrives", n: pick.level) %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn-wt-pick__stats">
+    <% pick.stats.each do |stat| %>
+      <div class="pn-wt-pick__stat">
+        <span class="pn-wt-pick__stat-key"><%= t("walkthrough.ui.dojo_stat_#{stat.key}") %></span>
+        <span class="pn-wt-pick__meter">
+          <span class="<%= class_names("pn-wt-pick__meter-fill", "pn-fill--#{stat.fill}",
+                          "is-lead" => stat.lead) %>"></span>
+        </span>
+        <span class="pn-wt-pick__stat-val"><%= stat.value %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pn-wt-pick__moves">
+    <div class="pn-wt-pick__moves-label"><%= t("walkthrough.ui.dojo_knows", n: pick.level) %></div>
+    <div class="pn-wt-pick__moves-list"><%= pick.knows.map(&:name).join(" · ") %></div>
+    <div class="pn-wt-pick__moves-label"><%= t("walkthrough.ui.dojo_learns") %></div>
+    <div class="pn-wt-pick__moves-list">
+      <%= pick.learns.map { |move| "#{move.name} #{move.level}" }.join(" · ") %>
+    </div>
+    <p class="pn-wt-pick__verdict"><%= t(pick.note_key) %></p>
+  </div>
+</div>
