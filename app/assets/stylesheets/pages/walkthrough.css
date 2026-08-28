@@ -2880,12 +2880,17 @@ a.pn-wt-route__card:hover {
    area maps follow, so the art stays sharp and the pins get the room to lane apart. The native
    width arrives from the map-markers controller (the page forbids inline styles); a screen too
    narrow for 2x falls back to fitting the column. */
+/* Three times native rather than two: this map is the puzzle, not an illustration of it. Fuchsia's
+   floor is one flat pink room to look at and a maze to cross, so the reader is following a line
+   between walls they cannot see, and at 2x the line and the pins sit on top of each other. */
 .pn-wt-gym__canvas {
   position: relative;
   line-height: 0;
-  width: calc(var(--mm-native-w, 100%) * 2);
+  width: calc(var(--mm-native-w, 100%) * 3);
   max-width: 100%;
 }
+.pn-wt-gym__shot-wrap:not(.is-routed) .pn-mm-route { display: none; }
+.pn-wt-gym__routebtn { margin-top: 10px; }
 .pn-wt-shot--gym .pn-wt-shot__map-img {
   width: 100%;
   height: auto;

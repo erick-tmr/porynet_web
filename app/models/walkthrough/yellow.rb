@@ -1836,7 +1836,7 @@ module Walkthrough
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
           leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE"), opp: [ "KOGA", 1 ]),
-          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ])
+          puzzle: [ gstep("fuchsia-city", 1) ])
       )
     end
 

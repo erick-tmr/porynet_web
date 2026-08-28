@@ -276,21 +276,24 @@ STEPS = ((0, 1), (0, -1), (1, 0), (-1, 0))
 
 
 @cache
-def route_cells(root_str, label):
-    """The cells the map's authored route runs through, in order.
+def marker_cells(root_str, label, ids):
+    """The cells a list of the map's own marker ids sits on, in the order given.
 
     Marker ids rather than raw coordinates, so a waypoint reads as the thing it is ('exit-8-53' is
     Rock Tunnel's south mouth on Route 10, 'item-1-31' the Poké Ball in the forest's western dead
     end) and stays the same string the walkthrough's own step pins already use."""
-    ids = ROUTES.get(label)
-    if not ids:
-        return ()
     const, _tileset = sources.parse_headers(root_str)[label]
     width_cells, height_cells = markers.map_cells(root_str, const)
     grids = {entry["id"]: tuple(entry["grid"]) for entry in
              markers.build_markers(root_str, label, const,
                                    width_cells * markers.CELL_PX, height_cells * markers.CELL_PX)}
     return tuple(grids[marker_id] for marker_id in ids)
+
+
+def route_cells(root_str, label):
+    """The cells the map's authored route runs through, in order."""
+    ids = ROUTES.get(label)
+    return marker_cells(root_str, label, ids) if ids else ()
 
 
 @cache

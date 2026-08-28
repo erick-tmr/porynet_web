@@ -2456,11 +2456,9 @@ en:
             blurb: "Fuchsia sells Ultra Balls and Hyper Potions, the kit for the Safari Zone and Koga's gym."
             buy: "Ultra Balls raise your odds on rare late catches. Hyper Potions and a Revive see you through Koga."
           gym:
-            intro: "The gym floor is a maze of invisible walls. Feel your way through, clearing the Jugglers and Tamers inside, then take on Koga. His three Venonat (Lv 44, 46, 48) and Venomoth (Lv 50) lean on Toxic and Double Team, so bring a fast Psychic attacker and carry Antidotes."
+            intro: "The gym floor is a maze of invisible walls, and the map draws the one way through it. Koga's three Venonat (Lv 44, 46, 48) and Venomoth (Lv 50) lean on Toxic and Double Team, so bring a fast Psychic attacker and carry Antidotes."
             puzzle:
-              "1": "The whole room is blocked by invisible walls. Walk into open space until you hit one, then trace along it to find the gaps."
-              "2": "Weave up and around the barriers toward the top of the room, taking each optional trainer as the path lets you reach them."
-              "3": "The last opening leads to Koga. Bring a Psychic or Ground attacker and carry Antidotes for his Toxic."
+              "1": "The whole room is invisible walls. Follow the line on the map: up the middle, east to the right-hand lane, up it to the top wall, then west, down the left side and back east into Koga."
           note: "Koga's Gym. Soul Badge. Safari Zone next door."
           intro: "A town of low fences wrapped around the Safari Zone's front gate. Koga's gym hides behind invisible walls, and the Warden cannot speak without his teeth."
           steps:

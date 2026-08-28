@@ -23,6 +23,9 @@ MANIFEST = json.loads(
 # The floors that ship a drawn line. Viridian Gym is an arrow floor too, but its ROUTES entry is
 # a single doorway, so it has no walk to draw yet; see the gate test at the bottom.
 DRAWN = ("RocketHideoutB2F", "RocketHideoutB3F")
+# Every floor that ships a line, arrow-driven or walked. The walkability promise is the same for
+# both; only the ball-collecting one is particular to the mazes, whose stops are the balls.
+LINED = (*DRAWN, "FuchsiaGym")
 
 
 def test_the_arrow_table_is_read_x_first(root):
@@ -88,12 +91,12 @@ def test_the_solver_rides_the_arrows_rather_than_walking_round_them(root):
     assert (2, 9) in cells, "the stop tile that ride ends on, most of the way across the floor"
 
 
-@pytest.mark.parametrize("label", DRAWN)
+@pytest.mark.parametrize("label", LINED)
 def test_a_route_only_ever_crosses_cells_the_game_lets_you_cross(root, label):
     """The promise the drawn line makes. Every cell of it is either one you can stand on or an
     arrow tile you are carried over, and every step of it is one cell in one direction, so the
     line cannot cut a corner through a crate or teleport across a wall."""
-    stops = paths.route_cells(root, label)
+    stops = spinners.route_stops(root, label)
     const, tileset = sources.parse_headers(root)[label]
     _index, width_blocks, _height = sources.parse_map_constants(root)[0][const]
 
@@ -118,15 +121,33 @@ def test_a_route_collects_every_ball_on_its_floor(root, label):
     assert balls <= drawn, f"{label}: the route misses {sorted(balls - drawn)}"
 
 
-def test_only_an_arrow_floor_with_a_written_walk_gets_a_line(root):
-    """Two gates, and both matter. Outside, the flood that orders the pins walks up ledges you can
-    only fall down, so a line drawn from it would trace a way across the field that does not
-    exist. And Viridian Gym is an arrow floor whose route is a single doorway, which says nothing
-    about the way round: it gets a line the day its ROUTES entry names one."""
+def test_only_a_floor_with_a_written_walk_gets_a_line(root):
+    """Three gates, and each matters. Outside, the flood that orders the pins walks up ledges you
+    can only fall down, so a line drawn from it would trace a way across the field that does not
+    exist. Viridian Gym is an arrow floor whose route is a single doorway, which says nothing about
+    the way round: it gets a line the day its ROUTES entry names one. And a floor with no arrows
+    gets one only by being named in WALKED, which is a judgement about whether the walls are
+    visible, not something to infer."""
     assert spinners.drawn_route(root, "Route3") == [], "no arrows, however long its ROUTES entry"
     assert len(paths.ROUTES["ViridianGym"]) == 1
     assert spinners.drawn_route(root, "ViridianGym") == [], "arrows, but no walk written down yet"
     assert spinners.drawn_route(root, "RocketHideoutB2F"), "both, so it gets one"
+    assert spinners.drawn_route(root, "CeruleanGym") == [], "no arrows and not named in WALKED"
+    assert spinners.drawn_route(root, "FuchsiaGym"), "no arrows, but its walls are invisible"
+
+
+def test_the_fuchsia_line_runs_from_the_door_to_koga(root):
+    """The one floor whose line is a plain walk. Its stops are its own rather than its ROUTES
+    entry, because the walk ends on the leader and the pins have to letter him last however early
+    the door reaches him: naming him a waypoint would deal T5 to Koga and push two Jugglers and a
+    Tamer behind him."""
+    door, koga = (4, 17), (4, 10)
+    cells = spinners.route(root, "FuchsiaGym", spinners.route_stops(root, "FuchsiaGym"))
+
+    assert len(cells) == 1, "one leg: in at the door, out at the leader"
+    assert cells[0][0] == door
+    assert cells[0][-1] == koga
+    assert paths.ROUTES["FuchsiaGym"] == ("exit-4-17",), "the lettering waypoints stay as they were"
 
 
 def test_the_line_is_handed_over_in_the_pixels_of_the_map_it_is_drawn_on(root):

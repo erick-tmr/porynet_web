@@ -2456,11 +2456,9 @@ pt:
             blurb: "Fuchsia vende Ultra Balls e Hyper Potions, o kit para a Safari Zone e o ginásio do Koga."
             buy: "Ultra Balls aumentam suas chances nas capturas raras. Hyper Potions e um Revive te levam contra o Koga."
           gym:
-            intro: "O chão do ginásio é um labirinto de paredes invisíveis. Vá tateando, vencendo os Jugglers e Tamers lá dentro, e depois enfrente o Koga. Os três Venonat (Nv 44, 46, 48) e o Venomoth (Nv 50) dele apostam em Toxic e Double Team, então leve um atacante Psíquico rápido e carregue Antidotes."
+            intro: "O chão do ginásio é um labirinto de paredes invisíveis, e o mapa desenha o único caminho por ele. Os três Venonat (Nv 44, 46, 48) e o Venomoth (Nv 50) do Koga apostam em Toxic e Double Team, então leve um atacante Psíquico rápido e carregue Antidotes."
             puzzle:
-              "1": "A sala toda e bloqueada por paredes invisiveis. Ande pelo espaco aberto ate esbarrar numa, depois siga ao longo dela para achar as passagens."
-              "2": "Serpenteie para cima e ao redor das barreiras rumo ao topo da sala, pegando cada treinador opcional conforme o caminho permitir."
-              "3": "A ultima abertura leva a Koga. Leve um atacante Psiquico ou Terra e carregue Antidotos para o Toxic dele."
+              "1": "A sala inteira é feita de paredes invisíveis. Siga a linha do mapa: suba pelo meio, vá a leste até a faixa da direita, suba por ela até o muro do topo, depois a oeste, desça pela esquerda e volte a leste até o Koga."
           note: "Ginásio do Koga. Soul Badge. Safari Zone ao lado."
           intro: "Uma cidade de cercas baixas em volta do portão da Safari Zone. O ginásio do Koga se esconde atrás de paredes invisíveis, e o Warden não consegue falar sem a dentadura."
           steps:
