@@ -2458,7 +2458,7 @@ pt:
           gym:
             intro: "O chão do ginásio é um labirinto de paredes invisíveis, e o mapa desenha o único caminho por ele. Os três Venonat (Nv 44, 46, 48) e o Venomoth (Nv 50) do Koga apostam em Toxic e Double Team, então leve um atacante Psíquico rápido e carregue Antidotes."
             puzzle:
-              "1": "A sala inteira é feita de paredes invisíveis. Siga a linha do mapa: suba pelo meio, vá a leste até a faixa da direita, suba por ela até o muro do topo, depois a oeste, desça pela esquerda e volte a leste até o Koga."
+              "1": "A sala inteira é feita de paredes invisíveis. Siga a linha: a leste pelo fundo, suba a faixa livre da direita, a oeste rente ao muro do topo, depois desça pela esquerda até o Koga. Todo treinador que ela passa é opcional."
           note: "Ginásio do Koga. Soul Badge. Safari Zone ao lado."
           intro: "Uma cidade de cercas baixas em volta do portão da Safari Zone. O ginásio do Koga se esconde atrás de paredes invisíveis, e o Warden não consegue falar sem a dentadura."
           steps:
@@ -2487,8 +2487,11 @@ pt:
               items:
                 hm04_strength: "Com o Warden da Safari Zone, depois de devolver os Gold Teeth. Ensina Strength para empurrar pedras."
             "2":
-              title: "Guarde a Soul Badge e voe embora"
-              text_html: "A Soul Badge aumenta a Defesa e libera Surf fora de batalha, além do TM06 Toxic. Cure no Centro %{center} e voe para Saffron: a Silph Co. está ocupada pela Rocket."
+              title: "Ensine Surf e volte para o parque"
+              text_html: "A Soul Badge aumenta a Defesa e libera o Surf fora de batalha, além do TM06 Toxic. Cure no Centro %{center}, ensine o Surf e faça a <a href=\"%{href}\">segunda ida à Safari</a> pelo Nugget e pelas duas bolas que o contador cortou."
+            "3":
+              title: "Siga a oeste pela Cycling Road"
+              text_html: "Saia da cidade pela cancela oeste %{west} para a Rota 18, depois suba a Cycling Road ao norte. Saffron fica no topo dela, e a Silph Co. está tomada pela Rocket até você chegar lá."
         safari_zone:
           note: "Parque de captura de 502 passos. Scyther, Pinsir, Chansey, Dratini e mais."
           intro: "Quatro áreas cercadas sem treinadores e sem Poké Balls comuns. A entrada dá trinta Safari Balls e exatamente 502 passos, e Kangaskhan, Tauros, Scyther, Pinsir e Dratini não vivem em outro lugar."

@@ -95,7 +95,10 @@ ROUTES = {
     ),
     "Route16": ("exit-east",),                      # out of Celadon
     "Route17": ("exit-north",),
-    "Route18": ("exit-north",),
+    # Three Bird Keepers in a cluster by the Fuchsia gate, and the flood splits the pair on the
+    # right the wrong way round: the one on the upper shelf is met before the one below it, whichever
+    # end of the route you come in from, so the order is named.
+    "Route18": ("exit-north", "trainer-36-11", "trainer-42-13", "trainer-40-15"),
     "Route19": ("exit-north",),                     # out of Fuchsia
     "Route20": ("exit-east",),
     "Route2": ("exit-south", "item-13-45", "item-13-54"),

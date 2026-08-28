@@ -296,8 +296,10 @@ module Walkthrough
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city] },
       { slug: "safari-zone", special: true, locs: %w[safari-zone] },
+      # Walked north out of Fuchsia, so the routes come in the order they are met rather than the
+      # order they are numbered: west onto 18, up Cycling Road, out of 16's north gate.
       { slug: "leg-12", special: false,
-        locs: %w[fuchsia-city-return route-16 route-17 route-18 saffron-city] },
+        locs: %w[fuchsia-city-return route-18 route-17 route-16 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
       { slug: "leg-13", special: false, locs: %w[saffron-city-return] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
@@ -1833,7 +1835,9 @@ module Walkthrough
         steps: [
           step(b, 1, items: [ item(b, 1, "HM04 Strength", "hm04_strength") ],
             pins: { warden: "fuchsia-city/exit-27-27", gym: "fuchsia-city/exit-5-27" }),
-          step(b, 2, pins: { center: "fuchsia-city/exit-19-27" })
+          step(b, 2, html: true, pins: { center: "fuchsia-city/exit-19-27" },
+            link: StepLink.new(leg: "safari-zone", anchor: "safari-zone-step-14")),
+          step(b, 3, pins: { west: "fuchsia-city/exit-west" })
         ], gym_after: 1,
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",

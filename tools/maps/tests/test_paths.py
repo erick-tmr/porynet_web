@@ -377,6 +377,16 @@ def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
         "Carbos", "TM Egg Bomb", "Max Potion", "Full Restore"]
 
 
+def test_route_18_takes_the_upper_bird_keeper_before_the_one_below_it(root):
+    """The three Bird Keepers sit in a cluster by the Fuchsia gate, one out west and a pair on the
+    right. Distance alone splits that pair the wrong way round, putting the one down on the sand
+    ahead of the one on the shelf above it, which is not the order either end of the route meets
+    them in."""
+    drawn = pins(root, "Route18", "")
+
+    assert [tuple(drawn[key]["grid"]) for key in ("T1", "T2", "T3")] == [(36, 11), (42, 13), (40, 15)]
+
+
 def test_safari_area_3_letters_its_second_visit_from_the_east_door(root):
     """Area 3 is walked twice. The first trip drops in from Area 2 at the top and sweeps the upper
     band west, so the Gold Teeth and TM32 letter first. The second comes back from the Center once

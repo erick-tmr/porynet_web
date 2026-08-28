@@ -194,7 +194,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[fuchsia-city-return], game.leg!("leg-12").locations.map(&:slug).first(1)
     assert back.band_gym?, "a one-stop leg renders its gym in the band, not as a finale"
     assert_equal [ 1 ], back.lead_steps.map(&:n)
-    assert_equal [ 2 ], back.after_steps.map(&:n)
+    assert_equal [ 2, 3 ], back.after_steps.map(&:n),
+      "after the badge: teach Surf and go back for the park, then west for Cycling Road"
     assert_equal "HM04 Strength", back.steps.first.items.sole.name
   end
 

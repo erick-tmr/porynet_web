@@ -140,13 +140,22 @@ def test_the_fuchsia_line_runs_from_the_door_to_koga(root):
     """The one floor whose line is a plain walk. Its stops are its own rather than its ROUTES
     entry, because the walk ends on the leader and the pins have to letter him last however early
     the door reaches him: naming him a waypoint would deal T5 to Koga and push two Jugglers and a
-    Tamer behind him."""
-    door, koga = (4, 17), (4, 10)
-    cells = spinners.route(root, "FuchsiaGym", spinners.route_stops(root, "FuchsiaGym"))
+    Tamer behind him.
 
-    assert len(cells) == 1, "one leg: in at the door, out at the leader"
-    assert cells[0][0] == door
-    assert cells[0][-1] == koga
+    The corners it turns are named too, because the shortest way is not the walkable one: left to
+    itself the solver climbs the middle lane and stands on the two trainers in it, which is a cell
+    the game never lets you occupy. The line goes round them instead, and ends up passing four of
+    the six rather than treading on two."""
+    door, koga = (4, 17), (4, 10)
+    legs = spinners.route(root, "FuchsiaGym", spinners.route_stops(root, "FuchsiaGym"))
+    cells = [cell for leg in legs for cell in leg]
+    people = {(8, 13): "T1", (8, 2): "T4", (2, 7): "T5", (3, 5): "T6"}
+
+    assert cells[0] == door
+    assert cells[-1] == koga
+    assert [cell for cell in people if cell in cells] == [], "it stands on nobody but the leader"
+    assert all(any((x + dx, y + dy) in cells for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+               for x, y in people), "but it passes within a tile of all four"
     assert paths.ROUTES["FuchsiaGym"] == ("exit-4-17",), "the lettering waypoints stay as they were"
 
 

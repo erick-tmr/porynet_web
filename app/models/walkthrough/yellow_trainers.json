@@ -3350,24 +3350,8 @@
       {
         "map": "route-18",
         "floor": "",
-        "marker": "trainer-40-15",
-        "key": "T2",
-        "opp": "BIRD_KEEPER:9",
-        "cls": "BIRD_KEEPER",
-        "reward": 850,
-        "team": [
-          {
-            "dex": "085",
-            "lvl": 34
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-18-trainer-40-15.png"
-      },
-      {
-        "map": "route-18",
-        "floor": "",
         "marker": "trainer-42-13",
-        "key": "T3",
+        "key": "T2",
         "opp": "BIRD_KEEPER:10",
         "cls": "BIRD_KEEPER",
         "reward": 650,
@@ -3390,6 +3374,22 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-18-trainer-42-13.png"
+      },
+      {
+        "map": "route-18",
+        "floor": "",
+        "marker": "trainer-40-15",
+        "key": "T3",
+        "opp": "BIRD_KEEPER:9",
+        "cls": "BIRD_KEEPER",
+        "reward": 850,
+        "team": [
+          {
+            "dex": "085",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-18-trainer-40-15.png"
       }
     ],
     "route-19": [

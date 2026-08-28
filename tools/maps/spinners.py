@@ -153,7 +153,13 @@ def route(root_str, map_label, stops):
 # are real collision in the shipped map, so the solver has the answer the player is denied. Each
 # names its own stops, because a spin floor's stops are its pins in lettering order while this
 # floor's walk ends on the leader, who has to letter last however early you could reach him.
-WALKED = {"FuchsiaGym": ("exit-4-17", "trainer-4-10")}
+#
+# A stop is a marker id where one will do and a raw cell where none exists. Fuchsia needs the
+# second kind: shortest-first the line climbs the middle lane and stands on two of the trainers it
+# passes, which is a cell the game will not give you, so the corners it turns are named instead.
+# It leaves along the bottom row, climbs the open right-hand lane clear of T1 and T4, runs the top
+# wall to the far left, and comes down to the cell that faces T6 before dropping to Koga.
+WALKED = {"FuchsiaGym": ("exit-4-17", (9, 16), (9, 1), (1, 1), (2, 5), "trainer-4-10")}
 
 
 def route_stops(root_str, map_label):
@@ -166,7 +172,9 @@ def route_stops(root_str, map_label):
     floors, where the game states every push, and the floors in WALKED."""
     named = WALKED.get(map_label)
     if named:
-        return paths.marker_cells(root_str, map_label, named)
+        ids = tuple(stop for stop in named if isinstance(stop, str))
+        cells = dict(zip(ids, paths.marker_cells(root_str, map_label, ids), strict=True))
+        return tuple(cells[stop] if isinstance(stop, str) else stop for stop in named)
     if not arrow_tiles(root_str, map_label):
         return ()
     return paths.route_cells(root_str, map_label)
