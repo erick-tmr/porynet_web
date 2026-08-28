@@ -316,7 +316,8 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal [ %w[celadon-city celadon-city-return], %w[fuchsia-city fuchsia-city-return],
                    %w[pewter-city digletts-cave], %w[route-10 route-10-south],
                    %w[route-16-fly route-16], %w[route-2 digletts-cave],
-                   %w[route-4-mt-moon route-4], %w[vermilion-city vermilion-city-return],
+                   %w[route-4-mt-moon route-4], %w[saffron-city-return saffron-city],
+                   %w[vermilion-city vermilion-city-return],
                    %w[viridian-city digletts-cave] ],
       pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
   end

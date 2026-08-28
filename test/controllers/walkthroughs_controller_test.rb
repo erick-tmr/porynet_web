@@ -515,9 +515,11 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-oakgroup__label--earlier", false
   end
 
-  # The park is a page of its own now, so the two halves of Koga's window render apart: the walk
-  # down to Fuchsia, the Safari Zone, then the pass back through town that takes the badge.
-  test "the Safari Zone is its own page inside the Koga window, one leg ahead of his gym" do
+  # The park is a page of its own, so the two halves of Koga's window render apart: the walk down
+  # to Fuchsia, the Safari Zone, then the pass back through town that takes the badge. That pass
+  # runs on to Saffron, so Koga closes his window mid-page and the deadline block at the foot of it
+  # is Sabrina's, which is the one a reader still has time to act on.
+  test "the Safari Zone is its own page, and Koga's pass runs on into Sabrina's window" do
     get walkthrough_leg_path(game: "yellow", leg: "safari-zone")
 
     assert_response :success
@@ -527,9 +529,15 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     get walkthrough_leg_path(game: "yellow", leg: "leg-12")
 
     assert_response :success
-    assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
+    assert_select ".pn-wt-oak__window", text: "WINDOW 06 · EVERYTHING BEFORE SABRINA"
     assert_select ".pn-wt-band__title", text: "Fuchsia City"
     assert_select ".pn-wt-gym__leader-name", text: /\AKoga\b/
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
+
+    assert_response :success
+    assert_select ".pn-wt-band__title", text: "Saffron City"
+    assert_select ".pn-wt-gym__leader-name", text: /\ASabrina\b/
   end
 
   test "the endgame page names the League rather than a leader it does not have" do

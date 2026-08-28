@@ -687,9 +687,9 @@ pt:
         leg_11:
           lead: "As rotas de pesca ao sul até Fuchsia e as tarefas que preparam a cidade para a Safari Zone."
         leg_12:
-          lead: "De volta a Fuchsia com os Gold Teeth: troque-os com o Warden pelo Strength e enfrente o labirinto de paredes invisíveis do Koga."
+          lead: "Koga primeiro, com os Gold Teeth na mão, depois a descida longa pela Cycling Road e o caminho ao norte até a porta de Saffron."
         leg_13:
-          lead: "Descendo a Cycling Road e entrando em Saffron pela Sabrina. Depois de libertar a Silph Co."
+          lead: "A Silph está limpa, então o ginásio abre. Uma parada, uma insígnia."
         leg_14:
           lead: "O mar aberto ao sul de Fuchsia, rumo às Seafoam Islands."
         leg_15:
@@ -2665,12 +2665,19 @@ pt:
           steps:
             "1":
               title: "Liberte a Silph Co. primeiro"
-              text_html: "O ginasio %{gym} fica trancado ate você limpar a Silph Co. %{silph} tomada pela Rocket (veja Silph Co.), depois entre e resolva o labirinto de plataformas de teletransporte ate Sabrina."
+              text_html: "O ginásio %{gym} fica trancado enquanto a Rocket segura a Silph Co. %{silph}, então a torre vem primeiro e a Sabrina espera a volta pela cidade."
             "2":
               title: "Reivindique um lutador"
               text_html: "Vença o Karate Master no Fighting Dojo %{dojo} para levar um Hitmonlee ou Hitmonchan grátis. Só dá para escolher um, então o outro se perde."
           oak:
             hitmonlee: "Grátis do Dojo. Escolha Hitmonlee ou Hitmonchan (só um)."
+        saffron_city_return:
+          note: "De volta pela Sabrina. Marsh Badge e TM46 Psywave."
+          intro: "A Silph está livre e as portas do ginásio finalmente abriram. Os Psíquicos da Sabrina batem mais forte que tudo que você enfrentou, e o chão dela é atravessado por painéis de teleporte, não a pé."
+          steps:
+            "1":
+              title: "Pegue a Marsh Badge"
+              text_html: "O Ginásio %{gym} é a última coisa em Saffron. O Kadabra, o Mr. Mime e o Venomoth da Sabrina estão todos no Nv 50 com Psychic, então lidere com um golpe de Inseto ou com algo mais rápido que eles."
         silph_co:
           note: "Tomada da HQ da Rocket. Lapras e a Master Ball."
           intro: "Onze andares de escritórios ligados por plataformas de teletransporte, com trinta e um Rockets dentro. Uma Card Key abre todas as portas trancadas do prédio."

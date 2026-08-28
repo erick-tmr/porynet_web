@@ -296,9 +296,10 @@ module Walkthrough
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city] },
       { slug: "safari-zone", special: true, locs: %w[safari-zone] },
-      { slug: "leg-12", special: false, locs: %w[fuchsia-city-return] },
+      { slug: "leg-12", special: false,
+        locs: %w[fuchsia-city-return route-16 route-17 route-18 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
-      { slug: "leg-13", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
+      { slug: "leg-13", special: false, locs: %w[saffron-city-return] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "power-plant", special: true, locs: %w[power-plant] },
@@ -536,7 +537,7 @@ module Walkthrough
         underground_path_west_east, route_7, celadon_city,
         rocket_hideout, celadon_city_return, route_16_fly,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
-        fuchsia_city_return,
+        fuchsia_city_return, saffron_city_return,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
@@ -549,6 +550,7 @@ module Walkthrough
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
                    "celadon-city-return" => "celadon-city",
                    "fuchsia-city-return" => "fuchsia-city",
+                   "saffron-city-return" => "saffron-city",
                    "route-16-fly" => "route-16",
                    "route-10-south" => "route-10" }.freeze
 
@@ -1957,15 +1959,29 @@ module Walkthrough
     end
 
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 41, steps: 2, gym_after: 1, badge: "MARSH",
+      loc("saffron-city", "CITY", "Saffron City", 41, steps: 2,
         pins: { 1 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
                 2 => { dojo: "saffron-city/exit-26-3" } },
         trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
           where: scene_shot("saffron-dojo-master", "WHERE")) ],
+        oak_queue: [ oak("saffron-city", "106", 1) ])
+    end
+
+    # Saffron is walked twice for the reason the city itself gives: the gym's doors are Rocket-held
+    # until Silph is cleared, so arriving and challenging Sabrina are two visits with a dungeon
+    # between them. Splitting the page splits the badge off with the second, which is what puts
+    # Oak's deadline for the Marsh Badge in front of the gym that closes it rather than behind.
+    def self.saffron_city_return
+      b = base("saffron-city-return")
+      Location.new(
+        slug: "saffron-city-return", kind: "CITY", name: "Saffron City", order: 41,
+        badge: "MARSH", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1, pins: { gym: "saffron-city/exit-34-3" }) ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE"), opp: [ "SABRINA", 1 ]),
-          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ]),
-        oak_queue: [ oak("saffron-city", "106", 1) ])
+          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ])
+      )
     end
 
     def self.silph_co

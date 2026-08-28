@@ -687,9 +687,9 @@ en:
         leg_11:
           lead: "The southern fishing routes down to Fuchsia, and the errands that set the town up for the Safari Zone."
         leg_12:
-          lead: "Back into Fuchsia with the Gold Teeth: trade them to the Warden for Strength, then take Koga's invisible-wall maze."
+          lead: "Koga first, with the Gold Teeth in hand, then the long ride down Cycling Road and north to Saffron's front door."
         leg_13:
-          lead: "Down Cycling Road and into Saffron for Sabrina. Once Silph Co. is freed."
+          lead: "Silph is clear, so the gym opens. One stop, one badge."
         leg_14:
           lead: "The open water south of Fuchsia, out toward the Seafoam Islands."
         leg_15:
@@ -2665,12 +2665,19 @@ en:
           steps:
             "1":
               title: "Free Silph Co. first"
-              text_html: "The gym %{gym} stays locked until you clear Rocket-held Silph Co. %{silph} (see Silph Co.), then enter and solve the teleport-pad maze to Sabrina."
+              text_html: "The gym %{gym} stays locked while Rocket holds Silph Co. %{silph}, so the tower comes first and Sabrina waits for the way back through town."
             "2":
               title: "Claim a fighter"
               text_html: "Beat the Karate Master at the Fighting Dojo %{dojo} to take a free Hitmonlee or Hitmonchan."
           oak:
             hitmonlee: "Free from the Dojo. Pick Hitmonlee or Hitmonchan (you only get one)."
+        saffron_city_return:
+          note: "Back for Sabrina. Marsh Badge and TM46 Psywave."
+          intro: "Silph is free and the gym's doors are open at last. Sabrina's Psychics hit harder than anything you have met, and her floor is crossed on teleport pads rather than walked."
+          steps:
+            "1":
+              title: "Take the Marsh Badge"
+              text_html: "The Gym %{gym} is the last thing in Saffron. Sabrina's Kadabra, Mr. Mime and Venomoth all sit at Lv 50 with Psychic, so lead with a Bug move or something that outruns them."
         silph_co:
           note: "Rocket HQ takeover. Lapras and the Master Ball."
           intro: "Eleven floors of offices wired together by teleport pads, with thirty-one Rockets inside. One Card Key opens every locked door in the building."
