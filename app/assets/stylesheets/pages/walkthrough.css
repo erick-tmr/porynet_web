@@ -2010,16 +2010,21 @@ a.pn-wt-route__card:hover {
   align-items: center;
   gap: 9px;
 }
+/* A floor label is "1F" on most cards and "Center" or "Seafoam B3F" on the ones whose floors have
+   names, so a fixed width fits the short ones and spills the long ones straight out of the box.
+   The chip sizes to its own text instead, keeping the old width as the floor so a column of "1F"
+   still lines up. */
 .pn-wt-floors__chip {
-  width: 44px;
+  min-width: 44px;
   flex: none;
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
   color: #171622;
   background: #fbf5e6;
   border: 2px solid #171622;
-  padding: 6px 0;
+  padding: 6px 4px;
   text-align: center;
+  white-space: nowrap;
 }
 .pn-wt-floors__row.is-best .pn-wt-floors__chip {
   color: #fbf5e6;
