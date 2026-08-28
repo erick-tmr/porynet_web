@@ -1710,6 +1710,7 @@ module Walkthrough
     def self.fuchsia_city
       loc("fuchsia-city", "CITY", "Fuchsia City", 35, steps: 3,
         pins: { 1 => { center: "fuchsia-city/exit-19-27", mart: "fuchsia-city/exit-5-13", gym: "fuchsia-city/exit-5-27" },
+                2 => { rod: "fuchsia-city/exit-31-27", back: "fuchsia-city/exit-31-24" },
                 3 => { safari: "fuchsia-city/exit-18-3" } },
         key_items: { 2 => [ [ "Good Rod", "good_rod" ] ] },
         encounters: [

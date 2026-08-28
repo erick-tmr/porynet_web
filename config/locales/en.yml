@@ -2321,17 +2321,17 @@ en:
               title: "Heal and stock up"
               text_html: "Arrive from Route 15, heal at the Center %{center} and stock the Mart %{mart}. Leave the Gym %{gym} alone for now: the Safari Zone next door comes before Koga."
             "2":
-              title: "Fish the Warden's pond"
-              text: "Super Rod the pond behind the Safari Zone gate for a wild Gyarados. It is a Yellow-exclusive catch here, and far cheaper than raising a Magikarp."
+              title: "Take the Good Rod and fish the pond"
+              text_html: "The house on the east edge %{rod} holds the Fishing Guru's older brother: answer YES and the Good Rod is yours. His back door %{back} opens into the fenced pond, so Super Rod it there for a wild Gyarados."
               items:
-                good_rod: "From the fisherman in the small house by the west gate. Reels in better catches than the Old Rod."
+                good_rod: "From the Fishing Guru's older brother, in the house on Fuchsia's east edge. Reels in better catches than the Old Rod."
             "3":
               title: "Raid the Safari Zone"
               text_html: "Head north into the Safari Zone %{safari}. Its prize room holds HM03 Surf, and the Gold Teeth you find inside buy HM04 Strength from the Warden."
           tips:
-            gyarados: "Super Rod the Warden's pond for a wild Gyarados. No Magikarp grind needed."
+            gyarados: "Super Rod the fenced pond behind the rod house for a wild Gyarados. No Magikarp grind needed."
           oak:
-            gyarados: "Fish one straight out of the Warden's pond. A rare Yellow shortcut to Gyarados."
+            gyarados: "Fish one straight out of the pond behind the rod house. No Magikarp to raise first."
         fuchsia_city_return:
           note: "Back for Koga. Soul Badge and TM06 Toxic."
           intro: "Fuchsia again, Gold Teeth in your bag. The Warden trades them for Strength, and Koga's maze of invisible walls is the last thing left in town."

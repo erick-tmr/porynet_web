@@ -2321,17 +2321,17 @@ pt:
               title: "Cure e reabasteça"
               text_html: "Chegue pela Rota 15, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} para depois: a Safari Zone ao lado vem antes do Koga."
             "2":
-              title: "Pesque no lago do Warden"
-              text: "Use o Super Rod no lago atrás do portão da Safari Zone por um Gyarados selvagem. É uma captura exclusiva do Yellow aqui, e bem mais barata que criar um Magikarp."
+              title: "Pegue o Good Rod e pesque no lago"
+              text_html: "A casa da borda leste %{rod} guarda o irmão mais velho do Fishing Guru: responda SIM e o Good Rod é seu. A porta dos fundos %{back} dá no lago cercado, então use o Super Rod ali por um Gyarados selvagem."
               items:
-                good_rod: "Com o pescador na casinha perto da cancela oeste. Pesca melhor que o Old Rod."
+                good_rod: "Com o irmão mais velho do Fishing Guru, na casa da borda leste de Fuchsia. Pesca melhor que o Old Rod."
             "3":
               title: "Explore a Safari Zone"
               text_html: "Siga ao norte para a Safari Zone %{safari}. A sala de prêmios guarda o HM03 Surf, e os Gold Teeth que você acha lá dentro compram o HM04 Strength com o Warden."
           tips:
-            gyarados: "Super Rod no lago do Warden por um Gyarados selvagem. Sem grind de Magikarp."
+            gyarados: "Super Rod no lago cercado atrás da casa do pescador por um Gyarados selvagem. Sem grind de Magikarp."
           oak:
-            gyarados: "Pesque um direto do lago do Warden. Um atalho raro do Yellow para Gyarados."
+            gyarados: "Pesque um direto do lago atrás da casa do pescador. Sem Magikarp para criar antes."
         fuchsia_city_return:
           note: "De volta pelo Koga. Soul Badge e TM06 Toxic."
           intro: "Fuchsia de novo, com os Gold Teeth na mochila. O Warden os troca pelo Strength, e o labirinto de paredes invisíveis do Koga é a última coisa que resta na cidade."
