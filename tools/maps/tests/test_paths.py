@@ -380,18 +380,29 @@ def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
 def test_cycling_road_is_lettered_one_lane_at_a_time(root):
     """Route 17 is three roads, not one: barriers run down the middle of the long stretch at
     columns 4-6 and 10-12, so the right lane, the middle and the left never meet between the foot
-    and the top. Climbed, each is taken on its own and the rider drops back to the bottom between
-    them, which is why the letters run up, back down, up again. Distance from the south gate sees
-    none of it and deals the road out in height bands, hopping a barrier whenever two pins sit
-    level with each other."""
+    and the top, so each is taken on its own: the right and the middle are climbed from the foot,
+    and the left is come down, because the middle tops out level with where it opens. That is why
+    the letters run up, up, then back down. Distance from the south gate sees none of it and deals
+    the road out in height bands, hopping a barrier whenever two pins sit level with each other."""
     trainers = pins(root, "Route17", "", cat="trainer")
     hidden = pins(root, "Route17", "", cat="hidden")
 
     assert [tuple(trainers[f"T{n}"]["grid"]) for n in range(1, 11)] == [
         (10, 118), (14, 98), (17, 58), (14, 34), (7, 32),
-        (5, 98), (2, 68), (4, 18), (12, 19), (11, 16)]
+        (2, 68), (5, 98), (4, 18), (12, 19), (11, 16)]
     assert [hidden[f"H{n}"]["name"] for n in range(1, 6)] == [
         "Max Elixir", "PP Up", "Full Restore", "Max Revive", "Rare Candy"]
+
+
+def test_route_16_letters_its_riders_the_way_you_walk_back_to_celadon(root):
+    """All six sit west of where you surface off Cycling Road, between its top gate and the Fly
+    house, with Celadon the other way. You walk the strip out and back to clear them, so they are
+    lettered west to east: that is the order you meet them on the way home, and the order the far
+    one is furthest from rather than nearest."""
+    drawn = pins(root, "Route16", "")
+
+    assert [tuple(drawn[f"T{n}"]["grid"]) for n in range(1, 7)] == [
+        (3, 12), (6, 10), (9, 11), (11, 12), (14, 13), (17, 12)]
 
 
 def test_route_18_takes_the_upper_bird_keeper_before_the_one_below_it(root):

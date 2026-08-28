@@ -9219,69 +9219,24 @@
         "name": "route-16",
         "markers": [
           {
-            "id": "trainer-17-12",
+            "id": "trainer-3-12",
             "cat": "trainer",
             "key": "T1",
-            "x": 43.75,
+            "x": 8.75,
             "y": 69.444,
             "grid": [
-              17,
+              3,
               12
             ],
             "align": "r",
             "name": "Biker",
-            "ref": "BIKER:5",
-            "lane": 2
-          },
-          {
-            "id": "trainer-14-13",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 36.25,
-            "y": 75.0,
-            "grid": [
-              14,
-              13
-            ],
-            "align": "r",
-            "name": "Cue Ball",
-            "ref": "CUE_BALL:1",
-            "lane": -4
-          },
-          {
-            "id": "trainer-11-12",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 28.75,
-            "y": 69.444,
-            "grid": [
-              11,
-              12
-            ],
-            "align": "r",
-            "name": "Cue Ball",
-            "ref": "CUE_BALL:2",
-            "lane": 3
-          },
-          {
-            "id": "trainer-9-11",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 23.75,
-            "y": 63.889,
-            "grid": [
-              9,
-              11
-            ],
-            "align": "r",
-            "name": "Biker",
-            "ref": "BIKER:6",
-            "lane": 2
+            "ref": "BIKER:7",
+            "lane": 0
           },
           {
             "id": "trainer-6-10",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T2",
             "x": 16.25,
             "y": 58.333,
             "grid": [
@@ -9294,19 +9249,64 @@
             "lane": 0
           },
           {
-            "id": "trainer-3-12",
+            "id": "trainer-9-11",
             "cat": "trainer",
-            "key": "T6",
-            "x": 8.75,
+            "key": "T3",
+            "x": 23.75,
+            "y": 63.889,
+            "grid": [
+              9,
+              11
+            ],
+            "align": "r",
+            "name": "Biker",
+            "ref": "BIKER:6",
+            "lane": 2
+          },
+          {
+            "id": "trainer-11-12",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 28.75,
             "y": 69.444,
             "grid": [
-              3,
+              11,
+              12
+            ],
+            "align": "r",
+            "name": "Cue Ball",
+            "ref": "CUE_BALL:2",
+            "lane": 3
+          },
+          {
+            "id": "trainer-14-13",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 36.25,
+            "y": 75.0,
+            "grid": [
+              14,
+              13
+            ],
+            "align": "r",
+            "name": "Cue Ball",
+            "ref": "CUE_BALL:1",
+            "lane": -4
+          },
+          {
+            "id": "trainer-17-12",
+            "cat": "trainer",
+            "key": "T6",
+            "x": 43.75,
+            "y": 69.444,
+            "grid": [
+              17,
               12
             ],
             "align": "r",
             "name": "Biker",
-            "ref": "BIKER:7",
-            "lane": 0
+            "ref": "BIKER:5",
+            "lane": 2
           },
           {
             "id": "exit-17-10",
@@ -9514,24 +9514,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-5-98",
-            "cat": "trainer",
-            "key": "T6",
-            "x": 27.5,
-            "y": 68.403,
-            "grid": [
-              5,
-              98
-            ],
-            "align": "r",
-            "name": "Biker",
-            "ref": "BIKER:11",
-            "lane": 0
-          },
-          {
             "id": "trainer-2-68",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T6",
             "x": 12.5,
             "y": 47.569,
             "grid": [
@@ -9541,6 +9526,21 @@
             "align": "r",
             "name": "Cue Ball",
             "ref": "CUE_BALL:7",
+            "lane": 0
+          },
+          {
+            "id": "trainer-5-98",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 27.5,
+            "y": 68.403,
+            "grid": [
+              5,
+              98
+            ],
+            "align": "r",
+            "name": "Biker",
+            "ref": "BIKER:11",
             "lane": 0
           },
           {

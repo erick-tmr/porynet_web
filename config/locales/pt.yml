@@ -2591,7 +2591,7 @@ pt:
           steps:
             "1":
               title: "Suba da Cycling Road"
-              text_html: "Saia pela cancela do topo da estrada %{gate} para a Rota 16 %{south}. Mais seis pilotos ocupam a faixa a leste dela, entre você e Celadon."
+              text_html: "Saia pela cancela do topo da estrada %{gate} para a Rota 16 %{south}. Seis pilotos ocupam a faixa a oeste de onde você sobe, então percorra ela até a casa do Fly e volte, em vez de seguir direto."
             "2":
               title: "Acorde o Snorlax e entre"
               text_html: "Um Snorlax (Nv 30) dorme atravessado no caminho junto da cancela de Celadon %{gate}. Toque a Poké Flute e enfrente-o para liberar o caminho a leste %{east}. Saffron fica uma cancela depois de Celadon, então vá a pé ou de Fly."
@@ -2624,12 +2624,12 @@ pt:
                 full-restore: "Faixa central, mais ou menos a um terço do topo. Aperte A na casa vazia; nada aparece."
             "5":
               title: "Varra a faixa oeste"
-              text: "Mais uma descida, depois suba pela faixa oeste. Aperte A na casa vazia ao lado dos Bikers por um Max Revive escondido. Nada aparece na tela."
+              text: "A faixa do meio termina na altura da faixa oeste, então atravesse ali e varra ela para baixo em vez de descer até o pé de novo. Aperte A ao lado dos Bikers por um Max Revive escondido. Nada aparece na tela."
               hidden:
                 max-revive: "Faixa oeste, terço de baixo da estrada. Aperte A na casa vazia; nada aparece."
             "6":
               title: "Por cima das barreiras"
-              text: "As faixas se juntam de novo perto da cancela norte. Cole no lado leste e aperte A na casa vazia por um Rare Candy escondido. Nada aparece na tela."
+              text: "Suba de volta pela faixa oeste, onde as três estradas se juntam perto da cancela norte. Cole no lado leste e aperte A na casa vazia por um Rare Candy escondido. Nada aparece na tela."
               hidden:
                 rare-candy: "Lado leste, perto do topo junto da cancela norte. Aperte A na casa vazia; nada aparece."
             "7":

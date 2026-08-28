@@ -93,22 +93,29 @@ ROUTES = {
         "trainer-46-10", "trainer-41-10", "trainer-41-11", "trainer-35-13", "trainer-31-13",
         "trainer-18-13"
     ),
-    "Route16": ("exit-south",),                     # up out of Cycling Road, then east to Celadon
+    # Up out of Cycling Road, and the six riders are all west of where you surface, between the
+    # road's top gate and the Fly house. You walk the strip out and back rather than past them, so
+    # they are lettered west to east, which is the order you meet them coming home to Celadon.
+    "Route16": (
+        "exit-south", "trainer-3-12", "trainer-6-10", "trainer-9-11", "trainer-11-12",
+        "trainer-14-13", "trainer-17-12"
+    ),
     # Climbed, not coasted: the guide comes up from Fuchsia, so the road is lettered from its foot.
     # The only ledges on it are the seven along the bottom row, and two gaps in them let you walk
     # back up, so the climb is real; everything above that row is open both ways.
     #
     # It is also three roads, not one. Barriers run down the middle of the long stretch, at columns
     # 4-6 and 10-12, so the right lane, the middle and the left never meet between the foot and the
-    # top and each has to be climbed on its own. The walk takes the right first, then the middle,
-    # then drops back for the left, and comes out over the top where the barriers end. Distance
-    # from the south gate cannot see any of that, so the whole order is named: it deals the road
-    # out in height bands, hopping a barrier every time two pins sit level with each other.
+    # top and each has to be taken on its own. The right and the middle are climbed, the left is
+    # come down: the middle tops out level with where the left lane opens, so you cross at the top
+    # and sweep it downward rather than dropping to the foot a third time. Distance from the south
+    # gate cannot see any of that, so the whole order is named: it deals the road out in height
+    # bands, hopping a barrier every time two pins sit level with each other.
     "Route17": (
         "exit-south", "hidden-8-121", "trainer-10-118",
         "trainer-14-98", "hidden-17-72", "trainer-17-58", "trainer-14-34",
         "hidden-8-45", "trainer-7-32",
-        "trainer-5-98", "hidden-4-91", "trainer-2-68",
+        "trainer-2-68", "hidden-4-91", "trainer-5-98",
         "trainer-4-18", "trainer-12-19", "trainer-11-16", "hidden-15-14"
     ),
     # Three Bird Keepers in a cluster by the Fuchsia gate, and the flood splits the pair on the

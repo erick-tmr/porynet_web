@@ -2591,7 +2591,7 @@ en:
           steps:
             "1":
               title: "Come up off Cycling Road"
-              text_html: "Out of the road's top gate %{gate} onto Route 16 %{south}. Six more riders line the strip east of it, between you and Celadon."
+              text_html: "Out of the road's top gate %{gate} onto Route 16 %{south}. Six riders line the strip west of where you surface, so walk it out to the Fly house and back rather than straight on."
             "2":
               title: "Wake the Snorlax and head in"
               text_html: "A Snorlax (Lv 30) sleeps across the path by Celadon's gate %{gate}. Play the Poké Flute and battle it to clear the way east %{east}. Saffron is one gate on from Celadon, so walk it or Fly."
@@ -2624,12 +2624,12 @@ en:
                 full-restore: "Center lane, roughly a third down from the top. Press A on the bare tile; nothing appears."
             "5":
               title: "Sweep the west lane"
-              text: "One more drop, then up the west lane. Press A on the empty tile beside the Bikers there for a hidden Max Revive; nothing shows on-screen."
+              text: "The middle lane tops out level with the west one, so cross there and sweep it downward instead of dropping to the foot again. Press A beside the Bikers for a hidden Max Revive; nothing shows on-screen."
               hidden:
                 max-revive: "West lane, lower third of the road. Press A on the bare tile; nothing appears."
             "6":
               title: "Over the top of the barriers"
-              text: "The lanes join again near the north gate. Hug the east side and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
+              text: "Back up the west lane, where the three roads join again near the north gate. Hug the east side and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
               hidden:
                 rare-candy: "East side, near the top by the north gate. Press A on the empty tile; nothing appears."
             "7":
