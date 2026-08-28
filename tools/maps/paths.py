@@ -96,13 +96,20 @@ ROUTES = {
     "Route16": ("exit-south",),                     # up out of Cycling Road, then east to Celadon
     # Climbed, not coasted: the guide comes up from Fuchsia, so the road is lettered from its foot.
     # The only ledges on it are the seven along the bottom row, and two gaps in them let you walk
-    # back up, so the climb is real; everything above that row is open both ways. Naming the ten
-    # is what fixes the pairs level with each other, which the flood deals out left-first: the
-    # rider takes the near side of the road going up, so the right of each pair comes first.
+    # back up, so the climb is real; everything above that row is open both ways.
+    #
+    # It is also three roads, not one. Barriers run down the middle of the long stretch, at columns
+    # 4-6 and 10-12, so the right lane, the middle and the left never meet between the foot and the
+    # top and each has to be climbed on its own. The walk takes the right first, then the middle,
+    # then drops back for the left, and comes out over the top where the barriers end. Distance
+    # from the south gate cannot see any of that, so the whole order is named: it deals the road
+    # out in height bands, hopping a barrier every time two pins sit level with each other.
     "Route17": (
-        "exit-south", "trainer-10-118", "trainer-14-98", "trainer-5-98", "trainer-2-68",
-        "trainer-17-58", "trainer-14-34", "trainer-7-32", "trainer-12-19", "trainer-4-18",
-        "trainer-11-16"
+        "exit-south", "hidden-8-121", "trainer-10-118",
+        "trainer-14-98", "hidden-17-72", "trainer-17-58", "trainer-14-34",
+        "hidden-8-45", "trainer-7-32",
+        "trainer-5-98", "hidden-4-91", "trainer-2-68",
+        "trainer-4-18", "trainer-12-19", "trainer-11-16", "hidden-15-14"
     ),
     # Three Bird Keepers in a cluster by the Fuchsia gate, and the flood splits the pair on the
     # right the wrong way round: the one on the upper shelf is met before the one below it, whichever

@@ -377,6 +377,23 @@ def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
         "Carbos", "TM Egg Bomb", "Max Potion", "Full Restore"]
 
 
+def test_cycling_road_is_lettered_one_lane_at_a_time(root):
+    """Route 17 is three roads, not one: barriers run down the middle of the long stretch at
+    columns 4-6 and 10-12, so the right lane, the middle and the left never meet between the foot
+    and the top. Climbed, each is taken on its own and the rider drops back to the bottom between
+    them, which is why the letters run up, back down, up again. Distance from the south gate sees
+    none of it and deals the road out in height bands, hopping a barrier whenever two pins sit
+    level with each other."""
+    trainers = pins(root, "Route17", "", cat="trainer")
+    hidden = pins(root, "Route17", "", cat="hidden")
+
+    assert [tuple(trainers[f"T{n}"]["grid"]) for n in range(1, 11)] == [
+        (10, 118), (14, 98), (17, 58), (14, 34), (7, 32),
+        (5, 98), (2, 68), (4, 18), (12, 19), (11, 16)]
+    assert [hidden[f"H{n}"]["name"] for n in range(1, 6)] == [
+        "Max Elixir", "PP Up", "Full Restore", "Max Revive", "Rare Candy"]
+
+
 def test_route_18_takes_the_upper_bird_keeper_before_the_one_below_it(root):
     """The three Bird Keepers sit in a cluster by the Fuchsia gate, one out west and a pair on the
     right. Distance alone splits that pair the wrong way round, putting the one down on the sand

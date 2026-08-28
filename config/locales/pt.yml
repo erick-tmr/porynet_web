@@ -2602,36 +2602,36 @@ pt:
             snorlax: "O último dos dois Snorlax. Acorde com o Poké Flute e capture agora."
         route_17:
           note: "Cycling Road. Doduo, Ponyta, Fearow."
-          intro: "Cycling Road: uma descida longa que só dá para fazer de Bike, murada por desníveis que impedem a volta. Dez Bikers e cinco itens ocultos a acompanham."
+          intro: "Cycling Road: uma subida longa que só dá para fazer de Bike, cortada ao meio por barreiras em três faixas que nunca se encontram. Dez Bikers e cinco itens escondidos ficam nela."
           steps:
             "1":
               title: "Comece a subir a Cycling Road"
-              text_html: "Entre pela cancela sul %{south} e monte na Bike, já que a estrada não pode ser cruzada a pé. Passe por uma das duas brechas nas beiradas de baixo e suba, parando nas faixas de mato por uma chance de Ponyta."
+              text_html: "Entre pela cancela sul %{south} e monte na Bike, já que a estrada não pode ser cruzada a pé. Duas brechas nas beiradas de baixo deixam você subir. Acima delas as barreiras dividem a estrada em três faixas, então ela é feita uma faixa por vez."
             "2":
               title: "Cave no pé da subida"
-              text: "Logo acima das beiradas, passando a placa Cycling Road Ends, pare no centro-esquerda e aperte A por um Max Elixir escondido. Nada aparece na tela."
+              text: "Antes das faixas se dividirem, passando a placa Cycling Road Ends, pare no centro-esquerda e aperte A por um Max Elixir escondido. Nada aparece na tela."
               hidden:
-                max-elixir: "Centro-esquerda, perto do fim da estrada junto da placa Cycling Road Ends. Aperte A; nada aparece."
+                max-elixir: "Centro-esquerda no pé da estrada, junto da placa Cycling Road Ends. Aperte A; nada aparece."
             "3":
-              title: "Vasculhe a faixa oeste"
-              text: "Continue subindo até os Bikers do terço de baixo e vá para a faixa oeste. Aperte A na casa vazia por um Max Revive escondido. Nada aparece na tela."
-              hidden:
-                max-revive: "Faixa oeste, terço de baixo da estrada. Aperte A na casa vazia; nada aparece."
-            "4":
-              title: "Confira a cerca leste"
-              text: "Perto da placa Trainer Tips, vá para a borda leste da estrada. Aperte A contra a casa da cerca por um PP Up escondido. Nada aparece na tela."
+              title: "Suba a faixa da direita"
+              text: "Pegue a faixa leste primeiro e suba por ela passando pelos Bikers. Na altura da placa Trainer Tips, aperte A contra a casa da cerca por um PP Up escondido. Nada aparece na tela."
               hidden:
                 pp-up: "Borda leste, na altura da placa Trainer Tips. Aperte A na casa da cerca; nada aparece."
+            "4":
+              title: "Volte pela faixa do meio"
+              text: "Desça até o pé das barreiras e suba pela faixa central. Aperte A na casa lisa a mais ou menos um terço do topo por um Full Restore escondido. Nada aparece na tela."
+              hidden:
+                full-restore: "Faixa central, mais ou menos a um terço do topo. Aperte A na casa vazia; nada aparece."
             "5":
-              title: "Procure na faixa central"
-              text: "Mais ou menos a um terço do topo, vá para o centro-esquerda da estrada. Aperte A na casa lisa para desenterrar um Full Restore escondido. Nada aparece na tela."
+              title: "Varra a faixa oeste"
+              text: "Mais uma descida, depois suba pela faixa oeste. Aperte A na casa vazia ao lado dos Bikers por um Max Revive escondido. Nada aparece na tela."
               hidden:
-                full-restore: "Centro-esquerda da estrada, mais ou menos a um terço. Aperte A na casa vazia; nada aparece."
+                max-revive: "Faixa oeste, terço de baixo da estrada. Aperte A na casa vazia; nada aparece."
             "6":
-              title: "Varra a faixa do topo"
-              text: "O último trecho antes da cancela norte. Cole na faixa leste e aperte A na casa vazia por um Rare Candy escondido. Nada aparece na tela."
+              title: "Por cima das barreiras"
+              text: "As faixas se juntam de novo perto da cancela norte. Cole no lado leste e aperte A na casa vazia por um Rare Candy escondido. Nada aparece na tela."
               hidden:
-                rare-candy: "Faixa leste, perto do topo junto da cancela norte. Aperte A na casa vazia; nada aparece."
+                rare-candy: "Lado leste, perto do topo junto da cancela norte. Aperte A na casa vazia; nada aparece."
             "7":
               title: "Saia pela cancela do topo"
               text_html: "Passando a última dupla de Bikers, saia pela cancela norte %{north} para a Rota 16."

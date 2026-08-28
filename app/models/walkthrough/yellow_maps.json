@@ -9469,39 +9469,9 @@
             "lane": 1
           },
           {
-            "id": "trainer-5-98",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 27.5,
-            "y": 68.403,
-            "grid": [
-              5,
-              98
-            ],
-            "align": "r",
-            "name": "Biker",
-            "ref": "BIKER:11",
-            "lane": 0
-          },
-          {
-            "id": "trainer-2-68",
-            "cat": "trainer",
-            "key": "T4",
-            "x": 12.5,
-            "y": 47.569,
-            "grid": [
-              2,
-              68
-            ],
-            "align": "r",
-            "name": "Cue Ball",
-            "ref": "CUE_BALL:7",
-            "lane": 0
-          },
-          {
             "id": "trainer-17-58",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T3",
             "x": 87.5,
             "y": 40.625,
             "grid": [
@@ -9516,7 +9486,7 @@
           {
             "id": "trainer-14-34",
             "cat": "trainer",
-            "key": "T6",
+            "key": "T4",
             "x": 72.5,
             "y": 23.958,
             "grid": [
@@ -9531,7 +9501,7 @@
           {
             "id": "trainer-7-32",
             "cat": "trainer",
-            "key": "T7",
+            "key": "T5",
             "x": 37.5,
             "y": 22.569,
             "grid": [
@@ -9544,24 +9514,39 @@
             "lane": 0
           },
           {
-            "id": "trainer-12-19",
+            "id": "trainer-5-98",
             "cat": "trainer",
-            "key": "T8",
-            "x": 62.5,
-            "y": 13.542,
+            "key": "T6",
+            "x": 27.5,
+            "y": 68.403,
             "grid": [
-              12,
-              19
+              5,
+              98
             ],
-            "align": "l",
+            "align": "r",
+            "name": "Biker",
+            "ref": "BIKER:11",
+            "lane": 0
+          },
+          {
+            "id": "trainer-2-68",
+            "cat": "trainer",
+            "key": "T7",
+            "x": 12.5,
+            "y": 47.569,
+            "grid": [
+              2,
+              68
+            ],
+            "align": "r",
             "name": "Cue Ball",
-            "ref": "CUE_BALL:4",
-            "lane": 1
+            "ref": "CUE_BALL:7",
+            "lane": 0
           },
           {
             "id": "trainer-4-18",
             "cat": "trainer",
-            "key": "T9",
+            "key": "T8",
             "x": 22.5,
             "y": 12.847,
             "grid": [
@@ -9572,6 +9557,21 @@
             "name": "Biker",
             "ref": "BIKER:8",
             "lane": 0
+          },
+          {
+            "id": "trainer-12-19",
+            "cat": "trainer",
+            "key": "T9",
+            "x": 62.5,
+            "y": 13.542,
+            "grid": [
+              12,
+              19
+            ],
+            "align": "l",
+            "name": "Cue Ball",
+            "ref": "CUE_BALL:4",
+            "lane": 1
           },
           {
             "id": "trainer-11-16",
@@ -9604,24 +9604,9 @@
             "lane": 0
           },
           {
-            "id": "hidden-4-91",
-            "cat": "hidden",
-            "key": "H2",
-            "x": 22.5,
-            "y": 63.542,
-            "grid": [
-              4,
-              91
-            ],
-            "align": "r",
-            "name": "Max Revive",
-            "ref": "MAX_REVIVE",
-            "lane": 0
-          },
-          {
             "id": "hidden-17-72",
             "cat": "hidden",
-            "key": "H3",
+            "key": "H2",
             "x": 87.5,
             "y": 50.347,
             "grid": [
@@ -9636,7 +9621,7 @@
           {
             "id": "hidden-8-45",
             "cat": "hidden",
-            "key": "H4",
+            "key": "H3",
             "x": 42.5,
             "y": 31.597,
             "grid": [
@@ -9646,6 +9631,21 @@
             "align": "r",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
+            "lane": 0
+          },
+          {
+            "id": "hidden-4-91",
+            "cat": "hidden",
+            "key": "H4",
+            "x": 22.5,
+            "y": 63.542,
+            "grid": [
+              4,
+              91
+            ],
+            "align": "r",
+            "name": "Max Revive",
+            "ref": "MAX_REVIVE",
             "lane": 0
           },
           {

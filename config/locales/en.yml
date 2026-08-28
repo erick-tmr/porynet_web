@@ -2602,36 +2602,36 @@ en:
             snorlax: "The last of two Snorlax. Wake with the Poké Flute and catch it now."
         route_17:
           note: "Cycling Road. Doduo, Ponyta, Fearow."
-          intro: "Cycling Road: a long downhill run you can only take on the Bike, walled by ledges that stop you turning back. Ten Bikers and five hidden items line it."
+          intro: "Cycling Road: a long climb you can only take on the Bike, split down the middle by barriers into three lanes that never meet. Ten Bikers and five hidden items line it."
           steps:
             "1":
               title: "Start up Cycling Road"
-              text_html: "In through the south gate %{south} and onto the Bike, since the road cannot be crossed on foot. Slip through one of the two gaps in the bottom ledges and climb, stopping in the grass strips for a shot at Ponyta."
+              text_html: "In through the south gate %{south} and onto the Bike, since the road cannot be crossed on foot. Two gaps in the bottom ledges let you climb. Barriers split the road into three lanes above them, so it is taken one lane at a time."
             "2":
               title: "Dig at the foot of the slope"
-              text: "Just above the ledges, past the Cycling Road Ends sign, stop center-left and press A for a hidden Max Elixir; nothing shows on-screen."
+              text: "Before the lanes divide, past the Cycling Road Ends sign, stop center-left and press A for a hidden Max Elixir; nothing shows on-screen."
               hidden:
-                max-elixir: "Center-left, near the bottom by the Cycling Road Ends sign. Press A; nothing appears."
+                max-elixir: "Center-left at the foot of the road, by the Cycling Road Ends sign. Press A; nothing appears."
             "3":
-              title: "Comb the west lane"
-              text: "Keep climbing to the Bikers guarding the lower third and swing into the west lane. Press A on the empty tile there for a hidden Max Revive; nothing shows on-screen."
-              hidden:
-                max-revive: "West lane, lower third of the road. Press A on the bare tile; nothing appears."
-            "4":
-              title: "Check the east fence"
-              text: "Around the Trainer Tips sign, veer to the far east edge of the road. Press A against the fence tile for a hidden PP Up; nothing shows on-screen."
+              title: "Climb the right lane"
+              text: "Take the east lane first and ride it up past the Bikers in it. Level with the Trainer Tips sign, press A against the fence tile for a hidden PP Up; nothing shows on-screen."
               hidden:
                 pp-up: "Far east edge, level with the Trainer Tips sign. Press A on the fence tile; nothing appears."
+            "4":
+              title: "Come back for the middle lane"
+              text: "Drop to the foot of the barriers and climb the center lane instead. Press A on the plain tile about a third from the top for a hidden Full Restore; nothing shows on-screen."
+              hidden:
+                full-restore: "Center lane, roughly a third down from the top. Press A on the bare tile; nothing appears."
             "5":
-              title: "Search the center strip"
-              text: "About a third from the top, drift to the center-left of the road. Press A on the plain tile there to dig out a hidden Full Restore; nothing shows on-screen."
+              title: "Sweep the west lane"
+              text: "One more drop, then up the west lane. Press A on the empty tile beside the Bikers there for a hidden Max Revive; nothing shows on-screen."
               hidden:
-                full-restore: "Center-left of the road, roughly a third down. Press A on the bare tile; nothing appears."
+                max-revive: "West lane, lower third of the road. Press A on the bare tile; nothing appears."
             "6":
-              title: "Sweep the top lane"
-              text: "The last stretch before the north gate. Hug the east lane and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
+              title: "Over the top of the barriers"
+              text: "The lanes join again near the north gate. Hug the east side and press A on the bare tile there for a hidden Rare Candy; nothing shows on-screen."
               hidden:
-                rare-candy: "East lane, near the top by the north gate. Press A on the empty tile; nothing appears."
+                rare-candy: "East side, near the top by the north gate. Press A on the empty tile; nothing appears."
             "7":
               title: "Out of the top gate"
               text_html: "Past the last pair of Bikers, ride out through the north gate %{north} onto Route 16."
