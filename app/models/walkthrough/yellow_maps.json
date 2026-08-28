@@ -12271,24 +12271,9 @@
         "name": "safari-zone-east",
         "markers": [
           {
-            "id": "item-15-12",
-            "cat": "item",
-            "key": "I1",
-            "x": 51.667,
-            "y": 48.077,
-            "grid": [
-              15,
-              12
-            ],
-            "align": "r",
-            "name": "TM Egg Bomb",
-            "ref": "TM_EGG_BOMB",
-            "lane": 3
-          },
-          {
             "id": "item-20-13",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 68.333,
             "y": 51.923,
             "grid": [
@@ -12301,24 +12286,24 @@
             "lane": 4
           },
           {
-            "id": "item-21-10",
+            "id": "item-15-12",
             "cat": "item",
-            "key": "I3",
-            "x": 71.667,
-            "y": 40.385,
+            "key": "I2",
+            "x": 51.667,
+            "y": 48.077,
             "grid": [
-              21,
-              10
+              15,
+              12
             ],
-            "align": "l",
-            "name": "Full Restore",
-            "ref": "FULL_RESTORE",
+            "align": "r",
+            "name": "TM Egg Bomb",
+            "ref": "TM_EGG_BOMB",
             "lane": 3
           },
           {
             "id": "item-3-7",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 11.667,
             "y": 28.846,
             "grid": [
@@ -12329,6 +12314,21 @@
             "name": "Max Potion",
             "ref": "MAX_POTION",
             "lane": 0
+          },
+          {
+            "id": "item-21-10",
+            "cat": "item",
+            "key": "I4",
+            "x": 71.667,
+            "y": 40.385,
+            "grid": [
+              21,
+              10
+            ],
+            "align": "l",
+            "name": "Full Restore",
+            "ref": "FULL_RESTORE",
+            "lane": 3
           },
           {
             "id": "exit-0-4",
@@ -12391,24 +12391,9 @@
         "name": "safari-zone-north",
         "markers": [
           {
-            "id": "item-25-1",
-            "cat": "item",
-            "key": "I1",
-            "x": 63.75,
-            "y": 4.167,
-            "grid": [
-              25,
-              1
-            ],
-            "align": "l",
-            "name": "Protein",
-            "ref": "PROTEIN",
-            "lane": 0
-          },
-          {
             "id": "item-19-7",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 48.75,
             "y": 20.833,
             "grid": [
@@ -12418,6 +12403,21 @@
             "align": "r",
             "name": "TM Skull Bash",
             "ref": "TM_SKULL_BASH",
+            "lane": 0
+          },
+          {
+            "id": "item-25-1",
+            "cat": "item",
+            "key": "I2",
+            "x": 63.75,
+            "y": 4.167,
+            "grid": [
+              25,
+              1
+            ],
+            "align": "l",
+            "name": "Protein",
+            "ref": "PROTEIN",
             "lane": 0
           },
           {

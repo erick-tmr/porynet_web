@@ -227,8 +227,16 @@ ROUTES = {
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
     "CeruleanCave2F": ("exit-1-3",),
     "CeruleanCaveB1F": ("exit-3-6", "item-2-13", "item-3-13", "hidden-8-14", "item-15-3", "item-26-1"),
-    "SafariZoneEast": ("exit-0-22", "item-15-12", "item-20-13", "item-21-10", "item-3-7"),
-    "SafariZoneNorth": ("exit-39-30",),
+    # In at the southwest corner, along the bottom and up the first stair onto the mount, so the
+    # Carbos is the first ball reached and the Egg Bomb west of it the second. Then the northwest
+    # corner for the Max Potion, back east for the Full Restore and out of the North door. The
+    # flood ranks the Egg Bomb first because it lies nearest the entrance as the crow flies, which
+    # is a wall away from the stair the player actually climbs.
+    "SafariZoneEast": ("exit-0-22", "item-20-13", "item-15-12", "item-3-7", "item-21-10"),
+    # In from Area 1 on the east side and up the second stair, past the fences. TM40 is on the
+    # climb and the Protein is beyond the top wall, reached through the one gap in it, so the walk
+    # takes them in that order and comes back down for the southwest door.
+    "SafariZoneNorth": ("exit-39-30", "item-19-7", "item-25-1"),
     "SafariZoneWest": ("exit-20-0", "item-19-7", "item-9-7", "hidden-6-5", "item-8-20", "item-18-18"),
     "VictoryRoad1F": ("exit-8-17", "item-9-2", "item-11-0"),
     "VictoryRoad2F": (

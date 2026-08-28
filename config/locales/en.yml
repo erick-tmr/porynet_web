@@ -2345,83 +2345,82 @@ en:
               title: "Bank the Soul Badge and Fly out"
               text_html: "The Soul Badge raises Defense and lets a Pokémon Surf outside battle, plus TM06 Toxic. Heal at the Center %{center}, then Fly to Saffron: Silph Co. is under Rocket occupation."
         safari_zone:
-          note: "500-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
+          note: "502-step catch park. Scyther, Pinsir, Chansey, Dratini and more."
           intro: "Four fenced areas with no trainers and no ordinary Poké Balls. Entry buys thirty Safari Balls and exactly 502 steps, and Kangaskhan, Tauros, Scyther, Pinsir and Dratini live nowhere else."
           steps:
             "1":
               title: "Buy in at the gate"
-              text: "Pay 500 at the gate for 30 Safari Balls and a 500-step clock. No trainers inside, and regular Poké Balls, HMs and fainting are all off the table until you leave."
+              text: "Pay ¥500 at the gate for thirty Safari Balls and 502 steps, enough for the whole loop if you keep moving. Nothing can be weakened here: Bait quarters the flee chance but halves the catch rate, a Rock doubles both."
             "2":
-              title: "Step in and learn the rules"
-              text: "Walk up into the Center Area. Bait freezes a Pokémon in place; a Rock sinks its catch resistance but makes it flee sooner. Nothing here can be worn down first, so those two are your only tools."
+              title: "Head straight east across the Center Area"
+              text: "A lone ball out in the middle holds a Nugget worth ¥5000, but it sits on an island ringed by water and Surf is still locked. Nothing else is out here, so run east into Area 1."
             "3":
-              title: "Grab the Nugget"
-              text: "Straight up the middle of the Center Area, in the grass north of the entrance, sits a lone ball holding a Nugget. Pocket it to sell for a tidy 5000 later."
+              title: "Climb the mount in Area 1 for Carbos"
+              text: "Leave the Center Area by its east edge into Area 1 (East), landing at the southwest corner. Follow the bottom wall east and take the first stair up onto the mount, where a ball holds Carbos, a permanent Speed boost."
               items:
-                nugget: "Center Area, up the middle north of the gate."
+                carbos: "Area 1 (East), on the mount above the southeast corner."
             "4":
-              title: "Cross into Area 1 for TM37"
-              text: "Leave the Center Area by its east edge into Area 1 (East), arriving at the southwest corner. Push toward the middle of the field, where a ball waits with TM37 Egg Bomb."
+              title: "Head west for TM37"
+              text: "Head west along the mount to the next ball, which holds TM37 Egg Bomb. A field TM is a one-off, so pocket it even if nothing on your team wants the move."
               items:
-                tm-egg-bomb: "Area 1 (East), center of the map."
+                tm-egg-bomb: "Area 1 (East), west along the mount from the Carbos."
             "5":
-              title: "Sweep east for Carbos"
-              text: "Head right toward the eastern trees and grab the Carbos ball, a permanent Speed boost for one of your team."
-              items:
-                carbos: "Area 1 (East), east of center."
-            "6":
-              title: "Snag the Full Restore"
-              text: "A few tiles north of the Carbos sits another ball holding a Full Restore, a full-heal-plus-status you will want banked for tough fights."
-              items:
-                full-restore: "Area 1 (East), just north of the Carbos."
-            "7":
-              title: "Double back for the Max Potion"
-              text: "Cross the top of the area back to the far west, where a lone ball near the north exit holds a Max Potion. Grab it, then slip out the northwest corner into Area 2."
+              title: "Cross west for the Max Potion"
+              text: "Carry on west across the area to a lone ball near the north exit, holding a Max Potion, a full-bar heal worth saving for Koga."
               items:
                 max-potion-3-7: "Area 1 (East), far west by the north exit."
+            "6":
+              title: "Back east for the Full Restore"
+              text: "Head back east across the mount for one more ball, a Full Restore, full HP and every status cleared at once. Then run west along the top to the exit into Area 2."
+              items:
+                full-restore: "Area 1 (East), on the mount just north of the Carbos."
+            "7":
+              title: "Cross the fences for TM40"
+              text: "You arrive in Area 2 (North) on its east edge. Take the second stair up to cross behind the fences, then climb north to the ball holding TM40 Skull Bash."
+              items:
+                tm-skull-bash: "Area 2 (North), upper-center below the top wall."
             "8":
-              title: "Climb Area 2 for Protein"
-              text: "You arrive in Area 2 (North) at its southeast corner. Climb all the way to the top wall, where a ball tucked against the fence holds a Protein, a permanent Special boost."
+              title: "Climb to the Protein"
+              text: "Keep climbing to the top wall, where a ball tucked against the fence holds a Protein, a permanent Special boost. Then head west and drop all the way down to the Area 3 exit."
               items:
                 protein: "Area 2 (North), against the top wall."
             "9":
-              title: "Grab TM40 on the way down"
-              text: "Drop down and to the left from the Protein and pick up the ball holding TM40 Skull Bash. From here, make for the southwest corner to cross into Area 3."
+              title: "Drop into Area 3 for the Gold Teeth"
+              text: "You land in Area 3 (West) along its top edge. Head straight down to the ball holding the Gold Teeth, the Warden's lost dentures and the reason Fuchsia's Strength is still locked."
               items:
-                tm-skull-bash: "Area 2 (North), upper-center below the top wall."
+                gold-teeth: "Area 3 (West), below the north entrance."
             "10":
-              title: "Enter Area 3 and find the Gold Teeth"
-              text: "You land in Area 3 (West) along its top edge, where the Secret House waits. Head west across the upper band and grab the ball holding the Gold Teeth, the Warden's lost dentures."
-              items:
-                gold-teeth: "Area 3 (West), upper-center of the map."
-            "11":
               title: "Bag TM32 Double Team"
-              text: "Keep west along the same row and scoop up the ball holding TM32 Double Team before the ground opens toward the Secret House."
+              text: "Follow the row west and scoop up the ball holding TM32 Double Team, one evasion stage per use and the move Koga will stack against you."
               items:
                 tm-double-team: "Area 3 (West), upper-left, west of the Gold Teeth."
-            "12":
-              title: "Probe for the hidden Revive"
-              text: "A couple of tiles west of the TM32 ball, stop and press A facing up on the empty patch of ground. Nothing shows on-screen, but you pocket a hidden Revive."
+            "11":
+              title: "Probe the statue for a Revive"
+              text: "A few tiles west of the TM32 ball stands a statue. Press A facing it; nothing shows on-screen, but you pocket a hidden Revive."
               hidden:
-                revive: "Area 3 (West), two tiles west of the TM32 ball; press A facing up, nothing shows."
-            "13":
+                revive: "Area 3 (West), at the statue west of the TM32 ball; press A facing it, nothing shows."
+            "12":
               title: "Claim HM03 Surf at the Secret House"
-              text: "Step into the Secret House in the far top-left corner. The old man inside hands you HM03 Surf, the whole reason to trek out here. Teach it later and half the map's water opens up."
+              text: "Step into the Secret House in the far top-left corner. The old man hands you HM03 Surf, the whole reason to trek out here. Surf stays locked until Koga's Soul Badge, on the way back through Fuchsia."
               items:
-                hm03_surf: "From the old man in the Secret House, far corner of Safari Zone Area 3. Teaches Surf across open water."
-            "14":
-              title: "Drop south for a second Max Potion"
-              text: "Leave the house and follow the west side down to the bottom of the area, where another ball holds a Max Potion."
+                hm03_surf: "From the old man in the Secret House, far corner of Safari Zone Area 3. Needs Koga's Soul Badge before it works outside battle."
+            "13":
+              title: "Sweep the lower field for the Max Potion"
+              text: "Drop down the west side into the lower half of Area 3, catching as you go, and take the ball there holding a Max Potion."
               items:
                 max-potion-8-20: "Area 3 (West), lower-left near the bottom wall."
-            "15":
+            "14":
               title: "Cut east for the Max Revive"
-              text: "Angle east across the lower field and grab the ball holding a Max Revive, the last prize before the exit."
+              text: "Angle east across the lower field and grab the ball holding a Max Revive, the last thing on the ground here."
               items:
                 max-revive: "Area 3 (West), lower-center of the map."
-            "16":
-              title: "Loop back out and pay the Warden"
-              text: "Slip out Area 3's east edge into the Center Area and back through the gate. Super Rod the ponds for Dratini first, then hand the Gold Teeth to Fuchsia's Warden for HM04 Strength."
+            "15":
+              title: "Spend what is left of the clock"
+              text: "Whatever steps remain, spend them in the grass: Scyther, Pinsir, Chansey and Tauros live nowhere else, and the Super Rod pulls Dratini out of any Safari pond. At zero the gate turns you out, Gold Teeth in hand."
+          later:
+            nugget:
+              where: "A Poké Ball on the little island in the middle of the Center Area, ringed by water on all four sides. Only Surf reaches it, and Surf needs Koga's Soul Badge."
+              after: "A second trip into the park, ¥500 and another 502 steps, once the Soul Badge is yours and Surf works outside battle."
           tips:
             scyther: "One of Yellow's two big bug bruisers, here alongside Pinsir. Bait, then Safari Balls."
             pinsir: "Yellow lets you catch both Pinsir and Scyther in the Safari. Grab this one too."

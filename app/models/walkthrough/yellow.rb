@@ -1749,13 +1749,12 @@ module Walkthrough
       loc("safari-zone", "DUNGEON", "Safari Zone", 36, steps: [
           {},
           {},
-          { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
-          { item: [ "TM Egg Bomb", "tm-egg-bomb" ], scene: "safari-zone-item-tm-egg-bomb" },
           { item: [ "Carbos", "carbos" ], scene: "safari-zone-item-carbos" },
-          { item: [ "Full Restore", "full-restore" ], scene: "safari-zone-item-full-restore" },
+          { item: [ "TM Egg Bomb", "tm-egg-bomb" ], scene: "safari-zone-item-tm-egg-bomb" },
           { item: [ "Max Potion", "max-potion-3-7" ], scene: "safari-zone-item-max-potion-3-7", at: [ 3, 7 ] },
-          { item: [ "Protein", "protein" ], scene: "safari-zone-item-protein" },
+          { item: [ "Full Restore", "full-restore" ], scene: "safari-zone-item-full-restore" },
           { item: [ "TM Skull Bash", "tm-skull-bash" ], scene: "safari-zone-item-tm-skull-bash" },
+          { item: [ "Protein", "protein" ], scene: "safari-zone-item-protein" },
           { item: [ "Gold Teeth", "gold-teeth" ], scene: "safari-zone-item-gold-teeth" },
           { item: [ "TM Double Team", "tm-double-team" ], scene: "safari-zone-item-tm-double-team" },
           { hidden: [ "Revive", "revive", "safari-zone-hidden-revive", "safari-zone-revive" ] },
@@ -1791,7 +1790,9 @@ module Walkthrough
         oak_queue: [
           oak("safari-zone", "123", 1), oak("safari-zone", "127", 1),
           oak("safari-zone", "147", 1), oak("safari-zone", "115", 1)
-        ])
+        ],
+        later: [ later("safari-zone", "nugget", "Nugget", "ITEM", "Surf",
+          "safari-zone-item-nugget") ])
     end
 
     # Route 16's one grass table, listed by both passes: the strip the Fly detour cuts into is the

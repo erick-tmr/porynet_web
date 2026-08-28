@@ -365,6 +365,28 @@ def test_tower_4f_takes_the_awakening_before_doubling_back_for_the_hp_up(root):
         ("T1", "CHANNELER:10"), ("T2", "CHANNELER:12"), ("T3", "CHANNELER:9")]
 
 
+def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
+    """You come into Area 1 at the southwest corner, run the bottom wall east and climb the first
+    stair onto the mount, so the Carbos is the first ball in reach and the Egg Bomb west of it the
+    second. The flood reads the Egg Bomb as nearest the entrance because it measures across the
+    wall the stair goes round. The Full Restore is last: it sits four tiles above the Carbos, but
+    the walk takes the northwest corner before doubling back for it."""
+    items = pins(root, "SafariZoneEast", "East", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3", "I4")] == [
+        "Carbos", "TM Egg Bomb", "Max Potion", "Full Restore"]
+
+
+def test_safari_area_2_takes_tm40_on_the_climb_and_the_protein_at_the_top(root):
+    """Area 2 is entered on the east edge and crossed behind the fences by its second stair. TM40
+    stands on that climb and the Protein is past the top wall, through the one gap in it, so the
+    letters run TM40 then Protein; measured from the doorway alone the two tie and fall back the
+    other way."""
+    items = pins(root, "SafariZoneNorth", "North", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2")] == ["TM Skull Bash", "Protein"]
+
+
 def test_tower_6f_picks_up_the_x_accuracy_on_the_way_in_not_the_rare_candy(root):
     """The X Accuracy is a short drop south off the first Channeler, a few tiles from the doorway.
     The Rare Candy is over on the west side, reached by going up over the top of the floor and back
