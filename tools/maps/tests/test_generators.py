@@ -301,8 +301,8 @@ def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
     top half is sky and still look fine to a test. Regressions this catches: the Route 10 hero
     perched on the tree row below the Poke Center, the Snorlax shot standing in the bushes south
     of the fence, and the Articuno hero inside the rock wall under the chamber. A scene declaring
-    `cut` is judged in the state it draws, and a hero out on the water says so with
-    `player_sprite` (see the surf test below)."""
+    `cut` is judged in the state it draws, and a hero out on the water is judged by the surf test
+    below instead, since no water tile is one you can stand on."""
     for path in sorted(SPECS.glob("*.json")):
         for spec in json.loads(path.read_text()):
             if "map" not in spec or spec.get("player_sprite"):
@@ -310,6 +310,9 @@ def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
             cells = [tuple(spec["player"])] if "player" in spec else []
             cells += [tuple(s["grid"]) for s in spec.get("sprites", []) if s.get("sprite") == "SPRITE_RED"]
             for cell in cells:
+                if "player" in spec and cell == tuple(spec["player"]) \
+                        and generators.afloat(root, spec["map"], cell):
+                    continue
                 assert _cell_standable(root, spec["map"], cell, spec.get("cut", ())), \
                     f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
 
@@ -518,29 +521,58 @@ def test_a_found_item_shot_marks_a_cell_the_game_really_hides_that_item_on(root)
                 f"{spec['name']} ({fname}): {spec['map']} hides {item} at {spec['marker']}"
 
 
-def test_a_hero_out_on_the_water_is_drawn_on_the_surf_sprite(root):
-    """Gen 1 swaps the player onto SPRITE_SEEL the moment they step off dry land, so a scene whose
-    `player` cell is water has to say so with `player_sprite` or it draws someone standing on the
-    sea. Vermilion's Max Ether is the case that forces it: the only tile you can face the item
-    from is open water, so the shot of taking it is a shot of surfing."""
+def test_a_hero_out_on_the_water_is_drawn_on_the_surf_sprite(root, pikachu_follower):
+    """Gen 1 swaps the player's own sprite the moment they step off dry land, so a scene whose
+    `player` cell is water draws a surfer, not someone standing on the sea. The swap is read off
+    the map rather than declared per spec, so a shot taken from a water tile cannot forget it.
+    Vermilion's Max Ether is the case that forces it: the only tile you can face the item from is
+    open water, so the shot of taking it is a shot of surfing."""
     for fname in INTERACTION_SPEC_FILES:
         for spec in json.loads((SPECS / fname).read_text()):
             if "player" not in spec:
                 continue
             cell = tuple(spec["player"])
-            afloat = (_cell_walkable(root, spec["map"], cell)
-                      and not _cell_land(root, spec["map"], cell))
-            if not afloat:
+            if not (_cell_walkable(root, spec["map"], cell) and not _cell_land(root, spec["map"], cell)):
                 continue
 
-            assert spec.get("player_sprite"), \
-                f"{spec['name']} ({fname}): hero at {cell} is on water with no surf sprite"
+            assert generators.hero_sprite(root, spec) != generators.HERO_SPRITE, \
+                f"{spec['name']} ({fname}): hero at {cell} is on water and still walking"
 
     ether = _item_spec("vermilion-city-hidden-max-ether")
     drawn = {tuple(s["grid"]): s["file"] for s in generators._screen_sprites(root, ether)}
 
-    assert drawn[tuple(ether["player"])] == sources.parse_sprite_table(root)["SPRITE_SEEL"]
+    assert drawn[tuple(ether["player"])] == "surfing_pikachu"
     assert not _cell_land(root, "VermilionCity", tuple(ether["player"])), "the hero is afloat"
+
+
+def test_the_surf_sprite_is_the_one_the_build_configures_a_follower_for(root):
+    """Yellow rides its starter Pikachu across the water and Red/Blue ride the Seel-shaped blob,
+    which is the one decision `LoadSurfingPlayerSpriteGraphics2` makes: SurfingPikachuSprite when
+    the Pokemon carrying you is the starter Pikachu, SeelSprite otherwise. The build already says
+    which game it is by naming (or not naming) a follower, so the surf sprite follows that rather
+    than being a second switch to keep in step."""
+    ether = _item_spec("vermilion-city-hidden-max-ether")
+    kept = follower.FOLLOWER_SPRITE
+    try:
+        follower.FOLLOWER_SPRITE = None
+        assert generators.hero_sprite(root, ether) == generators.SURF_SPRITE
+        follower.FOLLOWER_SPRITE = "SPRITE_PIKACHU"
+        assert generators.hero_sprite(root, ether) == generators.PIKACHU_SURF_SPRITE
+    finally:
+        follower.FOLLOWER_SPRITE = kept
+
+    assert sources.sprite_file(root, generators.PIKACHU_SURF_SPRITE) == "surfing_pikachu", \
+        "the sheet has no SPRITE_* id, so it resolves by the gfx label the engine loads"
+
+
+def test_a_hero_on_dry_land_keeps_walking(root, pikachu_follower):
+    """The other half of the rule: only water moves the hero off their own sprite, so the Iron
+    further down the same bridge, four rows in from the water the Pay Day ball sits on, is still
+    drawn on foot."""
+    iron = _item_spec("route-12-item-iron")
+
+    assert _cell_land(root, iron["map"], tuple(iron["player"])), "the Iron is taken from dry boards"
+    assert generators.hero_sprite(root, iron) == generators.HERO_SPRITE
 
 
 def test_a_found_item_shot_stands_the_hero_within_reach_of_what_it_marks(root):

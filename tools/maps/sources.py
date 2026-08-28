@@ -204,6 +204,18 @@ def _sprite_label_files(root_str):
     return out
 
 
+def sprite_file(root_str, ref):
+    """The gfx/sprites basename a spec's sprite reference names.
+
+    Three forms, because the game hands them out three ways: a `SPRITE_*` id from the sprite table
+    (SPRITE_RED -> red), a `*Sprite` label the engine loads directly, without ever giving it an id
+    (SurfingPikachuSprite -> surfing_pikachu, the sheet Yellow swaps you onto out on the water),
+    and a bare basename. An unknown reference falls through lowercased, the way it always has."""
+    if ref.startswith("SPRITE_"):
+        return parse_sprite_table(root_str).get(ref, ref.lower())
+    return _sprite_label_files(root_str).get(ref, ref.lower())
+
+
 @cache
 def parse_sprite_table(root_str):
     """Map a sprite id constant (SPRITE_RED) -> its gfx/sprites basename (red).
