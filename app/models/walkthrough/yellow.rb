@@ -55,11 +55,15 @@ module Walkthrough
 
     # `from: true` adds the gift-source badge; `unlock:` is the icon (an R2 path) a gift's unlock
     # condition shows, or nil for an unconditional gift.
+    # `off_table` is for a sprite the map places rather than a table that rolls it: the Power
+    # Plant's balls hold six Voltorb outright, and the species also spawns on the same floors, so
+    # left to itself the card would headline the 20% floor rate under a STATIC tag and print the
+    # floor breakdown beneath a Pokémon that is standing there waiting.
     def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil,
-      badge: nil)
+      badge: nil, off_table: false)
       b = base(slug)
       key = mon_key(dex)
-      places = encounter_places(slug, dex)
+      places = off_table ? [] : encounter_places(slug, dex)
       head = headline(places, how) || [ rate, level ]
       Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: head.first, level: head.last,
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
@@ -307,13 +311,13 @@ module Walkthrough
       # bag. Seafoam stays held back, being a boulder puzzle on the way to nowhere you need yet.
       { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
+      # The islands sit in the middle of Route 20 and the cave runs under them, so walking in at
+      # the east mouth and out at the west one is the way west rather than a detour off it: you
+      # arrive holding both HMs it asks for, and a bird you get one shot at is not worth passing
+      # twice.
+      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
       { slug: "leg-16", special: false, locs: %w[viridian-gym] },
-      # An optional Surf detour off a route the badge run has already crossed, holding a bird you
-      # get one shot at. Walked in passing it interrupts the run to Cinnabar with a boulder puzzle;
-      # held back to here it is the last sweep before Victory Road, taken with eight badges, a full
-      # team and Fly to reach it.
-      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "leg-17", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
@@ -2299,7 +2303,7 @@ module Walkthrough
     end
 
     def self.seafoam_islands
-      loc("seafoam-islands", "CAVE", "Seafoam Islands", 48, steps: [
+      loc("seafoam-islands", "CAVE", "Seafoam Islands", 44, steps: [
           {},
           {},
           { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
@@ -2331,7 +2335,7 @@ module Walkthrough
     end
 
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 44, steps: 3, gym_after: 2, badge: "VOLCANO",
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 3, gym_after: 2, badge: "VOLCANO",
         pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
                 2 => { lab: "cinnabar-island/exit-6-9" } },
         encounters: [
@@ -2360,7 +2364,7 @@ module Walkthrough
     end
 
     def self.pokemon_mansion
-      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 45,
+      loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 46,
         pins: { 5 => { up: "pokemon-mansion-1f/exit-5-10" },
                 6 => { up: "pokemon-mansion-2f/exit-7-10" },
                 10 => { down: "pokemon-mansion-1f/exit-21-23" } },
@@ -2395,7 +2399,7 @@ module Walkthrough
     end
 
     def self.viridian_gym
-      loc("viridian-gym", "GYM", "Viridian Gym", 47, steps: [
+      loc("viridian-gym", "GYM", "Viridian Gym", 48, steps: [
           {},
           { item: [ "Revive", "revive" ], scene: "viridian-gym-item-revive" },
           {},
@@ -2802,21 +2806,13 @@ module Walkthrough
 
     def self.power_plant
       loc("power-plant", "BUILDING", "Power Plant", 49, steps: [
-          { pins: { door: "power-plant/exit-4-35" } },
           { item: [ "Carbos", "carbos" ], scene: "power-plant-item-carbos" },
           {},
-          {},
-          {},
-          { item: [ "TM Reflect", "tm-reflect" ], scene: "power-plant-item-tm-reflect" },
-          {},
-          { item: [ "TM Thunder", "tm-thunder" ], scene: "power-plant-item-tm-thunder" },
-          {},
           { hidden: [ "Max Elixir", "max-elixir", "power-plant-hidden-max-elixir", "power-plant-max-elixir" ] },
-          {},
-          {},
+          { item: [ "TM Reflect", "tm-reflect" ], scene: "power-plant-item-tm-reflect" },
+          { item: [ "TM Thunder", "tm-thunder" ], scene: "power-plant-item-tm-thunder" },
           { item: [ "HP Up", "hp-up" ], scene: "power-plant-item-hp-up" },
           { item: [ "Rare Candy", "rare-candy" ], scene: "power-plant-item-rare-candy" },
-          {},
           { hidden: [ "PP Up", "pp-up", "power-plant-hidden-pp-up", "power-plant-pp-up" ] },
           { scene: "power-plant-zapdos" },
           {}
@@ -2827,13 +2823,18 @@ module Walkthrough
           enc("power-plant", "100", "FLOORS", "20%", "33–37", "UNCOMMON", "100", "101"),
           enc("power-plant", "088", "FLOORS", "15%", "33–37", "UNCOMMON", "088", "089"),
           enc("power-plant", "089", "FLOORS", "6%", "33–37", "RARE", "088", "089"),
+          # The disguised balls are catches, not just ambushes: six hold a Voltorb and two an
+          # Electrode, which has no wild table anywhere in Yellow and is otherwise only had by
+          # levelling a spare Voltorb to 30.
+          enc("power-plant", "100", "STATIC", "-", "40", "STATIC", "100", "101", off_table: true),
+          enc("power-plant", "101", "STATIC", "-", "43", "STATIC", "100", "101", tip: true),
           enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
         ],
         oak_queue: [ oak("power-plant", "145", 1), oak("power-plant", "100", 1) ])
     end
 
     def self.route_21
-      loc("route-21", "ROUTE", "Route 21", 46, steps: 2,
+      loc("route-21", "ROUTE", "Route 21", 47, steps: 2,
         encounters: [
           enc("route-21", "016", "GRASS", "55%", "11–17", "COMMON", "016", "017", "018"),
           enc("route-21", "019", "GRASS", "30%", "13–15", "COMMON", "019", "020"),

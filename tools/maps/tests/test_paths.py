@@ -535,14 +535,17 @@ def test_the_rare_candy_ball_really_is_6fs_only_way_through(root):
     assert stairs in flood(door, None)
 
 
-def test_the_power_plant_clears_its_floor_before_the_hall_it_comes_back_up_for(root):
-    """The middle hall is entered from the far east end of the corridor above the rooms below it,
-    which measures a couple of steps nearer the south door than they do, so distance alone dealt
-    its Voltorb out as I4 and its Electrode as I8, either side of a sweep neither can be reached
-    from. Walked, the ground floor goes first (the south-center ball, the TM lobe in the southwest,
-    the southeast pocket) and the hall's two balls letter last, in the order the steps take them."""
+def test_the_power_plant_sweeps_the_machine_hall_before_the_rooms_below_it(root):
+    """The hall of machines is climbed into at the east end of the long corridor and left the same
+    way, while the rooms below it hold the only stair to the top floor, so it is swept on the way
+    in or walked twice: its far ball and the Electrode along it are the second and third Pokémon
+    of the page, ahead of the whole ground floor. Ranked from the door alone the south-center ball
+    came two steps ahead of the hall's far one, which split the hall around a sweep of rooms it
+    cannot be reached from."""
+    mons = pins(root, "PowerPlant", "", cat="pokemon")
     items = pins(root, "PowerPlant", "", cat="item")
 
-    assert [tuple(items[key]["grid"]) for key in
-            ("I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10")] == [
-        (21, 25), (26, 28), (20, 32), (23, 34), (26, 32), (37, 32), (25, 18), (32, 18)]
+    assert [tuple(mons[key]["grid"]) for key in ("P1", "P2", "P3", "P4", "P5", "P6", "P7")] == [
+        (9, 20), (32, 18), (25, 18), (21, 25), (26, 28), (23, 34), (37, 32)]
+    assert [items[key]["name"] for key in ("I1", "I2", "I3")] == [
+        "Carbos", "TM Reflect", "TM Thunder"]

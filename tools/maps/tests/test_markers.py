@@ -22,6 +22,24 @@ def test_marker_key_prefixes_by_category():
     assert markers.marker_key("hidden", 2) == "H3"
     assert markers.marker_key("exit", 11) == "E12"
     assert markers.marker_key("npc", 0) == "N1"
+    assert markers.marker_key("pokemon", 3) == "P4"
+
+
+def test_a_ball_holding_a_pokemon_is_lettered_apart_from_the_pickups(root):
+    """The Power Plant's Voltorb and Electrode are declared exactly like a Poké Ball you can pick
+    up, with a level on the end instead of nothing, and the birds are the same object with their
+    own sprite. None of them hands anything over, so they letter as P and leave the five real
+    balls counting from I1: a reader hunting item balls is not sent to eight battles."""
+    entries = markers.build_markers(root, "PowerPlant", "POWER_PLANT", 640, 576)
+    mons = by_cat(entries, "pokemon")
+    items = by_cat(entries, "item")
+
+    assert markers.ball_category(root, "CARBOS") == "item"
+    assert markers.ball_category(root, "VOLTORB, 40") == "pokemon"
+    assert sorted(m["name"] for m in items) == [
+        "Carbos", "HP Up", "Rare Candy", "TM Reflect", "TM Thunder"]
+    assert [m["key"] for m in mons] == [f"P{n}" for n in range(1, 10)]
+    assert sorted({m["name"] for m in mons}) == ["Electrode, 43", "Voltorb, 40", "Zapdos, 50"]
 
 
 def test_cell_percent_centers_the_cell():

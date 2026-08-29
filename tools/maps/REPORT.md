@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **102** across 53 locations
-- markers: **990** (323 trainer, 119 item, 64 hidden, 484 exit)
+- markers: **990** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
 - standalone scenes: **280** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
@@ -13,7 +13,7 @@
 - `celadon-city-gym`: 8 trainer, 1 exit
 - `cerulean-cave-1f`: 4 item, 1 hidden, 8 exit
 - `cerulean-cave-2f`: 4 item, 1 hidden, 6 exit
-- `cerulean-cave-b1f`: 5 item, 1 hidden, 1 exit
+- `cerulean-cave-b1f`: 4 item, 1 pokemon, 1 hidden, 1 exit
 - `cerulean-city`: 1 trainer, 1 hidden, 14 exit
 - `cerulean-city-gym`: 3 trainer, 1 exit
 - `cinnabar-island`: 7 exit
@@ -40,7 +40,7 @@
 - `pokemon-tower-5f`: 4 trainer, 1 item, 1 hidden, 2 exit
 - `pokemon-tower-6f`: 3 trainer, 2 item, 2 exit
 - `pokemon-tower-7f`: 1 exit
-- `power-plant`: 14 item, 2 hidden, 2 exit
+- `power-plant`: 5 item, 9 pokemon, 2 hidden, 2 exit
 - `rock-tunnel-1f`: 7 trainer, 6 exit
 - `rock-tunnel-b1f`: 8 trainer, 4 exit
 - `rocket-hideout-game-corner`: 1 trainer, 12 hidden, 2 exit
@@ -84,7 +84,7 @@
 - `seafoam-islands-b1f`: 7 exit
 - `seafoam-islands-b2f`: 1 hidden, 7 exit
 - `seafoam-islands-b3f`: 1 hidden, 6 exit
-- `seafoam-islands-b4f`: 1 item, 1 hidden, 3 exit
+- `seafoam-islands-b4f`: 1 pokemon, 1 hidden, 3 exit
 - `silph-co-1f`: 4 exit
 - `silph-co-2f`: 4 trainer, 7 exit
 - `silph-co-3f`: 2 trainer, 1 item, 10 exit
@@ -106,7 +106,7 @@
 - `vermilion-city-gym`: 4 trainer, 1 exit
 - `vermilion-city-dock`: 2 exit
 - `victory-road-1f`: 2 trainer, 2 item, 2 exit
-- `victory-road-2f`: 5 trainer, 5 item, 2 hidden, 6 exit
+- `victory-road-2f`: 5 trainer, 4 item, 1 pokemon, 2 hidden, 6 exit
 - `victory-road-3f`: 4 trainer, 2 item, 4 exit
 - `viridian-city`: 1 hidden, 8 exit
 - `viridian-forest`: 5 trainer, 3 item, 2 hidden, 2 exit

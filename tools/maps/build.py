@@ -212,7 +212,7 @@ def _write_report(areas, step_shots, scenes, trainers, missing):
     for _slug, maps in sorted(areas.items()):
         for entry in maps:
             counts = {c: len([m for m in entry["markers"] if m["cat"] == c])
-                      for c in ("trainer", "item", "hidden", "exit")}
+                      for c in ("trainer", "item", "pokemon", "hidden", "exit")}
             summary = ", ".join(f"{n} {c}" for c, n in counts.items() if n)
             lines.append(f"- `{entry['name']}`: {summary or 'none'}")
     lines += ["", "## Step shots", ""]

@@ -105,8 +105,17 @@ module Walkthrough
       game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.purchased? }
     end
 
+    # A static encounter is not a spawn either: the sprite stands on the map and waits, so a body
+    # off one is certain where a percentage is a roll. Electrode is the stage this decides. It has
+    # no wild table anywhere in Yellow, but two of the Power Plant's disguised balls are one, and
+    # without this the line still owed a spare Voltorb walked up to Lv 30 for a slot the plant
+    # hands over.
+    def self.standing?(game, dex)
+      game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.static? }
+    end
+
     def self.worth_catching?(game, dex)
-      return true if purchasable?(game, dex)
+      return true if purchasable?(game, dex) || standing?(game, dex)
 
       rate = top_rate(game, dex)
       !rate.nil? && rate >= WORTH_CATCHING_RATE
@@ -216,10 +225,18 @@ module Walkthrough
       later = step.to
       return [ :refused, {} ] if Evolutions.refused?(later)
       return [ :trade, {} ] if unreachable?(game, later)
-      return [ :catch, spawn_args(game, later) ] if self_sourced?(game, later)
+      return caught_kind(game, later) if self_sourced?(game, later)
       return grown_kind(game, later, step) if body_source(game, later) == dex
 
       nil
+    end
+
+    # A stage you catch for yourself either has odds to quote or stands there waiting: a static
+    # carries no percentage at all, so the line names the stop instead of a rate it does not have.
+    def self.caught_kind(game, dex)
+      return [ :catch, spawn_args(game, dex) ] if top_rate(game, dex)
+
+      [ :static, { stop: home_stop(game, dex).name } ]
     end
 
     # A stage you grow from a spare body either has odds too long to be worth a ball, or no wild

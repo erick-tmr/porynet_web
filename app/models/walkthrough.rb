@@ -1,6 +1,6 @@
 module Walkthrough
   # Marker categories in the order the map legend lists them.
-  MAP_CATEGORIES = %w[trainer npc item hidden exit].freeze
+  MAP_CATEGORIES = %w[trainer npc pokemon item hidden exit].freeze
 
   # Categories that are signposts, not chores: they raise a hint but never tick off.
   NON_TICKABLE = %w[exit npc].freeze
@@ -27,6 +27,7 @@ module Walkthrough
 
   GIFT_SECTION = "GIFT"
   GAME_CORNER_METHOD = "GAME CORNER".freeze
+  STATIC_METHOD = "STATIC".freeze
 
   SECTION_ICONS = {
     GIFT_SECTION => "walkthrough/items/poke-ball.png",
@@ -74,6 +75,9 @@ module Walkthrough
     # Bought over a counter rather than hunted, so what the card carries where a rate would go is
     # a price in coins, and the counter restocks forever.
     def purchased? = how == GAME_CORNER_METHOD
+    # One sprite on the map, one battle, no respawn: the body is certain rather than rolled for,
+    # which is a different kind of catch from a percentage in the grass.
+    def static? = how == STATIC_METHOD
     def wild? = !gift?
     def section = gift? ? GIFT_SECTION : how
     # The earliest stop whose `order` can register this species: everything walked into is open
