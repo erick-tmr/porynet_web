@@ -6426,3 +6426,323 @@ a.pn-wt-route__card:hover {
   .pn-wt-pick__title { font-size: 28px; }
   .pn-wt-pick__balls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ── Pikachu's Beach (Route 19) ────────────────────────────────────────────────────────────────
+   The one section on a stop page that describes something the reader almost certainly cannot do,
+   so it reads as an exhibit rather than an instruction: the art runs full width, the two cards
+   split "what the minigame is" from "what it costs to reach it", and the numbers stay in chips so
+   the prose never has to restate one. */
+.pn-sp__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent2);
+}
+.pn-sp__eyebrow--sprite { color: var(--accent); }
+.pn-sp__tick {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  background: currentcolor;
+  border: 2px solid var(--ink);
+}
+.pn-sp__hl { color: var(--accent2); text-shadow: 2px 2px 0 var(--ink); }
+.pn-sp__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 820px;
+  margin: 12px 0 0;
+  text-wrap: pretty;
+}
+
+.pn-sp__chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.pn-sp__chip {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 2px 10px;
+}
+.pn-sp__chip--house { background: #ddf1fa; }
+.pn-sp__chip--stadium { background: #fff2d4; }
+
+.pn-sp__art { margin-top: 24px; }
+.pn-sp__art-img { display: block; width: 100%; height: auto; }
+.pn-sp__caption {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.35;
+  color: var(--muted);
+  margin-top: 9px;
+}
+
+/* The two shots differ in one sprite and nothing else, which is the whole point, so they sit at
+   the same size side by side and the prose that sets them up shares the row. */
+.pn-sp__compare {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-top: 2px dashed #17162255;
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.pn-sp__compare-lead { flex: 1 1 250px; }
+.pn-sp__compare-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 440px;
+  margin: 12px 0 0;
+  text-wrap: pretty;
+}
+.pn-sp__shots { display: flex; gap: 16px; flex-wrap: wrap; }
+.pn-sp__shot { width: 250px; }
+.pn-sp__shot-frame {
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  aspect-ratio: 10 / 9;
+  overflow: hidden;
+}
+.pn-sp__shot-img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.pn-sp__shot-label {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #6b6880;
+  margin-top: 6px;
+}
+.pn-sp__shot--on .pn-sp__shot-label { color: var(--accent); }
+
+.pn-sp__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 22px;
+}
+.pn-sp__card {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 22px;
+}
+.pn-sp__card--stadium { background: #fffbee; }
+.pn-sp__card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.pn-sp__card-sprite { flex: none; }
+.pn-sp__card-sprite img { width: 64px; height: 64px; object-fit: contain; }
+.pn-sp__card-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pn-sp__badge {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  padding: 7px 9px;
+}
+.pn-sp__badge--minigame, .pn-sp__badge--scoring { background: var(--accent2); }
+.pn-sp__badge--legit { background: var(--amber); }
+.pn-sp__card-title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+}
+.pn-sp__card-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 10px 0 0;
+  text-wrap: pretty;
+}
+.pn-sp__card-note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 14px 0 0;
+  text-wrap: pretty;
+}
+
+.pn-sp__beach { margin-top: 16px; }
+.pn-sp__beach-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+}
+/* Painted box art, not a game rip, so it keeps its own smoothing against the global pixelated. */
+.pn-sp__box {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  margin-top: 16px;
+  image-rendering: auto;
+}
+
+.pn-sp__scoring {
+  border-top: 2px dashed var(--ink);
+  margin-top: 18px;
+  padding-top: 16px;
+}
+.pn-sp__scores { margin-top: 14px; }
+.pn-sp__score {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 2px solid var(--ink);
+  padding: 9px 0;
+}
+.pn-sp__score:last-child { border-bottom: 2px solid var(--ink); }
+.pn-sp__score-key {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  width: 96px;
+  flex: none;
+  white-space: nowrap;
+}
+.pn-sp__score-val {
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #ddf1fa;
+  border: 2px solid var(--ink);
+  padding: 0 8px;
+  white-space: nowrap;
+}
+.pn-sp__score--big .pn-sp__score-val { background: #ffe9f0; }
+.pn-sp__score--clock .pn-sp__score-val { background: #fff2d4; }
+.pn-sp__score-note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--muted);
+  flex: 1 1 200px;
+}
+
+.pn-sp__steps { margin-top: 16px; }
+.pn-sp__step {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  border-top: 2px solid var(--ink);
+  padding: 12px 0;
+}
+.pn-sp__step:last-child { border-bottom: 2px solid var(--ink); }
+.pn-sp__step-n {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--amber);
+  border: 2px solid var(--ink);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pn-sp__step--done .pn-sp__step-n { background: #7CE38B; }
+.pn-sp__step-text {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* The one thing here a reader can actually act on today, so it takes the page's "machine talking"
+   voice rather than another cream card. */
+.pn-sp__vc {
+  position: relative;
+  overflow: hidden;
+  background: var(--ui-dark);
+  border: 3px solid var(--neon-cyan);
+  box-shadow: 0 0 20px #2af0ff33, 5px 5px 0 var(--ink);
+  padding: 20px;
+  margin-top: 22px;
+}
+.pn-sp__scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(#2af0ff4d 2px, transparent 2px),
+                    linear-gradient(90deg, #2af0ff4d 2px, transparent 2px);
+  background-size: 16px 16px;
+}
+.pn-sp__vc-label {
+  position: relative;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  color: var(--neon-cyan);
+}
+.pn-sp__vc-text {
+  position: relative;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #9fb6d6;
+  max-width: 900px;
+  margin: 10px 0 0;
+  text-wrap: pretty;
+}
+.pn-sp__vc-hl { color: #fff; }
+
+.pn-sp__aside {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-top: 2px dashed #17162255;
+  margin-top: 18px;
+  padding-top: 16px;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+.pn-sp__aside-mark {
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--accent2);
+  flex: none;
+}
+
+@media (max-width: 900px) {
+  .pn-sp__cols { grid-template-columns: 1fr; }
+  .pn-sp__shots { width: 100%; }
+  .pn-sp__shot { flex: 1 1 220px; width: auto; }
+}

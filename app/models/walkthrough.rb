@@ -813,6 +813,20 @@ module Walkthrough
   ExpLegendText = Data.define(:row, :state, :text_key)
   ExpTrivia = Data.define(:tag_key, :title_key, :text_key)
 
+  # Pikachu's Beach, the minigame the Route 19 beach house hides behind a Pokémon the cartridge
+  # cannot produce. Every figure is the game's own: the radness table is the comment on
+  # SurfingMinigame_CalculateAndAddRadnessFromStunt (engine/minigame/surfing_pikachu.asm), the
+  # 6000 is what the setup writes to wSurfingMinigamePikachuHP, and the meter caps at three flips
+  # in SurfingMinigame_IncreaseRadnessMeter. `alt` is the higher payout a row has a second way of
+  # scoring; nil when the row pays one number.
+  SurfPikachu = Data.define(:anchor, :art, :beach, :stadium, :sprite, :chips, :shots, :scores,
+    :steps)
+  SurfShot = Data.define(:key, :image, :tone)
+  SurfScore = Data.define(:key, :value, :alt, :tone) do
+    def alt? = !alt.nil?
+  end
+  SurfStadiumStep = Data.define(:key, :glyph, :tone)
+
   def self.games = { "yellow" => Yellow.game }
 
   def self.find(slug) = games[slug]

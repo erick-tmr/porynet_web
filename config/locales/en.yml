@@ -1273,6 +1273,59 @@ en:
             label: "THE FIELD MOVES"
             title: "The HM is not enough"
             text: "Field moves need the matching badge too. Pick Cut from the menu without the Cascade Badge and the game answers 'No! A new BADGE is required.'"
+      surf_pikachu:
+        eyebrow: "TRIVIA · THE BEACH HOUSE"
+        title_html: "Surfing <span class=\"pn-sp__hl\">Pikachu</span>"
+        lead: "The door at the north end of this route hides a whole minigame behind a Pokémon the cartridge cannot make. Pikachu never learns Surf here: no TM, no HM, nothing on its level-up list. Yellow still keeps a surfboard sprite ready for the overworld and a beach house waiting for whoever turns up on one."
+        chips:
+          house: "ROUTE 19 · BEACH HOUSE"
+          stadium: "NEEDS POKÉMON STADIUM"
+          reward: "NO REWARD, PURE NOVELTY"
+        art_caption: "Game Freak drew the board, then locked it behind a Nintendo 64 accessory."
+        sprite:
+          label: "OVERWORLD SPRITE"
+          text: "Surf anywhere in Kanto on that Pikachu and it rides its own board. Anything else carrying you loads the plain sea sprite, so the board is the one thing the whole errand ever puts on-screen."
+          shots:
+            board: "On the board"
+            other: "Any other surfer"
+        beach:
+          tag: "MINIGAME"
+          title: "Pikachu's Beach"
+          text: "The house sits on the sand at the top of the route, a step off the water. Walk in with a Surfing Pikachu in the party, talk to the Surfin' Dude, say yes, and he puts you on a wave."
+          caption: "Left and right spin Pikachu off the lip of a wave. Land flat or you eat it."
+        scoring:
+          label: "SCORING · RADNESS"
+          note: "Your final score is the HP left when you reach the shore plus the radness you banked. Time in the air builds speed and a clean landing keeps it, while a wipeout drops you back to the speed you started on. There is no prize: the Hi-Score sits on the machine along the back wall, and a Game Boy Printer will print it out."
+        scores:
+          one:
+            label: "1 FLIP"
+            note: "Any single spin off the lip."
+          two:
+            label: "2 FLIPS"
+            note: "The higher number is for spinning one each way."
+          three:
+            label: "3+ FLIPS"
+            note: "Again the higher number mixes front and back. The meter caps here."
+          hp:
+            label: "HP"
+            note: "A clock, not a health bar. It drops a point every frame you are out there."
+        stadium:
+          tag: "LEGIT ROUTE"
+          console: "NINTENDO 64"
+          title: "Getting Surf on your Pikachu"
+          box_alt: "Pokémon Stadium box art for the Nintendo 64"
+          text_html: "One cartridge can never do it. The move comes from <b>Pokémon Stadium</b> on the Nintendo 64, which reads your save through the Transfer Pak and hands Surf over as a tournament prize. It is a long ask."
+          steps:
+            round_html: "Unlock <b>Round 2</b>. That means every cup, the Gym Leader Castle and Mewtwo, all cleared."
+            cup_html: "Enter the <b>R-2 Prime Cup, Master Ball division</b>, the last of its four."
+            own_html: "Field your <b>own Pikachu off the Yellow cartridge</b>. Not a rental, and it must not already know Surf."
+            field_html: "Send it out in <b>every battle of the cup</b>, and take the cup with <b>no continues</b>."
+            award_html: "The award screen puts Pikachu on a board and offers to swap Surf in over one of its moves. Say yes, then carry it home."
+          note: "The only other honest sources were the official event distributions of the day, and much later a free download in Pokémon Battle Revolution on the Wii. Everything else is a cheat device."
+        vc:
+          label: "VIRTUAL CONSOLE · 3DS"
+          text_html: "No Transfer Pak and no Stadium, so the beach would have been dead content. The 3DS re-release moves the lock: bring your <b class=\"pn-sp__vc-hl\">partner Pikachu</b>, the one carrying your name and ID, and the Surfin' Dude lets you play. Surf itself is still not yours."
+        aside: "Turn up without one and the Dude only tells you the dogs and burgers are on special. Bring one and he says he is not alone any more, though the Pikachu pacing his floor never gets on a board."
       locations:
         pallet_town:
           note: "Get Pikachu from Prof. Oak. No wild grass here."
@@ -2988,7 +3041,7 @@ en:
               text: "Clear the Swimmers strung across the east half of the water as you Surf west along the channel toward the islands."
             "2":
               title: "Ride into the islands"
-              text_html: "The Seafoam Islands break the water halfway along, and the cave runs right under them. Take the east mouth %{east}: it is the way through to Cinnabar, and Articuno roosts at the bottom of it."
+              text_html: "The Seafoam Islands break the water halfway along, and the cave runs right under them. Land on the island's south-west corner and walk up to the cave mouth %{mouth}: Articuno roosts at the bottom of it."
         seafoam_islands:
           note: "Boulder-puzzle cave under Route 20. Wild Articuno inside."
           intro: "Five floors of sea cave with currents running through the lower ones. No trainers at all, one boulder puzzle, and Articuno at the bottom."
