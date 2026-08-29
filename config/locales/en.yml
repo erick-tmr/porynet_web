@@ -2981,16 +2981,16 @@ en:
               text_html: "Carry on south to the little beach at the bottom, which opens west %{west} into Route 20 and the Seafoam Islands."
         route_20:
           note: "Open water to Cinnabar. Tentacool, Staryu, Shellder."
-          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. The cave is a detour, not a gate: open water runs around both sides."
+          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. The cave under them is the way through, though open water runs around both sides."
           steps:
             "1":
               title: "Surf west"
               text: "Clear the Swimmers strung across the east half of the water as you Surf west along the channel toward the islands."
             "2":
-              title: "Surf past the islands"
-              text_html: "The Seafoam Islands break the water halfway along. Surf around them and keep west for Cinnabar; the cave mouth %{east} keeps until the badges are done."
+              title: "Ride into the islands"
+              text_html: "The Seafoam Islands break the water halfway along, and the cave runs right under them. Take the east mouth %{east}: it is the way through to Cinnabar, and Articuno roosts at the bottom of it."
         seafoam_islands:
-          note: "Optional boulder-puzzle cave. Wild Articuno inside."
+          note: "Boulder-puzzle cave under Route 20. Wild Articuno inside."
           intro: "Five floors of sea cave with currents running through the lower ones. No trainers at all, one boulder puzzle, and Articuno at the bottom."
           steps:
             "1":
@@ -3019,7 +3019,7 @@ en:
                 ultra-ball: "B4F, far southeast corner beside the boulders. Face south and press A. Nothing shows on-screen."
             "7":
               title: "Ride back out"
-              text: "With Articuno caught and the pockets full, ride out the far west mouth onto the open sea. Fly from Cinnabar; the Power Plant is the last stop before Victory Road."
+              text: "With Articuno caught and the pockets full, ride out the far west mouth onto the open sea. Cinnabar Island is a short Surf west, and Blaine holds the seventh badge."
           tips:
             articuno: "A one-time Lv 50 legendary. Save first, sleep/paralyze it, and use the Master Ball or a lot of Ultra Balls."
           oak:

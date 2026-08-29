@@ -56,17 +56,19 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal covered.size, covered.uniq.size
   end
 
-  # Both are optional Surf detours off routes the badge run has already crossed, so they are held
-  # back to the end: taken in passing they interrupt the ride to Cinnabar, and taken here they are
-  # one sweep for two birds with eight badges in the bag. The stop numbers run with the walk, so
-  # moving them renumbers everything between.
-  test "Seafoam is swept after the last badge, and the Power Plant off the Surf sweep that reaches it" do
+  # Both birds are taken where the walk already goes. The Surf sweep ends on the plant's own
+  # doorstep, and the Seafoam cave runs under the islands that split Route 20, so walking in at the
+  # east mouth and out at the west one is the way to Cinnabar rather than a detour off it. The stop
+  # numbers run with the walk, so moving either renumbers everything between.
+  test "Seafoam is walked in passing on Route 20, and the Power Plant off the sweep that reaches it" do
     tail = game.legs.map(&:slug).drop_while { |slug| slug != "leg-14" }
 
-    assert_equal %w[leg-14 leg-15 leg-16 seafoam-islands victory-road leg-17 indigo-plateau
+    assert_equal %w[leg-14 seafoam-islands leg-15 leg-16 victory-road leg-17 indigo-plateau
                     cerulean-cave], tail
     assert_equal "power-plant", game.legs[game.legs.index(game.leg!("leg-13")) + 1].slug,
       "the sweep ends on the plant's own doorstep, so the plant is the page after it"
+    assert_equal [ 43, 44, 45 ], %w[route-20 seafoam-islands cinnabar-island].map { |s| loc(s).order },
+      "the islands take their stop number between the route they sit in and the town past them"
   end
 
   test "leg! finds by slug and raises for an unknown leg" do

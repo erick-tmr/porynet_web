@@ -2981,16 +2981,16 @@ pt:
               text_html: "Siga ao sul até a praia lá embaixo, que abre a oeste %{west} para a Rota 20 e as Seafoam Islands."
         route_20:
           note: "Água aberta até Cinnabar. Tentacool, Staryu, Shellder."
-          intro: "O canal longo rumo a oeste até Cinnabar, com as Seafoam Islands bem no meio dele. A caverna é um desvio, não um portão: a água aberta contorna os dois lados."
+          intro: "O canal longo rumo a oeste até Cinnabar, com as Seafoam Islands bem no meio dele. A caverna por baixo delas é o caminho, mas a água aberta contorna os dois lados."
           steps:
             "1":
               title: "Surfe a oeste"
               text: "Limpe os Swimmers espalhados pela metade leste da água enquanto surfa a oeste pelo canal rumo às ilhas."
             "2":
-              title: "Contorne as ilhas"
-              text_html: "As Seafoam Islands quebram a água no meio do caminho. Contorne-as e siga a oeste para Cinnabar; a boca da caverna %{east} espera até as insígnias acabarem."
+              title: "Entre nas ilhas"
+              text_html: "As Seafoam Islands quebram a água no meio do caminho, e a caverna passa por baixo delas. Entre pela boca leste %{east}: é o caminho até Cinnabar, e o Articuno descansa lá no fundo."
         seafoam_islands:
-          note: "Caverna opcional com quebra-cabeça de pedras. Articuno selvagem dentro."
+          note: "Caverna com quebra-cabeça de pedras sob a Rota 20. Articuno selvagem dentro."
           intro: "Cinco andares de caverna marinha com correntes correndo pelos mais fundos. Nenhum treinador, um quebra-cabeça de pedras e o Articuno no fim."
           steps:
             "1":
@@ -3019,7 +3019,7 @@ pt:
                 ultra-ball: "B4F, canto sudeste extremo ao lado das pedras. Vire para o sul e aperte A. Nada aparece na tela."
             "7":
               title: "Saia da caverna"
-              text: "Com o Articuno capturado e os bolsos cheios, saia pela boca oeste no mar aberto. Voe de Cinnabar; a usina é a última parada antes da Victory Road."
+              text: "Com o Articuno capturado e os bolsos cheios, saia pela boca oeste no mar aberto. Cinnabar Island fica a um pequeno Surf a oeste, e Blaine guarda a sétima insígnia."
           tips:
             articuno: "Um lendário Nv 50 de uma vez só. Salve antes, faça dormir/paralise, e use a Master Ball ou muitas Ultra Balls."
           oak:
