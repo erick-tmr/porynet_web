@@ -4462,24 +4462,9 @@
             "lane": 0
           },
           {
-            "id": "item-32-18",
-            "cat": "item",
-            "key": "I4",
-            "x": 81.25,
-            "y": 51.389,
-            "grid": [
-              32,
-              18
-            ],
-            "align": "l",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 1
-          },
-          {
             "id": "item-26-28",
             "cat": "item",
-            "key": "I5",
+            "key": "I4",
             "x": 66.25,
             "y": 79.167,
             "grid": [
@@ -4494,7 +4479,7 @@
           {
             "id": "item-20-32",
             "cat": "item",
-            "key": "I6",
+            "key": "I5",
             "x": 51.25,
             "y": 90.278,
             "grid": [
@@ -4509,7 +4494,7 @@
           {
             "id": "item-23-34",
             "cat": "item",
-            "key": "I7",
+            "key": "I6",
             "x": 58.75,
             "y": 95.833,
             "grid": [
@@ -4522,24 +4507,9 @@
             "lane": 0
           },
           {
-            "id": "item-25-18",
-            "cat": "item",
-            "key": "I8",
-            "x": 63.75,
-            "y": 51.389,
-            "grid": [
-              25,
-              18
-            ],
-            "align": "l",
-            "name": "Electrode, 43",
-            "ref": "ELECTRODE, 43",
-            "lane": 0
-          },
-          {
             "id": "item-26-32",
             "cat": "item",
-            "key": "I9",
+            "key": "I7",
             "x": 66.25,
             "y": 90.278,
             "grid": [
@@ -4554,7 +4524,7 @@
           {
             "id": "item-37-32",
             "cat": "item",
-            "key": "I10",
+            "key": "I8",
             "x": 93.75,
             "y": 90.278,
             "grid": [
@@ -4565,6 +4535,36 @@
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
             "lane": 0
+          },
+          {
+            "id": "item-25-18",
+            "cat": "item",
+            "key": "I9",
+            "x": 63.75,
+            "y": 51.389,
+            "grid": [
+              25,
+              18
+            ],
+            "align": "l",
+            "name": "Electrode, 43",
+            "ref": "ELECTRODE, 43",
+            "lane": 0
+          },
+          {
+            "id": "item-32-18",
+            "cat": "item",
+            "key": "I10",
+            "x": 81.25,
+            "y": 51.389,
+            "grid": [
+              32,
+              18
+            ],
+            "align": "l",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 1
           },
           {
             "id": "item-28-3",

@@ -278,7 +278,14 @@ ROUTES = {
     "SilphCo10F": ("exit-8-0", "trainer-10-2", "trainer-1-9",
                    "item-5-11", "item-4-14", "item-2-12"),
     "SilphCo11F": ("exit-9-0",),
-    "PowerPlant": ("exit-4-35",),                   # the south door you Surf up to
+    # In the south door you Surf up to, then the whole ground floor before anything above it: up
+    # the west wall, the south-center ball, the TM lobe in the southwest, the southeast pocket,
+    # and only then up into the middle hall for the buried Max Elixir and the two balls along it.
+    # The hall lies a couple of steps nearer the door than the rooms below it and cannot be
+    # reached from them at all, so distance alone deals its Voltorb out fourth and its Electrode
+    # eighth, halfway through a sweep of a floor you have to come back down for.
+    "PowerPlant": ("exit-4-35", "item-9-20", "item-21-25", "item-26-32", "hidden-17-16",
+                   "item-28-3"),
     "UndergroundPathNorthSouth": ("exit-5-4",),     # down from the Route 5 house
     "UndergroundPathWestEast": ("exit-47-2",),      # down from the Route 8 house, walked west
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
