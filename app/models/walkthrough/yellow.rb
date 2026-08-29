@@ -55,11 +55,15 @@ module Walkthrough
 
     # `from: true` adds the gift-source badge; `unlock:` is the icon (an R2 path) a gift's unlock
     # condition shows, or nil for an unconditional gift.
+    # `off_table` is for a sprite the map places rather than a table that rolls it: the Power
+    # Plant's balls hold six Voltorb outright, and the species also spawns on the same floors, so
+    # left to itself the card would headline the 20% floor rate under a STATIC tag and print the
+    # floor breakdown beneath a Pokémon that is standing there waiting.
     def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil,
-      badge: nil)
+      badge: nil, off_table: false)
       b = base(slug)
       key = mon_key(dex)
-      places = encounter_places(slug, dex)
+      places = off_table ? [] : encounter_places(slug, dex)
       head = headline(places, how) || [ rate, level ]
       Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: head.first, level: head.last,
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
@@ -2802,21 +2806,13 @@ module Walkthrough
 
     def self.power_plant
       loc("power-plant", "BUILDING", "Power Plant", 49, steps: [
-          { pins: { door: "power-plant/exit-4-35" } },
           { item: [ "Carbos", "carbos" ], scene: "power-plant-item-carbos" },
           {},
-          {},
-          {},
-          { item: [ "TM Reflect", "tm-reflect" ], scene: "power-plant-item-tm-reflect" },
-          {},
-          { item: [ "TM Thunder", "tm-thunder" ], scene: "power-plant-item-tm-thunder" },
-          {},
           { hidden: [ "Max Elixir", "max-elixir", "power-plant-hidden-max-elixir", "power-plant-max-elixir" ] },
-          {},
-          {},
+          { item: [ "TM Reflect", "tm-reflect" ], scene: "power-plant-item-tm-reflect" },
+          { item: [ "TM Thunder", "tm-thunder" ], scene: "power-plant-item-tm-thunder" },
           { item: [ "HP Up", "hp-up" ], scene: "power-plant-item-hp-up" },
           { item: [ "Rare Candy", "rare-candy" ], scene: "power-plant-item-rare-candy" },
-          {},
           { hidden: [ "PP Up", "pp-up", "power-plant-hidden-pp-up", "power-plant-pp-up" ] },
           { scene: "power-plant-zapdos" },
           {}
@@ -2827,6 +2823,11 @@ module Walkthrough
           enc("power-plant", "100", "FLOORS", "20%", "33–37", "UNCOMMON", "100", "101"),
           enc("power-plant", "088", "FLOORS", "15%", "33–37", "UNCOMMON", "088", "089"),
           enc("power-plant", "089", "FLOORS", "6%", "33–37", "RARE", "088", "089"),
+          # The disguised balls are catches, not just ambushes: six hold a Voltorb and two an
+          # Electrode, which has no wild table anywhere in Yellow and is otherwise only had by
+          # levelling a spare Voltorb to 30.
+          enc("power-plant", "100", "STATIC", "-", "40", "STATIC", "100", "101", off_table: true),
+          enc("power-plant", "101", "STATIC", "-", "43", "STATIC", "100", "101", tip: true),
           enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
         ],
         oak_queue: [ oak("power-plant", "145", 1), oak("power-plant", "100", 1) ])

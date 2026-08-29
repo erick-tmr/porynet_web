@@ -19,6 +19,7 @@
   --mm-trainer: var(--accent2);
   --mm-npc: var(--amber);
   --mm-item: var(--accent);
+  --mm-pokemon: var(--trade-purple);
   --mm-hidden: var(--neon-magenta);
   --mm-exit: var(--ink);
   --mm-done: var(--done-green);
@@ -119,11 +120,13 @@
 .pn-mm-pill__swatch--exit { background: var(--mm-exit); }
 
 .pn-mm-pill__swatch--item,
+.pn-mm-pill__swatch--pokemon,
 .pn-mm-pill__swatch--hidden {
   border-radius: 50%;
 }
 
 .pn-mm-pill__swatch--item { background: var(--mm-item); }
+.pn-mm-pill__swatch--pokemon { background: var(--mm-pokemon); }
 .pn-mm-pill__swatch--hidden { background: var(--mm-hidden); }
 
 .pn-mm-toggle {
@@ -338,11 +341,12 @@
   color: var(--ink);
 }
 
-/* A trainer, an item ball and an important NPC are all drawn into the map itself, so a pin on top
-   would just cover the sprite the player is looking for. They get a bare hit area over that sprite
-   and rely on their label; only a trainer's or item's ticked check draws anything. */
+/* A trainer, an item ball, a Pokémon standing on the floor and an important NPC are all drawn into
+   the map itself, so a pin on top would just cover the sprite the player is looking for. They get
+   a bare hit area over that sprite and rely on their label; only a ticked check draws anything. */
 .pn-mm__pin--trainer,
 .pn-mm__pin--item,
+.pn-mm__pin--pokemon,
 .pn-mm__pin--npc {
   width: 22px;
   height: 22px;
@@ -353,6 +357,7 @@
 
 .pn-mm__pin--trainer .pn-mm__glyph,
 .pn-mm__pin--item .pn-mm__glyph,
+.pn-mm__pin--pokemon .pn-mm__glyph,
 .pn-mm__pin--npc .pn-mm__glyph {
   display: none;
 }
@@ -489,6 +494,7 @@
 .pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
 .pn-mm[data-cat="npc"] .pn-mm__label-key { color: var(--mm-npc); }
 .pn-mm[data-cat="item"] .pn-mm__label-key { color: var(--mm-item); }
+.pn-mm[data-cat="pokemon"] .pn-mm__label-key { color: var(--mm-pokemon); }
 .pn-mm[data-cat="hidden"] .pn-mm__label-key { color: var(--mm-hidden); }
 .pn-mm[data-cat="exit"] .pn-mm__label-key { color: var(--mm-exit); }
 
@@ -647,6 +653,7 @@
 .pn-mm-legend__swatch--npc { background: var(--mm-npc); }
 .pn-mm-legend__swatch--exit { background: var(--mm-exit); }
 .pn-mm-legend__swatch--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__swatch--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__swatch--hidden { background: var(--mm-hidden); border-radius: 50%; }
 
 .pn-mm-legend__row {
@@ -686,6 +693,7 @@
 .pn-mm-legend__chip--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__chip--npc { background: var(--mm-npc); color: var(--ink); }
 .pn-mm-legend__chip--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__chip--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__chip--hidden { background: var(--mm-hidden); border-radius: 50%; }
 .pn-mm-legend__chip--exit { background: var(--mm-exit); border-radius: 4px; }
 

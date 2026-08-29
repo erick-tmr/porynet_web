@@ -111,9 +111,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 103, g.obtainable_dex.size,
-      "the two the Fighting Dojo hands over are obtainable; a save only ever registers one, and " \
-      "the Surf sweep adds the Psyduck line, which no earlier pass could reach"
+    assert_equal 104, g.obtainable_dex.size,
+      "the two the Fighting Dojo hands over are obtainable; a save only ever registers one, the " \
+      "Surf sweep adds the Psyduck line, which no earlier pass could reach, and the Power Plant " \
+      "hands over an Electrode, which spawns in no table anywhere"
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 

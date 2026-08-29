@@ -278,14 +278,16 @@ ROUTES = {
     "SilphCo10F": ("exit-8-0", "trainer-10-2", "trainer-1-9",
                    "item-5-11", "item-4-14", "item-2-12"),
     "SilphCo11F": ("exit-9-0",),
-    # In the south door you Surf up to, then the whole ground floor before anything above it: up
-    # the west wall, the south-center ball, the TM lobe in the southwest, the southeast pocket,
-    # and only then up into the middle hall for the buried Max Elixir and the two balls along it.
-    # The hall lies a couple of steps nearer the door than the rooms below it and cannot be
-    # reached from them at all, so distance alone deals its Voltorb out fourth and its Electrode
-    # eighth, halfway through a sweep of a floor you have to come back down for.
-    "PowerPlant": ("exit-4-35", "item-9-20", "item-21-25", "item-26-32", "hidden-17-16",
-                   "item-28-3"),
+    # A dead end in the middle of a loop. The machine hall is climbed into at the east end of the
+    # long corridor and left the same way, while the rooms below it hold the only stair to the top
+    # floor, so it is swept before them or walked twice: in the south door you Surf up to, up the
+    # west wall, east along the corridor and up for the hall's far ball, back west along it for
+    # the Electrode and the buried Max Elixir, then down for the middle band, the TM room off its
+    # west end, and the lower room with the second TM before the climb north. Measured from the
+    # door alone the south-center ball comes two steps ahead of the hall's far one, which splits
+    # the hall in half around a sweep of rooms it cannot be reached from.
+    "PowerPlant": ("exit-4-35", "pokemon-9-20", "pokemon-32-18", "hidden-17-16", "pokemon-21-25",
+                   "item-20-32", "item-26-32", "item-28-3"),
     "UndergroundPathNorthSouth": ("exit-5-4",),     # down from the Route 5 house
     "UndergroundPathWestEast": ("exit-47-2",),      # down from the Route 8 house, walked west
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
@@ -333,7 +335,7 @@ SWEEP_FROM = {"SSAnne1F": "right", "SSAnne2F": "left"}
 # The pins whose letters are the order you reach them. Exits are not among them: a staircase wears
 # one letter across the two floors it joins (markers.link_exit_keys), which is a different question
 # from how far along a floor it sits.
-WALKED = ("trainer", "item", "hidden")
+WALKED = ("trainer", "item", "pokemon", "hidden")
 
 UNREACHED = 10**6      # a pin no doorway can walk to, sorted after everything that can be reached
 STEPS = ((0, 1), (0, -1), (1, 0), (-1, 0))

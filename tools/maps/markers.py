@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Turn a map's game data into the marker list the walkthrough page overlays on its area map.
 
-Four categories, each a tick target on the page except exits:
+Five categories, each a tick target on the page except exits:
   trainer  every object_event carrying OPP_<CLASS>, <party#>
   item     every object_event carrying a bare item constant (a ball you can pick up)
+  pokemon  every object_event carrying <SPECIES>, <level> (a wild battle standing on the map)
   hidden   the map's hidden_events, which show nothing on screen in the game
   exit     the map's warp_events, collapsed so one doorway is one marker
 
@@ -30,7 +31,8 @@ LABEL_PX = 26                      # a label's own height, the closest two can s
 # position among its own kind on its own map, so T1 is always a trainer and I2 always an item ball.
 # Numbering per category (rather than one run over the whole map) keeps a key stable against
 # unrelated edits: adding an item ball renumbers the items and leaves every trainer alone.
-KEY_PREFIX = {"trainer": "T", "item": "I", "hidden": "H", "exit": "E", "npc": "N", "warp": "W"}
+KEY_PREFIX = {"trainer": "T", "item": "I", "pokemon": "P", "hidden": "H", "exit": "E",
+              "npc": "N", "warp": "W"}
 
 
 def marker_key(cat, index):
@@ -276,6 +278,20 @@ def map_edge(grid_x, grid_y, width_cells, height_cells):
     return "inner"
 
 
+def ball_category(root_str, item_const):
+    """Whether an object_event's payload is a pickup or a Pokémon standing in for one.
+
+    The macro's trailing arguments are `<ITEM>` for something you put in your bag and
+    `<SPECIES>, <level>` for a battle: the Power Plant's Voltorb and Electrode wear the ball
+    sprite and the birds wear their own, but all of them start a wild encounter rather than
+    handing anything over. The level is what tells them apart, and the name in front of it is
+    checked against the dex so a stray pair of arguments cannot pass for a Pokémon."""
+    species, _, level = item_const.partition(",")
+    if level.strip().isdigit() and species.strip() in sources.parse_dex_numbers(root_str):
+        return "pokemon"
+    return "item"
+
+
 def _marker(cat, anchor, center, frame, **fields):
     x, y = frame.percent(center[0], center[1])
     return {"id": f"{cat}-{anchor[0]}-{anchor[1]}", "cat": cat, "key": None,
@@ -301,10 +317,12 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
         out.append(_marker("trainer", obj["grid"], obj["grid"], frame,
                            name=name.title(), ref=f"{obj['opp_class']}:{obj['party']}"))
 
-    for obj in (o for o in objects if o["kind"] == "item"):
-        out.append(_marker("item", obj["grid"], obj["grid"], frame,
-                           name=sources.item_display_name(obj["item_const"]),
-                           ref=obj["item_const"]))
+    balls = [o for o in objects if o["kind"] == "item"]
+    for cat in ("item", "pokemon"):
+        for obj in (o for o in balls if ball_category(root_str, o["item_const"]) == cat):
+            out.append(_marker(cat, obj["grid"], obj["grid"], frame,
+                               name=sources.item_display_name(obj["item_const"]),
+                               ref=obj["item_const"]))
 
     for marker in sources.markers_by_map(root_str).get(map_const, []):
         grid = tuple(marker["grid"])

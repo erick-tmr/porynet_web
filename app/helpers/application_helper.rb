@@ -233,9 +233,12 @@ module ApplicationHelper
     t("walkthrough.ui.modes_off_body", leader: window.leader)
   end
 
-  # A trainer is beaten, everything else is collected, so the two tick categories read differently.
+  # A trainer is beaten, a Pokémon on the floor is fought and everything else is collected, so the
+  # tick categories read three ways.
+  MARKER_STATUS = { "trainer" => "trainer", "pokemon" => "pokemon" }.freeze
+
   def marker_status_key(marker, state)
-    "walkthrough.ui.map_status_#{marker.cat == 'trainer' ? 'trainer' : 'item'}_#{state}"
+    "walkthrough.ui.map_status_#{MARKER_STATUS.fetch(marker.cat, 'item')}_#{state}"
   end
 
   # Each gym's background grid takes one of the three identity neon colours, cycling in badge order

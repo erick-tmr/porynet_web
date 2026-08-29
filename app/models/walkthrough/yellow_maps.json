@@ -869,9 +869,9 @@
             "lane": 0
           },
           {
-            "id": "item-27-13",
-            "cat": "item",
-            "key": "I5",
+            "id": "pokemon-27-13",
+            "cat": "pokemon",
+            "key": "P1",
             "x": 91.667,
             "y": 75.0,
             "grid": [
@@ -4432,54 +4432,9 @@
             "lane": 0
           },
           {
-            "id": "item-9-20",
-            "cat": "item",
-            "key": "I2",
-            "x": 23.75,
-            "y": 56.944,
-            "grid": [
-              9,
-              20
-            ],
-            "align": "r",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 0
-          },
-          {
-            "id": "item-21-25",
-            "cat": "item",
-            "key": "I3",
-            "x": 53.75,
-            "y": 70.833,
-            "grid": [
-              21,
-              25
-            ],
-            "align": "r",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 0
-          },
-          {
-            "id": "item-26-28",
-            "cat": "item",
-            "key": "I4",
-            "x": 66.25,
-            "y": 79.167,
-            "grid": [
-              26,
-              28
-            ],
-            "align": "l",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 0
-          },
-          {
             "id": "item-20-32",
             "cat": "item",
-            "key": "I5",
+            "key": "I2",
             "x": 51.25,
             "y": 90.278,
             "grid": [
@@ -4492,24 +4447,9 @@
             "lane": -1
           },
           {
-            "id": "item-23-34",
-            "cat": "item",
-            "key": "I6",
-            "x": 58.75,
-            "y": 95.833,
-            "grid": [
-              23,
-              34
-            ],
-            "align": "r",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 0
-          },
-          {
             "id": "item-26-32",
             "cat": "item",
-            "key": "I7",
+            "key": "I3",
             "x": 66.25,
             "y": 90.278,
             "grid": [
@@ -4522,54 +4462,9 @@
             "lane": 1
           },
           {
-            "id": "item-37-32",
-            "cat": "item",
-            "key": "I8",
-            "x": 93.75,
-            "y": 90.278,
-            "grid": [
-              37,
-              32
-            ],
-            "align": "l",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 0
-          },
-          {
-            "id": "item-25-18",
-            "cat": "item",
-            "key": "I9",
-            "x": 63.75,
-            "y": 51.389,
-            "grid": [
-              25,
-              18
-            ],
-            "align": "l",
-            "name": "Electrode, 43",
-            "ref": "ELECTRODE, 43",
-            "lane": 0
-          },
-          {
-            "id": "item-32-18",
-            "cat": "item",
-            "key": "I10",
-            "x": 81.25,
-            "y": 51.389,
-            "grid": [
-              32,
-              18
-            ],
-            "align": "l",
-            "name": "Voltorb, 40",
-            "ref": "VOLTORB, 40",
-            "lane": 1
-          },
-          {
             "id": "item-28-3",
             "cat": "item",
-            "key": "I11",
+            "key": "I4",
             "x": 71.25,
             "y": 9.722,
             "grid": [
@@ -4584,7 +4479,7 @@
           {
             "id": "item-34-3",
             "cat": "item",
-            "key": "I12",
+            "key": "I5",
             "x": 86.25,
             "y": 9.722,
             "grid": [
@@ -4597,9 +4492,114 @@
             "lane": 1
           },
           {
-            "id": "item-21-14",
-            "cat": "item",
-            "key": "I13",
+            "id": "pokemon-9-20",
+            "cat": "pokemon",
+            "key": "P1",
+            "x": 23.75,
+            "y": 56.944,
+            "grid": [
+              9,
+              20
+            ],
+            "align": "r",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 0
+          },
+          {
+            "id": "pokemon-32-18",
+            "cat": "pokemon",
+            "key": "P2",
+            "x": 81.25,
+            "y": 51.389,
+            "grid": [
+              32,
+              18
+            ],
+            "align": "l",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 1
+          },
+          {
+            "id": "pokemon-25-18",
+            "cat": "pokemon",
+            "key": "P3",
+            "x": 63.75,
+            "y": 51.389,
+            "grid": [
+              25,
+              18
+            ],
+            "align": "l",
+            "name": "Electrode, 43",
+            "ref": "ELECTRODE, 43",
+            "lane": 0
+          },
+          {
+            "id": "pokemon-21-25",
+            "cat": "pokemon",
+            "key": "P4",
+            "x": 53.75,
+            "y": 70.833,
+            "grid": [
+              21,
+              25
+            ],
+            "align": "r",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 0
+          },
+          {
+            "id": "pokemon-26-28",
+            "cat": "pokemon",
+            "key": "P5",
+            "x": 66.25,
+            "y": 79.167,
+            "grid": [
+              26,
+              28
+            ],
+            "align": "l",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 0
+          },
+          {
+            "id": "pokemon-23-34",
+            "cat": "pokemon",
+            "key": "P6",
+            "x": 58.75,
+            "y": 95.833,
+            "grid": [
+              23,
+              34
+            ],
+            "align": "r",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 0
+          },
+          {
+            "id": "pokemon-37-32",
+            "cat": "pokemon",
+            "key": "P7",
+            "x": 93.75,
+            "y": 90.278,
+            "grid": [
+              37,
+              32
+            ],
+            "align": "l",
+            "name": "Voltorb, 40",
+            "ref": "VOLTORB, 40",
+            "lane": 0
+          },
+          {
+            "id": "pokemon-21-14",
+            "cat": "pokemon",
+            "key": "P8",
             "x": 53.75,
             "y": 40.278,
             "grid": [
@@ -4612,9 +4612,9 @@
             "lane": 0
           },
           {
-            "id": "item-4-9",
-            "cat": "item",
-            "key": "I14",
+            "id": "pokemon-4-9",
+            "cat": "pokemon",
+            "key": "P9",
             "x": 11.25,
             "y": 26.389,
             "grid": [
@@ -14561,9 +14561,9 @@
         "name": "seafoam-islands-b4f",
         "markers": [
           {
-            "id": "item-6-1",
-            "cat": "item",
-            "key": "I1",
+            "id": "pokemon-6-1",
+            "cat": "pokemon",
+            "key": "P1",
             "x": 21.667,
             "y": 8.333,
             "grid": [
@@ -18125,24 +18125,9 @@
             "lane": 0
           },
           {
-            "id": "item-11-5",
-            "cat": "item",
-            "key": "I2",
-            "x": 38.333,
-            "y": 30.556,
-            "grid": [
-              11,
-              5
-            ],
-            "align": "r",
-            "name": "Moltres, 50",
-            "ref": "MOLTRES, 50",
-            "lane": 1
-          },
-          {
             "id": "item-9-11",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 31.667,
             "y": 63.889,
             "grid": [
@@ -18157,7 +18142,7 @@
           {
             "id": "item-18-9",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 61.667,
             "y": 52.778,
             "grid": [
@@ -18172,7 +18157,7 @@
           {
             "id": "item-27-5",
             "cat": "item",
-            "key": "I5",
+            "key": "I4",
             "x": 91.667,
             "y": 30.556,
             "grid": [
@@ -18183,6 +18168,21 @@
             "name": "TM Submission",
             "ref": "TM_SUBMISSION",
             "lane": 0
+          },
+          {
+            "id": "pokemon-11-5",
+            "cat": "pokemon",
+            "key": "P1",
+            "x": 38.333,
+            "y": 30.556,
+            "grid": [
+              11,
+              5
+            ],
+            "align": "r",
+            "name": "Moltres, 50",
+            "ref": "MOLTRES, 50",
+            "lane": 1
           },
           {
             "id": "hidden-5-2",

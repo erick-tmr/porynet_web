@@ -292,14 +292,18 @@ pt:
       map_filter_all: "TUDO"
       map_cat_trainer: "TREINADORES"
       map_cat_npc: "NPCS IMPORTANTES"
+      map_cat_pokemon: "POKÉMON"
       map_cat_item: "ITENS NO CHÃO"
       map_cat_hidden: "ITENS ESCONDIDOS"
       map_cat_exit: "SAÍDAS"
       map_done_trainer: "DERROTADO"
+      map_done_pokemon: "ENFRENTADO"
       map_done_item: "PEGO"
       map_done_hidden: "PEGO"
       map_status_trainer_done: "DERROTADO ✓"
       map_status_trainer_todo: "NÃO DERROTADO"
+      map_status_pokemon_done: "ENFRENTADO ✓"
+      map_status_pokemon_todo: "NÃO ENFRENTADO"
       map_status_item_done: "PEGO ✓"
       toast_caught_on: "%{name} registrado"
       toast_caught_off: "%{name} liberado"
@@ -469,6 +473,7 @@ pt:
       ld_later_catch: "%{stop} tem %{name} a %{rate}, então um %{base} é tudo que a linha pede."
       ld_later_rare: "%{stop} tem %{name} a apenas %{rate}, então evolua o %{base} extra em vez de caçar um."
       ld_later_level: "%{name} nunca aparece selvagem, então o %{base} extra sobe até o nível %{level}."
+      ld_later_static: "%{stop} guarda um %{name} dentro de um ball, então um %{base} basta para a linha."
       ld_later_stone: "%{name} nunca aparece selvagem, então o %{base} extra recebe a %{stone}."
       ld_later_trade: "%{name} só vem de troca, então o %{base} extra é o que você entrega e recebe de volta."
       ld_later_refused: "%{base} recusa a Thunder Stone no Yellow, então %{name} só chega por troca."
@@ -3025,74 +3030,51 @@ pt:
           intro: "Uma usina abandonada saindo da Rota 10, acessível só com Surf. Treze Poké Balls estão no chão e oito delas são Voltorb disfarçados; o Zapdos pousa no fundo."
           steps:
             "1":
-              title: "Surfe da Rota 10"
-              text_html: "Com o Surf, siga ao sul da entrada do Rock Tunnel na Rota 10 até a porta solitária da usina %{door}. Os andares fervilham de tipos Elétrico e Veneno, então leve Repels se só quer o loot e o Zapdos."
-            "2":
               title: "Pegue o Carbos na parede oeste"
               text: "Suba pelo lado esquerdo a partir da porta. Oito das bolas destes andares são Voltorb ou Electrode que acordam e atacam, mas a que fica embaixo na parede oeste é real: um Carbos, aumento de Velocidade."
               items:
                 carbos: "Encostado na parede oeste, na parte baixa da usina. De frente para leste para pegar."
+            "2":
+              title: "Atravesse para o salão das máquinas"
+              text: "Suba o corredor acima do nicho do Carbos e siga a leste até o salão das máquinas. Todo ball no caminho é uma batalha disfarçada: dois Voltorb (Nv 40) e um Electrode (Nv 43) que pode dar Selfdestruct."
             "3":
-              title: "Cutuque o primeiro item falso"
-              text: "Suba o corredor acima do nicho do Carbos. O ball esperando no centro-esquerdo e seu primeiro Voltorb disfarcado (Nv 40); toque nele e ele desperta para uma batalha. Registre para a dex e siga."
-            "4":
-              title: "Atravesse para a sala centro-sul"
-              text: "Serpenteie a leste e para baixo ate o meio da usina. Um ball fica na sala centro-sul, e e outro Voltorb (Nv 40) fingindo de morto. Encare a luta ou passe direto."
-            "5":
-              title: "Cutuque o ball logo abaixo"
-              text: "Um pequeno passo a leste e para baixo ha mais um ball falso, um Voltorb (Nv 40) no centro-baixo. Mesmo disfarce, mesmo choque ao tocar."
-            "6":
-              title: "Pegue o TM33 Reflect"
-              text: "Desca para a ampla sala sul. Bem no centro ha um ball de verdade com o TM33 (Reflect), que reduz pela metade o dano fisico recebido por alguns turnos. Pegue de frente para norte."
-              items:
-                tm-reflect: "Centro da sala sul. De frente para norte para pegar."
-            "7":
-              title: "Cheque o ball na parede sul"
-              text: "Logo a leste do TM, encostado na parede sul, ha outro ball. E um Voltorb (Nv 40) disfarcado, entao fique de frente para leste e espere briga."
-            "8":
-              title: "Pegue o TM25 Thunder"
-              text: "A leste do centro na sala sul espera um ball de verdade com o TM25 (Thunder), o golpe Eletrico de 110 de poder simbolo da usina. Pegue de frente para leste."
-              items:
-                tm-thunder: "Sala sul, a leste do centro. De frente para leste para pegar."
-            "9":
-              title: "Varra o canto sudeste"
-              text: "Va ate o canto sudeste distante pelo ultimo ball aqui embaixo. Outro disfarce de Voltorb (Nv 40); pegue de frente para oeste e depois volte para cima."
-            "10":
               title: "Tateie o Max Elixir oculto"
-              text: "De volta ao meio da usina, fique no chao aberto e aperte A no quadrado logo a oeste, um quadrado a leste do pequeno bloco de parede. Um Max Elixir oculto esta ali mesmo sem nada aparecer na tela."
+              text: "Siga a oeste até o fim da fileira. Fique um quadrado a leste do pequeno bloco de parede e aperte A de frente para oeste. Um Max Elixir oculto está ali, sem nada aparecer na tela."
               hidden:
                 max-elixir: "Bem no centro da usina, um quadrado a leste do bloco de parede. Aperte A de frente para oeste; nada aparece na tela."
-            "11":
-              title: "Desperte o ball Electrode"
-              text: "Um ball fica no centro da usina, mas este e um disfarce mais duro: um Electrode (Nv 43). Pegue de frente para sul e prepare-se para um possivel Selfdestruct."
-            "12":
-              title: "Cheque o ball centro-leste"
-              text: "Um pouco a leste ha mais um ball, um Voltorb (Nv 40) disfarcado. Pegue de frente para oeste antes de subir rumo ao topo da usina."
-            "13":
-              title: "Pegue o HP Up la em cima"
-              text: "Suba pelo lado leste e siga a fileira do topo. A direita do centro ha um ball de verdade com um HP Up para elevar o HP maximo de um Pokémon. Pegue de frente para norte."
+            "4":
+              title: "Pegue o TM33 Reflect"
+              text: "Volte do salão e desça pelo lado oeste, passando por mais dois balls de Voltorb. Bem no centro da sala sul, um ball de verdade tem o TM33 (Reflect), que reduz pela metade o dano físico. Pegue de frente para norte."
+              items:
+                tm-reflect: "Centro da sala sul. De frente para norte para pegar."
+            "5":
+              title: "Pegue o TM25 Thunder"
+              text: "Toque o ball logo a leste do TM, outro Voltorb, depois suba e desça para a sala de baixo. Um ball de verdade ali tem o TM25 (Thunder), o golpe de 110 de poder símbolo da usina. Pegue de frente para leste."
+              items:
+                tm-thunder: "Sala sul, a leste do centro. De frente para leste para pegar."
+            "6":
+              title: "Pegue o HP Up lá em cima"
+              text: "Vá até o canto sudeste distante pelo último ball de Voltorb, depois suba pelo lado leste até a fileira do topo. À direita do centro há um ball de verdade com um HP Up, que eleva o HP máximo. Pegue de frente para norte."
               items:
                 hp-up: "Fileira do topo, a direita do centro. De frente para norte para pegar."
-            "14":
+            "7":
               title: "Fisgue o Rare Candy"
-              text: "No canto superior direito espera um ball de verdade com um Rare Candy, um nível gratis para qualquer Pokémon. Pegue de frente para oeste."
+              text: "No canto superior direito espera um ball de verdade com um Rare Candy, um nível grátis para qualquer Pokémon. Pegue de frente para oeste."
               items:
                 rare-candy: "Canto superior direito. De frente para oeste para pegar."
-            "15":
-              title: "Desperte o ultimo Electrode"
-              text: "Varra de volta a oeste pelo topo. No centro-superior esta o segundo disfarce de Electrode (Nv 43); pegue de frente para leste e prepare-se para outro Selfdestruct."
-            "16":
+            "8":
               title: "Tateie o PP Up oculto"
-              text: "Perto do topo esquerdo, va ate a parede norte a esquerda do centro e aperte A de frente para norte. Um PP Up oculto fica encostado na parede, invisivel ate cair na sua mochila."
+              text: "Varra de volta a oeste pelo topo, pegando o segundo Electrode (Nv 43) no caminho. Perto do topo esquerdo, vá até a parede norte à esquerda do centro e aperte A de frente para norte para achar um PP Up oculto."
               hidden:
                 pp-up: "Encostado na parede norte, a esquerda do centro. Aperte A de frente para norte; nada aparece na tela."
-            "17":
+            "9":
               title: "Capture o Zapdos"
               text: "O Zapdos (Nv 50) descansa no canto noroeste distante, perto da porta oeste da usina. Salve antes, enfraqueça com Rocha ou Gelo, faça dormir ou paralise, e jogue Ultra Balls. Só há uma chance."
-            "18":
+            "10":
               title: "Surfe de volta para a Rota 10"
-              text: "Com o Zapdos capturado e a usina saqueada, saia pela porta sul e surfe de volta para a Rota 10. Agora só resta a Victory Road no mapa."
+              text: "Com o Zapdos capturado e a usina saqueada, saia pela porta sul e surfe de volta para a Rota 10. Depois voe até Fuchsia: a Rota 19 desce dali pela água rumo às Ilhas Seafoam."
           tips:
+            electrode: "Dois dos balls disfarçados são um Electrode (Nv 43), os únicos do Yellow: ele não aparece em grama alguma. Leve um ball."
             zapdos: "O lendário Elétrico, um Nv 50 estático de uma vez só. Salve antes de tocar nele, depois faça dormir ou paralise e capture."
           oak:
             zapdos: "A ave Elétrica da Power Plant. Só uma chance. Capture enquanto está aqui."

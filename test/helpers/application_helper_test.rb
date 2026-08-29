@@ -122,6 +122,16 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal I18n.t("walkthrough.ui.map_exit_north"), marker_detail(edge)
   end
 
+  test "a tick reads as beaten, fought or collected, by what the marker is" do
+    def marker(cat) = Walkthrough::MapMarker.new(id: "#{cat}-1-1", cat: cat, name: "x",
+      x: 1.0, y: 2.0, align: "r", ref: "X")
+
+    assert_equal "NOT BEATEN", I18n.t(marker_status_key(marker("trainer"), "todo"))
+    assert_equal "FOUGHT ✓", I18n.t(marker_status_key(marker("pokemon"), "done"))
+    assert_equal "GOT IT ✓", I18n.t(marker_status_key(marker("item"), "done"))
+    assert_equal "NOT COLLECTED", I18n.t(marker_status_key(marker("hidden"), "todo"))
+  end
+
   test "a badge window names its leader, and the last one names the League instead" do
     game = Walkthrough.find!("yellow")
     brock = game.windows.first

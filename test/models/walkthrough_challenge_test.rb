@@ -29,6 +29,17 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 2, assigned.fetch("leg-03"), "Brock closes mid-page, so the page looks ahead to Misty"
   end
 
+  test "a stage that only ever stands in a ball fills its own box slot" do
+    voltorb = challenge.later_for(game, "100")
+
+    assert_equal :static, voltorb.kind, "Electrode is caught at the plant, not grown from a spare"
+    assert_equal "Power Plant", voltorb.args[:stop]
+    assert challenge.self_sourced?(game, "101"),
+      "two of the disguised balls are an Electrode, and a ball that waits is a certain body"
+    assert_equal 1, challenge.bodies_for(game, "100"),
+      "so the line stops asking for a spare Voltorb to walk up to Lv 30"
+  end
+
   test "the Safari Zone and Silph Co. land in the window their gym closes" do
     assert game.windows[4].covers?("safari-zone"), "the Safari Zone is inside the Koga window"
     assert_equal "Koga", plan("leg-11").window.leader

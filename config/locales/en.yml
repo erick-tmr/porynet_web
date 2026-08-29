@@ -292,14 +292,18 @@ en:
       map_filter_all: "ALL"
       map_cat_trainer: "TRAINERS"
       map_cat_npc: "IMPORTANT NPCS"
+      map_cat_pokemon: "POKÉMON"
       map_cat_item: "ITEM BALLS"
       map_cat_hidden: "HIDDEN ITEMS"
       map_cat_exit: "EXITS"
       map_done_trainer: "BEATEN"
+      map_done_pokemon: "FOUGHT"
       map_done_item: "GOT"
       map_done_hidden: "GOT"
       map_status_trainer_done: "BEATEN ✓"
       map_status_trainer_todo: "NOT BEATEN"
+      map_status_pokemon_done: "FOUGHT ✓"
+      map_status_pokemon_todo: "NOT FOUGHT"
       map_status_item_done: "GOT IT ✓"
       map_status_item_todo: "NOT COLLECTED"
       toast_caught_on: "%{name} registered"
@@ -469,6 +473,7 @@ en:
       ld_later_catch: "%{stop} has %{name} at %{rate}, so one %{base} is all the line asks for."
       ld_later_rare: "%{stop} has %{name} at only %{rate}, so grow the spare %{base} instead of hunting one."
       ld_later_level: "%{name} is never wild, so the spare %{base} levels to %{level}."
+      ld_later_static: "%{stop} keeps %{name} in a ball, so one %{base} is all the line asks for."
       ld_later_stone: "%{name} is never wild, so the spare %{base} takes the %{stone}."
       ld_later_trade: "%{name} only comes from a trade, so the spare %{base} is the one you hand over and take back."
       ld_later_refused: "%{base} refuses the Thunder Stone in Yellow, so %{name} only ever arrives by trade."
@@ -3025,74 +3030,51 @@ en:
           intro: "An abandoned plant off Route 10, reachable only by Surf. Thirteen Poké Balls lie on its floors and eight are Voltorb in disguise; Zapdos roosts at the back."
           steps:
             "1":
-              title: "Surf in from Route 10"
-              text_html: "With Surf, ride south from the Rock Tunnel entrance on Route 10 to the plant's lone door %{door}. Wild Electric and Poison types hum through the floors, so pack Repels if you only want the loot and Zapdos."
-            "2":
               title: "Grab the Carbos on the west wall"
               text: "Head up the left side from the door. Eight of the balls on these floors are Voltorb or Electrode that wake and attack, but the one low against the west wall is real: a Carbos, a Speed boost."
               items:
                 carbos: "Against the west wall, low in the plant. Face east to take it."
+            "2":
+              title: "Cross to the machine hall"
+              text: "Climb the corridor above the Carbos alcove and follow it east into the hall of machines. Every ball on the way is a battle in disguise: two Voltorb (Lv 40), then an Electrode (Lv 43) that may Selfdestruct."
             "3":
-              title: "Poke the first fake ball"
-              text: "Climb the corridor above the Carbos alcove. The ball waiting at left-center is your first disguised Voltorb (Lv 40); touch it and it snaps awake for a battle. Log it for the dex, then move on."
-            "4":
-              title: "Cross into the south-center room"
-              text: "Wind east and down into the middle of the plant. A ball sits in the south-center room, and it is another Voltorb (Lv 40) playing dead. Take the fight or walk past it."
-            "5":
-              title: "Nudge the ball just below"
-              text: "A short step east and down sits yet another fake ball, a Voltorb (Lv 40) in the lower-center. Same disguise, same jolt when you touch it."
-            "6":
-              title: "Bag TM33 Reflect"
-              text: "Drop into the wide south room. Dead center sits a genuine ball holding TM33 (Reflect), which halves physical damage taken for a few turns. Grab it facing north."
-              items:
-                tm-reflect: "Center of the south room. Face north to take it."
-            "7":
-              title: "Check the ball on the south wall"
-              text: "Just east of the TM, against the south wall, sits another ball. It is a Voltorb (Lv 40) in disguise, so face east and expect a scuffle."
-            "8":
-              title: "Bag TM25 Thunder"
-              text: "East of center in the south room waits a real ball with TM25 (Thunder), the plant's signature 110-power Electric move. Grab it facing east."
-              items:
-                tm-thunder: "South room, east of center. Face east to take it."
-            "9":
-              title: "Sweep the south-east corner"
-              text: "Push into the far south-east corner for the last ball down here. Another Voltorb (Lv 40) disguise; grab it facing west, then head back up."
-            "10":
               title: "Feel for the hidden Max Elixir"
-              text: "Back in the middle of the plant, stand one square east of the little wall nub and press A facing west. A hidden Max Elixir is there, with nothing shown on-screen."
+              text: "Carry on west to the end of the row. Stand one square east of the little wall nub and press A facing west. A hidden Max Elixir is there, with nothing shown on-screen."
               hidden:
                 max-elixir: "Dead center of the plant, one tile east of the wall nub. Press A facing west; nothing shows on-screen."
-            "11":
-              title: "Wake the Electrode ball"
-              text: "A ball sits in the center of the plant, but this one is a tougher disguise: an Electrode (Lv 43). Grab it facing south and brace for a possible Selfdestruct."
-            "12":
-              title: "Check the east-center ball"
-              text: "Slightly east sits one more ball, a Voltorb (Lv 40) in disguise. Grab it facing west before you climb toward the top of the plant."
-            "13":
+            "4":
+              title: "Bag TM33 Reflect"
+              text: "Head back out of the hall and down the west side, past two more Voltorb balls. Dead center of the south room, a real ball holds TM33 (Reflect), which halves physical damage. Grab it facing north."
+              items:
+                tm-reflect: "Center of the south room. Face north to take it."
+            "5":
+              title: "Bag TM25 Thunder"
+              text: "Take the ball just east of the TM, another Voltorb, then climb out and drop into the room below. A real ball there holds TM25 (Thunder), the plant's signature 110-power move. Grab it facing east."
+              items:
+                tm-thunder: "South room, east of center. Face east to take it."
+            "6":
               title: "Grab the HP Up up top"
-              text: "Climb the east side and follow the top row. Right of center sits a real ball with an HP Up to raise a Pokémon's max HP. Take it facing north."
+              text: "Push into the far south-east corner for one last Voltorb ball, then climb the east side to the top row. Right of center a real ball holds an HP Up, raising a Pokémon's max HP. Take it facing north."
               items:
                 hp-up: "Top row, right of center. Face north to take it."
-            "14":
+            "7":
               title: "Snag the Rare Candy"
               text: "In the top-right corner waits a genuine ball with a Rare Candy, a free level for any Pokémon. Grab it facing west."
               items:
                 rare-candy: "Top-right corner. Face west to take it."
-            "15":
-              title: "Wake the last Electrode"
-              text: "Sweep back west across the top. In the upper-center sits the second Electrode (Lv 43) disguise; grab it facing east and brace for another Selfdestruct."
-            "16":
+            "8":
               title: "Feel for the hidden PP Up"
-              text: "Near the top-left, walk up to the north wall left of center and press A facing up. A hidden PP Up sits against the wall, invisible until it lands in your bag."
+              text: "Sweep back west across the top, taking the second Electrode (Lv 43) on the way. Near the top-left, walk up to the north wall left of center and press A facing north for a hidden PP Up."
               hidden:
                 pp-up: "Against the north wall, left of center. Press A facing north; nothing shows on-screen."
-            "17":
+            "9":
               title: "Catch Zapdos"
               text: "Zapdos (Lv 50) roosts in the far northwest, near the plant's west door. Save first, chip it with Rock or Ice, sleep or paralyze it, then throw Ultra Balls. You get one shot."
-            "18":
+            "10":
               title: "Surf back out to Route 10"
-              text: "With Zapdos caught and the plant stripped clean, step out the south door and Surf back onto Route 10. Nothing is left on the map now but Victory Road."
+              text: "With Zapdos caught and the plant stripped clean, step out the south door and Surf back onto Route 10. Fly to Fuchsia next: Route 19 runs south from there, out over the water toward Seafoam Islands."
           tips:
+            electrode: "Two of the disguised balls are an Electrode (Lv 43), the only ones in Yellow: it spawns in no grass anywhere. Bring a ball."
             zapdos: "The Electric legendary, a one-time Lv 50 static. Save before you touch it, then sleep or paralyze and ball it down."
           oak:
             zapdos: "The Electric bird of the Power Plant. One shot only. Catch it while you are here."
