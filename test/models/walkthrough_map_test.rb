@@ -13,10 +13,14 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     by_map.values.select { |locs| locs.size > 1 }.flat_map { |locs| locs.combination(2).to_a }.uniq
   end
 
-  # Everything on a stop's page that a player can tick off as collected, by the name on its card.
+  # Everything on a stop's page that a player can tick off as collected, keyed by the map it sits
+  # on and the name on its card. The map matters because a name is not unique across the game: the
+  # Surf sweep borrows five maps at once, and its Vermilion Max Ether has nothing to do with the
+  # one buried on Route 10. Same map and same name is the pair that has to share one id.
   def ticks_by_name(loc)
     (loc.steps.flat_map { |step| step.items + step.hidden } + loc.later)
-      .group_by(&:name).transform_values { |cards| cards.map(&:tick).to_set }
+      .group_by { |card| [ card.tick&.split("/")&.first, card.name ] }
+      .transform_values { |cards| cards.map(&:tick).to_set }
   end
 
   # [map name, letter] for every trainer pin a stop's steps name, in the order they name them.
@@ -95,17 +99,43 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_in_delta 0.0, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 1).heading, 0.01
   end
 
+  # Every map on the page that carries a drawn line, gyms included. A gym's floor is not one of its
+  # stop's `area_maps` (it hangs off the gym block instead), so a check that walked area_maps alone
+  # never saw Fuchsia's or Saffron's, which is where the longest line in the game is.
+  def routed_maps
+    (game.locations.flat_map(&:area_maps) +
+      game.locations.filter_map { |loc| loc.gym&.area } +
+      game.locations.filter_map { |loc| loc.dojo&.area }).select(&:route?)
+  end
+
   # The palette wraps rather than running out, so the guard is that it never has to: a floor with
   # more legs than hues would give two of them the same colour, and a step's own map and the
   # overview would then disagree about which line is which.
   test "no floor needs more colours than the palette has" do
-    legs = game.locations.flat_map(&:area_maps).select(&:route?)
-      .to_h { |area| [ area.name, area.route_legs.size ] }
+    legs = routed_maps.to_h { |area| [ area.name, area.route_legs.size ] }
 
-    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7 }, legs)
+    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7,
+                   "fuchsia-city-gym" => 5, "saffron-city-gym" => 9 }, legs)
     assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
     assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
       .find { |area| area.name == "rocket-hideout-b2f" }.route_legs.map(&:hue)
+  end
+
+  # Saffron's gym is nine rooms with no doors, so its line is nine separate ones: a pad is a jump,
+  # and a polyline through the wall to the room it lands in would draw a walk nobody takes. Every
+  # leg has to start and end inside one room, which is what "no leg crosses a wall" means here.
+  test "the warp gym draws one line per room, never across a wall" do
+    gym = location("saffron-city-return").gym.area
+    rooms = gym.route_legs.map do |leg|
+      leg.points.map { |x, y| [ x / 16 <= 5 ? 0 : (x / 16 <= 12 ? 1 : 2),
+                                y / 16 <= 5 ? 0 : (y / 16 <= 11 ? 1 : 2) ] }.uniq
+    end
+
+    assert_equal 9, rooms.size, "one leg per room, entrance through to Sabrina"
+    assert_equal [ 1 ] * 9, rooms.map(&:size), "and each stays inside the room it is drawn in"
+    assert_equal [ [ 1, 2 ], [ 2, 2 ], [ 2, 0 ], [ 2, 1 ], [ 1, 0 ], [ 0, 2 ], [ 0, 1 ],
+                   [ 0, 0 ], [ 1, 1 ] ], rooms.flatten(1),
+      "in at the door, then SE, NE, E, N, SW, W, NW, and through to the middle"
   end
 
   # Each step that rides the arrows carries its own copy of the floor, cropped to the stretch it
@@ -175,12 +205,23 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "▲", marker(key: "X", glyph: "▲").glyph_or_key, "a glyph wins over a key"
   end
 
-  test "a map wider than half again its height takes the landscape template" do
+  test "a map wider than a third again its height takes the landscape template" do
     assert_predicate location("route-3").area_maps.first, :landscape?, "1120x288 is a horizontal strip"
     refute_predicate forest_map, :landscape?, "544x768 is taller than wide"
 
-    square = location("silph-co").area_maps.find { |area| area.name == "silph-co-11f" }
-    refute_predicate square, :landscape?, "a square floor stays in the side-by-side split"
+    silph = location("silph-co").area_maps.to_h { |area| [ area.name, area ] }
+    assert_predicate silph.fetch("silph-co-6f"), :landscape?, "416x288 is a wide room, not a stamp"
+    refute_predicate silph.fetch("silph-co-10f"), :landscape?, "256x288 is taller than wide"
+    refute_predicate silph.fetch("silph-co-11f"), :landscape?, "a square floor stays in the split"
+    refute_predicate location("rocket-hideout").area_maps.find { |a| a.floor == "B4F" }, :landscape?,
+      "480x384 is 5:4, the near miss the split column still suits"
+
+    # Not a strip and it does fit the column, but only just: 640 in a column of 675 is barely 1x,
+    # which is the size a town's labels crowd worst at. Full width lets it reach 2.5x instead.
+    assert_predicate location("cerulean-city").area_maps.first, :landscape?,
+      "640x576 fits the column and gains nothing from it"
+    refute_predicate forest_map, :landscape?,
+      "544x768 is wide too, but a tall map in the landscape template strands its legend"
   end
 
   test "the NPC overlay joins item-givers and easter eggs onto the map they stand on" do
@@ -242,6 +283,21 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     end
 
     assert_empty backwards, "these pages meet their trainers out of order"
+  end
+
+  # The pulsing dot the page lays over a hidden item's found-frame is positioned by a per-pin CSS
+  # rule, measured by hand from the PNG. Nothing joins the two, so a card can name a pin that has
+  # no rule and land the glow at the top-left corner, and a rule can outlive the card that used it
+  # and go stale unnoticed: Vermilion's Max Ether sat wrong for as long as no page claimed it,
+  # because `later` cards carry no pin and its rule was never exercised.
+  test "every hidden item that names a pin has a rule placing its glow" do
+    css = Rails.root.join("app/assets/stylesheets/pages/walkthrough.css").read
+    pinned = game.locations.flat_map { |loc| loc.steps.flat_map(&:hidden) + loc.later }
+      .select(&:pin).map(&:pin).uniq
+
+    assert_operator pinned.size, :>, 40, "this is the whole hidden-item set, not a handful"
+    assert_empty pinned.reject { |pin| css.include?(".pn-wt-pin--#{pin} {") },
+      "these pins have no CSS rule, so their glow falls in the corner of the frame"
   end
 
   test "a step that names a pin resolves it to the key that pin wears today" do
@@ -313,12 +369,16 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     end
 
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
-    assert_equal [ %w[celadon-city celadon-city-return], %w[fuchsia-city fuchsia-city-return],
-                   %w[pewter-city digletts-cave], %w[route-10 route-10-south],
+    assert_equal [ %w[celadon-city celadon-city-return], %w[celadon-city surf-cleanups],
+                   %w[celadon-city-return surf-cleanups], %w[cerulean-city surf-cleanups],
+                   %w[fuchsia-city fuchsia-city-return], %w[pewter-city digletts-cave],
+                   %w[route-10 route-10-south], %w[route-10 surf-cleanups],
+                   %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],
                    %w[route-16-fly route-16], %w[route-2 digletts-cave],
-                   %w[route-4-mt-moon route-4], %w[saffron-city-return saffron-city],
-                   %w[vermilion-city vermilion-city-return],
-                   %w[viridian-city digletts-cave] ],
+                   %w[route-4-mt-moon route-4], %w[route-6 surf-cleanups],
+                   %w[saffron-city-return saffron-city],
+                   %w[vermilion-city surf-cleanups], %w[vermilion-city vermilion-city-return],
+                   %w[vermilion-city-return surf-cleanups], %w[viridian-city digletts-cave] ],
       pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
   end
 

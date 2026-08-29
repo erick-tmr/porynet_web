@@ -2247,6 +2247,93 @@
     "parent": "SAFFRON_CITY"
   },
   {
+    "type": "dialog",
+    "name": "silph-co-tm36",
+    "map": "SilphCo2F",
+    "player": [
+      10,
+      2
+    ],
+    "player_dir": "UP",
+    "sprites": [
+      {
+        "sprite": "SPRITE_SILPH_WORKER_F",
+        "grid": [
+          10,
+          1
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "parent": "SAFFRON_CITY",
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "TM36!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "name": "silph-co-lapras",
+    "map": "SilphCo7F",
+    "player": [
+      2,
+      5
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      2,
+      5
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_SILPH_WORKER_M",
+        "grid": [
+          1,
+          5
+        ],
+        "dir": "RIGHT"
+      }
+    ],
+    "parent": "SAFFRON_CITY"
+  },
+  {
+    "type": "dialog",
+    "name": "silph-co-master-ball",
+    "map": "SilphCo11F",
+    "player": [
+      6,
+      5
+    ],
+    "player_dir": "RIGHT",
+    "sprites": [
+      {
+        "sprite": "SPRITE_SILPH_PRESIDENT",
+        "grid": [
+          7,
+          5
+        ],
+        "dir": "LEFT"
+      },
+      {
+        "sprite": "SPRITE_BEAUTY",
+        "grid": [
+          10,
+          5
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "parent": "SAFFRON_CITY",
+    "dialog": {
+      "lines": [
+        "<PLAYER> got a",
+        "MASTER BALL!"
+      ]
+    }
+  },
+  {
     "type": "screen",
     "name": "ss-anne-item-tm-body-slam",
     "map": "SSAnne1FRooms",

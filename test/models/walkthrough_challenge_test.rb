@@ -112,12 +112,14 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "010", challenge.body_source(game, "010"), "the root of a line sources itself"
   end
 
-  # A 6% Slowbro sits on Seafoam water the guide crosses long before HM03, so it is not odds you
-  # can take. Only the stops that hand you the tool count, which leaves the 1% cave spawn.
-  test "odds you cannot work yet are not odds, so they never drop a quota" do
-    assert_equal 1, challenge.top_rate(game, "080")
-    assert_equal "079", challenge.body_source(game, "080")
-    assert_equal 2, challenge.bodies_for(game, "079")
+  # Only the stops that hand you the tool count. Slowbro's 6% sat on water the guide crossed long
+  # before HM03, so the best odds it could offer were a 1% cave spawn and the queue grew one from
+  # a spare Slowpoke instead. The Surf sweep goes back to Route 12 with the HM in the bag, so the
+  # 6% is odds you can take at last and Slowbro sources itself.
+  test "odds are only odds at a stop that hands you the tool for them" do
+    assert_equal 6, challenge.top_rate(game, "080")
+    assert_equal "080", challenge.body_source(game, "080"), "caught on its own odds now"
+    assert_equal 1, challenge.bodies_for(game, "079"), "so no spare Slowpoke is owed for it"
   end
 
   # A quota only reads as a decision next to the stage above it, so every species the queue takes
@@ -308,15 +310,15 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "Lt. Surge", ship.window.leader
   end
 
-  # Giovanni closes the last window, and the Power Plant now opens after him, so everything it
-  # would have covered has to come out of the Pokémon Mansion instead: Grimer, Muk and Ditto join
-  # the Growlithe line on the reminder rather than being quietly satisfied by a later detour.
+  # Giovanni closes the last window. The Power Plant is walked long before him now, off the Surf
+  # sweep that ends at its door, so Grimer and Muk are already registered by the time this page
+  # comes round and the reminder is down to the Growlithe line and Ditto.
   test "a page can owe an Oak reminder without owing a single catch" do
     gym = plan("leg-16")
 
     refute gym.living?
     assert gym.oak?
-    assert_equal %w[058 059 088 089 132], gym.earlier.map(&:dex)
+    assert_equal %w[058 059 132], gym.earlier.map(&:dex)
   end
 
   # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so

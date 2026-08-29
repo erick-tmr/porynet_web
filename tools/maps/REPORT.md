@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **990** (323 trainer, 119 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
-- standalone scenes: **274** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **280** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -185,6 +185,7 @@
 - `battle-rocket-hideout-jessie-james` (battle): walkthrough/yellow/battles/battle-rocket-hideout-jessie-james.png
 - `battle-sabrina` (battle): walkthrough/yellow/battles/battle-sabrina.png
 - `battle-silph-giovanni` (battle): walkthrough/yellow/battles/battle-silph-giovanni.png
+- `battle-silph-jessie-james` (battle): walkthrough/yellow/battles/battle-silph-jessie-james.png
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
@@ -308,6 +309,7 @@
 - `route-10-rock-tunnel` (screen): walkthrough/yellow/scenes/route-10-rock-tunnel.png
 - `route-11-gate` (screen): walkthrough/yellow/scenes/route-11-gate.png
 - `route-11-gate-inside` (screen): walkthrough/yellow/scenes/route-11-gate-inside.png
+- `route-11-gate-itemfinder` (dialog): walkthrough/yellow/scenes/route-11-gate-itemfinder.png
 - `route-11-hidden-escape-rope` (dialog): walkthrough/yellow/scenes/route-11-hidden-escape-rope.png
 - `route-12-gate-tm39` (dialog): walkthrough/yellow/scenes/route-12-gate-tm39.png
 - `route-12-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/route-12-hidden-hyper-potion.png
@@ -390,7 +392,11 @@
 - `silph-co-item-tm-swords-dance` (screen): walkthrough/yellow/scenes/silph-co-item-tm-swords-dance.png
 - `silph-co-item-tm-take-down` (screen): walkthrough/yellow/scenes/silph-co-item-tm-take-down.png
 - `silph-co-item-x-accuracy` (screen): walkthrough/yellow/scenes/silph-co-item-x-accuracy.png
+- `silph-co-jessie-james` (screen): walkthrough/yellow/scenes/silph-co-jessie-james.png
+- `silph-co-lapras` (screen): walkthrough/yellow/scenes/silph-co-lapras.png
+- `silph-co-master-ball` (dialog): walkthrough/yellow/scenes/silph-co-master-ball.png
 - `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png
+- `silph-co-tm36` (dialog): walkthrough/yellow/scenes/silph-co-tm36.png
 - `ss-anne-cut` (screen): walkthrough/yellow/scenes/ss-anne-cut.png
 - `ss-anne-hidden-great-ball` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-great-ball.png
 - `ss-anne-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-hyper-potion.png

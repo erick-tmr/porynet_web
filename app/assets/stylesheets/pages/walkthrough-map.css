@@ -1,8 +1,21 @@
 /* Annotated area map: the clickable marker layer, its controls, and the legend panel.
    Marker coordinates arrive as --mx / --my, written by the Stimulus controller through the
-   CSSOM because the page forbids inline styles. */
+   CSSOM because the page forbids inline styles.
 
-.pn-mm-block {
+   How far a map is ever stretched lives here, and only here: --mm-max-zoom for a map in its own
+   block, --mm-gym-zoom for one inside a gym, which is drawn larger because the floor is the
+   puzzle. tools/maps/markers.py lays labels out against the whole range, and test_markers.py
+   fails if these two and its LABEL_MAX_ZOOM ever disagree. */
+:root {
+  --mm-gym-zoom: 3;
+}
+
+/* The marker layer's own tokens. Both frames that draw one carry them: the map block on a stop's
+   page, and the shot inside a gym, which is the same layer in a different box. A gym had none of
+   these, so its ticked pins drew their check on `background: var(--mm-done)` with no --mm-done to
+   read, which is a transparent circle: the mark was there and invisible. */
+.pn-mm-block,
+.pn-wt-gym__shot-wrap {
   --mm-trainer: var(--accent2);
   --mm-npc: var(--amber);
   --mm-item: var(--accent);
@@ -224,8 +237,8 @@
   stroke-linecap: round;
 }
 
-/* One hue per leg, and enough of them that the longest floor never reuses one: eight legs on
-   B2F, eight colours. The palette hangs off the leg itself rather than off the map block, because
+/* One hue per leg, and enough of them that the longest floor never reuses one: nine rooms in
+   Saffron's gym, nine colours. The palette hangs off the leg itself rather than off the map block, because
    a step draws its own leg outside that block (see .pn-wt-stepmap), and the two have to agree
    about which colour a leg is. The overrides come after, so they win on source order. */
 .pn-mm-route__leg {
@@ -245,6 +258,10 @@
   --leg: #111318;
   --leg-casing: #f4f6fb;
 }
+
+/* Green, which nothing else in the palette is: it falls to Saffron's ninth room, the walk to
+   Sabrina, and a reader picking the last leg out of eight others should not have to hunt. */
+.pn-mm-route__leg--9 { --leg: #3DDC84; }
 
 .pn-mm-route__casing {
   stroke: var(--leg-casing);
@@ -430,11 +447,20 @@
 .is-labelled .pn-mm__label { display: flex; }
 .pn-mm[data-align="r"] .pn-mm__label { left: 22px; }
 .pn-mm[data-align="l"] .pn-mm__label { right: 22px; }
+/* Sat on its own pin instead of beside it, for a floor where the pins are the instruction rather
+   than things to hunt for: a name to one side of thirty near-identical warp pads is a name the
+   reader has to work out the owner of. The generator only asks for this where the label still
+   fits inside the map (markers.centre_labels). */
+.pn-mm[data-align="c"] .pn-mm__label {
+  left: 50%;
+  transform: translate(-50%, calc(-50% + var(--lane, 0) * 26px));
+}
 .pn-mm.is-selected .pn-mm__label { border-color: var(--amber); }
 
 /* Labels off means a clean map: hide the pins (arrows, rings, ticks) too, not just their names.
    The legend beside the map stays fully interactive, so nothing becomes unreachable. */
-.pn-mm-block:not(.is-labelled) .pn-mm__pin { display: none; }
+.pn-mm-block:not(.is-labelled) .pn-mm__pin,
+.pn-wt-gym__shot-wrap:not(.is-labelled) .pn-mm__pin { display: none; }
 
 /* Leader line: when a crowded row deals a label into another one, an elbow runs from the pin to
    it, so the label still reads as part of its marker instead of floating free. Drawn on ::before,

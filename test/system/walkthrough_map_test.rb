@@ -316,12 +316,24 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     end
   end
 
+  # Pewter used to be the counter-example here, and no longer is: a 640-wide town map fits the
+  # split column and gains nothing from it, so it takes the full width too. What is left in the
+  # portrait template is a map narrow enough that the column really does enlarge it, which is a
+  # different page now.
+  test "a narrow map keeps the split template beside its legend" do
+    visit "/walkthroughs/yellow/leg-16"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 1
+
+    assert_selector ".pn-mm-block[data-map-markers-map-value='viridian-gym'][data-map-orient='portrait']"
+  end
+
   test "a wide route takes the landscape template and holds its map at native width" do
     visit "/walkthroughs/yellow/leg-03"
     assert_selector ".pn-mm-layer.is-ready", minimum: 2
 
     assert_selector ".pn-mm-block[data-map-markers-map-value='route-3'][data-map-orient='landscape']"
-    assert_selector ".pn-mm-block[data-map-markers-map-value='pewter-city'][data-map-orient='portrait']"
+    # 640 in a 675 column is barely 1x, so a town map goes full width too
+    assert_selector ".pn-mm-block[data-map-markers-map-value='pewter-city'][data-map-orient='landscape']"
 
     within ".pn-mm-block[data-map-markers-map-value='route-3']" do
       assert_selector ".pn-mm-howto--top"                    # the how-to moves above the map

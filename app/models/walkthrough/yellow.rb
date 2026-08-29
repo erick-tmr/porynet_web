@@ -301,16 +301,19 @@ module Walkthrough
       { slug: "leg-12", special: false,
         locs: %w[fuchsia-city-return route-18 route-17 route-16 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
-      { slug: "leg-13", special: false, locs: %w[saffron-city-return] },
+      { slug: "leg-13", special: false, locs: %w[saffron-city-return surf-cleanups] },
+      # The Surf sweep ends on Route 10 at the plant's own door, so the plant is the next page
+      # rather than a detour held back to the end: you are standing there with Ultra Balls in the
+      # bag. Seafoam stays held back, being a boulder puzzle on the way to nowhere you need yet.
+      { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
       { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
       { slug: "leg-16", special: false, locs: %w[viridian-gym] },
-      # Both are optional Surf detours off routes the badge run has already crossed, and both hold
-      # a bird you get one shot at. Walked in passing they interrupt the run to Cinnabar with a
-      # boulder puzzle and eleven floors of disguised Voltorb; held back to here they are the last
-      # sweep before Victory Road, taken with eight badges, a full team and Fly to reach them.
+      # An optional Surf detour off a route the badge run has already crossed, holding a bird you
+      # get one shot at. Walked in passing it interrupts the run to Cinnabar with a boulder puzzle;
+      # held back to here it is the last sweep before Victory Road, taken with eight badges, a full
+      # team and Fly to reach it.
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
-      { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "leg-17", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
@@ -543,7 +546,7 @@ module Walkthrough
         underground_path_west_east, route_7, celadon_city,
         rocket_hideout, celadon_city_return, route_16_fly,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
-        fuchsia_city_return, saffron_city_return,
+        fuchsia_city_return, saffron_city_return, surf_cleanups,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
@@ -565,7 +568,12 @@ module Walkthrough
     # up to Pewter, so every page has to hand the reader the same markers and the same ticks.
     MAP_EXTRA = {
       "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City",
-                           "pewter-city" => "Pewter City" }
+                           "pewter-city" => "Pewter City" },
+      # The Surf sweep owns no map of its own: it is three errands in three towns, so it borrows
+      # all three and each step pins the one it is standing on.
+      "surf-cleanups" => { "vermilion-city" => "Vermilion City", "route-6" => "Route 6",
+                           "celadon-city" => "Celadon City", "route-12" => "Route 12",
+                           "cerulean-city" => "Cerulean City", "route-10" => "Route 10" }
     }.freeze
 
     # A stop that borrows another stop's map takes the whole map's people with it, and some of them
@@ -576,10 +584,17 @@ module Walkthrough
     # table decides both, so a pin and a card cannot disagree about who is standing there.
     OUT_OF_REACH = { "route-16-fly" => %w[trainer] }.freeze
 
+    # A borrowed location whose maps are not all wanted. The Surf sweep goes to Vermilion for one
+    # tile of water between two houses; the dock, with the S.S. Anne drawn at it, is a different
+    # errand on a different page and only asks the reader which map they are looking at.
+    MAP_EXTRA_SKIP = { "surf-cleanups" => %w[vermilion-city-dock] }.freeze
+
     def self.maps_for(slug, data)
       own = drop_pins(data.fetch(MAP_SOURCE.fetch(slug, slug), []), OUT_OF_REACH.fetch(slug, []))
+      skip = MAP_EXTRA_SKIP.fetch(slug, [])
       own + MAP_EXTRA.fetch(slug, {}).flat_map do |from, title|
-        data.fetch(from, []).map { |map| map.with(title: title) }
+        data.fetch(from, []).reject { |map| skip.include?(map.name) }
+            .map { |map| map.with(title: title) }
       end
     end
 
@@ -1629,7 +1644,8 @@ module Walkthrough
           { pins: { cave: "route-11/exit-4-5" } },
           {},
           { hidden: [ "Escape Rope", "escape-rope", "route-11-hidden-escape-rope", "route-11-escape-rope" ] },
-          { items: [ [ "Itemfinder", "itemfinder" ] ], pins: { gate: "route-11/exit-49-8" } },
+          { items: [ [ "Itemfinder", "itemfinder" ] ], gift: [ "route-11", "itemfinder" ],
+            pins: { gate: "route-11/exit-49-8" } },
           { pins: { west: "route-11/exit-west" },
             link: StepLink.new(leg: "leg-06", anchor: "vermilion-city-return-step-1") }
         ],
@@ -2088,38 +2104,166 @@ module Walkthrough
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE"), opp: [ "SABRINA", 1 ]),
-          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ])
+          # One step and no shot of its own: the floor drawn above it, with the line on, is the
+          # whole instruction, and anything else here is a second telling of the same thing.
+          puzzle: [ gstep("saffron-city", 1) ])
       )
+    end
+
+    # Eleven floors taken in the one order that costs the least walking, which is not floor by
+    # floor: the lift goes straight to 5F for the Card Key, and only then does the climb start at
+    # 2F, so every barrier above it opens on the first pass instead of needing a second trip. The
+    # three floors the story sits on (3F, 7F, 11F) are reached by warp pad at the end, once the
+    # optional Rockets are cleared and the 9F nurse can still heal, because beating Giovanni empties
+    # the building. `tools/maps/paths.py` letters the pins along this same walk.
+    # Everything in the game that Surf unlocks and nothing else reaches, on one page. By the time
+    # HM03 is in the bag these are the only three things left behind anywhere, so they are swept in
+    # the order the guide first walked past them rather than in the order Fly would take you. Each
+    # is already flagged where the reader met it (a `later` card, needing Surf); this is the stop
+    # that goes back, and both cards carry the same tick so collecting it here reads as collected
+    # there. The page owns no map: it borrows the three it walks onto (MAP_EXTRA).
+    def self.surf_cleanups
+      loc("surf-cleanups", "CLEANUP", "Surf Cleanups", 41, steps: [
+          # Route 10 carries a hidden Max Ether of its own, so the Vermilion one names its cell:
+          # a card takes its tick from the one pin that matches its name, and two would leave it
+          # with none.
+          { map: "vermilion-city",
+            hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether",
+                      "vermilion-city-max-ether" ], at: [ 14, 11 ] },
+          { map: "vermilion-city", pins: { north: "vermilion-city/exit-north" } },
+          { map: "route-6" },
+          { map: "route-6" },
+          { map: "celadon-city", items: [ [ "TM41 Softboiled", "tm41" ] ],
+            gift: [ "celadon-city", "tm41" ], scene: "celadon-city-tm41",
+            pins: { man: "celadon-city/npc-tm41" } },
+          { map: "celadon-city" },
+          { map: "route-12", item: [ "TM Pay Day", "tm-pay-day" ],
+            scene: "route-12-item-tm-pay-day" },
+          # The same gift the Route 11 page offers, claimed here for the reader who walked past it
+          # thirty species short. One id between them, so it ticks on both.
+          { map: "route-12", items: [ [ "Itemfinder", "itemfinder" ] ],
+            gift: [ "route-11", "itemfinder" ], scene: "route-11-gate-itemfinder",
+            pins: { west: "route-12/exit-west" } },
+          { map: "route-12" },
+          { map: "cerulean-city", pins: { east: "cerulean-city/exit-east" } },
+          { map: "route-10",
+            pins: { trainer: "route-10/trainer-10-44", door: "route-10/exit-6-39" } }
+        ],
+        # The whole table of both routes it stops on, not only the water: the page draws each map
+        # with what lives on it, and a reader looking at Route 6 wants to know what is in the grass
+        # as well. The Route 12 Snorlax is the one thing left out, because the guide woke it with
+        # the Poke Flute pages ago and a STATIC card here would offer a catch that is gone.
+        encounters: [
+          enc("route-6", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
+          enc("route-6", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
+          enc("route-6", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
+          enc("route-6", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040"),
+          enc("route-6", "017", "GRASS", "5%", "17", "RARE", "016", "017", "018"),
+          enc("route-6", "054", "SURF", "94%", "15", "COMMON", "054", "055"),
+          enc("route-6", "055", "SURF", "6%", "15–20", "RARE", "054", "055"),
+          enc("route-6", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-6", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-6", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-6", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119"),
+          enc("route-12", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
+          enc("route-12", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
+          enc("route-12", "016", "GRASS", "15%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "017", "GRASS", "10%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "083", "GRASS", "6%", "26–31", "RARE", "083", tip: true),
+          enc("route-12", "044", "GRASS", "5%", "29", "RARE", "043", "044", "045"),
+          enc("route-12", "070", "GRASS", "5%", "29", "RARE", "069", "070", "071"),
+          enc("route-12", "079", "SURF", "94%", "15", "COMMON", "079", "080"),
+          enc("route-12", "080", "SURF", "6%", "15–20", "RARE", "079", "080"),
+          enc("route-12", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-12", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-12", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-12", "116", "SUPER ROD", "70%", "20–25", "COMMON", "116", "117"),
+          enc("route-12", "117", "SUPER ROD", "30%", "25–35", "COMMON", "116", "117")
+        ],
+        # The one trainer the sweep really fights. Route 10's other five are on the road either side
+        # of Rock Tunnel and were cleared on the way through; this Pokemaniac stands on a bank the
+        # road never touches, so he waits for Surf. Built from Route 10's own roster entry, so the
+        # card carries the same letter, the same prize and the same tick as it does over there.
+        trainers: [ roster_trainer(roster_for("route-10").find { |e| e["marker"] == "trainer-10-44" }) ],
+        # Four species the dex could never own before this page, so the queue explains itself
+        # rather than falling back on the generic lines: "you are walking through here anyway" is
+        # false of a stop you Fly to on purpose, and "take the rest of the line there" would point
+        # a reader at the page they are already reading.
+        oak_queue: [ oak("surf-cleanups", "054", 1), oak("surf-cleanups", "055", 1),
+                     oak("surf-cleanups", "079", 1), oak("surf-cleanups", "080", 1) ])
     end
 
     def self.silph_co
       loc("silph-co", "BUILDING", "Silph Co.", 40, steps: [
-          {},
-          { item: [ "Hyper Potion", "hyper-potion" ], scene: "silph-co-item-hyper-potion" },
-          { item: [ "Max Revive", "max-revive" ], scene: "silph-co-item-max-revive" },
-          { item: [ "Escape Rope", "escape-rope" ], scene: "silph-co-item-escape-rope" },
-          { item: [ "Full Heal", "full-heal" ], scene: "silph-co-item-full-heal" },
-          { item: [ "Card Key", "card-key" ], scene: "silph-co-item-card-key" },
-          { item: [ "Protein", "protein" ], scene: "silph-co-item-protein" },
-          { item: [ "TM Take Down", "tm-take-down" ], scene: "silph-co-item-tm-take-down" },
+          { pins: { lift: "silph-co-1f/exit-20-0" } },
           { hidden: [ "Elixir", "elixir", "silph-co-hidden-elixir", "silph-co-elixir" ] },
+          { pins: { pad: "silph-co-5f/exit-9-15", rocket: "silph-co-5f/trainer-8-16" } },
+          { item: [ "Card Key", "card-key" ], scene: "silph-co-item-card-key",
+            pins: { lift: "silph-co-5f/exit-20-0" } },
+          { pins: { first: "silph-co-2f/trainer-24-7", second: "silph-co-2f/trainer-24-13",
+                    third: "silph-co-2f/trainer-16-11", fourth: "silph-co-2f/trainer-5-12" } },
+          { items: [ [ "TM36 Selfdestruct", "tm36-selfdestruct" ] ], scene: "silph-co-tm36",
+            pins: { woman: "silph-co-2f/npc-tm36", up: "silph-co-2f/exit-26-0" } },
+          { pins: { rocket: "silph-co-3f/trainer-20-7",
+                    scientist: "silph-co-3f/trainer-7-9" } },
+          { item: [ "Hyper Potion", "hyper-potion" ], scene: "silph-co-item-hyper-potion",
+            pins: { up: "silph-co-3f/exit-24-0" } },
+          { pins: { first: "silph-co-4f/trainer-26-10", second: "silph-co-4f/trainer-9-14",
+                    third: "silph-co-4f/trainer-14-6" } },
+          { item: [ "Full Heal", "full-heal" ], scene: "silph-co-item-full-heal" },
+          { item: [ "Max Revive", "max-revive" ], scene: "silph-co-item-max-revive" },
+          { item: [ "Escape Rope", "escape-rope" ], scene: "silph-co-item-escape-rope",
+            pins: { up: "silph-co-4f/exit-26-0" } },
+          { pins: { rocket: "silph-co-5f/trainer-28-4", juggler: "silph-co-5f/trainer-18-10",
+                    scientist: "silph-co-5f/trainer-8-3" } },
+          { item: [ "Protein", "protein" ], scene: "silph-co-item-protein" },
+          { item: [ "TM Take Down", "tm-take-down" ], scene: "silph-co-item-tm-take-down",
+            pins: { up: "silph-co-5f/exit-24-0" } },
+          { pins: { rocket: "silph-co-6f/trainer-17-3",
+                    scientist: "silph-co-6f/trainer-7-8" } },
           { item: [ "HP Up", "hp-up" ], scene: "silph-co-item-hp-up" },
           { item: [ "X Accuracy", "x-accuracy" ], scene: "silph-co-item-x-accuracy" },
-          {},
-          { item: [ "Calcium", "calcium" ], scene: "silph-co-item-calcium" },
-          { item: [ "TM Swords Dance", "tm-swords-dance" ], scene: "silph-co-item-tm-swords-dance" },
+          { pins: { rocket: "silph-co-6f/trainer-14-15", up: "silph-co-6f/exit-16-0" } },
+          { item: [ "TM Swords Dance", "tm-swords-dance" ],
+            scene: "silph-co-item-tm-swords-dance",
+            pins: { rocket: "silph-co-7f/trainer-20-2" } },
+          { pins: { second: "silph-co-7f/trainer-19-14", third: "silph-co-7f/trainer-13-1",
+                    fourth: "silph-co-7f/trainer-2-13" } },
+          { item: [ "Calcium", "calcium" ], scene: "silph-co-item-calcium",
+            pins: { up: "silph-co-7f/exit-16-0" } },
+          { pins: { first: "silph-co-8f/trainer-19-2", second: "silph-co-8f/trainer-12-15",
+                    third: "silph-co-8f/trainer-10-2", up: "silph-co-8f/exit-16-0" } },
+          { pins: { rocket: "silph-co-9f/trainer-13-16", nurse: "silph-co-9f/npc-nurse" } },
           { hidden: [ "Max Potion", "max-potion", "silph-co-hidden-max-potion", "silph-co-max-potion" ] },
-          { item: [ "TM Earthquake", "tm-earthquake" ], scene: "silph-co-item-tm-earthquake" },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "silph-co-item-rare-candy" },
+          { pins: { rocket: "silph-co-9f/trainer-2-4", scientist: "silph-co-9f/trainer-21-13",
+                    up: "silph-co-9f/exit-14-0" } },
+          { pins: { scientist: "silph-co-10f/trainer-10-2",
+                    rocket: "silph-co-10f/trainer-1-9" } },
           { item: [ "Carbos", "carbos" ], scene: "silph-co-item-carbos" },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "silph-co-item-rare-candy" },
+          { item: [ "TM Earthquake", "tm-earthquake" ], scene: "silph-co-item-tm-earthquake",
+            pins: { up: "silph-co-10f/exit-10-0" } },
+          { pins: { rocket: "silph-co-11f/trainer-15-9", lift: "silph-co-11f/exit-13-0",
+                    pad: "silph-co-3f/exit-11-11" } },
           {},
-          {}
+          { scene: "silph-co-lapras", pins: { man: "silph-co-7f/npc-lapras" } },
+          { pins: { pad: "silph-co-7f/exit-5-7" } },
+          {},
+          { pins: { giovanni: "silph-co-11f/trainer-6-9" } },
+          { items: [ [ "Master Ball", "master-ball" ] ], scene: "silph-co-master-ball",
+            pins: { president: "silph-co-11f/npc-master-ball" } },
+          { pins: { back: "silph-co-11f/exit-3-2", out: "silph-co-1f/exit-10-17" },
+            link: StepLink.new(leg: "leg-13", anchor: "saffron-city-return-step-1") }
         ],
         encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true, from: true) ],
         trainers: [
           rival(2600, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40),
             where: scene_shot("silph-co-rival", "WHERE"),
             battle: scene_shot("battle-silph-rival", "BATTLE")),
+          tr("TEAM ROCKET", "Jessie & James", 930,
+            mon("110", 31), mon("024", 31), mon("052", 31),
+            where: scene_shot("silph-co-jessie-james", "WHERE"),
+            battle: scene_shot("battle-silph-jessie-james", "BATTLE")),
           tr("TEAM ROCKET", "Giovanni", 4059,
             mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41),
             where: scene_shot("silph-co-giovanni", "WHERE"),

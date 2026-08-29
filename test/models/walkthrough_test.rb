@@ -22,8 +22,9 @@ class WalkthroughTest < ActiveSupport::TestCase
     # back to so the Safari Zone hands over the Gold Teeth before Koga, Route 16 (stop 37) is
     # dipped into early for Fly and walked properly at Cycling Road, and Saffron (stop 41) is
     # arrived at and come back to because its gym stays Rocket-held until Silph is cleared. Each
-    # pass is its own section, so 60 sections share 53 numbers.
-    assert_equal 60, g.locations.size
+    # pass is its own section, so 61 sections share 53 numbers: the odd one is the Surf sweep,
+    # which owns no stop of its own and borrows the five maps it walks onto.
+    assert_equal 61, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
@@ -59,17 +60,13 @@ class WalkthroughTest < ActiveSupport::TestCase
   # back to the end: taken in passing they interrupt the ride to Cinnabar, and taken here they are
   # one sweep for two birds with eight badges in the bag. The stop numbers run with the walk, so
   # moving them renumbers everything between.
-  test "Seafoam and the Power Plant are swept after the last badge, not on the way past" do
-    order = game.legs.map(&:slug)
-    tail = order[order.index("leg-14")..]
+  test "Seafoam is swept after the last badge, and the Power Plant off the Surf sweep that reaches it" do
+    tail = game.legs.map(&:slug).drop_while { |slug| slug != "leg-14" }
 
-    assert_equal %w[leg-14 leg-15 leg-16 seafoam-islands power-plant victory-road leg-17
-                    indigo-plateau cerulean-cave], tail
-    assert_operator loc("viridian-gym").order, :<, loc("seafoam-islands").order
-    assert_operator loc("power-plant").order, :<, loc("victory-road").order
-    assert_equal [ 44, 45, 46, 47, 48, 49 ],
-      %w[cinnabar-island pokemon-mansion route-21 viridian-gym seafoam-islands power-plant]
-        .map { |slug| loc(slug).order }
+    assert_equal %w[leg-14 leg-15 leg-16 seafoam-islands victory-road leg-17 indigo-plateau
+                    cerulean-cave], tail
+    assert_equal "power-plant", game.legs[game.legs.index(game.leg!("leg-13")) + 1].slug,
+      "the sweep ends on the plant's own doorstep, so the plant is the page after it"
   end
 
   test "leg! finds by slug and raises for an unknown leg" do
@@ -114,8 +111,9 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 101, g.obtainable_dex.size,
-      "the two the Fighting Dojo hands over are obtainable; a save only ever registers one"
+    assert_equal 103, g.obtainable_dex.size,
+      "the two the Fighting Dojo hands over are obtainable; a save only ever registers one, and " \
+      "the Surf sweep adds the Psyduck line, which no earlier pass could reach"
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
@@ -230,7 +228,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "MARSH", back.badge
     assert_equal %w[saffron-city], game.leg!("leg-12").locations.map(&:slug).last(1)
     assert_equal %w[silph-co], game.leg!("silph-co").locations.map(&:slug)
-    assert_equal %w[saffron-city-return], game.leg!("leg-13").locations.map(&:slug)
+    assert_equal %w[saffron-city-return surf-cleanups], game.leg!("leg-13").locations.map(&:slug)
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-13"))
   end
 
@@ -351,16 +349,32 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty stranded
   end
 
-  test "a species whose every stop is locked when you walk it is crowned nowhere" do
+  # Route 6's water is the only Psyduck in the game and the guide crosses it twenty stops before
+  # HM03 exists, so for a long time nothing crowned it: a stop may not claim a catch you cannot
+  # make standing on it. The Surf sweep is the stop that finally can, which is what `armed_only`
+  # says on the card, and it is the difference between "nowhere" and "here, once you are equipped".
+  test "a species locked on every pass is crowned at the stop that comes back armed" do
     g = game
     route6 = loc("route-6")
     psyduck = route6.encounters.find { |enc| enc.dex == "054" }
 
     assert_equal "SURF", psyduck.how
-    assert_operator psyduck.unlocked_from, :>, route6.order,
-      "Route 6 is the only Psyduck water in the game, and Surf is many stops later"
-    assert_nil g.best_catches["054"], "no stop may claim a catch you cannot make there"
-    assert_nil g.best_catches["055"]
+    assert_operator psyduck.unlocked_from, :>, route6.order, "Route 6 is walked long before Surf"
+    assert_nil g.best_catch_here(route6, psyduck), "not on the pass that cannot reach the water"
+    assert_equal "surf-cleanups", g.best_catches["054"].slug
+    assert g.best_catches["054"].armed_only, "the only stop you arrive at already equipped"
+    assert_equal "surf-cleanups", g.best_catches["055"].slug
+  end
+
+  # The guard behind all of the above: a species whose every stop is one you reach without the tool
+  # for it is crowned nowhere at all. No species is in that position any more, now the Surf sweep
+  # goes back for the last of them, so it is exercised on the one stop rather than on the game:
+  # Route 6 alone, walked twenty stops before HM03, can crown nothing.
+  test "a species nobody is armed for at any stop is crowned nowhere" do
+    route6 = loc("route-6")
+    psyduck = route6.encounters.find { |enc| enc.dex == "054" }
+
+    assert_nil Walkthrough::Yellow.best_catch("054", [ { loc: route6, enc: psyduck, pct: 94 } ])
   end
 
   test "a species is not crowned at a stop whose rod arrives many stops later" do
@@ -383,7 +397,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "gating the ranking on the tools you carry costs only the two it must" do
-    assert_equal 92, game.best_catches.size
+    assert_equal 94, game.best_catches.size
   end
 
   test "a stop boxes its catchables by method, in section order rather than authoring order" do
@@ -936,11 +950,14 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "only pinless NPC gifts fall back to a positional progress key" do
     loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
 
-    assert_equal 22, loose.size
+    assert_equal 23, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
-                   "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
+                   "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Master Ball",
                    "Oak's Parcel", "Old Amber", "Old Rod", "Poké Flute", "Pokédex", "Potion",
-                   "S.S. Ticket", "Super Rod", "TM39 Swift", "Town Map" ], loose.map(&:name).uniq.sort
+                   "S.S. Ticket", "Super Rod", "TM36 Selfdestruct", "TM39 Swift",
+                   "Town Map" ], loose.map(&:name).uniq.sort,
+      "the Itemfinder left this set the moment a second page claimed it: two cards for one gift " \
+      "need a stable id between them, not a slot number on each page"
     assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
       "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
   end

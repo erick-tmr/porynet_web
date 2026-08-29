@@ -116,12 +116,16 @@ def _moves(root_str, map_label):
     return {cell: tuple(moves) for cell, moves in out.items()}
 
 
-def leg(root_str, map_label, start, end):
+def leg(root_str, map_label, start, end, avoid=frozenset()):
     """The cells of the shortest way from one cell to another across an arrow floor.
 
     Shortest by cells travelled, arrow rides included, which is the closest thing to the time it
     takes: a ride is quick per tile but it can throw you a long way from where you wanted to be,
-    and counting its tiles is what stops the solver treating a trip across the floor as free."""
+    and counting its tiles is what stops the solver treating a trip across the floor as free.
+
+    `avoid` are cells the line may not run over. Warp pads are the reason: on a floor crossed by
+    them, the way from one pad to the next is full of others, and a line drawn over one is an
+    instruction to stand somewhere that sends you to the wrong room."""
     start, end = tuple(start), tuple(end)
     if start == end:
         return [start]
@@ -135,7 +139,7 @@ def leg(root_str, map_label, start, end):
             continue
         seen.add(cell)
         for landing, crossed in _moves(root_str, map_label).get(cell, ()):
-            if landing not in seen:
+            if landing not in seen and not any(step in avoid for step in crossed[1:]):
                 heapq.heappush(queue, (cost + len(crossed) - 1, landing, path + crossed[1:]))
     raise ValueError(f"{map_label}: no way from {start} to {end}")
 
@@ -180,14 +184,60 @@ def route_stops(root_str, map_label):
     return paths.route_cells(root_str, map_label)
 
 
+# A floor crossed by warp pads, as one hop per room: the cell you arrive on and the cell you leave
+# by. A pad is a jump and not a walk, so each room gets a line of its own and the hops between them
+# are drawn by nothing, because a polyline through the wall to the room a pad throws you into would
+# be a picture of something the player never does. What joins the rooms is the pads themselves, and
+# each wears a pin saying where it lands (markers.landing_name).
+#
+# The trainer in a room is not a stop on the line. There is exactly one per room and they take you
+# on sight, so routing the line through them says nothing the room does not already say, and the
+# detour is what turns a straight hop across a room into a dog-leg.
+#
+# Saffron's gym is nine sealed rooms and thirty pads, and the order below is the one that meets all
+# seven trainers and comes out in Sabrina's room, which only the northwest room reaches: in at the
+# door, then SE, NE, E, N, SW, W, NW and through.
+WARPED = {"SaffronGym": (
+    ((8, 17), (11, 15)),      # in the door, straight onto the entrance room's pad
+    ((19, 17), (15, 15)),     # SE
+    ((19, 3), (15, 3)),       # NE
+    ((15, 9), (15, 11)),      # E
+    ((9, 3), (11, 5)),        # N
+    ((1, 17), (5, 17)),       # SW
+    ((5, 11), (1, 11)),       # W
+    ((5, 5), (1, 5)),         # NW, and its pad is the only way to Sabrina
+    ((11, 11), (9, 8)),       # her room, which has one pad in and no way on
+)}
+
+
+def warped_route(root_str, map_label):
+    """One leg per room for a floor whose rooms are joined by warp pads, or [] for any other.
+
+    Everything the player cannot walk over is stepped around: the other pads, because standing on
+    one is what sends you to the wrong room, and the people, who are solid. Both minus the ends of
+    the hop being solved, since a hop starts on a pad and the last one finishes on a gym leader."""
+    runs = WARPED.get(map_label)
+    if not runs:
+        return []
+
+    blocked = frozenset(paths.warp_pads(root_str, map_label)) | frozenset(
+        obj["grid"] for obj in sources.parse_object_events(root_str, map_label,
+                                                           include_battlers=True))
+    return [leg(root_str, map_label, start, end, blocked - {tuple(start), tuple(end)})
+            for start, end in runs]
+
+
 def drawn_route(root_str, map_label):
     """The way round one floor as legs of pixel points, or [] for a floor that gets no line.
 
     Points are pixel centres of their cells, so the app can hang an SVG over the map at its own
     size without having to know the grid."""
-    stops = route_stops(root_str, map_label)
-    if len(stops) < 2:
-        return []
+    legs = warped_route(root_str, map_label)
+    if not legs:
+        stops = route_stops(root_str, map_label)
+        if len(stops) < 2:
+            return []
+        legs = route(root_str, map_label, stops)
     half = markers.CELL_PX // 2
     return [[[x * markers.CELL_PX + half, y * markers.CELL_PX + half] for x, y in cells]
-            for cells in route(root_str, map_label, stops)]
+            for cells in legs]

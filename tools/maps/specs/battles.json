@@ -90,6 +90,11 @@
     "enemy_balls": 4, "player_balls": 6
   },
   {
+    "type": "battle", "name": "battle-silph-jessie-james",
+    "opponent": "ROCKET", "pic": "jessiejames",
+    "enemy_balls": 3, "player_balls": 6
+  },
+  {
     "type": "battle", "name": "battle-silph-giovanni",
     "opponent": "GIOVANNI",
     "enemy_balls": 4, "player_balls": 6

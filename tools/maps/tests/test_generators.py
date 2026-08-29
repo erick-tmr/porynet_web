@@ -801,6 +801,112 @@ def test_mew_center_wears_ceruleans_blue_palette(root):
     assert cerulean_pal != default_pal, "the parent override actually changes the palette"
 
 
+def _dot_screen_y(root, spec):
+    """Where a scene's baked locator dot lands on the 160x144 screen, centre of the cell."""
+    const, _tileset = sources.parse_headers(root)[spec["map"]]
+    _cols, rows = markers.map_cells(root, const)
+    covered = compositor.DIALOG_PX if spec.get("dialog") else 0
+    offy = compositor._camera(spec.get("focus", spec["player"])[1] * compositor.UNIT_PX,
+                              compositor.PLAYER_SCREEN[1], rows * compositor.UNIT_PX,
+                              compositor.SCREEN[1], covered)
+    return spec["marker"][1] * compositor.UNIT_PX + compositor.UNIT_PX // 2 - offy
+
+
+def _reachable_cells(root, label, start):
+    """Every cell the player can walk to from `start`. `_reachable` above answers whether one cell
+    joins another over the map alone; this one also treats people as solid, which is the whole
+    question on Silph 11F, where a Beauty standing in a doorway-width gap seals a strip of floor
+    that is open in every other sense."""
+    const, tileset = sources.parse_headers(root)[label]
+    _index, width_blocks, _height = sources.parse_map_constants(root)[0][const]
+    cols, rows = markers.map_cells(root, const)
+    people = {tuple(o["grid"]) for o in
+              sources.parse_object_events(root, label, include_battlers=True)}
+    seen, queue = {start}, [start]
+    while queue:
+        x, y = queue.pop()
+        for cell in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+            if cell in seen or not (0 <= cell[0] < cols and 0 <= cell[1] < rows):
+                continue
+            if cell not in people and markers.cell_is_standable(root, label, tileset,
+                                                                width_blocks, cell):
+                seen.add(cell)
+                queue.append(cell)
+    return seen
+
+
+def test_the_master_ball_shot_stands_where_the_player_can_reach(root):
+    """The row east of the Silph president is standable floor nobody can ever stand on: the
+    conference table plugs the cell below it and the Beauty fills the one gap along the row, so
+    the strip is sealed. The first version of this shot put the hero there, facing west at a man
+    who cannot be talked to from that side. Standable is not the same question as reachable, and
+    only a flood answers the second one."""
+    spec = _item_spec("silph-co-master-ball")
+    room = _reachable_cells(root, "SilphCo11F", (6, 11))       # in through the last Card Key barrier
+    president = next(s for s in spec["sprites"] if s["sprite"] == "SPRITE_SILPH_PRESIDENT")
+
+    assert tuple(spec["player"]) in room, "the hero stands somewhere the player can walk to"
+    assert (8, 5) not in room, "and the far side of him, which looks open, is the sealed strip"
+    assert spec["player"][0] == president["grid"][0] - 1, "so he is talked to from the west"
+    assert spec["player_dir"] == "RIGHT" and president["dir"] == "LEFT", "the two face each other"
+
+
+def test_a_dialog_scene_scrolls_under_its_own_text_box(root):
+    """The box covers the bottom 48px, so a shot that draws one is really a 160x96 window and the
+    camera is clamped against that rather than the whole screen. Silph 9F forced it: the hidden
+    Max Potion is in a bed on the floor's second-to-last row, and the game's own clamp stops the
+    camera dead at the map's bottom edge, which leaves the bed, its dot and the hero all down
+    behind the box. The extra scroll only ever exposes map edge the box then paints over."""
+    height, focus = 288, 15 * compositor.UNIT_PX     # SilphCo9F is 18 rows; the bed is on row 15
+    anchor, screen = compositor.PLAYER_SCREEN[1], compositor.SCREEN[1]
+    plain = compositor._camera(focus, anchor, height, screen)
+    boxed = compositor._camera(focus, anchor, height, screen, compositor.DIALOG_PX)
+
+    assert focus - plain == screen - compositor.DIALOG_PX, "the game's clamp buries it in the box"
+    assert focus - boxed == anchor, "the allowance lifts it back to where the hero stands"
+    assert height - boxed >= screen - compositor.DIALOG_PX, "and the map's edge stays behind the box"
+
+
+def test_every_marker_scene_shows_its_dot_clear_of_the_text_box(root):
+    """A locator dot the box paints over is a shot hiding the one thing it exists to point at, and
+    four shipped scenes did exactly that. The dot is baked in before the box is drawn, so nothing
+    ever errors: the page just serves a screen with no dot on it."""
+    import build
+
+    buried = [spec["name"] for spec in build.load_specs() if "marker" in spec
+              and spec.get("dialog")
+              and _dot_screen_y(root, spec) > compositor.SCREEN[1] - compositor.DIALOG_PX]
+
+    assert buried == [], "these scenes bake a dot the text box covers"
+
+
+def test_every_silph_scene_wears_the_saffron_palette_its_maps_are_drawn_in(root):
+    """locations.py draws all eleven Silph floors under SAFFRON_CITY, so a scene set inside the
+    building that leaves `parent` off comes out in the default green while the map above it and
+    every other shot on the page are yellow. The rival and Giovanni face-offs did exactly that."""
+    import build
+
+    silph = [s for s in build.load_specs() if s.get("map", "").startswith("SilphCo")]
+    assert len(silph) > 15, "the page's scenes are what this is guarding"
+    assert [s["name"] for s in silph if s.get("parent") != "SAFFRON_CITY"] == []
+    const, tileset = sources.parse_headers(root)["SilphCo11F"]
+    assert sources.resolve_palette_id(root, const, tileset, "SAFFRON_CITY") != \
+        sources.resolve_palette_id(root, const, tileset, None), "the override changes the palette"
+
+
+def test_the_silph_ambush_flashes_over_the_hero_not_over_jessie(root):
+    """Jessie and James are never in a trainer header, so nothing gives them a sightline: they are
+    walked into you by the 11F script, which sets wEmotionBubbleSpriteIndex to 0, the player. The
+    bubble belongs over the hero, and the pair stand where the map really puts them."""
+    spec = _trainer_spec("silph-co-jessie-james")
+    board = {o["const"]: o["grid"] for o in sources.parse_object_events(root, "SilphCo11F")}
+
+    assert spec["player_emote"] == "shock"
+    assert not any("emote" in sprite for sprite in spec["sprites"])
+    assert [tuple(sprite["grid"]) for sprite in spec["sprites"]] == \
+        [board["SILPHCO11F_JESSIE"], board["SILPHCO11F_JAMES"]]
+
+
 def test_mew_scenes_stand_the_hero_on_walkable_floor(root):
     # Regression: the Poke Center heal shot stood the hero on the service counter (3, 2) instead of
     # the floor in front of it. Every Mew scene that places a hero must put them on walkable floor.

@@ -143,7 +143,12 @@ ROUTES = {
     "CeladonGym": ("exit-4-17", "trainer-4-3", "trainer-6-3", "trainer-5-3", "trainer-3-3"),
     "FuchsiaGym": ("exit-4-17",),
     "CinnabarGym": ("exit-16-17",),
-    "SaffronGym": ("exit-8-17",),
+    # Nine sealed rooms crossed on warp pads, so the letters follow the pads rather than the floor:
+    # this is the order `spinners.WARPED` draws the line in, the only way round that meets all seven
+    # and comes out in Sabrina's room. Every trainer is named because the flood measures walking
+    # distance through the pads and has no idea which of the four in a room the guide takes.
+    "SaffronGym": ("exit-8-17", "trainer-17-13", "trainer-17-1", "trainer-17-7", "trainer-10-1",
+                   "trainer-3-13", "trainer-3-7", "trainer-3-1", "trainer-9-8"),
     # Not a gym, but the same shape: one room off one door, walked up the middle from the mat by
     # the entrance to the Karate Master at the back.
     "FightingDojo": ("exit-4-11",),
@@ -240,17 +245,47 @@ ROUTES = {
     "PokemonMansionB1F": (
         "exit-23-22", "item-19-25", "item-1-22", "item-5-13", "hidden-1-9", "item-5-4", "item-10-2"
     ),
-    "SilphCo2F": ("exit-24-0",),
+    # Eleven floors, and the flood reads almost none of them the way they are walked. The lift
+    # skips 1F for 5F and the Card Key, so 2F and the first half of 5F are entered from the lift
+    # rather than the stairs; the barriers that key opens are open floor to the shipped collision,
+    # which makes a sealed room read as a step off the corridor beside it; and the pads the walk
+    # rides are not walked at all. So each floor with an order worth holding names its own.
+    "SilphCo2F": ("exit-20-0", "trainer-24-7", "trainer-24-13", "trainer-16-11", "trainer-5-12"),
     "SilphCo3F": ("exit-26-0",),
-    "SilphCo4F": ("exit-24-0", "item-4-7", "item-5-8", "item-3-9"),
-    "SilphCo5F": ("exit-26-0",),
+    # In from 3F, round the east and south of the floor for the two Rockets and back up to the
+    # Scientist, then west through the barrier into the ball pocket. You come into it from the
+    # south, so the Full Heal is a step west of the doorway and the other two are up the column.
+    "SilphCo4F": ("exit-24-0", "trainer-26-10", "trainer-9-14", "trainer-14-6",
+                  "item-3-9", "item-4-7", "item-5-8"),
+    # Walked twice, so it lists a doorway per visit. The lift comes first, for the Elixir in the
+    # plant pots, the Rocket the warp pad drops you behind and the Card Key down the corridor he
+    # was blocking; the stairs up from 4F bring you back for the rest of the floor.
+    "SilphCo5F": ("exit-20-0", "hidden-12-3", "trainer-8-16", "item-21-16",
+                  "exit-26-0", "trainer-28-4", "trainer-18-10", "trainer-8-3",
+                  "item-4-6", "item-2-13"),
     "SilphCo6F": ("exit-14-0",),
-    "SilphCo7F": ("exit-22-0", "item-1-9", "item-24-11"),
+    # In from 6F, and the floor is cleared east side first: the Rocket by the stairs, the sealed
+    # rooms south of him, then back out and west for the pair the long one-tile corridor reaches.
+    "SilphCo7F": ("exit-22-0", "trainer-20-2", "item-24-11", "trainer-19-14",
+                  "trainer-13-1", "trainer-2-13", "item-1-9"),
     "SilphCo8F": ("exit-14-0",),
-    "SilphCo9F": ("exit-16-0",),
-    "SilphCo10F": ("exit-8-0", "item-2-12", "item-4-14", "item-5-11"),
+    # In from 8F and straight down the corridor left of the stairs, so the Rocket at its foot and
+    # the nurse's room behind him come before the Scientist sitting closer to the door.
+    "SilphCo9F": ("exit-16-0", "trainer-13-16", "trainer-2-4", "trainer-21-13"),
+    # In from 9F, down to the southwest room, and its three balls are collected by circling the
+    # crates: east side first for the Carbos, along the bottom for the Rare Candy, out past the
+    # Earthquake on the west wall.
+    "SilphCo10F": ("exit-8-0", "trainer-10-2", "trainer-1-9",
+                   "item-5-11", "item-4-14", "item-2-12"),
     "SilphCo11F": ("exit-9-0",),
-    "PowerPlant": ("exit-4-35",),                   # the south door you Surf up to
+    # In the south door you Surf up to, then the whole ground floor before anything above it: up
+    # the west wall, the south-center ball, the TM lobe in the southwest, the southeast pocket,
+    # and only then up into the middle hall for the buried Max Elixir and the two balls along it.
+    # The hall lies a couple of steps nearer the door than the rooms below it and cannot be
+    # reached from them at all, so distance alone deals its Voltorb out fourth and its Electrode
+    # eighth, halfway through a sweep of a floor you have to come back down for.
+    "PowerPlant": ("exit-4-35", "item-9-20", "item-21-25", "item-26-32", "hidden-17-16",
+                   "item-28-3"),
     "UndergroundPathNorthSouth": ("exit-5-4",),     # down from the Route 5 house
     "UndergroundPathWestEast": ("exit-47-2",),      # down from the Route 8 house, walked west
     "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),

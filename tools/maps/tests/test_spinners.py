@@ -201,3 +201,51 @@ def test_which_legs_go_into_the_maze(root, label, rides, in_maze):
 
     assert [n for n, cells in enumerate(legs, 1) if any(c in tiles for c in cells)] == rides
     assert [n for n, cells in enumerate(legs, 1) if in_the_maze(cells)] == in_maze
+
+
+def test_the_warp_gym_hops_pad_to_pad_and_treads_on_neither(root):
+    """Saffron's gym is nine sealed rooms, so its line is nine of them: land on a pad, cross the
+    room, leave by another. Every leg has to start and end on a pad and touch no other, because a
+    line over a spare pad is an instruction to stand where the game throws you somewhere else, and
+    it has to keep off the people, who are solid. The one exception is the end of the walk, which
+    is a gym leader: the line runs to Sabrina because there is nothing after her."""
+    pads = set(paths.warp_pads(root, "SaffronGym"))
+    people = {obj["grid"] for obj in
+              sources.parse_object_events(root, "SaffronGym", include_battlers=True)}
+    legs = spinners.warped_route(root, "SaffronGym")
+
+    assert len(legs) == 9, "the entrance, seven trainers' rooms, and Sabrina's"
+    assert [leg[0] for leg in legs][1:] == [tuple(run[0]) for run in spinners.WARPED["SaffronGym"]][1:]
+    assert all(leg[-1] in pads for leg in legs[:-1]), "each hop finishes on the pad it leaves by"
+    assert legs[-1][-1] == (9, 8), "and the last finishes on Sabrina"
+    assert [cell for leg in legs for cell in leg[1:-1] if cell in pads] == []
+    assert [cell for leg in legs for cell in leg[1:-1] if cell in people] == []
+    assert all(abs(a[0] - b[0]) + abs(a[1] - b[1]) == 1
+               for leg in legs for a, b in zip(leg, leg[1:], strict=False)), "every step is a step"
+
+
+def test_a_warp_gyms_rooms_are_reached_in_the_order_its_pads_join_them(root):
+    """The nine hops are not nine guesses: each one's pad really lands on the next one's start, so
+    following the line room by room is following the game. Only the northwest room's pad reaches
+    Sabrina, which is what fixes the order the rest are taken in."""
+    pads = paths.warp_pads(root, "SaffronGym")
+    legs = spinners.warped_route(root, "SaffronGym")
+
+    assert [pads[leg[-1]] for leg in legs[:-1]] == [leg[0] for leg in legs[1:]]
+    assert pads[legs[-2][-1]] == legs[-1][0] == (11, 11), "the one pad into her room"
+
+
+def test_the_warp_gyms_letters_and_its_line_take_the_rooms_in_one_order(root):
+    """Two answers to one question live apart: `paths.ROUTES` letters the pins and `WARPED` draws
+    the line. A reader following the arrows meets T1 first and T8 last, so if the two ever
+    disagreed the map would be arguing with itself. Both are really the room order, so they are
+    compared as rooms rather than as cells: which pad a run leaves by is the line's business."""
+    def room(cell):
+        x, y = cell
+        return (0 if x <= 5 else 1 if x <= 12 else 2, 0 if y <= 5 else 1 if y <= 11 else 2)
+
+    lettered = [room(cell) for cell in
+                paths.marker_cells(root, "SaffronGym", paths.ROUTES["SaffronGym"])]
+    drawn = [room(run[0]) for run in spinners.WARPED["SaffronGym"]]
+
+    assert lettered == drawn, "the order the pins are lettered in is the order the line is drawn in"
