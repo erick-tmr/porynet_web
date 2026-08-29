@@ -61,13 +61,18 @@ export default class extends Controller {
   // so they raise their hint without ticking anything.
   hit(event) {
     const { markerId, cat } = event.currentTarget.closest("[data-marker-id]").dataset
-    if (!NON_TICKABLE.has(cat)) {
+    const ticks = !NON_TICKABLE.has(cat)
+    if (ticks) {
       this.state = toggle(this.state, "collected", this.gameValue, this.#key(markerId))
       save(this.state)
       this.#renderProgress()
     }
-    // Clicking the marker whose hint is already up closes it; any other marker opens its own.
-    this.hintValue = this.hintValue === markerId ? "" : markerId
+    // Clicking a signpost whose hint is already up closes it; any other marker opens its own. A
+    // marker that ticks is the exception: that same click just changed what its hint reports, so
+    // the hint stays up to report it. Closing on the repeat click made the "beaten" half of the
+    // popover unreachable, because the click that marks a trainer beaten is always the second one
+    // on it. It still goes on a click anywhere else, which is what `dismiss` is for.
+    this.hintValue = !ticks && this.hintValue === markerId ? "" : markerId
   }
 
   // A hint stays up until it is dismissed: clicking another marker moves it there (through #hit),

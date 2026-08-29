@@ -36,12 +36,25 @@
             <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.gym_short") %></span>
           </div>
           <% if gym.area&.route? %>
-            <button type="button" class="pn-mm-toggle pn-wt-gym__routebtn is-on" aria-pressed="true"
-                    data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
-              <%= t("walkthrough.ui.map_route") %>
-              <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
-              <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
-            </button>
+            <div class="pn-wt-gym__toggles">
+              <button type="button" class="pn-mm-toggle pn-wt-gym__routebtn is-on" aria-pressed="true"
+                      data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
+                <%= t("walkthrough.ui.map_route") %>
+                <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+                <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+              </button>
+              <%# A warp gym pins every pad with the room it lands in, which is thirty names over one
+                  small floor. The arrows are the instruction; the names are there to be read once,
+                  so they come off the same way they do on any other map. %>
+              <% if gym.pins.many? { |pin| pin.cat == "exit" } %>
+                <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
+                        data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels">
+                  <%= t("walkthrough.ui.map_labels") %>
+                  <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+                  <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+                </button>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>

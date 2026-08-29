@@ -222,7 +222,8 @@
         ],
         "dir": "UP"
       }
-    ]
+    ],
+    "parent": "SAFFRON_CITY"
   },
   {
     "type": "screen",
@@ -246,7 +247,8 @@
         ],
         "dir": "DOWN"
       }
-    ]
+    ],
+    "parent": "SAFFRON_CITY"
   },
   {
     "type": "screen",
@@ -367,5 +369,39 @@
         "dir": "DOWN"
       }
     ]
+  },
+  {
+    "type": "screen",
+    "name": "silph-co-jessie-james",
+    "map": "SilphCo11F",
+    "player": [
+      3,
+      6
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      3,
+      7
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_JESSIE",
+        "grid": [
+          3,
+          8
+        ],
+        "dir": "UP"
+      },
+      {
+        "sprite": "SPRITE_JAMES",
+        "grid": [
+          2,
+          8
+        ],
+        "dir": "UP"
+      }
+    ],
+    "player_emote": "shock",
+    "parent": "SAFFRON_CITY"
   }
 ]

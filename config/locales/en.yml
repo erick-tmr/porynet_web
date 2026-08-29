@@ -381,6 +381,9 @@ en:
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
       map_npc_viridian_tm42: "A Fisher dozing on a fenced plot, walled in by a cuttable tree. Wake him and he gives you TM42, Dream Eater."
       map_npc_celadon_tm41: "Across the pond in the hedged yard. Talk to him for TM41, Softboiled, a heal only Chansey can be taught."
+      map_npc_silph_tm36: "A frightened worker in the sealed room north of the tables. Talk to her for TM36, Selfdestruct."
+      map_npc_silph_lapras: "The freed worker on the west wall. He hands over a Lv 15 Lapras, the only one the game gives you."
+      map_npc_silph_nurse: "She heals your whole team, free and as often as you like. She leaves the moment Giovanni is beaten."
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
       map_npc_tower_purified_zone: "Four tiles that heal your party in full, every time you step on them. The tower's free Pokémon Center, halfway up the climb."
       map_npc_tower_silent_channeler: "The one Channeler in the tower who is not a trainer. She stands beside the healing tiles and only talks."
@@ -391,7 +394,7 @@ en:
       best_badge: "BEST PLACE TO CATCH"
       best_reason_beats: "%{rate} here versus %{alt_rate} at %{alt}, the best odds for %{name}."
       best_reason_tie: "Best rate at %{rate}, and the earliest place to catch %{name}."
-      best_reason_armed_only: "The only stop you reach already equipped for %{name}. The rest come before the rod."
+      best_reason_armed_only: "The only stop you reach already equipped for %{name}. Everywhere else it lives comes before the tool that reaches it."
       best_reason_only: "The only place in the game to catch %{name}. Miss it here and you miss it."
       best_reason_only_rate: "The only place in the game to catch %{name}, at %{rate}."
       best_reason_only_prize: "The only place in the game to get %{name}, and the counter never runs out."
@@ -731,7 +734,7 @@ en:
         leg_12:
           lead: "Koga first, with the Gold Teeth in hand, then the long ride down Cycling Road and north to Saffron's front door."
         leg_13:
-          lead: "Silph is clear, so the gym opens. One stop, one badge."
+          lead: "Silph is clear, so the gym opens. Sabrina first, then the three items Surf has been waiting to reach."
         leg_14:
           lead: "The open water south of Fuchsia, west past the Seafoam Islands to Cinnabar."
         leg_15:
@@ -2706,9 +2709,7 @@ en:
           gym:
             intro: "Warp pads teleport you around the gym in a fixed loop. Take the right pads to reach Sabrina, whose Abra, Kadabra and Alakazam (all Lv 50) hit like a truck. Psychic has no true counter in Gen 1, so out-level her or lead with a strong Bug attacker like Pinsir or Scyther."
             puzzle:
-              "1": "Step onto a warp pad and it flings you to another room. Each room has one trainer and two pads: one loops back, one moves you on."
-              "2": "The fastest line: from the entrance take the southeast pad, then the northwest pad, then the southwest pad, and the southwest pad once more. Each hop drops you on one trainer to clear, and that sequence lands you in Sabrina's room."
-              "3": "The final warp drops you beside Sabrina. Psychic has no counters in Gen 1, so out-level her or lead with a strong Bug attacker."
+              "1": "Nine sealed rooms joined only by warp pads, and every pad's pin says which room it throws you into. Follow the arrows: one hop per room, a trainer in each, and the last opens Sabrina's."
           dojo:
             intro: "A Karate Master and four Black Belts, every one of them Fighting. Beating him earns no badge and no TM. What it unlocks is the pair of Poké Balls at the back of the room: Hitmonlee in one, Hitmonchan in the other, and you only ever open one."
             when: "any time you are in Saffron, before Silph or after"
@@ -2751,103 +2752,161 @@ en:
           steps:
             "1":
               title: "Take the Marsh Badge"
-              text_html: "The Gym %{gym} is the last thing in Saffron. Sabrina's Kadabra, Mr. Mime and Venomoth all sit at Lv 50 with Psychic, so lead with a Bug move or something that outruns them."
+              text_html: "The Gym %{gym} is the last thing in Saffron. Sabrina's Abra, Kadabra and Alakazam all sit at Lv 50 with Psychic, so lead with a Bug move or something that outruns them."
         silph_co:
           note: "Rocket HQ takeover. Lapras and the Master Ball."
-          intro: "Eleven floors of offices wired together by teleport pads, with thirty-one Rockets inside. One Card Key opens every locked door in the building."
+          intro: "Eleven floors of offices, thirty Rockets and Giovanni at the top. The lift skips ahead to the Card Key first, so every barrier above it opens on the way up rather than on a second trip."
           steps:
             "1":
-              title: "Enter the Rocket-held tower"
-              text: "Team Rocket holds all eleven floors, a warren of one-way warp tiles and Card Key doors. Punch up to 5F for the Card Key, which unlocks every sealed item room, then work to the top."
+              title: "Ride the lift up to 5F"
+              text_html: "The lift %{lift} and the stairs share the north-east corner. Take the lift and set it for 5F: the Card Key is up there, and it opens every barrier in the building."
             "2":
-              title: "Sweep 3F for the Hyper Potion"
-              text: "On the third floor, a Poke Ball waits in a room just west of center. Grab the Hyper Potion near its north wall."
-              items:
-                hyper-potion: "3F, room just west of center; the ball sits near the north wall."
-            "3":
-              title: "Grab the Max Revive"
-              text: "Three Poke Balls sit together in the lower-left of 4F. The northernmost holds a Max Revive."
-              items:
-                max-revive: "4F, lower-left cluster, the northernmost of three balls."
-            "4":
-              title: "Pocket the Escape Rope"
-              text: "Just southeast of the Max Revive, the middle ball of the trio holds an Escape Rope."
-              items:
-                escape-rope: "4F, just southeast of the Max Revive."
-            "5":
-              title: "Take the Full Heal"
-              text: "The third ball of the cluster sits in the southwest and holds a Full Heal, which clears any status ailment in one use."
-              items:
-                full-heal: "4F, southwest of the same three-ball cluster."
-            "6":
-              title: "Seize the Card Key"
-              text: "In the far southeast corner of 5F, past the Scientist and his Pokémon Report clipboards, a Poke Ball holds the Card Key. It opens every locked door in the building, so grab it before anything else."
-              items:
-                card-key: "5F, far southeast corner, past the clipboards."
-            "7":
-              title: "Bag the Protein"
-              text: "With the Card Key in hand, open the upper-left room of 5F. A lone Poke Ball there holds a Protein, a permanent Attack boost."
-              items:
-                protein: "5F, upper-left room."
-            "8":
-              title: "Grab TM Take Down"
-              text: "Drop to the lower-left corner of the same floor, where a ball holds TM Take Down, a heavy Normal move that hurts the user too."
-              items:
-                tm-take-down: "5F, lower-left corner."
-            "9":
               title: "Feel out the hidden Elixir"
-              text: "Along the north wall of 5F, near center, press A on an empty square for a hidden Elixir. Nothing shows on-screen."
+              text: "Out of the lift, head west along the top of the floor to the row of plant pots. Press A facing the rightmost one; nothing shows on-screen."
               hidden:
-                elixir: "5F, north wall near center; press A facing up. Nothing shows on-screen."
+                elixir: "5F, the right-hand pot of the row west of the lift. Press A facing it; nothing shows on-screen."
+            "3":
+              title: "Ride the pad round the Rocket"
+              text_html: "Carry on south to the warp pad %{pad}, ride it to 9F, then step straight back on. You come back inside the corridor the Rocket %{rocket} guards, so step south and take him."
+            "4":
+              title: "Seize the Card Key"
+              text_html: "Walk east down that corridor for the Poké Ball at its end. The Card Key unseals every barrier on all eleven floors. Then back to the lift %{lift} and down to 2F."
+              items:
+                card-key: "5F, east end of the corridor the Rocket was blocking."
+            "5":
+              title: "Clear 2F east to west"
+              text_html: "Out of the lift, a Rocket %{first} waits south-east and a Scientist %{second} in the room below him. Then west to a Rocket %{third} between the long tables, and the south-west corner for a Scientist %{fourth} behind a barrier."
+            "6":
+              title: "Talk the worker out of TM36"
+              text_html: "Straight north from him, through one more barrier, a frightened worker %{woman} hands over TM36 Selfdestruct. Then take the stairs %{up} in the north-east corner up to 3F."
+              items:
+                tm36-selfdestruct: "2F, from the frightened worker in the sealed north room."
+            "7":
+              title: "Fight through 3F"
+              text_html: "A Rocket %{rocket} stands south-west of the stairs. Past two barriers to the west, a Scientist %{scientist} guards the room the floor's only ball sits in."
+            "8":
+              title: "Grab the Hyper Potion"
+              text_html: "The ball is in the north-east corner of the Scientist's room, and holds a Hyper Potion. Then climb the stairs %{up} to 4F."
+              items:
+                hyper-potion: "3F, north-east corner of the room the Scientist guards."
+            "9":
+              title: "Work down 4F"
+              text_html: "A Rocket %{first} waits in the room south of the stairs. West of it a one-tile corridor drops you beside a second Rocket %{second}, and a Scientist %{third} sits behind a barrier north-east of him."
             "10":
-              title: "Lift the HP Up"
-              text: "Warp up to 6F and cross to its lower-left corner, where a Poke Ball holds an HP Up, a permanent HP boost for one Pokémon."
+              title: "Take the Full Heal"
+              text: "Back to that second Rocket and through the barrier north-west of him. Three balls sit in the open; the Full Heal is the one on your left as you step in."
               items:
-                hp-up: "6F, lower-left corner."
+                full-heal: "4F, west pocket, the ball on your left coming in from the south."
             "11":
-              title: "Grab the X Accuracy"
-              text: "Just south of the HP Up, in the corner of 6F, sits an X Accuracy."
+              title: "Pocket the Max Revive"
+              text: "Two steps north, the top ball of the three holds a Max Revive. It brings a fainted Pokémon back at full HP, and nothing else in the game does."
               items:
-                x-accuracy: "6F, lower-left corner, just south of the HP Up."
+                max-revive: "4F, the northernmost of the three balls."
             "12":
-              title: "Rescue Lapras and fight your rival"
-              text: "On 7F a freed Silph employee hands you a Lapras, the only one in the game and a superb Water/Ice tank. Your rival ambushes you here by the elevator, so heal before you talk to the employee."
+              title: "Bag the Escape Rope"
+              text_html: "The last ball, one step south-east of the Max Revive, holds an Escape Rope. Then back east and up the stairs %{up} to 5F."
+              items:
+                escape-rope: "4F, the middle of the three balls."
             "13":
-              title: "Grab the Calcium"
-              text: "Against the left wall of 7F, just below where your rival appears, a Poke Ball holds a Calcium."
-              items:
-                calcium: "7F, left wall, just south of the rival's spot."
+              title: "Sweep 5F east to west"
+              text_html: "A Rocket %{rocket} stands south-east of the stairs, and a Juggler %{juggler} west of the conference tables below; the sealed room past him holds nothing. Then west past the plant pots to a Scientist %{scientist}."
             "14":
-              title: "Fetch TM Swords Dance"
-              text: "Cross 7F to its far-right side for TM Swords Dance, which sharply raises Attack and turns a physical sweeper loose."
+              title: "Bag the Protein"
+              text: "Open the room west of the Scientist for a lone Poké Ball. Protein permanently raises one Pokémon's Attack, so spend it on your hardest hitter."
               items:
-                tm-swords-dance: "7F, far-right side."
+                protein: "5F, the sealed room west of the Scientist."
             "15":
-              title: "Feel out the hidden Max Potion"
-              text: "9F has a healing nurse in the lower-left. Stand in the corner beside her and press A for a hidden Max Potion. Nothing shows on-screen."
-              hidden:
-                max-potion: "9F, lower-left corner by the nurse; press A facing up. Nothing shows on-screen."
+              title: "Fetch TM09 Take Down"
+              text_html: "South of there, through another barrier, sits TM09 Take Down, a heavy Normal move that costs the user a quarter of the damage it deals. Then up the stairs %{up} to 6F."
+              items:
+                tm-take-down: "5F, the sealed room in the south-west corner."
             "16":
-              title: "Grab TM Earthquake"
-              text: "In the lower-left pocket of 10F sits TM Earthquake, one of the best TMs in the game."
-              items:
-                tm-earthquake: "10F, lower-left pocket."
+              title: "Round the outside of 6F"
+              text_html: "A Rocket %{rocket} stands just south of the stairs. From him, circle the big central room by heading west and then south to a Scientist %{scientist}."
             "17":
-              title: "Pocket the Rare Candy"
-              text: "Just southeast of the TM, another Poke Ball holds a Rare Candy, one free level for whoever needs it most."
+              title: "Lift the HP Up"
+              text: "Just south of the Scientist a barrier opens onto a small room with two balls. The near one holds an HP Up, a permanent boost to one Pokémon's HP."
               items:
-                rare-candy: "10F, just southeast of TM Earthquake."
+                hp-up: "6F, the sealed room on the west wall, the nearer ball."
             "18":
-              title: "Take the Carbos"
-              text: "At the top of that same lower-left pocket on 10F sits a Carbos, a permanent Speed boost. That clears the floors below Giovanni."
+              title: "Take the X Accuracy"
+              text: "The second ball in that room holds an X Accuracy, which makes one Pokémon's moves land for the rest of a battle. Worth saving for a legendary."
               items:
-                carbos: "10F, top of the lower-left pocket."
+                x-accuracy: "6F, the same sealed room, the southern ball."
             "19":
-              title: "Beat Giovanni on 11F"
-              text: "Work up to 11F and face Giovanni (Nidorino Lv 37, Rhyhorn Lv 37, Persian Lv 35, Nidoqueen Lv 41). Ground moves like Dig and Earthquake carry the fight. Beating him breaks the takeover."
+              title: "Finish 6F"
+              text_html: "Out of the room, head south and then east for the last Rocket %{rocket} on the floor. Then back to the stairs %{up} and up to 7F."
             "20":
+              title: "Fight into 7F's sealed rooms"
+              text_html: "A Rocket %{rocket} stands right beside the stairs. Open the barrier south of him and cross the room to its south-east corner, where a ball holds TM03 Swords Dance."
+              items:
+                tm-swords-dance: "7F, south-east corner of the first sealed room south of the stairs."
+            "21":
+              title: "Cross 7F to the west side"
+              text_html: "One more barrier south opens onto another Rocket %{second}. Back out of both rooms and west through the narrow gap for a Rocket %{third}, then the one-tile path south and west to a Scientist %{fourth}."
+            "22":
+              title: "Take the Calcium"
+              text_html: "A ball sits in the north-west corner of that room: Calcium, a permanent Special boost. Then back to the stairs %{up} and up to 8F."
+              items:
+                calcium: "7F, north-west corner of the western room."
+            "23":
+              title: "Clear 8F top to bottom"
+              text_html: "A Rocket %{first} stands by the stairs, a second %{second} all the way south in the bottom corridor. North-west of him a room opens; its west barrier goes nowhere, and the Scientist %{third} north is 8F's last fight. Stairs %{up} to 9F."
+            "24":
+              title: "Find the nurse on 9F"
+              text_html: "Take the corridor left of the stairs straight south to a Rocket %{rocket}. Past him, through the barrier on the left, a nurse %{nurse} heals your whole team for free, as often as you like."
+            "25":
+              title: "Feel out the hidden Max Potion"
+              text: "The bed to the nurse's left hides a Max Potion. Face its bottom half and press A; nothing shows on-screen."
+              hidden:
+                max-potion: "9F, the bottom half of the bed left of the nurse. Press A facing it; nothing shows on-screen."
+            "26":
+              title: "Clear the rest of 9F"
+              text_html: "Through the second barrier west, just north of the nurse, then north up the floor to a Rocket %{rocket}. Back at the stairs, two barriers south hide a Scientist %{scientist}. Then up %{up} to 10F."
+            "27":
+              title: "Drop into 10F's crate room"
+              text_html: "A Scientist %{scientist} stands right by the stairs, and the barrier south of him leads nowhere. Head down to the south-west room instead, where a Rocket %{rocket} waits at the top of it."
+            "28":
+              title: "Take the Carbos"
+              text: "Three balls sit in the gaps of the crates filling this room, so walk round the outside of them. Down the east side first for the Carbos, a permanent Speed boost."
+              items:
+                carbos: "10F, crate room, in the gap off its east side."
+            "29":
+              title: "Pocket the Rare Candy"
+              text: "Keep going along the bottom of the room for a Rare Candy, one free level for whoever needs it most. Spend it on something slow to train."
+              items:
+                rare-candy: "10F, crate room, in the gap off its south side."
+            "30":
+              title: "Grab TM26 Earthquake"
+              text_html: "Up the west wall on the way out sits TM26 Earthquake, the best Ground move in the game and the one that answers Giovanni. Then stairs %{up} to 11F."
+              items:
+                tm-earthquake: "10F, crate room, in the gap off its west wall."
+            "31":
+              title: "Clear 11F, then warp from 3F"
+              text_html: "Head south-east from the stairs for a Rocket %{rocket}, the last optional fight here. Then ride the lift %{lift} to 3F and take the warp pad %{pad} in its central room, the only way into a sealed corner of 7F."
+            "32":
+              title: "Your rival is waiting"
+              text: "Two steps west of where you land he jumps you: Fearow, Dodrio and Exeggutor around Lv 38, and his Eevee's evolution at Lv 40. Heal before you take that step."
+            "33":
+              title: "Claim the free Lapras"
+              text_html: "With him gone, talk to the worker %{man} on the left of the room. He hands you a Lv 15 Lapras, the only one in the game and a superb Water/Ice tank."
+            "34":
+              title: "Take the pad up to 11F"
+              text_html: "The other warp pad %{pad}, a couple of tiles east of where your rival stood, runs to 11F. Heal on 9F first: beating Giovanni empties the building, nurse included."
+            "35":
+              title: "Jessie and James block the way"
+              text: "One step south of the pad the pair jump you: Weezing, Arbok and Meowth, all Lv 31. There is no way round them and no way back until they are beaten."
+            "36":
+              title: "Beat Giovanni"
+              text_html: "Round the corner and through the last barrier, Giovanni %{giovanni} starts the fight himself: Nidorino, Rhyhorn, Persian and a Lv 41 Nidoqueen. Earthquake doubles on three of the four."
+            "37":
               title: "Take the Master Ball"
-              text: "Talk to the Silph president in his office for the Master Ball. Save it for a legendary like Articuno, Zapdos, Moltres or Mewtwo."
+              text_html: "Head north and talk to the Silph president %{president}. The Master Ball catches anything on the first throw, and the game holds exactly one. Save it for Mewtwo."
+              items:
+                master-ball: "11F, from the Silph president, once Giovanni is beaten."
+            "38":
+              title: "Head back out of Silph"
+              text_html: "A working PC sits in this room's south-east corner if your bag is full. Then ride the pads %{back} to 3F, drop to 1F by the lift and step out %{out}. Sabrina's gym is open at last: <a href=\"%{href}\">go and take the Marsh Badge</a>."
           tips:
             lapras: "The only in-game Lapras. A superb Water/Ice tank. Don't miss it on 7F."
           oak:
@@ -2855,6 +2914,56 @@ en:
           gifts:
             lapras:
               from: "FROM A SILPH EMPLOYEE"
+        surf_cleanups:
+          note: "The last items behind water, and the road to Zapdos."
+          intro: "HM03 has been in the bag since the Safari Zone, and three things in three towns have been waiting on it. Fly between them, then carry on east out of Cerulean: the Power Plant is reached by water too, and it is the next stop."
+          steps:
+            "1":
+              title: "Feel out Vermilion's Max Ether"
+              text: "Fly to Vermilion and surf into the channel between the two buildings north of the Trade House. Face the top of the gap and press A; nothing shows on-screen."
+              hidden:
+                max-ether: "Vermilion City, the water in the gap between the buildings north of the Trade House. Press A facing it; nothing shows on-screen."
+            "2":
+              title: "Head north for Route 6"
+              text_html: "Leave town by the north gate %{north}. The water on the far side is Route 6, and it holds the only Psyduck in the game: every earlier pass over it was on foot."
+            "3":
+              title: "Catch Psyduck and Golduck"
+              text: "Psyduck swims at 94% and Golduck at 6%. Take a second Golduck if one shows: Cinnabar trades one for BUFFY the Rhydon, the only Rhydon you get without raising a Rhyhorn."
+            "4":
+              title: "On to Celadon"
+              text: "Fly to Celadon and head for the little house north of the Game Corner. The yard behind it is hedged on both sides, with a pond filling the only gap."
+            "5":
+              title: "Collect TM41 Softboiled"
+              text_html: "Surf the pond and step off beside the worker %{man}. TM41 Softboiled is a heal only Chansey ever learns, and this is the one copy the game holds."
+              items:
+                tm41: "Celadon City, the hedged yard behind the house north of the Game Corner. Only Surf reaches him."
+            "6":
+              title: "On to Silence Bridge"
+              text: "Fly to Lavender and walk south onto Route 12. The boards run down the middle of open water, and the last item behind Surf is off the northern half."
+            "7":
+              title: "Take TM16 Pay Day"
+              text: "Surf east off the boards for the ball on its own slip of pier. TM16 Pay Day scatters coins that land in your bag once the battle is won."
+              items:
+                tm-pay-day: "Route 12, the pier off the northern half of Silence Bridge, ringed by open water."
+            "8":
+              title: "Missed the Itemfinder? It is one route west"
+              text_html: "Route 12 opens west %{west} onto Route 11, a road that was shut behind the Snorlax until the Flute. Oak's Aide at its east gate hands the Itemfinder over at 30 species caught, a bar you cleared long ago."
+              items:
+                itemfinder: "Route 11's east gate, upstairs. Oak's Aide hands it over once 30 species are registered."
+            "9":
+              title: "Buy Ultra Balls for Zapdos"
+              text: "The Power Plant is next, and Zapdos waits at the back of it: Lv 50, one encounter, one shot. No Mart on the way sells Ultra Balls, so fly to Fuchsia and stock up first."
+            "10":
+              title: "Out of Cerulean, heading east"
+              text_html: "Then Cerulean, and out by the road east %{east}. Route 9 needs Cut to cross and Route 10 past Rock Tunnel is all water, so bring both HMs on the team."
+            "11":
+              title: "Surf down to the Power Plant"
+              text_html: "Surf south from the mouth. A Pokémaniac %{trainer} waits on the far bank, cut off from the road, and the plant's door %{door} is up the shore from him."
+          oak:
+            psyduck: "Route 6's water is the only Psyduck in the game, and this is the first pass that can reach it. One is enough: Golduck swims here too."
+            golduck: "6% off the same water, and the only wild Golduck anywhere. Take a second if one shows, because Cinnabar swaps one for BUFFY the Rhydon."
+            slowpoke: "Silence Bridge is the first Slowpoke water you cross carrying Surf. One is enough, with Slowbro on the same tiles."
+            slowbro: "6% off the pier. Every other Slowbro sits on water the guide crossed before HM03, so this is the first one you can take."
         route_19:
           note: "Water route south of Fuchsia. Needs Surf."
           intro: "Open sea south of Fuchsia, nothing but water once you leave the beach. Ten Swimmers float in the way, and Tentacool is almost all that bites."

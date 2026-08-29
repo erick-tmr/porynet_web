@@ -50,11 +50,15 @@ class ApplicationHelperTest < ActionView::TestCase
       best_catch_reason(best, encounter("063", "Abra"))
   end
 
-  test "best_catch_reason says a species lives elsewhere too, just behind a later rod" do
+  # Named no tool in particular: this line covers a rod (Seaking, on water the guide fishes long
+  # before the Super Rod) and an HM alike (Psyduck, whose only water the guide crosses twenty stops
+  # before Surf), and saying "the rod" on the second was simply wrong.
+  test "best_catch_reason says a species lives elsewhere too, just behind a tool you lacked" do
     best = Walkthrough::BestCatch.new(dex: "119", slug: "cerulean-cave", rate: "15%",
                                       armed_only: true)
 
-    assert_equal "The only stop you reach already equipped for Seaking. The rest come before the rod.",
+    assert_equal "The only stop you reach already equipped for Seaking. Everywhere else it lives " \
+                 "comes before the tool that reaches it.",
       best_catch_reason(best, encounter("119", "Seaking"))
   end
 

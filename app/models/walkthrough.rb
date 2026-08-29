@@ -8,10 +8,10 @@ module Walkthrough
   DENSE_TRAINERS = 6
 
   # Colours a drawn route cycles through, one per leg. Enough of them that the longest floor never
-  # reuses one (B2F's eight is the most any floor asks for), because a step draws its own leg on
-  # its own copy of the map and the two have to agree about which line is which. The hexes are in
-  # walkthrough-map.css; this is only how many there are.
-  ROUTE_HUES = 8
+  # reuses one (Saffron Gym's nine rooms are the most any floor asks for), because a step draws its
+  # own leg on its own copy of the map and the two have to agree about which line is which. The
+  # hexes are in walkthrough-map.css; this is only how many there are.
+  ROUTE_HUES = 9
 
   # A rod or Surf encounter is only a catch once you hold the tool, and the guide hands each one
   # over at a fixed stop. Keyed by method, valued by that stop's `order`, so a fishing card on an
@@ -310,9 +310,25 @@ module Walkthrough
     # legend at 1.55fr of 2.55, which is about 675px with the page at its widest, and a picture
     # wider than that can only be shown there by scrolling a frame narrower than itself. Either
     # way it takes the full-width landscape template, map on top and legend spread beneath.
+    #
+    # A third again, rather than half again: Silph Co's upper floors are 416x288, wide rooms that
+    # the split column shrinks to a stamp while its legend sits half empty beside them. Its 10F and
+    # 11F are the other shape (256x288 and square), and those still read better next to their
+    # legend, which is where the line sits.
+    #
+    # The middle rule is about size rather than shape. A town map is 640x576, which is not a strip
+    # and does fit the column, but only just: it draws there at barely 1x, the size its labels
+    # crowd worst at, while full width lets it reach 2.5x and the names come apart. So a map wider
+    # than it is tall that the column cannot enlarge by a quarter goes full width too. Tall maps
+    # are left out however wide, because the landscape template would strand their legend under a
+    # column of picture.
     SPLIT_COLUMN_PX = 675
 
-    def landscape? = width * 2 >= height * 3 || width > SPLIT_COLUMN_PX
+    def landscape?
+      width * 3 >= height * 4 ||                                # a horizontal strip
+        (width > height && width * 5 > SPLIT_COLUMN_PX * 4) ||  # the column cannot enlarge it
+        width > SPLIT_COLUMN_PX                                 # the column cannot hold it
+    end
   end
 
   # One stretch of a drawn route. `n` is which leg it is, counting from 1, and `hue` cycles a small
@@ -484,7 +500,11 @@ module Walkthrough
     def puzzle? = puzzle.any?
     def trainers? = trainers.any?
     def area? = !area.nil?
-    def pins = area? ? area.markers_in("trainer") : []
+    # Trainers always, and the doorways too when the floor has more than one: a gym with a single
+    # front door needs no pin for the way it came in, but Saffron's is nine sealed rooms and thirty
+    # warp pads, and the pin on a pad is the only thing that says which room it throws you into.
+    def pins = area? ? area.markers_in("trainer") + puzzle_doors : []
+    def puzzle_doors = area.markers_in("exit").then { |doors| doors.one? ? [] : doors }
   end
 
   # A hall that fights like a gym and pays like one, without a badge at the end of it: Saffron's

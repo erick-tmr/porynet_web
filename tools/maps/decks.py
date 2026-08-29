@@ -294,7 +294,9 @@ def area_markers(root_str, label, floor, width_px, height_px):
         const = sources.parse_headers(root_str)[label][0]
         pins = markers.build_markers(root_str, label, const, width_px, height_px, keyed=False)
         pins = markers.assign_keys(paths.walked_markers(root_str, label, pins))
-        return markers.assign_label_lanes(pins, width_px, height_px)
+        gym = markers.drawn_in_a_gym_frame(root_str, label, const)
+        return markers.assign_label_lanes(pins, width_px, height_px,
+                                          pin_to=const if gym else None)
     return deck_markers(root_str, plan(root_str, label, floor, rooms))
 
 

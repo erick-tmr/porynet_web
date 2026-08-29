@@ -47,6 +47,42 @@
       "ref": "CHARMANDER"
     }
   ],
+  "silph-co-2f": [
+    {
+      "id": "npc-tm36",
+      "name": "TM36 Selfdestruct",
+      "grid": [
+        10,
+        1
+      ],
+      "note": "map_npc_silph_tm36",
+      "ref": "TM_SELFDESTRUCT"
+    }
+  ],
+  "silph-co-7f": [
+    {
+      "id": "npc-lapras",
+      "name": "Lapras",
+      "grid": [
+        1,
+        5
+      ],
+      "note": "map_npc_silph_lapras",
+      "ref": "LAPRAS"
+    }
+  ],
+  "silph-co-9f": [
+    {
+      "id": "npc-nurse",
+      "name": "Free healing",
+      "grid": [
+        3,
+        14
+      ],
+      "note": "map_npc_silph_nurse",
+      "ref": "SPRITE_NURSE"
+    }
+  ],
   "silph-co-11f": [
     {
       "id": "npc-master-ball",
@@ -56,7 +92,8 @@
         5
       ],
       "note": "map_npc_silph_master_ball",
-      "ref": "MASTER_BALL"
+      "ref": "MASTER_BALL",
+      "lane": 1
     }
   ],
   "rocket-hideout-game-corner": [

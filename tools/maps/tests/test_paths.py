@@ -376,6 +376,51 @@ def test_tower_4f_takes_the_awakening_before_doubling_back_for_the_hp_up(root):
         ("T1", "CHANNELER:10"), ("T2", "CHANNELER:12"), ("T3", "CHANNELER:9")]
 
 
+def test_silph_5f_letters_the_lift_visit_before_the_stairs_visit(root):
+    """5F is walked twice and the two halves are nothing like each other. The lift comes up first,
+    for the Elixir in the plant pots, the Rocket the warp pad drops you behind and the Card Key
+    down the corridor he was blocking; the rest of the floor waits for the stairs up from 4F. The
+    corridor has one open end, a warp tile, so the flood cannot walk in at all and measured the
+    Rocket at the far end of a lap of the whole floor: it lettered him last of four and gave the
+    Card Key to the guide before the man standing over it."""
+    assert lettered(root, "SilphCo5F", "5F") == [
+        ("T1", "ROCKET:28"), ("T2", "ROCKET:29"), ("T3", "JUGGLER:1"), ("T4", "SCIENTIST:6")]
+    assert [pins(root, "SilphCo5F", "5F", cat="item")[key]["name"] for key in ("I1", "I2", "I3")] \
+        == ["Card Key", "Protein", "TM Take Down"]
+
+
+def test_silph_letters_the_floors_the_card_key_reorders(root):
+    """A Card Key barrier is open floor to the shipped collision, so the flood steps through every
+    sealed room as if it were an alcove off the corridor beside it, and four floors came out in an
+    order nobody walks. 2F is entered from the lift and cleared clockwise, so the Scientist in the
+    south room comes before the Rocket between the tables the flood ranks nearer. 4F's three balls
+    share one pocket entered from the south, so the Full Heal is a step off the doorway and the
+    other two are up the column above it. 7F takes the two sealed rooms south of the stairs before
+    crossing west. 9F goes straight down the corridor left of the stairs, so the Rocket at its foot
+    and the Rocket past the nurse's room both come before the Scientist nearer the door."""
+    assert lettered(root, "SilphCo2F", "2F") == [
+        ("T1", "ROCKET:24"), ("T2", "SCIENTIST:3"), ("T3", "ROCKET:23"), ("T4", "SCIENTIST:2")]
+    assert [pins(root, "SilphCo4F", "4F", cat="item")[key]["name"] for key in ("I1", "I2", "I3")] \
+        == ["Full Heal", "Max Revive", "Escape Rope"]
+    assert lettered(root, "SilphCo7F", "7F") == [
+        ("T1", "ROCKET:33"), ("T2", "ROCKET:34"), ("T3", "ROCKET:32"), ("T4", "SCIENTIST:8")]
+    assert [pins(root, "SilphCo7F", "7F", cat="item")[key]["name"] for key in ("I1", "I2")] == [
+        "TM Swords Dance", "Calcium"]
+    assert lettered(root, "SilphCo9F", "9F") == [
+        ("T1", "ROCKET:38"), ("T2", "ROCKET:37"), ("T3", "SCIENTIST:10")]
+
+
+def test_silph_10f_circles_the_crates_rather_than_reaching_across_them(root):
+    """The three balls on 10F sit in the gaps of a block of crates filling the southwest room, so
+    they are collected by walking round the outside: down the east side for the Carbos, along the
+    bottom for the Rare Candy, up the west wall past the Earthquake on the way out. The flood
+    measures each ball through the crates and hands them over in the opposite order."""
+    items = pins(root, "SilphCo10F", "10F", cat="item")
+
+    assert [items[key]["name"] for key in ("I1", "I2", "I3")] == [
+        "Carbos", "Rare Candy", "TM Earthquake"]
+
+
 def test_safari_area_1_is_lettered_up_the_stair_the_player_climbs(root):
     """You come into Area 1 at the southwest corner, run the bottom wall east and climb the first
     stair onto the mount, so the Carbos is the first ball in reach and the Egg Bomb west of it the

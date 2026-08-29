@@ -381,6 +381,9 @@ pt:
       map_npc_route24_charmander: "Na colina de grama acima da ponte, este garoto te dá um Charmander grátis (Nv 10). Pegue."
       map_npc_viridian_tm42: "Um Pescador cochilando num terreno cercado, fechado por uma árvore cortável. Acorde-o e ele te dá o TM42, Dream Eater."
       map_npc_celadon_tm41: "Do outro lado do laguinho, no quintal cercado. Fale com ele por TM41, Softboiled, uma cura que só Chansey aprende."
+      map_npc_silph_tm36: "Uma funcionária assustada na sala selada ao norte das mesas. Fale com ela pelo TM36, Selfdestruct."
+      map_npc_silph_lapras: "O funcionário libertado na parede oeste. Ele entrega uma Lapras Nv 15, a única que o jogo te dá."
+      map_npc_silph_nurse: "Ela cura sua equipe inteira, de graça e quantas vezes quiser. Some assim que Giovanni é derrotado."
       map_npc_silph_master_ball: "Derrote o Giovanni e o presidente te agradece com a Master Ball, a única do jogo."
       map_npc_tower_purified_zone: "Quatro tiles que curam sua equipe por completo, toda vez que você pisa neles. O Centro Pokémon grátis da torre, no meio da subida."
       map_npc_tower_silent_channeler: "A única Channeler da torre que não é treinadora. Ela fica ao lado dos tiles de cura e só conversa."
@@ -391,7 +394,7 @@ pt:
       best_badge: "MELHOR LUGAR PARA CAPTURAR"
       best_reason_beats: "%{rate} aqui contra %{alt_rate} em %{alt}, a melhor chance de %{name}."
       best_reason_tie: "Melhor taxa com %{rate}, e o lugar mais cedo para capturar %{name}."
-      best_reason_armed_only: "A única parada onde você chega já equipado para %{name}. As outras vêm antes da vara."
+      best_reason_armed_only: "A única parada onde você chega já equipado para %{name}. Todo outro lugar onde ele vive vem antes da ferramenta que alcança ele."
       best_reason_only: "O único lugar do jogo para capturar %{name}. Se perder aqui, perdeu de vez."
       best_reason_only_rate: "O único lugar do jogo para capturar %{name}, com %{rate}."
       best_reason_only_prize: "O único lugar do jogo para conseguir %{name}, e o balcão nunca acaba."
@@ -731,7 +734,7 @@ pt:
         leg_12:
           lead: "Koga primeiro, com os Gold Teeth na mão, depois a descida longa pela Cycling Road e o caminho ao norte até a porta de Saffron."
         leg_13:
-          lead: "A Silph está limpa, então o ginásio abre. Uma parada, uma insígnia."
+          lead: "A Silph está limpa, então o ginásio abre. Sabrina primeiro, depois os três itens que esperavam pelo Surf."
         leg_14:
           lead: "O mar aberto ao sul de Fuchsia, a oeste passando pelas Seafoam Islands até Cinnabar."
         leg_15:
@@ -2706,9 +2709,7 @@ pt:
           gym:
             intro: "Plataformas de teletransporte te levam pelo ginásio num circuito fixo. Pegue as plataformas certas para chegar à Sabrina, cujos Abra, Kadabra e Alakazam (todos Nv 50) batem como um caminhão. Psíquico não tem contra de verdade na 1a geração, então suba de nível ou lidere com um forte atacante Inseto como Pinsir ou Scyther."
             puzzle:
-              "1": "Pise numa plataforma de teletransporte e ela te joga para outra sala. Cada sala tem um treinador e duas plataformas: uma volta, a outra avanca."
-              "2": "A linha mais rápida: da entrada pegue a plataforma sudeste, depois a noroeste, depois a sudoeste, e a sudoeste de novo. Cada salto te deixa em cima de um treinador para vencer, e essa sequência te leva à sala da Sabrina."
-              "3": "O ultimo teletransporte te deixa ao lado de Sabrina. Psiquico nao tem contra na 1a geracao, entao suba de nível ou lidere com um forte atacante Inseto."
+              "1": "Nove salas fechadas ligadas só por placas de teletransporte, e o pin de cada placa diz para qual sala ela te joga. Siga as setas: um salto por sala, um treinador em cada, e a última abre a da Sabrina."
           dojo:
             intro: "Um Karate Master e quatro Black Belts, todos do tipo Lutador. Vencê-lo não dá insígnia nem TM. O que ele libera é o par de Poké Balls no fundo da sala: Hitmonlee numa, Hitmonchan na outra, e você só abre uma."
             when: "a qualquer momento em Saffron, antes ou depois da Silph"
@@ -2751,110 +2752,218 @@ pt:
           steps:
             "1":
               title: "Pegue a Marsh Badge"
-              text_html: "O Ginásio %{gym} é a última coisa em Saffron. O Kadabra, o Mr. Mime e o Venomoth da Sabrina estão todos no Nv 50 com Psychic, então lidere com um golpe de Inseto ou com algo mais rápido que eles."
+              text_html: "O Ginásio %{gym} é a última coisa em Saffron. O Abra, o Kadabra e o Alakazam da Sabrina estão todos no Nv 50 com Psychic, então lidere com um golpe de Inseto ou com algo mais rápido que eles."
         silph_co:
           note: "Tomada da HQ da Rocket. Lapras e a Master Ball."
-          intro: "Onze andares de escritórios ligados por plataformas de teletransporte, com trinta e um Rockets dentro. Uma Card Key abre todas as portas trancadas do prédio."
+          intro: "Onze andares de escritórios, trinta Rockets e Giovanni no topo. O elevador pula direto para a Card Key, então cada barreira acima dela abre já na subida, sem exigir uma segunda viagem."
           steps:
             "1":
-              title: "Entre na torre tomada pela Rocket"
-              text: "A Equipe Rocket tomou os onze andares, um emaranhado de placas de teletransporte de mão única e portas de Card Key. Suba até o 5F pela Card Key, que destranca todas as salas seladas, e siga ao topo."
+              title: "Suba de elevador até o 5F"
+              text_html: "O elevador %{lift} e a escada dividem o canto nordeste. Pegue o elevador e marque 5F: a Card Key está lá em cima, e ela abre todas as barreiras do prédio."
             "2":
-              title: "Varra o 3F pela Hyper Potion"
-              text: "No terceiro andar, uma Poke Ball fica numa sala um pouco a oeste do centro. Pegue a Hyper Potion junto a parede norte dessa sala."
-              items:
-                hyper-potion: "3F, sala a oeste do centro; a bola fica perto da parede norte."
+              title: "Ache o Elixir escondido"
+              text: "Ao sair do elevador, siga para oeste pelo topo do andar até a fileira de vasos de planta. Aperte A de frente para o vaso mais à direita; nada aparece na tela."
+              hidden:
+                elixir: "5F, o vaso da direita na fileira a oeste do elevador. Aperte A de frente para ele; nada aparece na tela."
             "3":
-              title: "Pegue o Max Revive"
-              text: "Tres Poke Balls ficam juntas no canto inferior esquerdo do 4F. A mais ao norte guarda o Max Revive."
-              items:
-                max-revive: "4F, aglomerado inferior esquerdo, a bola mais ao norte das tres."
+              title: "Use a placa para contornar o Rocket"
+              text_html: "Continue ao sul até a placa de teletransporte %{pad}, vá até o 9F e pise nela de volta na hora. Você reaparece dentro do corredor que o Rocket %{rocket} guarda, então desça um passo e encare ele."
             "4":
-              title: "Pegue o Escape Rope"
-              text: "Logo a sudeste do Max Revive, a bola do meio do trio guarda um Escape Rope."
+              title: "Pegue a Card Key"
+              text_html: "Siga para leste por esse corredor até a Poké Ball no fim dele. A Card Key abre todas as barreiras dos onze andares. Depois volte ao elevador %{lift} e desça para o 2F."
               items:
-                escape-rope: "4F, logo a sudeste do Max Revive."
+                card-key: "5F, no fim leste do corredor que o Rocket bloqueava."
             "5":
-              title: "Pegue o Full Heal"
-              text: "A terceira bola do trio fica no sudoeste e guarda um Full Heal, que limpa qualquer status negativo de uma vez."
-              items:
-                full-heal: "4F, canto sudoeste do mesmo trio de bolas."
+              title: "Limpe o 2F de leste a oeste"
+              text_html: "Ao sair do elevador, um Rocket %{first} espera a sudeste e um Scientist %{second} na sala abaixo dele. Depois siga a oeste até um Rocket %{third} entre as mesas compridas, e ao canto sudoeste por um Scientist %{fourth} atrás de uma barreira."
             "6":
-              title: "Tome a Card Key"
-              text: "No canto sudeste do 5F, passando pelo cientista e suas pranchetas de Relatorio Pokémon, uma Poke Ball guarda a Card Key. Ela abre todas as portas trancadas do predio, entao pegue-a antes de tudo."
+              title: "Ganhe o TM36 da funcionária"
+              text_html: "Direto ao norte dele, passando mais uma barreira, uma funcionária assustada %{woman} entrega o TM36 Selfdestruct. Depois pegue a escada %{up} do canto nordeste até o 3F."
               items:
-                card-key: "5F, canto sudeste, passando pelas pranchetas."
+                tm36-selfdestruct: "2F, com a funcionária assustada na sala selada ao norte."
             "7":
-              title: "Pegue a Protein"
-              text: "Com a Card Key em mãos, abra a sala superior esquerda do 5F. Uma Poke Ball solitária ali guarda a Protein, um aumento permanente de Ataque."
-              items:
-                protein: "5F, sala superior esquerda."
+              title: "Abra caminho pelo 3F"
+              text_html: "Um Rocket %{rocket} está a sudoeste da escada. Passando duas barreiras a oeste, um Scientist %{scientist} guarda a sala onde fica a única bola do andar."
             "8":
-              title: "Pegue o TM Take Down"
-              text: "Desça ao canto inferior esquerdo do mesmo andar, onde uma bola guarda o TM Take Down, um golpe Normal pesado que também machuca quem usa."
+              title: "Pegue a Hyper Potion"
+              text_html: "A bola está no canto nordeste da sala do Scientist e guarda uma Hyper Potion. Depois suba a escada %{up} até o 4F."
               items:
-                tm-take-down: "5F, canto inferior esquerdo."
+                hyper-potion: "3F, canto nordeste da sala que o Scientist guarda."
             "9":
-              title: "Sinta o Elixir oculto"
-              text: "Ao longo da parede norte do 5F, perto do centro, aperte A num quadrado vazio para um Elixir oculto. Nada aparece na tela."
-              hidden:
-                elixir: "5F, parede norte perto do centro; aperte A virado para cima. Nada aparece na tela."
+              title: "Desça o 4F"
+              text_html: "Um Rocket %{first} espera na sala ao sul da escada. A oeste dela, um corredor de um tile te deixa ao lado de um segundo Rocket %{second}, e um Scientist %{third} fica atrás de uma barreira a nordeste dele."
             "10":
-              title: "Pegue o HP Up"
-              text: "Suba ao 6F e atravesse até o canto inferior esquerdo, onde uma Poke Ball guarda um HP Up, aumento permanente de HP para um Pokémon."
+              title: "Pegue o Full Heal"
+              text: "Volte a esse segundo Rocket e passe pela barreira a noroeste dele. Três bolas ficam à vista; o Full Heal é a da sua esquerda ao entrar."
               items:
-                hp-up: "6F, canto inferior esquerdo."
+                full-heal: "4F, recanto oeste, a bola à sua esquerda ao entrar pelo sul."
             "11":
-              title: "Pegue o X Accuracy"
-              text: "Logo ao sul do HP Up, no canto do 6F, fica um X Accuracy, que garante que o próximo golpe acerte."
+              title: "Guarde o Max Revive"
+              text: "Dois passos ao norte, a bola mais alta das três guarda um Max Revive. Ele revive um Pokémon desmaiado com o HP cheio, e nada mais no jogo faz isso."
               items:
-                x-accuracy: "6F, canto inferior esquerdo, logo ao sul do HP Up."
+                max-revive: "4F, a mais ao norte das três bolas."
             "12":
-              title: "Resgate a Lapras e enfrente seu rival"
-              text: "No 7F, um funcionario da Silph libertado te da uma Lapras, a unica do jogo e um tanque Agua/Gelo excelente. Seu rival te embosca aqui perto do elevador, entao cure-se antes de falar com o funcionario."
+              title: "Leve o Escape Rope"
+              text_html: "A última bola, um passo a sudeste do Max Revive, guarda um Escape Rope. Depois volte para leste e suba a escada %{up} até o 5F."
+              items:
+                escape-rope: "4F, a bola do meio das três."
             "13":
-              title: "Pegue o Calcium"
-              text: "Junto a parede esquerda do 7F, logo abaixo de onde o rival aparece, uma Poke Ball guarda o Calcium."
-              items:
-                calcium: "7F, parede esquerda, logo ao sul do ponto do rival."
+              title: "Varra o 5F de leste a oeste"
+              text_html: "Um Rocket %{rocket} está a sudeste da escada, e um Juggler %{juggler} a oeste das mesas de reunião na sala abaixo; a sala selada depois dele não tem nada. Depois siga a oeste pelos vasos de planta até um Scientist %{scientist}."
             "14":
-              title: "Pegue o TM Swords Dance"
-              text: "Atravesse o 7F até a lateral direita pelo TM Swords Dance, que aumenta muito o Ataque e solta um sweeper físico."
+              title: "Pegue a Protein"
+              text: "Abra a sala a oeste do Scientist e pegue a Poké Ball solitária. A Protein aumenta o Attack de um Pokémon para sempre, então gaste com quem bate mais forte."
               items:
-                tm-swords-dance: "7F, lateral direita."
+                protein: "5F, a sala selada a oeste do Scientist."
             "15":
-              title: "Sinta a Max Potion oculta"
-              text: "O 9F tem uma enfermeira no canto inferior esquerdo. Fique no canto ao lado dela e aperte A para uma Max Potion oculta. Nada aparece na tela."
-              hidden:
-                max-potion: "9F, canto inferior esquerdo perto da enfermeira; aperte A virado para cima. Nada aparece na tela."
+              title: "Busque o TM09 Take Down"
+              text_html: "Ao sul dali, passando outra barreira, está o TM09 Take Down, um golpe Normal pesado que devolve ao usuário um quarto do dano causado. Depois suba a escada %{up} até o 6F."
+              items:
+                tm-take-down: "5F, a sala selada no canto sudoeste."
             "16":
-              title: "Pegue o TM Earthquake"
-              text: "No bolsao inferior esquerdo do 10F fica o TM Earthquake, um dos melhores TMs do jogo."
-              items:
-                tm-earthquake: "10F, bolsao inferior esquerdo."
+              title: "Contorne o 6F por fora"
+              text_html: "Um Rocket %{rocket} está logo ao sul da escada. A partir dele, contorne a sala central grande indo para oeste e depois ao sul, até um Scientist %{scientist}."
             "17":
-              title: "Pegue o Rare Candy"
-              text: "Logo a sudeste do TM, outra Poke Ball guarda um Rare Candy, um nível grátis para quem mais precisar."
+              title: "Pegue o HP Up"
+              text: "Logo ao sul do Scientist, uma barreira abre para uma salinha com duas bolas. A mais próxima guarda um HP Up, um aumento permanente de HP para um Pokémon."
               items:
-                rare-candy: "10F, logo a sudeste do TM Earthquake."
+                hp-up: "6F, a sala selada na parede oeste, a bola mais próxima."
             "18":
-              title: "Pegue o Carbos"
-              text: "No topo daquele mesmo bolsão inferior esquerdo do 10F fica um Carbos, aumento permanente de Velocidade. Isso limpa os andares abaixo do Giovanni."
+              title: "Leve o X Accuracy"
+              text: "A segunda bola dessa sala guarda um X Accuracy, que faz os golpes de um Pokémon acertarem pelo resto da batalha. Vale guardar para um lendário."
               items:
-                carbos: "10F, topo do bolsao inferior esquerdo."
+                x-accuracy: "6F, a mesma sala selada, a bola ao sul."
             "19":
-              title: "Venca o Giovanni no 11F"
-              text: "Suba ate o 11F e enfrente o Giovanni (Nidorino Nv 37, Rhyhorn Nv 37, Persian Nv 35, Nidoqueen Nv 41). Golpes de Terra como Dig e Earthquake resolvem a luta. Vence-lo quebra a tomada."
+              title: "Termine o 6F"
+              text_html: "Saia da sala, vá para o sul e depois para leste até o último Rocket %{rocket} do andar. Depois volte à escada %{up} e suba para o 7F."
             "20":
+              title: "Entre nas salas seladas do 7F"
+              text_html: "Um Rocket %{rocket} está bem ao lado da escada. Abra a barreira ao sul dele e atravesse a sala até o canto sudeste, onde uma bola guarda o TM03 Swords Dance."
+              items:
+                tm-swords-dance: "7F, canto sudeste da primeira sala selada ao sul da escada."
+            "21":
+              title: "Atravesse o 7F até o lado oeste"
+              text_html: "Mais uma barreira ao sul abre para outro Rocket %{second}. Volte pelas duas salas, vá a oeste pela fresta estreita até um Rocket %{third} e siga o caminho de um tile ao sul e a oeste até um Scientist %{fourth}."
+            "22":
+              title: "Pegue o Calcium"
+              text_html: "Uma bola fica no canto noroeste dessa sala: Calcium, um aumento permanente de Special. Depois volte à escada %{up} e suba para o 8F."
+              items:
+                calcium: "7F, canto noroeste da sala oeste."
+            "23":
+              title: "Limpe o 8F de cima a baixo"
+              text_html: "Um Rocket %{first} está junto à escada, e um segundo %{second} no corredor de baixo. A noroeste abre uma sala; a barreira a oeste não dá em nada, e o Scientist %{third} ao norte é a última luta. Escada %{up} até o 9F."
+            "24":
+              title: "Ache a enfermeira do 9F"
+              text_html: "Desça o corredor à esquerda da escada até um Rocket %{rocket}. Depois dele, passando a barreira à esquerda, uma enfermeira %{nurse} cura sua equipe inteira de graça, quantas vezes quiser."
+            "25":
+              title: "Ache a Max Potion escondida"
+              text: "A cama à esquerda da enfermeira esconde uma Max Potion. Fique de frente para a metade de baixo e aperte A; nada aparece na tela."
+              hidden:
+                max-potion: "9F, a metade de baixo da cama à esquerda da enfermeira. Aperte A de frente para ela; nada aparece na tela."
+            "26":
+              title: "Limpe o resto do 9F"
+              text_html: "Passe a segunda barreira a oeste, logo ao norte da enfermeira, e siga ao norte pelo andar até um Rocket %{rocket}. De volta à escada, duas barreiras ao sul escondem um Scientist %{scientist}. Depois suba %{up} para o 10F."
+            "27":
+              title: "Desça para a sala de caixas do 10F"
+              text_html: "Um Scientist %{scientist} está bem ao lado da escada, e a barreira ao sul dele não leva a nada. Desça para a sala sudoeste, onde um Rocket %{rocket} espera no alto dela."
+            "28":
+              title: "Pegue o Carbos"
+              text: "Três bolas ficam nas frestas das caixas que enchem a sala, então contorne o bloco por fora. Desça pelo lado leste primeiro, pelo Carbos, um aumento permanente de Speed."
+              items:
+                carbos: "10F, sala de caixas, na fresta do lado leste."
+            "29":
+              title: "Guarde a Rare Candy"
+              text: "Siga pelo fundo da sala até uma Rare Candy, um nível de graça para quem mais precisar. Gaste com algum Pokémon lento de treinar."
+              items:
+                rare-candy: "10F, sala de caixas, na fresta do lado sul."
+            "30":
+              title: "Pegue o TM26 Earthquake"
+              text_html: "Subindo pela parede oeste na saída está o TM26 Earthquake, o melhor golpe Ground do jogo e a resposta para Giovanni. Depois escada %{up} até o 11F."
+              items:
+                tm-earthquake: "10F, sala de caixas, na fresta da parede oeste."
+            "31":
+              title: "Limpe o 11F e desça para o 3F"
+              text_html: "Vá a sudeste da escada até um Rocket %{rocket}, a última luta opcional daqui. Depois pegue o elevador %{lift} até o 3F e use a placa %{pad} da sala central, a única entrada para um canto selado do 7F."
+            "32":
+              title: "Seu rival está esperando"
+              text: "Dois passos a oeste de onde você chega ele te ataca: Fearow, Dodrio e Exeggutor perto do Nv 38, e a evolução do Eevee dele no Nv 40. Cure antes de dar esse passo."
+            "33":
+              title: "Pegue a Lapras de graça"
+              text_html: "Com ele fora do caminho, fale com o funcionário %{man} à esquerda da sala. Ele te dá uma Lapras Nv 15, a única do jogo e um tanque Water/Ice excelente."
+            "34":
+              title: "Suba de placa até o 11F"
+              text_html: "A outra placa %{pad}, alguns tiles a leste de onde o rival estava, leva ao 11F. Cure no 9F antes: vencer Giovanni esvazia o prédio, enfermeira inclusive."
+            "35":
+              title: "Jessie e James fecham o caminho"
+              text: "Um passo ao sul da placa a dupla te ataca: Weezing, Arbok e Meowth, todos no Nv 31. Não dá para contornar nem para voltar antes de vencer."
+            "36":
+              title: "Vença Giovanni"
+              text_html: "Virando a esquina e passando a última barreira, Giovanni %{giovanni} começa a luta sozinho: Nidorino, Rhyhorn, Persian e uma Nidoqueen Nv 41. Earthquake dobra em três dos quatro."
+            "37":
               title: "Pegue a Master Ball"
-              text: "Fale com o presidente da Silph no escritorio dele pela Master Ball. Guarde-a para um lendario como Articuno, Zapdos, Moltres ou Mewtwo."
+              text_html: "Vá ao norte e fale com o presidente da Silph %{president}. A Master Ball captura qualquer coisa na primeira tentativa, e o jogo tem exatamente uma. Guarde para Mewtwo."
+              items:
+                master-ball: "11F, com o presidente da Silph, depois de vencer Giovanni."
+            "38":
+              title: "Saia da Silph"
+              text_html: "Tem um PC funcionando no canto sudeste desta sala, caso sua mochila esteja cheia. Depois volte pelas placas %{back} até o 3F, desça ao 1F de elevador e saia %{out}. O ginásio da Sabrina abriu enfim: <a href=\"%{href}\">vá pegar a Marsh Badge</a>."
           tips:
-            lapras: "A única Lapras do jogo. Um tanque Água/Gelo excelente. Não perca no 7F."
+            lapras: "A única Lapras do jogo. Um tanque Water/Ice excelente. Não perca ela no 7F."
           oak:
-            lapras: "Grátis no 7F → um ótimo tanque Água/Gelo. A única Lapras do jogo."
+            lapras: "De graça no 7F → um ótimo tanque Water/Ice. A única Lapras que você consegue no jogo."
           gifts:
             lapras:
               from: "DE UM FUNCIONÁRIO DA SILPH"
+        surf_cleanups:
+          note: "Os últimos itens atrás de água, e o caminho até Zapdos."
+          intro: "O HM03 está na mochila desde a Safari Zone, e três coisas em três cidades esperavam por ele. Voe entre elas e depois siga a leste de Cerulean: a Power Plant também se alcança pela água, e é a próxima parada."
+          steps:
+            "1":
+              title: "Ache o Max Ether de Vermilion"
+              text: "Voe até Vermilion e surfe no canal entre os dois prédios ao norte da Trade House. Fique de frente para o topo da fresta e aperte A; nada aparece na tela."
+              hidden:
+                max-ether: "Vermilion City, a água na fresta entre os prédios ao norte da Trade House. Aperte A de frente para ela; nada aparece na tela."
+            "2":
+              title: "Suba para a Rota 6"
+              text_html: "Saia da cidade pelo portão norte %{north}. A água do outro lado é a Rota 6, e ela tem o único Psyduck do jogo: toda passagem anterior por ali foi a pé."
+            "3":
+              title: "Capture Psyduck e Golduck"
+              text: "Psyduck nada a 94% e Golduck a 6%. Pegue um segundo Golduck se aparecer: Cinnabar troca um pelo BUFFY, o Rhydon, o único que você consegue sem criar um Rhyhorn."
+            "4":
+              title: "Siga para Celadon"
+              text: "Voe até Celadon e vá até a casinha ao norte do Game Corner. O quintal atrás dela é cercado dos dois lados, e um laguinho preenche a única passagem."
+            "5":
+              title: "Pegue o TM41 Softboiled"
+              text_html: "Surfe o laguinho e desça ao lado do funcionário %{man}. O TM41 Softboiled é uma cura que só a Chansey aprende, e esta é a única cópia do jogo."
+              items:
+                tm41: "Celadon City, o quintal cercado atrás da casa ao norte do Game Corner. Só o Surf chega até ele."
+            "6":
+              title: "Siga para a Silence Bridge"
+              text: "Voe até Lavender e desça para a Rota 12. As tábuas correm pelo meio de água aberta, e o último item atrás do Surf fica na metade norte."
+            "7":
+              title: "Leve o TM16 Pay Day"
+              text: "Surfe a leste das tábuas até a bola no píer isolado. O TM16 Pay Day espalha moedas que caem na sua mochila quando a batalha acaba."
+              items:
+                tm-pay-day: "Rota 12, o píer na metade norte da Silence Bridge, cercado de água aberta."
+            "8":
+              title: "Perdeu o Itemfinder? Fica uma rota a oeste"
+              text_html: "A Rota 12 abre a oeste %{west} para a Rota 11, uma estrada que ficou fechada atrás do Snorlax até a Flauta. O Ajudante do Oak no portão leste entrega o Itemfinder com 30 espécies capturadas, um número que você passou faz tempo."
+              items:
+                itemfinder: "Portão leste da Rota 11, no andar de cima. O Ajudante do Oak entrega assim que 30 espécies estiverem registradas."
+            "9":
+              title: "Compre Ultra Balls para Zapdos"
+              text: "A Power Plant é a próxima parada, e Zapdos espera no fundo dela: Nv 50, um encontro, uma chance. Nenhum Mart no caminho vende Ultra Balls, então voe até Fuchsia e abasteça antes."
+            "10":
+              title: "Saia de Cerulean para leste"
+              text_html: "Depois Cerulean, e para fora pela estrada a leste %{east}. A Rota 9 precisa de Cut para atravessar e a Rota 10 depois do Rock Tunnel é toda água, então leve os dois HMs na equipe."
+            "11":
+              title: "Surfe até a Power Plant"
+              text_html: "Surfe ao sul a partir da boca. Um Pokémaniac %{trainer} espera na outra margem, isolado da estrada, e a porta da usina %{door} fica subindo a costa a partir dele."
+          oak:
+            psyduck: "A água da Rota 6 é o único Psyduck do jogo, e esta é a primeira passagem que consegue chegar nela. Um basta: Golduck nada aqui também."
+            golduck: "6% na mesma água, e o único Golduck selvagem que existe. Pegue um segundo se aparecer, porque Cinnabar troca um pelo BUFFY, o Rhydon."
+            slowpoke: "A Silence Bridge é a primeira água com Slowpoke que você atravessa com o Surf. Um basta, com Slowbro nos mesmos tiles."
+            slowbro: "6% no píer. Todo outro Slowbro fica em água que o guia atravessou antes do HM03, então este é o primeiro que dá para pegar."
         route_19:
           note: "Rota aquática ao sul de Fuchsia. Precisa de Surf."
           intro: "Mar aberto ao sul de Fuchsia, só água depois que você deixa a praia. Dez Swimmers boiam no caminho, e Tentacool é quase tudo o que morde."

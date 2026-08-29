@@ -930,11 +930,11 @@ a.pn-wt-route__card:hover {
    screenshot has a flat pink dot baked in; this covers it with the live one. It keeps pulsing
    after you collect it, because the point of the pin is to say "the tile is here", which stays
    true. */
-.pn-wt-pin--cerulean-rare-candy { left: 50%; top: 44.4%; }
+.pn-wt-pin--cerulean-rare-candy { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--celadon-city-pp-up { left: 85.0%; top: 44.4%; }
-.pn-wt-pin--cerulean-cave-pp-up-16-13 { left: 50.0%; top: 50.0%; }
+.pn-wt-pin--cerulean-cave-pp-up-16-13 { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--cerulean-cave-pp-up-18-7 { left: 50.0%; top: 44.4%; }
-.pn-wt-pin--cerulean-cave-pp-up-8-14 { left: 50.0%; top: 61.1%; }
+.pn-wt-pin--cerulean-cave-pp-up-8-14 { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--mt-moon-ether { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--mt-moon-moon-stone { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--pokemon-mansion-max-revive { left: 15.0%; top: 44.4%; }
@@ -950,8 +950,8 @@ a.pn-wt-route__card:hover {
 .pn-wt-pin--route-10-super-potion { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--route-11-escape-rope { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--route-12-hyper-potion { left: 25.0%; top: 44.4%; }
-.pn-wt-pin--route-13-calcium { left: 50.0%; top: 50.0%; }
-.pn-wt-pin--route-13-pp-up { left: 15.0%; top: 61.1%; }
+.pn-wt-pin--route-13-calcium { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--route-13-pp-up { left: 15.0%; top: 44.4%; }
 .pn-wt-pin--route-17-full-restore { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--route-17-max-elixir { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--route-17-max-revive { left: 45.0%; top: 44.4%; }
@@ -965,21 +965,23 @@ a.pn-wt-route__card:hover {
 .pn-wt-pin--route-4-great-ball { left: 50.0%; top: 38.9%; }
 .pn-wt-pin--route-9-ether { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--safari-zone-revive { left: 50.0%; top: 44.4%; }
-.pn-wt-pin--seafoam-islands-max-elixir { left: 50.0%; top: 83.3%; }
-.pn-wt-pin--seafoam-islands-nugget { left: 50.0%; top: 72.2%; }
-.pn-wt-pin--seafoam-islands-ultra-ball { left: 55.0%; top: 94.4%; }
+.pn-wt-pin--seafoam-islands-max-elixir { left: 50.0%; top: 50.0%; }
+.pn-wt-pin--seafoam-islands-nugget { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--seafoam-islands-ultra-ball { left: 55.0%; top: 61.1%; }
 .pn-wt-pin--silph-co-elixir { left: 50.0%; top: 38.9%; }
-.pn-wt-pin--silph-co-max-potion { left: 25.0%; top: 72.2%; }
+.pn-wt-pin--silph-co-max-potion { left: 25.0%; top: 44.4%; }
 .pn-wt-pin--ss-anne-great-ball { left: 95.0%; top: 44.4%; }
 .pn-wt-pin--ss-anne-hyper-potion { left: 35.0%; top: 16.7%; }
 .pn-wt-pin--underground-path-full-restore { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--underground-path-x-special { left: 50.0%; top: 44.4%; }
-.pn-wt-pin--vermilion-city-max-ether { left: 50.0%; top: 33.3%; }
+.pn-wt-pin--vermilion-city-max-ether { left: 60.0%; top: 44.4%; }
 .pn-wt-pin--victory-road-full-restore { left: 65.0%; top: 44.4%; }
 .pn-wt-pin--victory-road-ultra-ball { left: 50.0%; top: 27.8%; }
 .pn-wt-pin--viridian-city-potion { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--viridian-forest-antidote { left: 50.0%; top: 44.4%; }
 .pn-wt-pin--viridian-forest-potion { left: 15.0%; top: 44.4%; }
+.pn-wt-pin--underground-path-west-east-elixir { left: 50.0%; top: 44.4%; }
+.pn-wt-pin--underground-path-west-east-nugget { left: 50.0%; top: 44.4%; }
 .pn-wt-pin__glow {
   position: absolute;
   left: 0;
@@ -2886,11 +2888,24 @@ a.pn-wt-route__card:hover {
 .pn-wt-gym__canvas {
   position: relative;
   line-height: 0;
-  width: calc(var(--mm-native-w, 100%) * 3);
+  width: calc(var(--mm-native-w, 100%) * var(--mm-gym-zoom));
   max-width: 100%;
 }
 .pn-wt-gym__shot-wrap:not(.is-routed) .pn-mm-route { display: none; }
-.pn-wt-gym__routebtn { margin-top: 10px; }
+/* The map's own controls, under it: the route line, and on a warp gym the pad names too. They wrap
+   rather than push the frame wider, because the frame is the map's 3x width and has none to give. */
+.pn-wt-gym__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.pn-wt-gym__routebtn { margin-top: 0; }
+/* A tapped pin's hint sits above it and reaches past the map's own box. On a stop's page the map
+   frame keeps 40px of padding for exactly that; a gym's frame is the map's own size, so it lets the
+   hint out instead. The panel around it still clips, which is far enough away to be no clip at all.
+   Nothing else can spill: the canvas is capped at 100% of this frame. */
+.pn-wt-shot--gym { overflow: visible; }
 .pn-wt-shot--gym .pn-wt-shot__map-img {
   width: 100%;
   height: auto;

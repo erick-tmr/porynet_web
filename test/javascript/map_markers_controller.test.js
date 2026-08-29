@@ -234,7 +234,7 @@ describe("hint", () => {
     expect(has("m-hidden", "is-selected")).toBe(true);
   });
 
-  it("closes the hint when the same marker is clicked again", async () => {
+  it("closes the hint when the same signpost is clicked again", async () => {
     await mount();
 
     el("hit-exit").click();
@@ -244,6 +244,23 @@ describe("hint", () => {
     el("hit-exit").click();
     await flush();
     expect(has("m-exit", "is-selected")).toBe(false);
+  });
+
+  // A tickable marker's hint reports whether it is done, and the click that marks it done is
+  // always the second one on it. Closing on that click left the "beaten" half of the popover with
+  // no way to be seen at all: every click that opened a hint was a click that had just unticked.
+  it("keeps a tickable marker's hint up so it can report the tick that click just made", async () => {
+    await mount();
+
+    el("hit-trainer").click();
+    await flush();
+    expect(has("m-trainer", "is-selected")).toBe(true);
+    expect(has("m-trainer", "is-done")).toBe(true);
+
+    el("hit-trainer").click();
+    await flush();
+    expect(has("m-trainer", "is-selected")).toBe(true);
+    expect(has("m-trainer", "is-done")).toBe(false);
   });
 
   it("dismisses the hint when the bare map is clicked", async () => {

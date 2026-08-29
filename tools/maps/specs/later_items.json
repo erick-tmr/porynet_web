@@ -136,5 +136,31 @@
       22,
       18
     ]
+  },
+  {
+    "type": "dialog",
+    "name": "route-11-gate-itemfinder",
+    "map": "Route11Gate2F",
+    "player": [
+      3,
+      6
+    ],
+    "player_dir": "LEFT",
+    "sprites": [
+      {
+        "sprite": "SPRITE_SCIENTIST",
+        "grid": [
+          2,
+          6
+        ],
+        "dir": "RIGHT"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got the",
+        "ITEM FINDER!"
+      ]
+    }
   }
 ]

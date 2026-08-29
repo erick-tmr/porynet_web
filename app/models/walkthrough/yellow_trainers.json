@@ -5140,68 +5140,8 @@
       {
         "map": "saffron-city-gym",
         "floor": "Gym",
-        "marker": "trainer-17-7",
-        "key": "T2",
-        "opp": "PSYCHIC_TR:2",
-        "cls": "PSYCHIC_TR",
-        "reward": 340,
-        "team": [
-          {
-            "dex": "122",
-            "lvl": 34
-          },
-          {
-            "dex": "064",
-            "lvl": 34
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-17-7.png"
-      },
-      {
-        "map": "saffron-city-gym",
-        "floor": "Gym",
-        "marker": "trainer-3-13",
-        "key": "T3",
-        "opp": "CHANNELER:24",
-        "cls": "CHANNELER",
-        "reward": 990,
-        "team": [
-          {
-            "dex": "092",
-            "lvl": 33
-          },
-          {
-            "dex": "092",
-            "lvl": 33
-          },
-          {
-            "dex": "093",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-13.png"
-      },
-      {
-        "map": "saffron-city-gym",
-        "floor": "Gym",
-        "marker": "trainer-3-7",
-        "key": "T4",
-        "opp": "CHANNELER:23",
-        "cls": "CHANNELER",
-        "reward": 1140,
-        "team": [
-          {
-            "dex": "093",
-            "lvl": 38
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-7.png"
-      },
-      {
-        "map": "saffron-city-gym",
-        "floor": "Gym",
         "marker": "trainer-17-1",
-        "key": "T5",
+        "key": "T2",
         "opp": "PSYCHIC_TR:1",
         "cls": "PSYCHIC_TR",
         "reward": 310,
@@ -5228,8 +5168,28 @@
       {
         "map": "saffron-city-gym",
         "floor": "Gym",
+        "marker": "trainer-17-7",
+        "key": "T3",
+        "opp": "PSYCHIC_TR:2",
+        "cls": "PSYCHIC_TR",
+        "reward": 340,
+        "team": [
+          {
+            "dex": "122",
+            "lvl": 34
+          },
+          {
+            "dex": "064",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-17-7.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
         "marker": "trainer-10-1",
-        "key": "T6",
+        "key": "T4",
         "opp": "CHANNELER:22",
         "cls": "CHANNELER",
         "reward": 1020,
@@ -5244,6 +5204,46 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-10-1.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-13",
+        "key": "T5",
+        "opp": "CHANNELER:24",
+        "cls": "CHANNELER",
+        "reward": 990,
+        "team": [
+          {
+            "dex": "092",
+            "lvl": 33
+          },
+          {
+            "dex": "092",
+            "lvl": 33
+          },
+          {
+            "dex": "093",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-13.png"
+      },
+      {
+        "map": "saffron-city-gym",
+        "floor": "Gym",
+        "marker": "trainer-3-7",
+        "key": "T6",
+        "opp": "CHANNELER:23",
+        "cls": "CHANNELER",
+        "reward": 1140,
+        "team": [
+          {
+            "dex": "093",
+            "lvl": 38
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/saffron-city-gym-trainer-3-7.png"
       },
       {
         "map": "saffron-city-gym",
@@ -5426,28 +5426,8 @@
       {
         "map": "silph-co-2f",
         "floor": "2F",
-        "marker": "trainer-16-11",
-        "key": "T2",
-        "opp": "ROCKET:23",
-        "cls": "ROCKET",
-        "reward": 870,
-        "team": [
-          {
-            "dex": "104",
-            "lvl": 29
-          },
-          {
-            "dex": "041",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-16-11.png"
-      },
-      {
-        "map": "silph-co-2f",
-        "floor": "2F",
         "marker": "trainer-24-13",
-        "key": "T3",
+        "key": "T2",
         "opp": "SCIENTIST:3",
         "cls": "SCIENTIST",
         "reward": 1400,
@@ -5466,6 +5446,26 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-24-13.png"
+      },
+      {
+        "map": "silph-co-2f",
+        "floor": "2F",
+        "marker": "trainer-16-11",
+        "key": "T3",
+        "opp": "ROCKET:23",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "104",
+            "lvl": 29
+          },
+          {
+            "dex": "041",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-2f-trainer-16-11.png"
       },
       {
         "map": "silph-co-2f",
@@ -5602,8 +5602,24 @@
       {
         "map": "silph-co-5f",
         "floor": "5F",
-        "marker": "trainer-28-4",
+        "marker": "trainer-8-16",
         "key": "T1",
+        "opp": "ROCKET:28",
+        "cls": "ROCKET",
+        "reward": 990,
+        "team": [
+          {
+            "dex": "024",
+            "lvl": 33
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-8-16.png"
+      },
+      {
+        "map": "silph-co-5f",
+        "floor": "5F",
+        "marker": "trainer-28-4",
+        "key": "T2",
         "opp": "ROCKET:29",
         "cls": "ROCKET",
         "reward": 990,
@@ -5619,7 +5635,7 @@
         "map": "silph-co-5f",
         "floor": "5F",
         "marker": "trainer-18-10",
-        "key": "T2",
+        "key": "T3",
         "opp": "JUGGLER:1",
         "cls": "JUGGLER",
         "reward": 1015,
@@ -5639,7 +5655,7 @@
         "map": "silph-co-5f",
         "floor": "5F",
         "marker": "trainer-8-3",
-        "key": "T3",
+        "key": "T4",
         "opp": "SCIENTIST:6",
         "cls": "SCIENTIST",
         "reward": 1300,
@@ -5662,22 +5678,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-8-3.png"
-      },
-      {
-        "map": "silph-co-5f",
-        "floor": "5F",
-        "marker": "trainer-8-16",
-        "key": "T4",
-        "opp": "ROCKET:28",
-        "cls": "ROCKET",
-        "reward": 990,
-        "team": [
-          {
-            "dex": "024",
-            "lvl": 33
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/silph-co-5f-trainer-8-16.png"
       },
       {
         "map": "silph-co-6f",
@@ -5778,8 +5778,28 @@
       {
         "map": "silph-co-7f",
         "floor": "7F",
-        "marker": "trainer-13-1",
+        "marker": "trainer-19-14",
         "key": "T2",
+        "opp": "ROCKET:34",
+        "cls": "ROCKET",
+        "reward": 870,
+        "team": [
+          {
+            "dex": "027",
+            "lvl": 29
+          },
+          {
+            "dex": "028",
+            "lvl": 29
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-19-14.png"
+      },
+      {
+        "map": "silph-co-7f",
+        "floor": "7F",
+        "marker": "trainer-13-1",
+        "key": "T3",
         "opp": "ROCKET:32",
         "cls": "ROCKET",
         "reward": 780,
@@ -5807,7 +5827,7 @@
         "map": "silph-co-7f",
         "floor": "7F",
         "marker": "trainer-2-13",
-        "key": "T3",
+        "key": "T4",
         "opp": "SCIENTIST:8",
         "cls": "SCIENTIST",
         "reward": 1450,
@@ -5822,26 +5842,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-2-13.png"
-      },
-      {
-        "map": "silph-co-7f",
-        "floor": "7F",
-        "marker": "trainer-19-14",
-        "key": "T4",
-        "opp": "ROCKET:34",
-        "cls": "ROCKET",
-        "reward": 870,
-        "team": [
-          {
-            "dex": "027",
-            "lvl": 29
-          },
-          {
-            "dex": "028",
-            "lvl": 29
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/silph-co-7f-trainer-19-14.png"
       },
       {
         "map": "silph-co-8f",
@@ -5942,32 +5942,8 @@
       {
         "map": "silph-co-9f",
         "floor": "9F",
-        "marker": "trainer-21-13",
-        "key": "T2",
-        "opp": "SCIENTIST:10",
-        "cls": "SCIENTIST",
-        "reward": 1400,
-        "team": [
-          {
-            "dex": "100",
-            "lvl": 28
-          },
-          {
-            "dex": "109",
-            "lvl": 28
-          },
-          {
-            "dex": "082",
-            "lvl": 28
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/silph-co-9f-trainer-21-13.png"
-      },
-      {
-        "map": "silph-co-9f",
-        "floor": "9F",
         "marker": "trainer-2-4",
-        "key": "T3",
+        "key": "T2",
         "opp": "ROCKET:37",
         "cls": "ROCKET",
         "reward": 840,
@@ -5986,6 +5962,30 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/silph-co-9f-trainer-2-4.png"
+      },
+      {
+        "map": "silph-co-9f",
+        "floor": "9F",
+        "marker": "trainer-21-13",
+        "key": "T3",
+        "opp": "SCIENTIST:10",
+        "cls": "SCIENTIST",
+        "reward": 1400,
+        "team": [
+          {
+            "dex": "100",
+            "lvl": 28
+          },
+          {
+            "dex": "109",
+            "lvl": 28
+          },
+          {
+            "dex": "082",
+            "lvl": 28
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/silph-co-9f-trainer-21-13.png"
       },
       {
         "map": "silph-co-10f",
