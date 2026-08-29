@@ -1273,6 +1273,59 @@ pt:
             label: "OS MOVIMENTOS"
             title: "A HM não basta"
             text: "Movimentos de campo também exigem a insígnia certa. Escolha Cut no menu sem a Insígnia Cascade e o jogo responde 'No! A new BADGE is required.'"
+      surf_pikachu:
+        eyebrow: "CURIOSIDADE · A CASA DA PRAIA"
+        title_html: "Pikachu <span class=\"pn-sp__hl\">Surfista</span>"
+        lead: "A porta no extremo norte desta rota esconde um minigame inteiro atrás de um Pokémon que o cartucho não consegue produzir. O Pikachu nunca aprende Surf aqui: nem por TM, nem por HM, nem na lista de nível. Mesmo assim, Yellow guarda um sprite de prancha pronto para o mapa e uma casa de praia esperando quem aparecer em cima de uma."
+        chips:
+          house: "ROTA 19 · CASA DA PRAIA"
+          stadium: "PRECISA DE POKÉMON STADIUM"
+          reward: "SEM PRÊMIO, PURA NOVIDADE"
+        art_caption: "A Game Freak desenhou a prancha e depois trancou tudo atrás de um acessório de Nintendo 64."
+        sprite:
+          label: "SPRITE NO MAPA"
+          text: "Surfe em qualquer canto de Kanto nesse Pikachu e ele anda na própria prancha. Qualquer outro Pokémon carregando você usa o sprite comum de mar, então a prancha é a única coisa que toda essa empreitada põe na tela."
+          shots:
+            board: "Na prancha"
+            other: "Qualquer outro surfista"
+        beach:
+          tag: "MINIGAME"
+          title: "A Praia do Pikachu"
+          text: "A casa fica na areia no topo da rota, a um passo da água. Entre com um Pikachu surfista no time, fale com o Surfin' Dude, diga que sim, e ele te põe em cima de uma onda."
+          caption: "Esquerda e direita giram o Pikachu na crista da onda. Caia reto ou você capota."
+        scoring:
+          label: "PONTUAÇÃO · RADNESS"
+          note: "A pontuação final é o HP que sobrou quando você chega à praia mais a radness acumulada. Tempo no ar aumenta a velocidade e uma aterrissagem limpa a mantém, enquanto uma queda te devolve à velocidade em que começou. Não há prêmio: o Hi-Score fica na máquina da parede do fundo, e uma Game Boy Printer imprime o resultado."
+        scores:
+          one:
+            label: "1 GIRO"
+            note: "Qualquer giro simples na crista."
+          two:
+            label: "2 GIROS"
+            note: "O número maior é girar um para cada lado."
+          three:
+            label: "3+ GIROS"
+            note: "De novo o maior mistura frente e costas. O medidor para aqui."
+          hp:
+            label: "HP"
+            note: "Um relógio, não uma barra de vida. Cai um ponto a cada quadro lá fora."
+        stadium:
+          tag: "CAMINHO LEGÍTIMO"
+          console: "NINTENDO 64"
+          title: "Como pôr Surf no seu Pikachu"
+          box_alt: "Capa de Pokémon Stadium para Nintendo 64"
+          text_html: "Um cartucho sozinho nunca dá conta. O golpe vem de <b>Pokémon Stadium</b> no Nintendo 64, que lê o seu save pelo Transfer Pak e entrega o Surf como prêmio de torneio. É um pedido longo."
+          steps:
+            round_html: "Libere o <b>Round 2</b>. Isso quer dizer todas as copas, o Gym Leader Castle e o Mewtwo, tudo vencido."
+            cup_html: "Entre na <b>R-2 Prime Cup, divisão Master Ball</b>, a última das quatro."
+            own_html: "Escale o <b>seu próprio Pikachu, vindo do cartucho de Yellow</b>. Nada de alugado, e ele não pode já saber Surf."
+            field_html: "Mande ele para a arena em <b>todas as batalhas da copa</b>, e leve a copa <b>sem continues</b>."
+            award_html: "A tela de premiação mostra o Pikachu na prancha e oferece trocar o Surf por um dos golpes dele. Aceite e leve de volta para casa."
+          note: "As únicas outras fontes honestas foram as distribuições oficiais de evento da época e, muito depois, um download gratuito em Pokémon Battle Revolution no Wii. O resto é aparelho de trapaça."
+        vc:
+          label: "VIRTUAL CONSOLE · 3DS"
+          text_html: "Sem Transfer Pak e sem Stadium, a praia teria virado conteúdo morto. A versão de 3DS mudou a fechadura: leve o seu <b class=\"pn-sp__vc-hl\">Pikachu parceiro</b>, aquele que carrega o seu nome e ID, e o Surfin' Dude libera a brincadeira. O Surf em si continua fora do seu alcance."
+        aside: "Chegue sem um e o Dude só avisa que os cachorros-quentes e hambúrgueres estão em promoção. Chegue com um e ele diz que não está mais sozinho, embora o Pikachu que anda pela sala nunca suba numa prancha."
       locations:
         pallet_town:
           note: "Pegue o Pikachu com o Prof. Oak. Sem grama selvagem aqui."
@@ -2988,7 +3041,7 @@ pt:
               text: "Limpe os Swimmers espalhados pela metade leste da água enquanto surfa a oeste pelo canal rumo às ilhas."
             "2":
               title: "Entre nas ilhas"
-              text_html: "As Seafoam Islands quebram a água no meio do caminho, e a caverna passa por baixo delas. Entre pela boca leste %{east}: é o caminho até Cinnabar, e o Articuno descansa lá no fundo."
+              text_html: "As Seafoam Islands quebram a água no meio do caminho, e a caverna passa por baixo delas. Desembarque na ponta sudoeste da ilha e suba até a boca da caverna %{mouth}: o Articuno descansa lá no fundo."
         seafoam_islands:
           note: "Caverna com quebra-cabeça de pedras sob a Rota 20. Articuno selvagem dentro."
           intro: "Cinco andares de caverna marinha com correntes correndo pelos mais fundos. Nenhum treinador, um quebra-cabeça de pedras e o Articuno no fim."

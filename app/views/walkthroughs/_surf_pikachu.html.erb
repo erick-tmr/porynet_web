@@ -1,0 +1,110 @@
+<% sp = Walkthrough::Yellow.surf_pikachu %>
+<% k = "#{Walkthrough::Yellow::K}.surf_pikachu" %>
+<section id="<%= sp.anchor %>" class="pn-wt-section pn-sp">
+  <div class="pn-eyebrow-label pn-sp__eyebrow">
+    <span class="pn-sp__tick" aria-hidden="true"></span>
+    <%= t("#{k}.eyebrow") %>
+  </div>
+  <h3 class="pn-wt-band__h3"><%= t("#{k}.title_html") %></h3>
+  <p class="pn-sp__lead"><%= t("#{k}.lead") %></p>
+
+  <div class="pn-sp__chips">
+    <% sp.chips.each do |chip| %>
+      <span class="pn-sp__chip pn-sp__chip--<%= chip %>"><%= t("#{k}.chips.#{chip}") %></span>
+    <% end %>
+  </div>
+
+  <div class="pn-sp__art">
+    <%= r2_image_tag sp.art, alt: "", class: "pn-sp__art-img", loading: "lazy" %>
+    <div class="pn-sp__caption"><%= t("#{k}.art_caption") %></div>
+  </div>
+
+  <div class="pn-sp__compare">
+    <div class="pn-sp__compare-lead">
+      <div class="pn-eyebrow-label pn-sp__eyebrow pn-sp__eyebrow--sprite">
+        <span class="pn-sp__tick" aria-hidden="true"></span>
+        <%= t("#{k}.sprite.label") %>
+      </div>
+      <p class="pn-sp__compare-text"><%= t("#{k}.sprite.text") %></p>
+    </div>
+    <div class="pn-sp__shots">
+      <% sp.shots.each do |shot| %>
+        <div class="pn-sp__shot pn-sp__shot--<%= shot.tone %>">
+          <div class="pn-sp__shot-frame">
+            <%= r2_image_tag shot.image, alt: "", class: "pn-sp__shot-img", loading: "lazy" %>
+          </div>
+          <div class="pn-sp__shot-label"><%= t("#{k}.sprite.shots.#{shot.key}") %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pn-sp__cols">
+    <div class="pn-sp__card pn-sp__card--beach">
+      <div class="pn-sp__card-tags">
+        <span class="pn-sp__badge pn-sp__badge--minigame"><%= t("#{k}.beach.tag") %></span>
+        <span class="pn-sp__chip pn-sp__chip--house"><%= t("#{k}.chips.house") %></span>
+      </div>
+      <h4 class="pn-sp__card-title"><%= t("#{k}.beach.title") %></h4>
+      <p class="pn-sp__card-text"><%= t("#{k}.beach.text") %></p>
+
+      <div class="pn-sp__beach">
+        <%= r2_image_tag sp.beach, alt: "", class: "pn-sp__beach-img", loading: "lazy" %>
+        <div class="pn-sp__caption"><%= t("#{k}.beach.caption") %></div>
+      </div>
+
+      <div class="pn-sp__scoring">
+        <span class="pn-sp__badge pn-sp__badge--scoring"><%= t("#{k}.scoring.label") %></span>
+        <div class="pn-sp__scores">
+          <% sp.scores.each do |score| %>
+            <div class="pn-sp__score pn-sp__score--<%= score.tone %>">
+              <span class="pn-sp__score-key"><%= t("#{k}.scores.#{score.key}.label") %></span>
+              <span class="pn-sp__score-val">
+                <%= score.value %><% if score.alt? %><span class="pn-sp__score-alt"> / <%= score.alt %></span><% end %>
+              </span>
+              <span class="pn-sp__score-note"><%= t("#{k}.scores.#{score.key}.note") %></span>
+            </div>
+          <% end %>
+        </div>
+        <p class="pn-sp__card-note"><%= t("#{k}.scoring.note") %></p>
+      </div>
+    </div>
+
+    <div class="pn-sp__card pn-sp__card--stadium">
+      <div class="pn-sp__card-head">
+        <span class="pn-sp__card-sprite"><%= r2_image_tag sp.sprite, alt: "", loading: "lazy" %></span>
+        <div>
+          <div class="pn-sp__card-tags">
+            <span class="pn-sp__badge pn-sp__badge--legit"><%= t("#{k}.stadium.tag") %></span>
+            <span class="pn-sp__chip"><%= t("#{k}.stadium.console") %></span>
+          </div>
+          <h4 class="pn-sp__card-title"><%= t("#{k}.stadium.title") %></h4>
+        </div>
+      </div>
+
+      <%= r2_image_tag sp.stadium, alt: t("#{k}.stadium.box_alt"), class: "pn-sp__box", loading: "lazy" %>
+      <p class="pn-sp__card-text"><%= t("#{k}.stadium.text_html") %></p>
+
+      <div class="pn-sp__steps">
+        <% sp.steps.each do |step| %>
+          <div class="pn-sp__step pn-sp__step--<%= step.tone %>">
+            <span class="pn-sp__step-n"><%= step.glyph %></span>
+            <span class="pn-sp__step-text"><%= t("#{k}.stadium.steps.#{step.key}_html") %></span>
+          </div>
+        <% end %>
+      </div>
+      <p class="pn-sp__card-note"><%= t("#{k}.stadium.note") %></p>
+    </div>
+  </div>
+
+  <div class="pn-sp__vc">
+    <span class="pn-sp__scan" aria-hidden="true"></span>
+    <div class="pn-sp__vc-label"><%= t("#{k}.vc.label") %></div>
+    <p class="pn-sp__vc-text"><%= t("#{k}.vc.text_html") %></p>
+  </div>
+
+  <div class="pn-sp__aside">
+    <span class="pn-sp__aside-mark" aria-hidden="true">?</span>
+    <span><%= t("#{k}.aside") %></span>
+  </div>
+</section>

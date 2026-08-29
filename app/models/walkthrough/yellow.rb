@@ -227,6 +227,35 @@ module Walkthrough
           title_key: "#{b}.trivia.#{key}.title", text_key: "#{b}.trivia.#{key}.text") })
     end
 
+    # Pikachu's Beach, behind the Route 19 beach house door. The Surfin' Dude tests
+    # BIT_PIKACHU_SPAWN_SURFING (scripts/SummerBeachHouse.asm), and the `vc_patch` there swaps it
+    # for BIT_PIKACHU_SPAWN_STARTER, which is why the 3DS release takes the partner Pikachu
+    # instead. The two shots are the same water tile twice: LoadSurfingPlayerSpriteGraphics2 loads
+    # the board only when the Pokémon carrying you is that starter Pikachu, and the Seel sheet for
+    # every other surfer, so the pair is the whole visible payoff side by side.
+    SURF_CHIPS = %w[house stadium reward].freeze
+    SURF_SHOTS = [ [ "board", "route-19-surf-pikachu", "on" ],
+                   [ "other", "route-19-surf-plain", "off" ] ].freeze
+    SURF_SCORES = [ [ "one", "50", nil, "calm" ], [ "two", "150", "180", "calm" ],
+                    [ "three", "350", "500", "big" ], [ "hp", "6000", nil, "clock" ] ].freeze
+    SURF_STADIUM = [ [ "round", "1", "step" ], [ "cup", "2", "step" ], [ "own", "3", "step" ],
+                     [ "field", "4", "step" ], [ "award", "✓", "done" ] ].freeze
+
+    def self.surf_pikachu
+      SurfPikachu.new(anchor: "surfing-pikachu",
+        art: "walkthrough/art/surfing-pikachu-pixel.png",
+        beach: "walkthrough/art/pikachus-beach-minigame.png",
+        stadium: "walkthrough/art/pokemon-stadium-n64-box.png",
+        sprite: "pokemon/yellow/025.png",
+        chips: SURF_CHIPS,
+        shots: SURF_SHOTS.map { |key, scene, tone|
+          SurfShot.new(key: key, image: scenes.dig(scene, "image"), tone: tone) },
+        scores: SURF_SCORES.map { |key, value, alt, tone|
+          SurfScore.new(key: key, value: value, alt: alt, tone: tone) },
+        steps: SURF_STADIUM.map { |key, glyph, tone|
+          SurfStadiumStep.new(key: key, glyph: glyph, tone: tone) })
+    end
+
     # The eight badges in case order, with what each one switches on: `boost` names the stat every
     # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
     # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym
@@ -311,10 +340,11 @@ module Walkthrough
       # bag. Seafoam stays held back, being a boulder puzzle on the way to nowhere you need yet.
       { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
-      # The islands sit in the middle of Route 20 and the cave runs under them, so walking in at
-      # the east mouth and out at the west one is the way west rather than a detour off it: you
-      # arrive holding both HMs it asks for, and a bird you get one shot at is not worth passing
-      # twice.
+      # The islands sit in the middle of Route 20 and the cave runs under them, so walking the
+      # cave is the way west rather than a detour off it: you arrive holding both HMs it asks for,
+      # and a bird you get one shot at is not worth passing twice. The way in is the mouth on the
+      # island itself (E1), reached by landing on its south-west corner; the other mouth sits on a
+      # detached patch and opens onto a chamber walled off from the rest of 1F.
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
       { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
       { slug: "leg-16", special: false, locs: %w[viridian-gym] },
@@ -2290,7 +2320,7 @@ module Walkthrough
     end
 
     def self.route_20
-      loc("route-20", "ROUTE", "Route 20", 43, steps: 2, pins: { 2 => { east: "route-20/exit-58-9" } },
+      loc("route-20", "ROUTE", "Route 20", 43, steps: 2, pins: { 2 => { mouth: "route-20/exit-48-5" } },
         encounters: [
           enc("route-20", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-20", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),

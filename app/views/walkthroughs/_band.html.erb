@@ -30,6 +30,10 @@
 
 <% if loc.slug == "route-24" %><%= render "leave_standing_teaser" %><% end %>
 
+<%# The beach house is the first door on this route, so what is behind it is read before the two
+    steps that surf past it rather than after. %>
+<% if loc.slug == "route-19" %><%= render "surf_pikachu" %><% end %>
+
 <% if groups.any? %>
   <% groups.each_with_index do |(area, steps), index| %>
     <% if area %>

@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **990** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
-- standalone scenes: **280** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **282** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -330,6 +330,8 @@
 - `route-17-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/route-17-hidden-rare-candy.png
 - `route-18-gate` (screen): walkthrough/yellow/scenes/route-18-gate.png
 - `route-18-gate-inside` (screen): walkthrough/yellow/scenes/route-18-gate-inside.png
+- `route-19-surf-pikachu` (screen): walkthrough/yellow/scenes/route-19-surf-pikachu.png
+- `route-19-surf-plain` (screen): walkthrough/yellow/scenes/route-19-surf-plain.png
 - `route-2-cut-tree` (screen): walkthrough/yellow/scenes/route-2-cut-tree.png
 - `route-2-digletts-exit` (screen): walkthrough/yellow/scenes/route-2-digletts-exit.png
 - `route-2-flash` (screen): walkthrough/yellow/scenes/route-2-flash.png

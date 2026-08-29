@@ -78,5 +78,30 @@
         "NAME RATER!"
       ]
     }
+  },
+  {
+    "type": "screen",
+    "name": "route-19-surf-pikachu",
+    "map": "Route19",
+    "player": [
+      7,
+      13
+    ],
+    "player_dir": "LEFT",
+    "auto_npcs": false,
+    "follower": false
+  },
+  {
+    "type": "screen",
+    "name": "route-19-surf-plain",
+    "map": "Route19",
+    "player": [
+      7,
+      13
+    ],
+    "player_dir": "LEFT",
+    "player_sprite": "SPRITE_SEEL",
+    "auto_npcs": false,
+    "follower": false
   }
 ]

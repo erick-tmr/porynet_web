@@ -20985,6 +20985,18 @@
       "width": 160,
       "height": 144,
       "type": "dialog"
+    },
+    "route-19-surf-pikachu": {
+      "image": "walkthrough/yellow/scenes/route-19-surf-pikachu.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-19-surf-plain": {
+      "image": "walkthrough/yellow/scenes/route-19-surf-plain.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
     }
   }
 }

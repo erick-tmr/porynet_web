@@ -810,6 +810,24 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-xa__trivia-title", text: "The PC is the toggle"
   end
 
+  # The beach house is the first door on Route 19 and what is behind it needs a Pokémon the
+  # cartridge cannot make, so the section reads as an exhibit, before the two steps that surf past
+  # it. Every figure it prints is the game's own, so the two-way payouts have to survive rendering.
+  test "Route 19 opens Pikachu's Beach ahead of its steps" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+
+    assert_response :success
+    assert_select "#surfing-pikachu.pn-sp"
+    assert response.body.index('id="surfing-pikachu"') < response.body.index("pn-wt-steps"),
+      "the beach house reads before the steps that surf past it"
+    assert_select ".pn-sp__shot-img", 2, "the same water tile, with the board and without it"
+    assert_select ".pn-sp__score", 4
+    assert_select ".pn-sp__score--big .pn-sp__score-alt", text: %r{/ 500}
+    assert_select ".pn-sp__score--clock .pn-sp__score-val", text: /6000/
+    assert_select ".pn-sp__step", 5, "four conditions and the award screen"
+    assert_select ".pn-sp__vc-label", text: "VIRTUAL CONSOLE · 3DS"
+  end
+
   test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 

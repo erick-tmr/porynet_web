@@ -853,7 +853,8 @@ class WalkthroughTest < ActiveSupport::TestCase
         loc.trainers.flat_map { |t| [ [ "#{loc.slug} where #{t.name}", t.where ],
                                       [ "#{loc.slug} battle #{t.name}", t.battle ] ] } +
         [ [ "#{loc.slug} trivia", loc.trivia&.shot ] ]
-    end.reject { |_label, node| node.nil? }
+    end.reject { |_label, node| node.nil? } +
+      Walkthrough::Yellow.surf_pikachu.shots.map { |s| [ "surfing pikachu #{s.key}", s ] }
   end
 
   test "every screenshot a step, item or trainer points at resolves to a real image" do
@@ -877,7 +878,8 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "no generated frame is left unreferenced beyond the known backlog" do
-    referenced = [ game, Walkthrough::Yellow.mew_glitch ].flat_map { |r| every_referenced_image(r) }
+    roots = [ game, Walkthrough::Yellow.mew_glitch, Walkthrough::Yellow.surf_pikachu ]
+    referenced = roots.flat_map { |r| every_referenced_image(r) }
       .map { |i| File.basename(i, ".png") }.to_set
     orphans = (Walkthrough::Yellow.manifest.fetch("scenes").keys.to_set - referenced).to_a.sort
 
