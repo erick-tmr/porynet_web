@@ -2974,8 +2974,8 @@ pt:
           intro: "Mar aberto ao sul de Fuchsia, só água depois que você deixa a praia. Dez Swimmers boiam no caminho, e Tentacool é quase tudo o que morde."
           steps:
             "1":
-              title: "Surfe para fora"
-              text: "Surfe ao sul de Fuchsia pela aproximação de Seafoam, pescando ou batalhando os Swimmers e Beauties espalhados pela água aberta."
+              title: "Abasteça e surfe para fora"
+              text: "Reponha as Ultra Balls no Mart de Fuchsia antes de sair e confira se o time leva Surf e Strength: as Seafoam Islands pedem os dois, e o Articuno espera lá no fundo. Depois surfe ao sul pelos Swimmers e Beauties."
             "2":
               title: "Siga para a Rota 20"
               text_html: "Siga ao sul até a praia lá embaixo, que abre a oeste %{west} para a Rota 20 e as Seafoam Islands."

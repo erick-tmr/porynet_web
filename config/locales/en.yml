@@ -2974,8 +2974,8 @@ en:
           intro: "Open sea south of Fuchsia, nothing but water once you leave the beach. Ten Swimmers float in the way, and Tentacool is almost all that bites."
           steps:
             "1":
-              title: "Surf out"
-              text: "Surf south out of Fuchsia along the Seafoam approach, fishing or battling the Swimmers and Beauties spread across the open water."
+              title: "Stock up, then Surf out"
+              text: "Top up on Ultra Balls at the Fuchsia Mart first, and check your team carries both Surf and Strength: the Seafoam Islands need the pair, and Articuno waits at the bottom of them. Then Surf south past the Swimmers and Beauties."
             "2":
               title: "Head to Route 20"
               text_html: "Carry on south to the little beach at the bottom, which opens west %{west} into Route 20 and the Seafoam Islands."
