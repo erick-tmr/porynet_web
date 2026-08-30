@@ -19862,6 +19862,12 @@
       "height": 144,
       "type": "dialog"
     },
+    "cinnabar-gym-blaine": {
+      "image": "walkthrough/yellow/scenes/cinnabar-gym-blaine.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "cerulean-city-hidden-rare-candy": {
       "image": "walkthrough/yellow/scenes/cerulean-city-hidden-rare-candy.png",
       "width": 160,

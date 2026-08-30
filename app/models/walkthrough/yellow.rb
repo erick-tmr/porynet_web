@@ -2468,7 +2468,8 @@ module Walkthrough
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ])
+          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2),
+                    gstep("cinnabar-island", 3, scene: "cinnabar-gym-blaine") ])
       )
     end
 

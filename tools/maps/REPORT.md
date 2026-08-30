@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
-- standalone scenes: **282** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **283** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -212,6 +212,7 @@
 - `cerulean-city-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/cerulean-city-hidden-rare-candy.png
 - `cerulean-gym-entrance` (screen): walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `cerulean-north-nugget` (screen): walkthrough/yellow/scenes/cerulean-north-nugget.png
+- `cinnabar-gym-blaine` (screen): walkthrough/yellow/scenes/cinnabar-gym-blaine.png
 - `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
 - `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
 - `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png

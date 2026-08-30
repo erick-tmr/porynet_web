@@ -4,8 +4,31 @@
     "name": "vermilion-gym-second-switch",
     "map": "VermilionGym",
     "parent": "VERMILION_CITY",
-    "player": [5, 10],
+    "player": [
+      5,
+      10
+    ],
     "player_dir": "UP",
-    "dialog": { "lines": ["The 2nd electric", "lock opened!"] }
+    "dialog": {
+      "lines": [
+        "The 2nd electric",
+        "lock opened!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "name": "cinnabar-gym-blaine",
+    "map": "CinnabarGym",
+    "parent": "CINNABAR_ISLAND",
+    "player": [
+      3,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      3,
+      4
+    ]
   }
 ]
