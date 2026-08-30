@@ -871,10 +871,18 @@ a.pn-wt-route__card:hover {
   aspect-ratio: 10 / 9;
 }
 .pn-wt-shot--step { aspect-ratio: 20 / 19; }
+/* A step usually shows one screen; a step whose instruction is two moves shows one per move,
+   side by side until the card runs out of room, then stacked. */
 .pn-wt-shot__side {
-  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   max-width: 100%;
   flex: none;
+}
+.pn-wt-shot__side > .pn-wt-shot {
+  width: 300px;
+  max-width: 100%;
 }
 .pn-wt-shot__img {
   position: absolute;

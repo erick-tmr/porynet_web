@@ -399,6 +399,15 @@ en:
       map_npc_silph_master_ball: "Beat Giovanni and the president thanks you with the Master Ball, the only one in the game."
       map_npc_tower_purified_zone: "Four tiles that heal your party in full, every time you step on them. The tower's free Pokémon Center, halfway up the climb."
       map_npc_tower_silent_channeler: "The one Channeler in the tower who is not a trainer. She stands beside the healing tiles and only talks."
+      map_npc_mansion_switch_1f: "Northwest end of 1F's top corridor. The walk never needs it: what it opens is the southeast door you leave by, and it shuts the corridor's east arm on the way."
+      map_npc_mansion_switch_2f: "Off the corridor above the Burglar's room. It opens the southwest room, where the second diary page lies, and shuts the northwest stairs. Press it again to climb."
+      map_npc_mansion_switch_3f: "In the rooms across the top of 3F. It shuts the east passage you came through and opens the one below it, to the Scientist and the holes, so take the Iron first."
+      map_npc_mansion_switch_tm: "Beside the TM14 ball. It swaps the room's doors, the north gap for the west one, and unbars the Scientist's room in the northeast."
+      map_npc_mansion_switch_beds: "Beside the first bed. It runs the top corridor west to TM22, the Secret Key and the last Rare Candy, and shuts the way back down to the stairs."
+      map_npc_mansion_diary_jul_5: "\"Diary: July 5. Guyana, South America. A new Pokémon was discovered deep in the jungle.\" The first of the four pages."
+      map_npc_mansion_diary_jul_10: "\"Diary: July 10. We christened the newly discovered Pokémon, MEW.\" In 2F's southwest room, behind the gate this floor's statue opens."
+      map_npc_mansion_diary_feb_6: "\"Diary: Feb. 6. MEW gave birth. We named the newborn MEWTWO.\" A step west of the 3F staircase you come up from 2F."
+      map_npc_mansion_diary_sep_1: "\"Diary: Sept. 1. MEWTWO is far too powerful. We have failed to curb its vicious tendencies...\" The last page, three tiles north of the B1F Burglar."
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
       catch_h2: "What you can catch here"
@@ -3277,85 +3286,108 @@ en:
               text_html: "If you left a fossil with the Lab %{lab}, its Pokémon is waiting there. Then leave by the north shore %{north} onto Route 21, the long water up to Pallet Town."
         pokemon_mansion:
           note: "Burnt-out mansion. Fire types and the Secret Key."
-          intro: "A burnt-out mansion of hidden staircases opened by statue switches. Its abandoned diary is where Mewtwo's story is written down."
+          intro: "Four burnt-out floors wired to a single switch that any statue in the place will flip. The Secret Key to Blaine's Gym is at the bottom of them, and the diary that names Mew and Mewtwo is scattered up the floors on the way."
+          trivia:
+            tag: "SWITCHES"
+            title: "One switch, two sets of doors"
+            intro_html: "Every statue presses one switch, and the gates are wired to it in two sets: whichever set stands open shuts as the shut set opens. The 3F statue %{landing} seals the room you came in by to open the way to the holes; B1F's %{beds} shuts the way back to the stairs to open the wing holding the Key."
+            note: "The Burglar on 2F says it outright once you beat him: switches open and close alternating sets of doors."
           steps:
             "1":
-              title: "Enter the burned mansion"
-              text: "Cross from the Cinnabar shore into the charred mansion, a maze of barred paths that open only when you press the hidden switch inside a nearby statue. The prize is the Secret Key, down on B1F."
+              title: "Walk in the front door"
+              text_html: "In through the door %{door}. Every gate in the mansion is wired to one switch, and the statues that flip it are spread over four floors. The Secret Key waits at the bottom of them."
             "2":
-              title: "Grab the Carbos on 1F"
-              text: "Just inside, sweep the east side of the ground floor. The Carbos (a Speed vitamin) sits in a ball on the east side, just south of the Scientist you battle on the way up."
-              items:
-                carbos: "East side of 1F, south of the Scientist trainer."
+              title: "Feel out the Moon Stone in the hall"
+              text: "Head up the carpeted hall from the door and count five pillars up the right-hand row. Face that one and press A: a hidden Moon Stone, nothing shown on-screen."
+              hidden:
+                moon-stone: "1F entrance hall, the fifth pillar up the right-hand row. Face it and press A. Nothing shows on-screen."
             "3":
-              title: "Search the 1F pillars for a Moon Stone"
-              text: "By the pillars in the west-central part of 1F, press A on the empty floor to turn up a hidden Moon Stone (it evolves Nidorina, Nidorino, Clefairy and Jigglypuff). Nothing shows on-screen, so trust the tile."
-              hidden:
-                moon-stone: "West-central 1F, on the floor beside the pillars. Press A; nothing is visible."
+              title: "Pocket the Escape Rope up north"
+              text: "Carry on past the staircase at the top of the hall, up into the north corridor and east to the ball. The Escape Rope in it is how you leave once the Key is yours."
+              items:
+                escape-rope: "North corridor of 1F, east of the way up out of the entrance hall."
             "4":
-              title: "Pick up the Escape Rope up north"
-              text: "Follow the opened path to the far north wall of 1F, where an Escape Rope waits in a ball. It is a free instant exit from the mansion for later, so pocket it before taking the stairs up."
-              items:
-                escape-rope: "Far north edge of 1F, north-central."
+              title: "Climb to 3F in two flights"
+              text_html: "Back to the staircase %{up} at the top of the hall and up to 2F. You land beside a second staircase %{on}, so take it straight up to 3F and leave the rest of 2F for later."
             "5":
-              title: "Flip the switches and climb to 2F"
-              text_html: "Press A on the statues to trip the hidden switches, dropping the barriers around the western staircase, stairs %{up}, then climb to 2F."
+              title: "Talk the Burglar into a fight"
+              text_html: "A Burglar %{burglar} paces a step southwest of where you come up. Burglars here never challenge on sight, so walk over and talk to him: the fight only starts when you do."
             "6":
-              title: "Cross 2F for the Calcium"
-              text_html: "On 2F, work east to the far wall, where a ball holds the Calcium, a Special vitamin. Flip the 2F statue switch while you are here, then take stairs %{up} up to 3F."
-              items:
-                calcium: "Northeast corner of 2F."
+              title: "Prise a Max Revive out of the rock"
+              text: "West of the stairs a one-tile lane runs north. Follow it to the dead end, face the rock at the top and press A: a hidden Max Revive, full HP and PP restored."
+              hidden:
+                max-revive: "3F, at the dead end of the narrow lane running north on the west side. Face the rock and press A. Nothing shows on-screen."
             "7":
-              title: "Sweep 3F east for the Iron"
-              text: "On the top floor you face a Burglar and a Scientist. Push to the northeast side, past the Scientist, and open the ball for the Iron (a Defense vitamin)."
+              title: "Grab the Max Potion in the corner"
+              text_html: "Come back down the lane and on into the floor's southwest corner, where a ball holds a Max Potion. Then back to the staircase %{down} and down to the 2F you skipped."
               items:
-                iron: "Northeast area of 3F, past the Scientist."
+                max-potion: "Southwest corner of 3F, in the room below the narrow west lane."
             "8":
-              title: "Grab the Max Potion in the 3F southwest"
-              text: "Backtrack all the way across 3F to the far southwest and grab the Max Potion in its ball against the west wall (a full HP heal)."
-              items:
-                max-potion: "Southwest corner of 3F, against the west wall."
+              title: "Beat the Burglar in the small room"
+              text_html: "Head west off the landing and work south into the small room at the bottom. Talk to the Burglar %{burglar} waiting in it, then come back out the way you came in."
             "9":
-              title: "Check up the west wall for a hidden Max Revive"
-              text: "Head up the west wall from that Max Potion and press A on the bare floor around mid-height to dig up a hidden Max Revive (revives with full HP and PP). Nothing shows on-screen, so trust the spot."
-              hidden:
-                max-revive: "West wall of 3F, a stretch north of the Max Potion. Press A; nothing appears."
+              title: "Cross 2F for the Calcium"
+              text: "Back out and east across the middle of the floor, then north into the pocket in the far northeast corner. The ball at the end of it holds a Calcium, a permanent Special boost."
+              items:
+                calcium: "Northeast corner of 2F, at the end of the short pocket off the east rooms."
             "10":
-              title: "Work back down to B1F"
-              text_html: "The upper switches have opened the barrier around 1F's basement stairs. Retrace your way down through 3F and 2F, then take the cleared southeast stairs %{down} down to B1F."
+              title: "Take the northwest stairs up to the Iron"
+              text_html: "Cross to the room in the northwest corner and take its staircase %{up} back to 3F. Work east through the rooms from there to a ball out in the open: an Iron, a permanent Defense boost."
+              items:
+                iron: "East side of 3F, out in the open in the rooms along the top."
             "11":
-              title: "Bag TM14 Blizzard by the B1F stairs"
-              text: "You land in the southeast of B1F. Just southwest of the stairs, open the ball for TM14 (Blizzard), a top-tier Ice attack worth teaching a strong Water type."
-              items:
-                tm-blizzard: "Southeast B1F, just southwest of the entrance stairs."
+              title: "Press the statue, then take the Scientist"
+              text_html: "Backtrack two rooms to the statue %{statue} and press A facing it: the way you came shuts, the way south opens. A Scientist %{scientist} holds the room it opens onto."
             "12":
-              title: "Cross to the Full Restore in the southwest"
-              text: "Wind west along the bottom of the basement to the far southwest corner, where a Full Restore (full HP heal plus status cure) sits in a ball."
-              items:
-                full-restore: "Southwest corner of B1F."
+              title: "Drop through the left hole"
+              text_html: "Past the Scientist the floor gives out. Two holes open in it: the left %{hole} drops to 1F, the right %{right} only to 2F. Take the left one and fall."
             "13":
-              title: "Claim the Secret Key"
-              text: "Head north into the small central chamber and open the ball holding the Secret Key. This is the whole reason for the trip: it unlocks Blaine's Gym across the street on Cinnabar Island."
-              items:
-                secret-key: "Center-west room of B1F, north of the Full Restore."
+              title: "Land on 1F and beat the Scientist"
+              text_html: "You land in 1F's sealed southeast quarter, the part no door on that floor reaches. A Scientist %{scientist} stands three tiles south of where you come down."
             "14":
-              title: "Dig a hidden Rare Candy from the NW corner"
-              text: "In the northwest of that same room, press A against the corner floor to turn up a hidden Rare Candy (one free level). Nothing shows on-screen, so check the empty tile."
-              hidden:
-                rare-candy: "Northwest corner of the B1F Secret Key room. Press A; nothing is visible."
+              title: "Take the Carbos and drop to B1F"
+              text_html: "South of him, between the two rows of potted plants, a ball holds a Carbos, a permanent Speed boost. The staircase %{down} just east of it goes down to B1F."
+              items:
+                carbos: "Southeast quarter of 1F, between the two rows of potted plants below the Scientist."
             "15":
-              title: "Grab TM22 SolarBeam in the northwest"
-              text: "Continue north from that corner to the ball holding TM22 (SolarBeam), the strongest Grass move in the game."
+              title: "Bag TM14 (Blizzard)"
+              text: "From the stairs go north into the hall, west along it, then south into the room below. TM14 lies in its southeast corner: Blizzard, 120 power of Ice on five PP."
               items:
-                tm-solarbeam: "Northwest B1F, north of the hidden Rare Candy corner."
+                tm-blizzard: "Southeast corner of the middle room on B1F, next to a statue."
             "16":
-              title: "Snag the last Rare Candy up top"
-              text: "Just east along the north wall, open the final ball for a second Rare Candy. Save these to bump a slow-leveling favorite past a stubborn level gate, then head back to the stairs."
-              items:
-                rare-candy: "North edge of B1F, center, east of TM22."
+              title: "Press the statue and take the Burglar"
+              text_html: "A statue %{statue} stands right beside that ball. Press A facing it and the room's doors swap: the north gap shuts, the west one opens. Take the Burglar %{burglar} above on the way out."
             "17":
-              title: "Leave and cross to Blaine's Gym"
-              text: "With the Secret Key in hand and the basement cleared, use the Escape Rope (or walk out) back to Cinnabar Island. Cross the street and unlock Blaine's Gym for the Volcano Badge."
+              title: "Follow the new door to the Full Restore"
+              text: "Out through the west door and straight along the passage it opened, all the way to the end. The ball there holds a Full Restore: every HP back plus any status cleared."
+              items:
+                full-restore: "Far southwest corner of B1F, at the end of the passage west of the TM14 room."
+            "18":
+              title: "Take the last trainer and flip the statue"
+              text_html: "Back east past the staircase and north through the unbarred gate, where the mansion's last trainer %{scientist} stands. Press the statue %{statue} by the first bed in the room above him: it opens the top corridor west."
+            "19":
+              title: "Duck north for a Rare Candy"
+              text: "Head west along that corridor and take the first room off it to the north. A Rare Candy sits on the far side, one free level for whichever teammate is lagging."
+              items:
+                rare-candy: "North side of B1F, in the room off the top corridor, east of the TM22 table."
+            "20":
+              title: "Pick up TM22 (SolarBeam)"
+              text: "Back out and west again, into the next room along. TM22 rests on the table there: SolarBeam, 120 power of Grass, but it spends a turn charging before any of it lands."
+              items:
+                tm-solarbeam: "Northwest room of B1F, on the table."
+            "21":
+              title: "Claim the Secret Key"
+              text: "South out of that room into the one below, where a ball holds the Secret Key. This is the whole trip: nothing else in the game opens Blaine's Gym."
+              items:
+                secret-key: "West wing of B1F, in the room below the TM22 table."
+            "22":
+              title: "Dig a second Rare Candy out of the corner"
+              text: "Before you leave, walk to that room's northwest corner, stand one tile below the top square and press A facing up. A second Rare Candy comes up, nothing shown on-screen."
+              hidden:
+                rare-candy: "Northwest corner of the Secret Key room on B1F. Stand one tile below the top square, face up and press A. Nothing shows on-screen."
+            "23":
+              title: "Rope out and cross to Blaine"
+              text: "Use that Escape Rope, or Dig, and you are back on Cinnabar in a second. Walking out means flipping both basement statues again, so spend the rope and head for the Gym."
           tips:
             growlithe: "The other Fire dog, here in the same mansion → Arcanine with a Fire Stone."
           oak:

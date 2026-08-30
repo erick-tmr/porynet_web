@@ -306,9 +306,9 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, steps.size
     assert steps[1].hidden?
     refute steps[1].items?
-    refute steps[1].shot?
+    refute steps[1].shots?
     assert steps[2].items?
-    assert steps[2].shot?
+    assert steps[2].shots?
     refute steps[2].hidden?
   end
 
@@ -636,7 +636,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "route 1 step 1 shows the tall-grass direction shot" do
-    shot = loc("route-1").steps.first.shot
+    shot = loc("route-1").steps.first.shots.sole
     assert shot.map?
     assert_equal "walkthrough/yellow/scenes/route-1-north.png", shot.image
   end
@@ -883,7 +883,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   def declared_shots
     game.locations.flat_map do |loc|
-      loc.steps.flat_map { |s| [ [ "#{loc.slug} step #{s.n}", s.shot ] ] } +
+      loc.steps.flat_map { |s| s.shots.map { |shot| [ "#{loc.slug} step #{s.n}", shot ] } } +
         loc.steps.flat_map { |s| s.hidden.map { |h| [ "#{loc.slug} hidden #{h.name}", h ] } } +
         loc.later.map { |l| [ "#{loc.slug} later #{l.name}", l ] } +
         loc.trainers.flat_map { |t| [ [ "#{loc.slug} where #{t.name}", t.where ],
@@ -933,7 +933,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     superseded = { "mt-moon" => 10, "viridian-forest" => 3 }
 
     superseded.each do |slug, n|
-      shot = game.locations.find { |loc| loc.slug == slug }.steps[n - 1].shot
+      shot = game.locations.find { |loc| loc.slug == slug }.steps[n - 1].shots.first
       assert shot&.map?, "#{slug} step #{n} must carry the per-item frame that replaced the old one"
     end
   end
@@ -1056,10 +1056,10 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "an interior map fills a step's screenshot slot" do
     steps = loc("pallet-town").steps
-    assert steps.first.shot.map?
-    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", steps.first.shot.image
+    assert steps.first.shots.sole.map?
+    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", steps.first.shots.sole.image
 
-    exit_shot = steps[3].shot
+    exit_shot = steps[3].shots.sole
     assert exit_shot.map?
     assert_equal "walkthrough/yellow/scenes/pallet-town-exit.png", exit_shot.image
 

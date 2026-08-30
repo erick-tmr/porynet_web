@@ -950,28 +950,8 @@
       {
         "map": "pokemon-mansion-b1f",
         "floor": "B1F",
-        "marker": "trainer-27-11",
-        "key": "T1",
-        "opp": "SCIENTIST:13",
-        "cls": "SCIENTIST",
-        "reward": 1700,
-        "team": [
-          {
-            "dex": "081",
-            "lvl": 34
-          },
-          {
-            "dex": "101",
-            "lvl": 34
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/pokemon-mansion-b1f-trainer-27-11.png"
-      },
-      {
-        "map": "pokemon-mansion-b1f",
-        "floor": "B1F",
         "marker": "trainer-16-23",
-        "key": "T2",
+        "key": "T1",
         "opp": "BURGLAR:9",
         "cls": "BURGLAR",
         "reward": 3060,
@@ -986,6 +966,26 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/pokemon-mansion-b1f-trainer-16-23.png"
+      },
+      {
+        "map": "pokemon-mansion-b1f",
+        "floor": "B1F",
+        "marker": "trainer-27-11",
+        "key": "T2",
+        "opp": "SCIENTIST:13",
+        "cls": "SCIENTIST",
+        "reward": 1700,
+        "team": [
+          {
+            "dex": "081",
+            "lvl": 34
+          },
+          {
+            "dex": "101",
+            "lvl": 34
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/pokemon-mansion-b1f-trainer-27-11.png"
       }
     ],
     "pokemon-tower": [

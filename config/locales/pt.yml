@@ -399,6 +399,15 @@ pt:
       map_npc_silph_master_ball: "Derrote o Giovanni e o presidente te agradece com a Master Ball, a única do jogo."
       map_npc_tower_purified_zone: "Quatro tiles que curam sua equipe por completo, toda vez que você pisa neles. O Centro Pokémon grátis da torre, no meio da subida."
       map_npc_tower_silent_channeler: "A única Channeler da torre que não é treinadora. Ela fica ao lado dos tiles de cura e só conversa."
+      map_npc_mansion_switch_1f: "Ponta noroeste do corredor de cima do 1F. O trajeto nunca precisa dele: o que ele abre é a porta sudeste por onde você sai, e fecha o braço leste do corredor no caminho."
+      map_npc_mansion_switch_2f: "No corredor acima da sala do Burglar. Abre a sala sudoeste, onde está a segunda página do diário, e fecha a escada noroeste. Aperte de novo para subir."
+      map_npc_mansion_switch_3f: "Nas salas de cima do 3F. Fecha a passagem leste por onde você veio e abre a de baixo, até o Scientist e os buracos, então pegue o Iron primeiro."
+      map_npc_mansion_switch_tm: "Ao lado da bola do TM14. Troca as portas da sala, a passagem norte pela oeste, e destranca a sala do Scientist no nordeste."
+      map_npc_mansion_switch_beds: "Ao lado da primeira cama. Libera o corredor de cima para oeste, até o TM22, a Secret Key e o último Rare Candy, e fecha a volta para a escada."
+      map_npc_mansion_diary_jul_5: "\"Diário: 5 de julho. Guiana, América do Sul. Um novo Pokémon foi descoberto no fundo da selva.\" A primeira das quatro páginas."
+      map_npc_mansion_diary_jul_10: "\"Diário: 10 de julho. Batizamos o Pokémon recém-descoberto de MEW.\" Na sala sudoeste do 2F, atrás do portão que a estátua deste andar abre."
+      map_npc_mansion_diary_feb_6: "\"Diário: 6 de fevereiro. MEW deu à luz. Chamamos o recém-nascido de MEWTWO.\" Um passo a oeste da escada do 3F por onde você sobe do 2F."
+      map_npc_mansion_diary_sep_1: "\"Diário: 1 de setembro. MEWTWO é poderoso demais. Falhamos em conter suas tendências violentas...\" A última página, três tiles ao norte do Burglar do B1F."
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
       catch_h2: "O que dá para capturar aqui"
@@ -3277,85 +3286,108 @@ pt:
               text_html: "Se você deixou um fóssil no Lab %{lab}, o Pokémon dele está esperando lá. Depois saia pela costa norte %{north} rumo à Rota 21, a longa água até Pallet Town."
         pokemon_mansion:
           note: "Mansão incendiada. Tipos Fogo e a Secret Key."
-          intro: "Uma mansão incendiada de escadas ocultas que abrem com botões-estátua. É no diário abandonado dela que a história do Mewtwo está escrita."
+          intro: "Quatro andares carbonizados ligados a um único botão que qualquer estátua do lugar aciona. A Secret Key do ginásio do Blaine está lá no fundo, e o diário que dá nome a Mew e Mewtwo está espalhado pelos andares no caminho."
+          trivia:
+            tag: "BOTÕES"
+            title: "Um botão, dois conjuntos de portas"
+            intro_html: "Toda estátua aperta o mesmo botão, e os portões estão ligados a ele em dois conjuntos: o que está aberto fecha enquanto o fechado abre. A estátua do 3F %{landing} sela a sala por onde você entrou para abrir o caminho até os buracos; a do B1F %{beds} fecha a volta para a escada para abrir a ala que guarda a Key."
+            note: "O Burglar do 2F diz isso sem rodeios depois de perder: os botões abrem e fecham conjuntos alternados de portas."
           steps:
             "1":
-              title: "Entre na mansão incendiada"
-              text: "Atravesse da praia de Cinnabar para a mansão carbonizada, um labirinto de caminhos barrados que só abrem quando você aperta o botão oculto de uma estátua próxima. O prêmio é a Secret Key, lá no B1F."
+              title: "Entre pela porta da frente"
+              text_html: "Entre pela porta %{door}. Todo portão da mansão está ligado a um só botão, e as estátuas que o acionam estão espalhadas por quatro andares. A Secret Key espera lá no fundo."
             "2":
-              title: "Pegue o Carbos no 1F"
-              text: "Logo na entrada, varra o lado leste do andar térreo. O Carbos (uma vitamina de Velocidade) está numa bola no lado leste, logo ao sul do Scientist que você enfrenta na subida."
-              items:
-                carbos: "Lado leste do 1F, ao sul do treinador Scientist."
+              title: "Ache a Moon Stone no salão"
+              text: "Suba o salão acarpetado a partir da porta e conte cinco pilares na fileira da direita. Encare esse pilar e aperte A: uma Moon Stone oculta, sem nada aparecer na tela."
+              hidden:
+                moon-stone: "Salão de entrada do 1F, o quinto pilar da fileira da direita. Encare-o e aperte A. Nada aparece na tela."
             "3":
-              title: "Vasculhe os pilares do 1F por uma Moon Stone"
-              text: "Perto dos pilares na parte centro-oeste do 1F, aperte A no piso vazio para achar uma Moon Stone oculta (evolui Nidorina, Nidorino, Clefairy e Jigglypuff). Nada aparece na tela, então confie no tile."
-              hidden:
-                moon-stone: "Centro-oeste do 1F, no chão ao lado dos pilares. Aperte A; nada fica visível."
+              title: "Guarde o Escape Rope ao norte"
+              text: "Siga além da escada no fim do salão, suba até o corredor norte e vá para leste até a bola. O Escape Rope dela é como você sai daqui depois que a Key for sua."
+              items:
+                escape-rope: "Corredor norte do 1F, a leste da subida que sai do salão de entrada."
             "4":
-              title: "Pegue o Escape Rope ao norte"
-              text: "Siga o caminho aberto até a parede norte do 1F, onde um Escape Rope espera numa bola. É uma saída instantânea da mansão para usar depois, então guarde-o antes de subir as escadas."
-              items:
-                escape-rope: "Borda norte do 1F, ao centro-norte."
+              title: "Suba ao 3F em dois lances"
+              text_html: "Volte à escada %{up} no fim do salão e suba ao 2F. Você chega ao lado de uma segunda escada %{on} e ela sobe direto ao 3F, então deixe o resto do 2F para depois."
             "5":
-              title: "Aperte os botões e suba ao 2F"
-              text_html: "Aperte A nas estátuas para acionar os botões ocultos, baixando as barreiras em volta da escada oeste, a escada %{up}, e suba ao 2F."
+              title: "Puxe conversa para brigar com o Burglar"
+              text_html: "Um Burglar %{burglar} anda um passo a sudoeste de onde você chega. Os Burglars daqui nunca desafiam de longe, então chegue perto e fale com ele: a luta só começa assim."
             "6":
-              title: "Atravesse o 2F pelo Calcium"
-              text_html: "No 2F, avance para leste até a parede do fundo, onde uma bola guarda o Calcium, uma vitamina Especial. Aperte o botão-estátua do 2F e suba pela escada %{up} ao 3F."
-              items:
-                calcium: "Canto nordeste do 2F."
+              title: "Arranque um Max Revive da rocha"
+              text: "A oeste da escada, uma faixa de um tile corre para o norte. Siga até o fim dela, encare a rocha do topo e aperte A: um Max Revive oculto, HP e PP cheios de novo."
+              hidden:
+                max-revive: "3F, no fim da faixa estreita que corre para o norte no lado oeste. Encare a rocha e aperte A. Nada aparece na tela."
             "7":
-              title: "Varra o 3F a leste pelo Iron"
-              text: "No andar de cima você encara um Burglar e um Scientist. Avance para o lado nordeste, passando o Scientist, e abra a bola pelo Iron (uma vitamina de Defesa)."
+              title: "Pegue o Max Potion no canto"
+              text_html: "Volte pela faixa e siga até o canto sudoeste do andar, onde uma bola guarda um Max Potion. Depois volte à escada %{down} e desça ao 2F que você pulou."
               items:
-                iron: "Área nordeste do 3F, passando o Scientist."
+                max-potion: "Canto sudoeste do 3F, na sala abaixo da faixa estreita do oeste."
             "8":
-              title: "Pegue o Max Potion no sudoeste do 3F"
-              text: "Volte pelo 3F até o extremo sudoeste e pegue o Max Potion na bola encostada na parede oeste (cura total de HP)."
-              items:
-                max-potion: "Canto sudoeste do 3F, encostado na parede oeste."
+              title: "Vença o Burglar da salinha"
+              text_html: "Vá para oeste ao sair da escada e desça até a salinha no fim. Fale com o Burglar %{burglar} que espera nela, depois volte por onde entrou."
             "9":
-              title: "Cheque a parede oeste por um Max Revive oculto"
-              text: "Suba pela parede oeste a partir desse Max Potion e aperte A no piso vazio perto do meio da altura para desenterrar um Max Revive oculto (revive com HP e PP cheios). Nada aparece na tela, então confie no lugar."
-              hidden:
-                max-revive: "Parede oeste do 3F, um trecho ao norte do Max Potion. Aperte A; nada aparece."
+              title: "Atravesse o 2F pelo Calcium"
+              text: "Saia de volta e vá para leste pelo meio do andar, depois ao norte até o recanto no extremo nordeste. A bola no fim dele guarda um Calcium, um aumento permanente de Especial."
+              items:
+                calcium: "Canto nordeste do 2F, no fim do recanto curto que sai das salas do leste."
             "10":
-              title: "Volte descendo até o B1F"
-              text_html: "Os botões de cima abriram a barreira em volta da escada do subsolo do 1F. Refaça o caminho pelo 3F e 2F, depois desça a escada sudeste liberada, a escada %{down}, até o B1F."
+              title: "Suba pela escada noroeste até o Iron"
+              text_html: "Atravesse até a sala do canto noroeste e pegue a escada %{up} dela de volta ao 3F. Avance para leste pelas salas até uma bola à mostra: um Iron, um aumento permanente de Defesa."
+              items:
+                iron: "Lado leste do 3F, à mostra nas salas de cima."
             "11":
-              title: "Pegue o TM14 Blizzard perto da escada do B1F"
-              text: "Você chega no sudeste do B1F. Logo a sudoeste da escada, abra a bola pelo TM14 (Blizzard), um golpe de Gelo de primeira para ensinar a um tipo Água forte."
-              items:
-                tm-blizzard: "Sudeste do B1F, logo a sudoeste da escada de entrada."
+              title: "Aperte a estátua e encare o Scientist"
+              text_html: "Volte duas salas até a estátua %{statue} e aperte A encarando-a: o caminho de onde você veio fecha, o de baixo abre. Um Scientist %{scientist} guarda a sala que ela abre."
             "12":
-              title: "Atravesse até o Full Restore no sudoeste"
-              text: "Serpenteie para o oeste pela base do subsolo até o canto sudoeste, onde um Full Restore (cura total de HP mais status) está numa bola."
-              items:
-                full-restore: "Canto sudoeste do B1F."
+              title: "Pule no buraco da esquerda"
+              text_html: "Passando o Scientist o piso cede. Dois buracos se abrem nele: o da esquerda %{hole} leva ao 1F, o da direita %{right} só ao 2F. Pegue o da esquerda e caia."
             "13":
-              title: "Pegue a Secret Key"
-              text: "Suba até a pequena câmara central e abra a bola com a Secret Key. É o motivo de toda a visita: ela destranca o ginásio do Blaine do outro lado da rua, em Cinnabar Island."
-              items:
-                secret-key: "Sala centro-oeste do B1F, ao norte do Full Restore."
+              title: "Caia no 1F e vença o Scientist"
+              text_html: "Você cai no quarto sudeste isolado do 1F, a parte que nenhuma porta daquele andar alcança. Um Scientist %{scientist} está três tiles ao sul de onde você aterrissa."
             "14":
-              title: "Desenterre um Rare Candy oculto no canto noroeste"
-              text: "No noroeste dessa mesma sala, aperte A contra o piso do canto para achar um Rare Candy oculto (um nível de graça). Nada aparece na tela, então cheque o tile vazio."
-              hidden:
-                rare-candy: "Canto noroeste da sala da Secret Key no B1F. Aperte A; nada fica visível."
+              title: "Pegue o Carbos e desça ao B1F"
+              text_html: "Ao sul dele, entre as duas fileiras de vasos, uma bola guarda um Carbos, um aumento permanente de Velocidade. A escada %{down} logo a leste dela desce ao B1F."
+              items:
+                carbos: "Quarto sudeste do 1F, entre as duas fileiras de vasos abaixo do Scientist."
             "15":
-              title: "Pegue o TM22 SolarBeam no noroeste"
-              text: "Continue ao norte a partir desse canto até a bola com o TM22 (SolarBeam), o golpe de Grama mais forte do jogo."
+              title: "Pegue o TM14 (Blizzard)"
+              text: "Da escada vá ao norte até o salão, siga para oeste por ele e desça para a sala de baixo. O TM14 está no canto sudeste dela: Blizzard, 120 de poder de Gelo em cinco PP."
               items:
-                tm-solarbeam: "Noroeste do B1F, ao norte do canto do Rare Candy oculto."
+                tm-blizzard: "Canto sudeste da sala do meio do B1F, ao lado de uma estátua."
             "16":
-              title: "Pegue o último Rare Candy lá em cima"
-              text: "Logo a leste pela parede norte, abra a última bola por um segundo Rare Candy. Guarde-os para empurrar um favorito de nível lento além de uma evolução teimosa, depois volte à escada."
-              items:
-                rare-candy: "Borda norte do B1F, ao centro, a leste do TM22."
+              title: "Aperte a estátua e vença o Burglar"
+              text_html: "Uma estátua %{statue} fica bem ao lado dessa bola. Aperte A encarando-a e as portas da sala trocam: a passagem norte fecha, a oeste abre. Pegue o Burglar %{burglar} acima na saída."
             "17":
-              title: "Saia e atravesse até o ginásio do Blaine"
-              text: "Com a Secret Key em mãos e o subsolo limpo, use o Escape Rope (ou saia andando) de volta a Cinnabar Island. Atravesse a rua e destranque o ginásio do Blaine pela Volcano Badge."
+              title: "Siga a porta nova até o Full Restore"
+              text: "Saia pela porta oeste e vá reto pelo corredor que ela abriu, até o fim de tudo. A bola de lá guarda um Full Restore: todo o HP de volta mais qualquer status curado."
+              items:
+                full-restore: "Extremo sudoeste do B1F, no fim do corredor a oeste da sala do TM14."
+            "18":
+              title: "Vença o último treinador e acione a estátua"
+              text_html: "Volte para leste passando a escada e suba pelo portão destrancado, onde está o último treinador %{scientist} da mansão. Aperte a estátua %{statue} ao lado da primeira cama da sala acima dele: ela libera o corredor de cima para oeste."
+            "19":
+              title: "Desvie ao norte por um Rare Candy"
+              text: "Vá para oeste por esse corredor e entre na primeira sala ao norte. Um Rare Candy está do outro lado dela, um nível de graça para o companheiro que estiver atrasado."
+              items:
+                rare-candy: "Lado norte do B1F, na sala que sai do corredor de cima, a leste da mesa do TM22."
+            "20":
+              title: "Pegue o TM22 (SolarBeam)"
+              text: "Saia e vá para oeste de novo, até a sala seguinte. O TM22 está sobre a mesa de lá: SolarBeam, 120 de poder de Grama, mas gasta um turno carregando antes de acertar."
+              items:
+                tm-solarbeam: "Sala noroeste do B1F, sobre a mesa."
+            "21":
+              title: "Pegue a Secret Key"
+              text: "Desça dessa sala para a de baixo, onde uma bola guarda a Secret Key. É o motivo de toda a visita: nada mais no jogo abre o ginásio do Blaine."
+              items:
+                secret-key: "Ala oeste do B1F, na sala abaixo da mesa do TM22."
+            "22":
+              title: "Desenterre um segundo Rare Candy do canto"
+              text: "Antes de sair, vá ao canto noroeste dessa sala, fique um tile abaixo do quadrado do topo e aperte A virado para cima. Um segundo Rare Candy aparece, sem nada na tela."
+              hidden:
+                rare-candy: "Canto noroeste da sala da Secret Key no B1F. Fique um tile abaixo do quadrado do topo, vire para cima e aperte A. Nada aparece na tela."
+            "23":
+              title: "Saia de corda e atravesse até o Blaine"
+              text: "Use aquele Escape Rope, ou Dig, e você volta a Cinnabar num segundo. Sair andando significa acionar as duas estátuas do subsolo de novo, então gaste a corda e vá ao ginásio."
           tips:
             growlithe: "O outro cão de Fogo, na mesma mansão → Arcanine com uma Fire Stone."
           oak:

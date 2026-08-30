@@ -401,14 +401,14 @@ module Walkthrough
     def view_box = box.join(" ")
   end
 
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map,
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shots, :link, :pins, :marks, :map,
     :dex_seen, :line, :step_map) do
-    def initialize(pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
+    def initialize(shots: [], pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
     def line? = !line.nil?
     def step_map? = !step_map.nil?
     def items? = items.any?
     def hidden? = hidden.any?
-    def shot? = !shot.nil?
+    def shots? = shots.any?
     def link? = !link.nil?
     def marks? = marks.any?
     def map? = !map.nil?

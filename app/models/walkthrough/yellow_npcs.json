@@ -175,5 +175,108 @@
       "note": "map_npc_celadon_tm41",
       "ref": "TM_SOFTBOILED"
     }
+  ],
+  "pokemon-mansion-1f": [
+    {
+      "id": "npc-switch",
+      "name": "Secret switch",
+      "grid": [
+        2,
+        5
+      ],
+      "note": "map_npc_mansion_switch_1f",
+      "ref": "EVENT_MANSION_SWITCH_ON"
+    }
+  ],
+  "pokemon-mansion-2f": [
+    {
+      "id": "npc-diary-jul-5",
+      "name": "Diary: July 5",
+      "grid": [
+        18,
+        2
+      ],
+      "note": "map_npc_mansion_diary_jul_5",
+      "ref": "SPRITE_POKEDEX"
+    },
+    {
+      "id": "npc-switch",
+      "name": "Secret switch",
+      "grid": [
+        2,
+        11
+      ],
+      "lane": 1,
+      "note": "map_npc_mansion_switch_2f",
+      "ref": "EVENT_MANSION_SWITCH_ON"
+    },
+    {
+      "id": "npc-diary-jul-10",
+      "name": "Diary: July 10",
+      "grid": [
+        3,
+        22
+      ],
+      "note": "map_npc_mansion_diary_jul_10",
+      "ref": "SPRITE_POKEDEX"
+    }
+  ],
+  "pokemon-mansion-3f": [
+    {
+      "id": "npc-diary-feb-6",
+      "name": "Diary: Feb. 6",
+      "grid": [
+        6,
+        12
+      ],
+      "lane": -4,
+      "note": "map_npc_mansion_diary_feb_6",
+      "ref": "SPRITE_POKEDEX"
+    },
+    {
+      "id": "npc-switch",
+      "name": "Secret switch",
+      "grid": [
+        10,
+        5
+      ],
+      "lane": -1,
+      "note": "map_npc_mansion_switch_3f",
+      "ref": "EVENT_MANSION_SWITCH_ON"
+    }
+  ],
+  "pokemon-mansion-b1f": [
+    {
+      "id": "npc-diary-sep-1",
+      "name": "Diary: Sept. 1",
+      "grid": [
+        16,
+        20
+      ],
+      "note": "map_npc_mansion_diary_sep_1",
+      "ref": "SPRITE_POKEDEX"
+    },
+    {
+      "id": "npc-switch-tm",
+      "name": "Secret switch",
+      "grid": [
+        18,
+        25
+      ],
+      "lane": 1,
+      "note": "map_npc_mansion_switch_tm",
+      "ref": "EVENT_MANSION_SWITCH_ON"
+    },
+    {
+      "id": "npc-switch-beds",
+      "name": "Secret switch",
+      "grid": [
+        20,
+        3
+      ],
+      "lane": 2,
+      "note": "map_npc_mansion_switch_beds",
+      "ref": "EVENT_MANSION_SWITCH_ON"
+    }
   ]
 }
