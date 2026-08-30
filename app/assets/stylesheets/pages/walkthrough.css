@@ -3007,6 +3007,45 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
 }
+/* The Cinnabar quiz's answer key: six locked doors, each a yes or no. Buried in a sentence the
+   reader has to count along; as a row of numbered chips it is a thing to glance at mid-battle. */
+.pn-wt-quiz {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pn-wt-quiz__door {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 62px;
+  border: 2px solid var(--gym-accent);
+}
+
+.pn-wt-quiz__n {
+  padding: 3px 5px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: var(--gym-accent);
+  text-align: center;
+}
+
+.pn-wt-quiz__answer {
+  padding: 5px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  text-align: center;
+}
+
+.pn-wt-quiz__answer--yes { background: var(--gym-accent); }
+.pn-wt-quiz__answer--no { background: #fbf5e6; }
+
 .pn-wt-gym__pstep-text {
   flex: 1;
   min-width: 200px;

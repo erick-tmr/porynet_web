@@ -257,6 +257,9 @@ pt:
       map_labels: "RÓTULOS:"
       map_labels_on: "SIM"
       map_labels_off: "NÃO"
+      quiz_door: "PORTA %{n}"
+      quiz_yes: "SIM"
+      quiz_no: "NÃO"
       map_route_ride: "ROTA:"
       map_route_push: "EMPURRÕES:"
       step_map_cap_ride: "O CAMINHO"
@@ -3199,7 +3202,7 @@ pt:
             intro: "Portas trancadas bloqueiam o caminho até o Blaine, cada uma aberta ao acertar um quiz ou vencer o treinador atrás dela. O Ninetales (Nv 48), o Rapidash (Nv 50) e o Arcanine (Nv 54) dele batem forte e rápido, então leve um atacante de Água, Pedra ou Terra e carregue Burn Heals."
             puzzle:
               "1": "Cada porta faz uma pergunta de sim ou não sobre Pokémon. Acerte e ela abre; erre e você batalha o treinador atrás dela, o que também a abre."
-              "2": "Se preferir não chutar, as respostas na ordem são sim, não, não, não, sim, não. Ou pule os quizzes e lute contra todos os treinadores; as portas abrem de qualquer jeito e os dois caminhos chegam ao fundo."
+              "2": "Aqui está a resposta de cada porta, na ordem em que você as encontra. Chutar custa só a luta atrás da porta que você errar, então os dois caminhos chegam ao fundo."
               "3": "A última porta se abre para o Blaine. Um único golpe forte de Água, Pedra ou Terra derruba o Ninetales, o Rapidash e o Arcanine dele num piscar."
           note: "Ginásio do Blaine. Volcano Badge. Laboratório de fósseis."
           intro: "Uma ilha vulcânica de uma rua só: um laboratório que revive fósseis, uma mansão incendiada e um ginásio cuja chave está em algum lugar dentro dela."
@@ -3222,7 +3225,9 @@ pt:
           steps:
             "1":
               title: "Entregue os dois fósseis no Lab"
-              text_html: "O Lab %{lab} revive fósseis, e reviver demora, então comece agora: dê ao cientista o fóssil de Mt. Moon e o Old Amber do museu de Pewter. Três Pokémon não existem em outro lugar."
+              text_html: "O Lab %{lab} revive fósseis em três Pokémon que não existem em outro lugar, e demora, então entregue o fóssil de Mt. Moon e o Old Amber agora. Um cientista lá dentro dá o TM35."
+              items:
+                tm-metronome: "A sala dos fundos do Lab, com o cientista encostado na parede norte. Fale com ele uma vez. Metronome dispara um golpe aleatório a cada turno."
             "2":
               title: "Atravesse até a Mansion"
               text_html: "O ginásio do Blaine %{gym} está trancado e a chave fica do outro lado da rua. A Pokémon Mansion %{mansion} queimada guarda a Secret Key, e tudo na ilha depende dela."

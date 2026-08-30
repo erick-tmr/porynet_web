@@ -2876,5 +2876,22 @@
     ],
     "auto_npcs": true,
     "parent": "VIRIDIAN_CITY"
+  },
+  {
+    "type": "dialog",
+    "name": "cinnabar-lab-item-tm-metronome",
+    "map": "CinnabarLabMetronomeRoom",
+    "parent": "CINNABAR_ISLAND",
+    "player": [
+      7,
+      3
+    ],
+    "player_dir": "UP",
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "TM35!"
+      ]
+    }
   }
 ]

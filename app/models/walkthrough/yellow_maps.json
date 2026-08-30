@@ -20924,6 +20924,12 @@
       "height": 144,
       "type": "screen"
     },
+    "cinnabar-lab-item-tm-metronome": {
+      "image": "walkthrough/yellow/scenes/cinnabar-lab-item-tm-metronome.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
     "reds-house-2f": {
       "image": "walkthrough/yellow/maps/reds-house-2f.png",
       "width": 128,

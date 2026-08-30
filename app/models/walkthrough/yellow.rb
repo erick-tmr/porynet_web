@@ -1053,7 +1053,7 @@ module Walkthrough
       return nil if data.nil?
 
       GymFacts.new(leader: data["leader"], types: data["types"], badge: data["badge"],
-        tm: data["tm"])
+        tm: data["tm"], quiz: data.fetch("quiz", []))
     end
 
     def self.map_marker(data, key = data["key"])
@@ -1394,10 +1394,13 @@ module Walkthrough
       )
     end
 
-    def self.gstep(slug, n, map: false, scene: nil)
+    def self.gstep(slug, n, map: false, scene: nil, quiz: nil)
       GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}",
-        shot: gym_shot(n, map, scene))
+        shot: gym_shot(n, map, scene), answers: quiz ? quiz_answers(quiz) : [])
     end
+
+    # The answer key for a gym's quiz doors, straight from the generated place facts.
+    def self.quiz_answers(map_const) = place_facts.fetch(map_const).gym.quiz
 
     def self.gym_shot(n, map, scene)
       return scene_shot(scene, "STEP #{n}") if scene
@@ -2429,9 +2432,12 @@ module Walkthrough
     # Key is in the Mansion across the street. So the first pass is the lab, which takes the
     # fossils in and needs time to revive them anyway, and the badge waits for the page after.
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 2,
-        pins: { 1 => { lab: "cinnabar-island/exit-6-9" },
-                2 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } },
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45,
+        steps: [
+          { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome",
+            pins: { lab: "cinnabar-island/exit-6-9" } },
+          { pins: { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } }
+        ],
         encounters: [
           enc("cinnabar-island", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("cinnabar-island", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -2468,7 +2474,8 @@ module Walkthrough
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2),
+          puzzle: [ gstep("cinnabar-island", 1),
+                    gstep("cinnabar-island", 2, quiz: "CINNABAR_GYM"),
                     gstep("cinnabar-island", 3, scene: "cinnabar-gym-blaine") ])
       )
     end

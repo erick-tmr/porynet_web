@@ -257,6 +257,9 @@ en:
       map_labels: "LABELS:"
       map_labels_on: "ON"
       map_labels_off: "OFF"
+      quiz_door: "DOOR %{n}"
+      quiz_yes: "YES"
+      quiz_no: "NO"
       map_route_ride: "ROUTE:"
       map_route_push: "PUSHES:"
       step_map_cap_ride: "THE WAY THERE"
@@ -3199,7 +3202,7 @@ en:
             intro: "Locked doors bar the way to Blaine, each opened by answering a quiz or beating the trainer behind it. His Ninetales (Lv 48), Rapidash (Lv 50) and Arcanine (Lv 54) hit hard and fast, so bring a Water, Rock or Ground attacker and pack Burn Heals."
             puzzle:
               "1": "Each door poses a yes or no Pokémon quiz. Answer correctly and it opens; answer wrong and you battle the trainer behind it, which opens it anyway."
-              "2": "If you would rather not guess, the answers in order are yes, no, no, no, yes, no. Or skip the quizzes and fight every trainer instead; the doors open either way and both routes reach the back."
+              "2": "Here is the answer to every door, in the order you meet them. Guessing costs nothing but the fight behind the door you miss, so either route reaches the back."
               "3": "The final door opens onto Blaine. A single strong Water, Rock or Ground move drops his Ninetales, Rapidash and Arcanine in a hurry."
           note: "Blaine's Gym. Volcano Badge. Fossil lab."
           intro: "A volcanic island one street long: a lab that revives fossils, a burnt-out mansion, and a gym whose key is somewhere inside it."
@@ -3222,7 +3225,9 @@ en:
           steps:
             "1":
               title: "Hand both fossils in at the Lab"
-              text_html: "The Lab %{lab} revives fossils, and reviving takes a while, so start it now: give the scientist your Mt. Moon fossil and the Old Amber from the Pewter museum. Three Pokémon live nowhere else."
+              text_html: "The Lab %{lab} revives fossils into three Pokémon found nowhere else, and it takes a while, so hand your Mt. Moon fossil and the Old Amber in now. A scientist deeper in gives away TM35."
+              items:
+                tm-metronome: "The Lab's back room, from the scientist against the north wall. Talk to him once. Metronome fires a random move every turn."
             "2":
               title: "Cross to the Mansion"
               text_html: "Blaine's gym %{gym} is locked and the key is across the street. The burnt-out Pokémon Mansion %{mansion} holds the Secret Key, and everything on the island waits on it."

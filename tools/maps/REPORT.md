@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
-- standalone scenes: **283** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **284** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -215,6 +215,7 @@
 - `cinnabar-gym-blaine` (screen): walkthrough/yellow/scenes/cinnabar-gym-blaine.png
 - `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
 - `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
+- `cinnabar-lab-item-tm-metronome` (dialog): walkthrough/yellow/scenes/cinnabar-lab-item-tm-metronome.png
 - `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png
 - `cinnabar-lab-trade-cezanne` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png
 - `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png

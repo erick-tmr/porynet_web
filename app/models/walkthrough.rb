@@ -174,7 +174,11 @@ module Walkthrough
   Gift = Data.define(:dex, :name, :level, :sold) do
     def sold? = sold
   end
-  GymFacts = Data.define(:leader, :types, :badge, :tm)
+  # `quiz` is the answer key for a gym whose doors ask one, in door order; empty for every gym but
+  # Cinnabar's.
+  GymFacts = Data.define(:leader, :types, :badge, :tm, :quiz) do
+    def initialize(quiz: [], **rest) = super
+  end
   GiftItem = Data.define(:name, :qty) do
     def stack? = qty > 1
   end
@@ -513,8 +517,15 @@ module Walkthrough
     def rate? = !rate.nil?
   end
 
-  GymStep = Data.define(:n, :text_key, :shot) do
+  # `answers` is a quiz door's answer key, one "yes"/"no" per door in door order. Cinnabar is the
+  # only gym that asks: its six locked doors each pose a yes-or-no question, and the answers are
+  # read out of the game rather than typed, because the byte the doors carry is the truth of the
+  # question and not the answer to it. Saying which is the whole of the step, so it is a row of
+  # numbered chips rather than a clause the reader has to count along.
+  GymStep = Data.define(:n, :text_key, :shot, :answers) do
+    def initialize(answers: [], **rest) = super
     def shot? = !shot.nil?
+    def answers? = answers.any?
   end
 
   # `needs` is the HM a floor cannot be finished without, as the game spells it, and `needs_key`

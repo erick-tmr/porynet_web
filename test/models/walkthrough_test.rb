@@ -961,11 +961,11 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "only pinless NPC gifts fall back to a positional progress key" do
     loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
 
-    assert_equal 23, loose.size
+    assert_equal 24, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
                    "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Master Ball",
                    "Oak's Parcel", "Old Amber", "Old Rod", "Poké Flute", "Pokédex", "Potion",
-                   "S.S. Ticket", "Super Rod", "TM36 Selfdestruct", "TM39 Swift",
+                   "S.S. Ticket", "Super Rod", "TM Metronome", "TM36 Selfdestruct", "TM39 Swift",
                    "Town Map" ], loose.map(&:name).uniq.sort,
       "the Itemfinder left this set the moment a second page claimed it: two cards for one gift " \
       "need a stable id between them, not a slot number on each page"

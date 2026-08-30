@@ -74,6 +74,18 @@
               <div class="pn-wt-gym__pstep">
                 <span class="pn-wt-gym__pstep-n"><%= pstep.n %></span>
                 <div class="pn-wt-gym__pstep-text"><%= t(pstep.text_key) %></div>
+                <% if pstep.answers? %>
+                  <ol class="pn-wt-quiz">
+                    <% pstep.answers.each_with_index do |answer, i| %>
+                      <li class="pn-wt-quiz__door">
+                        <span class="pn-wt-quiz__n"><%= t("walkthrough.ui.quiz_door", n: i + 1) %></span>
+                        <span class="pn-wt-quiz__answer pn-wt-quiz__answer--<%= answer %>">
+                          <%= t("walkthrough.ui.quiz_#{answer}") %>
+                        </span>
+                      </li>
+                    <% end %>
+                  </ol>
+                <% end %>
                 <% if pstep.shot? %>
                   <div class="pn-wt-shot pn-wt-shot--pstep">
                     <% if pstep.shot.map? %>
