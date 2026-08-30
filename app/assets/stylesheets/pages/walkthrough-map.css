@@ -22,6 +22,10 @@
   --mm-pokemon: var(--trade-purple);
   --mm-hidden: var(--neon-magenta);
   --mm-exit: var(--ink);
+  /* A hole is a one-way drop rather than a door, so it takes a hazard red of its own instead of
+     the exit's ink: two dark pins a few cells apart on the same Seafoam floor would read as one
+     kind of thing when only one of them can be walked back through. */
+  --mm-hole: #B8452F;
   --mm-done: var(--done-green);
   --mm-row-done: #E8F2EA;
   --mm-row-selected: #FFEDC5;
@@ -118,6 +122,7 @@
 .pn-mm-pill__swatch--trainer { background: var(--mm-trainer); }
 .pn-mm-pill__swatch--npc { background: var(--mm-npc); }
 .pn-mm-pill__swatch--exit { background: var(--mm-exit); }
+.pn-mm-pill__swatch--hole { background: var(--mm-hole); }
 
 .pn-mm-pill__swatch--item,
 .pn-mm-pill__swatch--pokemon,
@@ -368,6 +373,12 @@
   box-shadow: 0 0 11px #171622bb, 2px 2px 0 var(--ink);
 }
 
+.pn-mm__pin--hole {
+  background: var(--mm-hole);
+  color: #fff;
+  box-shadow: 0 0 11px #b8452fbb, 2px 2px 0 var(--ink);
+}
+
 /* The hidden-item pin is the one that moves: it marks a tile the game shows nothing on. It stays
    small, at the size the walkthrough's own hidden-item pins have always been, because it sits on
    a single 16px map cell and a bigger dot would swallow the tiles around it. */
@@ -497,6 +508,7 @@
 .pn-mm[data-cat="pokemon"] .pn-mm__label-key { color: var(--mm-pokemon); }
 .pn-mm[data-cat="hidden"] .pn-mm__label-key { color: var(--mm-hidden); }
 .pn-mm[data-cat="exit"] .pn-mm__label-key { color: var(--mm-exit); }
+.pn-mm[data-cat="hole"] .pn-mm__label-key { color: var(--mm-hole); }
 
 /* --- hint popover -------------------------------------------------------- */
 
@@ -652,6 +664,7 @@
 .pn-mm-legend__swatch--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__swatch--npc { background: var(--mm-npc); }
 .pn-mm-legend__swatch--exit { background: var(--mm-exit); }
+.pn-mm-legend__swatch--hole { background: var(--mm-hole); }
 .pn-mm-legend__swatch--item { background: var(--mm-item); border-radius: 50%; }
 .pn-mm-legend__swatch--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__swatch--hidden { background: var(--mm-hidden); border-radius: 50%; }
@@ -696,6 +709,7 @@
 .pn-mm-legend__chip--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__chip--hidden { background: var(--mm-hidden); border-radius: 50%; }
 .pn-mm-legend__chip--exit { background: var(--mm-exit); border-radius: 4px; }
+.pn-mm-legend__chip--hole { background: var(--mm-hole); border-radius: 4px; }
 
 .pn-mm-legend__name {
   flex: 1;
@@ -1100,6 +1114,10 @@
 }
 
 .pn-wt-stepmap__img { image-rendering: pixelated; }
+
+/* A boulder the app draws over a step's crop, since the floor itself is drawn without one: the
+   game hides every boulder below Seafoam 1F until the one above it falls. */
+.pn-wt-stepmap__boulder { image-rendering: pixelated; }
 
 .pn-wt-stepmap__cap {
   font-family: "VT323", monospace;

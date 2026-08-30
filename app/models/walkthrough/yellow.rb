@@ -727,18 +727,29 @@ module Walkthrough
     def self.step_map(area, first, last = first)
       legs = area.route_legs[(first - 1)..(last - 1)]
       StepMap.new(image: area.image, width: area.width, height: area.height,
-        box: crop_box(legs, floor_bounds(area)), legs: legs)
+        box: crop_box(legs, floor_bounds(area)), legs: legs, kind: area.route_kind)
     end
 
     # The part of the picture worth cropping into, as [x0, y0, x1, y1]. A map's image is the whole
     # grid and a floor rarely fills it: B2F leaves six rows of black above its own top wall, and a
-    # frame centred near the top would spend a quarter of itself on that. Every point of the route
-    # is somewhere the player stands, so the box they span, opened out by a margin and kept inside
-    # the image, is a fair read on where the floor is.
+    # frame centred near the top would spend a quarter of itself on that. Every pin and every point
+    # of a drawn line is somewhere the player can be, so the box they span, opened out by a margin
+    # and kept inside the image, is a fair read on where the floor is.
+    #
+    # The pins are what make it a read on the floor rather than on the line. A maze route wanders
+    # over its whole floor, so the line alone bounded it well enough; a boulder push is two cells
+    # long, and bounding by that squeezed the window down to the shove itself, which is a picture of
+    # a boulder and no room at all. The pins are spread over the floor either way.
     def self.floor_bounds(area)
-      xs, ys = area.route.flatten(1).transpose
+      xs, ys = (area.route.flatten(1) + area.markers.map { |pin| pin_px(pin, area) }).transpose
       [ [ xs.min - STEP_MAP_PAD, 0 ].max, [ ys.min - STEP_MAP_PAD, 0 ].max,
         [ xs.max + STEP_MAP_PAD, area.width ].min, [ ys.max + STEP_MAP_PAD, area.height ].min ]
+    end
+
+    # A pin's percent back into the map's own pixels, rounded: the box is only ever a hint at where
+    # the floor is, and a viewBox reading "14.000000000000007" is float noise in the markup.
+    def self.pin_px(pin, area)
+      [ (pin.x * area.width / 100).round, (pin.y * area.height / 100).round ]
     end
 
     # The crop, as the SVG viewBox [x, y, w, h]: a window the size of the leg plus a margin,
@@ -979,7 +990,8 @@ module Walkthrough
             npc_marker(n, m["width"], m["height"], key_letter(i))
           end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-            name: m["name"], markers: base + npcs, route: m.fetch("route", []))
+            name: m["name"], markers: base + npcs, route: m.fetch("route", []),
+            route_kind: m.fetch("route_kind", "ride"), boulders: m.fetch("boulders", []))
         end
       end
     end
@@ -2332,15 +2344,36 @@ module Walkthrough
         ])
     end
 
+    SEAFOAM_1F = "seafoam-islands-1f".freeze
+    SEAFOAM_B1F = "seafoam-islands-b1f".freeze
+    SEAFOAM_B2F = "seafoam-islands-b2f".freeze
+    SEAFOAM_B3F = "seafoam-islands-b3f".freeze
+
     def self.seafoam_islands
       loc("seafoam-islands", "CAVE", "Seafoam Islands", 44, steps: [
           {},
-          {},
-          { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
-          { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
-          { scene: "seafoam-articuno" },
+          { pins: { mouth: "seafoam-islands-1f/exit-4-17", hole: "seafoam-islands-1f/hole-17-6" },
+            line: [ SEAFOAM_1F, 1 ] },
+          { pins: { hole: "seafoam-islands-b1f/hole-18-6" }, line: [ SEAFOAM_B1F, 1 ] },
+          { pins: { hole: "seafoam-islands-b2f/hole-19-6" }, line: [ SEAFOAM_B2F, 1 ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "seafoam-islands-hidden-ultra-ball", "seafoam-islands-ultra-ball" ] },
-          {}
+          { pins: { first: "seafoam-islands-b4f/exit-25-4", ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
+          { pins: { hole: "seafoam-islands-b3f/hole-3-16" }, line: [ SEAFOAM_B3F, 1, 2 ] },
+          { pins: { hole: "seafoam-islands-b3f/hole-6-16" }, line: [ SEAFOAM_B3F, 3, 4 ] },
+          {},
+          { scene: "seafoam-articuno" },
+          { pins: { ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { pins: { ladder: "seafoam-islands-b3f/exit-5-12" } },
+          { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
+          { pins: { ladder: "seafoam-islands-b2f/exit-13-7" } },
+          { pins: { ladder: "seafoam-islands-b1f/exit-7-5" } },
+          { pins: { hole: "seafoam-islands-1f/hole-24-6" }, line: [ SEAFOAM_1F, 2 ] },
+          { pins: { hole: "seafoam-islands-b1f/hole-23-6" }, line: [ SEAFOAM_B1F, 2 ] },
+          { pins: { hole: "seafoam-islands-b2f/hole-22-6" }, line: [ SEAFOAM_B2F, 2 ] },
+          { pins: { first: "seafoam-islands-b3f/exit-25-14", mid: "seafoam-islands-b2f/exit-25-11",
+                    top: "seafoam-islands-b1f/exit-23-15" } },
+          { pins: { mouth: "seafoam-islands-1f/exit-26-17" } }
         ],
         encounters: [
           enc("seafoam-islands", "041", "CAVE", "44%", "9–45", "COMMON", "041", "042"),

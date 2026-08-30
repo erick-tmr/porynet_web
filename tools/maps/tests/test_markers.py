@@ -412,6 +412,58 @@ def test_a_longer_name_reserves_more_room():
     assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 1, 0 ]
 
 
+def test_a_label_crosses_its_pin_rather_than_walk_away_from_it():
+    """Two columns of pins whose leftward labels would land in each other. The right-hand column
+    reads leftward by its x alone, straight into the left-hand column's names, and rows alone
+    cannot part them: the two bands overlap in whichever row each sits. Sending the right-hand
+    labels out to the other side leaves every one of them on its own row."""
+    pair = [ row(20.0, 60, "B2F", "r"), row(20.0, 78, "B2F", "l") ]
+
+    assert lanes(pair) == [ 0, 0 ]
+    assert [e["align"] for e in markers.assign_label_lanes(pair, 544, 768)] == [ "r", "r" ]
+
+
+def test_a_label_keeps_the_side_it_reads_best_on_when_that_side_is_clear():
+    """The flip is a last resort, not a preference: it costs the reader a glance across the pin, so
+    it is only taken where staying put means a worse row."""
+    alone = [ row(20.0, 78, "B2F", "l") ]
+
+    assert [e["align"] for e in markers.assign_label_lanes(alone, 544, 768)] == [ "l" ]
+
+
+def test_a_grazed_pin_does_not_send_a_label_off_its_row():
+    """A label's box shrinks against the map as the map is drawn larger, so a pin just inside its
+    end at 1x is outside it at every size above. Covering a pin at one of the nine sizes is not
+    worth the leader line back from another row, and the label stays where it stands. A pin the
+    label sits on at more sizes than the rows it would travel still moves it, which is the case
+    `test_a_longer_name_reserves_more_room` holds."""
+    assert lanes([ row(20.0, 5), row(20.0, 19) ]) == [ 0, 0 ]
+
+
+def test_a_column_of_pins_reads_on_one_side():
+    """Two pins in a column, and a long name to their left filling the rows they would read into.
+    Both are driven across their pins, and the lower one cannot have its own row either. A row down
+    ties whichever way it faces, so it falls in under its partner rather than back across the map."""
+    column = [ row(19.0, 30, "Viridian Forest North Gate"),
+               row(20.0, 78, "B2F", "l"), row(22.0, 78, "1F", "l") ]
+    seated = markers.assign_label_lanes(column, 544, 768)
+
+    assert [ (e["align"], e["lane"]) for e in seated[1:] ] == [ ("r", 0), ("r", 1) ]
+
+
+def test_seafoam_b1f_labels_its_holes_beside_them(root):
+    """The whole thing on the real floor: two holes five cells apart on one row, each label on its
+    own row beside its pin and the two reading away from each other, so neither name lands in the
+    gap between them."""
+    const = sources.parse_headers(root)["SeafoamIslandsB1F"][0]
+    holes = {tuple(m["grid"]): m
+             for m in markers.build_markers(root, "SeafoamIslandsB1F", const, 480, 288)
+             if m["cat"] == "hole"}
+
+    assert {grid: (m["align"], m["lane"]) for grid, m in holes.items()} == {
+        (18, 6): ("l", 0), (23, 6): ("r", 0)}
+
+
 def test_a_narrow_map_measures_labels_against_the_width_it_is_drawn_at():
     label = row(10.0, 40, "Underground Path Route 5")
 

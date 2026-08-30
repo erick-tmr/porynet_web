@@ -9,9 +9,9 @@ import { isSet, load, save, subscribe, toggle } from "lib/progress_store"
 // static class. And no user-visible string lives here: every label, status and toggle caption is
 // rendered server-side in both locales, and this only ever moves classes around.
 
-// Signposts, not chores: NPCs and exits raise a hint but never tick off, so they are skipped
-// wherever progress is counted or stored. Kept in sync with Walkthrough::NON_TICKABLE.
-const NON_TICKABLE = new Set(["exit", "npc"])
+// Signposts, not chores: NPCs, exits and holes raise a hint but never tick off, so they are
+// skipped wherever progress is counted or stored. Kept in sync with Walkthrough::NON_TICKABLE.
+const NON_TICKABLE = new Set(["exit", "npc", "hole"])
 
 export default class extends Controller {
   static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle",

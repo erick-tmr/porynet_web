@@ -52,8 +52,21 @@ def test_forest_has_its_own_grass_tile(root):
 def test_render_icons_names_every_icon_it_cuts(root):
     rendered = icons.render_icons(root)
 
-    assert set(rendered) == {icons.GRASS_ICON}
+    assert set(rendered) == {icons.GRASS_ICON, icons.BOULDER_ICON}
     assert rendered[icons.GRASS_ICON].size == (16, 16)
+    assert rendered[icons.BOULDER_ICON].size == (16, 16)
+
+
+def test_the_boulder_is_cut_on_transparency_so_it_sits_on_the_floor(root):
+    """The app draws it over a step's map, where anything but a see-through corner would print a
+    square of cave over the cave. Same shading `compositor.overlay_sprites` gives a baked one, so
+    the two are the same boulder."""
+    boulder = icons.boulder_sprite(root)
+    colors = compositor._map_colors(root, sources.PAL_CAVE)
+
+    assert boulder.mode == "RGBA"
+    assert boulder.getpixel((0, 0)) == (0, 0, 0, 0), "the corners are the sheet's own 255"
+    assert (*colors[3], 255) in set(boulder.getdata()), "and its outline is the map's dark colour"
 
 
 def test_grass_icon_is_deterministic(root):

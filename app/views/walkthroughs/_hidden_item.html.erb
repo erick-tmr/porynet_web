@@ -10,7 +10,7 @@
     <div class="pn-wt-hidden__name">
       <%= hidden.name %>
       <% if hidden.key? %>
-        <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= hidden.key %></span>
+        <%= map_mark(hidden.key, at: hidden.tick) %>
       <% end %>
     </div>
   </div>

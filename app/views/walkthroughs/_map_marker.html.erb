@@ -1,7 +1,8 @@
 <div class="<%= class_names("pn-mm", "pn-mm--hint-below" => marker.y < 12,
        "pn-mm--hint-left" => marker.x > 80, "pn-mm--hint-right" => marker.x < 20) %>"
      data-map-markers-target="marker"
-     data-role="marker" data-marker-id="<%= marker.id %>" data-cat="<%= marker.cat %>"
+     data-role="marker" data-marker-id="<%= marker.id %>" data-marker-key="<%= marker.key %>"
+     data-cat="<%= marker.cat %>"
      data-x="<%= marker.x %>" data-y="<%= marker.y %>" data-align="<%= marker.align %>"
      data-lane="<%= marker.lane %>">
   <button type="button" class="pn-mm__hit" data-action="click->map-markers#hit"

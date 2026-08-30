@@ -91,7 +91,7 @@
               <div class="pn-wt-gym__leader-role"><%= t("walkthrough.ui.dojo_master") %></div>
               <div class="pn-wt-gym__leader-name">
                 <%= dojo.leader.cls %>
-                <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= dojo.leader.marker_key %></span>
+                <%= map_mark(dojo.leader.marker_key, at: dojo.leader.tick) %>
               </div>
               <div class="pn-wt-gym__leader-pills">
                 <span class="pn-wt-gym__pill pn-wt-gym__pill--reward"><%= poke_dollar(dojo.leader.reward) %></span>

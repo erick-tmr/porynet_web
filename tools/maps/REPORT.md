@@ -1,7 +1,7 @@
 # Asset generation report
 
 - location maps: **102** across 53 locations
-- markers: **990** (323 trainer, 107 item, 64 hidden, 484 exit)
+- markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **45** (map/scene in a step slot)
 - standalone scenes: **282** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
@@ -149,7 +149,7 @@
 - `route-4` step 1: walkthrough/yellow/scenes/route-4-exit.png
 - `route-4-mt-moon` step 2: walkthrough/yellow/scenes/route-4-mt-moon-enter.png
 - `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png
-- `seafoam-islands` step 3: walkthrough/yellow/scenes/seafoam-articuno.png
+- `seafoam-islands` step 11: walkthrough/yellow/scenes/seafoam-articuno.png
 - `ss-anne` step 14: walkthrough/yellow/scenes/ss-anne-cut.png
 - `vermilion-city` step 2: walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png

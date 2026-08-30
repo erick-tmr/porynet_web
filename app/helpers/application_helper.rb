@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def step_text(step)
-    marks = step.marks.transform_values { |key| map_mark(key) }
+    marks = step.marks.map { |token, key| [ token, map_mark(key, at: step.pins[token]) ] }.to_h
     return t(step.text_key, **marks) unless step.link?
 
     t(step.text_key, **marks,
@@ -49,16 +49,22 @@ module ApplicationHelper
   # A trivia section points at a pin the way a step does: it names the door it is talking about and
   # the letter that door is wearing goes in.
   def trivia_intro(trivia)
-    t(trivia.intro_key, **trivia.marks.transform_values { |key| map_mark(key) })
+    t(trivia.intro_key,
+      **trivia.marks.map { |token, key| [ token, map_mark(key, at: trivia.pins[token]) ] }.to_h)
   end
 
-  # The letter a step's prose points at, wearing the chip the map pin and legend row give it.
-  def map_mark(key)
-    tag.span(key, class: "pn-wt-mark", title: t("walkthrough.ui.map_marker_hint"))
+  # The letter a step's prose or a card points at, wearing the chip the map pin and legend row
+  # give it. A button rather than a label, because clicking it scrolls the page to the map that
+  # draws that pin (map_jump_controller). `at` is the "map/marker" pair the card already carries,
+  # and is what settles which map to jump to when a letter is drawn on more than one of them.
+  def map_mark(key, at: nil)
+    tag.button(key, type: "button", class: "pn-wt-mark",
+      title: t("walkthrough.ui.map_marker_hint"),
+      data: { action: "click->map-jump#go", mark_key: key, mark_map: at&.split("/")&.first })
   end
 
   def walkthrough_page_controller(game)
-    tag.attributes(data: { controller: "progress-toggle mode-toggle",
+    tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump",
                            progress_toggle_game_value: game.slug,
                            mode_toggle_game_value: game.slug })
   end
@@ -260,6 +266,7 @@ module ApplicationHelper
   def marker_detail(marker)
     return Walkthrough::PlaceHint.new(marker.place).to_s if marker.place?
     return t("walkthrough.ui.map_exit_#{marker.edge}") if marker.cat == "exit"
+    return t("walkthrough.ui.map_hole") if marker.cat == "hole"
     return t("walkthrough.ui.#{marker.note}") if marker.note?
 
     t("walkthrough.ui.map_cat_#{marker.cat}")

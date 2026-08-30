@@ -27,7 +27,7 @@
                   <div>
                     <span class="pn-wt-item__name"><%= item.name %></span>
                     <% if item.key? %>
-                      <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= item.key %></span>
+                      <%= map_mark(item.key, at: item.tick) %>
                     <% end %>
                     <span class="pn-wt-item__kind"><%= t("walkthrough.ui.item_kind") %></span>
                   </div>

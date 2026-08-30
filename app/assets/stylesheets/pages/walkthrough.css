@@ -1977,7 +1977,8 @@ a.pn-wt-route__card:hover {
 }
 /* An inline map key in a step, wearing the same dark chip the map pin and legend row give it, so
    "exit E3" in the prose and the E3 on the map read as one thing. Sized to sit in a line of body
-   copy without pushing the leading around. */
+   copy without pushing the leading around. A button, not a label: clicking it scrolls the page to
+   the map that draws the pin, so the browser's own button styling is stripped back to the chip. */
 .pn-wt-mark {
   display: inline-flex;
   align-items: center;
@@ -1985,6 +1986,7 @@ a.pn-wt-route__card:hover {
   min-width: 17px;
   padding: 2px 3px;
   margin: 0 1px;
+  border: 0;
   border-radius: 4px;
   background: #171622;
   color: #fbf5e6;
@@ -1992,6 +1994,20 @@ a.pn-wt-route__card:hover {
   font-size: 9px;
   line-height: 1;
   vertical-align: 1px;
+  cursor: pointer;
+}
+
+.pn-wt-mark:hover { background: var(--accent); }
+.pn-wt-mark:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
+
+/* A map jumped to from the prose lands under the sticky nav otherwise, and on a leg page under
+   the stop bar as well. Same allowance the bands themselves take. */
+.pn-mm-block {
+  scroll-margin-top: calc(var(--pn-nav-h, 68px) + 10px);
+}
+
+.pn-legsw-host .pn-mm-block {
+  scroll-margin-top: calc(var(--pn-nav-h, 68px) + var(--pn-legsw-h, 58px) + 10px);
 }
 
 /* On the gym's dark card the chip's own near-black ground vanishes, so it flips to the gym accent

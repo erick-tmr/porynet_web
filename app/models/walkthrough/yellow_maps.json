@@ -34,12 +34,12 @@
               8,
               13
             ],
-            "align": "r",
+            "align": "l",
             "name": "Mart 1F",
             "ref": "CELADON_MART_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-10-13",
@@ -136,12 +136,12 @@
               28,
               19
             ],
-            "align": "r",
+            "align": "l",
             "name": "Game Corner",
             "ref": "GAME_CORNER",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-33-19",
@@ -153,12 +153,12 @@
               33,
               19
             ],
-            "align": "l",
+            "align": "r",
             "name": "Game Corner Prize Room",
             "ref": "GAME_CORNER_PRIZE_ROOM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-31-27",
@@ -187,12 +187,12 @@
               35,
               27
             ],
-            "align": "l",
+            "align": "r",
             "name": "Chief House",
             "ref": "CELADON_CHIEF_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-43-27",
@@ -209,7 +209,7 @@
             "ref": "CELADON_HOTEL",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-west",
@@ -430,7 +430,7 @@
             "align": "l",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "item-18-3",
@@ -472,10 +472,10 @@
               18,
               7
             ],
-            "align": "r",
+            "align": "l",
             "name": "PP Up",
             "ref": "PP_UP",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-24-17",
@@ -543,7 +543,7 @@
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-7-1",
@@ -594,7 +594,7 @@
             "ref": "CERULEAN_CAVE_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-0-6",
@@ -647,10 +647,10 @@
               16,
               7
             ],
-            "align": "r",
+            "align": "l",
             "name": "Ultra Ball",
             "ref": "ULTRA_BALL",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-19-11",
@@ -662,10 +662,10 @@
               19,
               11
             ],
-            "align": "l",
+            "align": "r",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "item-27-9",
@@ -680,7 +680,7 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "hidden-16-13",
@@ -692,10 +692,10 @@
               16,
               13
             ],
-            "align": "r",
+            "align": "l",
             "name": "PP Up",
             "ref": "PP_UP",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-29-1",
@@ -746,7 +746,7 @@
             "ref": "CERULEAN_CAVE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-9-1",
@@ -936,10 +936,10 @@
               30,
               8
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:5",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "hidden-15-8",
@@ -983,12 +983,12 @@
               13,
               15
             ],
-            "align": "r",
+            "align": "l",
             "name": "Melanies House",
             "ref": "CERULEAN_MELANIES_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-19-17",
@@ -1005,7 +1005,7 @@
             "ref": "CERULEAN_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-30-19",
@@ -1017,7 +1017,7 @@
               30,
               19
             ],
-            "align": "l",
+            "align": "r",
             "name": "Gym",
             "ref": "CERULEAN_GYM",
             "edge": "inner",
@@ -1034,7 +1034,7 @@
               13,
               25
             ],
-            "align": "r",
+            "align": "l",
             "name": "Bike Shop",
             "ref": "BIKE_SHOP",
             "edge": "inner",
@@ -1056,7 +1056,7 @@
             "ref": "CERULEAN_MART",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-4-11",
@@ -1107,7 +1107,7 @@
             "ref": "CERULEAN_BADGE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -5
+            "lane": 2
           },
           {
             "id": "exit-9-9",
@@ -1175,7 +1175,7 @@
             "ref": "ROUTE_4",
             "edge": "west",
             "glyph": "\u25c0",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-east",
@@ -1291,7 +1291,7 @@
             "ref": "POKEMON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-18-3",
@@ -1308,7 +1308,7 @@
             "ref": "CINNABAR_GYM",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-6-9",
@@ -1646,7 +1646,7 @@
             "ref": "FUCHSIA_POKECENTER",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-27-27",
@@ -1658,12 +1658,12 @@
               27,
               27
             ],
-            "align": "l",
+            "align": "r",
             "name": "Wardens House",
             "ref": "WARDENS_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-18-3",
@@ -1731,7 +1731,7 @@
             "ref": "FUCHSIA_GOOD_ROD_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 2
           },
           {
             "id": "exit-31-24",
@@ -2136,7 +2136,8 @@
               168
             ]
           ]
-        ]
+        ],
+        "route_kind": "ride"
       }
     ],
     "indigo-plateau": [
@@ -2343,7 +2344,7 @@
             "ref": "ROUTE_8",
             "edge": "west",
             "glyph": "\u25c0",
-            "lane": 1
+            "lane": 0
           }
         ]
       }
@@ -2441,10 +2442,10 @@
               12,
               16
             ],
-            "align": "r",
+            "align": "l",
             "name": "Youngster",
             "ref": "YOUNGSTER:3",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-5-6",
@@ -2561,12 +2562,12 @@
               14,
               35
             ],
-            "align": "r",
+            "align": "l",
             "name": "Back outside",
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": -3
+            "lane": 0
           },
           {
             "id": "exit-5-5",
@@ -2786,7 +2787,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-29-11",
@@ -2801,7 +2802,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:3",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-29-17",
@@ -2813,10 +2814,10 @@
               29,
               17
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:1",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-12-8",
@@ -2843,7 +2844,7 @@
               25,
               21
             ],
-            "align": "l",
+            "align": "r",
             "name": "HP Up",
             "ref": "HP_UP",
             "lane": 0
@@ -2876,7 +2877,7 @@
             "align": "l",
             "name": "Ether",
             "ref": "ETHER",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "hidden-18-12",
@@ -2888,10 +2889,10 @@
               18,
               12
             ],
-            "align": "r",
+            "align": "l",
             "name": "Moon Stone",
             "ref": "MOON_STONE",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-25-9",
@@ -2903,12 +2904,12 @@
               25,
               9
             ],
-            "align": "l",
+            "align": "r",
             "name": "B1F",
             "ref": "MT_MOON_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-21-17",
@@ -3004,7 +3005,7 @@
             "ref": "BLUES_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-12-11",
@@ -3465,12 +3466,12 @@
               5,
               10
             ],
-            "align": "r",
+            "align": "l",
             "name": "1F",
             "ref": "POKEMON_MANSION_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-7-10",
@@ -3557,10 +3558,10 @@
               20,
               11
             ],
-            "align": "l",
+            "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:12",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "item-25-5",
@@ -3656,6 +3657,38 @@
             "ref": "POKEMON_MANSION_2F",
             "edge": "inner",
             "glyph": "\u25b2",
+            "lane": 2
+          },
+          {
+            "id": "hole-16-14",
+            "cat": "hole",
+            "key": "D1",
+            "x": 56.667,
+            "y": 80.556,
+            "grid": [
+              16,
+              14
+            ],
+            "align": "r",
+            "name": "1F",
+            "ref": "POKEMON_MANSION_1F",
+            "glyph": "\u25bc",
+            "lane": 1
+          },
+          {
+            "id": "hole-19-14",
+            "cat": "hole",
+            "key": "D2",
+            "x": 65.0,
+            "y": 80.556,
+            "grid": [
+              19,
+              14
+            ],
+            "align": "r",
+            "name": "2F",
+            "ref": "POKEMON_MANSION_2F",
+            "glyph": "\u25bc",
             "lane": 0
           }
         ]
@@ -3692,10 +3725,10 @@
               16,
               23
             ],
-            "align": "r",
+            "align": "l",
             "name": "Burglar",
             "ref": "BURGLAR:9",
-            "lane": -3
+            "lane": 1
           },
           {
             "id": "item-19-25",
@@ -3707,7 +3740,7 @@
               19,
               25
             ],
-            "align": "l",
+            "align": "r",
             "name": "TM Blizzard",
             "ref": "TM_BLIZZARD",
             "lane": 0
@@ -4062,7 +4095,7 @@
             "align": "l",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 2
+            "lane": 3
           },
           {
             "id": "item-9-10",
@@ -4074,10 +4107,10 @@
               9,
               10
             ],
-            "align": "r",
+            "align": "l",
             "name": "Awakening",
             "ref": "AWAKENING",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "item-12-16",
@@ -4089,7 +4122,7 @@
               12,
               16
             ],
-            "align": "l",
+            "align": "r",
             "name": "HP Up",
             "ref": "HP_UP",
             "lane": 0
@@ -4283,7 +4316,7 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:19",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "trainer-16-5",
@@ -4298,7 +4331,7 @@
             "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:21",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "trainer-9-5",
@@ -4310,10 +4343,10 @@
               9,
               5
             ],
-            "align": "r",
+            "align": "l",
             "name": "Channeler",
             "ref": "CHANNELER:20",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-14-14",
@@ -4328,7 +4361,7 @@
             "align": "l",
             "name": "X Accuracy",
             "ref": "X_ACCURACY",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "item-6-8",
@@ -4343,7 +4376,7 @@
             "align": "r",
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-18-9",
@@ -4360,7 +4393,7 @@
             "ref": "POKEMON_TOWER_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-9-16",
@@ -4372,12 +4405,12 @@
               9,
               16
             ],
-            "align": "r",
+            "align": "l",
             "name": "7F",
             "ref": "POKEMON_TOWER_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -3
+            "lane": 0
           }
         ]
       },
@@ -4441,10 +4474,10 @@
               20,
               32
             ],
-            "align": "r",
+            "align": "l",
             "name": "TM Reflect",
             "ref": "TM_REFLECT",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "item-26-32",
@@ -4456,10 +4489,10 @@
               26,
               32
             ],
-            "align": "l",
+            "align": "r",
             "name": "TM Thunder",
             "ref": "TM_THUNDER",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-28-3",
@@ -4576,7 +4609,7 @@
               23,
               34
             ],
-            "align": "r",
+            "align": "l",
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
             "lane": 0
@@ -4594,7 +4627,7 @@
             "align": "l",
             "name": "Voltorb, 40",
             "ref": "VOLTORB, 40",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "pokemon-21-14",
@@ -4671,7 +4704,7 @@
             "ref": "LAST_MAP",
             "edge": "south",
             "glyph": "\u25bc",
-            "lane": 0
+            "lane": -3
           },
           {
             "id": "exit-0-11",
@@ -5081,12 +5114,12 @@
               23,
               11
             ],
-            "align": "r",
+            "align": "l",
             "name": "1F",
             "ref": "ROCK_TUNNEL_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-3-3",
@@ -5126,10 +5159,10 @@
               9,
               5
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:7",
-            "lane": -3
+            "lane": 1
           },
           {
             "id": "hidden-16-14",
@@ -5159,7 +5192,7 @@
             "align": "l",
             "name": "10 coins",
             "ref": "COIN",
-            "lane": -1
+            "lane": -5
           },
           {
             "id": "hidden-10-16",
@@ -5186,10 +5219,10 @@
               9,
               15
             ],
-            "align": "r",
+            "align": "l",
             "name": "10 coins",
             "ref": "COIN",
-            "lane": -5
+            "lane": -1
           },
           {
             "id": "hidden-15-8",
@@ -5204,7 +5237,7 @@
             "align": "l",
             "name": "100 coins",
             "ref": "COIN",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "hidden-9-12",
@@ -5249,7 +5282,7 @@
             "align": "r",
             "name": "10 coins",
             "ref": "COIN",
-            "lane": -5
+            "lane": -4
           },
           {
             "id": "hidden-3-14",
@@ -5309,7 +5342,7 @@
             "align": "r",
             "name": "10 coins",
             "ref": "COIN",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-15-17",
@@ -5394,10 +5427,10 @@
               15,
               25
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:11",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-18-17",
@@ -5457,7 +5490,7 @@
             "align": "r",
             "name": "Hyper Potion",
             "ref": "HYPER_POTION",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "hidden-21-15",
@@ -5469,10 +5502,10 @@
               21,
               15
             ],
-            "align": "l",
+            "align": "r",
             "name": "PP Up",
             "ref": "PP_UP",
-            "lane": -2
+            "lane": 0
           },
           {
             "id": "exit-23-2",
@@ -5484,12 +5517,12 @@
               23,
               2
             ],
-            "align": "l",
+            "align": "r",
             "name": "B2F",
             "ref": "ROCKET_HIDEOUT_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-21-2",
@@ -5523,7 +5556,7 @@
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "exit-21-24",
@@ -5540,7 +5573,7 @@
             "ref": "ROCKET_HIDEOUT_B2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           }
         ]
       },
@@ -5591,10 +5624,10 @@
               16,
               8
             ],
-            "align": "r",
+            "align": "l",
             "name": "Nugget",
             "ref": "NUGGET",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-6-12",
@@ -5641,7 +5674,7 @@
             "ref": "ROCKET_HIDEOUT_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-21-8",
@@ -5653,12 +5686,12 @@
               21,
               8
             ],
-            "align": "l",
+            "align": "r",
             "name": "B3F",
             "ref": "ROCKET_HIDEOUT_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-24-19",
@@ -5687,7 +5720,7 @@
               21,
               22
             ],
-            "align": "l",
+            "align": "r",
             "name": "B1F",
             "ref": "ROCKET_HIDEOUT_B1F",
             "edge": "inner",
@@ -6776,7 +6809,8 @@
               312
             ]
           ]
-        ]
+        ],
+        "route_kind": "ride"
       },
       {
         "image": "walkthrough/yellow/maps/rocket-hideout-b3f.png",
@@ -7578,7 +7612,8 @@
               104
             ]
           ]
-        ]
+        ],
+        "route_kind": "ride"
       },
       {
         "image": "walkthrough/yellow/maps/rocket-hideout-b4f.png",
@@ -7600,7 +7635,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:18",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-25-3",
@@ -7615,7 +7650,7 @@
             "align": "l",
             "name": "Giovanni",
             "ref": "GIOVANNI:1",
-            "lane": 4
+            "lane": 3
           },
           {
             "id": "item-10-12",
@@ -7627,10 +7662,10 @@
               10,
               12
             ],
-            "align": "r",
+            "align": "l",
             "name": "HP Up",
             "ref": "HP_UP",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "item-9-4",
@@ -7645,7 +7680,7 @@
             "align": "r",
             "name": "TM Razor Wind",
             "ref": "TM_RAZOR_WIND",
-            "lane": 5
+            "lane": 4
           },
           {
             "id": "item-10-2",
@@ -7657,10 +7692,10 @@
               10,
               2
             ],
-            "align": "r",
+            "align": "l",
             "name": "Lift Key",
             "ref": "LIFT_KEY",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-12-20",
@@ -7675,7 +7710,7 @@
             "align": "r",
             "name": "Iron",
             "ref": "IRON",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "item-25-2",
@@ -7690,7 +7725,7 @@
             "align": "l",
             "name": "Silph Scope",
             "ref": "SILPH_SCOPE",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "hidden-25-1",
@@ -7717,12 +7752,12 @@
               19,
               10
             ],
-            "align": "l",
+            "align": "r",
             "name": "B3F",
             "ref": "ROCKET_HIDEOUT_B3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "exit-24-15",
@@ -7739,7 +7774,7 @@
             "ref": "ROCKET_HIDEOUT_ELEVATOR",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 0
           }
         ]
       }
@@ -7915,7 +7950,7 @@
             "align": "l",
             "name": "Max Ether",
             "ref": "MAX_ETHER",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-11-19",
@@ -8085,7 +8120,7 @@
               22,
               12
             ],
-            "align": "r",
+            "align": "l",
             "name": "Youngster",
             "ref": "YOUNGSTER:12",
             "lane": 0
@@ -8130,10 +8165,10 @@
               36,
               11
             ],
-            "align": "r",
+            "align": "l",
             "name": "Engineer",
             "ref": "ENGINEER:2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-45-7",
@@ -8190,10 +8225,10 @@
               48,
               5
             ],
-            "align": "l",
+            "align": "r",
             "name": "Escape Rope",
             "ref": "ESCAPE_ROPE",
-            "lane": -3
+            "lane": 0
           },
           {
             "id": "exit-49-8",
@@ -8579,10 +8614,10 @@
               49,
               10
             ],
-            "align": "l",
+            "align": "r",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:1",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-48-10",
@@ -8624,10 +8659,10 @@
               32,
               6
             ],
-            "align": "r",
+            "align": "l",
             "name": "Beauty",
             "ref": "BEAUTY:5",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-27-9",
@@ -8642,7 +8677,7 @@
             "align": "r",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:13",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-23-10",
@@ -8654,10 +8689,10 @@
               23,
               10
             ],
-            "align": "r",
+            "align": "l",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:14",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "trainer-7-13",
@@ -8672,7 +8707,7 @@
             "align": "r",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:3",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-12-4",
@@ -9077,7 +9112,7 @@
             "align": "l",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:20",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "trainer-35-13",
@@ -9107,7 +9142,7 @@
             "align": "r",
             "name": "Bird Keeper",
             "ref": "BIRD_KEEPER:6",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "trainer-18-13",
@@ -9231,7 +9266,7 @@
             "align": "r",
             "name": "Biker",
             "ref": "BIKER:7",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-6-10",
@@ -9258,10 +9293,10 @@
               9,
               11
             ],
-            "align": "r",
+            "align": "l",
             "name": "Biker",
             "ref": "BIKER:6",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "trainer-11-12",
@@ -9276,7 +9311,7 @@
             "align": "r",
             "name": "Cue Ball",
             "ref": "CUE_BALL:2",
-            "lane": -3
+            "lane": 2
           },
           {
             "id": "trainer-14-13",
@@ -9291,7 +9326,7 @@
             "align": "r",
             "name": "Cue Ball",
             "ref": "CUE_BALL:1",
-            "lane": -2
+            "lane": -4
           },
           {
             "id": "trainer-17-12",
@@ -9303,10 +9338,10 @@
               17,
               12
             ],
-            "align": "r",
+            "align": "l",
             "name": "Biker",
             "ref": "BIKER:5",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-17-10",
@@ -9352,12 +9387,12 @@
               17,
               4
             ],
-            "align": "r",
+            "align": "l",
             "name": "Route 16 Gate 1F",
             "ref": "ROUTE_16_GATE_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-24-4",
@@ -9391,7 +9426,7 @@
             "ref": "ROUTE_16_FLY_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-south",
@@ -9819,7 +9854,7 @@
             "ref": "FUCHSIA_CITY",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": 1
+            "lane": 0
           }
         ]
       }
@@ -9962,10 +9997,10 @@
               10,
               44
             ],
-            "align": "r",
+            "align": "l",
             "name": "Beauty",
             "ref": "BEAUTY:14",
-            "lane": 4
+            "lane": 1
           },
           {
             "id": "trainer-8-43",
@@ -9977,10 +10012,10 @@
               8,
               43
             ],
-            "align": "r",
+            "align": "l",
             "name": "Beauty",
             "ref": "BEAUTY:12",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "exit-5-9",
@@ -10031,7 +10066,7 @@
             "ref": "ROUTE_20",
             "edge": "west",
             "glyph": "\u25c0",
-            "lane": 0
+            "lane": 2
           }
         ]
       }
@@ -10769,7 +10804,7 @@
             "ref": "VICTORY_ROAD_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-14-31",
@@ -10786,7 +10821,7 @@
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-north",
@@ -11038,10 +11073,10 @@
               13,
               7
             ],
-            "align": "r",
+            "align": "l",
             "name": "Hiker",
             "ref": "HIKER:4",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-18-5",
@@ -11053,7 +11088,7 @@
               18,
               5
             ],
-            "align": "r",
+            "align": "l",
             "name": "Youngster",
             "ref": "YOUNGSTER:6",
             "lane": 1
@@ -11071,7 +11106,7 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:9",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "trainer-23-9",
@@ -11101,7 +11136,7 @@
             "align": "r",
             "name": "Jr.Trainer\u2642",
             "ref": "JR_TRAINER_M:2",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "trainer-32-3",
@@ -11113,10 +11148,10 @@
               32,
               3
             ],
-            "align": "r",
+            "align": "l",
             "name": "Youngster",
             "ref": "YOUNGSTER:7",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-37-4",
@@ -11131,7 +11166,7 @@
             "align": "l",
             "name": "Lass",
             "ref": "LASS:10",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "item-22-2",
@@ -11173,10 +11208,10 @@
               38,
               3
             ],
-            "align": "l",
+            "align": "r",
             "name": "Ether",
             "ref": "ETHER",
-            "lane": -2
+            "lane": 0
           },
           {
             "id": "exit-45-3",
@@ -11188,12 +11223,12 @@
               45,
               3
             ],
-            "align": "l",
+            "align": "r",
             "name": "Bills House",
             "ref": "BILLS_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-west",
@@ -11210,7 +11245,7 @@
             "ref": "ROUTE_24",
             "edge": "west",
             "glyph": "\u25c0",
-            "lane": 0
+            "lane": 1
           }
         ]
       }
@@ -11248,7 +11283,7 @@
               10,
               6
             ],
-            "align": "r",
+            "align": "l",
             "name": "Bug Catcher",
             "ref": "BUG_CATCHER:4",
             "lane": 0
@@ -11278,10 +11313,10 @@
               19,
               5
             ],
-            "align": "r",
+            "align": "l",
             "name": "Bug Catcher",
             "ref": "BUG_CATCHER:5",
-            "lane": -3
+            "lane": 1
           },
           {
             "id": "trainer-22-9",
@@ -11843,7 +11878,7 @@
             "ref": "ROUTE_7_GATE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-11-9",
@@ -11860,7 +11895,7 @@
             "ref": "ROUTE_7_GATE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-5-13",
@@ -11877,7 +11912,7 @@
             "ref": "UNDERGROUND_PATH_ROUTE_7",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-west",
@@ -11911,7 +11946,7 @@
             "ref": "SAFFRON_CITY",
             "edge": "east",
             "glyph": "\u25b6",
-            "lane": -1
+            "lane": 0
           }
         ]
       }
@@ -11967,7 +12002,7 @@
             "align": "l",
             "name": "Super Nerd",
             "ref": "SUPER_NERD:4",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-26-3",
@@ -11982,7 +12017,7 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:13",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-26-4",
@@ -11994,7 +12029,7 @@
               26,
               4
             ],
-            "align": "r",
+            "align": "l",
             "name": "Super Nerd",
             "ref": "SUPER_NERD:5",
             "lane": 1
@@ -12012,7 +12047,7 @@
             "align": "r",
             "name": "Lass",
             "ref": "LASS:14",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "trainer-26-6",
@@ -12024,10 +12059,10 @@
               26,
               6
             ],
-            "align": "r",
+            "align": "l",
             "name": "Lass",
             "ref": "LASS:15",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "trainer-13-9",
@@ -12042,7 +12077,7 @@
             "align": "r",
             "name": "Gambler",
             "ref": "GAMBLER:5",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-8-5",
@@ -12057,7 +12092,7 @@
             "align": "r",
             "name": "Super Nerd",
             "ref": "SUPER_NERD:3",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "exit-1-9",
@@ -12074,7 +12109,7 @@
             "ref": "ROUTE_8_GATE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -2
           },
           {
             "id": "exit-8-9",
@@ -12091,7 +12126,7 @@
             "ref": "ROUTE_8_GATE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 3
           },
           {
             "id": "exit-13-3",
@@ -12108,7 +12143,7 @@
             "ref": "UNDERGROUND_PATH_ROUTE_8",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-west",
@@ -12125,7 +12160,7 @@
             "ref": "SAFFRON_CITY",
             "edge": "west",
             "glyph": "\u25c0",
-            "lane": -1
+            "lane": 2
           },
           {
             "id": "exit-east",
@@ -12198,7 +12233,7 @@
             "align": "r",
             "name": "Youngster",
             "ref": "YOUNGSTER:14",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-22-2",
@@ -12240,10 +12275,10 @@
               40,
               8
             ],
-            "align": "l",
+            "align": "r",
             "name": "Bug Catcher",
             "ref": "BUG_CATCHER:14",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "trainer-31-7",
@@ -12258,7 +12293,7 @@
             "align": "r",
             "name": "Jr.Trainer\u2642",
             "ref": "JR_TRAINER_M:8",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "trainer-43-3",
@@ -12300,10 +12335,10 @@
               10,
               15
             ],
-            "align": "r",
+            "align": "l",
             "name": "TM Teleport",
             "ref": "TM_TELEPORT",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "hidden-14-7",
@@ -12484,10 +12519,10 @@
               20,
               13
             ],
-            "align": "l",
+            "align": "r",
             "name": "Carbos",
             "ref": "CARBOS",
-            "lane": 4
+            "lane": 0
           },
           {
             "id": "item-15-12",
@@ -12499,10 +12534,10 @@
               15,
               12
             ],
-            "align": "r",
+            "align": "l",
             "name": "TM Egg Bomb",
             "ref": "TM_EGG_BOMB",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "item-3-7",
@@ -12532,7 +12567,7 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-0-4",
@@ -12728,7 +12763,7 @@
               19,
               7
             ],
-            "align": "l",
+            "align": "r",
             "name": "Gold Teeth",
             "ref": "GOLD_TEETH",
             "lane": 0
@@ -12746,7 +12781,7 @@
             "align": "r",
             "name": "TM Double Team",
             "ref": "TM_DOUBLE_TEAM",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "item-18-18",
@@ -12791,7 +12826,7 @@
             "align": "r",
             "name": "Revive",
             "ref": "REVIVE",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -12876,7 +12911,7 @@
             "ref": "SAFARI_ZONE_WEST_REST_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           }
         ]
       }
@@ -12967,12 +13002,12 @@
               25,
               11
             ],
-            "align": "l",
+            "align": "r",
             "name": "Mart",
             "ref": "SAFFRON_MART",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-18-21",
@@ -13957,7 +13992,8 @@
               136
             ]
           ]
-        ]
+        ],
+        "route_kind": "ride"
       },
       {
         "image": "walkthrough/yellow/maps/saffron-city-dojo.png",
@@ -14153,7 +14189,96 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "hole-17-6",
+            "cat": "hole",
+            "key": "D1",
+            "x": 58.333,
+            "y": 36.111,
+            "grid": [
+              17,
+              6
+            ],
+            "align": "r",
+            "name": "B1F",
+            "ref": "SEAFOAM_ISLANDS_B1F",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "hole-24-6",
+            "cat": "hole",
+            "key": "D2",
+            "x": 81.667,
+            "y": 36.111,
+            "grid": [
+              24,
+              6
+            ],
+            "align": "l",
+            "name": "B1F",
+            "ref": "SEAFOAM_ISLANDS_B1F",
+            "glyph": "\u25bc",
+            "lane": 1
           }
+        ],
+        "route": [
+          [
+            [
+              288,
+              168
+            ],
+            [
+              280,
+              168
+            ],
+            [
+              280,
+              152
+            ],
+            [
+              280,
+              136
+            ],
+            [
+              280,
+              120
+            ],
+            [
+              280,
+              104
+            ]
+          ],
+          [
+            [
+              416,
+              120
+            ],
+            [
+              408,
+              120
+            ],
+            [
+              392,
+              120
+            ],
+            [
+              392,
+              104
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            296,
+            168
+          ],
+          [
+            424,
+            120
+          ]
         ]
       },
       {
@@ -14207,7 +14332,7 @@
               13,
               7
             ],
-            "align": "r",
+            "align": "l",
             "name": "B2F",
             "ref": "SEAFOAM_ISLANDS_B2F",
             "edge": "inner",
@@ -14241,12 +14366,12 @@
               23,
               15
             ],
-            "align": "l",
+            "align": "r",
             "name": "1F",
             "ref": "SEAFOAM_ISLANDS_1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-25-11",
@@ -14281,7 +14406,72 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "hole-18-6",
+            "cat": "hole",
+            "key": "D1",
+            "x": 61.667,
+            "y": 36.111,
+            "grid": [
+              18,
+              6
+            ],
+            "align": "l",
+            "name": "B2F",
+            "ref": "SEAFOAM_ISLANDS_B2F",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "hole-23-6",
+            "cat": "hole",
+            "key": "D2",
+            "x": 78.333,
+            "y": 36.111,
+            "grid": [
+              23,
+              6
+            ],
+            "align": "r",
+            "name": "B2F",
+            "ref": "SEAFOAM_ISLANDS_B2F",
+            "glyph": "\u25bc",
+            "lane": 0
           }
+        ],
+        "route": [
+          [
+            [
+              288,
+              104
+            ],
+            [
+              296,
+              104
+            ]
+          ],
+          [
+            [
+              368,
+              104
+            ],
+            [
+              376,
+              104
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            280,
+            104
+          ],
+          [
+            360,
+            104
+          ]
         ]
       },
       {
@@ -14301,10 +14491,10 @@
               15,
               15
             ],
-            "align": "r",
+            "align": "l",
             "name": "Nugget",
             "ref": "NUGGET",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-5-3",
@@ -14350,7 +14540,7 @@
               13,
               7
             ],
-            "align": "r",
+            "align": "l",
             "name": "B1F",
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
@@ -14372,7 +14562,7 @@
             "ref": "SEAFOAM_ISLANDS_B1F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-25-3",
@@ -14424,7 +14614,72 @@
             "edge": "inner",
             "glyph": "\u25b2",
             "lane": 0
+          },
+          {
+            "id": "hole-19-6",
+            "cat": "hole",
+            "key": "D1",
+            "x": 65.0,
+            "y": 36.111,
+            "grid": [
+              19,
+              6
+            ],
+            "align": "l",
+            "name": "B3F",
+            "ref": "SEAFOAM_ISLANDS_B3F",
+            "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "hole-22-6",
+            "cat": "hole",
+            "key": "D2",
+            "x": 75.0,
+            "y": 36.111,
+            "grid": [
+              22,
+              6
+            ],
+            "align": "r",
+            "name": "B3F",
+            "ref": "SEAFOAM_ISLANDS_B3F",
+            "glyph": "\u25bc",
+            "lane": 0
           }
+        ],
+        "route": [
+          [
+            [
+              304,
+              104
+            ],
+            [
+              312,
+              104
+            ]
+          ],
+          [
+            [
+              368,
+              104
+            ],
+            [
+              360,
+              104
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            296,
+            104
+          ],
+          [
+            376,
+            104
+          ]
         ]
       },
       {
@@ -14544,13 +14799,130 @@
               20,
               17
             ],
-            "align": "l",
+            "align": "r",
             "name": "B4F",
             "ref": "SEAFOAM_ISLANDS_B4F",
             "edge": "south",
             "glyph": "\u25bc",
+            "lane": 0
+          },
+          {
+            "id": "hole-3-16",
+            "cat": "hole",
+            "key": "D1",
+            "x": 11.667,
+            "y": 91.667,
+            "grid": [
+              3,
+              16
+            ],
+            "align": "r",
+            "name": "B4F",
+            "ref": "SEAFOAM_ISLANDS_B4F",
+            "glyph": "\u25bc",
+            "lane": -1
+          },
+          {
+            "id": "hole-6-16",
+            "cat": "hole",
+            "key": "D2",
+            "x": 21.667,
+            "y": 91.667,
+            "grid": [
+              6,
+              16
+            ],
+            "align": "l",
+            "name": "B4F",
+            "ref": "SEAFOAM_ISLANDS_B4F",
+            "glyph": "\u25bc",
             "lane": -2
           }
+        ],
+        "route": [
+          [
+            [
+              80,
+              232
+            ],
+            [
+              72,
+              232
+            ],
+            [
+              56,
+              232
+            ],
+            [
+              40,
+              232
+            ]
+          ],
+          [
+            [
+              56,
+              256
+            ],
+            [
+              56,
+              264
+            ]
+          ],
+          [
+            [
+              152,
+              224
+            ],
+            [
+              152,
+              216
+            ],
+            [
+              152,
+              200
+            ]
+          ],
+          [
+            [
+              136,
+              240
+            ],
+            [
+              136,
+              248
+            ],
+            [
+              120,
+              248
+            ],
+            [
+              104,
+              248
+            ],
+            [
+              104,
+              264
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            88,
+            232
+          ],
+          [
+            56,
+            248
+          ],
+          [
+            152,
+            232
+          ],
+          [
+            136,
+            232
+          ]
         ]
       },
       {
@@ -14804,7 +15176,7 @@
             "ref": "SILPH_CO_1F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -14821,7 +15193,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -14977,7 +15349,7 @@
             "ref": "SILPH_CO_2F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-24-0",
@@ -14994,7 +15366,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-20-0",
@@ -15079,7 +15451,7 @@
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-3-11",
@@ -15154,7 +15526,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:27",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-9-14",
@@ -15169,7 +15541,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:26",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-14-6",
@@ -15184,7 +15556,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:5",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "item-3-9",
@@ -15199,7 +15571,7 @@
             "align": "r",
             "name": "Full Heal",
             "ref": "FULL_HEAL",
-            "lane": 2
+            "lane": 3
           },
           {
             "id": "item-4-7",
@@ -15214,7 +15586,7 @@
             "align": "r",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "item-5-8",
@@ -15229,7 +15601,7 @@
             "align": "r",
             "name": "Escape Rope",
             "ref": "ESCAPE_ROPE",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-24-0",
@@ -15246,7 +15618,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -15263,7 +15635,7 @@
             "ref": "SILPH_CO_5F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -15297,7 +15669,7 @@
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-17-3",
@@ -15309,12 +15681,12 @@
               17,
               3
             ],
-            "align": "r",
+            "align": "l",
             "name": "6F",
             "ref": "SILPH_CO_6F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-3-15",
@@ -15331,7 +15703,7 @@
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-17-11",
@@ -15348,7 +15720,7 @@
             "ref": "SILPH_CO_10F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           }
         ]
       },
@@ -15372,7 +15744,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:28",
-            "lane": -3
+            "lane": -4
           },
           {
             "id": "trainer-28-4",
@@ -15387,7 +15759,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:29",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-18-10",
@@ -15402,7 +15774,7 @@
             "align": "r",
             "name": "Juggler",
             "ref": "JUGGLER:1",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-8-3",
@@ -15417,7 +15789,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:6",
-            "lane": 4
+            "lane": 1
           },
           {
             "id": "item-21-16",
@@ -15429,7 +15801,7 @@
               21,
               16
             ],
-            "align": "l",
+            "align": "r",
             "name": "Card Key",
             "ref": "CARD_KEY",
             "lane": 0
@@ -15447,7 +15819,7 @@
             "align": "r",
             "name": "Protein",
             "ref": "PROTEIN",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "item-2-13",
@@ -15477,7 +15849,7 @@
             "align": "r",
             "name": "Elixir",
             "ref": "ELIXER",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-24-0",
@@ -15494,7 +15866,7 @@
             "ref": "SILPH_CO_6F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-26-0",
@@ -15511,7 +15883,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-20-0",
@@ -15545,7 +15917,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-9-15",
@@ -15579,7 +15951,7 @@
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 1
           },
           {
             "id": "exit-3-15",
@@ -15617,10 +15989,10 @@
               17,
               3
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:30",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "trainer-7-8",
@@ -15635,7 +16007,7 @@
             "align": "r",
             "name": "Scientist",
             "ref": "SCIENTIST:7",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-14-15",
@@ -15697,7 +16069,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-14-0",
@@ -15709,12 +16081,12 @@
               14,
               0
             ],
-            "align": "r",
+            "align": "l",
             "name": "5F",
             "ref": "SILPH_CO_5F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-18-0",
@@ -15731,7 +16103,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "exit-3-3",
@@ -15748,7 +16120,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "exit-23-3",
@@ -15789,7 +16161,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:33",
-            "lane": 5
+            "lane": 4
           },
           {
             "id": "trainer-19-14",
@@ -15804,7 +16176,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:34",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-13-1",
@@ -15819,7 +16191,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:32",
-            "lane": 5
+            "lane": 3
           },
           {
             "id": "trainer-2-13",
@@ -15849,7 +16221,7 @@
             "align": "l",
             "name": "TM Swords Dance",
             "ref": "TM_SWORDS_DANCE",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "item-1-9",
@@ -15864,7 +16236,7 @@
             "align": "r",
             "name": "Calcium",
             "ref": "CALCIUM",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-16-0",
@@ -15898,7 +16270,7 @@
             "ref": "SILPH_CO_6F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 0
           },
           {
             "id": "exit-18-0",
@@ -15932,7 +16304,7 @@
             "ref": "SILPH_CO_11F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-5-3",
@@ -15944,12 +16316,12 @@
               5,
               3
             ],
-            "align": "r",
+            "align": "l",
             "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-21-15",
@@ -15966,7 +16338,7 @@
             "ref": "SILPH_CO_5F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           }
         ]
       },
@@ -15990,7 +16362,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:35",
-            "lane": 4
+            "lane": 2
           },
           {
             "id": "trainer-12-15",
@@ -16005,7 +16377,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:36",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "trainer-10-2",
@@ -16017,10 +16389,10 @@
               10,
               2
             ],
-            "align": "r",
+            "align": "l",
             "name": "Scientist",
             "ref": "SCIENTIST:9",
-            "lane": 3
+            "lane": -1
           },
           {
             "id": "exit-16-0",
@@ -16037,7 +16409,7 @@
             "ref": "SILPH_CO_9F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-14-0",
@@ -16049,12 +16421,12 @@
               14,
               0
             ],
-            "align": "r",
+            "align": "l",
             "name": "7F",
             "ref": "SILPH_CO_7F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-18-0",
@@ -16071,7 +16443,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "exit-3-11",
@@ -16117,12 +16489,12 @@
               11,
               5
             ],
-            "align": "r",
+            "align": "l",
             "name": "2F",
             "ref": "SILPH_CO_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 0
           },
           {
             "id": "exit-11-9",
@@ -16134,12 +16506,12 @@
               11,
               9
             ],
-            "align": "r",
+            "align": "l",
             "name": "W",
             "ref": "SILPH_CO_8F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 3
+            "lane": 0
           }
         ]
       },
@@ -16160,10 +16532,10 @@
               13,
               16
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:38",
-            "lane": -5
+            "lane": -2
           },
           {
             "id": "trainer-2-4",
@@ -16178,7 +16550,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:37",
-            "lane": -1
+            "lane": 2
           },
           {
             "id": "trainer-21-13",
@@ -16220,12 +16592,12 @@
               14,
               0
             ],
-            "align": "r",
+            "align": "l",
             "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-16-0",
@@ -16242,7 +16614,7 @@
             "ref": "SILPH_CO_8F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-18-0",
@@ -16271,12 +16643,12 @@
               9,
               3
             ],
-            "align": "r",
+            "align": "l",
             "name": "3F",
             "ref": "SILPH_CO_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -2
+            "lane": 0
           },
           {
             "id": "exit-17-15",
@@ -16317,7 +16689,7 @@
             "align": "l",
             "name": "Scientist",
             "ref": "SCIENTIST:11",
-            "lane": 5
+            "lane": 4
           },
           {
             "id": "trainer-1-9",
@@ -16332,7 +16704,7 @@
             "align": "r",
             "name": "Rocket",
             "ref": "ROCKET:39",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "item-5-11",
@@ -16347,7 +16719,7 @@
             "align": "r",
             "name": "Carbos",
             "ref": "CARBOS",
-            "lane": 3
+            "lane": 1
           },
           {
             "id": "item-4-14",
@@ -16377,7 +16749,7 @@
             "align": "r",
             "name": "TM Earthquake",
             "ref": "TM_EARTHQUAKE",
-            "lane": -4
+            "lane": 2
           },
           {
             "id": "exit-8-0",
@@ -16389,12 +16761,12 @@
               8,
               0
             ],
-            "align": "r",
+            "align": "l",
             "name": "9F",
             "ref": "SILPH_CO_9F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 4
+            "lane": 0
           },
           {
             "id": "exit-10-0",
@@ -16428,7 +16800,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 5
+            "lane": 4
           },
           {
             "id": "exit-9-11",
@@ -16445,7 +16817,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-13-15",
@@ -16479,7 +16851,7 @@
             "ref": "SILPH_CO_4F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           }
         ]
       },
@@ -16503,7 +16875,7 @@
             "align": "l",
             "name": "Rocket",
             "ref": "ROCKET:40",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "trainer-6-9",
@@ -16518,7 +16890,7 @@
             "align": "r",
             "name": "Giovanni",
             "ref": "GIOVANNI:2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-9-0",
@@ -16530,12 +16902,12 @@
               9,
               0
             ],
-            "align": "r",
+            "align": "l",
             "name": "10F",
             "ref": "SILPH_CO_10F",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-13-0",
@@ -16552,7 +16924,7 @@
             "ref": "SILPH_CO_ELEVATOR",
             "edge": "north",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-5-5",
@@ -16569,7 +16941,7 @@
             "ref": "LAST_MAP",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-3-2",
@@ -16586,7 +16958,7 @@
             "ref": "SILPH_CO_7F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 5
+            "lane": 1
           }
         ]
       }
@@ -16626,12 +16998,12 @@
               31,
               8
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rooms",
             "ref": "SS_ANNE_1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-23-8",
@@ -16665,7 +17037,7 @@
             "ref": "SS_ANNE_1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-15-8",
@@ -16682,7 +17054,7 @@
             "ref": "SS_ANNE_1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "exit-11-8",
@@ -16699,7 +17071,7 @@
             "ref": "SS_ANNE_1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-7-8",
@@ -16711,12 +17083,12 @@
               7,
               8
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rooms",
             "ref": "SS_ANNE_1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-2-6",
@@ -16839,10 +17211,10 @@
               12,
               15
             ],
-            "align": "r",
+            "align": "l",
             "name": "TM Body Slam",
             "ref": "TM_BODY_SLAM",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "hidden-13-9",
@@ -16883,7 +17255,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 0
           },
           {
             "id": "exit-19-3",
@@ -16895,12 +17267,12 @@
               19,
               3
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rooms",
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "exit-15-3",
@@ -16917,7 +17289,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-11-3",
@@ -16934,7 +17306,7 @@
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-7-3",
@@ -16946,12 +17318,12 @@
               7,
               3
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rooms",
             "ref": "SS_ANNE_B1F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-27-5",
@@ -16983,7 +17355,7 @@
             "align": "l",
             "name": "Max Potion",
             "ref": "MAX_POTION",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-0-13",
@@ -16998,7 +17370,7 @@
             "align": "r",
             "name": "Sailor",
             "ref": "SAILOR:3",
-            "lane": 5
+            "lane": 2
           },
           {
             "id": "trainer-2-11",
@@ -17010,10 +17382,10 @@
               2,
               11
             ],
-            "align": "l",
+            "align": "r",
             "name": "Sailor",
             "ref": "SAILOR:4",
-            "lane": 5
+            "lane": 1
           },
           {
             "id": "trainer-22-2",
@@ -17025,10 +17397,10 @@
               22,
               2
             ],
-            "align": "r",
+            "align": "l",
             "name": "Sailor",
             "ref": "SAILOR:6",
-            "lane": 0
+            "lane": 2
           },
           {
             "id": "item-20-2",
@@ -17043,7 +17415,7 @@
             "align": "r",
             "name": "Ether",
             "ref": "ETHER",
-            "lane": 2
+            "lane": 4
           },
           {
             "id": "trainer-12-3",
@@ -17055,10 +17427,10 @@
               12,
               3
             ],
-            "align": "r",
+            "align": "l",
             "name": "Sailor",
             "ref": "SAILOR:5",
-            "lane": 5
+            "lane": 4
           },
           {
             "id": "item-10-2",
@@ -17073,7 +17445,7 @@
             "align": "r",
             "name": "TM Rest",
             "ref": "TM_REST",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "trainer-0-4",
@@ -17088,7 +17460,7 @@
             "align": "r",
             "name": "Fisherman",
             "ref": "FISHER:2",
-            "lane": 2
+            "lane": 5
           },
           {
             "id": "trainer-0-2",
@@ -17103,7 +17475,7 @@
             "align": "r",
             "name": "Sailor",
             "ref": "SAILOR:7",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "hidden-3-1",
@@ -17139,12 +17511,12 @@
               9,
               11
             ],
-            "align": "r",
+            "align": "l",
             "name": "Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 0
           },
           {
             "id": "exit-13-11",
@@ -17161,7 +17533,7 @@
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-17-11",
@@ -17178,7 +17550,7 @@
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": -1
           },
           {
             "id": "exit-21-11",
@@ -17195,7 +17567,7 @@
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -1
+            "lane": 1
           },
           {
             "id": "exit-25-11",
@@ -17207,12 +17579,12 @@
               25,
               11
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": -1
           },
           {
             "id": "exit-29-11",
@@ -17224,12 +17596,12 @@
               29,
               11
             ],
-            "align": "l",
+            "align": "r",
             "name": "Rooms",
             "ref": "SS_ANNE_2F_ROOMS",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": -2
+            "lane": 0
           },
           {
             "id": "exit-2-4",
@@ -17263,7 +17635,7 @@
             "ref": "SS_ANNE_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-36-4",
@@ -17292,10 +17664,10 @@
               10,
               2
             ],
-            "align": "r",
+            "align": "l",
             "name": "Gentleman",
             "ref": "GENTLEMAN:3",
-            "lane": 4
+            "lane": 1
           },
           {
             "id": "trainer-13-4",
@@ -17310,7 +17682,7 @@
             "align": "r",
             "name": "Fisherman",
             "ref": "FISHER:1",
-            "lane": 4
+            "lane": 1
           },
           {
             "id": "item-12-1",
@@ -17322,10 +17694,10 @@
               12,
               1
             ],
-            "align": "r",
+            "align": "l",
             "name": "Max Ether",
             "ref": "MAX_ETHER",
-            "lane": 3
+            "lane": 0
           },
           {
             "id": "trainer-0-14",
@@ -17340,7 +17712,7 @@
             "align": "r",
             "name": "Gentleman",
             "ref": "GENTLEMAN:5",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "trainer-2-11",
@@ -17670,7 +18042,7 @@
             "ref": "VERMILION_MART",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-12-19",
@@ -17738,7 +18110,7 @@
             "ref": "VERMILION_TRADE_HOUSE",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 0
           },
           {
             "id": "exit-7-3",
@@ -17944,7 +18316,7 @@
             "align": "r",
             "name": "Cooltrainer\u2640",
             "ref": "COOLTRAINER_F:5",
-            "lane": 0
+            "lane": 3
           },
           {
             "id": "trainer-3-2",
@@ -17959,7 +18331,7 @@
             "align": "r",
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:5",
-            "lane": 5
+            "lane": 3
           },
           {
             "id": "item-9-2",
@@ -18062,7 +18434,7 @@
             "align": "l",
             "name": "Tamer",
             "ref": "TAMER:5",
-            "lane": 4
+            "lane": 3
           },
           {
             "id": "trainer-21-13",
@@ -18074,10 +18446,10 @@
               21,
               13
             ],
-            "align": "l",
+            "align": "r",
             "name": "Juggler",
             "ref": "JUGGLER:2",
-            "lane": -5
+            "lane": 2
           },
           {
             "id": "trainer-12-9",
@@ -18089,10 +18461,10 @@
               12,
               9
             ],
-            "align": "r",
+            "align": "l",
             "name": "Blackbelt",
             "ref": "BLACKBELT:9",
-            "lane": 5
+            "lane": 1
           },
           {
             "id": "trainer-26-3",
@@ -18137,7 +18509,7 @@
             "align": "r",
             "name": "TM Mega Kick",
             "ref": "TM_MEGA_KICK",
-            "lane": -1
+            "lane": 3
           },
           {
             "id": "item-18-9",
@@ -18149,10 +18521,10 @@
               18,
               9
             ],
-            "align": "r",
+            "align": "l",
             "name": "Full Heal",
             "ref": "FULL_HEAL",
-            "lane": 5
+            "lane": 4
           },
           {
             "id": "item-27-5",
@@ -18212,7 +18584,7 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
-            "lane": 3
+            "lane": 2
           },
           {
             "id": "exit-0-8",
@@ -18258,12 +18630,12 @@
               23,
               7
             ],
-            "align": "l",
+            "align": "r",
             "name": "3F",
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 2
+            "lane": 1
           },
           {
             "id": "exit-25-14",
@@ -18280,7 +18652,7 @@
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": -1
           },
           {
             "id": "exit-27-7",
@@ -18297,7 +18669,7 @@
             "ref": "VICTORY_ROAD_3F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 3
           },
           {
             "id": "exit-1-1",
@@ -18338,7 +18710,7 @@
             "align": "l",
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:2",
-            "lane": -3
+            "lane": 1
           },
           {
             "id": "trainer-13-3",
@@ -18430,7 +18802,7 @@
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 0
+            "lane": 1
           },
           {
             "id": "exit-26-8",
@@ -18447,7 +18819,7 @@
             "ref": "VICTORY_ROAD_2F",
             "edge": "inner",
             "glyph": "\u25b2",
-            "lane": 1
+            "lane": 2
           },
           {
             "id": "exit-27-15",
@@ -18481,6 +18853,22 @@
             "ref": "VICTORY_ROAD_2F",
             "edge": "north",
             "glyph": "\u25b2",
+            "lane": 0
+          },
+          {
+            "id": "hole-23-15",
+            "cat": "hole",
+            "key": "D1",
+            "x": 78.333,
+            "y": 86.111,
+            "grid": [
+              23,
+              15
+            ],
+            "align": "l",
+            "name": "2F",
+            "ref": "VICTORY_ROAD_2F",
+            "glyph": "\u25bc",
             "lane": 0
           }
         ]
@@ -19227,7 +19615,7 @@
       }
     },
     "seafoam-islands": {
-      "3": {
+      "11": {
         "image": "walkthrough/yellow/scenes/seafoam-articuno.png",
         "width": 160,
         "height": 144

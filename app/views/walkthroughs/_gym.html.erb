@@ -39,7 +39,7 @@
             <div class="pn-wt-gym__toggles">
               <button type="button" class="pn-mm-toggle pn-wt-gym__routebtn is-on" aria-pressed="true"
                       data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
-                <%= t("walkthrough.ui.map_route") %>
+                <%= t("walkthrough.ui.map_route_#{gym.area.route_kind}") %>
                 <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
                 <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
               </button>
@@ -122,7 +122,7 @@
             <div class="pn-wt-gym__leader-name">
               <%= gym.leader.name %>
               <% if gym.leader.marker_key? %>
-                <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= gym.leader.marker_key %></span>
+                <%= map_mark(gym.leader.marker_key, at: gym.leader.tick) %>
               <% end %>
             </div>
             <div class="pn-wt-gym__leader-pills">
