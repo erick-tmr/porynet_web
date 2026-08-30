@@ -119,7 +119,7 @@
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
-- `cinnabar-island` step 2: walkthrough/yellow/scenes/cinnabar-lab-trades.png
+- `cinnabar-island` step 1: walkthrough/yellow/scenes/cinnabar-lab-trades.png
 - `cinnabar-island` step 3: walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
 - `digletts-cave` step 11: walkthrough/yellow/scenes/route-2-pewter-cut.png
 - `digletts-cave` step 12: walkthrough/yellow/scenes/pewter-museum-cut.png

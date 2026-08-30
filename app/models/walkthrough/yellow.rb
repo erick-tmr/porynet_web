@@ -2433,10 +2433,11 @@ module Walkthrough
     # fossils in and needs time to revive them anyway, and the badge waits for the page after.
     def self.cinnabar_island
       loc("cinnabar-island", "TOWN", "Cinnabar Island", 45,
+        # The lab's three doors, left to right along its back wall, named by the game's own signs:
+        # Meeting Room, R-and-D Room, Testing Room.
         steps: [
-          { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome",
-            pins: { lab: "cinnabar-island/exit-6-9" } },
-          { scene: "cinnabar-lab-trades" },
+          { scene: "cinnabar-lab-trades", pins: { lab: "cinnabar-island/exit-6-9" } },
+          { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome" },
           { scene: "cinnabar-lab-fossil-handover" },
           { pins: { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } }
         ],

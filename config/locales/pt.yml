@@ -3210,30 +3210,30 @@ pt:
             muk:
               npc: "CIENTISTA"
               title: "Muk"
-              where: "A sala dos fósseis do Laboratório Pokémon"
+              where: "A Testing Room do Lab, o cientista lá no fundo"
               note: "Um Muk de nível alto sem grinding. Kangaskhan é uma captura na Zona Safári."
             rhydon:
               npc: "VELHINHO"
               title: "Rhydon"
-              where: "A sala de trocas do Laboratório Pokémon"
+              where: "A Meeting Room do Lab, o velho junto à parede oeste"
               note: "Um Rhydon trocado chega forte e ganha XP turbinado."
             dewgong:
               npc: "BELDADE"
               title: "Dewgong"
-              where: "A sala de trocas do Laboratório Pokémon"
+              where: "A Meeting Room do Lab, a Beauty junto ao balcão sul"
               note: "Dewgong por um Growlithe, com o bônus de XP de troca. Growlithe aparece na Mansão Pokémon ao lado."
           steps:
             "1":
-              title: "Pegue o TM35 na sala do metronome"
-              text_html: "Entre no Lab %{lab}. A sala do metronome no fundo tem um cientista que dá o TM35 de graça, o único TM da ilha."
-              items:
-                tm-metronome: "A sala dos fundos do Lab, com o cientista encostado na parede norte. Fale com ele uma vez. Metronome dispara um golpe aleatório a cada turno."
+              title: "Troque na Meeting Room"
+              text_html: "Entre no Lab %{lab} e passe pela primeira porta. Um velho na Meeting Room troca um Rhydon pelo seu Golduck, e uma Beauty um Dewgong por um Growlithe, nenhum dos dois capturável em lugar nenhum."
             "2":
-              title: "Troque por três que você não captura"
-              text: "Dois trocadores dividem a sala de trocas: um velho troca um Rhydon pelo seu Golduck, e uma Beauty um Dewgong por um Growlithe. Um cientista na sala dos fósseis troca um Muk por um Kangaskhan."
+              title: "Pegue o TM35 na R-and-D Room"
+              text: "Na porta seguinte, um cientista dá o TM35 de graça. É o único TM da ilha, e Metronome dispara um golpe aleatório a cada turno."
+              items:
+                tm-metronome: "A R-and-D Room do Lab, com o cientista encostado na parede norte. Fale com ele uma vez."
             "3":
-              title: "Entregue um fóssil na última sala"
-              text: "A sala dos fósseis é a última. O cientista que anda por ela aceita um fóssil por vez e demora nele, então dê o fóssil de Mt. Moon agora e o Old Amber na volta."
+              title: "A Testing Room: fósseis e um Muk"
+              text: "A última porta. O cientista que anda por ela aceita um fóssil por vez e o guarda um tempo, então entregue o de Mt. Moon agora e o Old Amber depois. O cientista atrás troca um Muk por um Kangaskhan."
             "4":
               title: "Atravesse até a Mansion"
               text_html: "O ginásio do Blaine %{gym} está trancado e a chave fica do outro lado da rua. A Pokémon Mansion %{mansion} queimada guarda a Secret Key, e tudo na ilha depende dela."

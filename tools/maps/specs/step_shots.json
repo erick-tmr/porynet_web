@@ -1139,7 +1139,7 @@
   {
     "type": "screen",
     "slug": "cinnabar-island",
-    "step": 2,
+    "step": 1,
     "name": "cinnabar-lab-trades",
     "map": "CinnabarLabTradeRoom",
     "parent": "CINNABAR_ISLAND",
