@@ -746,9 +746,9 @@ en:
         leg_13:
           lead: "Silph is clear, so the gym opens. Sabrina first, then the three items Surf has been waiting to reach."
         leg_14:
-          lead: "The open water south of Fuchsia, west past the Seafoam Islands to Cinnabar."
+          lead: "The open water south of Fuchsia, west along Route 20 to the cave under the Seafoam Islands."
         leg_15:
-          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
+          lead: "Out of the cave and west to Cinnabar, for its fossils, the Mansion key and Blaine's Volcano Badge."
         leg_16:
           lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
         leg_17:
@@ -3038,8 +3038,8 @@ en:
               title: "Head to Route 20"
               text_html: "Carry on south to the little beach at the bottom, which opens west %{west} into Route 20 and the Seafoam Islands."
         route_20:
-          note: "Open water to Cinnabar. Tentacool, Staryu, Shellder."
-          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. The cave under them is the way through, though open water runs around both sides."
+          note: "East half of the channel south of Fuchsia. Tentacool, Staryu, Shellder."
+          intro: "The long channel west toward Cinnabar, with the Seafoam Islands halfway along it. A rock wall runs the height of the map beside them, so the cave underneath is the only way past."
           steps:
             "1":
               title: "Surf west"
@@ -3069,8 +3069,8 @@ en:
               hidden:
                 ultra-ball: "B4F, the small shore east of where the current drops you. Face the rock to the south and press A. Nothing shows on-screen."
             "6":
-              title: "Take the second ladder, not the first"
-              text_html: "Back on the water, Surf north and climb onto the plateau. Leave the first ladder %{first} alone: the one you want %{ladder} is west and then south of it."
+              title: "Cross to the ladder up"
+              text_html: "Back on the water, Surf west and step off onto the long ledge across the floor. Follow it to the west end and climb north into the chamber above, where the ladder %{ladder} goes up to B3F."
             "7":
               title: "Dig out the Max Elixir"
               text: "Down from the ladder on B3F, work south and east along the ledge, drop to the floor below and follow it west. Press A facing the lone rock there for a hidden Max Elixir, a full PP refill."
@@ -3119,12 +3119,22 @@ en:
               text_html: "Climb the plateau on B3F's east side and take its southern ladder %{first}. On B2F the next ladder %{mid} is a few tiles north; on B1F, %{top} sits south-west of it and lands you on 1F."
             "21":
               title: "Out the eastern mouth"
-              text_html: "The eastern mouth %{mouth} is right there. Step out onto Route 20 and Surf west past the islands for Cinnabar Island, where Blaine holds the seventh badge."
+              text_html: "The eastern mouth %{mouth} is right there. Step out onto the far side of Route 20, past the rock wall that shuts the two halves of it off from each other."
           tips:
             articuno: "A one-time Lv 50 legendary. Save first, sleep/paralyze it, and use the Master Ball or a lot of Ultra Balls."
           oak:
             seel: "A cave catch → Dewgong, a solid Water/Ice. Grab the base."
             articuno: "The Ice legendary of Seafoam. One shot only. Catch it now."
+        route_20_west:
+          note: "The half past the islands. Six Swimmers, then Cinnabar."
+          intro: "The same channel on the far side of the rock wall, reached by coming out of the cave rather than surfing round it. Six trainers between here and Cinnabar."
+          steps:
+            "1":
+              title: "Back on the water"
+              text_html: "Out of the cave's far mouth %{mouth}, drop down to the shore and Surf west. A Jr. Trainer floats just off the island, and five more swimmers are strung along the channel."
+            "2":
+              title: "Surf on to Cinnabar"
+              text_html: "Keep west past the last of them. The channel opens onto Cinnabar Island %{west}, where the lab revives fossils and Blaine's gym holds the seventh badge."
         power_plant:
           note: "Optional Surf detour. Electric mons, a rare Muk, and Zapdos."
           intro: "An abandoned plant off Route 10, reachable only by Surf. Thirteen Poké Balls lie on its floors and eight are Voltorb in disguise; Zapdos roosts at the back."

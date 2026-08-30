@@ -10362,24 +10362,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-25-7",
-            "cat": "trainer",
-            "key": "T8",
-            "x": 25.5,
-            "y": 41.667,
-            "grid": [
-              25,
-              7
-            ],
-            "align": "r",
-            "name": "Beauty",
-            "ref": "BEAUTY:7",
-            "lane": 0
-          },
-          {
             "id": "trainer-24-12",
             "cat": "trainer",
-            "key": "T9",
+            "key": "T8",
             "x": 24.5,
             "y": 69.444,
             "grid": [
@@ -10389,6 +10374,21 @@
             "align": "r",
             "name": "Jr.Trainer\u2640",
             "ref": "JR_TRAINER_F:16",
+            "lane": 0
+          },
+          {
+            "id": "trainer-25-7",
+            "cat": "trainer",
+            "key": "T9",
+            "x": 25.5,
+            "y": 41.667,
+            "grid": [
+              25,
+              7
+            ],
+            "align": "r",
+            "name": "Beauty",
+            "ref": "BEAUTY:7",
             "lane": 0
           },
           {

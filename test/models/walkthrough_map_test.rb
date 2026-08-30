@@ -398,6 +398,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
                    %w[route-10 route-10-south], %w[route-10 surf-cleanups],
                    %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],
                    %w[route-16-fly route-16], %w[route-2 digletts-cave],
+                   %w[route-20 route-20-west],
                    %w[route-4-mt-moon route-4], %w[route-6 surf-cleanups],
                    %w[saffron-city-return saffron-city],
                    %w[vermilion-city surf-cleanups], %w[vermilion-city vermilion-city-return],

@@ -346,7 +346,11 @@ module Walkthrough
       # island itself (E1), reached by landing on its south-west corner; the other mouth sits on a
       # detached patch and opens onto a chamber walled off from the rest of 1F.
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
-      { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
+      # The cave comes out on the far side of the rock wall that splits Route 20 down the middle,
+      # so the water west of the islands is a second pass over the same map rather than more of
+      # the first: you leave by a different mouth than you came in by, and the six swimmers between
+      # there and Cinnabar are ones the eastern half never reaches.
+      { slug: "leg-15", special: false, locs: %w[route-20-west cinnabar-island pokemon-mansion route-21] },
       { slug: "leg-16", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "leg-17", special: false, locs: %w[route-23] },
@@ -582,7 +586,8 @@ module Walkthrough
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         fuchsia_city_return, saffron_city_return, surf_cleanups,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
-        power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
+        route_20_west, power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym,
+        victory_road, route_23,
         indigo_plateau, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
@@ -595,7 +600,8 @@ module Walkthrough
                    "fuchsia-city-return" => "fuchsia-city",
                    "saffron-city-return" => "saffron-city",
                    "route-16-fly" => "route-16",
-                   "route-10-south" => "route-10" }.freeze
+                   "route-10-south" => "route-10",
+                   "route-20-west" => "route-20" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
     # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
@@ -932,9 +938,17 @@ module Walkthrough
     # the Hikers, a Pokémaniac and the second Jr Trainer are past the tunnel, and the Pokémaniac
     # guarding the Power Plant's door stands on a middle strip walled off by water. That one is
     # listed on the north half, where the walkthrough tells you to come back for it with Surf.
+    #
+    # Route 20 splits the same way and for a plainer reason: a rock wall runs the height of the map
+    # between the two halves, so the three swimmers east of it and the Beauty on the island the
+    # cave is entered from are the first pass, and the six between the far mouth and Cinnabar are
+    # the second. Nothing is reachable from both.
     ROSTER_SPLIT = {
       "route-10" => %w[JR_TRAINER_F:7 POKEMANIAC:1],
-      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8]
+      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8],
+      "route-20" => %w[SWIMMER:9 SWIMMER:11 BEAUTY:15 BEAUTY:6],
+      "route-20-west" => %w[JR_TRAINER_F:24 SWIMMER:10 BIRD_KEEPER:11 BEAUTY:7 JR_TRAINER_F:16
+                            BEAUTY:8]
     }.freeze
 
     def self.roster_for(slug)
@@ -2344,6 +2358,14 @@ module Walkthrough
         ])
     end
 
+    # The same map again, west of the rock wall. It carries no encounter tables of its own: they
+    # belong to Route 20 and the first pass already prints them, so a second copy would tell the
+    # reader the water holds twice what it holds.
+    def self.route_20_west
+      loc("route-20-west", "ROUTE", "Route 20", 43, steps: 2,
+        pins: { 1 => { mouth: "route-20/exit-58-9" }, 2 => { west: "route-20/exit-west" } })
+    end
+
     SEAFOAM_1F = "seafoam-islands-1f".freeze
     SEAFOAM_B1F = "seafoam-islands-b1f".freeze
     SEAFOAM_B2F = "seafoam-islands-b2f".freeze
@@ -2357,7 +2379,7 @@ module Walkthrough
           { pins: { hole: "seafoam-islands-b1f/hole-18-6" }, line: [ SEAFOAM_B1F, 1 ] },
           { pins: { hole: "seafoam-islands-b2f/hole-19-6" }, line: [ SEAFOAM_B2F, 1 ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "seafoam-islands-hidden-ultra-ball", "seafoam-islands-ultra-ball" ] },
-          { pins: { first: "seafoam-islands-b4f/exit-25-4", ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { pins: { ladder: "seafoam-islands-b4f/exit-11-7" } },
           { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
           { pins: { hole: "seafoam-islands-b3f/hole-3-16" }, line: [ SEAFOAM_B3F, 1, 2 ] },
           { pins: { hole: "seafoam-islands-b3f/hole-6-16" }, line: [ SEAFOAM_B3F, 3, 4 ] },

@@ -746,9 +746,9 @@ pt:
         leg_13:
           lead: "A Silph está limpa, então o ginásio abre. Sabrina primeiro, depois os três itens que esperavam pelo Surf."
         leg_14:
-          lead: "O mar aberto ao sul de Fuchsia, a oeste passando pelas Seafoam Islands até Cinnabar."
+          lead: "O mar aberto ao sul de Fuchsia, a oeste pela Rota 20 até a caverna sob as Seafoam Islands."
         leg_15:
-          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
+          lead: "Saindo da caverna a oeste até Cinnabar, pelos fósseis, a chave da Mansion e a Insígnia Volcano do Blaine."
         leg_16:
           lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
         leg_17:
@@ -3038,8 +3038,8 @@ pt:
               title: "Siga para a Rota 20"
               text_html: "Siga ao sul até a praia lá embaixo, que abre a oeste %{west} para a Rota 20 e as Seafoam Islands."
         route_20:
-          note: "Água aberta até Cinnabar. Tentacool, Staryu, Shellder."
-          intro: "O canal longo rumo a oeste até Cinnabar, com as Seafoam Islands bem no meio dele. A caverna por baixo delas é o caminho, mas a água aberta contorna os dois lados."
+          note: "Metade leste do canal ao sul de Fuchsia. Tentacool, Staryu, Shellder."
+          intro: "O longo canal a oeste rumo a Cinnabar, com as Seafoam Islands no meio dele. Uma parede de rocha corta o mapa de cima a baixo ao lado delas, então a caverna embaixo é a única passagem."
           steps:
             "1":
               title: "Surfe a oeste"
@@ -3069,8 +3069,8 @@ pt:
               hidden:
                 ultra-ball: "B4F, a praia pequena a leste de onde a corrente deixa você. Vire para a rocha ao sul e aperte A. Nada aparece na tela."
             "6":
-              title: "Pegue a segunda escada, não a primeira"
-              text_html: "De volta à água, surfe ao norte e suba no platô. Deixe a primeira escada %{first} de lado: a que você quer %{ladder} fica a oeste e depois ao sul dela."
+              title: "Atravesse até a escada"
+              text_html: "De volta à água, surfe a oeste e desça na borda comprida que corta o andar. Siga até o extremo oeste e suba ao norte para a câmara acima, onde a escada %{ladder} sobe ao B3F."
             "7":
               title: "Desenterre o Max Elixir"
               text: "Descendo da escada no B3F, contorne ao sul e a leste pela borda, desça ao chão de baixo e siga a oeste. Aperte A virado para a rocha solitária ali: um Max Elixir oculto, PP cheio de novo."
@@ -3119,12 +3119,22 @@ pt:
               text_html: "Suba no platô do lado leste do B3F e pegue a escada sul %{first}. No B2F a próxima escada %{mid} fica alguns quadrados ao norte; no B1F, %{top} fica a sudoeste dela e sai no 1F."
             "21":
               title: "Saia pela boca leste"
-              text_html: "A boca leste %{mouth} está bem ali. Saia na Rota 20 e surfe a oeste passando pelas ilhas até Cinnabar Island, onde Blaine guarda a sétima insígnia."
+              text_html: "A boca leste %{mouth} está bem ali. Saia no lado oposto da Rota 20, além da parede de rocha que separa as duas metades dela."
           tips:
             articuno: "Um lendário Nv 50 de uma vez só. Salve antes, faça dormir/paralise, e use a Master Ball ou muitas Ultra Balls."
           oak:
             seel: "Uma captura de caverna → Dewgong, um sólido Água/Gelo. Pegue a base."
             articuno: "O lendário de Gelo de Seafoam. Só uma chance. Capture agora."
+        route_20_west:
+          note: "A metade depois das ilhas. Seis Swimmers, e então Cinnabar."
+          intro: "O mesmo canal do outro lado da parede de rocha, alcançado saindo da caverna e não surfando ao redor dela. Seis treinadores daqui até Cinnabar."
+          steps:
+            "1":
+              title: "De volta à água"
+              text_html: "Saindo pela boca oposta da caverna %{mouth}, desça até a beira e surfe a oeste. Uma Jr. Trainer boia logo ao lado da ilha, e mais cinco nadadores se espalham pelo canal."
+            "2":
+              title: "Surfe até Cinnabar"
+              text_html: "Siga a oeste passando pelo último deles. O canal abre em Cinnabar Island %{west}, onde o laboratório revive fósseis e o ginásio do Blaine guarda a sétima insígnia."
         power_plant:
           note: "Desvio opcional de Surf. Mons Elétricos, um Muk raro e o Zapdos."
           intro: "Uma usina abandonada saindo da Rota 10, acessível só com Surf. Treze Poké Balls estão no chão e oito delas são Voltorb disfarçados; o Zapdos pousa no fundo."

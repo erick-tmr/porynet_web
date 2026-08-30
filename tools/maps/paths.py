@@ -123,7 +123,12 @@ ROUTES = {
     # end of the route you come in from, so the order is named.
     "Route18": ("exit-east", "trainer-36-11", "trainer-42-13", "trainer-40-15"),
     "Route19": ("exit-north",),                     # out of Fuchsia
-    "Route20": ("exit-east",),
+    # Route 20 is one map walked twice, either side of the rock wall that splits it: in from
+    # Route 19 for the three swimmers east of the islands, out of the cave's far mouth for the six
+    # between there and Cinnabar. The island mouth in the middle is the first pass's own end, and
+    # has to be named: the Beauty standing beside it is on a patch the flood reaches from neither
+    # edge, so without it she letters last, behind six trainers the reader meets a page later.
+    "Route20": ("exit-east", "exit-48-5", "exit-58-9"),
     "Route2": ("exit-south", "item-13-45", "item-13-54"),
     "Route21": ("exit-south",),                     # north out of Cinnabar
     "Route23": ("exit-7-139", "hidden-8-90", "hidden-19-70", "hidden-9-44"),
