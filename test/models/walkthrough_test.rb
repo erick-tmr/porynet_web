@@ -700,6 +700,36 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "walkthrough.yellow.badge_guide.rules.stacking.title", guide.rules.second.title_key
   end
 
+  # The three fossil cards print the game's own dex line, so the metric half has to come out of
+  # yellow_dex.json rather than being retyped into the copy.
+  test "the fossil wait names its three specimens with the dex's own measurements" do
+    fw = Walkthrough::Yellow.fossil_wait
+
+    assert_equal "fossil-wait", fw.anchor
+    assert_equal 2, fw.count
+    assert_equal [ 1, 2 ], fw.steps.map(&:n)
+    assert_equal %w[Omanyte Kabuto Aerodactyl], fw.fossils.map(&:name)
+    assert_equal [ "Helix Fossil", "Dome Fossil", "Old Amber" ], fw.fossils.map(&:item)
+    assert_equal [ "0.4 m", "0.5 m", "1.8 m" ], fw.fossils.map(&:height)
+    assert_equal [ "7.7 kg", "11.3 kg", "59.0 kg" ], fw.fossils.map(&:weight)
+
+    omanyte = fw.fossils.first
+    assert_equal "walkthrough/art/omanyte-card.png", omanyte.art
+    assert_equal "pokemon/yellow/138.png", omanyte.sprite
+
+    assert_equal %w[yes yes no na], fw.facts.map(&:state)
+    assert_equal %w[✓ ✓ ✕ –], fw.facts.map(&:mark)
+    assert_equal "walkthrough.yellow.fossil_wait.facts.flag", fw.facts.first.key
+  end
+
+  # The section is about a wait the cartridge does not keep, so the three fossils it shows have to
+  # be exactly the three the island's own gift rows hand back.
+  test "the fossil wait shows every fossil Cinnabar revives" do
+    revived = loc("cinnabar-island").encounters.select { |enc| enc.how == "FOSSIL" }
+
+    assert_equal revived.map(&:dex), Walkthrough::Yellow.fossil_wait.fossils.map(&:dex)
+  end
+
   test "the badge guide's badges, leaders and crests stay in step with the gyms" do
     gyms = game.locations.select(&:gym?).map(&:gym)
     cards = Walkthrough::Yellow.badge_guide.cards

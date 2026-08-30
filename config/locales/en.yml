@@ -629,6 +629,7 @@ en:
       badge_collected: "✓ COLLECTED"
       badge_not_earned: "◻ NOT EARNED"
       badge_alt: "%{badge} Badge"
+      fossil_card_alt: "%{name} on its Fossil-set card, printed with its species, length and weight"
       previous: "◀ PREVIOUS"
       next: "NEXT ▶"
       lv: "Lv %{n}"
@@ -1283,6 +1284,25 @@ en:
             label: "THE FIELD MOVES"
             title: "The HM is not enough"
             text: "Field moves need the matching badge too. Pick Cut from the menu without the Cascade Badge and the game answers 'No! A new BADGE is required.'"
+      fossil_wait:
+        tag: "CINNABAR LAB"
+        title: "Two steps. That is the whole wait."
+        intro: "Hand a fossil to the scientist in the back room of the Pokémon Lab and he tells you it will take a while. It does not. Nothing is counting minutes, battles or footsteps: the revival is a flag the island itself clears, the moment you set foot outside. Step out the front door, step straight back in, and the rock is already a Lv 30 Pokémon."
+        head: "STEPS · OUT AND BACK IN"
+        quote: "\"I take a little time! You go for walk a little while!\""
+        steps:
+          "1":
+            title: "Step out the front door."
+            text: "Back through the lobby and one tile onto the doormat is enough. You never have to go anywhere else on the island."
+          "2":
+            title: "Walk straight back in."
+            text: "Setting foot on the street is what finishes it. Talk to him again and he hands the Pokémon over at Lv 30. He holds one fossil at a time, so each one takes its own out-and-in."
+        facts:
+          flag: "Handing the fossil over sets one bit in the save. Setting foot on the island flips it to ready."
+          box: "No free party slot needed. With six Pokémon on you, the revived one goes straight to the box."
+          standing: "Standing still and talking to him again does nothing, and neither does the lobby. You have to reach the street."
+          detour: "Walking the island, healing or saving in between changes nothing either."
+        note: "Same trick in FireRed and LeafGreen: one tile out, one tile back. Let's Go finally revives the fossil on the spot."
       surf_pikachu:
         eyebrow: "TRIVIA · THE BEACH HOUSE"
         title_html: "Surfing <span class=\"pn-sp__hl\">Pikachu</span>"
@@ -3233,7 +3253,7 @@ en:
                 tm-metronome: "The Lab's R-and-D Room, from the scientist against the north wall. Talk to him once."
             "3":
               title: "The Testing Room: fossils and a Muk"
-              text: "The last door. Its walking scientist takes one fossil at a time and keeps it a while, so hand the Mt. Moon one in now and the Old Amber later. The scientist behind swaps a Muk for a Kangaskhan."
+              text: "The last door. Its walking scientist revives one fossil at a time: hand the Mt. Moon one over, step outside and back in, then repeat with the Old Amber. The scientist behind swaps a Muk for a Kangaskhan."
             "4":
               title: "Cross to the Mansion"
               text_html: "Blaine's gym %{gym} is locked and the key is across the street. The burnt-out Pokémon Mansion %{mansion} holds the Secret Key, and everything on the island waits on it."
@@ -3247,14 +3267,14 @@ en:
             aerodactyl: "Old Amber from Pewter's museum → Aerodactyl. Register the single specimen."
         cinnabar_island_return:
           note: "Back for Blaine. Volcano Badge and TM38 Fire Blast."
-          intro: "The island again, Secret Key in hand. The gym's quiz doors are all that stand between you and the seventh badge, and the fossils have had time to revive."
+          intro: "The island again, Secret Key in hand. The gym's quiz doors are all that stand between you and the seventh badge, and the north shore opens onto Route 21 once it is won."
           steps:
             "1":
               title: "Open the gym with the Secret Key"
               text_html: "The key unlocks the gym %{gym} across the street. Its doors each pose a yes-or-no quiz, and a wrong answer is a battle rather than a dead end, so either way you reach Blaine."
             "2":
-              title: "Collect the fossils and Surf north"
-              text_html: "Call back at the Lab %{lab} for the Pokémon your fossils revived into, then leave by the north shore %{north} onto Route 21, the long water up to Pallet Town."
+              title: "Surf north to Pallet Town"
+              text_html: "If you left a fossil with the Lab %{lab}, its Pokémon is waiting there. Then leave by the north shore %{north} onto Route 21, the long water up to Pallet Town."
         pokemon_mansion:
           note: "Burnt-out mansion. Fire types and the Secret Key."
           intro: "A burnt-out mansion of hidden staircases opened by statue switches. Its abandoned diary is where Mewtwo's story is written down."

@@ -256,6 +256,37 @@ module Walkthrough
           SurfStadiumStep.new(key: key, glyph: glyph, tone: tone) })
     end
 
+    # Helix, Dome and Old Amber in dex order: the item you hand over, and the Fossil-set card the
+    # section prints beside the sprite. Everything else on a card is the game's own dex line.
+    FOSSILS = [ [ "138", "Helix Fossil" ], [ "140", "Dome Fossil" ], [ "142", "Old Amber" ] ].freeze
+
+    # The four rows under the panel, in reading order, each with the mark it wears.
+    FOSSIL_FACTS = { "flag" => "yes", "box" => "yes", "standing" => "no", "detour" => "na" }.freeze
+
+    FOSSIL_STEPS = 2
+
+    def self.fossil_wait
+      b = "#{K}.fossil_wait"
+      FossilWait.new(anchor: "fossil-wait", count: FOSSIL_STEPS,
+        steps: (1..FOSSIL_STEPS).map { |n|
+          FossilStep.new(n: n, title_key: "#{b}.steps.#{n}.title", text_key: "#{b}.steps.#{n}.text")
+        },
+        fossils: FOSSILS.map { |dex, item| fossil_card(dex, item) },
+        facts: FOSSIL_FACTS.map { |key, state|
+          FossilFact.new(key: "#{b}.facts.#{key}", state: state, mark: TRIVIA_MARKS.fetch(state))
+        })
+    end
+
+    def self.fossil_card(dex, item)
+      entry = dex_facts.fetch(dex)
+      FossilCard.new(dex: dex, name: NAMES.fetch(dex), item: item,
+        art: "walkthrough/art/#{mon_key(dex)}-card.png", sprite: "pokemon/yellow/#{dex}.png",
+        height: dex_metric(entry.fetch("height")), weight: dex_metric(entry.fetch("weight")))
+    end
+
+    # The dex prints both units ("1'04\" (0.4 m)"); the line under a card has room for one.
+    def self.dex_metric(fact) = fact[/\(([^)]+)\)/, 1]
+
     # The eight badges in case order, with what each one switches on: `boost` names the stat every
     # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
     # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym
@@ -2438,7 +2469,7 @@ module Walkthrough
         steps: [
           { scene: "cinnabar-lab-trades", pins: { lab: "cinnabar-island/exit-6-9" } },
           { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome" },
-          { scene: "cinnabar-lab-fossil-handover" },
+          { scene: "cinnabar-lab-aerodactyl" },
           { pins: { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } }
         ],
         encounters: [

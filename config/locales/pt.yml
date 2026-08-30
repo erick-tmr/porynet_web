@@ -629,6 +629,7 @@ pt:
       badge_collected: "✓ OBTIDA"
       badge_not_earned: "◻ NÃO OBTIDA"
       badge_alt: "Insígnia %{badge}"
+      fossil_card_alt: "%{name} na carta da série Fossil, com espécie, comprimento e peso impressos"
       previous: "◀ ANTERIOR"
       next: "PRÓXIMO ▶"
       lv: "Nv %{n}"
@@ -1283,6 +1284,25 @@ pt:
             label: "OS MOVIMENTOS"
             title: "A HM não basta"
             text: "Movimentos de campo também exigem a insígnia certa. Escolha Cut no menu sem a Insígnia Cascade e o jogo responde 'No! A new BADGE is required.'"
+      fossil_wait:
+        tag: "LABORATÓRIO DE CINNABAR"
+        title: "Dois passos. É essa a espera inteira."
+        intro: "Entregue um fóssil ao cientista da sala dos fundos do Laboratório Pokémon e ele avisa que vai demorar. Não vai. Nada conta minutos, batalhas ou passos: a revivência é uma marca que a própria ilha limpa no instante em que você põe o pé na rua. Saia pela porta da frente, entre de novo, e a pedra já é um Pokémon de Nv 30."
+        head: "PASSOS · SAIR E VOLTAR"
+        quote: "\"I take a little time! You go for walk a little while!\""
+        steps:
+          "1":
+            title: "Saia pela porta da frente."
+            text: "Atravessar o saguão e pisar um quadrado no capacho já basta. Você não precisa ir a mais lugar nenhum da ilha."
+          "2":
+            title: "Volte direto para dentro."
+            text: "Pisar na rua é o que conclui a revivência. Fale com ele de novo e ele entrega o Pokémon no Nv 30. Ele guarda um fóssil por vez, então cada um pede a própria saída e volta."
+        facts:
+          flag: "Entregar o fóssil acende um bit no save. Pisar na ilha é o que o vira para pronto."
+          box: "Não precisa de espaço na equipe. Com seis Pokémon com você, o revivido vai direto para a caixa."
+          standing: "Ficar parado e falar com ele de novo não faz nada, e o saguão também não. Você tem que chegar à rua."
+          detour: "Andar pela ilha, curar ou salvar no meio do caminho também não muda nada."
+        note: "Mesmo truque em FireRed e LeafGreen: um quadrado para fora, um para dentro. Let's Go finalmente revive o fóssil na hora."
       surf_pikachu:
         eyebrow: "CURIOSIDADE · A CASA DA PRAIA"
         title_html: "Pikachu <span class=\"pn-sp__hl\">Surfista</span>"
@@ -3233,7 +3253,7 @@ pt:
                 tm-metronome: "A R-and-D Room do Lab, com o cientista encostado na parede norte. Fale com ele uma vez."
             "3":
               title: "A Testing Room: fósseis e um Muk"
-              text: "A última porta. O cientista que anda por ela aceita um fóssil por vez e o guarda um tempo, então entregue o de Mt. Moon agora e o Old Amber depois. O cientista atrás troca um Muk por um Kangaskhan."
+              text: "A última porta. O cientista que anda por ela revive um fóssil por vez: entregue o de Mt. Moon, saia e volte, depois repita com o Old Amber. O cientista atrás troca um Muk por um Kangaskhan."
             "4":
               title: "Atravesse até a Mansion"
               text_html: "O ginásio do Blaine %{gym} está trancado e a chave fica do outro lado da rua. A Pokémon Mansion %{mansion} queimada guarda a Secret Key, e tudo na ilha depende dela."
@@ -3247,14 +3267,14 @@ pt:
             aerodactyl: "Old Amber do museu de Pewter → Aerodactyl. Registre o único espécime."
         cinnabar_island_return:
           note: "De volta pelo Blaine. Insígnia Volcano e TM38 Fire Blast."
-          intro: "A ilha de novo, com a Secret Key na mão. As portas de quiz do ginásio são tudo que separa você da sétima insígnia, e os fósseis já tiveram tempo de reviver."
+          intro: "A ilha de novo, com a Secret Key na mão. As portas de quiz do ginásio são tudo que separa você da sétima insígnia, e a costa norte abre para a Rota 21 assim que ela for conquistada."
           steps:
             "1":
               title: "Abra o ginásio com a Secret Key"
               text_html: "A chave destranca o ginásio %{gym} do outro lado da rua. Cada porta faz uma pergunta de sim ou não, e errar é uma batalha e não um beco sem saída, então de um jeito ou de outro você chega no Blaine."
             "2":
-              title: "Pegue os fósseis e surfe ao norte"
-              text_html: "Passe no Lab %{lab} para buscar os Pokémon que seus fósseis reviveram, e saia pela costa norte %{north} rumo à Rota 21, a longa água até Pallet Town."
+              title: "Surfe ao norte até Pallet Town"
+              text_html: "Se você deixou um fóssil no Lab %{lab}, o Pokémon dele está esperando lá. Depois saia pela costa norte %{north} rumo à Rota 21, a longa água até Pallet Town."
         pokemon_mansion:
           note: "Mansão incendiada. Tipos Fogo e a Secret Key."
           intro: "Uma mansão incendiada de escadas ocultas que abrem com botões-estátua. É no diário abandonado dela que a história do Mewtwo está escrita."

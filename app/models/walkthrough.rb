@@ -863,6 +863,15 @@ module Walkthrough
   end
   SurfStadiumStep = Data.define(:key, :glyph, :tone)
 
+  # The Cinnabar Lab's fossil revival, which the scientist calls a wait and the cartridge does not:
+  # handing a fossil over sets EVENT_LAB_STILL_REVIVING_FOSSIL, and only CinnabarIsland_Script
+  # clears it, so the whole "wait" is stepping onto the island map and back inside. `steps` is that
+  # round trip, `fossils` the three specimens with their card art, `facts` the ✓/✕/– rows.
+  FossilWait = Data.define(:anchor, :count, :steps, :fossils, :facts)
+  FossilStep = Data.define(:n, :title_key, :text_key)
+  FossilCard = Data.define(:dex, :name, :item, :art, :sprite, :height, :weight)
+  FossilFact = Data.define(:key, :state, :mark)
+
   def self.games = { "yellow" => Yellow.game }
 
   def self.find(slug) = games[slug]

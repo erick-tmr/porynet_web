@@ -19699,7 +19699,7 @@
         "height": 144
       },
       "3": {
-        "image": "walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png",
+        "image": "walkthrough/yellow/scenes/cinnabar-lab-aerodactyl.png",
         "width": 160,
         "height": 144
       }
@@ -21218,8 +21218,8 @@
       "height": 144,
       "type": "screen"
     },
-    "cinnabar-lab-fossil-handover": {
-      "image": "walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png",
+    "cinnabar-lab-aerodactyl": {
+      "image": "walkthrough/yellow/scenes/cinnabar-lab-aerodactyl.png",
       "width": 160,
       "height": 144,
       "type": "screen"

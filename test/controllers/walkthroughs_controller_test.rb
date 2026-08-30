@@ -835,6 +835,35 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-sp__vc-label", text: "VIRTUAL CONSOLE · 3DS"
   end
 
+  # The lab takes the fossils in on this page, so what the scientist calls a wait is answered
+  # before the steps that hand them over, not after.
+  test "Cinnabar opens the fossil wait ahead of its steps" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
+
+    assert_response :success
+    assert_select "#fossil-wait .pn-wt-band__h3", text: "Two steps. That is the whole wait."
+    assert_select "#fossil-wait .pn-eyebrow-label", text: "TRIVIA · CINNABAR LAB"
+    assert_select ".pn-fw__count", text: "2"
+    assert_select ".pn-fw__step", 2
+    assert_select ".pn-fw__step-lead", text: "Step out the front door."
+    assert_select ".pn-fw__card", 3
+    assert_select ".pn-fw__card-art[src*=?]", "walkthrough/art/kabuto-card.png"
+    assert_select ".pn-fw__card-line", text: /Helix Fossil · 0.4 m · 7.7 kg/
+    assert_select ".pn-fw__facts .pn-wt-trivia-row", 4
+    assert_select ".pn-fw__facts .pn-wt-trivia-mark--no", 1
+    assert response.body.index('id="fossil-wait"') < response.body.index("cinnabar-island-step-1"),
+      "the wait is answered before the steps that hand a fossil over"
+  end
+
+  test "the fossil wait renders in Portuguese" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15", locale: :pt)
+
+    assert_response :success
+    assert_select "#fossil-wait .pn-wt-band__h3", text: "Dois passos. É essa a espera inteira."
+    assert_select "#fossil-wait .pn-eyebrow-label", text: "CURIOSIDADE · LABORATÓRIO DE CINNABAR"
+    assert_select ".pn-fw__step-lead", text: "Volte direto para dentro."
+  end
+
   test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 
