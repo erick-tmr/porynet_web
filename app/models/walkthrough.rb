@@ -1,9 +1,19 @@
 module Walkthrough
   # Marker categories in the order the map legend lists them.
-  MAP_CATEGORIES = %w[trainer npc pokemon item hidden exit].freeze
+  # The Strength boulder, generated on its own (tools/maps/icons.py) so a step's map can draw one
+  # where the game has not placed one yet.
+  BOULDER_ICON = "walkthrough/yellow/icons/boulder.png".freeze
+
+  MAP_CATEGORIES = %w[trainer npc pokemon item hidden exit hole].freeze
 
   # Categories that are signposts, not chores: they raise a hint but never tick off.
-  NON_TICKABLE = %w[exit npc].freeze
+  NON_TICKABLE = %w[exit npc hole].freeze
+
+  # Categories whose key is shared by the several maps that show one thing: a staircase wears the
+  # same letter on both floors it joins, and so do the two ends of a hole. Everything else numbers
+  # per map, so an H1 on two floors is two different hidden items that happen to share a letter.
+  # This is what tells `map-jump` whether two pins wearing one key are one pin seen twice.
+  LINKED_CATEGORIES = %w[exit hole].freeze
 
   DENSE_TRAINERS = 6
 
@@ -164,7 +174,11 @@ module Walkthrough
   Gift = Data.define(:dex, :name, :level, :sold) do
     def sold? = sold
   end
-  GymFacts = Data.define(:leader, :types, :badge, :tm)
+  # `quiz` is the answer key for a gym whose doors ask one, in door order; empty for every gym but
+  # Cinnabar's.
+  GymFacts = Data.define(:leader, :types, :badge, :tm, :quiz) do
+    def initialize(quiz: [], **rest) = super
+  end
   GiftItem = Data.define(:name, :qty) do
     def stack? = qty > 1
   end
@@ -298,11 +312,23 @@ module Walkthrough
   # `route` is the way round an arrow-tile floor, one leg per stretch between the things the walk
   # collects, each a list of [x, y] points in the image's own pixels. Only the floors where the
   # game states how you move carry one (tools/maps/spinners.py); everywhere else it is empty and
-  # nothing is drawn.
-  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title, :route) do
-    def initialize(name: "", markers: [], title: nil, route: [], **rest) = super
+  # nothing is drawn. `route_kind` says what the line is a picture of: a "ride" the arrows take the
+  # hero on, or a "push", the way a boulder goes when it is shoved (tools/maps/boulders.py). The
+  # two are drawn identically and captioned apart, because following one is not doing the other.
+  #
+  # `boulders` is the cell each push starts from, one per leg. The map itself does not draw them:
+  # the game ships every boulder below Seafoam 1F hidden until the one above it falls, so a floor
+  # with one baked in would claim a boulder that is not there. A step that pushes one draws it
+  # over its own crop instead, which is the only place the reader is being told to move it.
+  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title, :route,
+    :route_kind, :boulders) do
+    def initialize(name: "", markers: [], title: nil, route: [], route_kind: "ride", boulders: [], **rest) = super
     def route? = route.any?
-    def route_legs = route.each_with_index.map { |points, i| RouteLeg.new(points: points, n: i + 1) }
+    def route_legs
+      route.each_with_index.map do |points, i|
+        RouteLeg.new(points: points, n: i + 1, boulder: boulders[i])
+      end
+    end
     def caption = title || floor
     def captioned? = !caption.empty?
     def markers? = markers.any?
@@ -338,7 +364,9 @@ module Walkthrough
   # One stretch of a drawn route. `n` is which leg it is, counting from 1, and `hue` cycles a small
   # palette off it: two rides through the same maze cross each other often, and one colour for the
   # lot reads as a scribble.
-  RouteLeg = Data.define(:points, :n) do
+  RouteLeg = Data.define(:points, :n, :boulder) do
+    def initialize(boulder: nil, **rest) = super
+    def boulder? = !boulder.nil?
     def line = points.map { |x, y| "#{x},#{y}" }.join(" ")
     def tip = points.last
     def hue = (n - 1) % ROUTE_HUES + 1
@@ -368,7 +396,8 @@ module Walkthrough
   # A step's own copy of the floor it is on, cropped to the stretch of route it walks: the same
   # image the area map draws, an SVG viewBox over the part that matters, and the legs to draw on
   # it. The overview at the top of the page shows the floor; this shows the reader where they are.
-  StepMap = Data.define(:image, :width, :height, :box, :legs) do
+  StepMap = Data.define(:image, :width, :height, :box, :legs, :kind) do
+    def initialize(kind: "ride", **rest) = super
     def view_box = box.join(" ")
   end
 
@@ -488,8 +517,15 @@ module Walkthrough
     def rate? = !rate.nil?
   end
 
-  GymStep = Data.define(:n, :text_key, :shot) do
+  # `answers` is a quiz door's answer key, one "yes"/"no" per door in door order. Cinnabar is the
+  # only gym that asks: its six locked doors each pose a yes-or-no question, and the answers are
+  # read out of the game rather than typed, because the byte the doors carry is the truth of the
+  # question and not the answer to it. Saying which is the whole of the step, so it is a row of
+  # numbered chips rather than a clause the reader has to count along.
+  GymStep = Data.define(:n, :text_key, :shot, :answers) do
+    def initialize(answers: [], **rest) = super
     def shot? = !shot.nil?
+    def answers? = answers.any?
   end
 
   # `needs` is the HM a floor cannot be finished without, as the game spells it, and `needs_key`

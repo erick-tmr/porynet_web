@@ -280,6 +280,46 @@ def parse_cut_tree_blocks(root_str):
 
 
 @cache
+@cache
+def _toggle_lists(root_str):
+    """The two halves of the toggleable-object table, per map, in the order the game pairs them.
+
+    `constants/toggle_constants.asm` names the TOGGLE_* handle a script passes around, and
+    `data/maps/toggleable_objects.asm` names the object_event it stands for and whether the map
+    ships with it shown. Nothing joins them but their position in each list, which is exactly how
+    the game joins them, and Seafoam B3F is why it has to be read that way rather than by name:
+    its four handles are BOULDER_1 through _4 and the objects they land on are BOULDER2, BOULDER3,
+    BOULDER5 and BOULDER6."""
+    def sections(rel, opener, entry):
+        out, current = {}, None
+        for line in _read(root_str, rel).splitlines():
+            opened = re.match(opener, line)
+            if opened:
+                current = opened.group(1)
+                out[current] = []
+            found = re.match(entry, line)
+            if found and current:
+                out[current].append(found.groups())
+        return out
+
+    handles = sections("constants/toggle_constants.asm",
+                       r"\ttoggle_consts_for (\w+)", r"\tconst (TOGGLE_\w+)")
+    objects = sections("data/maps/toggleable_objects.asm",
+                       r"\ttoggleable_objects_for (\w+)", r"\ttoggle_object_state (\w+),\s*(ON|OFF)")
+    return handles, objects
+
+
+def resolve_toggle(root_str, map_const, toggle_const):
+    """Which object_event const a TOGGLE_* handle really names on its map, or None."""
+    handles, objects = _toggle_lists(root_str)
+    names = [h[0] for h in handles.get(map_const, ())]
+    if toggle_const not in names:
+        return None
+    entries = objects.get(map_const, ())
+    at = names.index(toggle_const)
+    return entries[at][0] if at < len(entries) else None
+
+
 def parse_hidden_objects(root_str):
     """Return {map_const: {object_const, ...}} for objects the game starts with switched off.
 

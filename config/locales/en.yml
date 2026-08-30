@@ -257,9 +257,15 @@ en:
       map_labels: "LABELS:"
       map_labels_on: "ON"
       map_labels_off: "OFF"
-      map_route: "ROUTE:"
-      step_map_cap: "THE WAY THERE"
-      step_map_alt: "Floor plan for step %{n}, with the way through drawn on it"
+      quiz_door: "DOOR %{n}"
+      quiz_yes: "YES"
+      quiz_no: "NO"
+      map_route_ride: "ROUTE:"
+      map_route_push: "PUSHES:"
+      step_map_cap_ride: "THE WAY THERE"
+      step_map_cap_push: "THE PUSH"
+      step_map_alt_ride: "Floor plan for step %{n}, with the way through drawn on it"
+      step_map_alt_push: "Floor plan for step %{n}, with the boulder's push drawn on it"
       map_howto: "HOW TO USE"
       map_howto_body: "Tap any pin, or a legend row, to tick it off. A hint pops up to confirm; tap again to undo."
       map_legend: "LEGEND"
@@ -296,6 +302,7 @@ en:
       map_cat_item: "ITEM BALLS"
       map_cat_hidden: "HIDDEN ITEMS"
       map_cat_exit: "EXITS"
+      map_cat_hole: "HOLES"
       map_done_trainer: "BEATEN"
       map_done_pokemon: "FOUGHT"
       map_done_item: "GOT"
@@ -321,6 +328,7 @@ en:
       map_exit_east: "Leaves from the east edge."
       map_exit_west: "Leaves from the west edge."
       map_exit_inner: "A door inside the map."
+      map_hole: "A hole in the floor. Step on it and you fall through."
       map_place_gym: "%{leader}'s Gym, a %{types} team. Win the %{badge} Badge and %{tm}."
       map_place_mart: "Poké Mart. Sells %{stock}."
       map_place_stock_more: "%{stock} and %{count} more"
@@ -741,12 +749,14 @@ en:
         leg_13:
           lead: "Silph is clear, so the gym opens. Sabrina first, then the three items Surf has been waiting to reach."
         leg_14:
-          lead: "The open water south of Fuchsia, west past the Seafoam Islands to Cinnabar."
+          lead: "The open water south of Fuchsia, west along Route 20 to the cave under the Seafoam Islands."
         leg_15:
-          lead: "Cinnabar's fossils and the Pokémon Mansion key, then Blaine's Volcano Badge."
+          lead: "Out of the cave and west to Cinnabar, whose lab takes your fossils in."
         leg_16:
-          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+          lead: "Back for Blaine and the Volcano Badge, then the long water north to Pallet."
         leg_17:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_18:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
       mew_glitch:
         meta_title: "The Mew Glitch · %{game} Walkthrough"
@@ -3033,8 +3043,8 @@ en:
               title: "Head to Route 20"
               text_html: "Carry on south to the little beach at the bottom, which opens west %{west} into Route 20 and the Seafoam Islands."
         route_20:
-          note: "Open water to Cinnabar. Tentacool, Staryu, Shellder."
-          intro: "The long channel west toward Cinnabar, with the Seafoam Islands sitting in the middle of it. The cave under them is the way through, though open water runs around both sides."
+          note: "East half of the channel south of Fuchsia. Tentacool, Staryu, Shellder."
+          intro: "The long channel west toward Cinnabar, with the Seafoam Islands halfway along it. A rock wall runs the height of the map beside them, so the cave underneath is the only way past."
           steps:
             "1":
               title: "Surf west"
@@ -3044,40 +3054,92 @@ en:
               text_html: "The Seafoam Islands break the water halfway along, and the cave runs right under them. Land on the island's south-west corner and walk up to the cave mouth %{mouth}: Articuno roosts at the bottom of it."
         seafoam_islands:
           note: "Boulder-puzzle cave under Route 20. Wild Articuno inside."
-          intro: "Five floors of sea cave with currents running through the lower ones. No trainers at all, one boulder puzzle, and Articuno at the bottom."
+          intro: "Five floors of sea cave, no trainers, and currents that sweep you along until Strength drops a boulder in their way. Articuno roosts at the bottom, and the far mouth opens toward Cinnabar."
           steps:
             "1":
-              title: "Enter with Surf and Strength"
-              text: "Ride in off Route 20 with both HMs: Surf to cross the currents, Strength to shove the boulders that slow them. Seel, Slowpoke, Shellder and Krabby prowl the floors."
+              title: "Bring both HMs, and know the reset"
+              text: "Surf crosses the currents, Strength drops the boulders that still them. Wedge one against a wall and nothing is lost: leave the floor and come back, and the boulders reset. Any already down a hole stay down."
             "2":
-              title: "Dam the currents downward"
-              text: "Work down through 1F and B1F, pushing each boulder into the current holes so the water below stops flowing. Every dammed current opens another stretch of Surf, carrying you steadily down to B2F."
+              title: "Push the first boulder down its hole"
+              text_html: "In from the west mouth %{mouth}, head north-east into the middle chamber. Shove its boulder one tile west, then four north into the hole %{hole}. Step onto it yourself and drop through."
             "3":
-              title: "Pocket the hidden Nugget"
-              text: "On B2F, cross to the open cave floor at the lower center of the map. Stand one square west of a plain-looking tile and press A facing east for a hidden Nugget, a pricey sell at any Mart."
-              hidden:
-                nugget: "B2F, on the open floor at the lower center. Face east and press A. Nothing shows on-screen."
+              title: "Send it down again"
+              text_html: "You and the boulder land on B1F beside the next hole %{hole}. Push it one tile east over the edge, then step in after it and keep falling."
             "4":
-              title: "Dig out the Max Elixir"
-              text: "Down on B3F, head to the cluster of boulders in the southwest corner. Just south of them, press A facing north on the bare floor for a hidden Max Elixir, which fully refills every move's PP for one Pokémon."
-              hidden:
-                max-elixir: "B3F, southwest corner just below the boulders. Face north and press A. Nothing shows on-screen."
+              title: "Ride the current down to B4F"
+              text_html: "Same again on B2F: one tile east drops the boulder down %{hole}. Follow it and you land in water running too fast to swim, which carries you straight to B4F."
             "5":
-              title: "Catch Articuno"
-              text: "B4F opens onto Articuno's chamber. Surf to the Ice bird in the northwest corner (Lv 50) and save before you touch it. Sleep or paralyze it, then throw Ultra Balls."
-            "6":
-              title: "Sweep the corner Ultra Ball"
-              text: "Before you climb back out, sweep the far southeast corner of B4F. Beside the boulders there, press A facing south for a hidden Ultra Ball to refill your throwing stock."
+              title: "Feel out the hidden Ultra Ball"
+              text: "When the current lets go, Surf east onto the little shore. Press A facing the rock to the south for a hidden Ultra Ball, and keep it for the bird waiting north of here."
               hidden:
-                ultra-ball: "B4F, far southeast corner beside the boulders. Face south and press A. Nothing shows on-screen."
+                ultra-ball: "B4F, the small shore east of where the current drops you. Face the rock to the south and press A. Nothing shows on-screen."
+            "6":
+              title: "Cross the plateau to the ladder"
+              text_html: "Back on the water, Surf north and climb onto the plateau. Follow it west to the far end, then drop south into the chamber below, where the ladder %{ladder} goes up to B3F."
             "7":
-              title: "Ride back out"
-              text: "With Articuno caught and the pockets full, ride out the far west mouth onto the open sea. Cinnabar Island is a short Surf west, and Blaine holds the seventh badge."
+              title: "Dig out the Max Elixir"
+              text: "Down from the ladder on B3F, work south and east along the ledge, drop to the floor below and follow it west. Press A facing the lone rock there for a hidden Max Elixir, a full PP refill."
+              hidden:
+                max-elixir: "B3F, the lone rock on the low floor below the four boulders. Face east and press A. Nothing shows on-screen."
+            "8":
+              title: "Plug the left-hand hole"
+              text_html: "Four boulders and two holes sit beside you. Push the second boulder from the left three tiles west, which clears the way to the leftmost one; shove that one south into the hole %{hole} below it."
+            "9":
+              title: "Plug the other one"
+              text_html: "Now the pair on the right. Push the right boulder north into the corner, then walk the left one south one tile, west two, and south again into the second hole %{hole}."
+            "10":
+              title: "Drop down after the boulders"
+              text: "With both holes plugged the current on B4F is dead, so drop down either one. Go down before the boulders do and the water just shoves you back onto the plateau."
+            "11":
+              title: "Catch Articuno"
+              text: "Surf north up the channel and climb the plateau at the top. Articuno waits there at Lv 50, one encounter and one only. Save first, then sleep or paralyze it and throw Ultra Balls."
+            "12":
+              title: "Climb back up to B3F"
+              text_html: "Surf back south to the ledge that runs east from the boulders. Follow it along, then climb north to the ladder %{ladder} you came down by and take it up to B3F."
+            "13":
+              title: "Cross B3F to the other ladder"
+              text_html: "Up on the plateau again, loop round to the south and take the other ladder %{ladder} on this floor up to B2F."
+            "14":
+              title: "Pocket the hidden Nugget"
+              text: "Head east along B2F's southern wall. Press A facing the lone rock against it for a hidden Nugget, ¥5000 at any Mart counter and no other use."
+              hidden:
+                nugget: "B2F, the lone rock against the southern wall. Face east and press A. Nothing shows on-screen."
+            "15":
+              title: "Climb to B1F"
+              text_html: "Climb the plateau just east of the rock and head north across the floor to the ladder %{ladder} in the middle of it, which comes up on B1F."
+            "16":
+              title: "Back up onto 1F"
+              text_html: "Come down off the plateau to the south-west, cross the floor, then climb the plateau to the north. Its ladder %{ladder} takes you back up to 1F."
+            "17":
+              title: "Start the second boulder down"
+              text_html: "Walk east along the top of 1F and drop into the eastern chamber. Push its boulder two tiles west and one north into the hole %{hole}, then follow it down."
+            "18":
+              title: "Send it through B1F"
+              text_html: "Same drill a floor lower: one tile east puts the boulder down %{hole}, and you go in behind it."
+            "19":
+              title: "And through B2F"
+              text_html: "On B2F the last hole %{hole} is west of the boulder. Push it one tile that way, drop through, and the current on B3F has nothing left to carry you with."
+            "20":
+              title: "Climb the east side back to 1F"
+              text_html: "Climb the plateau on B3F's east side and take its southern ladder %{first}. On B2F the next ladder %{mid} is a few tiles north; on B1F, %{top} sits south-west of it and lands you on 1F."
+            "21":
+              title: "Out the eastern mouth"
+              text_html: "The eastern mouth %{mouth} is right there. Step out onto the far side of Route 20, past the rock wall that shuts the two halves of it off from each other."
           tips:
             articuno: "A one-time Lv 50 legendary. Save first, sleep/paralyze it, and use the Master Ball or a lot of Ultra Balls."
           oak:
             seel: "A cave catch → Dewgong, a solid Water/Ice. Grab the base."
             articuno: "The Ice legendary of Seafoam. One shot only. Catch it now."
+        route_20_west:
+          note: "The half past the islands. Six Swimmers, then Cinnabar."
+          intro: "The same channel on the far side of the rock wall, reached by coming out of the cave rather than surfing round it. Six trainers between here and Cinnabar."
+          steps:
+            "1":
+              title: "Back on the water"
+              text_html: "Out of the cave's far mouth %{mouth}, drop down to the shore and Surf west. A Jr. Trainer floats just off the island, and five more swimmers are strung along the channel."
+            "2":
+              title: "Surf on to Cinnabar"
+              text_html: "Keep west past the last of them. The channel opens onto Cinnabar Island %{west}, where the lab revives fossils and Blaine's gym holds the seventh badge."
         power_plant:
           note: "Optional Surf detour. Electric mons, a rare Muk, and Zapdos."
           intro: "An abandoned plant off Route 10, reachable only by Surf. Thirteen Poké Balls lie on its floors and eight are Voltorb in disguise; Zapdos roosts at the back."
@@ -3140,7 +3202,7 @@ en:
             intro: "Locked doors bar the way to Blaine, each opened by answering a quiz or beating the trainer behind it. His Ninetales (Lv 48), Rapidash (Lv 50) and Arcanine (Lv 54) hit hard and fast, so bring a Water, Rock or Ground attacker and pack Burn Heals."
             puzzle:
               "1": "Each door poses a yes or no Pokémon quiz. Answer correctly and it opens; answer wrong and you battle the trainer behind it, which opens it anyway."
-              "2": "If you would rather not guess, the answers in order are yes, no, no, no, yes, no. Or skip the quizzes and fight every trainer instead; the doors open either way and both routes reach the back."
+              "2": "Here is the answer to every door, in the order you meet them. Guessing costs nothing but the fight behind the door you miss, so either route reaches the back."
               "3": "The final door opens onto Blaine. A single strong Water, Rock or Ground move drops his Ninetales, Rapidash and Arcanine in a hurry."
           note: "Blaine's Gym. Volcano Badge. Fossil lab."
           intro: "A volcanic island one street long: a lab that revives fossils, a burnt-out mansion, and a gym whose key is somewhere inside it."
@@ -3148,28 +3210,33 @@ en:
             muk:
               npc: "SCIENTIST"
               title: "Muk"
-              where: "The fossil room of the Pokémon Lab"
+              where: "The Lab's Testing Room, the scientist at the back"
               note: "A high-level Muk with no grinding. Kangaskhan is a Safari Zone catch."
             rhydon:
               npc: "OLD MAN"
               title: "Rhydon"
-              where: "The trade room of the Pokémon Lab"
+              where: "The Lab's Meeting Room, the old man by the west wall"
               note: "A traded Rhydon comes in strong and gains boosted XP."
             dewgong:
               npc: "BEAUTY"
               title: "Dewgong"
-              where: "The trade room of the Pokémon Lab"
+              where: "The Lab's Meeting Room, the Beauty by the south counter"
               note: "Dewgong for a Growlithe, plus the traded-XP bonus. Growlithe roams the Pokémon Mansion next door."
           steps:
             "1":
-              title: "Clear the Mansion first"
-              text_html: "Blaine's gym %{gym} is locked. Cross the street to the Pokémon Mansion %{mansion} and fetch the Secret Key."
+              title: "Trade in the Meeting Room"
+              text_html: "Into the Lab %{lab} and through the first door. An old man in the Meeting Room swaps a Rhydon for your Golduck, and a Beauty a Dewgong for a Growlithe, neither of them catchable anywhere."
             "2":
-              title: "Hand in a fossil, then the Gym"
-              text_html: "Give a fossil to the scientist at the Lab %{lab}, then open the gym with the Secret Key and work the quiz doors to Blaine. Water, Ground or Rock melts his Fire team."
+              title: "Take TM35 from the R-and-D Room"
+              text: "Next door along, a scientist hands over TM35 for the asking. It is the only TM on the island, and Metronome fires a random move every turn."
+              items:
+                tm-metronome: "The Lab's R-and-D Room, from the scientist against the north wall. Talk to him once."
             "3":
-              title: "Collect your fossil and move on"
-              text: "Return to the Lab later for the revived fossil Pokémon, then Surf out toward the last badge."
+              title: "The Testing Room: fossils and a Muk"
+              text: "The last door. Its walking scientist takes one fossil at a time and keeps it a while, so hand the Mt. Moon one in now and the Old Amber later. The scientist behind swaps a Muk for a Kangaskhan."
+            "4":
+              title: "Cross to the Mansion"
+              text_html: "Blaine's gym %{gym} is locked and the key is across the street. The burnt-out Pokémon Mansion %{mansion} holds the Secret Key, and everything on the island waits on it."
           tips:
             omanyte: "Revive the Helix Fossil here → Omanyte, then Omastar. A Rock/Water only found this way."
             kabuto: "Revive the Dome Fossil → Kabuto, then Kabutops. The other fossil line."
@@ -3178,6 +3245,16 @@ en:
             omanyte: "Revive whichever fossil you chose in Mt. Moon. Helix → Omanyte."
             kabuto: "Dome Fossil → Kabuto. You can only revive the one fossil you kept."
             aerodactyl: "Old Amber from Pewter's museum → Aerodactyl. Register the single specimen."
+        cinnabar_island_return:
+          note: "Back for Blaine. Volcano Badge and TM38 Fire Blast."
+          intro: "The island again, Secret Key in hand. The gym's quiz doors are all that stand between you and the seventh badge, and the fossils have had time to revive."
+          steps:
+            "1":
+              title: "Open the gym with the Secret Key"
+              text_html: "The key unlocks the gym %{gym} across the street. Its doors each pose a yes-or-no quiz, and a wrong answer is a battle rather than a dead end, so either way you reach Blaine."
+            "2":
+              title: "Collect the fossils and Surf north"
+              text_html: "Call back at the Lab %{lab} for the Pokémon your fossils revived into, then leave by the north shore %{north} onto Route 21, the long water up to Pallet Town."
         pokemon_mansion:
           note: "Burnt-out mansion. Fire types and the Secret Key."
           intro: "A burnt-out mansion of hidden staircases opened by statue switches. Its abandoned diary is where Mewtwo's story is written down."

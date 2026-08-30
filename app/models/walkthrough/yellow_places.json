@@ -238,6 +238,14 @@
         "leader": "Blaine",
         "types": [
           "Fire"
+        ],
+        "quiz": [
+          "yes",
+          "no",
+          "no",
+          "no",
+          "yes",
+          "no"
         ]
       },
       "trainers": 7

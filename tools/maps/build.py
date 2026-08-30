@@ -22,6 +22,7 @@ import argparse
 import json
 import pathlib
 
+import boulders
 import compositor
 import decks
 import dex
@@ -131,9 +132,17 @@ def main():
             key = save_png(image, "maps", name, args.force)
             entry = {"image": key, "width": image.width, "height": image.height,
                      "floor": floor, "name": name, "markers": pins}
-            line = spinners.drawn_route(root, label)
+            ride = spinners.drawn_route(root, label)
+            line = ride or boulders.drawn_pushes(root, label)
             if line:
                 entry["route"] = line
+                # What the line is a picture of: the way the arrows carry the hero, or the way a
+                # boulder goes when it is shoved. The app captions and labels them apart, and for a
+                # push it also draws the boulder at the head of each leg, since the floor itself
+                # does not carry one until the one above it falls.
+                entry["route_kind"] = "ride" if ride else "push"
+                if not ride:
+                    entry["boulders"] = boulders.boulder_cells(root, label)
             entries.append(entry)
             labels.append(label)
             warps[label] = sources.parse_warp_events(root, label)

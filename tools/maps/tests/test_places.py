@@ -166,3 +166,21 @@ def test_the_game_corner_floor_is_swept_by_the_pile_count(root):
     # Twelve piles, each worth 10, 20 or 100 coins, and every entry in the table is on this one
     # map. A reader sweeping the room wants the number, not twelve coordinates.
     assert places.build_prizes(root)["coin_piles"] == 12
+
+
+def test_a_quiz_doors_answer_is_not_the_truth_of_its_question(root):
+    """The byte each Cinnabar door carries is whether its statement is true, and the game compares
+    that against the yes/no menu, where YES is item 0. So a door whose statement is FALSE is opened
+    by answering yes, and reading the constants straight gives the inverse of the answer key on
+    every one of the six."""
+    assert places.quiz_answers(root, "CINNABAR_GYM") == ["yes", "no", "no", "no", "yes", "no"]
+
+
+def test_only_the_gym_that_asks_carries_an_answer_key(root):
+    assert places.quiz_answers(root, "VIRIDIAN_GYM") is None
+    assert "quiz" not in places.gym_facts(
+        root, "ViridianGym", sources.parse_object_events(root, "ViridianGym", include_battlers=True))
+    assert places.gym_facts(
+        root, "CinnabarGym",
+        sources.parse_object_events(root, "CinnabarGym", include_battlers=True))["quiz"] == [
+            "yes", "no", "no", "no", "yes", "no"]

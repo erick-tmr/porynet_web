@@ -59,6 +59,11 @@ detectors:
                                 # Its keywords are the optional subset of the struct's
                                 # own members, not a call signature; collapsing them
                                 # would force all 17 fields at every call site.
+      - Walkthrough::AreaMap    # same defaults shim: a drawn floor is optional almost throughout
+                                # (a map borrowed by another stop has a title, a maze or a boulder
+                                # floor has a route and the kind of line it is), so the keywords
+                                # are the struct's own optional members rather than a call
+                                # signature to collapse.
       - Walkthrough::CatchPanel # same defaults shim: a Safari explainer panel tabulates whichever
                                 # of steps/calc/items/flee/cards it happens to have, so the
                                 # keywords are the struct's own optional members. Naming them all

@@ -346,10 +346,19 @@ module Walkthrough
       # island itself (E1), reached by landing on its south-west corner; the other mouth sits on a
       # detached patch and opens onto a chamber walled off from the rest of 1F.
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
-      { slug: "leg-15", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
-      { slug: "leg-16", special: false, locs: %w[viridian-gym] },
+      # The cave comes out on the far side of the rock wall that splits Route 20 down the middle,
+      # so the water west of the islands is a second pass over the same map rather than more of
+      # the first: you leave by a different mouth than you came in by, and the six swimmers between
+      # there and Cinnabar are ones the eastern half never reaches.
+      { slug: "leg-15", special: false, locs: %w[route-20-west cinnabar-island] },
+      # A burnt-out four-floor maze of switches, walked once for the Secret Key: its own page, the
+      # way every other dungeon on the route gets one. It splits the island's two passes, which is
+      # the shape the island already has.
+      { slug: "pokemon-mansion", special: true, locs: %w[pokemon-mansion] },
+      { slug: "leg-16", special: false, locs: %w[cinnabar-island-return route-21] },
+      { slug: "leg-17", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-17", special: false, locs: %w[route-23] },
+      { slug: "leg-18", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
@@ -582,7 +591,8 @@ module Walkthrough
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         fuchsia_city_return, saffron_city_return, surf_cleanups,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
-        power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
+        route_20_west, power_plant, cinnabar_island, pokemon_mansion, cinnabar_island_return,
+        route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
@@ -595,7 +605,9 @@ module Walkthrough
                    "fuchsia-city-return" => "fuchsia-city",
                    "saffron-city-return" => "saffron-city",
                    "route-16-fly" => "route-16",
-                   "route-10-south" => "route-10" }.freeze
+                   "route-10-south" => "route-10",
+                   "route-20-west" => "route-20",
+                   "cinnabar-island-return" => "cinnabar-island" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
     # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
@@ -727,18 +739,29 @@ module Walkthrough
     def self.step_map(area, first, last = first)
       legs = area.route_legs[(first - 1)..(last - 1)]
       StepMap.new(image: area.image, width: area.width, height: area.height,
-        box: crop_box(legs, floor_bounds(area)), legs: legs)
+        box: crop_box(legs, floor_bounds(area)), legs: legs, kind: area.route_kind)
     end
 
     # The part of the picture worth cropping into, as [x0, y0, x1, y1]. A map's image is the whole
     # grid and a floor rarely fills it: B2F leaves six rows of black above its own top wall, and a
-    # frame centred near the top would spend a quarter of itself on that. Every point of the route
-    # is somewhere the player stands, so the box they span, opened out by a margin and kept inside
-    # the image, is a fair read on where the floor is.
+    # frame centred near the top would spend a quarter of itself on that. Every pin and every point
+    # of a drawn line is somewhere the player can be, so the box they span, opened out by a margin
+    # and kept inside the image, is a fair read on where the floor is.
+    #
+    # The pins are what make it a read on the floor rather than on the line. A maze route wanders
+    # over its whole floor, so the line alone bounded it well enough; a boulder push is two cells
+    # long, and bounding by that squeezed the window down to the shove itself, which is a picture of
+    # a boulder and no room at all. The pins are spread over the floor either way.
     def self.floor_bounds(area)
-      xs, ys = area.route.flatten(1).transpose
+      xs, ys = (area.route.flatten(1) + area.markers.map { |pin| pin_px(pin, area) }).transpose
       [ [ xs.min - STEP_MAP_PAD, 0 ].max, [ ys.min - STEP_MAP_PAD, 0 ].max,
         [ xs.max + STEP_MAP_PAD, area.width ].min, [ ys.max + STEP_MAP_PAD, area.height ].min ]
+    end
+
+    # A pin's percent back into the map's own pixels, rounded: the box is only ever a hint at where
+    # the floor is, and a viewBox reading "14.000000000000007" is float noise in the markup.
+    def self.pin_px(pin, area)
+      [ (pin.x * area.width / 100).round, (pin.y * area.height / 100).round ]
     end
 
     # The crop, as the SVG viewBox [x, y, w, h]: a window the size of the leg plus a margin,
@@ -921,9 +944,17 @@ module Walkthrough
     # the Hikers, a Pokémaniac and the second Jr Trainer are past the tunnel, and the Pokémaniac
     # guarding the Power Plant's door stands on a middle strip walled off by water. That one is
     # listed on the north half, where the walkthrough tells you to come back for it with Surf.
+    #
+    # Route 20 splits the same way and for a plainer reason: a rock wall runs the height of the map
+    # between the two halves, so the three swimmers east of it and the Beauty on the island the
+    # cave is entered from are the first pass, and the six between the far mouth and Cinnabar are
+    # the second. Nothing is reachable from both.
     ROSTER_SPLIT = {
       "route-10" => %w[JR_TRAINER_F:7 POKEMANIAC:1],
-      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8]
+      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8],
+      "route-20" => %w[SWIMMER:9 SWIMMER:11 BEAUTY:15 BEAUTY:6],
+      "route-20-west" => %w[JR_TRAINER_F:24 SWIMMER:10 BIRD_KEEPER:11 BEAUTY:7 JR_TRAINER_F:16
+                            BEAUTY:8]
     }.freeze
 
     def self.roster_for(slug)
@@ -979,7 +1010,8 @@ module Walkthrough
             npc_marker(n, m["width"], m["height"], key_letter(i))
           end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-            name: m["name"], markers: base + npcs, route: m.fetch("route", []))
+            name: m["name"], markers: base + npcs, route: m.fetch("route", []),
+            route_kind: m.fetch("route_kind", "ride"), boulders: m.fetch("boulders", []))
         end
       end
     end
@@ -1021,7 +1053,7 @@ module Walkthrough
       return nil if data.nil?
 
       GymFacts.new(leader: data["leader"], types: data["types"], badge: data["badge"],
-        tm: data["tm"])
+        tm: data["tm"], quiz: data.fetch("quiz", []))
     end
 
     def self.map_marker(data, key = data["key"])
@@ -1362,10 +1394,13 @@ module Walkthrough
       )
     end
 
-    def self.gstep(slug, n, map: false, scene: nil)
+    def self.gstep(slug, n, map: false, scene: nil, quiz: nil)
       GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}",
-        shot: gym_shot(n, map, scene))
+        shot: gym_shot(n, map, scene), answers: quiz ? quiz_answers(quiz) : [])
     end
+
+    # The answer key for a gym's quiz doors, straight from the generated place facts.
+    def self.quiz_answers(map_const) = place_facts.fetch(map_const).gym.quiz
 
     def self.gym_shot(n, map, scene)
       return scene_shot(scene, "STEP #{n}") if scene
@@ -2332,15 +2367,44 @@ module Walkthrough
         ])
     end
 
+    # The same map again, west of the rock wall. It carries no encounter tables of its own: they
+    # belong to Route 20 and the first pass already prints them, so a second copy would tell the
+    # reader the water holds twice what it holds.
+    def self.route_20_west
+      loc("route-20-west", "ROUTE", "Route 20", 43, steps: 2,
+        pins: { 1 => { mouth: "route-20/exit-58-9" }, 2 => { west: "route-20/exit-west" } })
+    end
+
+    SEAFOAM_1F = "seafoam-islands-1f".freeze
+    SEAFOAM_B1F = "seafoam-islands-b1f".freeze
+    SEAFOAM_B2F = "seafoam-islands-b2f".freeze
+    SEAFOAM_B3F = "seafoam-islands-b3f".freeze
+
     def self.seafoam_islands
       loc("seafoam-islands", "CAVE", "Seafoam Islands", 44, steps: [
           {},
-          {},
-          { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
-          { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
-          { scene: "seafoam-articuno" },
+          { pins: { mouth: "seafoam-islands-1f/exit-4-17", hole: "seafoam-islands-1f/hole-17-6" },
+            line: [ SEAFOAM_1F, 1 ] },
+          { pins: { hole: "seafoam-islands-b1f/hole-18-6" }, line: [ SEAFOAM_B1F, 1 ] },
+          { pins: { hole: "seafoam-islands-b2f/hole-19-6" }, line: [ SEAFOAM_B2F, 1 ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "seafoam-islands-hidden-ultra-ball", "seafoam-islands-ultra-ball" ] },
-          {}
+          { pins: { ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
+          { pins: { hole: "seafoam-islands-b3f/hole-3-16" }, line: [ SEAFOAM_B3F, 1, 2 ] },
+          { pins: { hole: "seafoam-islands-b3f/hole-6-16" }, line: [ SEAFOAM_B3F, 3, 4 ] },
+          {},
+          { scene: "seafoam-articuno" },
+          { pins: { ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { pins: { ladder: "seafoam-islands-b3f/exit-5-12" } },
+          { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
+          { pins: { ladder: "seafoam-islands-b2f/exit-13-7" } },
+          { pins: { ladder: "seafoam-islands-b1f/exit-7-5" } },
+          { pins: { hole: "seafoam-islands-1f/hole-24-6" }, line: [ SEAFOAM_1F, 2 ] },
+          { pins: { hole: "seafoam-islands-b1f/hole-23-6" }, line: [ SEAFOAM_B1F, 2 ] },
+          { pins: { hole: "seafoam-islands-b2f/hole-22-6" }, line: [ SEAFOAM_B2F, 2 ] },
+          { pins: { first: "seafoam-islands-b3f/exit-25-14", mid: "seafoam-islands-b2f/exit-25-11",
+                    top: "seafoam-islands-b1f/exit-23-15" } },
+          { pins: { mouth: "seafoam-islands-1f/exit-26-17" } }
         ],
         encounters: [
           enc("seafoam-islands", "041", "CAVE", "44%", "9–45", "COMMON", "041", "042"),
@@ -2364,10 +2428,19 @@ module Walkthrough
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
     end
 
+    # Two passes, because the gym's own door is what the island cannot open on arrival: the Secret
+    # Key is in the Mansion across the street. So the first pass is the lab, which takes the
+    # fossils in and needs time to revive them anyway, and the badge waits for the page after.
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 3, gym_after: 2, badge: "VOLCANO",
-        pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
-                2 => { lab: "cinnabar-island/exit-6-9" } },
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45,
+        # The lab's three doors, left to right along its back wall, named by the game's own signs:
+        # Meeting Room, R-and-D Room, Testing Room.
+        steps: [
+          { scene: "cinnabar-lab-trades", pins: { lab: "cinnabar-island/exit-6-9" } },
+          { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome" },
+          { scene: "cinnabar-lab-fossil-handover" },
+          { pins: { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } }
+        ],
         encounters: [
           enc("cinnabar-island", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("cinnabar-island", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -2387,10 +2460,27 @@ module Walkthrough
           trade("cinnabar-island", "dewgong", "058", "087", "CEZANNE",
             house: "cinnabar-lab", inside: "cinnabar-lab-trade-cezanne")
         ],
+        oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
+    end
+
+    # The island again, Secret Key in hand. The gym copy stays under the first pass's own keys, the
+    # way Fuchsia's does: it is the same gym, described once, shown on the page that walks it.
+    def self.cinnabar_island_return
+      b = base("cinnabar-island-return")
+      Location.new(
+        slug: "cinnabar-island-return", kind: "TOWN", name: "Cinnabar Island", order: 45,
+        badge: "VOLCANO", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, pins: { gym: "cinnabar-island/exit-18-3" }),
+          step(b, 2, pins: { lab: "cinnabar-island/exit-6-9", north: "cinnabar-island/exit-north" })
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
-        oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
+          puzzle: [ gstep("cinnabar-island", 1),
+                    gstep("cinnabar-island", 2, quiz: "CINNABAR_GYM"),
+                    gstep("cinnabar-island", 3, scene: "cinnabar-gym-blaine") ])
+      )
     end
 
     def self.pokemon_mansion

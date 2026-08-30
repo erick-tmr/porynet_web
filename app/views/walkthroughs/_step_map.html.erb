@@ -3,9 +3,16 @@
     JavaScript to place it, and the picture is the same R2 image the area map draws. %>
 <figure class="pn-wt-stepmap">
   <svg class="pn-wt-stepmap__svg" viewBox="<%= map.view_box %>" role="img"
-       aria-label="<%= t("walkthrough.ui.step_map_alt", n: step.n) %>">
+       aria-label="<%= t("walkthrough.ui.step_map_alt_#{map.kind}", n: step.n) %>">
     <image class="pn-wt-stepmap__img" href="<%= r2_asset_url(map.image) %>"
            x="0" y="0" width="<%= map.width %>" height="<%= map.height %>" />
+    <%# A boulder is drawn here rather than baked into the map: the game ships the ones below 1F
+        hidden until the one above falls, so the floor itself has none to show. Under the line, so
+        the arrow still reads over it. %>
+    <% map.legs.select(&:boulder?).each do |leg| %>
+      <image class="pn-wt-stepmap__boulder" href="<%= r2_asset_url(Walkthrough::BOULDER_ICON) %>"
+             x="<%= leg.boulder.first - 8 %>" y="<%= leg.boulder.last - 8 %>" width="16" height="16" />
+    <% end %>
     <% map.legs.each do |leg| %>
       <g class="pn-mm-route__leg pn-mm-route__leg--<%= leg.hue %>">
         <polyline class="pn-mm-route__casing" points="<%= leg.line %>" />
@@ -15,5 +22,5 @@
       </g>
     <% end %>
   </svg>
-  <figcaption class="pn-wt-stepmap__cap"><%= t("walkthrough.ui.step_map_cap") %></figcaption>
+  <figcaption class="pn-wt-stepmap__cap"><%= t("walkthrough.ui.step_map_cap_#{map.kind}") %></figcaption>
 </figure>

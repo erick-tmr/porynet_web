@@ -12,7 +12,8 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal [ "Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni", nil ],
       game.windows.map(&:leader)
     assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return
-                    fuchsia-city-return saffron-city-return cinnabar-island viridian-gym cerulean-cave],
+                    fuchsia-city-return saffron-city-return cinnabar-island-return viridian-gym
+                    cerulean-cave],
       game.windows.map { |win| win.slugs.last }
     assert game.windows.last.final?, "nothing closes the run but the League"
     assert_equal "Pewter Gym", game.windows.first.gym_name
@@ -22,7 +23,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 31, assigned.size
+    assert_equal 33, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
@@ -321,15 +322,28 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "Lt. Surge", ship.window.leader
   end
 
-  # Giovanni closes the last window. The Power Plant is walked long before him now, off the Surf
-  # sweep that ends at its door, so Grimer and Muk are already registered by the time this page
-  # comes round and the reminder is down to the Growlithe line and Ditto.
+  # The League owes no catch of its own and still carries a reminder: Moltres is the one bird the
+  # road up never passes, so it stands overdue on the last page before the Elite Four.
   test "a page can owe an Oak reminder without owing a single catch" do
-    gym = plan("leg-16")
+    league = plan("indigo-plateau")
 
-    refute gym.living?
-    assert gym.oak?
-    assert_equal %w[058 059 132], gym.earlier.map(&:dex)
+    refute league.living?
+    assert league.oak?
+    assert_equal %w[146], league.earlier.map(&:dex)
+  end
+
+  # Cinnabar is walked either side of the Pokémon Mansion, since the gym's door needs the Secret
+  # Key from inside it, and the Mansion is a page of its own like every other dungeon. All three
+  # sit inside Blaine's window rather than after it, so each owes what it holds: the lab takes the
+  # fossils, the Mansion is where Growlithe and Ditto live, and nothing is carried over to Viridian.
+  test "the fossils and the Mansion's own catches fall due by the badge they precede" do
+    lab, mansion, viridian = %w[leg-15 pokemon-mansion leg-17].map { |slug| plan(slug) }
+
+    assert_equal 7, lab.window.number, "Blaine's window, not Giovanni's"
+    assert_equal %w[138 140 142], lab.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[058 132], mansion.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[059], mansion.groups.find { |g| g.kind == :evolve }.tiles.map(&:dex)
+    refute viridian.any?, "and nothing is left owing on the page after the badge"
   end
 
   # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so

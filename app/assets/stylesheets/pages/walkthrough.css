@@ -1977,7 +1977,8 @@ a.pn-wt-route__card:hover {
 }
 /* An inline map key in a step, wearing the same dark chip the map pin and legend row give it, so
    "exit E3" in the prose and the E3 on the map read as one thing. Sized to sit in a line of body
-   copy without pushing the leading around. */
+   copy without pushing the leading around. A button, not a label: clicking it scrolls the page to
+   the map that draws the pin, so the browser's own button styling is stripped back to the chip. */
 .pn-wt-mark {
   display: inline-flex;
   align-items: center;
@@ -1985,6 +1986,7 @@ a.pn-wt-route__card:hover {
   min-width: 17px;
   padding: 2px 3px;
   margin: 0 1px;
+  border: 0;
   border-radius: 4px;
   background: #171622;
   color: #fbf5e6;
@@ -1992,6 +1994,20 @@ a.pn-wt-route__card:hover {
   font-size: 9px;
   line-height: 1;
   vertical-align: 1px;
+  cursor: pointer;
+}
+
+.pn-wt-mark:hover { background: var(--accent); }
+.pn-wt-mark:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
+
+/* A map jumped to from the prose lands under the sticky nav otherwise, and on a leg page under
+   the stop bar as well. Same allowance the bands themselves take. */
+.pn-mm-block {
+  scroll-margin-top: calc(var(--pn-nav-h, 68px) + 10px);
+}
+
+.pn-legsw-host .pn-mm-block {
+  scroll-margin-top: calc(var(--pn-nav-h, 68px) + var(--pn-legsw-h, 58px) + 10px);
 }
 
 /* On the gym's dark card the chip's own near-black ground vanishes, so it flips to the gym accent
@@ -2901,10 +2917,11 @@ a.pn-wt-route__card:hover {
   margin-top: 10px;
 }
 .pn-wt-gym__routebtn { margin-top: 0; }
-/* A tapped pin's hint sits above it and reaches past the map's own box. On a stop's page the map
-   frame keeps 40px of padding for exactly that; a gym's frame is the map's own size, so it lets the
-   hint out instead. The panel around it still clips, which is far enough away to be no clip at all.
-   Nothing else can spill: the canvas is capped at 100% of this frame. */
+/* A pin on the floor's edge, and any label a crowded row deals out of line, reach past the map's
+   own box. On a stop's page the map frame keeps 40px of padding for exactly that; a gym's frame is
+   the map's own size, so it lets them out instead. The panel around it still clips, which is far
+   enough away to be no clip at all. Nothing else can spill: the canvas is capped at 100% of this
+   frame, and a tapped pin's hint is fixed to the window rather than drawn in here. */
 .pn-wt-shot--gym { overflow: visible; }
 .pn-wt-shot--gym .pn-wt-shot__map-img {
   width: 100%;
@@ -2990,6 +3007,45 @@ a.pn-wt-route__card:hover {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
 }
+/* The Cinnabar quiz's answer key: six locked doors, each a yes or no. Buried in a sentence the
+   reader has to count along; as a row of numbered chips it is a thing to glance at mid-battle. */
+.pn-wt-quiz {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pn-wt-quiz__door {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 62px;
+  border: 2px solid var(--gym-accent);
+}
+
+.pn-wt-quiz__n {
+  padding: 3px 5px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: var(--gym-accent);
+  text-align: center;
+}
+
+.pn-wt-quiz__answer {
+  padding: 5px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  text-align: center;
+}
+
+.pn-wt-quiz__answer--yes { background: var(--gym-accent); }
+.pn-wt-quiz__answer--no { background: #fbf5e6; }
+
 .pn-wt-gym__pstep-text {
   flex: 1;
   min-width: 200px;

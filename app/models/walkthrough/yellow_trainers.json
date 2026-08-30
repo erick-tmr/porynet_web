@@ -3794,8 +3794,28 @@
       {
         "map": "route-20",
         "floor": "",
-        "marker": "trainer-25-7",
+        "marker": "trainer-24-12",
         "key": "T8",
+        "opp": "JR_TRAINER_F:16",
+        "cls": "JR_TRAINER_F",
+        "reward": 620,
+        "team": [
+          {
+            "dex": "118",
+            "lvl": 31
+          },
+          {
+            "dex": "119",
+            "lvl": 31
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/route-20-trainer-24-12.png"
+      },
+      {
+        "map": "route-20",
+        "floor": "",
+        "marker": "trainer-25-7",
+        "key": "T9",
         "opp": "BEAUTY:7",
         "cls": "BEAUTY",
         "reward": 2100,
@@ -3814,26 +3834,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/route-20-trainer-25-7.png"
-      },
-      {
-        "map": "route-20",
-        "floor": "",
-        "marker": "trainer-24-12",
-        "key": "T9",
-        "opp": "JR_TRAINER_F:16",
-        "cls": "JR_TRAINER_F",
-        "reward": 620,
-        "team": [
-          {
-            "dex": "118",
-            "lvl": 31
-          },
-          {
-            "dex": "119",
-            "lvl": 31
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/route-20-trainer-24-12.png"
       },
       {
         "map": "route-20",

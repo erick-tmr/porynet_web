@@ -22,6 +22,10 @@
   --mm-pokemon: var(--trade-purple);
   --mm-hidden: var(--neon-magenta);
   --mm-exit: var(--ink);
+  /* A hole is a one-way drop rather than a door, so it takes a hazard red of its own instead of
+     the exit's ink: two dark pins a few cells apart on the same Seafoam floor would read as one
+     kind of thing when only one of them can be walked back through. */
+  --mm-hole: #B8452F;
   --mm-done: var(--done-green);
   --mm-row-done: #E8F2EA;
   --mm-row-selected: #FFEDC5;
@@ -118,6 +122,7 @@
 .pn-mm-pill__swatch--trainer { background: var(--mm-trainer); }
 .pn-mm-pill__swatch--npc { background: var(--mm-npc); }
 .pn-mm-pill__swatch--exit { background: var(--mm-exit); }
+.pn-mm-pill__swatch--hole { background: var(--mm-hole); }
 
 .pn-mm-pill__swatch--item,
 .pn-mm-pill__swatch--pokemon,
@@ -189,10 +194,12 @@
 /* Wraps the canvas so a map can scroll sideways without the border box moving. A map is never
    drawn below 1x, whichever way round it is: squeezed into a phone column a deck's labels pile
    into each other and the picture stops being readable at all, so the frame scrolls instead. The
-   vertical padding gives a tapped marker's hint room to sit inside that frame, which clips
-   whatever leaves it. The horizontal padding is half a pin (28px), because a pin sits centred on
-   its tile: a doorway on the very edge of a map hangs half of itself past the picture, and without
-   the gutter those few pixels raise a scrollbar under a map that otherwise fits exactly. */
+   vertical padding gives the top and bottom rows of pins, and the labels a crowded row deals out
+   of line, room to sit inside that frame, which clips whatever leaves it. A tapped pin's hint no
+   longer needs it: that one is fixed to the window instead (see .pn-mm__hint). The horizontal
+   padding is half a pin (28px), because a pin sits centred on its tile: a doorway on the very edge
+   of a map hangs half of itself past the picture, and without the gutter those few pixels raise a
+   scrollbar under a map that otherwise fits exactly. */
 .pn-mm-viewport {
   min-width: 0;
   overflow-x: auto;
@@ -368,6 +375,12 @@
   box-shadow: 0 0 11px #171622bb, 2px 2px 0 var(--ink);
 }
 
+.pn-mm__pin--hole {
+  background: var(--mm-hole);
+  color: #fff;
+  box-shadow: 0 0 11px #b8452fbb, 2px 2px 0 var(--ink);
+}
+
 /* The hidden-item pin is the one that moves: it marks a tile the game shows nothing on. It stays
    small, at the size the walkthrough's own hidden-item pins have always been, because it sits on
    a single 16px map cell and a bigger dot would swallow the tiles around it. */
@@ -497,18 +510,24 @@
 .pn-mm[data-cat="pokemon"] .pn-mm__label-key { color: var(--mm-pokemon); }
 .pn-mm[data-cat="hidden"] .pn-mm__label-key { color: var(--mm-hidden); }
 .pn-mm[data-cat="exit"] .pn-mm__label-key { color: var(--mm-exit); }
+.pn-mm[data-cat="hole"] .pn-mm__label-key { color: var(--mm-hole); }
 
 /* --- hint popover -------------------------------------------------------- */
 
+/* Fixed to the window, not to the pin's corner of the map. A map that is wider than its column
+   scrolls inside its frame, and a scroll box clips whatever reaches past it, so a hint anchored
+   in there came out with its top sliced off. The controller measures the pin and this box and
+   writes the two coordinates (map_markers_controller.js): above the pin, or under it when there
+   is no room above, and never past a window edge, so the popover always draws whole and on top
+   of the map. */
 .pn-mm__hint {
-  position: absolute;
-  left: 0;
-  bottom: 26px;
+  position: fixed;
+  left: var(--hint-x, 0);
+  top: var(--hint-y, 0);
   z-index: 41;
   display: none;
   width: max-content;
-  max-width: 230px;
-  transform: translateX(-50%);
+  max-width: min(230px, calc(100vw - 24px));
   text-align: left;
   background: var(--ui-dark);
   border: 2px solid var(--neon-cyan);
@@ -517,27 +536,6 @@
 }
 
 .pn-mm.is-selected .pn-mm__hint { display: block; }
-
-/* A marker near the top edge has no room above it, so its hint drops below instead. This also
-   keeps top-row hints inside a landscape map's scroll frame, which clips what leaves it. */
-.pn-mm--hint-below .pn-mm__hint {
-  top: 26px;
-  bottom: auto;
-}
-
-/* Same idea sideways: a marker near the left or right edge would push its centred hint past the
-   map edge, which on a landscape map's scroll frame shows up as a stray horizontal scrollbar. So
-   an edge marker's hint opens inward (anchored to the marker) instead of straddling the border. */
-.pn-mm--hint-left .pn-mm__hint {
-  left: auto;
-  right: 0;
-  transform: none;
-}
-.pn-mm--hint-right .pn-mm__hint {
-  left: 0;
-  right: auto;
-  transform: none;
-}
 
 .pn-mm__hint-name {
   font-family: "Pixelify Sans", sans-serif;
@@ -652,6 +650,7 @@
 .pn-mm-legend__swatch--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__swatch--npc { background: var(--mm-npc); }
 .pn-mm-legend__swatch--exit { background: var(--mm-exit); }
+.pn-mm-legend__swatch--hole { background: var(--mm-hole); }
 .pn-mm-legend__swatch--item { background: var(--mm-item); border-radius: 50%; }
 .pn-mm-legend__swatch--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__swatch--hidden { background: var(--mm-hidden); border-radius: 50%; }
@@ -696,6 +695,7 @@
 .pn-mm-legend__chip--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__chip--hidden { background: var(--mm-hidden); border-radius: 50%; }
 .pn-mm-legend__chip--exit { background: var(--mm-exit); border-radius: 4px; }
+.pn-mm-legend__chip--hole { background: var(--mm-hole); border-radius: 4px; }
 
 .pn-mm-legend__name {
   flex: 1;
@@ -1100,6 +1100,10 @@
 }
 
 .pn-wt-stepmap__img { image-rendering: pixelated; }
+
+/* A boulder the app draws over a step's crop, since the floor itself is drawn without one: the
+   game hides every boulder below Seafoam 1F until the one above it falls. */
+.pn-wt-stepmap__boulder { image-rendering: pixelated; }
 
 .pn-wt-stepmap__cap {
   font-family: "VT323", monospace;

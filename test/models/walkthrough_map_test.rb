@@ -115,6 +115,8 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     legs = routed_maps.to_h { |area| [ area.name, area.route_legs.size ] }
 
     assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7,
+                   "seafoam-islands-1f" => 2, "seafoam-islands-b1f" => 2,
+                   "seafoam-islands-b2f" => 2, "seafoam-islands-b3f" => 4,
                    "fuchsia-city-gym" => 5, "saffron-city-gym" => 9 }, legs)
     assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
     assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
@@ -149,6 +151,27 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal [ 3 ], moon_stone.step_map.legs.map(&:n)
     assert_equal "walkthrough/yellow/maps/rocket-hideout-b2f.png", moon_stone.step_map.image
     refute_predicate hideout.steps.find { |step| step.n == 1 }, :step_map?, "the arcade has no maze"
+  end
+
+  # The other kind of drawn line: Seafoam's floors have no arrows, and what they draw is the way a
+  # boulder goes rather than the way the reader does. Same legs, same SVG, so a step that pushes
+  # one crops the floor to that push exactly as a maze step crops it to its ride.
+  test "a boulder push is drawn on the floor it crosses, and its step crops to it" do
+    seafoam = location("seafoam-islands")
+    b3f = seafoam.area_maps.find { |area| area.floor == "B3F" }
+    plug = seafoam.steps.find { |step| step.n == 8 }
+
+    assert_equal 4, b3f.route_legs.size, "two boulders moved for each of its two holes"
+    assert_equal [ 1, 2 ], plug.step_map.legs.map(&:n), "the step that moves the first pair"
+    assert_equal "walkthrough/yellow/maps/seafoam-islands-b3f.png", plug.step_map.image
+  end
+
+  test "every boulder step draws the push its prose describes" do
+    pushes = location("seafoam-islands").steps.select(&:step_map?)
+      .to_h { |step| [ step.n, [ step.step_map.legs.map(&:n) ] ] }
+
+    assert_equal({ 2 => [ [ 1 ] ], 3 => [ [ 1 ] ], 4 => [ [ 1 ] ], 8 => [ [ 1, 2 ] ],
+                   9 => [ [ 3, 4 ] ], 17 => [ [ 2 ] ], 18 => [ [ 2 ] ], 19 => [ [ 2 ] ] }, pushes)
   end
 
   # Only the maze steps. The rest of each floor's legs are corridor walks (in at the door, round
@@ -371,10 +394,12 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
     assert_equal [ %w[celadon-city celadon-city-return], %w[celadon-city surf-cleanups],
                    %w[celadon-city-return surf-cleanups], %w[cerulean-city surf-cleanups],
+                   %w[cinnabar-island cinnabar-island-return],
                    %w[fuchsia-city fuchsia-city-return], %w[pewter-city digletts-cave],
                    %w[route-10 route-10-south], %w[route-10 surf-cleanups],
                    %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],
                    %w[route-16-fly route-16], %w[route-2 digletts-cave],
+                   %w[route-20 route-20-west],
                    %w[route-4-mt-moon route-4], %w[route-6 surf-cleanups],
                    %w[saffron-city-return saffron-city],
                    %w[vermilion-city surf-cleanups], %w[vermilion-city vermilion-city-return],

@@ -39,7 +39,7 @@
       <% if area.route? %>
         <button type="button" class="pn-mm-toggle" aria-pressed="false"
                 data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
-          <%= t("walkthrough.ui.map_route") %>
+          <%= t("walkthrough.ui.map_route_#{area.route_kind}") %>
           <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
           <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
         </button>

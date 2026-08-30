@@ -312,6 +312,97 @@ describe("hint", () => {
   });
 });
 
+// The popover is fixed to the window and placed from the pin's own box, so the map's frame (which
+// has to clip, for a wide map to scroll inside it) can no longer cut its top off. jsdom does no
+// layout, so both boxes are stubbed: the pin is the zero-sized point a marker is, the hint is the
+// rendered popover. The window is jsdom's default 1024x768.
+describe("hint placement", () => {
+  const pinAt = (node, x, y) => {
+    node.getBoundingClientRect = () => ({ left: x, right: x, top: y, bottom: y, width: 0, height: 0 });
+  };
+  const hintSized = (node, width, height) => {
+    node.getBoundingClientRect = () => ({ left: 0, right: width, top: 0, bottom: height, width, height });
+  };
+  const placed = () => ({
+    x: el("hint-exit").style.getPropertyValue("--hint-x"),
+    y: el("hint-exit").style.getPropertyValue("--hint-y"),
+  });
+
+  const open = async (x, y, width = 200, height = 100) => {
+    await mount();
+    pinAt(el("m-exit"), x, y);
+    hintSized(el("hint-exit"), width, height);
+    el("hit-exit").click();
+    await flush();
+  };
+
+  it("centres the popover on its pin and sits it above the pin", async () => {
+    await open(500, 400);
+
+    expect(placed()).toEqual({ x: "400px", y: "274px" }); // 500 - 200 / 2, 400 - 26 - 100
+  });
+
+  it("drops the popover under a pin with no room above it", async () => {
+    await open(500, 60);
+
+    expect(placed()).toEqual({ x: "400px", y: "86px" }); // 60 + 26
+  });
+
+  it("holds a popover raised by a pin on the map's left edge inside the window", async () => {
+    await open(10, 400);
+
+    expect(placed().x).toBe("12px");
+  });
+
+  it("holds a popover raised by a pin on the map's right edge inside the window", async () => {
+    await open(1020, 400);
+
+    expect(placed().x).toBe("812px"); // 1024 - 200 - 12
+  });
+
+  it("holds a popover too tall for the space under its pin inside the window", async () => {
+    await open(500, 60, 200, 700);
+
+    expect(placed().y).toBe("56px"); // 768 - 700 - 12
+  });
+
+  it("keeps the popover on its pin while the page scrolls", async () => {
+    await open(500, 400);
+
+    pinAt(el("m-exit"), 500, 250);
+    window.dispatchEvent(new Event("scroll"));
+    await flush();
+
+    expect(placed().y).toBe("124px"); // 250 - 26 - 100
+  });
+
+  it("leaves a dismissed popover alone when the page scrolls", async () => {
+    await open(500, 400);
+
+    el("layer").click();
+    await flush();
+    pinAt(el("m-exit"), 500, 250);
+    window.dispatchEvent(new Event("scroll"));
+    await flush();
+
+    expect(placed().y).toBe("274px");
+  });
+
+  it("stops following the page once the controller disconnects", async () => {
+    await open(500, 400);
+    const marker = el("m-exit");
+    const hint = el("hint-exit");
+
+    el("block").remove(); // triggers disconnect -> the scroll listener goes with it
+    await flush();
+    pinAt(marker, 500, 250);
+    window.dispatchEvent(new Event("scroll"));
+    await flush();
+
+    expect(hint.style.getPropertyValue("--hint-y")).toBe("274px");
+  });
+});
+
 describe("filters and labels", () => {
   it("shows one category at a time and marks the active pill", async () => {
     await mount();

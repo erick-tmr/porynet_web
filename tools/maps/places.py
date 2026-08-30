@@ -278,6 +278,27 @@ def parse_pokemon_types(root_str):
     return out
 
 
+# Each of Cinnabar's locked doors is a hidden event whose argument packs the correct answer above
+# the door's own number: `(answer << 4) | index` in data/events/hidden_events.asm. Read the bytes
+# and nothing else and you get the questions' truth values, which are not the answers: the game
+# compares that nibble against `wCurrentMenuItem`, and a yes/no menu answers YES with 0. So a door
+# whose statement is FALSE is opened by saying yes, and every one of the six comes out inverted
+# from what its constant is called.
+QUIZ_GATE = re.compile(r"hidden_event\s+\d+,\s*\d+,\s*PrintCinnabarQuiz,\s*\((TRUE|FALSE)")
+QUIZ_MENU = {"FALSE": "yes", "TRUE": "no"}
+
+
+def quiz_answers(root_str, map_const):
+    """How to answer a gym's quiz doors, in the order the doors are numbered, or None for a gym
+    that asks nothing. Only Cinnabar has them."""
+    body = sources.read_data(root_str, "data/events/hidden_events.asm")
+    block = re.search(rf"hidden_events_for {map_const}\n(.*?)\n\tdb -1", body, re.S)
+    if block is None:
+        return None
+    answers = [QUIZ_MENU[truth] for truth in QUIZ_GATE.findall(block.group(1))]
+    return answers or None
+
+
 def gym_facts(root_str, label, objects):
     """Badge, TM, leader and team types for a gym map, or None unless the map states all four.
     The leader is the map's first trainer object, which is how every gym lists them."""
@@ -288,9 +309,13 @@ def gym_facts(root_str, label, objects):
     if not (badge and tm and leader):
         return None
     name = sources.parse_trainer_classes(root_str)[leader["opp_class"]][1]
-    return {"badge": badge.group(1).title(), "tm": tm_display_name(root_str, tm.group(1)),
-            "leader": LEADER_FIXUPS.get(name, name.title()),
-            "types": _party_types(root_str, leader)}
+    facts = {"badge": badge.group(1).title(), "tm": tm_display_name(root_str, tm.group(1)),
+             "leader": LEADER_FIXUPS.get(name, name.title()),
+             "types": _party_types(root_str, leader)}
+    quiz = quiz_answers(root_str, sources.parse_headers(root_str)[label][0])
+    if quiz:
+        facts["quiz"] = quiz
+    return facts
 
 
 def _party_types(root_str, leader):

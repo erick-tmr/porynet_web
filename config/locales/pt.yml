@@ -257,9 +257,15 @@ pt:
       map_labels: "RÓTULOS:"
       map_labels_on: "SIM"
       map_labels_off: "NÃO"
-      map_route: "ROTA:"
-      step_map_cap: "O CAMINHO"
-      step_map_alt: "Planta do andar para o passo %{n}, com o caminho desenhado"
+      quiz_door: "PORTA %{n}"
+      quiz_yes: "SIM"
+      quiz_no: "NÃO"
+      map_route_ride: "ROTA:"
+      map_route_push: "EMPURRÕES:"
+      step_map_cap_ride: "O CAMINHO"
+      step_map_cap_push: "O EMPURRÃO"
+      step_map_alt_ride: "Planta do andar do passo %{n}, com o caminho desenhado"
+      step_map_alt_push: "Planta do andar do passo %{n}, com o empurrão da pedra desenhado"
       map_howto: "COMO USAR"
       map_howto_body: "Toque em qualquer pino, ou numa linha da legenda, para marcar. Uma dica aparece para confirmar; toque de novo para desfazer."
       map_legend: "LEGENDA"
@@ -296,6 +302,7 @@ pt:
       map_cat_item: "ITENS NO CHÃO"
       map_cat_hidden: "ITENS ESCONDIDOS"
       map_cat_exit: "SAÍDAS"
+      map_cat_hole: "BURACOS"
       map_done_trainer: "DERROTADO"
       map_done_pokemon: "ENFRENTADO"
       map_done_item: "PEGO"
@@ -321,6 +328,7 @@ pt:
       map_exit_east: "Sai pela borda leste."
       map_exit_west: "Sai pela borda oeste."
       map_exit_inner: "Uma porta dentro do mapa."
+      map_hole: "Um buraco no chão. Pise nele e você cai."
       map_place_gym: "Ginásio de %{leader}, time %{types}. Vença para levar a Insígnia %{badge} e o %{tm}."
       map_place_mart: "Poké Mart. Vende %{stock}."
       map_place_stock_more: "%{stock} e mais %{count}"
@@ -741,12 +749,14 @@ pt:
         leg_13:
           lead: "A Silph está limpa, então o ginásio abre. Sabrina primeiro, depois os três itens que esperavam pelo Surf."
         leg_14:
-          lead: "O mar aberto ao sul de Fuchsia, a oeste passando pelas Seafoam Islands até Cinnabar."
+          lead: "O mar aberto ao sul de Fuchsia, a oeste pela Rota 20 até a caverna sob as Seafoam Islands."
         leg_15:
-          lead: "Os fósseis de Cinnabar e a chave da Pokémon Mansion, depois a Insígnia Volcano do Blaine."
+          lead: "Saindo da caverna a oeste até Cinnabar, cujo laboratório recebe seus fósseis."
         leg_16:
-          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+          lead: "De volta pelo Blaine e a Insígnia Volcano, e então a longa água ao norte até Pallet."
         leg_17:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_18:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"
@@ -3033,8 +3043,8 @@ pt:
               title: "Siga para a Rota 20"
               text_html: "Siga ao sul até a praia lá embaixo, que abre a oeste %{west} para a Rota 20 e as Seafoam Islands."
         route_20:
-          note: "Água aberta até Cinnabar. Tentacool, Staryu, Shellder."
-          intro: "O canal longo rumo a oeste até Cinnabar, com as Seafoam Islands bem no meio dele. A caverna por baixo delas é o caminho, mas a água aberta contorna os dois lados."
+          note: "Metade leste do canal ao sul de Fuchsia. Tentacool, Staryu, Shellder."
+          intro: "O longo canal a oeste rumo a Cinnabar, com as Seafoam Islands no meio dele. Uma parede de rocha corta o mapa de cima a baixo ao lado delas, então a caverna embaixo é a única passagem."
           steps:
             "1":
               title: "Surfe a oeste"
@@ -3044,40 +3054,92 @@ pt:
               text_html: "As Seafoam Islands quebram a água no meio do caminho, e a caverna passa por baixo delas. Desembarque na ponta sudoeste da ilha e suba até a boca da caverna %{mouth}: o Articuno descansa lá no fundo."
         seafoam_islands:
           note: "Caverna com quebra-cabeça de pedras sob a Rota 20. Articuno selvagem dentro."
-          intro: "Cinco andares de caverna marinha com correntes correndo pelos mais fundos. Nenhum treinador, um quebra-cabeça de pedras e o Articuno no fim."
+          intro: "Cinco andares de caverna marinha, nenhum treinador e correntes que levam você embora até o Strength largar uma pedra no caminho. O Articuno mora no fundo, e a boca oposta abre para Cinnabar."
           steps:
             "1":
-              title: "Entre com Surf e Strength"
-              text: "Chegue surfando pela Rota 20 com os dois HMs: Surf para cruzar as correntes e Strength para empurrar as pedras que as contêm. Seel, Slowpoke, Shellder e Krabby rondam os andares."
+              title: "Leve os dois HMs, e conheça o reset"
+              text: "Surf cruza as correntes, Strength larga as pedras que as contêm. Entale uma na parede e nada se perde: saia do andar, volte, e as pedras voltam ao lugar. As que já caíram ficam embaixo."
             "2":
-              title: "Contenha as correntes descendo"
-              text: "Desça pelo 1F e pelo B1F empurrando cada pedra nos buracos das correntes para a água abaixo parar de correr. Cada corrente contida abre mais um trecho de Surf, levando você firme até o B2F."
+              title: "Empurre a primeira pedra no buraco"
+              text_html: "Entrando pela boca oeste %{mouth}, siga a nordeste até a câmara do meio. Empurre a pedra dali um quadrado a oeste e quatro ao norte, para dentro do buraco %{hole}. Depois pise nele e caia."
             "3":
-              title: "Embolse o Nugget oculto"
-              text: "No B2F, cruze até o chão aberto da caverna no centro-baixo do andar. Pare um quadrado a oeste de um azulejo comum e aperte A virado para leste para um Nugget oculto, que rende uma boa grana em qualquer Mart."
-              hidden:
-                nugget: "B2F, no chão aberto do centro-baixo. Vire para leste e aperte A. Nada aparece na tela."
+              title: "Mande a pedra descer de novo"
+              text_html: "Você e a pedra caem no B1F ao lado do próximo buraco %{hole}. Empurre a pedra um quadrado a leste, para dentro dele, e pule atrás dela."
             "4":
-              title: "Desenterre o Max Elixir"
-              text: "Descendo ao B3F, vá até o amontoado de pedras no canto sudoeste. Logo ao sul delas, aperte A virado para o norte no chão nu para um Max Elixir oculto, que recarrega todo o PP."
-              hidden:
-                max-elixir: "B3F, canto sudoeste logo abaixo das pedras. Vire para o norte e aperte A. Nada aparece na tela."
+              title: "Desça na correnteza até o B4F"
+              text_html: "De novo no B2F: um quadrado a leste joga a pedra em %{hole}. Siga atrás e você cai numa água rápida demais para nadar, que leva você direto ao B4F."
             "5":
-              title: "Capture o Articuno"
-              text: "O B4F abre na câmara do Articuno. Surfe até o pássaro de Gelo no canto noroeste (Nv 50) e salve antes de tocá-lo. Faça-o dormir ou paralise, depois jogue Ultra Balls."
-            "6":
-              title: "Varra o Ultra Ball do canto"
-              text: "Antes de subir de volta, varra o canto sudeste extremo do B4F. Ao lado das pedras ali, aperte A virado para o sul para um Ultra Ball oculto e reabasteça seu estoque de captura."
+              title: "Ache o Ultra Ball oculto"
+              text: "Quando a corrente soltar você, surfe a leste até a praia pequena. Aperte A virado para a rocha ao sul e um Ultra Ball oculto aparece: guarde para o pássaro que espera ao norte."
               hidden:
-                ultra-ball: "B4F, canto sudeste extremo ao lado das pedras. Vire para o sul e aperte A. Nada aparece na tela."
+                ultra-ball: "B4F, a praia pequena a leste de onde a corrente deixa você. Vire para a rocha ao sul e aperte A. Nada aparece na tela."
+            "6":
+              title: "Atravesse o platô até a escada"
+              text_html: "De volta à água, surfe ao norte e suba no platô. Siga a oeste até o extremo, depois desça ao sul para a câmara abaixo, onde a escada %{ladder} sobe ao B3F."
             "7":
-              title: "Saia da caverna"
-              text: "Com o Articuno capturado e os bolsos cheios, saia pela boca oeste no mar aberto. Cinnabar Island fica a um pequeno Surf a oeste, e Blaine guarda a sétima insígnia."
+              title: "Desenterre o Max Elixir"
+              text: "Descendo da escada no B3F, contorne ao sul e a leste pela borda, desça ao chão de baixo e siga a oeste. Aperte A virado para a rocha solitária ali: um Max Elixir oculto, PP cheio de novo."
+              hidden:
+                max-elixir: "B3F, a rocha solitária no chão de baixo, abaixo das quatro pedras. Vire para leste e aperte A. Nada aparece na tela."
+            "8":
+              title: "Tampe o buraco da esquerda"
+              text_html: "Quatro pedras e dois buracos ficam ali do seu lado. Empurre a segunda pedra da esquerda três quadrados a oeste, o que libera o caminho até a primeira; empurre essa um quadrado ao sul, no buraco %{hole}."
+            "9":
+              title: "Tampe o outro"
+              text_html: "Agora o par da direita. Empurre a pedra da direita ao norte, para o canto, e leve a da esquerda um quadrado ao sul, dois a oeste e mais um ao sul, para dentro do segundo buraco %{hole}."
+            "10":
+              title: "Caia atrás das pedras"
+              text: "Com os dois buracos tampados, a corrente do B4F morre, então desça por qualquer um deles. Desça antes das pedras e a água só joga você de volta no platô."
+            "11":
+              title: "Capture o Articuno"
+              text: "Surfe ao norte pelo canal e suba no platô lá em cima. O Articuno espera no Nv 50, um encontro e só. Salve antes, faça-o dormir ou paralise, e jogue Ultra Balls."
+            "12":
+              title: "Suba de volta ao B3F"
+              text_html: "Surfe de volta ao sul até a borda que corre a leste das pedras. Siga por ela, suba ao norte até a escada %{ladder} por onde você desceu e volte ao B3F."
+            "13":
+              title: "Atravesse o B3F até a outra escada"
+              text_html: "No platô de novo, contorne até o sul e pegue a outra escada %{ladder} deste andar para subir ao B2F."
+            "14":
+              title: "Embolse o Nugget oculto"
+              text: "Siga a leste pela parede sul do B2F. Aperte A virado para a rocha solitária encostada nela: um Nugget oculto, ¥5000 em qualquer Mart e nenhum outro uso."
+              hidden:
+                nugget: "B2F, a rocha solitária encostada na parede sul. Vire para leste e aperte A. Nada aparece na tela."
+            "15":
+              title: "Suba até o B1F"
+              text_html: "Suba no platô logo a leste da rocha e siga ao norte pelo andar até a escada %{ladder} no meio dele, que sai no B1F."
+            "16":
+              title: "De volta ao 1F"
+              text_html: "Desça do platô pelo sudoeste, atravesse o andar e suba no platô ao norte. A escada %{ladder} dele leva você de volta ao 1F."
+            "17":
+              title: "Comece a segunda pedra"
+              text_html: "Ande a leste pelo topo do 1F e desça na câmara do lado leste. Empurre a pedra dali dois quadrados a oeste e um ao norte, no buraco %{hole}, e caia atrás dela."
+            "18":
+              title: "Passe pelo B1F"
+              text_html: "Mesma rotina um andar abaixo: um quadrado a leste põe a pedra em %{hole}, e você entra logo atrás."
+            "19":
+              title: "E pelo B2F"
+              text_html: "No B2F o último buraco %{hole} fica a oeste da pedra. Empurre um quadrado para lá, caia atrás, e a corrente do B3F fica sem nada para levar você."
+            "20":
+              title: "Suba pelo lado leste até o 1F"
+              text_html: "Suba no platô do lado leste do B3F e pegue a escada sul %{first}. No B2F a próxima escada %{mid} fica alguns quadrados ao norte; no B1F, %{top} fica a sudoeste dela e sai no 1F."
+            "21":
+              title: "Saia pela boca leste"
+              text_html: "A boca leste %{mouth} está bem ali. Saia no lado oposto da Rota 20, além da parede de rocha que separa as duas metades dela."
           tips:
             articuno: "Um lendário Nv 50 de uma vez só. Salve antes, faça dormir/paralise, e use a Master Ball ou muitas Ultra Balls."
           oak:
             seel: "Uma captura de caverna → Dewgong, um sólido Água/Gelo. Pegue a base."
             articuno: "O lendário de Gelo de Seafoam. Só uma chance. Capture agora."
+        route_20_west:
+          note: "A metade depois das ilhas. Seis Swimmers, e então Cinnabar."
+          intro: "O mesmo canal do outro lado da parede de rocha, alcançado saindo da caverna e não surfando ao redor dela. Seis treinadores daqui até Cinnabar."
+          steps:
+            "1":
+              title: "De volta à água"
+              text_html: "Saindo pela boca oposta da caverna %{mouth}, desça até a beira e surfe a oeste. Uma Jr. Trainer boia logo ao lado da ilha, e mais cinco nadadores se espalham pelo canal."
+            "2":
+              title: "Surfe até Cinnabar"
+              text_html: "Siga a oeste passando pelo último deles. O canal abre em Cinnabar Island %{west}, onde o laboratório revive fósseis e o ginásio do Blaine guarda a sétima insígnia."
         power_plant:
           note: "Desvio opcional de Surf. Mons Elétricos, um Muk raro e o Zapdos."
           intro: "Uma usina abandonada saindo da Rota 10, acessível só com Surf. Treze Poké Balls estão no chão e oito delas são Voltorb disfarçados; o Zapdos pousa no fundo."
@@ -3140,7 +3202,7 @@ pt:
             intro: "Portas trancadas bloqueiam o caminho até o Blaine, cada uma aberta ao acertar um quiz ou vencer o treinador atrás dela. O Ninetales (Nv 48), o Rapidash (Nv 50) e o Arcanine (Nv 54) dele batem forte e rápido, então leve um atacante de Água, Pedra ou Terra e carregue Burn Heals."
             puzzle:
               "1": "Cada porta faz uma pergunta de sim ou não sobre Pokémon. Acerte e ela abre; erre e você batalha o treinador atrás dela, o que também a abre."
-              "2": "Se preferir não chutar, as respostas na ordem são sim, não, não, não, sim, não. Ou pule os quizzes e lute contra todos os treinadores; as portas abrem de qualquer jeito e os dois caminhos chegam ao fundo."
+              "2": "Aqui está a resposta de cada porta, na ordem em que você as encontra. Chutar custa só a luta atrás da porta que você errar, então os dois caminhos chegam ao fundo."
               "3": "A última porta se abre para o Blaine. Um único golpe forte de Água, Pedra ou Terra derruba o Ninetales, o Rapidash e o Arcanine dele num piscar."
           note: "Ginásio do Blaine. Volcano Badge. Laboratório de fósseis."
           intro: "Uma ilha vulcânica de uma rua só: um laboratório que revive fósseis, uma mansão incendiada e um ginásio cuja chave está em algum lugar dentro dela."
@@ -3148,28 +3210,33 @@ pt:
             muk:
               npc: "CIENTISTA"
               title: "Muk"
-              where: "A sala dos fósseis do Laboratório Pokémon"
+              where: "A Testing Room do Lab, o cientista lá no fundo"
               note: "Um Muk de nível alto sem grinding. Kangaskhan é uma captura na Zona Safári."
             rhydon:
               npc: "VELHINHO"
               title: "Rhydon"
-              where: "A sala de trocas do Laboratório Pokémon"
+              where: "A Meeting Room do Lab, o velho junto à parede oeste"
               note: "Um Rhydon trocado chega forte e ganha XP turbinado."
             dewgong:
               npc: "BELDADE"
               title: "Dewgong"
-              where: "A sala de trocas do Laboratório Pokémon"
+              where: "A Meeting Room do Lab, a Beauty junto ao balcão sul"
               note: "Dewgong por um Growlithe, com o bônus de XP de troca. Growlithe aparece na Mansão Pokémon ao lado."
           steps:
             "1":
-              title: "Limpe a Mansao primeiro"
-              text_html: "O ginasio de Blaine %{gym} esta trancado. Atravesse a rua ate a Pokémon Mansion %{mansion} e pegue a Secret Key."
+              title: "Troque na Meeting Room"
+              text_html: "Entre no Lab %{lab} e passe pela primeira porta. Um velho na Meeting Room troca um Rhydon pelo seu Golduck, e uma Beauty um Dewgong por um Growlithe, nenhum dos dois capturável em lugar nenhum."
             "2":
-              title: "Entregue um fossil, depois o Ginásio"
-              text_html: "Da um fossil ao cientista no Lab %{lab}, depois abra o ginasio com a Secret Key e resolva as portas de quiz ate Blaine. Agua, Terra ou Pedra derrete a equipe de Fogo dele."
+              title: "Pegue o TM35 na R-and-D Room"
+              text: "Na porta seguinte, um cientista dá o TM35 de graça. É o único TM da ilha, e Metronome dispara um golpe aleatório a cada turno."
+              items:
+                tm-metronome: "A R-and-D Room do Lab, com o cientista encostado na parede norte. Fale com ele uma vez."
             "3":
-              title: "Pegue seu fossil e siga em frente"
-              text: "Volte ao Lab depois pelo Pokémon fossil revivido, depois use Surf rumo a ultima insígnia."
+              title: "A Testing Room: fósseis e um Muk"
+              text: "A última porta. O cientista que anda por ela aceita um fóssil por vez e o guarda um tempo, então entregue o de Mt. Moon agora e o Old Amber depois. O cientista atrás troca um Muk por um Kangaskhan."
+            "4":
+              title: "Atravesse até a Mansion"
+              text_html: "O ginásio do Blaine %{gym} está trancado e a chave fica do outro lado da rua. A Pokémon Mansion %{mansion} queimada guarda a Secret Key, e tudo na ilha depende dela."
           tips:
             omanyte: "Reviva o Helix Fossil aqui → Omanyte, depois Omastar. Um Rocha/Água só assim."
             kabuto: "Reviva o Dome Fossil → Kabuto, depois Kabutops. A outra linha de fóssil."
@@ -3178,6 +3245,16 @@ pt:
             omanyte: "Reviva o fóssil que escolheu no Mt. Moon. Helix → Omanyte."
             kabuto: "Dome Fossil → Kabuto. Só dá para reviver o fóssil que você guardou."
             aerodactyl: "Old Amber do museu de Pewter → Aerodactyl. Registre o único espécime."
+        cinnabar_island_return:
+          note: "De volta pelo Blaine. Insígnia Volcano e TM38 Fire Blast."
+          intro: "A ilha de novo, com a Secret Key na mão. As portas de quiz do ginásio são tudo que separa você da sétima insígnia, e os fósseis já tiveram tempo de reviver."
+          steps:
+            "1":
+              title: "Abra o ginásio com a Secret Key"
+              text_html: "A chave destranca o ginásio %{gym} do outro lado da rua. Cada porta faz uma pergunta de sim ou não, e errar é uma batalha e não um beco sem saída, então de um jeito ou de outro você chega no Blaine."
+            "2":
+              title: "Pegue os fósseis e surfe ao norte"
+              text_html: "Passe no Lab %{lab} para buscar os Pokémon que seus fósseis reviveram, e saia pela costa norte %{north} rumo à Rota 21, a longa água até Pallet Town."
         pokemon_mansion:
           note: "Mansão incendiada. Tipos Fogo e a Secret Key."
           intro: "Uma mansão incendiada de escadas ocultas que abrem com botões-estátua. É no diário abandonado dela que a história do Mewtwo está escrita."
