@@ -120,7 +120,7 @@
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `cinnabar-island` step 1: walkthrough/yellow/scenes/cinnabar-lab-trades.png
-- `cinnabar-island` step 3: walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
+- `cinnabar-island` step 3: walkthrough/yellow/scenes/cinnabar-lab-aerodactyl.png
 - `digletts-cave` step 11: walkthrough/yellow/scenes/route-2-pewter-cut.png
 - `digletts-cave` step 12: walkthrough/yellow/scenes/pewter-museum-cut.png
 - `digletts-cave` step 13: walkthrough/yellow/scenes/museum-old-amber.png
@@ -216,7 +216,7 @@
 - `cerulean-north-nugget` (screen): walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cinnabar-gym-blaine` (screen): walkthrough/yellow/scenes/cinnabar-gym-blaine.png
 - `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
-- `cinnabar-lab-fossil-handover` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
+- `cinnabar-lab-aerodactyl` (screen): walkthrough/yellow/scenes/cinnabar-lab-aerodactyl.png
 - `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
 - `cinnabar-lab-item-tm-metronome` (dialog): walkthrough/yellow/scenes/cinnabar-lab-item-tm-metronome.png
 - `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png

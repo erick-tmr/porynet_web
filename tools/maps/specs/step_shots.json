@@ -1158,7 +1158,7 @@
     "type": "screen",
     "slug": "cinnabar-island",
     "step": 3,
-    "name": "cinnabar-lab-fossil-handover",
+    "name": "cinnabar-lab-aerodactyl",
     "map": "CinnabarLabFossilRoom",
     "parent": "CINNABAR_ISLAND",
     "player": [
@@ -1170,6 +1170,12 @@
       5,
       3
     ],
-    "auto_npcs": true
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "It was AERODACTYL",
+        "like I think!"
+      ]
+    }
   }
 ]

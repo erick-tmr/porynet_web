@@ -1,0 +1,62 @@
+<% fw = Walkthrough::Yellow.fossil_wait %>
+<% k = "#{Walkthrough::Yellow::K}.fossil_wait" %>
+<section id="<%= fw.anchor %>" class="pn-wt-section">
+  <div class="pn-eyebrow-label">
+    <%= t("walkthrough.ui.trivia_eyebrow_tagged", tag: t("#{k}.tag")) %>
+  </div>
+  <h3 class="pn-wt-band__h3"><%= t("#{k}.title") %></h3>
+  <p class="pn-wt-trivia__intro"><%= t("#{k}.intro") %></p>
+
+  <div class="pn-fw">
+    <div class="pn-fw__head">
+      <span class="pn-fw__count"><%= fw.count %></span>
+      <span class="pn-fw__label"><%= t("#{k}.head") %></span>
+      <span class="pn-fw__quote"><%= t("#{k}.quote") %></span>
+    </div>
+
+    <div class="pn-fw__body">
+      <div class="pn-fw__steps">
+        <% fw.steps.each do |step| %>
+          <div class="pn-fw__step">
+            <span class="pn-fw__step-n"><%= step.n %></span>
+            <div class="pn-fw__step-text">
+              <b class="pn-fw__step-lead"><%= t(step.title_key) %></b>
+              <%= t(step.text_key) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-fw__cards">
+        <% fw.fossils.each do |fossil| %>
+          <figure class="pn-fw__card">
+            <%= r2_image_tag fossil.art, class: "pn-fw__card-art", loading: "lazy",
+                  alt: t("walkthrough.ui.fossil_card_alt", name: fossil.name) %>
+            <figcaption class="pn-fw__card-foot">
+              <%= r2_image_tag fossil.sprite, alt: "", class: "pn-fw__card-sprite", loading: "lazy" %>
+              <span class="pn-fw__card-name">
+                <%= fossil.name %>
+                <span class="pn-fw__card-line">
+                  <%= fossil.item %> · <%= fossil.height %> · <%= fossil.weight %>
+                </span>
+              </span>
+            </figcaption>
+          </figure>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="pn-fw__facts">
+    <% fw.facts.each do |fact| %>
+      <div class="pn-wt-trivia-row">
+        <span class="pn-wt-trivia-mark pn-wt-trivia-mark--<%= fact.state %>"><%= fact.mark %></span>
+        <span class="pn-wt-trivia-row__text"><%= t(fact.key) %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="pn-wt-trivia__note">
+    <span><%= t("#{k}.note") %></span>
+  </div>
+</section>
