@@ -3069,8 +3069,8 @@ pt:
               hidden:
                 ultra-ball: "B4F, a praia pequena a leste de onde a corrente deixa você. Vire para a rocha ao sul e aperte A. Nada aparece na tela."
             "6":
-              title: "Atravesse até a escada"
-              text_html: "De volta à água, surfe a oeste e desça na borda comprida que corta o andar. Siga até o extremo oeste e suba ao norte para a câmara acima, onde a escada %{ladder} sobe ao B3F."
+              title: "Atravesse o platô até a escada"
+              text_html: "De volta à água, surfe ao norte e suba no platô. Siga a oeste até o extremo, depois desça ao sul para a câmara abaixo, onde a escada %{ladder} sobe ao B3F."
             "7":
               title: "Desenterre o Max Elixir"
               text: "Descendo da escada no B3F, contorne ao sul e a leste pela borda, desça ao chão de baixo e siga a oeste. Aperte A virado para a rocha solitária ali: um Max Elixir oculto, PP cheio de novo."

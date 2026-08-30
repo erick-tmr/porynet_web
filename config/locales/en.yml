@@ -3069,8 +3069,8 @@ en:
               hidden:
                 ultra-ball: "B4F, the small shore east of where the current drops you. Face the rock to the south and press A. Nothing shows on-screen."
             "6":
-              title: "Cross to the ladder up"
-              text_html: "Back on the water, Surf west and step off onto the long ledge across the floor. Follow it to the west end and climb north into the chamber above, where the ladder %{ladder} goes up to B3F."
+              title: "Cross the plateau to the ladder"
+              text_html: "Back on the water, Surf north and climb onto the plateau. Follow it west to the far end, then drop south into the chamber below, where the ladder %{ladder} goes up to B3F."
             "7":
               title: "Dig out the Max Elixir"
               text: "Down from the ladder on B3F, work south and east along the ledge, drop to the floor below and follow it west. Press A facing the lone rock there for a hidden Max Elixir, a full PP refill."
