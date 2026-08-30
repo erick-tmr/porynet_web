@@ -363,7 +363,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   # portrait template is a map narrow enough that the column really does enlarge it, which is a
   # different page now.
   test "a narrow map keeps the split template beside its legend" do
-    visit "/walkthroughs/yellow/leg-16"
+    visit "/walkthroughs/yellow/leg-17"
     assert_selector ".pn-mm-layer.is-ready", minimum: 1
 
     assert_selector ".pn-mm-block[data-map-markers-map-value='viridian-gym'][data-map-orient='portrait']"

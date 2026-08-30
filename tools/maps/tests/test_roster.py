@@ -1,4 +1,6 @@
 import decks
+import follower
+import generators
 import locations
 import markers
 import roster
@@ -172,7 +174,11 @@ def test_the_hero_steps_off_a_tree_into_the_trainers_line(root):
 def test_no_where_scene_straddles_the_hero_across_a_hedge(root):
     """The Route 3 Bug Catcher (D) used to stand the hero at [19, 7], a cell open above but with
     its feet on the hedge; every where-scene now stands the hero on the tile the game would, its
-    lower-left really walkable."""
+    lower-left really walkable.
+
+    Open water counts, because a route swimmer is fought from a boat: the hero rides the surf
+    sprite there and the cell is one they can genuinely occupy. A hedge is neither, which is what
+    this is guarding."""
     _, specs = built(root)
     headers = sources.parse_headers(root)
     dims, _n, _f = sources.parse_map_constants(root)
@@ -180,8 +186,24 @@ def test_no_where_scene_straddles_the_hero_across_a_hedge(root):
     for spec in specs:
         const, tileset = headers[spec["map"]]
         _i, blocks_w, _h = dims[const]
-        assert markers.cell_is_standable(root, spec["map"], tileset, blocks_w, spec["player"]), \
+        footing = markers.cell_is_standable(root, spec["map"], tileset, blocks_w, spec["player"])
+        assert footing or generators.afloat(root, spec["map"], spec["player"]), \
             f"{spec['name']} straddles the hero at {spec['player']}"
+
+
+def test_a_swimmer_is_met_from_the_water_rather_than_the_nearest_shore(root, monkeypatch):
+    """Route 20's first swimmer floats twenty-six cells from the nearest dry land. Ranking footing
+    first and searching outward within each rank put the hero on that island, and the camera midway
+    between the two framed nothing but open sea: the whole sightline is tried under every footing
+    before the search widens, so the hero surfs up two cells in front instead."""
+    _, specs = built(root)
+    spec = next(s for s in specs if s["name"] == "route-20-trainer-87-8")
+
+    monkeypatch.setattr(follower, "FOLLOWER_SPRITE", "SPRITE_PIKACHU")   # what the build ships
+
+    assert spec["player"] == [87, 6]
+    assert spec["focus"] == [87, 7], "and the camera lands between the two rather than out at sea"
+    assert generators.hero_sprite(root, spec) == generators.PIKACHU_SURF_SPRITE
 
 
 def test_no_where_scene_stands_the_hero_on_another_object(root):

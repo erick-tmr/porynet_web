@@ -350,11 +350,15 @@ module Walkthrough
       # so the water west of the islands is a second pass over the same map rather than more of
       # the first: you leave by a different mouth than you came in by, and the six swimmers between
       # there and Cinnabar are ones the eastern half never reaches.
-      { slug: "leg-15", special: false,
-        locs: %w[route-20-west cinnabar-island pokemon-mansion cinnabar-island-return route-21] },
-      { slug: "leg-16", special: false, locs: %w[viridian-gym] },
+      { slug: "leg-15", special: false, locs: %w[route-20-west cinnabar-island] },
+      # A burnt-out four-floor maze of switches, walked once for the Secret Key: its own page, the
+      # way every other dungeon on the route gets one. It splits the island's two passes, which is
+      # the shape the island already has.
+      { slug: "pokemon-mansion", special: true, locs: %w[pokemon-mansion] },
+      { slug: "leg-16", special: false, locs: %w[cinnabar-island-return route-21] },
+      { slug: "leg-17", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-17", special: false, locs: %w[route-23] },
+      { slug: "leg-18", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze

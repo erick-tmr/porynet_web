@@ -35,7 +35,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 31 PARADAS"
+    assert_includes response.body, "A ROTA · 33 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -194,16 +194,25 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-band__title", text: "Route 11"
   end
 
-  test "a leg renders in Portuguese with a gym band, fossils and its leader" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-15", locale: :pt)
+  test "a leg renders in Portuguese with a gym band and its leader" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-16", locale: :pt)
 
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
-    assert_select ".pn-wt-tagpill--fossil"
     assert_select ".pn-wt-gym__leader-name", text: /\ABlaine\b/
+  end
+
+  # The island's first pass, which is the one the lab belongs to: Cinnabar is walked either side of
+  # the Pokémon Mansion, so the fossils, the three trades and everything the two modes ask for come
+  # a page before Blaine does.
+  test "the fossil lab renders in Portuguese with its trades and both mode chips" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15", locale: :pt)
+
+    assert_response :success
+    assert_select ".pn-wt-tagpill--fossil"
+    assert_select ".pn-wt-trade__tag", text: "TROCA"
     assert_select ".pn-wt-oak__chip", text: "MODO DESAFIO OAK"
     assert_select ".pn-wt-ld__chip", text: "MODO LIVING DEX"
-    assert_select ".pn-wt-trade__tag", text: "TROCA"
   end
 
   test "a location renders its in-game trades with give and receive sprites" do
@@ -539,7 +548,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the endgame page names the League rather than a leader it does not have" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-17")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-18")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"

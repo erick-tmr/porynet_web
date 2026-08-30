@@ -748,10 +748,12 @@ en:
         leg_14:
           lead: "The open water south of Fuchsia, west along Route 20 to the cave under the Seafoam Islands."
         leg_15:
-          lead: "Out of the cave and west to Cinnabar, for its fossils, the Mansion key and Blaine's Volcano Badge."
+          lead: "Out of the cave and west to Cinnabar, whose lab takes your fossils in."
         leg_16:
-          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+          lead: "Back for Blaine and the Volcano Badge, then the long water north to Pallet."
         leg_17:
+          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+        leg_18:
           lead: "The badge-gated road to the Pokémon League and Victory Road."
       mew_glitch:
         meta_title: "The Mew Glitch · %{game} Walkthrough"

@@ -40,9 +40,14 @@ def hero_cell(root_str, map_label, grid, step):
     at every step, then dry land, then water: the hero stands on a tile whose lower half is really
     open ground rather than one that only clears above its feet (a hedge row the sprite would
     straddle), a gym swimmer's shot stays on the poolside rather than floating mid-pool, and open
-    water is still allowed last (a route swimmer is fought while surfing). A trainer boxed against
-    the wall it faces has nothing in front at all (a Game Corner Rocket), so the last resort is the
-    nearest such tile in any direction: off a solid tile beats in-frame.
+    water is still allowed last (a route swimmer is fought while surfing).
+
+    The whole sightline is tried under every footing before anything else is, which is what makes
+    that last clause true. Ranking footing first and searching outward within each rank put a
+    Route 20 swimmer's hero on the nearest island instead, twenty-six cells off, and the camera
+    midway between them framed nothing but open sea. A trainer boxed against the wall it faces has
+    nothing in front at all under any footing (a Game Corner Rocket), and only then does the search
+    widen to the nearest tile in any direction: off a solid tile beats in-frame.
 
     Another person or an item ball already holds its cell against you, so those are skipped too:
     the game blocks you from walking into one, and a shot that ignores that draws the hero on top of
@@ -59,10 +64,12 @@ def hero_cell(root_str, map_label, grid, step):
 
     line = [(grid[0] + step[0] * d, grid[1] + step[1] * d)
             for d in (PLAYER_CELLS, PLAYER_CELLS - 1, PLAYER_CELLS + 1)]
-    for predicate in (markers.cell_is_standable, markers.cell_is_land, markers.cell_is_walkable):
+    predicates = (markers.cell_is_standable, markers.cell_is_land, markers.cell_is_walkable)
+    for predicate in predicates:
         for x, y in line:
             if on(predicate, x, y):
                 return [x, y]
+    for predicate in predicates:
         for radius in range(1, max(w_cells, h_cells)):
             ring = [(grid[0] + dx, grid[1] + dy)
                     for dx in range(-radius, radius + 1) for dy in range(-radius, radius + 1)

@@ -748,10 +748,12 @@ pt:
         leg_14:
           lead: "O mar aberto ao sul de Fuchsia, a oeste pela Rota 20 até a caverna sob as Seafoam Islands."
         leg_15:
-          lead: "Saindo da caverna a oeste até Cinnabar, pelos fósseis, a chave da Mansion e a Insígnia Volcano do Blaine."
+          lead: "Saindo da caverna a oeste até Cinnabar, cujo laboratório recebe seus fósseis."
         leg_16:
-          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+          lead: "De volta pelo Blaine e a Insígnia Volcano, e então a longa água ao norte até Pallet."
         leg_17:
+          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+        leg_18:
           lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"

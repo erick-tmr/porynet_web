@@ -23,7 +23,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 31, assigned.size
+    assert_equal 33, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
@@ -333,16 +333,17 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   # Cinnabar is walked either side of the Pokémon Mansion, since the gym's door needs the Secret
-  # Key from inside it. That puts both the Mansion and the fossil lab inside Blaine's window rather
-  # than after it, so the Growlithe line and the three revived fossils fall due on the page that
-  # earns the badge instead of being carried over to Viridian.
-  test "the Mansion's own catches fall due by the badge it unlocks" do
-    blaine = plan("leg-15")
-    giovanni = plan("leg-16")
+  # Key from inside it, and the Mansion is a page of its own like every other dungeon. All three
+  # sit inside Blaine's window rather than after it, so each owes what it holds: the lab takes the
+  # fossils, the Mansion is where Growlithe and Ditto live, and nothing is carried over to Viridian.
+  test "the fossils and the Mansion's own catches fall due by the badge they precede" do
+    lab, mansion, viridian = %w[leg-15 pokemon-mansion leg-17].map { |slug| plan(slug) }
 
-    assert_equal %w[058 132 138 140 142], blaine.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
-    assert_equal %w[059 139 141], blaine.groups.find { |g| g.kind == :evolve }.tiles.map(&:dex)
-    refute giovanni.any?, "and nothing is left owing on the page after it"
+    assert_equal 7, lab.window.number, "Blaine's window, not Giovanni's"
+    assert_equal %w[138 140 142], lab.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[058 132], mansion.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[059], mansion.groups.find { |g| g.kind == :evolve }.tiles.map(&:dex)
+    refute viridian.any?, "and nothing is left owing on the page after the badge"
   end
 
   # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so
