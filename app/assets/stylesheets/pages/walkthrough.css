@@ -871,10 +871,18 @@ a.pn-wt-route__card:hover {
   aspect-ratio: 10 / 9;
 }
 .pn-wt-shot--step { aspect-ratio: 20 / 19; }
+/* A step usually shows one screen; a step whose instruction is two moves shows one per move,
+   side by side until the card runs out of room, then stacked. */
 .pn-wt-shot__side {
-  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   max-width: 100%;
   flex: none;
+}
+.pn-wt-shot__side > .pn-wt-shot {
+  width: 300px;
+  max-width: 100%;
 }
 .pn-wt-shot__img {
   position: absolute;
@@ -6801,6 +6809,162 @@ a.pn-wt-route__card:hover {
   .pn-sp__cols { grid-template-columns: 1fr; }
   .pn-sp__shots { width: 100%; }
   .pn-sp__shot { flex: 1 1 220px; width: auto; }
+}
+
+/* ---- the mansion diary: four pages, read before the floors they lie on ---- */
+.pn-md__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 400px);
+  gap: 34px;
+  align-items: start;
+  margin-top: 6px;
+}
+.pn-md__h3 { margin: 0; }
+.pn-md__card { margin: 0; }
+/* A printed card scan, not a game rip, so it wants smoothing against the global pixelated. */
+.pn-md__card-art {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  image-rendering: auto;
+}
+.pn-md__card-foot {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 12px;
+}
+.pn-md__card-sprite {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  object-fit: contain;
+}
+.pn-md__card-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.pn-md__card-line {
+  display: block;
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.pn-md__book {
+  margin-top: 34px;
+  background: var(--ink);
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+  overflow: hidden;
+}
+.pn-md__band {
+  position: relative;
+  height: 320px;
+}
+.pn-md__band-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The book sits below centre in the frame, so the crop is pulled up off its spine. */
+  object-position: center 42%;
+  image-rendering: auto;
+}
+/* Carries the photograph down into the page list rather than cutting it off at a seam. */
+.pn-md__band-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(23, 22, 34, 0) 38%, rgba(23, 22, 34, 0.86) 82%, var(--ink) 100%);
+}
+.pn-md__band-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 26px 20px;
+}
+.pn-md__band-kicker {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--neon-cyan);
+}
+.pn-md__band-title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-top: 10px;
+}
+
+.pn-md__pages { padding: 6px 26px 26px; }
+.pn-md__entry {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 2px solid rgba(251, 245, 230, 0.16);
+}
+.pn-md__entry:last-child {
+  border-bottom: 0;
+  padding-bottom: 4px;
+}
+.pn-md__when { text-align: right; }
+.pn-md__date {
+  font-family: "VT323", monospace;
+  font-size: 30px;
+  line-height: 1;
+}
+/* Two colours for two halves of the story: the expedition that found Mew, then Mewtwo. */
+.pn-md__date--mew { color: var(--neon-cyan); }
+.pn-md__date--mewtwo { color: var(--neon-magenta); }
+.pn-md__where {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #8fa6c8;
+  margin-top: 6px;
+}
+.pn-md__quote {
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  line-height: 1.3;
+  color: var(--cream);
+  margin: 0;
+}
+.pn-md__note {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #a9a6c0;
+  margin: 10px 0 0;
+  text-wrap: pretty;
+}
+
+@media (max-width: 900px) {
+  .pn-md__top { grid-template-columns: 1fr; }
+  /* The title takes three lines on a phone, so the band grows and its fade starts higher up:
+     at the desktop crop the kicker ends up on the lit part of the photograph, unreadable. */
+  .pn-md__band { height: 250px; }
+  .pn-md__band-title { font-size: 24px; }
+  .pn-md__band-fade {
+    background: linear-gradient(to bottom, rgba(23, 22, 34, 0) 12%, rgba(23, 22, 34, 0.9) 55%, var(--ink) 100%);
+  }
+  .pn-md__entry {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .pn-md__when { text-align: left; }
 }
 
 /* ---- the fossil "wait", which is two doorways ---- */

@@ -1177,5 +1177,119 @@
         "like I think!"
       ]
     }
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-mansion-1f-stairs",
+    "map": "PokemonMansion1F",
+    "player": [
+      5,
+      13
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          5,
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-mansion-2f-stairs",
+    "map": "PokemonMansion2F",
+    "player": [
+      6,
+      12
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          7,
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-mansion-hole",
+    "map": "PokemonMansion3F",
+    "player": [
+      16,
+      13
+    ],
+    "player_dir": "DOWN",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          16,
+          14
+        ]
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "name": "pokemon-mansion-switch-3f",
+    "map": "PokemonMansion3F",
+    "player": [
+      10,
+      6
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "dialog": {
+      "lines": [
+        "A secret switch!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "pokemon-mansion-switch-tm",
+    "map": "PokemonMansionB1F",
+    "player": [
+      18,
+      26
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "dialog": {
+      "lines": [
+        "A secret switch!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "pokemon-mansion-switch-beds",
+    "map": "PokemonMansionB1F",
+    "player": [
+      20,
+      4
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "dialog": {
+      "lines": [
+        "A secret switch!"
+      ]
+    }
   }
 ]

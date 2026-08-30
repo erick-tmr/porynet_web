@@ -401,14 +401,14 @@ module Walkthrough
     def view_box = box.join(" ")
   end
 
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map,
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shots, :link, :pins, :marks, :map,
     :dex_seen, :line, :step_map) do
-    def initialize(pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
+    def initialize(shots: [], pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
     def line? = !line.nil?
     def step_map? = !step_map.nil?
     def items? = items.any?
     def hidden? = hidden.any?
-    def shot? = !shot.nil?
+    def shots? = shots.any?
     def link? = !link.nil?
     def marks? = marks.any?
     def map? = !map.nil?
@@ -867,6 +867,15 @@ module Walkthrough
   # handing a fossil over sets EVENT_LAB_STILL_REVIVING_FOSSIL, and only CinnabarIsland_Script
   # clears it, so the whole "wait" is stepping onto the island map and back inside. `steps` is that
   # round trip, `fossils` the three specimens with their card art, `facts` the ✓/✕/– rows.
+  # The Pokémon Mansion's four diary pages, the only lines in the whole script that type out MEW
+  # or MEWTWO. `pages` are the entries in the order the maze walks you past them, and `mon` is
+  # Mew's own card, whose measurements come out of yellow_dex.json rather than the copy.
+  MansionDiary = Data.define(:anchor, :art, :card, :mon, :pages)
+  # `tone` is which half of the story the page belongs to, the expedition that found Mew or the
+  # thing they made from it, which is what the date's colour says before the words do.
+  DiaryPage = Data.define(:key, :tone)
+  DiaryMon = Data.define(:dex, :name, :species, :sprite, :height, :weight)
+
   FossilWait = Data.define(:anchor, :count, :steps, :fossils, :facts)
   FossilStep = Data.define(:n, :title_key, :text_key)
   FossilCard = Data.define(:dex, :name, :item, :art, :sprite, :height, :weight)

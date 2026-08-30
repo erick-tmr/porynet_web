@@ -306,9 +306,9 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, steps.size
     assert steps[1].hidden?
     refute steps[1].items?
-    refute steps[1].shot?
+    refute steps[1].shots?
     assert steps[2].items?
-    assert steps[2].shot?
+    assert steps[2].shots?
     refute steps[2].hidden?
   end
 
@@ -636,7 +636,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "route 1 step 1 shows the tall-grass direction shot" do
-    shot = loc("route-1").steps.first.shot
+    shot = loc("route-1").steps.first.shots.sole
     assert shot.map?
     assert_equal "walkthrough/yellow/scenes/route-1-north.png", shot.image
   end
@@ -720,6 +720,44 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[yes yes no na], fw.facts.map(&:state)
     assert_equal %w[✓ ✓ ✕ –], fw.facts.map(&:mark)
     assert_equal "walkthrough.yellow.fossil_wait.facts.flag", fw.facts.first.key
+  end
+
+  # Mew's line under the card prints the game's own dex measurements, so the metric half has to
+  # come out of yellow_dex.json rather than being retyped into the copy, the way the fossil cards
+  # already do. The species string is the cartridge's, typo and all.
+  test "the mansion diary prints Mew with the dex's own measurements" do
+    md = Walkthrough::Yellow.mansion_diary
+
+    assert_equal "mansion-diary", md.anchor
+    assert_equal "walkthrough/art/mansion-diary.png", md.art
+    assert_equal "walkthrough/art/mew-card.png", md.card
+    assert_equal "Mew", md.mon.name
+    assert_equal "pokemon/yellow/151.png", md.mon.sprite
+    assert_equal "NEW SPECIE POKéMON", md.mon.species
+    assert_equal [ "0.4 m", "4.1 kg" ], [ md.mon.height, md.mon.weight ]
+  end
+
+  # The four pages are dealt out in the order the maze walks you past them, and the date's colour
+  # is which half of the story it belongs to: the expedition that found Mew, then Mewtwo.
+  test "the diary lists its four pages in walking order, split at the birth" do
+    pages = Walkthrough::Yellow.mansion_diary.pages
+
+    assert_equal %w[mew mew mewtwo mewtwo], pages.map(&:tone)
+    assert_equal %w[jul_5 jul_10 feb_6 sep_1], pages.map { |page| page.key.split(".").last }
+    assert_equal [ "JULY 5", "JULY 10", "FEB. 6", "SEPT. 1" ],
+      pages.map { |page| I18n.t("#{page.key}.date") }
+  end
+
+  # Every page the section quotes is a map object the guide already pins, so the two cannot drift
+  # into disagreeing about how many pages the mansion holds or which floors they are on.
+  test "the diary quotes exactly the pages the mansion's maps pin" do
+    pinned = %w[pokemon-mansion-1f pokemon-mansion-2f pokemon-mansion-3f pokemon-mansion-b1f]
+      .flat_map { |name| Walkthrough::Yellow.npc_overlay.fetch(name, []) }
+      .select { |npc| npc["id"].start_with?("npc-diary") }
+
+    assert_equal 4, pinned.size
+    assert_equal pinned.map { |npc| npc["id"].delete_prefix("npc-diary-").tr("-", "_") },
+      Walkthrough::Yellow.mansion_diary.pages.map { |page| page.key.split(".").last }
   end
 
   # The section is about a wait the cartridge does not keep, so the three fossils it shows have to
@@ -883,7 +921,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   def declared_shots
     game.locations.flat_map do |loc|
-      loc.steps.flat_map { |s| [ [ "#{loc.slug} step #{s.n}", s.shot ] ] } +
+      loc.steps.flat_map { |s| s.shots.map { |shot| [ "#{loc.slug} step #{s.n}", shot ] } } +
         loc.steps.flat_map { |s| s.hidden.map { |h| [ "#{loc.slug} hidden #{h.name}", h ] } } +
         loc.later.map { |l| [ "#{loc.slug} later #{l.name}", l ] } +
         loc.trainers.flat_map { |t| [ [ "#{loc.slug} where #{t.name}", t.where ],
@@ -933,7 +971,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     superseded = { "mt-moon" => 10, "viridian-forest" => 3 }
 
     superseded.each do |slug, n|
-      shot = game.locations.find { |loc| loc.slug == slug }.steps[n - 1].shot
+      shot = game.locations.find { |loc| loc.slug == slug }.steps[n - 1].shots.first
       assert shot&.map?, "#{slug} step #{n} must carry the per-item frame that replaced the old one"
     end
   end
@@ -1056,10 +1094,10 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "an interior map fills a step's screenshot slot" do
     steps = loc("pallet-town").steps
-    assert steps.first.shot.map?
-    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", steps.first.shot.image
+    assert steps.first.shots.sole.map?
+    assert_equal "walkthrough/yellow/maps/reds-house-2f.png", steps.first.shots.sole.image
 
-    exit_shot = steps[3].shot
+    exit_shot = steps[3].shots.sole
     assert exit_shot.map?
     assert_equal "walkthrough/yellow/scenes/pallet-town-exit.png", exit_shot.image
 

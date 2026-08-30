@@ -1,0 +1,60 @@
+<%# The mansion's four diary pages, read before the steps that walk past them. Mew's own line
+    under the card is the game's (tools/maps/dex.py reads it out of the disassembly); the quotes
+    are the pages verbatim, and stay in the game's English in every locale. %>
+<% md = Walkthrough::Yellow.mansion_diary %>
+<% k = "#{Walkthrough::Yellow.base('pokemon-mansion')}.diary" %>
+<section id="<%= md.anchor %>" class="pn-wt-section">
+  <div class="pn-eyebrow-label">
+    <%= t("walkthrough.ui.trivia_eyebrow_tagged", tag: t("#{k}.tag")) %>
+  </div>
+
+  <div class="pn-md__top">
+    <div>
+      <h3 class="pn-wt-band__h3 pn-md__h3"><%= t("#{k}.title") %></h3>
+      <p class="pn-wt-trivia__intro"><%= t("#{k}.intro") %></p>
+    </div>
+
+    <figure class="pn-md__card">
+      <%= r2_image_tag md.card, alt: t("#{k}.card_alt"), class: "pn-md__card-art", loading: "lazy" %>
+      <figcaption class="pn-md__card-foot">
+        <%= r2_image_tag md.mon.sprite, alt: "", class: "pn-md__card-sprite", loading: "lazy" %>
+        <span class="pn-md__card-name">
+          <%= md.mon.name %>
+          <span class="pn-md__card-line">
+            #<%= md.mon.dex %> · <%= md.mon.species %> · <%= md.mon.height %> · <%= md.mon.weight %>
+          </span>
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="pn-md__book">
+    <div class="pn-md__band">
+      <%= r2_image_tag md.art, alt: t("#{k}.art_alt"), class: "pn-md__band-img", loading: "lazy" %>
+      <div class="pn-md__band-fade" aria-hidden="true"></div>
+      <div class="pn-md__band-text">
+        <div class="pn-md__band-kicker"><%= t("#{k}.band_kicker") %></div>
+        <div class="pn-md__band-title"><%= t("#{k}.band_title") %></div>
+      </div>
+    </div>
+
+    <div class="pn-md__pages">
+      <% md.pages.each do |page| %>
+        <div class="pn-md__entry">
+          <div class="pn-md__when">
+            <div class="pn-md__date pn-md__date--<%= page.tone %>"><%= t("#{page.key}.date") %></div>
+            <div class="pn-md__where"><%= t("#{page.key}.where") %></div>
+          </div>
+          <div>
+            <p class="pn-md__quote"><%= t("#{page.key}.quote") %></p>
+            <p class="pn-md__note"><%= t("#{page.key}.note") %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pn-wt-trivia__note">
+    <span><%= t("#{k}.note") %></span>
+  </div>
+</section>

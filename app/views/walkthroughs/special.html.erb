@@ -48,6 +48,10 @@
   <% end %>
 <% else %>
   <% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
+  <%# The diary is what the mansion is remembered for, and its four pages are scattered over the
+      floors the steps cross, so it is read once between the maps and the walk rather than four
+      times in passing. %>
+  <% if @location.slug == "pokemon-mansion" %><%= render "mansion_diary" %><% end %>
   <%= render "steps_section", loc: @location, steps: @location.lead_steps, heading: true %>
 <% end %>
 

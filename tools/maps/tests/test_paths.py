@@ -549,3 +549,31 @@ def test_the_power_plant_sweeps_the_machine_hall_before_the_rooms_below_it(root)
         (9, 20), (32, 18), (25, 18), (21, 25), (26, 28), (23, 34), (37, 32)]
     assert [items[key]["name"] for key in ("I1", "I2", "I3")] == [
         "Carbos", "TM Reflect", "TM Thunder"]
+
+
+def test_the_mansion_is_lettered_by_its_statues_rather_than_its_stairs(root):
+    """Four floors of gates wired to one switch, and every statue in the place flips it: the set
+    standing open shuts as the shut set opens. None of that reaches the flood, because the
+    blueprint ships every gate open and the map scripts drop them in at load, so it strolls between
+    halves of the mansion that never meet.
+
+    1F is the plainest case. The front door reaches the pillared hall and the north corridor and
+    nothing else; the Scientist, the Carbos and the stairs down sit in a southeast quarter you only
+    ever arrive in by falling through 3F, so the Carbos letters behind the Escape Rope rather than
+    ahead of it. 3F is climbed twice, on the stairs beside 2F's for the Burglar and the lane down
+    the west side, then on the northwest stairs for the Iron, which has to be taken before the
+    statue beyond it seals the way back east. B1F runs on statues too: TM14 and the Burglar in the
+    room off the hall, the Full Restore along the corridor that room's statue opens, the Scientist
+    the same press unbars, and the last four off the corridor the statue in the beds runs west."""
+    def balls(label, floor, keys):
+        drawn = pins(root, label, floor, cat="item")
+        return [drawn[key]["name"] for key in keys]
+
+    assert balls("PokemonMansion1F", "1F", ("I1", "I2")) == ["Escape Rope", "Carbos"]
+    assert balls("PokemonMansion3F", "3F", ("I1", "I2")) == ["Max Potion", "Iron"]
+    assert lettered(root, "PokemonMansion3F", "3F") == [
+        ("T1", "BURGLAR:8"), ("T2", "SCIENTIST:12")]
+    assert balls("PokemonMansionB1F", "B1F", ("I1", "I2", "I3", "I4", "I5")) == [
+        "TM Blizzard", "Full Restore", "Rare Candy", "TM Solarbeam", "Secret Key"]
+    assert lettered(root, "PokemonMansionB1F", "B1F") == [
+        ("T1", "BURGLAR:9"), ("T2", "SCIENTIST:13")]

@@ -51,8 +51,10 @@
         <% end %>
       </div>
 
-      <% if step.shot? %>
-        <div class="pn-wt-shot__side"><%= render "shot", shot: step.shot %></div>
+      <% if step.shots? %>
+        <div class="pn-wt-shot__side">
+          <% step.shots.each do |shot| %><%= render "shot", shot: shot %><% end %>
+        </div>
       <% end %>
     </div>
   </div>

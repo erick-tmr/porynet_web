@@ -3305,24 +3305,9 @@
             "lane": 0
           },
           {
-            "id": "item-18-21",
-            "cat": "item",
-            "key": "I1",
-            "x": 61.667,
-            "y": 76.786,
-            "grid": [
-              18,
-              21
-            ],
-            "align": "r",
-            "name": "Carbos",
-            "ref": "CARBOS",
-            "lane": 0
-          },
-          {
             "id": "item-14-3",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 48.333,
             "y": 12.5,
             "grid": [
@@ -3332,6 +3317,21 @@
             "align": "r",
             "name": "Escape Rope",
             "ref": "ESCAPE_ROPE",
+            "lane": 0
+          },
+          {
+            "id": "item-18-21",
+            "cat": "item",
+            "key": "I2",
+            "x": 61.667,
+            "y": 76.786,
+            "grid": [
+              18,
+              21
+            ],
+            "align": "r",
+            "name": "Carbos",
+            "ref": "CARBOS",
             "lane": 0
           },
           {
@@ -3564,24 +3564,9 @@
             "lane": 0
           },
           {
-            "id": "item-25-5",
-            "cat": "item",
-            "key": "I1",
-            "x": 85.0,
-            "y": 30.556,
-            "grid": [
-              25,
-              5
-            ],
-            "align": "l",
-            "name": "Iron",
-            "ref": "IRON",
-            "lane": 0
-          },
-          {
             "id": "item-1-16",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 5.0,
             "y": 91.667,
             "grid": [
@@ -3591,6 +3576,21 @@
             "align": "r",
             "name": "Max Potion",
             "ref": "MAX_POTION",
+            "lane": 0
+          },
+          {
+            "id": "item-25-5",
+            "cat": "item",
+            "key": "I2",
+            "x": 85.0,
+            "y": 30.556,
+            "grid": [
+              25,
+              5
+            ],
+            "align": "l",
+            "name": "Iron",
+            "ref": "IRON",
             "lane": 0
           },
           {
@@ -3701,24 +3701,9 @@
         "name": "pokemon-mansion-b1f",
         "markers": [
           {
-            "id": "trainer-27-11",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 91.667,
-            "y": 41.071,
-            "grid": [
-              27,
-              11
-            ],
-            "align": "l",
-            "name": "Scientist",
-            "ref": "SCIENTIST:13",
-            "lane": 0
-          },
-          {
             "id": "trainer-16-23",
             "cat": "trainer",
-            "key": "T2",
+            "key": "T1",
             "x": 55.0,
             "y": 83.929,
             "grid": [
@@ -3729,6 +3714,21 @@
             "name": "Burglar",
             "ref": "BURGLAR:9",
             "lane": 1
+          },
+          {
+            "id": "trainer-27-11",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 91.667,
+            "y": 41.071,
+            "grid": [
+              27,
+              11
+            ],
+            "align": "l",
+            "name": "Scientist",
+            "ref": "SCIENTIST:13",
+            "lane": 0
           },
           {
             "id": "item-19-25",
@@ -3761,18 +3761,18 @@
             "lane": 0
           },
           {
-            "id": "item-5-13",
+            "id": "item-10-2",
             "cat": "item",
             "key": "I3",
-            "x": 18.333,
-            "y": 48.214,
+            "x": 35.0,
+            "y": 8.929,
             "grid": [
-              5,
-              13
+              10,
+              2
             ],
             "align": "r",
-            "name": "Secret Key",
-            "ref": "SECRET_KEY",
+            "name": "Rare Candy",
+            "ref": "RARE_CANDY",
             "lane": 0
           },
           {
@@ -3791,18 +3791,18 @@
             "lane": 0
           },
           {
-            "id": "item-10-2",
+            "id": "item-5-13",
             "cat": "item",
             "key": "I5",
-            "x": 35.0,
-            "y": 8.929,
+            "x": 18.333,
+            "y": 48.214,
             "grid": [
-              10,
-              2
+              5,
+              13
             ],
             "align": "r",
-            "name": "Rare Candy",
-            "ref": "RARE_CANDY",
+            "name": "Secret Key",
+            "ref": "SECRET_KEY",
             "lane": 0
           },
           {
@@ -21223,6 +21223,42 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "pokemon-mansion-1f-stairs": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-1f-stairs.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-2f-stairs": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-2f-stairs.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-hole": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-hole.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "pokemon-mansion-switch-3f": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-switch-3f.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-mansion-switch-tm": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-switch-tm.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "pokemon-mansion-switch-beds": {
+      "image": "walkthrough/yellow/scenes/pokemon-mansion-switch-beds.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     },
     "route-2-trade-house": {
       "image": "walkthrough/yellow/scenes/route-2-trade-house.png",

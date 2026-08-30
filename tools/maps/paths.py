@@ -245,10 +245,30 @@ ROUTES = {
     # to the stairs down. Distance from the door alone hands them over the other way round.
     "PokemonTower6F": ("exit-18-9", "trainer-12-10", "item-14-14",
                        "trainer-16-5", "trainer-9-5", "item-6-8"),
-    "PokemonMansion1F": ("exit-4-27", "item-18-21", "hidden-8-16", "item-14-3"),
-    "PokemonMansion3F": ("exit-7-10", "item-25-5", "item-1-16", "hidden-1-9"),
+    # Four floors of gates wired to a single flag, and every statue in the place flips it: one set
+    # of doors opens as the other shuts. The flood sees none of that, because the blueprint ships
+    # with every gate standing open and the scripts drop them in at map load, so it strolls across
+    # halves of the mansion that are sealed off from each other. Each floor names its own way
+    # round instead.
+    #
+    # 1F is walked twice and only once on foot. The front door reaches the pillared hall and the
+    # north corridor, and that is all it ever reaches; the southeast quarter, with the Scientist,
+    # the Carbos and the stairs down, is arrived at by falling through 3F's hole.
+    "PokemonMansion1F": ("exit-4-27", "hidden-8-16", "item-14-3", "trainer-17-17", "item-18-21"),
+    # Also two visits, up two different staircases. In beside 2F's for the Burglar at the top of
+    # them, the rock at the end of the narrow west path and the Max Potion in the corner below it;
+    # back later up the northwest stairs for the Iron, and only then the statue beside it, which
+    # seals the way east behind you and opens the way south to the Scientist and the holes.
+    "PokemonMansion3F": ("exit-7-10", "trainer-5-11", "hidden-1-9", "item-1-16",
+                         "exit-6-1", "item-25-5", "trainer-20-11"),
+    # One staircase, and the order is the statues' rather than the door's. TM14 sits in the room
+    # off the hall with a statue beside it, and pressing that one shuts the way you came in and
+    # opens the room's west door, past the Burglar, along to the Full Restore and round to the
+    # Scientist. The statue in the beds opens the north corridor westward, and the last four come
+    # off it: the Rare Candy, TM22, then the Secret Key room with its buried second candy.
     "PokemonMansionB1F": (
-        "exit-23-22", "item-19-25", "item-1-22", "item-5-13", "hidden-1-9", "item-5-4", "item-10-2"
+        "exit-23-22", "item-19-25", "trainer-16-23", "item-1-22", "trainer-27-11",
+        "item-10-2", "item-5-4", "item-5-13", "hidden-1-9"
     ),
     # Eleven floors, and the flood reads almost none of them the way they are walked. The lift
     # skips 1F for 5F and the Card Key, so 2F and the first half of 5F are entered from the lift

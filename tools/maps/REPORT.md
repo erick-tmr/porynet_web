@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **47** (map/scene in a step slot)
-- standalone scenes: **286** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **292** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -258,9 +258,12 @@
 - `pewter-heal-prep` (screen): walkthrough/yellow/scenes/pewter-heal-prep.png
 - `pewter-jigglypuff` (screen): walkthrough/yellow/scenes/pewter-jigglypuff.png
 - `pewter-museum-cut` (screen): walkthrough/yellow/scenes/pewter-museum-cut.png
+- `pokemon-mansion-1f-stairs` (screen): walkthrough/yellow/scenes/pokemon-mansion-1f-stairs.png
+- `pokemon-mansion-2f-stairs` (screen): walkthrough/yellow/scenes/pokemon-mansion-2f-stairs.png
 - `pokemon-mansion-hidden-max-revive` (dialog): walkthrough/yellow/scenes/pokemon-mansion-hidden-max-revive.png
 - `pokemon-mansion-hidden-moon-stone` (dialog): walkthrough/yellow/scenes/pokemon-mansion-hidden-moon-stone.png
 - `pokemon-mansion-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/pokemon-mansion-hidden-rare-candy.png
+- `pokemon-mansion-hole` (screen): walkthrough/yellow/scenes/pokemon-mansion-hole.png
 - `pokemon-mansion-item-calcium` (screen): walkthrough/yellow/scenes/pokemon-mansion-item-calcium.png
 - `pokemon-mansion-item-carbos` (screen): walkthrough/yellow/scenes/pokemon-mansion-item-carbos.png
 - `pokemon-mansion-item-escape-rope` (screen): walkthrough/yellow/scenes/pokemon-mansion-item-escape-rope.png
@@ -271,6 +274,9 @@
 - `pokemon-mansion-item-secret-key` (screen): walkthrough/yellow/scenes/pokemon-mansion-item-secret-key.png
 - `pokemon-mansion-item-tm-blizzard` (screen): walkthrough/yellow/scenes/pokemon-mansion-item-tm-blizzard.png
 - `pokemon-mansion-item-tm-solarbeam` (screen): walkthrough/yellow/scenes/pokemon-mansion-item-tm-solarbeam.png
+- `pokemon-mansion-switch-3f` (dialog): walkthrough/yellow/scenes/pokemon-mansion-switch-3f.png
+- `pokemon-mansion-switch-beds` (dialog): walkthrough/yellow/scenes/pokemon-mansion-switch-beds.png
+- `pokemon-mansion-switch-tm` (dialog): walkthrough/yellow/scenes/pokemon-mansion-switch-tm.png
 - `pokemon-tower-hidden-elixir` (dialog): walkthrough/yellow/scenes/pokemon-tower-hidden-elixir.png
 - `pokemon-tower-item-awakening` (screen): walkthrough/yellow/scenes/pokemon-tower-item-awakening.png
 - `pokemon-tower-item-elixir` (screen): walkthrough/yellow/scenes/pokemon-tower-item-elixir.png

@@ -287,6 +287,24 @@ module Walkthrough
     # The dex prints both units ("1'04\" (0.4 m)"); the line under a card has room for one.
     def self.dex_metric(fact) = fact[/\(([^)]+)\)/, 1]
 
+    # The four diary pages in the order the mansion walks you past them, with the half of the story
+    # each belongs to: the expedition that found Mew, then the thing they made from it.
+    DIARY_PAGES = { "jul_5" => "mew", "jul_10" => "mew",
+                    "feb_6" => "mewtwo", "sep_1" => "mewtwo" }.freeze
+
+    MEW_DEX = "151".freeze
+
+    def self.mansion_diary
+      b = "#{base('pokemon-mansion')}.diary"
+      entry = dex_facts.fetch(MEW_DEX)
+      MansionDiary.new(anchor: "mansion-diary", art: "walkthrough/art/mansion-diary.png",
+        card: "walkthrough/art/#{mon_key(MEW_DEX)}-card.png",
+        mon: DiaryMon.new(dex: MEW_DEX, name: NAMES.fetch(MEW_DEX),
+          species: entry.fetch("species"), sprite: "pokemon/yellow/#{MEW_DEX}.png",
+          height: dex_metric(entry.fetch("height")), weight: dex_metric(entry.fetch("weight"))),
+        pages: DIARY_PAGES.map { |key, tone| DiaryPage.new(key: "#{b}.pages.#{key}", tone: tone) })
+    end
+
     # The eight badges in case order, with what each one switches on: `boost` names the stat every
     # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
     # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym
@@ -1140,11 +1158,11 @@ module Walkthrough
         slug: "pallet-town", kind: "TOWN", name: "Pallet Town", order: 1, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shot: map_shot("pallet-town", 1, "STEP 1"),
+          step(b, 1, items: [ item(b, 1, "Potion", "potion") ], shots: [ map_shot("pallet-town", 1, "STEP 1") ],
             pins: { home: "pallet-town/exit-5-5" }),
           step(b, 2, pins: { north: "pallet-town/exit-north", lab: "pallet-town/exit-12-11" }),
           step(b, 3, html: true, link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)),
-          step(b, 4, shot: map_shot("pallet-town", 4, "STEP 4"), pins: { north: "pallet-town/exit-north" })
+          step(b, 4, shots: [ map_shot("pallet-town", 4, "STEP 4") ], pins: { north: "pallet-town/exit-north" })
         ],
         encounters: [
           enc("pallet-town", "025", "STARTER", "-", "5", "GIFT", "025", "026", tip: true),
@@ -1172,7 +1190,7 @@ module Walkthrough
         slug: "route-1", kind: "ROUTE", name: "Route 1", order: 2, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: map_shot("route-1", 1, "STEP 1")),
+          step(b, 1, shots: [ map_shot("route-1", 1, "STEP 1") ]),
           step(b, 2, items: [ item(b, 2, "Potion", "potion") ], pins: { man: "route-1/npc-potion-sample" }),
           step(b, 3, pins: { north: "route-1/exit-north" })
         ],
@@ -1219,10 +1237,10 @@ module Walkthrough
         slug: "route-22", kind: "ROUTE", name: "Route 22", order: 4, badge: nil,
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: map_shot("route-22", 1, "STEP 1")),
+          step(b, 1, shots: [ map_shot("route-22", 1, "STEP 1") ]),
           step(b, 2, html: true, link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)),
-          step(b, 3, html: true, shot: map_shot("route-22", 3, "STEP 3")),
-          step(b, 4, shot: map_shot("route-22", 4, "STEP 4"))
+          step(b, 3, html: true, shots: [ map_shot("route-22", 3, "STEP 3") ]),
+          step(b, 4, shots: [ map_shot("route-22", 4, "STEP 4") ])
         ],
         encounters: [
           enc("route-22", "029", "GRASS", "30%", "2–4", "COMMON", "029", "030", "031", tip: true),
@@ -1306,7 +1324,7 @@ module Walkthrough
         slug: "pewter-city", kind: "CITY", name: "Pewter City", order: 7, badge: "BOULDER",
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          step(b, 1, shot: map_shot("pewter-city", 1, "STEP 1"),
+          step(b, 1, shots: [ map_shot("pewter-city", 1, "STEP 1") ],
             pins: { center: "pewter-city/exit-13-25", mart: "pewter-city/exit-23-17", gym: "pewter-city/exit-16-17" }),
           step(b, 2, pins: { east: "pewter-city/exit-east" })
         ],
@@ -1328,7 +1346,7 @@ module Walkthrough
         note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: steps.is_a?(Array) ? build_steps(b, steps, pins) : (1..steps).map { |i|
           step(b, i, pins: pins.fetch(i, {}),
-            shot: shots.include?(i) ? map_shot(slug, i, "STEP #{i}") : nil,
+            shots: shots.include?(i) ? [ map_shot(slug, i, "STEP #{i}") ] : [],
             items: key_items.fetch(i, []).map { |name, key| item(b, i, name, key) },
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
@@ -1353,8 +1371,19 @@ module Walkthrough
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
           items: step_items(base, n, d), map: d[:map], dex_seen: d[:dex_seen], line: d[:line],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
-          shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
+          shots: step_scenes(d[:scene], n), link: d[:link])
       end
+    end
+
+    # A step's GB screens. `scene:` is usually one frame name, labelled with the step it belongs
+    # to; a step that shows two things (the staircase you climb and the one you land beside) gives
+    # [name, label] pairs instead, so each frame is captioned with what it is rather than with a
+    # number both would share.
+    def self.step_scenes(scene, n)
+      return [] if scene.nil?
+      return [ scene_shot(scene, "STEP #{n}") ] if scene.is_a?(String)
+
+      scene.map { |name, label| scene_shot(name, label) }
     end
 
     def self.step_items(base, n, def_)
@@ -1669,7 +1698,7 @@ module Walkthrough
         steps: [
           step(b, 1, items: [ item(b, 1, "Bike Voucher", "bike_voucher"), item(b, 1, "Old Rod", "old_rod") ],
             pins: { center: "vermilion-city/exit-11-3", club: "vermilion-city/exit-9-13", guru: "vermilion-city/exit-7-3" }),
-          step(b, 2, shot: scene_shot("vermilion-ss-anne-dock", "STEP 2"),
+          step(b, 2, shots: [ scene_shot("vermilion-ss-anne-dock", "STEP 2") ],
             pins: { gym: "vermilion-city/exit-12-19", dock: "vermilion-city/exit-18-31" },
             link: StepLink.new(leg: "ss-anne", anchor: "ss-anne-step-1"))
         ],
@@ -1686,7 +1715,7 @@ module Walkthrough
         badge: "THUNDER", note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
           step(b, 1, pins: { gym: "vermilion-city/exit-12-19" }),
-          step(b, 2, shot: scene_shot("vermilion-squirtle", "STEP 2"),
+          step(b, 2, shots: [ scene_shot("vermilion-squirtle", "STEP 2") ],
             pins: { east: "vermilion-city/exit-east" })
         ], gym_after: 1,
         encounters: [ enc("vermilion-city", "007", "GIFT", "-", "10", "GIFT", "007", "008", "009",
@@ -2515,27 +2544,46 @@ module Walkthrough
     end
 
     def self.pokemon_mansion
+      b = base("pokemon-mansion")
       loc("pokemon-mansion", "BUILDING", "Pokémon Mansion", 46,
-        pins: { 5 => { up: "pokemon-mansion-1f/exit-5-10" },
-                6 => { up: "pokemon-mansion-2f/exit-7-10" },
-                10 => { down: "pokemon-mansion-1f/exit-21-23" } },
+        trivia: trivia(b, anchor: "mansion-switches", tagged: true,
+          pins: { landing: "pokemon-mansion-3f/npc-switch",
+                  beds: "pokemon-mansion-b1f/npc-switch-beds" }),
         steps: [
-          {},
-          { item: [ "Carbos", "carbos" ], scene: "pokemon-mansion-item-carbos" },
+          { pins: { door: "pokemon-mansion-1f/exit-4-27" } },
           { hidden: [ "Moon Stone", "moon-stone", "pokemon-mansion-hidden-moon-stone", "pokemon-mansion-moon-stone" ] },
           { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-mansion-item-escape-rope" },
-          { html: true },
-          { item: [ "Calcium", "calcium" ], scene: "pokemon-mansion-item-calcium", html: true },
-          { item: [ "Iron", "iron" ], scene: "pokemon-mansion-item-iron" },
-          { item: [ "Max Potion", "max-potion" ], scene: "pokemon-mansion-item-max-potion" },
+          { scene: [ [ "pokemon-mansion-1f-stairs", "1F" ], [ "pokemon-mansion-2f-stairs", "2F" ] ],
+            pins: { up: "pokemon-mansion-1f/exit-5-10", on: "pokemon-mansion-2f/exit-7-10" } },
+          { pins: { burglar: "pokemon-mansion-3f/trainer-5-11" } },
           { hidden: [ "Max Revive", "max-revive", "pokemon-mansion-hidden-max-revive", "pokemon-mansion-max-revive" ] },
-          { html: true },
+          { item: [ "Max Potion", "max-potion" ], scene: "pokemon-mansion-item-max-potion",
+            pins: { down: "pokemon-mansion-3f/exit-7-10" } },
+          { pins: { burglar: "pokemon-mansion-2f/trainer-3-17" } },
+          { item: [ "Calcium", "calcium" ], scene: "pokemon-mansion-item-calcium" },
+          { item: [ "Iron", "iron" ], scene: "pokemon-mansion-item-iron",
+            pins: { up: "pokemon-mansion-2f/exit-6-1" } },
+          { scene: "pokemon-mansion-switch-3f",
+            pins: { statue: "pokemon-mansion-3f/npc-switch",
+                    scientist: "pokemon-mansion-3f/trainer-20-11" } },
+          { scene: "pokemon-mansion-hole",
+            pins: { hole: "pokemon-mansion-3f/hole-16-14",
+                    right: "pokemon-mansion-3f/hole-19-14" } },
+          { pins: { scientist: "pokemon-mansion-1f/trainer-17-17" } },
+          { item: [ "Carbos", "carbos" ], scene: "pokemon-mansion-item-carbos",
+            pins: { down: "pokemon-mansion-1f/exit-21-23" } },
           { item: [ "TM Blizzard", "tm-blizzard" ], scene: "pokemon-mansion-item-tm-blizzard" },
+          { scene: "pokemon-mansion-switch-tm",
+            pins: { statue: "pokemon-mansion-b1f/npc-switch-tm",
+                    burglar: "pokemon-mansion-b1f/trainer-16-23" } },
           { item: [ "Full Restore", "full-restore" ], scene: "pokemon-mansion-item-full-restore" },
+          { scene: "pokemon-mansion-switch-beds",
+            pins: { scientist: "pokemon-mansion-b1f/trainer-27-11",
+                    statue: "pokemon-mansion-b1f/npc-switch-beds" } },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-mansion-item-rare-candy" },
+          { item: [ "TM Solarbeam", "tm-solarbeam" ], scene: "pokemon-mansion-item-tm-solarbeam" },
           { item: [ "Secret Key", "secret-key" ], scene: "pokemon-mansion-item-secret-key" },
           { hidden: [ "Rare Candy", "rare-candy", "pokemon-mansion-hidden-rare-candy", "pokemon-mansion-rare-candy" ] },
-          { item: [ "TM Solarbeam", "tm-solarbeam" ], scene: "pokemon-mansion-item-tm-solarbeam" },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-mansion-item-rare-candy" },
           {}
         ],
         encounters: [
@@ -3002,11 +3050,11 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {},
+    def self.step(base, n, items: [], hidden: [], shots: [], html: false, link: nil, pins: {},
                   map: nil, dex_seen: nil, line: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map, line: line,
+        items: items, hidden: hidden, shots: shots, link: link, pins: pins, map: map, line: line,
         dex_seen: dex_seen && dex_seen(base, n, *dex_seen))
     end
 
