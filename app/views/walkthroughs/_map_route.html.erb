@@ -1,0 +1,17 @@
+<%# The way round an arrow-tile floor, laid over the map in its own pixels. One polyline per leg,
+    each with an arrowhead on the cell it ends at, so a reader can see which way the ride goes and
+    tell two legs apart where they cross. Decoration over pins that already carry the letters, so
+    it is hidden from the accessibility tree. %>
+<svg class="pn-mm-route" viewBox="0 0 <%= area.width %> <%= area.height %>"
+     preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <% area.route_legs.each do |leg| %>
+    <g class="pn-mm-route__leg pn-mm-route__leg--<%= leg.hue %>">
+      <polyline class="pn-mm-route__casing" points="<%= leg.line %>"
+                vector-effect="non-scaling-stroke" />
+      <polyline class="pn-mm-route__line" points="<%= leg.line %>"
+                vector-effect="non-scaling-stroke" />
+      <path class="pn-mm-route__head" d="M0 0 L-9 -5 L-9 5 Z"
+            transform="translate(<%= leg.tip.first %> <%= leg.tip.last %>) rotate(<%= leg.heading %>)" />
+    </g>
+  <% end %>
+</svg>

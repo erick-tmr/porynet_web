@@ -20,6 +20,8 @@ const FIXTURE = `
             data-map-markers-target="filter" data-action="click->map-markers#filter"></button>
     <button id="toggle" class="pn-mm-toggle"
             data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels"></button>
+    <button id="route-toggle" class="pn-mm-toggle"
+            data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute"></button>
     <span id="counter" data-map-markers-target="counterDone">0</span>
 
     <div id="canvas" data-map-markers-target="canvas" data-action="click->map-markers#dismiss">
@@ -29,7 +31,7 @@ const FIXTURE = `
           <button id="hit-trainer" class="pn-mm__hit" data-action="click->map-markers#hit" aria-pressed="false"></button>
         </div>
         <div id="m-npc" class="pn-mm" data-map-markers-target="marker" data-role="marker"
-             data-marker-id="npc-technology" data-cat="npc" data-x="57.5" data-y="80.5" data-lane="0">
+             data-marker-id="npc-technology" data-cat="npc" data-x="57.5" data-y="80.5" data-lane="-2">
           <button id="hit-npc" class="pn-mm__hit" data-action="click->map-markers#hit"></button>
         </div>
         <div id="m-hidden" class="pn-mm" data-map-markers-target="marker" data-role="marker"
@@ -79,11 +81,28 @@ describe("placement", () => {
     expect(el("m-hidden").style.getPropertyValue("--lane")).toBe("1");
   });
 
+  it("sends a label's row out signed and its leader line's length unsigned", async () => {
+    await mount();
+
+    expect(el("m-npc").style.getPropertyValue("--lane")).toBe("-2");
+    expect(el("m-npc").style.getPropertyValue("--lane-rise")).toBe("2");
+    expect(el("m-hidden").style.getPropertyValue("--lane-rise")).toBe("1");
+  });
+
   it("flags a nudged label so it gets a leader line back to its pin", async () => {
     await mount();
 
     expect(has("m-hidden", "has-lane")).toBe(true); // lane 1
+    expect(has("m-npc", "has-lane")).toBe(true); // lane -2
     expect(has("m-trainer", "has-lane")).toBe(false); // lane 0
+  });
+
+  it("points the leader line up for a label dealt above its pin", async () => {
+    await mount();
+
+    expect(has("m-npc", "has-lane--up")).toBe(true); // lane -2
+    expect(has("m-hidden", "has-lane--up")).toBe(false); // lane 1
+    expect(has("m-trainer", "has-lane--up")).toBe(false); // lane 0
   });
 
   it("reveals the layer only once the markers have been placed", async () => {
@@ -215,7 +234,7 @@ describe("hint", () => {
     expect(has("m-hidden", "is-selected")).toBe(true);
   });
 
-  it("closes the hint when the same marker is clicked again", async () => {
+  it("closes the hint when the same signpost is clicked again", async () => {
     await mount();
 
     el("hit-exit").click();
@@ -225,6 +244,23 @@ describe("hint", () => {
     el("hit-exit").click();
     await flush();
     expect(has("m-exit", "is-selected")).toBe(false);
+  });
+
+  // A tickable marker's hint reports whether it is done, and the click that marks it done is
+  // always the second one on it. Closing on that click left the "beaten" half of the popover with
+  // no way to be seen at all: every click that opened a hint was a click that had just unticked.
+  it("keeps a tickable marker's hint up so it can report the tick that click just made", async () => {
+    await mount();
+
+    el("hit-trainer").click();
+    await flush();
+    expect(has("m-trainer", "is-selected")).toBe(true);
+    expect(has("m-trainer", "is-done")).toBe(true);
+
+    el("hit-trainer").click();
+    await flush();
+    expect(has("m-trainer", "is-selected")).toBe(true);
+    expect(has("m-trainer", "is-done")).toBe(false);
   });
 
   it("dismisses the hint when the bare map is clicked", async () => {
@@ -276,6 +312,97 @@ describe("hint", () => {
   });
 });
 
+// The popover is fixed to the window and placed from the pin's own box, so the map's frame (which
+// has to clip, for a wide map to scroll inside it) can no longer cut its top off. jsdom does no
+// layout, so both boxes are stubbed: the pin is the zero-sized point a marker is, the hint is the
+// rendered popover. The window is jsdom's default 1024x768.
+describe("hint placement", () => {
+  const pinAt = (node, x, y) => {
+    node.getBoundingClientRect = () => ({ left: x, right: x, top: y, bottom: y, width: 0, height: 0 });
+  };
+  const hintSized = (node, width, height) => {
+    node.getBoundingClientRect = () => ({ left: 0, right: width, top: 0, bottom: height, width, height });
+  };
+  const placed = () => ({
+    x: el("hint-exit").style.getPropertyValue("--hint-x"),
+    y: el("hint-exit").style.getPropertyValue("--hint-y"),
+  });
+
+  const open = async (x, y, width = 200, height = 100) => {
+    await mount();
+    pinAt(el("m-exit"), x, y);
+    hintSized(el("hint-exit"), width, height);
+    el("hit-exit").click();
+    await flush();
+  };
+
+  it("centres the popover on its pin and sits it above the pin", async () => {
+    await open(500, 400);
+
+    expect(placed()).toEqual({ x: "400px", y: "274px" }); // 500 - 200 / 2, 400 - 26 - 100
+  });
+
+  it("drops the popover under a pin with no room above it", async () => {
+    await open(500, 60);
+
+    expect(placed()).toEqual({ x: "400px", y: "86px" }); // 60 + 26
+  });
+
+  it("holds a popover raised by a pin on the map's left edge inside the window", async () => {
+    await open(10, 400);
+
+    expect(placed().x).toBe("12px");
+  });
+
+  it("holds a popover raised by a pin on the map's right edge inside the window", async () => {
+    await open(1020, 400);
+
+    expect(placed().x).toBe("812px"); // 1024 - 200 - 12
+  });
+
+  it("holds a popover too tall for the space under its pin inside the window", async () => {
+    await open(500, 60, 200, 700);
+
+    expect(placed().y).toBe("56px"); // 768 - 700 - 12
+  });
+
+  it("keeps the popover on its pin while the page scrolls", async () => {
+    await open(500, 400);
+
+    pinAt(el("m-exit"), 500, 250);
+    window.dispatchEvent(new Event("scroll"));
+    await flush();
+
+    expect(placed().y).toBe("124px"); // 250 - 26 - 100
+  });
+
+  it("leaves a dismissed popover alone when the page scrolls", async () => {
+    await open(500, 400);
+
+    el("layer").click();
+    await flush();
+    pinAt(el("m-exit"), 500, 250);
+    window.dispatchEvent(new Event("scroll"));
+    await flush();
+
+    expect(placed().y).toBe("274px");
+  });
+
+  it("stops following the page once the controller disconnects", async () => {
+    await open(500, 400);
+    const marker = el("m-exit");
+    const hint = el("hint-exit");
+
+    el("block").remove(); // triggers disconnect -> the scroll listener goes with it
+    await flush();
+    pinAt(marker, 500, 250);
+    window.dispatchEvent(new Event("scroll"));
+    await flush();
+
+    expect(hint.style.getPropertyValue("--hint-y")).toBe("274px");
+  });
+});
+
 describe("filters and labels", () => {
   it("shows one category at a time and marks the active pill", async () => {
     await mount();
@@ -316,5 +443,25 @@ describe("filters and labels", () => {
     el("toggle").click();
     await flush();
     expect(has("block", "is-labelled")).toBe(true);
+  });
+
+  // The overview starts without the route on it: every step already carries its own crop of this
+  // map with just that step's leg drawn, so all eight legs at once is for the reader who asks.
+  it("starts unrouted and toggles on and off again without touching the labels", async () => {
+    await mount();
+
+    expect(has("block", "is-routed")).toBe(false);
+    expect(has("route-toggle", "is-on")).toBe(false);
+    expect(has("block", "is-labelled")).toBe(true);
+
+    el("route-toggle").click();
+    await flush();
+    expect(has("block", "is-routed")).toBe(true);
+    expect(el("route-toggle").getAttribute("aria-pressed")).toBe("true");
+    expect(has("block", "is-labelled")).toBe(true);
+
+    el("route-toggle").click();
+    await flush();
+    expect(has("block", "is-routed")).toBe(false);
   });
 });

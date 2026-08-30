@@ -47,6 +47,9 @@
   </div>
   <nav class="pn-nav__panel" id="pn-nav-panel">
     <%= render "shared/nav_links", variant: "panel-link" %>
+    <% if content_for?(:nav_crumb) %>
+      <span class="pn-nav__panel-crumb"><%= yield :nav_crumb %></span>
+    <% end %>
     <% if controller_name == "walkthroughs" %>
       <%= render "shared/mode_rows" %>
     <% end %>

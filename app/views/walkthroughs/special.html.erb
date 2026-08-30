@@ -2,8 +2,8 @@
 <% content_for :title, t("walkthrough.ui.title_location", name: @location.title, game: @game.name) %>
 <% plan = @game.plan_for(@leg) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "pages/walkthrough-map", "pages/walkthrough-challenge",
-                          "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "components/leg-switch", "pages/walkthrough", "pages/walkthrough-map",
+                          "pages/walkthrough-challenge", "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -21,6 +21,13 @@
   <p class="pn-wt-loc__lead"><%= t(@location.intro_key) %></p>
 </section>
 
+<div class="pn-legsw-host" data-controller="leg-switcher">
+<%= render "shared/stop_bar", stops: [ [ @location, plan.queue_at(@location.slug).sum(&:qty) ] ] %>
+
+<% if @location.slug == "rocket-hideout" %>
+  <%= render "prize_room", room: Walkthrough::Yellow.game_corner_prizes %>
+<% end %>
+
 <% groups = @location.step_groups %>
 <% drawn = groups.filter_map(&:first).map(&:name) %>
 <% if groups.any? %>
@@ -35,14 +42,18 @@
     <% if here.any? %>
       <%= render "catch_here", loc: @location, encounters: here, plan: plan, level: :page %>
     <% end %>
-    <% if @location.trivia&.after?(area) %><%= render "trivia", trivia: @location.trivia %><% end %>
+    <% if @location.grind&.after?(area) %><%= render "grind_spot", grind: @location.grind %><% end %>
     <% swaps = @location.trades_on(area&.name) %>
     <% if swaps.any? %><%= render "trades_here", loc: @location, trades: swaps, level: :page %><% end %>
   <% end %>
 <% else %>
   <% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
-  <%= render "steps_section", loc: @location, steps: @location.steps, heading: true %>
+  <%= render "steps_section", loc: @location, steps: @location.lead_steps, heading: true %>
 <% end %>
+
+<% if @location.second_visit? %><%= render "second_visit", loc: @location %><% end %>
+
+<% if @location.slug == "safari-zone" %><%= render "safari_catching" %><% end %>
 
 <% if @location.later? %><%= render "later_section", loc: @location %><% end %>
 
@@ -51,7 +62,7 @@
   <%= render "catch_here", loc: @location, encounters: elsewhere, plan: plan, level: :page %>
 <% end %>
 
-<% if @location.trivia&.loose? %><%= render "trivia", trivia: @location.trivia %><% end %>
+<% if @location.trivia? %><%= render "trivia", trivia: @location.trivia %><% end %>
 
 <% if @location.trainers.any? %>
   <section class="pn-wt-section">
@@ -65,5 +76,6 @@
 <% if left.any? %><%= render "trades_here", loc: @location, trades: left, level: :page %><% end %>
 
 <%= render "challenges", plan: plan, multi: false %>
+</div>
 
 <%= render "leg_nav", game: @game, leg: @leg %>

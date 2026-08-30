@@ -50,11 +50,15 @@ class ApplicationHelperTest < ActionView::TestCase
       best_catch_reason(best, encounter("063", "Abra"))
   end
 
-  test "best_catch_reason says a species lives elsewhere too, just behind a later rod" do
+  # Named no tool in particular: this line covers a rod (Seaking, on water the guide fishes long
+  # before the Super Rod) and an HM alike (Psyduck, whose only water the guide crosses twenty stops
+  # before Surf), and saying "the rod" on the second was simply wrong.
+  test "best_catch_reason says a species lives elsewhere too, just behind a tool you lacked" do
     best = Walkthrough::BestCatch.new(dex: "119", slug: "cerulean-cave", rate: "15%",
                                       armed_only: true)
 
-    assert_equal "The only stop you reach already equipped for Seaking. The rest come before the rod.",
+    assert_equal "The only stop you reach already equipped for Seaking. Everywhere else it lives " \
+                 "comes before the tool that reaches it.",
       best_catch_reason(best, encounter("119", "Seaking"))
   end
 
@@ -65,7 +69,25 @@ class ApplicationHelperTest < ActionView::TestCase
       best_catch_reason(best, encounter("150", "Mewtwo"))
   end
 
+  test "best_catch_reason says a prize counter restocks rather than warning you off missing it" do
+    best = Walkthrough::BestCatch.new(dex: "037", slug: "celadon-city", rate: nil, only: true)
+
+    assert_equal "The only place in the game to get Vulpix, and the counter never runs out.",
+      best_catch_reason(best, prize("037", "Vulpix"))
+  end
+
+  test "a prize card carries a coin price where a wild card carries a rate" do
+    assert_equal "COINS", catch_stat_label(prize("037", "Vulpix"))
+    assert_equal "1,000", catch_stat_value(prize("037", "Vulpix"))
+    assert_equal "RATE", catch_stat_label(encounter("016", "Pidgey"))
+    assert_equal "10%", catch_stat_value(encounter("016", "Pidgey"))
+  end
+
   private
+
+  def prize(dex, name)
+    encounter(dex, name).with(how: "GAME CORNER", rate: "1000")
+  end
 
   def encounter(dex, name)
     Walkthrough::Encounter.new(
@@ -74,12 +96,40 @@ class ApplicationHelperTest < ActionView::TestCase
     )
   end
 
-  test "the page root carries both walkthrough controllers, each scoped to the same game" do
+  test "the page root carries the walkthrough controllers, each scoped to the same game" do
     attrs = walkthrough_page_controller(Walkthrough.find!("yellow"))
 
-    assert_includes attrs, 'data-controller="progress-toggle mode-toggle"'
+    assert_includes attrs, 'data-controller="progress-toggle mode-toggle map-jump"'
     assert_includes attrs, 'data-progress-toggle-game-value="yellow"'
     assert_includes attrs, 'data-mode-toggle-game-value="yellow"'
+  end
+
+  # The chip is what a reader clicks to be taken to the pin, so it carries the letter to hunt for
+  # and, when the card knows it, the map that drew it. A card with no pin behind it (an NPC gift,
+  # which lies on no tile) has no map to name, and the jump falls back to the first that shows the
+  # letter rather than rendering a broken attribute.
+  test "a map key chip names the letter and the map its pin was drawn on" do
+    chip = map_mark("H1", at: "seafoam-islands-b3f/hidden-9-16")
+
+    assert_includes chip, 'data-mark-key="H1"'
+    assert_includes chip, 'data-mark-map="seafoam-islands-b3f"'
+    assert_includes chip, 'data-action="click-&gt;map-jump#go"'
+  end
+
+  test "a map key chip with no pin behind it names no map" do
+    chip = map_mark("I2")
+
+    assert_includes chip, 'data-mark-key="I2"'
+    refute_includes chip, "data-mark-map"
+  end
+
+  # A hole is only ever drawn at its own end: the far end is the awkward half, since the game lands
+  # the player one way off it and the boulder another, so a pin down there points at neither.
+  test "a hole hint says what standing on it does" do
+    hole = Walkthrough::MapMarker.new(id: "hole-17-6", cat: "hole", name: "B1F",
+      x: 1.0, y: 2.0, align: "r", glyph: "▼", ref: "SEAFOAM_ISLANDS_B1F")
+
+    assert_equal I18n.t("walkthrough.ui.map_hole"), marker_detail(hole)
   end
 
   test "an exit hint speaks about the place behind the door, not the door" do
@@ -98,6 +148,16 @@ class ApplicationHelperTest < ActionView::TestCase
     )
 
     assert_equal I18n.t("walkthrough.ui.map_exit_north"), marker_detail(edge)
+  end
+
+  test "a tick reads as beaten, fought or collected, by what the marker is" do
+    def marker(cat) = Walkthrough::MapMarker.new(id: "#{cat}-1-1", cat: cat, name: "x",
+      x: 1.0, y: 2.0, align: "r", ref: "X")
+
+    assert_equal "NOT BEATEN", I18n.t(marker_status_key(marker("trainer"), "todo"))
+    assert_equal "FOUGHT ✓", I18n.t(marker_status_key(marker("pokemon"), "done"))
+    assert_equal "GOT IT ✓", I18n.t(marker_status_key(marker("item"), "done"))
+    assert_equal "NOT COLLECTED", I18n.t(marker_status_key(marker("hidden"), "todo"))
   end
 
   test "a badge window names its leader, and the last one names the League instead" do
@@ -125,7 +185,7 @@ class ApplicationHelperTest < ActionView::TestCase
     later = Walkthrough::LaterStage.new(dex: "017", name: "Pidgeotto", kind: :catch,
       args: { name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" })
 
-    assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop.",
+    assert_equal "Route 13 has Pidgeotto at 15%, so one Pidgey is all the line asks for.",
       later_stage_note(later)
     assert later.catch?
   end

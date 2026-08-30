@@ -10,6 +10,10 @@
         <div class="pn-wt-step__title"><%= t(step.title_key) %></div>
         <div class="pn-wt-step__text"><%= step_text(step) %></div>
 
+        <% if step.step_map? %>
+          <%= render "step_map", map: step.step_map, step: step %>
+        <% end %>
+
         <% if step.items? %>
           <div class="pn-wt-items">
             <% step.items.each_with_index do |item, i| %>
@@ -23,7 +27,7 @@
                   <div>
                     <span class="pn-wt-item__name"><%= item.name %></span>
                     <% if item.key? %>
-                      <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= item.key %></span>
+                      <%= map_mark(item.key, at: item.tick) %>
                     <% end %>
                     <span class="pn-wt-item__kind"><%= t("walkthrough.ui.item_kind") %></span>
                   </div>
@@ -32,6 +36,10 @@
               </div>
             <% end %>
           </div>
+        <% end %>
+
+        <% if step.dex_seen? %>
+          <%= render "dex_seen", dex: step.dex_seen %>
         <% end %>
 
         <% if step.hidden? %>

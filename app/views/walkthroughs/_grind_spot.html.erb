@@ -1,0 +1,94 @@
+<%# A place worth stopping at to level up: the two species that live there side by side with what
+    each knockout pays, then the Repel trick that leaves only the better one. Every figure but the
+    tips is the game's own (base stats via tools/maps/dex.py, rates from the encounter rows). %>
+<section class="pn-wt-section pn-wt-grind" id="<%= grind.anchor %>">
+  <div class="pn-eyebrow-label pn-wt-grind__eyebrow">
+    <span class="pn-wt-grind__tick" aria-hidden="true"></span>
+    <%= t("walkthrough.ui.grind_eyebrow") %>
+  </div>
+  <h3 class="pn-wt-band__h3"><%= t(grind.title_key) %></h3>
+
+  <div class="pn-wt-grind__lead">
+    <p class="pn-wt-grind__intro"><%= t(grind.intro_key) %></p>
+    <%= r2_image_tag grind.art, alt: "", class: "pn-wt-grind__art", loading: "lazy" %>
+  </div>
+
+  <div class="pn-wt-grind__card">
+    <div class="pn-wt-grind__bar">
+      <span class="pn-wt-grind__bar-label"><%= t("walkthrough.ui.grind_exp_label") %></span>
+      <span class="pn-wt-grind__formula"><%= t(grind.formula_key) %></span>
+    </div>
+
+    <div class="pn-wt-grind__vs-grid">
+      <span class="pn-wt-grind__vs" aria-hidden="true"><%= t("walkthrough.ui.grind_vs") %></span>
+      <% grind.mons.each do |mon| %>
+        <div class="pn-wt-grind__mon pn-wt-grind__mon--<%= mon.tone %>">
+          <div class="pn-wt-grind__rarity">
+            <span class="pn-wt-grind__chip"><%= mon.rarity %></span>
+            <span class="pn-wt-grind__share"><%= t("walkthrough.ui.grind_share", rate: mon.share) %></span>
+          </div>
+
+          <div class="pn-wt-grind__ident">
+            <span class="pn-wt-grind__sprite">
+              <%= r2_image_tag "pokemon/yellow/#{mon.dex}.png", alt: "", loading: "lazy" %>
+            </span>
+            <div>
+              <div class="pn-wt-grind__num">#<%= mon.dex %></div>
+              <div class="pn-wt-grind__name"><%= mon.name %></div>
+              <div class="pn-wt-grind__levels"><%= t("walkthrough.ui.grind_levels", range: mon.levels) %></div>
+            </div>
+          </div>
+
+          <div class="pn-wt-grind__exp">
+            <span class="pn-wt-grind__exp-num"><%= mon.exp %></span>
+            <span class="pn-wt-grind__exp-at"><%= t("walkthrough.ui.grind_exp_at", level: mon.level) %></span>
+          </div>
+          <div class="pn-wt-grind__meter">
+            <span class="pn-wt-grind__meter-fill pn-fill--<%= mon.fill %>"></span>
+          </div>
+
+          <div class="pn-wt-grind__stats">
+            <% [ [ t("walkthrough.ui.grind_type"), mon.type ],
+                 [ t("walkthrough.ui.grind_hp"), mon.hp ],
+                 [ t("walkthrough.ui.grind_speed"), mon.speed ] ].each do |label, value| %>
+              <div class="pn-wt-grind__stat">
+                <div class="pn-wt-grind__stat-key"><%= label %></div>
+                <div class="pn-wt-grind__stat-val"><%= value %></div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="pn-wt-grind__tips">
+            <div class="pn-wt-grind__tips-label"><%= t("walkthrough.ui.grind_tips") %></div>
+            <p class="pn-wt-grind__tips-text"><%= t(mon.tips_key) %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="pn-wt-grind__repel">
+    <div class="pn-wt-grind__repel-head">
+      <%= r2_image_tag grind.note_icon, alt: "", class: "pn-wt-grind__repel-icon", loading: "lazy" %>
+      <span class="pn-wt-grind__repel-title"><%= t("walkthrough.ui.grind_repel_title") %></span>
+      <span class="pn-wt-grind__repel-rule" aria-hidden="true"></span>
+      <span class="pn-wt-grind__repel-note"><%= t("walkthrough.ui.grind_repel_note") %></span>
+    </div>
+
+    <div class="pn-wt-grind__steps">
+      <% figures = { level: grind.lead_level, exp: grind.mons.max_by(&:exp).exp } %>
+      <% grind.steps.each do |step| %>
+        <div class="pn-wt-grind__step">
+          <div class="pn-wt-grind__step-n"><%= format("%02d", step.n) %></div>
+          <div class="pn-wt-grind__step-title"><%= t(step.title_key, **figures) %></div>
+          <p class="pn-wt-grind__step-body"><%= t(step.body_key, **figures) %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pn-wt-grind__warn">
+      <span><%= t(grind.warn_key) %></span>
+      <span class="pn-wt-grind__warn-arrow" aria-hidden="true">▼</span>
+    </div>
+  </div>
+</section>

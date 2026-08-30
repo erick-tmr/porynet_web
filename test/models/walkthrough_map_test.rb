@@ -13,10 +13,23 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     by_map.values.select { |locs| locs.size > 1 }.flat_map { |locs| locs.combination(2).to_a }.uniq
   end
 
-  # Everything on a stop's page that a player can tick off as collected, by the name on its card.
+  # Everything on a stop's page that a player can tick off as collected, keyed by the map it sits
+  # on and the name on its card. The map matters because a name is not unique across the game: the
+  # Surf sweep borrows five maps at once, and its Vermilion Max Ether has nothing to do with the
+  # one buried on Route 10. Same map and same name is the pair that has to share one id.
   def ticks_by_name(loc)
     (loc.steps.flat_map { |step| step.items + step.hidden } + loc.later)
-      .group_by(&:name).transform_values { |cards| cards.map(&:tick).to_set }
+      .group_by { |card| [ card.tick&.split("/")&.first, card.name ] }
+      .transform_values { |cards| cards.map(&:tick).to_set }
+  end
+
+  # [map name, letter] for every trainer pin a stop's steps name, in the order they name them.
+  def trainer_marks(loc)
+    loc.steps.flat_map do |step|
+      step.marks.filter_map do |name, key|
+        [ step.pins.fetch(name).split("/").first, key ] if key.start_with?("T")
+      end
+    end
   end
 
   def marker(**overrides)
@@ -61,6 +74,141 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate south, :tickable?
   end
 
+  # The drawn way round an arrow-tile floor. The points come out of the game (tools/maps/
+  # spinners.py reads the pushes each arrow tile applies), so what is checked here is the handling:
+  # that a floor with no maze carries no line, and that a leg hands the view what an SVG needs.
+  test "an arrow-tile floor carries the way round it, and an ordinary one carries none" do
+    b2f = location("rocket-hideout").area_maps.find { |area| area.floor == "B2F" }
+
+    assert_predicate b2f, :route?
+    assert_equal 8, b2f.route_legs.size, "one leg per stretch between the stops the walk names"
+    refute_predicate forest_map, :route?, "the forest has no arrows to solve"
+    assert_empty forest_map.route_legs
+  end
+
+  test "a leg gives the view its polyline, its arrowhead and a colour to tell it apart by" do
+    leg = Walkthrough::RouteLeg.new(points: [ [ 8, 8 ], [ 24, 8 ], [ 24, 40 ] ], n: 2)
+
+    assert_equal "8,8 24,8 24,40", leg.line
+    assert_equal [ 24, 40 ], leg.tip
+    assert_equal 2, leg.hue
+    assert_in_delta 90.0, leg.heading, 0.01, "the last step runs south, so the head points south"
+  end
+
+  test "a leg of one cell points east" do
+    assert_in_delta 0.0, Walkthrough::RouteLeg.new(points: [ [ 8, 8 ] ], n: 1).heading, 0.01
+  end
+
+  # Every map on the page that carries a drawn line, gyms included. A gym's floor is not one of its
+  # stop's `area_maps` (it hangs off the gym block instead), so a check that walked area_maps alone
+  # never saw Fuchsia's or Saffron's, which is where the longest line in the game is.
+  def routed_maps
+    (game.locations.flat_map(&:area_maps) +
+      game.locations.filter_map { |loc| loc.gym&.area } +
+      game.locations.filter_map { |loc| loc.dojo&.area }).select(&:route?)
+  end
+
+  # The palette wraps rather than running out, so the guard is that it never has to: a floor with
+  # more legs than hues would give two of them the same colour, and a step's own map and the
+  # overview would then disagree about which line is which.
+  test "no floor needs more colours than the palette has" do
+    legs = routed_maps.to_h { |area| [ area.name, area.route_legs.size ] }
+
+    assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7,
+                   "seafoam-islands-1f" => 2, "seafoam-islands-b1f" => 2,
+                   "seafoam-islands-b2f" => 2, "seafoam-islands-b3f" => 4,
+                   "fuchsia-city-gym" => 5, "saffron-city-gym" => 9 }, legs)
+    assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
+    assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
+      .find { |area| area.name == "rocket-hideout-b2f" }.route_legs.map(&:hue)
+  end
+
+  # Saffron's gym is nine rooms with no doors, so its line is nine separate ones: a pad is a jump,
+  # and a polyline through the wall to the room it lands in would draw a walk nobody takes. Every
+  # leg has to start and end inside one room, which is what "no leg crosses a wall" means here.
+  test "the warp gym draws one line per room, never across a wall" do
+    gym = location("saffron-city-return").gym.area
+    rooms = gym.route_legs.map do |leg|
+      leg.points.map { |x, y| [ x / 16 <= 5 ? 0 : (x / 16 <= 12 ? 1 : 2),
+                                y / 16 <= 5 ? 0 : (y / 16 <= 11 ? 1 : 2) ] }.uniq
+    end
+
+    assert_equal 9, rooms.size, "one leg per room, entrance through to Sabrina"
+    assert_equal [ 1 ] * 9, rooms.map(&:size), "and each stays inside the room it is drawn in"
+    assert_equal [ [ 1, 2 ], [ 2, 2 ], [ 2, 0 ], [ 2, 1 ], [ 1, 0 ], [ 0, 2 ], [ 0, 1 ],
+                   [ 0, 0 ], [ 1, 1 ] ], rooms.flatten(1),
+      "in at the door, then SE, NE, E, N, SW, W, NW, and through to the middle"
+  end
+
+  # Each step that rides the arrows carries its own copy of the floor, cropped to the stretch it
+  # walks. The overview at the top of the page shows the whole floor with no line on it; these are
+  # what a reader actually follows.
+  test "a step that rides the arrows carries its own crop of the floor" do
+    hideout = location("rocket-hideout")
+    moon_stone = hideout.steps.find { |step| step.n == 15 }
+
+    assert_predicate moon_stone, :step_map?
+    assert_equal [ 3 ], moon_stone.step_map.legs.map(&:n)
+    assert_equal "walkthrough/yellow/maps/rocket-hideout-b2f.png", moon_stone.step_map.image
+    refute_predicate hideout.steps.find { |step| step.n == 1 }, :step_map?, "the arcade has no maze"
+  end
+
+  # The other kind of drawn line: Seafoam's floors have no arrows, and what they draw is the way a
+  # boulder goes rather than the way the reader does. Same legs, same SVG, so a step that pushes
+  # one crops the floor to that push exactly as a maze step crops it to its ride.
+  test "a boulder push is drawn on the floor it crosses, and its step crops to it" do
+    seafoam = location("seafoam-islands")
+    b3f = seafoam.area_maps.find { |area| area.floor == "B3F" }
+    plug = seafoam.steps.find { |step| step.n == 8 }
+
+    assert_equal 4, b3f.route_legs.size, "two boulders moved for each of its two holes"
+    assert_equal [ 1, 2 ], plug.step_map.legs.map(&:n), "the step that moves the first pair"
+    assert_equal "walkthrough/yellow/maps/seafoam-islands-b3f.png", plug.step_map.image
+  end
+
+  test "every boulder step draws the push its prose describes" do
+    pushes = location("seafoam-islands").steps.select(&:step_map?)
+      .to_h { |step| [ step.n, [ step.step_map.legs.map(&:n) ] ] }
+
+    assert_equal({ 2 => [ [ 1 ] ], 3 => [ [ 1 ] ], 4 => [ [ 1 ] ], 8 => [ [ 1, 2 ] ],
+                   9 => [ [ 3, 4 ] ], 17 => [ [ 2 ] ], 18 => [ [ 2 ] ], 19 => [ [ 2 ] ] }, pushes)
+  end
+
+  # Only the maze steps. The rest of each floor's legs are corridor walks (in at the door, round
+  # to the Rocket, out to the stairs) and a picture of a corridor is a picture of nothing, so
+  # those steps carry none. Which legs go into the maze is the game's answer, pinned in
+  # test_spinners.py; this is the guide agreeing with it.
+  test "a step that only walks a corridor carries no map" do
+    mapped = location("rocket-hideout").steps.select(&:step_map?).map(&:n)
+
+    assert_equal [ 9, 10, 14, 15, 16, 17, 18, 19 ], mapped
+  end
+
+  # The viewBox is x, y, width, height in that order, which is the sort of thing that looks fine
+  # until every frame on the page is the wrong shape. 4:3 whichever way the leg runs.
+  test "a step's crop is a 4:3 window on the part of the floor it walks" do
+    boxes = location("rocket-hideout").steps.filter_map { |step| step.step_map&.box }
+
+    assert_equal 8, boxes.size
+    boxes.each do |x, y, w, h|
+      assert_equal w * 3 / 4, h, "every frame is the same shape"
+      assert_operator x + w, :<=, 480
+      assert_operator y + h, :<=, 448
+    end
+    assert_equal "0 80 400 300", location("rocket-hideout").steps
+      .find { |step| step.n == 15 }.step_map.view_box
+  end
+
+  # A step can own two legs in a row when they are one move: beat the Rocket blocking the way,
+  # then take the stairs behind him. Both are drawn, and they keep the colours they wear on the
+  # overview so the two pictures agree.
+  test "a step that owns a run of legs draws them all, in their own colours" do
+    out = location("rocket-hideout").steps.find { |step| step.n == 10 }.step_map
+
+    assert_equal [ 5, 6 ], out.legs.map(&:n)
+    assert_equal [ 5, 6 ], out.legs.map(&:hue)
+  end
+
   test "markers_in narrows to one category" do
     assert_equal 3, forest_map.markers_in("item").size
     assert_empty forest_map.markers_in("nonsense")
@@ -80,12 +228,23 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "▲", marker(key: "X", glyph: "▲").glyph_or_key, "a glyph wins over a key"
   end
 
-  test "a map wider than half again its height takes the landscape template" do
+  test "a map wider than a third again its height takes the landscape template" do
     assert_predicate location("route-3").area_maps.first, :landscape?, "1120x288 is a horizontal strip"
     refute_predicate forest_map, :landscape?, "544x768 is taller than wide"
 
-    square = location("silph-co").area_maps.find { |area| area.name == "silph-co-11f" }
-    refute_predicate square, :landscape?, "a square floor stays in the side-by-side split"
+    silph = location("silph-co").area_maps.to_h { |area| [ area.name, area ] }
+    assert_predicate silph.fetch("silph-co-6f"), :landscape?, "416x288 is a wide room, not a stamp"
+    refute_predicate silph.fetch("silph-co-10f"), :landscape?, "256x288 is taller than wide"
+    refute_predicate silph.fetch("silph-co-11f"), :landscape?, "a square floor stays in the split"
+    refute_predicate location("rocket-hideout").area_maps.find { |a| a.floor == "B4F" }, :landscape?,
+      "480x384 is 5:4, the near miss the split column still suits"
+
+    # Not a strip and it does fit the column, but only just: 640 in a column of 675 is barely 1x,
+    # which is the size a town's labels crowd worst at. Full width lets it reach 2.5x instead.
+    assert_predicate location("cerulean-city").area_maps.first, :landscape?,
+      "640x576 fits the column and gains nothing from it"
+    refute_predicate forest_map, :landscape?,
+      "544x768 is wide too, but a tall map in the landscape template strands its legend"
   end
 
   test "the NPC overlay joins item-givers and easter eggs onto the map they stand on" do
@@ -101,14 +260,67 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate fisher, :tickable?, "an NPC is a signpost, not a chore"
   end
 
+  # The letters run 1, 2, 3 down the page because the pins are lettered along the walk and the steps
+  # were written along the same walk: the western Poké Ball is the first thing you can pick up, and
+  # the Antidote by the gate the first thing you can feel for. Read off the map file they came out
+  # I3, I1, I2, so a reader following the steps watched the letters jump about.
   test "every card carries the key its pin wears, so the two name one thing" do
     forest = location("viridian-forest")
     items = forest.steps.flat_map(&:items)
     hidden = forest.steps.flat_map(&:hidden)
 
-    assert_equal [ "I3", "I1", "I2" ], items.map(&:key)
+    assert_equal [ "I1", "I2", "I3" ], items.map(&:key)
     assert_equal "viridian-forest/item-1-31", items.first.tick
-    assert_equal({ "Antidote" => "H2", "Potion" => "H1" }, hidden.to_h { |h| [ h.name, h.key ] })
+    assert_equal({ "Antidote" => "H1", "Potion" => "H2" }, hidden.to_h { |h| [ h.name, h.key ] })
+  end
+
+  # The check that keeps tools/maps/paths.py honest. The pins are lettered by a flood over the
+  # game's own collision, which walks straight through boulders, spin tiles and barred doors
+  # because the shipped map does not know they are shut. The steps are the real route, so wherever
+  # the two disagree the route names the landmarks it turns at (paths.ROUTES) until they agree.
+  # A letter series that counts backwards down a page is the bug this catches.
+  test "every page collects its items in letter order" do
+    backwards = game.locations.flat_map do |loc|
+      loc.steps.flat_map { |step| step.items + step.hidden }
+        .filter_map { |item| [ item.tick&.split("/")&.first, item.key ] if item.key }
+        .group_by { |map, key| [ map, key[0] ] }
+        .filter_map do |(map, letter), pairs|
+          numbers = pairs.map { |_map, key| key[1..].to_i }
+          "#{loc.slug} #{map} #{letter}: #{numbers.inspect}" if numbers != numbers.sort
+        end
+    end
+
+    assert_empty backwards, "these pages count their letters backwards"
+  end
+
+  # The same check for the trainers a step points at by pin: Viridian Forest names five of them,
+  # and a reader walking the steps meets T1 through T5 in that order. Per map, like the items,
+  # because a stop that walks several floors gets a T1 on each of them: the Rocket Hideout takes
+  # its four basements in seven visits, so its page reads T1 five times before it is done.
+  test "every page meets the trainers its steps name in letter order" do
+    backwards = game.locations.flat_map do |loc|
+      trainer_marks(loc).group_by(&:first).filter_map do |map, pairs|
+        numbers = pairs.map { |_map, key| key[1..].to_i }
+        "#{loc.slug} #{map}: #{numbers.inspect}" if numbers != numbers.sort
+      end
+    end
+
+    assert_empty backwards, "these pages meet their trainers out of order"
+  end
+
+  # The pulsing dot the page lays over a hidden item's found-frame is positioned by a per-pin CSS
+  # rule, measured by hand from the PNG. Nothing joins the two, so a card can name a pin that has
+  # no rule and land the glow at the top-left corner, and a rule can outlive the card that used it
+  # and go stale unnoticed: Vermilion's Max Ether sat wrong for as long as no page claimed it,
+  # because `later` cards carry no pin and its rule was never exercised.
+  test "every hidden item that names a pin has a rule placing its glow" do
+    css = Rails.root.join("app/assets/stylesheets/pages/walkthrough.css").read
+    pinned = game.locations.flat_map { |loc| loc.steps.flat_map(&:hidden) + loc.later }
+      .select(&:pin).map(&:pin).uniq
+
+    assert_operator pinned.size, :>, 40, "this is the whole hidden-item set, not a handful"
+    assert_empty pinned.reject { |pin| css.include?(".pn-wt-pin--#{pin} {") },
+      "these pins have no CSS rule, so their glow falls in the corner of the frame"
   end
 
   test "a step that names a pin resolves it to the key that pin wears today" do
@@ -135,10 +347,12 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_nil pins.fetch("exit-1-0")
   end
 
+  # The Moon Stone is I2 because Route 2's two balls are lettered the way the Diglett's Cave detour
+  # walks them: the HP Up first, then the Moon Stone below it.
   test "a locked later item names its pin, and names none when the game gives it no ball" do
     route_2 = location("route-2").later.to_h { |l| [ l.name, l.key ] }
 
-    assert_equal "I1", route_2.fetch("Moon Stone")
+    assert_equal "I2", route_2.fetch("Moon Stone")
     assert_nil route_2.fetch("HM05 Flash"), "Flash is handed over by Oak's aide, not lying on a tile"
   end
 
@@ -178,9 +392,18 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     end
 
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
-    assert_equal [ %w[pewter-city digletts-cave], %w[route-10 route-10-south],
-                   %w[route-2 digletts-cave], %w[route-4-mt-moon route-4],
-                   %w[vermilion-city vermilion-city-return], %w[viridian-city digletts-cave] ],
+    assert_equal [ %w[celadon-city celadon-city-return], %w[celadon-city surf-cleanups],
+                   %w[celadon-city-return surf-cleanups], %w[cerulean-city surf-cleanups],
+                   %w[cinnabar-island cinnabar-island-return],
+                   %w[fuchsia-city fuchsia-city-return], %w[pewter-city digletts-cave],
+                   %w[route-10 route-10-south], %w[route-10 surf-cleanups],
+                   %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],
+                   %w[route-16-fly route-16], %w[route-2 digletts-cave],
+                   %w[route-20 route-20-west],
+                   %w[route-4-mt-moon route-4], %w[route-6 surf-cleanups],
+                   %w[saffron-city-return saffron-city],
+                   %w[vermilion-city surf-cleanups], %w[vermilion-city vermilion-city-return],
+                   %w[vermilion-city-return surf-cleanups], %w[viridian-city digletts-cave] ],
       pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
   end
 
@@ -193,6 +416,19 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal "Route 2", borrowed[1].caption
     assert_predicate borrowed[1], :captioned?
     refute_predicate borrowed.first, :captioned?
+  end
+
+  # The Fly detour dips into Route 16 the moment Erika is beaten, one Poké Flute short of waking
+  # the Snorlax lying across the road. The cut tree opens onto the upper half of the route, which
+  # holds the Fly house and nothing else, so the six Bikers on the lower road cannot be reached on
+  # that visit and neither their pins nor their cards belong on its page.
+  test "a stop that borrows a map drops the people it cannot reach yet" do
+    detour, proper = location("route-16-fly"), location("route-16")
+
+    assert_equal %w[exit], detour.area_maps.sole.markers.map(&:cat).uniq
+    assert_empty detour.trainers
+    assert_equal 6, proper.area_maps.sole.markers.count { |m| m.cat == "trainer" }
+    assert_equal 6, proper.trainers.size
   end
 
   test "borrowing a map leaves the lender's own page untouched" do
@@ -227,15 +463,16 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     refute_predicate loc.steps.first, :map?
   end
 
-  test "trivia pinned to a map is drawn with that map, not at the end of the walk" do
-    trivia = location("digletts-cave").trivia
+  # The Diglett's Cave stop walks off its own map and on through Route 2, so a block about what
+  # lives in the cave has to be drawn under the cave rather than at the foot of a page that ends
+  # two maps away from it.
+  test "a grind spot pinned to a map is drawn with that map, not at the end of the walk" do
+    grind = location("digletts-cave").grind
     cave, route_2 = location("digletts-cave").area_maps.first(2)
 
-    assert trivia.after?(cave)
-    refute trivia.after?(route_2)
-    refute trivia.after?(nil)
-    refute_predicate trivia, :loose?
-    assert_predicate location("pewter-city").trivia, :loose?
+    assert grind.after?(cave)
+    refute grind.after?(route_2)
+    refute grind.after?(nil)
   end
 
   test "a curated NPC pin marks the giver the map data cannot name" do
@@ -298,7 +535,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     lass = location("viridian-forest").trainers.find { |trainer| trainer.cls == "LASS" }
 
     assert_equal "LASS:19", lass.opp
-    assert_equal "T4", lass.marker_key
+    assert_equal "T1", lass.marker_key
     assert_predicate lass, :marker_key?
   end
 
@@ -316,7 +553,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     brock = location("pewter-city").gym.leader
 
     assert_equal "BROCK:1", brock.opp
-    assert_equal "T1", brock.marker_key
+    assert_equal "T2", brock.marker_key
     assert_predicate brock, :marker_key?
   end
 

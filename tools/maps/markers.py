@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Turn a map's game data into the marker list the walkthrough page overlays on its area map.
 
-Four categories, each a tick target on the page except exits:
+Six categories, each a tick target on the page except exits and holes:
   trainer  every object_event carrying OPP_<CLASS>, <party#>
   item     every object_event carrying a bare item constant (a ball you can pick up)
+  pokemon  every object_event carrying <SPECIES>, <level> (a wild battle standing on the map)
   hidden   the map's hidden_events, which show nothing on screen in the game
   exit     the map's warp_events, collapsed so one doorway is one marker
+  hole     the floor's dungeon warps (holes.py), drawn at both ends: the gap you fall through
+           and, on the floor below, the tile it drops you on
 
 Every marker carries a key: its category's letter plus its position among its own kind on that map
 (T1, I2, H1, E3). One key names exactly one thing, and any card, step or legend row can print the
@@ -15,8 +18,11 @@ bare route-order number, because the steps count ladders rather than naming them
 Positions come out as percentages of the rendered PNG, so the page can lay markers over an
 image scaled to any width without knowing the tile size.
 """
+import re
 from collections import defaultdict
 
+import holes
+import places
 import sources
 
 CELL_PX = sources.UNIT_PX          # 16; one overworld movement cell
@@ -28,7 +34,8 @@ LABEL_PX = 26                      # a label's own height, the closest two can s
 # position among its own kind on its own map, so T1 is always a trainer and I2 always an item ball.
 # Numbering per category (rather than one run over the whole map) keeps a key stable against
 # unrelated edits: adding an item ball renumbers the items and leaves every trainer alone.
-KEY_PREFIX = {"trainer": "T", "item": "I", "hidden": "H", "exit": "E", "npc": "N"}
+KEY_PREFIX = {"trainer": "T", "item": "I", "pokemon": "P", "hidden": "H", "exit": "E",
+              "npc": "N", "warp": "W", "hole": "D"}
 
 
 def marker_key(cat, index):
@@ -148,18 +155,37 @@ def _warp_group(members):
 
 EXIT_GLYPHS = {"north": "▲", "south": "▼", "west": "◀", "east": "▶", "inner": "▲"}
 
+# A hole only ever goes one way.
+HOLE_GLYPH = "▼"
+
 # A pass-through building (a cut-through house, a route gate) is small, so its front and back
 # doors sit within a few cells of each other. Two same-column doors farther apart than this are a
 # cave's separate mouths or a tower's stairwells, not one building.
 PASS_THROUGH_MAX_GAP = 8
 
 
+# Warps the map file declares but the game can never fire, so they must not be pinned.
+#
+# Celadon City (39, 19) claims to lead to CELADON_MART_5F. Nothing is drawn there: its four tiles
+# are $4b/$4b/$1a/$1a, the same wall as the rest of the block, while every door the player really
+# uses on that map carries $1b, the overworld's own warp tile (data/tilesets/warp_tile_ids.asm).
+# The cell is not walkable either, and CeladonMart5F has no warp back to the city, so there is no
+# way in and no way out. Left alone it pins a blank wall and calls it a second Poke Mart, on a
+# town whose only shop is the department store.
+#
+# There is no general rule to catch this: an elevator, an Elite Four door and a route gate all
+# look the same to each test that would find it, so the one piece of dead data is named instead.
+DEAD_WARPS = frozenset({("CeladonCity", (39, 19))})
+
+
 def label_pass_through_doors(exits):
     """A building you walk straight through has a front door onto the street and a back door behind
     it, both warping to the same interior; left alone the two doors print the same name twice. Tag
-    the door facing the street (larger grid y) 'enter' and the one behind it 'exit'. A pass-through
-    is a destination reached by exactly two doors in the same column and close together, which
-    excludes a cave's far-apart mouths or a multi-floor stairwell."""
+    the door facing the street (larger grid y) 'front' and the one behind it 'back'. Both are ways
+    in, which is why neither is called an exit: Celadon Mansion's rear door is the only one whose
+    stairwell reaches the roof, so a reader sent to "the exit" is sent to the wrong half. A
+    pass-through is a destination reached by exactly two doors in the same column and close
+    together, which excludes a cave's far-apart mouths or a multi-floor stairwell."""
     by_dest = defaultdict(list)
     for marker in exits:
         by_dest[marker["ref"]].append(marker)
@@ -170,8 +196,8 @@ def label_pass_through_doors(exits):
         same_column = back["grid"][0] == front["grid"][0]
         close = front["grid"][1] - back["grid"][1] <= PASS_THROUGH_MAX_GAP
         if same_column and close:
-            front["name"] += " (enter)"
-            back["name"] += " (exit)"
+            front["name"] += " (front)"
+            back["name"] += " (back)"
 
 
 # Town and city maps whose own doorways repeat the town name.
@@ -193,6 +219,58 @@ def strip_town_prefix(exits, map_const):
             marker["name"] = marker["name"][len(prefix):]
 
 
+# A floor's own name, as the map constants spell it: 'B2F', '1F', '11F'.
+FLOOR_SUFFIX = re.compile(r"^B?\d+F$")
+
+
+def strip_floor_prefix(exits, map_const):
+    """The same redundancy one floor up: inside a dungeon every staircase repeats the dungeon.
+
+    Pokemon Tower 6F's two doorways read 'Pokemon Tower 5F' and 'Pokemon Tower 7F' on a map already
+    titled Pokemon Tower, and the pair are the widest labels the floor draws: at the size the tower
+    is served, 'E7 Pokemon Tower 7F' runs off the right edge of the map and prints over the
+    X Accuracy below it, with no lane left clean to deal it into. What the reader needs is the
+    floor, so a staircase between two floors of one dungeon keeps only that: '7F'.
+
+    Both ends have to be floors of the same place. Matching on shared words alone was enough to
+    turn Diglett's Cave's exit to Route 2 into 'Cave Route 2' and the Indigo Plateau lobby into
+    'Plateau Lobby', so the dungeon has to match whole and what is left has to name a floor.
+    Anything else keeps its full name, which is how 1F still says 'Back outside'."""
+    here = sources.place_display_name(map_const).rsplit(" ", 1)
+    if len(here) < 2 or not FLOOR_SUFFIX.match(here[1]):
+        return
+    prefix = here[0] + " "
+    for marker in exits:
+        floor = marker["name"][len(prefix):]
+        if marker["name"].startswith(prefix) and FLOOR_SUFFIX.match(floor):
+            marker["name"] = floor
+
+
+# The nine sectors of a map, thirds either way, and the compass name each wears.
+SECTORS = (("NW", "N", "NE"), ("W", "Centre", "E"), ("SW", "S", "SE"))
+
+
+def sector_name(cell, width_cells, height_cells):
+    """Which third of a map, by compass, a cell sits in."""
+    return SECTORS[min(2, cell[1] * 3 // height_cells)][min(2, cell[0] * 3 // width_cells)]
+
+
+def landing_name(group, warps, map_const, width_cells, height_cells):
+    """What a doorway's pin calls the place it leads to.
+
+    Usually the map on the far side. A warp that lands back on the map it started on is named for
+    where it drops you instead: Saffron's gym is thirty pads that every one of them read 'Saffron
+    Gym', which is the one thing the reader already knew. What they need is which room this pad
+    throws them into. Sectors are thirds of the map either way, which is exactly how that gym is
+    walled, nine rooms three by three, and it beats a floor's own name on Silph Co's inner pads
+    too, where 'SE room' at least says which end of 3F you come out at."""
+    if group["dest"] != map_const:
+        return sources.place_display_name(group["dest"])
+
+    landing = warps[group["to"]][:2]
+    return sector_name(landing, width_cells, height_cells)
+
+
 def map_edge(grid_x, grid_y, width_cells, height_cells):
     """Which map edge a cell sits on, or 'inner' for a doorway inside the map."""
     if grid_y <= 0:
@@ -204,6 +282,20 @@ def map_edge(grid_x, grid_y, width_cells, height_cells):
     if grid_x >= width_cells - 1:
         return "east"
     return "inner"
+
+
+def ball_category(root_str, item_const):
+    """Whether an object_event's payload is a pickup or a Pokémon standing in for one.
+
+    The macro's trailing arguments are `<ITEM>` for something you put in your bag and
+    `<SPECIES>, <level>` for a battle: the Power Plant's Voltorb and Electrode wear the ball
+    sprite and the birds wear their own, but all of them start a wild encounter rather than
+    handing anything over. The level is what tells them apart, and the name in front of it is
+    checked against the dex so a stray pair of arguments cannot pass for a Pokémon."""
+    species, _, level = item_const.partition(",")
+    if level.strip().isdigit() and species.strip() in sources.parse_dex_numbers(root_str):
+        return "pokemon"
+    return "item"
 
 
 def _marker(cat, anchor, center, frame, **fields):
@@ -231,10 +323,12 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
         out.append(_marker("trainer", obj["grid"], obj["grid"], frame,
                            name=name.title(), ref=f"{obj['opp_class']}:{obj['party']}"))
 
-    for obj in (o for o in objects if o["kind"] == "item"):
-        out.append(_marker("item", obj["grid"], obj["grid"], frame,
-                           name=sources.item_display_name(obj["item_const"]),
-                           ref=obj["item_const"]))
+    balls = [o for o in objects if o["kind"] == "item"]
+    for cat in ("item", "pokemon"):
+        for obj in (o for o in balls if ball_category(root_str, o["item_const"]) == cat):
+            out.append(_marker(cat, obj["grid"], obj["grid"], frame,
+                               name=sources.item_display_name(obj["item_const"]),
+                               ref=obj["item_const"]))
 
     for marker in sources.markers_by_map(root_str).get(map_const, []):
         grid = tuple(marker["grid"])
@@ -243,15 +337,21 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
 
     width_cells, height_cells = map_cells(root_str, map_const)
     warp_markers = []
-    for group in group_warps(sources.parse_warp_events(root_str, map_label)):
+    warps = sources.parse_warp_events(root_str, map_label)
+    for group in group_warps(warps):
         anchor = group["anchor"]
+        if (map_label, tuple(anchor)) in DEAD_WARPS:
+            continue
         edge = map_edge(anchor[0], anchor[1], width_cells, height_cells)
         entry = _marker("exit", anchor, group["center"], frame,
-                        name=sources.place_display_name(group["dest"]), ref=group["dest"])
+                        name=landing_name(group, warps, map_const, width_cells, height_cells),
+                        ref=group["dest"])
         warp_markers.append({**entry, "edge": edge, "glyph": EXIT_GLYPHS[edge]})
     label_pass_through_doors(warp_markers)
     strip_town_prefix(warp_markers, map_const)
+    strip_floor_prefix(warp_markers, map_const)
     out += warp_markers
+    out += hole_markers(root_str, map_label, map_const, frame)
 
     tileset = sources.parse_headers(root_str)[map_label][1]
     out += connection_exits(root_str, map_label, map_const, tileset, width_cells // 2,
@@ -260,17 +360,38 @@ def build_markers(root_str, map_label, map_const, width_px, height_px, frame=Non
     out = [entry for entry in out if frame.holds(*entry["grid"])]
     if not keyed:
         return out
-    return assign_label_lanes(assign_keys(out), frame.width_px, frame.height_px)
+    gym = drawn_in_a_gym_frame(root_str, map_label, map_const)
+    return assign_label_lanes(assign_keys(out), frame.width_px, frame.height_px,
+                              pin_to=map_const if gym else None)
+
+
+# Only the gap, not the tile it drops onto. A hole has two ends and the far one is the awkward
+# half: the game lands the player one way off it and the boulder another, so a pin down there says
+# "something arrives near here" and points at neither. The gap is the thing the reader acts on.
+def hole_markers(root_str, map_label, map_const, frame):
+    """The holes cut into this floor, named for the floor each drops to.
+
+    Named like a staircase and trimmed like one, so a drop inside Seafoam reads 'B1F' rather than
+    'Seafoam Islands B1F' on a map already titled Seafoam Islands."""
+    entries = [_marker("hole", group["anchor"], group["center"], frame,
+                       name=sources.place_display_name(group["dest"]),
+                       ref=group["dest"], glyph=HOLE_GLYPH)
+               for group in holes.by_map(root_str).get(map_label, ())]
+    strip_town_prefix(entries, map_const)
+    strip_floor_prefix(entries, map_const)
+    return entries
 
 
 def map_trainers(root_str, map_label):
-    """The trainers a map pins, in the order their keys are numbered.
+    """The trainers a map pins: the ones really standing there when you walk in.
 
-    The raw object list, so a trainer the game ships switched off is in here: SSAnne2F's rival is
-    walked on by a script and still holds a pin where he ends up. The roster reads this too rather
-    than counting for itself, because a floor whose two halves count differently prints one letter
-    on the card and another on the map."""
-    return [obj for obj in sources._object_events(root_str, map_label) if obj["kind"] == "trainer"]
+    A trainer the game ships hidden is not, so he gets no pin and takes no letter. The S.S. Anne's
+    2F rival is the only one in Kanto: a script walks him into the corridor when you try to leave,
+    and a pin for him put a letter on empty carpet and pushed the four cabin trainers down one.
+    The roster reads this same list rather than counting for itself, because a floor counted two
+    different ways prints one letter on the card and another on the map."""
+    return [obj for obj in sources.parse_object_events(root_str, map_label, include_battlers=True)
+            if obj["kind"] == "trainer"]
 
 
 def map_cells(root_str, map_const):
@@ -437,28 +558,229 @@ def label_span(entry, width_px):
     text = len(entry["name"]) * LABEL_CHAR_PX + LABEL_PAD_PX + (LABEL_KEY_PX if entry.get("key") else 0)
     basis = drawn_width(width_px)
     width, offset = text / basis * 100, LABEL_OFFSET_PX / basis * 100
+    if entry["align"] == "c":
+        return (entry["x"] - width / 2, entry["x"] + width / 2)
     if entry["align"] == "r":
         return (entry["x"] + offset, entry["x"] + offset + width)
     return (entry["x"] - offset - width, entry["x"] - offset)
 
 
-def assign_label_lanes(entries, width_px, height_px):
-    """Stack labels that would print over each other into lanes, nudging the later one down.
+def fit_label_side(entries, width_px):
+    """Flip any label that would hang off the map to the marker's other side.
+
+    Which side a label reads better on is decided from the marker's x alone (`LABEL_FLIP_PCT`),
+    before its text exists, so a long name just inside that line writes itself off the edge and the
+    frame clips it: Celadon Gym's Cooltrainer stands mid-room and "T7 Cooltrainer" ran a quarter of
+    its width past the wall. The side is only overridden when it actually fails and the other side
+    actually works, so a label with nowhere to fit keeps the side it reads best on."""
+    for entry in entries:
+        if entry.get("name") is None:
+            continue
+        flipped = {**entry, "align": "l" if entry["align"] == "r" else "r"}
+        here, there = label_span(entry, width_px), label_span(flipped, width_px)
+        if not _inside(here) and _inside(there):
+            entry["align"] = flipped["align"]
+    return entries
+
+
+def _inside(span):
+    return span[0] >= 0 and span[1] <= 100
+
+
+def side_options(entry, width_px):
+    """The sides a label may be tried on: the one it reads best on, then the other where it fits.
+
+    Which side reads best is decided from the marker's x alone, and on its own that is a guess
+    about the neighbourhood made before anyone has looked at it. Seafoam B1F holds the case it
+    gets wrong: its four hole pins stand in two columns five cells apart, the right-hand pair past
+    the flip line and so labelled leftward, straight into the space the left-hand pair's own labels
+    occupy. Nothing about that is settled by moving rows, because the two bands overlap whichever
+    row each sits in, and the map is empty on the other side of the right-hand pair.
+
+    Offering the other side makes that a question the seat search can answer rather than a guess it
+    has to live with. Only where the label fits there, and only as a last resort: the flip carries a
+    cost of its own in `assign_label_lanes`, so a label crosses its pin only when doing so leaves a
+    cleaner row than staying put."""
+    other = "l" if entry["align"] == "r" else "r"
+    if entry["align"] == "c" or not _inside(label_span({**entry, "align": other}, width_px)):
+        return (entry["align"],)
+    return (entry["align"], other)
+
+
+# How far from its own row a label may be dealt, in lanes either way. A leader line long enough to
+# cross the map is harder to follow than the overlap it was drawn to fix, so a crowd past this
+# takes the least-covered row it can reach rather than fanning out forever.
+LABEL_LANE_REACH = 5
+
+# Two labels exactly one row apart are stacked, not overlapping. The percentages they are measured
+# in are rounded, so that case has to be let through rather than caught by a hair.
+LANE_EPSILON = 1e-9
+
+
+def lane_seats(y, row_pct):
+    """The rows a label may be dealt into, its own first, then one down, one up, two down, and so
+    on. A row that would carry the label off the top or bottom of the map is not offered."""
+    yield 0
+    for n in range(1, LABEL_LANE_REACH + 1):
+        if y + n * row_pct <= 100:
+            yield n
+        if y - n * row_pct >= 0:
+            yield -n
+
+
+# A map is never drawn smaller than its own pixels: the canvas holds its native width and the frame
+# scrolls rather than shrinking the pixel art, and a wide column stretches it as far as the page's
+# own ceiling, `--mm-max-zoom` in walkthrough-map.css. A label does not stretch with it. Its text
+# stays 9px and the row it is dealt into a flat 26px, so the same crowd reads differently at either
+# end of that range: a label dealt upward drifts back toward its neighbour above as the map grows
+# under it. A row is chosen against the whole range rather than against the one size the PNG
+# happens to be, so the top of this tuple has to be the page's ceiling and not an estimate of it:
+# stopping at 2.0 while the page drew to 2.5 left Silph Co's 10F printing "TM Earthquake" over
+# "Rare Candy" at every width past a laptop's. `test_markers.py` holds the two in step.
+# Sampled every quarter step rather than at a few round sizes: the range is continuous (the column
+# is whatever the reader's window leaves it) and a gap in the sampling is a width nobody checked.
+# Silph 11F put its lift label over the 7F pad at 1.79x, which fell straight between 1.5 and 2.0.
+# The top is the largest any template draws, which is a gym's 3x rather than a map block's 2.5x.
+LABEL_MAX_ZOOM = 3.0
+LABEL_ZOOMS = tuple(1.0 + n / 4 for n in range(int((LABEL_MAX_ZOOM - 1.0) * 4) + 1))
+
+
+def label_covers(span, y, taken, row_pct, zoom):
+    """How many already-dealt labels one at `y` covering `span` would print over, at one zoom."""
+    return sum(1 for t in taken
+               if abs(t["y"] + t["lane"] * row_pct - y) + LANE_EPSILON < row_pct
+               and t["spans"][zoom][0] < span[1] and span[0] < t["spans"][zoom][1])
+
+
+def label_hides(span, y, entries, row_pct, cell, owner):
+    """How many pins a label at `y` covering `span` would sit on top of.
+
+    A lane clear of other labels is not the same as a lane clear of the map: Route 15's lower lane
+    stands its trainers in pairs, and a label dealt into the gap between two of them printed its
+    box over the sprite of a third. What the reader is looking for is the person, so a pin covered
+    counts against a seat the same way a label covered does. A pin counts as hidden when the box is
+    over it, not when the two touch: half a sprite has to be inside the band, so the pin a label just
+    reaches past on its way out is left alone. Without that, a label clears its neighbour's name by
+    a pixel and is still dealt a lane for grazing the pin under it, which is most labels on a busy
+    map. `owner` is left out of the count: a label never covers the pin it belongs to."""
+    half = cell / 2
+    return sum(1 for e in entries
+               if e is not owner
+               and span[0] + half < e["x"] < span[1] - half
+               and abs(e["y"] - y) < row_pct / 2)
+
+
+def column_side(entry, taken):
+    """Which side the pins standing in this one's column have already put their names on.
+
+    Two pins in a column read as a pair, and so should their names: one above the other, on the
+    same side, in a column of their own. Nothing else in the search knows that, because a seat is
+    scored against the map rather than against the shape the markers make on it, and the two are
+    level often enough for it to matter. Seafoam B1F's holes stand in two columns of two, and its
+    lower right-hand one ties a row down whichever way it faces: rightward it falls in under its
+    own partner, leftward it lands in the gap between the two columns, under the far column's
+    name, pointing back across at a pin it does not belong to.
+
+    It settles a tie and nothing more, so a pin whose partner took the crowded side still goes
+    wherever it reads best. None for a pin standing on its own, which is most of them."""
+    return next((t["align"] for t in taken if t["x"] == entry["x"]), None)
+
+
+# The floors the page draws inside a gym's frame, at three times their own pixels
+# (--mm-gym-zoom), because on those the room is the puzzle rather than a picture of one.
+GYM_FRAME_KINDS = frozenset({"gym", "dojo"})
+
+
+def drawn_in_a_gym_frame(root_str, map_label, map_const):
+    """Whether this floor is one of the ones drawn big, which changes how its labels are placed."""
+    tileset = sources.parse_headers(root_str)[map_label][1]
+    return places.place_kind(map_const, tileset) in GYM_FRAME_KINDS
+
+
+def pin_labels(entries, width_px, map_const):
+    """Keep every label on the row its own pin sits on, and sit a warp pad's on the pin itself.
+
+    Dealing a name into a clear row is worth it where the map is small and a pin is a thing the
+    reader hunts for. On a floor drawn at three times its size there is room beside every marker,
+    so dealing moves a name across the room to dodge a collision that only happens on a phone, and
+    leaves the reader working out which trainer it belongs to.
+
+    A warp pad goes further and takes its name on top of itself. A pad is not a thing to look at,
+    it is a thing to read: thirty of them a few tiles apart, each named for the room it lands in,
+    and a name to one side is a name with two pads to choose from. A trainer keeps its name beside
+    it, because there the sprite is the thing you are looking for. `ref` is what tells them apart:
+    a pad's destination is the map it is already on."""
+    for entry in entries:
+        entry["lane"] = 0
+        if entry.get("ref") == map_const and _inside(label_span({**entry, "align": "c"}, width_px)):
+            entry["align"] = "c"
+    return entries
+
+
+def assign_label_lanes(entries, width_px, height_px, pin_to=None):
+    """Deal labels that would print over each other into rows of their own.
 
     Viridian Forest's hidden Potion and the Bug Catcher one cell to its right would otherwise
-    write their names on the same pixels. Nudging one down always works, where flipping it to
-    the marker's other side does not: both of those hug the left edge, so a flipped label would
-    hang off the map. Labels that merely share a row but sit far apart are left flat."""
-    row_pct = LABEL_PX / height_px * 100
+    write their names on the same pixels. Moving one off its own row always works, where flipping
+    it to the marker's other side does not: both of those hug the left edge, so a flipped label
+    would hang off the map. Labels that merely share a row but sit far apart are left flat.
+
+    A lane is a row the label is drawn in, not a column it is filed under: what decides a clash is
+    where a label ends up, so a label dealt down one row has to be measured against its new
+    neighbours and not just against the ones sharing its lane number. Route 8's four Lasses stand
+    in a line one cell apart, and lane-by-lane they came out 1, 2, 0, 1: no two shared a lane, and
+    every one of them printed over the label of the trainer above or below. Rows are offered
+    nearest-first and either way, so a crowd opens outward from where it stands instead of
+    cascading down the map, and a label with nowhere clean to go takes the row it covers least,
+    counted over every size the map is drawn at (`LABEL_ZOOMS`). Which side each label sits on is
+    settled first (`fit_label_side`), because the side decides the band a row has to keep clear.
+
+    Between two rows that overlap the same number of labels, the one that sits on fewer pins wins.
+    Route 15 stands its trainers in pairs along a lane, and a label with a clean row either way
+    took the one that printed its box over the sprite of the trainer beside it, hiding the very
+    thing the reader was hunting for. It breaks the tie rather than deciding the seat: a label
+    driven off its own row to clear a sprite, only to land on a neighbour's name, reads worse than
+    the sprite it was moved to save.
+
+    Which side a label sits on is part of the same search (`side_options`), tried after every row
+    on the side it reads best, so a label crosses its pin only when that leaves a cleaner row than
+    any row on the near side does. Seats level on both counts go to the nearer row first, then to
+    the side this pin's column already reads on (`column_side`), and only then to the side the
+    label reads best on by itself.
+
+    Distance is counted with the pins, a row travelled costing the same as a size the label is
+    drawn over a pin at, because a leader line is not free either. Both are tallied over `LABEL_ZOOMS`, so a
+    pin grazed at one of the nine sizes scores 1 and a label two rows out scores 2: the graze
+    stays, and a name blocked at every size still moves. Without that, `hides` decided the seat
+    outright whenever no label was in the way, and Seafoam B1F dealt all four of its hole names
+    two to four rows off their pins to stop each one reaching over the pin of the hole beside it,
+    with room to spare on either side of both."""
+    fit_label_side(entries, width_px)
+    if pin_to:
+        return pin_labels(entries, width_px, pin_to)
+    rows = {zoom: LABEL_PX / (height_px * zoom) * 100 for zoom in LABEL_ZOOMS}
+    native = LABEL_PX / height_px * 100
+    cells = {zoom: CELL_PX / (width_px * zoom) * 100 for zoom in LABEL_ZOOMS}
     taken = []
     for entry in sorted(entries, key=lambda e: (e["y"], e["x"])):
-        span = label_span(entry, width_px)
-        lane = 0
-        while any(t["lane"] == lane and abs(t["y"] - entry["y"]) < row_pct
-                  and t["span"][0] < span[1] and span[0] < t["span"][1] for t in taken):
-            lane += 1
-        entry["lane"] = lane
-        taken.append({**entry, "span": span})
+        seats = []
+        column = column_side(entry, taken)
+        for flipped, side in enumerate(side_options(entry, width_px)):
+            spans = {zoom: label_span({**entry, "align": side}, width_px * zoom)
+                     for zoom in LABEL_ZOOMS}
+            for lane in lane_seats(entry["y"], native):
+                hides = sum(label_hides(spans[zoom], entry["y"] + lane * rows[zoom], entries,
+                                        rows[zoom], cells[zoom], entry)
+                            for zoom in LABEL_ZOOMS)
+                covers = sum(label_covers(spans[zoom], entry["y"] + lane * rows[zoom], taken,
+                                          rows[zoom], zoom)
+                             for zoom in LABEL_ZOOMS)
+                seats.append(((covers, hides + abs(lane), abs(lane),
+                               column is not None and side != column, flipped),
+                              (side, lane, spans)))
+        side, lane, spans = min(seats, key=lambda seat: seat[0])[1]
+        entry["align"], entry["lane"] = side, lane
+        taken.append({**entry, "spans": spans})
     return entries
 
 
@@ -470,7 +792,13 @@ def link_exit_keys(entries, labels, warps_by_label, consts):
 
     `entries` are the location's map entries in page order with `labels` parallel to them, and
     `warps_by_label` / `consts` each map's raw warp list and map constant. A doorway leading out of
-    the location keeps a key of its own, since its far side is drawn on somebody else's map."""
+    the location keeps a key of its own, since its far side is drawn on somebody else's map.
+
+    A warp that lands back on the map it starts on is a pad rather than a doorway, so it takes a
+    series of its own: W, numbered per map from one. Saffron's gym is thirty of them, and running
+    them through the same count as the city's front doors both started them at E13 and left the
+    dojo's one door numbered in the forties. A pad is not the way out of the building and it does
+    not read like one."""
     doors, by_const = {}, {}
     for label in labels:
         by_const[consts[label]] = label
@@ -484,17 +812,22 @@ def link_exit_keys(entries, labels, warps_by_label, consts):
         return next((key for key, other in doors.items()
                      if key[0] == far and group["to"] in other["slots"]), None)
 
-    assigned, n = {}, 0
+    assigned, doorways, pads = {}, 0, defaultdict(int)
     for entry, label in zip(entries, labels, strict=True):
         for marker in entry["markers"]:
             if marker["cat"] != "exit":
                 continue
             here = (label, marker["id"])
             if here not in assigned:
-                n += 1
-                assigned[here] = marker_key("exit", n - 1)
                 group = doors.get(here)
+                if group and group["dest"] == consts[label]:
+                    pads[label] += 1
+                    assigned[here] = marker_key("warp", pads[label] - 1)
+                else:
+                    doorways += 1
+                    assigned[here] = marker_key("exit", doorways - 1)
                 far = partner(label, group) if group else None
                 if far is not None:
                     assigned[far] = assigned[here]
             marker["key"] = assigned[here]
+

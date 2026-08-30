@@ -14,6 +14,7 @@ Spec types:
 """
 import compositor
 import follower
+import markers
 import sources
 
 PLAYER_NAME = "PORYNET"    # our default hero name, all caps like a standard Pokemon name
@@ -21,14 +22,22 @@ RIVAL_NAME = "BLUE"        # Yellow's default rival name
 RIVAL_CLASSES = {"RIVAL1", "RIVAL2", "RIVAL3"}
 HERO_SPRITE = "SPRITE_RED"
 
+# Step off dry land and the game swaps the hero's own sprite, and which one it swaps to is the same
+# per-build fact as the follower: LoadSurfingPlayerSpriteGraphics2 (home/overworld.asm) loads
+# SurfingPikachuSprite when the Pokemon carrying you is the starter Pikachu and SeelSprite for
+# every other surfer. Yellow's hero always has that Pikachu, so Yellow rides it and Red/Blue ride
+# the generic blob. `SurfingPikachuSprite` is named by its gfx label because the sheet has no
+# SPRITE_* id: nothing in the world is ever built out of it, the engine only loads it over you.
+SURF_SPRITE = "SPRITE_SEEL"
+PIKACHU_SURF_SPRITE = "SurfingPikachuSprite"
+
 MAP_TYPES = {"map", "arrows", "npc"}
 SCREEN_TYPES = {"dialog", "screen"}
 
 
 def _resolve_sprite(root, entry):
     """Normalize a spec sprite {sprite, grid, dir?/frame?, flip?} to an overlay sprite."""
-    ref = entry["sprite"]
-    file = sources.parse_sprite_table(root).get(ref, ref.lower()) if ref.startswith("SPRITE_") else ref
+    file = sources.sprite_file(root, entry["sprite"])
     if "frame" in entry:
         frame, flip = entry["frame"], entry.get("flip", False)
     else:
@@ -98,6 +107,28 @@ def gen_map_scene(root, spec):
     return image, spec["name"], {}
 
 
+def afloat(root, map_label, cell):
+    """True when a cell is water the hero can only be on by surfing: somewhere they can be, but
+    not dry land. Scenes on a map with no header (a composed backdrop) read as dry."""
+    headers = sources.parse_headers(root)
+    if map_label not in headers:
+        return False
+    const, tileset = headers[map_label]
+    _idx, w_blocks, _h_blocks = sources.parse_map_constants(root)[0][const]
+    return not markers.cell_is_land(root, map_label, tileset, w_blocks, tuple(cell))
+
+
+def hero_sprite(root, spec):
+    """The sprite a scene draws its hero with: the surf sprite out on the water, the walking hero
+    on land, and whatever `player_sprite` names when a spec overrides both."""
+    named = spec.get("player_sprite")
+    if named:
+        return named
+    if afloat(root, spec["map"], spec["player"]):
+        return PIKACHU_SURF_SPRITE if follower.FOLLOWER_SPRITE == "SPRITE_PIKACHU" else SURF_SPRITE
+    return HERO_SPRITE
+
+
 def _screen_sprites(root, spec):
     """The cast a screen scene draws: the hero, any hand-placed sprites, and (unless the scene
     composes its own cast) the map's real people and trainers as landmarks.
@@ -112,10 +143,10 @@ def _screen_sprites(root, spec):
     it comes back (or goes) at its real cell, sprite and facing rather than being retyped as
     `sprites`.
 
-    `player_sprite` swaps the sprite the hero is drawn with, for the shots where the game itself
-    would: Gen 1 puts you on SPRITE_SEEL the moment you step onto water, so a scene standing the
-    hero on a water tile has to say so or it draws someone walking on the sea."""
-    sprites = [_resolve_sprite(root, {"sprite": spec.get("player_sprite", HERO_SPRITE),
+    The hero rides the surf sprite whenever the scene stands them on water, which is read off the
+    map rather than declared, so a shot taken from a water tile cannot draw someone walking on the
+    sea. `player_sprite` overrides that for the rare shot the rule does not cover."""
+    sprites = [_resolve_sprite(root, {"sprite": hero_sprite(root, spec),
                                       "grid": spec["player"],
                                       "dir": spec.get("player_dir", "DOWN")})]
     sprites += [_resolve_sprite(root, s) for s in spec.get("sprites", [])]
@@ -127,6 +158,92 @@ def _screen_sprites(root, spec):
     return sprites
 
 
+# The '!' bubble belongs to whoever the game hangs it on. A trainer who engages on sight flashes
+# it over their own head, so it rides on that sprite; a scripted ambush hangs it over the hero
+# instead (`wEmotionBubbleSpriteIndex` is 0, the player, in every Jessie & James cutscene), so a
+# scene says `player_emote` and it lands on the hero's cell.
+def _emotes(spec):
+    on_sprites = [{"name": s["emote"], "grid": s["grid"]}
+                  for s in spec.get("sprites", []) if s.get("emote")]
+    if spec.get("player_emote"):
+        return [{"name": spec["player_emote"], "grid": spec["player"]}, *on_sprites]
+    return on_sprites
+
+
+# The two halves of a Gen 1 conversation, which a shot of one has to draw or it shows something
+# the game never puts on screen. You can only talk to someone you are facing, and the moment you
+# do they turn to face you back: `MakeNPCFacePlayer` in engine/overworld/movement.asm, "Make an
+# NPC face the player if the player has spoken to him or her". The one exception in the whole
+# game is rubbing the S.S. Anne captain's back (BIT_NO_NPC_FACE_PLAYER), and the one thing you
+# may talk across is a counter, which the tilesets name (sources.parse_counter_tiles).
+#
+# A `found_item` box is never a conversation: pressing A at a tile prints _FoundItemText with
+# nobody on the other end, so those are skipped outright. Anything else sets `talking: false` when
+# its text box is not a conversation either: an item used on someone (the Poké Flute at the
+# sleeping Snorlax) prints its line without anyone being spoken to, so nobody turns.
+TALK_EXEMPT = frozenset({"poke_ball", "boulder"})
+FACING_BACK = {"UP": "DOWN", "DOWN": "UP", "LEFT": "RIGHT", "RIGHT": "LEFT"}
+STEP_OF = {"UP": (0, -1), "DOWN": (0, 1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
+
+
+def _facing_of(sprite):
+    """The direction an overlay sprite looks, back from the (frame, flip) pair it carries."""
+    return next((d for d, pair in compositor.DIR_TO_FRAME.items()
+                 if pair == (sprite["frame"], sprite["flip"])), None)
+
+
+def _talked_to(root, spec, hero_dir, cast):
+    """The sprite the hero is talking to, or None: whoever stands in the cell they face, reaching
+    over one counter tile the way the game does."""
+    hx, hy = spec["player"]
+    dx, dy = STEP_OF[hero_dir]
+    const, tileset = sources.parse_headers(root)[spec["map"]]
+    _index, width_blocks, _height = sources.parse_map_constants(root)[0][const]
+    counters = sources.counter_tiles(root, tileset)
+    tileset_file = sources.tileset_basename(root, tileset)
+    for reach in (1, 2):
+        cell = (hx + dx * reach, hy + dy * reach)
+        found = next((s for s in cast if tuple(s["grid"]) == cell), None)
+        if found:
+            return found
+        tiles = sources.cell_tiles(root, spec["map"], tileset_file, width_blocks, *cell)
+        if not counters or not any(tile in counters for tile in tiles):
+            return None
+    return None
+
+
+def _check_talking(root, spec, cast):
+    """Fail the build on a conversation the game could not have shown.
+
+    Two things go wrong in a hand-written spec, and both draw a frame that cannot happen: the hero
+    stood beside the person they are supposedly talking to rather than facing them, and the person
+    left looking whichever way the map file parks them rather than turning to the hero."""
+    dialog = spec.get("dialog")
+    if not dialog or "found_item" in dialog or not spec.get("talking", True):
+        return
+    hero_dir = spec.get("player_dir", "DOWN")
+    people = [s for s in cast
+              if s["file"] not in TALK_EXEMPT and tuple(s["grid"]) != tuple(spec["player"])]
+    partner = _talked_to(root, spec, hero_dir, people)
+    if partner is None:
+        placed = {tuple(s["grid"]) for s in spec.get("sprites", [])}
+        beside = [cell for cell in ((spec["player"][0] + dx, spec["player"][1] + dy)
+                                    for dx, dy in STEP_OF.values()) if cell in placed]
+        if beside:
+            raise ValueError(
+                f"{spec['name']}: the hero faces {hero_dir} with nobody there, but the scene puts "
+                f"someone at {beside[0]}. You cannot talk to a sprite you are not facing; turn the "
+                f"hero toward them, or set \"talking\": false if this text box is not a conversation.")
+        return
+    looking = _facing_of(partner)
+    if looking != FACING_BACK[hero_dir]:
+        raise ValueError(
+            f"{spec['name']}: the hero faces {hero_dir} and is talking to {partner['file']} at "
+            f"{partner['grid']}, who is drawn facing {looking}. Spoken to, an NPC turns to the "
+            f"player (MakeNPCFacePlayer), so it has to be {FACING_BACK[hero_dir]}. Set that "
+            f"sprite's dir, or \"talking\": false if this text box is not a conversation.")
+
+
 def gen_screen_scene(root, spec):
     """A 160x144 GB screen centered on the hero, with optional directional arrows and a
     bottom dialog box.
@@ -136,10 +253,11 @@ def gen_screen_scene(root, spec):
     rival you meet), auto NPCs are shown at their real cells, `focus` overrides the camera
     center (defaults to the hero), and `cut` fells the cuttable trees the scene is set after."""
     sprites = _screen_sprites(root, spec)
+    _check_talking(root, spec, sprites)
     trailing = _follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"), sprites)
     if trailing:
         sprites = [*sprites, trailing]
-    emotes = [{"name": s["emote"], "grid": s["grid"]} for s in spec.get("sprites", []) if s.get("emote")]
+    emotes = _emotes(spec)
     markers = [{"grid": spec["marker"], "fill": spec.get("marker_color")}] if spec.get("marker") else []
     lines = _dialog_lines(spec["dialog"]) if spec.get("dialog") else None
     image, _ = compositor.render_screen(root, spec["map"], spec.get("focus", spec["player"]),

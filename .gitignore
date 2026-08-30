@@ -52,6 +52,10 @@
 /app/assets/images/**/*.png
 # ...except the hand-prepared artwork, which has no source in vendor/ to re-derive it from.
 !/app/assets/images/walkthrough/art/*.png
+# Same for the Safari bait and rock: the game overloads two badges for them, so PokeAPI has no
+# item sprite under either name and there is nothing to re-derive these two from either.
+!/app/assets/images/walkthrough/items/bait.png
+!/app/assets/images/walkthrough/items/rock.png
 # fingerprint cache for the incremental R2 upload (deploy/upload-images.sh)
 /app/assets/images/.r2-upload-cache.json
 

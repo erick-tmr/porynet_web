@@ -1,0 +1,29 @@
+<div class="pn-wt-triviawarn">
+  <div class="pn-wt-triviawarn__head">
+    <svg class="pn-wt-triviawarn__sign" aria-hidden="true" viewBox="0 0 20 18" width="46" height="41"
+         shape-rendering="crispEdges">
+      <polygon points="10,0 20,18 0,18" fill="#171622"></polygon>
+      <polygon points="10,4 16,16 4,16" fill="#ffc23d"></polygon>
+      <rect x="9" y="7" width="2" height="5" fill="#171622"></rect>
+      <rect x="9" y="13" width="2" height="2" fill="#171622"></rect>
+    </svg>
+    <span class="pn-wt-triviawarn__tag"><%= t("walkthrough.ui.trivia_warning") %></span>
+    <span class="pn-wt-triviawarn__stripe" aria-hidden="true"></span>
+  </div>
+  <div class="pn-wt-triviawarn__body">
+    <div class="pn-wt-triviawarn__main">
+      <div class="pn-wt-triviawarn__title"><%= t(warning.title_key) %></div>
+      <p class="pn-wt-triviawarn__text"><%= t(warning.body_key) %></p>
+    </div>
+    <div class="pn-wt-triviawarn__specimen">
+      <span class="pn-wt-triviawarn__sprite">
+        <%= r2_image_tag "pokemon/yellow/#{warning.specimen.dex}.png", alt: "", loading: "lazy" %>
+      </span>
+      <span class="pn-wt-triviawarn__facts">
+        <span class="pn-wt-triviawarn__label"><%= t("walkthrough.ui.trivia_locked_name") %></span>
+        <span class="pn-wt-triviawarn__name"><%= warning.specimen.name %></span>
+        <span class="pn-wt-triviawarn__where"><%= t(warning.specimen.note_key) %></span>
+      </span>
+    </div>
+  </div>
+</div>

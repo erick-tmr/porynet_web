@@ -1,22 +1,179 @@
 {
   "pallet-town": [
-    { "id": "npc-technology", "name": "Technology!", "grid": [11, 14],
-      "note": "map_npc_pallet_technology", "ref": "SPRITE_FISHER" }
+    {
+      "id": "npc-technology",
+      "name": "Technology!",
+      "grid": [
+        11,
+        14
+      ],
+      "note": "map_npc_pallet_technology",
+      "ref": "SPRITE_FISHER"
+    }
   ],
   "route-1": [
-    { "id": "npc-potion-sample", "name": "Free Potion", "grid": [5, 24],
-      "note": "map_npc_route1_potion", "ref": "POTION" }
+    {
+      "id": "npc-potion-sample",
+      "name": "Free Potion",
+      "grid": [
+        5,
+        24
+      ],
+      "note": "map_npc_route1_potion",
+      "ref": "POTION"
+    }
   ],
   "viridian-city": [
-    { "id": "npc-tm42", "name": "TM42 Dream Eater", "grid": [6, 23],
-      "note": "map_npc_viridian_tm42", "ref": "TM_DREAM_EATER" }
+    {
+      "id": "npc-tm42",
+      "name": "TM42 Dream Eater",
+      "grid": [
+        6,
+        23
+      ],
+      "note": "map_npc_viridian_tm42",
+      "ref": "TM_DREAM_EATER"
+    }
   ],
   "route-24": [
-    { "id": "npc-charmander", "name": "Charmander", "grid": [6, 5],
-      "note": "map_npc_route24_charmander", "ref": "CHARMANDER" }
+    {
+      "id": "npc-charmander",
+      "name": "Charmander",
+      "grid": [
+        6,
+        5
+      ],
+      "note": "map_npc_route24_charmander",
+      "ref": "CHARMANDER"
+    }
+  ],
+  "silph-co-2f": [
+    {
+      "id": "npc-tm36",
+      "name": "TM36 Selfdestruct",
+      "grid": [
+        10,
+        1
+      ],
+      "note": "map_npc_silph_tm36",
+      "ref": "TM_SELFDESTRUCT"
+    }
+  ],
+  "silph-co-7f": [
+    {
+      "id": "npc-lapras",
+      "name": "Lapras",
+      "grid": [
+        1,
+        5
+      ],
+      "note": "map_npc_silph_lapras",
+      "ref": "LAPRAS"
+    }
+  ],
+  "silph-co-9f": [
+    {
+      "id": "npc-nurse",
+      "name": "Free healing",
+      "grid": [
+        3,
+        14
+      ],
+      "note": "map_npc_silph_nurse",
+      "ref": "SPRITE_NURSE"
+    }
   ],
   "silph-co-11f": [
-    { "id": "npc-master-ball", "name": "Master Ball", "grid": [7, 5],
-      "note": "map_npc_silph_master_ball", "ref": "MASTER_BALL" }
+    {
+      "id": "npc-master-ball",
+      "name": "Master Ball",
+      "grid": [
+        7,
+        5
+      ],
+      "note": "map_npc_silph_master_ball",
+      "ref": "MASTER_BALL",
+      "lane": 1
+    }
+  ],
+  "rocket-hideout-game-corner": [
+    {
+      "id": "npc-poster",
+      "name": "The poster",
+      "grid": [
+        9,
+        4
+      ],
+      "lane": 1,
+      "note": "map_npc_game_corner_poster",
+      "ref": "SPRITE_POKE_BALL"
+    },
+    {
+      "id": "npc-guru-10",
+      "name": "10 coins",
+      "grid": [
+        5,
+        11
+      ],
+      "note": "map_npc_game_corner_guru_10",
+      "ref": "SPRITE_FISHING_GURU"
+    },
+    {
+      "id": "npc-man-20",
+      "name": "20 coins",
+      "grid": [
+        14,
+        11
+      ],
+      "note": "map_npc_game_corner_man_20",
+      "ref": "SPRITE_MIDDLE_AGED_MAN"
+    },
+    {
+      "id": "npc-guru-20",
+      "name": "20 coins",
+      "grid": [
+        17,
+        13
+      ],
+      "note": "map_npc_game_corner_guru_20",
+      "ref": "SPRITE_FISHING_GURU"
+    }
+  ],
+  "pokemon-tower-5f": [
+    {
+      "id": "npc-purified-zone",
+      "name": "Free healing",
+      "grid": [
+        10,
+        8
+      ],
+      "align": "r",
+      "note": "map_npc_tower_purified_zone",
+      "ref": "SPRITE_POKE_BALL"
+    },
+    {
+      "id": "npc-silent-channeler",
+      "name": "Not a trainer",
+      "grid": [
+        12,
+        8
+      ],
+      "align": "r",
+      "lane": 4,
+      "note": "map_npc_tower_silent_channeler",
+      "ref": "SPRITE_CHANNELER"
+    }
+  ],
+  "celadon-city": [
+    {
+      "id": "npc-tm41",
+      "name": "TM41 Softboiled",
+      "grid": [
+        22,
+        16
+      ],
+      "note": "map_npc_celadon_tm41",
+      "ref": "TM_SOFTBOILED"
+    }
   ]
 }

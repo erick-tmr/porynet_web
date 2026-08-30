@@ -219,7 +219,7 @@
 /* ---- TL;DR ---- */
 .pn-mew-tldr {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
   gap: 16px;
   margin-top: 26px;
 }
@@ -440,7 +440,7 @@
 /* ---- second mew ---- */
 .pn-mew-second__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .pn-mew-second__note { font-family: "VT323", monospace; font-size: 18px; color: #3a3850; border: 2px solid #171622; background: #fff; padding: 6px 12px; }
-.pn-mew-second__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+.pn-mew-second__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; margin-top: 24px; }
 .pn-mew-second__card { background: #f5f1ff; border: 3px solid #171622; box-shadow: 5px 5px 0 #171622; padding: 16px 18px; }
 .pn-mew-second__card-head { display: flex; align-items: center; gap: 10px; }
 .pn-mew-second__n {

@@ -4,20 +4,54 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   FOREST = "/walkthroughs/yellow/viridian-forest".freeze
   TRAINER = ".pn-mm[data-marker-id='trainer-30-33']".freeze
 
+  # The open hint's box, the window it has to fit inside, and whether it is really the thing drawn
+  # at its own middle.
+  HINT_BOX = <<~JS.freeze
+    (() => {
+      const hint = document.querySelector(".pn-mm.is-selected .pn-mm__hint");
+      if (!hint) return null;
+      const box = hint.getBoundingClientRect();
+      const middle = document.elementFromPoint((box.left + box.right) / 2, (box.top + box.bottom) / 2);
+      return {
+        top: box.top, left: box.left, bottom: box.bottom, right: box.right,
+        window_w: window.innerWidth, window_h: window.innerHeight,
+        on_top: !!middle && middle.closest(".pn-mm__hint") === hint,
+      };
+    })()
+  JS
+
   def visit_forest
     visit FOREST
     assert_selector ".pn-mm-layer.is-ready"
   end
 
   # Click something after centering it, well clear of any edge. Cuprite scrolls an element into
-  # view and then clicks a computed point, so anything that shifts in between takes the click
-  # somewhere else and the page silently never reacts. Two things do that on these pages: a pin
-  # parked at the very edge of a tall map sits under its frame's clip, and a section head far down
-  # a long page moves as the sprites above it finish loading.
+  # view and then clicks a computed point, so a pin parked at the very edge of a tall map would
+  # otherwise sit under its frame's clip and swallow the click.
+  #
+  # The map arriving from R2 used to grow its frame and shove everything below it down the page,
+  # which is what the second centring below is for. The image now carries its own width and height,
+  # so the canvas holds that space from the first paint and nothing below it moves.
   def click_centered(selector)
     node = find(selector)
-    node.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
+    centre(node)
+    settle_network
+    centre(node)
     node.click
+  end
+
+  # Best effort, and never the thing that fails a test. These pages ask R2 for thirty-odd sprites,
+  # which can outlast any cap worth setting, and a wait that raises when they do is one more way
+  # for a green change to come back red. Now that the map reserves its own space there is nothing
+  # left in flight that can move a target, so a slow fetch is just a slow fetch.
+  def settle_network
+    page.driver.browser.network.wait_for_idle(timeout: Capybara.default_max_wait_time)
+  rescue Ferrum::PendingConnectionsError
+    nil
+  end
+
+  def centre(node)
+    node.evaluate_script("this.scrollIntoView({ block: 'center', inline: 'center' })")
   end
 
   test "the map draws a marker for everything the game data holds" do
@@ -58,6 +92,32 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     find(".pn-mm-legend__row[data-marker-id='item-25-11']").click
 
     assert_selector ".pn-mm[data-marker-id='item-25-11'].is-done"
+  end
+
+  # The popover a pin raises is fixed to the window rather than drawn beside its pin inside the map
+  # frame, which has to clip for a wide map to scroll inside it: a hint anchored in there came out
+  # with its top sliced off. Every pin on the floor is asked for its hint, and every hint has to
+  # come back whole (four corners inside the window) and on top (the point at its own middle is the
+  # popover, not the map over it).
+  test "every pin's hint draws whole and over the map" do
+    visit_forest
+    settle_network
+
+    all(".pn-mm[data-marker-id]").map { |marker| marker[:"data-marker-id"] }.each do |id|
+      marker = find(".pn-mm[data-marker-id='#{id}']")
+      centre(marker)
+      marker.find(".pn-mm__hit").click
+      box = page.evaluate_script(HINT_BOX)
+
+      assert box, "#{id} raised no hint"
+      assert_operator box["top"], :>=, 0, "#{id}'s hint is cut off at the top"
+      assert_operator box["left"], :>=, 0, "#{id}'s hint is cut off at the left"
+      assert_operator box["bottom"], :<=, box["window_h"], "#{id}'s hint is cut off at the bottom"
+      assert_operator box["right"], :<=, box["window_w"], "#{id}'s hint is cut off at the right"
+      assert box["on_top"], "#{id}'s hint is covered by the map"
+      # Clear it before the next pin: an open hint floats over the map and would swallow the click.
+      page.execute_script("document.querySelector('.pn-mm-canvas').click()")
+    end
   end
 
   test "an exit raises its hint without becoming a chore" do
@@ -251,7 +311,7 @@ class WalkthroughMapTest < ApplicationSystemTestCase
 
     assert_selector "#{card} .pn-wt-catchbadge--living", text: "LIVING DEX ×1"
     assert_selector "#{card} .pn-wt-catch__later-text",
-      text: "Route 13 has Pidgeotto at 15%, so one Pidgey covers this stop."
+      text: "Route 13 has Pidgeotto at 15%, so one Pidgey is all the line asks for."
 
     visit_with_modes "/walkthroughs/yellow/leg-01"
 
@@ -298,12 +358,24 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     end
   end
 
+  # Pewter used to be the counter-example here, and no longer is: a 640-wide town map fits the
+  # split column and gains nothing from it, so it takes the full width too. What is left in the
+  # portrait template is a map narrow enough that the column really does enlarge it, which is a
+  # different page now.
+  test "a narrow map keeps the split template beside its legend" do
+    visit "/walkthroughs/yellow/leg-17"
+    assert_selector ".pn-mm-layer.is-ready", minimum: 1
+
+    assert_selector ".pn-mm-block[data-map-markers-map-value='viridian-gym'][data-map-orient='portrait']"
+  end
+
   test "a wide route takes the landscape template and holds its map at native width" do
     visit "/walkthroughs/yellow/leg-03"
     assert_selector ".pn-mm-layer.is-ready", minimum: 2
 
     assert_selector ".pn-mm-block[data-map-markers-map-value='route-3'][data-map-orient='landscape']"
-    assert_selector ".pn-mm-block[data-map-markers-map-value='pewter-city'][data-map-orient='portrait']"
+    # 640 in a 675 column is barely 1x, so a town map goes full width too
+    assert_selector ".pn-mm-block[data-map-markers-map-value='pewter-city'][data-map-orient='landscape']"
 
     within ".pn-mm-block[data-map-markers-map-value='route-3']" do
       assert_selector ".pn-mm-howto--top"                    # the how-to moves above the map

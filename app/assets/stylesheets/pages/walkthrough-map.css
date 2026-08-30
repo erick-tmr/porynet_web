@@ -1,13 +1,31 @@
 /* Annotated area map: the clickable marker layer, its controls, and the legend panel.
    Marker coordinates arrive as --mx / --my, written by the Stimulus controller through the
-   CSSOM because the page forbids inline styles. */
+   CSSOM because the page forbids inline styles.
 
-.pn-mm-block {
+   How far a map is ever stretched lives here, and only here: --mm-max-zoom for a map in its own
+   block, --mm-gym-zoom for one inside a gym, which is drawn larger because the floor is the
+   puzzle. tools/maps/markers.py lays labels out against the whole range, and test_markers.py
+   fails if these two and its LABEL_MAX_ZOOM ever disagree. */
+:root {
+  --mm-gym-zoom: 3;
+}
+
+/* The marker layer's own tokens. Both frames that draw one carry them: the map block on a stop's
+   page, and the shot inside a gym, which is the same layer in a different box. A gym had none of
+   these, so its ticked pins drew their check on `background: var(--mm-done)` with no --mm-done to
+   read, which is a transparent circle: the mark was there and invisible. */
+.pn-mm-block,
+.pn-wt-gym__shot-wrap {
   --mm-trainer: var(--accent2);
   --mm-npc: var(--amber);
   --mm-item: var(--accent);
+  --mm-pokemon: var(--trade-purple);
   --mm-hidden: var(--neon-magenta);
   --mm-exit: var(--ink);
+  /* A hole is a one-way drop rather than a door, so it takes a hazard red of its own instead of
+     the exit's ink: two dark pins a few cells apart on the same Seafoam floor would read as one
+     kind of thing when only one of them can be walked back through. */
+  --mm-hole: #B8452F;
   --mm-done: var(--done-green);
   --mm-row-done: #E8F2EA;
   --mm-row-selected: #FFEDC5;
@@ -104,19 +122,28 @@
 .pn-mm-pill__swatch--trainer { background: var(--mm-trainer); }
 .pn-mm-pill__swatch--npc { background: var(--mm-npc); }
 .pn-mm-pill__swatch--exit { background: var(--mm-exit); }
+.pn-mm-pill__swatch--hole { background: var(--mm-hole); }
 
 .pn-mm-pill__swatch--item,
+.pn-mm-pill__swatch--pokemon,
 .pn-mm-pill__swatch--hidden {
   border-radius: 50%;
 }
 
 .pn-mm-pill__swatch--item { background: var(--mm-item); }
+.pn-mm-pill__swatch--pokemon { background: var(--mm-pokemon); }
 .pn-mm-pill__swatch--hidden { background: var(--mm-hidden); }
 
 .pn-mm-toggle {
   font-family: "VT323", monospace;
   font-size: 18px;
   padding: 5px 13px;
+}
+
+.pn-mm-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .pn-mm-toggle.is-on { background: var(--neon-cyan); }
@@ -164,15 +191,26 @@
   color: #8fa6c8;
 }
 
-/* Wraps the canvas so a landscape map can scroll sideways without the border box moving. In
-   portrait it does nothing. */
+/* Wraps the canvas so a map can scroll sideways without the border box moving. A map is never
+   drawn below 1x, whichever way round it is: squeezed into a phone column a deck's labels pile
+   into each other and the picture stops being readable at all, so the frame scrolls instead. The
+   vertical padding gives the top and bottom rows of pins, and the labels a crowded row deals out
+   of line, room to sit inside that frame, which clips whatever leaves it. A tapped pin's hint no
+   longer needs it: that one is fixed to the window instead (see .pn-mm__hint). The horizontal
+   padding is half a pin (28px), because a pin sits centred on its tile: a doorway on the very edge
+   of a map hangs half of itself past the picture, and without the gutter those few pixels raise a
+   scrollbar under a map that otherwise fits exactly. */
 .pn-mm-viewport {
   min-width: 0;
+  overflow-x: auto;
+  padding-block: 40px;
+  padding-inline: 14px;
 }
 
 .pn-mm-canvas {
   position: relative;
   line-height: 0;
+  width: max(100%, var(--mm-native-w, 100%));
   max-width: calc(var(--mm-native-w, 100%) * var(--mm-max-zoom));
   margin-inline: auto;
 }
@@ -182,6 +220,75 @@
   width: 100%;
   height: auto;
   image-rendering: pixelated;
+}
+
+/* The drawn way round an arrow-tile floor, in the map's own pixel coordinates so the polyline
+   lands on the tiles it was solved for however the picture is scaled. Under the markers, over the
+   art: a pin has to stay readable where the line runs through it. Strokes do not scale with the
+   picture, so the line stays the same weight whether the map is at 1x or zoomed. */
+.pn-mm-route {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pn-mm-block:not(.is-routed) .pn-mm-route { display: none; }
+
+/* Every leg is drawn twice: a dark casing, then the colour on top of it. The floor under the line
+   is a green check with white crates all over it, and a bare coloured stroke disappears into both
+   in turn. The casing is what keeps one line one line. */
+.pn-mm-route__casing,
+.pn-mm-route__line {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* One hue per leg, and enough of them that the longest floor never reuses one: nine rooms in
+   Saffron's gym, nine colours. The palette hangs off the leg itself rather than off the map block, because
+   a step draws its own leg outside that block (see .pn-wt-stepmap), and the two have to agree
+   about which colour a leg is. The overrides come after, so they win on source order. */
+.pn-mm-route__leg {
+  --leg: #FF2D3A;
+  --leg-casing: #0b0b12;
+}
+
+.pn-mm-route__leg--2 { --leg: #FF8A00; }
+.pn-mm-route__leg--3 { --leg: #FFD400; }
+.pn-mm-route__leg--4 { --leg: #FF6FD8; }
+.pn-mm-route__leg--5 { --leg: #A972FF; }
+.pn-mm-route__leg--6 { --leg: #3B82F6; }
+.pn-mm-route__leg--7 { --leg: #FFFFFF; }
+
+/* The one leg dark enough to vanish into its own casing, so it wears a light one instead. */
+.pn-mm-route__leg--8 {
+  --leg: #111318;
+  --leg-casing: #f4f6fb;
+}
+
+/* Green, which nothing else in the palette is: it falls to Saffron's ninth room, the walk to
+   Sabrina, and a reader picking the last leg out of eight others should not have to hunt. */
+.pn-mm-route__leg--9 { --leg: #3DDC84; }
+
+.pn-mm-route__casing {
+  stroke: var(--leg-casing);
+  stroke-width: 6;
+  opacity: 0.8;
+}
+
+.pn-mm-route__line {
+  stroke: var(--leg);
+  stroke-width: 3;
+}
+
+.pn-mm-route__head {
+  fill: var(--leg);
+  stroke: var(--leg-casing);
+  stroke-width: 1.5;
+  paint-order: stroke;
 }
 
 /* Markers render server-side but stay dark until the controller has placed them, so nothing
@@ -241,11 +348,12 @@
   color: var(--ink);
 }
 
-/* A trainer, an item ball and an important NPC are all drawn into the map itself, so a pin on top
-   would just cover the sprite the player is looking for. They get a bare hit area over that sprite
-   and rely on their label; only a trainer's or item's ticked check draws anything. */
+/* A trainer, an item ball, a Pokémon standing on the floor and an important NPC are all drawn into
+   the map itself, so a pin on top would just cover the sprite the player is looking for. They get
+   a bare hit area over that sprite and rely on their label; only a ticked check draws anything. */
 .pn-mm__pin--trainer,
 .pn-mm__pin--item,
+.pn-mm__pin--pokemon,
 .pn-mm__pin--npc {
   width: 22px;
   height: 22px;
@@ -256,6 +364,7 @@
 
 .pn-mm__pin--trainer .pn-mm__glyph,
 .pn-mm__pin--item .pn-mm__glyph,
+.pn-mm__pin--pokemon .pn-mm__glyph,
 .pn-mm__pin--npc .pn-mm__glyph {
   display: none;
 }
@@ -264,6 +373,12 @@
   background: var(--mm-exit);
   color: #fff;
   box-shadow: 0 0 11px #171622bb, 2px 2px 0 var(--ink);
+}
+
+.pn-mm__pin--hole {
+  background: var(--mm-hole);
+  color: #fff;
+  box-shadow: 0 0 11px #b8452fbb, 2px 2px 0 var(--ink);
 }
 
 /* The hidden-item pin is the one that moves: it marks a tile the game shows nothing on. It stays
@@ -350,23 +465,40 @@
 .is-labelled .pn-mm__label { display: flex; }
 .pn-mm[data-align="r"] .pn-mm__label { left: 22px; }
 .pn-mm[data-align="l"] .pn-mm__label { right: 22px; }
+/* Sat on its own pin instead of beside it, for a floor where the pins are the instruction rather
+   than things to hunt for: a name to one side of thirty near-identical warp pads is a name the
+   reader has to work out the owner of. The generator only asks for this where the label still
+   fits inside the map (markers.centre_labels). */
+.pn-mm[data-align="c"] .pn-mm__label {
+  left: 50%;
+  transform: translate(-50%, calc(-50% + var(--lane, 0) * 26px));
+}
 .pn-mm.is-selected .pn-mm__label { border-color: var(--amber); }
 
 /* Labels off means a clean map: hide the pins (arrows, rings, ticks) too, not just their names.
    The legend beside the map stays fully interactive, so nothing becomes unreachable. */
-.pn-mm-block:not(.is-labelled) .pn-mm__pin { display: none; }
+.pn-mm-block:not(.is-labelled) .pn-mm__pin,
+.pn-wt-gym__shot-wrap:not(.is-labelled) .pn-mm__pin { display: none; }
 
-/* Leader line: when a crowded row nudges a label down into a lower lane, an elbow runs from the
-   pin down to it, so the label still reads as part of its marker instead of floating free. Drawn
-   on ::before, behind the pin and label; emerges from under the pin. */
+/* Leader line: when a crowded row deals a label into another one, an elbow runs from the pin to
+   it, so the label still reads as part of its marker instead of floating free. Drawn on ::before,
+   behind the pin and label; emerges from under the pin. A crowd opens both ways, so the elbow
+   goes up as readily as down. */
 .is-labelled .pn-mm.has-lane .pn-mm__hit::before {
   content: "";
   position: absolute;
   top: 0;
   width: 22px;
-  height: calc(var(--lane, 0) * 26px);
+  height: calc(var(--lane-rise, 0) * 26px);
   border-bottom: 2px solid #7a8199;
   pointer-events: none;
+}
+
+.is-labelled .pn-mm.has-lane--up .pn-mm__hit::before {
+  top: auto;
+  bottom: 0;
+  border-bottom: 0;
+  border-top: 2px solid #7a8199;
 }
 .pn-mm[data-align="r"].has-lane .pn-mm__hit::before { left: 0; border-left: 2px solid #7a8199; }
 .pn-mm[data-align="l"].has-lane .pn-mm__hit::before { right: 0; border-right: 2px solid #7a8199; }
@@ -375,20 +507,27 @@
 .pn-mm[data-cat="trainer"] .pn-mm__label-key { color: var(--mm-trainer); }
 .pn-mm[data-cat="npc"] .pn-mm__label-key { color: var(--mm-npc); }
 .pn-mm[data-cat="item"] .pn-mm__label-key { color: var(--mm-item); }
+.pn-mm[data-cat="pokemon"] .pn-mm__label-key { color: var(--mm-pokemon); }
 .pn-mm[data-cat="hidden"] .pn-mm__label-key { color: var(--mm-hidden); }
 .pn-mm[data-cat="exit"] .pn-mm__label-key { color: var(--mm-exit); }
+.pn-mm[data-cat="hole"] .pn-mm__label-key { color: var(--mm-hole); }
 
 /* --- hint popover -------------------------------------------------------- */
 
+/* Fixed to the window, not to the pin's corner of the map. A map that is wider than its column
+   scrolls inside its frame, and a scroll box clips whatever reaches past it, so a hint anchored
+   in there came out with its top sliced off. The controller measures the pin and this box and
+   writes the two coordinates (map_markers_controller.js): above the pin, or under it when there
+   is no room above, and never past a window edge, so the popover always draws whole and on top
+   of the map. */
 .pn-mm__hint {
-  position: absolute;
-  left: 0;
-  bottom: 26px;
+  position: fixed;
+  left: var(--hint-x, 0);
+  top: var(--hint-y, 0);
   z-index: 41;
   display: none;
   width: max-content;
-  max-width: 230px;
-  transform: translateX(-50%);
+  max-width: min(230px, calc(100vw - 24px));
   text-align: left;
   background: var(--ui-dark);
   border: 2px solid var(--neon-cyan);
@@ -397,27 +536,6 @@
 }
 
 .pn-mm.is-selected .pn-mm__hint { display: block; }
-
-/* A marker near the top edge has no room above it, so its hint drops below instead. This also
-   keeps top-row hints inside a landscape map's scroll frame, which clips what leaves it. */
-.pn-mm--hint-below .pn-mm__hint {
-  top: 26px;
-  bottom: auto;
-}
-
-/* Same idea sideways: a marker near the left or right edge would push its centred hint past the
-   map edge, which on a landscape map's scroll frame shows up as a stray horizontal scrollbar. So
-   an edge marker's hint opens inward (anchored to the marker) instead of straddling the border. */
-.pn-mm--hint-left .pn-mm__hint {
-  left: auto;
-  right: 0;
-  transform: none;
-}
-.pn-mm--hint-right .pn-mm__hint {
-  left: 0;
-  right: auto;
-  transform: none;
-}
 
 .pn-mm__hint-name {
   font-family: "Pixelify Sans", sans-serif;
@@ -532,7 +650,9 @@
 .pn-mm-legend__swatch--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__swatch--npc { background: var(--mm-npc); }
 .pn-mm-legend__swatch--exit { background: var(--mm-exit); }
+.pn-mm-legend__swatch--hole { background: var(--mm-hole); }
 .pn-mm-legend__swatch--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__swatch--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__swatch--hidden { background: var(--mm-hidden); border-radius: 50%; }
 
 .pn-mm-legend__row {
@@ -572,8 +692,10 @@
 .pn-mm-legend__chip--trainer { background: var(--mm-trainer); }
 .pn-mm-legend__chip--npc { background: var(--mm-npc); color: var(--ink); }
 .pn-mm-legend__chip--item { background: var(--mm-item); border-radius: 50%; }
+.pn-mm-legend__chip--pokemon { background: var(--mm-pokemon); border-radius: 50%; }
 .pn-mm-legend__chip--hidden { background: var(--mm-hidden); border-radius: 50%; }
 .pn-mm-legend__chip--exit { background: var(--mm-exit); border-radius: 4px; }
+.pn-mm-legend__chip--hole { background: var(--mm-hole); border-radius: 4px; }
 
 .pn-mm-legend__name {
   flex: 1;
@@ -594,10 +716,8 @@
 
 /* --- landscape template --------------------------------------------------- */
 /* A wide, short map (a route) reads badly squeezed into the side-by-side column, so it takes the
-   full page width: the how-to moves above the map and the legend spreads out beneath it. The map
-   keeps its native pixel width (never scaled below 1x) and the frame scrolls sideways when the
-   map is wider than the page; the vertical padding gives a tapped marker's hint room to sit
-   inside the scroll frame, which clips whatever leaves it. */
+   full page width: the how-to moves above the map and the legend spreads out beneath it. The
+   never-below-1x scrolling frame is the base behaviour every map gets. */
 
 [data-map-orient="landscape"] .pn-mm-split { grid-template-columns: 1fr; }
 [data-map-orient="landscape"] .pn-mm-howto--side { display: none; }
@@ -612,15 +732,6 @@
 
 [data-map-orient="landscape"] .pn-mm-howto--top .pn-mm-howto__title { white-space: nowrap; }
 [data-map-orient="landscape"] .pn-mm-howto--top .pn-mm-howto__body { flex: 1; min-width: 220px; margin: 0; }
-
-[data-map-orient="landscape"] .pn-mm-viewport {
-  overflow-x: auto;
-  padding-block: 40px;
-}
-
-[data-map-orient="landscape"] .pn-mm-canvas {
-  width: max(100%, var(--mm-native-w, 100%));
-}
 
 /* The legend groups lay out as fixed-size columns: ~200px each, as many as fit. On the full-width
    page that lands the design's five (trainer, NPC, item, hidden, exit) side by side, and it reflows
@@ -967,3 +1078,39 @@
 .pn-wt-trainer--compact .pn-wt-trainer__card { padding: 12px 14px; }
 .pn-wt-trainer--compact .pn-wt-trainer__shots { gap: 8px; }
 .pn-wt-trainer--compact .pn-wt-team-mon { gap: 6px; }
+
+/* --- a step's own map ------------------------------------------------------ */
+
+/* The crop, the scale and the line are all the SVG's: its viewBox is the window onto the floor,
+   so the frame needs no inline style and no JavaScript to place it. The stroke widths here are in
+   the map's own pixels rather than screen pixels, because this frame is a fixed zoom rather than
+   something the reader can scale, and a hairline over a 200px window would vanish. */
+.pn-wt-stepmap {
+  margin: 14px 0 0;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  background: var(--ink);
+  max-width: 420px;
+}
+
+.pn-wt-stepmap__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pn-wt-stepmap__img { image-rendering: pixelated; }
+
+/* A boulder the app draws over a step's crop, since the floor itself is drawn without one: the
+   game hides every boulder below Seafoam 1F until the one above it falls. */
+.pn-wt-stepmap__boulder { image-rendering: pixelated; }
+
+.pn-wt-stepmap__cap {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  background: var(--ink);
+  padding: 3px 8px;
+  line-height: 1.3;
+}

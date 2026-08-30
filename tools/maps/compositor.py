@@ -299,13 +299,24 @@ def draw_dialog(canvas, root_str, lines, ink, paper):
 PLAYER_SCREEN = (72, 56)
 
 
-def _camera(focus_px, anchor, full_size, screen_size):
+# The text box covers screen rows 12-17, the bottom 48px, so a shot that draws one is really a
+# 160x96 window onto the map.
+DIALOG_PX = 48
+
+
+def _camera(focus_px, anchor, full_size, screen_size, covered=0):
     """Gen 1 keeps the hero pinned to `anchor` on screen. When the map is wider/taller than the
     screen on this axis we clamp so the camera never scrolls past a map edge; when it is smaller
-    we let it center on the hero, so the border block shows in the leftover space (see below)."""
+    we let it center on the hero, so the border block shows in the leftover space (see below).
+
+    `covered` is how much of this axis the text box hides, and it buys the clamp exactly that much
+    more room. Without it a hidden item on one of a map's last rows is unshowable: the clamp stops
+    the camera at the map's bottom edge, which leaves the tile the shot exists to point at down
+    behind the box, hero and locator dot both. The extra scroll runs past the map edge, but only
+    into the strip the box then paints over, so nothing beyond the edge is ever on show."""
     if full_size < screen_size:
         return focus_px - anchor
-    return min(max(focus_px - anchor, 0), full_size - screen_size)
+    return min(max(focus_px - anchor, 0), full_size - screen_size + covered)
 
 
 def border_fill(root_str, label, parent_const, width=SCREEN[0], height=SCREEN[1]):
@@ -342,7 +353,7 @@ def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), ar
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
     offx = _camera(fx, PLAYER_SCREEN[0], full.width, SCREEN[0])
-    offy = _camera(fy, PLAYER_SCREEN[1], full.height, SCREEN[1])
+    offy = _camera(fy, PLAYER_SCREEN[1], full.height, SCREEN[1], DIALOG_PX if dialog else 0)
     screen = border_fill(root_str, label, parent_const)
     screen.paste(full, (-offx, -offy))
     if dialog:

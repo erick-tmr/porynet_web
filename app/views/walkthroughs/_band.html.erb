@@ -13,35 +13,66 @@
   </div>
 </section>
 
-<% if loc.area_maps? %><%= render "area_map", loc: loc %><% end %>
+<%# A stop that walks off its own map draws each map with only the steps taken on it, the way a
+    special page does: all the maps in a pile and then a wall of steps leaves the reader working
+    out which map any given step is on. `step_groups` is empty unless the steps name their maps,
+    so every other stop keeps the map block it always had. %>
+<% groups = loc.step_groups %>
+<% if groups.empty? && loc.area_maps? %><%= render "area_map", loc: loc %><% end %>
 
 <% if loc.slug == "cerulean-city" %><%= render "mew_teaser" %><% end %>
 
 <% if loc.mart? %><%= render "mart", loc: loc %><% end %>
 
+<% if loc.mart&.roof? %><%= render "roof_trades", roof: loc.mart.roof %><% end %>
+
 <% if loc.slug == "cerulean-city" %><%= render "badge_guide" %><% end %>
 
 <% if loc.slug == "route-24" %><%= render "leave_standing_teaser" %><% end %>
 
-<section class="pn-wt-section">
-  <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
-  <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
-  <div class="pn-wt-steps">
-    <% loc.lead_steps.each do |step| %>
-      <%= render "step", step: step, slug: loc.slug %>
-      <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
+<%# The beach house is the first door on this route, so what is behind it is read before the two
+    steps that surf past it rather than after. %>
+<% if loc.slug == "route-19" %><%= render "surf_pikachu" %><% end %>
+
+<% if groups.any? %>
+  <% groups.each_with_index do |(area, steps), index| %>
+    <% if area %>
+      <section class="pn-wt-section pn-wt-maps">
+        <%= render "area_map_block", loc: loc, area: area, show_howto: index.zero? %>
+      </section>
     <% end %>
-  </div>
-</section>
+    <%= render "steps_section", loc: loc, steps: steps, heading: index.zero? %>
+    <% here = loc.encounters_on(area&.name) %>
+    <% if here.any? %>
+      <%= render "catch_here", loc: loc, encounters: here, plan: plan, level: :band %>
+    <% end %>
+  <% end %>
+<% else %>
+  <section class="pn-wt-section">
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
+    <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
+    <div class="pn-wt-steps">
+      <% loc.lead_steps.each do |step| %>
+        <%= render "step", step: step, slug: loc.slug %>
+        <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if loc.slug == "route-15" %><%= render "exp_share" %><% end %>
 
 <% if loc.later? %><%= render "later_section", loc: loc %><% end %>
 
-<% if loc.encounters.any? %>
+<%# Grouped pages list their water under the map it is on, above, so only an ungrouped stop puts
+    everything it holds in one section here. %>
+<% if groups.empty? && loc.encounters.any? %>
   <%= render "catch_here", loc: loc, encounters: loc.encounters, plan: plan, level: :band %>
   <% if loc.slug == "cerulean-city" %><%= render "pikachu_friendship" %><% end %>
 <% end %>
 
 <% if loc.trivia? %><%= render "trivia", trivia: loc.trivia %><% end %>
+<% if loc.grind? %><%= render "grind_spot", grind: loc.grind %><% end %>
 
 <% if loc.trainers.any? %>
   <section class="pn-wt-section">
@@ -58,6 +89,8 @@
 <% if loc.band_gym? %>
   <%= render "gym", gym: loc.gym, slug: loc.slug %>
 <% end %>
+
+<% if loc.dojo? %><%= render "dojo", dojo: loc.dojo %><% end %>
 
 <% if loc.slug == "route-24" %><%= render "leave_standing" %><% end %>
 

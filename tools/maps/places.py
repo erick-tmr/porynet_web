@@ -132,6 +132,48 @@ def item_price(root_str, const):
     return parse_prices(root_str).get(const, 0)
 
 
+_PRIZE_ENTRIES = re.compile(r"^PrizeMenu(\w+)Entries:\n((?:\s*db .+\n)+)", re.M)
+_PRIZE_COSTS = re.compile(r"^PrizeMenu(\w+)Cost:\n((?:\s*bcd2 .+\n)+)", re.M)
+_PRIZE_LEVEL = re.compile(r"^\s*db (\w+),\s*(\d+)", re.M)
+
+
+def build_prizes(root_str):
+    """Return the Game Corner's three prize windows, in the order the counters stand in.
+
+    Nothing here is authored. The stock and the coin price of each window come from
+    data/events/prizes.asm, which lists a menu's entries and its costs as parallel tables, and a
+    prize Pokemon's level from data/events/prize_mon_levels.asm. A species is emitted as its dex
+    number so it joins the sprite the rest of the walkthrough draws it with, and a TM as the same
+    display name the item catalog is keyed by."""
+    text = sources._read(root_str, "data/events/prizes.asm")
+    entries = {name: re.findall(r"^\s*db (\w+)", body, re.M)
+               for name, body in _PRIZE_ENTRIES.findall(text)}
+    costs = {name: [int(c) for c in re.findall(r"^\s*bcd2 (\d+)", body, re.M)]
+             for name, body in _PRIZE_COSTS.findall(text)}
+    levels = {mon: int(level) for mon, level in
+              _PRIZE_LEVEL.findall(sources._read(root_str, "data/events/prize_mon_levels.asm"))}
+    dex = sources.parse_dex_numbers(root_str)
+
+    windows = []
+    for name in ("Mon1", "Mon2", "TMs"):
+        prizes = []
+        for const, coins in zip(entries[name], costs[name], strict=True):
+            if const in dex:
+                prizes.append({"dex": f"{dex[const]:03d}", "level": levels[const], "coins": coins})
+            else:
+                prizes.append({"item": tm_display_name(root_str, const), "coins": coins})
+        windows.append({"window": name.lower(), "prizes": prizes})
+    return {"windows": windows, "coin_piles": count_coin_piles(root_str)}
+
+
+def count_coin_piles(root_str):
+    """How many hidden coin piles lie on the Game Corner floor, from data/events/hidden_coins.asm.
+    Every entry in the table is on GAME_CORNER; the count is what a reader sweeping the room
+    wants, not the coordinates, which the map markers already carry."""
+    text = sources._read(root_str, "data/events/hidden_coins.asm")
+    return len(re.findall(r"^\s*hidden_coin GAME_CORNER,", text, re.M))
+
+
 def build_item_catalog(root_str):
     """Return {display name: facts} for every item a mart, gift or vending machine offers, so the
     walkthrough can price and picture it. Keyed by the same display string that appears in a
@@ -163,9 +205,12 @@ def build_item_catalog(root_str):
     for const in _EXTRA_ITEMS:
         add(const, sources.item_display_name(const))
     # Every TM, not just the sold/gifted ones, so a TM picked up off the ground can still name its
-    # type-badge sprite. Keyed by the same display string the map's item marker uses.
+    # type-badge sprite. Under both display strings, because the two things that name a TM
+    # disagree: a map's item marker calls it "TM Dragon Rage" and a gift or a Game Corner prize
+    # calls it "TM23 Dragon Rage", and either has to find the same entry.
     for const in parse_tm_numbers(root_str):
         add(const, sources.item_display_name(const))
+        add(const, tm_display_name(root_str, const))
     return dict(sorted(catalog.items()))
 
 
@@ -233,6 +278,27 @@ def parse_pokemon_types(root_str):
     return out
 
 
+# Each of Cinnabar's locked doors is a hidden event whose argument packs the correct answer above
+# the door's own number: `(answer << 4) | index` in data/events/hidden_events.asm. Read the bytes
+# and nothing else and you get the questions' truth values, which are not the answers: the game
+# compares that nibble against `wCurrentMenuItem`, and a yes/no menu answers YES with 0. So a door
+# whose statement is FALSE is opened by saying yes, and every one of the six comes out inverted
+# from what its constant is called.
+QUIZ_GATE = re.compile(r"hidden_event\s+\d+,\s*\d+,\s*PrintCinnabarQuiz,\s*\((TRUE|FALSE)")
+QUIZ_MENU = {"FALSE": "yes", "TRUE": "no"}
+
+
+def quiz_answers(root_str, map_const):
+    """How to answer a gym's quiz doors, in the order the doors are numbered, or None for a gym
+    that asks nothing. Only Cinnabar has them."""
+    body = sources.read_data(root_str, "data/events/hidden_events.asm")
+    block = re.search(rf"hidden_events_for {map_const}\n(.*?)\n\tdb -1", body, re.S)
+    if block is None:
+        return None
+    answers = [QUIZ_MENU[truth] for truth in QUIZ_GATE.findall(block.group(1))]
+    return answers or None
+
+
 def gym_facts(root_str, label, objects):
     """Badge, TM, leader and team types for a gym map, or None unless the map states all four.
     The leader is the map's first trainer object, which is how every gym lists them."""
@@ -243,9 +309,13 @@ def gym_facts(root_str, label, objects):
     if not (badge and tm and leader):
         return None
     name = sources.parse_trainer_classes(root_str)[leader["opp_class"]][1]
-    return {"badge": badge.group(1).title(), "tm": tm_display_name(root_str, tm.group(1)),
-            "leader": LEADER_FIXUPS.get(name, name.title()),
-            "types": _party_types(root_str, leader)}
+    facts = {"badge": badge.group(1).title(), "tm": tm_display_name(root_str, tm.group(1)),
+             "leader": LEADER_FIXUPS.get(name, name.title()),
+             "types": _party_types(root_str, leader)}
+    quiz = quiz_answers(root_str, sources.parse_headers(root_str)[label][0])
+    if quiz:
+        facts["quiz"] = quiz
+    return facts
 
 
 def _party_types(root_str, leader):

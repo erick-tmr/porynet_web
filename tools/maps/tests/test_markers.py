@@ -1,3 +1,6 @@
+import pathlib
+import re
+
 import markers
 import sources
 
@@ -19,6 +22,24 @@ def test_marker_key_prefixes_by_category():
     assert markers.marker_key("hidden", 2) == "H3"
     assert markers.marker_key("exit", 11) == "E12"
     assert markers.marker_key("npc", 0) == "N1"
+    assert markers.marker_key("pokemon", 3) == "P4"
+
+
+def test_a_ball_holding_a_pokemon_is_lettered_apart_from_the_pickups(root):
+    """The Power Plant's Voltorb and Electrode are declared exactly like a Poké Ball you can pick
+    up, with a level on the end instead of nothing, and the birds are the same object with their
+    own sprite. None of them hands anything over, so they letter as P and leave the five real
+    balls counting from I1: a reader hunting item balls is not sent to eight battles."""
+    entries = markers.build_markers(root, "PowerPlant", "POWER_PLANT", 640, 576)
+    mons = by_cat(entries, "pokemon")
+    items = by_cat(entries, "item")
+
+    assert markers.ball_category(root, "CARBOS") == "item"
+    assert markers.ball_category(root, "VOLTORB, 40") == "pokemon"
+    assert sorted(m["name"] for m in items) == [
+        "Carbos", "HP Up", "Rare Candy", "TM Reflect", "TM Thunder"]
+    assert [m["key"] for m in mons] == [f"P{n}" for n in range(1, 10)]
+    assert sorted({m["name"] for m in mons}) == ["Electrode, 43", "Voltorb, 40", "Zapdos, 50"]
 
 
 def test_cell_percent_centers_the_cell():
@@ -122,13 +143,14 @@ def cerulean_exits(root):
             if m["cat"] == "exit"]
 
 
-def test_a_pass_through_house_splits_into_an_enter_and_a_back_exit(root):
+def test_a_pass_through_house_splits_into_a_front_and_a_back_door(root):
     """The Badge House and Trashed House each warp to one interior through a front door and a
     door behind, so both would otherwise print the same name twice. The door facing the street
-    (larger grid y) is the entrance; the one behind it is the back exit."""
+    (larger grid y) is the front; the one behind it is the back. Neither is an exit: both are
+    ways in, and for Celadon Mansion the back one is the only way to the roof."""
     by_name = {m["name"]: m for m in cerulean_exits(root)}
     for house in ("Trashed House", "Badge House"):
-        assert by_name[f"{house} (enter)"]["grid"][1] > by_name[f"{house} (exit)"]["grid"][1]
+        assert by_name[f"{house} (front)"]["grid"][1] > by_name[f"{house} (back)"]["grid"][1]
 
 
 def test_the_split_generalises_to_every_town_and_the_route_gates(root):
@@ -136,7 +158,7 @@ def test_the_split_generalises_to_every_town_and_the_route_gates(root):
     are all walk-throughs, so they split the same way."""
     celadon = [m["name"] for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 640, 576)
                if m["cat"] == "exit"]
-    assert "Mansion 1F (enter)" in celadon and "Mansion 1F (exit)" in celadon
+    assert "Mansion 1F (front)" in celadon and "Mansion 1F (back)" in celadon
 
 
 def test_lone_pass_through_door_is_left_unlabelled():
@@ -175,6 +197,44 @@ def test_strip_town_prefix_leaves_non_town_maps_alone():
     exits = [{"name": "Route 2 Gate"}]
     markers.strip_town_prefix(exits, "ROUTE_2")
     assert exits[0]["name"] == "Route 2 Gate"
+
+
+def test_a_dungeon_staircase_is_labelled_by_the_floor_it_reaches(root):
+    """Pokemon Tower 6F's two staircases read 'Pokemon Tower 5F' and 'Pokemon Tower 7F' on a map
+    already titled Pokemon Tower. At the size the tower is served the longer of them ran off the
+    right edge and printed over the X Accuracy below it, with no clean lane left to deal it into.
+    The floor is the whole message, so that is all the label keeps."""
+    exits = {m["ref"]: m["name"]
+             for m in markers.build_markers(root, "PokemonTower6F", "POKEMON_TOWER_6F", 320, 288)
+             if m["cat"] == "exit"}
+
+    assert exits == {"POKEMON_TOWER_5F": "5F", "POKEMON_TOWER_7F": "7F"}
+
+
+def test_the_way_out_of_a_dungeon_keeps_its_full_name(root):
+    """Only a staircase between two floors of one place is shortened. The tower's ground floor
+    opens onto Lavender Town, which shares nothing with it and stays spelled out."""
+    exits = [m["name"] for m in markers.build_markers(root, "PokemonTower1F", "POKEMON_TOWER_1F",
+                                                      320, 288) if m["cat"] == "exit"]
+
+    assert sorted(exits) == ["2F", "Back outside"]
+
+
+def test_a_shared_first_word_is_not_a_shared_dungeon():
+    """What the rule must not do. Matching on leading words alone turned Diglett's Cave's exit to
+    Route 2 into 'Cave Route 2' and the Indigo Plateau lobby into 'Plateau Lobby': both maps share
+    a word with their neighbour and neither is a floor of it."""
+    cave = [{"name": "Digletts Cave Route 2"}]
+    markers.strip_floor_prefix(cave, "DIGLETTS_CAVE")
+    assert cave[0]["name"] == "Digletts Cave Route 2"
+
+    plateau = [{"name": "Indigo Plateau Lobby"}]
+    markers.strip_floor_prefix(plateau, "INDIGO_PLATEAU")
+    assert plateau[0]["name"] == "Indigo Plateau Lobby"
+
+    hideout = [{"name": "Rocket Hideout B2F"}, {"name": "Rocket Hideout Elevator"}]
+    markers.strip_floor_prefix(hideout, "ROCKET_HIDEOUT_B1F")
+    assert [m["name"] for m in hideout] == ["B2F", "Rocket Hideout Elevator"]
 
 
 def test_a_road_across_a_pond_anchors_to_the_road_not_the_water(root):
@@ -232,8 +292,44 @@ def test_neighbours_on_one_row_take_separate_lanes(root):
 
 
 def test_every_label_stays_on_the_side_its_marker_is_on(root):
+    """The forest has room for all of its names, so every one of them keeps the side its x picks."""
     for entry in build(root):
         assert entry["align"] == ("l" if entry["x"] > markers.LABEL_FLIP_PCT else "r")
+
+
+def test_a_label_that_would_hang_off_the_map_takes_the_other_side():
+    """Which side a label reads better on is picked from its marker's x, before the text exists.
+    A long name just inside that line then writes itself past the wall and the frame clips it:
+    Celadon Gym's Cooltrainer stands mid-room and ran a quarter of its width off the picture."""
+    inside = {**row(20.0, 55.0, "Beauty"), "key": "T8"}
+    hangs_off = {**row(20.0, 55.0, "Cooltrainer♀"), "key": "T7"}
+    markers.assign_label_lanes([ inside ], 160, 288)
+    markers.assign_label_lanes([ hangs_off ], 160, 288)
+
+    assert inside["align"] == "r"
+    assert hangs_off["align"] == "l"
+    assert markers.label_span(hangs_off, 160)[0] >= 0
+
+
+def test_a_label_too_wide_for_either_side_keeps_the_one_it_reads_best_on():
+    """Only overridden when the other side actually works. A name wider than the map fits nowhere,
+    so it stays where its marker puts it rather than swapping one overflow for another."""
+    huge = {**row(50.0, 55.0, "Underground Path Route 5 North Entrance"), "key": "E1"}
+    markers.assign_label_lanes([ huge ], 160, 288)
+
+    assert huge["align"] == "r"
+
+
+def test_celadon_gyms_chamber_labels_all_fit_inside_the_picture(root):
+    """The case that started it: four names in Erika's chamber, two cells apart on a ten-cell map.
+    Every one of them has to land inside the frame, at the 2x the gym card draws its map at."""
+    const = sources.parse_headers(root)["CeladonGym"][0]
+    pins = markers.build_markers(root, "CeladonGym", const, 160, 288)
+
+    for pin in pins:
+        left, right = markers.label_span(pin, 160 * 2.0)
+        assert left >= 0, pin["name"]
+        assert right <= 101, pin["name"]
 
 
 def lanes(rows):
@@ -253,14 +349,119 @@ def test_lanes_stay_flat_when_labels_share_a_row_but_sit_far_apart():
     assert lanes([ row(10.0, 2), row(10.0, 55) ]) == [ 0, 0 ]
 
 
+def settled(rows, height_px=768):
+    """Where each label ends up down the map, in percent, once its lane is applied."""
+    row_pct = markers.LABEL_PX / height_px * 100
+    return [e["y"] + e["lane"] * row_pct for e in markers.assign_label_lanes(rows, 544, height_px)]
+
+
 def test_lanes_keep_stacking_past_two():
-    assert lanes([ row(10.0, 5), row(10.1, 6), row(10.2, 7) ]) == [ 0, 1, 2 ]
+    """Three labels all but on one row are dealt three rows, not two and a collision. Which three
+    is the solver's business, since it weighs every width the page draws and the answer moves when
+    that range does, so what is pinned here is the promise: a row each, and none of them touching."""
+    rows = [ row(10.0, 5), row(10.1, 6), row(10.2, 7) ]
+    ends = sorted(settled(rows))
+    row_pct = markers.LABEL_PX / 768 * 100
+
+    assert len(set(lanes(rows))) == 3, "a row each rather than a pile"
+    assert all(b - a + markers.LANE_EPSILON >= row_pct
+               for a, b in zip(ends, ends[1:], strict=False)), "and no two close enough to touch"
+
+
+def test_a_label_is_measured_where_it_lands_not_by_the_lane_it_is_filed_under():
+    """Four markers a fraction of a row apart, the shape Route 8's column of Lasses makes. Counting
+    clashes lane by lane they came out 1, 2, 0, 1: no two shared a lane number, so each read as
+    settled, and every one of them still printed over the label above or below it."""
+    ends = settled([ row(10.0, 5), row(11.0, 5), row(12.0, 5), row(13.0, 5) ])
+    row_pct = markers.LABEL_PX / 768 * 100
+
+    assert len(ends) == 4
+    assert all(abs(a - b) + markers.LANE_EPSILON >= row_pct
+               for i, a in enumerate(ends) for b in ends[i + 1:])
+
+
+def test_a_crowd_opens_both_ways_rather_than_cascading_down():
+    """Four labels stacked on one spot open outward from it, taking the row below, the next one
+    below, then the second row above. Dealt downward only they march off the bottom of the map
+    instead, which is how a page ends up with a name printed past its own picture."""
+    assert lanes([ row(50.0, 5), row(50.1, 5), row(50.2, 5), row(50.3, 5) ]) == [ 0, 1, 2, -2 ]
+
+
+def test_no_label_is_dealt_off_the_map():
+    assert list(markers.lane_seats(0.0, 20.0)) == [ 0, 1, 2, 3, 4, 5 ]
+    assert list(markers.lane_seats(100.0, 20.0)) == [ 0, -1, -2, -3, -4, -5 ]
+    assert list(markers.lane_seats(50.0, 60.0)) == [ 0 ]
+
+
+def test_a_label_with_nowhere_clean_to_go_takes_the_row_it_covers_least():
+    """Past its reach a label stops looking, so a map too crowded to lay out cleanly still keeps
+    every label within a leader line of its own pin."""
+    crowd = [ row(50.0 + n / 100, 5) for n in range(2 * markers.LABEL_LANE_REACH + 4) ]
+
+    assert all(abs(e["lane"]) <= markers.LABEL_LANE_REACH
+               for e in markers.assign_label_lanes(crowd, 544, 768))
 
 
 def test_a_longer_name_reserves_more_room():
-    """A short name clears its neighbour; the same pair collides once the name grows."""
+    """A short name clears its neighbour; the same pair collides once the name grows.
+
+    Which of the two moves is the long one: it is the label whose box reaches over the other's pin,
+    so lifting it off that row is what uncovers the marker. The neighbour, whose own short label
+    covers nothing, keeps the row it stands on."""
     assert lanes([ row(10.0, 2, "TM"), row(10.0, 12) ]) == [ 0, 0 ]
-    assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 0, 1 ]
+    assert lanes([ row(10.0, 2, "Viridian Forest North Gate"), row(10.0, 12) ]) == [ 1, 0 ]
+
+
+def test_a_label_crosses_its_pin_rather_than_walk_away_from_it():
+    """Two columns of pins whose leftward labels would land in each other. The right-hand column
+    reads leftward by its x alone, straight into the left-hand column's names, and rows alone
+    cannot part them: the two bands overlap in whichever row each sits. Sending the right-hand
+    labels out to the other side leaves every one of them on its own row."""
+    pair = [ row(20.0, 60, "B2F", "r"), row(20.0, 78, "B2F", "l") ]
+
+    assert lanes(pair) == [ 0, 0 ]
+    assert [e["align"] for e in markers.assign_label_lanes(pair, 544, 768)] == [ "r", "r" ]
+
+
+def test_a_label_keeps_the_side_it_reads_best_on_when_that_side_is_clear():
+    """The flip is a last resort, not a preference: it costs the reader a glance across the pin, so
+    it is only taken where staying put means a worse row."""
+    alone = [ row(20.0, 78, "B2F", "l") ]
+
+    assert [e["align"] for e in markers.assign_label_lanes(alone, 544, 768)] == [ "l" ]
+
+
+def test_a_grazed_pin_does_not_send_a_label_off_its_row():
+    """A label's box shrinks against the map as the map is drawn larger, so a pin just inside its
+    end at 1x is outside it at every size above. Covering a pin at one of the nine sizes is not
+    worth the leader line back from another row, and the label stays where it stands. A pin the
+    label sits on at more sizes than the rows it would travel still moves it, which is the case
+    `test_a_longer_name_reserves_more_room` holds."""
+    assert lanes([ row(20.0, 5), row(20.0, 19) ]) == [ 0, 0 ]
+
+
+def test_a_column_of_pins_reads_on_one_side():
+    """Two pins in a column, and a long name to their left filling the rows they would read into.
+    Both are driven across their pins, and the lower one cannot have its own row either. A row down
+    ties whichever way it faces, so it falls in under its partner rather than back across the map."""
+    column = [ row(19.0, 30, "Viridian Forest North Gate"),
+               row(20.0, 78, "B2F", "l"), row(22.0, 78, "1F", "l") ]
+    seated = markers.assign_label_lanes(column, 544, 768)
+
+    assert [ (e["align"], e["lane"]) for e in seated[1:] ] == [ ("r", 0), ("r", 1) ]
+
+
+def test_seafoam_b1f_labels_its_holes_beside_them(root):
+    """The whole thing on the real floor: two holes five cells apart on one row, each label on its
+    own row beside its pin and the two reading away from each other, so neither name lands in the
+    gap between them."""
+    const = sources.parse_headers(root)["SeafoamIslandsB1F"][0]
+    holes = {tuple(m["grid"]): m
+             for m in markers.build_markers(root, "SeafoamIslandsB1F", const, 480, 288)
+             if m["cat"] == "hole"}
+
+    assert {grid: (m["align"], m["lane"]) for grid, m in holes.items()} == {
+        (18, 6): ("l", 0), (23, 6): ("r", 0)}
 
 
 def test_a_narrow_map_measures_labels_against_the_width_it_is_drawn_at():
@@ -438,3 +639,111 @@ def test_two_real_doors_sharing_an_outdoor_tile_both_survive(root):
 
     assert len(out) == 2, "both south exits keep their pin"
     assert abs(out[0][0] - out[1][0]) > markers.SPARE_WARP_REACH
+
+
+def test_a_warp_the_game_can_never_fire_gets_no_pin(root):
+    """Celadon's map declares a door at (39, 19) into CELADON_MART_5F that no player can use.
+
+    Nothing is drawn there: the cell is the same wall as the block around it, while the doors
+    beside it carry the overworld's own warp tile. Pinned, it named a second Poke Mart in a town
+    whose only shop is the department store."""
+    celadon = [m for m in markers.build_markers(root, "CeladonCity", "CELADON_CITY", 800, 576)
+               if m["cat"] == "exit"]
+    assert not [m for m in celadon if m["ref"] == "CELADON_MART_5F"], "the dead door is not pinned"
+    assert [m for m in celadon if m["ref"] == "GAME_CORNER"], "the real doors beside it still are"
+
+    warp_tiles = {0x1B, 0x58}  # data/tilesets/warp_tile_ids.asm, .OverworldWarpTileIDs
+    tiles = sources.cell_tiles(root, "CeladonCity", "overworld", 25, 39, 19)
+    assert not warp_tiles & set(tiles), "it is wall, not a door"
+    assert warp_tiles & set(sources.cell_tiles(root, "CeladonCity", "overworld", 25, 28, 19)), \
+        "the Game Corner door beside it is one"
+
+
+def test_a_coin_pile_is_pinned_with_what_it_pays(root):
+    """The twelve Game Corner piles are not worth the same, and the guide says which is which.
+
+    hidden_events.asm writes each amount as COIN+<n>, but the pickup routine answers the 40 case
+    with .bcd20 under a comment admitting the bug, so the pile marked 40 pays 20 and the pin says
+    20. Eight tens, three twenties and the single hundred come to 240."""
+    piles = [c for c in sources.parse_coins(root) if c[0] == "GAME_CORNER"]
+    assert len(piles) == 12
+    assert sum(coins for _c, _x, _y, coins in piles) == 240
+    assert sorted(coins for _c, _x, _y, coins in piles) == [10] * 8 + [20] * 3 + [100]
+    assert (("GAME_CORNER", 11, 7, 20)) in piles, "the pile written COIN+40 hands over 20"
+
+    labels = {m["label"] for m in sources.markers_by_map(root)["GAME_CORNER"]}
+    assert "100 coins" in labels and "10 coins" in labels
+
+
+# The page's own ceiling for how far a map is stretched, in walkthrough-map.css. A label is laid
+# out against every size the map is drawn at, so the generator has to know the same number.
+CSS = pathlib.Path(__file__).resolve().parents[3] / "app/assets/stylesheets/pages/walkthrough-map.css"
+
+
+def test_label_lanes_are_dealt_for_every_width_the_page_draws():
+    """The two ends of this are in different languages and neither imports the other, so nothing
+    but a test keeps them in step. They drifted once: the page raised `--mm-max-zoom` to 2.5 while
+    the lane search still stopped at 2.0, and Silph Co's 10F printed "TM Earthquake" over "Rare
+    Candy" at every width past a laptop's. Sampling is quarter steps across the whole range,
+    because a gap in it is a width nobody laid out for: 11F crossed two exit labels at 1.79x.
+
+    Both ceilings count, and the larger is a gym's: a gym floor is drawn at --mm-gym-zoom because
+    the floor is the puzzle, which is half again what a map in its own block ever reaches."""
+    ceilings = [float(v) for v in re.findall(r"--mm-(?:max|gym)-zoom:\s*([\d.]+);", CSS.read_text())]
+
+    assert len(ceilings) == 2, "walkthrough-map.css no longer declares both zoom ceilings"
+    assert max(ceilings) == markers.LABEL_MAX_ZOOM, "the page zooms past what labels dodge for"
+    assert max(markers.LABEL_ZOOMS) == markers.LABEL_MAX_ZOOM
+    assert min(markers.LABEL_ZOOMS) == 1.0, "a map is never drawn below its own pixels"
+    steps = {round(b - a, 2) for a, b in zip(markers.LABEL_ZOOMS, markers.LABEL_ZOOMS[1:], strict=False)}
+    assert steps == {0.25}, "sampled evenly, so no width falls between two seats"
+
+
+def test_a_gym_floor_keeps_every_label_on_its_own_row(root):
+    """A gym floor is drawn at three times its own pixels because the room is the puzzle, and at
+    that size there is space beside every marker. Dealing a name into a clear row there moves it
+    across the room to dodge a collision that only happens on a phone: Koga's gym had "T7 Koga"
+    written four tiles above him, over an empty stripe, with two Jugglers nearer it than he was."""
+    for label, const in (("FuchsiaGym", "FUCHSIA_GYM"), ("SaffronGym", "SAFFRON_GYM"),
+                         ("FightingDojo", "FIGHTING_DOJO"), ("CeladonGym", "CELADON_GYM")):
+        pins = markers.build_markers(root, label, const, 320, 288)
+        assert markers.drawn_in_a_gym_frame(root, label, const), label
+        assert {pin["lane"] for pin in pins} == {0}, label
+        assert all(_inside(markers.label_span(pin, 320)) for pin in pins), label
+
+    assert not markers.drawn_in_a_gym_frame(root, "ViridianForest", "VIRIDIAN_FOREST")
+
+
+def test_a_warp_pads_label_sits_on_the_pad_and_a_trainers_beside_them(root):
+    """A pad is a thing to read, not to look at: thirty of them a few tiles apart, each named for
+    the room it lands in, and a name to one side is a name with two pads to choose from. A trainer
+    is the opposite, so its name stays beside the sprite you are hunting for. The pads against the
+    outer walls keep a side too, because centred they would hang half a name past the picture."""
+    pins = markers.build_markers(root, "SaffronGym", "SAFFRON_GYM", 320, 288)
+    pads = [pin for pin in pins if pin["ref"] == "SAFFRON_GYM"]
+    rest = [pin for pin in pins if pin["ref"] != "SAFFRON_GYM"]
+
+    assert len(pads) == 30 and len(rest) == 9, "thirty pads, eight trainers and the front door"
+    assert {pin["align"] for pin in rest} == {"l", "r"}, "nothing but a pad sits on its own pin"
+    assert sum(pin["align"] == "c" for pin in pads) > len(pads) / 2, "most pads take their name on"
+    assert all(pin["grid"][0] in (1, 19) for pin in pads if pin["align"] != "c"), "the rest hug a wall"
+
+
+def _inside(span):
+    return span[0] >= 0 and span[1] <= 101
+
+
+def test_a_pad_that_lands_on_its_own_map_is_named_for_where_it_lands(root):
+    """Thirty pads that all read 'Saffron Gym' told the reader the one thing they already knew. The
+    compass sector of the landing cell is the answer to the only question a pad raises, and the
+    gym's walls fall exactly on the thirds it is measured in."""
+    pads = {pin["id"]: pin["name"] for pin in
+            markers.build_markers(root, "SaffronGym", "SAFFRON_GYM", 320, 288)
+            if pin["cat"] == "exit"}
+
+    assert pads["exit-11-15"] == "SE", "the entrance room's one pad, and the walk's first hop"
+    assert pads["exit-1-5"] == "Centre", "the northwest room's, the only way to Sabrina"
+    assert pads["exit-11-11"] == "NW", "and hers, which goes back the way you came"
+    assert pads["exit-8-17"] == "Back outside", "a door off the map keeps the name of what it opens"
+    assert set(pads.values()) <= set(markers.SECTORS[0] + markers.SECTORS[1] + markers.SECTORS[2]) | {
+        "Back outside"}

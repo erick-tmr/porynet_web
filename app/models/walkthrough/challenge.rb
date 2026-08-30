@@ -59,6 +59,20 @@ module Walkthrough
       Evolutions.into(dex).any? { |evo| performable?(evo, Evolutions::STONE_SOURCES.values) }
     end
 
+    # Whether a box slot for `dex` can be filled by growing something into it, which is a wider
+    # question than whether Oak will register it. A trade evolution is not performable on one
+    # cartridge, so it can never stand registered by the deadline, but a living dex still holds an
+    # Alakazam: you hand a Kadabra over and your partner hands it back. What that costs is a spare
+    # body of the stage below, which is exactly what a filled slot is measured in here. Alakazam,
+    # Machamp, Golem and Gengar are the four, and left out of this they fell off the plan entirely
+    # rather than asking anyone for the second Kadabra they need.
+    def self.fillable?(dex)
+      Evolutions.into(dex).any? do |evo|
+        !Evolutions.refused?(evo.to) &&
+          (evo.trade? || performable?(evo, Evolutions::STONE_SOURCES.values))
+      end
+    end
+
     def self.ancestors_of(dex)
       line = []
       stage = dex
@@ -82,7 +96,27 @@ module Walkthrough
 
     def self.repeatable?(game, dex) = wild_encounters(game, dex).any?
 
+    # A prize counter is not a spawn: it never runs out and it never rolls against you, so a body
+    # off it is as good as the coins and better than any odds. It carries a price where a wild
+    # card carries a percentage, which reads as no rate at all, and left at that the only Vulpix
+    # in the game could not source anything: Ninetales, whose one route into the box is a Fire
+    # Stone on a spare Vulpix, dropped off the plan with nothing owing it.
+    def self.purchasable?(game, dex)
+      game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.purchased? }
+    end
+
+    # A static encounter is not a spawn either: the sprite stands on the map and waits, so a body
+    # off one is certain where a percentage is a roll. Electrode is the stage this decides. It has
+    # no wild table anywhere in Yellow, but two of the Power Plant's disguised balls are one, and
+    # without this the line still owed a spare Voltorb walked up to Lv 30 for a slot the plant
+    # hands over.
+    def self.standing?(game, dex)
+      game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.static? }
+    end
+
     def self.worth_catching?(game, dex)
+      return true if purchasable?(game, dex) || standing?(game, dex)
+
       rate = top_rate(game, dex)
       !rate.nil? && rate >= WORTH_CATCHING_RATE
     end
@@ -97,7 +131,7 @@ module Walkthrough
     # whole line. A stage nothing grows into is caught or not had at all, and nil means no body in
     # the line can fill this slot.
     def self.body_source(game, dex)
-      return dex unless evolvable?(dex)
+      return dex unless fillable?(dex)
 
       rungs(dex).find { |stage| worth_catching?(game, stage) } || best_odds(game, ancestors_of(dex))
     end
@@ -155,7 +189,7 @@ module Walkthrough
     def self.build_entry(game, span, dex, home, shown)
       covers = covered_by(game, dex)
       here = home.slug == shown.slug
-      later = here && covers.any? ? later_for(game, dex) : nil
+      later = covers.any? ? later_for(game, dex) : nil
       PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
         stop_name: shown.name, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
         boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,
@@ -191,10 +225,18 @@ module Walkthrough
       later = step.to
       return [ :refused, {} ] if Evolutions.refused?(later)
       return [ :trade, {} ] if unreachable?(game, later)
-      return [ :catch, spawn_args(game, later) ] if self_sourced?(game, later)
+      return caught_kind(game, later) if self_sourced?(game, later)
       return grown_kind(game, later, step) if body_source(game, later) == dex
 
       nil
+    end
+
+    # A stage you catch for yourself either has odds to quote or stands there waiting: a static
+    # carries no percentage at all, so the line names the stop instead of a rate it does not have.
+    def self.caught_kind(game, dex)
+      return [ :catch, spawn_args(game, dex) ] if top_rate(game, dex)
+
+      [ :static, { stop: home_stop(game, dex).name } ]
     end
 
     # A stage you grow from a spare body either has odds too long to be worth a ball, or no wild
@@ -306,10 +348,26 @@ module Walkthrough
       here = leg_order(leg).map(&:slug)
       caught, grown = owed_here(game, leg, due)
         .partition { |dex| catchable_stop(game, dex, reached) }
-      [ OakGroup.new(kind: :catch, note_key: "walkthrough.ui.oak_group_catch_note",
-          tiles: caught.map { |dex| tile_for(game, dex, reached, here) }),
-        OakGroup.new(kind: :evolve, note_key: "walkthrough.ui.oak_group_evolve_note",
-          tiles: grown.map { |dex| tile_for(game, dex, reached, here) }) ]
+      choice, grown = grown.partition { |dex| one_specimen_line?(game, dex, grown) }
+      [ oak_group(:catch, game, caught, reached, here),
+        oak_group(:evolve, game, grown, reached, here),
+        oak_group(:choice, game, choice, reached, here, pick: 1) ]
+    end
+
+    def self.oak_group(kind, game, dexes, reached, here, pick: nil)
+      OakGroup.new(kind: kind, pick: pick,
+        note_key: "walkthrough.ui.oak_group_#{kind}_note",
+        tiles: dexes.map { |dex| tile_for(game, dex, reached, here) })
+    end
+
+    # Several stone evolutions off one base the game only ever hands over once. Eevee is the whole
+    # of it in Yellow: it has no wild source anywhere, so the Water, Thunder and Fire Stones are
+    # three species but one choice, and asking for all three asks for two trades.
+    def self.one_specimen_line?(game, dex, grown)
+      base = Evolutions.into(dex).first&.from
+      return false if base.nil? || game.best_catches[base]
+
+      grown.count { |other| Evolutions.into(other).first&.from == base } > 1
     end
 
     def self.owed_here(game, leg, due)

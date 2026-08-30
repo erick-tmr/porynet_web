@@ -204,6 +204,18 @@ def _sprite_label_files(root_str):
     return out
 
 
+def sprite_file(root_str, ref):
+    """The gfx/sprites basename a spec's sprite reference names.
+
+    Three forms, because the game hands them out three ways: a `SPRITE_*` id from the sprite table
+    (SPRITE_RED -> red), a `*Sprite` label the engine loads directly, without ever giving it an id
+    (SurfingPikachuSprite -> surfing_pikachu, the sheet Yellow swaps you onto out on the water),
+    and a bare basename. An unknown reference falls through lowercased, the way it always has."""
+    if ref.startswith("SPRITE_"):
+        return parse_sprite_table(root_str).get(ref, ref.lower())
+    return _sprite_label_files(root_str).get(ref, ref.lower())
+
+
 @cache
 def parse_sprite_table(root_str):
     """Map a sprite id constant (SPRITE_RED) -> its gfx/sprites basename (red).
@@ -268,6 +280,46 @@ def parse_cut_tree_blocks(root_str):
 
 
 @cache
+@cache
+def _toggle_lists(root_str):
+    """The two halves of the toggleable-object table, per map, in the order the game pairs them.
+
+    `constants/toggle_constants.asm` names the TOGGLE_* handle a script passes around, and
+    `data/maps/toggleable_objects.asm` names the object_event it stands for and whether the map
+    ships with it shown. Nothing joins them but their position in each list, which is exactly how
+    the game joins them, and Seafoam B3F is why it has to be read that way rather than by name:
+    its four handles are BOULDER_1 through _4 and the objects they land on are BOULDER2, BOULDER3,
+    BOULDER5 and BOULDER6."""
+    def sections(rel, opener, entry):
+        out, current = {}, None
+        for line in _read(root_str, rel).splitlines():
+            opened = re.match(opener, line)
+            if opened:
+                current = opened.group(1)
+                out[current] = []
+            found = re.match(entry, line)
+            if found and current:
+                out[current].append(found.groups())
+        return out
+
+    handles = sections("constants/toggle_constants.asm",
+                       r"\ttoggle_consts_for (\w+)", r"\tconst (TOGGLE_\w+)")
+    objects = sections("data/maps/toggleable_objects.asm",
+                       r"\ttoggleable_objects_for (\w+)", r"\ttoggle_object_state (\w+),\s*(ON|OFF)")
+    return handles, objects
+
+
+def resolve_toggle(root_str, map_const, toggle_const):
+    """Which object_event const a TOGGLE_* handle really names on its map, or None."""
+    handles, objects = _toggle_lists(root_str)
+    names = [h[0] for h in handles.get(map_const, ())]
+    if toggle_const not in names:
+        return None
+    entries = objects.get(map_const, ())
+    at = names.index(toggle_const)
+    return entries[at][0] if at < len(entries) else None
+
+
 def parse_hidden_objects(root_str):
     """Return {map_const: {object_const, ...}} for objects the game starts with switched off.
 
@@ -403,6 +455,28 @@ def parse_grass_tiles(root_str):
 
 def grass_tile(root_str, tileset_const):
     return parse_grass_tiles(root_str).get(_snake_to_camel(tileset_const))
+
+
+@cache
+def parse_counter_tiles(root_str):
+    """Return {tileset_const: frozenset of counter tile ids} from the tileset headers.
+
+    A counter is the one thing the game lets you talk across: a Mart clerk stands behind his,
+    the player stands in front, and the text still fires. Each tileset header names up to three
+    of them (Mart/Pokecenter $18,$19,$1E; a gate or museum $17,$32), and -1 means none, which is
+    every outdoor tileset."""
+    out = {}
+    for line in _read(root_str, "data/tilesets/tileset_headers.asm").splitlines():
+        m = re.match(r"\s*tileset\s+(\w+)\s*,\s*(-1|\$[0-9A-Fa-f]+)\s*,"
+                     r"\s*(-1|\$[0-9A-Fa-f]+)\s*,\s*(-1|\$[0-9A-Fa-f]+)", line)
+        if m:
+            ids = [g for g in m.groups()[1:] if g != "-1"]
+            out[m.group(1)] = frozenset(int(g.lstrip("$"), 16) for g in ids)
+    return out
+
+
+def counter_tiles(root_str, tileset_const):
+    return parse_counter_tiles(root_str).get(_snake_to_camel(tileset_const), frozenset())
 
 
 @cache
@@ -673,14 +747,29 @@ def parse_hidden_events(root_str):
     return out
 
 
+# What a pile actually pays. hidden_events.asm declares the amount as COIN+<n>, but the routine
+# that reads it (engine/events/hidden_items.asm) tests 10, then 20, then 40, and answers the 40
+# case with .bcd20 under a comment admitting it: "should be bcd40". Anything it does not
+# recognise falls through to 100. So the one pile marked 40 hands over 20, and the guide says 20.
+COIN_PAYOUT = {10: 10, 20: 20, 40: 20}
+
+_COIN_EVENT = re.compile(r"^\s*hidden_event\s+(\d+),\s*(\d+), HiddenCoins, COIN\+(\d+)", re.M)
+
+
 @cache
 def parse_coins(root_str):
-    """Return [(map_const, x, y)] for hidden coins."""
+    """Return [(map_const, x, y, coins)] for hidden coins, coins being what the game really pays.
+
+    The coordinates come from hidden_coins.asm, the table the pickup walks to find its index, and
+    the amount from the matching hidden_event, which is where COIN+<n> is written."""
+    events = _COIN_EVENT.findall(_read(root_str, "data/events/hidden_events.asm"))
+    amounts = {(int(x), int(y)): COIN_PAYOUT.get(int(n), 100) for x, y, n in events}
     out = []
     for line in _read(root_str, "data/events/hidden_coins.asm").splitlines():
         m = re.match(r"\s*hidden_coin\s+(\w+)\s*,\s*(\d+)\s*,\s*(\d+)", line)
         if m:
-            out.append((m.group(1), int(m.group(2)), int(m.group(3))))
+            x, y = int(m.group(2)), int(m.group(3))
+            out.append((m.group(1), x, y, amounts[(x, y)]))
     return out
 
 
@@ -692,8 +781,8 @@ def markers_by_map(root_str):
         out.setdefault(const, []).append(
             {"kind": "item", "item_const": item, "label": item_display_name(item),
              "grid": [x, y], "px": _cell_px(x, y)})
-    for const, x, y in parse_coins(root_str):
+    for const, x, y, coins in parse_coins(root_str):
         out.setdefault(const, []).append(
-            {"kind": "coin", "item_const": "COIN", "label": "Coins",
+            {"kind": "coin", "item_const": "COIN", "label": f"{coins} coins",
              "grid": [x, y], "px": _cell_px(x, y)})
     return out

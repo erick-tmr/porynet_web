@@ -11,6 +11,8 @@ module ApplicationHelper
     leg.single? ? leg.from : "#{leg.from} → #{leg.to}"
   end
 
+  def stop_number(location) = format("%02d", location.order)
+
   def r2_asset_url(path)
     "#{Rails.application.config.x.r2_public_host}/#{path}"
   end
@@ -37,20 +39,32 @@ module ApplicationHelper
   end
 
   def step_text(step)
-    marks = step.marks.transform_values { |key| map_mark(key) }
+    marks = step.marks.map { |token, key| [ token, map_mark(key, at: step.pins[token]) ] }.to_h
     return t(step.text_key, **marks) unless step.link?
 
     t(step.text_key, **marks,
       href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
-  # The letter a step's prose points at, wearing the chip the map pin and legend row give it.
-  def map_mark(key)
-    tag.span(key, class: "pn-wt-mark", title: t("walkthrough.ui.map_marker_hint"))
+  # A trivia section points at a pin the way a step does: it names the door it is talking about and
+  # the letter that door is wearing goes in.
+  def trivia_intro(trivia)
+    t(trivia.intro_key,
+      **trivia.marks.map { |token, key| [ token, map_mark(key, at: trivia.pins[token]) ] }.to_h)
+  end
+
+  # The letter a step's prose or a card points at, wearing the chip the map pin and legend row
+  # give it. A button rather than a label, because clicking it scrolls the page to the map that
+  # draws that pin (map_jump_controller). `at` is the "map/marker" pair the card already carries,
+  # and is what settles which map to jump to when a letter is drawn on more than one of them.
+  def map_mark(key, at: nil)
+    tag.button(key, type: "button", class: "pn-wt-mark",
+      title: t("walkthrough.ui.map_marker_hint"),
+      data: { action: "click->map-jump#go", mark_key: key, mark_map: at&.split("/")&.first })
   end
 
   def walkthrough_page_controller(game)
-    tag.attributes(data: { controller: "progress-toggle mode-toggle",
+    tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump",
                            progress_toggle_game_value: game.slug,
                            mode_toggle_game_value: game.slug })
   end
@@ -81,12 +95,14 @@ module ApplicationHelper
     end
   end
 
-  def progress_slot(role, ids, **options)
-    options.deep_merge(data: { progress_toggle_target: role, kind: "caught",
+  # Every tally on a walkthrough page counts catches, bar the rooftop trades, which count the
+  # drinks the girl has taken. The slot has to name the kind it reads or it counts the wrong set.
+  def progress_slot(role, ids, kind: "caught", **options)
+    options.deep_merge(data: { progress_toggle_target: role, kind: kind,
                                progress_ids: ids.join(" ") })
   end
 
-  def progress_count(ids) = tag.span(0, **progress_slot("count", ids))
+  def progress_count(ids, kind: "caught") = tag.span(0, **progress_slot("count", ids, kind: kind))
 
   def progress_remaining(ids) = tag.span(ids.size, **progress_slot("remaining", ids))
 
@@ -181,8 +197,10 @@ module ApplicationHelper
     t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
   end
 
-  def oak_tally(ids)
-    t("walkthrough.ui.oak_tally_html", total: ids.size, done: progress_count(ids))
+  # A group whose run can only register some of what it shows counts against that, not the tiles:
+  # three Eevee stones on one Eevee is one registration, however many cards are on screen.
+  def oak_tally(ids, pick: ids.size)
+    t("walkthrough.ui.oak_tally_html", total: pick, done: progress_count(ids))
   end
 
   def ledger_filled(ids)
@@ -221,9 +239,12 @@ module ApplicationHelper
     t("walkthrough.ui.modes_off_body", leader: window.leader)
   end
 
-  # A trainer is beaten, everything else is collected, so the two tick categories read differently.
+  # A trainer is beaten, a Pokémon on the floor is fought and everything else is collected, so the
+  # tick categories read three ways.
+  MARKER_STATUS = { "trainer" => "trainer", "pokemon" => "pokemon" }.freeze
+
   def marker_status_key(marker, state)
-    "walkthrough.ui.map_status_#{marker.cat == 'trainer' ? 'trainer' : 'item'}_#{state}"
+    "walkthrough.ui.map_status_#{MARKER_STATUS.fetch(marker.cat, 'item')}_#{state}"
   end
 
   # Each gym's background grid takes one of the three identity neon colours, cycling in badge order
@@ -245,6 +266,7 @@ module ApplicationHelper
   def marker_detail(marker)
     return Walkthrough::PlaceHint.new(marker.place).to_s if marker.place?
     return t("walkthrough.ui.map_exit_#{marker.edge}") if marker.cat == "exit"
+    return t("walkthrough.ui.map_hole") if marker.cat == "hole"
     return t("walkthrough.ui.#{marker.note}") if marker.note?
 
     t("walkthrough.ui.map_cat_#{marker.cat}")
@@ -261,8 +283,19 @@ module ApplicationHelper
   end
 
   def sole_catch_reason(best, encounter)
+    return t("walkthrough.ui.best_reason_only_prize", name: encounter.name) if encounter.purchased?
     return t("walkthrough.ui.best_reason_only", name: encounter.name) unless best.rate?
 
     t("walkthrough.ui.best_reason_only_rate", name: encounter.name, rate: best.rate)
+  end
+
+  # A prize counter prints a price where a wild card prints odds, and it restocks, so neither the
+  # label nor the plain number a rate would carry is right for it.
+  def catch_stat_label(encounter)
+    t(encounter.purchased? ? "walkthrough.ui.coins" : "walkthrough.ui.rate")
+  end
+
+  def catch_stat_value(encounter)
+    encounter.purchased? ? number_with_delimiter(encounter.rate) : encounter.rate
   end
 end

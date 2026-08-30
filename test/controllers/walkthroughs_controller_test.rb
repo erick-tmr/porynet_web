@@ -35,7 +35,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 27 PARADAS"
+    assert_includes response.body, "A ROTA · 33 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -45,7 +45,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__crumb-here", text: "LEG 01"
     assert_select ".pn-wt-loc__title", /Pallet Town/
     assert_select "[data-controller='leg-switcher']"
-    assert_select ".pn-wt-chip", count: 2
+    assert_select ".pn-legsw__chip", count: 2
     assert_select ".pn-wt-band__title", text: "Pallet Town"
     assert_select ".pn-wt-band__title", text: "Route 1"
     assert_select ".pn-wt-catch__name", text: "Pidgey"
@@ -126,15 +126,13 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit]", "route-1", 2
   end
 
-  test "an edge marker's hint opens inward so it never scrolls the map sideways" do
+  test "an exit marker is labelled with what is on the other side of it" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-02")
 
     assert_response :success
-    # Route 22's east exit hugs the right edge, so its hint opens left, not off the map
-    assert_select "[data-map-markers-map-value=?] .pn-mm--hint-left[data-cat=exit] .pn-mm__label",
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit] .pn-mm__label",
       "route-22", text: /Viridian City/
-    # Viridian City's west exit hugs the left edge, so its hint opens right
-    assert_select "[data-map-markers-map-value=?] .pn-mm--hint-right[data-cat=exit] .pn-mm__label",
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit] .pn-mm__label",
       "viridian-city", text: /Route 22/
   end
 
@@ -191,25 +189,34 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "[data-controller='leg-switcher']"
-    assert_select ".pn-wt-chip[data-slug='vermilion-city-return']"
-    assert_select ".pn-wt-chip[data-slug='route-11']"
+    assert_select ".pn-legsw__chip[data-slug='vermilion-city-return']"
+    assert_select ".pn-legsw__chip[data-slug='route-11']"
     assert_select ".pn-wt-band__title", text: "Route 11"
   end
 
-  test "a leg renders in Portuguese with a gym band, fossils and its leader" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12", locale: :pt)
+  test "a leg renders in Portuguese with a gym band and its leader" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-16", locale: :pt)
 
     assert_response :success
     assert_select ".pn-wt-band__badge", /VOLCANO/
-    assert_select ".pn-wt-tagpill--fossil"
     assert_select ".pn-wt-gym__leader-name", text: /\ABlaine\b/
+  end
+
+  # The island's first pass, which is the one the lab belongs to: Cinnabar is walked either side of
+  # the Pokémon Mansion, so the fossils, the three trades and everything the two modes ask for come
+  # a page before Blaine does.
+  test "the fossil lab renders in Portuguese with its trades and both mode chips" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15", locale: :pt)
+
+    assert_response :success
+    assert_select ".pn-wt-tagpill--fossil"
+    assert_select ".pn-wt-trade__tag", text: "TROCA"
     assert_select ".pn-wt-oak__chip", text: "MODO DESAFIO OAK"
     assert_select ".pn-wt-ld__chip", text: "MODO LIVING DEX"
-    assert_select ".pn-wt-trade__tag", text: "TROCA"
   end
 
   test "a location renders its in-game trades with give and receive sprites" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select ".pn-eyebrow-label", text: /IN-GAME TRADES/
@@ -221,7 +228,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "each trade card is a tick target that carries a toast and a traded badge" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select ".pn-wt-trade[role='button'][data-kind='collected'][data-progress-id]", 3
@@ -303,13 +310,146 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-shot--pstep"
   end
 
+  # Celadon is walked twice: the city page leaves the gym alone so the hideout is cleared first,
+  # and the return page is nothing but Erika, the way Vermilion's is nothing but Lt. Surge.
+  test "Celadon leaves the gym to its return leg" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-gym", false, "no gym card on the first pass"
+    assert_select ".pn-wt-band__badge", false
+    assert_select ".pn-wt-step__title", text: "Find the Game Corner"
+    assert_select ".pn-wt-step__title", text: /Erika/, count: 0
+    # Saffron opens before the arcade, because the arcade is where the next page picks up
+    steps = css_select(".pn-wt-step__title").map { |el| el.text.strip }
+    assert_operator steps.index("Open Saffron with a drink"), :<, steps.index("Find the Game Corner")
+    # and the Mansion step sends you round the back: the front stairwell cannot reach the roof
+    assert_select ".pn-wt-step__text", text: /back door/
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-10")
+
+    assert_response :success
+    assert_select ".pn-wt-band__badge", text: "GYM · RAINBOW"
+    assert_select ".pn-wt-gym__leader-name", text: /Erika/
+    assert_select ".pn-wt-step__title", text: "Cut into the greenhouse"
+    assert_select ".pn-wt-gym__needs-badge", text: "NEEDS · HM01 CUT"
+  end
+
+  # Route 16's grass is in reach the moment Erika is beaten, but every species in it is easier
+  # somewhere else, so the queue is empty. The section still draws: "nothing here is worth a slot,
+  # and here is where to get each of them" is the answer a living-dex reader came for, and a card
+  # that says only ELSEWHERE leaves them hunting for the where.
+  test "a leg whose catches are all better elsewhere still answers the living dex" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-10")
+
+    assert_response :success
+    assert_select ".pn-wt-ld"
+    assert_select ".pn-wt-ldrow", count: 0
+    assert_select ".pn-wt-ldq__none"
+    assert_select ".pn-wt-ld__ledger-head", count: 0
+    assert_select ".pn-wt-catchbadge--elsewhere", text: "DO IT AT ROUTE 17"
+    assert_select ".pn-wt-catchbadge--elsewhere", text: "DO IT AT POKÉMON MANSION"
+    assert_select ".pn-wt-ldnote__text", text: /Doduo has better odds at Route 17/
+  end
+
+  # The Coin Case is collected where it is handed over, in Celadon, right after the Eevee. The
+  # Game Corner page still names it in a stat tile, but only Celadon has the step and the tick.
+  test "the Coin Case is collected in Celadon, with its own shot" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-step__title", text: "Collect the Coin Case"
+    assert_select ".pn-wt-item__name", text: "Coin Case"
+    assert_select ".pn-wt-shot__map-img[src*=?]", "celadon-diner-coin-case"
+
+    steps = css_select(".pn-wt-step__title").map { |el| el.text.strip }
+    assert_operator steps.index("Take the Eevee off the roof"), :<, steps.index("Collect the Coin Case")
+
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+    assert_select ".pn-wt-loc__title", text: "Game Corner / Rocket Hideout"
+    assert_select ".pn-wt-item__name", text: "Coin Case", count: 0
+  end
+
+  # The arcade floor is where the page starts: twelve coin piles and the poster the stairs hide
+  # behind. One step sweeps the lot, because the map pins track them one by one.
+  test "the Game Corner floor is drawn, with every coin pile priced" do
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+
+    assert_response :success
+    assert_select ".pn-mm-canvas__img[src*=?]", "rocket-hideout-game-corner"
+    assert_select ".pn-wt-step__title", text: "Sweep the arcade floor for coins"
+    assert_select ".pn-wt-step__title", text: "Beat the Rocket, then read the poster"
+
+    piles = css_select(".pn-mm:has(.pn-mm__pin--hidden) .pn-mm__label").map { |el| el.text.strip }
+    assert_equal 8, piles.count { |l| l.include?("10 coins") }
+    assert_equal 3, piles.count { |l| l.include?("20 coins") }
+    assert_equal 1, piles.count { |l| l.include?("100 coins") }, "one pile is worth the other eleven"
+
+    # three players hand coins over on top of the piles, and the sweep step points at each
+    npcs = css_select(".pn-mm:has(.pn-mm__pin--npc) .pn-mm__label")
+      .map { |el| el.text.split.drop(1).join(" ") }
+    assert_equal [ "10 coins", "20 coins", "20 coins" ], npcs.grep(/coins/).sort
+    sweep = css_select(".pn-wt-step").find { |el| el.text.include?("Sweep the arcade") }
+    assert_equal 3, sweep.css(".pn-wt-mark").count { |m| m.text.strip.start_with?("N") }
+
+    # and the poster the switch hides is pinned too, so the step can point at the tile itself
+    assert_includes npcs, "The poster"
+    poster = css_select(".pn-wt-step").find { |el| el.text.include?("read the poster") }
+    assert_equal %w[T N E], poster.css(".pn-wt-mark").map { |m| m.text.strip[0] },
+      "the Rocket, then the poster he stands in front of, then what it opens"
+  end
+
+  # The prize counters are parsed out of prizes.asm, so the section is the one place a reader can
+  # see what 9,999 coins actually buys without opening the ROM.
+  test "the Rocket Hideout carries the Game Corner prize counters, priced from the game" do
+    get walkthrough_leg_path(game: "yellow", leg: "rocket-hideout")
+
+    assert_response :success
+    assert_select "#prize-room .pn-wt-gc__window", 3
+    assert_select "#prize-room .pn-wt-gc__prize", 9
+    assert_select ".pn-wt-gc__prize-name", text: "Porygon"
+    assert_select ".pn-wt-gc__prize-name", text: "TM23 Dragon Rage"
+    assert_select ".pn-wt-gc__coins", text: "9,999"
+    assert_select ".pn-wt-gc__coins", text: "3,300"
+    assert_select ".pn-wt-gc__stat-title", text: "12 coin piles on the floor"
+    # only the three prizes that owe an explanation carry one
+    assert_select ".pn-wt-gc__prize.is-pick", 3
+    assert_select ".pn-wt-gc__know-text", text: /¥200,000/
+
+    # the arcade's own art, credited, and the coin price stated with the site's money mark
+    assert_select ".pn-wt-gc__art-img[src*=?]", "art/celadon-game-corner"
+    assert_select ".pn-wt-gc__art-credit", text: /GAME FREAK/
+    assert_select ".pn-wt-gc__stat-tile--coin .pn-money"
+    assert_select ".pn-wt-gc__stat-title .pn-money-value__n", text: "1,000"
+  end
+
+  # It belongs to the hideout's page, not to every stop that happens to have a mart.
+  test "no other special stop draws the prize counters" do
+    get walkthrough_leg_path(game: "yellow", leg: "mt-moon")
+
+    assert_response :success
+    assert_select "#prize-room", false
+  end
+
+  # The bar is one shared component and every walkthrough page carries it, so a special stop gets
+  # the same plate a one-stop leg does, and it has to sit inside a host tall enough to stick to.
+  test "a special stop carries the shared bar inside a host that wraps the page" do
+    get walkthrough_leg_path(game: "yellow", leg: "mt-moon")
+
+    assert_response :success
+    assert_select ".pn-legsw-host .pn-legsw--solo .pn-legsw__current-name", text: "Mt. Moon"
+    assert_select ".pn-legsw-host .pn-wt-steps"
+    assert_select ".pn-legsw-host .pn-wt-ld"
+    assert_select ".pn-legsw__chip", false
+  end
+
   test "a special stop renders its own dedicated page with hidden-item pins" do
     get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
 
     assert_response :success
     assert_select ".pn-nav__crumb-here", text: "VIRIDIAN FOREST"
     assert_select ".pn-wt-loc__title", /Forest/
-    assert_select ".pn-wt-chip", false
+    assert_select ".pn-legsw__chip", false
     assert_select "img.pn-wt-shot__img[src*=?]", "scenes/viridian-forest-hidden-antidote"
     assert_select ".pn-wt-pin--viridian-forest-antidote"
   end
@@ -352,7 +492,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-ldrow", count: 4
     assert_select ".pn-wt-ldrow__spot", text: "ROUTE 24"
     assert_select ".pn-wt-bandledger", count: 4
-    assert_select ".pn-wt-chip__work"
+    assert_select ".pn-legsw__work"
     assert_select ".pn-wt-catchbadge--elsewhere", text: /DO IT AT ROUTE 24/
     assert_select ".pn-wt-catchbadge--boxed", text: "ALREADY BOXED"
 
@@ -382,17 +522,33 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-oakgroup__label--earlier", false
   end
 
-  test "the Safari Zone sits inside the Koga window now that it precedes his gym" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+  # The park is a page of its own, so the two halves of Koga's window render apart: the walk down
+  # to Fuchsia, the Safari Zone, then the pass back through town that takes the badge. That pass
+  # runs on to Saffron, so Koga closes his window mid-page and the deadline block at the foot of it
+  # is Sabrina's, which is the one a reader still has time to act on.
+  test "the Safari Zone is its own page, and Koga's pass runs on into Sabrina's window" do
+    get walkthrough_leg_path(game: "yellow", leg: "safari-zone")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 05 · EVERYTHING BEFORE KOGA"
-    assert_select ".pn-wt-band__title", text: "Safari Zone"
+    assert_select ".pn-nav__crumb-here", text: "SAFARI ZONE"
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+
+    assert_response :success
+    assert_select ".pn-wt-oak__window", text: "WINDOW 06 · EVERYTHING BEFORE SABRINA"
+    assert_select ".pn-wt-band__title", text: "Fuchsia City"
     assert_select ".pn-wt-gym__leader-name", text: /\AKoga\b/
+
+    get walkthrough_leg_path(game: "yellow", leg: "leg-13")
+
+    assert_response :success
+    assert_select ".pn-wt-band__title", text: "Saffron City"
+    assert_select ".pn-wt-gym__leader-name", text: /\ASabrina\b/
   end
 
   test "the endgame page names the League rather than a leader it does not have" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-18")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"
@@ -478,18 +634,84 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-badge-row__text", text: "Trocados até o Nv 30"
   end
 
+  # Every leg page carries the same sticky bar. A leg with one stop has nothing to switch between,
+  # so it keeps the plate and drops the rail, the stepper, the sheet and the meter.
+  test "a one-stop leg gets the bar reduced to a plate" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select "[data-controller='leg-switcher']"
+    assert_select ".pn-legsw--solo .pn-legsw__plate .pn-legsw__current-name", text: "Celadon City"
+    assert_select ".pn-legsw--solo .pn-legsw__plate .pn-legsw__current-no", text: "28"
+    assert_select ".pn-legsw__chip", false
+    assert_select ".pn-legsw__stepper", false
+    assert_select ".pn-legsw__sheet", false
+    assert_select ".pn-legsw__meter", false
+  end
+
   test "Celadon renders the multi-floor department store with an elevator" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-08")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
 
     assert_response :success
     assert_select "[data-controller='dept-store']"
     assert_select ".pn-wt-store__entry", 6
     assert_select ".pn-wt-store__stat-num", text: "9"
-    # a sold TM shows its number and move, the rooftop trades a drink for one
+    # a sold TM shows its number and move; the rooftop swaps live in their own section, so the
+    # store's ROOF floor only points down at them
     assert_select ".pn-wt-mart__name", text: "TM09 · Take Down"
-    assert_select ".pn-wt-store__trade-move", text: "Ice Beam"
-    # Lavender's plain mart sits in the same leg, so both mart shapes render together
+    assert_select ".pn-wt-store__tradelink[href='#roof-trades']"
+  end
+
+  # The free TM is a collectable, so it ticks, and the store card and the step's card have to be
+  # the same tick or collecting it on one leaves the other unticked.
+  test "the free TM18 gets its own step and ticks with the store's gift card" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-step__title", text: "Take the free TM18 from the 3F clerk"
+    assert_select ".pn-wt-shot__map-img[src*=?]", "celadon-mart-3f-tm18"
+
+    tick = "celadon-city/gift-tm18-counter"
+    assert_select ".pn-wt-store__gift[data-progress-id=?]", tick
+    assert_select ".pn-wt-item[data-progress-id=?]", tick
+  end
+
+  # Which stone to put on an Eevee is the reader's call, so the counter states the stock and
+  # stops there; only the Poke Doll keeps a pick, because nowhere else in Kanto sells one.
+  test "the stone counter recommends nothing" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select ".pn-wt-mart__name", text: "Water Stone"
+    assert_select ".pn-wt-mart__rec", text: /Vaporeon/, count: 0
+  end
+
+  # The girl on the roof pays a TM per drink. The section names every one and totals the shopping
+  # list, because you buy four drinks and only three of them are hers.
+  test "the rooftop trades render as their own section, priced from the game" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-09")
+
+    assert_response :success
+    assert_select "#roof-trades .pn-wt-roof__row", 3
+    assert_select ".pn-wt-roof__row .pn-wt-roof__side-name", text: "Fresh Water"
+    assert_select ".pn-wt-roof__row .pn-wt-roof__side-name", text: "TM13"
+    assert_select ".pn-wt-roof__move", text: "Ice Beam"
+    assert_select ".pn-wt-roof__move", text: "Rock Slide"
+    assert_select ".pn-wt-roof__move", text: "Tri Attack"
+    assert_select ".pn-wt-roof__side-price .pn-money-value__n", text: "200"
+    assert_select ".pn-wt-roof__total .pn-money-value__n", text: "1,050"
+    assert_select ".pn-wt-roof__shot-img[src*=?]", "scenes/celadon-roof-girl"
+    assert_select ".pn-wt-roof__row[data-progress-id='celadon-city/trade/TM13']"
+  end
+
+  # The other mart shape, on the leg that now ends at Route 7: a town counter with no floors and
+  # no elevator, which is what every stop but Celadon has.
+  test "a plain town mart renders as a single counter" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-08")
+
+    assert_response :success
     assert_select ".pn-wt-mart"
+    assert_select "[data-controller='dept-store']", false
   end
 
   test "the Mew glitch page renders its hero, phases, and level calculator" do
@@ -579,6 +801,40 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
       "beating her on the map and on her card must write the same key"
   end
 
+  # The Exp. All is handed over on Route 15, so the explainer of what it does sits on that band,
+  # under the steps that collect it. Every string it can show is rendered up front and the
+  # controller only toggles, so the section has to ship all three verdicts and both halves of each
+  # two-way legend row.
+  test "Route 15 carries the Exp. All explainer under the step that collects it" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-11")
+
+    assert_response :success
+    assert_select "#exp-all .pn-xa[data-controller='exp-share']"
+    assert_select ".pn-xa__btn", 12, "six party sizes and six fighter counts"
+    assert_select ".pn-xa__verdict-text[hidden]", 3
+    assert_select "[data-exp-share-target='legendText'][data-row='bench'][hidden]", 2
+    assert_select ".pn-xa__trivia-row", 3
+    assert_select ".pn-xa__trivia-title", text: "The PC is the toggle"
+  end
+
+  # The beach house is the first door on Route 19 and what is behind it needs a Pokémon the
+  # cartridge cannot make, so the section reads as an exhibit, before the two steps that surf past
+  # it. Every figure it prints is the game's own, so the two-way payouts have to survive rendering.
+  test "Route 19 opens Pikachu's Beach ahead of its steps" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-14")
+
+    assert_response :success
+    assert_select "#surfing-pikachu.pn-sp"
+    assert response.body.index('id="surfing-pikachu"') < response.body.index("pn-wt-steps"),
+      "the beach house reads before the steps that surf past it"
+    assert_select ".pn-sp__shot-img", 2, "the same water tile, with the board and without it"
+    assert_select ".pn-sp__score", 4
+    assert_select ".pn-sp__score--big .pn-sp__score-alt", text: %r{/ 500}
+    assert_select ".pn-sp__score--clock .pn-sp__score-val", text: /6000/
+    assert_select ".pn-sp__step", 5, "four conditions and the award screen"
+    assert_select ".pn-sp__vc-label", text: "VIRTUAL CONSOLE · 3DS"
+  end
+
   test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 
@@ -650,7 +906,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a section header tallies only the species its own method finds" do
-    get walkthrough_leg_path(game: "yellow", leg: "leg-12")
+    get walkthrough_leg_path(game: "yellow", leg: "leg-15")
 
     assert_response :success
     assert_select "#catchsec-cinnabar-island-fossil .pn-wt-catchsec__label", text: "Revived fossils"

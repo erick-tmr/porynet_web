@@ -13,7 +13,7 @@
 .pn-mode-oak-on .pn-wt-catchpill--oak { display: inline-flex; }
 .pn-mode-living-on .pn-wt-catch__count { display: flex; }
 .pn-mode-living-on .pn-wt-catch__later { display: flex; }
-.pn-mode-living-on .pn-wt-chip__work { display: inline-block; }
+.pn-mode-living-on .pn-legsw__work { display: inline-block; }
 
 .porynet:not(.pn-mode-living-on):not(.pn-mode-oak-on) .pn-wt-modesoff { display: block; }
 
@@ -268,9 +268,22 @@
 
 .pn-wt-ldq {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 18px;
   margin-top: 22px;
+}
+
+/* Stands in for the queue on a leg where nothing is worth a box slot. It reads as the answer, not
+   as an empty container, so it takes the row's own weight rather than a grey placeholder. */
+.pn-wt-ldq__none {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #d5e2f5;
+  margin: 22px 0 0;
+  max-width: 720px;
+  text-wrap: pretty;
 }
 
 .pn-wt-ldrow {
@@ -483,7 +496,7 @@
 
 .pn-wt-ldfam {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 18px;
   margin-top: 22px;
 }
@@ -612,7 +625,7 @@
 
 .pn-wt-oakgroup__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(166px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(166px, 100%), 1fr));
   gap: 14px;
   margin-top: 13px;
 }
@@ -735,7 +748,7 @@
 
 .pn-wt-oaklocked__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 12px;
   margin-top: 14px;
 }
@@ -916,17 +929,6 @@
 .pn-wt-catch.is-done .pn-wt-catch__sprite { background: color-mix(in srgb, var(--done-green) 20%, #fff); }
 .pn-wt-catch.is-met .pn-wt-stepper__count { background: color-mix(in srgb, var(--done-green) 22%, #fff); }
 
-.pn-wt-chip__work {
-  display: none;
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  color: #171622;
-  background: var(--neon-cyan);
-  border: 2px solid #171622;
-  padding: 3px 5px;
-  margin-left: 6px;
-}
-
 @media (max-width: 900px) {
   .pn-wt-ld__inner { padding: 36px 18px; }
   .pn-wt-ldnotes { grid-template-columns: 1fr; }
@@ -937,4 +939,23 @@
   .pn-wt-ldfam,
   .pn-wt-oakgroup__grid,
   .pn-wt-oaklocked__grid { grid-template-columns: 1fr; }
+}
+
+/* Below about 370px two pixel-font pills are what push the page into a horizontal scroll: the
+   statbar's caption and a stage row's status, both held on one line by white-space: nowrap. A
+   Living Dex card's min-content is the widest of those rows, so the card outgrows its own grid
+   track. Let all three wrap instead. */
+@media (max-width: 400px) {
+  .pn-wt-statbar { padding: 14px; }
+  .pn-wt-statbar__tag { white-space: normal; }
+  .pn-wt-ld__inner { padding: 30px 14px; }
+  .pn-wt-ldfam__card { padding: 12px; }
+  .pn-wt-ldstage__todo,
+  .pn-wt-ldstage__done { white-space: normal; }
+}
+
+.pn-wt-oakgroup__label--choice {
+  color: #171622;
+  background: color-mix(in srgb, #6f4ce6 32%, #fff);
+  border-color: #6f4ce6;
 }

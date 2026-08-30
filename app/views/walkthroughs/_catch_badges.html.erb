@@ -5,11 +5,9 @@
     </span>
   <% elsif entry.boxed? %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--boxed"><%= t("walkthrough.ui.badge_boxed") %></span>
-  <% elsif !entry.fresh? %>
-    <span class="pn-wt-catchbadge pn-wt-catchbadge--elsewhere"><%= t("walkthrough.ui.badge_elsewhere") %></span>
-  <% elsif entry.at != slug %>
+  <% elsif !entry.fresh? || entry.at != slug %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--elsewhere">
-      <%= t("walkthrough.ui.badge_do_at", stop: entry.stop_name.upcase) %>
+      <%= t("walkthrough.ui.badge_do_at", stop: entry.catch_at.upcase) %>
     </span>
   <% else %>
     <% if entry.qty.positive? %>

@@ -10,21 +10,36 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing three of them twice" do
+  test "the game covers the 52 Kanto stops, drawing eight of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 52 numbered stops (1..52), three of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), eight of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
-    # needs, and Route 10 (stop 22) is cut in half by Rock Tunnel. Each pass is its own section,
-    # so 55 sections share 52 numbers.
-    assert_equal 55, g.locations.size
-    assert_equal (1..52).to_a, g.locations.map(&:order).uniq.sort
+    # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
+    # back to so the Rocket Hideout is cleared before Erika, Fuchsia (stop 35) is left and come
+    # back to so the Safari Zone hands over the Gold Teeth before Koga, Route 16 (stop 37) is
+    # dipped into early for Fly and walked properly at Cycling Road, Saffron (stop 41) is arrived
+    # at and come back to because its gym stays Rocket-held until Silph is cleared, and Route 20
+    # (stop 43) is split by the rock wall the Seafoam cave runs under, and Cinnabar (stop 45) is
+    # left and come back to because its gym door needs the Secret Key from the Pokémon Mansion
+    # across the street. Each pass is its own section, so 63 sections share 53 numbers: the odd one is the Surf sweep, which owns no stop
+    # of its own and borrows the five maps it walks onto.
+    assert_equal 63, g.locations.size
+    assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
       g.locations.select { |loc| loc.order == 17 }.map(&:slug)
     assert_equal %w[route-10 route-10-south], g.locations.select { |loc| loc.order == 22 }.map(&:slug)
+    assert_equal %w[celadon-city celadon-city-return],
+      g.locations.select { |loc| loc.order == 28 }.map(&:slug)
+    assert_equal %w[fuchsia-city fuchsia-city-return],
+      g.locations.select { |loc| loc.order == 35 }.map(&:slug)
+    assert_equal %w[route-16-fly route-16], g.locations.select { |loc| loc.order == 37 }.map(&:slug)
+    assert_equal %w[route-20 route-20-west], g.locations.select { |loc| loc.order == 43 }.map(&:slug)
+    assert_equal %w[cinnabar-island cinnabar-island-return],
+      g.locations.select { |loc| loc.order == 45 }.map(&:slug)
   end
 
   test "both passes of a stop walked twice list the same water" do
@@ -37,13 +52,29 @@ class WalkthroughTest < ActiveSupport::TestCase
       "the second pass must never win the star over the first"
   end
 
-  test "the location sections group into 27 ordered legs with no gaps or dupes" do
+  test "the location sections group into 33 ordered legs with no gaps or dupes" do
     g = game
-    assert_equal 27, g.legs.size
-    assert_equal (1..27).to_a, g.legs.map(&:order)
+    assert_equal 33, g.legs.size
+    assert_equal (1..33).to_a, g.legs.map(&:order)
     covered = g.legs.flat_map { |l| l.locations.map(&:slug) }
     assert_equal g.locations.map(&:slug).sort, covered.sort
     assert_equal covered.size, covered.uniq.size
+  end
+
+  # Both birds are taken where the walk already goes. The Surf sweep ends on the plant's own
+  # doorstep, and the Seafoam cave runs under the islands that split Route 20, so walking in at the
+  # east mouth and out at the west one is the way to Cinnabar rather than a detour off it. The stop
+  # numbers run with the walk, so moving either renumbers everything between.
+  test "Seafoam is walked in passing on Route 20, and the Power Plant off the sweep that reaches it" do
+    tail = game.legs.map(&:slug).drop_while { |slug| slug != "leg-14" }
+
+    assert_equal %w[leg-14 seafoam-islands leg-15 pokemon-mansion leg-16 leg-17 victory-road leg-18
+                    indigo-plateau
+                    cerulean-cave], tail
+    assert_equal "power-plant", game.legs[game.legs.index(game.leg!("leg-13")) + 1].slug,
+      "the sweep ends on the plant's own doorstep, so the plant is the page after it"
+    assert_equal [ 43, 44, 45 ], %w[route-20 seafoam-islands cinnabar-island].map { |s| loc(s).order },
+      "the islands take their stop number between the route they sit in and the town past them"
   end
 
   test "leg! finds by slug and raises for an unknown leg" do
@@ -88,7 +119,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 99, g.obtainable_dex.size
+    assert_equal 104, g.obtainable_dex.size,
+      "the two the Fighting Dojo hands over are obtainable; a save only ever registers one, the " \
+      "Surf sweep adds the Psyduck line, which no earlier pass could reach, and the Power Plant " \
+      "hands over an Electrode, which spawns in no table anywhere"
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
@@ -116,10 +150,10 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "the eight gym locations carry badges" do
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city fuchsia-city saffron-city cinnabar-island viridian-gym],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city-return saffron-city-return cinnabar-island-return viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
-    assert_equal %w[cinnabar-island], game.leg!("leg-12").gyms.map(&:slug)
-    assert_equal %w[viridian-gym], game.leg!("leg-13").gyms.map(&:slug)
+    assert_equal %w[cinnabar-island-return], game.leg!("leg-16").gyms.map(&:slug)
+    assert_equal %w[viridian-gym], game.leg!("leg-17").gyms.map(&:slug)
   end
 
   test "Pewter splits its steps around the gym, in the band" do
@@ -143,27 +177,121 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil game.leg!("leg-03").finale
   end
 
+  # The park is the one stop the guide cannot finish in one go: its clock turns you out, and the
+  # Nugget out on the Center Area's island needs a Surf that Koga's badge unlocks two stops later.
+  # So the page runs one numbered sequence across two headings rather than filing the leftovers as
+  # a footnote, and the return trip carries the three things the first trip could not take.
+  test "the Safari Zone splits its steps across the visit that has Surf and the one that does not" do
+    park = loc("safari-zone")
+
+    assert park.second_visit?
+    assert_equal (1..13).to_a, park.lead_steps.map(&:n)
+    assert_equal [ 14, 15, 16, 17 ], park.second_visit_steps.map(&:n)
+    assert_equal [ "Nugget", "Max Revive", "Max Potion" ],
+      park.second_visit_steps.flat_map { |step| step.items.map(&:name) }
+    assert_empty park.later, "the return trip is steps now, not a come-back-later block"
+    assert_equal "HM03 Surf", park.lead_steps.last(2).first.items.sole.name,
+      "the first visit ends on the HM, then the step that spends the rest of the clock"
+  end
+
+  test "a stop with no second visit keeps every step in one block" do
+    plain = loc("rocket-hideout")
+
+    refute plain.second_visit?
+    assert_equal plain.steps, plain.lead_steps
+    assert_empty plain.second_visit_steps
+  end
+
   test "a finale gym only sits on a multi-stop leg, where the leg page can render it" do
     assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end
 
-  test "Fuchsia holds Koga back until the Safari Zone has handed over Surf and the Gold Teeth" do
-    fuchsia = loc("fuchsia-city")
-    refute fuchsia.band_gym?, "the gym must not render before the Safari Zone band"
-    assert fuchsia.gym_finale?
-    assert_equal [ 1, 2, 3 ], fuchsia.lead_steps.map(&:n)
-    assert_equal [ 4 ], fuchsia.finale_steps.map(&:n), "HM04 Strength lands with the gym, not before it"
-    assert_equal fuchsia, game.leg!("leg-09").finale
+  # The Safari Zone stands between the two passes: it is a page of its own, so Koga cannot close
+  # the leg he used to close. The badge moves onto the second pass with the Warden's trade, the
+  # way Erika's does after the Rocket Hideout.
+  test "Fuchsia is walked twice, with Koga on the pass that follows the Safari Zone" do
+    first, back = loc("fuchsia-city"), loc("fuchsia-city-return")
+
+    assert_nil first.gym, "the gym belongs to the second pass"
+    assert_nil first.badge
+    assert_equal %w[fuchsia-city], game.leg!("leg-11").locations.map(&:slug).last(1)
+    assert_equal %w[safari-zone], game.leg!("safari-zone").locations.map(&:slug)
+    assert_equal %w[fuchsia-city-return], game.leg!("leg-12").locations.map(&:slug).first(1)
+    assert back.band_gym?, "a one-stop leg renders its gym in the band, not as a finale"
+    assert_equal [ 1 ], back.lead_steps.map(&:n)
+    assert_equal [ 2, 3 ], back.after_steps.map(&:n),
+      "after the badge: teach Surf and go back for the park, then west for Cycling Road"
+    assert_equal "HM04 Strength", back.steps.first.items.sole.name
   end
 
-  test "Silph Co. is freed before Saffron's gym opens, as the leg-10 lead promises" do
-    saffron = game.locations.index(loc("saffron-city"))
-    silph = game.locations.index(loc("silph-co"))
+  # Saffron's gym is Rocket-held until Silph is cleared, so the city is arrived at, left, and come
+  # back to, the way Fuchsia is around the Safari Zone. The badge travels with the second pass,
+  # which is what puts the Marsh deadline on the page before the gym rather than the page after it.
+  test "Saffron is walked twice, with Sabrina on the pass that follows Silph Co." do
+    first, back = loc("saffron-city"), loc("saffron-city-return")
 
-    assert_operator silph, :<, saffron
-    assert_equal 39, loc("silph-co").order
-    assert_equal 40, loc("saffron-city").order
-    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-10"))
+    assert_nil first.gym, "the gym belongs to the second pass"
+    assert_nil first.badge
+    assert_equal 41, first.order
+    assert_equal 41, back.order, "same stop, walked twice"
+    assert_equal "MARSH", back.badge
+    assert_equal %w[saffron-city], game.leg!("leg-12").locations.map(&:slug).last(1)
+    assert_equal %w[silph-co], game.leg!("silph-co").locations.map(&:slug)
+    assert_equal %w[saffron-city-return surf-cleanups], game.leg!("leg-13").locations.map(&:slug)
+    assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-13"))
+  end
+
+  # The dojo is a gym in all but the badge, so it lands on the first pass with its own five fights
+  # and the prize the Karate Master hands over in place of one.
+  test "the Fighting Dojo carries its own room, and the second Saffron pass carries none of it" do
+    dojo = loc("saffron-city").dojo
+
+    assert_equal Walkthrough::Yellow::DOJO_MAP, dojo.map
+    assert_equal 4, dojo.trainers.size
+    assert_equal "BLACKBELT:1", dojo.leader.opp
+    assert_equal 4_175, dojo.purse
+    assert(dojo.trainers.all? { |card| card.where.map? })
+    assert_nil loc("saffron-city-return").dojo
+    assert_empty loc("saffron-city-return").trainers,
+      "the dojo's five come off Saffron's one roster; only the pass that owns the dojo shows them"
+  end
+
+  # The dojo's floor is drawn and pinned like a gym's, so it leaves the stop's header maps and the
+  # cards read their letters off it. The pass that borrows Saffron's maps but owns no dojo drops it.
+  test "the dojo's floor is a map of its own, not one of the city's" do
+    dojo = loc("saffron-city").dojo
+
+    assert_equal "saffron-city-dojo", dojo.area.name
+    assert_equal "Dojo", dojo.area.floor
+    assert_equal dojo.area.image, dojo.shot.image
+    assert_equal %w[T1 T2 T3 T4 T5], dojo.pins.map(&:key)
+    assert_equal "T5", dojo.leader.marker_key, "the walk ends on the one at the back"
+    assert_equal %w[saffron-city], loc("saffron-city").area_maps.map(&:name)
+    assert_equal %w[saffron-city], loc("saffron-city-return").area_maps.map(&:name)
+  end
+
+  # You leave with one of the pair and the other ball stays shut, so the choice is drawn from the
+  # game's own numbers: the bar lights up on the stat each one actually wins, and Special ties.
+  test "the dojo choice compares the two the Karate Master leaves behind" do
+    lee, chan = loc("saffron-city").dojo.choice.picks
+
+    assert_equal [ "left", "106", 30 ], [ lee.side, lee.dex, lee.level ]
+    assert_equal [ "right", "107", 30 ], [ chan.side, chan.dex, chan.level ]
+    assert_equal [ "DOUBLE KICK", "MEDITATE" ], lee.knows.map(&:name)
+    assert_equal 33, chan.learns.first.level
+    assert_equal %w[attack speed], lee.stats.select(&:lead).map(&:key)
+    assert_equal %w[defense], chan.stats.select(&:lead).map(&:key)
+    assert_equal 100, lee.stats.first.fill, "the best number on either card fills its bar"
+  end
+
+  # Both halves are listed the way Cinnabar lists all three fossils: a living dex owes the other
+  # even though one cartridge only ever opens one ball.
+  test "both dojo Pokemon are obtainable at Saffron and owed by Oak's deadline" do
+    saffron = loc("saffron-city")
+
+    assert_equal %w[106 107], saffron.encounters.map(&:dex)
+    assert(saffron.encounters.all?(&:gift?))
+    assert_equal %w[106 107], saffron.oak_queue.map(&:dex)
   end
 
   test "the Yellow forest table has no wild Pikachu, Weedle or Kakuna" do
@@ -230,16 +358,32 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty stranded
   end
 
-  test "a species whose every stop is locked when you walk it is crowned nowhere" do
+  # Route 6's water is the only Psyduck in the game and the guide crosses it twenty stops before
+  # HM03 exists, so for a long time nothing crowned it: a stop may not claim a catch you cannot
+  # make standing on it. The Surf sweep is the stop that finally can, which is what `armed_only`
+  # says on the card, and it is the difference between "nowhere" and "here, once you are equipped".
+  test "a species locked on every pass is crowned at the stop that comes back armed" do
     g = game
     route6 = loc("route-6")
     psyduck = route6.encounters.find { |enc| enc.dex == "054" }
 
     assert_equal "SURF", psyduck.how
-    assert_operator psyduck.unlocked_from, :>, route6.order,
-      "Route 6 is the only Psyduck water in the game, and Surf is many stops later"
-    assert_nil g.best_catches["054"], "no stop may claim a catch you cannot make there"
-    assert_nil g.best_catches["055"]
+    assert_operator psyduck.unlocked_from, :>, route6.order, "Route 6 is walked long before Surf"
+    assert_nil g.best_catch_here(route6, psyduck), "not on the pass that cannot reach the water"
+    assert_equal "surf-cleanups", g.best_catches["054"].slug
+    assert g.best_catches["054"].armed_only, "the only stop you arrive at already equipped"
+    assert_equal "surf-cleanups", g.best_catches["055"].slug
+  end
+
+  # The guard behind all of the above: a species whose every stop is one you reach without the tool
+  # for it is crowned nowhere at all. No species is in that position any more, now the Surf sweep
+  # goes back for the last of them, so it is exercised on the one stop rather than on the game:
+  # Route 6 alone, walked twenty stops before HM03, can crown nothing.
+  test "a species nobody is armed for at any stop is crowned nowhere" do
+    route6 = loc("route-6")
+    psyduck = route6.encounters.find { |enc| enc.dex == "054" }
+
+    assert_nil Walkthrough::Yellow.best_catch("054", [ { loc: route6, enc: psyduck, pct: 94 } ])
   end
 
   test "a species is not crowned at a stop whose rod arrives many stops later" do
@@ -262,7 +406,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "gating the ranking on the tools you carry costs only the two it must" do
-    assert_equal 92, game.best_catches.size
+    assert_equal 94, game.best_catches.size
   end
 
   test "a stop boxes its catchables by method, in section order rather than authoring order" do
@@ -314,7 +458,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "a multi-word method slugs into one key for the id, the class and the copy" do
-    section = loc("celadon-city").encounter_sections.find { |s| s.code == "GAME CORNER" }
+    section = loc("rocket-hideout").encounter_sections.find { |s| s.code == "GAME CORNER" }
 
     assert_equal "game-corner", section.key
     assert_equal "walkthrough.ui.catchsec_game_corner_label", section.label_key
@@ -397,7 +541,7 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "a one-floor stop leaves the floor blank, and so does a gym" do
     assert_empty loc("route-3").trainers.filter_map(&:floor), "a route is all one floor"
-    assert_equal [ "Gym" ], loc("celadon-city").gym.trainers.map(&:floor).uniq,
+    assert_equal [ "Gym" ], loc("celadon-city-return").gym.trainers.map(&:floor).uniq,
       "every trainer in a gym reads the same, so no card can single one out"
   end
 
@@ -715,7 +859,8 @@ class WalkthroughTest < ActiveSupport::TestCase
         loc.trainers.flat_map { |t| [ [ "#{loc.slug} where #{t.name}", t.where ],
                                       [ "#{loc.slug} battle #{t.name}", t.battle ] ] } +
         [ [ "#{loc.slug} trivia", loc.trivia&.shot ] ]
-    end.reject { |_label, node| node.nil? }
+    end.reject { |_label, node| node.nil? } +
+      Walkthrough::Yellow.surf_pikachu.shots.map { |s| [ "surfing pikachu #{s.key}", s ] }
   end
 
   test "every screenshot a step, item or trainer points at resolves to a real image" do
@@ -739,7 +884,8 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "no generated frame is left unreferenced beyond the known backlog" do
-    referenced = [ game, Walkthrough::Yellow.mew_glitch ].flat_map { |r| every_referenced_image(r) }
+    roots = [ game, Walkthrough::Yellow.mew_glitch, Walkthrough::Yellow.surf_pikachu ]
+    referenced = roots.flat_map { |r| every_referenced_image(r) }
       .map { |i| File.basename(i, ".png") }.to_set
     orphans = (Walkthrough::Yellow.manifest.fetch("scenes").keys.to_set - referenced).to_a.sort
 
@@ -815,11 +961,14 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "only pinless NPC gifts fall back to a positional progress key" do
     loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
 
-    assert_equal 21, loose.size
+    assert_equal 24, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
-                   "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Itemfinder",
+                   "HM01 Cut", "HM02 Fly", "HM03 Surf", "HM04 Strength", "Master Ball",
                    "Oak's Parcel", "Old Amber", "Old Rod", "Poké Flute", "Pokédex", "Potion",
-                   "S.S. Ticket", "Super Rod", "Town Map" ], loose.map(&:name).uniq.sort
+                   "S.S. Ticket", "Super Rod", "TM Metronome", "TM36 Selfdestruct", "TM39 Swift",
+                   "Town Map" ], loose.map(&:name).uniq.sort,
+      "the Itemfinder left this set the moment a second page claimed it: two cards for one gift " \
+      "need a stable id between them, not a slot number on each page"
     assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
       "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
   end

@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Compare two yellow_maps.json manifests and report, per map, which markers moved.
+"""Compare two yellow_maps.json manifests and report, per map, which markers moved or were relettered.
 
 The golden test in tests/test_manifest.py proves the committed manifest still matches the game
 data; it cannot say *which* maps a generator change shifted, and it goes green again the moment
 you regenerate, however many maps moved. This says which, and can hold you to a declared set.
+
+A pin can shift without moving an inch: its letter is its position along the walk (see paths.py),
+so editing one waypoint in `paths.ROUTES` renumbers a whole floor while every marker stays where it
+was. That reletters what a step, a card and a legend row all point at, so it counts as drift too.
 
 A moved marker is usually the point of the change, so "the manifest changed" cannot be the
 failure condition. Intent has to come from the author, as a `Manifest-drift:` commit trailer
@@ -32,10 +36,13 @@ class MapDelta:
     added: list = field(default_factory=list)
     removed: list = field(default_factory=list)
     moved: list = field(default_factory=list)
+    relettered: list = field(default_factory=list)
     resized: tuple = None
+    rerouted: tuple = None
 
     def empty(self):
-        return not (self.added or self.removed or self.moved or self.resized)
+        return not (self.added or self.removed or self.moved or self.relettered
+                    or self.resized or self.rerouted)
 
 
 def _entries(manifest):
@@ -51,6 +58,12 @@ def _describe(marker):
     grid = marker.get("grid")
     where = f"[{grid[0]},{grid[1]}]" if grid else "?"
     return f"`{marker['id']}` {where} {marker.get('name') or marker.get('ref') or ''}".strip()
+
+
+def _route_shape(entry):
+    """A drawn route as "legs x points", which is enough to see in a report that it changed."""
+    route = entry.get("route", [])
+    return f"{len(route)} leg(s), {sum(len(leg) for leg in route)} point(s)"
 
 
 def _pair_by_identity(old_only, new_only):
@@ -83,6 +96,10 @@ def diff_entry(old, new):
     delta = MapDelta(name=new["name"])
     if (old["width"], old["height"]) != (new["width"], new["height"]):
         delta.resized = ((old["width"], old["height"]), (new["width"], new["height"]))
+    # A drawn route is manifest too, and it can change with every marker left where it was: edit
+    # a waypoint in paths.ROUTES and the line takes a different way round while nothing moves.
+    if old.get("route", []) != new.get("route", []):
+        delta.rerouted = (_route_shape(old), _route_shape(new))
 
     old_markers = {m["id"]: m for m in old["markers"]}
     new_markers = {m["id"]: m for m in new["markers"]}
@@ -90,6 +107,8 @@ def diff_entry(old, new):
         before, after = old_markers[marker_id], new_markers[marker_id]
         if _position(before) != _position(after):
             delta.moved.append((before, after))
+        elif before.get("key") != after.get("key"):
+            delta.relettered.append((before, after))
 
     moved, removed, added = _pair_by_identity(
         [m for i, m in old_markers.items() if i not in new_markers],
@@ -121,10 +140,11 @@ def render_markdown(deltas):
         return "No map or marker changes: every map in the manifest is byte-identical to `main`."
 
     lines = [f"**{len(deltas)} map(s) changed.** Confirm this is exactly the set you meant to touch.",
-             "", "| Map | Status | Added | Removed | Moved |", "|---|---|---:|---:|---:|"]
+             "", "| Map | Status | Added | Removed | Moved | Relettered |",
+             "|---|---|---:|---:|---:|---:|"]
     for delta in deltas:
         lines.append(f"| `{delta.name}` | {delta.status} | {len(delta.added)} | "
-                     f"{len(delta.removed)} | {len(delta.moved)} |")
+                     f"{len(delta.removed)} | {len(delta.moved)} | {len(delta.relettered)} |")
     lines.append("")
 
     for delta in deltas:
@@ -133,8 +153,14 @@ def render_markdown(deltas):
         if delta.resized:
             before, after = delta.resized
             lines.append(f"- resized {before[0]}x{before[1]} -> {after[0]}x{after[1]}")
+        if delta.rerouted:
+            before, after = delta.rerouted
+            lines.append(f"- rerouted {before} -> {after}")
         for before, after in delta.moved:
             lines.append(f"- moved {_describe(before)} -> {_describe(after)}")
+        for before, after in delta.relettered:
+            lines.append(f"- relettered {before.get('key')} -> {after.get('key')} "
+                         f"{_describe(after)}")
         for marker in delta.added:
             lines.append(f"- added {_describe(marker)}")
         for marker in delta.removed:

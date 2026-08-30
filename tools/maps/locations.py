@@ -44,15 +44,21 @@ _DUNGEONS = {
     "silph-co": _floors("SilphCo",
                         ["1F", "2F", "3F", "4F", "5F", "6F", "7F", "8F", "9F", "10F", "11F"],
                         "SAFFRON_CITY"),
-    "rocket-hideout": _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY"),
+    # The arcade is drawn with the hideout it opens into: it is where the Rocket guarding the
+    # stairs stands and where the twelve hidden coin piles are, and neither belongs to the town.
+    "rocket-hideout": ([("GameCorner", "Game Corner", "CELADON_CITY")] +
+                       _floors("RocketHideout", ["B1F", "B2F", "B3F", "B4F"], "CELADON_CITY")),
     "pokemon-mansion": _floors("PokemonMansion", ["1F", "2F", "3F", "B1F"], "CINNABAR_ISLAND"),
     # One entry per deck; the cabins, kitchen and bow are drawn into the deck they open off (see
     # _ATTACHED below and decks.py), not listed here as floors of their own.
+    # Decks in the order the guide walks them, not the order the ship is stacked: you board on 1F
+    # and go straight below, so B1F comes second and the two upper decks follow.
     "ss-anne": [("SSAnne1F", "1F", "VERMILION_CITY"),
+                ("SSAnneB1F", "B1F", "VERMILION_CITY"),
                 ("SSAnne2F", "2F", "VERMILION_CITY"),
-                ("SSAnne3F", "3F", "VERMILION_CITY"),
-                ("SSAnneB1F", "B1F", "VERMILION_CITY")],
+                ("SSAnne3F", "3F", "VERMILION_CITY")],
     "underground-path": [("UndergroundPathNorthSouth", "", None)],
+    "underground-path-west-east": [("UndergroundPathWestEast", "", None)],
     "safari-zone": [("SafariZoneCenter", "Center", None), ("SafariZoneEast", "East", None),
                     ("SafariZoneNorth", "North", None), ("SafariZoneWest", "West", None)],
     "viridian-gym": [("ViridianGym", "", "VIRIDIAN_CITY")],
@@ -77,19 +83,21 @@ def attached(map_label):
     return _ATTACHED.get(map_label, [])
 
 
-_EXTRA_TRAINER_MAPS = {
-    # The three *Rooms maps and the bow moved into _DUNGEONS above. They must not stay here too:
-    # roster.py walks this list separately from location_maps, so a map in both is counted twice.
-    "saffron-city": [("FightingDojo", "SAFFRON_CITY")],
-    "celadon-city": [("GameCorner", "CELADON_CITY")],
-}
+# The three *Rooms maps and the bow moved into _DUNGEONS, and the Fighting Dojo into _ANNEXES.
+# Nothing may stay here as well as there: roster.py walks this list separately from
+# location_maps, so a map in both is counted twice.
+_EXTRA_TRAINER_MAPS = {}
 
 
 # Maps a location owns beyond its town and gym. The Vermilion dock is its own map with its own
 # Super Rod slots (Staryu and Shellder, neither of which the city's own water gives up), so it has
 # to be drawn for those to have anywhere to hang.
+# The Fighting Dojo is a gym in all but the badge, five fights and two prize balls behind one
+# door, so Saffron draws it the way it draws Sabrina's floor rather than leaving the one hall the
+# city sends you into undrawn.
 _ANNEXES = {
     "vermilion-city": [("VermilionDock", "Dock", "VERMILION_CITY")],
+    "saffron-city": [("FightingDojo", "Dojo", "SAFFRON_CITY")],
 }
 
 
@@ -104,6 +112,7 @@ def location_maps():
 
 
 def extra_trainer_maps(slug):
+    """(map label, palette parent, floor label) for each map a location rosters but does not draw."""
     return _EXTRA_TRAINER_MAPS.get(slug, [])
 
 

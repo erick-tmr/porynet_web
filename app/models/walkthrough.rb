@@ -1,11 +1,27 @@
 module Walkthrough
   # Marker categories in the order the map legend lists them.
-  MAP_CATEGORIES = %w[trainer npc item hidden exit].freeze
+  # The Strength boulder, generated on its own (tools/maps/icons.py) so a step's map can draw one
+  # where the game has not placed one yet.
+  BOULDER_ICON = "walkthrough/yellow/icons/boulder.png".freeze
+
+  MAP_CATEGORIES = %w[trainer npc pokemon item hidden exit hole].freeze
 
   # Categories that are signposts, not chores: they raise a hint but never tick off.
-  NON_TICKABLE = %w[exit npc].freeze
+  NON_TICKABLE = %w[exit npc hole].freeze
+
+  # Categories whose key is shared by the several maps that show one thing: a staircase wears the
+  # same letter on both floors it joins, and so do the two ends of a hole. Everything else numbers
+  # per map, so an H1 on two floors is two different hidden items that happen to share a letter.
+  # This is what tells `map-jump` whether two pins wearing one key are one pin seen twice.
+  LINKED_CATEGORIES = %w[exit hole].freeze
 
   DENSE_TRAINERS = 6
+
+  # Colours a drawn route cycles through, one per leg. Enough of them that the longest floor never
+  # reuses one (Saffron Gym's nine rooms are the most any floor asks for), because a step draws its
+  # own leg on its own copy of the map and the two have to agree about which line is which. The
+  # hexes are in walkthrough-map.css; this is only how many there are.
+  ROUTE_HUES = 9
 
   # A rod or Surf encounter is only a catch once you hold the tool, and the guide hands each one
   # over at a fixed stop. Keyed by method, valued by that stop's `order`, so a fishing card on an
@@ -14,12 +30,14 @@ module Walkthrough
   # four legs before the Old Rod exists.
   METHOD_UNLOCK = {
     "OLD ROD" => 17,     # Vermilion City, the Fishing Guru
-    "SUPER ROD" => 30,   # Route 12, the Super Rod house
-    "GOOD ROD" => 34,    # Fuchsia City, the Good Rod house
-    "SURF" => 35         # Safari Zone, HM03 in the Secret House
+    "SUPER ROD" => 31,   # Route 12, the Super Rod house
+    "GOOD ROD" => 35,    # Fuchsia City, the Good Rod house
+    "SURF" => 36         # Safari Zone, HM03 in the Secret House
   }.freeze
 
   GIFT_SECTION = "GIFT"
+  GAME_CORNER_METHOD = "GAME CORNER".freeze
+  STATIC_METHOD = "STATIC".freeze
 
   SECTION_ICONS = {
     GIFT_SECTION => "walkthrough/items/poke-ball.png",
@@ -64,6 +82,12 @@ module Walkthrough
     :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map) do
     def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
+    # Bought over a counter rather than hunted, so what the card carries where a rate would go is
+    # a price in coins, and the counter restocks forever.
+    def purchased? = how == GAME_CORNER_METHOD
+    # One sprite on the map, one battle, no respawn: the body is certain rather than rolled for,
+    # which is a different kind of catch from a percentage in the grass.
+    def static? = how == STATIC_METHOD
     def wild? = !gift?
     def section = gift? ? GIFT_SECTION : how
     # The earliest stop whose `order` can register this species: everything walked into is open
@@ -109,14 +133,37 @@ module Walkthrough
   # `after_map` pins the block to one of a stop's maps, for a page that draws its maps one at a
   # time: the Diglett's Cave grinding note belongs under the cave, not at the end of a walk that
   # finishes four maps away. Left unset it renders where it always has, below the steps.
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :after_map, :art,
-    :note_icon) do
-    def initialize(after_map: nil, art: nil, note_icon: nil, **rest) = super
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon,
+    :tag_key, :warning, :pins, :marks) do
+    def initialize(art: nil, note_icon: nil, tag_key: nil, warning: nil, pins: {}, marks: {}, **rest) = super
     def art? = !art.nil?
     def note_icon? = !note_icon.nil?
-    def after?(area) = !after_map.nil? && area&.name == after_map
-    def loose? = after_map.nil?
+    # A section that is about one particular thing says so in its eyebrow ("TRIVIA · NAME RATER"),
+    # because a page can carry more than one and "TRIVIA" alone stops telling them apart.
+    def tag? = !tag_key.nil?
+    def warning? = !warning.nil?
   end
+
+  # The one rule a trivia section exists to warn about, and the single specimen in this save it
+  # bites on: the Mr. Mime you traded for cannot be renamed, and here is its name, struck out.
+  TriviaWarning = Data.define(:title_key, :body_key, :specimen)
+  TriviaSpecimen = Data.define(:dex, :name, :note_key)
+  # One species worth farming at a grinding spot, and what the game pays for it. `exp` is Gen 1's
+  # own arithmetic, base experience times level over seven, so the figure on the card is the one
+  # the battle really awards; `fill` is that against the best on offer here, which is what the bar
+  # under it draws. Everything but the tips comes out of the game (tools/maps/dex.py).
+  GrindMon = Data.define(:dex, :name, :tone, :rarity, :share, :levels, :level, :exp, :fill,
+                         :type, :hp, :speed, :tips_key)
+
+  # A place worth stopping at to level up: what lives there, what each one pays, and the Repel
+  # trick that filters the cheap one out. `lead_level` is one above the top level the common
+  # species reaches, which is exactly what Repel needs to leave only the rare one.
+  GrindStep = Data.define(:n, :title_key, :body_key)
+  GrindSpot = Data.define(:anchor, :after_map, :title_key, :intro_key, :art, :formula_key,
+                          :mons, :note_icon, :lead_level, :steps, :warn_key) do
+    def after?(area) = area&.name == after_map
+  end
+
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
   Shot = Data.define(:image, :label) do
     def map? = !image.nil?
@@ -127,7 +174,11 @@ module Walkthrough
   Gift = Data.define(:dex, :name, :level, :sold) do
     def sold? = sold
   end
-  GymFacts = Data.define(:leader, :types, :badge, :tm)
+  # `quiz` is the answer key for a gym whose doors ask one, in door order; empty for every gym but
+  # Cinnabar's.
+  GymFacts = Data.define(:leader, :types, :badge, :tm, :quiz) do
+    def initialize(quiz: [], **rest) = super
+  end
   GiftItem = Data.define(:name, :qty) do
     def stack? = qty > 1
   end
@@ -152,12 +203,15 @@ module Walkthrough
   # What a place sells, one row per item. Its price and (for a TM) number/move/type come from the
   # generated item catalog in yellow_places.json; `desc_key` is a shared localized blurb, `rec_key`
   # the note behind a ★ recommended pick. `mtype` names a TM's sprite (tm-<type>).
-  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key) do
+  MartItem = Data.define(:name, :sprite, :price, :desc_key, :tm_no, :move, :mtype, :rec, :rec_key,
+    :tick) do
     def initialize(price: nil, desc_key: nil, tm_no: nil, move: nil, mtype: nil, rec: false,
-      rec_key: nil, **rest)
+      rec_key: nil, tick: nil, **rest)
       super(price: price, desc_key: desc_key, tm_no: tm_no, move: move, mtype: mtype, rec: rec,
-        rec_key: rec_key, **rest)
+        rec_key: rec_key, tick: tick, **rest)
     end
+
+    def tick? = !tick.nil?
 
     def price? = !price.nil?
     def desc? = !desc_key.nil?
@@ -174,7 +228,33 @@ module Walkthrough
   end
 
   # A Celadon rooftop drink the thirsty girl swaps for a TM.
-  MartTrade = Data.define(:drink, :drink_sprite, :tm_short, :tm_sprite, :move)
+  MartTrade = Data.define(:drink, :drink_sprite, :price, :tm_short, :tm_sprite, :move, :mtype,
+    :note_key)
+
+  # One prize on a Game Corner counter: a species with the level it comes at, or a TM.
+  Prize = Data.define(:name, :sprite, :level, :mtype, :coins, :note_key) do
+    def note? = !note_key.nil?
+    def mon? = !level.nil?
+  end
+
+  # One of the three prize counters, and the section that draws all of them.
+  PrizeWindow = Data.define(:id, :prizes)
+  PrizeRoom = Data.define(:windows, :piles) do
+    # The counter sells coins in one size only: 50 for 1000 yen (text/GameCorner.asm).
+    COINS_PER_BUY = 50
+    BUY_PRICE = 1000
+
+    def coins_per_buy = COINS_PER_BUY
+    def buy_price = BUY_PRICE
+    def dearest = windows.flat_map(&:prizes).max_by(&:coins)
+    def payout = (dearest.coins / COINS_PER_BUY.to_f).ceil * BUY_PRICE
+  end
+
+  # One line of the rooftop shopping list: how many of a drink to buy, and what that costs.
+  DrinkBuy = Data.define(:qty, :name, :sprite, :cost)
+
+  # The rooftop trade section: where the girl stands, what she pays, and the bag you need first.
+  RoofTrades = Data.define(:shot, :trades, :buys, :total)
 
   # One floor of the Celadon Dept. Store: its label, what kind of counter it is, an optional free
   # TM gift, its item counters, and (rooftop only) the drink -> TM trades.
@@ -193,11 +273,13 @@ module Walkthrough
 
   # A place you can shop. A city Mart carries `counters`; the Celadon Dept. Store carries `floors`
   # and the store-header stats read off them.
-  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors) do
-    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], **rest)
-      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors, **rest)
+  Mart = Data.define(:slug, :count, :blurb_key, :buy_key, :counters, :floors, :roof) do
+    def initialize(blurb_key: nil, buy_key: nil, counters: [], floors: [], roof: nil, **rest)
+      super(blurb_key: blurb_key, buy_key: buy_key, counters: counters, floors: floors,
+        roof: roof, **rest)
     end
 
+    def roof? = !roof.nil?
     def multi? = floors.any?
     def blurb? = !blurb_key.nil?
     def buy? = !buy_key.nil?
@@ -226,17 +308,76 @@ module Walkthrough
   # A map says which slice of the location it draws: `floor` for a dungeon's own floors, and
   # `title` for a map a stop borrows from another location, since the page is named after the stop
   # and a borrowed map has to name the place it really draws.
-  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title) do
-    def initialize(name: "", markers: [], title: nil, **rest) = super
+  #
+  # `route` is the way round an arrow-tile floor, one leg per stretch between the things the walk
+  # collects, each a list of [x, y] points in the image's own pixels. Only the floors where the
+  # game states how you move carry one (tools/maps/spinners.py); everywhere else it is empty and
+  # nothing is drawn. `route_kind` says what the line is a picture of: a "ride" the arrows take the
+  # hero on, or a "push", the way a boulder goes when it is shoved (tools/maps/boulders.py). The
+  # two are drawn identically and captioned apart, because following one is not doing the other.
+  #
+  # `boulders` is the cell each push starts from, one per leg. The map itself does not draw them:
+  # the game ships every boulder below Seafoam 1F hidden until the one above it falls, so a floor
+  # with one baked in would claim a boulder that is not there. A step that pushes one draws it
+  # over its own crop instead, which is the only place the reader is being told to move it.
+  AreaMap = Data.define(:image, :width, :height, :floor, :name, :markers, :title, :route,
+    :route_kind, :boulders) do
+    def initialize(name: "", markers: [], title: nil, route: [], route_kind: "ride", boulders: [], **rest) = super
+    def route? = route.any?
+    def route_legs
+      route.each_with_index.map do |points, i|
+        RouteLeg.new(points: points, n: i + 1, boulder: boulders[i])
+      end
+    end
     def caption = title || floor
     def captioned? = !caption.empty?
     def markers? = markers.any?
     def marker_counts = markers.group_by(&:cat).transform_values(&:size)
     def tickable_count = markers.count(&:tickable?)
     def markers_in(cat) = markers.select { |marker| marker.cat == cat }
-    # A map half-again wider than it is tall reads as a horizontal strip; it gets the full-width
-    # landscape template (map on top, legend spread beneath) instead of the side-by-side split.
-    def landscape? = width * 2 >= height * 3
+    # A map half-again wider than it is tall reads as a horizontal strip, and so does one simply
+    # too wide for the column the split template would give it: the map shares that row with the
+    # legend at 1.55fr of 2.55, which is about 675px with the page at its widest, and a picture
+    # wider than that can only be shown there by scrolling a frame narrower than itself. Either
+    # way it takes the full-width landscape template, map on top and legend spread beneath.
+    #
+    # A third again, rather than half again: Silph Co's upper floors are 416x288, wide rooms that
+    # the split column shrinks to a stamp while its legend sits half empty beside them. Its 10F and
+    # 11F are the other shape (256x288 and square), and those still read better next to their
+    # legend, which is where the line sits.
+    #
+    # The middle rule is about size rather than shape. A town map is 640x576, which is not a strip
+    # and does fit the column, but only just: it draws there at barely 1x, the size its labels
+    # crowd worst at, while full width lets it reach 2.5x and the names come apart. So a map wider
+    # than it is tall that the column cannot enlarge by a quarter goes full width too. Tall maps
+    # are left out however wide, because the landscape template would strand their legend under a
+    # column of picture.
+    SPLIT_COLUMN_PX = 675
+
+    def landscape?
+      width * 3 >= height * 4 ||                                # a horizontal strip
+        (width > height && width * 5 > SPLIT_COLUMN_PX * 4) ||  # the column cannot enlarge it
+        width > SPLIT_COLUMN_PX                                 # the column cannot hold it
+    end
+  end
+
+  # One stretch of a drawn route. `n` is which leg it is, counting from 1, and `hue` cycles a small
+  # palette off it: two rides through the same maze cross each other often, and one colour for the
+  # lot reads as a scribble.
+  RouteLeg = Data.define(:points, :n, :boulder) do
+    def initialize(boulder: nil, **rest) = super
+    def boulder? = !boulder.nil?
+    def line = points.map { |x, y| "#{x},#{y}" }.join(" ")
+    def tip = points.last
+    def hue = (n - 1) % ROUTE_HUES + 1
+
+    # Which way the leg's last step is heading, in degrees, so the arrowhead on its tip points the
+    # way the hero was going. A leg of one cell has no last step and simply points east.
+    def heading
+      to_x, to_y = tip
+      from_x, from_y = points[-2] || tip
+      (Math.atan2(to_y - from_y, to_x - from_x) * 180 / Math::PI).round(1)
+    end
   end
 
   StepLink = Data.define(:leg, :anchor)
@@ -246,14 +387,32 @@ module Walkthrough
   # today. Authored as ids, never as letters: a letter is the marker's position in its map's run, so
   # one new item ball would shift every letter after it and silently re-point the prose. `marks` is
   # the resolved { token => letter } the view actually interpolates.
-  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map) do
-    def initialize(pins: {}, marks: {}, map: nil, **rest) = super
+  # A Pokémon a step registers in the dex without catching it: an NPC shows it to you and the
+  # entry fills in as seen. Everything but `catch_key` is the game's own dex screen, generated
+  # from the disassembly (tools/maps/dex.py), so the card cannot drift from what the game prints.
+  # `catch_key` is the locale line telling the reader where the catch itself happens.
+  DexSeen = Data.define(:num, :name, :species, :types, :height, :weight, :text, :art, :catch_key)
+
+  # A step's own copy of the floor it is on, cropped to the stretch of route it walks: the same
+  # image the area map draws, an SVG viewBox over the part that matters, and the legs to draw on
+  # it. The overview at the top of the page shows the floor; this shows the reader where they are.
+  StepMap = Data.define(:image, :width, :height, :box, :legs, :kind) do
+    def initialize(kind: "ride", **rest) = super
+    def view_box = box.join(" ")
+  end
+
+  Step = Data.define(:n, :title_key, :text_key, :items, :hidden, :shot, :link, :pins, :marks, :map,
+    :dex_seen, :line, :step_map) do
+    def initialize(pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
+    def line? = !line.nil?
+    def step_map? = !step_map.nil?
     def items? = items.any?
     def hidden? = hidden.any?
     def shot? = !shot.nil?
     def link? = !link.nil?
     def marks? = marks.any?
     def map? = !map.nil?
+    def dex_seen? = !dex_seen.nil?
   end
 
   # team: [{dex:,name:,lvl:}]; where/battle: Shot or nil. `opp` is the "OPP_CLASS:party" pair from
@@ -302,6 +461,11 @@ module Walkthrough
 
   PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :covers, :chain, :fresh, :boxed,
     :done_at, :how, :rate, :best, :why_key, :why_args, :later) do
+    # The stop the plan wants this body caught at. A card shown away from that stop names it, so a
+    # reader who finds a species in the grass in front of them is told where to get it instead of
+    # just being told not to bother here. `done_at` carries it when the home is off this leg
+    # entirely; when the home is on this leg but another page, `stop_name` is already that page.
+    def catch_at = done_at || stop_name
     def later? = !later.nil?
     def fresh? = fresh
     def boxed? = boxed
@@ -318,8 +482,13 @@ module Walkthrough
   end
 
   OakTile = Data.define(:dex, :name, :via_key, :via_args)
-  OakGroup = Data.define(:kind, :tiles, :note_key) do
+  # `pick` is how many of the group's tiles a run can actually register, when that is fewer than
+  # the tiles shown: three Eevee stones are three species, but one Eevee only ever becomes one.
+  OakGroup = Data.define(:kind, :tiles, :note_key, :pick) do
+    def initialize(pick: nil, **rest) = super(pick: pick, **rest)
+
     def any? = tiles.any?
+    def required = pick || tiles.size
   end
   LockedEntry = Data.define(:dex, :name, :gate_key, :gate_args, :where_key, :where_args)
 
@@ -332,7 +501,11 @@ module Walkthrough
     def due_count = due.size
     def queue_at(slug) = queue.select { |entry| entry.at == slug }
     def entry_for(dex) = entries.find { |entry| entry.dex == dex }
-    def living? = queue.any?
+    # A leg with catchable species but an empty queue still gets the section: every one of them is
+    # better caught later, and "nothing here is worth a box slot" is the answer a living-dex reader
+    # came for. A leg with nothing catchable at all (the S.S. Anne, Viridian's gym) has no question
+    # to answer and stays quiet.
+    def living? = queue.any? || entries.any?
     def oak? = groups.any?(&:any?) || earlier.any?
     def any? = living? || oak?
   end
@@ -344,18 +517,66 @@ module Walkthrough
     def rate? = !rate.nil?
   end
 
-  GymStep = Data.define(:n, :text_key, :shot) do
+  # `answers` is a quiz door's answer key, one "yes"/"no" per door in door order. Cinnabar is the
+  # only gym that asks: its six locked doors each pose a yes-or-no question, and the answers are
+  # read out of the game rather than typed, because the byte the doors carry is the truth of the
+  # question and not the answer to it. Saying which is the whole of the step, so it is a row of
+  # numbered chips rather than a clause the reader has to count along.
+  GymStep = Data.define(:n, :text_key, :shot, :answers) do
+    def initialize(answers: [], **rest) = super
     def shot? = !shot.nil?
+    def answers? = answers.any?
   end
 
+  # `needs` is the HM a floor cannot be finished without, as the game spells it, and `needs_key`
+  # the line saying what is behind it. A gym whose leader sits past a barrier has to say so before
+  # the reader walks in with the wrong party, not after.
   Gym = Data.define(
-    :type, :name, :intro_key, :shot, :area, :badge, :badge_img, :tm, :puzzle, :trainers, :leader
+    :type, :name, :intro_key, :shot, :area, :badge, :badge_img, :tm, :puzzle, :trainers, :leader,
+    :needs, :needs_key
   ) do
-    def initialize(area: nil, **rest) = super
+    def initialize(area: nil, needs: nil, needs_key: nil, **rest) = super
+    def needs? = !needs.nil?
     def puzzle? = puzzle.any?
     def trainers? = trainers.any?
     def area? = !area.nil?
-    def pins = area? ? area.markers_in("trainer") : []
+    # Trainers always, and the doorways too when the floor has more than one: a gym with a single
+    # front door needs no pin for the way it came in, but Saffron's is nine sealed rooms and thirty
+    # warp pads, and the pin on a pad is the only thing that says which room it throws you into.
+    def pins = area? ? area.markers_in("trainer") + puzzle_doors : []
+    def puzzle_doors = area.markers_in("exit").then { |doors| doors.one? ? [] : doors }
+  end
+
+  # A hall that fights like a gym and pays like one, without a badge at the end of it: Saffron's
+  # Fighting Dojo. It renders in the gym's own frame and carries the same shape (intro, how it
+  # runs, students, the one at the back), with the badge slot swapped for the prize. `map` is the
+  # game map its roster comes off, which is what routes those trainers here instead of onto the
+  # city page they share a stop with.
+  Dojo = Data.define(:anchor, :map, :name, :type, :intro_key, :when_key, :prize_key, :shot, :area,
+    :steps, :trainers, :leader, :note_key, :choice) do
+    # `area` is filled in once the stop's maps are read, and the dojo's floor is always one of
+    # them, so nothing asks whether it has one.
+    def initialize(area: nil, **rest) = super
+    def pins = area.markers_in("trainer")
+    def cards = trainers + [ leader ]
+    def purse = cards.sum(&:reward)
+  end
+
+  # One of the two Poké Balls behind the Karate Master, and the case for taking it. `stats` are the
+  # four the choice actually turns on, `knows` what it arrives holding and `learns` what it picks
+  # up after. Picking one is a catch, so the card ticks against the species itself: the same tick
+  # the catch card below it carries, and the one the living dex counts.
+  DojoPick = Data.define(:side, :dex, :name, :level, :stats, :knows, :learns, :note_key)
+
+  # `lead` is true for the stat this one of the pair wins, which is the only thing the bar beside
+  # the number is for. `fill` is its share of the better of the two, in the fives a class can carry.
+  DojoStat = Data.define(:key, :value, :fill, :lead)
+
+  DojoMove = Data.define(:name, :level)
+
+  DojoChoice = Data.define(:anchor, :intro_key, :room_key, :rec_key, :picks) do
+    def left = picks.first
+    def right = picks.last
   end
 
   # `name` is the place the game knows, and it stays on everything anchored to that place: the map
@@ -365,19 +586,23 @@ module Walkthrough
   Location = Data.define(
     :slug, :kind, :name, :title, :order, :note_key, :intro_key, :badge,
     :steps, :encounters, :trainers, :trades, :oak_queue, :gym, :gym_after, :gym_finale,
-    :area_maps, :later, :trivia, :missable, :mart
+    :area_maps, :later, :trivia, :missable, :mart, :grind, :second_visit, :dojo
   ) do
     def initialize(name:, title: nil, gym: nil, gym_after: nil, gym_finale: false, area_maps: [],
-      later: [], trivia: nil, missable: nil, trades: [], mart: nil, **rest)
+      later: [], trivia: nil, missable: nil, trades: [], mart: nil, grind: nil,
+      second_visit: nil, dojo: nil, **rest)
       super(name: name, title: title || name, gym: gym, gym_after: gym_after,
         gym_finale: gym_finale, area_maps: area_maps,
-        later: later, trivia: trivia, missable: missable, trades: trades, mart: mart, **rest)
+        later: later, trivia: trivia, missable: missable, trades: trades, mart: mart,
+        grind: grind, second_visit: second_visit, dojo: dojo, **rest)
     end
 
+    def dojo? = !dojo.nil?
     def mart? = !mart.nil?
     def area_maps? = area_maps.any?
     def later? = later.any?
     def trivia? = !trivia.nil?
+    def grind? = !grind.nil?
     def missable_after?(step_n) = !missable.nil? && missable.after_step == step_n
 
     # What this stop can actually add to the dex when you walk it. The cards still list every
@@ -448,11 +673,22 @@ module Walkthrough
 
     # steps that lead up to the gym, then the rest: rendered after the gym in this band, or
     # held back with the gym itself when it closes the whole leg
-    def lead_steps = gym_after ? steps.first(gym_after) : steps
+    def lead_steps = steps.first(gym_after || second_visit&.after || steps.size)
     def trailing_steps = gym_after ? steps.drop(gym_after) : []
+
+    # A stop the guide walks twice, in one numbered sequence split across two headings. The Safari
+    # Zone turns you out when its step clock runs down and holds one prize behind an HM the badge
+    # two stops later unlocks, so its leftovers are a return trip rather than a footnote:
+    # everything past `second_visit.after` is that trip, and the numbers run on through it.
+    def second_visit? = !second_visit.nil?
+    def second_visit_steps = second_visit ? steps.drop(second_visit.after) : []
     def after_steps = gym_finale ? [] : trailing_steps
     def finale_steps = gym_finale ? trailing_steps : []
   end
+
+  # The return trip a twice-walked stop carries: the step its first visit ends on, and the line
+  # that says what changed in between and why you are going back.
+  SecondVisit = Data.define(:after, :lead_key)
 
   Leg = Data.define(:slug, :order, :special, :locations, :lead_key) do
     def single? = locations.one?
@@ -557,6 +793,43 @@ module Walkthrough
   end
   PikachuFriendship = Data.define(:start, :threshold, :max, :rows)
 
+  # The Safari Zone explainer: why nothing in the Safari bag beats a plain throw. Every figure is
+  # read from the disassembly (ItemUseBall in engine/items/item_effects.asm for the throw,
+  # PrintSafariZoneBattleText in engine/battle/safari_zone.asm for the timers, and the flee roll in
+  # engine/battle/core.asm), except the per-encounter odds, which are simulated over those exact
+  # routines because no closed form covers a turn loop with a flee roll in it.
+  #
+  # `rows` on a panel is whatever that panel tabulates, kept as values rather than sentences so the
+  # copy never has to restate a number the model already holds.
+  CatchStep = Data.define(:n, :title_key, :text_key, :rows, :code_key) do
+    def initialize(code_key: nil, **rest) = super
+    def code? = !code_key.nil?
+    def rows? = rows.any?
+  end
+  CatchRow = Data.define(:label_key, :value, :tone) do
+    def initialize(label_key: nil, tone: nil, **rest) = super
+    def labelled? = !label_key.nil?
+  end
+  # One line of the worked example: which step it is, and what that step costs you on this target.
+  CatchCalc = Data.define(:n, :text_key, :value, :tone)
+  # What an item does to the two numbers that matter, and what is left once its timer runs out.
+  CatchItem = Data.define(:key, :sprite, :rate, :rate_note, :flee, :after_key, :tone)
+  # Flee odds per turn for one target, calm and angry. Ranges, because speed moves with DVs.
+  CatchFlee = Data.define(:label_key, :normal, :angry)
+  # One strategy over a whole encounter, as a percentage of encounters that end in a catch.
+  CatchOdds = Data.define(:label_key, :value, :best)
+  CatchTarget = Data.define(:dex, :name, :label_key, :odds, :note_key) do
+    def note? = !note_key.nil?
+  end
+  CatchPanel = Data.define(:key, :sprites, :eyebrow_key, :title_key, :lead_key, :steps, :formula_key,
+    :calc, :items, :flee, :cards) do
+    def initialize(steps: [], calc: [], items: [], flee: [], cards: [], formula_key: nil, **rest) = super
+    def formula? = !formula_key.nil?
+  end
+  CatchCard = Data.define(:key, :title_key, :text_key)
+  SafariCatching = Data.define(:anchor, :panels, :targets, :cards, :verdict_key, :consolation_key,
+    :sample)
+
   # What a Gym Badge does once it is in the case. `kind` is "boost" (an in-battle stat lift for the
   # whole party) or "obey" (the level a traded Pokémon obeys up to), `level` fills the obedience
   # copy, and `field` is the HM the badge switches on outside battle, nil for the last three.
@@ -566,6 +839,29 @@ module Walkthrough
   end
   BadgeRule = Data.define(:no, :label_key, :title_key, :text_key)
   BadgeGuide = Data.define(:anchor, :cards, :rules)
+
+  # The Exp. All hands its share out in two passes, and the arithmetic below is the game's own.
+  # `fighters` and `party` are the state the section opens on; the rest is copy the reader toggles
+  # between, rendered server-side so no user-facing string lives in the controller.
+  ExpShare = Data.define(:anchor, :sprite, :max_party, :party, :fighters, :verdicts, :legend,
+    :trivia)
+  ExpVerdict = Data.define(:tone, :text_key)
+  ExpLegendText = Data.define(:row, :state, :text_key)
+  ExpTrivia = Data.define(:tag_key, :title_key, :text_key)
+
+  # Pikachu's Beach, the minigame the Route 19 beach house hides behind a Pokémon the cartridge
+  # cannot produce. Every figure is the game's own: the radness table is the comment on
+  # SurfingMinigame_CalculateAndAddRadnessFromStunt (engine/minigame/surfing_pikachu.asm), the
+  # 6000 is what the setup writes to wSurfingMinigamePikachuHP, and the meter caps at three flips
+  # in SurfingMinigame_IncreaseRadnessMeter. `alt` is the higher payout a row has a second way of
+  # scoring; nil when the row pays one number.
+  SurfPikachu = Data.define(:anchor, :art, :beach, :stadium, :sprite, :chips, :shots, :scores,
+    :steps)
+  SurfShot = Data.define(:key, :image, :tone)
+  SurfScore = Data.define(:key, :value, :alt, :tone) do
+    def alt? = !alt.nil?
+  end
+  SurfStadiumStep = Data.define(:key, :glyph, :tone)
 
   def self.games = { "yellow" => Yellow.game }
 

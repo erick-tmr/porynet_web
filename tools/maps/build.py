@@ -22,8 +22,10 @@ import argparse
 import json
 import pathlib
 
+import boulders
 import compositor
 import decks
+import dex
 import encounters
 import follower
 import generators
@@ -33,6 +35,7 @@ import markers
 import places
 import roster
 import sources
+import spinners
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 IMG_ROOT = REPO / "app/assets/images/walkthrough/yellow"
@@ -40,6 +43,7 @@ SPECS_DIR = pathlib.Path(__file__).resolve().parent / "specs"
 MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
 PLACES = REPO / "app/models/walkthrough/yellow_places.json"
 ROSTER = REPO / "app/models/walkthrough/yellow_trainers.json"
+DEX = REPO / "app/models/walkthrough/yellow_dex.json"
 ENCOUNTERS = REPO / "app/models/walkthrough/yellow_encounters.json"
 REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
 
@@ -126,8 +130,20 @@ def main():
             name = locations.image_name(slug, floor)
             image, pins = draw_area(root, label, floor, parent)
             key = save_png(image, "maps", name, args.force)
-            entries.append({"image": key, "width": image.width, "height": image.height,
-                            "floor": floor, "name": name, "markers": pins})
+            entry = {"image": key, "width": image.width, "height": image.height,
+                     "floor": floor, "name": name, "markers": pins}
+            ride = spinners.drawn_route(root, label)
+            line = ride or boulders.drawn_pushes(root, label)
+            if line:
+                entry["route"] = line
+                # What the line is a picture of: the way the arrows carry the hero, or the way a
+                # boulder goes when it is shoved. The app captions and labels them apart, and for a
+                # push it also draws the boulder at the head of each leg, since the floor itself
+                # does not carry one until the one above it falls.
+                entry["route_kind"] = "ride" if ride else "push"
+                if not ride:
+                    entry["boulders"] = boulders.boulder_cells(root, label)
+            entries.append(entry)
             labels.append(label)
             warps[label] = sources.parse_warp_events(root, label)
             consts[label] = headers[label][0]
@@ -160,10 +176,14 @@ def main():
     place_facts = places.build_places(root)
     PLACES.write_text(json.dumps(
         {"source": "pret/pokeyellow", "places": place_facts,
-         "items": places.build_item_catalog(root)}, indent=2) + "\n")
+         "items": places.build_item_catalog(root),
+         "prizes": places.build_prizes(root)}, indent=2) + "\n")
     ROSTER.write_text(json.dumps(
         {"source": "pret/pokeyellow", "count": sum(len(v) for v in trainers.values()),
          "trainers": trainers}, indent=2))
+    DEX.write_text(json.dumps(
+        {"source": "pret/pokeyellow", "dex": dex.build_dex(root)},
+        indent=2, ensure_ascii=False) + "\n")
     wild = encounters.build_encounters(root)
     ENCOUNTERS.write_text(json.dumps(
         {"source": "pret/pokeyellow", "encounters": wild}, indent=2) + "\n")
@@ -201,7 +221,7 @@ def _write_report(areas, step_shots, scenes, trainers, missing):
     for _slug, maps in sorted(areas.items()):
         for entry in maps:
             counts = {c: len([m for m in entry["markers"] if m["cat"] == c])
-                      for c in ("trainer", "item", "hidden", "exit")}
+                      for c in ("trainer", "item", "pokemon", "hidden", "exit")}
             summary = ", ".join(f"{n} {c}" for c, n in counts.items() if n)
             lines.append(f"- `{entry['name']}`: {summary or 'none'}")
     lines += ["", "## Step shots", ""]

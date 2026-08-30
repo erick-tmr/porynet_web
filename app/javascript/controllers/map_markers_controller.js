@@ -9,18 +9,30 @@ import { isSet, load, save, subscribe, toggle } from "lib/progress_store"
 // static class. And no user-visible string lives here: every label, status and toggle caption is
 // rendered server-side in both locales, and this only ever moves classes around.
 
-// Signposts, not chores: NPCs and exits raise a hint but never tick off, so they are skipped
-// wherever progress is counted or stored. Kept in sync with Walkthrough::NON_TICKABLE.
-const NON_TICKABLE = new Set(["exit", "npc"])
+// Signposts, not chores: NPCs, exits and holes raise a hint but never tick off, so they are
+// skipped wherever progress is counted or stored. Kept in sync with Walkthrough::NON_TICKABLE.
+const NON_TICKABLE = new Set(["exit", "npc", "hole"])
+
+// A tapped pin's hint is placed here rather than in CSS, because it has to leave the map to be
+// read: a wide map scrolls inside its frame, and a scroll box clips everything that reaches past
+// it, so a popover anchored beside its pin lost whatever stood above the map's top edge. It is
+// fixed to the window instead, measured off the pin it belongs to, dropped under the pin when
+// there is no room above it, and held inside the window on both axes, so it draws whole wherever
+// the pin sits. The gap is the pin's own half-height; the edge is the breathing room kept at the
+// window's four sides.
+const HINT_GAP = 26
+const HINT_EDGE = 12
 
 export default class extends Controller {
-  static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle", "counterDone"]
+  static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle",
+    "routeToggle", "counterDone"]
   static values = {
     game: { type: String, default: "yellow" },
     map: String,
     nativeW: Number,
     filter: { type: String, default: "all" },
     labels: { type: Boolean, default: true },
+    route: { type: Boolean, default: false },
     hint: { type: String, default: "" },
   }
 
@@ -28,9 +40,14 @@ export default class extends Controller {
     this.markerTargets.forEach((marker) => {
       marker.style.setProperty("--mx", `${marker.dataset.x}%`)
       marker.style.setProperty("--my", `${marker.dataset.y}%`)
-      marker.style.setProperty("--lane", marker.dataset.lane)
-      // A label nudged into a lower lane gets a leader line back to its pin (drawn in CSS).
-      marker.classList.toggle("has-lane", Number(marker.dataset.lane) > 0)
+      const lane = Number(marker.dataset.lane)
+      marker.style.setProperty("--lane", lane)
+      // A label dealt out of its own row gets a leader line back to its pin (drawn in CSS). The
+      // line is drawn from its length, so the row it came from goes out unsigned, and the
+      // direction rides on a class instead.
+      marker.style.setProperty("--lane-rise", Math.abs(lane))
+      marker.classList.toggle("has-lane", lane !== 0)
+      marker.classList.toggle("has-lane--up", lane < 0)
     })
     // A landscape map holds its own native pixel width so its CSS never scales the pixel art
     // below 1x; the frame scrolls instead. Portrait maps ignore the property.
@@ -44,23 +61,36 @@ export default class extends Controller {
     })
     this.#renderProgress()
     if (this.hasLayerTarget) this.layerTarget.classList.add("is-ready")
+    // An open hint is fixed to the window, so it has to be re-measured whenever what is under it
+    // moves: the page scrolling, the map scrolling sideways inside its frame (hence capture), or
+    // the window changing size.
+    this.followHint = () => this.#placeHint()
+    window.addEventListener("scroll", this.followHint, { passive: true, capture: true })
+    window.addEventListener("resize", this.followHint)
   }
 
   disconnect() {
     this.unsubscribe()
+    window.removeEventListener("scroll", this.followHint, { capture: true })
+    window.removeEventListener("resize", this.followHint)
   }
 
   // Every pin and every legend row lands here. NPCs and exits are signposts rather than chores,
   // so they raise their hint without ticking anything.
   hit(event) {
     const { markerId, cat } = event.currentTarget.closest("[data-marker-id]").dataset
-    if (!NON_TICKABLE.has(cat)) {
+    const ticks = !NON_TICKABLE.has(cat)
+    if (ticks) {
       this.state = toggle(this.state, "collected", this.gameValue, this.#key(markerId))
       save(this.state)
       this.#renderProgress()
     }
-    // Clicking the marker whose hint is already up closes it; any other marker opens its own.
-    this.hintValue = this.hintValue === markerId ? "" : markerId
+    // Clicking a signpost whose hint is already up closes it; any other marker opens its own. A
+    // marker that ticks is the exception: that same click just changed what its hint reports, so
+    // the hint stays up to report it. Closing on the repeat click made the "beaten" half of the
+    // popover unreachable, because the click that marks a trainer beaten is always the second one
+    // on it. It still goes on a click anywhere else, which is what `dismiss` is for.
+    this.hintValue = !ticks && this.hintValue === markerId ? "" : markerId
   }
 
   // A hint stays up until it is dismissed: clicking another marker moves it there (through #hit),
@@ -79,6 +109,13 @@ export default class extends Controller {
     this.labelsValue = !this.labelsValue
   }
 
+  // The whole way round an arrow-tile floor, drawn over the overview. Off to begin with: each
+  // step already carries its own crop of this map with just that step's leg on it, so the
+  // overview's job is the floor, and all eight legs at once is for the reader who asks.
+  toggleRoute() {
+    this.routeValue = !this.routeValue
+  }
+
   filterValueChanged() {
     this.markerTargets.forEach((marker) => {
       marker.classList.toggle("is-filtered", !this.#matchesFilter(marker.dataset.cat))
@@ -90,15 +127,42 @@ export default class extends Controller {
   }
 
   labelsValueChanged() {
+    this.#pressed(this.labelToggleTargets, this.labelsValue)
     this.element.classList.toggle("is-labelled", this.labelsValue)
-    this.labelToggleTargets.forEach((button) => {
-      button.classList.toggle("is-on", this.labelsValue)
-      button.setAttribute("aria-pressed", String(this.labelsValue))
+  }
+
+  routeValueChanged() {
+    this.#pressed(this.routeToggleTargets, this.routeValue)
+    this.element.classList.toggle("is-routed", this.routeValue)
+  }
+
+  #pressed(buttons, on) {
+    buttons.forEach((button) => {
+      button.classList.toggle("is-on", on)
+      button.setAttribute("aria-pressed", String(on))
     })
   }
 
   hintValueChanged() {
     this.#eachAnchored((element, id) => element.classList.toggle("is-selected", id === this.hintValue))
+    this.#placeHint()
+  }
+
+  #placeHint() {
+    const marker = this.markerTargets.find((element) => element.classList.contains("is-selected"))
+    const hint = marker?.querySelector(".pn-mm__hint")
+    if (!hint) return
+
+    const pin = marker.getBoundingClientRect()
+    const box = hint.getBoundingClientRect()
+    const above = pin.top - HINT_GAP - box.height
+    hint.style.setProperty("--hint-x", this.#inWindow(pin.left - box.width / 2, box.width, window.innerWidth))
+    hint.style.setProperty("--hint-y",
+      this.#inWindow(above < HINT_EDGE ? pin.top + HINT_GAP : above, box.height, window.innerHeight))
+  }
+
+  #inWindow(start, size, extent) {
+    return `${Math.round(Math.max(HINT_EDGE, Math.min(start, extent - size - HINT_EDGE)))}px`
   }
 
   #matchesFilter(cat) {

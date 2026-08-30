@@ -1,0 +1,139 @@
+<%# A hall that fights like a gym and pays like one, with a Pokemon at the end of it instead of a
+    badge. It borrows the gym's own neon frame, so the two read as the same kind of stop, and swaps
+    the badge slot for the pair of Poké Balls the choice below is about. %>
+<section class="pn-wt-section" id="<%= dojo.anchor %>">
+  <div class="pn-wt-gym pn-wt-gym--magenta pn-wt-dojo">
+    <div class="pn-wt-gym__grid" aria-hidden="true"></div>
+    <div class="pn-wt-gym__inner">
+      <div class="pn-wt-gym__head">
+        <div class="pn-wt-gym__headmain">
+          <div class="pn-wt-gym__tags">
+            <span class="pn-wt-gym__tag"><%= t("walkthrough.ui.dojo_tag") %></span>
+            <span class="pn-wt-gym__type"><%= t("walkthrough.ui.dojo_type", type: dojo.type) %></span>
+          </div>
+          <h3 class="pn-wt-gym__name"><%= dojo.name %></h3>
+          <p class="pn-wt-gym__intro"><%= t(dojo.intro_key) %></p>
+
+          <div class="pn-wt-dojo__facts">
+            <span class="pn-wt-dojo__fact">
+              <b class="pn-wt-dojo__fact-key"><%= t("walkthrough.ui.dojo_when") %></b>
+              <%= t(dojo.when_key) %>
+            </span>
+            <span class="pn-wt-dojo__fact">
+              <b class="pn-wt-dojo__fact-key"><%= t("walkthrough.ui.dojo_purse") %></b>
+              <%= t("walkthrough.ui.dojo_purse_html", count: dojo.cards.size,
+                    money: poke_dollar(dojo.purse)) %>
+            </span>
+            <span class="pn-wt-dojo__fact pn-wt-dojo__fact--prize">
+              <b class="pn-wt-dojo__fact-key"><%= t("walkthrough.ui.dojo_prize") %></b>
+              <%= t(dojo.prize_key, level: dojo.choice.left.level) %>
+            </span>
+          </div>
+        </div>
+        <div class="pn-wt-gym__shot-wrap"
+             data-controller="map-markers"
+             data-map-markers-game-value="<%= @game.slug %>"
+             data-map-markers-map-value="<%= dojo.area.name %>"
+             data-map-markers-native-w-value="<%= dojo.area.width %>">
+          <div class="pn-wt-shot pn-wt-shot--gym">
+            <div class="pn-wt-gym__canvas" data-map-markers-target="canvas"
+                 data-action="click->map-markers#dismiss">
+              <%= r2_image_tag dojo.area.image, alt: "", class: "pn-wt-shot__map-img", loading: "lazy",
+                               width: dojo.area.width, height: dojo.area.height %>
+              <div class="pn-mm-layer" data-map-markers-target="layer">
+                <% dojo.pins.each do |marker| %>
+                  <%= render "map_marker", marker: marker %>
+                <% end %>
+              </div>
+            </div>
+            <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= dojo.shot.label %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pn-wt-gym__puzzle">
+        <span class="pn-wt-gym__puzzle-badge"><%= t("walkthrough.ui.dojo_how") %></span>
+        <div class="pn-wt-gym__psteps">
+          <% dojo.steps.each do |dstep| %>
+            <div class="pn-wt-gym__pstep">
+              <span class="pn-wt-gym__pstep-n"><%= dstep.n %></span>
+              <div class="pn-wt-gym__pstep-text"><%= t(dstep.text_key) %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="pn-wt-gym__label"><%= t("walkthrough.ui.dojo_students", count: dojo.trainers.size) %></div>
+      <div class="pn-wt-trainers pn-wt-trainers--gym">
+        <% dojo.trainers.each do |trainer| %>
+          <%= render "trainer", trainer: trainer, id: trainer.tick,
+                     role: t("walkthrough.ui.dojo_student") %>
+        <% end %>
+      </div>
+
+      <div class="pn-wt-gym__label"><%= t("walkthrough.ui.dojo_master_label") %></div>
+      <div class="pn-wt-gym__leader" <%= tag.attributes(tickable("collected", dojo.leader.tick)) %>>
+        <span class="pn-wt-gym__leader-cleared"><%= t("walkthrough.ui.dojo_cleared") %></span>
+        <%= progress_toast("trainer", name: t("walkthrough.ui.dojo_master")) %>
+        <div class="pn-wt-gym__leader-card">
+          <div class="pn-wt-gym__leader-id">
+            <div class="pn-wt-shot pn-wt-shot--leadervs">
+              <%= r2_image_tag "walkthrough/yellow/trainers/#{dojo.leader.sprite}.png", alt: "",
+                    class: "pn-wt-shot__img pn-wt-shot__img--fill", loading: "lazy" %>
+              <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.vs") %></span>
+            </div>
+            <div class="pn-wt-shot pn-wt-shot--leaderbattle">
+              <%= r2_image_tag dojo.leader.where.image, alt: "", class: "pn-wt-shot__img", loading: "lazy" %>
+              <span class="pn-wt-shot__scan" aria-hidden="true"></span>
+              <span class="pn-wt-shot__label pn-wt-shot__label--battle"><%= t("walkthrough.ui.where") %></span>
+            </div>
+            <div class="pn-wt-gym__leader-meta">
+              <div class="pn-wt-gym__leader-role"><%= t("walkthrough.ui.dojo_master") %></div>
+              <div class="pn-wt-gym__leader-name">
+                <%= dojo.leader.cls %>
+                <%= map_mark(dojo.leader.marker_key, at: dojo.leader.tick) %>
+              </div>
+              <div class="pn-wt-gym__leader-pills">
+                <span class="pn-wt-gym__pill pn-wt-gym__pill--reward"><%= poke_dollar(dojo.leader.reward) %></span>
+                <span class="pn-wt-gym__pill"><%= t("walkthrough.ui.dojo_no_badge") %></span>
+              </div>
+              <div class="pn-wt-dojo__prize">
+                <span class="pn-wt-dojo__balls">
+                  <% dojo.choice.picks.size.times do %>
+                    <span class="pn-wt-dojo__ball">
+                      <%= r2_image_tag "walkthrough/items/poke-ball.png", alt: "",
+                            class: "pn-wt-dojo__ball-img", loading: "lazy" %>
+                    </span>
+                  <% end %>
+                </span>
+                <div>
+                  <div class="pn-wt-dojo__prize-title"><%= t("walkthrough.ui.dojo_prize_title") %></div>
+                  <%= link_to t("walkthrough.ui.dojo_choice_link"), "##{dojo.choice.anchor}",
+                        class: "pn-wt-dojo__prize-link" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pn-wt-gym__roster">
+            <div class="pn-wt-gym__label"><%= t("walkthrough.ui.dojo_roster") %></div>
+            <div class="pn-wt-gym__mons">
+              <% dojo.leader.team.each do |member| %>
+                <div class="pn-wt-gym__mon">
+                  <span class="pn-wt-gym__mon-sprite"><%= r2_image_tag "pokemon/yellow/#{member[:dex]}.png", alt: "" %></span>
+                  <div class="pn-wt-gym__mon-name"><%= member[:name] %></div>
+                  <div class="pn-wt-gym__mon-lvl"><%= t("walkthrough.ui.lv", n: member[:lvl]) %></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="pn-wt-dojo__note">
+            <b class="pn-wt-dojo__note-label"><%= t("walkthrough.ui.dojo_dex_note") %></b>
+            <span><%= t(dojo.note_key) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "dojo_choice", choice: dojo.choice %>

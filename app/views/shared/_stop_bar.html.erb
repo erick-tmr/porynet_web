@@ -1,0 +1,72 @@
+<div class="pn-legsw<%= " pn-legsw--solo" if stops.one? %>" data-leg-switcher-target="bar">
+  <div class="pn-legsw__inner">
+    <% if stops.one? %>
+      <% loc, work = stops.first %>
+      <div class="pn-legsw__plate">
+        <span class="pn-legsw__current-no"><%= stop_number(loc) %></span>
+        <span class="pn-legsw__current-name"><%= loc.name %></span>
+        <span class="pn-legsw__kind"><%= loc.kind %></span>
+        <% if work.positive? %>
+          <span class="pn-legsw__work"><%= t("walkthrough.ui.work_tag_bodies", count: work) %></span>
+        <% end %>
+      </div>
+    <% else %>
+      <span class="pn-legsw__label"><%= t("walkthrough.ui.jump_to") %></span>
+      <div class="pn-legsw__rail" data-leg-switcher-target="rail">
+        <% stops.each_with_index do |(loc, work), i| %>
+          <button type="button" class="pn-legsw__chip" data-leg-switcher-target="chip"
+                  data-stop="<%= i %>" data-slug="<%= loc.slug %>"
+                  data-no="<%= stop_number(loc) %>" data-name="<%= loc.name %>"
+                  data-action="leg-switcher#jump">
+            <span class="pn-legsw__no"><%= stop_number(loc) %></span>
+            <span class="pn-legsw__kind"><%= loc.kind %></span>
+            <%= loc.name %>
+            <% if work.positive? %>
+              <span class="pn-legsw__work"><%= t("walkthrough.ui.work_tag_bodies", count: work) %></span>
+            <% end %>
+          </button>
+        <% end %>
+      </div>
+
+      <div class="pn-legsw__stepper">
+        <button type="button" class="pn-legsw__arrow" disabled
+                aria-label="<%= t("walkthrough.ui.stop_prev") %>"
+                data-leg-switcher-target="prevArrow" data-action="leg-switcher#goPrev">◀</button>
+        <button type="button" class="pn-legsw__current" aria-expanded="false" aria-controls="pn-legsw-sheet"
+                data-leg-switcher-target="sheetToggle" data-action="leg-switcher#toggleSheet">
+          <span class="pn-legsw__current-no" data-leg-switcher-target="stopNo"><%= stop_number(stops.first.first) %></span>
+          <span class="pn-legsw__current-name" data-leg-switcher-target="stopName"><%= stops.first.first.name %></span>
+          <span class="pn-legsw__count" data-leg-switcher-target="position">1/<%= stops.size %></span>
+          <span class="pn-legsw__caret" aria-hidden="true">
+            <span class="pn-legsw__caret-glyph pn-legsw__caret-glyph--open">▼</span>
+            <span class="pn-legsw__caret-glyph pn-legsw__caret-glyph--close">▲</span>
+          </span>
+        </button>
+        <button type="button" class="pn-legsw__arrow"
+                aria-label="<%= t("walkthrough.ui.stop_next") %>"
+                data-leg-switcher-target="nextArrow" data-action="leg-switcher#goNext">▶</button>
+      </div>
+
+      <div class="pn-legsw__sheet" id="pn-legsw-sheet">
+        <% stops.each_with_index do |(loc, work), i| %>
+          <button type="button" class="pn-legsw__row" data-leg-switcher-target="row"
+                  data-stop="<%= i %>" data-action="leg-switcher#jump">
+            <span class="pn-legsw__row-no"><%= stop_number(loc) %></span>
+            <span class="pn-legsw__row-name"><%= loc.name %></span>
+            <span class="pn-legsw__kind"><%= loc.kind %></span>
+            <% if work.positive? %>
+              <span class="pn-legsw__work"><%= t("walkthrough.ui.work_tag_bodies", count: work) %></span>
+            <% end %>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% unless stops.one? %>
+    <div class="pn-legsw__meter" aria-hidden="true">
+      <% stops.each do %>
+        <span class="pn-legsw__seg" data-leg-switcher-target="seg"></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -23,7 +23,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use the database-backed adapters for Rails.cache and Active Job
 gem "solid_cache"
-gem "solid_queue", "~> 1.6"
+gem "solid_queue", "~> 1.7"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -59,7 +59,7 @@ group :development, :test do
   # S3-compatible client for uploading static images to the Cloudflare R2 bucket
   # (deploy/upload-images.sh). Serving R2 public URLs needs no SDK; only uploads do, so
   # it stays out of production. Lazy-required in Assets::R2Uploader.client.
-  gem "aws-sdk-s3", "~> 1.228", require: false
+  gem "aws-sdk-s3", "~> 1.229", require: false
 end
 
 group :development do

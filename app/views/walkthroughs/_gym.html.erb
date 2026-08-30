@@ -11,15 +11,19 @@
           <h3 class="pn-wt-gym__name"><%= gym.name %></h3>
           <p class="pn-wt-gym__intro"><%= t(gym.intro_key) %></p>
         </div>
-        <div class="pn-wt-gym__shot-wrap" data-controller="map-markers"
+        <div class="<%= class_names("pn-wt-gym__shot-wrap", "is-routed" => gym.area&.route?) %>"
+             data-controller="map-markers"
              data-map-markers-game-value="<%= @game.slug %>"
-             data-map-markers-map-value="<%= gym.area&.name %>">
+             data-map-markers-map-value="<%= gym.area&.name %>"
+             data-map-markers-route-value="<%= gym.area&.route? %>"
+             data-map-markers-native-w-value="<%= gym.area&.width %>">
           <div class="pn-wt-shot pn-wt-shot--gym">
             <% if gym.area? %>
               <div class="pn-wt-gym__canvas" data-map-markers-target="canvas"
                    data-action="click->map-markers#dismiss">
                 <%= r2_image_tag gym.area.image, alt: "", class: "pn-wt-shot__map-img", loading: "lazy",
                                  width: gym.area.width, height: gym.area.height %>
+                <% if gym.area.route? %><%= render "map_route", area: gym.area %><% end %>
                 <div class="pn-mm-layer" data-map-markers-target="layer">
                   <% gym.pins.each do |marker| %>
                     <%= render "map_marker", marker: marker %>
@@ -31,8 +35,36 @@
             <% end %>
             <span class="pn-wt-shot__label pn-wt-shot__label--gym"><%= t("walkthrough.ui.gym_short") %></span>
           </div>
+          <% if gym.area&.route? %>
+            <div class="pn-wt-gym__toggles">
+              <button type="button" class="pn-mm-toggle pn-wt-gym__routebtn is-on" aria-pressed="true"
+                      data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
+                <%= t("walkthrough.ui.map_route_#{gym.area.route_kind}") %>
+                <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+                <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+              </button>
+              <%# A warp gym pins every pad with the room it lands in, which is thirty names over one
+                  small floor. The arrows are the instruction; the names are there to be read once,
+                  so they come off the same way they do on any other map. %>
+              <% if gym.pins.many? { |pin| pin.cat == "exit" } %>
+                <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
+                        data-map-markers-target="labelToggle" data-action="click->map-markers#toggleLabels">
+                  <%= t("walkthrough.ui.map_labels") %>
+                  <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>
+                  <span class="pn-mm-toggle__off"><%= t("walkthrough.ui.map_labels_off") %></span>
+                </button>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
+
+      <% if gym.needs? %>
+        <div class="pn-wt-gym__needs">
+          <span class="pn-wt-gym__needs-badge"><%= t("walkthrough.ui.gym_needs", hm: gym.needs) %></span>
+          <p class="pn-wt-gym__needs-text"><%= t(gym.needs_key) %></p>
+        </div>
+      <% end %>
 
       <% if gym.puzzle? %>
         <div class="pn-wt-gym__puzzle">
@@ -42,6 +74,18 @@
               <div class="pn-wt-gym__pstep">
                 <span class="pn-wt-gym__pstep-n"><%= pstep.n %></span>
                 <div class="pn-wt-gym__pstep-text"><%= t(pstep.text_key) %></div>
+                <% if pstep.answers? %>
+                  <ol class="pn-wt-quiz">
+                    <% pstep.answers.each_with_index do |answer, i| %>
+                      <li class="pn-wt-quiz__door">
+                        <span class="pn-wt-quiz__n"><%= t("walkthrough.ui.quiz_door", n: i + 1) %></span>
+                        <span class="pn-wt-quiz__answer pn-wt-quiz__answer--<%= answer %>">
+                          <%= t("walkthrough.ui.quiz_#{answer}") %>
+                        </span>
+                      </li>
+                    <% end %>
+                  </ol>
+                <% end %>
                 <% if pstep.shot? %>
                   <div class="pn-wt-shot pn-wt-shot--pstep">
                     <% if pstep.shot.map? %>
@@ -90,7 +134,7 @@
             <div class="pn-wt-gym__leader-name">
               <%= gym.leader.name %>
               <% if gym.leader.marker_key? %>
-                <span class="pn-wt-mark" title="<%= t("walkthrough.ui.map_marker_hint") %>"><%= gym.leader.marker_key %></span>
+                <%= map_mark(gym.leader.marker_key, at: gym.leader.tick) %>
               <% end %>
             </div>
             <div class="pn-wt-gym__leader-pills">

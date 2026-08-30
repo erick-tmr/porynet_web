@@ -1,19 +1,19 @@
 # Asset generation report
 
-- location maps: **99** across 52 locations
-- markers: **967** (318 trainer, 119 item, 50 hidden, 480 exit)
-- step shots: **39** (map/scene in a step slot)
-- standalone scenes: **264** (dialog / battle / NPC, not step-bound)
+- location maps: **102** across 53 locations
+- markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
+- step shots: **47** (map/scene in a step slot)
+- standalone scenes: **286** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
 ## Markers per map
 
-- `celadon-city`: 1 hidden, 14 exit
+- `celadon-city`: 1 hidden, 13 exit
 - `celadon-city-gym`: 8 trainer, 1 exit
 - `cerulean-cave-1f`: 4 item, 1 hidden, 8 exit
 - `cerulean-cave-2f`: 4 item, 1 hidden, 6 exit
-- `cerulean-cave-b1f`: 5 item, 1 hidden, 1 exit
+- `cerulean-cave-b1f`: 4 item, 1 pokemon, 1 hidden, 1 exit
 - `cerulean-city`: 1 trainer, 1 hidden, 14 exit
 - `cerulean-city-gym`: 3 trainer, 1 exit
 - `cinnabar-island`: 7 exit
@@ -40,9 +40,10 @@
 - `pokemon-tower-5f`: 4 trainer, 1 item, 1 hidden, 2 exit
 - `pokemon-tower-6f`: 3 trainer, 2 item, 2 exit
 - `pokemon-tower-7f`: 1 exit
-- `power-plant`: 14 item, 2 hidden, 2 exit
+- `power-plant`: 5 item, 9 pokemon, 2 hidden, 2 exit
 - `rock-tunnel-1f`: 7 trainer, 6 exit
 - `rock-tunnel-b1f`: 8 trainer, 4 exit
+- `rocket-hideout-game-corner`: 1 trainer, 12 hidden, 2 exit
 - `rocket-hideout-b1f`: 5 trainer, 2 item, 1 hidden, 4 exit
 - `rocket-hideout-b2f`: 1 trainer, 4 item, 4 exit
 - `rocket-hideout-b3f`: 2 trainer, 2 item, 1 hidden, 2 exit
@@ -78,11 +79,12 @@
 - `safari-zone-west`: 4 item, 1 hidden, 5 exit
 - `saffron-city`: 12 exit
 - `saffron-city-gym`: 8 trainer, 31 exit
+- `saffron-city-dojo`: 5 trainer, 1 exit
 - `seafoam-islands-1f`: 5 exit
 - `seafoam-islands-b1f`: 7 exit
 - `seafoam-islands-b2f`: 1 hidden, 7 exit
 - `seafoam-islands-b3f`: 1 hidden, 6 exit
-- `seafoam-islands-b4f`: 1 item, 1 hidden, 3 exit
+- `seafoam-islands-b4f`: 1 pokemon, 1 hidden, 3 exit
 - `silph-co-1f`: 4 exit
 - `silph-co-2f`: 4 trainer, 7 exit
 - `silph-co-3f`: 2 trainer, 1 item, 10 exit
@@ -95,15 +97,16 @@
 - `silph-co-10f`: 2 trainer, 3 item, 6 exit
 - `silph-co-11f`: 2 trainer, 4 exit
 - `ss-anne-1f`: 4 trainer, 1 item, 1 hidden, 10 exit
-- `ss-anne-2f`: 5 trainer, 2 item, 9 exit
-- `ss-anne-3f`: 2 trainer, 2 exit
 - `ss-anne-b1f`: 6 trainer, 3 item, 1 hidden, 6 exit
+- `ss-anne-2f`: 4 trainer, 2 item, 9 exit
+- `ss-anne-3f`: 2 trainer, 2 exit
 - `underground-path`: 2 hidden, 2 exit
+- `underground-path-west-east`: 2 hidden, 2 exit
 - `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit
 - `vermilion-city-dock`: 2 exit
 - `victory-road-1f`: 2 trainer, 2 item, 2 exit
-- `victory-road-2f`: 5 trainer, 5 item, 2 hidden, 6 exit
+- `victory-road-2f`: 5 trainer, 4 item, 1 pokemon, 2 hidden, 6 exit
 - `victory-road-3f`: 4 trainer, 2 item, 4 exit
 - `viridian-city`: 1 hidden, 8 exit
 - `viridian-forest`: 5 trainer, 3 item, 2 hidden, 2 exit
@@ -111,9 +114,13 @@
 
 ## Step shots
 
+- `celadon-city` step 3: walkthrough/yellow/scenes/celadon-diner-coin-case.png
+- `celadon-city` step 5: walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
+- `cinnabar-island` step 1: walkthrough/yellow/scenes/cinnabar-lab-trades.png
+- `cinnabar-island` step 3: walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
 - `digletts-cave` step 11: walkthrough/yellow/scenes/route-2-pewter-cut.png
 - `digletts-cave` step 12: walkthrough/yellow/scenes/pewter-museum-cut.png
 - `digletts-cave` step 13: walkthrough/yellow/scenes/museum-old-amber.png
@@ -129,8 +136,12 @@
 - `rock-tunnel` step 1: walkthrough/yellow/scenes/rock-tunnel-flash.png
 - `route-1` step 1: walkthrough/yellow/scenes/route-1-north.png
 - `route-10` step 1: walkthrough/yellow/scenes/route-10-rock-tunnel.png
-- `route-12` step 1: walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12` step 1: walkthrough/yellow/scenes/route-12-gate-tm39.png
+- `route-12` step 2: walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12` step 4: walkthrough/yellow/scenes/route-12-super-rod-gift.png
+- `route-15` step 3: walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-16` step 2: walkthrough/yellow/scenes/route-16-snorlax.png
+- `route-16-fly` step 2: walkthrough/yellow/scenes/route-16-fly-gift.png
 - `route-2` step 2: walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `route-22` step 1: walkthrough/yellow/scenes/viridian-to-route-22.png
 - `route-22` step 3: walkthrough/yellow/scenes/oaks-lab-poke-balls.png
@@ -140,7 +151,7 @@
 - `route-4` step 1: walkthrough/yellow/scenes/route-4-exit.png
 - `route-4-mt-moon` step 2: walkthrough/yellow/scenes/route-4-mt-moon-enter.png
 - `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png
-- `seafoam-islands` step 3: walkthrough/yellow/scenes/seafoam-articuno.png
+- `seafoam-islands` step 11: walkthrough/yellow/scenes/seafoam-articuno.png
 - `ss-anne` step 14: walkthrough/yellow/scenes/ss-anne-cut.png
 - `vermilion-city` step 2: walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png
@@ -176,9 +187,14 @@
 - `battle-rocket-hideout-jessie-james` (battle): walkthrough/yellow/battles/battle-rocket-hideout-jessie-james.png
 - `battle-sabrina` (battle): walkthrough/yellow/battles/battle-sabrina.png
 - `battle-silph-giovanni` (battle): walkthrough/yellow/battles/battle-silph-giovanni.png
+- `battle-silph-jessie-james` (battle): walkthrough/yellow/battles/battle-silph-jessie-james.png
 - `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
+- `celadon-city-tm41` (dialog): walkthrough/yellow/scenes/celadon-city-tm41.png
+- `celadon-diner-coin-case` (screen): walkthrough/yellow/scenes/celadon-diner-coin-case.png
+- `celadon-mart-3f-tm18` (screen): walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
+- `celadon-roof-girl` (screen): walkthrough/yellow/scenes/celadon-roof-girl.png
 - `cerulean-cave-hidden-pp-up-16-13` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-16-13.png
 - `cerulean-cave-hidden-pp-up-18-7` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-18-7.png
 - `cerulean-cave-hidden-pp-up-8-14` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-8-14.png
@@ -198,15 +214,20 @@
 - `cerulean-city-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/cerulean-city-hidden-rare-candy.png
 - `cerulean-gym-entrance` (screen): walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `cerulean-north-nugget` (screen): walkthrough/yellow/scenes/cerulean-north-nugget.png
+- `cinnabar-gym-blaine` (screen): walkthrough/yellow/scenes/cinnabar-gym-blaine.png
 - `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
+- `cinnabar-lab-fossil-handover` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
 - `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
+- `cinnabar-lab-item-tm-metronome` (dialog): walkthrough/yellow/scenes/cinnabar-lab-item-tm-metronome.png
 - `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png
 - `cinnabar-lab-trade-cezanne` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png
+- `cinnabar-lab-trades` (screen): walkthrough/yellow/scenes/cinnabar-lab-trades.png
 - `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png
 - `indigo-bruno` (screen): walkthrough/yellow/scenes/indigo-bruno.png
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
 - `indigo-lance` (screen): walkthrough/yellow/scenes/indigo-lance.png
 - `indigo-lorelei` (screen): walkthrough/yellow/scenes/indigo-lorelei.png
+- `lavender-name-rater` (dialog): walkthrough/yellow/scenes/lavender-name-rater.png
 - `mew-glitch-abra` (screen): walkthrough/yellow/scenes/mew-glitch-abra.png
 - `mew-glitch-bridge` (screen): walkthrough/yellow/scenes/mew-glitch-bridge.png
 - `mew-glitch-center` (screen): walkthrough/yellow/scenes/mew-glitch-center.png
@@ -270,7 +291,7 @@
 - `power-plant-zapdos` (screen): walkthrough/yellow/scenes/power-plant-zapdos.png
 - `reds-house-2f` (map): walkthrough/yellow/maps/reds-house-2f.png
 - `rock-tunnel-flash` (screen): walkthrough/yellow/scenes/rock-tunnel-flash.png
-- `rocket-hideout-giovanni` (screen): walkthrough/yellow/scenes/rocket-hideout-giovanni.png
+- `rocket-hideout-giovanni` (dialog): walkthrough/yellow/scenes/rocket-hideout-giovanni.png
 - `rocket-hideout-hidden-nugget` (dialog): walkthrough/yellow/scenes/rocket-hideout-hidden-nugget.png
 - `rocket-hideout-hidden-pp-up` (dialog): walkthrough/yellow/scenes/rocket-hideout-hidden-pp-up.png
 - `rocket-hideout-hidden-super-potion` (dialog): walkthrough/yellow/scenes/rocket-hideout-hidden-super-potion.png
@@ -294,14 +315,19 @@
 - `route-10-rock-tunnel` (screen): walkthrough/yellow/scenes/route-10-rock-tunnel.png
 - `route-11-gate` (screen): walkthrough/yellow/scenes/route-11-gate.png
 - `route-11-gate-inside` (screen): walkthrough/yellow/scenes/route-11-gate-inside.png
+- `route-11-gate-itemfinder` (dialog): walkthrough/yellow/scenes/route-11-gate-itemfinder.png
 - `route-11-hidden-escape-rope` (dialog): walkthrough/yellow/scenes/route-11-hidden-escape-rope.png
+- `route-12-gate-tm39` (dialog): walkthrough/yellow/scenes/route-12-gate-tm39.png
 - `route-12-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/route-12-hidden-hyper-potion.png
 - `route-12-item-iron` (screen): walkthrough/yellow/scenes/route-12-item-iron.png
 - `route-12-item-tm-pay-day` (screen): walkthrough/yellow/scenes/route-12-item-tm-pay-day.png
-- `route-12-snorlax` (screen): walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12-snorlax` (dialog): walkthrough/yellow/scenes/route-12-snorlax.png
+- `route-12-super-rod-gift` (dialog): walkthrough/yellow/scenes/route-12-super-rod-gift.png
 - `route-13-hidden-calcium` (dialog): walkthrough/yellow/scenes/route-13-hidden-calcium.png
 - `route-13-hidden-pp-up` (dialog): walkthrough/yellow/scenes/route-13-hidden-pp-up.png
+- `route-15-gate-exp-all` (dialog): walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-15-item-tm-rage` (screen): walkthrough/yellow/scenes/route-15-item-tm-rage.png
+- `route-16-fly-gift` (dialog): walkthrough/yellow/scenes/route-16-fly-gift.png
 - `route-16-snorlax` (screen): walkthrough/yellow/scenes/route-16-snorlax.png
 - `route-17-hidden-full-restore` (dialog): walkthrough/yellow/scenes/route-17-hidden-full-restore.png
 - `route-17-hidden-max-elixir` (dialog): walkthrough/yellow/scenes/route-17-hidden-max-elixir.png
@@ -310,6 +336,8 @@
 - `route-17-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/route-17-hidden-rare-candy.png
 - `route-18-gate` (screen): walkthrough/yellow/scenes/route-18-gate.png
 - `route-18-gate-inside` (screen): walkthrough/yellow/scenes/route-18-gate-inside.png
+- `route-19-surf-pikachu` (screen): walkthrough/yellow/scenes/route-19-surf-pikachu.png
+- `route-19-surf-plain` (screen): walkthrough/yellow/scenes/route-19-surf-plain.png
 - `route-2-cut-tree` (screen): walkthrough/yellow/scenes/route-2-cut-tree.png
 - `route-2-digletts-exit` (screen): walkthrough/yellow/scenes/route-2-digletts-exit.png
 - `route-2-flash` (screen): walkthrough/yellow/scenes/route-2-flash.png
@@ -351,7 +379,6 @@
 - `safari-zone-item-tm-double-team` (screen): walkthrough/yellow/scenes/safari-zone-item-tm-double-team.png
 - `safari-zone-item-tm-egg-bomb` (screen): walkthrough/yellow/scenes/safari-zone-item-tm-egg-bomb.png
 - `safari-zone-item-tm-skull-bash` (screen): walkthrough/yellow/scenes/safari-zone-item-tm-skull-bash.png
-- `saffron-dojo-master` (screen): walkthrough/yellow/scenes/saffron-dojo-master.png
 - `seafoam-articuno` (screen): walkthrough/yellow/scenes/seafoam-articuno.png
 - `seafoam-islands-hidden-max-elixir` (dialog): walkthrough/yellow/scenes/seafoam-islands-hidden-max-elixir.png
 - `seafoam-islands-hidden-nugget` (dialog): walkthrough/yellow/scenes/seafoam-islands-hidden-nugget.png
@@ -373,7 +400,11 @@
 - `silph-co-item-tm-swords-dance` (screen): walkthrough/yellow/scenes/silph-co-item-tm-swords-dance.png
 - `silph-co-item-tm-take-down` (screen): walkthrough/yellow/scenes/silph-co-item-tm-take-down.png
 - `silph-co-item-x-accuracy` (screen): walkthrough/yellow/scenes/silph-co-item-x-accuracy.png
+- `silph-co-jessie-james` (screen): walkthrough/yellow/scenes/silph-co-jessie-james.png
+- `silph-co-lapras` (screen): walkthrough/yellow/scenes/silph-co-lapras.png
+- `silph-co-master-ball` (dialog): walkthrough/yellow/scenes/silph-co-master-ball.png
 - `silph-co-rival` (screen): walkthrough/yellow/scenes/silph-co-rival.png
+- `silph-co-tm36` (dialog): walkthrough/yellow/scenes/silph-co-tm36.png
 - `ss-anne-cut` (screen): walkthrough/yellow/scenes/ss-anne-cut.png
 - `ss-anne-hidden-great-ball` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-great-ball.png
 - `ss-anne-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-hyper-potion.png
@@ -386,6 +417,8 @@
 - `ss-anne-rival` (screen): walkthrough/yellow/scenes/ss-anne-rival.png
 - `underground-path-hidden-full-restore` (dialog): walkthrough/yellow/scenes/underground-path-hidden-full-restore.png
 - `underground-path-hidden-x-special` (dialog): walkthrough/yellow/scenes/underground-path-hidden-x-special.png
+- `underground-path-west-east-hidden-elixir` (dialog): walkthrough/yellow/scenes/underground-path-west-east-hidden-elixir.png
+- `underground-path-west-east-hidden-nugget` (dialog): walkthrough/yellow/scenes/underground-path-west-east-hidden-nugget.png
 - `vermilion-city-hidden-max-ether` (dialog): walkthrough/yellow/scenes/vermilion-city-hidden-max-ether.png
 - `vermilion-gym-second-switch` (dialog): walkthrough/yellow/scenes/vermilion-gym-second-switch.png
 - `vermilion-squirtle` (screen): walkthrough/yellow/scenes/vermilion-squirtle.png

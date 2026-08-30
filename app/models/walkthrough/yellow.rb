@@ -55,11 +55,15 @@ module Walkthrough
 
     # `from: true` adds the gift-source badge; `unlock:` is the icon (an R2 path) a gift's unlock
     # condition shows, or nil for an unconditional gift.
+    # `off_table` is for a sprite the map places rather than a table that rolls it: the Power
+    # Plant's balls hold six Voltorb outright, and the species also spawns on the same floors, so
+    # left to itself the card would headline the 20% floor rate under a STATIC tag and print the
+    # floor breakdown beneath a Pokémon that is standing there waiting.
     def self.enc(slug, dex, how, rate, level, rarity, *chain, tip: false, from: false, unlock: nil,
-      badge: nil)
+      badge: nil, off_table: false)
       b = base(slug)
       key = mon_key(dex)
-      places = encounter_places(slug, dex)
+      places = off_table ? [] : encounter_places(slug, dex)
       head = headline(places, how) || [ rate, level ]
       Encounter.new(dex: dex, name: NAMES.fetch(dex), how: how, rate: head.first, level: head.last,
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
@@ -100,6 +104,156 @@ module Walkthrough
       b = "#{K}.pikachu_friendship"
       PikachuFriendship.new(start: 90, threshold: 147, max: 255,
         rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
+    end
+
+    # Why the Safari Zone's own items make things worse. Every number is the game's: the ball
+    # ranges and BallFactor from ItemUseBall, the status bonuses from its ailment table, the
+    # halve/double and the 1-5 timers from ItemUseBait / ItemUseRock, and the flee roll from
+    # engine/battle/core.asm. The per-encounter odds are simulated over those same routines,
+    # 200k encounters a strategy, because a turn loop with a flee roll in it has no closed form.
+    #
+    # The example targets are the two the park is walked for and the two the reader will burn the
+    # most balls on. Both are catch rate 45, which is what makes the arithmetic transferable.
+    CATCH_BALLS = [ [ "poke", "0–255" ], [ "great", "0–200" ], [ "ultra", "0–150" ],
+                    [ "safari", "0–150" ] ].freeze
+    CATCH_STATUS = [ [ "none", "0" ], [ "minor", "12" ], [ "major", "25" ] ].freeze
+    CATCH_KANGA = [ [ 1, "151", nil ], [ 2, "S = 0", nil ], [ 3, "30.5%", "good" ],
+                    [ 4, "X ≈ 85", nil ], [ 5, "33.6%", "good" ] ].freeze
+    CATCH_ITEMS = [ [ "rock", "45 → 90", "20.3%", "46% → 92%", "bad" ],
+                    [ "bait", "45 → 22", "5.1%", "46% → ~11%", "bad" ] ].freeze
+    CATCH_FLEE = [ [ "kangaskhan_28", "43–49%", "86–98%" ], [ "kangaskhan_33", "50–58%", "99.6%" ],
+                   [ "pinsir_25", "37–43%", "73–86%" ] ].freeze
+    CATCH_ODDS = { "115" => [ [ "balls", "20.0%" ], [ "bait_once", "11.8%" ],
+                              [ "bait_every", "9.9%" ], [ "rock_once", "3.5%" ],
+                              [ "rock_every", "1.5%" ] ],
+                   "127" => [ [ "balls", "22.9%" ], [ "bait_once", "13.8%" ],
+                              [ "rock_once", "7.1%" ] ] }.freeze
+    CATCH_CARDS = %w[rock_leaves bait_expires].freeze
+    CATCH_PANEL_CARDS = { "algorithm" => [], "example" => %w[hybrid flees],
+                          "items" => %w[turn_order] }.freeze
+
+    def self.safari_catching
+      b = "#{K}.safari_catching"
+      SafariCatching.new(anchor: "catching", sample: "200,000",
+        verdict_key: "#{b}.verdict", consolation_key: "#{b}.consolation",
+        panels: [ catch_algorithm(b), catch_example(b), catch_items(b) ],
+        targets: CATCH_ODDS.map { |dex, odds| catch_target(b, dex, odds) },
+        cards: CATCH_CARDS.map { |key| CatchCard.new(key: key, title_key: "#{b}.cards.#{key}.title",
+          text_key: "#{b}.cards.#{key}.text") })
+    end
+
+    def self.catch_target(b, dex, odds)
+      key = mon_key(dex)
+      CatchTarget.new(dex: dex, name: NAMES.fetch(dex), label_key: "#{b}.targets.#{key}.label",
+        note_key: (odds.size < 4 ? "#{b}.targets.#{key}.note" : nil),
+        odds: odds.each_with_index.map { |(row, value), i|
+          CatchOdds.new(label_key: "#{b}.odds.#{row}", value: value, best: i.zero?) })
+    end
+
+    def self.catch_algorithm(b)
+      k = "#{b}.panels.algorithm"
+      CatchPanel.new(key: "algorithm", sprites: [ "walkthrough/items/safari-ball.png" ],
+        eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title", lead_key: "#{k}.lead",
+        formula_key: "#{k}.formula_html",
+        steps: (1..5).map { |n| CatchStep.new(n: n, title_key: "#{k}.steps.#{n}.title",
+          text_key: "#{k}.steps.#{n}.text", rows: catch_step_rows(k, n),
+          code_key: (n > 2 ? "#{k}.steps.#{n}.code" : nil)) })
+    end
+
+    # Steps 1 and 2 tabulate a lookup the game does, so they carry rows of values. Steps 3 to 5
+    # quote the arithmetic itself, which is a listing rather than a table and reads the same in
+    # every language, so those carry a `code_key` and no rows.
+    def self.catch_step_rows(k, step)
+      case step
+      when 1 then CATCH_BALLS.map { |key, value| CatchRow.new(label_key: "#{k}.balls.#{key}",
+        value: value, tone: (key == "safari" ? "here" : nil)) }
+      when 2 then CATCH_STATUS.map { |key, value| CatchRow.new(label_key: "#{k}.status.#{key}",
+        value: value) }
+      else []
+      end
+    end
+
+    def self.catch_example(b)
+      k = "#{b}.panels.example"
+      CatchPanel.new(key: "example", sprites: [ "pokemon/yellow/115.png" ],
+        eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title", lead_key: "#{k}.lead",
+        calc: CATCH_KANGA.map { |n, value, tone| CatchCalc.new(n: n, text_key: "#{k}.calc.#{n}",
+          value: value, tone: tone) },
+        cards: CATCH_PANEL_CARDS.fetch("example").map { |key|
+          CatchCard.new(key: key, title_key: "#{k}.cards.#{key}.title",
+            text_key: "#{k}.cards.#{key}.text") })
+    end
+
+    def self.catch_items(b)
+      k = "#{b}.panels.items"
+      CatchPanel.new(key: "items", eyebrow_key: "#{k}.eyebrow", title_key: "#{k}.title",
+        lead_key: "#{k}.lead",
+        sprites: [ "walkthrough/items/rock.png", "walkthrough/items/bait.png" ],
+        items: CATCH_ITEMS.map { |key, rate, note, flee, tone|
+          CatchItem.new(key: key, sprite: "walkthrough/items/#{key}.png", rate: rate,
+            rate_note: note, flee: flee, after_key: "#{k}.items.#{key}.after",
+            tone: (key == "bait" ? tone : nil)) },
+        flee: CATCH_FLEE.map { |key, normal, angry|
+          CatchFlee.new(label_key: "#{k}.flee.#{key}", normal: normal, angry: angry) },
+        cards: CATCH_PANEL_CARDS.fetch("items").map { |key|
+          CatchCard.new(key: key, title_key: "#{k}.cards.#{key}.title",
+            text_key: "#{k}.cards.#{key}.text") })
+    end
+
+    # Gen 1 pays the Exp. All out in two passes and feeds the second one the first one's leftovers.
+    # In engine/battle/core.asm the enemy's base exp is halved, that half goes to the Pokémon that
+    # fought (DivideExpDataByNumMonsGainingExp divides it by the number of them, in place), then
+    # every party member's gain flag is set and the same routine runs again over the value it has
+    # already divided. So the party pass shares 50/fighters rather than the other 50, and with more
+    # than one Pokémon sent out the difference is paid to nobody at all.
+    #
+    # One verdict per tone and both texts of each two-way legend row are rendered, and the
+    # controller picks; that keeps every string in the locale files.
+    EXP_TONES = %w[solo switch crowd].freeze
+    EXP_LEGEND = [ [ "fighters", %w[any] ], [ "bench", %w[some none] ],
+                   [ "lost", %w[some none] ] ].freeze
+    EXP_TRIVIA = %w[off_switch one_only stat_exp].freeze
+
+    def self.exp_share
+      b = "#{K}.exp_share"
+      ExpShare.new(anchor: "exp-all", sprite: "walkthrough/items/exp-all.png",
+        max_party: 6, party: 6, fighters: 2,
+        verdicts: EXP_TONES.map { |tone| ExpVerdict.new(tone: tone, text_key: "#{b}.verdict.#{tone}") },
+        legend: EXP_LEGEND.flat_map { |row, states|
+          states.map { |state| ExpLegendText.new(row: row, state: state,
+            text_key: "#{b}.legend.#{row}.#{state}") }
+        },
+        trivia: EXP_TRIVIA.map { |key| ExpTrivia.new(tag_key: "#{b}.trivia.#{key}.tag",
+          title_key: "#{b}.trivia.#{key}.title", text_key: "#{b}.trivia.#{key}.text") })
+    end
+
+    # Pikachu's Beach, behind the Route 19 beach house door. The Surfin' Dude tests
+    # BIT_PIKACHU_SPAWN_SURFING (scripts/SummerBeachHouse.asm), and the `vc_patch` there swaps it
+    # for BIT_PIKACHU_SPAWN_STARTER, which is why the 3DS release takes the partner Pikachu
+    # instead. The two shots are the same water tile twice: LoadSurfingPlayerSpriteGraphics2 loads
+    # the board only when the Pokémon carrying you is that starter Pikachu, and the Seel sheet for
+    # every other surfer, so the pair is the whole visible payoff side by side.
+    SURF_CHIPS = %w[house stadium reward].freeze
+    SURF_SHOTS = [ [ "board", "route-19-surf-pikachu", "on" ],
+                   [ "other", "route-19-surf-plain", "off" ] ].freeze
+    SURF_SCORES = [ [ "one", "50", nil, "calm" ], [ "two", "150", "180", "calm" ],
+                    [ "three", "350", "500", "big" ], [ "hp", "6000", nil, "clock" ] ].freeze
+    SURF_STADIUM = [ [ "round", "1", "step" ], [ "cup", "2", "step" ], [ "own", "3", "step" ],
+                     [ "field", "4", "step" ], [ "award", "✓", "done" ] ].freeze
+
+    def self.surf_pikachu
+      SurfPikachu.new(anchor: "surfing-pikachu",
+        art: "walkthrough/art/surfing-pikachu-pixel.png",
+        beach: "walkthrough/art/pikachus-beach-minigame.png",
+        stadium: "walkthrough/art/pokemon-stadium-n64-box.png",
+        sprite: "pokemon/yellow/025.png",
+        chips: SURF_CHIPS,
+        shots: SURF_SHOTS.map { |key, scene, tone|
+          SurfShot.new(key: key, image: scenes.dig(scene, "image"), tone: tone) },
+        scores: SURF_SCORES.map { |key, value, alt, tone|
+          SurfScore.new(key: key, value: value, alt: alt, tone: tone) },
+        steps: SURF_STADIUM.map { |key, glyph, tone|
+          SurfStadiumStep.new(key: key, glyph: glyph, tone: tone) })
     end
 
     # The eight badges in case order, with what each one switches on: `boost` names the stat every
@@ -168,19 +322,43 @@ module Walkthrough
       { slug: "digletts-cave", special: true, locs: %w[digletts-cave] },
       { slug: "leg-07", special: false, locs: %w[route-9 route-10] },
       { slug: "rock-tunnel", special: true, locs: %w[rock-tunnel] },
-      { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 route-7 celadon-city] },
+      { slug: "leg-08", special: false, locs: %w[route-10-south lavender-town route-8 underground-path-west-east route-7] },
+      { slug: "leg-09", special: false, locs: %w[celadon-city] },
       { slug: "rocket-hideout", special: true, locs: %w[rocket-hideout] },
+      { slug: "leg-10", special: false, locs: %w[celadon-city-return route-16-fly] },
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
-      { slug: "leg-09", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city safari-zone] },
+      { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city] },
+      { slug: "safari-zone", special: true, locs: %w[safari-zone] },
+      # Walked north out of Fuchsia, so the routes come in the order they are met rather than the
+      # order they are numbered: west onto 18, up Cycling Road, out of 16's north gate.
+      { slug: "leg-12", special: false,
+        locs: %w[fuchsia-city-return route-18 route-17 route-16 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
-      { slug: "leg-10", special: false, locs: %w[route-16 route-17 route-18 saffron-city] },
-      { slug: "leg-11", special: false, locs: %w[route-19 route-20] },
-      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
+      { slug: "leg-13", special: false, locs: %w[saffron-city-return surf-cleanups] },
+      # The Surf sweep ends on Route 10 at the plant's own door, so the plant is the next page
+      # rather than a detour held back to the end: you are standing there with Ultra Balls in the
+      # bag. Seafoam stays held back, being a boulder puzzle on the way to nowhere you need yet.
       { slug: "power-plant", special: true, locs: %w[power-plant] },
-      { slug: "leg-12", special: false, locs: %w[cinnabar-island pokemon-mansion route-21] },
-      { slug: "leg-13", special: false, locs: %w[viridian-gym] },
+      { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
+      # The islands sit in the middle of Route 20 and the cave runs under them, so walking the
+      # cave is the way west rather than a detour off it: you arrive holding both HMs it asks for,
+      # and a bird you get one shot at is not worth passing twice. The way in is the mouth on the
+      # island itself (E1), reached by landing on its south-west corner; the other mouth sits on a
+      # detached patch and opens onto a chamber walled off from the rest of 1F.
+      { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
+      # The cave comes out on the far side of the rock wall that splits Route 20 down the middle,
+      # so the water west of the islands is a second pass over the same map rather than more of
+      # the first: you leave by a different mouth than you came in by, and the six swimmers between
+      # there and Cinnabar are ones the eastern half never reaches.
+      { slug: "leg-15", special: false, locs: %w[route-20-west cinnabar-island] },
+      # A burnt-out four-floor maze of switches, walked once for the Secret Key: its own page, the
+      # way every other dungeon on the route gets one. It splits the island's two passes, which is
+      # the shape the island already has.
+      { slug: "pokemon-mansion", special: true, locs: %w[pokemon-mansion] },
+      { slug: "leg-16", special: false, locs: %w[cinnabar-island-return route-21] },
+      { slug: "leg-17", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-14", special: false, locs: %w[route-23] },
+      { slug: "leg-18", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
@@ -407,11 +585,14 @@ module Walkthrough
         route_3, route_4_mt_moon, mt_moon, route_4, cerulean_city, route_24, route_25,
         route_5, underground_path, route_6, vermilion_city, ss_anne, route_11,
         vermilion_city_return, digletts_cave,
-        route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8, route_7, celadon_city,
-        rocket_hideout,
+        route_9, route_10, rock_tunnel, route_10_south, lavender_town, route_8,
+        underground_path_west_east, route_7, celadon_city,
+        rocket_hideout, celadon_city_return, route_16_fly,
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
+        fuchsia_city_return, saffron_city_return, surf_cleanups,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
-        power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym, victory_road, route_23,
+        route_20_west, power_plant, cinnabar_island, pokemon_mansion, cinnabar_island_return,
+        route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
@@ -420,21 +601,53 @@ module Walkthrough
     # A stop the guide walks twice has map data under one slug only. The second pass reads the
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
     MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
-                   "route-10-south" => "route-10" }.freeze
+                   "celadon-city-return" => "celadon-city",
+                   "fuchsia-city-return" => "fuchsia-city",
+                   "saffron-city-return" => "saffron-city",
+                   "route-16-fly" => "route-16",
+                   "route-10-south" => "route-10",
+                   "route-20-west" => "route-20",
+                   "cinnabar-island-return" => "cinnabar-island" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
     # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
     # up to Pewter, so every page has to hand the reader the same markers and the same ticks.
     MAP_EXTRA = {
       "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City",
-                           "pewter-city" => "Pewter City" }
+                           "pewter-city" => "Pewter City" },
+      # The Surf sweep owns no map of its own: it is three errands in three towns, so it borrows
+      # all three and each step pins the one it is standing on.
+      "surf-cleanups" => { "vermilion-city" => "Vermilion City", "route-6" => "Route 6",
+                           "celadon-city" => "Celadon City", "route-12" => "Route 12",
+                           "cerulean-city" => "Cerulean City", "route-10" => "Route 10" }
     }.freeze
 
+    # A stop that borrows another stop's map takes the whole map's people with it, and some of them
+    # cannot be reached on this visit. Route 16's six Bikers sit past the sleeping Snorlax, and the
+    # Fly detour has no Poké Flute: the cut tree opens onto the upper half of the route, which
+    # holds the Fly house and nothing else, so the road with the Bikers on it is sealed until leg
+    # 12 comes back with the Flute. Neither their pins nor their cards belong on this page. One
+    # table decides both, so a pin and a card cannot disagree about who is standing there.
+    OUT_OF_REACH = { "route-16-fly" => %w[trainer] }.freeze
+
+    # A borrowed location whose maps are not all wanted. The Surf sweep goes to Vermilion for one
+    # tile of water between two houses; the dock, with the S.S. Anne drawn at it, is a different
+    # errand on a different page and only asks the reader which map they are looking at.
+    MAP_EXTRA_SKIP = { "surf-cleanups" => %w[vermilion-city-dock] }.freeze
+
     def self.maps_for(slug, data)
-      own = data.fetch(MAP_SOURCE.fetch(slug, slug), [])
+      own = drop_pins(data.fetch(MAP_SOURCE.fetch(slug, slug), []), OUT_OF_REACH.fetch(slug, []))
+      skip = MAP_EXTRA_SKIP.fetch(slug, [])
       own + MAP_EXTRA.fetch(slug, {}).flat_map do |from, title|
-        data.fetch(from, []).map { |map| map.with(title: title) }
+        data.fetch(from, []).reject { |map| skip.include?(map.name) }
+            .map { |map| map.with(title: title) }
       end
+    end
+
+    def self.drop_pins(maps, cats)
+      return maps if cats.empty?
+
+      maps.map { |map| map.with(markers: map.markers.reject { |pin| cats.include?(pin.cat) }) }
     end
 
     # The leg-3 approach section has no map data of its own; it borrows Route 4's map so the same
@@ -450,18 +663,26 @@ module Walkthrough
       end
     end
 
-    # The gym's own map belongs in the gym section, not the location header, so pull the "Gym"
-    # floor out of the header maps and hand it to the gym as its shot.
-    def self.attach_maps(loc, maps)
-      gym_map = maps.find { |m| m.floor == "Gym" }
-      header = maps.reject { |m| m.floor == "Gym" }
-      loc = apply_trainer_notes(mark_steps(tick_items(merge_trainers(loc), header), header))
-      header = link_steps(loc, header)
-      return loc.with(area_maps: header) unless loc.gym && gym_map
+    # A gym's own floor and the Fighting Dojo's belong to their sections, not to the stop's header:
+    # the room is what the section is about, and a page that draws it twice says nothing twice. A
+    # pass that borrows the maps but owns neither hall (Saffron walked the second time) drops both.
+    HALL_FLOORS = { gym: "Gym", dojo: "Dojo" }.freeze
 
-      loc.with(area_maps: header,
-        gym: loc.gym.with(area: gym_map,
-                          shot: Shot.new(image: gym_map.image, label: loc.gym.shot.label)))
+    def self.attach_maps(loc, maps)
+      header = maps.reject { |m| HALL_FLOORS.value?(m.floor) }
+      loc = apply_trainer_notes(map_steps(mark_steps(tick_items(merge_trainers(loc), header), header),
+        header))
+      loc = loc.with(area_maps: link_steps(loc, header))
+      HALL_FLOORS.reduce(loc) { |built, (field, floor)| attach_hall(built, field, maps, floor) }
+    end
+
+    def self.attach_hall(loc, field, maps, floor)
+      hall = loc.public_send(field)
+      room = maps.find { |m| m.floor == floor }
+      return loc if hall.nil? || room.nil?
+
+      loc.with(field => hall.with(area: room,
+        shot: Shot.new(image: room.image, label: hall.shot.label)))
     end
 
     def self.merge_trainers(loc)
@@ -484,9 +705,91 @@ module Walkthrough
       return loc if maps.empty?
 
       letters = maps.flat_map { |m| m.markers.map { |k| [ "#{m.name}/#{k.id}", k.key ] } }.to_h
+      loc.with(steps: loc.steps.map { |step| marked(step, letters) },
+        trivia: loc.trivia && marked(loc.trivia, letters))
+    end
+
+    # A step and a trivia section both point at map pins the same way, so they are marked the same
+    # way: whatever the prose named, swapped for the letter that pin is wearing right now.
+    def self.marked(block, letters)
+      return block if block.pins.empty?
+
+      block.with(marks: block.pins.transform_values { |id| letters.fetch(id) })
+    end
+
+    # How much floor a step's own map shows around the stretch it walks, in map pixels. Tight
+    # enough that a short hop fills the frame, wide enough that the reader can see which part of
+    # the floor they are looking at rather than a patch of green with a line on it.
+    STEP_MAP_PAD = 40
+    STEP_MAP_MIN = 240
+
+    # A step that walks a stretch of a drawn route gets its own copy of the floor, cropped to it.
+    # Authored as ["map name", first leg, last leg]: the legs are the route's own, so a step and
+    # the overview cannot disagree about which way round the maze goes, and a step that owns two
+    # in a row (walk to the ball, then out of the room) draws them both.
+    def self.map_steps(loc, maps)
+      by_name = maps.to_h { |map| [ map.name, map ] }
       loc.with(steps: loc.steps.map do |step|
-        step.pins.any? ? step.with(marks: step.pins.transform_values { |id| letters.fetch(id) }) : step
+        next step unless step.line?
+
+        step.with(step_map: step_map(by_name.fetch(step.line.first), *step.line.drop(1)))
       end)
+    end
+
+    def self.step_map(area, first, last = first)
+      legs = area.route_legs[(first - 1)..(last - 1)]
+      StepMap.new(image: area.image, width: area.width, height: area.height,
+        box: crop_box(legs, floor_bounds(area)), legs: legs, kind: area.route_kind)
+    end
+
+    # The part of the picture worth cropping into, as [x0, y0, x1, y1]. A map's image is the whole
+    # grid and a floor rarely fills it: B2F leaves six rows of black above its own top wall, and a
+    # frame centred near the top would spend a quarter of itself on that. Every pin and every point
+    # of a drawn line is somewhere the player can be, so the box they span, opened out by a margin
+    # and kept inside the image, is a fair read on where the floor is.
+    #
+    # The pins are what make it a read on the floor rather than on the line. A maze route wanders
+    # over its whole floor, so the line alone bounded it well enough; a boulder push is two cells
+    # long, and bounding by that squeezed the window down to the shove itself, which is a picture of
+    # a boulder and no room at all. The pins are spread over the floor either way.
+    def self.floor_bounds(area)
+      xs, ys = (area.route.flatten(1) + area.markers.map { |pin| pin_px(pin, area) }).transpose
+      [ [ xs.min - STEP_MAP_PAD, 0 ].max, [ ys.min - STEP_MAP_PAD, 0 ].max,
+        [ xs.max + STEP_MAP_PAD, area.width ].min, [ ys.max + STEP_MAP_PAD, area.height ].min ]
+    end
+
+    # A pin's percent back into the map's own pixels, rounded: the box is only ever a hint at where
+    # the floor is, and a viewBox reading "14.000000000000007" is float noise in the markup.
+    def self.pin_px(pin, area)
+      [ (pin.x * area.width / 100).round, (pin.y * area.height / 100).round ]
+    end
+
+    # The crop, as the SVG viewBox [x, y, w, h]: a window the size of the leg plus a margin,
+    # centred on it and slid back inside the picture so a leg against the wall does not crop to
+    # empty space beyond the map's edge.
+    def self.crop_box(legs, bounds)
+      left, top, right, bottom = bounds
+      xs, ys = legs.flat_map(&:points).transpose
+      box_w, box_h = window(xs.max - xs.min, ys.max - ys.min, right - left, bottom - top)
+      [ left + slide(xs.min + xs.max - left * 2, box_w, right - left),
+        top + slide(ys.min + ys.max - top * 2, box_h, bottom - top), box_w, box_h ]
+    end
+
+    # How big a window to cut. Always 4:3, whichever way the leg runs: a leg that goes straight
+    # down a corridor would otherwise crop to a tall slot, and a page of frames all different
+    # shapes reads as a mess next to one where each is the same window onto a different place.
+    def self.window(span_x, span_y, width, height)
+      wide = [ span_x + STEP_MAP_PAD * 2, STEP_MAP_MIN ].max
+      tall = [ span_y + STEP_MAP_PAD * 2, STEP_MAP_MIN * 3 / 4 ].max
+      box_w = [ [ wide, tall * 4 / 3 ].max, width, height * 4 / 3 ].min
+      [ box_w, box_w * 3 / 4 ]
+    end
+
+    # Where one axis of that window starts: centred on the leg, then slid back inside the floor.
+    # `window` never returns a span wider than the floor, so the far clamp only ever guards
+    # against a zero-width one.
+    def self.slide(span_ends, span, limit)
+      ((span_ends - span) / 2).clamp(0, [ limit - span, 0 ].max)
     end
 
     def self.link_steps(loc, maps)
@@ -541,8 +844,14 @@ module Walkthrough
     end
 
     def self.authored_cards(loc)
-      loc.trainers + (loc.gym ? loc.gym.trainers + [ loc.gym.leader ] : [])
+      loc.trainers + halls(loc).flat_map { |hall| hall.trainers + [ hall.leader ] }
     end
+
+    # A gym and the dojo are the same shape to everything that deals trainers out: a room of
+    # students behind one door with one fight at the back of it.
+    HALLS = %i[gym dojo].freeze
+
+    def self.halls(loc) = HALLS.filter_map { |field| loc.public_send(field) }
 
     # Curated captions stamped onto specific trainers by their OPP_CLASS:party id, keyed by
     # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings; Route 4's east-plateau
@@ -556,6 +865,8 @@ module Walkthrough
         { "LASS:4" => "#{b}.trainers.lass.note" }
       when "route-10"
         { "POKEMANIAC:1" => "#{b}.trainers.pokemaniac.note" }
+      when "saffron-city"
+        { "BLACKBELT:4" => "#{b}.dojo.notes.primeape" }
       else
         {}
       end
@@ -566,11 +877,15 @@ module Walkthrough
       return loc if notes.empty?
 
       loc = loc.with(trainers: loc.trainers.map { |t| note_trainer(t, notes) })
-      return loc if loc.gym.nil?
+      HALLS.reduce(loc) { |noted, field| note_hall(noted, field, notes) }
+    end
 
-      gym = loc.gym
-      loc.with(gym: gym.with(trainers: gym.trainers.map { |t| note_trainer(t, notes) },
-        leader: note_trainer(gym.leader, notes)))
+    def self.note_hall(loc, field, notes)
+      hall = loc.public_send(field)
+      return loc if hall.nil?
+
+      loc.with(field => hall.with(trainers: hall.trainers.map { |t| note_trainer(t, notes) },
+        leader: note_trainer(hall.leader, notes)))
     end
 
     def self.note_trainer(trainer, notes)
@@ -580,13 +895,22 @@ module Walkthrough
 
     def self.gym_entry?(loc, entry) = entry["floor"] == "Gym" || loc.kind == "GYM"
 
+    # The dojo's five sit on their own map inside Saffron's roster, and Saffron is walked twice off
+    # that one roster. Taking them out before the rest is dealt lands them in the dojo on the page
+    # that has one, and nowhere on the page that does not.
     def self.place_trainers(loc, fresh, claimed)
-      gym_fresh, loc_fresh = fresh.partition { |e| gym_entry?(loc, e) }
+      dojo_fresh, rest = fresh.partition { |entry| entry["map"] == DOJO_MAP }
+      gym_fresh, loc_fresh = rest.partition { |entry| gym_entry?(loc, entry) }
       loc = loc.with(trainers: settle(loc.trainers, loc_fresh, claimed))
-      return loc unless loc.gym
+      fill_hall(fill_hall(loc, :gym, gym_fresh, claimed), :dojo, dojo_fresh, claimed)
+    end
 
-      loc.with(gym: loc.gym.with(trainers: settle(loc.gym.trainers, gym_fresh, claimed),
-        leader: claimed.fetch(loc.gym.leader.opp, loc.gym.leader)))
+    def self.fill_hall(loc, field, fresh, claimed)
+      hall = loc.public_send(field)
+      return loc if hall.nil?
+
+      loc.with(field => hall.with(trainers: settle(hall.trainers, fresh, claimed),
+        leader: claimed.fetch(hall.leader.opp, hall.leader)))
     end
 
     def self.settle(authored, fresh, claimed)
@@ -620,12 +944,22 @@ module Walkthrough
     # the Hikers, a Pokémaniac and the second Jr Trainer are past the tunnel, and the Pokémaniac
     # guarding the Power Plant's door stands on a middle strip walled off by water. That one is
     # listed on the north half, where the walkthrough tells you to come back for it with Surf.
+    #
+    # Route 20 splits the same way and for a plainer reason: a rock wall runs the height of the map
+    # between the two halves, so the three swimmers east of it and the Beauty on the island the
+    # cave is entered from are the first pass, and the six between the far mouth and Cinnabar are
+    # the second. Nothing is reachable from both.
     ROSTER_SPLIT = {
       "route-10" => %w[JR_TRAINER_F:7 POKEMANIAC:1],
-      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8]
+      "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8],
+      "route-20" => %w[SWIMMER:9 SWIMMER:11 BEAUTY:15 BEAUTY:6],
+      "route-20-west" => %w[JR_TRAINER_F:24 SWIMMER:10 BIRD_KEEPER:11 BEAUTY:7 JR_TRAINER_F:16
+                            BEAUTY:8]
     }.freeze
 
     def self.roster_for(slug)
+      return [] if OUT_OF_REACH.fetch(slug, []).include?("trainer")
+
       entries = roster.fetch("trainers", {}).fetch(MAP_SOURCE.fetch(slug, slug), [])
       half = ROSTER_SPLIT[slug]
       half ? entries.select { |entry| half.include?(entry["opp"]) } : entries
@@ -676,7 +1010,8 @@ module Walkthrough
             npc_marker(n, m["width"], m["height"], key_letter(i))
           end
           AreaMap.new(image: m["image"], width: m["width"], height: m["height"], floor: m["floor"],
-            name: m["name"], markers: base + npcs)
+            name: m["name"], markers: base + npcs, route: m.fetch("route", []),
+            route_kind: m.fetch("route_kind", "ride"), boulders: m.fetch("boulders", []))
         end
       end
     end
@@ -718,7 +1053,7 @@ module Walkthrough
       return nil if data.nil?
 
       GymFacts.new(leader: data["leader"], types: data["types"], badge: data["badge"],
-        tm: data["tm"])
+        tm: data["tm"], quiz: data.fetch("quiz", []))
     end
 
     def self.map_marker(data, key = data["key"])
@@ -955,7 +1290,7 @@ module Walkthrough
       )
     end
 
-    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, gym_after: nil, gym_finale: false, trivia: nil)
+    def self.loc(slug, kind, name, order, title: nil, steps: 3, shots: [], hidden_items: {}, key_items: {}, pins: {}, encounters: [], trainers: [], trades: [], oak_queue: [], badge: nil, gym: nil, dojo: nil, gym_after: nil, gym_finale: false, trivia: nil, grind: nil, later: [], second_after: nil)
       b = base(slug)
       Location.new(
         slug: slug, kind: kind, name: name, title: title, order: order, badge: badge,
@@ -967,7 +1302,9 @@ module Walkthrough
             hidden: hidden_items.fetch(i, []).map { |args| hidden(b, i, *args) })
         },
         encounters: encounters, trainers: trainers, trades: trades, oak_queue: oak_queue,
-        gym: gym, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia
+        gym: gym, dojo: dojo, gym_after: gym_after, gym_finale: gym_finale, trivia: trivia,
+        grind: grind, later: later,
+        second_visit: second_after && SecondVisit.new(after: second_after, lead_key: "#{b}.second_lead")
       )
     end
 
@@ -983,7 +1320,7 @@ module Walkthrough
       defs.each_with_index.map do |d, i|
         n = i + 1
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
-          items: step_items(base, n, d), map: d[:map],
+          items: step_items(base, n, d), map: d[:map], dex_seen: d[:dex_seen], line: d[:line],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
           shot: (d[:scene] ? scene_shot(d[:scene], "STEP #{n}") : nil), link: d[:link])
       end
@@ -1047,19 +1384,23 @@ module Walkthrough
 
     def self.rival(reward, *team, where: nil, battle: nil, opp: nil) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle, opp: opp)
 
-    def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [])
+    def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [], needs: nil)
       b = base(slug)
       Gym.new(
         type: type, name: name, intro_key: "#{b}.gym.intro",
         shot: shot("GYM"), badge: badge, badge_img: badge_img(badge),
-        tm: tm, puzzle: puzzle, trainers: trainers, leader: leader
+        tm: tm, puzzle: puzzle, trainers: trainers, leader: leader,
+        needs: needs, needs_key: needs && "#{b}.gym.needs"
       )
     end
 
-    def self.gstep(slug, n, map: false, scene: nil)
+    def self.gstep(slug, n, map: false, scene: nil, quiz: nil)
       GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}",
-        shot: gym_shot(n, map, scene))
+        shot: gym_shot(n, map, scene), answers: quiz ? quiz_answers(quiz) : [])
     end
+
+    # The answer key for a gym's quiz doors, straight from the generated place facts.
+    def self.quiz_answers(map_const) = place_facts.fetch(map_const).gym.quiz
 
     def self.gym_shot(n, map, scene)
       return scene_shot(scene, "STEP #{n}") if scene
@@ -1331,9 +1672,10 @@ module Walkthrough
     end
 
     def self.ss_anne
-      loc("ss-anne", "BUILDING", "S.S. Anne", 18, steps: [
-          { pins: { cabin: "ss-anne-1f/exit-11-8" } },
-          { item: [ "TM Body Slam", "tm-body-slam" ], scene: "ss-anne-item-tm-body-slam" },
+      # Straight below to the crew deck, back up through 1F stern to bow, then over 2F to the
+      # bow deck and down again, so each floor is swept once and the ship is crossed twice
+      # instead of four times.
+      loc("ss-anne", "SHIP", "S.S. Anne", 18, steps: [
           { pins: { down: "ss-anne-1f/exit-37-15", cabin: "ss-anne-b1f/exit-23-3" } },
           { item: [ "Max Potion", "max-potion" ], scene: "ss-anne-item-max-potion" },
           { item: [ "Ether", "ether" ], scene: "ss-anne-item-ether",
@@ -1343,17 +1685,20 @@ module Walkthrough
           { hidden: [ "Hyper Potion", "hyper-potion", "ss-anne-hidden-hyper-potion",
                       "ss-anne-hyper-potion" ],
             pins: { cabin: "ss-anne-b1f/exit-7-3" } },
+          { item: [ "TM Body Slam", "tm-body-slam" ], scene: "ss-anne-item-tm-body-slam",
+            pins: { up: "ss-anne-b1f/exit-27-5", cabin: "ss-anne-1f/exit-11-8" } },
           { hidden: [ "Great Ball", "great-ball", "ss-anne-hidden-great-ball",
                       "ss-anne-great-ball" ],
-            pins: { up: "ss-anne-b1f/exit-27-5", kitchen: "ss-anne-1f/exit-3-16" } },
+            pins: { kitchen: "ss-anne-1f/exit-3-16" } },
           { pins: { up: "ss-anne-1f/exit-2-6", down: "ss-anne-2f/exit-2-12",
                     deck: "ss-anne-3f/exit-0-3" } },
-          { pins: { cabin: "ss-anne-2f/exit-9-11" } },
+          {},
+          { pins: { cabin: "ss-anne-2f/exit-9-11" }, dex_seen: [ "143" ] },
           { item: [ "Max Ether", "max-ether" ], scene: "ss-anne-item-max-ether",
             pins: { cabin: "ss-anne-2f/exit-13-11" } },
           { item: [ "Rare Candy", "rare-candy" ], scene: "ss-anne-item-rare-candy",
             pins: { cabin: "ss-anne-2f/exit-21-11" } },
-          { pins: { rival: "ss-anne-2f/trainer-36-4" } },
+          {},
           { items: [ [ "HM01 Cut", "hm01_cut" ] ], scene: "ss-anne-cut",
             pins: { stairs: "ss-anne-2f/exit-36-4" },
             link: StepLink.new(leg: "leg-06", anchor: "route-11-step-1") }
@@ -1368,7 +1713,8 @@ module Walkthrough
           { pins: { cave: "route-11/exit-4-5" } },
           {},
           { hidden: [ "Escape Rope", "escape-rope", "route-11-hidden-escape-rope", "route-11-escape-rope" ] },
-          { items: [ [ "Itemfinder", "itemfinder" ] ], pins: { gate: "route-11/exit-49-8" } },
+          { items: [ [ "Itemfinder", "itemfinder" ] ], gift: [ "route-11", "itemfinder" ],
+            pins: { gate: "route-11/exit-49-8" } },
           { pins: { west: "route-11/exit-west" },
             link: StepLink.new(leg: "leg-06", anchor: "vermilion-city-return-step-1") }
         ],
@@ -1394,6 +1740,15 @@ module Walkthrough
     # down the east side for Flash, the Mr. Mime trade, the Moon Stone and the HP Up, on into
     # Viridian for the Dream Eater TM, then back through the tunnel for Cerulean. Route 2 and
     # Viridian City lend their maps (MAP_EXTRA) so every pin the detour names is on this page.
+    # Shared by the encounter cards and the grind spot, which reads the same rates and level bands
+    # rather than repeating them.
+    def self.digletts_cave_encounters
+      @digletts_cave_encounters ||= [
+        enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
+        enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
+      ].freeze
+    end
+
     def self.digletts_cave
       loc("digletts-cave", "CAVE", "Diglett's Cave", 20,
         title: "Diglett's Cave → Viridian Detour", steps: [
@@ -1418,41 +1773,56 @@ module Walkthrough
           { html: true, link: StepLink.new(leg: "leg-07", anchor: "route-9-step-1") }
         ],
         encounters: [
-          enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
-          enc("digletts-cave", "051", "CAVE", "6%", "29–31", "RARE", "050", "051")
+          *digletts_cave_encounters
         ],
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
           house: "route-2-trade-house", inside: "route-2-trade-house-inside",
           tick: "route-2/trade-0") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ],
-        trivia: trivia(base("digletts-cave"), anchor: "diglett-grinding", after_map: "digletts-cave",
-          art: "walkthrough/art/dugtrio.png", note_icon: "walkthrough/items/repel.png"))
+        grind: grind_spot(base("digletts-cave"), anchor: "diglett-grinding",
+          after_map: "digletts-cave", art: "walkthrough/art/dugtrio.png",
+          note_icon: "walkthrough/items/repel.png",
+          encounters: digletts_cave_encounters,
+          mons: [ [ "050", "common", 20 ], [ "051", "rare", 30 ] ]))
     end
 
     def self.pokemon_tower
-      loc("pokemon-tower", "DUNGEON", "Pokémon Tower", 29, steps: [
-          {},
-          {},
-          { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope" },
+      loc("pokemon-tower", "BUILDING", "Pokémon Tower", 30, steps: [
+          { pins: { up: "pokemon-tower-1f/exit-18-9", west: "pokemon-tower-2f/exit-3-9" } },
+          { item: [ "Escape Rope", "escape-rope" ], scene: "pokemon-tower-item-escape-rope",
+            pins: { first: "pokemon-tower-3f/trainer-12-3",
+                    south: "pokemon-tower-3f/trainer-10-13" } },
+          { pins: { last: "pokemon-tower-3f/trainer-9-8", up: "pokemon-tower-3f/exit-18-9",
+                    near: "pokemon-tower-4f/trainer-15-7",
+                    below: "pokemon-tower-4f/trainer-14-12" } },
           { item: [ "Elixir", "elixir" ], scene: "pokemon-tower-item-elixir" },
-          { item: [ "HP Up", "hp-up" ], scene: "pokemon-tower-item-hp-up" },
           { item: [ "Awakening", "awakening" ], scene: "pokemon-tower-item-awakening" },
-          { hidden: [ "Elixir", "elixir", "pokemon-tower-hidden-elixir", "pokemon-tower-elixir" ] },
-          { item: [ "Nugget", "nugget" ], scene: "pokemon-tower-item-nugget" },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-tower-item-rare-candy" },
-          { item: [ "X Accuracy", "x-accuracy" ], scene: "pokemon-tower-item-x-accuracy" },
+          { item: [ "HP Up", "hp-up" ], scene: "pokemon-tower-item-hp-up" },
+          { hidden: [ "Elixir", "elixir", "pokemon-tower-hidden-elixir", "pokemon-tower-elixir" ],
+            pins: { west: "pokemon-tower-4f/trainer-5-10", up: "pokemon-tower-4f/exit-3-9" } },
+          { pins: { heal: "pokemon-tower-5f/npc-purified-zone",
+                    quiet: "pokemon-tower-5f/npc-silent-channeler",
+                    north: "pokemon-tower-5f/trainer-14-3",
+                    east: "pokemon-tower-5f/trainer-17-7" } },
+          { item: [ "Nugget", "nugget" ], scene: "pokemon-tower-item-nugget",
+            pins: { west: "pokemon-tower-5f/trainer-6-10", guard: "pokemon-tower-5f/trainer-9-16",
+                    up: "pokemon-tower-5f/exit-18-9" } },
+          { item: [ "X Accuracy", "x-accuracy" ], scene: "pokemon-tower-item-x-accuracy",
+            pins: { first: "pokemon-tower-6f/trainer-12-10" } },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "pokemon-tower-item-rare-candy",
+            pins: { north: "pokemon-tower-6f/trainer-16-5",
+                    across: "pokemon-tower-6f/trainer-9-5" } },
+          { pins: { up: "pokemon-tower-6f/exit-9-16" } },
           {},
-          { items: [ [ "Poké Flute", "poke_flute" ] ] }
+          { items: [ [ "Poké Flute", "poke_flute" ] ] },
+          {}
         ],
         encounters: [
           enc("pokemon-tower", "092", "FLOORS", "94%", "18–29", "COMMON", "092", "093", "094", tip: true),
           enc("pokemon-tower", "093", "FLOORS", "6%", "20–29", "RARE", "092", "093", "094"),
-          enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105")
+          enc("pokemon-tower", "104", "FLOORS", "5%", "20–24", "RARE", "104", "105", tip: true)
         ],
         trainers: [
-          rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25),
-            where: scene_shot("pokemon-tower-rival", "WHERE"),
-            battle: scene_shot("battle-pokemon-tower-rival", "BATTLE")),
           tr("TEAM ROCKET", "Jessie & James", 810,
             mon("052", 27), mon("024", 27), mon("110", 27),
             where: scene_shot("pokemon-tower-jessie-james", "WHERE"),
@@ -1462,15 +1832,18 @@ module Walkthrough
     end
 
     def self.route_12
-      loc("route-12", "ROUTE", "Route 12", 30, steps: [
-          { pins: { gate: "route-12/exit-10-21" } },
-          { item: [ "TM Pay Day", "tm-pay-day" ], scene: "route-12-item-tm-pay-day" },
+      loc("route-12", "ROUTE", "Route 12", 31, steps: [
+          { items: [ [ "TM39 Swift", "tm_swift" ] ], scene: "route-12-gate-tm39",
+            pins: { gate: "route-12/exit-10-15" } },
           { scene: "route-12-snorlax" },
           { hidden: [ "Hyper Potion", "hyper-potion", "route-12-hidden-hyper-potion", "route-12-hyper-potion" ] },
-          { items: [ [ "Super Rod", "super_rod" ] ], pins: { guru: "route-12/exit-11-77" } },
+          { items: [ [ "Super Rod", "super_rod" ] ], scene: "route-12-super-rod-gift",
+            pins: { guru: "route-12/exit-11-77" } },
           { item: [ "Iron", "iron" ], scene: "route-12-item-iron" },
           { pins: { south: "route-12/exit-south" } }
         ],
+        later: [ later("route-12", "tm_pay_day", "TM Pay Day", "ITEM", "Surf",
+          "route-12-item-tm-pay-day") ],
         encounters: [
           enc("route-12", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
           enc("route-12", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
@@ -1492,7 +1865,7 @@ module Walkthrough
     end
 
     def self.route_13
-      loc("route-13", "ROUTE", "Route 13", 31, steps: [
+      loc("route-13", "ROUTE", "Route 13", 32, steps: [
           {},
           { hidden: [ "Calcium", "calcium", "route-13-hidden-calcium", "route-13-calcium" ] },
           { hidden: [ "PP Up", "pp-up", "route-13-hidden-pp-up", "route-13-pp-up" ] },
@@ -1519,7 +1892,7 @@ module Walkthrough
     end
 
     def self.route_14
-      loc("route-14", "ROUTE", "Route 14", 32, steps: 2, pins: { 2 => { west: "route-14/exit-west" } },
+      loc("route-14", "ROUTE", "Route 14", 33, steps: 2, pins: { 2 => { west: "route-14/exit-west" } },
         encounters: [
           enc("route-14", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
           enc("route-14", "069", "GRASS", "30%", "26–28", "COMMON", "069", "070", "071"),
@@ -1532,10 +1905,12 @@ module Walkthrough
     end
 
     def self.route_15
-      loc("route-15", "ROUTE", "Route 15", 33, steps: [
-          { items: [ [ "Exp. All", "exp_all" ] ], pins: { east: "route-15/exit-east" } },
-          { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage" },
-          { pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
+      loc("route-15", "ROUTE", "Route 15", 34, steps: [
+          { item: [ "TM Rage", "tm-rage" ], scene: "route-15-item-tm-rage",
+            pins: { east: "route-15/exit-east" } },
+          {},
+          { items: [ [ "Exp. All", "exp_all" ] ], scene: "route-15-gate-exp-all",
+            pins: { gate: "route-15/exit-7-8", west: "route-15/exit-west" } }
         ],
         encounters: [
           enc("route-15", "043", "GRASS", "30%", "26–28", "COMMON", "043", "044", "045"),
@@ -1549,11 +1924,11 @@ module Walkthrough
     end
 
     def self.fuchsia_city
-      loc("fuchsia-city", "CITY", "Fuchsia City", 34, steps: 4, gym_after: 3, gym_finale: true, badge: "SOUL",
+      loc("fuchsia-city", "CITY", "Fuchsia City", 35, steps: 3,
         pins: { 1 => { center: "fuchsia-city/exit-19-27", mart: "fuchsia-city/exit-5-13", gym: "fuchsia-city/exit-5-27" },
-                3 => { safari: "fuchsia-city/exit-18-3" },
-                4 => { warden: "fuchsia-city/exit-27-27" } },
-        key_items: { 2 => [ [ "Good Rod", "good_rod" ] ], 4 => [ [ "HM04 Strength", "hm04_strength" ] ] },
+                2 => { rod: "fuchsia-city/exit-31-27", back: "fuchsia-city/exit-31-24" },
+                3 => { safari: "fuchsia-city/exit-18-3" } },
+        key_items: { 2 => [ [ "Good Rod", "good_rod" ] ] },
         encounters: [
           enc("fuchsia-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("fuchsia-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -1562,31 +1937,53 @@ module Walkthrough
           enc("fuchsia-city", "130", "SUPER ROD", "10%", "15", "UNCOMMON", "129", "130", tip: true)
         ],
         trainers: [],
-        gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
-          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE"), opp: [ "KOGA", 1 ]),
-          puzzle: [ gstep("fuchsia-city", 1), gstep("fuchsia-city", 2, map: true), gstep("fuchsia-city", 3) ]),
         oak_queue: [ oak("fuchsia-city", "130", 1) ])
     end
 
+    # Koga is the one gym the guide cannot take on the way in: the Safari Zone next door holds the
+    # Gold Teeth the Warden trades for HM04 Strength, and the park's own gate turns you out the
+    # moment your steps run down. So the city is walked twice, and the badge belongs to the second
+    # pass, the way Celadon's does after the hideout.
+    def self.fuchsia_city_return
+      b = base("fuchsia-city-return")
+      Location.new(
+        slug: "fuchsia-city-return", kind: "CITY", name: "Fuchsia City", order: 35,
+        badge: "SOUL", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, items: [ item(b, 1, "HM04 Strength", "hm04_strength") ],
+            pins: { warden: "fuchsia-city/exit-27-27", gym: "fuchsia-city/exit-5-27" }),
+          step(b, 2, html: true, pins: { center: "fuchsia-city/exit-19-27" },
+            link: StepLink.new(leg: "safari-zone", anchor: "safari-zone-step-14")),
+          step(b, 3, pins: { west: "fuchsia-city/exit-west" })
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
+        gym: gym("fuchsia-city", "Fuchsia Gym", "POISON", "SOUL", "TM06 · TOXIC",
+          leader("Koga", 4950, mon("048", 44), mon("048", 46), mon("048", 48), mon("049", 50), battle: scene_shot("battle-koga", "BATTLE"), opp: [ "KOGA", 1 ]),
+          puzzle: [ gstep("fuchsia-city", 1) ])
+      )
+    end
+
     def self.safari_zone
-      loc("safari-zone", "DUNGEON", "Safari Zone", 35, steps: [
+      loc("safari-zone", "DUNGEON", "Safari Zone", 36, steps: [
           {},
           {},
-          { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
-          { item: [ "TM Egg Bomb", "tm-egg-bomb" ], scene: "safari-zone-item-tm-egg-bomb" },
           { item: [ "Carbos", "carbos" ], scene: "safari-zone-item-carbos" },
-          { item: [ "Full Restore", "full-restore" ], scene: "safari-zone-item-full-restore" },
+          { item: [ "TM Egg Bomb", "tm-egg-bomb" ], scene: "safari-zone-item-tm-egg-bomb" },
           { item: [ "Max Potion", "max-potion-3-7" ], scene: "safari-zone-item-max-potion-3-7", at: [ 3, 7 ] },
-          { item: [ "Protein", "protein" ], scene: "safari-zone-item-protein" },
+          { item: [ "Full Restore", "full-restore" ], scene: "safari-zone-item-full-restore" },
           { item: [ "TM Skull Bash", "tm-skull-bash" ], scene: "safari-zone-item-tm-skull-bash" },
+          { item: [ "Protein", "protein" ], scene: "safari-zone-item-protein" },
           { item: [ "Gold Teeth", "gold-teeth" ], scene: "safari-zone-item-gold-teeth" },
           { item: [ "TM Double Team", "tm-double-team" ], scene: "safari-zone-item-tm-double-team" },
           { hidden: [ "Revive", "revive", "safari-zone-hidden-revive", "safari-zone-revive" ] },
           { items: [ [ "HM03 Surf", "hm03_surf" ] ] },
+          {},
+          { item: [ "Nugget", "nugget" ], scene: "safari-zone-item-nugget" },
+          { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive",
+            pins: { west: "safari-zone-center/exit-0-10" } },
           { item: [ "Max Potion", "max-potion-8-20" ], scene: "safari-zone-item-max-potion-8-20", at: [ 8, 20 ] },
-          { item: [ "Max Revive", "max-revive" ], scene: "safari-zone-item-max-revive" },
-          {}
-        ],
+          { pins: { north: "safari-zone-center/exit-14-0", west: "safari-zone-center/exit-0-10" } }
+        ], second_after: 13,
         encounters: [
           enc("safari-zone", "102", "SAFARI", "20%", "20–26", "UNCOMMON", "102", "103"),
           enc("safari-zone", "029", "SAFARI", "20%", "14–36", "UNCOMMON", "029", "030", "031"),
@@ -1617,31 +2014,37 @@ module Walkthrough
         ])
     end
 
+    # Route 16's one grass table, listed by both passes: the strip the Fly detour cuts into is the
+    # same patch leg 12 walks past on the way to Cycling Road, so the same five turn up on both
+    # pages and one catch ticks off on either.
+    def self.route_16_grass
+      [
+        enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
+        enc("route-16", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
+        enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
+        enc("route-16", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
+        enc("route-16", "022", "GRASS", "5%", "24", "RARE", "021", "022")
+      ]
+    end
+
     def self.route_16
-      loc("route-16", "ROUTE", "Route 16", 36, steps: 3, shots: [ 2 ],
-        pins: { 1 => { house: "route-16/exit-7-5" }, 2 => { gate: "route-16/exit-17-10" },
-                3 => { gate: "route-16/exit-17-4", south: "route-16/exit-south" } },
-        key_items: { 1 => [ [ "HM02 Fly", "hm02_fly" ] ] },
-        encounters: [
-          enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
-          enc("route-16", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
-          enc("route-16", "021", "GRASS", "25%", "22–23", "UNCOMMON", "021", "022"),
-          enc("route-16", "020", "GRASS", "6%", "25–26", "RARE", "019", "020"),
-          enc("route-16", "022", "GRASS", "5%", "24", "RARE", "021", "022"),
-          enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true)
-        ],
+      loc("route-16", "ROUTE", "Route 16", 37, steps: 2, shots: [ 2 ],
+        pins: { 1 => { south: "route-16/exit-south", gate: "route-16/exit-17-4" },
+                2 => { gate: "route-16/exit-17-10", east: "route-16/exit-east" } },
+        encounters: route_16_grass +
+          [ enc("route-16", "143", "STATIC", "-", "30", "STATIC", "143", tip: true) ],
         oak_queue: [ oak("route-16", "084", 1), oak("route-16", "143", 1) ])
     end
 
     def self.route_17
-      loc("route-17", "ROUTE", "Route 17", 37, steps: [
-          { pins: { north: "route-17/exit-north" } },
-          { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
-          { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
-          { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
-          { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
+      loc("route-17", "ROUTE", "Route 17", 38, steps: [
+          { pins: { south: "route-17/exit-south" } },
           { hidden: [ "Max Elixir", "max-elixir", "route-17-hidden-max-elixir", "route-17-max-elixir" ] },
-          { pins: { south: "route-17/exit-south" } }
+          { hidden: [ "PP Up", "pp-up", "route-17-hidden-pp-up", "route-17-pp-up" ] },
+          { hidden: [ "Full Restore", "full-restore", "route-17-hidden-full-restore", "route-17-full-restore" ] },
+          { hidden: [ "Max Revive", "max-revive", "route-17-hidden-max-revive", "route-17-max-revive" ] },
+          { hidden: [ "Rare Candy", "rare-candy", "route-17-hidden-rare-candy", "route-17-rare-candy" ] },
+          { pins: { north: "route-17/exit-north" } }
         ],
         encounters: [
           enc("route-17", "084", "GRASS", "50%", "26–28", "COMMON", "084", "085"),
@@ -1658,8 +2061,9 @@ module Walkthrough
     end
 
     def self.route_18
-      loc("route-18", "ROUTE", "Route 18", 38, steps: 2,
-        pins: { 2 => { gate: "route-18/exit-33-8", east: "route-18/exit-east" } },
+      loc("route-18", "ROUTE", "Route 18", 39, steps: 2,
+        pins: { 1 => { east: "route-18/exit-east" },
+                2 => { gate: "route-18/exit-33-8", north: "route-18/exit-north" } },
         encounters: [
           enc("route-18", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
           enc("route-18", "019", "GRASS", "25%", "23–24", "UNCOMMON", "019", "020"),
@@ -1676,46 +2080,259 @@ module Walkthrough
           house: "route-18-gate", inside: "route-18-gate-inside") ])
     end
 
+    # Both halves of the dojo's prize are listed, the way Cinnabar lists all three fossils: one
+    # cartridge only ever revives one of a pair, but a living dex still owes the other, and the
+    # card that says so is the one that tells you the choice is permanent.
     def self.saffron_city
-      loc("saffron-city", "CITY", "Saffron City", 40, steps: 3, gym_after: 2, badge: "MARSH",
-        pins: { 2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" },
-                3 => { dojo: "saffron-city/exit-26-3" } },
-        trainers: [ tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37),
-          where: scene_shot("saffron-dojo-master", "WHERE")) ],
+      loc("saffron-city", "CITY", "Saffron City", 41, steps: 2,
+        pins: { 1 => { dojo: "saffron-city/exit-26-3" },
+                2 => { gym: "saffron-city/exit-34-3", silph: "saffron-city/exit-18-21" } },
+        dojo: fighting_dojo,
+        encounters: [
+          enc("saffron-city", "106", "GIFT", "-", DOJO_LEVEL.to_s, "GIFT", "106", tip: true, from: true),
+          enc("saffron-city", "107", "GIFT", "-", DOJO_LEVEL.to_s, "GIFT", "107", tip: true, from: true)
+        ],
+        oak_queue: [ oak("saffron-city", "106", 1), oak("saffron-city", "107", 1) ])
+    end
+
+    # The Fighting Dojo, read out of the game. The Karate Master is the BLACKBELT party 1 of
+    # data/maps/objects/FightingDojo.asm, his four students are parties 2 to 5, and the two gift
+    # balls sit against the top wall with Hitmonlee on the left. Both are handed over at `ld c, 30`
+    # in scripts/FightingDojo.asm, after the Pokédex page and a yes/no; open one and the other only
+    # answers "Better not get greedy...".
+    DOJO_MAP = "saffron-city-dojo".freeze
+    DOJO_LEVEL = 30
+    DOJO_STEPS = 2
+    MASTER_OPP = [ "BLACKBELT", 1 ].freeze
+
+    # Level-1 learnsets from data/pokemon/base_stats/, the rest from data/pokemon/evos_moves.asm.
+    # Yellow's lists are its own: Hitmonlee gets Hi Jump Kick at 48 here, not the 53 later
+    # generations moved it to, and neither of them learns anything at all before 33.
+    DOJO_PICKS = [
+      [ "left", "106", [ "DOUBLE KICK", "MEDITATE" ],
+        [ [ "ROLLING KICK", 33 ], [ "JUMP KICK", 38 ], [ "FOCUS ENERGY", 43 ],
+          [ "HI JUMP KICK", 48 ], [ "MEGA KICK", 53 ] ] ],
+      [ "right", "107", [ "COMET PUNCH", "AGILITY" ],
+        [ [ "FIRE PUNCH", 33 ], [ "ICE PUNCH", 38 ], [ "THUNDERPUNCH", 43 ],
+          [ "MEGA PUNCH", 48 ], [ "COUNTER", 53 ] ] ]
+    ].freeze
+
+    # The four the choice actually turns on. Both have 50 HP and the same 35 Special, so a full
+    # stat block would spend two rows saying the pair are identical where it matters least.
+    DOJO_STATS = %w[attack speed defense special].freeze
+
+    def self.fighting_dojo
+      b = "#{base('saffron-city')}.dojo"
+      Dojo.new(anchor: "fighting-dojo", map: DOJO_MAP, name: "Saffron Fighting Dojo",
+        type: "FIGHTING", intro_key: "#{b}.intro", when_key: "#{b}.when",
+        prize_key: "#{b}.prize", shot: shot("DOJO"),
+        steps: (1..DOJO_STEPS).map { |n| GymStep.new(n: n, text_key: "#{b}.steps.#{n}", shot: nil) },
+        trainers: [], note_key: "#{b}.dex_note", choice: dojo_choice(b),
+        leader: tr("BLACK BELT", nil, 925, mon("106", 37), mon("107", 37), opp: MASTER_OPP))
+    end
+
+    def self.dojo_choice(b)
+      best = DOJO_PICKS.flat_map { |_side, dex, *| DOJO_STATS.map { |key| dex_facts.fetch(dex).fetch(key) } }.max
+      DojoChoice.new(anchor: "dojo-choice", intro_key: "#{b}.choice.intro",
+        room_key: "#{b}.choice.room", rec_key: "#{b}.choice.rec",
+        picks: DOJO_PICKS.map { |pick| dojo_pick(b, pick, other_dex(pick.second), best) })
+    end
+
+    def self.other_dex(dex) = DOJO_PICKS.map(&:second).find { |other| other != dex }
+
+    def self.dojo_pick(b, (side, dex, knows, learns), other, best)
+      DojoPick.new(side: side, dex: dex, name: NAMES.fetch(dex), level: DOJO_LEVEL,
+        stats: dojo_stats(dex, other, best),
+        knows: knows.map { |name| DojoMove.new(name: name, level: DOJO_LEVEL) },
+        learns: learns.map { |name, level| DojoMove.new(name: name, level: level) },
+        note_key: "#{b}.choice.#{mon_key(dex)}")
+    end
+
+    # `lead` is the head-to-head: the bar lights up on the stat this one of the pair actually wins,
+    # so the two cards read as one comparison rather than two stat blocks. Special is a tie at 35,
+    # which lights neither and says the true thing about both.
+    def self.dojo_stats(dex, other, best)
+      mine, theirs = dex_facts.fetch(dex), dex_facts.fetch(other)
+      DOJO_STATS.map do |key|
+        value = mine.fetch(key)
+        DojoStat.new(key: key, value: value, fill: fill_step(value, best),
+          lead: value > theirs.fetch(key))
+      end
+    end
+
+    # Saffron is walked twice for the reason the city itself gives: the gym's doors are Rocket-held
+    # until Silph is cleared, so arriving and challenging Sabrina are two visits with a dungeon
+    # between them. Splitting the page splits the badge off with the second, which is what puts
+    # Oak's deadline for the Marsh Badge in front of the gym that closes it rather than behind.
+    def self.saffron_city_return
+      b = base("saffron-city-return")
+      Location.new(
+        slug: "saffron-city-return", kind: "CITY", name: "Saffron City", order: 41,
+        badge: "MARSH", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1, pins: { gym: "saffron-city/exit-34-3" }) ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE"), opp: [ "SABRINA", 1 ]),
-          puzzle: [ gstep("saffron-city", 1), gstep("saffron-city", 2, map: true), gstep("saffron-city", 3) ]),
-        oak_queue: [ oak("saffron-city", "106", 1) ])
+          # One step and no shot of its own: the floor drawn above it, with the line on, is the
+          # whole instruction, and anything else here is a second telling of the same thing.
+          puzzle: [ gstep("saffron-city", 1) ])
+      )
+    end
+
+    # Eleven floors taken in the one order that costs the least walking, which is not floor by
+    # floor: the lift goes straight to 5F for the Card Key, and only then does the climb start at
+    # 2F, so every barrier above it opens on the first pass instead of needing a second trip. The
+    # three floors the story sits on (3F, 7F, 11F) are reached by warp pad at the end, once the
+    # optional Rockets are cleared and the 9F nurse can still heal, because beating Giovanni empties
+    # the building. `tools/maps/paths.py` letters the pins along this same walk.
+    # Everything in the game that Surf unlocks and nothing else reaches, on one page. By the time
+    # HM03 is in the bag these are the only three things left behind anywhere, so they are swept in
+    # the order the guide first walked past them rather than in the order Fly would take you. Each
+    # is already flagged where the reader met it (a `later` card, needing Surf); this is the stop
+    # that goes back, and both cards carry the same tick so collecting it here reads as collected
+    # there. The page owns no map: it borrows the three it walks onto (MAP_EXTRA).
+    def self.surf_cleanups
+      loc("surf-cleanups", "CLEANUP", "Surf Cleanups", 41, steps: [
+          # Route 10 carries a hidden Max Ether of its own, so the Vermilion one names its cell:
+          # a card takes its tick from the one pin that matches its name, and two would leave it
+          # with none.
+          { map: "vermilion-city",
+            hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether",
+                      "vermilion-city-max-ether" ], at: [ 14, 11 ] },
+          { map: "vermilion-city", pins: { north: "vermilion-city/exit-north" } },
+          { map: "route-6" },
+          { map: "route-6" },
+          { map: "celadon-city", items: [ [ "TM41 Softboiled", "tm41" ] ],
+            gift: [ "celadon-city", "tm41" ], scene: "celadon-city-tm41",
+            pins: { man: "celadon-city/npc-tm41" } },
+          { map: "celadon-city" },
+          { map: "route-12", item: [ "TM Pay Day", "tm-pay-day" ],
+            scene: "route-12-item-tm-pay-day" },
+          # The same gift the Route 11 page offers, claimed here for the reader who walked past it
+          # thirty species short. One id between them, so it ticks on both.
+          { map: "route-12", items: [ [ "Itemfinder", "itemfinder" ] ],
+            gift: [ "route-11", "itemfinder" ], scene: "route-11-gate-itemfinder",
+            pins: { west: "route-12/exit-west" } },
+          { map: "route-12" },
+          { map: "cerulean-city", pins: { east: "cerulean-city/exit-east" } },
+          { map: "route-10",
+            pins: { trainer: "route-10/trainer-10-44", door: "route-10/exit-6-39" } }
+        ],
+        # The whole table of both routes it stops on, not only the water: the page draws each map
+        # with what lives on it, and a reader looking at Route 6 wants to know what is in the grass
+        # as well. The Route 12 Snorlax is the one thing left out, because the guide woke it with
+        # the Poke Flute pages ago and a STATIC card here would offer a catch that is gone.
+        encounters: [
+          enc("route-6", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
+          enc("route-6", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
+          enc("route-6", "063", "GRASS", "15%", "7", "UNCOMMON", "063", "064", "065"),
+          enc("route-6", "039", "GRASS", "10%", "3–7", "UNCOMMON", "039", "040"),
+          enc("route-6", "017", "GRASS", "5%", "17", "RARE", "016", "017", "018"),
+          enc("route-6", "054", "SURF", "94%", "15", "COMMON", "054", "055"),
+          enc("route-6", "055", "SURF", "6%", "15–20", "RARE", "054", "055"),
+          enc("route-6", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-6", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-6", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-6", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119"),
+          enc("route-12", "043", "GRASS", "30%", "25–27", "COMMON", "043", "044", "045"),
+          enc("route-12", "069", "GRASS", "30%", "25–27", "COMMON", "069", "070", "071"),
+          enc("route-12", "016", "GRASS", "15%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "017", "GRASS", "10%", "28", "UNCOMMON", "016", "017", "018"),
+          enc("route-12", "083", "GRASS", "6%", "26–31", "RARE", "083", tip: true),
+          enc("route-12", "044", "GRASS", "5%", "29", "RARE", "043", "044", "045"),
+          enc("route-12", "070", "GRASS", "5%", "29", "RARE", "069", "070", "071"),
+          enc("route-12", "079", "SURF", "94%", "15", "COMMON", "079", "080"),
+          enc("route-12", "080", "SURF", "6%", "15–20", "RARE", "079", "080"),
+          enc("route-12", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
+          enc("route-12", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
+          enc("route-12", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
+          enc("route-12", "116", "SUPER ROD", "70%", "20–25", "COMMON", "116", "117"),
+          enc("route-12", "117", "SUPER ROD", "30%", "25–35", "COMMON", "116", "117")
+        ],
+        # The one trainer the sweep really fights. Route 10's other five are on the road either side
+        # of Rock Tunnel and were cleared on the way through; this Pokemaniac stands on a bank the
+        # road never touches, so he waits for Surf. Built from Route 10's own roster entry, so the
+        # card carries the same letter, the same prize and the same tick as it does over there.
+        trainers: [ roster_trainer(roster_for("route-10").find { |e| e["marker"] == "trainer-10-44" }) ],
+        # Four species the dex could never own before this page, so the queue explains itself
+        # rather than falling back on the generic lines: "you are walking through here anyway" is
+        # false of a stop you Fly to on purpose, and "take the rest of the line there" would point
+        # a reader at the page they are already reading.
+        oak_queue: [ oak("surf-cleanups", "054", 1), oak("surf-cleanups", "055", 1),
+                     oak("surf-cleanups", "079", 1), oak("surf-cleanups", "080", 1) ])
     end
 
     def self.silph_co
-      loc("silph-co", "BUILDING", "Silph Co.", 39, steps: [
-          {},
-          { item: [ "Hyper Potion", "hyper-potion" ], scene: "silph-co-item-hyper-potion" },
-          { item: [ "Max Revive", "max-revive" ], scene: "silph-co-item-max-revive" },
-          { item: [ "Escape Rope", "escape-rope" ], scene: "silph-co-item-escape-rope" },
-          { item: [ "Full Heal", "full-heal" ], scene: "silph-co-item-full-heal" },
-          { item: [ "Card Key", "card-key" ], scene: "silph-co-item-card-key" },
-          { item: [ "Protein", "protein" ], scene: "silph-co-item-protein" },
-          { item: [ "TM Take Down", "tm-take-down" ], scene: "silph-co-item-tm-take-down" },
+      loc("silph-co", "BUILDING", "Silph Co.", 40, steps: [
+          { pins: { lift: "silph-co-1f/exit-20-0" } },
           { hidden: [ "Elixir", "elixir", "silph-co-hidden-elixir", "silph-co-elixir" ] },
+          { pins: { pad: "silph-co-5f/exit-9-15", rocket: "silph-co-5f/trainer-8-16" } },
+          { item: [ "Card Key", "card-key" ], scene: "silph-co-item-card-key",
+            pins: { lift: "silph-co-5f/exit-20-0" } },
+          { pins: { first: "silph-co-2f/trainer-24-7", second: "silph-co-2f/trainer-24-13",
+                    third: "silph-co-2f/trainer-16-11", fourth: "silph-co-2f/trainer-5-12" } },
+          { items: [ [ "TM36 Selfdestruct", "tm36-selfdestruct" ] ], scene: "silph-co-tm36",
+            pins: { woman: "silph-co-2f/npc-tm36", up: "silph-co-2f/exit-26-0" } },
+          { pins: { rocket: "silph-co-3f/trainer-20-7",
+                    scientist: "silph-co-3f/trainer-7-9" } },
+          { item: [ "Hyper Potion", "hyper-potion" ], scene: "silph-co-item-hyper-potion",
+            pins: { up: "silph-co-3f/exit-24-0" } },
+          { pins: { first: "silph-co-4f/trainer-26-10", second: "silph-co-4f/trainer-9-14",
+                    third: "silph-co-4f/trainer-14-6" } },
+          { item: [ "Full Heal", "full-heal" ], scene: "silph-co-item-full-heal" },
+          { item: [ "Max Revive", "max-revive" ], scene: "silph-co-item-max-revive" },
+          { item: [ "Escape Rope", "escape-rope" ], scene: "silph-co-item-escape-rope",
+            pins: { up: "silph-co-4f/exit-26-0" } },
+          { pins: { rocket: "silph-co-5f/trainer-28-4", juggler: "silph-co-5f/trainer-18-10",
+                    scientist: "silph-co-5f/trainer-8-3" } },
+          { item: [ "Protein", "protein" ], scene: "silph-co-item-protein" },
+          { item: [ "TM Take Down", "tm-take-down" ], scene: "silph-co-item-tm-take-down",
+            pins: { up: "silph-co-5f/exit-24-0" } },
+          { pins: { rocket: "silph-co-6f/trainer-17-3",
+                    scientist: "silph-co-6f/trainer-7-8" } },
           { item: [ "HP Up", "hp-up" ], scene: "silph-co-item-hp-up" },
           { item: [ "X Accuracy", "x-accuracy" ], scene: "silph-co-item-x-accuracy" },
-          {},
-          { item: [ "Calcium", "calcium" ], scene: "silph-co-item-calcium" },
-          { item: [ "TM Swords Dance", "tm-swords-dance" ], scene: "silph-co-item-tm-swords-dance" },
+          { pins: { rocket: "silph-co-6f/trainer-14-15", up: "silph-co-6f/exit-16-0" } },
+          { item: [ "TM Swords Dance", "tm-swords-dance" ],
+            scene: "silph-co-item-tm-swords-dance",
+            pins: { rocket: "silph-co-7f/trainer-20-2" } },
+          { pins: { second: "silph-co-7f/trainer-19-14", third: "silph-co-7f/trainer-13-1",
+                    fourth: "silph-co-7f/trainer-2-13" } },
+          { item: [ "Calcium", "calcium" ], scene: "silph-co-item-calcium",
+            pins: { up: "silph-co-7f/exit-16-0" } },
+          { pins: { first: "silph-co-8f/trainer-19-2", second: "silph-co-8f/trainer-12-15",
+                    third: "silph-co-8f/trainer-10-2", up: "silph-co-8f/exit-16-0" } },
+          { pins: { rocket: "silph-co-9f/trainer-13-16", nurse: "silph-co-9f/npc-nurse" } },
           { hidden: [ "Max Potion", "max-potion", "silph-co-hidden-max-potion", "silph-co-max-potion" ] },
-          { item: [ "TM Earthquake", "tm-earthquake" ], scene: "silph-co-item-tm-earthquake" },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "silph-co-item-rare-candy" },
+          { pins: { rocket: "silph-co-9f/trainer-2-4", scientist: "silph-co-9f/trainer-21-13",
+                    up: "silph-co-9f/exit-14-0" } },
+          { pins: { scientist: "silph-co-10f/trainer-10-2",
+                    rocket: "silph-co-10f/trainer-1-9" } },
           { item: [ "Carbos", "carbos" ], scene: "silph-co-item-carbos" },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "silph-co-item-rare-candy" },
+          { item: [ "TM Earthquake", "tm-earthquake" ], scene: "silph-co-item-tm-earthquake",
+            pins: { up: "silph-co-10f/exit-10-0" } },
+          { pins: { rocket: "silph-co-11f/trainer-15-9", lift: "silph-co-11f/exit-13-0",
+                    pad: "silph-co-3f/exit-11-11" } },
           {},
-          {}
+          { scene: "silph-co-lapras", pins: { man: "silph-co-7f/npc-lapras" } },
+          { pins: { pad: "silph-co-7f/exit-5-7" } },
+          {},
+          { pins: { giovanni: "silph-co-11f/trainer-6-9" } },
+          { items: [ [ "Master Ball", "master-ball" ] ], scene: "silph-co-master-ball",
+            pins: { president: "silph-co-11f/npc-master-ball" } },
+          { pins: { back: "silph-co-11f/exit-3-2", out: "silph-co-1f/exit-10-17" },
+            link: StepLink.new(leg: "leg-13", anchor: "saffron-city-return-step-1") }
         ],
         encounters: [ enc("silph-co", "131", "GIFT", "-", "15", "GIFT", "131", tip: true, from: true) ],
         trainers: [
           rival(2600, mon("022", 37), mon("085", 38), mon("103", 38), mon("133", 40),
             where: scene_shot("silph-co-rival", "WHERE"),
             battle: scene_shot("battle-silph-rival", "BATTLE")),
+          tr("TEAM ROCKET", "Jessie & James", 930,
+            mon("110", 31), mon("024", 31), mon("052", 31),
+            where: scene_shot("silph-co-jessie-james", "WHERE"),
+            battle: scene_shot("battle-silph-jessie-james", "BATTLE")),
           tr("TEAM ROCKET", "Giovanni", 4059,
             mon("033", 37), mon("111", 37), mon("053", 35), mon("031", 41),
             where: scene_shot("silph-co-giovanni", "WHERE"),
@@ -1725,7 +2342,7 @@ module Walkthrough
     end
 
     def self.route_19
-      loc("route-19", "ROUTE", "Route 19", 41, steps: 2, pins: { 2 => { west: "route-19/exit-west" } },
+      loc("route-19", "ROUTE", "Route 19", 42, steps: 2, pins: { 2 => { west: "route-19/exit-west" } },
         encounters: [
           enc("route-19", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-19", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
@@ -1738,7 +2355,7 @@ module Walkthrough
     end
 
     def self.route_20
-      loc("route-20", "ROUTE", "Route 20", 42, steps: 2, pins: { 2 => { east: "route-20/exit-58-9" } },
+      loc("route-20", "ROUTE", "Route 20", 43, steps: 2, pins: { 2 => { mouth: "route-20/exit-48-5" } },
         encounters: [
           enc("route-20", "072", "SURF", "100%", "5–40", "COMMON", "072", "073"),
           enc("route-20", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
@@ -1750,15 +2367,44 @@ module Walkthrough
         ])
     end
 
+    # The same map again, west of the rock wall. It carries no encounter tables of its own: they
+    # belong to Route 20 and the first pass already prints them, so a second copy would tell the
+    # reader the water holds twice what it holds.
+    def self.route_20_west
+      loc("route-20-west", "ROUTE", "Route 20", 43, steps: 2,
+        pins: { 1 => { mouth: "route-20/exit-58-9" }, 2 => { west: "route-20/exit-west" } })
+    end
+
+    SEAFOAM_1F = "seafoam-islands-1f".freeze
+    SEAFOAM_B1F = "seafoam-islands-b1f".freeze
+    SEAFOAM_B2F = "seafoam-islands-b2f".freeze
+    SEAFOAM_B3F = "seafoam-islands-b3f".freeze
+
     def self.seafoam_islands
-      loc("seafoam-islands", "CAVE", "Seafoam Islands", 43, steps: [
+      loc("seafoam-islands", "CAVE", "Seafoam Islands", 44, steps: [
           {},
-          {},
-          { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
-          { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
-          { scene: "seafoam-articuno" },
+          { pins: { mouth: "seafoam-islands-1f/exit-4-17", hole: "seafoam-islands-1f/hole-17-6" },
+            line: [ SEAFOAM_1F, 1 ] },
+          { pins: { hole: "seafoam-islands-b1f/hole-18-6" }, line: [ SEAFOAM_B1F, 1 ] },
+          { pins: { hole: "seafoam-islands-b2f/hole-19-6" }, line: [ SEAFOAM_B2F, 1 ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "seafoam-islands-hidden-ultra-ball", "seafoam-islands-ultra-ball" ] },
-          {}
+          { pins: { ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { hidden: [ "Max Elixir", "max-elixir", "seafoam-islands-hidden-max-elixir", "seafoam-islands-max-elixir" ] },
+          { pins: { hole: "seafoam-islands-b3f/hole-3-16" }, line: [ SEAFOAM_B3F, 1, 2 ] },
+          { pins: { hole: "seafoam-islands-b3f/hole-6-16" }, line: [ SEAFOAM_B3F, 3, 4 ] },
+          {},
+          { scene: "seafoam-articuno" },
+          { pins: { ladder: "seafoam-islands-b4f/exit-11-7" } },
+          { pins: { ladder: "seafoam-islands-b3f/exit-5-12" } },
+          { hidden: [ "Nugget", "nugget", "seafoam-islands-hidden-nugget", "seafoam-islands-nugget" ] },
+          { pins: { ladder: "seafoam-islands-b2f/exit-13-7" } },
+          { pins: { ladder: "seafoam-islands-b1f/exit-7-5" } },
+          { pins: { hole: "seafoam-islands-1f/hole-24-6" }, line: [ SEAFOAM_1F, 2 ] },
+          { pins: { hole: "seafoam-islands-b1f/hole-23-6" }, line: [ SEAFOAM_B1F, 2 ] },
+          { pins: { hole: "seafoam-islands-b2f/hole-22-6" }, line: [ SEAFOAM_B2F, 2 ] },
+          { pins: { first: "seafoam-islands-b3f/exit-25-14", mid: "seafoam-islands-b2f/exit-25-11",
+                    top: "seafoam-islands-b1f/exit-23-15" } },
+          { pins: { mouth: "seafoam-islands-1f/exit-26-17" } }
         ],
         encounters: [
           enc("seafoam-islands", "041", "CAVE", "44%", "9–45", "COMMON", "041", "042"),
@@ -1782,10 +2428,19 @@ module Walkthrough
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
     end
 
+    # Two passes, because the gym's own door is what the island cannot open on arrival: the Secret
+    # Key is in the Mansion across the street. So the first pass is the lab, which takes the
+    # fossils in and needs time to revive them anyway, and the badge waits for the page after.
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 3, gym_after: 2, badge: "VOLCANO",
-        pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
-                2 => { lab: "cinnabar-island/exit-6-9" } },
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45,
+        # The lab's three doors, left to right along its back wall, named by the game's own signs:
+        # Meeting Room, R-and-D Room, Testing Room.
+        steps: [
+          { scene: "cinnabar-lab-trades", pins: { lab: "cinnabar-island/exit-6-9" } },
+          { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome" },
+          { scene: "cinnabar-lab-fossil-handover" },
+          { pins: { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } }
+        ],
         encounters: [
           enc("cinnabar-island", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("cinnabar-island", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -1805,10 +2460,27 @@ module Walkthrough
           trade("cinnabar-island", "dewgong", "058", "087", "CEZANNE",
             house: "cinnabar-lab", inside: "cinnabar-lab-trade-cezanne")
         ],
+        oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
+    end
+
+    # The island again, Secret Key in hand. The gym copy stays under the first pass's own keys, the
+    # way Fuchsia's does: it is the same gym, described once, shown on the page that walks it.
+    def self.cinnabar_island_return
+      b = base("cinnabar-island-return")
+      Location.new(
+        slug: "cinnabar-island-return", kind: "TOWN", name: "Cinnabar Island", order: 45,
+        badge: "VOLCANO", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, pins: { gym: "cinnabar-island/exit-18-3" }),
+          step(b, 2, pins: { lab: "cinnabar-island/exit-6-9", north: "cinnabar-island/exit-north" })
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
-        oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
+          puzzle: [ gstep("cinnabar-island", 1),
+                    gstep("cinnabar-island", 2, quiz: "CINNABAR_GYM"),
+                    gstep("cinnabar-island", 3, scene: "cinnabar-gym-blaine") ])
+      )
     end
 
     def self.pokemon_mansion
@@ -1859,7 +2531,7 @@ module Walkthrough
     end
 
     def self.victory_road
-      loc("victory-road", "CAVE", "Victory Road", 49,
+      loc("victory-road", "CAVE", "Victory Road", 50,
         pins: { 4 => { up: "victory-road-1f/exit-1-1" },
                 12 => { up: "victory-road-2f/exit-23-7" },
                 15 => { down: "victory-road-2f/exit-23-7", out: "victory-road-2f/exit-29-7" } },
@@ -1893,7 +2565,7 @@ module Walkthrough
     end
 
     def self.route_23
-      loc("route-23", "ROUTE", "Route 23", 50, steps: [
+      loc("route-23", "ROUTE", "Route 23", 51, steps: [
           { pins: { gate: "route-23/exit-south" } },
           { hidden: [ "Max Ether", "max-ether", "route-23-hidden-max-ether", "route-23-max-ether" ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "route-23-hidden-ultra-ball", "route-23-ultra-ball" ] },
@@ -1915,7 +2587,7 @@ module Walkthrough
     end
 
     def self.indigo_plateau
-      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 51, steps: 3,
+      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, steps: 3,
         trainers: [
           tr("ELITE FOUR", "Lorelei", 5544,
             mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56),
@@ -1936,7 +2608,7 @@ module Walkthrough
     end
 
     def self.cerulean_cave
-      loc("cerulean-cave", "CAVE", "Cerulean Cave", 52,
+      loc("cerulean-cave", "CAVE", "Cerulean Cave", 53,
         pins: { 7 => { up: "cerulean-cave-1f/exit-1-3" },
                 13 => { down: "cerulean-cave-2f/exit-3-11", lower: "cerulean-cave-1f/exit-0-6" } },
         steps: [
@@ -2062,8 +2734,18 @@ module Walkthrough
     end
 
     def self.lavender_town
-      loc("lavender-town", "TOWN", "Lavender Town", 24, steps: 3,
-        pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } })
+      b = base("lavender-town")
+      loc("lavender-town", "TOWN", "Lavender Town", 24, steps: 2,
+        pins: { 1 => { tower: "lavender-town/exit-14-5" }, 2 => { west: "lavender-town/exit-west" } },
+        trivia: trivia(b, anchor: "name-rater", tagged: true,
+          pins: { house: "lavender-town/exit-7-13" },
+          shot: scene_shot("lavender-name-rater", "NAME RATER"),
+          warning: trivia_warning(b, "122", "MILES")),
+        trainers: [
+          rival(1625, mon("022", 25), mon("027", 20), mon("037", 23), mon("081", 22), mon("133", 25),
+            where: scene_shot("pokemon-tower-rival", "WHERE"),
+            battle: scene_shot("battle-pokemon-tower-rival", "BATTLE"))
+        ])
     end
 
     def self.route_8
@@ -2079,9 +2761,23 @@ module Walkthrough
         ])
     end
 
+    # The second of Saffron's two tunnels, and the one the guide takes: Route 8 down, Route 7 up,
+    # under the guards who want a drink. Nothing lives down here and nobody walks it, but two
+    # hidden items sit on the floor and neither shows on-screen.
+    def self.underground_path_west_east
+      loc("underground-path-west-east", "TUNNEL", "Underground Path", 26, steps: [
+          { pins: { in: "underground-path-west-east/exit-47-2" },
+            hidden: [ "Elixir", "elixir", "underground-path-west-east-hidden-elixir",
+                      "underground-path-west-east-elixir" ] },
+          { pins: { out: "underground-path-west-east/exit-2-5" },
+            hidden: [ "Nugget", "nugget", "underground-path-west-east-hidden-nugget",
+                      "underground-path-west-east-nugget" ] }
+        ])
+    end
+
     def self.route_7
-      loc("route-7", "ROUTE", "Route 7", 26, steps: 2,
-        pins: { 1 => { path: "route-7/exit-5-13" }, 2 => { gate: "route-7/exit-11-9", west: "route-7/exit-west" } },
+      loc("route-7", "ROUTE", "Route 7", 27, steps: 1,
+        pins: { 1 => { west: "route-7/exit-west" } },
         encounters: [
           enc("route-7", "016", "GRASS", "40%", "20–22", "COMMON", "016", "017", "018"),
           enc("route-7", "063", "GRASS", "25%", "15–26", "UNCOMMON", "063", "064", "065"),
@@ -2092,61 +2788,130 @@ module Walkthrough
     end
 
     def self.celadon_city
-      loc("celadon-city", "CITY", "Celadon City", 27, steps: [
-          { pins: { east: "celadon-city/exit-east", center: "celadon-city/exit-41-9" } },
+      loc("celadon-city", "CITY", "Celadon City", 28, steps: [
           { hidden: [ "PP Up", "pp-up", "celadon-city-hidden-pp-up", "celadon-city-pp-up" ] },
+          { pins: { mansion: "celadon-city/exit-24-3" } },
+          { items: [ [ "Coin Case", "coin_case" ] ], scene: "celadon-diner-coin-case",
+            pins: { diner: "celadon-city/exit-31-27" } },
           { pins: { store: "celadon-city/exit-8-13" } },
-          { items: [ [ "Coin Case", "coin_case" ] ],
-            pins: { mansion: "celadon-city/exit-24-9", diner: "celadon-city/exit-31-27", gym: "celadon-city/exit-12-27" } },
+          { items: [ [ "TM18 Counter", "tm18_counter" ] ], gift: [ "celadon-city", "tm18-counter" ],
+            scene: "celadon-mart-3f-tm18" },
+          {},
+          {},
           { pins: { corner: "celadon-city/exit-28-19" } }
-        ], gym_after: 2, badge: "RAINBOW",
+        ],
         encounters: [
           enc("celadon-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("celadon-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
           enc("celadon-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
           enc("celadon-city", "118", "SUPER ROD", "100%", "5–20", "COMMON", "118", "119"),
-          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true),
-          enc("celadon-city", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
-          enc("celadon-city", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
+          enc("celadon-city", "133", "GIFT", "-", "25", "GIFT", "133", tip: true, from: true)
         ],
         trainers: [],
-        gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
-          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32), battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ])),
-        oak_queue: [ oak("celadon-city", "133", 1), oak("celadon-city", "137", 1) ])
+        later: [ later("celadon-city", "tm41", "TM41 Softboiled", "TM", "Surf", "celadon-city-tm41") ],
+        oak_queue: [ oak("celadon-city", "133", 1) ])
     end
 
-    def self.rocket_hideout
-      loc("rocket-hideout", "DUNGEON", "Rocket Hideout", 28,
-        pins: { 6 => { down: "rocket-hideout-b1f/exit-23-2" },
-                11 => { down: "rocket-hideout-b2f/exit-21-8" },
-                15 => { down: "rocket-hideout-b3f/exit-19-18" },
-                20 => { lift: "rocket-hideout-b4f/exit-24-15" } },
+    # The walkthrough clears the Rocket Hideout before it takes the badge, so Celadon is walked
+    # twice and the gym rides on the second visit, the way Vermilion's does after the S.S. Anne.
+    def self.celadon_city_return
+      b = base("celadon-city-return")
+      Location.new(
+        slug: "celadon-city-return", kind: "CITY", name: "Celadon City", order: 28,
+        badge: "RAINBOW", note_key: "#{b}.note", intro_key: "#{b}.intro",
         steps: [
-          {},
-          {},
-          { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope" },
-          { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },
-          { hidden: [ "PP Up", "pp-up", "rocket-hideout-hidden-pp-up", "rocket-hideout-pp-up" ] },
-          { html: true },
-          { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget" },
-          { item: [ "TM Horn Drill", "tm-horn-drill" ], scene: "rocket-hideout-item-tm-horn-drill" },
-          { item: [ "Moon Stone", "moon-stone" ], scene: "rocket-hideout-item-moon-stone" },
-          { item: [ "Super Potion", "super-potion" ], scene: "rocket-hideout-item-super-potion" },
-          { html: true },
-          { item: [ "Rare Candy", "rare-candy" ], scene: "rocket-hideout-item-rare-candy" },
-          { item: [ "TM Double Edge", "tm-double-edge" ], scene: "rocket-hideout-item-tm-double-edge" },
-          { hidden: [ "Nugget", "nugget", "rocket-hideout-hidden-nugget", "rocket-hideout-nugget" ] },
-          { html: true },
-          { item: [ "Lift Key", "lift-key" ], scene: "rocket-hideout-item-lift-key" },
-          { item: [ "TM Razor Wind", "tm-razor-wind" ], scene: "rocket-hideout-item-tm-razor-wind" },
-          { item: [ "HP Up", "hp-up" ], scene: "rocket-hideout-item-hp-up" },
-          { item: [ "Iron", "iron" ], scene: "rocket-hideout-item-iron" },
-          { html: true },
-          {},
-          { item: [ "Silph Scope", "silph-scope" ], scene: "rocket-hideout-item-silph-scope" },
-          { hidden: [ "Super Potion", "super-potion", "rocket-hideout-hidden-super-potion", "rocket-hideout-super-potion" ] },
+          step(b, 1, pins: { gym: "celadon-city/exit-12-27" }),
+          step(b, 2, pins: { west: "celadon-city/exit-west" })
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
+        gym: gym("celadon-city", "Celadon Gym", "GRASS", "RAINBOW", "TM21 · MEGA DRAIN",
+          leader("Erika", 3168, mon("114", 30), mon("070", 32), mon("044", 32),
+            battle: scene_shot("battle-erika", "BATTLE"), opp: [ "ERIKA", 1 ]),
+          needs: "HM01 CUT")
+      )
+    end
+
+    # Fly sits one route west of Celadon, and the walkthrough picks it up the moment Erika is beaten
+    # rather than at Cycling Road, where the route is properly walked: the badge run turns round for
+    # Lavender here, so a ride back to every town already visited is worth more now than it will be
+    # eight stops later. The stop borrows Route 16's map and leaves the Snorlax, the road and the
+    # grass to leg 12, which shares that map's pins and its ticks.
+    def self.route_16_fly
+      loc("route-16-fly", "ROUTE", "Route 16", 37, title: "Route 16 Fly Detour",
+        steps: [
+          { pins: { east: "route-16/exit-east", gate: "route-16/exit-24-4",
+                    out: "route-16/exit-17-4", house: "route-16/exit-7-5" } },
+          { items: [ [ "HM02 Fly", "hm02_fly" ] ], scene: "route-16-fly-gift" },
           {}
         ],
+        encounters: route_16_grass, trainers: [], oak_queue: [ oak("route-16", "084", 1) ])
+    end
+
+    # The two arrow-tile floors, named once so the step defs below can point at the legs of their
+    # drawn routes without repeating the map name. A step carries a `line:`, and so a map of its
+    # own, when its walk goes into the maze: not only the rides, since threading between the
+    # arrows to follow a wall out is just as hard to read off prose as the ride in. The rest are
+    # plain corridor walks (in at the door, round to the Rocket, out to the stairs), and a picture
+    # of a corridor is a picture of nothing. `test_spinners.py` pins which legs those are.
+    B2F = "rocket-hideout-b2f".freeze
+    B3F = "rocket-hideout-b3f".freeze
+
+    def self.rocket_hideout
+      loc("rocket-hideout", "BUILDING", "Game Corner / Rocket Hideout", 29,
+        steps: [
+          { pins: { guru: "rocket-hideout-game-corner/npc-guru-10",
+                    man: "rocket-hideout-game-corner/npc-man-20",
+                    fisher: "rocket-hideout-game-corner/npc-guru-20" } },
+          { pins: { rocket: "rocket-hideout-game-corner/trainer-9-5",
+                    poster: "rocket-hideout-game-corner/npc-poster",
+                    stairs: "rocket-hideout-game-corner/exit-17-4" } },
+          { hidden: [ "PP Up", "pp-up", "rocket-hideout-hidden-pp-up", "rocket-hideout-pp-up" ] },
+          { item: [ "Escape Rope", "escape-rope" ], scene: "rocket-hideout-item-escape-rope",
+            pins: { west: "rocket-hideout-b1f/trainer-12-6" } },
+          { pins: { east: "rocket-hideout-b1f/trainer-26-8",
+                    down: "rocket-hideout-b1f/exit-23-2" } },
+          { pins: { rocket: "rocket-hideout-b2f/trainer-20-12",
+                    down: "rocket-hideout-b2f/exit-21-8" } },
+          { item: [ "TM Double Edge", "tm-double-edge" ], scene: "rocket-hideout-item-tm-double-edge",
+            pins: { guard: "rocket-hideout-b3f/trainer-26-12" } },
+          { hidden: [ "Nugget", "nugget", "rocket-hideout-hidden-nugget", "rocket-hideout-nugget" ] },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "rocket-hideout-item-rare-candy",
+            line: [ B3F, 4 ] },
+          { pins: { west: "rocket-hideout-b3f/trainer-10-22",
+                    down: "rocket-hideout-b3f/exit-19-18" }, line: [ B3F, 5, 6 ] },
+          { item: [ "HP Up", "hp-up" ], scene: "rocket-hideout-item-hp-up" },
+          { item: [ "TM Razor Wind", "tm-razor-wind" ], scene: "rocket-hideout-item-tm-razor-wind" },
+          { item: [ "Lift Key", "lift-key" ], scene: "rocket-hideout-item-lift-key",
+            pins: { grunt: "rocket-hideout-b4f/trainer-11-2" } },
+          { pins: { up: "rocket-hideout-b4f/exit-19-10", above: "rocket-hideout-b3f/exit-25-6" },
+            line: [ B3F, 7 ] },
+          { item: [ "Moon Stone", "moon-stone" ], scene: "rocket-hideout-item-moon-stone",
+            line: [ B2F, 3 ] },
+          { item: [ "Nugget", "nugget" ], scene: "rocket-hideout-item-nugget", line: [ B2F, 4 ] },
+          { item: [ "TM Horn Drill", "tm-horn-drill" ], scene: "rocket-hideout-item-tm-horn-drill",
+            line: [ B2F, 5 ] },
+          { item: [ "Super Potion", "super-potion" ], scene: "rocket-hideout-item-super-potion",
+            line: [ B2F, 6 ] },
+          { pins: { up: "rocket-hideout-b2f/exit-21-22" }, line: [ B2F, 7 ] },
+          { pins: { lower: "rocket-hideout-b1f/trainer-15-25" } },
+          { item: [ "Hyper Potion", "hyper-potion" ], scene: "rocket-hideout-item-hyper-potion" },
+          { pins: { upper: "rocket-hideout-b1f/trainer-18-17",
+                    back: "rocket-hideout-b1f/exit-21-24" } },
+          { pins: { lift: "rocket-hideout-b2f/exit-24-19" } },
+          {},
+          { item: [ "Iron", "iron" ], scene: "rocket-hideout-item-iron" },
+          { pins: { giovanni: "rocket-hideout-b4f/trainer-25-3" } },
+          { item: [ "Silph Scope", "silph-scope" ], scene: "rocket-hideout-item-silph-scope" },
+          { hidden: [ "Super Potion", "super-potion", "rocket-hideout-hidden-super-potion", "rocket-hideout-super-potion" ] },
+          { pins: { lift: "rocket-hideout-b1f/exit-24-19",
+                    last: "rocket-hideout-b1f/trainer-28-18" } },
+          { pins: { out: "rocket-hideout-game-corner/exit-15-17" } }
+        ],
+        encounters: [
+          enc("rocket-hideout", "137", "GAME CORNER", "9999", "26", "GIFT", "137", tip: true),
+          enc("rocket-hideout", "037", "GAME CORNER", "1000", "18", "GIFT", "037", "038", tip: true)
+        ],
+        oak_queue: [ oak("rocket-hideout", "137", 1) ],
         trainers: [
           tr("TEAM ROCKET", "Jessie & James", 750,
             mon("109", 25), mon("052", 25), mon("023", 25),
@@ -2160,22 +2925,14 @@ module Walkthrough
     end
 
     def self.power_plant
-      loc("power-plant", "BUILDING", "Power Plant", 44, steps: [
-          { pins: { door: "power-plant/exit-4-35" } },
+      loc("power-plant", "BUILDING", "Power Plant", 49, steps: [
           { item: [ "Carbos", "carbos" ], scene: "power-plant-item-carbos" },
           {},
-          {},
-          {},
-          { item: [ "TM Reflect", "tm-reflect" ], scene: "power-plant-item-tm-reflect" },
-          {},
-          { item: [ "TM Thunder", "tm-thunder" ], scene: "power-plant-item-tm-thunder" },
-          {},
           { hidden: [ "Max Elixir", "max-elixir", "power-plant-hidden-max-elixir", "power-plant-max-elixir" ] },
-          {},
-          {},
+          { item: [ "TM Reflect", "tm-reflect" ], scene: "power-plant-item-tm-reflect" },
+          { item: [ "TM Thunder", "tm-thunder" ], scene: "power-plant-item-tm-thunder" },
           { item: [ "HP Up", "hp-up" ], scene: "power-plant-item-hp-up" },
           { item: [ "Rare Candy", "rare-candy" ], scene: "power-plant-item-rare-candy" },
-          {},
           { hidden: [ "PP Up", "pp-up", "power-plant-hidden-pp-up", "power-plant-pp-up" ] },
           { scene: "power-plant-zapdos" },
           {}
@@ -2186,6 +2943,11 @@ module Walkthrough
           enc("power-plant", "100", "FLOORS", "20%", "33–37", "UNCOMMON", "100", "101"),
           enc("power-plant", "088", "FLOORS", "15%", "33–37", "UNCOMMON", "088", "089"),
           enc("power-plant", "089", "FLOORS", "6%", "33–37", "RARE", "088", "089"),
+          # The disguised balls are catches, not just ambushes: six hold a Voltorb and two an
+          # Electrode, which has no wild table anywhere in Yellow and is otherwise only had by
+          # levelling a spare Voltorb to 30.
+          enc("power-plant", "100", "STATIC", "-", "40", "STATIC", "100", "101", off_table: true),
+          enc("power-plant", "101", "STATIC", "-", "43", "STATIC", "100", "101", tip: true),
           enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
         ],
         oak_queue: [ oak("power-plant", "145", 1), oak("power-plant", "100", 1) ])
@@ -2209,10 +2971,27 @@ module Walkthrough
         oak_queue: [ oak("route-21", "129", 1), oak("route-21", "118", 1) ])
     end
 
-    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {}, map: nil)
+    def self.step(base, n, items: [], hidden: [], shot: nil, html: false, link: nil, pins: {},
+                  map: nil, dex_seen: nil, line: nil)
       Step.new(n: n, title_key: "#{base}.steps.#{n}.title",
         text_key: "#{base}.steps.#{n}.#{(html || pins.any?) ? 'text_html' : 'text'}",
-        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map)
+        items: items, hidden: hidden, shot: shot, link: link, pins: pins, map: map, line: line,
+        dex_seen: dex_seen && dex_seen(base, n, *dex_seen))
+    end
+
+    # The dex screen for a species a step shows you but does not let you catch. The numbers, the
+    # species line and the entry text all come out of the game; only the "catch it later" line is
+    # ours, so only that one is a locale key.
+    def self.dex_seen(base, n, num)
+      entry = dex_facts.fetch(num)
+      DexSeen.new(num: num, name: entry.fetch("name"), species: entry.fetch("species"),
+        types: entry.fetch("types"), height: entry.fetch("height"), weight: entry.fetch("weight"),
+        text: entry.fetch("text"), art: "walkthrough/yellow/art/#{mon_key(num)}-sugimori.png",
+        catch_key: "#{base}.steps.#{n}.catch_at")
+    end
+
+    def self.dex_facts
+      @dex_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_dex.json"))).fetch("dex").freeze
     end
 
     # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
@@ -2266,13 +3045,13 @@ module Walkthrough
       item_sprite(name).tr("-", "_")
     end
 
-    def self.mart_item(name, rec: false, rec_key: nil, desc_key: nil)
+    def self.mart_item(name, rec: false, rec_key: nil, desc_key: nil, tick: nil)
       facts = item_catalog.fetch(name)
       tm = facts["tm"]
       MartItem.new(name: name, sprite: (tm ? "tm-#{facts['type']}" : item_sprite(name)),
         price: facts["price"], desc_key: mart_desc_key(name, tm, desc_key),
         tm_no: tm, move: facts["move"], mtype: facts["type"],
-        rec: (rec || !rec_key.nil?), rec_key: rec_key)
+        rec: (rec || !rec_key.nil?), rec_key: rec_key, tick: tick)
     end
 
     # A TM's own description would be a lie (Gen 1 gives them none), so a sold TM shows the type of
@@ -2314,9 +3093,10 @@ module Walkthrough
           dept_counter("2F", "mart_tm_counter", tms, rec: [ "TM Take Down" ])
         ]),
         dept_floor("3F", "free_tm", note: true,
-          gift: mart_item("TM18 Counter", desc_key: "#{b}.store.floors.3F.gift_desc")),
+          gift: mart_item("TM18 Counter", desc_key: "#{b}.store.floors.3F.gift_desc",
+            tick: gift_tick("celadon-city", "tm18-counter"))),
         dept_floor("4F", "shop", counters: [
-          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Water Stone" ])
+          dept_counter("4F", "mart_gift_counter", celadon_stock("4F"), rec: [ "Poké Doll" ])
         ]),
         dept_floor("5F", "shop", counters: [
           dept_counter("5F", "mart_vitamins", vitamins),
@@ -2328,6 +3108,7 @@ module Walkthrough
           trades: celadon_trades)
       ]
       Mart.new(slug: "celadon-city", blurb_key: "#{b}.store.blurb", floors: floors,
+        roof: celadon_roof_trades,
         count: floors.sum { |floor| floor.counters.sum { |counter| counter.items.size } })
     end
 
@@ -2347,13 +3128,66 @@ module Walkthrough
     end
 
     def self.celadon_trades
+      b = base("celadon-city")
       [ [ "Fresh Water", "TM13 Ice Beam" ], [ "Soda Pop", "TM48 Rock Slide" ],
         [ "Lemonade", "TM49 Tri Attack" ] ].map do |drink, tm|
         facts = item_catalog.fetch(tm)
         MartTrade.new(drink: drink, drink_sprite: item_sprite(drink),
+          price: item_catalog.fetch(drink)["price"],
           tm_short: "TM#{format('%02d', facts['tm'])}", tm_sprite: "tm-#{facts['type']}",
-          move: facts["move"])
+          move: facts["move"], mtype: facts["type"],
+          note_key: "#{b}.store.trades.#{item_key(tm)}")
       end
+    end
+
+    def self.prize_facts
+      @prize_facts ||= JSON.parse(File.read(File.join(__dir__, "yellow_places.json")))
+        .fetch("prizes").freeze
+    end
+
+    # The Game Corner's three counters, straight off the tables the prize menus read.
+    def self.game_corner_prizes
+      b = base("rocket-hideout")
+      windows = prize_facts.fetch("windows").map do |window|
+        PrizeWindow.new(id: window.fetch("window"),
+          prizes: window.fetch("prizes").map { |facts| prize(b, facts) })
+      end
+      PrizeRoom.new(windows: windows, piles: prize_facts.fetch("coin_piles"))
+    end
+
+    def self.prize(base_key, facts)
+      coins = facts.fetch("coins")
+      if (dex = facts["dex"])
+        entry = dex_facts.fetch(dex)
+        Prize.new(name: entry.fetch("name"), sprite: "pokemon/yellow/#{dex}.png",
+          level: facts.fetch("level"), mtype: nil, coins: coins,
+          note_key: prize_note_key(base_key, entry.fetch("name")))
+      else
+        name = facts.fetch("item")
+        item = item_catalog.fetch(name)
+        Prize.new(name: name, sprite: "walkthrough/items/tm-#{item.fetch('type')}.png",
+          level: nil, mtype: item.fetch("type"), coins: coins,
+          note_key: prize_note_key(base_key, item.fetch("move")))
+      end
+    end
+
+    # Only the prizes worth a paragraph carry one; the rest state their price and stop.
+    PRIZE_NOTES = [ "Vulpix", "Porygon", "Hyper Beam" ].freeze
+
+    def self.prize_note_key(base_key, name)
+      return nil unless PRIZE_NOTES.include?(name)
+
+      "#{base_key}.prizes.note_#{name.downcase.tr(' ', '_')}"
+    end
+
+    # Four drinks, because the girl takes three and a Saffron gate guard wants the fourth.
+    def self.celadon_roof_trades
+      buys = [ [ 2, "Fresh Water" ], [ 1, "Soda Pop" ], [ 1, "Lemonade" ] ].map do |qty, name|
+        DrinkBuy.new(qty: qty, name: name, sprite: item_sprite(name),
+          cost: qty * item_catalog.fetch(name)["price"])
+      end
+      RoofTrades.new(shot: scene_shot("celadon-roof-girl", "WHERE"), trades: celadon_trades,
+        buys: buys, total: buys.sum(&:cost))
     end
 
     def self.item(base, n, name, key, at: nil, tick: nil)
@@ -2381,10 +3215,62 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def self.trivia(base, anchor:, cards: [], shot: nil, after_map: nil, art: nil, note_icon: nil)
-      Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title", intro_key: "#{base}.trivia.intro",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, after_map: after_map, art: art,
-        note_icon: note_icon)
+    def self.trivia(base, anchor:, cards: [], shot: nil, art: nil, note_icon: nil, tagged: false,
+      warning: nil, pins: {})
+      Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title",
+        intro_key: "#{base}.trivia.#{pins.any? ? 'intro_html' : 'intro'}",
+        note_key: "#{base}.trivia.note", cards: cards, shot: shot, art: art, note_icon: note_icon,
+        tag_key: (tagged ? "#{base}.trivia.tag" : nil), warning: warning, pins: pins)
+    end
+
+    # `name` is the nickname the cartridge ships, so it lives here rather than in the copy: MILES
+    # is what the Route 2 scientist calls his Mr. Mime whichever language you read the guide in.
+    def self.trivia_warning(base, dex, name)
+      TriviaWarning.new(
+        title_key: "#{base}.trivia.warning.title", body_key: "#{base}.trivia.warning.body",
+        specimen: TriviaSpecimen.new(dex: dex, name: name,
+          note_key: "#{base}.trivia.warning.specimen")
+      )
+    end
+
+    # The grinding spot card: two species side by side with what each knockout pays, and the Repel
+    # trick that leaves only the better one. `mons` are (dex, tone, sample level) triples; every
+    # number on the card is worked out from the game's own base stats and the location's own
+    # encounter rows, so nothing here can drift from what the cartridge does.
+    GRIND_EXP_DIVISOR = 7
+    GRIND_STEPS = 3
+
+    def self.grind_spot(base, anchor:, after_map:, art:, note_icon:, encounters:, mons:)
+      rows = mons.map { |dex, tone, level| grind_mon(base, encounters, dex, tone, level) }
+      best = rows.map(&:exp).max
+      GrindSpot.new(anchor: anchor, after_map: after_map, art: art, note_icon: note_icon,
+        title_key: "#{base}.grind.title", intro_key: "#{base}.grind.intro",
+        formula_key: "#{base}.grind.formula", warn_key: "#{base}.grind.warn",
+        mons: rows.map { |mon| mon.with(fill: fill_step(mon.exp, best)) },
+        lead_level: rows.first.levels.split("–").last.to_i + 1,
+        steps: (1..GRIND_STEPS).map do |n|
+          GrindStep.new(n: n, title_key: "#{base}.grind.steps.#{n}.title",
+            body_key: "#{base}.grind.steps.#{n}.body_html")
+        end)
+    end
+
+    # A bar's length, as a percentage of the best on offer, in fives. A width has to be a class
+    # rather than an inline style (the CSP blocks those), so it lands on one of twenty-one steps;
+    # a bar comparing two numbers reads the same at that granularity.
+    FILL_STEP = 5
+
+    def self.fill_step(value, best)
+      (value * 100.0 / best / FILL_STEP).round * FILL_STEP
+    end
+
+    def self.grind_mon(base, encounters, dex, tone, level)
+      row = encounters.find { |e| e.dex == dex }
+      entry = dex_facts.fetch(dex)
+      GrindMon.new(dex: dex, name: row.name, tone: tone, rarity: row.rarity, share: row.rate,
+        levels: row.level, level: level, fill: 0,
+        exp: entry.fetch("base_exp") * level / GRIND_EXP_DIVISOR,
+        type: entry.fetch("types").first, hp: entry.fetch("hp"), speed: entry.fetch("speed"),
+        tips_key: "#{base}.grind.tips.#{mon_key(dex)}")
     end
 
     def self.missable(base, anchor:, after_step:)

@@ -1,19 +1,107 @@
 [
   {
-    "type": "screen", "name": "pewter-jigglypuff",
-    "map": "PewterPokecenter", "parent": "PEWTER_CITY",
-    "player": [2, 3], "player_dir": "LEFT", "focus": [2, 3],
+    "type": "screen",
+    "name": "pewter-jigglypuff",
+    "map": "PewterPokecenter",
+    "parent": "PEWTER_CITY",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      2,
+      3
+    ],
     "auto_npcs": true,
     "sprites": [
-      {"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN", "emote": "zzz"}
+      {
+        "sprite": "SPRITE_PIKACHU",
+        "grid": [
+          3,
+          3
+        ],
+        "dir": "DOWN",
+        "emote": "zzz"
+      }
     ]
   },
   {
-    "type": "dialog", "name": "mt-moon-magikarp",
-    "map": "MtMoonPokecenter", "player": [9, 6], "player_dir": "RIGHT",
-    "sprites": [
-      {"sprite": "SPRITE_MIDDLE_AGED_MAN", "grid": [10, 6], "dir": "LEFT"}
+    "type": "dialog",
+    "name": "mt-moon-magikarp",
+    "map": "MtMoonPokecenter",
+    "player": [
+      9,
+      6
     ],
-    "dialog": {"lines": ["A swell MAGIKARP", "for just ¥500!"]}
+    "player_dir": "RIGHT",
+    "sprites": [
+      {
+        "sprite": "SPRITE_MIDDLE_AGED_MAN",
+        "grid": [
+          10,
+          6
+        ],
+        "dir": "LEFT"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "A swell MAGIKARP",
+        "for just ¥500!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "lavender-name-rater",
+    "map": "NameRatersHouse",
+    "parent": "LAVENDER_TOWN",
+    "player": [
+      5,
+      2
+    ],
+    "player_dir": "DOWN",
+    "sprites": [
+      {
+        "sprite": "SPRITE_SILPH_PRESIDENT",
+        "grid": [
+          5,
+          3
+        ],
+        "dir": "UP"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "I am the official",
+        "NAME RATER!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "name": "route-19-surf-pikachu",
+    "map": "Route19",
+    "player": [
+      7,
+      13
+    ],
+    "player_dir": "LEFT",
+    "auto_npcs": false,
+    "follower": false
+  },
+  {
+    "type": "screen",
+    "name": "route-19-surf-plain",
+    "map": "Route19",
+    "player": [
+      7,
+      13
+    ],
+    "player_dir": "LEFT",
+    "player_sprite": "SPRITE_SEEL",
+    "auto_npcs": false,
+    "follower": false
   }
 ]

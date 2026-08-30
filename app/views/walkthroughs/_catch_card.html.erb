@@ -46,8 +46,8 @@
       </div>
       <div class="pn-wt-catch__stats">
         <div>
-          <div class="pn-wt-catch__stat-label"><%= t("walkthrough.ui.rate") %></div>
-          <div class="pn-wt-catch__stat-val"><%= enc.rate %></div>
+          <div class="pn-wt-catch__stat-label"><%= catch_stat_label(enc) %></div>
+          <div class="pn-wt-catch__stat-val"><%= catch_stat_value(enc) %></div>
         </div>
         <div>
           <div class="pn-wt-catch__stat-label"><%= t("walkthrough.ui.level") %></div>
@@ -64,10 +64,17 @@
         <span><%= t("walkthrough.ui.floors_label") %></span>
         <span><%= t("walkthrough.ui.floors_level") %></span>
       </div>
-      <ul class="pn-wt-floors__list">
+      <% floors = enc.places.any?(&:floor) %>
+      <ul class="<%= class_names("pn-wt-floors__list", "pn-wt-floors__list--floors" => floors) %>">
         <% enc.places.each do |place| %>
           <li class="<%= class_names("pn-wt-floors__row", "is-best" => place == best) %>">
-            <% if place.floor %><span class="pn-wt-floors__chip"><%= place.floor %></span><% end %>
+            <% if floors %>
+              <% if place.floor %>
+                <span class="pn-wt-floors__chip"><%= place.floor %></span>
+              <% else %>
+                <span class="pn-wt-floors__chip-none"></span>
+              <% end %>
+            <% end %>
             <span class="pn-wt-floors__how pn-wt-floors__how--<%= place.kind.dasherize %>"><%= encounter_method_label(place, enc.how) %></span>
             <span class="pn-wt-floors__track">
               <span class="<%= floor_bar_class(place, best) %>"></span>

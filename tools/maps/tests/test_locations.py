@@ -17,20 +17,30 @@ def test_location_maps_shape():
 def test_extra_trainer_maps():
     """Maps a location owns but never draws, whose trainers still belong to it.
 
-    The three cabin *Rooms maps used to live here. They are drawn now, so they moved to _DUNGEONS;
-    a map listed in both would have its trainers counted twice, since roster.py walks this list
-    separately from location_maps."""
-    assert [label for label, _ in locations.extra_trainer_maps("saffron-city")] == ["FightingDojo"]
+    Nothing is left in here: the three cabin *Rooms maps moved to _DUNGEONS and the Fighting Dojo
+    to _ANNEXES once each was drawn. A map listed in both would have its trainers counted twice,
+    since roster.py walks this list separately from location_maps."""
+    assert locations.extra_trainer_maps("saffron-city") == [], "the dojo is drawn, not just walked"
+    assert ("FightingDojo", "Dojo", "SAFFRON_CITY") in locations.location_maps()["saffron-city"]
+    # the arcade is drawn with the hideout, so it is a floor rather than a roster-only map
+    assert locations.extra_trainer_maps("rocket-hideout") == []
+    assert locations.extra_trainer_maps("celadon-city") == [], "the town does not carry it either"
+    floors = locations.location_maps()["rocket-hideout"]
+    assert floors[0] == ("GameCorner", "Game Corner", "CELADON_CITY"), "the arcade is drawn first"
     assert locations.extra_trainer_maps("ss-anne") == [], "the bow is drawn now, not just walked"
     assert locations.extra_trainer_maps("route-1") == []
 
 
-def test_the_ship_draws_one_map_per_deck():
+def test_the_ship_draws_one_map_per_deck_in_the_order_it_is_walked():
     """Four decks, not nine floors. The cabins, the kitchen and the bow are drawn into the deck
     they open off (decks.py), so nobody has to match a corridor of identical doors against a grid
-    of identical cabins by letter."""
+    of identical cabins by letter.
+
+    They come out in the order the guide boards them rather than the order the ship is stacked:
+    you step aboard on 1F and go straight below, so the crew deck is the second map on the page and
+    the second run of trainer cards under it."""
     assert [label for label, _, _ in locations.location_maps()["ss-anne"]] == [
-        "SSAnne1F", "SSAnne2F", "SSAnne3F", "SSAnneB1F"]
+        "SSAnne1F", "SSAnneB1F", "SSAnne2F", "SSAnne3F"]
 
 
 def test_every_attached_room_hangs_off_a_map_that_is_drawn():

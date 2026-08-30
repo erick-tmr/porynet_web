@@ -1,0 +1,66 @@
+<%# The two Poké Balls behind the Karate Master, side by side, with the numbers the decision turns
+    on. Picking one here is a real tick: it persists like every other collectable on the page, and
+    the card that loses greys out the way the ball you did not open does in the room. %>
+<section class="pn-wt-section" id="<%= choice.anchor %>">
+  <div class="pn-wt-pick" data-controller="dojo-pick" data-dojo-pick-game-value="<%= @game.slug %>">
+    <div class="pn-wt-pick__hatch" aria-hidden="true"></div>
+    <div class="pn-wt-pick__inner">
+      <div class="pn-wt-pick__eyebrow"><%= t("walkthrough.ui.dojo_choice_eyebrow") %></div>
+      <h3 class="pn-wt-pick__title">
+        <%= t("walkthrough.ui.dojo_choice_title", left: choice.left.name, right: choice.right.name) %>
+      </h3>
+      <p class="pn-wt-pick__lead"><%= t(choice.intro_key) %></p>
+
+      <div class="pn-wt-pick__room">
+        <div class="pn-wt-pick__room-map">
+          <div class="pn-wt-pick__room-label"><%= t("walkthrough.ui.dojo_room_label") %></div>
+          <div class="pn-wt-pick__balls">
+            <% choice.picks.each do |pick| %>
+              <div class="pn-wt-pick__ball">
+                <span class="pn-wt-pick__ball-side"><%= t("walkthrough.ui.dojo_ball_#{pick.side}") %></span>
+                <%= r2_image_tag "walkthrough/items/poke-ball.png", alt: "",
+                      class: "pn-wt-pick__ball-img", loading: "lazy" %>
+                <span class="pn-wt-pick__ball-holds"><%= t("walkthrough.ui.dojo_holds") %></span>
+                <%= r2_image_tag "pokemon/yellow/#{pick.dex}.png", alt: pick.name,
+                      class: "pn-wt-pick__ball-mon", loading: "lazy" %>
+                <span class="pn-wt-pick__ball-name"><%= pick.name %></span>
+              </div>
+            <% end %>
+          </div>
+          <div class="pn-wt-pick__room-foot"><%= t("walkthrough.ui.dojo_room_foot") %></div>
+        </div>
+        <div class="pn-wt-pick__room-text">
+          <div class="pn-wt-pick__room-title"><%= t("walkthrough.ui.dojo_room_title") %></div>
+          <p class="pn-wt-pick__room-body"><%= t(choice.room_key) %></p>
+        </div>
+      </div>
+
+      <div class="pn-wt-pick__grid">
+        <%= render "dojo_pick", pick: choice.left %>
+        <div class="pn-wt-pick__div" aria-hidden="true">
+          <span class="pn-wt-pick__div-rule"></span>
+          <%= r2_image_tag "walkthrough/items/poke-ball.png", alt: "",
+                class: "pn-wt-pick__div-ball", loading: "lazy" %>
+          <span class="pn-wt-pick__div-label"><%= t("walkthrough.ui.dojo_pick_one") %></span>
+          <span class="pn-wt-pick__div-rule"></span>
+        </div>
+        <%= render "dojo_pick", pick: choice.right %>
+      </div>
+
+      <div class="pn-wt-pick__rec">
+        <span class="pn-wt-pick__rec-tag"><%= t("walkthrough.ui.dojo_rec") %></span>
+        <p class="pn-wt-pick__rec-text"><%= t(choice.rec_key) %></p>
+      </div>
+
+      <div class="pn-wt-pick__state" data-dojo-pick-target="state" hidden>
+        <span class="pn-wt-pick__marked">
+          <%= t("walkthrough.ui.dojo_marked_html", name: tag.b(data: { "dojo-pick-target": "name" })) %>
+        </span>
+        <button type="button" class="pn-wt-pick__undo" data-action="dojo-pick#clear">
+          <%= t("walkthrough.ui.dojo_undo") %>
+        </button>
+        <span class="pn-wt-pick__error"><%= t("walkthrough.ui.toast_error") %></span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -32,7 +32,30 @@ class Assets::R2UploaderTest < ActiveSupport::TestCase
       assert_equal "pokemon/yellow/025.png", nested[:key]
       assert_equal "B", nested[:body]
       assert_equal "image/png", nested[:content_type]
-      assert_equal "public, max-age=31536000, immutable", nested[:cache_control]
+      assert_equal "public, max-age=31536000, immutable", nested[:cache_control],
+        "a ripped sprite is written once and never rewritten"
+    end
+  end
+
+  # build.py rewrites a map or a scene in place under the key it already had, so promising a
+  # browser the bytes will never change is how a reader ends up staring at last week's picture
+  # through a reload. Everything else really is written once.
+  test "#call lets the generated tree be revalidated and pins everything else" do
+    Dir.mktmpdir do |dir|
+      root = Pathname(dir)
+      (root / "walkthrough" / "yellow" / "scenes").mkpath
+      (root / "walkthrough" / "items").mkpath
+      File.binwrite(root / "walkthrough" / "yellow" / "scenes" / "a.png", "A")
+      File.binwrite(root / "walkthrough" / "items" / "nugget.png", "B")
+
+      client = FakeClient.new
+      uploader(client, root).call
+
+      by_key = client.calls.to_h { |call| [ call[:key], call[:cache_control] ] }
+      assert_equal "public, max-age=0, must-revalidate",
+        by_key.fetch("walkthrough/yellow/scenes/a.png")
+      assert_equal "public, max-age=31536000, immutable",
+        by_key.fetch("walkthrough/items/nugget.png")
     end
   end
 

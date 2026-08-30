@@ -11,8 +11,9 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal %w[01 02 03 04 05 06 07 08 09], game.windows.map(&:label)
     assert_equal [ "Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni", nil ],
       game.windows.map(&:leader)
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city fuchsia-city
-                    saffron-city cinnabar-island viridian-gym cerulean-cave],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return
+                    fuchsia-city-return saffron-city-return cinnabar-island-return viridian-gym
+                    cerulean-cave],
       game.windows.map { |win| win.slugs.last }
     assert game.windows.last.final?, "nothing closes the run but the League"
     assert_equal "Pewter Gym", game.windows.first.gym_name
@@ -22,16 +23,27 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 27, assigned.size
+    assert_equal 33, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
     assert_equal 2, assigned.fetch("leg-03"), "Brock closes mid-page, so the page looks ahead to Misty"
   end
 
+  test "a stage that only ever stands in a ball fills its own box slot" do
+    voltorb = challenge.later_for(game, "100")
+
+    assert_equal :static, voltorb.kind, "Electrode is caught at the plant, not grown from a spare"
+    assert_equal "Power Plant", voltorb.args[:stop]
+    assert challenge.self_sourced?(game, "101"),
+      "two of the disguised balls are an Electrode, and a ball that waits is a certain body"
+    assert_equal 1, challenge.bodies_for(game, "100"),
+      "so the line stops asking for a spare Voltorb to walk up to Lv 30"
+  end
+
   test "the Safari Zone and Silph Co. land in the window their gym closes" do
     assert game.windows[4].covers?("safari-zone"), "the Safari Zone is inside the Koga window"
-    assert_equal "Koga", plan("leg-09").window.leader
+    assert_equal "Koga", plan("leg-11").window.leader
     assert game.windows[5].covers?("silph-co"), "Silph Co. is inside the Sabrina window"
     assert_equal "Sabrina", plan("silph-co").window.leader
   end
@@ -79,6 +91,30 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 1, challenge.bodies_for(game, "019")
   end
 
+  # A trade evolution is not something one cartridge can perform, so Oak will never register it,
+  # but a box still holds one: you hand the Kadabra over and your partner hands it back. What that
+  # costs is a second Kadabra, and counted as unreachable the four of them fell off the plan
+  # entirely rather than asking for it.
+  test "a stage behind a trade still costs a spare body of the stage below" do
+    { "064" => "065", "067" => "068", "075" => "076", "093" => "094" }.each do |below, traded|
+      assert_equal below, challenge.body_source(game, traded),
+        "#{Walkthrough::Yellow::NAMES.fetch(traded)} comes off a spare #{Walkthrough::Yellow::NAMES.fetch(below)}"
+      assert_equal 2, challenge.bodies_for(game, below),
+        "one stays put, one goes out to be traded back"
+    end
+  end
+
+  # The prize counter carries a price where a wild card carries a percentage, which reads as no
+  # odds at all. Left at that the only Vulpix in the game could source nothing, and Ninetales,
+  # whose one route into a box is a Fire Stone on a spare Vulpix, went missing from the plan.
+  test "a prize counter sources bodies the way a common spawn does" do
+    assert challenge.purchasable?(game, "037"), "Vulpix is bought at the Game Corner"
+    refute challenge.purchasable?(game, "016"), "a Pidgey is not for sale anywhere"
+    assert_nil challenge.top_rate(game, "037"), "a coin price is not a rate"
+    assert_equal "037", challenge.body_source(game, "038")
+    assert_equal 2, challenge.bodies_for(game, "037")
+  end
+
   test "a stage under the line is grown from the best-odds ancestor, never hunted" do
     assert_equal 1, challenge.top_rate(game, "085"), "Dodrio is 1% of Route 17 and nowhere better"
     assert_equal "084", challenge.body_source(game, "085")
@@ -88,12 +124,14 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "010", challenge.body_source(game, "010"), "the root of a line sources itself"
   end
 
-  # A 6% Slowbro sits on Seafoam water the guide crosses long before HM03, so it is not odds you
-  # can take. Only the stops that hand you the tool count, which leaves the 1% cave spawn.
-  test "odds you cannot work yet are not odds, so they never drop a quota" do
-    assert_equal 1, challenge.top_rate(game, "080")
-    assert_equal "079", challenge.body_source(game, "080")
-    assert_equal 2, challenge.bodies_for(game, "079")
+  # Only the stops that hand you the tool count. Slowbro's 6% sat on water the guide crossed long
+  # before HM03, so the best odds it could offer were a 1% cave spawn and the queue grew one from
+  # a spare Slowpoke instead. The Surf sweep goes back to Route 12 with the HM in the bag, so the
+  # 6% is odds you can take at last and Slowbro sources itself.
+  test "odds are only odds at a stop that hands you the tool for them" do
+    assert_equal 6, challenge.top_rate(game, "080")
+    assert_equal "080", challenge.body_source(game, "080"), "caught on its own odds now"
+    assert_equal 1, challenge.bodies_for(game, "079"), "so no spare Slowpoke is owed for it"
   end
 
   # A quota only reads as a decision next to the stage above it, so every species the queue takes
@@ -101,7 +139,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   # stopped dead by a trade.
   test "a queued species says how the stage above it gets filled" do
     kinds = {
-      [ "leg-01", "016" ] => :catch, [ "leg-10", "084" ] => :rare,
+      [ "leg-01", "016" ] => :catch, [ "leg-12", "084" ] => :rare,
       [ "viridian-forest", "011" ] => :level, [ "mt-moon", "035" ] => :stone,
       [ "victory-road", "075" ] => :trade, [ "leg-01", "025" ] => :refused
     }
@@ -115,10 +153,18 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       found[[ "mt-moon", "035" ]].args)
   end
 
-  test "a species the page only points at carries no quota line to explain" do
-    assert_nil plan("viridian-forest").entry_for("016").later,
-      "Route 1 owns the Pidgey row, so the forest card just sends you back to it"
-    assert_nil plan("leg-10").entry_for("085").later, "and nothing is owed for a Dodrio you never catch"
+  # The card is read where the reader stands, not where the plan files it, so a page that only
+  # points at a species still answers the question its evolution line raises: is the stage above
+  # catchable too, or does the quota owe a second body? Only a species the run never takes stays
+  # silent, because nothing is owed for it anywhere.
+  test "a species the page only points at still says how the stage above it gets filled" do
+    away = plan("viridian-forest").entry_for("016")
+
+    assert_equal :catch, away.later.kind,
+      "Route 1 owns the Pidgey row, but the forest card still says Route 13 has the Pidgeotto"
+    assert_equal({ name: "Pidgeotto", base: "Pidgey", stop: "Route 13", rate: "15%" }, away.later.args)
+    refute away.fresh?, "and it is still the row Route 1 owns, not a second claim on the body"
+    assert_nil plan("leg-12").entry_for("085").later, "nothing is owed for a Dodrio you never catch"
     assert_equal "walkthrough.ui.ld_why_later", plan("leg-01").entry_for("016").why_key,
       "one Pidgey is the whole point, so the row says which stop takes the rest of the line"
   end
@@ -257,9 +303,15 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       "Caterpie and Metapod share a family, so the ledger draws it once"
   end
 
-  test "a page with nothing to catch and nothing owed renders no challenge at all" do
-    refute plan("rocket-hideout").any?, "the hideout has no species of its own"
-    assert_empty plan("rocket-hideout").entries
+  # The hideout used to owe nothing at all: it had no species of its own, and Erika closed her
+  # window on the page before it. It now carries the Game Corner's two counter-only prizes and
+  # sits inside her window, which is the whole reason the walk was reordered.
+  test "the Game Corner's prizes are owed on the page that sells them, before Erika" do
+    hideout = plan("rocket-hideout")
+
+    assert_equal %w[137 037], hideout.entries.map(&:dex), "Porygon and Vulpix, counter-only"
+    assert hideout.entries.all? { |e| e.best.only }, "neither turns up anywhere else in Yellow"
+    assert_equal "Erika", hideout.window.leader, "and her badge is still ahead of the page"
   end
 
   test "the ship owes Oak nothing to catch, but still sits inside Surge's window" do
@@ -270,12 +322,28 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "Lt. Surge", ship.window.leader
   end
 
+  # The League owes no catch of its own and still carries a reminder: Moltres is the one bird the
+  # road up never passes, so it stands overdue on the last page before the Elite Four.
   test "a page can owe an Oak reminder without owing a single catch" do
-    gym = plan("leg-13")
+    league = plan("indigo-plateau")
 
-    refute gym.living?
-    assert gym.oak?
-    assert_equal 3, gym.earlier.size
+    refute league.living?
+    assert league.oak?
+    assert_equal %w[146], league.earlier.map(&:dex)
+  end
+
+  # Cinnabar is walked either side of the Pokémon Mansion, since the gym's door needs the Secret
+  # Key from inside it, and the Mansion is a page of its own like every other dungeon. All three
+  # sit inside Blaine's window rather than after it, so each owes what it holds: the lab takes the
+  # fossils, the Mansion is where Growlithe and Ditto live, and nothing is carried over to Viridian.
+  test "the fossils and the Mansion's own catches fall due by the badge they precede" do
+    lab, mansion, viridian = %w[leg-15 pokemon-mansion leg-17].map { |slug| plan(slug) }
+
+    assert_equal 7, lab.window.number, "Blaine's window, not Giovanni's"
+    assert_equal %w[138 140 142], lab.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[058 132], mansion.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[059], mansion.groups.find { |g| g.kind == :evolve }.tiles.map(&:dex)
+    refute viridian.any?, "and nothing is left owing on the page after the badge"
   end
 
   # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so
@@ -311,5 +379,33 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
       assert_equal page.entries.map(&:dex).uniq, page.entries.map(&:dex), "#{leg.slug} repeats a species"
       assert page.window, "#{leg.slug} sits outside every window"
     end
+  end
+
+  # One Eevee is one evolution. Listing Vaporeon, Jolteon and Flareon as three things to register
+  # asks a single-cartridge run for two trades it never said it wanted.
+  test "the Eevee stones are one pick, not three registrations" do
+    groups = plan("leg-09").groups.select(&:any?).to_h { |g| [ g.kind, g ] }
+
+    assert_equal %w[Vileplume Victreebel], groups[:evolve].tiles.map(&:name),
+      "the Gloom and Weepinbell lines stay, because both bases are catchable over and over"
+    assert_nil groups[:evolve].pick, "so that group wants all of them"
+
+    choice = groups.fetch(:choice)
+    assert_equal %w[Vaporeon Jolteon Flareon], choice.tiles.map(&:name)
+    assert_equal 1, choice.pick, "whichever stone you use is the one that registers"
+  end
+
+  # Both halves of the rule matter, and so does the page it is asked on.
+  test "a line is a pick only when its base is uncatchable and its siblings are on the page" do
+    assert challenge.one_specimen_line?(game, "134", %w[134 135 136]),
+      "Vaporeon shares an uncatchable Eevee with two siblings"
+    refute challenge.one_specimen_line?(game, "134", %w[134]),
+      "on a page showing one stone there is nothing to choose between"
+    refute challenge.one_specimen_line?(game, "045", %w[045 071]),
+      "Vileplume's Gloom is catchable over and over, so it is not a choice"
+    refute challenge.one_specimen_line?(game, "133", %w[133]),
+      "nothing evolves into Eevee, so it has no base to share"
+    refute challenge.one_specimen_line?(game, "134", %w[134 133]),
+      "Eevee itself is on the page as a catch, not as a sibling stone"
   end
 end
