@@ -12,7 +12,8 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal [ "Brock", "Misty", "Lt. Surge", "Erika", "Koga", "Sabrina", "Blaine", "Giovanni", nil ],
       game.windows.map(&:leader)
     assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return
-                    fuchsia-city-return saffron-city-return cinnabar-island viridian-gym cerulean-cave],
+                    fuchsia-city-return saffron-city-return cinnabar-island-return viridian-gym
+                    cerulean-cave],
       game.windows.map { |win| win.slugs.last }
     assert game.windows.last.final?, "nothing closes the run but the League"
     assert_equal "Pewter Gym", game.windows.first.gym_name
@@ -321,15 +322,27 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal "Lt. Surge", ship.window.leader
   end
 
-  # Giovanni closes the last window. The Power Plant is walked long before him now, off the Surf
-  # sweep that ends at its door, so Grimer and Muk are already registered by the time this page
-  # comes round and the reminder is down to the Growlithe line and Ditto.
+  # The League owes no catch of its own and still carries a reminder: Moltres is the one bird the
+  # road up never passes, so it stands overdue on the last page before the Elite Four.
   test "a page can owe an Oak reminder without owing a single catch" do
-    gym = plan("leg-16")
+    league = plan("indigo-plateau")
 
-    refute gym.living?
-    assert gym.oak?
-    assert_equal %w[058 059 132], gym.earlier.map(&:dex)
+    refute league.living?
+    assert league.oak?
+    assert_equal %w[146], league.earlier.map(&:dex)
+  end
+
+  # Cinnabar is walked either side of the Pokémon Mansion, since the gym's door needs the Secret
+  # Key from inside it. That puts both the Mansion and the fossil lab inside Blaine's window rather
+  # than after it, so the Growlithe line and the three revived fossils fall due on the page that
+  # earns the badge instead of being carried over to Viridian.
+  test "the Mansion's own catches fall due by the badge it unlocks" do
+    blaine = plan("leg-15")
+    giovanni = plan("leg-16")
+
+    assert_equal %w[058 132 138 140 142], blaine.groups.find { |g| g.kind == :catch }.tiles.map(&:dex)
+    assert_equal %w[059 139 141], blaine.groups.find { |g| g.kind == :evolve }.tiles.map(&:dex)
+    refute giovanni.any?, "and nothing is left owing on the page after it"
   end
 
   # Officer Jenny checks wBeatGymFlags for the Thunder Badge before handing the Squirtle over, so

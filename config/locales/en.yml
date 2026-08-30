@@ -3219,14 +3219,11 @@ en:
               note: "Dewgong for a Growlithe, plus the traded-XP bonus. Growlithe roams the Pokémon Mansion next door."
           steps:
             "1":
-              title: "Clear the Mansion first"
-              text_html: "Blaine's gym %{gym} is locked. Cross the street to the Pokémon Mansion %{mansion} and fetch the Secret Key."
+              title: "Hand both fossils in at the Lab"
+              text_html: "The Lab %{lab} revives fossils, and reviving takes a while, so start it now: give the scientist your Mt. Moon fossil and the Old Amber from the Pewter museum. Three Pokémon live nowhere else."
             "2":
-              title: "Hand in a fossil, then the Gym"
-              text_html: "Give a fossil to the scientist at the Lab %{lab}, then open the gym with the Secret Key and work the quiz doors to Blaine. Water, Ground or Rock melts his Fire team."
-            "3":
-              title: "Collect your fossil and move on"
-              text: "Return to the Lab later for the revived fossil Pokémon, then Surf out toward the last badge."
+              title: "Cross to the Mansion"
+              text_html: "Blaine's gym %{gym} is locked and the key is across the street. The burnt-out Pokémon Mansion %{mansion} holds the Secret Key, and everything on the island waits on it."
           tips:
             omanyte: "Revive the Helix Fossil here → Omanyte, then Omastar. A Rock/Water only found this way."
             kabuto: "Revive the Dome Fossil → Kabuto, then Kabutops. The other fossil line."
@@ -3235,6 +3232,16 @@ en:
             omanyte: "Revive whichever fossil you chose in Mt. Moon. Helix → Omanyte."
             kabuto: "Dome Fossil → Kabuto. You can only revive the one fossil you kept."
             aerodactyl: "Old Amber from Pewter's museum → Aerodactyl. Register the single specimen."
+        cinnabar_island_return:
+          note: "Back for Blaine. Volcano Badge and TM38 Fire Blast."
+          intro: "The island again, Secret Key in hand. The gym's quiz doors are all that stand between you and the seventh badge, and the fossils have had time to revive."
+          steps:
+            "1":
+              title: "Open the gym with the Secret Key"
+              text_html: "The key unlocks the gym %{gym} across the street. Its doors each pose a yes-or-no quiz, and a wrong answer is a battle rather than a dead end, so either way you reach Blaine."
+            "2":
+              title: "Collect the fossils and Surf north"
+              text_html: "Call back at the Lab %{lab} for the Pokémon your fossils revived into, then leave by the north shore %{north} onto Route 21, the long water up to Pallet Town."
         pokemon_mansion:
           note: "Burnt-out mansion. Fire types and the Secret Key."
           intro: "A burnt-out mansion of hidden staircases opened by statue switches. Its abandoned diary is where Mewtwo's story is written down."

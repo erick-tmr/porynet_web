@@ -3219,14 +3219,11 @@ pt:
               note: "Dewgong por um Growlithe, com o bônus de XP de troca. Growlithe aparece na Mansão Pokémon ao lado."
           steps:
             "1":
-              title: "Limpe a Mansao primeiro"
-              text_html: "O ginasio de Blaine %{gym} esta trancado. Atravesse a rua ate a Pokémon Mansion %{mansion} e pegue a Secret Key."
+              title: "Entregue os dois fósseis no Lab"
+              text_html: "O Lab %{lab} revive fósseis, e reviver demora, então comece agora: dê ao cientista o fóssil de Mt. Moon e o Old Amber do museu de Pewter. Três Pokémon não existem em outro lugar."
             "2":
-              title: "Entregue um fossil, depois o Ginásio"
-              text_html: "Da um fossil ao cientista no Lab %{lab}, depois abra o ginasio com a Secret Key e resolva as portas de quiz ate Blaine. Agua, Terra ou Pedra derrete a equipe de Fogo dele."
-            "3":
-              title: "Pegue seu fossil e siga em frente"
-              text: "Volte ao Lab depois pelo Pokémon fossil revivido, depois use Surf rumo a ultima insígnia."
+              title: "Atravesse até a Mansion"
+              text_html: "O ginásio do Blaine %{gym} está trancado e a chave fica do outro lado da rua. A Pokémon Mansion %{mansion} queimada guarda a Secret Key, e tudo na ilha depende dela."
           tips:
             omanyte: "Reviva o Helix Fossil aqui → Omanyte, depois Omastar. Um Rocha/Água só assim."
             kabuto: "Reviva o Dome Fossil → Kabuto, depois Kabutops. A outra linha de fóssil."
@@ -3235,6 +3232,16 @@ pt:
             omanyte: "Reviva o fóssil que escolheu no Mt. Moon. Helix → Omanyte."
             kabuto: "Dome Fossil → Kabuto. Só dá para reviver o fóssil que você guardou."
             aerodactyl: "Old Amber do museu de Pewter → Aerodactyl. Registre o único espécime."
+        cinnabar_island_return:
+          note: "De volta pelo Blaine. Insígnia Volcano e TM38 Fire Blast."
+          intro: "A ilha de novo, com a Secret Key na mão. As portas de quiz do ginásio são tudo que separa você da sétima insígnia, e os fósseis já tiveram tempo de reviver."
+          steps:
+            "1":
+              title: "Abra o ginásio com a Secret Key"
+              text_html: "A chave destranca o ginásio %{gym} do outro lado da rua. Cada porta faz uma pergunta de sim ou não, e errar é uma batalha e não um beco sem saída, então de um jeito ou de outro você chega no Blaine."
+            "2":
+              title: "Pegue os fósseis e surfe ao norte"
+              text_html: "Passe no Lab %{lab} para buscar os Pokémon que seus fósseis reviveram, e saia pela costa norte %{north} rumo à Rota 21, a longa água até Pallet Town."
         pokemon_mansion:
           note: "Mansão incendiada. Tipos Fogo e a Secret Key."
           intro: "Uma mansão incendiada de escadas ocultas que abrem com botões-estátua. É no diário abandonado dela que a história do Mewtwo está escrita."

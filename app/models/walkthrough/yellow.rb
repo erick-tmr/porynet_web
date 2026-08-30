@@ -350,7 +350,8 @@ module Walkthrough
       # so the water west of the islands is a second pass over the same map rather than more of
       # the first: you leave by a different mouth than you came in by, and the six swimmers between
       # there and Cinnabar are ones the eastern half never reaches.
-      { slug: "leg-15", special: false, locs: %w[route-20-west cinnabar-island pokemon-mansion route-21] },
+      { slug: "leg-15", special: false,
+        locs: %w[route-20-west cinnabar-island pokemon-mansion cinnabar-island-return route-21] },
       { slug: "leg-16", special: false, locs: %w[viridian-gym] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "leg-17", special: false, locs: %w[route-23] },
@@ -586,8 +587,8 @@ module Walkthrough
         pokemon_tower, route_12, route_13, route_14, route_15, fuchsia_city, safari_zone,
         fuchsia_city_return, saffron_city_return, surf_cleanups,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
-        route_20_west, power_plant, cinnabar_island, pokemon_mansion, route_21, viridian_gym,
-        victory_road, route_23,
+        route_20_west, power_plant, cinnabar_island, pokemon_mansion, cinnabar_island_return,
+        route_21, viridian_gym, victory_road, route_23,
         indigo_plateau, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
@@ -601,7 +602,8 @@ module Walkthrough
                    "saffron-city-return" => "saffron-city",
                    "route-16-fly" => "route-16",
                    "route-10-south" => "route-10",
-                   "route-20-west" => "route-20" }.freeze
+                   "route-20-west" => "route-20",
+                   "cinnabar-island-return" => "cinnabar-island" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
     # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
@@ -2419,10 +2421,13 @@ module Walkthrough
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
     end
 
+    # Two passes, because the gym's own door is what the island cannot open on arrival: the Secret
+    # Key is in the Mansion across the street. So the first pass is the lab, which takes the
+    # fossils in and needs time to revive them anyway, and the badge waits for the page after.
     def self.cinnabar_island
-      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 3, gym_after: 2, badge: "VOLCANO",
-        pins: { 1 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" },
-                2 => { lab: "cinnabar-island/exit-6-9" } },
+      loc("cinnabar-island", "TOWN", "Cinnabar Island", 45, steps: 2,
+        pins: { 1 => { lab: "cinnabar-island/exit-6-9" },
+                2 => { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } },
         encounters: [
           enc("cinnabar-island", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("cinnabar-island", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -2442,10 +2447,25 @@ module Walkthrough
           trade("cinnabar-island", "dewgong", "058", "087", "CEZANNE",
             house: "cinnabar-lab", inside: "cinnabar-lab-trade-cezanne")
         ],
+        oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
+    end
+
+    # The island again, Secret Key in hand. The gym copy stays under the first pass's own keys, the
+    # way Fuchsia's does: it is the same gym, described once, shown on the page that walks it.
+    def self.cinnabar_island_return
+      b = base("cinnabar-island-return")
+      Location.new(
+        slug: "cinnabar-island-return", kind: "TOWN", name: "Cinnabar Island", order: 45,
+        badge: "VOLCANO", note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, pins: { gym: "cinnabar-island/exit-18-3" }),
+          step(b, 2, pins: { lab: "cinnabar-island/exit-6-9", north: "cinnabar-island/exit-north" })
+        ], gym_after: 1,
+        encounters: [], trainers: [], oak_queue: [],
         gym: gym("cinnabar-island", "Cinnabar Gym", "FIRE", "VOLCANO", "TM38 · FIRE BLAST",
           leader("Blaine", 5346, mon("038", 48), mon("078", 50), mon("059", 54), battle: scene_shot("battle-blaine", "BATTLE"), opp: [ "BLAINE", 1 ]),
-          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ]),
-        oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
+          puzzle: [ gstep("cinnabar-island", 1), gstep("cinnabar-island", 2), gstep("cinnabar-island", 3, map: true) ])
+      )
     end
 
     def self.pokemon_mansion

@@ -394,6 +394,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
     assert_equal [ %w[celadon-city celadon-city-return], %w[celadon-city surf-cleanups],
                    %w[celadon-city-return surf-cleanups], %w[cerulean-city surf-cleanups],
+                   %w[cinnabar-island cinnabar-island-return],
                    %w[fuchsia-city fuchsia-city-return], %w[pewter-city digletts-cave],
                    %w[route-10 route-10-south], %w[route-10 surf-cleanups],
                    %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],

@@ -10,22 +10,23 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing seven of them twice" do
+  test "the game covers the 52 Kanto stops, drawing eight of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 53 numbered stops (1..53), seven of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), eight of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
     # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
     # back to so the Rocket Hideout is cleared before Erika, Fuchsia (stop 35) is left and come
     # back to so the Safari Zone hands over the Gold Teeth before Koga, Route 16 (stop 37) is
     # dipped into early for Fly and walked properly at Cycling Road, Saffron (stop 41) is arrived
     # at and come back to because its gym stays Rocket-held until Silph is cleared, and Route 20
-    # (stop 43) is split by the rock wall the Seafoam cave runs under. Each pass is its own
-    # section, so 62 sections share 53 numbers: the odd one is the Surf sweep, which owns no stop
+    # (stop 43) is split by the rock wall the Seafoam cave runs under, and Cinnabar (stop 45) is
+    # left and come back to because its gym door needs the Secret Key from the Pokémon Mansion
+    # across the street. Each pass is its own section, so 63 sections share 53 numbers: the odd one is the Surf sweep, which owns no stop
     # of its own and borrows the five maps it walks onto.
-    assert_equal 62, g.locations.size
+    assert_equal 63, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
@@ -37,6 +38,8 @@ class WalkthroughTest < ActiveSupport::TestCase
       g.locations.select { |loc| loc.order == 35 }.map(&:slug)
     assert_equal %w[route-16-fly route-16], g.locations.select { |loc| loc.order == 37 }.map(&:slug)
     assert_equal %w[route-20 route-20-west], g.locations.select { |loc| loc.order == 43 }.map(&:slug)
+    assert_equal %w[cinnabar-island cinnabar-island-return],
+      g.locations.select { |loc| loc.order == 45 }.map(&:slug)
   end
 
   test "both passes of a stop walked twice list the same water" do
@@ -146,9 +149,9 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "the eight gym locations carry badges" do
-    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city-return saffron-city-return cinnabar-island viridian-gym],
+    assert_equal %w[pewter-city cerulean-city vermilion-city-return celadon-city-return fuchsia-city-return saffron-city-return cinnabar-island-return viridian-gym],
       game.locations.select(&:badge?).map(&:slug)
-    assert_equal %w[cinnabar-island], game.leg!("leg-15").gyms.map(&:slug)
+    assert_equal %w[cinnabar-island-return], game.leg!("leg-15").gyms.map(&:slug)
     assert_equal %w[viridian-gym], game.leg!("leg-16").gyms.map(&:slug)
   end
 
