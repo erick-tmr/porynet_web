@@ -126,15 +126,13 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit]", "route-1", 2
   end
 
-  test "an edge marker's hint opens inward so it never scrolls the map sideways" do
+  test "an exit marker is labelled with what is on the other side of it" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-02")
 
     assert_response :success
-    # Route 22's east exit hugs the right edge, so its hint opens left, not off the map
-    assert_select "[data-map-markers-map-value=?] .pn-mm--hint-left[data-cat=exit] .pn-mm__label",
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit] .pn-mm__label",
       "route-22", text: /Viridian City/
-    # Viridian City's west exit hugs the left edge, so its hint opens right
-    assert_select "[data-map-markers-map-value=?] .pn-mm--hint-right[data-cat=exit] .pn-mm__label",
+    assert_select "[data-map-markers-map-value=?] .pn-mm[data-cat=exit] .pn-mm__label",
       "viridian-city", text: /Route 22/
   end
 

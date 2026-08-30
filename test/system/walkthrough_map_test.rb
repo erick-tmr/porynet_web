@@ -4,6 +4,22 @@ class WalkthroughMapTest < ApplicationSystemTestCase
   FOREST = "/walkthroughs/yellow/viridian-forest".freeze
   TRAINER = ".pn-mm[data-marker-id='trainer-30-33']".freeze
 
+  # The open hint's box, the window it has to fit inside, and whether it is really the thing drawn
+  # at its own middle.
+  HINT_BOX = <<~JS.freeze
+    (() => {
+      const hint = document.querySelector(".pn-mm.is-selected .pn-mm__hint");
+      if (!hint) return null;
+      const box = hint.getBoundingClientRect();
+      const middle = document.elementFromPoint((box.left + box.right) / 2, (box.top + box.bottom) / 2);
+      return {
+        top: box.top, left: box.left, bottom: box.bottom, right: box.right,
+        window_w: window.innerWidth, window_h: window.innerHeight,
+        on_top: !!middle && middle.closest(".pn-mm__hint") === hint,
+      };
+    })()
+  JS
+
   def visit_forest
     visit FOREST
     assert_selector ".pn-mm-layer.is-ready"
@@ -76,6 +92,32 @@ class WalkthroughMapTest < ApplicationSystemTestCase
     find(".pn-mm-legend__row[data-marker-id='item-25-11']").click
 
     assert_selector ".pn-mm[data-marker-id='item-25-11'].is-done"
+  end
+
+  # The popover a pin raises is fixed to the window rather than drawn beside its pin inside the map
+  # frame, which has to clip for a wide map to scroll inside it: a hint anchored in there came out
+  # with its top sliced off. Every pin on the floor is asked for its hint, and every hint has to
+  # come back whole (four corners inside the window) and on top (the point at its own middle is the
+  # popover, not the map over it).
+  test "every pin's hint draws whole and over the map" do
+    visit_forest
+    settle_network
+
+    all(".pn-mm[data-marker-id]").map { |marker| marker[:"data-marker-id"] }.each do |id|
+      marker = find(".pn-mm[data-marker-id='#{id}']")
+      centre(marker)
+      marker.find(".pn-mm__hit").click
+      box = page.evaluate_script(HINT_BOX)
+
+      assert box, "#{id} raised no hint"
+      assert_operator box["top"], :>=, 0, "#{id}'s hint is cut off at the top"
+      assert_operator box["left"], :>=, 0, "#{id}'s hint is cut off at the left"
+      assert_operator box["bottom"], :<=, box["window_h"], "#{id}'s hint is cut off at the bottom"
+      assert_operator box["right"], :<=, box["window_w"], "#{id}'s hint is cut off at the right"
+      assert box["on_top"], "#{id}'s hint is covered by the map"
+      # Clear it before the next pin: an open hint floats over the map and would swallow the click.
+      page.execute_script("document.querySelector('.pn-mm-canvas').click()")
+    end
   end
 
   test "an exit raises its hint without becoming a chore" do

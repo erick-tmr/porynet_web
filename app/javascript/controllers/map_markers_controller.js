@@ -13,6 +13,16 @@ import { isSet, load, save, subscribe, toggle } from "lib/progress_store"
 // skipped wherever progress is counted or stored. Kept in sync with Walkthrough::NON_TICKABLE.
 const NON_TICKABLE = new Set(["exit", "npc", "hole"])
 
+// A tapped pin's hint is placed here rather than in CSS, because it has to leave the map to be
+// read: a wide map scrolls inside its frame, and a scroll box clips everything that reaches past
+// it, so a popover anchored beside its pin lost whatever stood above the map's top edge. It is
+// fixed to the window instead, measured off the pin it belongs to, dropped under the pin when
+// there is no room above it, and held inside the window on both axes, so it draws whole wherever
+// the pin sits. The gap is the pin's own half-height; the edge is the breathing room kept at the
+// window's four sides.
+const HINT_GAP = 26
+const HINT_EDGE = 12
+
 export default class extends Controller {
   static targets = ["layer", "canvas", "marker", "legendRow", "filter", "labelToggle",
     "routeToggle", "counterDone"]
@@ -51,10 +61,18 @@ export default class extends Controller {
     })
     this.#renderProgress()
     if (this.hasLayerTarget) this.layerTarget.classList.add("is-ready")
+    // An open hint is fixed to the window, so it has to be re-measured whenever what is under it
+    // moves: the page scrolling, the map scrolling sideways inside its frame (hence capture), or
+    // the window changing size.
+    this.followHint = () => this.#placeHint()
+    window.addEventListener("scroll", this.followHint, { passive: true, capture: true })
+    window.addEventListener("resize", this.followHint)
   }
 
   disconnect() {
     this.unsubscribe()
+    window.removeEventListener("scroll", this.followHint, { capture: true })
+    window.removeEventListener("resize", this.followHint)
   }
 
   // Every pin and every legend row lands here. NPCs and exits are signposts rather than chores,
@@ -127,6 +145,24 @@ export default class extends Controller {
 
   hintValueChanged() {
     this.#eachAnchored((element, id) => element.classList.toggle("is-selected", id === this.hintValue))
+    this.#placeHint()
+  }
+
+  #placeHint() {
+    const marker = this.markerTargets.find((element) => element.classList.contains("is-selected"))
+    const hint = marker?.querySelector(".pn-mm__hint")
+    if (!hint) return
+
+    const pin = marker.getBoundingClientRect()
+    const box = hint.getBoundingClientRect()
+    const above = pin.top - HINT_GAP - box.height
+    hint.style.setProperty("--hint-x", this.#inWindow(pin.left - box.width / 2, box.width, window.innerWidth))
+    hint.style.setProperty("--hint-y",
+      this.#inWindow(above < HINT_EDGE ? pin.top + HINT_GAP : above, box.height, window.innerHeight))
+  }
+
+  #inWindow(start, size, extent) {
+    return `${Math.round(Math.max(HINT_EDGE, Math.min(start, extent - size - HINT_EDGE)))}px`
   }
 
   #matchesFilter(cat) {
