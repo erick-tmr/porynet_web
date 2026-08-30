@@ -864,6 +864,39 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-fw__step-lead", text: "Volte direto para dentro."
   end
 
+  # The four diary pages lie on the four floors the steps below cross, so the story is told once
+  # up front rather than four times in passing, and it has to land ahead of the first step.
+  test "the mansion opens with the diary, ahead of its steps" do
+    get walkthrough_leg_path(game: "yellow", leg: "pokemon-mansion")
+
+    assert_response :success
+    assert_select "#mansion-diary .pn-eyebrow-label", text: "TRIVIA · MANSION DIARY"
+    assert_select "#mansion-diary .pn-wt-band__h3",
+      text: "Four pages, and the only place Mew is named"
+    assert_select ".pn-md__card-art[src*=?]", "walkthrough/art/mew-card.png"
+    assert_select ".pn-md__band-img[src*=?]", "walkthrough/art/mansion-diary.png"
+    assert_select ".pn-md__card-line", text: /#151 · NEW SPECIE POKéMON · 0.4 m · 4.1 kg/
+    assert_select ".pn-md__entry", 4
+    assert_select ".pn-md__date--mew", 2
+    assert_select ".pn-md__date--mewtwo", 2
+    assert_select ".pn-md__quote", text: /We christened the newly discovered POK.MON, MEW./
+    assert response.body.index('id="mansion-diary"') < response.body.index("pokemon-mansion-step-1"),
+      "the diary is read before the steps that walk past its pages"
+  end
+
+  # The pages are the game's own text, so they stay in the game's English while the guide's own
+  # words around them translate, the way the lab scientist's line already does.
+  test "the diary translates its own words and leaves the pages in the game's English" do
+    get walkthrough_leg_path(game: "yellow", leg: "pokemon-mansion", locale: :pt)
+
+    assert_response :success
+    assert_select "#mansion-diary .pn-eyebrow-label", text: "CURIOSIDADE · DIÁRIO DA MANSÃO"
+    assert_select "#mansion-diary .pn-wt-band__h3",
+      text: "Quatro páginas, e o único lugar onde Mew é nomeado"
+    assert_select ".pn-md__date", text: "6 DE FEVEREIRO"
+    assert_select ".pn-md__quote", text: /MEW gave birth. We named the newborn MEWTWO./
+  end
+
   test "Cerulean carries the collapsible Pikachu friendship explainer, hidden by default" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-04")
 

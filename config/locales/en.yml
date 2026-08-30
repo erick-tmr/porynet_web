@@ -406,7 +406,7 @@ en:
       map_npc_mansion_switch_beds: "Beside the first bed. It runs the top corridor west to TM22, the Secret Key and the last Rare Candy, and shuts the way back down to the stairs."
       map_npc_mansion_diary_jul_5: "\"Diary: July 5. Guyana, South America. A new Pokémon was discovered deep in the jungle.\" The first of the four pages."
       map_npc_mansion_diary_jul_10: "\"Diary: July 10. We christened the newly discovered Pokémon, MEW.\" In 2F's southwest room, behind the gate this floor's statue opens."
-      map_npc_mansion_diary_feb_6: "\"Diary: Feb. 6. MEW gave birth. We named the newborn MEWTWO.\" A step west of the 3F staircase you come up from 2F."
+      map_npc_mansion_diary_feb_6: "\"Diary: Feb. 6. MEW gave birth. We named the newborn MEWTWO.\" One tile west of the 3F staircase up from 2F and two down."
       map_npc_mansion_diary_sep_1: "\"Diary: Sept. 1. MEWTWO is far too powerful. We have failed to curb its vicious tendencies...\" The last page, three tiles north of the B1F Burglar."
       shot_placeholder: "Screenshot coming soon"
       catch_eyebrow: "CATCHABLE HERE · %{count}"
@@ -3287,6 +3287,37 @@ en:
         pokemon_mansion:
           note: "Burnt-out mansion. Fire types and the Secret Key."
           intro: "Four burnt-out floors wired to a single switch that any statue in the place will flip. The Secret Key to Blaine's Gym is at the bottom of them, and the diary that names Mew and Mewtwo is scattered up the floors on the way."
+          diary:
+            tag: "MANSION DIARY"
+            title: "Four pages, and the only place Mew is named"
+            intro: "Four diary pages lie across the mansion's floors. Read in the order the maze walks you past them they tell the story the game never says out loud: an expedition in Guyana, a Pokémon given a name, a birth, and a creature the team could not hold. Mew itself is nowhere in this building. What you find here is the paperwork."
+            aside: "Search the whole script for MEW and you get two lines, both on these pages. Search for MEWTWO and you get two more, also here. Every time either name is written down in Kanto, it is a sheet of paper in a burnt-out house."
+            card_alt: "The Mew trading card, with its printed line: New Species Pokémon, Length 1' 4\", Weight 9 lbs."
+            art_alt: "An open diary on a desk, its pages written in the Pokémon world's script."
+            band_kicker: "THE PAGES, IN ORDER"
+            band_title: "One book in the fiction. Four floors in the game."
+            note: "Not one of the four names anyone who wrote them. The diary is the only account of Mewtwo anywhere in Kanto, and it is unsigned."
+            pages:
+              jul_5:
+                date: "JULY 5"
+                where: "2F · NORTH ROOM"
+                quote: "\"Guyana, South America. A new POKéMON was discovered deep in the jungle.\""
+                note: "The first page you walk past, in the room above the 2F landing. No switch stands between you and it."
+              jul_10:
+                date: "JULY 10"
+                where: "2F · SOUTHWEST"
+                quote: "\"We christened the newly discovered POKéMON, MEW.\""
+                note: "Behind the gate the 2F statue opens, which the walk never has to press. Five days after the sighting, the name enters the record."
+              feb_6:
+                date: "FEB. 6"
+                where: "3F · BY THE STAIRS"
+                quote: "\"MEW gave birth. We named the newborn MEWTWO.\""
+                note: "One tile west of the 3F staircase up from 2F and two down, read from the tile above it. The dates cross a New Year here: July, July, then February."
+              sep_1:
+                date: "SEPT. 1"
+                where: "B1F · ABOVE THE BURGLAR"
+                quote: "\"MEWTWO is far too powerful. We have failed to curb its vicious tendencies...\""
+                note: "Three tiles north of the Burglar, in the room where TM14 waits. Deepest floor, last page, and the sentence stops mid-thought."
           trivia:
             tag: "SWITCHES"
             title: "One switch, two sets of doors"

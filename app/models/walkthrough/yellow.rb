@@ -287,6 +287,24 @@ module Walkthrough
     # The dex prints both units ("1'04\" (0.4 m)"); the line under a card has room for one.
     def self.dex_metric(fact) = fact[/\(([^)]+)\)/, 1]
 
+    # The four diary pages in the order the mansion walks you past them, with the half of the story
+    # each belongs to: the expedition that found Mew, then the thing they made from it.
+    DIARY_PAGES = { "jul_5" => "mew", "jul_10" => "mew",
+                    "feb_6" => "mewtwo", "sep_1" => "mewtwo" }.freeze
+
+    MEW_DEX = "151".freeze
+
+    def self.mansion_diary
+      b = "#{base('pokemon-mansion')}.diary"
+      entry = dex_facts.fetch(MEW_DEX)
+      MansionDiary.new(anchor: "mansion-diary", art: "walkthrough/art/mansion-diary.png",
+        card: "walkthrough/art/#{mon_key(MEW_DEX)}-card.png",
+        mon: DiaryMon.new(dex: MEW_DEX, name: NAMES.fetch(MEW_DEX),
+          species: entry.fetch("species"), sprite: "pokemon/yellow/#{MEW_DEX}.png",
+          height: dex_metric(entry.fetch("height")), weight: dex_metric(entry.fetch("weight"))),
+        pages: DIARY_PAGES.map { |key, tone| DiaryPage.new(key: "#{b}.pages.#{key}", tone: tone) })
+    end
+
     # The eight badges in case order, with what each one switches on: `boost` names the stat every
     # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
     # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym

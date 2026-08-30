@@ -867,6 +867,15 @@ module Walkthrough
   # handing a fossil over sets EVENT_LAB_STILL_REVIVING_FOSSIL, and only CinnabarIsland_Script
   # clears it, so the whole "wait" is stepping onto the island map and back inside. `steps` is that
   # round trip, `fossils` the three specimens with their card art, `facts` the ✓/✕/– rows.
+  # The Pokémon Mansion's four diary pages, the only lines in the whole script that type out MEW
+  # or MEWTWO. `pages` are the entries in the order the maze walks you past them, and `mon` is
+  # Mew's own card, whose measurements come out of yellow_dex.json rather than the copy.
+  MansionDiary = Data.define(:anchor, :art, :card, :mon, :pages)
+  # `tone` is which half of the story the page belongs to, the expedition that found Mew or the
+  # thing they made from it, which is what the date's colour says before the words do.
+  DiaryPage = Data.define(:key, :tone)
+  DiaryMon = Data.define(:dex, :name, :species, :sprite, :height, :weight)
+
   FossilWait = Data.define(:anchor, :count, :steps, :fossils, :facts)
   FossilStep = Data.define(:n, :title_key, :text_key)
   FossilCard = Data.define(:dex, :name, :item, :art, :sprite, :height, :weight)

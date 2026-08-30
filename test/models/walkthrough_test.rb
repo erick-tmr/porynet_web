@@ -722,6 +722,44 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "walkthrough.yellow.fossil_wait.facts.flag", fw.facts.first.key
   end
 
+  # Mew's line under the card prints the game's own dex measurements, so the metric half has to
+  # come out of yellow_dex.json rather than being retyped into the copy, the way the fossil cards
+  # already do. The species string is the cartridge's, typo and all.
+  test "the mansion diary prints Mew with the dex's own measurements" do
+    md = Walkthrough::Yellow.mansion_diary
+
+    assert_equal "mansion-diary", md.anchor
+    assert_equal "walkthrough/art/mansion-diary.png", md.art
+    assert_equal "walkthrough/art/mew-card.png", md.card
+    assert_equal "Mew", md.mon.name
+    assert_equal "pokemon/yellow/151.png", md.mon.sprite
+    assert_equal "NEW SPECIE POKéMON", md.mon.species
+    assert_equal [ "0.4 m", "4.1 kg" ], [ md.mon.height, md.mon.weight ]
+  end
+
+  # The four pages are dealt out in the order the maze walks you past them, and the date's colour
+  # is which half of the story it belongs to: the expedition that found Mew, then Mewtwo.
+  test "the diary lists its four pages in walking order, split at the birth" do
+    pages = Walkthrough::Yellow.mansion_diary.pages
+
+    assert_equal %w[mew mew mewtwo mewtwo], pages.map(&:tone)
+    assert_equal %w[jul_5 jul_10 feb_6 sep_1], pages.map { |page| page.key.split(".").last }
+    assert_equal [ "JULY 5", "JULY 10", "FEB. 6", "SEPT. 1" ],
+      pages.map { |page| I18n.t("#{page.key}.date") }
+  end
+
+  # Every page the section quotes is a map object the guide already pins, so the two cannot drift
+  # into disagreeing about how many pages the mansion holds or which floors they are on.
+  test "the diary quotes exactly the pages the mansion's maps pin" do
+    pinned = %w[pokemon-mansion-1f pokemon-mansion-2f pokemon-mansion-3f pokemon-mansion-b1f]
+      .flat_map { |name| Walkthrough::Yellow.npc_overlay.fetch(name, []) }
+      .select { |npc| npc["id"].start_with?("npc-diary") }
+
+    assert_equal 4, pinned.size
+    assert_equal pinned.map { |npc| npc["id"].delete_prefix("npc-diary-").tr("-", "_") },
+      Walkthrough::Yellow.mansion_diary.pages.map { |page| page.key.split(".").last }
+  end
+
   # The section is about a wait the cartridge does not keep, so the three fossils it shows have to
   # be exactly the three the island's own gift rows hand back.
   test "the fossil wait shows every fossil Cinnabar revives" do

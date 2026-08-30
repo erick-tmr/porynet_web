@@ -404,10 +404,10 @@ pt:
       map_npc_mansion_switch_3f: "Nas salas de cima do 3F. Fecha a passagem leste por onde você veio e abre a de baixo, até o Scientist e os buracos, então pegue o Iron primeiro."
       map_npc_mansion_switch_tm: "Ao lado da bola do TM14. Troca as portas da sala, a passagem norte pela oeste, e destranca a sala do Scientist no nordeste."
       map_npc_mansion_switch_beds: "Ao lado da primeira cama. Libera o corredor de cima para oeste, até o TM22, a Secret Key e o último Rare Candy, e fecha a volta para a escada."
-      map_npc_mansion_diary_jul_5: "\"Diário: 5 de julho. Guiana, América do Sul. Um novo Pokémon foi descoberto no fundo da selva.\" A primeira das quatro páginas."
-      map_npc_mansion_diary_jul_10: "\"Diário: 10 de julho. Batizamos o Pokémon recém-descoberto de MEW.\" Na sala sudoeste do 2F, atrás do portão que a estátua deste andar abre."
-      map_npc_mansion_diary_feb_6: "\"Diário: 6 de fevereiro. MEW deu à luz. Chamamos o recém-nascido de MEWTWO.\" Um passo a oeste da escada do 3F por onde você sobe do 2F."
-      map_npc_mansion_diary_sep_1: "\"Diário: 1 de setembro. MEWTWO é poderoso demais. Falhamos em conter suas tendências violentas...\" A última página, três tiles ao norte do Burglar do B1F."
+      map_npc_mansion_diary_jul_5: "\"Diary: July 5. Guyana, South America. A new POKéMON was discovered deep in the jungle.\" A primeira das quatro páginas."
+      map_npc_mansion_diary_jul_10: "\"Diary: July 10. We christened the newly discovered POKéMON, MEW.\" Na sala sudoeste do 2F, atrás do portão que a estátua deste andar abre."
+      map_npc_mansion_diary_feb_6: "\"Diary: Feb. 6. MEW gave birth. We named the newborn MEWTWO.\" Um tile a oeste da escada do 3F que sobe do 2F e dois abaixo."
+      map_npc_mansion_diary_sep_1: "\"Diary: Sept. 1. MEWTWO is far too powerful. We have failed to curb its vicious tendencies...\" A última página, três tiles ao norte do Burglar do B1F."
       shot_placeholder: "Captura em breve"
       catch_eyebrow: "CAPTURÁVEIS AQUI · %{count}"
       catch_h2: "O que dá para capturar aqui"
@@ -3287,6 +3287,37 @@ pt:
         pokemon_mansion:
           note: "Mansão incendiada. Tipos Fogo e a Secret Key."
           intro: "Quatro andares carbonizados ligados a um único botão que qualquer estátua do lugar aciona. A Secret Key do ginásio do Blaine está lá no fundo, e o diário que dá nome a Mew e Mewtwo está espalhado pelos andares no caminho."
+          diary:
+            tag: "DIÁRIO DA MANSÃO"
+            title: "Quatro páginas, e o único lugar onde Mew é nomeado"
+            intro: "Quatro páginas de diário estão espalhadas pelos andares da mansão. Lidas na ordem em que o labirinto leva você até elas, contam a história que o jogo nunca diz em voz alta: uma expedição na Guiana, um Pokémon batizado, um nascimento e uma criatura que a equipe não conseguiu conter. Mew não está neste prédio. O que você acha aqui é a papelada."
+            aside: "Procure MEW no roteiro inteiro e aparecem duas linhas, as duas nessas páginas. Procure MEWTWO e aparecem mais duas, também aqui. Toda vez que um desses nomes é escrito em Kanto, é numa folha de papel dentro de uma casa incendiada."
+            card_alt: "A carta colecionável do Mew, com a linha impressa: New Species Pokémon, Length 1' 4\", Weight 9 lbs."
+            art_alt: "Um diário aberto sobre uma mesa, com as páginas escritas na grafia do mundo Pokémon."
+            band_kicker: "AS PÁGINAS, EM ORDEM"
+            band_title: "Um livro na ficção. Quatro andares no jogo."
+            note: "Nenhuma das quatro nomeia quem as escreveu. O diário é o único registro de Mewtwo em toda Kanto, e não tem assinatura."
+            pages:
+              jul_5:
+                date: "5 DE JULHO"
+                where: "2F · SALA NORTE"
+                quote: "\"Guyana, South America. A new POKéMON was discovered deep in the jungle.\""
+                note: "A primeira página que você passa, na sala acima do desembarque do 2F. Nenhum botão fica entre você e ela."
+              jul_10:
+                date: "10 DE JULHO"
+                where: "2F · SUDOESTE"
+                quote: "\"We christened the newly discovered POKéMON, MEW.\""
+                note: "Atrás do portão que a estátua do 2F abre, o que o trajeto nunca precisa fazer. Cinco dias depois do avistamento, o nome entra no registro."
+              feb_6:
+                date: "6 DE FEVEREIRO"
+                where: "3F · PERTO DA ESCADA"
+                quote: "\"MEW gave birth. We named the newborn MEWTWO.\""
+                note: "Um tile a oeste da escada do 3F que sobe do 2F e dois abaixo, lida do tile acima dela. As datas cruzam um Ano-Novo aqui: julho, julho, depois fevereiro."
+              sep_1:
+                date: "1 DE SETEMBRO"
+                where: "B1F · ACIMA DO BURGLAR"
+                quote: "\"MEWTWO is far too powerful. We have failed to curb its vicious tendencies...\""
+                note: "Três tiles ao norte do Burglar, na sala onde espera o TM14. Andar mais fundo, última página, e a frase para no meio do pensamento."
           trivia:
             tag: "BOTÕES"
             title: "Um botão, dois conjuntos de portas"

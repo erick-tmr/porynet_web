@@ -28,6 +28,10 @@
   <%= render "prize_room", room: Walkthrough::Yellow.game_corner_prizes %>
 <% end %>
 
+<%# The diary is what the mansion is remembered for, and its four pages are scattered over the
+    floors the steps below cross, so it is read once up front rather than four times in passing. %>
+<% if @location.slug == "pokemon-mansion" %><%= render "mansion_diary" %><% end %>
+
 <% groups = @location.step_groups %>
 <% drawn = groups.filter_map(&:first).map(&:name) %>
 <% if groups.any? %>
