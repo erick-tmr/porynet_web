@@ -864,9 +864,9 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-fw__step-lead", text: "Volte direto para dentro."
   end
 
-  # The four diary pages lie on the four floors the steps below cross, so the story is told once
-  # up front rather than four times in passing, and it has to land ahead of the first step.
-  test "the mansion opens with the diary, ahead of its steps" do
+  # The four diary pages lie on the four floors the steps cross, so the story is told once between
+  # the maps and the walk rather than four times in passing.
+  test "the mansion reads its diary between the maps and the steps" do
     get walkthrough_leg_path(game: "yellow", leg: "pokemon-mansion")
 
     assert_response :success
@@ -880,7 +880,9 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-md__date--mew", 2
     assert_select ".pn-md__date--mewtwo", 2
     assert_select ".pn-md__quote", text: /We christened the newly discovered POK.MON, MEW./
-    assert response.body.index('id="mansion-diary"') < response.body.index("pokemon-mansion-step-1"),
+    assert response.body.index("pn-wt-maps") < response.body.index('id="mansion-diary"'),
+      "the maps the reader scans first come before the diary"
+    assert response.body.index('id="mansion-diary"') < response.body.index('id="pokemon-mansion-step-1"'),
       "the diary is read before the steps that walk past its pages"
   end
 
