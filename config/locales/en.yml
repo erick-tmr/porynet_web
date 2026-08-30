@@ -3224,11 +3224,17 @@ en:
               note: "Dewgong for a Growlithe, plus the traded-XP bonus. Growlithe roams the Pokémon Mansion next door."
           steps:
             "1":
-              title: "Hand both fossils in at the Lab"
-              text_html: "The Lab %{lab} revives fossils into three Pokémon found nowhere else, and it takes a while, so hand your Mt. Moon fossil and the Old Amber in now. A scientist deeper in gives away TM35."
+              title: "Take TM35 in the metronome room"
+              text_html: "Into the Lab %{lab}. The metronome room at the back has a scientist who hands over TM35 for the asking, the only TM on the island."
               items:
                 tm-metronome: "The Lab's back room, from the scientist against the north wall. Talk to him once. Metronome fires a random move every turn."
             "2":
+              title: "Trade for three you cannot catch"
+              text: "Two traders share the trade room: an old man swaps a Rhydon for your Golduck, and a Beauty a Dewgong for a Growlithe. A scientist in the fossil room takes a Kangaskhan for a Muk."
+            "3":
+              title: "Hand a fossil to the last room"
+              text: "The fossil room is last. Its walking scientist takes one fossil at a time and needs a while on it, so give him the Mt. Moon fossil now and the Old Amber on the way back."
+            "4":
               title: "Cross to the Mansion"
               text_html: "Blaine's gym %{gym} is locked and the key is across the street. The burnt-out Pokémon Mansion %{mansion} holds the Secret Key, and everything on the island waits on it."
           tips:

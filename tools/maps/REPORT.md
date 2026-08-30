@@ -2,8 +2,8 @@
 
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
-- step shots: **45** (map/scene in a step slot)
-- standalone scenes: **284** (dialog / battle / NPC, not step-bound)
+- step shots: **47** (map/scene in a step slot)
+- standalone scenes: **286** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -119,6 +119,8 @@
 - `cerulean-cave` step 4: walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
+- `cinnabar-island` step 2: walkthrough/yellow/scenes/cinnabar-lab-trades.png
+- `cinnabar-island` step 3: walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
 - `digletts-cave` step 11: walkthrough/yellow/scenes/route-2-pewter-cut.png
 - `digletts-cave` step 12: walkthrough/yellow/scenes/pewter-museum-cut.png
 - `digletts-cave` step 13: walkthrough/yellow/scenes/museum-old-amber.png
@@ -214,10 +216,12 @@
 - `cerulean-north-nugget` (screen): walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cinnabar-gym-blaine` (screen): walkthrough/yellow/scenes/cinnabar-gym-blaine.png
 - `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
+- `cinnabar-lab-fossil-handover` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-handover.png
 - `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
 - `cinnabar-lab-item-tm-metronome` (dialog): walkthrough/yellow/scenes/cinnabar-lab-item-tm-metronome.png
 - `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png
 - `cinnabar-lab-trade-cezanne` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png
+- `cinnabar-lab-trades` (screen): walkthrough/yellow/scenes/cinnabar-lab-trades.png
 - `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png
 - `indigo-bruno` (screen): walkthrough/yellow/scenes/indigo-bruno.png
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png

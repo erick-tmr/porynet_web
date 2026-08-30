@@ -2436,6 +2436,8 @@ module Walkthrough
         steps: [
           { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome",
             pins: { lab: "cinnabar-island/exit-6-9" } },
+          { scene: "cinnabar-lab-trades" },
+          { scene: "cinnabar-lab-fossil-handover" },
           { pins: { gym: "cinnabar-island/exit-18-3", mansion: "cinnabar-island/exit-6-3" } }
         ],
         encounters: [

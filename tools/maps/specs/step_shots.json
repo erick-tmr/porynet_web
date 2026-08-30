@@ -1135,5 +1135,41 @@
         "EXP.ALL!"
       ]
     }
+  },
+  {
+    "type": "screen",
+    "slug": "cinnabar-island",
+    "step": 2,
+    "name": "cinnabar-lab-trades",
+    "map": "CinnabarLabTradeRoom",
+    "parent": "CINNABAR_ISLAND",
+    "player": [
+      2,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      4
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "cinnabar-island",
+    "step": 3,
+    "name": "cinnabar-lab-fossil-handover",
+    "map": "CinnabarLabFossilRoom",
+    "parent": "CINNABAR_ISLAND",
+    "player": [
+      5,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "auto_npcs": true
   }
 ]
