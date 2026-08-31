@@ -218,6 +218,20 @@ def test_celadon_gyms_sealed_chamber_is_lettered_the_way_you_walk_it(root):
         ("T5", "ERIKA:1"), ("T6", "LASS:18"), ("T7", "COOLTRAINER_F:1"), ("T8", "BEAUTY:3")]
 
 
+def test_viridian_gym_is_lettered_the_way_the_arrows_carry_you(root):
+    """The last gym is crossed by being shoved, and the flood has no idea: it walks up arrows that
+    only ever push one way, so from the door alone it read the two in the middle chamber as the
+    nearest and left the Tamer the first ride lands you beside at T4. The route names all nine, so
+    the letters now run the way `spinners.STOPS` draws the line: bottom strip, west column, middle
+    chamber right to left, then the top floor west into Giovanni's room."""
+    assert lettered(root, "ViridianGym", "") == [
+        ("T1", "TAMER:4"), ("T2", "BLACKBELT:7"), ("T3", "COOLTRAINER_M:9"),
+        ("T4", "BLACKBELT:6"), ("T5", "TAMER:3"), ("T6", "COOLTRAINER_M:10"),
+        ("T7", "BLACKBELT:8"), ("T8", "COOLTRAINER_M:1"), ("T9", "GIOVANNI:3")]
+    assert pins(root, "ViridianGym", "", cat="item")["I1"]["ref"] == "REVIVE", \
+        "picked up on the way back east from T7, before the ride round to T8"
+
+
 def test_saffron_gym_is_walked_over_its_teleport_pads(root):
     """Its eight rooms are sealed: no two share a wall, and the front door reaches nobody on foot.
     The pads are the only way through, so they count as steps there and nowhere else."""

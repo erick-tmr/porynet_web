@@ -42,7 +42,7 @@
                                width: dojo.area.width, height: dojo.area.height %>
               <div class="pn-mm-layer" data-map-markers-target="layer">
                 <% dojo.pins.each do |marker| %>
-                  <%= render "map_marker", marker: marker %>
+                  <%= render "map_marker", marker: marker, slug: slug %>
                 <% end %>
               </div>
             </div>

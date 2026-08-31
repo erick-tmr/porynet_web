@@ -26,7 +26,7 @@
                 <% if gym.area.route? %><%= render "map_route", area: gym.area %><% end %>
                 <div class="pn-mm-layer" data-map-markers-target="layer">
                   <% gym.pins.each do |marker| %>
-                    <%= render "map_marker", marker: marker %>
+                    <%= render "map_marker", marker: marker, slug: slug %>
                   <% end %>
                 </div>
               </div>
@@ -97,6 +97,21 @@
                   </div>
                 <% end %>
               </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <%# The walk itself, for a stop whose whole page is this one room: the floor is drawn above
+          it and each step crops its own leg out of that floor, so the two belong together. On a
+          floor whose way through is the puzzle, the walk is the solution, so it takes that block's
+          frame and its badge rather than standing beside a second list saying the same thing. %>
+      <% if steps.any? %>
+        <div class="pn-wt-gym__puzzle">
+          <span class="pn-wt-gym__puzzle-badge"><%= t("walkthrough.ui.gym_puzzle") %></span>
+          <div class="pn-wt-steps pn-wt-steps--gym">
+            <% steps.each do |step| %>
+              <%= render "step", step: step, slug: slug %>
             <% end %>
           </div>
         </div>

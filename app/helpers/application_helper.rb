@@ -46,6 +46,16 @@ module ApplicationHelper
       href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
+  # A trainer card's heads-up line. Most are plain sentences off the roster; one points somewhere
+  # else in the guide (Blue's last team ends on whichever Eeveelution his Eevee became, and the
+  # recipe is a trivia block back on leg 1), so it takes the same href a step link would.
+  def trainer_note(trainer)
+    return t(trainer.note_key) unless trainer.note_link?
+
+    t(trainer.note_key, href: walkthrough_leg_path(game: @game.slug, leg: trainer.note_link.leg,
+      anchor: trainer.note_link.anchor))
+  end
+
   # A trivia section points at a pin the way a step does: it names the door it is talking about and
   # the letter that door is wearing goes in.
   def trivia_intro(trivia)

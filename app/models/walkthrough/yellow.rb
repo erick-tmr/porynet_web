@@ -405,9 +405,16 @@ module Walkthrough
       # the shape the island already has.
       { slug: "pokemon-mansion", special: true, locs: %w[pokemon-mansion] },
       { slug: "leg-16", special: false, locs: %w[cinnabar-island-return route-21] },
-      { slug: "leg-17", special: false, locs: %w[viridian-gym] },
+      # Route 21 lands at Pallet, which is where the badge run began, so the last leg of it is the
+      # road back up: the town you started in, the city whose gym has been shut all game, and the
+      # gym itself. Both stops are one step long because there is nothing left to do in either.
+      { slug: "leg-17", special: false, locs: %w[pallet-town-return viridian-city-return viridian-gym] },
+      # The road to the League is one page: west out of Viridian onto Route 22 for the last Blue
+      # fight before the Champion, through the badge gate at its end, and up Route 23 to the cave
+      # mouth. Splitting them would put a page break in the middle of a walk with nothing on it
+      # but a gate, and the gate is the only thing joining them.
+      { slug: "leg-18", special: false, locs: %w[route-22-return route-23] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
-      { slug: "leg-18", special: false, locs: %w[route-23] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
@@ -641,7 +648,8 @@ module Walkthrough
         fuchsia_city_return, saffron_city_return, surf_cleanups,
         route_16, route_17, route_18, silph_co, saffron_city, route_19, route_20, seafoam_islands,
         route_20_west, power_plant, cinnabar_island, pokemon_mansion, cinnabar_island_return,
-        route_21, viridian_gym, victory_road, route_23,
+        route_21, pallet_town_return, viridian_city_return, viridian_gym,
+        route_22_return, route_23, victory_road,
         indigo_plateau, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
@@ -649,7 +657,10 @@ module Walkthrough
 
     # A stop the guide walks twice has map data under one slug only. The second pass reads the
     # first pass's maps, so the same interactive map (markers, tick state) shows on both.
-    MAP_SOURCE = { "vermilion-city-return" => "vermilion-city",
+    MAP_SOURCE = { "pallet-town-return" => "pallet-town",
+                   "viridian-city-return" => "viridian-city",
+                   "route-22-return" => "route-22",
+                   "vermilion-city-return" => "vermilion-city",
                    "celadon-city-return" => "celadon-city",
                    "fuchsia-city-return" => "fuchsia-city",
                    "saffron-city-return" => "saffron-city",
@@ -717,19 +728,38 @@ module Walkthrough
     # pass that borrows the maps but owns neither hall (Saffron walked the second time) drops both.
     HALL_FLOORS = { gym: "Gym", dojo: "Dojo" }.freeze
 
+    # Every map the stop reads, hall floors included, is what a step resolves its pin letters, its
+    # item ticks and its cropped route frames against; only the header is choosy about which of
+    # them it draws. Viridian is why the two parted company: its page is the gym and nothing else,
+    # so the floor the section draws is also the floor its steps walk.
     def self.attach_maps(loc, maps)
-      header = maps.reject { |m| HALL_FLOORS.value?(m.floor) }
-      loc = apply_trainer_notes(map_steps(mark_steps(tick_items(merge_trainers(loc), header), header),
-        header))
-      loc = loc.with(area_maps: link_steps(loc, header))
-      HALL_FLOORS.reduce(loc) { |built, (field, floor)| attach_hall(built, field, maps, floor) }
+      loc = apply_trainer_notes(map_steps(mark_steps(tick_items(merge_trainers(loc), maps), maps),
+        maps))
+      rooms = link_steps(loc, maps)
+      loc = HALL_FLOORS.reduce(loc) { |built, (field, floor)| attach_hall(built, field, rooms, floor) }
+      loc.with(area_maps: rooms.reject { |m| HALL_FLOORS.value?(m.floor) } - halls_taken(loc, rooms))
     end
 
-    def self.attach_hall(loc, field, maps, floor)
-      hall = loc.public_send(field)
-      room = maps.find { |m| m.floor == floor }
-      return loc if hall.nil? || room.nil?
+    # The floor a hall section draws: the one the manifest files under that floor name, or, for a
+    # stop that owns a hall and files no floor for it, the map the stop owns. That second case is a
+    # page that *is* the hall (Viridian Gym has a page to itself, so its floor is the stop's own
+    # map rather than a room off a city), and the header is left with no map rather than with a
+    # second copy of the room the section is about.
+    def self.hall_room(loc, field, rooms, floor)
+      return nil if loc.public_send(field).nil?
 
+      rooms.find { |m| m.floor == floor } || rooms.first
+    end
+
+    def self.halls_taken(loc, rooms)
+      HALL_FLOORS.filter_map { |field, floor| hall_room(loc, field, rooms, floor) }
+    end
+
+    def self.attach_hall(loc, field, rooms, floor)
+      room = hall_room(loc, field, rooms, floor)
+      return loc if room.nil?
+
+      hall = loc.public_send(field)
       loc.with(field => hall.with(area: room,
         shot: Shot.new(image: room.image, label: hall.shot.label)))
     end
@@ -1434,15 +1464,19 @@ module Walkthrough
 
     # `opp` is the map object's [OPP_CLASS, party] pair; it resolves the marker letter in
     # attach_maps so the card and its pin agree. Omit it and the card just carries no letter.
-    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil, tick: nil)
+    def self.tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil, tick: nil,
+                note: nil, note_link: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
         sprite: sprite || trainer_sprite(cls, name), where: where, battle: battle,
-        opp: opp && "#{opp[0]}:#{opp[1]}", tick: tick)
+        opp: opp && "#{opp[0]}:#{opp[1]}", tick: tick, note_key: note, note_link: note_link)
     end
 
     def self.leader(name, reward, *team, battle: nil, opp: nil) = tr("LEADER", name, reward, *team, battle: battle, opp: opp)
 
-    def self.rival(reward, *team, where: nil, battle: nil, opp: nil) = tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle, opp: opp)
+    def self.rival(reward, *team, where: nil, battle: nil, opp: nil, note: nil, note_link: nil)
+      tr("RIVAL", "Blue", reward, *team, sprite: "blue-gen1two", where: where, battle: battle,
+        opp: opp, note: note, note_link: note_link)
+    end
 
     def self.gym(slug, name, type, badge, tm, leader, puzzle: [], trainers: [], needs: nil)
       b = base(slug)
@@ -1454,20 +1488,13 @@ module Walkthrough
       )
     end
 
-    def self.gstep(slug, n, map: false, scene: nil, quiz: nil)
+    def self.gstep(slug, n, scene: nil, quiz: nil)
       GymStep.new(n: n, text_key: "#{base(slug)}.gym.puzzle.#{n}",
-        shot: gym_shot(n, map, scene), answers: quiz ? quiz_answers(quiz) : [])
+        shot: scene && scene_shot(scene, "STEP #{n}"), answers: quiz ? quiz_answers(quiz) : [])
     end
 
     # The answer key for a gym's quiz doors, straight from the generated place facts.
     def self.quiz_answers(map_const) = place_facts.fetch(map_const).gym.quiz
-
-    def self.gym_shot(n, map, scene)
-      return scene_shot(scene, "STEP #{n}") if scene
-      return shot("STEP #{n}") if map
-
-      nil
-    end
 
     def self.route_3
       b = base("route-3")
@@ -2597,20 +2624,100 @@ module Walkthrough
         oak_queue: [ oak("pokemon-mansion", "037", 1), oak("pokemon-mansion", "058", 1), oak("pokemon-mansion", "126", 1) ])
     end
 
+    # The town the run started in, walked once more on the way out of the water. Nothing here has
+    # changed and nothing is left to take, so it is one step: the road north, or the Fly that skips
+    # it. It reads the first pass's map, the way every other second visit does.
+    def self.pallet_town_return
+      b = base("pallet-town-return")
+      Location.new(
+        slug: "pallet-town-return", kind: "TOWN", name: "Pallet Town", order: 1, badge: nil,
+        note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1, pins: { north: "pallet-town/exit-north" }) ],
+        encounters: [], trainers: [], oak_queue: []
+      )
+    end
+
+    # The city whose gym has been locked since leg 2, with the seven badges that open it now in the
+    # case. One step, because the town's own errands were all done on the first pass; the mart is
+    # here because it is the last counter before Victory Road, not because it stocks anything new.
+    def self.viridian_city_return
+      b = base("viridian-city-return")
+      Location.new(
+        slug: "viridian-city-return", kind: "CITY", name: "Viridian City", order: 3, badge: nil,
+        note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [ step(b, 1, pins: { center: "viridian-city/exit-23-25",
+                                    gym: "viridian-city/exit-32-7" }) ],
+        encounters: [], trainers: [], oak_queue: []
+      )
+    end
+
+    GYM_FLOOR = "viridian-gym".freeze
+
+    # The eighth badge, on the one gym floor the hero is shoved across rather than walked. The map
+    # carries the line `spinners.STOPS` solves, its pins are lettered along that same line
+    # (`paths.ROUTES`), and the steps below walk it leg by leg, so a reader following the arrows
+    # meets T1 first and picks up I1 where the line runs over it. The rides are the legs worth a
+    # picture of their own: a step that says "step on the arrow and be thrown six tiles west" is
+    # exactly the kind of thing prose cannot draw.
     def self.viridian_gym
       loc("viridian-gym", "GYM", "Viridian Gym", 48, steps: [
-          {},
+          { pins: { tamer: "viridian-gym/trainer-2-16" }, line: [ GYM_FLOOR, 1 ] },
+          { pins: { blackbelt: "viridian-gym/trainer-3-7" }, line: [ GYM_FLOOR, 2 ] },
+          { pins: { cooltrainer: "viridian-gym/trainer-12-7" }, line: [ GYM_FLOOR, 3 ] },
+          { pins: { blackbelt: "viridian-gym/trainer-11-11", tamer: "viridian-gym/trainer-10-7" },
+            line: [ GYM_FLOOR, 4, 5 ] },
+          { pins: { cooltrainer: "viridian-gym/trainer-13-5" }, line: [ GYM_FLOOR, 6 ] },
+          # The step the whole back half of the floor turns on: he walks down the column at you and
+          # stays there, which shuts it and opens the doorway at its head. `spinners.WALKS_UP` is
+          # the same fact, so the drawn line comes back in through that doorway rather than up the
+          # column it can no longer use.
+          { pins: { blackbelt: "viridian-gym/trainer-10-1" }, line: [ GYM_FLOOR, 7 ] },
+          # No cropped leg of its own: the ball sits in a one-tile alcove off the chamber's top
+          # wall, and the GB screen of the ball in it says where it is better than a line would.
           { item: [ "Revive", "revive" ], scene: "viridian-gym-item-revive" },
-          {},
-          { pins: { out: "viridian-gym/exit-16-17" } }
-        ], gym_after: 1, badge: "EARTH",
+          { line: [ GYM_FLOOR, 9 ] },
+          { pins: { cooltrainer: "viridian-gym/trainer-6-5" } },
+          { pins: { giovanni: "viridian-gym/trainer-2-1" }, line: [ GYM_FLOOR, 10 ] },
+          {}
+        ], gym_after: 10, badge: "EARTH",
+        # No puzzle block of its own: the walk below the floor is the solution, drawn on the floor
+        # and written out a ride at a time, and a second list of rules above it would be the same
+        # instruction told twice.
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
-          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE"), opp: [ "GIOVANNI", 3 ]),
-          puzzle: [ gstep("viridian-gym", 1), gstep("viridian-gym", 2), gstep("viridian-gym", 3, map: true) ]))
+          leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE"), opp: [ "GIOVANNI", 3 ])))
+    end
+
+    # Route 22 again, walked west out of Viridian with all eight badges. Nothing on it has changed
+    # but the person standing on it: Blue is waiting at the same spot he picked the first fight,
+    # and this time he brings six at Lv 45-53. The road's own copy, its grass and the first fight
+    # stay under the first pass's keys, the way every other second visit does.
+    def self.route_22_return
+      b = base("route-22-return")
+      Location.new(
+        slug: "route-22-return", kind: "ROUTE", name: "Route 22", order: 4, badge: nil,
+        note_key: "#{b}.note", intro_key: "#{b}.intro",
+        steps: [
+          step(b, 1, pins: { east: "route-22/exit-east" }),
+          step(b, 2, html: true),
+          step(b, 3, pins: { gate: "route-22/exit-8-5", north: "route-22/exit-north" })
+        ],
+        encounters: [], oak_queue: [],
+        # The last of the six Blue fights before the Champion, and the one the Eevee recipe has
+        # been building to: the Eevee is long since evolved, and which of the three it became also
+        # decides the two slots below it (two of Ninetales, Cloyster and Magneton). The card shows
+        # the Jolteon line-up and carries a note back to the recipe on leg 1 rather than drawing an
+        # Eevee nobody fights.
+        trainers: [ rival(3445, mon("028", 47), mon("102", 45), mon("038", 45), mon("091", 47),
+          mon("064", 50), mon("135", 53),
+          where: scene_shot("route-22-rival", "WHERE"),
+          battle: scene_shot("battle-rival-route-22-return", "BATTLE"),
+          note: "#{b}.rival_note_html",
+          note_link: StepLink.new(leg: "leg-01", anchor: RIVAL_EEVEE_ANCHOR)) ]
+      )
     end
 
     def self.victory_road
-      loc("victory-road", "CAVE", "Victory Road", 50,
+      loc("victory-road", "CAVE", "Victory Road", 51,
         pins: { 4 => { up: "victory-road-1f/exit-1-1" },
                 12 => { up: "victory-road-2f/exit-23-7" },
                 15 => { down: "victory-road-2f/exit-23-7", out: "victory-road-2f/exit-29-7" } },
@@ -2644,7 +2751,7 @@ module Walkthrough
     end
 
     def self.route_23
-      loc("route-23", "ROUTE", "Route 23", 51, steps: [
+      loc("route-23", "ROUTE", "Route 23", 50, steps: [
           { pins: { gate: "route-23/exit-south" } },
           { hidden: [ "Max Ether", "max-ether", "route-23-hidden-max-ether", "route-23-max-ether" ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "route-23-hidden-ultra-ball", "route-23-ultra-ball" ] },
@@ -3098,7 +3205,11 @@ module Walkthrough
       "viridian-city" => "VIRIDIAN_MART", "pewter-city" => "PEWTER_MART",
       "cerulean-city" => "CERULEAN_MART", "vermilion-city" => "VERMILION_MART",
       "lavender-town" => "LAVENDER_MART", "fuchsia-city" => "FUCHSIA_MART",
-      "saffron-city" => "SAFFRON_MART", "cinnabar-island" => "CINNABAR_MART"
+      "saffron-city" => "SAFFRON_MART", "cinnabar-island" => "CINNABAR_MART",
+      # The one counter a stop shows twice, because the two visits are forty stops apart and the
+      # shelf never restocked: the same five items that outfitted Route 1 are the last shop before
+      # Victory Road, so the second pass is worth listing if only to say what is not on it.
+      "viridian-city-return" => "VIRIDIAN_MART"
     }.freeze
 
     # The items each mart flags as worth stocking up on (the ★ rows), by display name.
@@ -3106,7 +3217,8 @@ module Walkthrough
       "viridian-city" => [ "Poké Ball", "Antidote" ], "pewter-city" => [ "Poké Ball", "Escape Rope" ],
       "cerulean-city" => [ "Poké Ball", "Repel" ], "vermilion-city" => [ "Super Potion", "Repel" ],
       "lavender-town" => [ "Great Ball", "Super Repel" ], "fuchsia-city" => [ "Ultra Ball", "Hyper Potion" ],
-      "saffron-city" => [ "Hyper Potion", "Max Repel" ], "cinnabar-island" => [ "Ultra Ball", "Full Heal" ]
+      "saffron-city" => [ "Hyper Potion", "Max Repel" ], "cinnabar-island" => [ "Ultra Ball", "Full Heal" ],
+      "viridian-city-return" => [ "Antidote", "Parlyz Heal" ]
     }.freeze
 
     # The Celadon floors whose stock the game states; the rest (services, the rooftop drinks) are

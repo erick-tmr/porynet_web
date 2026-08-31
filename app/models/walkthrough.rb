@@ -18,10 +18,10 @@ module Walkthrough
   DENSE_TRAINERS = 6
 
   # Colours a drawn route cycles through, one per leg. Enough of them that the longest floor never
-  # reuses one (Saffron Gym's nine rooms are the most any floor asks for), because a step draws its
+  # reuses one (Viridian Gym's ten legs are the most any floor asks for), because a step draws its
   # own leg on its own copy of the map and the two have to agree about which line is which. The
   # hexes are in walkthrough-map.css; this is only how many there are.
-  ROUTE_HUES = 9
+  ROUTE_HUES = 10
 
   # A rod or Surf encounter is only a catch once you hold the tool, and the guide hands each one
   # over at a fixed stop. Keyed by method, valued by that stop's `order`, so a fishing card on an
@@ -420,10 +420,14 @@ module Walkthrough
   # `note_key` is an optional locale key for a hand-authored caption on the card (e.g. the Mew
   # glitch warnings on the Cerulean Swimmer and Misty).
   Trainer = Data.define(:cls, :name, :reward, :team, :sprite, :where, :battle, :opp, :marker_key,
-    :tick, :note_key, :floor) do
-    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, floor: nil, **rest) = super
+    :tick, :note_key, :note_link, :floor) do
+    def initialize(opp: nil, marker_key: nil, tick: nil, note_key: nil, note_link: nil, floor: nil, **rest) = super
     def marker_key? = !marker_key.nil?
     def note_key? = !note_key.nil?
+    # A note that points at something explained elsewhere in the guide, as the leg and anchor to
+    # link to: Blue's last team ends on whichever Eeveelution his Eevee became, and the recipe for
+    # that is a trivia section back on leg 1.
+    def note_link? = !note_link.nil?
     # A boss (the rival, a Team Rocket duo) carries a battle face-off shot; those get their own
     # full-width feature row rather than a cell in the trainer grid.
     def feature? = battle&.map? == true
@@ -540,10 +544,12 @@ module Walkthrough
     def puzzle? = puzzle.any?
     def trainers? = trainers.any?
     def area? = !area.nil?
-    # Trainers always, and the doorways too when the floor has more than one: a gym with a single
-    # front door needs no pin for the way it came in, but Saffron's is nine sealed rooms and thirty
-    # warp pads, and the pin on a pad is the only thing that says which room it throws you into.
-    def pins = area? ? area.markers_in("trainer") + puzzle_doors : []
+    # Trainers and any ball on the floor, plus the doorways when the floor has more than one: a gym
+    # with a single front door needs no pin for the way it came in, but Saffron's is nine sealed
+    # rooms and thirty warp pads, and the pin on a pad is the only thing that says which room it
+    # throws you into. Viridian is the one gym with an item on its floor, and its step says to pick
+    # it up, so its letter has to be somewhere the reader can find.
+    def pins = area? ? area.markers_in("trainer") + area.markers_in("item") + puzzle_doors : []
     def puzzle_doors = area.markers_in("exit").then { |doors| doors.one? ? [] : doors }
   end
 
@@ -642,6 +648,13 @@ module Walkthrough
     def gym? = !gym.nil?
     def gym_finale? = gym_finale
     def band_gym? = gym? && !gym_finale
+
+    # A stop that *is* a gym: its page is the one room, so the walk up to the leader belongs inside
+    # the gym block with the floor it is walked on, not in a section of its own above it. Every
+    # other gym is a room off a city, and the steps above it are the city's.
+    def gym_walk? = band_gym? && kind == "GYM"
+    def gym_steps = gym_walk? ? lead_steps : []
+    def band_steps = gym_walk? ? [] : lead_steps
 
     def dense_trainers? = trainers.size > DENSE_TRAINERS
 

@@ -273,6 +273,12 @@
    Sabrina, and a reader picking the last leg out of eight others should not have to hunt. */
 .pn-mm-route__leg--9 { --leg: #3DDC84; }
 
+/* Cyan, for the tenth: Viridian's gym runs one leg longer than Saffron's, and its ninth and tenth
+   are the two that end on the last Cooltrainer and on Giovanni, side by side in the same corner of
+   the floor. Green next to blue-green would be the one pair a reader could not tell apart, so this
+   sits well clear of both. */
+.pn-mm-route__leg--10 { --leg: #00D8FF; }
+
 .pn-mm-route__casing {
   stroke: var(--leg-casing);
   stroke-width: 6;

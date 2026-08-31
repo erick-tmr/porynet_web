@@ -765,9 +765,9 @@ pt:
         leg_16:
           lead: "De volta pelo Blaine e a Insígnia Volcano, e então a longa água ao norte até Pallet."
         leg_17:
-          lead: "De volta a Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
+          lead: "Desembarque em Pallet e siga ao norte até Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
         leg_18:
-          lead: "A estrada com portões de insígnia até a Pokémon League e a Victory Road."
+          lead: "A oeste de Viridian pela última luta do Blue antes do Campeão, e depois a estrada com portões de insígnia até a Victory Road."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"
         crumb_cerulean: "CERULEAN"
@@ -3433,37 +3433,85 @@ pt:
               text: "De Cinnabar, surfe ao norte pelo canal, limpando os Swimmers no caminho. Tentacool enche o mar aberto."
             "2":
               title: "Pesque e varra a grama"
-              text: "Use o Super Rod na água por Magikarp, Goldeen, Shellder e Staryu, e cheque a grama ao sul de Pallet por Pidgey, Rattata e seus evoluídos. Depois suba a Viridian pela Earth Badge."
+              text: "Use o Super Rod na água por Magikarp, Goldeen, Shellder e Staryu, e cheque a grama ao sul de Pallet por Pidgey, Rattata e seus evoluídos. Depois desembarque em Pallet Town."
           tips:
             magikarp: "Pesque um aqui e suba até o Nv 20; ele vira Gyarados, um dos tipos Água mais fortes do jogo."
             goldeen: "Uma captura confiável de Super Rod → Seaking. Um lugar fácil para registrar a linha."
           oak:
             magikarp: "Super Rod aqui → Gyarados. Fraco agora, monstruoso depois de evoluir."
             goldeen: "Pesque um → Seaking. Registre a base já que está pescando mesmo."
+        pallet_town_return:
+          note: "Chegada pela Rota 21. Direto, ao norte rumo a Viridian."
+          intro: "Onde a jornada começou, e o último ponto dela sem nada para pegar. A Rota 21 te devolve à praia sul, a uma estrada do ginásio que está trancado desde a etapa 2."
+          steps:
+            "1":
+              title: "Voe ao norte, ou ande pela Rota 1"
+              text_html: "Nada mudou na cidade. Voe direto para Viridian, ou saia pela estrada norte %{north} e suba a Rota 1 a pé. O alvo é o ginásio que ficou fechado o jogo inteiro."
+        viridian_city_return:
+          mart:
+            blurb: "Os mesmos cinco itens que ela vendia antes da Rota 1. Quarenta paradas depois, nada foi acrescentado: este é o último balcão antes da Victory Road, e é uma prateleira de curas de status."
+            buy: "Antidote cobre o Toxic da Agatha e Parlyz Heal o Thunder Wave do Dragonair do Lance. Full Restore não se vende aqui, então traga os seus de Celadon ou Fuchsia."
+          note: "O ginásio enfim abre. Último balcão antes da Victory Road."
+          intro: "Sete insígnias na maleta, que é exatamente o que o ginásio no canto nordeste esperava. O Centro e o Mercado são as únicas outras paradas, e ambas já foram feitas na etapa 2."
+          steps:
+            "1":
+              title: "Cure-se e entre no Ginásio"
+              text_html: "Reabasteça no Poke Center %{center} e compre o que o Mercado ainda vale, porque lá dentro não há cura. Depois entre no Ginásio %{gym} a nordeste: com sete insígnias a porta enfim abre."
         viridian_gym:
           gym:
             intro: "O último ginásio de Kanto, um labirinto de plataformas giratórias com oito treinadores. O Giovanni espera no topo com Dugtrio (Nv 50), Persian (Nv 53), Nidoqueen (Nv 53), Nidoking (Nv 55) e Rhydon (Nv 55). O Fissure do Dugtrio e o Horn Drill do Rhydon são nocautes de um golpe, então seja mais rápido que eles e leve Água, Grama ou Gelo."
-            puzzle:
-              "1": "As plataformas giratorias te lançam em linha reta ate você bater numa de parada. Planeje cada lançamento para parar onde alcance o próximo treinador."
-              "2": "Vença treinadores para abrir o caminho ao norte, depois use as giratorias para o norte e o oeste, corrigindo sua linha a cada parada rumo a Giovanni."
-              "3": "As giratorias finais te deixam diante de Giovanni. Cuidado com os nocautes de um golpe de Fissure e Horn Drill e lidere com um atacante rapido de Agua ou Gelo."
           note: "Ginásio do Giovanni. Earth Badge. A 8ª insígnia."
-          intro: "O ginásio que ficou fechado o jogo inteiro. Quem manda nele é o Giovanni, com oito treinadores e um piso de setas giratórias entre a porta e ele."
+          intro: "O ginásio que ficou fechado o jogo inteiro. Quem manda nele é o Giovanni, com oito treinadores e um piso de setas que te empurram por trajetos fixos. Os empurrões só vão num sentido e os treinadores bloqueiam os corredores, então uma ordem só limpa o andar de uma vez."
           steps:
             "1":
-              title: "Prepare e entre no Ginásio"
-              text: "Reabasteça Potions e Revives antes: não há cura entre os oito treinadores. Entre pelo sul, e o piso vira plataformas giratórias que te lançam em linha reta até bater numa de parada."
+              title: "Deslize a oeste até o Tamer"
+              text_html: "Entre pela porta e ande dois passos a oeste, depois um ao norte para a fileira de cima. A seta ali te lança seis casas a oeste; siga por essa fileira e o Tamer %{tamer} te desafia."
             "2":
-              title: "Pegue o Revive"
-              text: "Uma Poke Ball fica no lado leste do labirinto, direto ao norte pela coluna da entrada sul. Use as giratórias para se alinhar com ela e guarde o Revive grátis antes de subir rumo a Giovanni."
-              items:
-                revive: "Lado leste, direto ao norte da porta sul, mais ou menos na metade do ginásio."
+              title: "Suba a parede oeste até o Blackbelt"
+              text_html: "Volte para a fileira de baixo e siga até o canto oposto. Pise ao norte na seta e ela te dispara oito casas parede acima, bem na linha de visão do Blackbelt %{blackbelt}."
             "3":
-              title: "Suba até Giovanni pelas giratórias"
-              text: "Vença os treinadores para abrir o caminho ao norte, corrigindo o lançamento a cada parada. Giovanni espera no topo: cuidado com Fissure e Horn Drill, e lidere rápido com Água, Grama ou Gelo."
+              title: "Dois deslizes até a câmara central"
+              text_html: "Uma fileira ao norte, depois a leste na seta que te joga corredor abaixo. Pise a leste de novo para cruzar o piso, e suba ao norte até a câmara central, onde um Cooltrainer %{cooltrainer} te vê."
             "4":
-              title: "Rumo a Victory Road"
-              text_html: "Com a Insígnia Earth e as oito em mãos, saia do ginásio %{out} e volte à Rota 22, depois avance para o oeste na Victory Road."
+              title: "Atravesse a câmara da direita para a esquerda"
+              text_html: "Suba uma fileira e siga a oeste. O Blackbelt %{blackbelt} vigia a coluna seguinte e o Tamer %{tamer} a de depois, então dois passos a oeste pegam os dois."
+            "5":
+              title: "Saia da câmara até o segundo Cooltrainer"
+              text_html: "Suba por essa coluna, siga a leste pela parede de cima da câmara e depois suba pelo lado leste. Vire a oeste na fileira do topo e o Cooltrainer %{cooltrainer} que está nela te desafia."
+            "6":
+              title: "A oeste até o Blackbelt, que vem até você"
+              text_html: "Suba uma fileira e vá a oeste, depois desça e siga a oeste de novo até o pé da coluna aberta. O Blackbelt %{blackbelt} no topo dela desce para lutar e fica ali, fechando a coluna atrás dele."
+            "7":
+              title: "De volta a leste pelo Revive"
+              text: "Refaça a fileira a leste e desça pelo lado leste até o nicho na parede de cima da câmara. A bola nele guarda um Revive, a única coisa para pegar neste andar."
+              items:
+                revive: "O nicho no canto nordeste da câmara central. A casa abaixo da bola é uma seta de volta à entrada."
+            "8":
+              title: "Deslize para fora e suba a parede leste"
+              text: "Pise na seta abaixo da bola e ela te devolve perto da entrada. Ande a leste até a parede do fundo e suba por ela, depois pise na seta do topo: ela te dispara a oeste pela fileira de cima."
+            "9":
+              title: "Pela passagem que ele abriu, a oeste até o último Cooltrainer"
+              text_html: "O empurrão termina ao lado da passagem que o Blackbelt deixou. Entre por ela, siga a oeste pela fileira do topo e desça três casas até o corredor. O último Cooltrainer %{cooltrainer} está na brecha abaixo do fim dele, de costas: aperte A."
+            "10":
+              title: "A oeste até a sala do Giovanni"
+              text_html: "Siga a oeste por esse corredor. A ponta dele é a única porta da sala do canto, e o Giovanni %{giovanni} te vê no instante em que você sobe a coluna até ele."
+            "11":
+              title: "Rumo à Rota 22"
+              text: "Com a Insígnia Earth e as oito em mãos, saia pela porta em que entrou. A estrada a oeste da cidade é a última antes da Liga, e o Blue espera nela."
+        route_22_return:
+          rival_note_html: "A última vaga é a evolução que o Eevee dele virou, desenhada aqui como Jolteon; em outros saves é Flareon ou Vaporeon, e as duas vagas acima mudam junto. <a href=\"%{href}\">A receita do Eevee</a> lá na etapa 1 diz qual delas você entregou."
+          note: "A estrada a oeste, e a última luta do Blue antes da Liga."
+          intro: "O mesmo beco sem saída que você cruzou por Mankey e Nidoran, quarenta paradas atrás. O portão do fim agora lê sua maleta e te deixa passar, e o Blue espera na estrada em frente com seis."
+          steps:
+            "1":
+              title: "A oeste para fora de Viridian"
+              text_html: "Saia da cidade pela estrada oeste %{east} e siga a Rota 22 até a água. Não há nada para pegar aqui nem nada que valha capturar: a grama continua no Nv 2-6 da etapa 2."
+            "2":
+              title: "Vença o Blue, seis contra seis"
+              text_html: "Ele te para na mesma pedra da primeira vez. Sandslash (Nv 47), Exeggcute (Nv 45), Kadabra (Nv 50) e a evolução do Eevee (Nv 53) são fixos; dois entre Ninetales, Cloyster e Magneton completam o time."
+            "3":
+              title: "Pelo portão até a Rota 23"
+              text_html: "Siga a oeste até o portão %{gate}. O guarda confere as oito insígnias, e depois dele a estrada ao norte %{north} sobe para a Rota 23 e a Victory Road."
         victory_road:
           note: "O portão da Liga. Quebra-cabeças de pedra e Moltres."
           intro: "Três andares de quebra-cabeças de pedra entre a Rota 23 e a Liga, cada porta presa a um botão que precisa de uma rocha em cima. O Moltres pousa no caminho."

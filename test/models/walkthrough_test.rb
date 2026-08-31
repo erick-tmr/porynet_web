@@ -10,12 +10,16 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordNotFound) { Walkthrough.find!("red") }
   end
 
-  test "the game covers the 52 Kanto stops, drawing eight of them twice" do
+  test "the game covers the 52 Kanto stops, drawing eleven of them twice" do
     g = game
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 53 numbered stops (1..53), eight of them walked twice: Route 4 (stop 10) wraps Mt. Moon,
+    # 53 numbered stops (1..53), eleven of them walked twice: Pallet (stop 1) is where the run
+    # starts and where Route 21 lands it again, Viridian (stop 3) is walked for Oak's parcel and
+    # come back to for the gym only the other seven badges open, Route 22 (stop 4) is crossed for
+    # Mankey and walked again for Blue's last fight before the Champion, Route 4 (stop 10) wraps
+    # Mt. Moon,
     # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
     # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
     # back to so the Rocket Hideout is cleared before Erika, Fuchsia (stop 35) is left and come
@@ -24,10 +28,14 @@ class WalkthroughTest < ActiveSupport::TestCase
     # at and come back to because its gym stays Rocket-held until Silph is cleared, and Route 20
     # (stop 43) is split by the rock wall the Seafoam cave runs under, and Cinnabar (stop 45) is
     # left and come back to because its gym door needs the Secret Key from the Pokémon Mansion
-    # across the street. Each pass is its own section, so 63 sections share 53 numbers: the odd one is the Surf sweep, which owns no stop
+    # across the street. Each pass is its own section, so 66 sections share 53 numbers: the odd one is the Surf sweep, which owns no stop
     # of its own and borrows the five maps it walks onto.
-    assert_equal 63, g.locations.size
+    assert_equal 66, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
+    assert_equal %w[pallet-town pallet-town-return], g.locations.select { |loc| loc.order == 1 }.map(&:slug)
+    assert_equal %w[viridian-city viridian-city-return],
+      g.locations.select { |loc| loc.order == 3 }.map(&:slug)
+    assert_equal %w[route-22 route-22-return], g.locations.select { |loc| loc.order == 4 }.map(&:slug)
     assert_equal %w[route-4-mt-moon route-4], g.locations.select { |loc| loc.order == 10 }.map(&:slug)
     assert_equal %w[vermilion-city vermilion-city-return],
       g.locations.select { |loc| loc.order == 17 }.map(&:slug)
@@ -68,7 +76,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "Seafoam is walked in passing on Route 20, and the Power Plant off the sweep that reaches it" do
     tail = game.legs.map(&:slug).drop_while { |slug| slug != "leg-14" }
 
-    assert_equal %w[leg-14 seafoam-islands leg-15 pokemon-mansion leg-16 leg-17 victory-road leg-18
+    assert_equal %w[leg-14 seafoam-islands leg-15 pokemon-mansion leg-16 leg-17 leg-18 victory-road
                     indigo-plateau
                     cerulean-cave], tail
     assert_equal "power-plant", game.legs[game.legs.index(game.leg!("leg-13")) + 1].slug,
@@ -1002,7 +1010,10 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "every pin a step names is a real marker on that location's own maps" do
     stray = game.locations.flat_map do |loc|
-      ids = loc.area_maps.flat_map { |m| m.markers.map { |k| "#{m.name}/#{k.id}" } }.to_set
+      # The gym's floor counts: a stop that is itself a gym (Viridian) draws its one map in the
+      # gym section rather than the header, and its steps name the pins on it.
+      rooms = loc.area_maps + [ loc.gym&.area, loc.dojo&.area ].compact
+      ids = rooms.flat_map { |m| m.markers.map { |k| "#{m.name}/#{k.id}" } }.to_set
       loc.steps.flat_map { |s| s.pins.values }.uniq.reject { |id| ids.include?(id) }
         .map { |id| "#{loc.slug} names #{id}" }
     end

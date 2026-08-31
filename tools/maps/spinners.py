@@ -144,26 +144,68 @@ def leg(root_str, map_label, start, end, avoid=frozenset()):
     raise ValueError(f"{map_label}: no way from {start} to {end}")
 
 
+# Where a trainer ends up once they have walked up to the player, for the one floor where it
+# changes the shape of the room. A Gen 1 trainer who spots you comes down their line of sight and
+# stops beside you, and there they stay. Viridian's Blackbelt stands in the doorway at the head of
+# the only column into the gym's top-left corner: step into his line and he walks down it, which
+# shuts the column behind him and opens the doorway he was standing in. Every leg after that is
+# walked on the floor he leaves, so that is the floor the whole line is solved on: it can never
+# want the column above him (it is behind him now), and it does want the doorway (it is empty).
+WALKS_UP = {"ViridianGym": {(10, 1): (10, 4)}}
+
+
+def people(root_str, map_label):
+    """The cells a floor's people stand on, which the hero can never occupy.
+
+    Item balls are objects too and are left out: a ball is picked up by walking onto it, so a line
+    that steps around one would be a line that misses it. A trainer named in `WALKS_UP` stands
+    where the fight leaves them rather than where the map file declares them."""
+    moved = WALKS_UP.get(map_label, {})
+    return frozenset(moved.get(obj["grid"], obj["grid"]) for obj in
+                     sources.parse_object_events(root_str, map_label, include_battlers=True)
+                     if obj["kind"] != "item")
+
+
 def route(root_str, map_label, stops):
     """The whole way round a floor, as one list of cells per leg between the stops it names.
 
     `stops` is what the walkthrough already says out loud: the doorway you come in by, each ball
-    you collect, the doorway you leave by. Everything between them is the game's own answer."""
-    return [leg(root_str, map_label, start, end) for start, end in zip(stops, stops[1:], strict=False)]
+    you collect, the doorway you leave by. Everything between them is the game's own answer.
+
+    People are stepped around, minus the ends of the leg being solved: a stop may be a trainer,
+    because a walk ends on the leader it is walked to, but a line drawn *through* somebody is a
+    line drawn through a wall. Only the endpoints get the exemption, so a leg cannot save two
+    cells by treading on a Rocket standing between its ends."""
+    solid = people(root_str, map_label)
+    return [leg(root_str, map_label, start, end, solid - {tuple(start), tuple(end)})
+            for start, end in zip(stops, stops[1:], strict=False)]
 
 
-# Floors whose way through is a plain walk rather than a ride, drawn anyway because the walls are
-# invisible: Fuchsia's gym is one open pink room to look at and a maze to cross, and the barriers
-# are real collision in the shipped map, so the solver has the answer the player is denied. Each
-# names its own stops, because a spin floor's stops are its pins in lettering order while this
-# floor's walk ends on the leader, who has to letter last however early you could reach him.
+# Floors whose line names its own stops rather than taking them from the pins, because the pins
+# are not the walk. Two reasons, one per floor.
 #
-# A stop is a marker id where one will do and a raw cell where none exists. Fuchsia needs the
-# second kind: shortest-first the line climbs the middle lane and stands on two of the trainers it
-# passes, which is a cell the game will not give you, so the corners it turns are named instead.
-# It leaves along the bottom row, climbs the open right-hand lane clear of T1 and T4, runs the top
-# wall to the far left, and comes down to the cell that faces T6 before dropping to Koga.
-WALKED = {"FuchsiaGym": ("exit-4-17", (9, 16), (9, 1), (1, 1), (2, 5), "trainer-4-10")}
+# Fuchsia's gym is one open pink room to look at and a maze to cross: the barriers are real
+# collision in the shipped map, so the solver has the answer the player is denied. Its walk ends on
+# the leader, who has to letter last however early the door reaches him, so naming him a lettering
+# waypoint would deal T5 to Koga.
+#
+# Viridian's is the reverse: its pins are lettered along this same walk (`paths.ROUTES`), but a
+# trainer's own cell is not a cell you stand on, and being *seen* is what starts the fight. So the
+# line runs to the tile in front of each one, in their facing direction, and only Giovanni is
+# stepped on, at the end. The rest of it is the maze: in at the door and west along the bottom row
+# onto the arrow that throws you into the Tamer's strip; down to the row below, west, and up the
+# arrow that lands you inside the Blackbelt's line of sight; out along the row above him onto the
+# arrow down the west column and the one that fires you east; then the middle chamber taken right
+# to left, so the three columns of sight are crossed one after another; up for the Revive, back out
+# past the Cooltrainer; and west along the top floor, taking the Blackbelt's column, the last
+# Cooltrainer from behind, and Giovanni.
+#
+# A stop is a marker id where one will do and a raw cell where none exists.
+STOPS = {
+    "FuchsiaGym": ("exit-4-17", (9, 16), (9, 1), (1, 1), (2, 5), "trainer-4-10"),
+    "ViridianGym": ("exit-16-17", (3, 16), (0, 7), (12, 11), (11, 10), (10, 10), (14, 5), (10, 5),
+                    "item-16-9", (6, 4), "trainer-2-1"),
+}
 
 
 def route_stops(root_str, map_label):
@@ -173,8 +215,8 @@ def route_stops(root_str, map_label):
     the steps are enough and a line would be a guess: outside, the flood that orders the pins walks
     up ledges the player can only fall down, so a route drawn from it would trace a way across the
     field that does not exist. Indoors there are no ledges, so the two cases left are the arrow
-    floors, where the game states every push, and the floors in WALKED."""
-    named = WALKED.get(map_label)
+    floors, where the game states every push, and the floors in STOPS."""
+    named = STOPS.get(map_label)
     if named:
         ids = tuple(stop for stop in named if isinstance(stop, str))
         cells = dict(zip(ids, paths.marker_cells(root_str, map_label, ids), strict=True))
@@ -220,9 +262,7 @@ def warped_route(root_str, map_label):
     if not runs:
         return []
 
-    blocked = frozenset(paths.warp_pads(root_str, map_label)) | frozenset(
-        obj["grid"] for obj in sources.parse_object_events(root_str, map_label,
-                                                           include_battlers=True))
+    blocked = frozenset(paths.warp_pads(root_str, map_label)) | people(root_str, map_label)
     return [leg(root_str, map_label, start, end, blocked - {tuple(start), tuple(end)})
             for start, end in runs]
 
