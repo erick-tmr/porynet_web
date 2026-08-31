@@ -157,7 +157,16 @@ ROUTES = {
     # Not a gym, but the same shape: one room off one door, walked up the middle from the mat by
     # the entrance to the Karate Master at the back.
     "FightingDojo": ("exit-4-11",),
-    "ViridianGym": ("exit-16-17",),
+    # Eight trainers and the last badge, on a floor the hero is shoved across rather than walked.
+    # Every one of them is named, because the flood measures the maze as open ground: it walks up
+    # arrows that only ever push one way, so from the door alone it reads the Blackbelt behind two
+    # rides as nearer than the Tamer the first ride lands you next to. The order below is the walk
+    # `spinners.STOPS` draws, which is the only one that meets all eight, picks the Revive out of
+    # its pocket and comes out facing Giovanni: the bottom strip, the west column, the middle
+    # chamber right to left, the ball, then the top floor west to his room.
+    "ViridianGym": ("exit-16-17", "trainer-2-16", "trainer-3-7", "trainer-12-7", "trainer-11-11",
+                    "trainer-10-7", "trainer-13-5", "trainer-10-1", "item-16-9", "trainer-6-5",
+                    "trainer-2-1"),
 
     # Caves and buildings, entered by the ladder or staircase the steps take.
     "SSAnne1F": ("exit-26-0",),                     # up the gangway from the dock

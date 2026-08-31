@@ -547,8 +547,23 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-gym__leader-name", text: /\ASabrina\b/
   end
 
-  test "the endgame page names the League rather than a leader it does not have" do
+  # Blue's last team before the Champion ends on whichever Eeveelution his Eevee became, so the
+  # card draws one of the three and says so, pointing back at the recipe that decided it.
+  test "the Route 22 rematch card names one Eeveelution and links the recipe that picks it" do
     get walkthrough_leg_path(game: "yellow", leg: "leg-18")
+
+    assert_response :success
+    assert_select ".pn-wt-trainer__name", text: "Blue"
+    assert_select ".pn-wt-team-mon__name", text: "Jolteon"
+    assert_select ".pn-wt-trainer__note", text: /whichever Eeveelution his Eevee became/
+    assert_select ".pn-wt-trainer__note a[href=?]",
+      walkthrough_leg_path(game: "yellow", leg: "leg-01", anchor: "rival-eevee")
+  end
+
+  # Victory Road opens the final window: the road to it (leg 18) is inside the same window but has
+  # nothing owed on it yet, so the first page that answers "what is left" is the cave.
+  test "the endgame page names the League rather than a leader it does not have" do
+    get walkthrough_leg_path(game: "yellow", leg: "victory-road")
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 09 · EVERYTHING LEFT IN THE DEX"

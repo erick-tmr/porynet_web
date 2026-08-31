@@ -49,12 +49,14 @@
       <%= render "catch_here", loc: loc, encounters: here, plan: plan, level: :band %>
     <% end %>
   <% end %>
-<% else %>
+<%# A stop that is itself a gym hands its walk to the gym block below, where the floor it is
+    walked on is drawn; everywhere else the walk is the section above the gym. %>
+<% elsif loc.band_steps.any? %>
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_eyebrow") %></div>
     <h3 class="pn-wt-band__h3"><%= t("walkthrough.ui.steps_h2") %></h3>
     <div class="pn-wt-steps">
-      <% loc.lead_steps.each do |step| %>
+      <% loc.band_steps.each do |step| %>
         <%= render "step", step: step, slug: loc.slug %>
         <% if loc.missable_after?(step.n) %><%= render "missable", missable: loc.missable %><% end %>
       <% end %>
@@ -89,10 +91,10 @@
 <% end %>
 
 <% if loc.band_gym? %>
-  <%= render "gym", gym: loc.gym, slug: loc.slug %>
+  <%= render "gym", gym: loc.gym, slug: loc.slug, steps: loc.gym_steps %>
 <% end %>
 
-<% if loc.dojo? %><%= render "dojo", dojo: loc.dojo %><% end %>
+<% if loc.dojo? %><%= render "dojo", dojo: loc.dojo, slug: loc.slug %><% end %>
 
 <% if loc.slug == "route-24" %><%= render "leave_standing" %><% end %>
 

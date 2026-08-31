@@ -6848,28 +6848,44 @@
       {
         "map": "viridian-gym",
         "floor": "",
-        "marker": "trainer-11-11",
+        "marker": "trainer-2-16",
         "key": "T1",
-        "opp": "BLACKBELT:6",
-        "cls": "BLACKBELT",
-        "reward": 1000,
+        "opp": "TAMER:4",
+        "cls": "TAMER",
+        "reward": 1560,
         "team": [
           {
-            "dex": "066",
-            "lvl": 40
+            "dex": "024",
+            "lvl": 39
           },
           {
-            "dex": "067",
-            "lvl": 40
+            "dex": "128",
+            "lvl": 39
           }
         ],
-        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-11-11.png"
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-2-16.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-3-7",
+        "key": "T2",
+        "opp": "BLACKBELT:7",
+        "cls": "BLACKBELT",
+        "reward": 1075,
+        "team": [
+          {
+            "dex": "067",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-3-7.png"
       },
       {
         "map": "viridian-gym",
         "floor": "",
         "marker": "trainer-12-7",
-        "key": "T2",
+        "key": "T3",
         "opp": "COOLTRAINER_M:9",
         "cls": "COOLTRAINER_M",
         "reward": 1365,
@@ -6888,38 +6904,22 @@
       {
         "map": "viridian-gym",
         "floor": "",
-        "marker": "trainer-13-5",
-        "key": "T3",
-        "opp": "COOLTRAINER_M:10",
-        "cls": "COOLTRAINER_M",
-        "reward": 1505,
-        "team": [
-          {
-            "dex": "111",
-            "lvl": 43
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-13-5.png"
-      },
-      {
-        "map": "viridian-gym",
-        "floor": "",
-        "marker": "trainer-2-16",
+        "marker": "trainer-11-11",
         "key": "T4",
-        "opp": "TAMER:4",
-        "cls": "TAMER",
-        "reward": 1560,
+        "opp": "BLACKBELT:6",
+        "cls": "BLACKBELT",
+        "reward": 1000,
         "team": [
           {
-            "dex": "024",
-            "lvl": 39
+            "dex": "066",
+            "lvl": 40
           },
           {
-            "dex": "128",
-            "lvl": 39
+            "dex": "067",
+            "lvl": 40
           }
         ],
-        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-2-16.png"
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-11-11.png"
       },
       {
         "map": "viridian-gym",
@@ -6940,8 +6940,24 @@
       {
         "map": "viridian-gym",
         "floor": "",
-        "marker": "trainer-10-1",
+        "marker": "trainer-13-5",
         "key": "T6",
+        "opp": "COOLTRAINER_M:10",
+        "cls": "COOLTRAINER_M",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "111",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-13-5.png"
+      },
+      {
+        "map": "viridian-gym",
+        "floor": "",
+        "marker": "trainer-10-1",
+        "key": "T7",
         "opp": "BLACKBELT:8",
         "cls": "BLACKBELT",
         "reward": 950,
@@ -6960,22 +6976,6 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/viridian-gym-trainer-10-1.png"
-      },
-      {
-        "map": "viridian-gym",
-        "floor": "",
-        "marker": "trainer-3-7",
-        "key": "T7",
-        "opp": "BLACKBELT:7",
-        "cls": "BLACKBELT",
-        "reward": 1075,
-        "team": [
-          {
-            "dex": "067",
-            "lvl": 43
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/viridian-gym-trainer-3-7.png"
       },
       {
         "map": "viridian-gym",

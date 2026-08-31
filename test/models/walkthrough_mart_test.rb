@@ -35,7 +35,8 @@ class WalkthroughMartTest < ActiveSupport::TestCase
     with_mart = game.locations.select(&:mart?).map(&:slug)
 
     assert_equal %w[celadon-city cerulean-city cinnabar-island fuchsia-city lavender-town
-                    pewter-city saffron-city vermilion-city viridian-city].sort, with_mart.sort
+                    pewter-city saffron-city vermilion-city viridian-city
+                    viridian-city-return].sort, with_mart.sort
     refute_predicate location("route-1"), :mart?
   end
 

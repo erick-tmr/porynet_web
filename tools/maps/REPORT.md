@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
 - step shots: **47** (map/scene in a step slot)
-- standalone scenes: **292** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **293** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -182,6 +182,7 @@
 - `battle-rival-cerulean` (battle): walkthrough/yellow/battles/battle-rival-cerulean.png
 - `battle-rival-oaks-lab` (battle): walkthrough/yellow/battles/battle-rival-oaks-lab.png
 - `battle-rival-route-22` (battle): walkthrough/yellow/battles/battle-rival-route-22.png
+- `battle-rival-route-22-return` (battle): walkthrough/yellow/battles/battle-rival-route-22-return.png
 - `battle-rival-ss-anne` (battle): walkthrough/yellow/battles/battle-rival-ss-anne.png
 - `battle-rocket-hideout-giovanni` (battle): walkthrough/yellow/battles/battle-rocket-hideout-giovanni.png
 - `battle-rocket-hideout-jessie-james` (battle): walkthrough/yellow/battles/battle-rocket-hideout-jessie-james.png

@@ -117,7 +117,8 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7,
                    "seafoam-islands-1f" => 2, "seafoam-islands-b1f" => 2,
                    "seafoam-islands-b2f" => 2, "seafoam-islands-b3f" => 4,
-                   "fuchsia-city-gym" => 5, "saffron-city-gym" => 9 }, legs)
+                   "fuchsia-city-gym" => 5, "saffron-city-gym" => 9,
+                   "viridian-gym" => 10 }, legs)
     assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES
     assert_equal (1..8).to_a, game.locations.flat_map(&:area_maps)
       .find { |area| area.name == "rocket-hideout-b2f" }.route_legs.map(&:hue)
@@ -395,15 +396,18 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal [ %w[celadon-city celadon-city-return], %w[celadon-city surf-cleanups],
                    %w[celadon-city-return surf-cleanups], %w[cerulean-city surf-cleanups],
                    %w[cinnabar-island cinnabar-island-return],
-                   %w[fuchsia-city fuchsia-city-return], %w[pewter-city digletts-cave],
+                   %w[digletts-cave viridian-city-return],
+                   %w[fuchsia-city fuchsia-city-return], %w[pallet-town pallet-town-return],
+                   %w[pewter-city digletts-cave],
                    %w[route-10 route-10-south], %w[route-10 surf-cleanups],
                    %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],
                    %w[route-16-fly route-16], %w[route-2 digletts-cave],
-                   %w[route-20 route-20-west],
+                   %w[route-20 route-20-west], %w[route-22 route-22-return],
                    %w[route-4-mt-moon route-4], %w[route-6 surf-cleanups],
                    %w[saffron-city-return saffron-city],
                    %w[vermilion-city surf-cleanups], %w[vermilion-city vermilion-city-return],
-                   %w[vermilion-city-return surf-cleanups], %w[viridian-city digletts-cave] ],
+                   %w[vermilion-city-return surf-cleanups], %w[viridian-city digletts-cave],
+                   %w[viridian-city viridian-city-return] ],
       pairs.map { |a, b| [ a.slug, b.slug ] }, "every stop that renders another stop's map"
   end
 
@@ -564,6 +568,42 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_match(/pewter-city-gym/, loc.gym.shot.image)
     assert_equal %w[T1 T2], loc.gym.pins.map(&:key), "the gym map draws a keyed pin per trainer"
     assert(loc.gym.pins.all? { |pin| pin.cat == "trainer" }, "only trainers are pinned")
+  end
+
+  # Viridian's gym is a page rather than a room off a city, so nothing in the manifest files its
+  # floor under "Gym". It still belongs to the gym section, and the header is left with no map at
+  # all rather than a second copy of the room the section is about.
+  test "a stop that is itself a gym draws its one floor in the gym section" do
+    loc = location("viridian-gym")
+
+    assert_empty loc.area_maps, "the header draws nothing, because the gym section draws the room"
+    assert_equal "viridian-gym", loc.gym.area.name
+    assert_predicate loc.gym.area, :route?
+    assert_equal %w[T1 T2 T3 T4 T5 T6 T7 T8 T9 I1], loc.gym.pins.map(&:key),
+      "the ball on the floor is pinned too, because a step says to pick it up"
+  end
+
+  # Same rule, one layer up: the section that owns the room owns the walk across it. Every other
+  # gym is a room off a city, so the steps above it are the city's and the gym block gets none.
+  test "a stop that is itself a gym walks inside the gym block" do
+    gym_stop, city = location("viridian-gym"), location("cinnabar-island-return")
+
+    assert_predicate gym_stop, :gym_walk?
+    assert_equal gym_stop.lead_steps, gym_stop.gym_steps
+    assert_empty gym_stop.band_steps
+
+    refute_predicate city, :gym_walk?
+    assert_equal city.lead_steps, city.band_steps
+    assert_empty city.gym_steps
+  end
+
+  # The letters and the drawn line are solved together in tools/maps, and the steps are written to
+  # them: step 2 sends the reader to T1 and step 8 to Giovanni, so a reletter that left the prose
+  # behind would read as a walk that doubles back on itself.
+  test "the Viridian Gym steps name its pins in the order the drawn line reaches them" do
+    named = location("viridian-gym").steps.flat_map { |step| step.marks.values }
+
+    assert_equal %w[T1 T2 T3 T4 T5 T6 T7 T8 T9], named
   end
 
   test "a gym whose floor the manifest never drew pins nobody" do

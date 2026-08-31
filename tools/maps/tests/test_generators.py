@@ -10,6 +10,7 @@ import generators
 import markers
 import roster
 import sources
+import spinners
 
 SPECS = pathlib.Path(__file__).resolve().parents[1] / "specs"
 
@@ -315,6 +316,41 @@ def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
                     continue
                 assert _cell_standable(root, spec["map"], cell, spec.get("cut", ())), \
                     f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
+
+
+def test_no_scene_stands_the_hero_on_an_arrow_tile(root):
+    """The one cell an arrow floor never lets you occupy, and the one the collision map has no
+    opinion about: an arrow tile is open ground, so both walkability tests above pass on it, but
+    the script fires the moment your coordinates match and plays its run at you. A shot taken there
+    is a picture of a tile the player is never standing on.
+
+    The regression: Viridian Gym's Revive was drawn from the tile below the ball, which is the
+    arrow that rides you back down to the entrance. The ball is reached from above, and the shot
+    now says so."""
+    standing = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            tiles = spinners.arrow_tiles(root, spec["map"]) if "map" in spec else {}
+            if not tiles:
+                continue
+            cells = [tuple(spec["player"])] if "player" in spec else []
+            cells += [tuple(s["grid"]) for s in spec.get("sprites", []) if s.get("sprite") == "SPRITE_RED"]
+            standing += [f"{spec['name']} ({path.name}) on {cell}" for cell in cells if cell in tiles]
+
+    assert standing == []
+
+
+def test_the_revive_is_taken_from_above_because_below_it_is_a_ride_home(root):
+    """Viridian Gym's one ball sits in an alcove off the middle chamber's top wall, with an arrow
+    directly beneath it. You come down the column onto the ball and walk back up; step below it and
+    the floor carries you two tiles down and out of the chamber."""
+    spec = _item_spec("viridian-gym-item-revive")
+    ball = (16, 9)
+
+    assert tuple(spec["focus"]) == ball
+    assert tuple(spec["player"]) == (16, 8) and spec["player_dir"] == "DOWN"
+    assert (16, 10) in spinners.arrow_tiles(root, "ViridianGym"), "the tile below the ball"
+    assert spinners.slide_from(root, "ViridianGym", (16, 10))[-1] == (16, 12), "rides you out"
 
 
 def test_route_10_super_potion_is_taken_from_the_stump_of_the_cut_tree(root):

@@ -2867,9 +2867,9 @@
     "map": "ViridianGym",
     "player": [
       16,
-      10
+      8
     ],
-    "player_dir": "UP",
+    "player_dir": "DOWN",
     "focus": [
       16,
       9

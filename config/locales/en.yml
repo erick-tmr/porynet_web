@@ -765,9 +765,9 @@ en:
         leg_16:
           lead: "Back for Blaine and the Volcano Badge, then the long water north to Pallet."
         leg_17:
-          lead: "Back to Viridian, whose gym has finally opened, for Giovanni and the final badge."
+          lead: "Ashore at Pallet and north to Viridian, whose gym has finally opened, for Giovanni and the final badge."
         leg_18:
-          lead: "The badge-gated road to the Pokémon League and Victory Road."
+          lead: "West out of Viridian for Blue's last fight before the Champion, then the badge-gated road up to Victory Road."
       mew_glitch:
         meta_title: "The Mew Glitch · %{game} Walkthrough"
         crumb_cerulean: "CERULEAN"
@@ -3433,37 +3433,85 @@ en:
               text: "From Cinnabar, Surf north up the channel, clearing the Swimmers as you go. Tentacool fills the open water."
             "2":
               title: "Fish and sweep the grass"
-              text: "Super Rod the water for Magikarp, Goldeen, Shellder and Staryu, then check the grass patch just south of Pallet for Pidgey and Rattata plus wild Pidgeotto and Raticate. Land at Pallet and head up to Viridian for the Earth Badge."
+              text: "Super Rod the water for Magikarp, Goldeen, Shellder and Staryu, then check the grass patch just south of Pallet for Pidgey and Rattata plus wild Pidgeotto and Raticate. Come ashore at Pallet Town."
           tips:
             magikarp: "Fish one here and grind it to Lv 20; it becomes Gyarados, one of the strongest Water types in the game."
             goldeen: "A reliable Super Rod catch → Seaking. An easy spot to log the line."
           oak:
             magikarp: "Super Rod it here → Gyarados. Weak now, monstrous once it evolves."
             goldeen: "Fish one → Seaking. Register the base while you are fishing anyway."
+        pallet_town_return:
+          note: "Landfall off Route 21. Straight through, north to Viridian."
+          intro: "Where the run started, and the last place on it with nothing left to take. Route 21 puts you back on the south shore, one road short of the gym that has been locked since leg 2."
+          steps:
+            "1":
+              title: "Fly north, or walk Route 1"
+              text_html: "Nothing in town has changed. Fly straight to Viridian, or leave by the north road %{north} and walk Route 1 up. The gym that stayed shut all game is what you are going for."
+        viridian_city_return:
+          mart:
+            blurb: "The same five items it sold before Route 1. Forty stops on, nothing has been added: this is the last counter between you and Victory Road, and it is a shelf of status cures."
+            buy: "Antidote covers Agatha's Toxic and Parlyz Heal the Thunder Wave off Lance's Dragonair. Full Restores are not sold here, so bring those from Celadon or Fuchsia."
+          note: "The gym finally opens. Last counter before Victory Road."
+          intro: "Seven badges in the case, which is exactly what the gym in the northeast corner has been waiting for. The Center and the Mart are the only other stops, and both were walked in leg 2."
+          steps:
+            "1":
+              title: "Heal, then walk into the Gym"
+              text_html: "Top up at the Poke Center %{center} and buy what the Mart is still worth, because there is no healing inside. Then take the Gym %{gym} in the northeast: with seven badges the door finally opens."
         viridian_gym:
           gym:
             intro: "The last Kanto gym, a spinner-tile maze packed with eight trainers. Giovanni waits at the top with Dugtrio (Lv 50), Persian (Lv 53), Nidoqueen (Lv 53), Nidoking (Lv 55) and Rhydon (Lv 55). Dugtrio's Fissure and Rhydon's Horn Drill are one-hit KOs, so out-speed them and pack Water, Grass or Ice."
-            puzzle:
-              "1": "Spinner tiles fling you in a straight line until you hit a stop tile. Plan each launch so you land where you can reach the next trainer."
-              "2": "Clear trainers to open the northern path, then ride the spinners north and west, correcting your line at each stop toward Giovanni."
-              "3": "The final spinners drop you in front of Giovanni. Watch for Fissure and Horn Drill one-hit KOs and lead with a fast Water or Ice attacker."
           note: "Giovanni's Gym. Earth Badge. The 8th badge."
-          intro: "The gym that stayed shut all game. Giovanni runs it, with eight trainers and a floor of spinning arrow tiles between the door and him."
+          intro: "The gym that stayed shut all game. Giovanni runs it, with eight trainers and a floor of arrow tiles that shove you along fixed runs. The rides go one way and the trainers block the corridors, so one order clears the floor in a single pass."
           steps:
             "1":
-              title: "Prep and enter the Gym"
-              text: "Top off Potions and Revives first: there is no healing between the eight trainers. Enter from the south, and the floor turns into spinner tiles that fling you straight until you hit a stop."
+              title: "Ride west into the Tamer"
+              text_html: "In at the door and two tiles west, then one step north onto the row above. The arrow there throws you six tiles west; carry on along that row and the Tamer %{tamer} takes you."
             "2":
-              title: "Grab the Revive"
-              text: "A Poke Ball rests on the east side of the maze, straight north up the column of the south entrance. Ride the spinners to line up on it and pocket the free Revive before you climb toward Giovanni."
-              items:
-                revive: "East side, straight north of the south door, about halfway up the gym."
+              title: "Ride the west wall up to the Blackbelt"
+              text_html: "Drop back to the bottom row and follow it to the far corner. Step north onto the arrow and it fires you eight tiles up the wall, landing inside the Blackbelt's %{blackbelt} line."
             "3":
-              title: "Ride the spinners to Giovanni"
-              text: "Beat the trainers to open the northern path, correcting your launch at each stop tile. Giovanni waits at the top: watch Dugtrio's Fissure and Rhydon's Horn Drill, and lead fast with Water, Grass or Ice."
+              title: "Two rides across to the middle chamber"
+              text_html: "North one row, then east onto the arrow that drops you down the corridor. Step east again to ride across the floor, then climb north into the middle chamber, where a Cooltrainer %{cooltrainer} sees you."
             "4":
-              title: "On to Victory Road"
-              text_html: "With the Earth Badge and all eight in hand, leave the gym %{out} and head back to Route 22, then push west into Victory Road."
+              title: "Cross the chamber right to left"
+              text_html: "Move one row up and work west. The Blackbelt %{blackbelt} watches the next column along and the Tamer %{tamer} the one after, so two steps west collects both."
+            "5":
+              title: "Out of the chamber to the second Cooltrainer"
+              text_html: "North up that column, east along the chamber's top wall, then north up the east side. Turn west along the row at the top and the Cooltrainer %{cooltrainer} standing on it takes you."
+            "6":
+              title: "West to the Blackbelt, who comes to you"
+              text_html: "Up a row and west, then down and west again to the foot of the open column. The Blackbelt %{blackbelt} at its head walks down to fight you and stays there, shutting the column behind him."
+            "7":
+              title: "Back east for the Revive"
+              text: "Retrace the row east and take the east side down to the alcove off the chamber's top wall. The ball in it holds a Revive, the only thing on this floor to pick up."
+              items:
+                revive: "The alcove off the northeast corner of the middle chamber. The tile below the ball is an arrow back to the entrance."
+            "8":
+              title: "Ride out and up the east wall"
+              text: "Step down onto the arrow below the ball and it drops you back near the entrance. Walk east to the far wall and climb it, then take the arrow at the top: it fires you west along the top row."
+            "9":
+              title: "In by the door he left, west to the last Cooltrainer"
+              text_html: "The ride ends beside the doorway the Blackbelt walked out of. Through it, west along the top row, then down three into the corridor. The last Cooltrainer %{cooltrainer} sits in the gap below its west end, facing away: press A."
+            "10":
+              title: "West into Giovanni's room"
+              text_html: "Carry on west along that corridor. Its far end is the only door into the corner room, and Giovanni %{giovanni} sees you the moment you turn north up the column to him."
+            "11":
+              title: "On to Route 22"
+              text: "With the Earth Badge and all eight in hand, leave by the door you came in. The road west out of town is the last one before the League, and Blue is waiting on it."
+        route_22_return:
+          rival_note_html: "The last slot is whichever Eeveelution his Eevee became, drawn here as Jolteon; it is Flareon or Vaporeon on other saves, and the two slots above it swap with it. <a href=\"%{href}\">The Eevee recipe</a> back on leg 1 says which one you gave him."
+          note: "The road west, and Blue's last fight before the League."
+          intro: "The same dead end you crossed for Mankey and Nidoran, forty stops on. The gate at the far end reads your case now and lets you through, and Blue is waiting on the road in front of it with six."
+          steps:
+            "1":
+              title: "West out of Viridian"
+              text_html: "Leave town by the west road %{east} and follow Route 22 to the water. There is nothing here to pick up and nothing worth catching: the grass is still the Lv 2-6 it was in leg 2."
+            "2":
+              title: "Beat Blue, six on six"
+              text_html: "He stops you at the same rock as the first time. Sandslash (Lv 47), Exeggcute (Lv 45), Kadabra (Lv 50) and his Eeveelution (Lv 53) are fixed; two of Ninetales, Cloyster and Magneton fill the rest."
+            "3":
+              title: "Through the gate to Route 23"
+              text_html: "Carry on west into the gate %{gate}. The guard checks all eight badges, and past it the road north %{north} climbs to Route 23 and Victory Road."
         victory_road:
           note: "The League gate. Boulder puzzles and Moltres."
           intro: "Three floors of boulder puzzles between Route 23 and the League, every door held by a switch that needs a rock sat on it. Moltres roosts on the way up."

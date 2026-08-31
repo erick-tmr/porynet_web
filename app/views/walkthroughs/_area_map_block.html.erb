@@ -1,6 +1,9 @@
 <div class="pn-mm-block" data-controller="map-markers"
      data-map-markers-game-value="<%= @game.slug %>"
      data-map-markers-map-value="<%= area.name %>"
+     <%# A drawn line is the instruction on a floor that has one, the way it already is in a gym
+         section, so it starts on rather than behind a toggle nobody has a reason to press. %>
+     data-map-markers-route-value="<%= area.route? %>"
      data-map-markers-native-w-value="<%= area.width %>"
      data-map-orient="<%= area.landscape? ? "landscape" : "portrait" %>">
   <div class="pn-mm-head">
@@ -37,7 +40,7 @@
     </div>
     <div class="pn-mm-toggles">
       <% if area.route? %>
-        <button type="button" class="pn-mm-toggle" aria-pressed="false"
+        <button type="button" class="pn-mm-toggle is-on" aria-pressed="true"
                 data-map-markers-target="routeToggle" data-action="click->map-markers#toggleRoute">
           <%= t("walkthrough.ui.map_route_#{area.route_kind}") %>
           <span class="pn-mm-toggle__on"><%= t("walkthrough.ui.map_labels_on") %></span>

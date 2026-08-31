@@ -20,9 +20,8 @@ MANIFEST = json.loads(
     (pathlib.Path(__file__).resolve().parents[3]
      / "app/models/walkthrough/yellow_maps.json").read_text())
 
-# The floors that ship a drawn line. Viridian Gym is an arrow floor too, but its ROUTES entry is
-# a single doorway, so it has no walk to draw yet; see the gate test at the bottom.
-DRAWN = ("RocketHideoutB2F", "RocketHideoutB3F")
+# The arrow floors that ship a drawn line.
+DRAWN = ("RocketHideoutB2F", "RocketHideoutB3F", "ViridianGym")
 # Every floor that ships a line, arrow-driven or walked. The walkability promise is the same for
 # both; only the ball-collecting one is particular to the mazes, whose stops are the balls.
 LINED = (*DRAWN, "FuchsiaGym")
@@ -115,7 +114,7 @@ def test_a_route_collects_every_ball_on_its_floor(root, label):
     ball a reader walks past, so the stops have to name all of them."""
     balls = {tuple(o["grid"]) for o in sources.parse_object_events(root, label)
              if o["kind"] == "item"}
-    drawn = {cell for cells in spinners.route(root, label, paths.route_cells(root, label))
+    drawn = {cell for cells in spinners.route(root, label, spinners.route_stops(root, label))
              for cell in cells}
 
     assert balls <= drawn, f"{label}: the route misses {sorted(balls - drawn)}"
@@ -124,16 +123,24 @@ def test_a_route_collects_every_ball_on_its_floor(root, label):
 def test_only_a_floor_with_a_written_walk_gets_a_line(root):
     """Three gates, and each matters. Outside, the flood that orders the pins walks up ledges you
     can only fall down, so a line drawn from it would trace a way across the field that does not
-    exist. Viridian Gym is an arrow floor whose route is a single doorway, which says nothing about
-    the way round: it gets a line the day its ROUTES entry names one. And a floor with no arrows
-    gets one only by being named in WALKED, which is a judgement about whether the walls are
-    visible, not something to infer."""
+    exist. And a floor with no arrows gets one only by being named in STOPS, which is a judgement
+    about whether the walls are visible, not something to infer."""
     assert spinners.drawn_route(root, "Route3") == [], "no arrows, however long its ROUTES entry"
-    assert len(paths.ROUTES["ViridianGym"]) == 1
-    assert spinners.drawn_route(root, "ViridianGym") == [], "arrows, but no walk written down yet"
-    assert spinners.drawn_route(root, "RocketHideoutB2F"), "both, so it gets one"
-    assert spinners.drawn_route(root, "CeruleanGym") == [], "no arrows and not named in WALKED"
+    assert spinners.drawn_route(root, "RocketHideoutB2F"), "arrows and a written route"
+    assert spinners.drawn_route(root, "CeruleanGym") == [], "no arrows and not named in STOPS"
     assert spinners.drawn_route(root, "FuchsiaGym"), "no arrows, but its walls are invisible"
+
+
+def test_a_lone_doorway_is_not_a_walk(root, monkeypatch):
+    """The gate the three arrow floors have all now passed through. A ROUTES entry naming only the
+    door the hero comes in by is what every floor starts with, and it says nothing about the way
+    round: it fixes where the pins are measured from and no more. Drawing a line off it would be
+    drawing a line from one point to itself."""
+    monkeypatch.delitem(spinners.STOPS, "ViridianGym")
+    monkeypatch.setitem(paths.ROUTES, "ViridianGym", ("exit-16-17",))
+
+    assert spinners.route_stops(root, "ViridianGym") == ((16, 17),)
+    assert spinners.drawn_route(root, "ViridianGym") == []
 
 
 def test_the_fuchsia_line_runs_from_the_door_to_koga(root):
@@ -159,6 +166,98 @@ def test_the_fuchsia_line_runs_from_the_door_to_koga(root):
     assert paths.ROUTES["FuchsiaGym"] == ("exit-4-17",), "the lettering waypoints stay as they were"
 
 
+def test_the_viridian_line_meets_all_eight_and_ends_on_giovanni(root):
+    """The last gym, and the one floor where the pins, the line and the steps are all one walk.
+
+    Its stops are its own because a trainer's cell is not a cell you stand on: the line runs to
+    the tile beside each one and treads on nobody who is still standing there. It has to reach
+    every trainer, because the page promises the floor cleared, and it has to run over the Revive,
+    because a ball off the line is a ball the reader walks past.
+
+    Two cells are its own: Giovanni, who is where the walk stops, and the doorway the Blackbelt
+    walks out of on his way to fight you, which the line comes back in through."""
+    door, giovanni, revive = (16, 17), (2, 1), (16, 9)
+    walked_off = set(spinners.WALKS_UP["ViridianGym"])
+    legs = spinners.route(root, "ViridianGym", spinners.route_stops(root, "ViridianGym"))
+    cells = [cell for leg in legs for cell in leg]
+    trainers = {obj["grid"] for obj in
+                sources.parse_object_events(root, "ViridianGym", include_battlers=True)
+                if obj["kind"] == "trainer"} - {giovanni}
+
+    assert cells[0] == door
+    assert cells[-1] == giovanni
+    assert revive in cells, "the one ball on the floor"
+    assert [c for c in cells if c in trainers - walked_off] == [], "it treads on nobody standing"
+    assert all(any((x + dx, y + dy) in cells for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+               for x, y in trainers), "but it comes within a tile of all eight"
+
+
+def test_the_blackbelt_walks_out_of_the_doorway_the_line_comes_back_through(root):
+    """The mechanic the whole back half of this floor turns on. A Gen 1 trainer who spots you walks
+    down their line of sight and stops beside you, and stays there: Viridian's Blackbelt stands in
+    the doorway at the head of the only column into the gym's top-left corner, so stepping into his
+    line shuts that column behind him and opens the doorway.
+
+    Solved on the floor as the map file declares it, the line walks up the column he is about to
+    fill, which is a walk the game will not let you take. Solved on the floor he leaves, it does
+    what the player has to do: back out, round by the east wall, and in through the empty doorway.
+    """
+    door, column = (10, 1), (10, 3)
+    legs = spinners.route(root, "ViridianGym", spinners.route_stops(root, "ViridianGym"))
+    cells = [cell for leg in legs for cell in leg]
+
+    standing = spinners.people(root, "ViridianGym")
+
+    assert spinners.WALKS_UP["ViridianGym"] == {door: (10, 4)}
+    assert door not in standing, "the doorway is open once he leaves it"
+    assert (10, 4) in standing, "and the column is shut where he stops"
+    assert door in cells, "so the line comes back in through the doorway"
+    assert column not in cells, "and never up the column behind him"
+
+
+def test_the_viridian_line_walks_into_seven_of_the_eight_sight_lines(root):
+    """Every trainer in the gym has a sight range of 4 (`trainer ..., 4` in its script header), so
+    walking onto one of the four tiles they face is what starts the fight. The line does that for
+    seven of the eight; the Cooltrainer at the top of the west corridor is the exception, reached
+    from the tile behind him because the corridor he watches is a dead end you would have to walk
+    back out of. The step that names him is the one that says to press A."""
+    facing = {"UP": (0, -1), "DOWN": (0, 1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
+    legs = spinners.route(root, "ViridianGym", spinners.route_stops(root, "ViridianGym"))
+    cells = {cell for leg in legs for cell in leg}
+    spotted = set()
+    for obj in sources.parse_object_events(root, "ViridianGym", include_battlers=True):
+        if obj["kind"] != "trainer":
+            continue
+        (x, y), (dx, dy) = obj["grid"], facing[obj["direction"]]
+        if any((x + dx * n, y + dy * n) in cells for n in range(1, 5)):
+            spotted.add(obj["grid"])
+
+    assert sorted(spotted) == [(2, 1), (2, 16), (3, 7), (10, 1), (10, 7), (11, 11), (12, 7),
+                               (13, 5)]
+    assert (6, 5) not in spotted, "the Cooltrainer taken from behind"
+
+
+def test_the_viridian_gyms_letters_and_its_line_take_the_floor_in_one_order(root):
+    """Two answers to one question live apart: `paths.ROUTES` letters the pins and `STOPS` draws
+    the line. A reader following the arrows meets T1 first and picks up I1 on the way, so if the
+    two ever disagreed the map would be arguing with itself. They are compared stop by stop: each
+    lettering waypoint is the cell its leg of the line ends on, or a cell that reaches the person
+    standing there, which is the tile beside them or anywhere along the four they watch."""
+    facing = {"UP": (0, -1), "DOWN": (0, 1), "LEFT": (-1, 0), "RIGHT": (1, 0), "NONE": (0, 0)}
+    seen = {obj["grid"]: facing[obj["direction"]] for obj in
+            sources.parse_object_events(root, "ViridianGym", include_battlers=True)}
+    lettered = paths.marker_cells(root, "ViridianGym", paths.ROUTES["ViridianGym"])
+    drawn = spinners.route_stops(root, "ViridianGym")
+
+    def reaches(pin, stop):
+        dx, dy = seen.get(pin, (0, 0))
+        beside = {(pin[0] + x, pin[1] + y) for x, y in ((1, 0), (-1, 0), (0, 1), (0, -1))}
+        watched = {(pin[0] + dx * n, pin[1] + dy * n) for n in range(1, 5)}
+        return stop == pin or stop in beside | watched
+
+    assert [pin for pin, stop in zip(lettered, drawn, strict=True) if not reaches(pin, stop)] == []
+
+
 def test_the_line_is_handed_over_in_the_pixels_of_the_map_it_is_drawn_on(root):
     """The app hangs an SVG over the image at whatever size the page gives it, so the points are
     pixel centres of their cells and the app never has to know the grid."""
@@ -167,13 +266,17 @@ def test_the_line_is_handed_over_in_the_pixels_of_the_map_it_is_drawn_on(root):
     assert first == [27 * 16 + 8, 8 * 16 + 8], "the B1F staircase, centred in its cell"
 
 
-@pytest.mark.parametrize("name", ("rocket-hideout-b2f", "rocket-hideout-b3f"))
-def test_the_committed_route_matches_a_fresh_solve(root, name):
+@pytest.mark.parametrize(("name", "label"), [
+    ("rocket-hideout-b2f", "RocketHideoutB2F"),
+    ("rocket-hideout-b3f", "RocketHideoutB3F"),
+    ("viridian-gym", "ViridianGym"),
+    ("fuchsia-city-gym", "FuchsiaGym"),
+])
+def test_the_committed_route_matches_a_fresh_solve(root, name, label):
     """The golden test for the line, next to the one the markers already have: rebuild it from the
     game and it has to equal what shipped. Change the solver or a waypoint and this fails for
     every floor that moved, not just the one you were looking at."""
     entry = next(e for maps in MANIFEST["locations"].values() for e in maps if e["name"] == name)
-    label = f"RocketHideout{entry['floor']}"
 
     assert entry["route"] == spinners.drawn_route(root, label), (
         f"{name}: the drawn route drifted from the game; rerun tools/maps/build.py")

@@ -3073,6 +3073,42 @@ a.pn-wt-route__card:hover {
   background: #0b1022;
 }
 
+/* The walk, when it runs inside the gym block rather than above it. Same markup as the walk on any
+   other page, dressed as the puzzle steps it sits under: a column of cream cards dropped onto the
+   neon panel reads as a different page pasted in. So the card takes the pstep's ground and hairline
+   border, the number takes its accent chip, and the rail that threads the light steps together
+   goes, since the frame around the whole list is now what groups them. */
+.pn-wt-steps--gym {
+  gap: 12px;
+  margin-top: 14px;
+}
+.pn-wt-steps--gym .pn-wt-step__rail { width: 38px; }
+.pn-wt-steps--gym .pn-wt-step__line { background: transparent; }
+.pn-wt-steps--gym .pn-wt-step__node {
+  width: 26px;
+  height: 26px;
+  margin-top: 12px;
+  border-color: var(--gym-accent);
+  background: var(--gym-accent);
+  box-shadow: none;
+  font-size: 10px;
+}
+.pn-wt-steps--gym .pn-wt-step__card {
+  margin-bottom: 0;
+  padding: 12px 14px;
+  background: #141a2e;
+  border: 2px solid color-mix(in srgb, var(--gym-accent) 27%, transparent);
+  box-shadow: none;
+}
+.pn-wt-steps--gym .pn-wt-step__title { color: #eaf2ff; }
+.pn-wt-steps--gym .pn-wt-step__text { color: #cfe1f5; }
+
+/* The one collectible in the room keeps its own light chip: it is the tick target, and every state
+   it wears (the green wash when collected, the stamp on its icon) is cut for a light ground. */
+.pn-wt-steps--gym .pn-wt-item {
+  border-color: color-mix(in srgb, var(--gym-accent) 45%, #171622);
+}
+
 .pn-wt-gym__label {
   font-family: "Press Start 2P", monospace;
   font-size: 9px;
