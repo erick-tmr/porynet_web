@@ -1,0 +1,32 @@
+<%# Past the credits. The League is beaten and the file is not finished, so the board says what the
+    win actually opened before the guide moves on to Cerulean Cave. %>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("#{copy}.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{copy}.heading") %></h2>
+
+  <div class="pn-congrats">
+    <span class="pn-congrats__garland" aria-hidden="true"></span>
+    <span class="pn-congrats__confetti" aria-hidden="true"></span>
+    <div class="pn-congrats__inner">
+      <div class="pn-congrats__top">
+        <div>
+          <div class="pn-congrats__kicker">★ ★ ★ ★ ★ <%= t("#{copy}.kicker") %></div>
+          <h3 class="pn-congrats__title"><%= t("#{copy}.title") %></h3>
+          <p class="pn-congrats__lead"><%= t("#{copy}.lead") %></p>
+        </div>
+        <div class="pn-congrats__hero">
+          <%= r2_image_tag "walkthrough/art/gen1-hall-of-fame-sugimori.png",
+                alt: t("#{copy}.art_alt"), class: "pn-congrats__hero-img", loading: "lazy" %>
+        </div>
+      </div>
+      <div class="pn-congrats__next">
+        <% after.each do |key| %>
+          <div class="pn-congrats__tile">
+            <div class="pn-congrats__tile-k"><%= t("#{copy}.tiles.#{key}.label") %></div>
+            <div class="pn-congrats__tile-v"><%= t("#{copy}.tiles.#{key}.value") %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

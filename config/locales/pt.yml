@@ -571,6 +571,15 @@ pt:
       modes_off_oak: "DESAFIO OAK ▶"
       trainers_eyebrow: "TREINADORES · %{count}"
       trainers_h2: "Treinadores aqui"
+      league_cleared: "VENCIDO ✓"
+      league_roster: "EQUIPE · NA ORDEM"
+      league_roster_n: "EQUIPE · %{n}"
+      league_counter: "COMO VENCER"
+      league_on_screen: "NA TELA"
+      league_tap_todo: "TOQUE AO VENCER"
+      league_tap_done: "VENCIDO ✓ TOQUE PARA DESFAZER"
+      league_champion: "CAMPEÃO"
+      league_ace: "ACE"
       vs: "VS"
       where: "ONDE"
       inside: "DENTRO"
@@ -3615,14 +3624,101 @@ pt:
           intro: "O prédio da Liga: cinco salas em fila, a Elite dos Quatro e depois o Campeão. Assim que a primeira porta fecha não há volta nem nada para curar."
           steps:
             "1":
-              title: "Abasteça"
-              text: "Cure e compre Full Restores, curas de status e Ultra Balls no saguão antes de entrar."
-            "2":
-              title: "Vença a Elite dos Quatro"
-              text: "Lorelei (Gelo/Água), Bruno (Lutador/Rocha), Agatha (Fantasma/Veneno) e Lance (Dragão), um atrás do outro sem cura entre eles. Acerte cada um com sua fraqueza e leve muitos Full Restores."
-            "3":
-              title: "Vença o Campeão Blue"
-              text: "Seu rival abre com Sandslash (Nv 61) e traz Alakazam, Exeggutor, Magneton ou Cloyster, Ninetales e a Eeveelution do Eevee dele (Nv 65). O Alakazam tem Recover: quebre com golpes físicos."
+              title: "Siga em frente"
+              text: "Não há nada para resolver aqui. Vencer o treinador de uma sala abre a porta seguinte, então siga andando: Lorelei, Bruno, Agatha, Lance e então Blue. Compre e cure no saguão antes da primeira porta."
+          league:
+            brief:
+              level:
+                label: "RECOMENDADO"
+                value: "Nv 55 a 62"
+                note: "Seis no time, um deles uma parede de Água ou Psíquico"
+              pack:
+                label: "MOCHILA"
+                value: "20 Full Restores"
+                note: "Mais Revives, Awakenings e Full Heals para a Agatha"
+              rule:
+                label: "REGRA DURA"
+                value: "Sem Centro Pokémon"
+                note: "Saia do corredor e cada sala que você limpou estará esperando de novo"
+              cleared:
+                label: "VENCIDOS"
+                note: "Toque na placa quando vencer"
+            members:
+              lorelei:
+                eyebrow: "SALA 01 · PRIMEIRA PORTA"
+                heading: "Lorelei, a parede de gelo"
+                rail: "GELO · SALA 01"
+                kicker: "ELITE DOS QUATRO · 01"
+                spread: "Nv 53 a 56 · cinco Pokémon · Água e Gelo"
+                line: "Ela prefere te cansar a te derrubar. Blizzard congela 30% das vezes nesta geração, então cada turno que você passa com pouco HP na frente dela é cara ou coroa com a run inteira."
+                counter: "Thunderbolt ou Thunder resolve quatro dos cinco. Guarde um golpe de Fogo para a Jynx. Não abra com um tipo Planta contra Blizzard, e cure antes de cair da metade, não depois."
+                door: "Vencer a Lorelei abre a porta da sala 2."
+              bruno:
+                eyebrow: "SALA 02 · SEGUNDA PORTA"
+                heading: "Bruno, a sala barata"
+                rail: "LUTADOR · SALA 02"
+                kicker: "ELITE DOS QUATRO · 02"
+                spread: "Nv 53 a 58 · cinco Pokémon · Lutador e Rocha"
+                line: "Três pesos pesados com dois Onix de enchimento. Esta é a sala em que você deve gastar menos itens, porque a próxima vai pedir todos eles."
+                counter: "Psychic nos três lutadores, Surf ou Mega Drain nos dois Onix. Slowbro ou Starmie dão conta da sala sozinhos. Não segure o Submission do Machamp com um tipo Normal."
+                door: "Vencer o Bruno abre a porta da sala 3."
+              agatha:
+                eyebrow: "SALA 03 · TERCEIRA PORTA"
+                heading: "Agatha, a que acaba com runs"
+                rail: "FANTASMA · SALA 03"
+                kicker: "ELITE DOS QUATRO · 03"
+                spread: "Nv 55 a 60 · cinco Pokémon · Fantasma e Veneno"
+                line: "A sala que realmente acaba com runs. O Gengar de abertura usa Hypnosis e Confuse Ray, e adora botar seu time inteiro para dormir antes de causar um ponto de dano."
+                counter: "Psychic pega todos os cinco por causa do tipo Veneno, e Terrestre resolve o Arbok. Golpes Normais e Lutadores não fazem nada contra Gengar e Haunter. Awakenings e Full Heals são gastos aqui."
+                door: "Vencer a Agatha abre a porta da sala 4."
+              lance:
+                eyebrow: "SALA 04 · ÚLTIMA PORTA"
+                heading: "Lance, o líder dos quatro"
+                rail: "DRAGÃO · SALA 04"
+                kicker: "ELITE DOS QUATRO · 04"
+                spread: "Nv 56 a 62 · cinco Pokémon · Dragão no papel"
+                line: "Só três dos cinco são realmente Dragões, e os dois que não são batem mais forte. O Gyarados abre, o Aerodactyl é mais rápido que quase todo time, e o Dragonite de Nv 62 fecha o corredor."
+                counter: "Ice Beam nos dois Dragonair e no Dragonite, Thunderbolt no Gyarados, cobertura de Rocha ou Elétrico para o Aerodactyl. Lapras segura quase tudo aqui. Guarde dois Revives."
+                door: "Vencer o Lance abre a sala do Campeão. Não há ponto de save depois dessa porta."
+            champion:
+              eyebrow: "SALA 05 · SALA DO CAMPEÃO"
+              heading: "Blue, e ele chegou primeiro"
+              ribbon: "BATALHA FINAL · 05"
+              stamp: "LIGA VENCIDA ✓"
+              sub: "SEIS POKÉMON · TIPOS MISTOS · SEM FRAQUEZA EM COMUM"
+              line: "Ele entrou minutos antes de você. Seis Pokémon em vez de cinco, nada que você derrube com um golpe só, e três das vagas decididas lá atrás pelas suas duas primeiras batalhas contra ele."
+              screen_label: "O QUE VOCÊ VÊ DE FATO"
+              screen_note: "O Campeão luta com um sprite próprio, não com o que você vem vencendo desde Pallet."
+              variant_label: "VARIANTE DO EEVEE · ESCOLHA A SUA"
+              rules:
+                jolteon: "Você enfrenta o Jolteon se venceu ele no laboratório do Oak e venceu de novo na Rota 22."
+                flareon: "Você enfrenta o Flareon se venceu ele no laboratório do Oak e depois pulou ou perdeu a revanche da Rota 22."
+                vaporeon: "Você enfrenta o Vaporeon se perdeu no laboratório do Oak. Aí o resultado da Rota 22 não conta para nada."
+              warn_label: "LEIA ISTO"
+              warn: "O Alakazam é mais rápido que quase tudo que você tem, e o ace dele está no Nv 65. Divida os itens por sala na ida: pouco no Bruno, muito na Agatha, e o que sobrar vem para cá."
+              hof_label: "HALL DA FAMA"
+              hof: "Vença ele e os créditos sobem. Seus seis são registrados, e então você acorda em Pallet com a Pokédex ainda incompleta."
+              seal_todo: "A CADEIRA AINDA É DELE"
+              seal_todo_note: "Toque para carimbar sua entrada"
+              seal_done: "CAMPEÃO ✓"
+              seal_done_note: "Liga vencida. Toque para desfazer."
+            after:
+              eyebrow: "DEPOIS DOS CRÉDITOS"
+              heading: "Você zerou o jogo"
+              kicker: "LIGA VENCIDA"
+              title: "Parabéns, Campeão"
+              lead: "O Oak entra, seus seis são fotografados no Hall da Fama, os créditos sobem e você acorda na sua própria cama em Pallet. Mas o arquivo não acabou. Kanto abre de verdade agora, e a Pokédex continua sendo o final de verdade."
+              art_alt: "Red e Blue com seus times, ilustração de Ken Sugimori de 1997"
+              tiles:
+                open:
+                  label: "AGORA ABERTO"
+                  value: "Cerulean Cave, a noroeste de Cerulean City. O Mewtwo espera sozinho no último andar, no Nv 70."
+                rematch:
+                  label: "REVANCHES"
+                  value: "A Liga reinicia toda vez que você volta voando, nos mesmos níveis. É o melhor dinheiro e a melhor experiência do jogo."
+                missing:
+                  label: "AINDA FALTA"
+                  value: "As evoluções por troca e os exclusivos de versão. Veja no tracker o que o seu arquivo ainda deve ao Oak."
         cerulean_cave:
           note: "Masmorra pós-jogo. Os selvagens mais fortes. E o Mewtwo."
           intro: "A caverna que o guarda só abre para um Campeão. Três andares com os Pokémon selvagens mais fortes de Kanto, e o Mewtwo sozinho no fundo."

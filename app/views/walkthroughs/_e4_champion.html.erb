@@ -1,0 +1,99 @@
+<%# The Champion's room. Which of the three teams Blue brings was settled by the first two rival
+    battles, so all three are here and the reader picks the one their file earned. The tabs sit
+    inside a card that is itself the tick, so the controller stops their clicks from reaching it. %>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("#{copy}.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{copy}.heading") %></h2>
+
+  <div class="pn-throne" data-controller="champion-team"
+       <%= tag.attributes(tickable("collected", champion.tick)) %>>
+    <%= progress_toast("trainer", name: champion.trainer.name) %>
+    <span class="pn-throne__party" aria-hidden="true"></span>
+    <span class="pn-throne__stamp"><%= t("#{copy}.stamp") %></span>
+    <span class="pn-throne__ribbon"><%= t("#{copy}.ribbon") %></span>
+
+    <div class="pn-throne__wrap">
+      <div>
+        <div class="pn-gbscreen">
+          <%= r2_image_tag champion.trainer.battle.image, alt: "", class: "pn-gbscreen__img",
+                loading: "lazy", width: 160, height: 144 %>
+        </div>
+        <div class="pn-throne__cap">
+          <%= t("#{copy}.screen_label") %>
+          <span class="pn-throne__cap-note"><%= t("#{copy}.screen_note") %></span>
+        </div>
+      </div>
+
+      <div class="pn-throne__body">
+        <div class="pn-throne__crown">★ <%= t("walkthrough.ui.league_champion") %></div>
+        <h3 class="pn-throne__name"><%= champion.trainer.name %></h3>
+        <div class="pn-throne__sub"><%= t("#{copy}.sub") %></div>
+        <p class="pn-throne__line"><%= t("#{copy}.line") %></p>
+
+        <div class="pn-throne__label"><%= t("#{copy}.variant_label") %></div>
+        <div class="pn-throne__tabs">
+          <% champion.teams.each_with_index do |team, i| %>
+            <button type="button" class="<%= class_names("pn-throne__tab", "is-active" => i.zero?) %>"
+                    data-champion-team-target="tab" data-team="<%= team.key %>"
+                    aria-pressed="<%= i.zero? %>" data-action="champion-team#pick">
+              <%= r2_image_tag "pokemon/yellow/#{team.dex}.png", alt: "",
+                    class: "pn-throne__tab-sprite", loading: "lazy" %>
+              <%= team.name.upcase %>
+            </button>
+          <% end %>
+        </div>
+
+        <% champion.teams.each_with_index do |team, i| %>
+          <div data-champion-team-target="panel" data-team="<%= team.key %>" <%= "hidden" unless i.zero? %>>
+            <div class="pn-throne__rule"><%= t("#{copy}.rules.#{team.key}") %></div>
+            <div class="pn-throne__label"><%= t("walkthrough.ui.league_roster_n", n: team.team.size) %></div>
+            <div class="pn-throne__mons">
+              <% team.team.each_with_index do |mon, slot| %>
+                <div class="<%= class_names("pn-throne__mon", "is-ace" => team.ace?(slot)) %>">
+                  <span class="pn-throne__mon-tag"><%= t("walkthrough.ui.league_ace") %></span>
+                  <%= r2_image_tag "pokemon/yellow/#{mon[:dex]}.png", alt: "",
+                        class: "pn-throne__mon-sprite", loading: "lazy" %>
+                  <div class="pn-throne__mon-name"><%= mon[:name] %></div>
+                  <div class="pn-throne__mon-lvl"><%= t("walkthrough.ui.lv", n: mon[:lvl]) %></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="pn-throne__warn">
+          <span class="pn-throne__warn-k"><%= t("#{copy}.warn_label") %></span>
+          <span class="pn-throne__warn-v"><%= t("#{copy}.warn") %></span>
+        </div>
+      </div>
+
+      <div class="pn-throne__figure">
+        <span class="pn-throne__wordmark" aria-hidden="true"><%= t("walkthrough.ui.league_champion") %></span>
+        <span class="pn-throne__glow" aria-hidden="true"></span>
+        <%= r2_image_tag "walkthrough/art/blue-art.png", alt: champion.trainer.name,
+              class: "pn-throne__art", loading: "lazy" %>
+      </div>
+    </div>
+
+    <div class="pn-throne__hof">
+      <div class="pn-throne__hof-main">
+        <span class="pn-throne__hof-k"><%= t("#{copy}.hof_label") %></span>
+        <span class="pn-throne__hof-v"><%= t("#{copy}.hof") %></span>
+      </div>
+      <span class="pn-throne__seal">
+        <span class="pn-throne__seal-medal" aria-hidden="true">★</span>
+        <span>
+          <span class="pn-throne__seal-stars" aria-hidden="true">★ ★ ★ ★ ★</span>
+          <span class="pn-throne__seal-todo">
+            <span class="pn-throne__seal-head"><%= t("#{copy}.seal_todo") %></span>
+            <span class="pn-throne__seal-note"><%= t("#{copy}.seal_todo_note") %></span>
+          </span>
+          <span class="pn-throne__seal-done">
+            <span class="pn-throne__seal-head"><%= t("#{copy}.seal_done") %></span>
+            <span class="pn-throne__seal-note"><%= t("#{copy}.seal_done_note") %></span>
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</section>

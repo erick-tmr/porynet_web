@@ -1,0 +1,32 @@
+<%# The Pokémon League, drawn as the corridor it is: the brief you walk in holding, one plate per
+    room in the order the doors open, the Champion's throne, and the board that waits past the
+    credits. Every plate is its own tick, and the brief counts them. %>
+<section class="pn-wt-section">
+  <div class="pn-e4-league">
+    <div class="pn-e4-league__grid" aria-hidden="true"></div>
+    <div class="pn-e4-league__inner">
+      <div class="pn-e4-brief">
+        <% league.brief.each do |key| %>
+          <div class="pn-e4-brief__tile">
+            <div class="pn-e4-brief__k"><%= t("#{league.copy_key}.brief.#{key}.label") %></div>
+            <div class="pn-e4-brief__v"><%= t("#{league.copy_key}.brief.#{key}.value") %></div>
+            <div class="pn-e4-brief__note"><%= t("#{league.copy_key}.brief.#{key}.note") %></div>
+          </div>
+        <% end %>
+        <div class="pn-e4-brief__tile pn-e4-brief__tile--count">
+          <div class="pn-e4-brief__k"><%= t("#{league.copy_key}.brief.cleared.label") %></div>
+          <div class="pn-e4-brief__count"><%= progress_count(league.ticks, kind: "collected") %><span class="pn-e4-brief__count-tot"> / <%= league.ticks.size %></span></div>
+          <div class="pn-e4-brief__note"><%= t("#{league.copy_key}.brief.cleared.note") %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% league.members.each do |member| %>
+  <%= render "e4_plate", member: member, copy: "#{league.copy_key}.members.#{member.key}" %>
+<% end %>
+
+<%= render "e4_champion", champion: league.champion, copy: "#{league.copy_key}.champion" %>
+
+<%= render "e4_after", after: league.after, copy: "#{league.copy_key}.after" %>

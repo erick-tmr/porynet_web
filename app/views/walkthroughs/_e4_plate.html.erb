@@ -1,0 +1,63 @@
+<%# One Elite Four room. The illustration is who they are and stands out of the frame; the boxed
+    Game Boy sprite is what you actually face. The whole plate is the tick, so beating the room is
+    one tap anywhere on it. %>
+<section class="pn-wt-section">
+  <div class="pn-eyebrow-label"><%= t("#{copy}.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{copy}.heading") %></h2>
+  <div class="pn-e4-room">
+    <article class="pn-plate pn-plate--<%= member.tone %>"
+             <%= tag.attributes(tickable("collected", member.tick)) %>>
+      <span class="pn-plate__stamp"><%= t("walkthrough.ui.league_cleared") %></span>
+      <%= progress_toast("trainer", name: member.trainer.name) %>
+      <span class="pn-plate__rail"><span class="pn-plate__rail-txt"><%= t("#{copy}.rail") %></span></span>
+
+      <div class="pn-plate__stage">
+        <span class="<%= class_names("pn-plate__numeral", "pn-plate__numeral--right" => member.numeral_right) %>"
+              aria-hidden="true"><%= member.numeral %></span>
+        <span class="pn-plate__floor" aria-hidden="true"></span>
+        <%= r2_image_tag "walkthrough/art/#{member.key}-art.png", alt: member.trainer.name,
+              class: "pn-plate__art", loading: "lazy" %>
+      </div>
+
+      <div class="pn-plate__main">
+        <div class="pn-plate__kicker"><%= t("#{copy}.kicker") %></div>
+        <h3 class="pn-plate__name"><%= member.trainer.name %></h3>
+        <div class="pn-plate__lvspan"><%= t("#{copy}.spread") %></div>
+        <p class="pn-plate__line"><%= t("#{copy}.line") %></p>
+
+        <div class="pn-plate__label"><%= t("walkthrough.ui.league_roster") %></div>
+        <div class="pn-plate__strip">
+          <% member.trainer.team.each_with_index do |mon, i| %>
+            <div class="<%= class_names("pn-plate__chip", "pn-plate__chip--ace" => member.ace?(i)) %>">
+              <% if member.ace?(i) %>
+                <span class="pn-plate__chip-star" aria-hidden="true">★</span>
+              <% end %>
+              <%= r2_image_tag "pokemon/yellow/#{mon[:dex]}.png", alt: "",
+                    class: "pn-plate__chip-sprite", loading: "lazy" %>
+              <div class="pn-plate__chip-name"><%= mon[:name] %></div>
+              <div class="pn-plate__chip-lvl"><%= t("walkthrough.ui.lv", n: mon[:lvl]) %></div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="pn-plate__term">
+          <span class="pn-plate__term-k">&gt; <%= t("walkthrough.ui.league_counter") %></span>
+          <span class="pn-plate__term-v"><%= t("#{copy}.counter") %></span>
+        </div>
+        <div class="pn-plate__door"><%= t("#{copy}.door") %></div>
+      </div>
+
+      <div class="pn-plate__side">
+        <div class="pn-plate__gb">
+          <%= r2_image_tag "walkthrough/yellow/trainers/#{member.trainer.sprite}.png", alt: "",
+                class: "pn-plate__gb-img", loading: "lazy" %>
+          <span class="pn-plate__gb-cap"><%= t("walkthrough.ui.league_on_screen") %></span>
+        </div>
+        <div class="pn-plate__tap">
+          <span class="pn-plate__tap-todo"><%= t("walkthrough.ui.league_tap_todo") %></span>
+          <span class="pn-plate__tap-done"><%= t("walkthrough.ui.league_tap_done") %></span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

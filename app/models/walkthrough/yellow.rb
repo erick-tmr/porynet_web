@@ -2772,8 +2772,48 @@ module Walkthrough
         ])
     end
 
+    # Four plates, then the throne. The rooms are dressed here (accent, roman numeral, which side
+    # of the stage that numeral sits on); everything a plate says about a team it reads off the
+    # stop's own trainer card, so the page and the card cannot disagree about a level.
+    LEAGUE_ROOMS = [
+      [ "lorelei", "cyan", "I", false ], [ "bruno", "amber", "II", true ],
+      [ "agatha", "magenta", "III", false ], [ "lance", "cyan", "IV", true ]
+    ].freeze
+
+    # Blue's Champion team comes in three (Rival3Data, picked by wRivalStarter). The first three
+    # slots never move; the last three swap around whichever Eeveelution his Eevee became, so the
+    # page carries the head of the card the stop already holds and deals the tails itself.
+    CHAMPION_TAILS = [
+      [ "jolteon", "135", [ [ "091", 61 ], [ "038", 63 ], [ "135", 65 ] ] ],
+      [ "flareon", "136", [ [ "082", 61 ], [ "091", 63 ], [ "136", 65 ] ] ],
+      [ "vaporeon", "134", [ [ "038", 61 ], [ "082", 63 ], [ "134", 65 ] ] ]
+    ].freeze
+
+    LEAGUE_BRIEF = %w[level pack rule].freeze
+    LEAGUE_AFTER = %w[open rematch missing].freeze
+
+    def self.elite_four(loc)
+      cards = loc.trainers
+      League.new(
+        copy_key: "#{base(loc.slug)}.league", brief: LEAGUE_BRIEF, after: LEAGUE_AFTER,
+        members: LEAGUE_ROOMS.each_with_index.map { |(key, tone, numeral, right), i|
+          LeagueMember.new(key: key, tone: tone, numeral: numeral, numeral_right: right,
+            trainer: cards[i])
+        },
+        champion: champion_room(cards.last)
+      )
+    end
+
+    def self.champion_room(card)
+      teams = CHAMPION_TAILS.map do |key, dex, tail|
+        ChampionTeam.new(key: key, dex: dex, name: NAMES.fetch(dex),
+          team: card.team.first(3) + tail.map { |slot, lvl| mon(slot, lvl) })
+      end
+      LeagueChampion.new(trainer: card, teams: teams)
+    end
+
     def self.indigo_plateau
-      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, steps: 3,
+      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, steps: 1,
         trainers: [
           tr("ELITE FOUR", "Lorelei", 5544,
             mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56),

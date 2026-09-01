@@ -1,0 +1,980 @@
+/* ---------------------------------------------------------------------------
+   Indigo Plateau: the League plates.
+
+   Deliberately NOT the gym-leader card. A gym card is a horizontal dossier;
+   these are vertical PLATES, like the plaques in a hall of fame: a coloured
+   type rail down the left edge, a roman numeral behind the figure, and the
+   Sugimori art standing OUT of the plate (it crosses the top border).
+
+   Two sprites do two jobs on purpose:
+     - the illustration is who they are (large, bleeding out of the frame),
+     - the Game Boy battle sprite is what you actually face (small, boxed,
+       captioned, pixel-perfect).
+   The Champion takes that idea further: the generated encounter frame of the
+   fight itself, text box and all, stands in for the boxed sprite.
+--------------------------------------------------------------------------- */
+
+.pn-e4-league {
+  position: relative;
+  border: 3px solid #171622;
+  background: #080a16;
+  box-shadow: 6px 6px 0 #171622;
+}
+.pn-e4-league__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-image:
+    linear-gradient(#2af0ff14 2px, transparent 2px),
+    linear-gradient(90deg, #2af0ff14 2px, transparent 2px);
+  background-size: 16px 16px;
+}
+.pn-e4-league__inner {
+  position: relative;
+  padding: 22px;
+}
+
+/* --- gauntlet brief ------------------------------------------------------ */
+
+.pn-e4-brief {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.pn-e4-brief__tile {
+  flex: 1 1 190px;
+  border: 2px solid #2af0ff3d;
+  background: #0b1022;
+  padding: 12px 14px;
+}
+.pn-e4-brief__k {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #2af0ff;
+}
+.pn-e4-brief__v {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  margin-top: 8px;
+}
+.pn-e4-brief__note {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #8fa6c8;
+  margin-top: 2px;
+}
+.pn-e4-brief__tile--count {
+  border-color: #FFC23D;
+  box-shadow: 0 0 16px #FFC23D26;
+}
+.pn-e4-brief__tile--count .pn-e4-brief__k { color: #FFC23D; }
+.pn-e4-brief__count {
+  font-family: "Press Start 2P", monospace;
+  font-size: 22px;
+  color: #fff;
+  margin-top: 10px;
+}
+.pn-e4-brief__count-tot { color: #FFC23D; }
+
+/* --- the plate: one per member, full width ------------------------------ */
+
+.pn-e4-room { margin-top: 40px; }
+
+.pn-plate {
+  --pl: #2af0ff;
+  position: relative;
+  display: grid;
+  grid-template-columns: 288px minmax(0, 1fr) 212px;
+  gap: 26px;
+  align-items: start;
+  border: 3px solid var(--pl);
+  background: linear-gradient(180deg, #101833 0%, #0b1022 46%);
+  box-shadow: 6px 6px 0 #171622, 0 0 24px color-mix(in srgb, var(--pl) 16%, transparent);
+  padding: 20px 20px 20px 46px;
+  cursor: pointer;
+  transition: transform 0.08s steps(1), box-shadow 0.08s steps(1);
+}
+.pn-plate:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #171622, 0 0 30px color-mix(in srgb, var(--pl) 30%, transparent);
+}
+.pn-plate:active { transform: translate(4px, 4px); }
+.pn-plate--cyan { --pl: #2af0ff; }
+.pn-plate--amber { --pl: #FFC23D; }
+.pn-plate--magenta { --pl: #ff3dae; }
+
+/* type rail down the left edge */
+.pn-plate__rail {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: -3px;
+  width: 30px;
+  background: var(--pl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pn-plate__rail-txt {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #171622;
+  white-space: nowrap;
+}
+
+/* stage: numeral behind, figure standing out of the plate */
+.pn-plate__stage {
+  position: relative;
+  align-self: stretch;
+  min-height: 340px;
+}
+.pn-plate__numeral {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 60px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--pl) 34%, transparent);
+  pointer-events: none;
+}
+/* Bruno crouches and Lance sweeps his cape left, so their numerals read better
+   on the other side of the stage. */
+.pn-plate__numeral--right {
+  left: auto;
+  right: 2px;
+}
+.pn-plate__art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 22px;
+  width: 100%;
+  height: calc(100% - 32px);
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom center;
+  image-rendering: auto;
+  /* A neon rim in the member's accent traces the silhouette, so whatever fringe
+     survives cutting the illustration out reads as rim light, not a white edge. */
+  filter:
+    drop-shadow(0 0 1px var(--pl)) drop-shadow(0 0 1px var(--pl))
+    drop-shadow(0 0 10px color-mix(in srgb, var(--pl) 45%, transparent))
+    drop-shadow(0 3px 0 #05070f66);
+  pointer-events: none;
+}
+.pn-plate__floor {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 74%;
+  height: 26px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--pl) 42%, transparent), transparent 78%);
+  pointer-events: none;
+}
+
+.pn-plate__main { min-width: 0; }
+.pn-plate__kicker {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--pl);
+}
+.pn-plate__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 0.96;
+  color: #fff;
+  margin: 8px 0 0;
+  text-shadow: 3px 3px 0 var(--pl);
+}
+.pn-plate__lvspan {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: #8fa6c8;
+  line-height: 1;
+  margin-top: 4px;
+}
+.pn-plate__line {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.45;
+  color: #9fb6d6;
+  margin: 12px 0 0;
+  max-width: 66ch;
+  text-wrap: pretty;
+}
+
+/* roster: one gauntlet strip, not a grid of cards */
+.pn-plate__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--pl);
+  margin-top: 18px;
+}
+.pn-plate__strip {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+  border-bottom: 2px dashed color-mix(in srgb, var(--pl) 34%, transparent);
+  padding-bottom: 10px;
+}
+.pn-plate__chip {
+  position: relative;
+  text-align: center;
+  padding-top: 2px;
+}
+.pn-plate__chip-sprite {
+  display: block;
+  width: 100%;
+  height: 52px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-plate__chip-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.1;
+  color: #cfe1f5;
+  margin-top: 3px;
+}
+.pn-plate__chip-lvl {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--pl);
+}
+.pn-plate__chip--ace .pn-plate__chip-name { color: #fff; }
+.pn-plate__chip--ace .pn-plate__chip-sprite {
+  filter: drop-shadow(0 0 9px color-mix(in srgb, var(--pl) 70%, transparent));
+}
+.pn-plate__chip-star {
+  position: absolute;
+  top: -2px;
+  right: 4px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--pl);
+}
+
+/* counter plan reads like a terminal line */
+.pn-plate__term {
+  border: 2px solid color-mix(in srgb, var(--pl) 42%, transparent);
+  background: #05070f;
+  padding: 10px 12px;
+  margin-top: 14px;
+}
+.pn-plate__term-k {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--pl);
+  margin-bottom: 6px;
+}
+.pn-plate__term-v {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  line-height: 1.3;
+  color: #cfe1f5;
+}
+.pn-plate__door {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #6d7f9e;
+  margin-top: 10px;
+}
+
+/* right column: the battle sprite, boxed and captioned, plus the tick */
+.pn-plate__side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pn-plate__gb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 2px solid var(--pl);
+  background-color: #0d1224;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--pl) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--pl) 10%, transparent) 1px, transparent 1px);
+  background-size: 12px 12px;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 3px #0b1022;
+}
+.pn-plate__gb-img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--pl) 34%, transparent));
+}
+.pn-plate__gb-cap {
+  position: absolute;
+  left: -2px;
+  bottom: -2px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  color: #171622;
+  background: var(--pl);
+  padding: 4px 5px;
+}
+.pn-plate__tap {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  line-height: 1.5;
+  color: #171622;
+  background: var(--pl);
+  border: 2px solid #171622;
+  box-shadow: 3px 3px 0 #171622;
+  padding: 9px 8px;
+  text-align: center;
+}
+.pn-plate__tap-done { display: none; }
+.pn-plate.is-done .pn-plate__tap-todo { display: none; }
+.pn-plate.is-done .pn-plate__tap-done { display: inline; }
+.pn-plate.is-done .pn-plate__tap { background: #7ED957; }
+
+/* cleared: a band across the plate */
+.pn-plate__stamp {
+  display: none;
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 42%;
+  z-index: 4;
+  transform: rotate(-4deg);
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 16px;
+  color: #171622;
+  background: #7ED957;
+  border: 3px solid #171622;
+  box-shadow: 5px 5px 0 #17162299;
+  padding: 12px 0;
+}
+.pn-plate.is-done .pn-plate__stamp { display: block; }
+.pn-plate.is-done .pn-plate__stage,
+.pn-plate.is-done .pn-plate__main,
+.pn-plate.is-done .pn-plate__gb { opacity: 0.5; }
+
+/* --- the Champion ------------------------------------------------------- */
+
+.pn-throne {
+  position: relative;
+  margin-top: 40px;
+  cursor: pointer;
+  border: 3px solid #FFC23D;
+  background: linear-gradient(180deg, #1a1a2e 0%, #0b1022 55%);
+  box-shadow: 6px 6px 0 #171622, 0 0 34px #FFC23D2e;
+  transition: transform 0.08s steps(1), box-shadow 0.08s steps(1);
+}
+/* The throne is one big tick like the plates above it, so it presses like one. */
+.pn-throne:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #171622, 0 0 44px #FFC23D4d;
+}
+.pn-throne:active { transform: translate(4px, 4px); }
+/* The variant tabs are their own buttons inside the card. Pressing one picks a roster rather
+   than stamping the Champion, so the card holds still while a tab is the thing being pressed. */
+.pn-throne:has(.pn-throne__tab:active) { transform: none; }
+.pn-throne__ribbon {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #171622;
+  background: #FFC23D;
+  padding: 8px 12px;
+  z-index: 3;
+}
+.pn-throne__wrap {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 262px 1fr 300px;
+  gap: 24px;
+  padding: 40px 22px 22px;
+  align-items: start;
+}
+
+/* the generated Game Boy encounter frame, at its own 160x144 */
+.pn-gbscreen {
+  position: relative;
+  aspect-ratio: 160 / 144;
+  border: 3px solid #FFC23D;
+  background: #0d1224;
+  padding: 4px;
+  box-shadow: inset 0 0 0 3px #0b1022;
+}
+.pn-gbscreen__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-throne__cap {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #FFC23D;
+  margin-top: 10px;
+}
+.pn-throne__cap-note {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  letter-spacing: 0;
+  color: #8fa6c8;
+  margin-top: 4px;
+}
+
+.pn-throne__body { min-width: 0; }
+.pn-throne__crown {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #FFC23D;
+  text-shadow: 0 0 12px #FFC23D66;
+}
+.pn-throne__name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 0.95;
+  margin: 8px 0 0;
+  color: #fff;
+  text-shadow: 3px 3px 0 #FFC23D;
+}
+.pn-throne__sub {
+  font-family: "VT323", monospace;
+  font-size: 19px;
+  color: #8fa6c8;
+  margin-top: 2px;
+}
+.pn-throne__line {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.45;
+  color: #cfe1f5;
+  margin: 12px 0 0;
+  text-wrap: pretty;
+}
+.pn-throne__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #FFC23D;
+  margin-top: 18px;
+}
+.pn-throne__tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.pn-throne__tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #cfe1f5;
+  background: #141a2e;
+  border: 2px solid #FFC23D4d;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.pn-throne__tab:hover { border-color: #FFC23D; }
+.pn-throne__tab.is-active {
+  background: #FFC23D;
+  border-color: #FFC23D;
+  color: #171622;
+  box-shadow: 0 0 14px #FFC23D4d;
+}
+.pn-throne__tab-sprite {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-throne__rule {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #8fa6c8;
+  margin-top: 10px;
+}
+.pn-throne__mons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.pn-throne__mon {
+  position: relative;
+  border: 2px solid #FFC23D2e;
+  background: #141a2e;
+  padding: 7px 3px 8px;
+  text-align: center;
+}
+.pn-throne__mon.is-ace {
+  border-color: #FFC23D;
+  box-shadow: 0 0 14px #FFC23D40;
+}
+.pn-throne__mon-sprite {
+  display: block;
+  width: 100%;
+  height: 46px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+.pn-throne__mon-name {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.1;
+  color: #fff;
+}
+.pn-throne__mon-lvl {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #FFC23D;
+  line-height: 1;
+}
+.pn-throne__mon-tag {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 6px;
+  color: #171622;
+  background: #FFC23D;
+  padding: 3px 4px;
+}
+.pn-throne__mon:not(.is-ace) .pn-throne__mon-tag { display: none; }
+.pn-throne__warn {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 2px solid #FFC23D;
+  background: #1e1707;
+  padding: 12px 14px;
+  margin-top: 18px;
+}
+.pn-throne__warn-k {
+  flex: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: #FFC23D;
+  padding: 5px 6px;
+}
+.pn-throne__warn-v {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #f2e0b6;
+}
+
+/* right column: the figure standing out of the plate + vertical wordmark */
+.pn-throne__figure {
+  position: relative;
+  align-self: stretch;
+  min-height: 448px;
+}
+.pn-throne__art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  width: 100%;
+  height: calc(100% - 62px);
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom center;
+  image-rendering: auto;
+  filter:
+    drop-shadow(0 0 1px #FFC23D) drop-shadow(0 0 1px #FFC23D)
+    drop-shadow(0 0 14px #FFC23D5c) drop-shadow(0 4px 0 #05070f66);
+  pointer-events: none;
+}
+.pn-throne__glow {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 6px;
+  height: 34px;
+  background: radial-gradient(closest-side, #FFC23D4d, transparent 78%);
+  pointer-events: none;
+}
+.pn-throne__wordmark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: transparent;
+  -webkit-text-stroke: 2px #FFC23D;
+  pointer-events: none;
+}
+
+.pn-throne__hof {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  border-top: 3px solid #FFC23D;
+  background: #141a2e;
+  padding: 14px 22px;
+}
+.pn-throne__hof-k {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #FFC23D;
+  letter-spacing: 2px;
+}
+.pn-throne__hof-v {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #cfe1f5;
+}
+/* Champion tick: not a button, a Hall of Fame plaque you stamp. */
+.pn-throne__hof {
+  align-items: stretch;
+}
+.pn-throne__hof-main {
+  flex: 1 1 320px;
+  min-width: 260px;
+  align-self: center;
+}
+.pn-throne__seal {
+  position: relative;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 14px;
+  min-width: 300px;
+  border: 3px solid #FFC23D;
+  background:
+    repeating-linear-gradient(135deg, #FFC23D0f 0 6px, transparent 6px 12px),
+    #0b1022;
+  box-shadow: 4px 4px 0 #171622, inset 0 0 0 2px #0b1022;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+.pn-throne:hover .pn-throne__seal { border-color: #fff; }
+.pn-throne__seal-medal {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 3px solid #FFC23D;
+  background: #141a2e;
+  font-family: "Press Start 2P", monospace;
+  font-size: 18px;
+  color: #FFC23D;
+}
+.pn-throne__seal-stars {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #FFC23D66;
+}
+.pn-throne__seal-head {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 12px;
+  color: #fff;
+  margin-top: 6px;
+}
+.pn-throne__seal-note {
+  display: block;
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #8fa6c8;
+  margin-top: 2px;
+}
+.pn-throne__seal-todo,
+.pn-throne__seal-done { display: block; }
+.pn-throne__seal-done { display: none; }
+
+/* stamped state */
+.pn-throne.is-done .pn-throne__seal {
+  background:
+    repeating-linear-gradient(135deg, #17162214 0 6px, transparent 6px 12px),
+    #FFC23D;
+  border-color: #171622;
+  animation: pnSealGlow 2s ease-in-out infinite;
+  animation-play-state: var(--play);
+}
+@keyframes pnSealGlow {
+  0%, 100% { box-shadow: 4px 4px 0 #171622, 0 0 0 #FFC23D00; }
+  50% { box-shadow: 4px 4px 0 #171622, 0 0 26px #FFC23D80; }
+}
+.pn-throne.is-done .pn-throne__seal .pn-throne__seal-medal {
+  border-color: #171622;
+  background: #171622;
+  color: #FFC23D;
+}
+.pn-throne.is-done .pn-throne__seal .pn-throne__seal-stars { color: #171622; }
+.pn-throne.is-done .pn-throne__seal .pn-throne__seal-head { color: #171622; }
+.pn-throne.is-done .pn-throne__seal .pn-throne__seal-note { color: #4a3c14; }
+.pn-throne.is-done .pn-throne__seal .pn-throne__seal-todo { display: none; }
+.pn-throne.is-done .pn-throne__seal .pn-throne__seal-done { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-throne.is-done .pn-throne__seal { animation: none !important; }
+}
+
+/* Beaten: the card fades back like a cleared gym leader, and the League throws
+   a small party over it (garland strip + drifting confetti + gold wordmark). */
+.pn-throne.is-done .pn-throne__wrap { opacity: 0.82; }
+
+.pn-throne__party {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.pn-throne.is-done .pn-throne__party { display: block; }
+.pn-throne__party::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(#FFC23D 2px, transparent 2px),
+    radial-gradient(#2af0ff 2px, transparent 2px),
+    radial-gradient(#ff3dae 2px, transparent 2px);
+  background-size: 88px 74px, 116px 96px, 142px 118px;
+  background-position: 0 0, 40px 18px, 84px 52px;
+  opacity: 0.55;
+  animation: pnConfetti 9s linear infinite;
+  animation-play-state: var(--play);
+}
+.pn-throne__party::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 10px;
+  background: repeating-linear-gradient(90deg,
+    #FFC23D 0 14px, #2af0ff 14px 28px, #ff3dae 28px 42px, #7ED957 42px 56px);
+  animation: pnGarland 3.4s linear infinite;
+  animation-play-state: var(--play);
+}
+@keyframes pnConfetti {
+  0% { background-position: 0 0, 40px 18px, 84px 52px; }
+  100% { background-position: 0 74px, 40px 114px, 84px 170px; }
+}
+@keyframes pnGarland {
+  0% { background-position: 0 0; }
+  100% { background-position: 56px 0; }
+}
+.pn-throne.is-done .pn-throne__wordmark {
+  color: #FFC23D;
+  -webkit-text-stroke: 2px #171622;
+  text-shadow: 0 0 18px #FFC23D80;
+}
+.pn-throne__stamp {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  z-index: 3;
+  transform: translateX(-50%) rotate(-5deg);
+  white-space: nowrap;
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 15px;
+  color: #171622;
+  background: #7ED957;
+  border: 3px solid #171622;
+  box-shadow: 6px 6px 0 #17162299;
+  padding: 13px 26px;
+}
+.pn-throne.is-done .pn-throne__stamp { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pn-throne__party::before,
+  .pn-throne__party::after { animation: none !important; }
+}
+
+@media (max-width: 1180px) {
+  .pn-throne__wrap { grid-template-columns: 240px 1fr; }
+  .pn-throne__figure {
+    grid-column: 1 / -1;
+    min-height: 420px;
+  }
+  .pn-throne__art { height: calc(100% - 62px); }
+  .pn-throne__glow { left: 0; right: 0; }
+
+}
+
+@media (max-width: 900px) {
+  .pn-plate {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 20px 16px 20px 42px;
+  }
+  .pn-plate__stage { min-height: 360px; }
+  .pn-plate__name { font-size: 36px; }
+  .pn-plate__strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pn-plate__stamp { font-size: 12px; }
+  .pn-throne__wrap { grid-template-columns: 1fr; }
+  .pn-throne__name { font-size: 40px; }
+  .pn-throne__mons { grid-template-columns: repeat(3, 1fr); }
+  .pn-throne__seal { min-width: 0; width: 100%; }
+  .pn-throne__figure { min-height: 380px; }
+}
+
+/* --- after the credits: congratulations + Hall of Fame captures ---------- */
+
+.pn-congrats {
+  position: relative;
+  margin-top: 40px;
+  border: 3px solid #7ED957;
+  background: linear-gradient(180deg, #10231a 0%, #0b1022 60%);
+  box-shadow: 6px 6px 0 #171622, 0 0 30px #7ED9572e;
+  overflow: hidden;
+}
+.pn-congrats__garland {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 10px;
+  background: repeating-linear-gradient(90deg,
+    #FFC23D 0 14px, #2af0ff 14px 28px, #ff3dae 28px 42px, #7ED957 42px 56px);
+  animation: pnGarland 3.4s linear infinite;
+  animation-play-state: var(--play);
+  pointer-events: none;
+}
+.pn-congrats__confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(#FFC23D 2px, transparent 2px),
+    radial-gradient(#2af0ff 2px, transparent 2px),
+    radial-gradient(#ff3dae 2px, transparent 2px);
+  background-size: 96px 80px, 124px 104px, 152px 126px;
+  opacity: 0.4;
+  animation: pnConfetti 9s linear infinite;
+  animation-play-state: var(--play);
+}
+.pn-congrats__inner {
+  position: relative;
+  padding: 30px 24px 24px;
+}
+.pn-congrats__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 26px;
+  align-items: center;
+}
+.pn-congrats__hero {
+  position: relative;
+  align-self: stretch;
+  min-height: 320px;
+}
+.pn-congrats__hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  image-rendering: auto;
+  filter:
+    drop-shadow(0 0 1px #7ED957) drop-shadow(0 0 1px #7ED957)
+    drop-shadow(0 0 18px #7ED9575c);
+  pointer-events: none;
+}
+.pn-congrats__kicker {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #7ED957;
+  text-shadow: 0 0 12px #7ED95766;
+}
+.pn-congrats__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1;
+  color: #fff;
+  margin: 12px 0 0;
+  text-shadow: 3px 3px 0 #7ED957;
+}
+.pn-congrats__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #cfe1f5;
+  margin: 12px 0 0;
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+.pn-congrats__next {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.pn-congrats__tile {
+  border: 2px solid #7ED9573d;
+  background: #0b1022;
+  padding: 12px 14px;
+}
+.pn-congrats__tile-k {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #7ED957;
+}
+.pn-congrats__tile-v {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #cfe1f5;
+  margin-top: 8px;
+}
+@media (max-width: 900px) {
+  .pn-congrats__top { grid-template-columns: 1fr; }
+  .pn-congrats__hero { min-height: 260px; order: -1; }
+  .pn-congrats__title { font-size: 34px; }
+}
