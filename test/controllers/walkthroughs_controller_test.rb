@@ -1080,6 +1080,52 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  # The League is the one stop whose trainers are the page: five plates instead of the trainer
+  # grid, and the single step above them only has to say that the corridor walks itself.
+  test "Indigo Plateau draws the Elite Four as plates instead of the trainer grid" do
+    get walkthrough_leg_path(game: "yellow", leg: "indigo-plateau")
+
+    assert_response :success
+    assert_select ".pn-wt-step", count: 1
+    assert_select ".pn-wt-step__title", text: "Walk straight through"
+    assert_select ".pn-wt-trainers", false, "the plates replace the grid"
+    assert_select ".pn-plate", count: 4
+    assert_select ".pn-plate--cyan .pn-plate__name", text: "Lorelei"
+    assert_select ".pn-plate--magenta .pn-plate__name", text: "Agatha"
+    assert_select ".pn-plate__chip", count: 20
+    assert_select ".pn-plate__chip--ace .pn-plate__chip-name", text: "Lapras"
+    assert_select ".pn-plate__art[src*=?]", "walkthrough/art/lorelei-art.png"
+    assert_select ".pn-e4-brief__tile", count: 4
+    assert_select "[data-progress-ids=?]",
+      "indigo-plateau/lorelei indigo-plateau/bruno indigo-plateau/agatha " \
+      "indigo-plateau/lance indigo-plateau/blue"
+  end
+
+  test "the Champion ships all three rosters and opens on the Jolteon one" do
+    get walkthrough_leg_path(game: "yellow", leg: "indigo-plateau")
+
+    assert_response :success
+    assert_select ".pn-throne[data-progress-id=?]", "indigo-plateau/blue"
+    assert_select ".pn-gbscreen__img[src*=?]", "battles/battle-champion.png"
+    assert_select ".pn-throne__tab", count: 3
+    assert_select ".pn-throne__tab.is-active", text: /JOLTEON/
+    assert_select "[data-champion-team-target=panel]", count: 3
+    assert_select "[data-champion-team-target=panel][data-team=jolteon]:not([hidden])", count: 1
+    assert_select "[data-champion-team-target=panel][hidden]", count: 2
+    assert_select "[data-team=vaporeon] .pn-throne__mon.is-ace .pn-throne__mon-name", text: "Vaporeon"
+    assert_select ".pn-congrats__hero-img[src*=?]", "walkthrough/art/gen1-hall-of-fame-sugimori.png"
+  end
+
+  test "the League page renders in Portuguese" do
+    get walkthrough_leg_path(game: "yellow", leg: "indigo-plateau", locale: :pt)
+
+    assert_response :success
+    assert_select ".pn-wt-step__title", text: "Siga em frente"
+    assert_select ".pn-plate__rail-txt", text: "GELO · SALA 01"
+    assert_select ".pn-throne__name", text: "Blue"
+    assert_select ".pn-congrats__title", text: "Parabéns, Campeão"
+  end
+
   test "an unknown game, leg, or a merged location returns 404" do
     get "/walkthroughs/red"
     assert_response :not_found

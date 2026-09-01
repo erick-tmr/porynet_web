@@ -119,6 +119,10 @@ detectors:
                                            # the same shim already excluded under LongParameterList.
       - Assets::R2Uploader#call   # `force:` is an intended optional switch on the upload API
                                   # (re-send everything vs only changed), defaulting off.
+      - Walkthrough::LeagueMember#initialize   # `numeral_right:` describes the plate (does its
+                                               # roman numeral read better on the far side of the
+                                               # stage), it steers nothing here; same defaults
+                                               # shim as Location#initialize above.
   DataClump:
     exclude:
       - Walkthrough   # Data.define cannot declare defaults, so a struct with optional members

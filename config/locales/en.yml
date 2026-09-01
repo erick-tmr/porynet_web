@@ -571,6 +571,15 @@ en:
       modes_off_oak: "OAK CHALLENGE ▶"
       trainers_eyebrow: "TRAINERS · %{count}"
       trainers_h2: "Trainers here"
+      league_cleared: "CLEARED ✓"
+      league_roster: "ROSTER · IN ORDER"
+      league_roster_n: "ROSTER · %{n}"
+      league_counter: "COUNTER"
+      league_on_screen: "ON SCREEN"
+      league_tap_todo: "TAP WHEN BEATEN"
+      league_tap_done: "BEATEN ✓ TAP TO UNDO"
+      league_champion: "CHAMPION"
+      league_ace: "ACE"
       vs: "VS"
       where: "WHERE"
       inside: "INSIDE"
@@ -3615,14 +3624,101 @@ en:
           intro: "The League building: five rooms in a row, the Elite Four and then the Champion. Once the first door shuts there is no way back and nothing to heal with."
           steps:
             "1":
-              title: "Stock up"
-              text: "Heal and buy Full Restores, status heals and Ultra Balls in the lobby before you enter."
-            "2":
-              title: "Beat the Elite Four"
-              text: "Lorelei (Ice/Water), Bruno (Fighting/Rock), Agatha (Ghost/Poison) and Lance (Dragon), back to back with no healing between. Hit each with its weakness and bring plenty of Full Restores."
-            "3":
-              title: "Beat Champion Blue"
-              text: "Your rival leads with Sandslash (Lv 61) and fields Alakazam, Exeggutor, a Magneton or Cloyster, Ninetales, and the Eeveelution his Eevee became (Lv 65). Alakazam carries Recover, so break it with physical moves. Win to enter the Hall of Fame."
+              title: "Walk straight through"
+              text: "Nothing to solve here. Beating the trainer in a room opens its far door, so keep walking: Lorelei, Bruno, Agatha, Lance, then Blue. Buy and heal in the lobby before the first door."
+          league:
+            brief:
+              level:
+                label: "RECOMMENDED"
+                value: "Lv 55 to 62"
+                note: "Six on the team, one of them a Water or Psychic wall"
+              pack:
+                label: "PACK"
+                value: "20 Full Restores"
+                note: "Plus Revives, Awakenings and Full Heals for Agatha"
+              rule:
+                label: "HARD RULE"
+                value: "No Poké Center"
+                note: "Walk back out and every room you cleared is waiting again"
+              cleared:
+                label: "CLEARED"
+                note: "Tap a plate when you beat it"
+            members:
+              lorelei:
+                eyebrow: "ROOM 01 · FIRST DOOR"
+                heading: "Lorelei, the ice wall"
+                rail: "ICE · ROOM 01"
+                kicker: "ELITE FOUR · 01"
+                spread: "Lv 53 to 56 · five Pokémon · Water and Ice"
+                line: "She would rather outlast you than out-damage you. Blizzard freezes 30% of the time in this generation, so every turn you spend at low HP in front of her is a coin flip on the whole run."
+                counter: "Thunderbolt or Thunder clears four of the five. Keep one Fire move for Jynx. Do not lead a Grass type into Blizzard, and heal before you drop below half, not after."
+                door: "Beating Lorelei opens the door to room 2."
+              bruno:
+                eyebrow: "ROOM 02 · SECOND DOOR"
+                heading: "Bruno, the cheap room"
+                rail: "FIGHTING · ROOM 02"
+                kicker: "ELITE FOUR · 02"
+                spread: "Lv 53 to 58 · five Pokémon · Fighting and Rock"
+                line: "Three heavy hitters padded out with two Onix. This is the room to spend the fewest items in, because the next one will ask for all of them."
+                counter: "Psychic on the three fighters, Surf or Mega Drain on both Onix. Slowbro or Starmie can take the room alone. Do not tank Machamp's Submission with a Normal type."
+                door: "Beating Bruno opens the door to room 3."
+              agatha:
+                eyebrow: "ROOM 03 · THIRD DOOR"
+                heading: "Agatha, the run killer"
+                rail: "GHOST · ROOM 03"
+                kicker: "ELITE FOUR · 03"
+                spread: "Lv 55 to 60 · five Pokémon · Ghost and Poison"
+                line: "The room that actually ends runs. Her lead Gengar opens with Hypnosis and Confuse Ray, and is happy to put your whole team to sleep before it deals a point of damage."
+                counter: "Psychic hits all five thanks to the Poison typing, Ground handles Arbok. Normal and Fighting moves do nothing at all to Gengar and Haunter. Awakenings and Full Heals get spent here."
+                door: "Beating Agatha opens the door to room 4."
+              lance:
+                eyebrow: "ROOM 04 · LAST DOOR"
+                heading: "Lance, leader of the four"
+                rail: "DRAGON · ROOM 04"
+                kicker: "ELITE FOUR · 04"
+                spread: "Lv 56 to 62 · five Pokémon · Dragon on paper"
+                line: "Only three of his five are actually Dragons, and the two that are not hit hardest. Gyarados opens, Aerodactyl outspeeds most teams, and the Lv 62 Dragonite closes the gauntlet."
+                counter: "Ice Beam on both Dragonair and Dragonite, Thunderbolt on Gyarados, Rock or Electric coverage for Aerodactyl. Lapras walls nearly everything here. Keep two Revives in reserve."
+                door: "Beating Lance opens the Champion's room. There is no save point past that door."
+            champion:
+              eyebrow: "ROOM 05 · CHAMPION'S ROOM"
+              heading: "Blue, and he got here first"
+              ribbon: "FINAL BATTLE · 05"
+              stamp: "LEAGUE CLEARED ✓"
+              sub: "SIX POKÉMON · MIXED TYPES · NO SHARED WEAKNESS"
+              line: "He walked in minutes before you did. Six Pokémon instead of five, nothing you can sweep with one move, and three of the slots decided way back by how your first two rival battles went."
+              screen_label: "WHAT YOU ACTUALLY SEE"
+              screen_note: "The Champion fights under a sprite of his own, not the one you have been beating since Pallet."
+              variant_label: "EEVEE VARIANT · PICK YOURS"
+              rules:
+                jolteon: "You face Jolteon if you beat him at Oak's lab and beat him again on Route 22."
+                flareon: "You face Flareon if you beat him at Oak's lab and then skipped or lost the Route 22 rematch."
+                vaporeon: "You face Vaporeon if you lost at Oak's lab. The Route 22 result counts for nothing then."
+              warn_label: "READ THIS"
+              warn: "Alakazam is faster than almost anything you own, and his ace sits at Lv 65. Budget items per room on the way in: light on Bruno, heavy on Agatha, everything left over comes here."
+              hof_label: "HALL OF FAME"
+              hof: "Beat him and the credits roll. Your six get registered, then you wake up in Pallet with the Pokédex still unfinished."
+              seal_todo: "CHAIR STILL HIS"
+              seal_todo_note: "Tap to stamp your entry"
+              seal_done: "CHAMPION ✓"
+              seal_done_note: "League cleared. Tap to undo."
+            after:
+              eyebrow: "AFTER THE CREDITS"
+              heading: "You beat the game"
+              kicker: "LEAGUE CLEARED"
+              title: "Congratulations, Champion"
+              lead: "Oak walks in, your six are photographed into the Hall of Fame, the credits roll and you wake up in your own bed in Pallet. The file is not finished though. Kanto opens up properly now, and the Pokédex is still the real ending."
+              art_alt: "Red and Blue with their teams, Ken Sugimori's 1997 illustration"
+              tiles:
+                open:
+                  label: "NOW OPEN"
+                  value: "Cerulean Cave, north-west of Cerulean City. Mewtwo waits alone on the bottom floor at Lv 70."
+                rematch:
+                  label: "REMATCHES"
+                  value: "The League resets every time you fly back, at the same levels. It is the best money and experience in the game."
+                missing:
+                  label: "STILL MISSING"
+                  value: "Trade-only evolutions and the version exclusives. Check the tracker for what your file still owes Oak."
         cerulean_cave:
           note: "Post-game dungeon. The strongest wilds. And Mewtwo."
           intro: "The cave the guard only opens for a Champion. Three floors of the strongest wild Pokémon in Kanto, with Mewtwo alone at the bottom."

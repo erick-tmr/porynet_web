@@ -1,9 +1,15 @@
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("walkthrough.ui.title_location", name: @location.title, game: @game.name) %>
 <% plan = @game.plan_for(@leg) %>
+<%# The League is the one stop whose trainers are the page: five rooms in a row, each its own
+    plate, so the standard trainer grid stands down in favour of them. %>
+<% league = Walkthrough::Yellow.elite_four(@location) if @location.slug == "indigo-plateau" %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "components/leg-switch", "pages/walkthrough", "pages/walkthrough-map",
                           "pages/walkthrough-challenge", "data-turbo-track": "reload" %>
+  <% if league %>
+    <%= stylesheet_link_tag "pages/elite-four", "data-turbo-track": "reload" %>
+  <% end %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -68,7 +74,9 @@
 
 <% if @location.trivia? %><%= render "trivia", trivia: @location.trivia %><% end %>
 
-<% if @location.trainers.any? %>
+<% if league %>
+  <%= render "elite_four", league: league %>
+<% elsif @location.trainers.any? %>
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.trainers_eyebrow", count: @location.trainers.size) %></div>
     <h2 class="pn-h2"><%= t("walkthrough.ui.trainers_h2") %></h2>

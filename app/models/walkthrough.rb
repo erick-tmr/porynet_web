@@ -585,6 +585,32 @@ module Walkthrough
     def right = picks.last
   end
 
+  # One of the four plates on the League page. The roster is the stop's own trainer card, so the
+  # plate and the card the rest of the guide counts from cannot drift apart; the rest is how the
+  # plate is dressed. `numeral_right` moves the roman numeral to the far side of the stage, for
+  # the two illustrations that lean into the left of their frame.
+  LeagueMember = Data.define(:key, :tone, :numeral, :numeral_right, :trainer) do
+    def initialize(numeral_right: false, **rest) = super
+    def tick = "indigo-plateau/#{key}"
+    def ace?(index) = index == trainer.team.size - 1
+  end
+
+  # One of the three teams Blue can bring to the Champion's room. Which one you face was settled
+  # by the first two rival battles, so the page shows all three and lets the reader pick.
+  ChampionTeam = Data.define(:key, :dex, :name, :team) do
+    def ace?(index) = index == team.size - 1
+  end
+
+  LeagueChampion = Data.define(:trainer, :teams) do
+    def tick = "indigo-plateau/blue"
+  end
+
+  # `copy_key` is the locale prefix the whole page hangs off; the plates and the throne each read
+  # their own copy under it, so a room's strings sit beside the room rather than in a flat list.
+  League = Data.define(:copy_key, :brief, :members, :champion, :after) do
+    def ticks = members.map(&:tick) << champion.tick
+  end
+
   # `name` is the place the game knows, and it stays on everything anchored to that place: the map
   # titlebar, the catch cards, the challenge planner's "do at" badge. `title` is what the guide
   # calls the stop, which parts company with the name when a stop walks well past its own map
