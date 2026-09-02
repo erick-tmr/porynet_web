@@ -1059,6 +1059,242 @@
   },
   {
     "type": "screen",
+    "name": "cerulean-cave-1f-pool",
+    "map": "CeruleanCave1F",
+    "player": [
+      21,
+      15
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      21,
+      16
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          21,
+          16
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-north-path",
+    "map": "CeruleanCave1F",
+    "player": [
+      11,
+      16
+    ],
+    "player_dir": "UP",
+    "focus": [
+      11,
+      14
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          11,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-west",
+    "map": "CeruleanCave1F",
+    "player": [
+      1,
+      11
+    ],
+    "player_dir": "RIGHT",
+    "hide": [
+      "CERULEANCAVE1F_MAX_ELIXER"
+    ],
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          2,
+          11
+        ]
+      }
+    ],
+    "focus": [
+      2,
+      11
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-2f-ladder-east",
+    "map": "CeruleanCave2F",
+    "player": [
+      23,
+      7
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      22,
+      7
+    ],
+    "hide": [
+      "CERULEANCAVE2F_MAX_REVIVE"
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          22,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-center",
+    "map": "CeruleanCave1F",
+    "player": [
+      17,
+      10
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          17,
+          9
+        ]
+      }
+    ],
+    "focus": [
+      17,
+      9
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-2f-ladder-northeast",
+    "map": "CeruleanCave2F",
+    "player": [
+      29,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      29,
+      2
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          29,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-north",
+    "map": "CeruleanCave1F",
+    "player": [
+      7,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      7,
+      2
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          7,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-2f-ladder-northwest",
+    "map": "CeruleanCave2F",
+    "player": [
+      0,
+      4
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          0,
+          3
+        ]
+      }
+    ],
+    "focus": [
+      0,
+      3
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-b1f",
+    "map": "CeruleanCave1F",
+    "player": [
+      1,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      1,
+      6
+    ],
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          1,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-b1f-shore",
+    "map": "CeruleanCaveB1F",
+    "player": [
+      4,
+      16
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      14
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          3,
+          16
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
     "slug": "cerulean-cave",
     "step": 4,
     "name": "cerulean-cave-mewtwo",
@@ -1515,5 +1751,108 @@
         "A secret switch!"
       ]
     }
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 1,
+    "name": "route-24-surf-south",
+    "map": "Route24",
+    "player": [
+      4,
+      31
+    ],
+    "player_dir": "DOWN",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          4,
+          33
+        ]
+      }
+    ],
+    "focus": [
+      5,
+      32
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 2,
+    "name": "cerulean-cave-beach",
+    "map": "CeruleanCity",
+    "player": [
+      3,
+      15
+    ],
+    "player_dir": "UP",
+    "focus": [
+      3,
+      13
+    ],
+    "follower": false,
+    "hide": [
+      "CERULEANCITY_SUPER_NERD3"
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          3,
+          13
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 3,
+    "name": "cerulean-beach-west",
+    "map": "CeruleanCity",
+    "player": [
+      2,
+      12
+    ],
+    "player_dir": "LEFT",
+    "hide": [
+      "CERULEANCITY_SUPER_NERD3"
+    ],
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          0,
+          12
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 4,
+    "name": "cerulean-cave-entrance",
+    "map": "CeruleanCity",
+    "player": [
+      4,
+      13
+    ],
+    "player_dir": "UP",
+    "hide": [
+      "CERULEANCITY_SUPER_NERD3"
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          4,
+          12
+        ]
+      }
+    ]
   }
 ]

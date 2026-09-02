@@ -28,9 +28,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     # at and come back to because its gym stays Rocket-held until Silph is cleared, and Route 20
     # (stop 43) is split by the rock wall the Seafoam cave runs under, and Cinnabar (stop 45) is
     # left and come back to because its gym door needs the Secret Key from the Pokémon Mansion
-    # across the street. Each pass is its own section, so 66 sections share 53 numbers: the odd one is the Surf sweep, which owns no stop
-    # of its own and borrows the five maps it walks onto.
-    assert_equal 66, g.locations.size
+    # across the street. Each pass is its own section, so 67 sections share 53 numbers: the two odd
+    # ones own no stop of their own and borrow the maps they walk onto, the Surf sweep (Saffron's
+    # 41) and the swim to the Cerulean Cave door (the cave's own 53).
+    assert_equal 67, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[pallet-town pallet-town-return], g.locations.select { |loc| loc.order == 1 }.map(&:slug)
     assert_equal %w[viridian-city viridian-city-return],
@@ -60,10 +61,10 @@ class WalkthroughTest < ActiveSupport::TestCase
       "the second pass must never win the star over the first"
   end
 
-  test "the location sections group into 33 ordered legs with no gaps or dupes" do
+  test "the location sections group into 34 ordered legs with no gaps or dupes" do
     g = game
-    assert_equal 33, g.legs.size
-    assert_equal (1..33).to_a, g.legs.map(&:order)
+    assert_equal 34, g.legs.size
+    assert_equal (1..34).to_a, g.legs.map(&:order)
     covered = g.legs.flat_map { |l| l.locations.map(&:slug) }
     assert_equal g.locations.map(&:slug).sort, covered.sort
     assert_equal covered.size, covered.uniq.size
@@ -77,7 +78,7 @@ class WalkthroughTest < ActiveSupport::TestCase
     tail = game.legs.map(&:slug).drop_while { |slug| slug != "leg-14" }
 
     assert_equal %w[leg-14 seafoam-islands leg-15 pokemon-mansion leg-16 leg-17 leg-18 victory-road
-                    indigo-plateau
+                    indigo-plateau leg-19
                     cerulean-cave], tail
     assert_equal "power-plant", game.legs[game.legs.index(game.leg!("leg-13")) + 1].slug,
       "the sweep ends on the plant's own doorstep, so the plant is the page after it"
@@ -127,10 +128,11 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 7, leg1.catch_count
     assert_equal %w[025 016 019], g.new_dex_for_leg(leg1)
     assert_equal 3, g.obtainable_upto_leg(leg1).size
-    assert_equal 104, g.obtainable_dex.size,
+    assert_equal 105, g.obtainable_dex.size,
       "the two the Fighting Dojo hands over are obtainable; a save only ever registers one, the " \
-      "Surf sweep adds the Psyduck line, which no earlier pass could reach, and the Power Plant " \
-      "hands over an Electrode, which spawns in no table anywhere"
+      "Surf sweep adds the Psyduck line, which no earlier pass could reach, the Power Plant " \
+      "hands over an Electrode, which spawns in no table anywhere, and Cerulean carries Mew, " \
+      "which spawns in none either and comes off the glitch"
     assert_operator g.obtainable_upto_leg(g.leg!("viridian-forest")).size, :>, 3
   end
 
@@ -414,7 +416,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   end
 
   test "gating the ranking on the tools you carry costs only the two it must" do
-    assert_equal 94, game.best_catches.size
+    assert_equal 95, game.best_catches.size
   end
 
   test "a stop boxes its catchables by method, in section order rather than authoring order" do
@@ -1090,6 +1092,30 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[E1 E2], forest.map(&:key)
   end
 
+  # Cerulean Cave is the guide's longest chain of doorways: seven ladders in a fixed order, each
+  # landing in a pocket of the far floor that no other ladder reaches, so a reader who takes the
+  # wrong one is stranded with no way to tell. A letter alone cannot say which rung of the cave
+  # wall it is, which is why every step that sends you up or down one carries a picture of it.
+  #
+  # The token is what says the step is a move rather than a mention: a ladder is `up`, `down` or
+  # `lower`, and anything else naming an exit is a landmark the directions steer by (the hidden
+  # PP Up is found from the row its ladder stands on, which is a ladder already climbed).
+  CLIMBED = %i[up down lower].freeze
+
+  test "every ladder the cave walk takes is named in walk order and drawn" do
+    ladders = loc("cerulean-cave").steps.flat_map do |step|
+      step.pins.filter_map { |name, pin| [ pin, step.shots.any? ] if CLIMBED.include?(name) }
+    end
+
+    assert_equal [ "cerulean-cave-1f/exit-3-11", "cerulean-cave-2f/exit-22-6",
+                   "cerulean-cave-1f/exit-18-9", "cerulean-cave-2f/exit-29-1",
+                   "cerulean-cave-1f/exit-7-1", "cerulean-cave-2f/exit-1-3",
+                   "cerulean-cave-1f/exit-0-6" ],
+      ladders.map(&:first), "1F, 2F, 1F, 2F, 1F, 2F, 1F, then down to B1F"
+    assert_equal [ true ] * 7, ladders.map(&:last),
+      "a step that sends the player to a ladder shows the ladder"
+  end
+
   test "locations carry plain rendered area maps" do
     g = game
     vf = loc("viridian-forest")
@@ -1115,6 +1141,37 @@ class WalkthroughTest < ActiveSupport::TestCase
     plain = Walkthrough::Yellow.map_shot("route-2", 1, "STEP 1")
     refute plain.map?
     assert_nil plain.image
+  end
+
+  test "the guide signs off under the cave with both legendaries and the pages that carry on" do
+    ending = Walkthrough::Yellow.true_ending(loc("cerulean-cave"))
+
+    assert_equal "walkthrough.yellow.locations.cerulean_cave.ending", ending.copy_key
+    assert_equal %w[dex cable league mew], ending.tiles
+    assert_equal %w[150 151], ending.tags.map(&:dex)
+    assert_equal %w[mewtwo mew], ending.tags.map(&:key)
+    assert_equal %w[violet pink], ending.tags.map(&:tone)
+    assert game.leg(ending.league_leg), "the rematch tile points at a leg that exists"
+  end
+
+  test "Mew stands on Cerulean's card as the static the glitch makes, and Oak asks for it" do
+    mew = loc("cerulean-city").encounters.find { |enc| enc.dex == "151" }
+
+    assert mew.static?, "no table rolls for it, so the body is certain rather than chanced"
+    assert_equal [ "-", "7" ], [ mew.rate, mew.level ]
+    assert_empty mew.places, "it lives in no floor table to break down"
+    assert_includes loc("cerulean-city").oak_queue.map(&:dex), "151"
+    assert_equal 1, Walkthrough::Challenge.bodies_for(game, "151")
+  end
+
+  test "the glitch guide knows the species it registers" do
+    assert_equal "151", Walkthrough::Yellow.mew_glitch.dex
+  end
+
+  test "the run is as long as its highest stop number, not as long as its page list" do
+    assert_equal 53, game.stops
+    assert_equal game.locations.last.order, game.stops
+    assert_operator game.locations.size, :>, game.stops
   end
 
   private

@@ -57,10 +57,10 @@
     "name": "cerulean-cave-hidden-pp-up-18-7",
     "map": "CeruleanCave1F",
     "player": [
-      18,
-      8
+      19,
+      7
     ],
-    "player_dir": "UP",
+    "player_dir": "LEFT",
     "focus": [
       18,
       7
@@ -243,10 +243,10 @@
     "name": "cerulean-cave-item-max-elixir-15-3",
     "map": "CeruleanCaveB1F",
     "player": [
-      15,
-      4
+      14,
+      3
     ],
-    "player_dir": "UP",
+    "player_dir": "RIGHT",
     "focus": [
       15,
       3

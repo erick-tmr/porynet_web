@@ -251,7 +251,13 @@
     <div class="pn-mew-after__art">
       <div class="pn-mew-after__grid" aria-hidden="true"></div>
       <%= r2_image_tag "walkthrough/yellow/art/red-and-mew.png", alt: t("#{mg}.after.art_alt"), class: "pn-mew-after__img" %>
-      <div class="pn-mew-after__tag"><%= t("#{mg}.after.art_tag") %></div>
+      <%# The one tick on this page. Mew has no encounter to catch it in, so the glitch's own
+          afterword is where a Yellow file registers #151, and it ticks the same handle every
+          catch card does. %>
+      <span class="pn-mew-after__tag" <%= tag.attributes(tickable("caught", @guide.dex)) %>>
+        <span class="pn-mew-after__tag-todo"><%= t("#{mg}.after.art_tag_todo") %></span>
+        <span class="pn-mew-after__tag-done"><%= t("#{mg}.after.art_tag_done") %></span>
+      </span>
     </div>
     <div class="pn-mew-after__body">
       <div class="pn-eyebrow-label"><%= t("#{mg}.after.eyebrow") %></div>

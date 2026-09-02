@@ -1,0 +1,340 @@
+/* ============================================================================
+   Cerulean Cave: the true ending, the last section of the last page. A dark
+   violet plate under the Mewtwo art, the two legendary tags that tick like a
+   catch card, the four things a finished file can still be pointed at, and the
+   sign-off. All motion runs through var(--play), so it pauses under
+   prefers-reduced-motion (see base/tokens.css + base/animations.css).
+   ============================================================================ */
+
+.pn-eyebrow-label--violet { color: #a98bff; text-shadow: 0 0 10px #8b6cff66; }
+
+.pn-truend {
+  --te: #a98bff;
+  --te2: #2af0ff;
+  position: relative;
+  margin-top: 28px;
+  border: 3px solid var(--te);
+  background:
+    radial-gradient(120% 80% at 78% 18%, #2a1c50 0%, transparent 62%),
+    linear-gradient(180deg, #150f2e 0%, #0b1022 62%);
+  box-shadow: 6px 6px 0 #171622, 0 0 30px #8b6cff2e;
+  overflow: hidden;
+}
+.pn-truend__strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 10px;
+  background: repeating-linear-gradient(90deg,
+    #a98bff 0 14px, #2af0ff 14px 28px, #ff3dae 28px 42px, #FFC23D 42px 56px);
+  animation: pnTrueStrip 3.4s linear infinite;
+  animation-play-state: var(--play);
+  pointer-events: none;
+}
+.pn-truend__waves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image:
+    radial-gradient(#a98bff 2px, transparent 2px),
+    radial-gradient(#2af0ff 2px, transparent 2px);
+  background-size: 110px 92px, 148px 122px;
+  animation: pnTrueDrift 12s linear infinite;
+  animation-play-state: var(--play);
+}
+.pn-truend__inner {
+  position: relative;
+  padding: 30px 24px 24px;
+}
+.pn-truend__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 26px;
+  align-items: center;
+}
+.pn-truend__kicker {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 4px;
+  color: var(--te);
+  text-shadow: 0 0 12px #8b6cff77;
+}
+.pn-truend__title {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1;
+  color: #fff;
+  margin: 12px 0 0;
+  text-shadow: 3px 3px 0 #7a5cff;
+}
+.pn-truend__lead {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #cfe1f5;
+  margin: 12px 0 0;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* --- the two of them ----------------------------------------------------- */
+.pn-truend__art {
+  position: relative;
+  align-self: stretch;
+  min-height: 340px;
+}
+.pn-truend__mewtwo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  image-rendering: auto;
+  filter:
+    drop-shadow(0 0 1px #c4a9ff) drop-shadow(0 0 1px #c4a9ff)
+    drop-shadow(0 0 2px #a98bff) drop-shadow(0 0 2px #a98bff)
+    drop-shadow(0 0 14px #8b6cffcc) drop-shadow(0 0 34px #7a5cff88);
+  pointer-events: none;
+}
+.pn-truend__mew {
+  position: absolute;
+  left: -18px;
+  top: 4px;
+  width: 132px;
+  object-fit: contain;
+  image-rendering: auto;
+  filter:
+    drop-shadow(0 0 1px #ffc9dd) drop-shadow(0 0 1px #ffc9dd)
+    drop-shadow(0 0 2px #ff9ec4) drop-shadow(0 0 2px #ff9ec4)
+    drop-shadow(0 0 12px #ff3daecc) drop-shadow(0 0 28px #ff3dae88);
+  animation: pnTrueFloat 6s ease-in-out infinite;
+  animation-play-state: var(--play);
+  pointer-events: none;
+}
+.pn-truend__tags {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pn-truend__tag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  background: #0b1022;
+  border: 2px solid;
+  padding: 5px 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pn-truend__tag--violet {
+  color: #cfc3ff;
+  border-color: #a98bff;
+}
+.pn-truend__tag--pink {
+  color: #ffc9dd;
+  border-color: #ffb3cf;
+}
+.pn-truend__tag.is-done {
+  color: #171622;
+  border-color: #171622;
+}
+.pn-truend__tag--violet.is-done { background: var(--te); }
+.pn-truend__tag--pink.is-done { background: #ffb3cf; }
+.pn-truend__tag:hover {
+  color: #171622;
+  background: #fff;
+  border-color: #171622;
+}
+.pn-truend__tag.is-error { border-color: var(--toast-error); }
+.pn-truend__tag-done { display: none; }
+.pn-truend__tag.is-done .pn-truend__tag-done { display: inline; }
+.pn-truend__tag.is-done .pn-truend__tag-todo { display: none; }
+
+/* --- what is left -------------------------------------------------------- */
+.pn-truend__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+.pn-truend__tile {
+  border: 2px solid #a98bff3d;
+  background: #0b1022;
+  padding: 12px 14px;
+}
+.pn-truend__tile-k {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--te);
+}
+.pn-truend__tile-v {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #cfe1f5;
+  margin-top: 8px;
+}
+.pn-truend__tile-v a {
+  color: var(--te2);
+  text-decoration: none;
+  border-bottom: 1px dotted #2af0ff88;
+}
+.pn-truend__tile-v a:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* --- sign off ------------------------------------------------------------ */
+.pn-truend__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--te);
+  margin-top: 24px;
+}
+.pn-truend__off {
+  display: grid;
+  grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+  align-items: start;
+}
+.pn-truend__shot {
+  border: 3px solid var(--te);
+  background: #0d1224;
+  padding: 8px;
+}
+.pn-truend__frame {
+  position: relative;
+  aspect-ratio: 10 / 9;
+  background: #05070f;
+  box-shadow: inset 0 0 0 2px #a98bff3d;
+  overflow: hidden;
+}
+.pn-truend__frame-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto;
+}
+.pn-truend__shot-cap {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 8px;
+}
+.pn-truend__shot-n {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #171622;
+  background: var(--te);
+  padding: 4px 5px;
+}
+.pn-truend__shot-t {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #9fb6d6;
+}
+.pn-truend__plate {
+  border: 3px solid #a98bff3d;
+  background: #0d1224;
+  padding: 18px 20px;
+}
+.pn-truend__plate-h {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.05;
+  color: #fff;
+  margin: 0;
+}
+.pn-truend__plate-p {
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #cfe1f5;
+  margin: 10px 0 0;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+.pn-truend__stamp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 2px dashed #a98bff33;
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #9fb6d6;
+}
+.pn-truend__stamp-b {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #171622;
+  background: #FFC23D;
+  border: 2px solid #171622;
+  padding: 5px 6px;
+}
+
+@keyframes pnTrueStrip {
+  from { background-position: 0 0; }
+  to { background-position: 56px 0; }
+}
+@keyframes pnTrueDrift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 110px 92px, -148px 122px; }
+}
+@keyframes pnTrueFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@media (max-width: 900px) {
+  .pn-truend__inner { padding: 26px 16px 18px; }
+  .pn-truend__top { grid-template-columns: 1fr; }
+  .pn-truend__art { min-height: 300px; order: -1; }
+  .pn-truend__title { font-size: 34px; }
+  .pn-truend__lead { font-size: 16px; }
+  .pn-truend__off { grid-template-columns: 1fr; }
+  .pn-truend__shot { max-width: 420px; }
+  .pn-truend__mew { width: 96px; left: 0; }
+  .pn-truend__tags { justify-content: flex-start; }
+}
+
+@media (max-width: 620px) {
+  .pn-truend { margin-top: 20px; }
+  .pn-truend__inner { padding: 22px 12px 16px; }
+  .pn-truend__kicker { font-size: 8px; letter-spacing: 2px; }
+  .pn-truend__title { font-size: 26px; text-shadow: 2px 2px 0 #7a5cff; }
+  .pn-truend__lead { font-size: 15px; }
+  .pn-truend__art { min-height: 240px; }
+  .pn-truend__mew { width: 76px; top: 0; }
+  .pn-truend__tag { font-size: 7px; letter-spacing: 0; }
+  .pn-truend__tiles { grid-template-columns: 1fr; gap: 10px; }
+  .pn-truend__shot { max-width: none; }
+  .pn-truend__plate { padding: 14px; }
+  .pn-truend__plate-h { font-size: 21px; }
+  .pn-truend__plate-p { font-size: 15px; }
+  .pn-truend__stamp {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+}

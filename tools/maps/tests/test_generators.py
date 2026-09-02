@@ -798,10 +798,8 @@ def test_mew_lineup_keeps_the_trigger_trainer_offscreen(root):
     px, py = spec["player"]
     assert px == tx and py < ty, "lined up in his column, north of him"
     assert spec["player_dir"] == "DOWN", "facing down toward him"
-    full, _ = compositor.render_map(root, spec["map"])
     focus_y = spec.get("focus", spec["player"])[1]
-    offy = compositor._camera(focus_y * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1],
-                              full.height, compositor.SCREEN[1])
+    offy = compositor._camera(focus_y * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1])
     assert ty * compositor.UNIT_PX - offy >= compositor.SCREEN[1], "the trigger sits off the bottom edge"
 
 
@@ -839,12 +837,8 @@ def test_mew_center_wears_ceruleans_blue_palette(root):
 
 def _dot_screen_y(root, spec):
     """Where a scene's baked locator dot lands on the 160x144 screen, centre of the cell."""
-    const, _tileset = sources.parse_headers(root)[spec["map"]]
-    _cols, rows = markers.map_cells(root, const)
-    covered = compositor.DIALOG_PX if spec.get("dialog") else 0
     offy = compositor._camera(spec.get("focus", spec["player"])[1] * compositor.UNIT_PX,
-                              compositor.PLAYER_SCREEN[1], rows * compositor.UNIT_PX,
-                              compositor.SCREEN[1], covered)
+                              compositor.PLAYER_SCREEN[1])
     return spec["marker"][1] * compositor.UNIT_PX + compositor.UNIT_PX // 2 - offy
 
 
@@ -887,20 +881,24 @@ def test_the_master_ball_shot_stands_where_the_player_can_reach(root):
     assert spec["player_dir"] == "RIGHT" and president["dir"] == "LEFT", "the two face each other"
 
 
-def test_a_dialog_scene_scrolls_under_its_own_text_box(root):
-    """The box covers the bottom 48px, so a shot that draws one is really a 160x96 window and the
-    camera is clamped against that rather than the whole screen. Silph 9F forced it: the hidden
-    Max Potion is in a bed on the floor's second-to-last row, and the game's own clamp stops the
-    camera dead at the map's bottom edge, which leaves the bed, its dot and the hero all down
-    behind the box. The extra scroll only ever exposes map edge the box then paints over."""
-    height, focus = 288, 15 * compositor.UNIT_PX     # SilphCo9F is 18 rows; the bed is on row 15
-    anchor, screen = compositor.PLAYER_SCREEN[1], compositor.SCREEN[1]
-    plain = compositor._camera(focus, anchor, height, screen)
-    boxed = compositor._camera(focus, anchor, height, screen, compositor.DIALOG_PX)
+def test_the_camera_holds_the_anchor_at_every_edge_of_every_map(root):
+    """Gen 1 scrolls the map under a hero who never moves on screen, edges included: the block
+    buffer is filled with the border block and the map copied into the middle of it, so the last
+    column of a map is still walked from the centre of the screen.
 
-    assert focus - plain == screen - compositor.DIALOG_PX, "the game's clamp buries it in the box"
-    assert focus - boxed == anchor, "the allowance lifts it back to where the hero stands"
-    assert height - boxed >= screen - compositor.DIALOG_PX, "and the map's edge stays behind the box"
+    Nothing about that depends on the map, which is what this pins. A camera that stopped at the
+    edge instead pushed the hero into a corner of any shot taken near one, and buried a hidden item
+    on a map's last row behind its own text box, since the box covers the bottom 48px of a screen
+    the hero sits 56px down."""
+    corners = [(0, 0), (29, 17), (0, 17), (29, 0), (15, 8)]
+    for cell in corners:
+        offx = compositor._camera(cell[0] * compositor.UNIT_PX, compositor.PLAYER_SCREEN[0])
+        offy = compositor._camera(cell[1] * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1])
+        assert cell[0] * compositor.UNIT_PX - offx == compositor.PLAYER_SCREEN[0]
+        assert cell[1] * compositor.UNIT_PX - offy == compositor.PLAYER_SCREEN[1]
+
+    assert compositor.PLAYER_SCREEN[1] + compositor.UNIT_PX <= \
+        compositor.SCREEN[1] - compositor.DIALOG_PX, "so the anchor always clears the text box"
 
 
 def test_every_marker_scene_shows_its_dot_clear_of_the_text_box(root):
@@ -1159,3 +1157,110 @@ def test_a_found_item_box_is_never_a_conversation(root):
             "player": [16, 42], "player_dir": "DOWN", "dialog": {"found_item": "ANTIDOTE"}}
 
     _check(root, spec)
+
+
+def test_an_arrow_never_lands_on_the_doorway_it_points_at(root):
+    """A doorway is drawn, and an arrow is opaque. A ladder, a staircase and a cave mouth each have
+    a tile of their own in the tileset, and that tile is the one thing a reader scans the picture
+    for, so an arrow parked on it points at a rock. The arrow goes on the cell you cross to get
+    there and turns if it has to, which is what the whole shipped set already does: the hero, the
+    arrow and the way out read as three things rather than two.
+
+    The regression: Cerulean Cave's seven ladder shots were first drawn with the arrow on the
+    ladder itself, and every one of them buried the ladder under an amber blob."""
+    covered = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if spec.get("map") not in sources.parse_headers(root):
+                continue
+            warps = {(x, y) for x, y, *_ in sources.parse_warp_events(root, spec["map"])}
+            covered += [f"{spec['name']} ({path.name}) on {tuple(arrow['grid'])}"
+                        for arrow in spec.get("arrows", []) if tuple(arrow["grid"]) in warps]
+
+    assert covered == []
+
+
+def _standing_tile(root, label, cell):
+    """The tile the game keys collision off for a cell: its lower-left (engine/overworld/movement)."""
+    const, tileset = sources.parse_headers(root)[label]
+    _index, blocks_w, _blocks_h = sources.parse_map_constants(root)[0][const]
+    file = sources.tileset_basename(root, tileset)
+    return sources.cell_tiles(root, label, file, blocks_w, *cell)[2], tileset
+
+
+def _crossable(root, label, here, there):
+    """True when the game lets you step between two cells: the pair table, not just collision.
+
+    A cave floor is plateaus of walkable rock a step above walkable rock. Both are open ground to
+    the collision map and `pair_collision_tile_ids.asm` is the only thing that says you cannot
+    cross between them, which is why a shot can look legal and be a picture of a tile the player
+    can never act from."""
+    a, tileset = _standing_tile(root, label, here)
+    b, _ = _standing_tile(root, label, there)
+    return frozenset((a, b)) not in sources.parse_pair_collisions(root, tileset)
+
+
+def _neighbours(cell):
+    x, y = cell
+    return [(x, y - 1), (x, y + 1), (x - 1, y), (x + 1, y)]
+
+
+def test_a_ball_shot_stands_where_the_ball_can_actually_be_picked_up(root):
+    """You collect a Poké Ball by walking onto it, so a shot of one has to be taken from a cell the
+    hero could take that step from. The pair table is what decides it: a ball on a terrace and the
+    floor a step below it are both open ground, and the game still refuses the move.
+
+    The regression: Cerulean Cave B1F's Max Elixir sits on the top terrace and its shot was framed
+    from the tile below, which is the lower floor. The picture showed a hero about to pick up a
+    ball they cannot reach from there."""
+    unreachable = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if spec.get("map") not in sources.parse_headers(root) or "player" not in spec:
+                continue
+            balls = {tuple(o["grid"]) for o in
+                     sources.parse_object_events(root, spec["map"], include_battlers=True,
+                                                 show=spec.get("show", ()), hide=spec.get("hide", ()))
+                     if o["sprite_const"] == "SPRITE_POKE_BALL"}
+            focus = tuple(spec.get("focus", spec["player"]))
+            if focus not in balls or focus not in _neighbours(tuple(spec["player"])):
+                continue
+            if not _crossable(root, spec["map"], tuple(spec["player"]), focus):
+                unreachable.append(f"{spec['name']} ({path.name}): {spec['player']} -> {list(focus)}")
+
+    assert unreachable == []
+
+
+def test_a_hidden_item_is_faced_from_the_floor_its_rock_belongs_to(root):
+    """A hidden item is usually buried in something solid, and a solid cell in a cave is the wall
+    of a terrace: open floor on three sides up top, and the floor a step down on the fourth. The
+    game's own check is coordinates only (CheckIfCoordsInFrontOfPlayerMatch), so pressing A into
+    that wall from below does fire, and it is still a picture of someone searching a cliff face
+    rather than the rock the directions send them to.
+
+    So the hero stands on the level the rock belongs to: their tile has to be one the pair table
+    lets them share with another of the rock's open neighbours. A rock with only one way up to it
+    has nothing to disagree with and is left alone.
+
+    The regression: Cerulean Cave 1F's PP Up was faced from the lower floor, one row below a rock
+    that blocks the terrace row the walk comes along."""
+    stranded = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if not spec.get("marker") or spec.get("map") not in sources.parse_headers(root):
+                continue
+            marker, hero = tuple(spec["marker"]), tuple(spec["player"])
+            const, tileset = sources.parse_headers(root)[spec["map"]]
+            _i, blocks_w, _h = sources.parse_map_constants(root)[0][const]
+            width, height = markers.map_cells(root, const)
+            open_around = [c for c in _neighbours(marker)
+                           if 0 <= c[0] < width and 0 <= c[1] < height
+                           and markers.cell_is_standable(root, spec["map"], tileset, blocks_w, c)]
+            others = [c for c in open_around if c != hero]
+            if hero not in open_around or not others:
+                continue
+            if not any(_crossable(root, spec["map"], hero, c) for c in others):
+                stranded.append(f"{spec['name']} ({path.name}): hero {list(hero)} is cut off from "
+                                f"the rest of {list(marker)}'s floor")
+
+    assert stranded == []
