@@ -292,6 +292,7 @@ module Walkthrough
     DIARY_PAGES = { "jul_5" => "mew", "jul_10" => "mew",
                     "feb_6" => "mewtwo", "sep_1" => "mewtwo" }.freeze
 
+    MEWTWO_DEX = "150".freeze
     MEW_DEX = "151".freeze
 
     def self.mansion_diary
@@ -416,6 +417,12 @@ module Walkthrough
       { slug: "leg-18", special: false, locs: %w[route-22-return route-23] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
+      # The cave door has no road to it: it sits on a strip of sand at Cerulean's west edge, walled
+      # off from the city, and the only way onto that sand is the river. So the last page before
+      # the dungeon is the swim in, and it passes the one trainer in Kanto the first lap could not
+      # reach: the sand runs straight on west into Route 4's top shelf, which its ledges only ever
+      # let you leave.
+      { slug: "leg-19", special: false, locs: %w[route-4-return] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
 
@@ -459,7 +466,7 @@ module Walkthrough
       MewGlitch.new(
         facts: mew_facts, tldr: mew_tldr, untouched: mew_untouched, packlist: mew_packlist,
         sleepers: mew_sleepers, phases: mew_phases, second: mew_second,
-        stages: mew_stages, baseline: 7, vc_ot: "GF", vc_tid: "22796"
+        stages: mew_stages, baseline: 7, vc_ot: "GF", vc_tid: "22796", dex: MEW_DEX
       )
     end
 
@@ -650,7 +657,7 @@ module Walkthrough
         route_20_west, power_plant, cinnabar_island, pokemon_mansion, cinnabar_island_return,
         route_21, pallet_town_return, viridian_city_return, viridian_gym,
         route_22_return, route_23, victory_road,
-        indigo_plateau, cerulean_cave
+        indigo_plateau, route_4_return, cerulean_cave
       ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
       show_mt_moon_approach(locs)
     end
@@ -667,7 +674,8 @@ module Walkthrough
                    "route-16-fly" => "route-16",
                    "route-10-south" => "route-10",
                    "route-20-west" => "route-20",
-                   "cinnabar-island-return" => "cinnabar-island" }.freeze
+                   "cinnabar-island-return" => "cinnabar-island",
+                   "route-4-return" => "route-4" }.freeze
 
     # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
     # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
@@ -679,7 +687,10 @@ module Walkthrough
       # all three and each step pins the one it is standing on.
       "surf-cleanups" => { "vermilion-city" => "Vermilion City", "route-6" => "Route 6",
                            "celadon-city" => "Celadon City", "route-12" => "Route 12",
-                           "cerulean-city" => "Cerulean City", "route-10" => "Route 10" }
+                           "cerulean-city" => "Cerulean City", "route-10" => "Route 10" },
+      # The swim to the cave door starts on Route 24 and lands in Cerulean, and Route 4's shelf is
+      # only the last few steps of it, so the page borrows both maps it crosses to get there.
+      "route-4-return" => { "route-24" => "Route 24", "cerulean-city" => "Cerulean City" }
     }.freeze
 
     # A stop that borrows another stop's map takes the whole map's people with it, and some of them
@@ -1596,6 +1607,11 @@ module Walkthrough
         key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
         encounters: [
           enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png"),
+          # #151 sits in no encounter table in the cartridge. The only body a Yellow file can
+          # produce is the Trainer-Fly glitch, and Cerulean is where it is earliest and cleanest,
+          # so it stands with the city's catches as the certain thing a static is: Lv 7, one
+          # sprite, no roll against you.
+          enc("cerulean-city", "151", "STATIC", "-", "7", "STATIC", "151", tip: true),
           enc("cerulean-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("cerulean-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
           enc("cerulean-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
@@ -1605,7 +1621,7 @@ module Walkthrough
         trainers: [],
         gym: gym("cerulean-city", "Cerulean Gym", "WATER", "CASCADE", "TM11 · BUBBLEBEAM",
           leader("Misty", 2079, mon("120", 18), mon("121", 21), battle: scene_shot("battle-misty", "BATTLE"), opp: [ "MISTY", 1 ])),
-        oak_queue: [ oak("cerulean-city", "001", 1) ])
+        oak_queue: [ oak("cerulean-city", "001", 1), oak("cerulean-city", "151", 1) ])
     end
 
     def self.route_24
@@ -2852,8 +2868,16 @@ module Walkthrough
       LeagueChampion.new(trainer: card, teams: teams)
     end
 
+    # The League panel is this page's hall, the way a gym is anywhere else, so `gym_after` splits
+    # the walk around it: the one step in is read before the five rooms, and the step out (where
+    # the file goes once the credits have rolled) below them, where a reader who has just beaten
+    # Blue is looking.
     def self.indigo_plateau
-      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, steps: 1,
+      loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, gym_after: 1,
+        steps: [
+          {},
+          { html: true, link: StepLink.new(leg: "leg-19", anchor: "route-4-return-step-1") }
+        ],
         trainers: [
           tr("ELITE FOUR", "Lorelei", 5544,
             mon("087", 54), mon("091", 53), mon("080", 54), mon("124", 56), mon("131", 56),
@@ -2873,31 +2897,65 @@ module Walkthrough
         ])
     end
 
+    # The way to the cave door, which is not a road: the door opens onto a strip of sand at
+    # Cerulean's west edge that nothing on land reaches, so the approach is Route 24's river,
+    # south past the bridge and down the city's west side. That sand runs on west into Route 4's
+    # top shelf, fenced off from the rest of the route by ledges that only ever hop west, which is
+    # why the Lass standing on it is the one trainer the first lap had to walk away from. It shares
+    # the cave's stop number, the way the Surf sweep shares Saffron's: the swim is the last stretch
+    # of the walk into stop 53, not a stop of its own.
+    def self.route_4_return
+      loc("route-4-return", "ROUTE", "Route 4", 53, title: "Route 4 → Cerulean Cave",
+        steps: [
+          { map: "route-24", scene: "route-24-surf-south",
+            pins: { south: "route-24/exit-south" } },
+          { map: "cerulean-city", scene: "cerulean-cave-beach",
+            pins: { mouth: "cerulean-city/exit-4-11" } },
+          { map: "route-4", scene: "cerulean-beach-west",
+            pins: { lass: "route-4/trainer-63-3" } },
+          { scene: "cerulean-cave-entrance", pins: { mouth: "cerulean-city/exit-4-11" },
+            link: StepLink.new(leg: "cerulean-cave", anchor: "cerulean-cave-step-1") }
+        ])
+    end
+
+    # Three floors, seven ladders and not one of them optional. Each floor is sealed into pockets
+    # that share no wall, so a ladder only ever reaches the quarter of the far floor it opens onto
+    # and the way down is 1F, 2F, 1F, 2F, 1F, 2F, 1F, B1F: eight legs, each one a ladder, a couple
+    # of prizes and the next ladder. The steps run in that order, and so do the pin letters
+    # (tools/maps/paths.py names every one of them), so a reader climbing the eighth ladder has
+    # picked up I1 through I4 on the floor they are leaving rather than hunting a letter two
+    # visits back.
     def self.cerulean_cave
       loc("cerulean-cave", "CAVE", "Cerulean Cave", 53,
-        pins: { 7 => { up: "cerulean-cave-1f/exit-1-3" },
-                13 => { down: "cerulean-cave-2f/exit-3-11", lower: "cerulean-cave-1f/exit-0-6" } },
         steps: [
-          {},
-          { item: [ "Rare Candy", "rare-candy-29-16" ], scene: "cerulean-cave-item-rare-candy-29-16", at: [ 29, 16 ] },
-          { item: [ "Max Revive", "max-revive-29-9" ], scene: "cerulean-cave-item-max-revive-29-9", at: [ 29, 9 ] },
-          { hidden: [ "PP Up", "pp-up-18-7", "cerulean-cave-hidden-pp-up-18-7", "cerulean-cave-pp-up-18-7" ], at: [ 18, 7 ] },
-          { item: [ "Ultra Ball", "ultra-ball-18-3" ], scene: "cerulean-cave-item-ultra-ball-18-3", at: [ 18, 3 ] },
+          { pins: { mouth: "cerulean-cave-1f/exit-24-17" } },
+          { scene: [ [ "cerulean-cave-1f-pool", "1F" ], [ "cerulean-cave-1f-north-path", "1F" ] ] },
           { item: [ "Max Elixir", "max-elixir-7-11" ], scene: "cerulean-cave-item-max-elixir-7-11", at: [ 7, 11 ] },
-          { html: true },
-          { item: [ "Rare Candy", "rare-candy-0-11" ], scene: "cerulean-cave-item-rare-candy-0-11", at: [ 0, 11 ] },
+          { scene: "cerulean-cave-1f-ladder-west", pins: { up: "cerulean-cave-1f/exit-3-11" } },
           { item: [ "Ultra Ball", "ultra-ball-16-7" ], scene: "cerulean-cave-item-ultra-ball-16-7", at: [ 16, 7 ] },
           { hidden: [ "PP Up", "pp-up-16-13", "cerulean-cave-hidden-pp-up-16-13", "cerulean-cave-pp-up-16-13" ], at: [ 16, 13 ] },
           { item: [ "Max Revive", "max-revive-19-11" ], scene: "cerulean-cave-item-max-revive-19-11", at: [ 19, 11 ] },
+          { scene: "cerulean-cave-2f-ladder-east", pins: { down: "cerulean-cave-2f/exit-22-6" } },
+          { item: [ "Rare Candy", "rare-candy-29-16" ], scene: "cerulean-cave-item-rare-candy-29-16", at: [ 29, 16 ] },
+          { hidden: [ "PP Up", "pp-up-18-7", "cerulean-cave-hidden-pp-up-18-7", "cerulean-cave-pp-up-18-7" ],
+            at: [ 18, 7 ], pins: { ladder: "cerulean-cave-1f/exit-23-7" } },
+          { item: [ "Ultra Ball", "ultra-ball-18-3" ], scene: "cerulean-cave-item-ultra-ball-18-3", at: [ 18, 3 ] },
+          { scene: "cerulean-cave-1f-ladder-center", pins: { up: "cerulean-cave-1f/exit-18-9" } },
           { item: [ "Full Restore", "full-restore" ], scene: "cerulean-cave-item-full-restore" },
-          { html: true },
-          { item: [ "Ultra Ball", "ultra-ball-2-13" ], scene: "cerulean-cave-item-ultra-ball-2-13", at: [ 2, 13 ] },
-          { item: [ "Max Revive", "max-revive-3-13" ], scene: "cerulean-cave-item-max-revive-3-13", at: [ 3, 13 ] },
-          { hidden: [ "PP Up", "pp-up-8-14", "cerulean-cave-hidden-pp-up-8-14", "cerulean-cave-pp-up-8-14" ], at: [ 8, 14 ] },
+          { scene: "cerulean-cave-2f-ladder-northeast", pins: { down: "cerulean-cave-2f/exit-29-1" } },
+          { item: [ "Max Revive", "max-revive-29-9" ], scene: "cerulean-cave-item-max-revive-29-9", at: [ 29, 9 ] },
+          { scene: "cerulean-cave-1f-ladder-north", pins: { up: "cerulean-cave-1f/exit-7-1" } },
+          { item: [ "Rare Candy", "rare-candy-0-11" ], scene: "cerulean-cave-item-rare-candy-0-11", at: [ 0, 11 ] },
+          { scene: [ [ "cerulean-cave-2f-ladder-northwest", "2F" ], [ "cerulean-cave-1f-ladder-b1f", "1F" ] ],
+            pins: { down: "cerulean-cave-2f/exit-1-3", lower: "cerulean-cave-1f/exit-0-6" } },
           { item: [ "Max Elixir", "max-elixir-15-3" ], scene: "cerulean-cave-item-max-elixir-15-3", at: [ 15, 3 ] },
+          { hidden: [ "PP Up", "pp-up-8-14", "cerulean-cave-hidden-pp-up-8-14", "cerulean-cave-pp-up-8-14" ], at: [ 8, 14 ] },
+          { item: [ "Ultra Ball", "ultra-ball-2-13" ], at: [ 2, 13 ],
+            scene: [ [ "cerulean-cave-b1f-shore", "B1F" ], [ "cerulean-cave-item-ultra-ball-2-13", "B1F" ] ] },
+          { item: [ "Max Revive", "max-revive-3-13" ], scene: "cerulean-cave-item-max-revive-3-13", at: [ 3, 13 ] },
           { item: [ "Ultra Ball", "ultra-ball-26-1" ], scene: "cerulean-cave-item-ultra-ball-26-1", at: [ 26, 1 ] },
           {},
-          { scene: "cerulean-cave-mewtwo" }
+          { scene: "cerulean-cave-mewtwo", pins: { mewtwo: "cerulean-cave-b1f/pokemon-27-13" } }
         ],
         encounters: [
           enc("cerulean-cave", "042", "CAVE", "40%", "50–59", "COMMON", "041", "042"),
@@ -2920,6 +2978,21 @@ module Walkthrough
           enc("cerulean-cave", "150", "STATIC", "-", "70", "STATIC", "150", tip: true)
         ],
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])
+    end
+
+    # What a finished file still has in front of it, in the order it is worth doing.
+    TRUE_ENDING_TILES = %w[dex cable league mew].freeze
+
+    # The sign-off under the last stop of the last page. Both legendaries hang off it: the one you
+    # have just caught, and the one Yellow ships no encounter for.
+    def self.true_ending(loc)
+      TrueEnding.new(anchor: "true-ending", copy_key: "#{base(loc.slug)}.ending",
+        tiles: TRUE_ENDING_TILES, league_leg: "indigo-plateau",
+        tags: [ EndingTag.new(dex: MEWTWO_DEX, key: mon_key(MEWTWO_DEX), tone: "violet"),
+                EndingTag.new(dex: MEW_DEX, key: mon_key(MEW_DEX), tone: "pink") ],
+        art: "walkthrough/art/mewtwo-gen1-art.png",
+        mew: "walkthrough/art/mew-gen1-art.png",
+        shot: "walkthrough/art/party-pikachu.png")
     end
 
     def self.route_9

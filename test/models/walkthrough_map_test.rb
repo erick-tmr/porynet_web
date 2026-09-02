@@ -395,7 +395,8 @@ class WalkthroughMapTest < ActiveSupport::TestCase
 
     assert_empty clashes, "one item, two progress ids: ticking it on one page leaves the other unticked"
     assert_equal [ %w[celadon-city celadon-city-return], %w[celadon-city surf-cleanups],
-                   %w[celadon-city-return surf-cleanups], %w[cerulean-city surf-cleanups],
+                   %w[celadon-city-return surf-cleanups], %w[cerulean-city route-4-return],
+                   %w[cerulean-city surf-cleanups],
                    %w[cinnabar-island cinnabar-island-return],
                    %w[digletts-cave viridian-city-return],
                    %w[fuchsia-city fuchsia-city-return], %w[pallet-town pallet-town-return],
@@ -404,8 +405,10 @@ class WalkthroughMapTest < ActiveSupport::TestCase
                    %w[route-10-south surf-cleanups], %w[route-12 surf-cleanups],
                    %w[route-16-fly route-16], %w[route-2 digletts-cave],
                    %w[route-20 route-20-west], %w[route-22 route-22-return],
-                   %w[route-4-mt-moon route-4], %w[route-6 surf-cleanups],
-                   %w[saffron-city-return saffron-city],
+                   %w[route-24 route-4-return], %w[route-4 route-4-return],
+                   %w[route-4-mt-moon route-4], %w[route-4-mt-moon route-4-return],
+                   %w[route-6 surf-cleanups],
+                   %w[saffron-city-return saffron-city], %w[surf-cleanups route-4-return],
                    %w[vermilion-city surf-cleanups], %w[vermilion-city vermilion-city-return],
                    %w[vermilion-city-return surf-cleanups], %w[viridian-city digletts-cave],
                    %w[viridian-city viridian-city-return] ],

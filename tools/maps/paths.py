@@ -324,9 +324,28 @@ ROUTES = {
                    "item-20-32", "item-26-32", "item-28-3"),
     "UndergroundPathNorthSouth": ("exit-5-4",),     # down from the Route 5 house
     "UndergroundPathWestEast": ("exit-47-2",),      # down from the Route 8 house, walked west
-    "CeruleanCave1F": ("exit-24-17", "item-29-16", "item-29-9", "hidden-18-7", "item-18-3", "item-7-11"),
-    "CeruleanCave2F": ("exit-1-3",),
-    "CeruleanCaveB1F": ("exit-3-6", "item-2-13", "item-3-13", "hidden-8-14", "item-15-3", "item-26-1"),
+    # Three floors laced together by seven ladders, and no floor is crossed in one go: 1F is walked
+    # four times, 2F three, and each visit lands in a pocket the last one could not reach. The
+    # collision says so outright, which is rare: 1F is four sealed regions and 2F three, kept apart
+    # by the tileset's pair collisions, so a flood from any one doorway reaches a quarter of the
+    # floor and leaves the rest unreached. Each floor therefore lists a doorway per visit.
+    #
+    # Every pin is named as well, because two of the legs are cleared in an order distance cannot
+    # see. Off the second ladder onto 1F, the Ultra Ball up on the north plateau lies ten steps from
+    # where you land and the Rare Candy sixteen, but the Candy is a short surf out and back from the
+    # foot of that ladder while the Ultra Ball is on the way to the next one, so it is taken first
+    # and the plateau closes the leg. B1F is one region walked end to end, and measured from its
+    # ladder alone the southwest pair outranks the Max Elixir on the north wall, which is the
+    # opposite of a walk that sweeps the top of the floor before dropping to the water.
+    "CeruleanCave1F": ("exit-24-17", "item-7-11",
+                       "exit-23-7", "item-29-16", "hidden-18-7", "item-18-3",
+                       "exit-27-1", "item-29-9",
+                       "exit-1-3"),
+    "CeruleanCave2F": ("exit-3-11", "item-16-7", "hidden-16-13", "item-19-11",
+                       "exit-19-7", "item-27-9",
+                       "exit-9-1", "item-0-11"),
+    "CeruleanCaveB1F": ("exit-3-6", "item-15-3", "hidden-8-14", "item-2-13", "item-3-13",
+                        "item-26-1"),
     # In at the southwest corner, along the bottom and up the first stair onto the mount, so the
     # Carbos is the first ball reached and the Egg Bomb west of it the second. Then the northwest
     # corner for the Max Potion, back east for the Full Restore and out of the North door. The

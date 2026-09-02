@@ -403,9 +403,24 @@
         "name": "cerulean-cave-1f",
         "markers": [
           {
-            "id": "item-29-16",
+            "id": "item-7-11",
             "cat": "item",
             "key": "I1",
+            "x": 25.0,
+            "y": 63.889,
+            "grid": [
+              7,
+              11
+            ],
+            "align": "r",
+            "name": "Max Elixir",
+            "ref": "MAX_ELIXER",
+            "lane": 0
+          },
+          {
+            "id": "item-29-16",
+            "cat": "item",
+            "key": "I2",
             "x": 98.333,
             "y": 91.667,
             "grid": [
@@ -416,21 +431,6 @@
             "name": "Rare Candy",
             "ref": "RARE_CANDY",
             "lane": 0
-          },
-          {
-            "id": "item-29-9",
-            "cat": "item",
-            "key": "I2",
-            "x": 98.333,
-            "y": 52.778,
-            "grid": [
-              29,
-              9
-            ],
-            "align": "l",
-            "name": "Max Revive",
-            "ref": "MAX_REVIVE",
-            "lane": 1
           },
           {
             "id": "item-18-3",
@@ -448,19 +448,19 @@
             "lane": 0
           },
           {
-            "id": "item-7-11",
+            "id": "item-29-9",
             "cat": "item",
             "key": "I4",
-            "x": 25.0,
-            "y": 63.889,
+            "x": 98.333,
+            "y": 52.778,
             "grid": [
-              7,
-              11
+              29,
+              9
             ],
-            "align": "r",
-            "name": "Max Elixir",
-            "ref": "MAX_ELIXER",
-            "lane": 0
+            "align": "l",
+            "name": "Max Revive",
+            "ref": "MAX_REVIVE",
+            "lane": 1
           },
           {
             "id": "hidden-18-7",
@@ -623,24 +623,9 @@
         "name": "cerulean-cave-2f",
         "markers": [
           {
-            "id": "item-0-11",
-            "cat": "item",
-            "key": "I1",
-            "x": 1.667,
-            "y": 63.889,
-            "grid": [
-              0,
-              11
-            ],
-            "align": "r",
-            "name": "Rare Candy",
-            "ref": "RARE_CANDY",
-            "lane": 1
-          },
-          {
             "id": "item-16-7",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 55.0,
             "y": 41.667,
             "grid": [
@@ -655,7 +640,7 @@
           {
             "id": "item-19-11",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 65.0,
             "y": 63.889,
             "grid": [
@@ -670,7 +655,7 @@
           {
             "id": "item-27-9",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 91.667,
             "y": 52.778,
             "grid": [
@@ -680,6 +665,21 @@
             "align": "l",
             "name": "Full Restore",
             "ref": "FULL_RESTORE",
+            "lane": 1
+          },
+          {
+            "id": "item-0-11",
+            "cat": "item",
+            "key": "I4",
+            "x": 1.667,
+            "y": 63.889,
+            "grid": [
+              0,
+              11
+            ],
+            "align": "r",
+            "name": "Rare Candy",
+            "ref": "RARE_CANDY",
             "lane": 1
           },
           {
@@ -809,9 +809,24 @@
         "name": "cerulean-cave-b1f",
         "markers": [
           {
-            "id": "item-2-13",
+            "id": "item-15-3",
             "cat": "item",
             "key": "I1",
+            "x": 51.667,
+            "y": 19.444,
+            "grid": [
+              15,
+              3
+            ],
+            "align": "r",
+            "name": "Max Elixir",
+            "ref": "MAX_ELIXER",
+            "lane": 0
+          },
+          {
+            "id": "item-2-13",
+            "cat": "item",
+            "key": "I2",
             "x": 8.333,
             "y": 75.0,
             "grid": [
@@ -826,7 +841,7 @@
           {
             "id": "item-3-13",
             "cat": "item",
-            "key": "I2",
+            "key": "I3",
             "x": 11.667,
             "y": 75.0,
             "grid": [
@@ -836,21 +851,6 @@
             "align": "r",
             "name": "Max Revive",
             "ref": "MAX_REVIVE",
-            "lane": 0
-          },
-          {
-            "id": "item-15-3",
-            "cat": "item",
-            "key": "I3",
-            "x": 51.667,
-            "y": 19.444,
-            "grid": [
-              15,
-              3
-            ],
-            "align": "r",
-            "name": "Max Elixir",
-            "ref": "MAX_ELIXER",
             "lane": 0
           },
           {
@@ -20640,6 +20640,28 @@
         "width": 160,
         "height": 144
       }
+    },
+    "route-4-return": {
+      "1": {
+        "image": "walkthrough/yellow/scenes/route-24-surf-south.png",
+        "width": 160,
+        "height": 144
+      },
+      "2": {
+        "image": "walkthrough/yellow/scenes/cerulean-cave-beach.png",
+        "width": 160,
+        "height": 144
+      },
+      "3": {
+        "image": "walkthrough/yellow/scenes/cerulean-beach-west.png",
+        "width": 160,
+        "height": 144
+      },
+      "4": {
+        "image": "walkthrough/yellow/scenes/cerulean-cave-entrance.png",
+        "width": 160,
+        "height": 144
+      }
     }
   },
   "scenes": {
@@ -22149,6 +22171,66 @@
       "height": 144,
       "type": "screen"
     },
+    "cerulean-cave-1f-pool": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-1f-pool.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-1f-north-path": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-1f-north-path.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-1f-ladder-west": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-1f-ladder-west.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-2f-ladder-east": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-2f-ladder-east.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-1f-ladder-center": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-1f-ladder-center.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-2f-ladder-northeast": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-2f-ladder-northeast.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-1f-ladder-north": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-1f-ladder-north.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-2f-ladder-northwest": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-2f-ladder-northwest.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-1f-ladder-b1f": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-1f-ladder-b1f.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-b1f-shore": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-b1f-shore.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "cerulean-cave-mewtwo": {
       "image": "walkthrough/yellow/scenes/cerulean-cave-mewtwo.png",
       "width": 160,
@@ -22256,6 +22338,30 @@
       "width": 160,
       "height": 144,
       "type": "dialog"
+    },
+    "route-24-surf-south": {
+      "image": "walkthrough/yellow/scenes/route-24-surf-south.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-beach": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-beach.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-beach-west": {
+      "image": "walkthrough/yellow/scenes/cerulean-beach-west.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "cerulean-cave-entrance": {
+      "image": "walkthrough/yellow/scenes/cerulean-cave-entrance.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
     },
     "route-2-trade-house": {
       "image": "walkthrough/yellow/scenes/route-2-trade-house.png",

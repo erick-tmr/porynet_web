@@ -624,3 +624,31 @@ def test_victory_road_is_lettered_by_its_switches_rather_than_its_ladders(root):
     assert lettered(root, "VictoryRoad3F", "3F") == [
         ("T1", "COOLTRAINER_M:2"), ("T2", "COOLTRAINER_F:3"),
         ("T3", "COOLTRAINER_M:3"), ("T4", "COOLTRAINER_F:2")]
+
+
+def test_cerulean_cave_letters_each_floor_the_way_its_visits_run(root):
+    """Three floors laced together by seven ladders, and no floor is crossed in one go.
+
+    The collision says so outright: 1F is four regions with no wall between them and 2F is three,
+    so a flood from any one doorway reaches a quarter of the floor and the rest is unreached.
+    Each floor lists a doorway per visit, and the balls fall out in the order the ladders hand
+    them over: 1F's Max Elixir is behind the entrance water and its Max Revive is three ladders
+    later, which is the opposite of the order the map file declares them.
+
+    Two legs need more than a doorway. Off the second ladder onto 1F the Ultra Ball up on the
+    north plateau lies ten steps from where you land and the Rare Candy sixteen, but the Candy is
+    a short surf out and back from the foot of that ladder while the Ultra Ball is on the way to
+    the next one. And B1F is one region walked end to end, where measuring from the ladder alone
+    puts the southwest pair ahead of the Max Elixir on the north wall."""
+    def balls(label, floor, keys):
+        drawn = pins(root, label, floor, cat="item")
+        return [drawn[key]["name"] for key in keys]
+
+    assert balls("CeruleanCave1F", "1F", ("I1", "I2", "I3", "I4")) == [
+        "Max Elixir", "Rare Candy", "Ultra Ball", "Max Revive"]
+    assert balls("CeruleanCave2F", "2F", ("I1", "I2", "I3", "I4")) == [
+        "Ultra Ball", "Max Revive", "Full Restore", "Rare Candy"]
+    assert balls("CeruleanCaveB1F", "B1F", ("I1", "I2", "I3", "I4")) == [
+        "Max Elixir", "Ultra Ball", "Max Revive", "Ultra Ball"]
+    assert [m["grid"] for m in pins(root, "CeruleanCaveB1F", "B1F", cat="item").values()] == [
+        [15, 3], [2, 13], [3, 13], [26, 1]]

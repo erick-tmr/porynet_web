@@ -1,0 +1,74 @@
+<%# The last section of the last page. Mewtwo is caught, the game has stopped asking for anything,
+    so this hands the file back: the two legendaries the run ends on, the four things still worth
+    doing to a finished save, and the sign-off. %>
+<% k = ending.copy_key %>
+<% hrefs = { "dex" => root_path(anchor: "tracker"),
+             "league" => walkthrough_leg_path(game: @game.slug, leg: ending.league_leg),
+             "mew" => walkthrough_mew_glitch_path(game: @game.slug) } %>
+<section class="pn-wt-section" id="<%= ending.anchor %>">
+  <div class="pn-eyebrow-label pn-eyebrow-label--violet"><%= t("#{k}.eyebrow") %></div>
+  <h3 class="pn-wt-band__h3"><%= t("#{k}.heading") %></h3>
+
+  <div class="pn-truend">
+    <span class="pn-truend__strip" aria-hidden="true"></span>
+    <span class="pn-truend__waves" aria-hidden="true"></span>
+    <div class="pn-truend__inner">
+      <div class="pn-truend__top">
+        <div>
+          <div class="pn-truend__kicker"><%= t("#{k}.kicker") %></div>
+          <h4 class="pn-truend__title"><%= t("#{k}.title") %></h4>
+          <p class="pn-truend__lead"><%= t("#{k}.lead") %></p>
+        </div>
+        <div class="pn-truend__art">
+          <%= r2_image_tag ending.art, alt: t("#{k}.art_alt"),
+                class: "pn-truend__mewtwo", loading: "lazy" %>
+          <%= r2_image_tag ending.mew, alt: t("#{k}.mew_alt"),
+                class: "pn-truend__mew", loading: "lazy" %>
+          <div class="pn-truend__tags">
+            <% ending.tags.each do |mon| %>
+              <span class="pn-truend__tag pn-truend__tag--<%= mon.tone %>"
+                    <%= tag.attributes(tickable("caught", mon.dex)) %>>
+                <span class="pn-truend__tag-todo">#<%= mon.dex %> · <%= t("#{k}.tags.#{mon.key}") %></span>
+                <span class="pn-truend__tag-done">#<%= mon.dex %> · <%= t("walkthrough.ui.caught_badge") %></span>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="pn-truend__tiles">
+        <% ending.tiles.each do |tile| %>
+          <% href = hrefs[tile] %>
+          <div class="pn-truend__tile">
+            <div class="pn-truend__tile-k"><%= t("#{k}.tiles.#{tile}.label") %></div>
+            <div class="pn-truend__tile-v">
+              <%= href ? t("#{k}.tiles.#{tile}.value_html", href: href) : t("#{k}.tiles.#{tile}.value") %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pn-truend__label"><%= t("#{k}.label") %></div>
+      <div class="pn-truend__off">
+        <div class="pn-truend__shot">
+          <div class="pn-truend__frame">
+            <%= r2_image_tag ending.shot, alt: t("#{k}.shot_alt"),
+                  class: "pn-truend__frame-img", loading: "lazy" %>
+          </div>
+          <div class="pn-truend__shot-cap">
+            <span class="pn-truend__shot-n"><%= t("#{k}.shot_tag") %></span>
+            <span class="pn-truend__shot-t"><%= t("#{k}.shot_caption") %></span>
+          </div>
+        </div>
+        <div class="pn-truend__plate">
+          <h5 class="pn-truend__plate-h"><%= t("#{k}.plate_title") %></h5>
+          <p class="pn-truend__plate-p"><%= t("#{k}.plate_text", stops: @game.stops) %></p>
+          <div class="pn-truend__stamp">
+            <span class="pn-truend__stamp-b"><%= t("#{k}.stamp") %></span>
+            <span><%= t("#{k}.stamp_line", game: @game.name, n: @location.order, total: @game.stops) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

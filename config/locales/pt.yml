@@ -156,6 +156,8 @@ pt:
       second_h2: "De volta com o Surf"
       steps_after_eyebrow: "APÓS O GINÁSIO · PARA ONDE IR"
       steps_after_h2: "Para onde ir a seguir"
+      steps_next_eyebrow: "APÓS OS CRÉDITOS · PARA ONDE IR"
+      steps_next_h2: "Para onde ir a seguir"
       steps_finale_eyebrow: "ÚLTIMA PARADA · DE VOLTA AO GINÁSIO"
       steps_finale_h2: "Feche a etapa em %{name}"
       item_kind: "· ITEM"
@@ -777,6 +779,8 @@ pt:
           lead: "Desembarque em Pallet e siga ao norte até Viridian, cujo ginásio enfim abriu, pelo Giovanni e a insígnia final."
         leg_18:
           lead: "A oeste de Viridian pela última luta do Blue antes do Campeão, e depois a estrada com portões de insígnia até a Victory Road."
+        leg_19:
+          lead: "Ao norte de Cerulean e de volta pelo rio até a porta da caverna, passando pelo único treinador de Kanto que os desníveis mantiveram fora de alcance."
       mew_glitch:
         meta_title: "O Glitch do Mew · Guia de %{game}"
         crumb_cerulean: "CERULEAN"
@@ -1035,7 +1039,8 @@ pt:
             text: "Volte andando, aperte B no menu que abre sozinho e capture o Mew número dois."
         after:
           art_alt: "Red com Mew, arte de Ken Sugimori"
-          art_tag: "Nº 151 · REGISTRADO"
+          art_tag_todo: "Nº 151 · NÃO REGISTRADO"
+          art_tag_done: "Nº 151 · REGISTRADO ✓"
           eyebrow: "POSFÁCIO"
           h2: "Um Pokémon que o jogo nunca quis te dar"
           text: "Este é um sabor do glitch Trainer-Fly, que pode produzir qualquer Pokémon do jogo. A dupla de Cerulean é só a mais cedo e mais segura. Existem outras configurações, com mais partes móveis e mais formas de perder um NPC. Capture o Mew aqui e sua dex fica completa sem um único ticket de evento."
@@ -1745,8 +1750,10 @@ pt:
               text: "Com o S.S. Ticket do Bill na mochila, volte ao sul até Cerulean. Cure, reponha as Poké Balls e encare o Ginásio: lidere com Pikachu ou um tipo Grama contra a equipe de Água da Misty."
           tips:
             bulbasaur: "Grátis na casa da Melanie quando o Pikachu está feliz. Evolui até Venusaur."
+            mew: "Nada no Yellow gera um Mew. O glitch do Trainer-Fly é o único corpo que o cartucho produz, e ele precisa do Jr. Trainer♂ da Nugget Bridge ainda de pé."
           oak:
             bulbasaur: "Presente grátis da casa da Melanie → Venusaur. Um basta."
+            mew: "O glitch é o único Mew que o cartucho produz, e ele quer os treinadores de Cerulean ainda de pé. Faça antes da Misty."
           gifts:
             bulbasaur:
               from: "DA CASA DA MELANIE"
@@ -3665,6 +3672,9 @@ pt:
             "1":
               title: "Siga em frente"
               text: "Não há nada para resolver aqui. Vencer o treinador de uma sala abre a porta seguinte, então siga andando: Lorelei, Bruno, Agatha, Lance e então Blue. Compre e cure no saguão antes da primeira porta."
+            "2":
+              title: "Volte de Fly para a última caverna"
+              text_html: "Os créditos abriram mais uma porta. Voe até Cerulean, retire seis Pokémon fortes com Surf e Dig entre eles e pegue <a href=\"%{href}\">o caminho de água até a Cerulean Cave</a>, onde Mewtwo espera no Nv 70."
           league:
             brief:
               level:
@@ -3758,103 +3768,175 @@ pt:
                 missing:
                   label: "AINDA FALTA"
                   value: "As evoluções por troca e os exclusivos de versão. Veja no tracker o que o seu arquivo ainda deve ao Oak."
+        route_4_return:
+          note: "A travessia até a porta da caverna, e o último treinador de Kanto."
+          intro: "A porta da caverna dá para uma faixa de areia sem nenhuma estrada até ela, então o caminho de entrada é o rio da Nugget Bridge. Essa areia segue a oeste até o único platô da Rota 4 que os desníveis nunca deixam você subir."
+          steps:
+            "1":
+              title: "Surfe para o sul ao lado da Nugget Bridge"
+              text_html: "Saia de Cerulean para o norte na Rota 24 %{south} e desvie da estrada para oeste, para a grama ao lado do rio. Desça pela coluna oeste da faixa, fora do alcance do Jr. Trainer, e use Surf na ponta."
+            "2":
+              title: "Desça o rio até a areia"
+              text_html: "O rio corre para o sul até o lago noroeste da cidade. Acompanhe a água pela borda oeste de Cerulean e desembarque embaixo da boca da caverna %{mouth}. Deixe a porta para depois; ainda há um treinador de pé, a oeste dela."
+            "3":
+              title: "Vá a oeste pelo último treinador"
+              text_html: "Da areia, siga a oeste e a tela rola para o platô superior da Rota 4. A Lass %{lass} parada ali é o único treinador de Kanto que os desníveis de mão única mantiveram longe de você."
+            "4":
+              title: "Entre pela porta da caverna"
+              text_html: "Volte a leste pelo platô e desça para a areia. Com a Liga vencida o homem que guardava a porta sumiu, então entre direto na <a href=\"%{href}\">Cerulean Cave</a> %{mouth}."
         cerulean_cave:
           note: "Masmorra pós-jogo. Os selvagens mais fortes. E o Mewtwo."
           intro: "A caverna que o guarda só abre para um Campeão. Três andares com os Pokémon selvagens mais fortes de Kanto, e o Mewtwo sozinho no fundo."
           steps:
             "1":
-              title: "Surfe para dentro da caverna"
-              text: "Depois do Hall da Fama, surfe a noroeste de Cerulean City até a boca da caverna. Você chega na câmara sul alagada do 1F, entre os selvagens mais fortes de Kanto, de Nv 45 a 65."
+              title: "Entre pela boca da caverna"
+              text_html: "Da areia para dentro, pela boca da caverna %{mouth}. O 1F abre numa câmara sul alagada que você cruza de Surf, e os selvagens mais fortes de Kanto vivem aqui, de Nv 45 a 65."
             "2":
-              title: "Surfe até o canto alagado"
-              text: "Da lagoa da entrada, surfe para leste até o canto extremo e pegue o Rare Candy parado sozinho na água, na borda sudeste da caverna."
-              items:
-                rare-candy-29-16: "Canto sudeste do 1F, na água além da lagoa da entrada. Surfe até ele."
+              title: "Surfe a oeste até a brecha norte"
+              text: "Desça a saliência até a água e surfe para oeste pelo fundo do andar. Fique de olho na margem norte: uma única casa dela abre numa passagem, e é ali que você desembarca."
+              shots:
+                "1_html": "Descendo da saliência direto para a água"
+                "2_html": "A única casa de margem que abre ao norte"
             "3":
-              title: "Suba pela saliência leste"
-              text: "Siga a parede leste para o norte, saindo da água até a saliência, e pegue o Max Revive na borda direita do 1F."
+              title: "Siga a passagem até o fim"
+              text: "A passagem corre algumas casas ao norte e para. Um Max Elixir espera no fim dela, o único prêmio deste lado do 1F."
               items:
-                max-revive-29-9: "Borda direita (leste) do 1F, na saliência logo ao norte do canto alagado."
+                max-elixir-7-11: "Centro-oeste do 1F, no fim da passagem de uma casa ao norte da água da entrada."
             "4":
-              title: "Tateie perto da escada central"
-              text: "Avance até o meio do 1F, à escada que sobe na câmara central. Aperte A no chão duas casas ao norte dessa escada para achar um PP Up escondido. Nada aparece na tela."
-              hidden:
-                pp-up-18-7: "Centro do 1F, duas casas ao norte da escada central que sobe. Aperte A; nada aparece na tela."
+              title: "Suba a escada oeste"
+              text_html: "De volta à água, siga a oeste até o chão secar e contorne a margem até a escada %{up}. Ela sobe ao 2F, um labirinto de rocha sem nenhuma água."
             "5":
-              title: "Chegue à prateleira norte"
-              text: "Suba do centro até o topo do 1F e pegue a Ultra Ball encostada na parede norte, perto do meio."
+              title: "Pegue a bola do beco"
+              text: "Avance a nordeste pelos corredores e vá a leste no cruzamento. A passagem termina num beco sem saída com uma Ultra Ball parada nele."
               items:
-                ultra-ball-18-3: "Centro-norte do 1F, encostada na parede norte."
+                ultra-ball-16-7: "Centro do 2F, no beco a leste do primeiro cruzamento."
             "6":
-              title: "Varra o lado oeste"
-              text: "Cruze para o lado esquerdo do 1F e pegue o Max Elixir na câmara centro-oeste, perto das escadas inferiores."
-              items:
-                max-elixir-7-11: "Centro-oeste do 1F, perto das escadas inferiores da esquerda."
-            "7":
-              title: "Suba para o 2F"
-              text_html: "Pegue a escada mais a oeste, a escada %{up}, até o 2F: um labirinto de rocha seca, sem água nenhuma. Você chega junto à parede oeste, ao lado do primeiro prêmio."
-            "8":
-              title: "Vá até a parede oeste"
-              text: "Siga os corredores até a borda esquerda do 2F e pegue o Rare Candy encostado na parede oeste."
-              items:
-                rare-candy-0-11: "Borda esquerda (oeste) do 2F, na altura do meio, contra a parede."
-            "9":
-              title: "Pegue a bola central"
-              text: "Volte ao meio do 2F e pegue a Ultra Ball parada no corredor central, reforço bem-vindo antes do Mewtwo."
-              items:
-                ultra-ball-16-7: "Centro do 2F, no corredor do meio."
-            "10":
-              title: "Vasculhe logo abaixo"
-              text: "Desça ao sul pela mesma coluna da Ultra Ball central, até o labirinto de baixo, e aperte A no chão para achar um PP Up escondido. Nada aparece na tela."
+              title: "Aperte A na pedra solitária"
+              text: "Volte ao cruzamento e desça pelo labirinto até uma pedra solitária ficar sozinha a leste de você. Aperte A de frente para ela e ache um PP Up escondido; nada aparece na tela."
               hidden:
-                pp-up-16-13: "Centro-sul do 2F, reto abaixo da Ultra Ball central. Aperte A; nada aparece na tela."
+                pp-up-16-13: "Centro-sul do 2F, a pedra solitária a leste do caminho. Aperte A; nada aparece na tela."
+            "7":
+              title: "Contorne até o Max Revive"
+              text: "Pegue o caminho sudeste a partir da pedra e siga-o contornando para o norte. Ele volta por cima de você e termina num Max Revive."
+              items:
+                max-revive-19-11: "Centro-baixo do 2F, no alto da volta a sudeste da pedra solitária."
+            "8":
+              title: "Desça de volta ao 1F"
+              text_html: "Passe pela pedra de novo, siga a leste enquanto o caminho contorna ao sul, e desça no cruzamento. Ele vira ao norte na escada %{down}, que leva de volta ao 1F."
+            "9":
+              title: "Surfe ao sul pelo Rare Candy"
+              text: "Surfe na água ao sul de onde você chega e siga o canal curto até o fim. Um Rare Candy está sozinho no beco, um nível de graça para qualquer um."
+              items:
+                rare-candy-29-16: "Canto sudeste do 1F, na água ao sul da escada do meio. Surfe até ele."
+            "10":
+              title: "Tateie a pedra ao lado da escada"
+              text_html: "De volta ao chão seco e reto a oeste da escada %{ladder}, uma pedra solitária bloqueia a fileira. Aperte A de frente para ela e ache um PP Up escondido; nada aparece na tela."
+              hidden:
+                pp-up-18-7: "Centro do 1F, a pedra solitária bem a oeste da escada do meio. Aperte A; nada aparece na tela."
             "11":
-              title: "Pegue a saliência do meio"
-              text: "Logo a leste do ponto escondido, pegue o Max Revive na parte centro-baixa do 2F."
+              title: "Suba os degraus até a bola norte"
+              text: "Pegue os degraus logo ao norte da pedra até o platô e siga por ele até o topo do andar. Uma Ultra Ball está encostada na parede norte."
               items:
-                max-revive-19-11: "Centro-baixo do 2F, logo a leste do PP Up escondido."
+                ultra-ball-18-3: "Centro-norte do 1F, contra a parede norte do platô de cima."
             "12":
-              title: "Limpe a câmara leste"
-              text: "Serpenteie até o lado direito do 2F e pegue o Full Restore perto da parede leste."
-              items:
-                full-restore: "Lado direito (leste) do 2F, perto da parede leste."
+              title: "Suba pela escada do meio"
+              text_html: "Desça do platô, contorne o lado oeste dele e vá ao sul, depois a leste até a escada %{up} no meio do andar. Ao 2F de novo."
             "13":
-              title: "Desça para o B1F"
-              text_html: "Volte ao 1F pela escada %{down}, depois vá até a escada da ponta esquerda, na borda oeste, a escada %{lower}. Ela desce ao B1F, o andar mais fundo, onde você chega no lado oeste."
-            "14":
-              title: "Varra o recanto sudoeste"
-              text: "Do ponto de chegada, desça para o sudoeste e pegue a Ultra Ball na borda esquerda, logo acima da água do fundo."
+              title: "Percorra o braço leste"
+              text: "Siga o caminho até o cruzamento e vá a leste. O braço corre por um bom tempo antes de acabar, e um Full Restore é o que espera no fim dele."
               items:
-                ultra-ball-2-13: "Sudoeste do B1F, na borda esquerda, logo acima da água do fundo."
+                full-restore: "Lado leste do 2F, no fim do longo braço leste do cruzamento."
+            "14":
+              title: "Contorne até a escada do canto"
+              text_html: "Volte ao cruzamento e desça ao sul desta vez. O caminho vai até o canto sudeste do andar, depois vira ao norte e sobe toda a parede leste até a escada %{down}, de volta ao 1F."
             "15":
+              title: "Pegue o Max Revive do canto"
+              text: "Desça os degraus do platô e siga para sudeste. Um Max Revive está enfiado no canto do fim, o único prêmio deste bolsão do 1F."
+              items:
+                max-revive-29-9: "Borda leste do 1F, no canto a sudeste da escada nordeste."
+            "16":
+              title: "A oeste pelo topo do andar"
+              text_html: "Volte pelo mesmo caminho, passe pelo platô e siga a oeste pelo topo do andar. O caminho corre bastante e termina na escada %{up}, ao 2F pela última vez."
+            "17":
+              title: "Cole na parede oeste"
+              text: "Pegue o único caminho até o cruzamento, qualquer bifurcação até o próximo, depois vá a oeste até a parede oeste do andar. Um Rare Candy está na ponta sul dela."
+              items:
+                rare-candy-0-11: "Borda oeste do 2F, colado na parede na ponta sul dela."
+            "18":
+              title: "Duas descidas até o B1F"
+              text_html: "Volte ao norte pela parede oeste até a escada %{down} e desça ao 1F. Você chega num beco curto com a escada %{lower} na outra ponta, e essa vai para o B1F."
+              shots:
+                "1_html": "Ao norte pela parede oeste até a escada %{down}"
+                "2_html": "Poucos passos a oeste, e a escada %{lower} desce ao B1F"
+            "19":
+              title: "Contorne o topo até o Max Elixir"
+              text: "Desça os degraus do platô de chegada, siga o caminho estreito contornando até o cruzamento, depois ao norte e a leste pelo topo do B1F. Um Max Elixir está no fim."
+              items:
+                max-elixir-15-3: "Centro-norte do B1F, na ponta leste da passagem de cima."
+            "20":
+              title: "Sonde o entulho à beira da água"
+              text: "Volte a oeste e ao sul até a beira da água. Um pedaço de entulho aparece a leste: aperte A de frente para ele e ache um PP Up escondido. Nada aparece na tela."
+              hidden:
+                pp-up-8-14: "Borda sul do B1F, o entulho a leste da margem de onde você surfa. Aperte A; nada aparece na tela."
+            "21":
+              title: "Surfe a oeste até o platô baixo"
+              text: "Surfe um pouco a oeste e suba os degraus até o platô do canto sudoeste. Duas bolas estão em cima dele, e a da esquerda é uma Ultra Ball."
+              items:
+                ultra-ball-2-13: "Sudoeste do B1F, no platô baixo acima da água."
+              shots:
+                "1_html": "A oeste pela água, depois pelos degraus acima"
+                "2_html": "A esquerda das duas bolas no platô"
+            "22":
               title: "Pegue o vizinho"
-              text: "Uma casa a leste dessa Ultra Ball está um Max Revive, que revive um Pokémon com o HP cheio. Pegue-o também."
+              text: "Uma casa a leste dessa Ultra Ball está um Max Revive. Pegue-o antes de voltar para a água."
               items:
                 max-revive-3-13: "Sudoeste do B1F, uma casa a leste da Ultra Ball."
-            "16":
-              title: "Sonde a margem sul"
-              text: "Um pouco a leste pelo fundo do B1F, aperte A no chão na beira da água para achar um PP Up escondido. Nada aparece na tela."
-              hidden:
-                pp-up-8-14: "Borda sul do B1F, algumas casas a leste do Max Revive, na beira da água. Aperte A; nada aparece na tela."
-            "17":
-              title: "Chegue ao centro-norte"
-              text: "Suba e cruze o meio do B1F até o centro-norte e pegue o Max Elixir ali, perto da parede de cima."
+            "23":
+              title: "A leste e ao norte pela última bola"
+              text: "De volta à água, siga a leste e depois ao norte até pisar em terra firme de novo. Suba o platô, desça do outro lado e vá a leste no cruzamento pela última Ultra Ball."
               items:
-                max-elixir-15-3: "Centro-norte do B1F, perto da parede de cima."
-            "18":
-              title: "Encurrale a bola do nordeste"
-              text: "Continue até o canto superior direito do B1F e pegue a última Ultra Ball contra a parede norte."
-              items:
-                ultra-ball-26-1: "Canto superior direito (nordeste) do B1F, contra a parede norte."
-            "19":
-              title: "Salve antes do Mewtwo"
-              text: "Desça até a massa de terra do sudeste e surfe pela água em direção à plataforma do Mewtwo. Antes de pisar nela, salve o jogo: você tem uma única chance nesse lendário Nv 70."
-            "20":
+                ultra-ball-26-1: "Canto nordeste do B1F, a leste do cruzamento depois do platô."
+            "24":
+              title: "Salve antes da ilha"
+              text: "Volte ao cruzamento e desça ao sul por uma rota sinuosa que atravessa água. Ela termina na ilha onde o Mewtwo espera, então salve e cure antes de pisar nela."
+            "25":
               title: "Capture o Mewtwo"
-              text: "O Mewtwo está no coração da ilha do sudeste. É Nv 70 e abusa de Recover, então faça-o dormir ou paralise, deixe-o baixo e jogue a Master Ball."
+              text_html: "O Mewtwo %{mewtwo} está no coração da ilha do sudeste, Nv 70, e abusa de Recover. Faça-o dormir ou paralise, deixe-o baixo e jogue a Master Ball."
           tips:
             mewtwo: "O Pokémon mais forte do jogo, um Nv 70 estático. A Master Ball foi feita para isso. Ou faça dormir e reze."
             lickitung: "O andar de baixo é o único lugar do jogo com um Lickitung selvagem. Se perder aqui, a vaga na dex fica vazia."
           oak:
             mewtwo: "O lendário pós-jogo no fundo da caverna. Guarde a Master Ball para ele."
             chansey: "Bem mais comum aqui que na Safari. Uma ótima captura de EXP no fundo da caverna."
+          ending:
+            eyebrow: "DEPOIS DO MEWTWO · O FINAL DE VERDADE"
+            heading: "Agora você zerou de verdade"
+            kicker: "★ CERULEAN CAVE · B1F · A ÚLTIMA PARADA"
+            title: "Parabéns, treinador"
+            lead: "Oito insígnias, a Elite dos Quatro, seu rival e agora a coisa mais forte de Kanto, dormindo no fundo de uma caverna onde ninguém podia entrar. Não sobrou nada que o jogo peça de você. Daqui em diante a escolha é sua: completar o resto da Pokédex, plugar um cabo e jogar com outra pessoa, ou repetir o corredor da Liga até os seus seis chegarem ao Nv 100."
+            art_alt: "Mewtwo, ilustração de Ken Sugimori"
+            mew_alt: "Mew, ilustração de Ken Sugimori"
+            tags:
+              mewtwo: "NÃO CAPTURADO"
+              mew: "AINDA FALTA"
+            tiles:
+              dex:
+                label: "COMPLETE A DEX"
+                value_html: "O único objetivo que sobrou. O mato, a água e os pontos de pesca que você pulou, o fóssil que ficou na Mansão, os dois prêmios do Game Corner. O <a href=\"%{href}\">tracker</a> lista exatamente o que o seu arquivo ainda deve ao Oak."
+              cable:
+                label: "CABLE CLUB"
+                value: "No andar de cima de qualquer Centro Pokémon. Troque e batalhe com um segundo arquivo ou com um amigo. Machoke, Graveler, Kadabra e Haunter só evoluem por troca, então a dex não fecha sem isso."
+              league:
+                label: "LIGA EM LOOP"
+                value_html: "Voe até <a href=\"%{href}\">Indigo Plateau</a> e os cinco encaram você de novo nos mesmos níveis, quantas vezes você quiser. A melhor experiência e o melhor dinheiro do jogo, até o Nv 100."
+              mew:
+                label: "O 151º"
+                value_html: "Mew não tem encontro legítimo no Yellow. O único jeito de colocá-lo no seu arquivo é o <a href=\"%{href}\">glitch do Mew</a>, e ele é seguro se você seguir a ordem exata."
+            label: "FIM DO GUIA"
+            shot_alt: "Pikachu com chapéu de festa"
+            shot_tag: "FIM"
+            shot_caption: "Seu Pikachu tem opiniões sobre isso"
+            plate_title: "São todas as paradas, em ordem, feitas."
+            plate_text: "%{stops} paradas do seu quarto em Pallet até o fundo da Cerulean Cave. Obrigado por caminhar com a gente. Deixe o tracker aberto, ele continua contando enquanto você preenche as lacunas."
+            stamp: "ARQUIVO COMPLETO"
+            stamp_line: "%{game} · parada %{n} de %{total} · Cerulean Cave B1F"
