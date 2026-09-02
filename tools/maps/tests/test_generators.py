@@ -798,10 +798,8 @@ def test_mew_lineup_keeps_the_trigger_trainer_offscreen(root):
     px, py = spec["player"]
     assert px == tx and py < ty, "lined up in his column, north of him"
     assert spec["player_dir"] == "DOWN", "facing down toward him"
-    full, _ = compositor.render_map(root, spec["map"])
     focus_y = spec.get("focus", spec["player"])[1]
-    offy = compositor._camera(focus_y * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1],
-                              full.height, compositor.SCREEN[1])
+    offy = compositor._camera(focus_y * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1])
     assert ty * compositor.UNIT_PX - offy >= compositor.SCREEN[1], "the trigger sits off the bottom edge"
 
 
@@ -839,12 +837,8 @@ def test_mew_center_wears_ceruleans_blue_palette(root):
 
 def _dot_screen_y(root, spec):
     """Where a scene's baked locator dot lands on the 160x144 screen, centre of the cell."""
-    const, _tileset = sources.parse_headers(root)[spec["map"]]
-    _cols, rows = markers.map_cells(root, const)
-    covered = compositor.DIALOG_PX if spec.get("dialog") else 0
     offy = compositor._camera(spec.get("focus", spec["player"])[1] * compositor.UNIT_PX,
-                              compositor.PLAYER_SCREEN[1], rows * compositor.UNIT_PX,
-                              compositor.SCREEN[1], covered)
+                              compositor.PLAYER_SCREEN[1])
     return spec["marker"][1] * compositor.UNIT_PX + compositor.UNIT_PX // 2 - offy
 
 
@@ -887,20 +881,24 @@ def test_the_master_ball_shot_stands_where_the_player_can_reach(root):
     assert spec["player_dir"] == "RIGHT" and president["dir"] == "LEFT", "the two face each other"
 
 
-def test_a_dialog_scene_scrolls_under_its_own_text_box(root):
-    """The box covers the bottom 48px, so a shot that draws one is really a 160x96 window and the
-    camera is clamped against that rather than the whole screen. Silph 9F forced it: the hidden
-    Max Potion is in a bed on the floor's second-to-last row, and the game's own clamp stops the
-    camera dead at the map's bottom edge, which leaves the bed, its dot and the hero all down
-    behind the box. The extra scroll only ever exposes map edge the box then paints over."""
-    height, focus = 288, 15 * compositor.UNIT_PX     # SilphCo9F is 18 rows; the bed is on row 15
-    anchor, screen = compositor.PLAYER_SCREEN[1], compositor.SCREEN[1]
-    plain = compositor._camera(focus, anchor, height, screen)
-    boxed = compositor._camera(focus, anchor, height, screen, compositor.DIALOG_PX)
+def test_the_camera_holds_the_anchor_at_every_edge_of_every_map(root):
+    """Gen 1 scrolls the map under a hero who never moves on screen, edges included: the block
+    buffer is filled with the border block and the map copied into the middle of it, so the last
+    column of a map is still walked from the centre of the screen.
 
-    assert focus - plain == screen - compositor.DIALOG_PX, "the game's clamp buries it in the box"
-    assert focus - boxed == anchor, "the allowance lifts it back to where the hero stands"
-    assert height - boxed >= screen - compositor.DIALOG_PX, "and the map's edge stays behind the box"
+    Nothing about that depends on the map, which is what this pins. A camera that stopped at the
+    edge instead pushed the hero into a corner of any shot taken near one, and buried a hidden item
+    on a map's last row behind its own text box, since the box covers the bottom 48px of a screen
+    the hero sits 56px down."""
+    corners = [(0, 0), (29, 17), (0, 17), (29, 0), (15, 8)]
+    for cell in corners:
+        offx = compositor._camera(cell[0] * compositor.UNIT_PX, compositor.PLAYER_SCREEN[0])
+        offy = compositor._camera(cell[1] * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1])
+        assert cell[0] * compositor.UNIT_PX - offx == compositor.PLAYER_SCREEN[0]
+        assert cell[1] * compositor.UNIT_PX - offy == compositor.PLAYER_SCREEN[1]
+
+    assert compositor.PLAYER_SCREEN[1] + compositor.UNIT_PX <= \
+        compositor.SCREEN[1] - compositor.DIALOG_PX, "so the anchor always clears the text box"
 
 
 def test_every_marker_scene_shows_its_dot_clear_of_the_text_box(root):

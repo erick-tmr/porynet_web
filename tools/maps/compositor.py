@@ -304,32 +304,37 @@ PLAYER_SCREEN = (72, 56)
 DIALOG_PX = 48
 
 
-def _camera(focus_px, anchor, full_size, screen_size, covered=0):
-    """Gen 1 keeps the hero pinned to `anchor` on screen. When the map is wider/taller than the
-    screen on this axis we clamp so the camera never scrolls past a map edge; when it is smaller
-    we let it center on the hero, so the border block shows in the leftover space (see below).
+def _camera(focus_px, anchor):
+    """Gen 1 pins the hero to `anchor` on screen and scrolls the map under them. It never stops at
+    a map edge, which is the whole reason a map declares a border block: `LoadTileBlockMap`
+    (home/overworld.asm) fills the entire block buffer with that block and copies the map into the
+    middle of it, leaving a MAP_BORDER (3 block) margin on every side. So a hero standing on the
+    last column still stands in the middle of the screen, with border beyond them.
 
-    `covered` is how much of this axis the text box hides, and it buys the clamp exactly that much
-    more room. Without it a hidden item on one of a map's last rows is unshowable: the clamp stops
-    the camera at the map's bottom edge, which leaves the tile the shot exists to point at down
-    behind the box, hero and locator dot both. The extra scroll runs past the map edge, but only
-    into the strip the box then paints over, so nothing beyond the edge is ever on show."""
-    if full_size < screen_size:
-        return focus_px - anchor
-    return min(max(focus_px - anchor, 0), full_size - screen_size + covered)
+    The anchor is never more than 72px from an edge of the screen and the margin is 96px, so what
+    shows past a map edge is always that border and never anything behind it.
+
+    This used to clamp, which pushed the hero into a corner of any shot taken near an edge: the
+    ladder in Cerulean Cave 2F's northeast corner had its arrow jammed against the frame."""
+    return focus_px - anchor
 
 
-def border_fill(root_str, label, parent_const, width=SCREEN[0], height=SCREEN[1]):
+def border_fill(root_str, label, parent_const, width=SCREEN[0], height=SCREEN[1], origin=(0, 0)):
     """A canvas tiled with the map's border block (grass/water outdoors, black inside buildings),
     the fill Gen 1 draws in any on-screen cell that falls outside the map. Screen-sized by default,
     which is what a GB shot needs; a deck asks for its whole composite so the space around the
-    rooms it hangs off a corridor is filled the same way."""
+    rooms it hangs off a corridor is filled the same way.
+
+    `origin` is where the map's own top-left block lands on this canvas, and the fill is laid on
+    that lattice rather than on the canvas corner. In the game the border is part of the same block
+    map, so a border block with any pattern in it has to line up with the map it surrounds or the
+    seam shows along the edge."""
     border = sources.parse_border_block(root_str, label)
     paint_block, _, _, _, _ = _map_painter(root_str, label, parent_const)
     tile = paint_block(border if border is not None else 0)
     canvas = Image.new("RGB", (width, height))
-    for y in range(0, height, BLOCK_PX):
-        for x in range(0, width, BLOCK_PX):
+    for y in range(origin[1] % BLOCK_PX - BLOCK_PX, height, BLOCK_PX):
+        for x in range(origin[0] % BLOCK_PX - BLOCK_PX, width, BLOCK_PX):
             canvas.paste(tile, (x, y))
     return canvas
 
@@ -352,9 +357,9 @@ def render_screen(root_str, label, focus_grid, parent_const=None, sprites=(), ar
     if arrows:
         full = overlay_arrows(full, arrows)
     fx, fy = focus_grid[0] * UNIT_PX, focus_grid[1] * UNIT_PX
-    offx = _camera(fx, PLAYER_SCREEN[0], full.width, SCREEN[0])
-    offy = _camera(fy, PLAYER_SCREEN[1], full.height, SCREEN[1], DIALOG_PX if dialog else 0)
-    screen = border_fill(root_str, label, parent_const)
+    offx = _camera(fx, PLAYER_SCREEN[0])
+    offy = _camera(fy, PLAYER_SCREEN[1])
+    screen = border_fill(root_str, label, parent_const, origin=(-offx, -offy))
     screen.paste(full, (-offx, -offy))
     if dialog:
         draw_dialog(screen, root_str, dialog, ink=colors[3], paper=colors[0])
