@@ -2,8 +2,8 @@
 
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
-- step shots: **47** (map/scene in a step slot)
-- standalone scenes: **293** (dialog / battle / NPC, not step-bound)
+- step shots: **46** (map/scene in a step slot)
+- standalone scenes: **302** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -155,7 +155,6 @@
 - `ss-anne` step 14: walkthrough/yellow/scenes/ss-anne-cut.png
 - `vermilion-city` step 2: walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png
-- `victory-road` step 3: walkthrough/yellow/scenes/victory-road-moltres.png
 - `viridian-city` step 1: walkthrough/yellow/scenes/viridian-mart-parcel.png
 - `viridian-city` step 3: walkthrough/yellow/scenes/blues-house-town-map.png
 - `viridian-forest` step 1: walkthrough/yellow/scenes/viridian-forest-poke-ball.png
@@ -358,6 +357,7 @@
 - `route-23-hidden-full-restore` (dialog): walkthrough/yellow/scenes/route-23-hidden-full-restore.png
 - `route-23-hidden-max-ether` (dialog): walkthrough/yellow/scenes/route-23-hidden-max-ether.png
 - `route-23-hidden-ultra-ball` (dialog): walkthrough/yellow/scenes/route-23-hidden-ultra-ball.png
+- `route-23-victory-road` (screen): walkthrough/yellow/scenes/route-23-victory-road.png
 - `route-24-charmander` (screen): walkthrough/yellow/scenes/route-24-charmander.png
 - `route-24-item-tm-thunder-wave` (screen): walkthrough/yellow/scenes/route-24-item-tm-thunder-wave.png
 - `route-24-rival` (screen): walkthrough/yellow/scenes/route-24-rival.png
@@ -430,6 +430,14 @@
 - `vermilion-gym-second-switch` (dialog): walkthrough/yellow/scenes/vermilion-gym-second-switch.png
 - `vermilion-squirtle` (screen): walkthrough/yellow/scenes/vermilion-squirtle.png
 - `vermilion-ss-anne-dock` (screen): walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
+- `victory-road-1f-ladder` (screen): walkthrough/yellow/scenes/victory-road-1f-ladder.png
+- `victory-road-2f-east-mouth` (screen): walkthrough/yellow/scenes/victory-road-2f-east-mouth.png
+- `victory-road-2f-ladder-3f` (screen): walkthrough/yellow/scenes/victory-road-2f-ladder-3f.png
+- `victory-road-2f-ladder-east` (screen): walkthrough/yellow/scenes/victory-road-2f-ladder-east.png
+- `victory-road-2f-ladder-nw` (screen): walkthrough/yellow/scenes/victory-road-2f-ladder-nw.png
+- `victory-road-3f-hole` (screen): walkthrough/yellow/scenes/victory-road-3f-hole.png
+- `victory-road-3f-ladder-2f` (screen): walkthrough/yellow/scenes/victory-road-3f-ladder-2f.png
+- `victory-road-3f-ladder-down` (screen): walkthrough/yellow/scenes/victory-road-3f-ladder-down.png
 - `victory-road-hidden-full-restore` (dialog): walkthrough/yellow/scenes/victory-road-hidden-full-restore.png
 - `victory-road-hidden-ultra-ball` (dialog): walkthrough/yellow/scenes/victory-road-hidden-ultra-ball.png
 - `victory-road-item-full-heal` (screen): walkthrough/yellow/scenes/victory-road-item-full-heal.png

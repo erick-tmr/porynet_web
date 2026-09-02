@@ -179,6 +179,20 @@ def test_collision_tiles_reads_a_stacked_label(root):
     assert mart and mart == sources.parse_collision_tiles(root, "POKECENTER")
 
 
+def test_pair_collisions_read_the_land_table_only(root):
+    """A cave's elevations live nowhere near its collision map: CAVERN's cave floor and its raised
+    floor are both walkable, and all that keeps you off the ledge is four rows pairing the lower
+    tile with the upper ones. Unordered, because the crossing is refused both ways, and the land
+    table alone, because the file's second table is about Surfing and would fold a water pair into
+    the same set."""
+    cavern = sources.parse_pair_collisions(root, "CAVERN")
+
+    assert cavern == {frozenset(pair) for pair in ((0x20, 0x05), (0x41, 0x05),
+                                                   (0x2A, 0x05), (0x05, 0x21))}
+    assert frozenset((0x14, 0x05)) not in cavern, "that pair is in the water table"
+    assert sources.parse_pair_collisions(root, "OVERWORLD") == frozenset()
+
+
 def test_place_display_name():
     assert sources.place_display_name("VIRIDIAN_FOREST_NORTH_GATE") == "Viridian Forest North Gate"
     assert sources.place_display_name("SS_ANNE_1F") == "S.S. Anne 1F"

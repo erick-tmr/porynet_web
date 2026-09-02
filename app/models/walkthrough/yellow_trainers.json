@@ -6536,52 +6536,32 @@
       {
         "map": "victory-road-2f",
         "floor": "2F",
-        "marker": "trainer-4-2",
+        "marker": "trainer-12-9",
         "key": "T1",
-        "opp": "POKEMANIAC:6",
-        "cls": "POKEMANIAC",
-        "reward": 2000,
+        "opp": "BLACKBELT:9",
+        "cls": "BLACKBELT",
+        "reward": 1075,
         "team": [
           {
-            "dex": "005",
-            "lvl": 40
+            "dex": "067",
+            "lvl": 43
           },
           {
-            "dex": "131",
-            "lvl": 40
+            "dex": "066",
+            "lvl": 43
           },
           {
-            "dex": "108",
-            "lvl": 40
+            "dex": "067",
+            "lvl": 43
           }
         ],
-        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-4-2.png"
-      },
-      {
-        "map": "victory-road-2f",
-        "floor": "2F",
-        "marker": "trainer-19-8",
-        "key": "T2",
-        "opp": "TAMER:5",
-        "cls": "TAMER",
-        "reward": 1760,
-        "team": [
-          {
-            "dex": "053",
-            "lvl": 44
-          },
-          {
-            "dex": "055",
-            "lvl": 44
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-19-8.png"
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-12-9.png"
       },
       {
         "map": "victory-road-2f",
         "floor": "2F",
         "marker": "trainer-21-13",
-        "key": "T3",
+        "key": "T2",
         "opp": "JUGGLER:2",
         "cls": "JUGGLER",
         "reward": 1435,
@@ -6608,32 +6588,28 @@
       {
         "map": "victory-road-2f",
         "floor": "2F",
-        "marker": "trainer-12-9",
-        "key": "T4",
-        "opp": "BLACKBELT:9",
-        "cls": "BLACKBELT",
-        "reward": 1075,
+        "marker": "trainer-19-8",
+        "key": "T3",
+        "opp": "TAMER:5",
+        "cls": "TAMER",
+        "reward": 1760,
         "team": [
           {
-            "dex": "067",
-            "lvl": 43
+            "dex": "053",
+            "lvl": 44
           },
           {
-            "dex": "066",
-            "lvl": 43
-          },
-          {
-            "dex": "067",
-            "lvl": 43
+            "dex": "055",
+            "lvl": 44
           }
         ],
-        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-12-9.png"
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-19-8.png"
       },
       {
         "map": "victory-road-2f",
         "floor": "2F",
         "marker": "trainer-26-3",
-        "key": "T5",
+        "key": "T4",
         "opp": "JUGGLER:5",
         "cls": "JUGGLER",
         "reward": 1680,
@@ -6644,6 +6620,30 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-26-3.png"
+      },
+      {
+        "map": "victory-road-2f",
+        "floor": "2F",
+        "marker": "trainer-4-2",
+        "key": "T5",
+        "opp": "POKEMANIAC:6",
+        "cls": "POKEMANIAC",
+        "reward": 2000,
+        "team": [
+          {
+            "dex": "005",
+            "lvl": 40
+          },
+          {
+            "dex": "131",
+            "lvl": 40
+          },
+          {
+            "dex": "108",
+            "lvl": 40
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-2f-trainer-4-2.png"
       },
       {
         "map": "victory-road-3f",
@@ -6696,32 +6696,8 @@
       {
         "map": "victory-road-3f",
         "floor": "3F",
-        "marker": "trainer-7-13",
-        "key": "T3",
-        "opp": "COOLTRAINER_F:2",
-        "cls": "COOLTRAINER_F",
-        "reward": 1505,
-        "team": [
-          {
-            "dex": "069",
-            "lvl": 43
-          },
-          {
-            "dex": "070",
-            "lvl": 43
-          },
-          {
-            "dex": "071",
-            "lvl": 43
-          }
-        ],
-        "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-7-13.png"
-      },
-      {
-        "map": "victory-road-3f",
-        "floor": "3F",
         "marker": "trainer-6-14",
-        "key": "T4",
+        "key": "T3",
         "opp": "COOLTRAINER_M:3",
         "cls": "COOLTRAINER_M",
         "reward": 1505,
@@ -6740,6 +6716,30 @@
           }
         ],
         "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-6-14.png"
+      },
+      {
+        "map": "victory-road-3f",
+        "floor": "3F",
+        "marker": "trainer-7-13",
+        "key": "T4",
+        "opp": "COOLTRAINER_F:2",
+        "cls": "COOLTRAINER_F",
+        "reward": 1505,
+        "team": [
+          {
+            "dex": "069",
+            "lvl": 43
+          },
+          {
+            "dex": "070",
+            "lvl": 43
+          },
+          {
+            "dex": "071",
+            "lvl": 43
+          }
+        ],
+        "where": "walkthrough/yellow/scenes/victory-road-3f-trainer-7-13.png"
       }
     ],
     "viridian-forest": [

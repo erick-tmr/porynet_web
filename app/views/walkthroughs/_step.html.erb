@@ -10,6 +10,10 @@
         <div class="pn-wt-step__title"><%= t(step.title_key) %></div>
         <div class="pn-wt-step__text"><%= step_text(step) %></div>
 
+        <% if step.strip? %>
+          <%= render "shot_strip", step: step, shots: step.shots %>
+        <% end %>
+
         <% if step.step_map? %>
           <%= render "step_map", map: step.step_map, step: step %>
         <% end %>
@@ -51,7 +55,9 @@
         <% end %>
       </div>
 
-      <% if step.shots? %>
+      <%# One shot still sits beside the directions; several take the strip above, in the main
+          column, because they are the instruction rather than an illustration of it. %>
+      <% if step.shots? && !step.strip? %>
         <div class="pn-wt-shot__side">
           <% step.shots.each do |shot| %><%= render "shot", shot: shot %><% end %>
         </div>

@@ -2599,6 +2599,18 @@
       9,
       2
     ],
+    "hide": [
+      "VICTORYROAD1F_BOULDER2"
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BOULDER",
+        "grid": [
+          11,
+          1
+        ]
+      }
+    ],
     "auto_npcs": true
   },
   {
@@ -2613,6 +2625,18 @@
     "focus": [
       11,
       0
+    ],
+    "hide": [
+      "VICTORYROAD1F_BOULDER2"
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BOULDER",
+        "grid": [
+          10,
+          2
+        ]
+      }
     ],
     "auto_npcs": true
   },
@@ -2666,6 +2690,9 @@
       9,
       11
     ],
+    "hide": [
+      "VICTORYROAD2F_BOULDER1"
+    ],
     "auto_npcs": true
   },
   {
@@ -2688,10 +2715,10 @@
     "name": "victory-road-hidden-full-restore",
     "map": "VictoryRoad2F",
     "player": [
-      27,
-      7
+      26,
+      8
     ],
-    "player_dir": "LEFT",
+    "player_dir": "UP",
     "focus": [
       26,
       7
@@ -2747,6 +2774,18 @@
     "focus": [
       7,
       7
+    ],
+    "hide": [
+      "VICTORYROAD3F_BOULDER1"
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BOULDER",
+        "grid": [
+          3,
+          5
+        ]
+      }
     ],
     "auto_npcs": true
   },

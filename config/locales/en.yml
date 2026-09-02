@@ -3348,6 +3348,9 @@ en:
             "4":
               title: "Climb to 3F in two flights"
               text_html: "Back to the staircase %{up} at the top of the hall and up to 2F. You land beside a second staircase %{on}, so take it straight up to 3F and leave the rest of 2F for later."
+              shots:
+                "1_html": "Top of the hall, up the staircase"
+                "2_html": "You land beside the next flight, take it up"
             "5":
               title: "Talk the Burglar into a fight"
               text_html: "A Burglar %{burglar} paces a step southwest of where you come up. Burglars here never challenge on sight, so walk over and talk to him: the fight only starts when you do."
@@ -3522,74 +3525,110 @@ en:
               title: "Through the gate to Route 23"
               text_html: "Carry on west into the gate %{gate}. The guard checks all eight badges, and past it the road north %{north} climbs to Route 23 and Victory Road."
         victory_road:
-          note: "The League gate. Boulder puzzles and Moltres."
-          intro: "Three floors of boulder puzzles between Route 23 and the League, every door held by a switch that needs a rock sat on it. Moltres roosts on the way up."
+          note: "The League gate. Four boulder switches and Moltres."
+          intro: "Three floors laced together by four floor switches, each held down by a boulder you shove onto it. Step back onto Route 23 and 2F's and 3F's barriers are all up again, so climb it in one run."
           steps:
             "1":
               title: "Step in with Strength ready"
-              text: "Victory Road opens only with all 8 badges. Bring Strength, Surf and Flash. Each of its three floors is locked by a boulder you shove onto a floor switch to drop the barrier."
+              text_html: "Victory Road opens only with all eight badges. In at the south mouth %{door}. Four floor switches gate the climb and each one needs a boulder sat on it, so bring Strength."
             "2":
-              title: "Grab the Rare Candy"
-              text: "Head up from the entrance into 1F's upper chamber. A Poke Ball on the north ledge holds a Rare Candy, one free level for any teammate."
-              items:
-                rare-candy: "1F, north ledge of the upper chamber, just west of center."
+              title: "Shove the first boulder onto its switch"
+              text: "A boulder stands northwest of the mouth. Push it down onto the bottom row, east to the far wall, then up the east side and onto the switch, which drops the barrier on the plateau."
             "3":
-              title: "Bag TM43 Sky Attack"
-              text: "A couple of tiles east, right against the top wall, another ball holds TM43 Sky Attack, a heavy two-turn Flying move."
-              items:
-                tm-sky-attack: "1F, against the top wall, a few steps east of the Rare Candy."
+              title: "Climb onto the plateau"
+              text: "Walk back to where that boulder stood and take the steps up. Cross northeast through the gap the switch opened, down the far steps, and follow the path round to a second boulder."
             "4":
-              title: "Take the ladder to 2F"
-              text_html: "With 1F cleared, cross to the northwest ladder %{up}, the floor's only way up, and climb to 2F, the tangled hub where Moltres roosts."
+              title: "Free the Rare Candy"
+              text: "Shove that boulder west along the corridor, then one push north into the spur. That opens the way to the ball on the left, a Rare Candy, and seals the one above it behind the boulder."
+              items:
+                rare-candy: "1F, west end of the top corridor, open once the boulder is pushed north out of the lane."
             "5":
-              title: "Feel out the hidden Ultra Ball"
-              text: "Step onto 2F and work to the northwest ledge. Press A on the empty square there for a hidden Ultra Ball; nothing shows on-screen, so trust the spot."
-              hidden:
-                ultra-ball: "2F, northwest ledge. Press A on the bare tile; no item is visible."
+              title: "Reset for TM43 Sky Attack"
+              text_html: "Step out %{door} and back in, which puts every boulder back where it started. This time shove it a square further west, leaving the spur clear, and the ball at the top holds TM43 Sky Attack."
+              items:
+                tm-sky-attack: "1F, up the short spur off the top corridor, open only while the boulder sits west of it."
             "6":
-              title: "Pick up the Guard Spec."
-              text: "Just below the top wall, near the center of 2F, a ball holds a Guard Spec., which blocks stat drops for a few turns."
-              items:
-                guard-spec: "2F, top-center, against the north wall."
+              title: "Beat both Cooltrainers and climb"
+              text_html: "Back onto the plateau and west to the Cooltrainer %{first}, who faces east across open floor. Take the steps down beside her and loop northwest to the Cooltrainer %{second}; the ladder %{up} past him is 1F's only way up."
             "7":
-              title: "Catch Moltres"
-              text: "West of center, Moltres (Lv 50) is roosting on the rock. Save first, chip it down with Water, Electric or Rock, put it to sleep or paralyze it, then throw Ultra Balls. You get one shot at it."
+              title: "Land on 2F and set the second switch"
+              text: "The ladder drops you against 2F's west wall. The boulder waits a few steps south: one push west, two south and two west sets it on the switch and lifts the barrier above."
             "8":
-              title: "Grab TM05 Mega Kick"
-              text: "Drop south to the lower center of 2F, where a ball holds TM05 Mega Kick, a strong Normal attack."
-              items:
-                tm-mega-kick: "2F, south-center of the floor."
+              title: "Beat the Blackbelt"
+              text_html: "Head back northeast to the steps and climb onto the plateau, then east through the gap the switch just opened. The Blackbelt %{blackbelt} is standing in the middle of it, facing west."
             "9":
-              title: "Pocket the Full Heal"
-              text: "Cross east through the middle of 2F to a ball holding a Full Heal, which clears any status ailment."
+              title: "Bag TM05 Mega Kick"
+              text: "Carry on east and south down the plateau's neck to the steps at its foot. Follow the corridor below west and climb the pocket at its end for TM05 Mega Kick, 120 power at shaky accuracy."
               items:
-                full-heal: "2F, middle of the floor, east of center."
+                tm-mega-kick: "2F, the dead end at the top of the pocket the south corridor opens into."
             "10":
-              title: "Sweep for the hidden Full Restore"
-              text: "Push on toward the eastern ladders and press A on the empty square there for a hidden Full Restore. Nothing appears on-screen, so search the exact tile."
-              hidden:
-                full-restore: "2F, far east near the exit ladders. Press A on the bare tile; no item shows."
+              title: "Beat the Juggler on the plateau"
+              text_html: "Back up the steps and east along the plateau to the Juggler %{juggler}. The barrier past him answers to a switch you cannot reach yet, so leave it and go round."
             "11":
-              title: "Bag TM17 Submission"
-              text: "In the northeast corner of 2F, a ball holds TM17 Submission, a recoil Fighting move."
+              title: "Beat the Tamer, take the Full Heal"
+              text_html: "Drop off the plateau and follow the low path east, round and back northwest. Walk past the ladder for now and fight the Tamer %{tamer}; the ball beside him holds a Full Heal."
               items:
-                tm-submission: "2F, northeast corner."
+                full-heal: "2F, one step from the Tamer, in the middle of the floor."
             "12":
-              title: "Climb to 3F"
-              text_html: "Take the east ladder %{up} up to 3F and its four-boulder puzzle. Shove each boulder onto its switch to clear the path to the last two prizes."
+              title: "Beat the Juggler, bag TM17"
+              text_html: "Head north out of the pocket, up its west corner and east along the top row to the second Juggler %{juggler}. Past him a ball holds TM17 Submission, the strongest Fighting move any TM teaches."
+              items:
+                tm-submission: "2F, northeast corner, a couple of steps past the second Juggler."
             "13":
-              title: "Grab the Max Revive"
-              text: "Near where you arrive on 3F, on the east side, a ball holds a Max Revive, which fully restores a fainted Pokémon."
-              items:
-                max-revive: "3F, east side, close to the ladders up."
+              title: "Take the ladder to 3F"
+              text_html: "Double back to the ladder %{up} you walked past and climb it. It is the first of four ladders joining 2F and 3F, and you will use every one of them before you leave."
             "14":
-              title: "Bag TM47 Explosion"
-              text: "Work the boulders west across 3F to reach the far ball, TM47 Explosion, the game's strongest one-shot Normal move."
+              title: "Beat the Cooltrainer, take the Max Revive"
+              text_html: "Head north and east off the ladder, then south into the small alcove. The Cooltrainer %{cooltrainer} in it is standing over a Max Revive, which brings a fainted Pokémon back at full HP."
               items:
-                tm-explosion: "3F, far west."
+                max-revive: "3F, in the alcove on the east wall, behind the Cooltrainer."
             "15":
-              title: "Leave for Indigo Plateau"
-              text_html: "With every prize collected and Moltres caught, drop back down ladder %{down} to 2F and step out the east exit %{out}, onto the approach to the Indigo Plateau."
+              title: "Run the long boulder west"
+              text: "Push the boulder beside the alcove up one row only: against the north wall there is nowhere left to stand to shove it south again. Then west along the top, down through the narrow gap, and round onto the switch."
+            "16":
+              title: "Bag TM47 Explosion"
+              text: "The column the boulder came down carries on south into a one square slot. The ball in it holds TM47 Explosion, 170 power that halves the target's Defense and faints the user."
+              items:
+                tm-explosion: "3F, at the foot of the narrow column on the west side, one square wide."
+            "17":
+              title: "Drop back to 2F"
+              text_html: "That switch clears the barrier across the plateau you cross later. For now take the ladder %{down} in the northwest corner down to 2F, into the corner Moltres roosts in."
+            "18":
+              title: "Beat the Pokémaniac, feel out the Ultra Ball"
+              text_html: "You land in 2F's northwest corner. The Pokémaniac %{pokemaniac} is a few steps to your right. Press A facing the lone rock beside him for a hidden Ultra Ball."
+              hidden:
+                ultra-ball: "2F, the single rock standing next to the Pokémaniac. Press A facing it; nothing shows on-screen."
+            "19":
+              title: "Pick up the Guard Spec."
+              text: "Northeast of the Pokémaniac, against the top wall, a ball holds a Guard Spec. One use blocks stat drops for the rest of the battle, which is worth saving for Lorelei."
+              items:
+                guard-spec: "2F, against the top wall northeast of the Pokémaniac's corner."
+            "20":
+              title: "Catch Moltres"
+              text_html: "A short way south, Moltres %{moltres} is roosting at Lv 50. Save first. Chip it with Water, Electric or Rock, put it to sleep, then throw Ultra Balls. You get one shot at it."
+            "21":
+              title: "Back to 3F for the next Cooltrainer"
+              text_html: "Climb ladder %{up} again. Head east and around the plateau to the steps at its far end, then back west along the top to the Cooltrainer %{cooltrainer}."
+            "22":
+              title: "Beat the last two Cooltrainers"
+              text_html: "Carry on west, down the column and through the gap the third switch opened, then out by the west steps. The Cooltrainer %{cooltrainer} waits below with the last one %{last} beside him."
+            "23":
+              title: "Push the boulder down the hole"
+              text_html: "Head east across the bottom of the floor to the last boulder and shove it one square east into the hole %{hole}. Then step onto the hole yourself and drop through."
+            "24":
+              title: "Run the boulder onto the fourth switch"
+              text: "You land in 2F's south corridor with the boulder beside you. Walk around it, then push it the whole length of the corridor west onto the last switch, which clears the barrier by the ladders."
+            "25":
+              title: "Up and over to the east ladder"
+              text_html: "Climb the steps onto the plateau, cross east through the cleared barrier and up ladder %{up}. On 3F walk north to ladder %{down} and take it straight back down to 2F."
+              shots:
+                "1_html": "East through the cleared barrier, up ladder %{up}"
+                "2_html": "North to ladder %{down}, straight back down"
+            "26":
+              title: "Sweep the rock and leave"
+              text_html: "Step off the ladder and press A facing the rock beside it for a hidden Full Restore, then out by the east mouth %{out}. If the League worries you, 3F's wild table is the best grind in Yellow."
+              hidden:
+                full-restore: "2F, the rock just west of the east ladder. Press A facing it; nothing shows on-screen."
           tips:
             moltres: "The Fire legendary of Victory Road. A one-time Lv 50. Save first, then chip and ball it."
           oak:

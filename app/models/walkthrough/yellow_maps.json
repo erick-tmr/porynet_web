@@ -18397,6 +18397,145 @@
             "glyph": "\u25b2",
             "lane": 2
           }
+        ],
+        "route": [
+          [
+            [
+              88,
+              256
+            ],
+            [
+              88,
+              264
+            ],
+            [
+              104,
+              264
+            ],
+            [
+              120,
+              264
+            ],
+            [
+              136,
+              264
+            ],
+            [
+              152,
+              264
+            ],
+            [
+              152,
+              248
+            ],
+            [
+              152,
+              232
+            ],
+            [
+              168,
+              232
+            ],
+            [
+              184,
+              232
+            ],
+            [
+              200,
+              232
+            ],
+            [
+              216,
+              232
+            ],
+            [
+              232,
+              232
+            ],
+            [
+              248,
+              232
+            ],
+            [
+              264,
+              232
+            ],
+            [
+              264,
+              216
+            ],
+            [
+              264,
+              200
+            ],
+            [
+              280,
+              200
+            ],
+            [
+              280,
+              216
+            ]
+          ],
+          [
+            [
+              224,
+              40
+            ],
+            [
+              216,
+              40
+            ],
+            [
+              200,
+              40
+            ],
+            [
+              184,
+              40
+            ],
+            [
+              184,
+              24
+            ]
+          ],
+          [
+            [
+              224,
+              40
+            ],
+            [
+              216,
+              40
+            ],
+            [
+              200,
+              40
+            ],
+            [
+              184,
+              40
+            ],
+            [
+              168,
+              40
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            88,
+            248
+          ],
+          [
+            232,
+            40
+          ],
+          [
+            232,
+            40
+          ]
         ]
       },
       {
@@ -18407,54 +18546,9 @@
         "name": "victory-road-2f",
         "markers": [
           {
-            "id": "trainer-4-2",
-            "cat": "trainer",
-            "key": "T1",
-            "x": 15.0,
-            "y": 13.889,
-            "grid": [
-              4,
-              2
-            ],
-            "align": "r",
-            "name": "Pok\u00e9maniac",
-            "ref": "POKEMANIAC:6",
-            "lane": 1
-          },
-          {
-            "id": "trainer-19-8",
-            "cat": "trainer",
-            "key": "T2",
-            "x": 65.0,
-            "y": 47.222,
-            "grid": [
-              19,
-              8
-            ],
-            "align": "l",
-            "name": "Tamer",
-            "ref": "TAMER:5",
-            "lane": 3
-          },
-          {
-            "id": "trainer-21-13",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 71.667,
-            "y": 75.0,
-            "grid": [
-              21,
-              13
-            ],
-            "align": "r",
-            "name": "Juggler",
-            "ref": "JUGGLER:2",
-            "lane": 2
-          },
-          {
             "id": "trainer-12-9",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T1",
             "x": 41.667,
             "y": 52.778,
             "grid": [
@@ -18467,9 +18561,39 @@
             "lane": 1
           },
           {
+            "id": "trainer-21-13",
+            "cat": "trainer",
+            "key": "T2",
+            "x": 71.667,
+            "y": 75.0,
+            "grid": [
+              21,
+              13
+            ],
+            "align": "r",
+            "name": "Juggler",
+            "ref": "JUGGLER:2",
+            "lane": 2
+          },
+          {
+            "id": "trainer-19-8",
+            "cat": "trainer",
+            "key": "T3",
+            "x": 65.0,
+            "y": 47.222,
+            "grid": [
+              19,
+              8
+            ],
+            "align": "l",
+            "name": "Tamer",
+            "ref": "TAMER:5",
+            "lane": 3
+          },
+          {
             "id": "trainer-26-3",
             "cat": "trainer",
-            "key": "T5",
+            "key": "T4",
             "x": 88.333,
             "y": 19.444,
             "grid": [
@@ -18482,24 +18606,24 @@
             "lane": 0
           },
           {
-            "id": "item-11-0",
-            "cat": "item",
-            "key": "I1",
-            "x": 38.333,
-            "y": 2.778,
+            "id": "trainer-4-2",
+            "cat": "trainer",
+            "key": "T5",
+            "x": 15.0,
+            "y": 13.889,
             "grid": [
-              11,
-              0
+              4,
+              2
             ],
             "align": "r",
-            "name": "Guard Spec",
-            "ref": "GUARD_SPEC",
-            "lane": 0
+            "name": "Pok\u00e9maniac",
+            "ref": "POKEMANIAC:6",
+            "lane": 1
           },
           {
             "id": "item-9-11",
             "cat": "item",
-            "key": "I2",
+            "key": "I1",
             "x": 31.667,
             "y": 63.889,
             "grid": [
@@ -18514,7 +18638,7 @@
           {
             "id": "item-18-9",
             "cat": "item",
-            "key": "I3",
+            "key": "I2",
             "x": 61.667,
             "y": 52.778,
             "grid": [
@@ -18529,7 +18653,7 @@
           {
             "id": "item-27-5",
             "cat": "item",
-            "key": "I4",
+            "key": "I3",
             "x": 91.667,
             "y": 30.556,
             "grid": [
@@ -18539,6 +18663,21 @@
             "align": "l",
             "name": "TM Submission",
             "ref": "TM_SUBMISSION",
+            "lane": 0
+          },
+          {
+            "id": "item-11-0",
+            "cat": "item",
+            "key": "I4",
+            "x": 38.333,
+            "y": 2.778,
+            "grid": [
+              11,
+              0
+            ],
+            "align": "r",
+            "name": "Guard Spec",
+            "ref": "GUARD_SPEC",
             "lane": 0
           },
           {
@@ -18688,6 +18827,107 @@
             "glyph": "\u25b2",
             "lane": 0
           }
+        ],
+        "route": [
+          [
+            [
+              64,
+              232
+            ],
+            [
+              56,
+              232
+            ],
+            [
+              56,
+              248
+            ],
+            [
+              56,
+              264
+            ],
+            [
+              40,
+              264
+            ],
+            [
+              24,
+              264
+            ]
+          ],
+          [
+            [
+              368,
+              264
+            ],
+            [
+              360,
+              264
+            ],
+            [
+              344,
+              264
+            ],
+            [
+              328,
+              264
+            ],
+            [
+              312,
+              264
+            ],
+            [
+              296,
+              264
+            ],
+            [
+              280,
+              264
+            ],
+            [
+              264,
+              264
+            ],
+            [
+              248,
+              264
+            ],
+            [
+              232,
+              264
+            ],
+            [
+              216,
+              264
+            ],
+            [
+              200,
+              264
+            ],
+            [
+              184,
+              264
+            ],
+            [
+              168,
+              264
+            ],
+            [
+              152,
+              264
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            72,
+            232
+          ],
+          [
+            376,
+            264
+          ]
         ]
       },
       {
@@ -18728,24 +18968,9 @@
             "lane": 0
           },
           {
-            "id": "trainer-7-13",
-            "cat": "trainer",
-            "key": "T3",
-            "x": 25.0,
-            "y": 75.0,
-            "grid": [
-              7,
-              13
-            ],
-            "align": "r",
-            "name": "Cooltrainer\u2640",
-            "ref": "COOLTRAINER_F:2",
-            "lane": 0
-          },
-          {
             "id": "trainer-6-14",
             "cat": "trainer",
-            "key": "T4",
+            "key": "T3",
             "x": 21.667,
             "y": 80.556,
             "grid": [
@@ -18756,6 +18981,21 @@
             "name": "Cooltrainer\u2642",
             "ref": "COOLTRAINER_M:3",
             "lane": 1
+          },
+          {
+            "id": "trainer-7-13",
+            "cat": "trainer",
+            "key": "T4",
+            "x": 25.0,
+            "y": 75.0,
+            "grid": [
+              7,
+              13
+            ],
+            "align": "r",
+            "name": "Cooltrainer\u2640",
+            "ref": "COOLTRAINER_F:2",
+            "lane": 0
           },
           {
             "id": "item-26-5",
@@ -18871,6 +19111,143 @@
             "glyph": "\u25bc",
             "lane": 0
           }
+        ],
+        "route": [
+          [
+            [
+              360,
+              48
+            ],
+            [
+              360,
+              40
+            ],
+            [
+              360,
+              24
+            ],
+            [
+              344,
+              24
+            ],
+            [
+              328,
+              24
+            ],
+            [
+              312,
+              24
+            ],
+            [
+              296,
+              24
+            ],
+            [
+              280,
+              24
+            ],
+            [
+              264,
+              24
+            ],
+            [
+              248,
+              24
+            ],
+            [
+              232,
+              24
+            ],
+            [
+              216,
+              24
+            ],
+            [
+              200,
+              24
+            ],
+            [
+              184,
+              24
+            ],
+            [
+              168,
+              24
+            ],
+            [
+              152,
+              24
+            ],
+            [
+              136,
+              24
+            ],
+            [
+              120,
+              24
+            ],
+            [
+              104,
+              24
+            ],
+            [
+              104,
+              40
+            ],
+            [
+              88,
+              40
+            ],
+            [
+              72,
+              40
+            ],
+            [
+              56,
+              40
+            ],
+            [
+              40,
+              40
+            ],
+            [
+              40,
+              56
+            ],
+            [
+              40,
+              72
+            ],
+            [
+              40,
+              88
+            ],
+            [
+              56,
+              88
+            ]
+          ],
+          [
+            [
+              368,
+              248
+            ],
+            [
+              376,
+              248
+            ]
+          ]
+        ],
+        "route_kind": "push",
+        "boulders": [
+          [
+            360,
+            56
+          ],
+          [
+            360,
+            248
+          ]
         ]
       }
     ],
@@ -20191,13 +20568,6 @@
     "power-plant": {
       "3": {
         "image": "walkthrough/yellow/scenes/power-plant-zapdos.png",
-        "width": 160,
-        "height": 144
-      }
-    },
-    "victory-road": {
-      "3": {
-        "image": "walkthrough/yellow/scenes/victory-road-moltres.png",
         "width": 160,
         "height": 144
       }
@@ -21715,6 +22085,60 @@
     },
     "power-plant-zapdos": {
       "image": "walkthrough/yellow/scenes/power-plant-zapdos.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "route-23-victory-road": {
+      "image": "walkthrough/yellow/scenes/route-23-victory-road.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-1f-ladder": {
+      "image": "walkthrough/yellow/scenes/victory-road-1f-ladder.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-2f-ladder-3f": {
+      "image": "walkthrough/yellow/scenes/victory-road-2f-ladder-3f.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-3f-ladder-2f": {
+      "image": "walkthrough/yellow/scenes/victory-road-3f-ladder-2f.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-2f-ladder-nw": {
+      "image": "walkthrough/yellow/scenes/victory-road-2f-ladder-nw.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-3f-hole": {
+      "image": "walkthrough/yellow/scenes/victory-road-3f-hole.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-2f-ladder-east": {
+      "image": "walkthrough/yellow/scenes/victory-road-2f-ladder-east.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-3f-ladder-down": {
+      "image": "walkthrough/yellow/scenes/victory-road-3f-ladder-down.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
+    "victory-road-2f-east-mouth": {
+      "image": "walkthrough/yellow/scenes/victory-road-2f-east-mouth.png",
       "width": 160,
       "height": 144,
       "type": "screen"

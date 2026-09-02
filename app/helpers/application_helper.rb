@@ -39,12 +39,24 @@ module ApplicationHelper
   end
 
   def step_text(step)
-    marks = step.marks.map { |token, key| [ token, map_mark(key, at: step.pins[token]) ] }.to_h
+    marks = step_marks(step)
     return t(step.text_key, **marks) unless step.link?
 
     t(step.text_key, **marks,
       href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
+
+  # The pins a step's copy points at, as { token => the chip that pin wears today }. Shared by the
+  # directions and by the captions on a multi-shot strip, so a letter in one is the letter in the
+  # other.
+  def step_marks(step)
+    step.marks.map { |token, key| [ token, map_mark(key, at: step.pins[token]) ] }.to_h
+  end
+
+  # A strip frame's caption names its pins as tokens, never as letters, for the same reason the
+  # directions do: a letter is a marker's place in its map's run, so one new item ball would shift
+  # it and silently re-point the caption at the wrong ladder.
+  def shot_caption(step, shot) = t(shot.caption_key, **step_marks(step))
 
   # A trainer card's heads-up line. Most are plain sentences off the roster; one points somewhere
   # else in the guide (Blue's last team ends on whichever Eeveelution his Eevee became, and the

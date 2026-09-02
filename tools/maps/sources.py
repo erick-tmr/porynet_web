@@ -494,6 +494,25 @@ def parse_collision_tiles(root_str, tileset_const):
     return frozenset(int(t.strip().lstrip("$"), 16) for t in match.group(1).split(","))
 
 
+@cache
+def parse_pair_collisions(root_str, tileset_const):
+    """The tile pairs this tileset refuses to let you cross between, as frozensets of two ids.
+
+    Collision alone is per tile, and a cave floor needs more than that: Victory Road's plateaus are
+    walkable floor sitting a step above walkable floor, and what keeps you off them is
+    `data/tilesets/pair_collision_tile_ids.asm`, a list of (tileset, tile, tile) rows the game
+    checks between where you stand and where you are going. CAVERN's four rows all pair the lower
+    floor ($05) with a raised one, which is why a cave looks open in a collision map and is not.
+    Unordered, because the game refuses the crossing in both directions. The land table only: the
+    file holds a second one for pairs you cannot Surf between, and the routines that matter here
+    (walking, and shoving a boulder) name `TilePairCollisionsLand` outright."""
+    body = _read(root_str, "data/tilesets/pair_collision_tile_ids.asm")
+    land = re.search(r"^TilePairCollisionsLand::\n((?:\tdb .*\n)+)", body, re.M).group(1)
+    return frozenset(frozenset((int(a.lstrip("$"), 16), int(b.lstrip("$"), 16)))
+                     for tileset, a, b in re.findall(r"db (\w+), (\$[0-9A-Fa-f]+), (\$[0-9A-Fa-f]+)", land)
+                     if tileset == tileset_const)
+
+
 def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y, blueprint=None):
     """The four 8px tiles making up one 16px movement cell.
 

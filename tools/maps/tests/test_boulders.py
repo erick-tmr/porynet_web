@@ -54,6 +54,41 @@ def test_a_shove_with_nowhere_to_stand_is_refused(root, monkeypatch):
         boulders.check(root, "SeafoamIslandsB3F")
 
 
+def test_a_boulder_shoved_over_a_plateau_edge_is_refused(root, monkeypatch):
+    """Victory Road 3F's plateau is walkable rock a step above the lane its boulder is pushed
+    along, and nothing in the collision map says so: both sides are open floor. What says so is the
+    tileset's own pair table, which is why a line drawn over collision alone would happily shove
+    this boulder off the lane and onto the plateau halfway across the floor."""
+    monkeypatch.setitem(boulders.PUSHES, "VictoryRoad3F",
+                        (((22, 3), ((22, 1), (12, 1), (12, 2))),))
+
+    with pytest.raises(ValueError, match=r"\(12, 1\) cannot be shoved to \(12, 2\)"):
+        boulders.check(root, "VictoryRoad3F")
+
+
+def test_a_boulder_will_not_go_up_the_steps(root, monkeypatch):
+    """The other rule the routine names outright, and the other one collision alone passes: a
+    flight of cave steps is a tile you can stand on, so the two cells either side of Victory Road
+    2F's south stair read as a legal shove and are not."""
+    monkeypatch.setitem(boulders.PUSHES, "VictoryRoad2F",
+                        (((23, 16), ((21, 16), (21, 15))),))
+
+    with pytest.raises(ValueError, match=r"will not go up the steps at \(21, 15\)"):
+        boulders.check(root, "VictoryRoad2F")
+
+
+def test_victory_road_1f_draws_the_same_boulder_shoved_two_ways(root):
+    """The one place a floor draws one boulder twice. 1F's top corridor holds two balls and one
+    boulder, and whichever way it is shoved it seals the ball it is not clearing, so the two legs
+    are alternatives rather than a journey: same starting cell, four shoves each, ending a cell
+    apart. Leaving the floor and coming back is what lets you have both."""
+    first, second = boulders.PUSHES["VictoryRoad1F"][1:]
+
+    assert first[0] == second[0] == (14, 2)
+    assert boulders.cells(*first)[-1] == (11, 1), "north into the spur, freeing the Rare Candy"
+    assert boulders.cells(*second)[-1] == (10, 2), "one further west, freeing the TM"
+
+
 def test_a_leg_that_starts_nowhere_near_a_boulder_is_refused(root, monkeypatch):
     monkeypatch.setitem(boulders.PUSHES, "SeafoamIslandsB1F", (((16, 6), ((17, 6),)),))
 
@@ -88,9 +123,14 @@ def test_every_push_starts_on_a_boulder_a_hole_above_really_drops(root):
 
 
 def test_the_pushes_that_should_drop_a_boulder_end_over_a_hole(root):
-    """Six of the eight legs end on a hole. The two that do not are the shoves that park a boulder
-    out of the way: the second-from-left on B3F, moved west so the leftmost can be reached, and the
-    right of the pair, pushed up into the corner."""
+    """Six of Seafoam's eight legs end on a hole. The two that do not are the shoves that park a
+    boulder out of the way: the second-from-left on B3F, moved west so the leftmost can be reached,
+    and the right of the pair, pushed up into the corner.
+
+    Victory Road is the other way round, and one leg in seven ends on a hole. Its boulders are
+    shoved onto floor switches that lift a barrier somewhere else on the floor, or across a corridor
+    to seal a ball; only 3F's last one is dropped through, and that is a shortcut down to 2F rather
+    than the way a floor is opened."""
     ending = {label: [boulders.ends_in_a_hole(root, label, boulders.cells(*push))
                       for push in pushes]
               for label, pushes in boulders.PUSHES.items()}
@@ -99,7 +139,10 @@ def test_the_pushes_that_should_drop_a_boulder_end_over_a_hole(root):
         "SeafoamIslands1F": [True, True],
         "SeafoamIslandsB1F": [True, True],
         "SeafoamIslandsB2F": [True, True],
-        "SeafoamIslandsB3F": [False, True, False, True]}
+        "SeafoamIslandsB3F": [False, True, False, True],
+        "VictoryRoad1F": [False, False, False],
+        "VictoryRoad2F": [False, False],
+        "VictoryRoad3F": [False, True]}
 
 
 def test_a_floor_with_no_boulders_draws_no_line(root):

@@ -696,6 +696,10 @@ a.pn-wt-route__card:hover {
   margin-top: 28px;
 }
 .pn-wt-step {
+  /* A GB screen is the same size wherever a step shows one: beside the directions, or as a frame
+     in a multi-shot strip. The only picture drawn bigger is a whole-map crop (.pn-wt-stepmap),
+     which is a floor rather than a screen and has to carry a drawn line across it. */
+  --shot-w: 300px;
   display: flex;
   align-items: stretch;
 }
@@ -881,8 +885,152 @@ a.pn-wt-route__card:hover {
   flex: none;
 }
 .pn-wt-shot__side > .pn-wt-shot {
-  width: 300px;
+  width: var(--shot-w);
   max-width: 100%;
+}
+/* A step whose instruction is several moves: one frame per move, hung off a rail with a numbered
+   node apiece. The rail and node are the step timeline's own, borrowed, so the strip reads in
+   order without an arrow between every pair of frames and the gaps stay pure space.
+
+   Stacked is the base and the row is the enhancement, because whether the row fits is a question
+   about the card the strip sits in rather than about the window: the step column stops growing at
+   about 1040px, well before the viewport does. So the wrapper is the query container and each
+   count asks for the width its own row needs.
+
+   The rail is drawn a segment at a time, from each node to the next, rather than as one bar across
+   the strip. That is what lets it turn: stacked, the moves are as tall as their captions make
+   them, and a single bar would have to know the height of the last one to stop at its node rather
+   than run on past it. */
+.pn-wt-strip-fit { container: pn-strip / inline-size; }
+.pn-wt-strip {
+  --strip-frame: var(--shot-w);
+  --strip-gap: 32px;
+  --strip-node: 28px;
+  --strip-stack-gap: 20px;
+  --strip-rail: 3px;
+  display: grid;
+  grid-template-columns: minmax(0, var(--strip-frame));
+  padding-left: 44px;
+  row-gap: var(--strip-stack-gap);
+  margin-top: 18px;
+}
+.pn-wt-strip__move {
+  position: relative;
+  min-width: 0;
+}
+.pn-wt-strip__node {
+  position: absolute;
+  left: -44px;
+  top: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  width: var(--strip-node);
+  height: var(--strip-node);
+  border: 3px solid #171622;
+  background: #FF5D8F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #171622;
+}
+/* One node to the next, so the last move draws none: past the final frame there is nothing left
+   to join. It runs under the node it arrives at, which is opaque, so the join never shows. */
+.pn-wt-strip__link {
+  position: absolute;
+  z-index: 0;
+  top: calc(var(--strip-node) / 2);
+  bottom: calc(-1 * (var(--strip-stack-gap) + var(--strip-node) / 2));
+  left: calc(var(--strip-node) / 2 - var(--strip-rail) / 2 - 44px);
+  width: var(--strip-rail);
+  background: #171622;
+}
+/* Every frame in a strip is the same box whether or not its capture exists yet, so a strip with
+   one shot still to take reads as a strip with a gap in it rather than as frames of different
+   heights. The capture letterboxes inside it, which is also what leaves the floor tab a band to
+   sit in at the foot. */
+.pn-wt-strip .pn-wt-shot {
+  box-sizing: border-box;
+  width: 100%;
+  aspect-ratio: 20 / 19;
+}
+.pn-wt-strip .pn-wt-shot__map-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pn-wt-strip__caption {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.25;
+  color: #3a3850;
+  margin-top: 8px;
+}
+
+/* Wide enough for the row: the frames sit side by side, the rail turns horizontal, and `subgrid`
+   keeps the three bands (node, frame, caption) aligned across the strip when one caption wraps to
+   two lines and its neighbour does not. A count gets a row only once its own width fits, which is
+   why there is a query per count rather than one for the widest. */
+@container pn-strip (min-width: 632px) {
+  .pn-wt-strip--n2 {
+    width: max-content;
+    grid-template-columns: repeat(2, var(--strip-frame));
+    grid-template-rows: var(--strip-node) auto auto;
+    column-gap: var(--strip-gap);
+    padding-left: 0;
+    row-gap: 0;
+  }
+  .pn-wt-strip--n2 .pn-wt-strip__move {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+  }
+  .pn-wt-strip--n2 .pn-wt-strip__node {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .pn-wt-strip--n2 .pn-wt-strip__link {
+    top: calc(var(--strip-node) / 2 - var(--strip-rail) / 2);
+    bottom: auto;
+    left: calc(var(--strip-node) / 2);
+    width: calc(var(--strip-frame) + var(--strip-gap));
+    height: var(--strip-rail);
+  }
+  .pn-wt-strip--n2 .pn-wt-shot { margin-top: 12px; }
+  .pn-wt-strip--n2 .pn-wt-strip__caption { margin-top: 10px; }
+}
+@container pn-strip (min-width: 964px) {
+  .pn-wt-strip--n3 {
+    width: max-content;
+    grid-template-columns: repeat(3, var(--strip-frame));
+    grid-template-rows: var(--strip-node) auto auto;
+    column-gap: var(--strip-gap);
+    padding-left: 0;
+    row-gap: 0;
+  }
+  .pn-wt-strip--n3 .pn-wt-strip__move {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+  }
+  .pn-wt-strip--n3 .pn-wt-strip__node {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .pn-wt-strip--n3 .pn-wt-strip__link {
+    top: calc(var(--strip-node) / 2 - var(--strip-rail) / 2);
+    bottom: auto;
+    left: calc(var(--strip-node) / 2);
+    width: calc(var(--strip-frame) + var(--strip-gap));
+    height: var(--strip-rail);
+  }
+  .pn-wt-strip--n3 .pn-wt-shot { margin-top: 12px; }
+  .pn-wt-strip--n3 .pn-wt-strip__caption { margin-top: 10px; }
 }
 .pn-wt-shot__img {
   position: absolute;

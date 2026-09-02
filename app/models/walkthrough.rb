@@ -165,8 +165,13 @@ module Walkthrough
   end
 
   Missable = Data.define(:anchor, :title_key, :body_key, :tip_key, :after_step)
-  Shot = Data.define(:image, :label) do
+  # `caption_key` is the one line a frame carries when its step shows more than one: what that
+  # frame proves, not what the step says. A step with a single shot has none, because there is
+  # nothing to tell apart.
+  Shot = Data.define(:image, :label, :caption_key) do
+    def initialize(caption_key: nil, **rest) = super
     def map? = !image.nil?
+    def caption? = !caption_key.nil?
   end
   # What the game says about a place you can walk into, generated into yellow_places.json from
   # the disassembly: the kind of building, a Gym's leader and prize, a Mart's stock, whatever
@@ -406,6 +411,9 @@ module Walkthrough
     def initialize(shots: [], pins: {}, marks: {}, map: nil, dex_seen: nil, line: nil, step_map: nil, **rest) = super
     def line? = !line.nil?
     def step_map? = !step_map.nil?
+    # More than one frame is a sequence of moves, and it is drawn as a numbered strip rather than
+    # as shots parked beside the directions.
+    def strip? = shots.size > 1
     def items? = items.any?
     def hidden? = hidden.any?
     def shots? = shots.any?
