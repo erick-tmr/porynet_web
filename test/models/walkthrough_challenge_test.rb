@@ -23,7 +23,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "every leg sits in exactly one window, taken from where the page ends" do
     assigned = game.legs.to_h { |leg| [ leg.slug, plan(leg.slug).window.number ] }
 
-    assert_equal 33, assigned.size
+    assert_equal 34, assigned.size
     assert_equal [ 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9 ].uniq,
       assigned.values.uniq
     assert_equal 1, assigned.fetch("viridian-forest"), "the forest is still before Brock"
@@ -200,8 +200,9 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
     assert_equal 1, oddish.size, "Oddish is on Route 24 and Route 25 but owes one row"
     assert_equal "route-24", oddish.first.at
     assert_equal 1, oddish.first.qty, "Gloom is 10% of Cerulean Cave, so it carries Vileplume too"
-    assert_equal 11, leg.entries.size
-    assert_equal [ "Bulbasaur", "Oddish", "Bellsprout", "Charmander" ], leg.queue.map(&:name)
+    assert_equal 12, leg.entries.size
+    assert_equal [ "Bulbasaur", "Mew", "Oddish", "Bellsprout", "Charmander" ], leg.queue.map(&:name),
+      "Cerulean is where the glitch puts #151 on the file, so the ledger asks for it here"
   end
 
   test "a species is grouped by how you would really get it here, not by whether it spawns" do

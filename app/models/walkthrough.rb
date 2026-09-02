@@ -766,6 +766,10 @@ module Walkthrough
 
     def obtainable_dex = locations.flat_map(&:dex_list).uniq
 
+    # Stops are numbered, not counted: two pages can share a number (the swim in to the cave door
+    # is part of stop 53, not a stop of its own), so the run is as long as its highest number.
+    def stops = locations.map(&:order).max
+
     def first_gym_location = locations.find(&:gym?)
 
     def obtainable_upto_leg(current)
@@ -829,8 +833,10 @@ module Walkthrough
   MewStage = Data.define(:stage, :level, :n, :kind, :label) do
     def default? = stage.zero?
   end
+  # `dex` is the species the whole page is for, which the afterword ticks off: the glitch is the
+  # only way #151 lands on a Yellow file, so this page is where it gets registered.
   MewGlitch = Data.define(:facts, :tldr, :untouched, :packlist, :sleepers, :phases, :second,
-    :stages, :baseline, :vc_ot, :vc_tid)
+    :stages, :baseline, :vc_ot, :vc_tid, :dex)
 
   # Yellow's Pikachu carries a hidden friendship value (0-255, starts at 90); the Cerulean
   # Bulbasaur unlocks at 147. `values` is the game's per-band change [0-99, 100-199, 200-255],
@@ -927,6 +933,15 @@ module Walkthrough
   FossilStep = Data.define(:n, :title_key, :text_key)
   FossilCard = Data.define(:dex, :name, :item, :art, :sprite, :height, :weight)
   FossilFact = Data.define(:key, :state, :mark)
+
+  # The last section of the last page. Mewtwo is in a Ball, the game has nothing left to ask, and
+  # the board hands the file back: the two legendaries the run ends on, ticking like any catch
+  # card, and the four things still worth doing to a finished save. `league_leg` is the page a
+  # rematch sends you to; the Cable Club tile links nowhere, being a cable and a second cartridge.
+  TrueEnding = Data.define(:anchor, :copy_key, :tiles, :tags, :art, :mew, :shot, :league_leg)
+  # `tone` is the colour the tag wears: Mewtwo's violet, Mew's pink, the way the art beside it is
+  # lit.
+  EndingTag = Data.define(:dex, :key, :tone)
 
   def self.games = { "yellow" => Yellow.game }
 

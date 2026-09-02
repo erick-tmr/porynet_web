@@ -4,11 +4,17 @@
 <%# The League is the one stop whose trainers are the page: five rooms in a row, each its own
     plate, so the standard trainer grid stands down in favour of them. %>
 <% league = Walkthrough::Yellow.elite_four(@location) if @location.slug == "indigo-plateau" %>
+<%# The last page of the guide signs off under its last stop, so the cave carries a section no
+    other stop has. %>
+<% ending = Walkthrough::Yellow.true_ending(@location) if @location.slug == "cerulean-cave" %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "components/leg-switch", "pages/walkthrough", "pages/walkthrough-map",
                           "pages/walkthrough-challenge", "data-turbo-track": "reload" %>
   <% if league %>
     <%= stylesheet_link_tag "pages/elite-four", "data-turbo-track": "reload" %>
+  <% end %>
+  <% if ending %>
+    <%= stylesheet_link_tag "pages/cerulean-cave", "data-turbo-track": "reload" %>
   <% end %>
 <% end %>
 <% content_for :nav_crumb do %>
@@ -84,10 +90,26 @@
   </section>
 <% end %>
 
+<%# The steps held back behind the page's hall, which on the League page is the five rooms: where
+    the file goes once the credits have rolled belongs under them, not above the fight it follows. %>
+<% if @location.after_steps.any? %>
+  <section class="pn-wt-section">
+    <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_next_eyebrow") %></div>
+    <h2 class="pn-h2"><%= t("walkthrough.ui.steps_next_h2") %></h2>
+    <div class="pn-wt-steps">
+      <% @location.after_steps.each do |step| %>
+        <%= render "step", step: step, slug: @location.slug %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
 <% left = @location.trades_off(drawn) %>
 <% if left.any? %><%= render "trades_here", loc: @location, trades: left, level: :page %><% end %>
 
 <%= render "challenges", plan: plan, multi: false %>
+
+<% if ending %><%= render "true_ending", ending: ending %><% end %>
 </div>
 
 <%= render "leg_nav", game: @game, leg: @leg %>

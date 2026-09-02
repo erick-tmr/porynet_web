@@ -2,8 +2,8 @@
 
 - location maps: **102** across 53 locations
 - markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
-- step shots: **46** (map/scene in a step slot)
-- standalone scenes: **302** (dialog / battle / NPC, not step-bound)
+- step shots: **50** (map/scene in a step slot)
+- standalone scenes: **316** (dialog / battle / NPC, not step-bound)
 - trainers: **323** across 36 locations
 - missing map labels: **0**
 
@@ -150,6 +150,10 @@
 - `route-25` step 5: walkthrough/yellow/scenes/route-25-bill.png
 - `route-4` step 1: walkthrough/yellow/scenes/route-4-exit.png
 - `route-4-mt-moon` step 2: walkthrough/yellow/scenes/route-4-mt-moon-enter.png
+- `route-4-return` step 1: walkthrough/yellow/scenes/route-24-surf-south.png
+- `route-4-return` step 2: walkthrough/yellow/scenes/cerulean-cave-beach.png
+- `route-4-return` step 3: walkthrough/yellow/scenes/cerulean-beach-west.png
+- `route-4-return` step 4: walkthrough/yellow/scenes/cerulean-cave-entrance.png
 - `route-5` step 2: walkthrough/yellow/scenes/route-5-underground.png
 - `seafoam-islands` step 11: walkthrough/yellow/scenes/seafoam-articuno.png
 - `ss-anne` step 14: walkthrough/yellow/scenes/ss-anne-cut.png
@@ -195,6 +199,19 @@
 - `celadon-diner-coin-case` (screen): walkthrough/yellow/scenes/celadon-diner-coin-case.png
 - `celadon-mart-3f-tm18` (screen): walkthrough/yellow/scenes/celadon-mart-3f-tm18.png
 - `celadon-roof-girl` (screen): walkthrough/yellow/scenes/celadon-roof-girl.png
+- `cerulean-beach-west` (screen): walkthrough/yellow/scenes/cerulean-beach-west.png
+- `cerulean-cave-1f-ladder-b1f` (screen): walkthrough/yellow/scenes/cerulean-cave-1f-ladder-b1f.png
+- `cerulean-cave-1f-ladder-center` (screen): walkthrough/yellow/scenes/cerulean-cave-1f-ladder-center.png
+- `cerulean-cave-1f-ladder-north` (screen): walkthrough/yellow/scenes/cerulean-cave-1f-ladder-north.png
+- `cerulean-cave-1f-ladder-west` (screen): walkthrough/yellow/scenes/cerulean-cave-1f-ladder-west.png
+- `cerulean-cave-1f-north-path` (screen): walkthrough/yellow/scenes/cerulean-cave-1f-north-path.png
+- `cerulean-cave-1f-pool` (screen): walkthrough/yellow/scenes/cerulean-cave-1f-pool.png
+- `cerulean-cave-2f-ladder-east` (screen): walkthrough/yellow/scenes/cerulean-cave-2f-ladder-east.png
+- `cerulean-cave-2f-ladder-northeast` (screen): walkthrough/yellow/scenes/cerulean-cave-2f-ladder-northeast.png
+- `cerulean-cave-2f-ladder-northwest` (screen): walkthrough/yellow/scenes/cerulean-cave-2f-ladder-northwest.png
+- `cerulean-cave-b1f-shore` (screen): walkthrough/yellow/scenes/cerulean-cave-b1f-shore.png
+- `cerulean-cave-beach` (screen): walkthrough/yellow/scenes/cerulean-cave-beach.png
+- `cerulean-cave-entrance` (screen): walkthrough/yellow/scenes/cerulean-cave-entrance.png
 - `cerulean-cave-hidden-pp-up-16-13` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-16-13.png
 - `cerulean-cave-hidden-pp-up-18-7` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-18-7.png
 - `cerulean-cave-hidden-pp-up-8-14` (dialog): walkthrough/yellow/scenes/cerulean-cave-hidden-pp-up-8-14.png
@@ -361,6 +378,7 @@
 - `route-24-charmander` (screen): walkthrough/yellow/scenes/route-24-charmander.png
 - `route-24-item-tm-thunder-wave` (screen): walkthrough/yellow/scenes/route-24-item-tm-thunder-wave.png
 - `route-24-rival` (screen): walkthrough/yellow/scenes/route-24-rival.png
+- `route-24-surf-south` (screen): walkthrough/yellow/scenes/route-24-surf-south.png
 - `route-25-bill` (screen): walkthrough/yellow/scenes/route-25-bill.png
 - `route-25-hidden-elixir` (dialog): walkthrough/yellow/scenes/route-25-hidden-elixir.png
 - `route-25-hidden-ether` (dialog): walkthrough/yellow/scenes/route-25-hidden-ether.png

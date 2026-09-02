@@ -1157,3 +1157,110 @@ def test_a_found_item_box_is_never_a_conversation(root):
             "player": [16, 42], "player_dir": "DOWN", "dialog": {"found_item": "ANTIDOTE"}}
 
     _check(root, spec)
+
+
+def test_an_arrow_never_lands_on_the_doorway_it_points_at(root):
+    """A doorway is drawn, and an arrow is opaque. A ladder, a staircase and a cave mouth each have
+    a tile of their own in the tileset, and that tile is the one thing a reader scans the picture
+    for, so an arrow parked on it points at a rock. The arrow goes on the cell you cross to get
+    there and turns if it has to, which is what the whole shipped set already does: the hero, the
+    arrow and the way out read as three things rather than two.
+
+    The regression: Cerulean Cave's seven ladder shots were first drawn with the arrow on the
+    ladder itself, and every one of them buried the ladder under an amber blob."""
+    covered = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if spec.get("map") not in sources.parse_headers(root):
+                continue
+            warps = {(x, y) for x, y, *_ in sources.parse_warp_events(root, spec["map"])}
+            covered += [f"{spec['name']} ({path.name}) on {tuple(arrow['grid'])}"
+                        for arrow in spec.get("arrows", []) if tuple(arrow["grid"]) in warps]
+
+    assert covered == []
+
+
+def _standing_tile(root, label, cell):
+    """The tile the game keys collision off for a cell: its lower-left (engine/overworld/movement)."""
+    const, tileset = sources.parse_headers(root)[label]
+    _index, blocks_w, _blocks_h = sources.parse_map_constants(root)[0][const]
+    file = sources.tileset_basename(root, tileset)
+    return sources.cell_tiles(root, label, file, blocks_w, *cell)[2], tileset
+
+
+def _crossable(root, label, here, there):
+    """True when the game lets you step between two cells: the pair table, not just collision.
+
+    A cave floor is plateaus of walkable rock a step above walkable rock. Both are open ground to
+    the collision map and `pair_collision_tile_ids.asm` is the only thing that says you cannot
+    cross between them, which is why a shot can look legal and be a picture of a tile the player
+    can never act from."""
+    a, tileset = _standing_tile(root, label, here)
+    b, _ = _standing_tile(root, label, there)
+    return frozenset((a, b)) not in sources.parse_pair_collisions(root, tileset)
+
+
+def _neighbours(cell):
+    x, y = cell
+    return [(x, y - 1), (x, y + 1), (x - 1, y), (x + 1, y)]
+
+
+def test_a_ball_shot_stands_where_the_ball_can_actually_be_picked_up(root):
+    """You collect a Poké Ball by walking onto it, so a shot of one has to be taken from a cell the
+    hero could take that step from. The pair table is what decides it: a ball on a terrace and the
+    floor a step below it are both open ground, and the game still refuses the move.
+
+    The regression: Cerulean Cave B1F's Max Elixir sits on the top terrace and its shot was framed
+    from the tile below, which is the lower floor. The picture showed a hero about to pick up a
+    ball they cannot reach from there."""
+    unreachable = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if spec.get("map") not in sources.parse_headers(root) or "player" not in spec:
+                continue
+            balls = {tuple(o["grid"]) for o in
+                     sources.parse_object_events(root, spec["map"], include_battlers=True,
+                                                 show=spec.get("show", ()), hide=spec.get("hide", ()))
+                     if o["sprite_const"] == "SPRITE_POKE_BALL"}
+            focus = tuple(spec.get("focus", spec["player"]))
+            if focus not in balls or focus not in _neighbours(tuple(spec["player"])):
+                continue
+            if not _crossable(root, spec["map"], tuple(spec["player"]), focus):
+                unreachable.append(f"{spec['name']} ({path.name}): {spec['player']} -> {list(focus)}")
+
+    assert unreachable == []
+
+
+def test_a_hidden_item_is_faced_from_the_floor_its_rock_belongs_to(root):
+    """A hidden item is usually buried in something solid, and a solid cell in a cave is the wall
+    of a terrace: open floor on three sides up top, and the floor a step down on the fourth. The
+    game's own check is coordinates only (CheckIfCoordsInFrontOfPlayerMatch), so pressing A into
+    that wall from below does fire, and it is still a picture of someone searching a cliff face
+    rather than the rock the directions send them to.
+
+    So the hero stands on the level the rock belongs to: their tile has to be one the pair table
+    lets them share with another of the rock's open neighbours. A rock with only one way up to it
+    has nothing to disagree with and is left alone.
+
+    The regression: Cerulean Cave 1F's PP Up was faced from the lower floor, one row below a rock
+    that blocks the terrace row the walk comes along."""
+    stranded = []
+    for path in sorted(SPECS.glob("*.json")):
+        for spec in json.loads(path.read_text()):
+            if not spec.get("marker") or spec.get("map") not in sources.parse_headers(root):
+                continue
+            marker, hero = tuple(spec["marker"]), tuple(spec["player"])
+            const, tileset = sources.parse_headers(root)[spec["map"]]
+            _i, blocks_w, _h = sources.parse_map_constants(root)[0][const]
+            width, height = markers.map_cells(root, const)
+            open_around = [c for c in _neighbours(marker)
+                           if 0 <= c[0] < width and 0 <= c[1] < height
+                           and markers.cell_is_standable(root, spec["map"], tileset, blocks_w, c)]
+            others = [c for c in open_around if c != hero]
+            if hero not in open_around or not others:
+                continue
+            if not any(_crossable(root, spec["map"], hero, c) for c in others):
+                stranded.append(f"{spec['name']} ({path.name}): hero {list(hero)} is cut off from "
+                                f"the rest of {list(marker)}'s floor")
+
+    assert stranded == []

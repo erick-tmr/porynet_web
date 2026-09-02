@@ -478,11 +478,21 @@
   font-family: "Press Start 2P", monospace;
   font-size: 8px;
   color: #171622;
-  background: var(--amber);
+  background: #fff;
   border-top: 2px solid #171622;
   border-right: 2px solid #171622;
   padding: 6px 8px;
+  cursor: pointer;
 }
+.pn-mew-after__tag:hover,
+.pn-mew-after__tag.is-done { background: var(--amber); }
+.pn-mew-after__tag.is-error {
+  background: var(--toast-error);
+  color: #fff;
+}
+.pn-mew-after__tag-done { display: none; }
+.pn-mew-after__tag.is-done .pn-mew-after__tag-done { display: inline; }
+.pn-mew-after__tag.is-done .pn-mew-after__tag-todo { display: none; }
 .pn-mew-after__body { background: #fff; padding: 28px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
 .pn-mew-after__text { font-family: "Pixelify Sans", system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 1.6; color: #3a3850; margin: 12px 0 0; max-width: 600px; text-wrap: pretty; }
 .pn-mew-after__actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }

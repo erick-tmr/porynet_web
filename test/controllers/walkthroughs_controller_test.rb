@@ -35,7 +35,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
-    assert_includes response.body, "A ROTA · 33 PARADAS"
+    assert_includes response.body, "A ROTA · 34 PARADAS"
   end
 
   test "a leg merges its locations into bands with a jump switcher" do
@@ -259,6 +259,21 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
                    "VIRIDIAN CITY", "PEWTER CITY" ], marks
     assert_select ".pn-wt-catchsecs .pn-wt-catch__name", text: "Diglett"
     assert_select ".pn-wt-trade__title", text: "Mr. Mime"
+  end
+
+  # The swim to Cerulean Cave crosses three maps and owns none of them, so it draws each in the
+  # order the water takes it and finishes on the Lass that Route 4's one-way ledges kept standing.
+  test "the cave approach draws its three borrowed maps in walk order and meets the last trainer" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-19")
+
+    assert_response :success
+    assert_select ".pn-wt-band__title", text: "Route 4 → Cerulean Cave"
+    assert_equal [ "ROUTE 24", "CERULEAN CITY", "ROUTE 4" ],
+      css_select(".pn-mm-titlebar__name").map { |node| node.text.tr("◈", "").strip }
+    assert_select ".pn-wt-trainer__name", text: "LASS T1"
+    assert_select "[data-progress-id=?]", "route-4/trainer-63-3"
+    assert_select ".pn-wt-step__text a[href=?]",
+      walkthrough_leg_path(game: "yellow", leg: "cerulean-cave", anchor: "cerulean-cave-step-1")
   end
 
   test "a multi-floor dungeon badges each trainer with the floor it waits on" do
@@ -489,7 +504,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select ".pn-wt-oak__window", text: "WINDOW 02 · EVERYTHING BEFORE MISTY"
-    assert_select ".pn-wt-ldrow", count: 4
+    assert_select ".pn-wt-ldrow", count: 5
     assert_select ".pn-wt-ldrow__spot", text: "ROUTE 24"
     assert_select ".pn-wt-bandledger", count: 4
     assert_select ".pn-legsw__work"
@@ -500,6 +515,21 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-catch--gift .pn-wt-catch__gift-from", text: "FROM THE HILLTOP BOY"
     assert_select ".pn-wt-catch[data-body-counter-dex-value='004'] .pn-wt-tagpill", count: 1,
       text: "GIFT"
+  end
+
+  test "Cerulean carries Mew as a static, and both challenge modes ask for it there" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-04")
+
+    assert_response :success
+    assert_select ".pn-wt-catch[data-body-counter-dex-value=?][data-kind=?]", "151", "caught"
+    assert_select ".pn-wt-catch[data-body-counter-dex-value='151'] .pn-wt-tagpill", text: "STATIC"
+    assert_select ".pn-wt-catch[data-body-counter-dex-value='151'] .pn-wt-catch__stat-val",
+      text: "7"
+    assert_select ".pn-wt-catch[data-body-counter-dex-value='151'] .pn-wt-catch__tip",
+      text: /Trainer-Fly glitch/
+    # the living dex ledger owes one body, and Oak's window before Misty owes the registration
+    assert_select ".pn-wt-ldrow[data-body-counter-dex-value=?]", "151"
+    assert_select ".pn-wt-oaktile[data-progress-id=?]", "151"
   end
 
   test "the challenge stats are live slots, so the meter and the counts move with the store" do
@@ -602,6 +632,47 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     get walkthrough_leg_path(game: "yellow", leg: "cerulean-cave")
     assert_response :success
     assert_select ".pn-wt-nav__link--next", false
+  end
+
+  test "the last stop signs off with the true ending, its tick tags and its three ways on" do
+    get walkthrough_leg_path(game: "yellow", leg: "cerulean-cave")
+
+    assert_response :success
+    assert_select "#true-ending .pn-truend__title", text: "Congratulations, trainer"
+    assert_select ".pn-truend__mewtwo[src*=?]", "walkthrough/art/mewtwo-gen1-art.png"
+    assert_select ".pn-truend__mew[src*=?]", "walkthrough/art/mew-gen1-art.png"
+    assert_select ".pn-truend__frame-img[src*=?]", "walkthrough/art/party-pikachu.png"
+    assert_select ".pn-truend__tag", count: 2
+    assert_select ".pn-truend__tag--violet[data-progress-id=?][data-kind=?]", "150", "caught"
+    assert_select ".pn-truend__tag--pink[data-progress-id=?][data-kind=?]", "151", "caught"
+    # The Mewtwo tag is the very handle his catch card up the page ticks under, so marking him
+    # caught anywhere flips both.
+    assert_select ".pn-wt-catch[data-progress-id=?][data-kind=?]", "150", "caught"
+    assert_select ".pn-truend__tag--pink .pn-truend__tag-todo", text: "#151 · STILL MISSING"
+    assert_select ".pn-truend__tile", count: 4
+    assert_select ".pn-truend__tile-v a[href=?]", root_path(anchor: "tracker")
+    assert_select ".pn-truend__tile-v a[href=?]",
+      walkthrough_leg_path(game: "yellow", leg: "indigo-plateau")
+    assert_select ".pn-truend__tile-v a[href=?]", walkthrough_mew_glitch_path(game: "yellow")
+    assert_select ".pn-truend__stamp", text: /Pokémon Yellow · stop 53 of 53 · Cerulean Cave B1F/
+    assert_select "link[href*=?]", "pages/cerulean-cave"
+  end
+
+  test "no other stop carries the sign-off" do
+    get walkthrough_leg_path(game: "yellow", leg: "indigo-plateau")
+
+    assert_response :success
+    assert_select ".pn-truend", false
+  end
+
+  test "the true ending renders in Portuguese" do
+    get walkthrough_leg_path(game: "yellow", leg: "cerulean-cave", locale: :pt)
+
+    assert_response :success
+    assert_select ".pn-truend__title", text: "Parabéns, treinador"
+    assert_select ".pn-truend__stamp-b", text: "ARQUIVO COMPLETO"
+    assert_select ".pn-truend__tile-v a[href=?]",
+      walkthrough_mew_glitch_path(game: "yellow", locale: :pt)
   end
 
   test "a city renders a Poké Mart section listing its priced stock" do
@@ -760,12 +831,23 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select "img[src*=?]", "walkthrough/yellow/battles/mew-glitch-swimmer.png"
   end
 
+  test "the glitch's afterword is where a file registers Mew, on the same handle a card ticks" do
+    get walkthrough_mew_glitch_path(game: "yellow")
+
+    assert_response :success
+    assert_select ".pn-mew-after__tag[data-progress-id=?][data-kind=?]", "151", "caught"
+    assert_select ".pn-mew-after__tag[data-progress-toggle-target=?]", "item"
+    assert_select ".pn-mew-after__tag-todo", text: "No. 151 · NOT REGISTERED"
+    assert_select ".pn-mew-after__tag-done", text: "No. 151 · REGISTERED ✓"
+  end
+
   test "the Mew glitch page renders in Portuguese" do
     get walkthrough_mew_glitch_path(game: "yellow", locale: :pt)
 
     assert_response :success
     assert_select "html[lang=?]", "pt"
     assert_select ".pn-nav__crumb-here--glitch", text: "GLITCH DO MEW"
+    assert_select ".pn-mew-after__tag-todo", text: "Nº 151 · NÃO REGISTRADO"
   end
 
   test "the Cerulean Mew section teases the glitch guide and warns on the Swimmer and Misty" do
@@ -1081,13 +1163,17 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # The League is the one stop whose trainers are the page: five plates instead of the trainer
-  # grid, and the single step above them only has to say that the corridor walks itself.
+  # grid, the single step above them only has to say that the corridor walks itself, and the step
+  # below them hands a Champion on to the cave the credits opened.
   test "Indigo Plateau draws the Elite Four as plates instead of the trainer grid" do
     get walkthrough_leg_path(game: "yellow", leg: "indigo-plateau")
 
     assert_response :success
-    assert_select ".pn-wt-step", count: 1
+    assert_select ".pn-wt-step", count: 2
     assert_select ".pn-wt-step__title", text: "Walk straight through"
+    assert_select ".pn-wt-step__title", text: "Fly back for the last cave"
+    assert_select ".pn-wt-step__text a[href=?]",
+      walkthrough_leg_path(game: "yellow", leg: "leg-19", anchor: "route-4-return-step-1")
     assert_select ".pn-wt-trainers", false, "the plates replace the grid"
     assert_select ".pn-plate", count: 4
     assert_select ".pn-plate--cyan .pn-plate__name", text: "Lorelei"
