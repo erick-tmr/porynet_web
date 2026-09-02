@@ -809,8 +809,232 @@
   },
   {
     "type": "screen",
-    "slug": "victory-road",
-    "step": 3,
+    "name": "route-23-victory-road",
+    "map": "Route23",
+    "player": [
+      4,
+      33
+    ],
+    "player_dir": "UP",
+    "focus": [
+      4,
+      32
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          4,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-1f-ladder",
+    "map": "VictoryRoad1F",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-ladder-3f",
+    "map": "VictoryRoad2F",
+    "player": [
+      21,
+      7
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      22,
+      7
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          22,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-3f-ladder-2f",
+    "map": "VictoryRoad3F",
+    "player": [
+      2,
+      2
+    ],
+    "player_dir": "UP",
+    "focus": [
+      2,
+      1
+    ],
+    "hide": [
+      "VICTORYROAD3F_BOULDER1"
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BOULDER",
+        "grid": [
+          3,
+          5
+        ]
+      }
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-ladder-nw",
+    "map": "VictoryRoad2F",
+    "player": [
+      3,
+      1
+    ],
+    "player_dir": "LEFT",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-3f-hole",
+    "map": "VictoryRoad3F",
+    "player": [
+      23,
+      13
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      23,
+      14
+    ],
+    "hide": [
+      "VICTORYROAD3F_BOULDER4"
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          23,
+          14
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-ladder-east",
+    "map": "VictoryRoad2F",
+    "player": [
+      25,
+      12
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      25,
+      13
+    ],
+    "hide": [
+      "VICTORYROAD2F_BOULDER3"
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          25,
+          13
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-3f-ladder-down",
+    "map": "VictoryRoad3F",
+    "player": [
+      27,
+      9
+    ],
+    "player_dir": "UP",
+    "focus": [
+      26,
+      8
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          27,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-east-mouth",
+    "map": "VictoryRoad2F",
+    "player": [
+      27,
+      8
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      28,
+      8
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          28,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
     "name": "victory-road-moltres",
     "map": "VictoryRoad2F",
     "player": [

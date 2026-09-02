@@ -49,6 +49,34 @@ PUSHES = {
         ((9, 14), ((9, 12),)),
         ((8, 14), ((8, 15), (6, 15), (6, 16))),
     ),
+    # The floor's one boulder goes the long way round the bottom of it, because the switch is up
+    # against the east wall and the only lane east is the bottom row. Then the two shoves of the
+    # ball puzzle, which are the same boulder pushed two different ways: west along the top
+    # corridor it stands in, then either north into the spur, which frees the Rare Candy and seals
+    # the TM, or one cell further west, which does the opposite. Both are drawn, because leaving
+    # and coming back in is what lets you have both, and the second push is not the first one
+    # continued.
+    "VictoryRoad1F": (
+        ((5, 15), ((5, 16), (9, 16), (9, 14), (16, 14), (16, 12), (17, 12), (17, 13))),
+        ((14, 2), ((11, 2), (11, 1))),
+        ((14, 2), ((10, 2),)),
+    ),
+    # The floor you arrive on, and the floor you fall back onto. The first is five shoves off the
+    # ladder; the second is the length of the south corridor, and its boulder is the one 3F drops
+    # down the hole.
+    "VictoryRoad2F": (
+        ((4, 14), ((3, 14), (3, 16), (1, 16))),
+        ((23, 16), ((9, 16),)),
+    ),
+    # The long one. The switch is in the far northwest corner and the boulder starts in the far
+    # northeast, with the plateau filling everything between them, so the whole push is the lane
+    # along the top of the floor. It comes off the north wall by one row first: shoved up against
+    # it there is no cell left to stand on to push it south again, and the west end of the run is
+    # the one-cell-high gap it has to come down into. Then the hole, one shove east.
+    "VictoryRoad3F": (
+        ((22, 3), ((22, 1), (6, 1), (6, 2), (2, 2), (2, 5), (3, 5))),
+        ((22, 15), ((23, 15),)),
+    ),
 }
 
 
@@ -74,21 +102,46 @@ def _land(root_str, map_label, cell):
     return markers.cell_is_land(root_str, map_label, tileset, width_cells // 2, cell)
 
 
+# The one tile CheckForCollisionWhenPushingBoulder names outright: a boulder will not go up or down
+# a flight of cave stairs, whatever the collision map says about standing on one.
+STAIRS_TILE = 0x15
+
+
+def _tile(root_str, map_label, cell):
+    """The tile the game reads a cell's collision off: the lower-left of its four.
+
+    `GetTileTwoStepsInFrontOfPlayer` picks the same corner the walking check does, so the push
+    rules below compare exactly the bytes the boulder routine compares."""
+    const, tileset = sources.parse_headers(root_str)[map_label]
+    width_cells, _height = markers.map_cells(root_str, const)
+    tileset_file = sources.tileset_basename(root_str, tileset)
+    return sources.cell_tiles(root_str, map_label, tileset_file, width_cells // 2, *cell)[2]
+
+
 def check(root_str, map_label):
     """Every push on one floor, checked against the map the game ships.
 
-    Three things, and each is a way the written corners could be wrong rather than a property of
-    boulders in general: the leg has to start on a boulder the map places, the boulder has to end
-    up somewhere it could be (dry ground, since a boulder shoved into a hole is shoved along the
-    floor to it), and every shove has to be made from the cell behind it, which the hero has to be
-    able to stand on. A push that fails any of them is a picture of a move nobody can make.
+    Five things, and each is a way the written corners could be wrong rather than a property of
+    boulders in general. Three are about the shape of the floor: the leg has to start on a boulder
+    the map places, the boulder has to end up somewhere it could be (dry ground, since a boulder
+    shoved into a hole is shoved along the floor to it), and every shove has to be made from the
+    cell behind it, which the hero has to be able to stand on.
 
-    The raw object list, rather than the one the map loads with: every boulder below 1F is shipped
-    hidden and shown when the one above it falls, so the floor you are being told to push it across
-    declares it and does not display it."""
+    The other two are the ones a cave needs and open water never did.
+    `CheckForCollisionWhenPushingBoulder` runs the tile two steps ahead past
+    `TilePairCollisionsLand` and then past the stairs tile, so a boulder will not go up onto a
+    plateau or down off one, and will not go up a flight of steps either. Victory Road is built out
+    of exactly that: its floors are plateaus of walkable rock sitting one step above walkable rock,
+    and a line drawn over the collision map alone would happily shove a boulder over the edge of
+    one. A push that fails any of the five is a picture of a move nobody can make.
+
+    The raw object list, rather than the one the map loads with: every boulder below Seafoam 1F is
+    shipped hidden and shown when the one above it falls, so the floor you are being told to push it
+    across declares it and does not display it."""
     placed = {tuple(o["grid"]) for o in sources._object_events(root_str, map_label)
               if o["sprite_const"] == "SPRITE_BOULDER"}
     dropped = _dropped_onto(root_str, map_label)
+    pairs = sources.parse_pair_collisions(root_str, sources.parse_headers(root_str)[map_label][1])
     for start, corners in PUSHES.get(map_label, ()):
         if tuple(start) not in placed:
             raise ValueError(f"{map_label}: no boulder stands on {tuple(start)}")
@@ -101,6 +154,12 @@ def check(root_str, map_label):
                 raise ValueError(f"{map_label}: a boulder cannot rest on {after}")
             if not _land(root_str, map_label, behind):
                 raise ValueError(f"{map_label}: nobody can stand on {behind} to shove {before}")
+            if _tile(root_str, map_label, after) == STAIRS_TILE:
+                raise ValueError(f"{map_label}: a boulder will not go up the steps at {after}")
+            if frozenset((_tile(root_str, map_label, behind),
+                          _tile(root_str, map_label, after))) in pairs:
+                raise ValueError(f"{map_label}: {before} cannot be shoved to {after}, "
+                                 f"which is a step up or down from {behind}")
 
 
 def _points(path):

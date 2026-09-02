@@ -344,11 +344,37 @@ ROUTES = {
     # the order one flood from the north hands out.
     "SafariZoneWest": ("exit-20-0", "item-19-7", "item-9-7", "hidden-6-5",
                        "exit-29-22", "item-18-18", "item-8-20"),
-    "VictoryRoad1F": ("exit-8-17", "item-9-2", "item-11-0"),
+    # Three floors climbed in six passes, and the flood reads none of them the way they are walked.
+    # Every floor is plateaus of walkable rock a step above walkable rock, kept apart by the
+    # tileset's own pair collisions (sources.parse_pair_collisions) rather than by anything in the
+    # blueprint, and the barriers that gate them stand open until each floor's script drops them in.
+    # So the flood strolls over ridges and through shut doors alike, and each floor names its way
+    # round instead.
+    #
+    # 1F in one pass, but not in one straight line: the boulder goes to the switch first, then the
+    # steps up onto the plateau and out the far side to the second boulder, whose two shoves are why
+    # the Rare Candy letters ahead of the TM. Only then back onto the plateau for the pair of
+    # Cooltrainers and the ladder in the northwest corner.
+    "VictoryRoad1F": ("exit-8-17", "item-9-2", "item-11-0", "trainer-7-5", "trainer-3-2"),
+    # Walked three times, from three different doorways, so it lists one per visit. In from 1F for
+    # the switch and the long middle of the floor: the Blackbelt, the TM in the pocket the south
+    # corridor reaches, the Juggler on the plateau, then the loop east and back up to the Tamer and
+    # the Juggler in the northeast. Down 3F's northwest ladder for the Pokémaniac's corner and
+    # Moltres. And in last through the hole, which lands you in the south corridor with the boulder
+    # for the fourth switch, and leaves by the east ladder with the rock beside it.
     "VictoryRoad2F": (
-        "exit-0-8", "hidden-5-2", "item-11-0", "item-9-11", "item-18-9", "hidden-26-7", "item-27-5"
+        "exit-0-8", "trainer-12-9", "item-9-11", "trainer-21-13", "trainer-19-8", "item-18-9",
+        "trainer-26-3", "item-27-5",
+        "exit-1-1", "trainer-4-2", "hidden-5-2", "item-11-0",
+        "exit-27-7", "hidden-26-7"
     ),
-    "VictoryRoad3F": ("exit-23-7",),
+    # Twice, up two different ladders. In at the east one for the alcove trainer and the Max Revive
+    # he stands over, then the long boulder run west along the top of the floor, the TM in the slot
+    # below it, and the switch in the corner. Back later from the northwest ladder, round the
+    # outside of the plateau and up the steps at its east end, so the Cooltrainer on it letters
+    # before the pair down on the floor of the southwest.
+    "VictoryRoad3F": ("exit-23-7", "trainer-28-5", "item-26-5", "item-7-7",
+                      "exit-2-0", "trainer-13-3", "trainer-6-14", "trainer-7-13"),
 }
 
 # A room you can only teleport into. Saffron's gym is eight sealed cells joined by warp pads, so

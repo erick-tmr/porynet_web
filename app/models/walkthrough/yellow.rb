@@ -2716,27 +2716,61 @@ module Walkthrough
       )
     end
 
+    VR_1F = "victory-road-1f".freeze
+    VR_2F = "victory-road-2f".freeze
+    VR_3F = "victory-road-3f".freeze
+
+    # Three floors climbed in six passes, because each switch opens a barrier somewhere you have
+    # already walked past, and the four ladders between 2F and 3F drop you in four different
+    # corners. Every push is drawn (`tools/maps/boulders.py`), which is the only honest way to give
+    # a shove: "one left, two down and two left" is four sentences of counting squares against a
+    # picture that shows neither the square the boulder starts on nor the one it ends in. The steps
+    # walk the floors in the order `paths.ROUTES` letters their pins, so the trainer you meet first
+    # is T1 and the ball you reach first is I1 on every one of them.
     def self.victory_road
       loc("victory-road", "CAVE", "Victory Road", 51,
-        pins: { 4 => { up: "victory-road-1f/exit-1-1" },
-                12 => { up: "victory-road-2f/exit-23-7" },
-                15 => { down: "victory-road-2f/exit-23-7", out: "victory-road-2f/exit-29-7" } },
         steps: [
+          { pins: { door: "victory-road-1f/exit-8-17" } },
+          { line: [ VR_1F, 1 ] },
           {},
-          { item: [ "Rare Candy", "rare-candy" ], scene: "victory-road-item-rare-candy" },
-          { item: [ "TM Sky Attack", "tm-sky-attack" ], scene: "victory-road-item-tm-sky-attack" },
-          { html: true },
-          { hidden: [ "Ultra Ball", "ultra-ball", "victory-road-hidden-ultra-ball", "victory-road-ultra-ball" ] },
-          { item: [ "Guard Spec", "guard-spec" ], scene: "victory-road-item-guard-spec" },
-          { scene: "victory-road-moltres" },
+          { item: [ "Rare Candy", "rare-candy" ], scene: "victory-road-item-rare-candy",
+            line: [ VR_1F, 2 ] },
+          { item: [ "TM Sky Attack", "tm-sky-attack" ], scene: "victory-road-item-tm-sky-attack",
+            line: [ VR_1F, 3 ], pins: { door: "victory-road-1f/exit-8-17" } },
+          { scene: "victory-road-1f-ladder",
+            pins: { first: "victory-road-1f/trainer-7-5",
+                    second: "victory-road-1f/trainer-3-2", up: "victory-road-1f/exit-1-1" } },
+          { line: [ VR_2F, 1 ] },
+          { pins: { blackbelt: "victory-road-2f/trainer-12-9" } },
           { item: [ "TM Mega Kick", "tm-mega-kick" ], scene: "victory-road-item-tm-mega-kick" },
-          { item: [ "Full Heal", "full-heal" ], scene: "victory-road-item-full-heal" },
-          { hidden: [ "Full Restore", "full-restore", "victory-road-hidden-full-restore", "victory-road-full-restore" ] },
-          { item: [ "TM Submission", "tm-submission" ], scene: "victory-road-item-tm-submission" },
-          { html: true },
-          { item: [ "Max Revive", "max-revive" ], scene: "victory-road-item-max-revive" },
+          { pins: { juggler: "victory-road-2f/trainer-21-13" } },
+          { item: [ "Full Heal", "full-heal" ], scene: "victory-road-item-full-heal",
+            pins: { tamer: "victory-road-2f/trainer-19-8" } },
+          { item: [ "TM Submission", "tm-submission" ], scene: "victory-road-item-tm-submission",
+            pins: { juggler: "victory-road-2f/trainer-26-3" } },
+          { scene: "victory-road-2f-ladder-3f", pins: { up: "victory-road-2f/exit-23-7" } },
+          { item: [ "Max Revive", "max-revive" ], scene: "victory-road-item-max-revive",
+            pins: { cooltrainer: "victory-road-3f/trainer-28-5" } },
+          { line: [ VR_3F, 1 ] },
           { item: [ "TM Explosion", "tm-explosion" ], scene: "victory-road-item-tm-explosion" },
-          { html: true }
+          { scene: "victory-road-3f-ladder-2f", pins: { down: "victory-road-3f/exit-2-0" } },
+          { hidden: [ "Ultra Ball", "ultra-ball", "victory-road-hidden-ultra-ball", "victory-road-ultra-ball" ],
+            pins: { pokemaniac: "victory-road-2f/trainer-4-2" } },
+          { item: [ "Guard Spec", "guard-spec" ], scene: "victory-road-item-guard-spec" },
+          { scene: "victory-road-moltres", pins: { moltres: "victory-road-2f/pokemon-11-5" } },
+          { scene: "victory-road-2f-ladder-nw",
+            pins: { up: "victory-road-2f/exit-1-1",
+                    cooltrainer: "victory-road-3f/trainer-13-3" } },
+          { pins: { cooltrainer: "victory-road-3f/trainer-6-14",
+                    last: "victory-road-3f/trainer-7-13" } },
+          { scene: "victory-road-3f-hole", pins: { hole: "victory-road-3f/hole-23-15" },
+            line: [ VR_3F, 2 ] },
+          { line: [ VR_2F, 2 ] },
+          { scene: [ [ "victory-road-2f-ladder-east", "2F" ],
+                     [ "victory-road-3f-ladder-down", "3F" ] ],
+            pins: { up: "victory-road-2f/exit-25-14", down: "victory-road-3f/exit-26-8" } },
+          { hidden: [ "Full Restore", "full-restore", "victory-road-hidden-full-restore", "victory-road-full-restore" ],
+            scene: "victory-road-2f-east-mouth", pins: { out: "victory-road-2f/exit-29-7" } }
         ],
         encounters: [
           enc("victory-road", "074", "CAVE", "65%", "26–46", "COMMON", "074", "075", "076"),
@@ -2756,7 +2790,7 @@ module Walkthrough
           { hidden: [ "Max Ether", "max-ether", "route-23-hidden-max-ether", "route-23-max-ether" ] },
           { hidden: [ "Ultra Ball", "ultra-ball", "route-23-hidden-ultra-ball", "route-23-ultra-ball" ] },
           { hidden: [ "Full Restore", "full-restore", "route-23-hidden-full-restore", "route-23-full-restore" ] },
-          { pins: { victory: "route-23/exit-4-31" } }
+          { scene: "route-23-victory-road", pins: { victory: "route-23/exit-4-31" } }
         ],
         encounters: [
           enc("route-23", "030", "GRASS", "30%", "41–44", "COMMON", "029", "030", "031"),

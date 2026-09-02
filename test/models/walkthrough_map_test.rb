@@ -117,6 +117,7 @@ class WalkthroughMapTest < ActiveSupport::TestCase
     assert_equal({ "rocket-hideout-b2f" => 8, "rocket-hideout-b3f" => 7,
                    "seafoam-islands-1f" => 2, "seafoam-islands-b1f" => 2,
                    "seafoam-islands-b2f" => 2, "seafoam-islands-b3f" => 4,
+                   "victory-road-1f" => 3, "victory-road-2f" => 2, "victory-road-3f" => 2,
                    "fuchsia-city-gym" => 5, "saffron-city-gym" => 9,
                    "viridian-gym" => 10 }, legs)
     assert_operator legs.values.max, :<=, Walkthrough::ROUTE_HUES

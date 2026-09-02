@@ -591,3 +591,36 @@ def test_the_mansion_is_lettered_by_its_statues_rather_than_its_stairs(root):
         "TM Blizzard", "Full Restore", "Rare Candy", "TM Solarbeam", "Secret Key"]
     assert lettered(root, "PokemonMansionB1F", "B1F") == [
         ("T1", "BURGLAR:9"), ("T2", "SCIENTIST:13")]
+
+
+def test_victory_road_is_lettered_by_its_switches_rather_than_its_ladders(root):
+    """Three floors crossed six times, and the flood reads none of them the way they are walked.
+
+    Every floor is plateaus of walkable rock a step above walkable rock, held apart by the
+    tileset's pair table rather than by anything in the blueprint, and the four barriers that gate
+    them ship open and are dropped in at map load. So the flood strolls over ridges and through
+    shut doors alike.
+
+    1F is the plainest case: the two balls sit in one corridor with one boulder between them, and
+    whichever way you shove it you seal the ball you are not clearing, so the Rare Candy letters
+    ahead of the TM only because that is the shove the walk takes first. 2F is entered three times
+    from three different doorways, and the Pokémaniac in its northwest corner is a step off the
+    ladder down from 3F, which is why he letters last of five rather than first: nothing reaches
+    that corner until the third floor has been climbed. 3F reletters its pair of Cooltrainers,
+    because you come down the west steps onto the man rather than the woman standing beside him."""
+    def balls(label, floor, keys):
+        drawn = pins(root, label, floor, cat="item")
+        return [drawn[key]["name"] for key in keys]
+
+    assert balls("VictoryRoad1F", "1F", ("I1", "I2")) == ["Rare Candy", "TM Sky Attack"]
+    assert lettered(root, "VictoryRoad1F", "1F") == [
+        ("T1", "COOLTRAINER_F:5"), ("T2", "COOLTRAINER_M:5")]
+    assert balls("VictoryRoad2F", "2F", ("I1", "I2", "I3", "I4")) == [
+        "TM Mega Kick", "Full Heal", "TM Submission", "Guard Spec"]
+    assert lettered(root, "VictoryRoad2F", "2F") == [
+        ("T1", "BLACKBELT:9"), ("T2", "JUGGLER:2"), ("T3", "TAMER:5"),
+        ("T4", "JUGGLER:5"), ("T5", "POKEMANIAC:6")]
+    assert balls("VictoryRoad3F", "3F", ("I1", "I2")) == ["Max Revive", "TM Explosion"]
+    assert lettered(root, "VictoryRoad3F", "3F") == [
+        ("T1", "COOLTRAINER_M:2"), ("T2", "COOLTRAINER_F:3"),
+        ("T3", "COOLTRAINER_M:3"), ("T4", "COOLTRAINER_F:2")]

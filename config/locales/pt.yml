@@ -3522,74 +3522,107 @@ pt:
               title: "Pelo portão até a Rota 23"
               text_html: "Siga a oeste até o portão %{gate}. O guarda confere as oito insígnias, e depois dele a estrada ao norte %{north} sobe para a Rota 23 e a Victory Road."
         victory_road:
-          note: "O portão da Liga. Quebra-cabeças de pedra e Moltres."
-          intro: "Três andares de quebra-cabeças de pedra entre a Rota 23 e a Liga, cada porta presa a um botão que precisa de uma rocha em cima. O Moltres pousa no caminho."
+          note: "O portão da Liga. Quatro botões de pedra e o Moltres."
+          intro: "Três andares costurados por quatro botões de chão, cada um preso por uma pedra que você empurra até ele. Pise na Rota 23 de novo e as barreiras do 2F e do 3F voltam todas, então suba de uma vez."
           steps:
             "1":
-              title: "Entre com Strength na mao"
-              text: "A Victory Road só abre com as 8 insígnias. Traga Strength, Surf e Flash. Cada um dos três andares é travado por uma pedra que você empurra sobre um botão do chão para baixar a barreira."
+              title: "Entre com Strength na mão"
+              text_html: "A Victory Road só abre com as oito insígnias. Entre pela boca sul %{door}. Quatro botões de chão travam a subida e cada um precisa de uma pedra em cima, então traga Strength."
             "2":
-              title: "Pegue o Rare Candy"
-              text: "Suba da entrada ate a camara superior do 1F. Uma Poke Ball na saliencia norte guarda um Rare Candy, um nível gratis para qualquer parceiro."
-              items:
-                rare-candy: "1F, saliencia norte da camara superior, um pouco a oeste do centro."
+              title: "Leve a primeira pedra ao botão"
+              text: "Uma pedra está a noroeste da boca. Empurre para baixo até a fileira do fundo, para leste até a parede, depois para cima pelo lado leste e sobre o botão, que abaixa a barreira do planalto."
             "3":
-              title: "Pegue o TM43 Sky Attack"
-              text: "Alguns tiles a leste, colada na parede de cima, outra bola guarda o TM43 Sky Attack, um golpe Voador pesado de dois turnos."
-              items:
-                tm-sky-attack: "1F, colada na parede de cima, poucos passos a leste do Rare Candy."
+              title: "Suba ao planalto"
+              text: "Volte até onde a pedra estava e suba os degraus. Atravesse a nordeste pela passagem que o botão abriu, desça os degraus do outro lado e siga o caminho até uma segunda pedra."
             "4":
-              title: "Suba a escada para o 2F"
-              text_html: "Com o 1F limpo, vá até a escada do noroeste, a escada %{up}, a única saída para cima do andar, e suba ao 2F, o labirinto onde o Moltres pousa."
+              title: "Libere o Rare Candy"
+              text: "Empurre essa pedra para oeste pelo corredor e depois um empurrão ao norte, para dentro do braço curto. Isso abre o caminho até a bola da esquerda, um Rare Candy, e tranca a de cima atrás da pedra."
+              items:
+                rare-candy: "1F, ponta oeste do corredor de cima, livre assim que a pedra sai da faixa para o norte."
             "5":
-              title: "Ache a Ultra Ball escondida"
-              text: "Chegue ao 2F e va ate a saliencia noroeste. Pressione A no quadrado vazio ali para uma Ultra Ball escondida; nada aparece na tela, entao confie no ponto."
-              hidden:
-                ultra-ball: "2F, saliencia noroeste. Pressione A no tile vazio; nenhum item aparece."
+              title: "Reinicie e pegue o TM43 Sky Attack"
+              text_html: "Saia %{door} e volte, o que devolve toda pedra ao lugar de origem. Desta vez empurre um quadrado a mais para oeste, deixando o braço curto livre, e a bola no topo guarda o TM43 Sky Attack."
+              items:
+                tm-sky-attack: "1F, no braço curto acima do corredor de cima, livre só enquanto a pedra fica a oeste dele."
             "6":
-              title: "Pegue o Guard Spec."
-              text: "Logo abaixo da parede de cima, perto do centro do 2F, uma bola guarda um Guard Spec., que bloqueia quedas de atributo por alguns turnos."
-              items:
-                guard-spec: "2F, centro-norte, colado na parede de cima."
+              title: "Vença os dois Cooltrainers e suba"
+              text_html: "De volta ao planalto, siga a oeste até a Cooltrainer %{first}, virada para leste. Desça os degraus ao lado dela e contorne a noroeste até o Cooltrainer %{second}; a escada %{up} além dele é a única subida do 1F."
             "7":
-              title: "Capture o Moltres"
-              text: "A oeste do centro, o Moltres (Nv 50) esta pousado na rocha. Salve antes, enfraqueca com Agua, Eletrico ou Rocha, faca dormir ou paralise, depois jogue Ultra Balls. Você tem so uma chance."
+              title: "Chegue ao 2F e acione o segundo botão"
+              text: "A escada deixa você colado na parede oeste do 2F. A pedra espera poucos passos ao sul: um empurrão a oeste, dois ao sul e dois a oeste a põem no botão e levantam a barreira acima."
             "8":
-              title: "Pegue o TM05 Mega Kick"
-              text: "Desca ao centro-sul do 2F, onde uma bola guarda o TM05 Mega Kick, um golpe Normal forte."
-              items:
-                tm-mega-kick: "2F, centro-sul do andar."
+              title: "Vença o Blackbelt"
+              text_html: "Volte a nordeste até os degraus e suba ao planalto, depois siga a leste pela passagem que o botão acabou de abrir. O Blackbelt %{blackbelt} está no meio dela, virado para oeste."
             "9":
-              title: "Guarde o Full Heal"
-              text: "Atravesse para leste pelo meio do 2F ate uma bola com um Full Heal, que cura qualquer condicao de status."
+              title: "Pegue o TM05 Mega Kick"
+              text: "Continue a leste e desça pelo pescoço do planalto até os degraus no pé dele. Siga o corredor de baixo para oeste e suba o bolsão no fim dele pelo TM05 Mega Kick, 120 de poder com pontaria ruim."
               items:
-                full-heal: "2F, meio do andar, a leste do centro."
+                tm-mega-kick: "2F, no fundo do bolsão em que o corredor sul desemboca."
             "10":
-              title: "Vasculhe o Full Restore escondido"
-              text: "Siga rumo as escadas do leste e pressione A no quadrado vazio ali para um Full Restore escondido. Nada aparece na tela, entao revista o tile exato."
-              hidden:
-                full-restore: "2F, extremo leste, perto das escadas de saida. Pressione A no tile vazio; nenhum item aparece."
+              title: "Vença o Juggler do planalto"
+              text_html: "Volte pelos degraus e siga a leste pelo planalto até o Juggler %{juggler}. A barreira além dele obedece a um botão fora do seu alcance por enquanto, então deixe para lá e contorne."
             "11":
-              title: "Pegue o TM17 Submission"
-              text: "No canto nordeste do 2F, uma bola guarda o TM17 Submission, um golpe Lutador com recuo."
+              title: "Vença o Tamer e pegue o Full Heal"
+              text_html: "Saia do planalto e siga o caminho de baixo a leste, contornando de volta a noroeste. Passe reto pela escada por ora e enfrente o Tamer %{tamer}; a bola ao lado dele guarda um Full Heal."
               items:
-                tm-submission: "2F, canto nordeste."
+                full-heal: "2F, a um passo do Tamer, no meio do andar."
             "12":
-              title: "Suba ao 3F"
-              text_html: "Pegue a escada leste %{up} até o 3F e seu quebra-cabeça de quatro pedras. Empurre cada pedra sobre o seu botão para abrir o caminho aos dois últimos prêmios."
+              title: "Vença o Juggler e pegue o TM17"
+              text_html: "Suba para fora do bolsão, pelo canto oeste dele e a leste pela fileira de cima até o segundo Juggler %{juggler}. Depois dele uma bola guarda o TM17 Submission, o golpe Lutador mais forte que uma TM ensina."
+              items:
+                tm-submission: "2F, canto nordeste, poucos passos além do segundo Juggler."
             "13":
-              title: "Pegue o Max Revive"
-              text: "Perto de onde você chega no 3F, no lado leste, uma bola guarda um Max Revive, que revive por completo um Pokémon desmaiado."
-              items:
-                max-revive: "3F, lado leste, perto das escadas de subida."
+              title: "Suba a escada até o 3F"
+              text_html: "Volte até a escada %{up} por que passou reto e suba. É a primeira de quatro escadas ligando 2F e 3F, e você vai usar todas elas antes de sair."
             "14":
-              title: "Pegue o TM47 Explosion"
-              text: "Trabalhe as pedras para oeste pelo 3F ate a bola distante, o TM47 Explosion, o golpe Normal de tiro unico mais forte do jogo."
+              title: "Vença o Cooltrainer e pegue o Max Revive"
+              text_html: "Vá ao norte e a leste ao sair da escada, depois ao sul, para dentro da alcova pequena. O Cooltrainer %{cooltrainer} lá dentro guarda um Max Revive, que traz um Pokémon desmaiado de volta com HP cheio."
               items:
-                tm-explosion: "3F, extremo oeste."
+                max-revive: "3F, na alcova da parede leste, atrás do Cooltrainer."
             "15":
-              title: "Parta para o Indigo Plateau"
-              text_html: "Com todos os prêmios coletados e o Moltres capturado, desça pela escada %{down} ao 2F e saia pela porta leste %{out}, rumo à entrada do Indigo Plateau."
+              title: "Leve a pedra longa para oeste"
+              text: "Empurre a pedra ao lado da alcova só uma fileira para cima: colada na parede norte não sobra onde ficar para empurrá-la ao sul de novo. Depois a oeste pelo topo, para baixo pela fresta e até o botão."
+            "16":
+              title: "Pegue o TM47 Explosion"
+              text: "A coluna por onde a pedra desceu segue ao sul até uma fenda de um quadrado. A bola nela guarda o TM47 Explosion, 170 de poder que corta a Defesa do alvo pela metade e desmaia o usuário."
+              items:
+                tm-explosion: "3F, no pé da coluna estreita do lado oeste, de um quadrado de largura."
+            "17":
+              title: "Desça de volta ao 2F"
+              text_html: "Esse botão abre a barreira do planalto que você cruza mais tarde. Por ora pegue a escada %{down} do canto noroeste até o 2F, no canto onde o Moltres pousa."
+            "18":
+              title: "Vença o Pokémaniac e ache a Ultra Ball"
+              text_html: "Você chega no canto noroeste do 2F. O Pokémaniac %{pokemaniac} está a poucos passos à sua direita. Pressione A de frente para a rocha solitária ao lado dele para uma Ultra Ball escondida."
+              hidden:
+                ultra-ball: "2F, a rocha solitária ao lado do Pokémaniac. Pressione A de frente para ela; nada aparece na tela."
+            "19":
+              title: "Pegue o Guard Spec."
+              text: "A nordeste do Pokémaniac, colada na parede de cima, uma bola guarda um Guard Spec. Um uso bloqueia quedas de atributo pelo resto da batalha, o que vale guardar para a Lorelei."
+              items:
+                guard-spec: "2F, colado na parede de cima, a nordeste do canto do Pokémaniac."
+            "20":
+              title: "Capture o Moltres"
+              text_html: "Um pouco ao sul, o Moltres %{moltres} está pousado no Nv 50. Salve antes. Enfraqueça com Água, Elétrico ou Rocha, faça dormir e jogue Ultra Balls. Você tem só uma chance."
+            "21":
+              title: "Volte ao 3F pela próxima Cooltrainer"
+              text_html: "Suba a escada %{up} de novo. Vá a leste contornando o planalto até os degraus na ponta dele, depois volte a oeste pelo alto até a Cooltrainer %{cooltrainer}."
+            "22":
+              title: "Vença os dois últimos Cooltrainers"
+              text_html: "Siga a oeste, desça a coluna e passe pela abertura que o terceiro botão liberou, saindo pelos degraus do oeste. O Cooltrainer %{cooltrainer} espera embaixo, com a última %{last} ao lado dele."
+            "23":
+              title: "Empurre a pedra pelo buraco"
+              text_html: "Vá a leste pelo fundo do andar até a última pedra e empurre um quadrado a leste, para dentro do buraco %{hole}. Depois pise no buraco você mesmo e caia."
+            "24":
+              title: "Leve a pedra ao quarto botão"
+              text: "Você cai no corredor sul do 2F com a pedra ao lado. Contorne a pedra e empurre por todo o comprimento do corredor até o oeste, sobre o último botão, que libera a barreira junto às escadas."
+            "25":
+              title: "Suba e cruze até a escada leste"
+              text_html: "Suba os degraus até o planalto, atravesse a leste pela barreira liberada e suba a escada %{up}. No 3F caminhe ao norte até a escada %{down} e desça direto de volta ao 2F."
+            "26":
+              title: "Revista a rocha e saia"
+              text_html: "Desça da escada e pressione A encarando a rocha ao lado dela para um Full Restore escondido, depois saia pela boca leste %{out}. Se a Liga preocupa você, a tabela selvagem do 3F é o melhor treino do Yellow."
+              hidden:
+                full-restore: "2F, a rocha logo a oeste da escada leste. Pressione A de frente para ela; nada aparece na tela."
           tips:
             moltres: "O lendário de Fogo da Victory Road. Um Nv 50 de uma vez só. Salve antes, depois enfraqueça e capture."
           oak:
