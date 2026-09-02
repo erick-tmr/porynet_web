@@ -3348,6 +3348,9 @@ pt:
             "4":
               title: "Suba ao 3F em dois lances"
               text_html: "Volte à escada %{up} no fim do salão e suba ao 2F. Você chega ao lado de uma segunda escada %{on} e ela sobe direto ao 3F, então deixe o resto do 2F para depois."
+              shots:
+                "1_html": "No fim do salão, subindo a escadaria"
+                "2_html": "Você chega ao lado do próximo lance, suba por ele"
             "5":
               title: "Puxe conversa para brigar com o Burglar"
               text_html: "Um Burglar %{burglar} anda um passo a sudoeste de onde você chega. Os Burglars daqui nunca desafiam de longe, então chegue perto e fale com ele: a luta só começa assim."
@@ -3618,6 +3621,9 @@ pt:
             "25":
               title: "Suba e cruze até a escada leste"
               text_html: "Suba os degraus até o planalto, atravesse a leste pela barreira liberada e suba a escada %{up}. No 3F caminhe ao norte até a escada %{down} e desça direto de volta ao 2F."
+              shots:
+                "1_html": "A leste pela barreira liberada, subindo a escada %{up}"
+                "2_html": "Ao norte até a escada %{down}, descendo direto"
             "26":
               title: "Revista a rocha e saia"
               text_html: "Desça da escada e pressione A encarando a rocha ao lado dela para um Full Restore escondido, depois saia pela boca leste %{out}. Se a Liga preocupa você, a tabela selvagem do 3F é o melhor treino do Yellow."

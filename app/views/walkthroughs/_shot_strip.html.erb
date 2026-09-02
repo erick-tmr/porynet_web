@@ -1,0 +1,28 @@
+<%# A step whose instruction is more than one move shows one frame per move, hung off a rail with
+    a numbered node apiece: the same rail and node the step timeline itself uses, so the order
+    reads left to right without an arrow wedged into every gap. The number is the move, the tab is
+    the floor it is taken on, and the caption is the one thing that frame proves.
+
+    The rail is drawn a segment at a time, from each node to the next, rather than as one bar
+    across the whole strip. That is what lets it turn: stacked, the moves are as tall as their
+    captions make them, and a single bar would have to know the height of the last one to stop at
+    its node rather than run on past it.
+
+    The frame width comes off the count (--n2 draws each capture at 3x, --n3 at 2x) so the pixels
+    always land on whole blocks. %>
+<div class="pn-wt-strip-fit">
+  <div class="pn-wt-strip pn-wt-strip--n<%= shots.size %>">
+    <% shots.each_with_index do |shot, i| %>
+      <div class="pn-wt-strip__move">
+        <div class="pn-wt-strip__node" aria-hidden="true"><%= i + 1 %></div>
+        <% unless i == shots.size - 1 %>
+          <div class="pn-wt-strip__link" aria-hidden="true"></div>
+        <% end %>
+        <%= render "shot", shot: shot %>
+        <% if shot.caption? %>
+          <div class="pn-wt-strip__caption"><%= shot_caption(step, shot) %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

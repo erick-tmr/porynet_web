@@ -1165,9 +1165,9 @@ module Walkthrough
 
     def self.scenes = manifest.fetch("scenes", {})
 
-    def self.scene_shot(key, label)
+    def self.scene_shot(key, label, caption: nil)
       data = scenes[key]
-      data ? Shot.new(image: data["image"], label: label) : shot(label)
+      data ? Shot.new(image: data["image"], label: label, caption_key: caption) : shot(label, caption)
     end
 
     def self.build_legs(by_slug)
@@ -1401,19 +1401,25 @@ module Walkthrough
         step(base, n, html: d.fetch(:html, false), pins: d.fetch(:pins, {}).merge(pins.fetch(n, {})),
           items: step_items(base, n, d), map: d[:map], dex_seen: d[:dex_seen], line: d[:line],
           hidden: (d[:hidden] ? [ hidden(base, n, *d[:hidden], at: d[:at]) ] : []),
-          shots: step_scenes(d[:scene], n), link: d[:link])
+          shots: step_scenes(base, d[:scene], n), link: d[:link])
       end
     end
 
     # A step's GB screens. `scene:` is usually one frame name, labelled with the step it belongs
     # to; a step that shows two things (the staircase you climb and the one you land beside) gives
-    # [name, label] pairs instead, so each frame is captioned with what it is rather than with a
+    # [name, label] pairs instead, so each frame wears the floor it is taken on rather than a
     # number both would share.
-    def self.step_scenes(scene, n)
+    #
+    # Several frames also earn a caption apiece, keyed by their place in the strip: the step's own
+    # text describes the whole move, and what the reader needs beside each picture is the one thing
+    # that picture proves. Frames run in walk order, so the key is the move, not the floor.
+    def self.step_scenes(base, scene, n)
       return [] if scene.nil?
       return [ scene_shot(scene, "STEP #{n}") ] if scene.is_a?(String)
 
-      scene.map { |name, label| scene_shot(name, label) }
+      scene.each_with_index.map do |(name, label), i|
+        scene_shot(name, label, caption: "#{base}.steps.#{n}.shots.#{i + 1}_html")
+      end
     end
 
     def self.step_items(base, n, def_)
@@ -3550,6 +3556,6 @@ module Walkthrough
       TriviaCard.new(dex: dex, name: NAMES.fetch(dex), tone: tone, rows: rows)
     end
 
-    def self.shot(label) = Shot.new(image: nil, label: label)
+    def self.shot(label, caption = nil) = Shot.new(image: nil, label: label, caption_key: caption)
   end
 end

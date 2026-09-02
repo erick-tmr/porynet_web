@@ -3348,6 +3348,9 @@ en:
             "4":
               title: "Climb to 3F in two flights"
               text_html: "Back to the staircase %{up} at the top of the hall and up to 2F. You land beside a second staircase %{on}, so take it straight up to 3F and leave the rest of 2F for later."
+              shots:
+                "1_html": "Top of the hall, up the staircase"
+                "2_html": "You land beside the next flight, take it up"
             "5":
               title: "Talk the Burglar into a fight"
               text_html: "A Burglar %{burglar} paces a step southwest of where you come up. Burglars here never challenge on sight, so walk over and talk to him: the fight only starts when you do."
@@ -3618,6 +3621,9 @@ en:
             "25":
               title: "Up and over to the east ladder"
               text_html: "Climb the steps onto the plateau, cross east through the cleared barrier and up ladder %{up}. On 3F walk north to ladder %{down} and take it straight back down to 2F."
+              shots:
+                "1_html": "East through the cleared barrier, up ladder %{up}"
+                "2_html": "North to ladder %{down}, straight back down"
             "26":
               title: "Sweep the rock and leave"
               text_html: "Step off the ladder and press A facing the rock beside it for a hidden Full Restore, then out by the east mouth %{out}. If the League worries you, 3F's wild table is the best grind in Yellow."
