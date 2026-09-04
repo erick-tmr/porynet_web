@@ -1,0 +1,27 @@
+<div class="<%= class_names("pn-ver", "pn-ver--#{version.tone}", "pn-ver--live" => version.live?) %>">
+  <div class="pn-ver__cover">
+    <%= r2_image_tag "covers/#{version.cover}.png",
+                     alt: t("walkthrough.index.cover_alt", name: version.name),
+                     class: "pn-ver__art pn-ver__art--#{version.fit}" %>
+  </div>
+  <div class="pn-ver__cell pn-ver__cell--id">
+    <div class="pn-ver__name"><%= version.name %></div>
+    <div class="pn-ver__sub"><%= t("walkthrough.index.versions.#{version.slug}.sub") %></div>
+  </div>
+  <p class="pn-ver__cell pn-ver__what"><%= t("walkthrough.index.versions.#{version.slug}.what") %></p>
+  <div class="pn-ver__cell pn-ver__released">
+    <% if version.dated? %>
+      <%= safe_join(version.released, tag.br) %>
+    <% else %>
+      <%= t("walkthrough.index.rom_hack") %>
+    <% end %>
+  </div>
+  <div class="pn-ver__cell pn-ver__action">
+    <% if version.live? %>
+      <%= link_to t("walkthrough.index.open"), walkthrough_path(game: version.slug), class: "pn-ver__open" %>
+      <div class="pn-ver__pages"><%= t("walkthrough.index.pages_live", count: version.pages) %></div>
+    <% else %>
+      <span class="pn-ver__status"><%= t("walkthrough.index.routing") %></span>
+    <% end %>
+  </div>
+</div>

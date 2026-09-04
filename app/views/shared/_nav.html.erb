@@ -15,7 +15,7 @@
         <% if content_for?(:nav_crumb) %>
           <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
         <% end %>
-        <% if controller_name == "walkthroughs" %>
+        <% if @game %>
           <%= render "shared/mode_switches" %>
         <% end %>
         <span class="pn-nav__lang-wrap">
@@ -50,7 +50,7 @@
     <% if content_for?(:nav_crumb) %>
       <span class="pn-nav__panel-crumb"><%= yield :nav_crumb %></span>
     <% end %>
-    <% if controller_name == "walkthroughs" %>
+    <% if @game %>
       <%= render "shared/mode_rows" %>
     <% end %>
   </nav>

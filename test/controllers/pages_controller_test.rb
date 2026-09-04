@@ -47,7 +47,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     get root_path
 
     assert_select "a.pn-nav__link.is-active", text: "Home"
-    assert_select "a.pn-nav__link[href=?]", walkthrough_path(game: "yellow"), text: "Walkthroughs"
+    assert_select "a.pn-nav__link[href=?]", walkthroughs_path, text: "Walkthroughs"
     assert_select ".pn-footer__link", text: "Walkthroughs"
   end
 

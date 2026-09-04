@@ -16,6 +16,14 @@ class WalkthroughTest < ApplicationSystemTestCase
       click_link "Walkthroughs"
     end
 
+    assert_current_path walkthroughs_path
+    assert_selector ".pn-wt-index__h1", text: "Select a version"
+    assert_selector "a.pn-nav__link.is-active", text: "Walkthroughs"
+
+    within ".pn-ver--live" do
+      click_link "OPEN ▶"
+    end
+
     assert_current_path walkthrough_path(game: "yellow")
     assert_selector ".pn-wt-hero__title", text: "Yellow"
     assert_selector "a.pn-nav__link.is-active", text: "Walkthroughs"

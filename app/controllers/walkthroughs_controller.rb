@@ -1,4 +1,8 @@
 class WalkthroughsController < ApplicationController
+  def index
+    @versions = Walkthrough::Versions.all
+  end
+
   def show
     @game = Walkthrough.find!(params[:game])
   end

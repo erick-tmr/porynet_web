@@ -1,0 +1,50 @@
+<% content_for :title, t("walkthrough.index.meta_title") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/walkthrough-index", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_crumb do %>
+  <span class="pn-nav__crumb-here"><%= t("walkthrough.index.crumb") %></span>
+<% end %>
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: Walkthrough::Versions::MARQUEE %>
+  <%= render "shared/marquee_row", items: Walkthrough::Versions::MARQUEE %>
+<% end %>
+
+<section class="pn-wt-index__head">
+  <div class="pn-wt-index__headline">
+    <div class="pn-wt-index__intro">
+      <div class="pn-eyebrow-label"><%= t("walkthrough.index.eyebrow") %></div>
+      <h1 class="pn-wt-index__h1">
+        <%= t("walkthrough.index.h1") %><span class="pn-wt-index__caret" aria-hidden="true">_</span>
+      </h1>
+      <p class="pn-wt-index__lead"><%= t("walkthrough.index.lead") %></p>
+    </div>
+    <div class="pn-wt-index__legend">
+      <span class="pn-wt-index__key">
+        <span class="pn-wt-index__swatch pn-wt-index__swatch--live"></span>
+        <%= t("walkthrough.index.key_live") %>
+      </span>
+      <span class="pn-wt-index__key">
+        <span class="pn-wt-index__swatch"></span>
+        <%= t("walkthrough.index.key_soon") %>
+      </span>
+    </div>
+    <%= r2_image_tag "porygon-art.png", alt: "", class: "pn-wt-index__pory" %>
+  </div>
+</section>
+
+<section class="pn-wt-index__body">
+  <div class="pn-vertable">
+    <div class="pn-vertable__head">
+      <div class="pn-vertable__col"><%= t("walkthrough.index.col_cart") %></div>
+      <div class="pn-vertable__col"><%= t("walkthrough.index.col_version") %></div>
+      <div class="pn-vertable__col"><%= t("walkthrough.index.col_what") %></div>
+      <div class="pn-vertable__col pn-vertable__col--released"><%= t("walkthrough.index.col_released") %></div>
+      <div class="pn-vertable__col pn-vertable__col--action"><%= t("walkthrough.index.col_walkthrough") %></div>
+    </div>
+    <% @versions.each do |version| %>
+      <%= render "version", version: version %>
+    <% end %>
+  </div>
+  <p class="pn-vertable__note"><%= t("walkthrough.index.note") %></p>
+</section>
