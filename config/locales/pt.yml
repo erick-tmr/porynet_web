@@ -3939,6 +3939,9 @@ pt:
             "25":
               title: "Capture o Mewtwo"
               text_html: "O Mewtwo %{mewtwo} está no coração da ilha do sudeste, Nv 70, e abusa de Recover. Faça-o dormir ou paralise, deixe-o baixo e jogue a Master Ball."
+            "26":
+              title: "Saia pela corda"
+              text: "Um Escape Rope ou Dig te deixa no Centro Pokémon onde você curou por último, lá em Cerulean. Sair andando é refazer cada escada. Teleport não funciona dentro da caverna."
           tips:
             mewtwo: "O Pokémon mais forte do jogo, um Nv 70 estático. A Master Ball foi feita para isso. Ou faça dormir e reze."
             lickitung: "O andar de baixo é o único lugar do jogo com um Lickitung selvagem. Se perder aqui, a vaga na dex fica vazia."

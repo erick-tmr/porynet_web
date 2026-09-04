@@ -3939,6 +3939,9 @@ en:
             "25":
               title: "Catch Mewtwo"
               text_html: "Mewtwo %{mewtwo} stands at the heart of the southeast island at Lv 70, and it spams Recover. Sleep or paralyze it, chip it low, then throw the Master Ball."
+            "26":
+              title: "Rope out"
+              text: "An Escape Rope or Dig drops you at the Pokémon Center you last healed at, back in Cerulean. Walking out means retracing every ladder. Teleport is refused inside the cave."
           tips:
             mewtwo: "The strongest Pokémon in the game, a Lv 70 static. The Master Ball is made for this. Or sleep it and pray."
             lickitung: "The bottom floor is the only place in the game with a wild Lickitung. Miss it here and the dex slot stays empty."
