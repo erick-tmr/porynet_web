@@ -393,12 +393,6 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  transition: transform 0.05s linear, box-shadow 0.05s linear;
-}
-.pn-download:hover {
-  color: #171622;
-  transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
 }
 .pn-download--github {
   background: transparent;
@@ -406,10 +400,10 @@
   border-color: #2af0ff;
   box-shadow: 0 0 13px #2af0ff55;
   text-shadow: 0 0 6px #2af0ff;
+  transition: box-shadow 0.05s linear;
 }
 .pn-download--github:hover {
   color: #2af0ff;
-  transform: none;
   box-shadow: 0 0 20px #2af0ffaa;
 }
 .pn-download__icon {

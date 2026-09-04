@@ -26,6 +26,19 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "PoryPC works offline"
   end
 
+  test "the PoryPC platforms are plates, and GitHub is the one tile that goes anywhere" do
+    get root_path
+
+    assert_select "span.pn-download", count: 3
+    assert_select "span.pn-download", text: /WINDOWS/
+    assert_select "span.pn-download", text: /MACOS/
+    assert_select "span.pn-download", text: /LINUX/
+    assert_select "a.pn-download", count: 1
+    assert_select "a.pn-download--github[href=?][target=?][rel=?]",
+      LandingData::GITHUB_URL, "_blank", "noreferrer", text: /GITHUB/
+    assert_select ".pn-downloads a[href='#']", count: 0
+  end
+
   test "root wires up the Stimulus controllers with the default city selected" do
     get root_path
 

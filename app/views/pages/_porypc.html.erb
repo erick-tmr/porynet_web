@@ -30,18 +30,17 @@
     </div>
 
     <div class="pn-downloads">
-      <a href="#" class="pn-download">
-        <span class="pn-download__icon"><%= r2_image_tag "icon-windows.png", alt: "" %></span> WINDOWS
-      </a>
-      <a href="#" class="pn-download">
-        <span class="pn-download__icon"><%= r2_image_tag "icon-macos.png", alt: "" %></span> MACOS
-      </a>
-      <a href="#" class="pn-download">
-        <span class="pn-download__icon"><%= r2_image_tag "icon-linux.png", alt: "" %></span> LINUX
-      </a>
-      <a href="#" class="pn-download pn-download--github">
-        <span class="pn-download__icon"><%= r2_image_tag "icon-github.png", alt: "", class: "pn-download__github-img" %></span> GITHUB
-      </a>
+      <% LandingData::PLATFORMS.each do |platform| %>
+        <span class="pn-download">
+          <span class="pn-download__icon"><%= r2_image_tag "icon-#{platform}.png", alt: "" %></span>
+          <%= platform.upcase %>
+        </span>
+      <% end %>
+      <%= link_to LandingData::GITHUB_URL, class: "pn-download pn-download--github",
+                  target: "_blank", rel: "noreferrer" do %>
+        <span class="pn-download__icon"><%= r2_image_tag "icon-github.png", alt: "", class: "pn-download__github-img" %></span>
+        GITHUB
+      <% end %>
     </div>
 
     <div class="pn-porypc__soon">
