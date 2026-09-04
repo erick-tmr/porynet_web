@@ -1116,6 +1116,23 @@ class WalkthroughTest < ActiveSupport::TestCase
       "a step that sends the player to a ladder shows the ladder"
   end
 
+  test "the cave walk ends by roping out, not by retracing every ladder" do
+    steps = loc("cerulean-cave").steps
+
+    assert_equal 26, steps.size
+    last = steps.last
+    assert_equal "Rope out", I18n.t(last.title_key)
+    assert_empty last.pins, "an Escape Rope warps, so there is no exit to point the player at"
+    assert_empty last.shots
+
+    text = I18n.t(last.text_key)
+    assert_includes text, "Escape Rope"
+    assert_includes text, "Dig"
+    # CAVERN is in EscapeRopeTilesets, but Teleport's gate (CheckIfInOutsideMap) passes only for
+    # the OVERWORLD and PLATEAU tilesets, so the game refuses it anywhere in this cave.
+    assert_includes text, "Teleport is refused inside the cave"
+  end
+
   test "locations carry plain rendered area maps" do
     g = game
     vf = loc("viridian-forest")

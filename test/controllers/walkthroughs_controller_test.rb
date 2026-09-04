@@ -1,6 +1,47 @@
 require "test_helper"
 
 class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
+  test "the version index offers every Gen 1 cartridge, Yellow first and open" do
+    get walkthroughs_path
+
+    assert_response :success
+    assert_select "title", "Walkthroughs · PORYNET"
+    assert_select ".pn-nav__crumb-here", text: "SELECT A VERSION"
+    assert_select "a.pn-nav__link.is-active", text: "Walkthroughs"
+    assert_select ".pn-ver", count: 5
+    assert_select ".pn-ver__name", text: "Pokémon Yellow"
+    assert_select ".pn-ver--live .pn-ver__open[href=?]", walkthrough_path(game: "yellow"), text: "OPEN ▶"
+    assert_select ".pn-ver--live .pn-ver__pages",
+      text: "#{Walkthrough.find!('yellow').legs.size} pages live"
+    assert_select ".pn-ver__status", count: 4, text: "ROUTING · NEXT UP"
+    assert_select ".pn-ver--dark .pn-ver__name", text: "Pokémon Yellow Legacy"
+  end
+
+  test "the version index dates the cartridges and marks the ROM hack instead" do
+    get walkthroughs_path
+
+    assert_select ".pn-ver__released", text: "JP 1998INTL 1999", count: 1
+    assert_select ".pn-ver--dark .pn-ver__released", text: "ROM HACK"
+    assert_select ".pn-ver__art--crop[src*=?]", "covers/green-jp.png"
+  end
+
+  test "the version index carries no mode switches, having no game to track" do
+    get walkthroughs_path
+
+    assert_response :success
+    assert_select ".pn-modesw", count: 0
+    assert_select ".pn-nav__panel-mode", count: 0
+  end
+
+  test "the version index renders in Portuguese" do
+    get walkthroughs_path(locale: :pt)
+
+    assert_response :success
+    assert_select "html[lang=?]", "pt"
+    assert_select ".pn-ver__open", text: "ABRIR ▶"
+    assert_select ".pn-nav__crumb-here", text: "ESCOLHA UMA VERSÃO"
+  end
+
   test "the Yellow index lists the legs and specials with the new framing" do
     get walkthrough_path(game: "yellow")
 

@@ -56,6 +56,10 @@
 # item sprite under either name and there is nothing to re-derive these two from either.
 !/app/assets/images/walkthrough/items/bait.png
 !/app/assets/images/walkthrough/items/rock.png
+# Same again for the box art on the version index and the Porygon that leans on its title: box
+# scans and painted art, with nothing in vendor/ that reproduces either.
+!/app/assets/images/covers/*.png
+!/app/assets/images/porygon-art.png
 # fingerprint cache for the incremental R2 upload (deploy/upload-images.sh)
 /app/assets/images/.r2-upload-cache.json
 

@@ -105,6 +105,43 @@ en:
       footer:
         legal: "Open source · MIT · A fan project, not affiliated with Nintendo, Game Freak or The Pokémon Company. All trademarks belong to their owners."
   walkthrough:
+    index:
+      meta_title: "Walkthroughs · PORYNET"
+      crumb: "SELECT A VERSION"
+      eyebrow: "WALKTHROUGH INDEX"
+      h1: "Select a version"
+      lead: "Every Gen 1 cartridge, same format: the route in order, every catchable at each stop, hidden items pinned on real screenshots."
+      key_live: "LIVE"
+      key_soon: "IN THE WORKS"
+      col_cart: "CART"
+      col_version: "VERSION"
+      col_what: "WHAT CHANGES"
+      col_released: "RELEASED"
+      col_walkthrough: "WALKTHROUGH"
+      cover_alt: "%{name} box art"
+      rom_hack: "ROM HACK"
+      open: "OPEN ▶"
+      pages_live:
+        one: "1 page live"
+        other: "%{count} pages live"
+      routing: "ROUTING · NEXT UP"
+      note: "Row order is our routing order. Red and Blue reuse most of Yellow's spine, so they land first."
+      versions:
+        yellow:
+          sub: "Special Pikachu Edition"
+          what: "Pikachu starter that walks behind you, all three Kanto starters as gifts, anime-flavoured trainers. Every page carries Oak Challenge and Living Dex counters."
+        red:
+          sub: "Bulbasaur / Charmander / Squirtle"
+          what: "Red-only encounters: Ekans, Oddish, Mankey, Growlithe, Scyther, Electabuzz. Same route spine as Yellow, different catch list at nearly every stop."
+        blue:
+          sub: "Bulbasaur / Charmander / Squirtle"
+          what: "Red's mirror: Sandshrew, Vulpix, Meowth, Bellsprout, Pinsir, Magmar. The trade-only species flip too, so the single-cartridge ceiling moves with them."
+        green:
+          sub: "Pocket Monsters Midori · Japan only"
+          what: "Shipped beside Red in Japan and never localised. Its own sprite set and encounter tables, so it needs a routed pass rather than a footnote on Red."
+        yellow-legacy:
+          sub: "Fan patch · built on Yellow"
+          what: "All 151 obtainable on one cartridge: trade evolutions and version exclusives reworked into real encounters, trainers rebalanced. New catch list from Route 1 onward."
     ui:
       title_index: "%{name} Walkthrough · PORYNET"
       title_location: "%{name} · %{game} Walkthrough"
@@ -3902,6 +3939,9 @@ en:
             "25":
               title: "Catch Mewtwo"
               text_html: "Mewtwo %{mewtwo} stands at the heart of the southeast island at Lv 70, and it spams Recover. Sleep or paralyze it, chip it low, then throw the Master Ball."
+            "26":
+              title: "Rope out"
+              text: "An Escape Rope or Dig drops you at the Pokémon Center you last healed at, back in Cerulean. Walking out means retracing every ladder. Teleport is refused inside the cave."
           tips:
             mewtwo: "The strongest Pokémon in the game, a Lv 70 static. The Master Ball is made for this. Or sleep it and pray."
             lickitung: "The bottom floor is the only place in the game with a wild Lickitung. Miss it here and the dex slot stays empty."

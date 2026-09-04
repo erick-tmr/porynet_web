@@ -8,6 +8,11 @@
   50% { transform: scaleX(-1) translateY(-10px); }
 }
 
+@keyframes poryfloat {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
 @keyframes marq {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }

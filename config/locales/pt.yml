@@ -105,6 +105,43 @@ pt:
       footer:
         legal: "Open source · MIT · Um projeto de fã, sem afiliação com Nintendo, Game Freak ou The Pokémon Company. Todas as marcas pertencem aos seus donos."
   walkthrough:
+    index:
+      meta_title: "Guias · PORYNET"
+      crumb: "ESCOLHA UMA VERSÃO"
+      eyebrow: "ÍNDICE DOS GUIAS"
+      h1: "Escolha uma versão"
+      lead: "Todo cartucho da Gen 1, no mesmo formato: a rota em ordem, cada capturável em cada parada, itens escondidos marcados em capturas reais."
+      key_live: "NO AR"
+      key_soon: "EM PRODUÇÃO"
+      col_cart: "CARTUCHO"
+      col_version: "VERSÃO"
+      col_what: "O QUE MUDA"
+      col_released: "LANÇAMENTO"
+      col_walkthrough: "GUIA"
+      cover_alt: "Capa de %{name}"
+      rom_hack: "ROM HACK"
+      open: "ABRIR ▶"
+      pages_live:
+        one: "1 página no ar"
+        other: "%{count} páginas no ar"
+      routing: "EM ROTEIRIZAÇÃO"
+      note: "A ordem das linhas é a nossa ordem de roteirização. Red e Blue reaproveitam quase toda a espinha do Yellow, então saem primeiro."
+      versions:
+        yellow:
+          sub: "Special Pikachu Edition"
+          what: "Pikachu inicial que anda atrás de você, os três iniciais de Kanto de presente, treinadores no estilo do anime. Toda página traz os contadores do Desafio Oak e da Living Dex."
+        red:
+          sub: "Bulbasaur / Charmander / Squirtle"
+          what: "Encontros exclusivos do Red: Ekans, Oddish, Mankey, Growlithe, Scyther, Electabuzz. Mesma espinha de rota do Yellow, lista de capturas diferente em quase toda parada."
+        blue:
+          sub: "Bulbasaur / Charmander / Squirtle"
+          what: "O espelho do Red: Sandshrew, Vulpix, Meowth, Bellsprout, Pinsir, Magmar. As espécies só de troca também trocam de lado, então o teto de um cartucho sozinho se move junto."
+        green:
+          sub: "Pocket Monsters Midori · só no Japão"
+          what: "Saiu ao lado do Red no Japão e nunca foi localizado. Tem sprites e tabelas de encontro próprios, então pede uma roteirização inteira, não uma nota de rodapé no Red."
+        yellow-legacy:
+          sub: "Patch de fã · feito sobre o Yellow"
+          what: "Os 151 obteníveis em um cartucho só: evoluções por troca e exclusivos de versão viraram encontros de verdade, treinadores rebalanceados. Lista de capturas nova já a partir da Rota 1."
     ui:
       title_index: "Guia de %{name} · PORYNET"
       title_location: "%{name} · Guia de %{game}"
@@ -3902,6 +3939,9 @@ pt:
             "25":
               title: "Capture o Mewtwo"
               text_html: "O Mewtwo %{mewtwo} está no coração da ilha do sudeste, Nv 70, e abusa de Recover. Faça-o dormir ou paralise, deixe-o baixo e jogue a Master Ball."
+            "26":
+              title: "Saia pela corda"
+              text: "Um Escape Rope ou Dig te deixa no Centro Pokémon onde você curou por último, lá em Cerulean. Sair andando é refazer cada escada. Teleport não funciona dentro da caverna."
           tips:
             mewtwo: "O Pokémon mais forte do jogo, um Nv 70 estático. A Master Ball foi feita para isso. Ou faça dormir e reze."
             lickitung: "O andar de baixo é o único lugar do jogo com um Lickitung selvagem. Se perder aqui, a vaga na dex fica vazia."

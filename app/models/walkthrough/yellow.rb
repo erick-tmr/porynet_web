@@ -2955,7 +2955,8 @@ module Walkthrough
           { item: [ "Max Revive", "max-revive-3-13" ], scene: "cerulean-cave-item-max-revive-3-13", at: [ 3, 13 ] },
           { item: [ "Ultra Ball", "ultra-ball-26-1" ], scene: "cerulean-cave-item-ultra-ball-26-1", at: [ 26, 1 ] },
           {},
-          { scene: "cerulean-cave-mewtwo", pins: { mewtwo: "cerulean-cave-b1f/pokemon-27-13" } }
+          { scene: "cerulean-cave-mewtwo", pins: { mewtwo: "cerulean-cave-b1f/pokemon-27-13" } },
+          {}
         ],
         encounters: [
           enc("cerulean-cave", "042", "CAVE", "40%", "50–59", "COMMON", "041", "042"),

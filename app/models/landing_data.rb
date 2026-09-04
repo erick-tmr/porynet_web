@@ -50,6 +50,9 @@ module LandingData
     Gen.new("9", "Paldea", false)
   ].freeze
 
+  PLATFORMS = %w[windows macos linux].freeze
+  GITHUB_URL = "https://github.com/erick-tmr/porynet_web".freeze
+
   DEX_LABELS = %w[016 019 010 013 129 021 041 074 092 063 066 096 027 043 056 054 039 052].freeze
 
   def self.hero_cells
