@@ -40,8 +40,8 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   - **Trainer sprites**: [Pokémon Showdown](https://play.pokemonshowdown.com/sprites/trainers/) (browse with `?view=dir`). Showdown ships them on a padded 80x80 canvas; **trim each one to a 3px transparent margin** before uploading, or the VS portrait draws a small figure adrift in a tall box.
   - **Account art** (`app/assets/images/account/`): the four provider marks on the sign-in buttons
     (`oauth/*.png`, taken from the design handoff) and the three trainer avatars
-    (`avatars/{red,blue,green}.png`, trimmed from Showdown's `red-gen1rb`, `blue-gen1rb` and
-    `blue-gen1`). Nothing in `vendor/` reproduces either set, so like the walkthrough artwork they
+    (`avatars/{red,blue,green}.png`, trimmed from Showdown's `red-gen3`, `blue-gen3` and
+    `leaf-gen3`, all FireRed/LeafGreen so the three cards read as one set). Nothing in `vendor/` reproduces either set, so like the walkthrough artwork they
     are committed (`.gitignore` carves them out).
   - **Artwork** (`app/assets/images/walkthrough/art/*.png`, e.g. the Dugtrio beside the Diglett's Cave trivia): the one exception to "images are gitignored because vendor/ re-derives them". Nothing in `vendor/pokeapi-sprites` reproduces a hand-prepared piece, so these are committed (`.gitignore` carves them out) and a fresh clone can still `--force` a whole bucket. They are painted art, not game rips, so they render with `image-rendering: auto` against the global `pixelated`.
   - Flow to add a sprite: copy the source PNG into the matching `app/assets/images/...` path (the object key), then upload with `deploy/upload-images.sh`. A referenced image that isn't in the bucket 404s at render (not a test failure), so upload before wiring a new sprite into a view.
