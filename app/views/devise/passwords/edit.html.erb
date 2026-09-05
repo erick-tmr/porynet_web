@@ -1,0 +1,43 @@
+<% content_for :title, t("account.meta.password_edit") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
+<% end %>
+
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+<% end %>
+
+<%= render "shared/auth_hero", key: "password_edit" %>
+
+<section class="pn-auth">
+  <div class="pn-auth__panel">
+    <%= render "shared/auth_tabs", active: :login %>
+    <div class="pn-auth__body">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name),
+                   html: { method: :put, class: "pn-auth__form", novalidate: true }) do |f| %>
+        <%= render "shared/form_errors", record: resource %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <%= render "shared/field", f: f, name: :password, kind: :password_field,
+                   label: t("account.fields.password"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   hint: t("account.fields.password_hint", count: @minimum_password_length),
+                   options: { autofocus: true, autocomplete: "new-password", required: true,
+                              minlength: @minimum_password_length } %>
+        <%= render "shared/field", f: f, name: :password_confirmation, kind: :password_field,
+                   label: t("account.fields.password_confirmation"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   options: { autocomplete: "new-password", required: true } %>
+
+        <%= f.submit t("account.passwords.submit_edit"),
+                     class: "pn-btn pn-btn--accent pn-btn--block pn-auth__submit" %>
+      <% end %>
+      <div class="pn-auth__foot">
+        <%= link_to t("account.passwords.back"), new_user_session_path %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "shared/auth_aside" %>
+</section>

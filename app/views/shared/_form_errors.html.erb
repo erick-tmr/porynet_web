@@ -1,0 +1,10 @@
+<% if record.errors.any? %>
+  <div class="pn-form-errors" role="alert">
+    <strong class="pn-form-errors__heading"><%= t("account.errors.heading") %></strong>
+    <ul class="pn-form-errors__list">
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

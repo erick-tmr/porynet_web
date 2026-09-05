@@ -1,0 +1,17 @@
+<aside class="pn-auth__aside">
+  <div class="pn-auth__unlocks">
+    <div class="pn-auth__unlocks-heading"><%= t("account.aside.heading") %></div>
+    <div class="pn-auth__unlocks-list">
+      <% AccountData::UNLOCKS.each_with_index do |unlock, index| %>
+        <div class="pn-auth__unlock">
+          <span class="pn-auth__unlock-num"><%= AccountData.unlock_number(index) %></span>
+          <div>
+            <div class="pn-auth__unlock-title"><%= t("account.aside.items.#{unlock}.title") %></div>
+            <div class="pn-auth__unlock-desc"><%= t("account.aside.items.#{unlock}.desc") %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="pn-auth__guest"><%= t("account.aside.guest") %></div>
+</aside>

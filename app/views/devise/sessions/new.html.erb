@@ -1,0 +1,52 @@
+<% content_for :title, t("account.meta.login") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+<% end %>
+
+<%= render "shared/auth_hero", key: "login" %>
+
+<section class="pn-auth">
+  <div class="pn-auth__panel">
+    <%= render "shared/auth_tabs", active: :login %>
+    <div class="pn-auth__body">
+      <%= render "shared/auth_oauth", mode: "login" %>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+                   html: { class: "pn-auth__form", novalidate: true }) do |f| %>
+        <%= render "shared/field", f: f, name: :login, kind: :text_field,
+                   label: t("account.fields.login"),
+                   placeholder: t("account.fields.login_placeholder"),
+                   options: { autofocus: true, autocomplete: "username", required: true } %>
+        <%= render "shared/field", f: f, name: :password, kind: :password_field,
+                   label: t("account.fields.password"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   options: { autocomplete: "current-password", required: true } %>
+
+        <div class="pn-auth__meta">
+          <label class="pn-check">
+            <span class="pn-check__box">
+              <%= f.check_box :remember_me, class: "pn-check__input" %>
+              <span class="pn-check__tick" aria-hidden="true">✔</span>
+            </span>
+            <span><%= t("account.fields.remember_me") %></span>
+          </label>
+          <%= link_to t("account.login.forgot"), new_user_password_path, class: "pn-auth__forgot" %>
+        </div>
+
+        <%= f.submit t("account.login.submit"),
+                     class: "pn-btn pn-btn--accent pn-btn--block pn-auth__submit" %>
+      <% end %>
+
+      <div class="pn-auth__foot">
+        <%= t("account.login.no_account_html",
+              link: link_to(t("account.login.no_account_link"), new_user_registration_path)) %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "shared/auth_aside" %>
+</section>

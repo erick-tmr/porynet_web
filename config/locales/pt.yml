@@ -1,4 +1,201 @@
 pt:
+  account:
+    meta:
+      login: "Entrar · PORYNET"
+      register: "Criar conta · PORYNET"
+      password_new: "Senha perdida · PORYNET"
+      password_edit: "Nova senha · PORYNET"
+      confirmation: "Confirme seu email · PORYNET"
+      show: "Sua conta de treinador · PORYNET"
+    marquee:
+      - "SINCRONIZE SUA DEX"
+      - "ITENS ESCONDIDOS"
+      - "DESAFIO DO CARVALHO"
+      - "LIVING DEX"
+    eyebrow: "CONTA DE TREINADOR"
+    hero:
+      login_title: "Carregue seu save"
+      login_blurb: "Entre para trazer de volta suas capturas, os itens escondidos que já achou e o passo onde parou."
+      register_title: "Save novo"
+      register_blurb: "Escolha um nome de treinador, escolha um avatar, e sua dex começa a sincronizar. Leva uns vinte segundos."
+      show_title: "Save carregado"
+      show_blurb: "Você está conectado neste navegador. Capturas, itens escondidos e sua posição no walkthrough agora seguem você entre aparelhos."
+      password_new_title: "Senha perdida"
+      password_new_blurb: "Diga o email do seu save. Enviamos um link para você definir uma senha nova."
+      password_edit_title: "Nova senha"
+      password_edit_blurb: "Escolha uma senha nova e pronto. O link que você abriu funciona uma vez só."
+      confirmation_title: "Olhe seu email"
+      confirmation_blurb: "Seu save foi criado. Siga o link que acabamos de enviar e ele fica pronto para usar."
+    tabs:
+      login: "ENTRAR"
+      register: "CRIAR CONTA"
+    oauth:
+      login_heading: "CONTINUE COM"
+      register_heading: "CADASTRE-SE COM"
+      soon: "EM BREVE"
+      hint: "Entrar por outra conta está a caminho. Por enquanto, use um nome de treinador."
+      google: "Google"
+      discord: "Discord"
+      github: "GitHub"
+      facebook: "Facebook"
+    divider: "OU"
+    fields:
+      login: "NOME DE TREINADOR OU EMAIL"
+      login_placeholder: "ASH"
+      trainer_name: "NOME DE TREINADOR"
+      trainer_name_placeholder: "ASH"
+      trainer_name_hint: "Até 12 caracteres, como a caixa de nome do jogo."
+      email: "EMAIL"
+      email_placeholder: "ash@pallet.town"
+      email_hint: "Usado só para recuperar a senha."
+      password: "SENHA"
+      password_placeholder: "••••••••"
+      password_hint: "Pelo menos %{count} caracteres."
+      password_confirmation: "CONFIRME A SENHA"
+      remember_me: "Continuar conectado"
+    login:
+      submit: "PRESS START ▶"
+      forgot: "Esqueceu a senha?"
+      no_account_html: "Ainda sem save? %{link}."
+      no_account_link: "Crie um treinador"
+    register:
+      avatar_heading: "ESCOLHA SEU AVATAR"
+      picked: "ESCOLHIDO"
+      avatars:
+        red:
+          name: "Red"
+          games: "Red / Blue / Yellow"
+        blue:
+          name: "Blue"
+          games: "Rival, Red / Blue"
+        green:
+          name: "Green"
+          games: "FireRed / LeafGreen"
+      terms: "Entendo que este é um projeto de fã e que meus dados de dex ficam aqui, não com a Nintendo."
+      submit: "CRIAR O SAVE ▶"
+      has_account_html: "Já tem um save? %{link}."
+      has_account_link: "Entre"
+    confirmation:
+      sent_to: "ENVIAMOS PARA"
+      steps:
+        inbox: "Abra sua caixa de entrada e procure o email da PORYNET."
+        link: "Siga o link de confirmação. Ele liga a conta na hora."
+        login: "Volte e entre com seu nome de treinador ou seu email."
+      email_label: "EMAIL DO SAVE"
+      resend_hint: "Nada depois de alguns minutos? Olhe a caixa de spam e mande de novo."
+      resend: "MANDAR DE NOVO ▶"
+      to_login: "Ir para a entrada"
+    passwords:
+      submit_new: "ENVIAR O LINK ▶"
+      submit_edit: "SALVAR A SENHA ▶"
+      back: "Voltar para a entrada"
+    show:
+      badge: "CONECTADO"
+      greeting: "Olá, %{name}"
+      lead: "Capturas, itens escondidos e sua posição no walkthrough agora ficam salvos nesta conta, não só neste navegador."
+      continue: "ABRIR OS WALKTHROUGHS ▶"
+      tracker: "ABRIR O TRACKER"
+      logout: "SAIR"
+      note: "O chip do topo trocou OLÁ, VISITANTE pelo seu nome de treinador. Saia para ver o estado de visitante de novo."
+    aside:
+      heading: "O QUE UMA CONTA LIBERA"
+      items:
+        collection:
+          title: "Uma coleção, todos os jogos"
+          desc: "Boxes, time e status de shiny de cada jogo que você joga, em Living Dex ou modo Carvalho, tudo sob um treinador."
+        porypc:
+          title: "Sincronia com o PoryPC"
+          desc: "O app de desktop guarda sua coleção no seu próprio computador. Entre e ele sincroniza nos dois sentidos com o site."
+        parser:
+          title: "Resultados do leitor de save"
+          desc: "Solte um save no PoryPC e tudo o que ele ler cai na sua conta, não só naquela máquina."
+        progress:
+          title: "Progresso do walkthrough e do Carvalho"
+          desc: "Capturas, itens escondidos, seus contadores do Carvalho e o passo onde parou, guardados por jogo."
+      guest: "Prefere seguir como visitante? Dá para ler tudo sem conta. O progresso só fica neste navegador e some quando você limpa."
+    chip:
+      guest: "VISITANTE"
+      hello: "OLÁ,"
+      login: "ENTRAR"
+      logout: "SAIR"
+      menu: "Menu da conta"
+      save_file: "SAVE"
+      trainer_card: "Cartão de treinador"
+      tracker: "Tracker da coleção"
+      settings: "Ajustes"
+      soon: "EM BREVE"
+      sign_out: "Sair"
+    errors:
+      heading: "Não deu para salvar. Ajuste isto e tente de novo:"
+  activerecord:
+    attributes:
+      user:
+        trainer_name: "Nome de treinador"
+        email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmação da senha"
+        avatar: "Avatar"
+        terms: "Termos"
+        login: "Nome de treinador ou email"
+    models:
+      user: "Treinador"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: "precisam ser aceitos"
+      blank: "não pode ficar em branco"
+      confirmation: "não confere com %{attribute}"
+      inclusion: "não está entre as opções"
+      invalid: "não está em um formato válido"
+      taken: "já está em uso"
+      too_long: "tem mais de %{count} caracteres"
+      too_short: "tem menos de %{count} caracteres"
+  devise:
+    failure:
+      already_authenticated: "Você já está conectado."
+      invalid: "Esse nome de treinador ou essa senha não confere."
+      not_found_in_database: "Esse nome de treinador ou essa senha não confere."
+      unauthenticated: "Entre para abrir esta página."
+      unconfirmed: "Confirme seu email primeiro. O link está no email que enviamos."
+    sessions:
+      signed_in: "Save carregado."
+      signed_out: "Você saiu. O progresso deste navegador volta a ser só seu."
+      already_signed_out: "Você saiu. O progresso deste navegador volta a ser só seu."
+    registrations:
+      signed_up_but_unconfirmed: "Seu save foi criado. Siga o link que enviamos para ligá-lo."
+    confirmations:
+      confirmed: "Email confirmado. Entre e seu progresso começa a sincronizar."
+      send_instructions: "O link de confirmação está a caminho. Espere alguns minutos."
+      send_paranoid_instructions: "Se esse email estiver em algum save, o link de confirmação está a caminho."
+    passwords:
+      send_instructions: "O link de recuperação está a caminho. Espere alguns minutos."
+      send_paranoid_instructions: "Se esse email estiver em algum save, o link de recuperação está a caminho."
+      updated: "Senha nova salva. Você está conectado."
+      updated_not_active: "Senha nova salva."
+      no_token: "Abra esta página pelo link do email, usando o endereço inteiro que ele dá."
+    mailer:
+      confirmation_instructions:
+        subject: "Confirme sua conta de treinador PORYNET"
+        greeting: "Boas-vindas, %{recipient}."
+        instruction: "Um link e seu save fica no ar. Capturas e progresso do walkthrough passam a seguir você entre aparelhos."
+        action: "Confirmar minha conta de treinador"
+        instruction_2: "Se você não se cadastrou na PORYNET, ignore este email e nada acontece."
+      reset_password_instructions:
+        subject: "Defina uma senha nova na PORYNET"
+        greeting: "Olá, %{recipient}."
+        instruction: "Alguém pediu uma senha nova na sua conta de treinador. Siga o link para definir uma."
+        action: "Definir uma senha nova"
+        instruction_2: "Se não foi você, ignore este email."
+        instruction_3: "Sua senha continua a mesma até você abrir o link e escolher outra."
+      email_changed:
+        subject: "O email da sua conta PORYNET mudou"
+        greeting: "Olá, %{recipient}."
+        message: "O email da sua conta de treinador agora é %{email}."
+        message_unconfirmed: "O email da sua conta de treinador está mudando para %{email}."
+      password_change:
+        subject: "Sua senha PORYNET mudou"
+        greeting: "Olá, %{recipient}."
+        message: "A senha da sua conta de treinador acabou de mudar. Se não foi você, redefina agora."
   pages:
     home:
       meta:

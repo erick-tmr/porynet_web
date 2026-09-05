@@ -6,7 +6,24 @@ Capybara.disable_animation     = true
 Capybara.save_path             = Rails.root.join("tmp/screenshots")
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  include Warden::Test::Helpers
+
   parallelize(workers: 1)
+
+  setup do
+    Warden.test_mode!
+    @forgery_protection = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+  end
+
+  teardown do
+    ActionController::Base.allow_forgery_protection = @forgery_protection
+    Warden.test_reset!
+  end
+
+  def login_as_user(user)
+    login_as(user, scope: :user)
+  end
 
   # Modes and progress live in localStorage, which Capybara does not reset between examples. Left
   # alone, a test that flips a switch decides what the next one starts from, and the pair passes or

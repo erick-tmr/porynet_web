@@ -63,7 +63,12 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "porynet.com"),
+                                               protocol: "https" }
+
+  # TODO: no delivery method is configured, so production sends nothing. Confirmation is strict
+  # (config/initializers/devise.rb), which makes registration a dead end until an SMTP provider is
+  # wired here and its credentials added. Do this before the account pages go live.
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   # config.action_mailer.smtp_settings = {

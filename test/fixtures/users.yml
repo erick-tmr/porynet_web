@@ -1,0 +1,42 @@
+confirmed:
+  trainer_name: ASH
+  email: ash@pallet.town
+  encrypted_password: <%= Devise::Encryptor.digest(User, "pikachu123") %>
+  confirmed_at: <%= 1.day.ago.to_fs(:db) %>
+  avatar: red
+  terms_accepted_at: <%= 2.days.ago.to_fs(:db) %>
+  created_at: <%= 2.days.ago.to_fs(:db) %>
+  updated_at: <%= 1.day.ago.to_fs(:db) %>
+
+rival:
+  trainer_name: GARY
+  email: gary@pallet.town
+  encrypted_password: <%= Devise::Encryptor.digest(User, "pikachu123") %>
+  confirmed_at: <%= 3.days.ago.to_fs(:db) %>
+  avatar: blue
+  terms_accepted_at: <%= 3.days.ago.to_fs(:db) %>
+  created_at: <%= 3.days.ago.to_fs(:db) %>
+  updated_at: <%= 3.days.ago.to_fs(:db) %>
+
+unconfirmed:
+  trainer_name: MISTY
+  email: misty@cerulean.gym
+  encrypted_password: <%= Devise::Encryptor.digest(User, "pikachu123") %>
+  confirmation_token: <%= Devise.token_generator.digest(User, :confirmation_token, "raw-confirmation-token") %>
+  confirmation_sent_at: <%= 1.hour.ago.to_fs(:db) %>
+  avatar: green
+  terms_accepted_at: <%= 1.hour.ago.to_fs(:db) %>
+  created_at: <%= 1.hour.ago.to_fs(:db) %>
+  updated_at: <%= 1.hour.ago.to_fs(:db) %>
+
+pending_reset:
+  trainer_name: BROCK
+  email: brock@pewter.gym
+  encrypted_password: <%= Devise::Encryptor.digest(User, "pikachu123") %>
+  confirmed_at: <%= 4.days.ago.to_fs(:db) %>
+  reset_password_token: <%= Devise.token_generator.digest(User, :reset_password_token, "raw-reset-token") %>
+  reset_password_sent_at: <%= 10.minutes.ago.to_fs(:db) %>
+  avatar: red
+  terms_accepted_at: <%= 4.days.ago.to_fs(:db) %>
+  created_at: <%= 4.days.ago.to_fs(:db) %>
+  updated_at: <%= 4.days.ago.to_fs(:db) %>

@@ -1,0 +1,103 @@
+.pn-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.pn-field__label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  color: var(--ink);
+}
+.pn-field__input {
+  font-family: "VT323", monospace;
+  font-size: 22px;
+  color: var(--ink);
+  background: #FFFBEE;
+  border: 3px solid var(--ink);
+  padding: 11px 13px;
+  outline: none;
+  width: 100%;
+}
+.pn-field__input::placeholder { color: #9d99b3; }
+.pn-field__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px #FF5D8F44;
+}
+.pn-field--sky .pn-field__input:focus {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px #2BB3E044;
+}
+.pn-field__input.is-invalid { border-color: var(--toast-error); }
+.pn-field__hint {
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  color: #6b6880;
+  line-height: 1.2;
+}
+.pn-field__error {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: var(--toast-error);
+  line-height: 1.2;
+}
+
+.pn-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.pn-check__box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  border: 3px solid var(--ink);
+  background: #fff;
+}
+.pn-check__input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.pn-check__tick {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: var(--accent);
+  visibility: hidden;
+}
+.pn-check__input:checked ~ .pn-check__tick { visibility: visible; }
+.pn-check__box:has(.pn-check__input:focus-visible) { box-shadow: 0 0 0 3px #FF5D8F44; }
+.pn-check--sky .pn-check__tick { color: var(--accent2); }
+.pn-check--sky .pn-check__box:has(.pn-check__input:focus-visible) { box-shadow: 0 0 0 3px #2BB3E044; }
+
+.pn-btn--sky { background: var(--accent2); }
+.pn-btn--block {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.pn-btn[disabled] {
+  cursor: not-allowed;
+  color: #6b6880;
+  background: #eae7dc;
+  border-color: #8f8ba8;
+  box-shadow: none;
+}
+.pn-btn[disabled]:hover {
+  transform: none;
+  box-shadow: none;
+  color: #6b6880;
+}

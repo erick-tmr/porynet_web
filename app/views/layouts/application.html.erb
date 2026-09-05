@@ -16,6 +16,7 @@
                             "components/sticker", "components/button", "components/chip",
                             "components/marquee", "components/neon-tile", "components/box-grid",
                             "components/money", "components/mode-switch",
+                            "components/form", "components/flash",
                             "data-turbo-track": "reload" %>
     <%= yield :head %>
     <%= javascript_importmap_tags %>
@@ -25,6 +26,7 @@
     <div class="porynet" data-play="running" <%= yield :page_controller %>>
       <div class="pn-crt" aria-hidden="true"></div>
       <%= render "shared/nav" %>
+      <%= render "shared/flash" %>
       <%= yield %>
       <%= render "shared/footer" %>
     </div>

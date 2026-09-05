@@ -1,0 +1,6 @@
+<div class="pn-auth__tabs">
+  <%= link_to t("account.tabs.login"), new_user_session_path,
+              class: class_names("pn-auth__tab", "pn-auth__tab--login", "is-active" => active == :login) %>
+  <%= link_to t("account.tabs.register"), new_user_registration_path,
+              class: class_names("pn-auth__tab", "pn-auth__tab--register", "is-active" => active == :register) %>
+</div>

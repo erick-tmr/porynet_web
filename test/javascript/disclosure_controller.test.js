@@ -27,7 +27,16 @@ const OPEN_FIXTURE = `
   </div>
 `;
 
+const ESCAPE_FIXTURE = `
+  <div data-controller="disclosure" data-action="keydown.esc@window->disclosure#close">
+    <button id="toggle" data-disclosure-target="toggle" data-action="disclosure#toggle" aria-expanded="false">Show</button>
+    <div id="body" data-disclosure-target="body" hidden>secret</div>
+  </div>
+`;
+
 const root = () => document.querySelector("[data-controller='disclosure']");
+const escape = () =>
+  window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
 
 beforeEach(() => {
   document.body.innerHTML = "";
@@ -72,5 +81,35 @@ describe("disclosure_controller", () => {
     expect(document.getElementById("body").hidden).toBe(true);
     expect(root().classList.contains("is-open")).toBe(false);
     expect(document.getElementById("toggle").getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("closes on Escape, so the account menu does not have to be clicked shut", async () => {
+    await mount(ESCAPE_FIXTURE);
+
+    document.getElementById("toggle").click();
+    await flush();
+
+    expect(root().classList.contains("is-open")).toBe(true);
+
+    escape();
+    await flush();
+
+    expect(document.getElementById("body").hidden).toBe(true);
+    expect(root().classList.contains("is-open")).toBe(false);
+    expect(document.getElementById("toggle").getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("stays closed when Escape comes again", async () => {
+    await mount(ESCAPE_FIXTURE);
+
+    escape();
+    await flush();
+
+    expect(root().classList.contains("is-open")).toBe(false);
+
+    escape();
+    await flush();
+
+    expect(root().classList.contains("is-open")).toBe(false);
   });
 });

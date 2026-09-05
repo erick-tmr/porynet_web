@@ -1,0 +1,33 @@
+<% content_for :title, t("account.meta.password_new") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
+<% end %>
+
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+<% end %>
+
+<%= render "shared/auth_hero", key: "password_new" %>
+
+<section class="pn-auth">
+  <div class="pn-auth__panel">
+    <%= render "shared/auth_tabs", active: :login %>
+    <div class="pn-auth__body">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name),
+                   html: { class: "pn-auth__form", novalidate: true }) do |f| %>
+        <%= render "shared/field", f: f, name: :email, kind: :email_field,
+                   label: t("account.fields.email"),
+                   placeholder: t("account.fields.email_placeholder"),
+                   options: { autofocus: true, autocomplete: "email", required: true } %>
+        <%= f.submit t("account.passwords.submit_new"),
+                     class: "pn-btn pn-btn--accent pn-btn--block pn-auth__submit" %>
+      <% end %>
+      <div class="pn-auth__foot">
+        <%= link_to t("account.passwords.back"), new_user_session_path %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "shared/auth_aside" %>
+</section>

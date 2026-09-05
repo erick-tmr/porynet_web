@@ -11,6 +11,10 @@ export default class extends Controller {
     this.openValue = !this.openValue
   }
 
+  close() {
+    this.openValue = false
+  }
+
   openValueChanged() {
     this.element.classList.toggle("is-open", this.openValue)
     this.bodyTargets.forEach((body) => {

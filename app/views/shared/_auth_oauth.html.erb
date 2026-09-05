@@ -1,0 +1,13 @@
+<div class="pn-auth__heading"><%= t("account.oauth.#{mode}_heading") %></div>
+<div class="pn-auth__oauth">
+  <% AccountData::OAUTH_PROVIDERS.each do |provider| %>
+    <button type="button" class="pn-auth__provider" disabled>
+      <%= r2_image_tag "account/oauth/#{provider}.png", alt: "" %>
+      <span class="pn-auth__provider-name"><%= t("account.oauth.#{provider}") %></span>
+      <span class="pn-auth__provider-soon"><%= t("account.oauth.soon") %></span>
+    </button>
+  <% end %>
+</div>
+<p class="pn-auth__oauth-hint"><%= t("account.oauth.hint") %></p>
+
+<div class="pn-auth__divider"><span><%= t("account.divider") %></span></div>
