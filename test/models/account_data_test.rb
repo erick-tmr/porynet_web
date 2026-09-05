@@ -10,7 +10,6 @@ class AccountDataTest < ActiveSupport::TestCase
     AccountData::STRENGTH_LEVELS.each { |key| assert I18n.t("account.security.strength_levels.#{key}") }
     AccountData::BADGES.each { |key| assert I18n.t("account.card.badge_names.#{key}") }
     AccountData::GENERATIONS.each { |k| assert I18n.t("account.avatar.generations.#{k}") }
-    AccountData::VINTAGES.each { |k| assert I18n.t("account.avatar.vintages.#{k}") }
     AccountData::SAVES.each_key { |slug| assert I18n.t("account.card.spots.#{slug}") }
   end
 
@@ -54,9 +53,10 @@ class AccountDataTest < ActiveSupport::TestCase
   test "search matches a name inside the chosen generation and ignores case" do
     brocks = AccountData.search(generation: "gen1", query: "BRO")
 
-    assert_equal 6, brocks.size
+    assert_equal 2, brocks.size
     assert_empty brocks.reject { |avatar| avatar.name.start_with?("Brock") }
-    assert_includes brocks.map(&:vintage), "current"
+    assert_equal [ "gen1" ], brocks.map(&:generation).uniq
+    assert_operator AccountData.search(generation: "all", query: "brock").size, :>, 2
     assert_empty AccountData.search(generation: "gen1", query: "nobody-here")
   end
 
@@ -96,11 +96,13 @@ class AccountDataTest < ActiveSupport::TestCase
     assert_equal "00151", AccountData.trainer_id(User.new(id: 151))
   end
 
-  test "every sprite of one trainer files under the same generation" do
-    brocks = AccountData::AVATARS.select { |avatar| avatar.name.start_with?("Brock") }
+  test "a class the games kept redrawing files each sprite under the game that drew it" do
+    aces = AccountData::AVATARS.select { |avatar| avatar.name.start_with?("Ace Trainer") }
+    gens = aces.map(&:generation).uniq
 
-    assert_operator brocks.size, :>, 1
-    assert_equal [ "gen1" ], brocks.map(&:generation).uniq
+    assert_operator gens.size, :>, 4
+    assert_includes gens, "gen1"
+    assert_includes gens, "gen6"
   end
 
   test "the signup picker offers a subset of the roster" do

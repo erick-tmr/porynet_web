@@ -101,7 +101,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:confirmed)
     get account_avatar_path(gen: "gen1", q: "brock")
 
-    assert_select ".pn-auth__avatar", count: 6
+    assert_select ".pn-auth__avatar", count: 2
     assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.generations.gen1")
 
     get account_avatar_path(q: "nobody-here")

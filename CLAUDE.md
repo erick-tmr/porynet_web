@@ -49,11 +49,11 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   painted portraits `pn-art` so they escape the global `image-rendering: pixelated`.
   The roster is **1,315 trainers**, so the picker is a search box, a row of generation chips and a
   60-card page, all server-side off `?q=`, `?gen=` and `?page=` (no Stimulus, no client filtering);
-  cards lazy-load their images. An avatar carries **two** era fields and they mean different
-  things: `generation` is which game's cast the trainer belongs to (all six Brocks are `gen1`) and
-  drives the chips, while `vintage` is which game drew that particular sprite and is what the card
-  prints, so a Gen 1 filter shows the six Brocks told apart by "Gen 1 art", "Gen 3 art", "Latest
-  art".
+  cards lazy-load their images. An avatar carries one era field and it means one
+  thing: `generation` is **which game drew that sprite**, not which cast the trainer belongs to.
+  A class the series kept redrawing spreads across the gens that redrew it, so Ace Trainer sits in
+  Gen 1 through Gen 8 rather than piling into Gen 1, and Brock's Gen 3 sprite files under Gen 3.
+  The card prints the same label the chip does.
 - **One menu, not a bar of links.** The header carries the brand, the page's own controls (the
   walkthrough breadcrumb and the Living Dex / Oak switches) and the language toggle. Everything
   else lives in a single dropdown behind the account button: the site links under a `SITE` heading,
@@ -88,18 +88,20 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     display name is derived from the stem (a word list splits `bugcatcher` into "Bug Catcher" and
     a table of exceptions covers what it cannot know). Those names are **data, not copy** (the
     rule that names live in models), so they read the same in both locales and only the chip and
-    vintage labels are translated. A trainer's **generation is not in the filename**, so it is
-    resolved in three passes: a game tag (`-rse`, `-lgpe`, `-s`/`-v`) places a sprite on its own,
-    otherwise a trainer who has any `-genN` sprite belongs to the oldest generation that drew them
-    (Brock has a `-gen1`, so every Brock is Gen 1), otherwise a curated table names them. What none
-    of that reaches is filed under `other` rather than guessed at: 70 today, mostly trainer classes
-    Showdown drew once, where a debut generation would be a guess dressed as a fact. Bulbapedia's
-    per-game character categories settle a name in one read and are how the Legends: Z-A, Hisui,
-    Paldea, Masters EX and Champions casts were placed; note that **Legends: Z-A is Generation 9**,
-    not Kalos, because the chip asks which game's cast a trainer belongs to. A name that no
-    category claims usually belongs to a game off the main line (Sleep, GO, Champions) and goes to
-    `spinoff`; Showdown's own credits page will not help, it names the artist and never a source. Spin-off and collab casts (GO, Conquest, Unite,
-    Masters, the anime) get their own `spinoff` chip. A local folder holding fewer files than the bucket means nothing: the PNGs are
+    chip labels are translated. A sprite's **generation is the game that drew it**, resolved in
+    four passes. A `-genN` suffix or a game tag (`-rse`, `-lgpe`, `-s`/`-v`) dates it outright,
+    which covers 615 of them. An untagged sprite is Showdown's newest design for that trainer, so
+    if they have retro sprites too the game behind it is not in the filename and it goes to
+    `latest` (271); every untagged sprite was checked against its newest tagged sibling and **not
+    one is the same image**, so the untagged one is always later art, never a duplicate. An
+    untagged sprite of a trainer drawn only once is that trainer's only appearance, so a curated
+    table names the game. What none of that reaches is `other` rather than guessed at: 66 today,
+    mostly trainer classes Showdown drew once. Bulbapedia's per-game character categories settle a
+    name in one read and are how the Legends: Z-A, Hisui, Paldea, Masters EX and Champions casts
+    were placed; note that **Legends: Z-A is Generation 9**, not Kalos. A name that no category
+    claims usually belongs to a game off the main line (Sleep, GO, Champions) and goes to
+    `spinoff`; Showdown's own credits page will not help, it names the artist and never a source.
+    A local folder holding fewer files than the bucket means nothing: the PNGs are
     gitignored, so a clone mirrors only what it has touched. **Probe the bucket, not the folder**,
     before deciding a sprite is missing.
   - **Kanto badges** (`app/assets/images/badges/{boulder,cascade,thunder,rainbow,soul,marsh,volcano,earth}.png`):

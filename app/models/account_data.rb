@@ -7,12 +7,12 @@ module AccountData
   STRENGTH_LEVELS = %w[none weak fair good elite].freeze
   BADGES = %w[boulder cascade thunder rainbow soul marsh volcano earth].freeze
   DEX_TOTAL = 151
-  GENERATIONS = %w[all gen1 gen2 gen3 gen4 gen5 gen6 gen7 gen8 gen9 spinoff other].freeze
-  VINTAGES = %w[current gen1 gen2 gen3 gen4 gen5 gen6 gen7 gen8 gen9 art].freeze
+  GENERATIONS = %w[all gen1 gen2 gen3 gen4 gen5 gen6 gen7 gen8 gen9
+                   latest art spinoff other].freeze
   PAGE_SIZE = 60
   SIGNUP_AVATARS = %w[red blue green].freeze
 
-  Avatar = Data.define(:id, :name, :generation, :vintage, :key, :art) do
+  Avatar = Data.define(:id, :name, :generation, :key, :art) do
     def art? = art
   end
 
