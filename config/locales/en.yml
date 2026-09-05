@@ -164,6 +164,8 @@ en:
       in_use: "IN USE"
       submit: "SAVE AVATAR ▶"
       cancel: "CANCEL"
+      saved: "Avatar set to %{name}."
+      rejected: "That trainer is not on the roster."
     security:
       email_title: "EMAIL"
       email_meta: "used for resets and sync alerts"

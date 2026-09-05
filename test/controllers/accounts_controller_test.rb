@@ -85,6 +85,40 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name=?][checked=checked]", "account_avatar[avatar]"
   end
 
+  test "picking a trainer saves it and lands back on the page it was picked from" do
+    sign_in users(:confirmed)
+    patch account_avatar_path,
+          params: { account_avatar: { avatar: "cynthia" }, gen: "gen4", q: "cyn", page: "1" }
+
+    assert_redirected_to account_avatar_path(gen: "gen4", q: "cyn", page: "1")
+    assert_equal "cynthia", users(:confirmed).reload.avatar
+    assert_equal I18n.t("account.avatar.saved", name: "Cynthia"), flash[:notice]
+  end
+
+  test "a trainer who is not on the roster is refused and changes nothing" do
+    sign_in users(:confirmed)
+    patch account_avatar_path, params: { account_avatar: { avatar: "porygon" } }
+
+    assert_redirected_to account_avatar_path
+    assert_equal "red", users(:confirmed).reload.avatar
+    assert_equal I18n.t("account.avatar.rejected"), flash[:alert]
+  end
+
+  test "a guest cannot set an avatar" do
+    patch account_avatar_path, params: { account_avatar: { avatar: "cynthia" } }
+
+    assert_redirected_to new_user_session_path
+  end
+
+  test "the saved trainer is the one the header and the card then draw" do
+    sign_in users(:confirmed)
+    patch account_avatar_path, params: { account_avatar: { avatar: "lance-art" } }
+    get account_path
+
+    assert_select ".pn-account__avatar-frame img[src*=?]", "walkthrough/art/lance-art.png"
+    assert_select ".pn-nav__account-mark img[src*=?]", "walkthrough/art/lance-art.png"
+  end
+
   test "the picker names Showdown, whose community drew every sprite in it" do
     sign_in users(:confirmed)
     get account_avatar_path

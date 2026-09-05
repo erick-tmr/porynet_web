@@ -38,6 +38,9 @@
     <% else %>
       <%= form_with model: current_user, scope: :account_avatar, url: account_avatar_path,
                     method: :patch do |f| %>
+        <%= hidden_field_tag :gen, generation %>
+        <%= hidden_field_tag :q, query.presence %>
+        <%= hidden_field_tag :page, page.number %>
         <div class="pn-auth__avatars pn-account__avatars">
           <% page.rows.each do |avatar| %>
             <%= render "accounts/avatar_card", f: f, avatar: avatar,
@@ -46,11 +49,7 @@
         </div>
 
         <div class="pn-account__foot">
-          <span class="pn-account__soon-wrap">
-            <%= f.submit t("account.avatar.submit"), disabled: true,
-                         class: "pn-btn pn-btn--accent" %>
-            <span class="pn-account__soon"><%= t("account.soon") %></span>
-          </span>
+          <%= f.submit t("account.avatar.submit"), class: "pn-btn pn-btn--accent" %>
           <%= link_to t("account.avatar.cancel"), account_path, class: "pn-btn pn-btn--muted" %>
         </div>
       <% end %>

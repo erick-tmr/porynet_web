@@ -164,6 +164,8 @@ pt:
       in_use: "EM USO"
       submit: "SALVAR AVATAR ▶"
       cancel: "CANCELAR"
+      saved: "Avatar definido como %{name}."
+      rejected: "Esse treinador não está na lista."
     security:
       email_title: "EMAIL"
       email_meta: "usado para recuperar senha e avisar sobre a sincronia"

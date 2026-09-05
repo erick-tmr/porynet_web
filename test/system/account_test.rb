@@ -103,6 +103,24 @@ class AccountTest < ApplicationSystemTestCase
     assert_selector ".pn-account__rail-item.is-active", text: "Save file"
   end
 
+  test "a trainer picks an avatar and it sticks" do
+    login_as_user(users(:confirmed))
+    visit account_avatar_path(q: "cynthia")
+
+    assert_selector ".pn-auth__avatar", minimum: 1
+
+    find("label.pn-auth__avatar", match: :first).click
+    click_on "SAVE AVATAR ▶"
+
+    assert_selector ".pn-flash__msg--notice"
+    assert_selector ".pn-account__avatar-inuse"
+    assert_equal "cynthia", users(:confirmed).reload.avatar
+
+    visit account_path
+
+    assert_selector ".pn-account__avatar-name", text: "Cynthia"
+  end
+
   test "the strength meter fills as a password is typed" do
     login_as_user(users(:confirmed))
     visit account_security_path

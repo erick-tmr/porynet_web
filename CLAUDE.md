@@ -38,11 +38,13 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `/pt` twin, and the left rail is `link_to` with `.is-active` rather than a Stimulus tab switcher:
   every section deep-links, and each one is where its future `PATCH` will land. They share
   `app/views/accounts/_shell.html.erb` (hero, rail, main column) and `_panel.html.erb` (the ink
-  header bar), both rendered with `render layout:`. **Nothing on them writes yet.** Save-file
+  header bar), both rendered with `render layout:`. **The avatar picker is the one section that
+  writes**: it PATCHes `account/avatar`, `User#avatar` validates against the roster, and the
+  filters ride along as hidden fields so a save lands back on the page it was made from. Save-file
   numbers (dex counts, badges, Oak, playtime, the stop the trainer left off on) come from
   `AccountData::SAVES`, a placeholder table keyed by the same slugs as
   `Walkthrough::Versions::CATALOGUE`, which the game picker itself walks. Controls that would
-  change a record render `disabled` with a SOON badge, the way unbuilt OAuth already does; the two
+  change a record still render `disabled` with a SOON badge, the way unbuilt OAuth already does; the two
   query params that do work (`?game=` on the card, `?gen=` / `?q=` / `?page=` on the picker) only pick which
   placeholder rows to draw. `AccountData::AVATARS` is the roster the picker offers and the list
   `User::AVATARS` validates against; `avatar_image_tag` maps an id to its R2 key and marks the
