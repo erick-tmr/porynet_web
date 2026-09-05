@@ -136,6 +136,7 @@ en:
       title: "AVATAR"
       count: "%{count} trainers"
       lead: "Every trainer sprite the series has drawn, from Kanto's first pixel art to the latest games. Your pick shows on your trainer card, in the header and next to any route note you post."
+      credit_html: "Every trainer here is a sprite from %{link}, drawn and maintained by its community."
       search_label: "Search trainers by name"
       search_placeholder: "brock"
       search_submit: "SEARCH"
@@ -436,6 +437,10 @@ en:
         status_soon: "SOON"
       footer:
         legal: "Open source · MIT · A fan project, not affiliated with Nintendo, Game Freak or The Pokémon Company. All trademarks belong to their owners."
+        credits_html: "Trainer sprites from %{showdown}, drawn and maintained by its community. Pokémon, item and badge sprites from %{pokeapi}. Maps and screenshots generated from the %{pokeyellow} disassembly."
+        credits_showdown: "Pokémon Showdown"
+        credits_pokeapi: "PokeAPI"
+        credits_pokeyellow: "pret/pokeyellow"
   walkthrough:
     index:
       meta_title: "Walkthroughs · PORYNET"

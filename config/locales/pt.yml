@@ -136,6 +136,7 @@ pt:
       title: "AVATAR"
       count: "%{count} treinadores"
       lead: "Cada sprite de treinador que a série já desenhou, do primeiro pixel de Kanto aos jogos mais novos. Sua escolha aparece no cartão de treinador, no topo do site e ao lado de cada nota de rota que você postar."
+      credit_html: "Cada treinador aqui é um sprite do %{link}, desenhado e mantido pela comunidade de lá."
       search_label: "Procurar treinadores pelo nome"
       search_placeholder: "brock"
       search_submit: "PROCURAR"
@@ -436,6 +437,10 @@ pt:
         status_soon: "EM BREVE"
       footer:
         legal: "Open source · MIT · Um projeto de fã, sem afiliação com Nintendo, Game Freak ou The Pokémon Company. Todas as marcas pertencem aos seus donos."
+        credits_html: "Sprites de treinadores do %{showdown}, desenhados e mantidos pela comunidade de lá. Sprites de Pokémon, itens e insígnias do %{pokeapi}. Mapas e capturas gerados a partir da desmontagem %{pokeyellow}."
+        credits_showdown: "Pokémon Showdown"
+        credits_pokeapi: "PokeAPI"
+        credits_pokeyellow: "pret/pokeyellow"
   walkthrough:
     index:
       meta_title: "Guias · PORYNET"

@@ -370,6 +370,20 @@
 }
 
 /* ---- avatar picker ---- */
+.pn-account__credit {
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  line-height: 1.35;
+  color: #6b6880;
+  max-width: 640px;
+  margin: 8px 0 0;
+}
+.pn-account__credit-link {
+  color: #6b6880;
+  text-decoration: underline;
+}
+.pn-account__credit-link:hover { color: var(--accent); }
+
 .pn-account__search {
   display: flex;
   flex-wrap: wrap;

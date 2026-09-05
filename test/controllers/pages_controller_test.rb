@@ -65,6 +65,14 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-footer__link", text: "Walkthroughs"
   end
 
+  test "the footer credits the projects the artwork comes from" do
+    get root_path
+
+    ApplicationHelper::SOURCE_URLS.each_value do |url|
+      assert_select ".pn-footer__credits a[href=?][rel=noopener]", url
+    end
+  end
+
   test "the default locale keeps a clean URL and offers the Portuguese toggle" do
     get root_path
 

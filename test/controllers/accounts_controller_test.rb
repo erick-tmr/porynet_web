@@ -85,6 +85,13 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name=?][checked=checked]", "account_avatar[avatar]"
   end
 
+  test "the picker names Showdown, whose community drew every sprite in it" do
+    sign_in users(:confirmed)
+    get account_avatar_path
+
+    assert_select ".pn-account__credit a[href=?]", ApplicationHelper::SOURCE_URLS[:showdown]
+  end
+
   test "a generation chip narrows the roster, and an unknown generation shows everybody" do
     sign_in users(:confirmed)
     get account_avatar_path(gen: "gen1")

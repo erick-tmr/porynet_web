@@ -8,6 +8,10 @@
                        meta: t("account.avatar.count",
                                count: AccountData::AVATARS.size) } do %>
     <p class="pn-account__lead"><%= t("account.avatar.lead") %></p>
+    <p class="pn-account__credit">
+      <%= t("account.avatar.credit_html",
+            link: source_link(:showdown, "pn-account__credit-link")) %>
+    </p>
 
     <%= form_with url: account_avatar_path, method: :get, class: "pn-account__search" do |f| %>
       <%= f.hidden_field :gen, value: generation %>

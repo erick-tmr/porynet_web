@@ -27,6 +27,17 @@ module ApplicationHelper
 
   def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
 
+  SOURCE_URLS = {
+    showdown: "https://play.pokemonshowdown.com/sprites/trainers/",
+    pokeapi: "https://github.com/PokeAPI/sprites",
+    pokeyellow: "https://github.com/pret/pokeyellow"
+  }.freeze
+
+  def source_link(name, css)
+    link_to t("pages.home.footer.credits_#{name}"), SOURCE_URLS.fetch(name),
+            class: css, rel: "noopener", target: "_blank"
+  end
+
   def account_game(save)
     Walkthrough::Versions::CATALOGUE.find { |entry| entry[:slug] == save.slug }
   end
