@@ -1,0 +1,9207 @@
+[
+ {
+  "id": "aaron",
+  "name": "Aaron",
+  "era": "current",
+  "key": "trainers/aaron.png",
+  "art": false
+ },
+ {
+  "id": "aarune",
+  "name": "Aarune",
+  "era": "current",
+  "key": "trainers/aarune.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer",
+  "name": "Ace Trainer",
+  "era": "current",
+  "key": "trainers/acetrainer.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen1",
+  "name": "Ace Trainer",
+  "era": "gen1",
+  "key": "trainers/acetrainer-gen1.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen2",
+  "name": "Ace Trainer",
+  "era": "gen2",
+  "key": "trainers/acetrainer-gen2.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen3",
+  "name": "Ace Trainer",
+  "era": "gen3",
+  "key": "trainers/acetrainer-gen3.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen4",
+  "name": "Ace Trainer",
+  "era": "gen4",
+  "key": "trainers/acetrainer-gen4.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen6",
+  "name": "Ace Trainer",
+  "era": "gen6",
+  "key": "trainers/acetrainer-gen6.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen7",
+  "name": "Ace Trainer",
+  "era": "gen7",
+  "key": "trainers/acetrainer-gen7.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen4dp",
+  "name": "Ace Trainer (D/P)",
+  "era": "gen4",
+  "key": "trainers/acetrainer-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen3jp",
+  "name": "Ace Trainer (JP)",
+  "era": "gen3",
+  "key": "trainers/acetrainer-gen3jp.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen1rb",
+  "name": "Ace Trainer (R/B)",
+  "era": "gen1",
+  "key": "trainers/acetrainer-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen3rs",
+  "name": "Ace Trainer (R/S)",
+  "era": "gen3",
+  "key": "trainers/acetrainer-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "acetrainersnow",
+  "name": "Ace Trainer (Snow)",
+  "era": "current",
+  "key": "trainers/acetrainersnow.png",
+  "art": false
+ },
+ {
+  "id": "acetrainer-gen6xy",
+  "name": "Ace Trainer (X/Y)",
+  "era": "gen6",
+  "key": "trainers/acetrainer-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "acetrainercouple",
+  "name": "Ace Trainer Couple",
+  "era": "current",
+  "key": "trainers/acetrainercouple.png",
+  "art": false
+ },
+ {
+  "id": "acetrainercouple-gen3",
+  "name": "Ace Trainer Couple",
+  "era": "gen3",
+  "key": "trainers/acetrainercouple-gen3.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf",
+  "name": "Ace Trainer ♀",
+  "era": "current",
+  "key": "trainers/acetrainerf.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen1",
+  "name": "Ace Trainer ♀",
+  "era": "gen1",
+  "key": "trainers/acetrainerf-gen1.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen2",
+  "name": "Ace Trainer ♀",
+  "era": "gen2",
+  "key": "trainers/acetrainerf-gen2.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen3",
+  "name": "Ace Trainer ♀",
+  "era": "gen3",
+  "key": "trainers/acetrainerf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen4",
+  "name": "Ace Trainer ♀",
+  "era": "gen4",
+  "key": "trainers/acetrainerf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen6",
+  "name": "Ace Trainer ♀",
+  "era": "gen6",
+  "key": "trainers/acetrainerf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen7",
+  "name": "Ace Trainer ♀",
+  "era": "gen7",
+  "key": "trainers/acetrainerf-gen7.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen4dp",
+  "name": "Ace Trainer ♀ (D/P)",
+  "era": "gen4",
+  "key": "trainers/acetrainerf-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen1rb",
+  "name": "Ace Trainer ♀ (R/B)",
+  "era": "gen1",
+  "key": "trainers/acetrainerf-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen3rs",
+  "name": "Ace Trainer ♀ (R/S)",
+  "era": "gen3",
+  "key": "trainers/acetrainerf-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "acetrainersnowf",
+  "name": "Ace Trainer ♀ (Snow)",
+  "era": "current",
+  "key": "trainers/acetrainersnowf.png",
+  "art": false
+ },
+ {
+  "id": "acetrainerf-gen6xy",
+  "name": "Ace Trainer ♀ (X/Y)",
+  "era": "gen6",
+  "key": "trainers/acetrainerf-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "acerola",
+  "name": "Acerola",
+  "era": "current",
+  "key": "trainers/acerola.png",
+  "art": false
+ },
+ {
+  "id": "adaman",
+  "name": "Adaman",
+  "era": "current",
+  "key": "trainers/adaman.png",
+  "art": false
+ },
+ {
+  "id": "aetheremployee",
+  "name": "Aether Employee",
+  "era": "current",
+  "key": "trainers/aetheremployee.png",
+  "art": false
+ },
+ {
+  "id": "aetheremployeef",
+  "name": "Aether Employee ♀",
+  "era": "current",
+  "key": "trainers/aetheremployeef.png",
+  "art": false
+ },
+ {
+  "id": "aetherfoundation",
+  "name": "Aether Foundation",
+  "era": "current",
+  "key": "trainers/aetherfoundation.png",
+  "art": false
+ },
+ {
+  "id": "aetherfoundation2",
+  "name": "Aether Foundation (2)",
+  "era": "current",
+  "key": "trainers/aetherfoundation2.png",
+  "art": false
+ },
+ {
+  "id": "aetherfoundationf",
+  "name": "Aether Foundation ♀",
+  "era": "current",
+  "key": "trainers/aetherfoundationf.png",
+  "art": false
+ },
+ {
+  "id": "agatha-art",
+  "name": "Agatha",
+  "era": "art",
+  "key": "walkthrough/art/agatha-art.png",
+  "art": true
+ },
+ {
+  "id": "agatha-gen1",
+  "name": "Agatha",
+  "era": "gen1",
+  "key": "trainers/agatha-gen1.png",
+  "art": false
+ },
+ {
+  "id": "agatha-gen3",
+  "name": "Agatha",
+  "era": "gen3",
+  "key": "trainers/agatha-gen3.png",
+  "art": false
+ },
+ {
+  "id": "agatha-lgpe",
+  "name": "Agatha (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/agatha-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "agatha-gen1rb",
+  "name": "Agatha (R/B)",
+  "era": "gen1",
+  "key": "trainers/agatha-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "akari",
+  "name": "Akari",
+  "era": "current",
+  "key": "trainers/akari.png",
+  "art": false
+ },
+ {
+  "id": "akari-isekai",
+  "name": "Akari (Isekai)",
+  "era": "current",
+  "key": "trainers/akari-isekai.png",
+  "art": false
+ },
+ {
+  "id": "alain",
+  "name": "Alain",
+  "era": "current",
+  "key": "trainers/alain.png",
+  "art": false
+ },
+ {
+  "id": "alder",
+  "name": "Alder",
+  "era": "current",
+  "key": "trainers/alder.png",
+  "art": false
+ },
+ {
+  "id": "allister",
+  "name": "Allister",
+  "era": "current",
+  "key": "trainers/allister.png",
+  "art": false
+ },
+ {
+  "id": "allister-unmasked",
+  "name": "Allister (Unmasked)",
+  "era": "current",
+  "key": "trainers/allister-unmasked.png",
+  "art": false
+ },
+ {
+  "id": "amarys",
+  "name": "Amarys",
+  "era": "current",
+  "key": "trainers/amarys.png",
+  "art": false
+ },
+ {
+  "id": "amelia-shuffle",
+  "name": "Amelia (Shuffle)",
+  "era": "current",
+  "key": "trainers/amelia-shuffle.png",
+  "art": false
+ },
+ {
+  "id": "anabel",
+  "name": "Anabel",
+  "era": "current",
+  "key": "trainers/anabel.png",
+  "art": false
+ },
+ {
+  "id": "anabel-gen3",
+  "name": "Anabel",
+  "era": "gen3",
+  "key": "trainers/anabel-gen3.png",
+  "art": false
+ },
+ {
+  "id": "anabel-gen7",
+  "name": "Anabel",
+  "era": "gen7",
+  "key": "trainers/anabel-gen7.png",
+  "art": false
+ },
+ {
+  "id": "ansha",
+  "name": "Ansha",
+  "era": "current",
+  "key": "trainers/ansha.png",
+  "art": false
+ },
+ {
+  "id": "ansha-cook",
+  "name": "Ansha (Cook)",
+  "era": "current",
+  "key": "trainers/ansha-cook.png",
+  "art": false
+ },
+ {
+  "id": "anthe",
+  "name": "Anthe",
+  "era": "current",
+  "key": "trainers/anthe.png",
+  "art": false
+ },
+ {
+  "id": "anthea",
+  "name": "Anthea",
+  "era": "current",
+  "key": "trainers/anthea.png",
+  "art": false
+ },
+ {
+  "id": "anvin",
+  "name": "Anvin",
+  "era": "current",
+  "key": "trainers/anvin.png",
+  "art": false
+ },
+ {
+  "id": "aquagrunt",
+  "name": "Aqua Grunt",
+  "era": "current",
+  "key": "trainers/aquagrunt.png",
+  "art": false
+ },
+ {
+  "id": "aquagrunt-rse",
+  "name": "Aqua Grunt (Rse)",
+  "era": "current",
+  "key": "trainers/aquagrunt-rse.png",
+  "art": false
+ },
+ {
+  "id": "aquagruntf",
+  "name": "Aqua Grunt ♀",
+  "era": "current",
+  "key": "trainers/aquagruntf.png",
+  "art": false
+ },
+ {
+  "id": "aquagruntf-rse",
+  "name": "Aqua Grunt ♀ (Rse)",
+  "era": "current",
+  "key": "trainers/aquagruntf-rse.png",
+  "art": false
+ },
+ {
+  "id": "aquasuit",
+  "name": "Aquasuit",
+  "era": "current",
+  "key": "trainers/aquasuit.png",
+  "art": false
+ },
+ {
+  "id": "archer",
+  "name": "Archer",
+  "era": "current",
+  "key": "trainers/archer.png",
+  "art": false
+ },
+ {
+  "id": "archie-gen3",
+  "name": "Archie",
+  "era": "gen3",
+  "key": "trainers/archie-gen3.png",
+  "art": false
+ },
+ {
+  "id": "archie-gen6",
+  "name": "Archie",
+  "era": "gen6",
+  "key": "trainers/archie-gen6.png",
+  "art": false
+ },
+ {
+  "id": "archie-usum",
+  "name": "Archie (US/UM)",
+  "era": "gen7",
+  "key": "trainers/archie-usum.png",
+  "art": false
+ },
+ {
+  "id": "arezu",
+  "name": "Arezu",
+  "era": "current",
+  "key": "trainers/arezu.png",
+  "art": false
+ },
+ {
+  "id": "argenta",
+  "name": "Argenta",
+  "era": "current",
+  "key": "trainers/argenta.png",
+  "art": false
+ },
+ {
+  "id": "ariana",
+  "name": "Ariana",
+  "era": "current",
+  "key": "trainers/ariana.png",
+  "art": false
+ },
+ {
+  "id": "arlo",
+  "name": "Arlo",
+  "era": "current",
+  "key": "trainers/arlo.png",
+  "art": false
+ },
+ {
+  "id": "aromalady",
+  "name": "Aroma Lady",
+  "era": "current",
+  "key": "trainers/aromalady.png",
+  "art": false
+ },
+ {
+  "id": "aromalady-gen3",
+  "name": "Aroma Lady",
+  "era": "gen3",
+  "key": "trainers/aromalady-gen3.png",
+  "art": false
+ },
+ {
+  "id": "aromalady-gen6",
+  "name": "Aroma Lady",
+  "era": "gen6",
+  "key": "trainers/aromalady-gen6.png",
+  "art": false
+ },
+ {
+  "id": "aromalady-gen3rs",
+  "name": "Aroma Lady (R/S)",
+  "era": "gen3",
+  "key": "trainers/aromalady-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "artist",
+  "name": "Artist",
+  "era": "current",
+  "key": "trainers/artist.png",
+  "art": false
+ },
+ {
+  "id": "artist-gen4",
+  "name": "Artist",
+  "era": "gen4",
+  "key": "trainers/artist-gen4.png",
+  "art": false
+ },
+ {
+  "id": "artist-gen6",
+  "name": "Artist",
+  "era": "gen6",
+  "key": "trainers/artist-gen6.png",
+  "art": false
+ },
+ {
+  "id": "artist-gen8",
+  "name": "Artist",
+  "era": "gen8",
+  "key": "trainers/artist-gen8.png",
+  "art": false
+ },
+ {
+  "id": "artist-gen9",
+  "name": "Artist",
+  "era": "gen9",
+  "key": "trainers/artist-gen9.png",
+  "art": false
+ },
+ {
+  "id": "artistf-gen6",
+  "name": "Artist ♀",
+  "era": "gen6",
+  "key": "trainers/artistf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "arven-s",
+  "name": "Arven (S)",
+  "era": "current",
+  "key": "trainers/arven-s.png",
+  "art": false
+ },
+ {
+  "id": "arven-v",
+  "name": "Arven (V)",
+  "era": "current",
+  "key": "trainers/arven-v.png",
+  "art": false
+ },
+ {
+  "id": "ash",
+  "name": "Ash",
+  "era": "current",
+  "key": "trainers/ash.png",
+  "art": false
+ },
+ {
+  "id": "ash-alola",
+  "name": "Ash (Alola)",
+  "era": "current",
+  "key": "trainers/ash-alola.png",
+  "art": false
+ },
+ {
+  "id": "ash-capbackward",
+  "name": "Ash (Capbackward)",
+  "era": "current",
+  "key": "trainers/ash-capbackward.png",
+  "art": false
+ },
+ {
+  "id": "ash-hoenn",
+  "name": "Ash (Hoenn)",
+  "era": "current",
+  "key": "trainers/ash-hoenn.png",
+  "art": false
+ },
+ {
+  "id": "ash-johto",
+  "name": "Ash (Johto)",
+  "era": "current",
+  "key": "trainers/ash-johto.png",
+  "art": false
+ },
+ {
+  "id": "ash-kalos",
+  "name": "Ash (Kalos)",
+  "era": "current",
+  "key": "trainers/ash-kalos.png",
+  "art": false
+ },
+ {
+  "id": "ash-sinnoh",
+  "name": "Ash (Sinnoh)",
+  "era": "current",
+  "key": "trainers/ash-sinnoh.png",
+  "art": false
+ },
+ {
+  "id": "ash-unova",
+  "name": "Ash (Unova)",
+  "era": "current",
+  "key": "trainers/ash-unova.png",
+  "art": false
+ },
+ {
+  "id": "atticus",
+  "name": "Atticus",
+  "era": "current",
+  "key": "trainers/atticus.png",
+  "art": false
+ },
+ {
+  "id": "avery",
+  "name": "Avery",
+  "era": "current",
+  "key": "trainers/avery.png",
+  "art": false
+ },
+ {
+  "id": "az",
+  "name": "AZ",
+  "era": "current",
+  "key": "trainers/az.png",
+  "art": false
+ },
+ {
+  "id": "az-lza",
+  "name": "AZ (Lza)",
+  "era": "current",
+  "key": "trainers/az-lza.png",
+  "art": false
+ },
+ {
+  "id": "backers",
+  "name": "Backers",
+  "era": "current",
+  "key": "trainers/backers.png",
+  "art": false
+ },
+ {
+  "id": "backersf",
+  "name": "Backers ♀",
+  "era": "current",
+  "key": "trainers/backersf.png",
+  "art": false
+ },
+ {
+  "id": "backpacker",
+  "name": "Backpacker",
+  "era": "current",
+  "key": "trainers/backpacker.png",
+  "art": false
+ },
+ {
+  "id": "backpacker-gen6",
+  "name": "Backpacker",
+  "era": "gen6",
+  "key": "trainers/backpacker-gen6.png",
+  "art": false
+ },
+ {
+  "id": "backpacker-gen8",
+  "name": "Backpacker",
+  "era": "gen8",
+  "key": "trainers/backpacker-gen8.png",
+  "art": false
+ },
+ {
+  "id": "backpacker-gen9",
+  "name": "Backpacker",
+  "era": "gen9",
+  "key": "trainers/backpacker-gen9.png",
+  "art": false
+ },
+ {
+  "id": "backpackerf",
+  "name": "Backpacker ♀",
+  "era": "current",
+  "key": "trainers/backpackerf.png",
+  "art": false
+ },
+ {
+  "id": "baker",
+  "name": "Baker",
+  "era": "current",
+  "key": "trainers/baker.png",
+  "art": false
+ },
+ {
+  "id": "ballguy",
+  "name": "Ball Guy",
+  "era": "current",
+  "key": "trainers/ballguy.png",
+  "art": false
+ },
+ {
+  "id": "baoba",
+  "name": "Baoba",
+  "era": "current",
+  "key": "trainers/baoba.png",
+  "art": false
+ },
+ {
+  "id": "barry",
+  "name": "Barry",
+  "era": "current",
+  "key": "trainers/barry.png",
+  "art": false
+ },
+ {
+  "id": "battlegirl",
+  "name": "Battle Girl",
+  "era": "current",
+  "key": "trainers/battlegirl.png",
+  "art": false
+ },
+ {
+  "id": "battlegirl-gen3",
+  "name": "Battle Girl",
+  "era": "gen3",
+  "key": "trainers/battlegirl-gen3.png",
+  "art": false
+ },
+ {
+  "id": "battlegirl-gen4",
+  "name": "Battle Girl",
+  "era": "gen4",
+  "key": "trainers/battlegirl-gen4.png",
+  "art": false
+ },
+ {
+  "id": "battlegirl-gen6",
+  "name": "Battle Girl",
+  "era": "gen6",
+  "key": "trainers/battlegirl-gen6.png",
+  "art": false
+ },
+ {
+  "id": "battlegirl-gen6xy",
+  "name": "Battle Girl (X/Y)",
+  "era": "gen6",
+  "key": "trainers/battlegirl-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "bea",
+  "name": "Bea",
+  "era": "current",
+  "key": "trainers/bea.png",
+  "art": false
+ },
+ {
+  "id": "beauty",
+  "name": "Beauty",
+  "era": "current",
+  "key": "trainers/beauty.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen1",
+  "name": "Beauty",
+  "era": "gen1",
+  "key": "trainers/beauty-gen1.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen2",
+  "name": "Beauty",
+  "era": "gen2",
+  "key": "trainers/beauty-gen2.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen3",
+  "name": "Beauty",
+  "era": "gen3",
+  "key": "trainers/beauty-gen3.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen6",
+  "name": "Beauty",
+  "era": "gen6",
+  "key": "trainers/beauty-gen6.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen7",
+  "name": "Beauty",
+  "era": "gen7",
+  "key": "trainers/beauty-gen7.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen8",
+  "name": "Beauty",
+  "era": "gen8",
+  "key": "trainers/beauty-gen8.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen9",
+  "name": "Beauty",
+  "era": "gen9",
+  "key": "trainers/beauty-gen9.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen5bw2",
+  "name": "Beauty (B/W 2)",
+  "era": "gen5",
+  "key": "trainers/beauty-gen5bw2.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen4dp",
+  "name": "Beauty (D/P)",
+  "era": "gen4",
+  "key": "trainers/beauty-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen2jp",
+  "name": "Beauty (JP)",
+  "era": "gen2",
+  "key": "trainers/beauty-gen2jp.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen1rb",
+  "name": "Beauty (R/B)",
+  "era": "gen1",
+  "key": "trainers/beauty-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen3rs",
+  "name": "Beauty (R/S)",
+  "era": "gen3",
+  "key": "trainers/beauty-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "beauty-gen6xy",
+  "name": "Beauty (X/Y)",
+  "era": "gen6",
+  "key": "trainers/beauty-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "becca",
+  "name": "Becca",
+  "era": "current",
+  "key": "trainers/becca.png",
+  "art": false
+ },
+ {
+  "id": "bede",
+  "name": "Bede",
+  "era": "current",
+  "key": "trainers/bede.png",
+  "art": false
+ },
+ {
+  "id": "bede-leader",
+  "name": "Bede (Leader)",
+  "era": "current",
+  "key": "trainers/bede-leader.png",
+  "art": false
+ },
+ {
+  "id": "bellelba",
+  "name": "Bellelba",
+  "era": "current",
+  "key": "trainers/bellelba.png",
+  "art": false
+ },
+ {
+  "id": "bellepa",
+  "name": "Bellepa",
+  "era": "current",
+  "key": "trainers/bellepa.png",
+  "art": false
+ },
+ {
+  "id": "bellhop",
+  "name": "Bellhop",
+  "era": "current",
+  "key": "trainers/bellhop.png",
+  "art": false
+ },
+ {
+  "id": "bellis",
+  "name": "Bellis",
+  "era": "current",
+  "key": "trainers/bellis.png",
+  "art": false
+ },
+ {
+  "id": "benga",
+  "name": "Benga",
+  "era": "current",
+  "key": "trainers/benga.png",
+  "art": false
+ },
+ {
+  "id": "beni",
+  "name": "Beni",
+  "era": "current",
+  "key": "trainers/beni.png",
+  "art": false
+ },
+ {
+  "id": "beni-ninja",
+  "name": "Beni (Ninja)",
+  "era": "current",
+  "key": "trainers/beni-ninja.png",
+  "art": false
+ },
+ {
+  "id": "bertha",
+  "name": "Bertha",
+  "era": "current",
+  "key": "trainers/bertha.png",
+  "art": false
+ },
+ {
+  "id": "bianca",
+  "name": "Bianca",
+  "era": "current",
+  "key": "trainers/bianca.png",
+  "art": false
+ },
+ {
+  "id": "bianca-pwt",
+  "name": "Bianca (Pwt)",
+  "era": "current",
+  "key": "trainers/bianca-pwt.png",
+  "art": false
+ },
+ {
+  "id": "biker",
+  "name": "Biker",
+  "era": "current",
+  "key": "trainers/biker.png",
+  "art": false
+ },
+ {
+  "id": "biker-gen1",
+  "name": "Biker",
+  "era": "gen1",
+  "key": "trainers/biker-gen1.png",
+  "art": false
+ },
+ {
+  "id": "biker-gen2",
+  "name": "Biker",
+  "era": "gen2",
+  "key": "trainers/biker-gen2.png",
+  "art": false
+ },
+ {
+  "id": "biker-gen3",
+  "name": "Biker",
+  "era": "gen3",
+  "key": "trainers/biker-gen3.png",
+  "art": false
+ },
+ {
+  "id": "biker-gen4",
+  "name": "Biker",
+  "era": "gen4",
+  "key": "trainers/biker-gen4.png",
+  "art": false
+ },
+ {
+  "id": "biker-gen1rb",
+  "name": "Biker (R/B)",
+  "era": "gen1",
+  "key": "trainers/biker-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "bill",
+  "name": "Bill",
+  "era": "current",
+  "key": "trainers/bill.png",
+  "art": false
+ },
+ {
+  "id": "bill-gen3",
+  "name": "Bill",
+  "era": "gen3",
+  "key": "trainers/bill-gen3.png",
+  "art": false
+ },
+ {
+  "id": "birch",
+  "name": "Birch",
+  "era": "current",
+  "key": "trainers/birch.png",
+  "art": false
+ },
+ {
+  "id": "birch-gen3",
+  "name": "Birch",
+  "era": "gen3",
+  "key": "trainers/birch-gen3.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper",
+  "name": "Bird Keeper",
+  "era": "current",
+  "key": "trainers/birdkeeper.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen1",
+  "name": "Bird Keeper",
+  "era": "gen1",
+  "key": "trainers/birdkeeper-gen1.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen2",
+  "name": "Bird Keeper",
+  "era": "gen2",
+  "key": "trainers/birdkeeper-gen2.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen3",
+  "name": "Bird Keeper",
+  "era": "gen3",
+  "key": "trainers/birdkeeper-gen3.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen6",
+  "name": "Bird Keeper",
+  "era": "gen6",
+  "key": "trainers/birdkeeper-gen6.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen4dp",
+  "name": "Bird Keeper (D/P)",
+  "era": "gen4",
+  "key": "trainers/birdkeeper-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen1rb",
+  "name": "Bird Keeper (R/B)",
+  "era": "gen1",
+  "key": "trainers/birdkeeper-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "birdkeeper-gen3rs",
+  "name": "Bird Keeper (R/S)",
+  "era": "gen3",
+  "key": "trainers/birdkeeper-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt",
+  "name": "Black Belt",
+  "era": "current",
+  "key": "trainers/blackbelt.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen1",
+  "name": "Black Belt",
+  "era": "gen1",
+  "key": "trainers/blackbelt-gen1.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen2",
+  "name": "Black Belt",
+  "era": "gen2",
+  "key": "trainers/blackbelt-gen2.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen3",
+  "name": "Black Belt",
+  "era": "gen3",
+  "key": "trainers/blackbelt-gen3.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen4",
+  "name": "Black Belt",
+  "era": "gen4",
+  "key": "trainers/blackbelt-gen4.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen6",
+  "name": "Black Belt",
+  "era": "gen6",
+  "key": "trainers/blackbelt-gen6.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen7",
+  "name": "Black Belt",
+  "era": "gen7",
+  "key": "trainers/blackbelt-gen7.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen8",
+  "name": "Black Belt",
+  "era": "gen8",
+  "key": "trainers/blackbelt-gen8.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen9",
+  "name": "Black Belt",
+  "era": "gen9",
+  "key": "trainers/blackbelt-gen9.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen4dp",
+  "name": "Black Belt (D/P)",
+  "era": "gen4",
+  "key": "trainers/blackbelt-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen1rb",
+  "name": "Black Belt (R/B)",
+  "era": "gen1",
+  "key": "trainers/blackbelt-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "blackbelt-gen3rs",
+  "name": "Black Belt (R/S)",
+  "era": "gen3",
+  "key": "trainers/blackbelt-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "blaine",
+  "name": "Blaine",
+  "era": "current",
+  "key": "trainers/blaine.png",
+  "art": false
+ },
+ {
+  "id": "blaine-gen1",
+  "name": "Blaine",
+  "era": "gen1",
+  "key": "trainers/blaine-gen1.png",
+  "art": false
+ },
+ {
+  "id": "blaine-gen2",
+  "name": "Blaine",
+  "era": "gen2",
+  "key": "trainers/blaine-gen2.png",
+  "art": false
+ },
+ {
+  "id": "blaine-gen3",
+  "name": "Blaine",
+  "era": "gen3",
+  "key": "trainers/blaine-gen3.png",
+  "art": false
+ },
+ {
+  "id": "blaine-lgpe",
+  "name": "Blaine (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/blaine-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "blaine-gen1rb",
+  "name": "Blaine (R/B)",
+  "era": "gen1",
+  "key": "trainers/blaine-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "blanche",
+  "name": "Blanche",
+  "era": "current",
+  "key": "trainers/blanche.png",
+  "art": false
+ },
+ {
+  "id": "blanche-casual",
+  "name": "Blanche (Casual)",
+  "era": "current",
+  "key": "trainers/blanche-casual.png",
+  "art": false
+ },
+ {
+  "id": "blue",
+  "name": "Blue",
+  "era": "gen3",
+  "key": "account/avatars/blue.png",
+  "art": false
+ },
+ {
+  "id": "blue-art",
+  "name": "Blue",
+  "era": "art",
+  "key": "walkthrough/art/blue-art.png",
+  "art": true
+ },
+ {
+  "id": "blue-current",
+  "name": "Blue",
+  "era": "current",
+  "key": "trainers/blue.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen1",
+  "name": "Blue",
+  "era": "gen1",
+  "key": "trainers/blue-gen1.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen1rbchampion",
+  "name": "Blue",
+  "era": "gen1",
+  "key": "trainers/blue-gen1rbchampion.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen1rbtwo",
+  "name": "Blue",
+  "era": "gen1",
+  "key": "trainers/blue-gen1rbtwo.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen2",
+  "name": "Blue",
+  "era": "gen2",
+  "key": "trainers/blue-gen2.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen7",
+  "name": "Blue",
+  "era": "gen7",
+  "key": "trainers/blue-gen7.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen1two",
+  "name": "Blue (2)",
+  "era": "gen1",
+  "key": "trainers/blue-gen1two.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen3two",
+  "name": "Blue (2)",
+  "era": "gen3",
+  "key": "trainers/blue-gen3two.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen1champion",
+  "name": "Blue (Champion)",
+  "era": "gen1",
+  "key": "trainers/blue-gen1champion.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen3champion",
+  "name": "Blue (Champion)",
+  "era": "gen3",
+  "key": "trainers/blue-gen3champion.png",
+  "art": false
+ },
+ {
+  "id": "blue-lgpe",
+  "name": "Blue (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/blue-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "blue-gen1rb",
+  "name": "Blue (R/B)",
+  "era": "gen1",
+  "key": "trainers/blue-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "boarder",
+  "name": "Boarder",
+  "era": "current",
+  "key": "trainers/boarder.png",
+  "art": false
+ },
+ {
+  "id": "boarder-gen2",
+  "name": "Boarder",
+  "era": "gen2",
+  "key": "trainers/boarder-gen2.png",
+  "art": false
+ },
+ {
+  "id": "bodybuilder-gen9",
+  "name": "Body Builder",
+  "era": "gen9",
+  "key": "trainers/bodybuilder-gen9.png",
+  "art": false
+ },
+ {
+  "id": "bodybuilderf-gen9",
+  "name": "Body Builder ♀",
+  "era": "gen9",
+  "key": "trainers/bodybuilderf-gen9.png",
+  "art": false
+ },
+ {
+  "id": "brandon",
+  "name": "Br & On",
+  "era": "current",
+  "key": "trainers/brandon.png",
+  "art": false
+ },
+ {
+  "id": "brandon-gen3",
+  "name": "Br & On",
+  "era": "gen3",
+  "key": "trainers/brandon-gen3.png",
+  "art": false
+ },
+ {
+  "id": "brassius",
+  "name": "Brassius",
+  "era": "current",
+  "key": "trainers/brassius.png",
+  "art": false
+ },
+ {
+  "id": "brawly",
+  "name": "Brawly",
+  "era": "current",
+  "key": "trainers/brawly.png",
+  "art": false
+ },
+ {
+  "id": "brawly-gen3",
+  "name": "Brawly",
+  "era": "gen3",
+  "key": "trainers/brawly-gen3.png",
+  "art": false
+ },
+ {
+  "id": "brawly-gen6",
+  "name": "Brawly",
+  "era": "gen6",
+  "key": "trainers/brawly-gen6.png",
+  "art": false
+ },
+ {
+  "id": "brendan",
+  "name": "Brendan",
+  "era": "current",
+  "key": "trainers/brendan.png",
+  "art": false
+ },
+ {
+  "id": "brendan-gen3",
+  "name": "Brendan",
+  "era": "gen3",
+  "key": "trainers/brendan-gen3.png",
+  "art": false
+ },
+ {
+  "id": "brendan-contest",
+  "name": "Brendan (Contest)",
+  "era": "current",
+  "key": "trainers/brendan-contest.png",
+  "art": false
+ },
+ {
+  "id": "brendan-e",
+  "name": "Brendan (Emerald)",
+  "era": "gen3",
+  "key": "trainers/brendan-e.png",
+  "art": false
+ },
+ {
+  "id": "brendan-gen3rs",
+  "name": "Brendan (R/S)",
+  "era": "gen3",
+  "key": "trainers/brendan-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "brendan-rs",
+  "name": "Brendan (R/S)",
+  "era": "gen3",
+  "key": "trainers/brendan-rs.png",
+  "art": false
+ },
+ {
+  "id": "briar",
+  "name": "Briar",
+  "era": "current",
+  "key": "trainers/briar.png",
+  "art": false
+ },
+ {
+  "id": "brigette",
+  "name": "Brigette",
+  "era": "current",
+  "key": "trainers/brigette.png",
+  "art": false
+ },
+ {
+  "id": "brock",
+  "name": "Brock",
+  "era": "current",
+  "key": "trainers/brock.png",
+  "art": false
+ },
+ {
+  "id": "brock-gen1",
+  "name": "Brock",
+  "era": "gen1",
+  "key": "trainers/brock-gen1.png",
+  "art": false
+ },
+ {
+  "id": "brock-gen2",
+  "name": "Brock",
+  "era": "gen2",
+  "key": "trainers/brock-gen2.png",
+  "art": false
+ },
+ {
+  "id": "brock-gen3",
+  "name": "Brock",
+  "era": "gen3",
+  "key": "trainers/brock-gen3.png",
+  "art": false
+ },
+ {
+  "id": "brock-lgpe",
+  "name": "Brock (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/brock-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "brock-gen1rb",
+  "name": "Brock (R/B)",
+  "era": "gen1",
+  "key": "trainers/brock-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "bruno",
+  "name": "Bruno",
+  "era": "current",
+  "key": "trainers/bruno.png",
+  "art": false
+ },
+ {
+  "id": "bruno-art",
+  "name": "Bruno",
+  "era": "art",
+  "key": "walkthrough/art/bruno-art.png",
+  "art": true
+ },
+ {
+  "id": "bruno-gen1",
+  "name": "Bruno",
+  "era": "gen1",
+  "key": "trainers/bruno-gen1.png",
+  "art": false
+ },
+ {
+  "id": "bruno-gen2",
+  "name": "Bruno",
+  "era": "gen2",
+  "key": "trainers/bruno-gen2.png",
+  "art": false
+ },
+ {
+  "id": "bruno-gen3",
+  "name": "Bruno",
+  "era": "gen3",
+  "key": "trainers/bruno-gen3.png",
+  "art": false
+ },
+ {
+  "id": "bruno-gen1rb",
+  "name": "Bruno (R/B)",
+  "era": "gen1",
+  "key": "trainers/bruno-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "brycen",
+  "name": "Brycen",
+  "era": "current",
+  "key": "trainers/brycen.png",
+  "art": false
+ },
+ {
+  "id": "brycenman",
+  "name": "Brycenman",
+  "era": "current",
+  "key": "trainers/brycenman.png",
+  "art": false
+ },
+ {
+  "id": "bryony",
+  "name": "Bryony",
+  "era": "current",
+  "key": "trainers/bryony.png",
+  "art": false
+ },
+ {
+  "id": "buck",
+  "name": "Buck",
+  "era": "current",
+  "key": "trainers/buck.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher",
+  "name": "Bug Catcher",
+  "era": "current",
+  "key": "trainers/bugcatcher.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen1",
+  "name": "Bug Catcher",
+  "era": "gen1",
+  "key": "trainers/bugcatcher-gen1.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen2",
+  "name": "Bug Catcher",
+  "era": "gen2",
+  "key": "trainers/bugcatcher-gen2.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen3",
+  "name": "Bug Catcher",
+  "era": "gen3",
+  "key": "trainers/bugcatcher-gen3.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen6",
+  "name": "Bug Catcher",
+  "era": "gen6",
+  "key": "trainers/bugcatcher-gen6.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen4dp",
+  "name": "Bug Catcher (D/P)",
+  "era": "gen4",
+  "key": "trainers/bugcatcher-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen1rb",
+  "name": "Bug Catcher (R/B)",
+  "era": "gen1",
+  "key": "trainers/bugcatcher-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "bugcatcher-gen3rs",
+  "name": "Bug Catcher (R/S)",
+  "era": "gen3",
+  "key": "trainers/bugcatcher-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "bugmaniac-gen3",
+  "name": "Bug Maniac",
+  "era": "gen3",
+  "key": "trainers/bugmaniac-gen3.png",
+  "art": false
+ },
+ {
+  "id": "bugmaniac-gen6",
+  "name": "Bug Maniac",
+  "era": "gen6",
+  "key": "trainers/bugmaniac-gen6.png",
+  "art": false
+ },
+ {
+  "id": "bugsy",
+  "name": "Bugsy",
+  "era": "current",
+  "key": "trainers/bugsy.png",
+  "art": false
+ },
+ {
+  "id": "bugsy-gen2",
+  "name": "Bugsy",
+  "era": "gen2",
+  "key": "trainers/bugsy-gen2.png",
+  "art": false
+ },
+ {
+  "id": "burgh",
+  "name": "Burgh",
+  "era": "current",
+  "key": "trainers/burgh.png",
+  "art": false
+ },
+ {
+  "id": "burglar",
+  "name": "Burglar",
+  "era": "current",
+  "key": "trainers/burglar.png",
+  "art": false
+ },
+ {
+  "id": "burglar-gen1",
+  "name": "Burglar",
+  "era": "gen1",
+  "key": "trainers/burglar-gen1.png",
+  "art": false
+ },
+ {
+  "id": "burglar-gen2",
+  "name": "Burglar",
+  "era": "gen2",
+  "key": "trainers/burglar-gen2.png",
+  "art": false
+ },
+ {
+  "id": "burglar-gen3",
+  "name": "Burglar",
+  "era": "gen3",
+  "key": "trainers/burglar-gen3.png",
+  "art": false
+ },
+ {
+  "id": "burglar-lgpe",
+  "name": "Burglar (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/burglar-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "burglar-gen1rb",
+  "name": "Burglar (R/B)",
+  "era": "gen1",
+  "key": "trainers/burglar-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "burnet",
+  "name": "Burnet",
+  "era": "current",
+  "key": "trainers/burnet.png",
+  "art": false
+ },
+ {
+  "id": "burnet-radar",
+  "name": "Burnet (Radar)",
+  "era": "current",
+  "key": "trainers/burnet-radar.png",
+  "art": false
+ },
+ {
+  "id": "butler",
+  "name": "Butler",
+  "era": "current",
+  "key": "trainers/butler.png",
+  "art": false
+ },
+ {
+  "id": "byron",
+  "name": "Byron",
+  "era": "current",
+  "key": "trainers/byron.png",
+  "art": false
+ },
+ {
+  "id": "candela",
+  "name": "C & Ela",
+  "era": "current",
+  "key": "trainers/candela.png",
+  "art": false
+ },
+ {
+  "id": "candela-casual",
+  "name": "C & Ela (Casual)",
+  "era": "current",
+  "key": "trainers/candela-casual.png",
+  "art": false
+ },
+ {
+  "id": "candice",
+  "name": "C & Ice",
+  "era": "current",
+  "key": "trainers/candice.png",
+  "art": false
+ },
+ {
+  "id": "cabbie",
+  "name": "Cabbie",
+  "era": "current",
+  "key": "trainers/cabbie.png",
+  "art": false
+ },
+ {
+  "id": "cabbie-gen9",
+  "name": "Cabbie",
+  "era": "gen9",
+  "key": "trainers/cabbie-gen9.png",
+  "art": false
+ },
+ {
+  "id": "cafemaster",
+  "name": "Cafemaster",
+  "era": "current",
+  "key": "trainers/cafemaster.png",
+  "art": false
+ },
+ {
+  "id": "caitlin",
+  "name": "Caitlin",
+  "era": "current",
+  "key": "trainers/caitlin.png",
+  "art": false
+ },
+ {
+  "id": "caitlin-gen4",
+  "name": "Caitlin",
+  "era": "gen4",
+  "key": "trainers/caitlin-gen4.png",
+  "art": false
+ },
+ {
+  "id": "calaba",
+  "name": "Calaba",
+  "era": "current",
+  "key": "trainers/calaba.png",
+  "art": false
+ },
+ {
+  "id": "calem",
+  "name": "Calem",
+  "era": "current",
+  "key": "trainers/calem.png",
+  "art": false
+ },
+ {
+  "id": "cameraman",
+  "name": "Cameraman",
+  "era": "current",
+  "key": "trainers/cameraman.png",
+  "art": false
+ },
+ {
+  "id": "cameraman-gen6",
+  "name": "Cameraman",
+  "era": "gen6",
+  "key": "trainers/cameraman-gen6.png",
+  "art": false
+ },
+ {
+  "id": "cameraman-gen8",
+  "name": "Cameraman",
+  "era": "gen8",
+  "key": "trainers/cameraman-gen8.png",
+  "art": false
+ },
+ {
+  "id": "camper",
+  "name": "Camper",
+  "era": "current",
+  "key": "trainers/camper.png",
+  "art": false
+ },
+ {
+  "id": "camper-gen2",
+  "name": "Camper",
+  "era": "gen2",
+  "key": "trainers/camper-gen2.png",
+  "art": false
+ },
+ {
+  "id": "camper-gen3",
+  "name": "Camper",
+  "era": "gen3",
+  "key": "trainers/camper-gen3.png",
+  "art": false
+ },
+ {
+  "id": "camper-gen6",
+  "name": "Camper",
+  "era": "gen6",
+  "key": "trainers/camper-gen6.png",
+  "art": false
+ },
+ {
+  "id": "camper-gen3rs",
+  "name": "Camper (R/S)",
+  "era": "gen3",
+  "key": "trainers/camper-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "canari",
+  "name": "Canari",
+  "era": "current",
+  "key": "trainers/canari.png",
+  "art": false
+ },
+ {
+  "id": "caraliss",
+  "name": "Caraliss",
+  "era": "current",
+  "key": "trainers/caraliss.png",
+  "art": false
+ },
+ {
+  "id": "caretaker",
+  "name": "Caretaker",
+  "era": "current",
+  "key": "trainers/caretaker.png",
+  "art": false
+ },
+ {
+  "id": "carmine",
+  "name": "Carmine",
+  "era": "current",
+  "key": "trainers/carmine.png",
+  "art": false
+ },
+ {
+  "id": "carmine-festival",
+  "name": "Carmine (Festival)",
+  "era": "current",
+  "key": "trainers/carmine-festival.png",
+  "art": false
+ },
+ {
+  "id": "cedricjuniper",
+  "name": "Cedric Juniper",
+  "era": "current",
+  "key": "trainers/cedricjuniper.png",
+  "art": false
+ },
+ {
+  "id": "celio",
+  "name": "Celio",
+  "era": "current",
+  "key": "trainers/celio.png",
+  "art": false
+ },
+ {
+  "id": "channeler-gen1",
+  "name": "Channeler",
+  "era": "gen1",
+  "key": "trainers/channeler-gen1.png",
+  "art": false
+ },
+ {
+  "id": "channeler-gen3",
+  "name": "Channeler",
+  "era": "gen3",
+  "key": "trainers/channeler-gen3.png",
+  "art": false
+ },
+ {
+  "id": "channeler-lgpe",
+  "name": "Channeler (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/channeler-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "channeler-gen1rb",
+  "name": "Channeler (R/B)",
+  "era": "gen1",
+  "key": "trainers/channeler-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "charm",
+  "name": "Charm",
+  "era": "current",
+  "key": "trainers/charm.png",
+  "art": false
+ },
+ {
+  "id": "charon",
+  "name": "Charon",
+  "era": "current",
+  "key": "trainers/charon.png",
+  "art": false
+ },
+ {
+  "id": "chase",
+  "name": "Chase",
+  "era": "current",
+  "key": "trainers/chase.png",
+  "art": false
+ },
+ {
+  "id": "chef",
+  "name": "Chef",
+  "era": "current",
+  "key": "trainers/chef.png",
+  "art": false
+ },
+ {
+  "id": "cheren",
+  "name": "Cheren",
+  "era": "current",
+  "key": "trainers/cheren.png",
+  "art": false
+ },
+ {
+  "id": "cheren-gen5bw2",
+  "name": "Cheren (B/W 2)",
+  "era": "gen5",
+  "key": "trainers/cheren-gen5bw2.png",
+  "art": false
+ },
+ {
+  "id": "cheryl",
+  "name": "Cheryl",
+  "era": "current",
+  "key": "trainers/cheryl.png",
+  "art": false
+ },
+ {
+  "id": "chili",
+  "name": "Chili",
+  "era": "current",
+  "key": "trainers/chili.png",
+  "art": false
+ },
+ {
+  "id": "choy",
+  "name": "Choy",
+  "era": "current",
+  "key": "trainers/choy.png",
+  "art": false
+ },
+ {
+  "id": "christoph",
+  "name": "Christoph",
+  "era": "current",
+  "key": "trainers/christoph.png",
+  "art": false
+ },
+ {
+  "id": "chuck",
+  "name": "Chuck",
+  "era": "current",
+  "key": "trainers/chuck.png",
+  "art": false
+ },
+ {
+  "id": "chuck-gen2",
+  "name": "Chuck",
+  "era": "gen2",
+  "key": "trainers/chuck-gen2.png",
+  "art": false
+ },
+ {
+  "id": "cilan",
+  "name": "Cilan",
+  "era": "current",
+  "key": "trainers/cilan.png",
+  "art": false
+ },
+ {
+  "id": "clair",
+  "name": "Clair",
+  "era": "current",
+  "key": "trainers/clair.png",
+  "art": false
+ },
+ {
+  "id": "clair-gen2",
+  "name": "Clair",
+  "era": "gen2",
+  "key": "trainers/clair-gen2.png",
+  "art": false
+ },
+ {
+  "id": "clavell-s",
+  "name": "Clavell (S)",
+  "era": "current",
+  "key": "trainers/clavell-s.png",
+  "art": false
+ },
+ {
+  "id": "clay",
+  "name": "Clay",
+  "era": "current",
+  "key": "trainers/clay.png",
+  "art": false
+ },
+ {
+  "id": "clemont",
+  "name": "Clemont",
+  "era": "current",
+  "key": "trainers/clemont.png",
+  "art": false
+ },
+ {
+  "id": "clerk",
+  "name": "Clerk",
+  "era": "current",
+  "key": "trainers/clerk.png",
+  "art": false
+ },
+ {
+  "id": "clerk-gen8",
+  "name": "Clerk",
+  "era": "gen8",
+  "key": "trainers/clerk-gen8.png",
+  "art": false
+ },
+ {
+  "id": "clerk-boss",
+  "name": "Clerk (Boss)",
+  "era": "current",
+  "key": "trainers/clerk-boss.png",
+  "art": false
+ },
+ {
+  "id": "clerk-unite",
+  "name": "Clerk (Unite)",
+  "era": "current",
+  "key": "trainers/clerk-unite.png",
+  "art": false
+ },
+ {
+  "id": "clerkf",
+  "name": "Clerk ♀",
+  "era": "current",
+  "key": "trainers/clerkf.png",
+  "art": false
+ },
+ {
+  "id": "clerkf-gen8",
+  "name": "Clerk ♀",
+  "era": "gen8",
+  "key": "trainers/clerkf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "cliff",
+  "name": "Cliff",
+  "era": "current",
+  "key": "trainers/cliff.png",
+  "art": false
+ },
+ {
+  "id": "clive-v",
+  "name": "Clive (V)",
+  "era": "current",
+  "key": "trainers/clive-v.png",
+  "art": false
+ },
+ {
+  "id": "clover",
+  "name": "Clover",
+  "era": "current",
+  "key": "trainers/clover.png",
+  "art": false
+ },
+ {
+  "id": "clown",
+  "name": "Clown",
+  "era": "current",
+  "key": "trainers/clown.png",
+  "art": false
+ },
+ {
+  "id": "cogita",
+  "name": "Cogita",
+  "era": "current",
+  "key": "trainers/cogita.png",
+  "art": false
+ },
+ {
+  "id": "coin",
+  "name": "Coin",
+  "era": "current",
+  "key": "trainers/coin.png",
+  "art": false
+ },
+ {
+  "id": "collector",
+  "name": "Collector",
+  "era": "current",
+  "key": "trainers/collector.png",
+  "art": false
+ },
+ {
+  "id": "collector-gen3",
+  "name": "Collector",
+  "era": "gen3",
+  "key": "trainers/collector-gen3.png",
+  "art": false
+ },
+ {
+  "id": "collector-gen6",
+  "name": "Collector",
+  "era": "gen6",
+  "key": "trainers/collector-gen6.png",
+  "art": false
+ },
+ {
+  "id": "collector-gen7",
+  "name": "Collector",
+  "era": "gen7",
+  "key": "trainers/collector-gen7.png",
+  "art": false
+ },
+ {
+  "id": "colress",
+  "name": "Colress",
+  "era": "current",
+  "key": "trainers/colress.png",
+  "art": false
+ },
+ {
+  "id": "colress-gen7",
+  "name": "Colress",
+  "era": "gen7",
+  "key": "trainers/colress-gen7.png",
+  "art": false
+ },
+ {
+  "id": "colza",
+  "name": "Colza",
+  "era": "current",
+  "key": "trainers/colza.png",
+  "art": false
+ },
+ {
+  "id": "concordia",
+  "name": "Concordia",
+  "era": "current",
+  "key": "trainers/concordia.png",
+  "art": false
+ },
+ {
+  "id": "cook",
+  "name": "Cook",
+  "era": "current",
+  "key": "trainers/cook.png",
+  "art": false
+ },
+ {
+  "id": "cook-gen7",
+  "name": "Cook",
+  "era": "gen7",
+  "key": "trainers/cook-gen7.png",
+  "art": false
+ },
+ {
+  "id": "cook-gen9",
+  "name": "Cook",
+  "era": "gen9",
+  "key": "trainers/cook-gen9.png",
+  "art": false
+ },
+ {
+  "id": "corbeau",
+  "name": "Corbeau",
+  "era": "current",
+  "key": "trainers/corbeau.png",
+  "art": false
+ },
+ {
+  "id": "courier",
+  "name": "Courier",
+  "era": "current",
+  "key": "trainers/courier.png",
+  "art": false
+ },
+ {
+  "id": "courtney",
+  "name": "Courtney",
+  "era": "current",
+  "key": "trainers/courtney.png",
+  "art": false
+ },
+ {
+  "id": "courtney-gen3",
+  "name": "Courtney",
+  "era": "gen3",
+  "key": "trainers/courtney-gen3.png",
+  "art": false
+ },
+ {
+  "id": "cowgirl",
+  "name": "Cowgirl",
+  "era": "current",
+  "key": "trainers/cowgirl.png",
+  "art": false
+ },
+ {
+  "id": "crasherwake",
+  "name": "Crasherwake",
+  "era": "current",
+  "key": "trainers/crasherwake.png",
+  "art": false
+ },
+ {
+  "id": "cress",
+  "name": "Cress",
+  "era": "current",
+  "key": "trainers/cress.png",
+  "art": false
+ },
+ {
+  "id": "crispin",
+  "name": "Crispin",
+  "era": "current",
+  "key": "trainers/crispin.png",
+  "art": false
+ },
+ {
+  "id": "crushgirl-gen3",
+  "name": "Crushgirl",
+  "era": "gen3",
+  "key": "trainers/crushgirl-gen3.png",
+  "art": false
+ },
+ {
+  "id": "crushkin-gen3",
+  "name": "Crushkin",
+  "era": "gen3",
+  "key": "trainers/crushkin-gen3.png",
+  "art": false
+ },
+ {
+  "id": "cueball-gen1",
+  "name": "Cue Ball",
+  "era": "gen1",
+  "key": "trainers/cueball-gen1.png",
+  "art": false
+ },
+ {
+  "id": "cueball-gen3",
+  "name": "Cue Ball",
+  "era": "gen3",
+  "key": "trainers/cueball-gen3.png",
+  "art": false
+ },
+ {
+  "id": "cueball-gen1rb",
+  "name": "Cue Ball (R/B)",
+  "era": "gen1",
+  "key": "trainers/cueball-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "curtis",
+  "name": "Curtis",
+  "era": "current",
+  "key": "trainers/curtis.png",
+  "art": false
+ },
+ {
+  "id": "cyclist",
+  "name": "Cyclist",
+  "era": "current",
+  "key": "trainers/cyclist.png",
+  "art": false
+ },
+ {
+  "id": "cyclist-gen4",
+  "name": "Cyclist",
+  "era": "gen4",
+  "key": "trainers/cyclist-gen4.png",
+  "art": false
+ },
+ {
+  "id": "cyclistf",
+  "name": "Cyclist ♀",
+  "era": "current",
+  "key": "trainers/cyclistf.png",
+  "art": false
+ },
+ {
+  "id": "cyclistf-gen4",
+  "name": "Cyclist ♀",
+  "era": "gen4",
+  "key": "trainers/cyclistf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "cyllene",
+  "name": "Cyllene",
+  "era": "current",
+  "key": "trainers/cyllene.png",
+  "art": false
+ },
+ {
+  "id": "cynthia",
+  "name": "Cynthia",
+  "era": "current",
+  "key": "trainers/cynthia.png",
+  "art": false
+ },
+ {
+  "id": "cynthia-gen4",
+  "name": "Cynthia",
+  "era": "gen4",
+  "key": "trainers/cynthia-gen4.png",
+  "art": false
+ },
+ {
+  "id": "cynthia-gen7",
+  "name": "Cynthia",
+  "era": "gen7",
+  "key": "trainers/cynthia-gen7.png",
+  "art": false
+ },
+ {
+  "id": "cyrano",
+  "name": "Cyrano",
+  "era": "current",
+  "key": "trainers/cyrano.png",
+  "art": false
+ },
+ {
+  "id": "cyrus",
+  "name": "Cyrus",
+  "era": "current",
+  "key": "trainers/cyrus.png",
+  "art": false
+ },
+ {
+  "id": "dagero",
+  "name": "Dagero",
+  "era": "current",
+  "key": "trainers/dagero.png",
+  "art": false
+ },
+ {
+  "id": "dahlia",
+  "name": "Dahlia",
+  "era": "current",
+  "key": "trainers/dahlia.png",
+  "art": false
+ },
+ {
+  "id": "daisy",
+  "name": "Daisy",
+  "era": "current",
+  "key": "trainers/daisy.png",
+  "art": false
+ },
+ {
+  "id": "daisy-gen3",
+  "name": "Daisy",
+  "era": "gen3",
+  "key": "trainers/daisy-gen3.png",
+  "art": false
+ },
+ {
+  "id": "dana",
+  "name": "Dana",
+  "era": "current",
+  "key": "trainers/dana.png",
+  "art": false
+ },
+ {
+  "id": "dancer",
+  "name": "Dancer",
+  "era": "current",
+  "key": "trainers/dancer.png",
+  "art": false
+ },
+ {
+  "id": "dancer-gen7",
+  "name": "Dancer",
+  "era": "gen7",
+  "key": "trainers/dancer-gen7.png",
+  "art": false
+ },
+ {
+  "id": "dancer-gen8",
+  "name": "Dancer",
+  "era": "gen8",
+  "key": "trainers/dancer-gen8.png",
+  "art": false
+ },
+ {
+  "id": "darach",
+  "name": "Darach",
+  "era": "current",
+  "key": "trainers/darach.png",
+  "art": false
+ },
+ {
+  "id": "darach-caitlin",
+  "name": "Darach (Caitlin)",
+  "era": "current",
+  "key": "trainers/darach-caitlin.png",
+  "art": false
+ },
+ {
+  "id": "dawn",
+  "name": "Dawn",
+  "era": "current",
+  "key": "trainers/dawn.png",
+  "art": false
+ },
+ {
+  "id": "dawn-contest",
+  "name": "Dawn (Contest)",
+  "era": "current",
+  "key": "trainers/dawn-contest.png",
+  "art": false
+ },
+ {
+  "id": "dawn-gen4pt",
+  "name": "Dawn (Platinum)",
+  "era": "gen4",
+  "key": "trainers/dawn-gen4pt.png",
+  "art": false
+ },
+ {
+  "id": "delinquent",
+  "name": "Delinquent",
+  "era": "current",
+  "key": "trainers/delinquent.png",
+  "art": false
+ },
+ {
+  "id": "delinquent-gen9",
+  "name": "Delinquent",
+  "era": "gen9",
+  "key": "trainers/delinquent-gen9.png",
+  "art": false
+ },
+ {
+  "id": "delinquentf2-gen9",
+  "name": "Delinquent ♀ (2)",
+  "era": "gen9",
+  "key": "trainers/delinquentf2-gen9.png",
+  "art": false
+ },
+ {
+  "id": "delinquentf-gen9",
+  "name": "Delinquentf",
+  "era": "gen9",
+  "key": "trainers/delinquentf-gen9.png",
+  "art": false
+ },
+ {
+  "id": "dendra",
+  "name": "Dendra",
+  "era": "current",
+  "key": "trainers/dendra.png",
+  "art": false
+ },
+ {
+  "id": "depotagent",
+  "name": "Depot Agent",
+  "era": "current",
+  "key": "trainers/depotagent.png",
+  "art": false
+ },
+ {
+  "id": "dexio",
+  "name": "Dexio",
+  "era": "current",
+  "key": "trainers/dexio.png",
+  "art": false
+ },
+ {
+  "id": "dexio-gen6",
+  "name": "Dexio",
+  "era": "gen6",
+  "key": "trainers/dexio-gen6.png",
+  "art": false
+ },
+ {
+  "id": "diamondclanmember",
+  "name": "Diamond Clan Member",
+  "era": "current",
+  "key": "trainers/diamondclanmember.png",
+  "art": false
+ },
+ {
+  "id": "diantha",
+  "name": "Diantha",
+  "era": "current",
+  "key": "trainers/diantha.png",
+  "art": false
+ },
+ {
+  "id": "doctor",
+  "name": "Doctor",
+  "era": "current",
+  "key": "trainers/doctor.png",
+  "art": false
+ },
+ {
+  "id": "doctor-gen8",
+  "name": "Doctor",
+  "era": "gen8",
+  "key": "trainers/doctor-gen8.png",
+  "art": false
+ },
+ {
+  "id": "doctorf-gen8",
+  "name": "Doctor ♀",
+  "era": "gen8",
+  "key": "trainers/doctorf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "doubleteam",
+  "name": "Doubleteam",
+  "era": "current",
+  "key": "trainers/doubleteam.png",
+  "art": false
+ },
+ {
+  "id": "dragontamer",
+  "name": "Dragon Tamer",
+  "era": "current",
+  "key": "trainers/dragontamer.png",
+  "art": false
+ },
+ {
+  "id": "dragontamer-gen3",
+  "name": "Dragon Tamer",
+  "era": "gen3",
+  "key": "trainers/dragontamer-gen3.png",
+  "art": false
+ },
+ {
+  "id": "dragontamer-gen6",
+  "name": "Dragon Tamer",
+  "era": "gen6",
+  "key": "trainers/dragontamer-gen6.png",
+  "art": false
+ },
+ {
+  "id": "dragontamer-gen9",
+  "name": "Dragon Tamer",
+  "era": "gen9",
+  "key": "trainers/dragontamer-gen9.png",
+  "art": false
+ },
+ {
+  "id": "drake-gen3",
+  "name": "Drake",
+  "era": "gen3",
+  "key": "trainers/drake-gen3.png",
+  "art": false
+ },
+ {
+  "id": "drasna",
+  "name": "Drasna",
+  "era": "current",
+  "key": "trainers/drasna.png",
+  "art": false
+ },
+ {
+  "id": "drayden",
+  "name": "Drayden",
+  "era": "current",
+  "key": "trainers/drayden.png",
+  "art": false
+ },
+ {
+  "id": "drayton",
+  "name": "Drayton",
+  "era": "current",
+  "key": "trainers/drayton.png",
+  "art": false
+ },
+ {
+  "id": "dulse",
+  "name": "Dulse",
+  "era": "current",
+  "key": "trainers/dulse.png",
+  "art": false
+ },
+ {
+  "id": "elaine",
+  "name": "Elaine",
+  "era": "current",
+  "key": "trainers/elaine.png",
+  "art": false
+ },
+ {
+  "id": "elesa",
+  "name": "Elesa",
+  "era": "current",
+  "key": "trainers/elesa.png",
+  "art": false
+ },
+ {
+  "id": "elesa-gen5bw2",
+  "name": "Elesa (B/W 2)",
+  "era": "gen5",
+  "key": "trainers/elesa-gen5bw2.png",
+  "art": false
+ },
+ {
+  "id": "elio",
+  "name": "Elio",
+  "era": "current",
+  "key": "trainers/elio.png",
+  "art": false
+ },
+ {
+  "id": "elio-usum",
+  "name": "Elio (US/UM)",
+  "era": "gen7",
+  "key": "trainers/elio-usum.png",
+  "art": false
+ },
+ {
+  "id": "elm",
+  "name": "Elm",
+  "era": "current",
+  "key": "trainers/elm.png",
+  "art": false
+ },
+ {
+  "id": "emma",
+  "name": "Emma",
+  "era": "current",
+  "key": "trainers/emma.png",
+  "art": false
+ },
+ {
+  "id": "emma-lza",
+  "name": "Emma (Lza)",
+  "era": "current",
+  "key": "trainers/emma-lza.png",
+  "art": false
+ },
+ {
+  "id": "emmet",
+  "name": "Emmet",
+  "era": "current",
+  "key": "trainers/emmet.png",
+  "art": false
+ },
+ {
+  "id": "engineer-gen1",
+  "name": "Engineer",
+  "era": "gen1",
+  "key": "trainers/engineer-gen1.png",
+  "art": false
+ },
+ {
+  "id": "engineer-gen3",
+  "name": "Engineer",
+  "era": "gen3",
+  "key": "trainers/engineer-gen3.png",
+  "art": false
+ },
+ {
+  "id": "engineer-gen1rb",
+  "name": "Engineer (R/B)",
+  "era": "gen1",
+  "key": "trainers/engineer-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "erbie-unite",
+  "name": "Erbie (Unite)",
+  "era": "current",
+  "key": "trainers/erbie-unite.png",
+  "art": false
+ },
+ {
+  "id": "eri",
+  "name": "Eri",
+  "era": "current",
+  "key": "trainers/eri.png",
+  "art": false
+ },
+ {
+  "id": "erika",
+  "name": "Erika",
+  "era": "current",
+  "key": "trainers/erika.png",
+  "art": false
+ },
+ {
+  "id": "erika-gen1",
+  "name": "Erika",
+  "era": "gen1",
+  "key": "trainers/erika-gen1.png",
+  "art": false
+ },
+ {
+  "id": "erika-gen2",
+  "name": "Erika",
+  "era": "gen2",
+  "key": "trainers/erika-gen2.png",
+  "art": false
+ },
+ {
+  "id": "erika-gen3",
+  "name": "Erika",
+  "era": "gen3",
+  "key": "trainers/erika-gen3.png",
+  "art": false
+ },
+ {
+  "id": "erika-lgpe",
+  "name": "Erika (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/erika-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "erika-gen1rb",
+  "name": "Erika (R/B)",
+  "era": "gen1",
+  "key": "trainers/erika-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "essentia",
+  "name": "Essentia",
+  "era": "current",
+  "key": "trainers/essentia.png",
+  "art": false
+ },
+ {
+  "id": "ethan",
+  "name": "Ethan",
+  "era": "current",
+  "key": "trainers/ethan.png",
+  "art": false
+ },
+ {
+  "id": "ethan-gen2",
+  "name": "Ethan",
+  "era": "gen2",
+  "key": "trainers/ethan-gen2.png",
+  "art": false
+ },
+ {
+  "id": "ethan-gen2c",
+  "name": "Ethan (Crystal)",
+  "era": "gen2",
+  "key": "trainers/ethan-gen2c.png",
+  "art": false
+ },
+ {
+  "id": "ethan-pokeathlon",
+  "name": "Ethan (Pokeathlon)",
+  "era": "current",
+  "key": "trainers/ethan-pokeathlon.png",
+  "art": false
+ },
+ {
+  "id": "eusine",
+  "name": "Eusine",
+  "era": "current",
+  "key": "trainers/eusine.png",
+  "art": false
+ },
+ {
+  "id": "eusine-gen2",
+  "name": "Eusine",
+  "era": "gen2",
+  "key": "trainers/eusine-gen2.png",
+  "art": false
+ },
+ {
+  "id": "evelyn",
+  "name": "Evelyn",
+  "era": "current",
+  "key": "trainers/evelyn.png",
+  "art": false
+ },
+ {
+  "id": "expert-gen3",
+  "name": "Expert",
+  "era": "gen3",
+  "key": "trainers/expert-gen3.png",
+  "art": false
+ },
+ {
+  "id": "expert-gen6",
+  "name": "Expert",
+  "era": "gen6",
+  "key": "trainers/expert-gen6.png",
+  "art": false
+ },
+ {
+  "id": "expertf-gen3",
+  "name": "Expert ♀",
+  "era": "gen3",
+  "key": "trainers/expertf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "expertf-gen6",
+  "name": "Expert ♀",
+  "era": "gen6",
+  "key": "trainers/expertf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "faba",
+  "name": "Faba",
+  "era": "current",
+  "key": "trainers/faba.png",
+  "art": false
+ },
+ {
+  "id": "fairytalegirl",
+  "name": "Fairy Tale Girl",
+  "era": "current",
+  "key": "trainers/fairytalegirl.png",
+  "art": false
+ },
+ {
+  "id": "falkner",
+  "name": "Falkner",
+  "era": "current",
+  "key": "trainers/falkner.png",
+  "art": false
+ },
+ {
+  "id": "falkner-gen2",
+  "name": "Falkner",
+  "era": "gen2",
+  "key": "trainers/falkner-gen2.png",
+  "art": false
+ },
+ {
+  "id": "fantina",
+  "name": "Fantina",
+  "era": "current",
+  "key": "trainers/fantina.png",
+  "art": false
+ },
+ {
+  "id": "fennel",
+  "name": "Fennel",
+  "era": "current",
+  "key": "trainers/fennel.png",
+  "art": false
+ },
+ {
+  "id": "firebreather",
+  "name": "Fire Breather",
+  "era": "current",
+  "key": "trainers/firebreather.png",
+  "art": false
+ },
+ {
+  "id": "firebreather-gen2",
+  "name": "Fire Breather",
+  "era": "gen2",
+  "key": "trainers/firebreather-gen2.png",
+  "art": false
+ },
+ {
+  "id": "firefighter",
+  "name": "Firefighter",
+  "era": "current",
+  "key": "trainers/firefighter.png",
+  "art": false
+ },
+ {
+  "id": "fisher-gen8",
+  "name": "Fisher",
+  "era": "gen8",
+  "key": "trainers/fisher-gen8.png",
+  "art": false
+ },
+ {
+  "id": "fisherman",
+  "name": "Fisherman",
+  "era": "current",
+  "key": "trainers/fisherman.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen1",
+  "name": "Fisherman",
+  "era": "gen1",
+  "key": "trainers/fisherman-gen1.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen3",
+  "name": "Fisherman",
+  "era": "gen3",
+  "key": "trainers/fisherman-gen3.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen4",
+  "name": "Fisherman",
+  "era": "gen4",
+  "key": "trainers/fisherman-gen4.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen6",
+  "name": "Fisherman",
+  "era": "gen6",
+  "key": "trainers/fisherman-gen6.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen7",
+  "name": "Fisherman",
+  "era": "gen7",
+  "key": "trainers/fisherman-gen7.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen2jp",
+  "name": "Fisherman (JP)",
+  "era": "gen2",
+  "key": "trainers/fisherman-gen2jp.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen1rb",
+  "name": "Fisherman (R/B)",
+  "era": "gen1",
+  "key": "trainers/fisherman-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen3rs",
+  "name": "Fisherman (R/S)",
+  "era": "gen3",
+  "key": "trainers/fisherman-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "fisherman-gen6xy",
+  "name": "Fisherman (X/Y)",
+  "era": "gen6",
+  "key": "trainers/fisherman-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "flannery",
+  "name": "Flannery",
+  "era": "current",
+  "key": "trainers/flannery.png",
+  "art": false
+ },
+ {
+  "id": "flannery-gen3",
+  "name": "Flannery",
+  "era": "gen3",
+  "key": "trainers/flannery-gen3.png",
+  "art": false
+ },
+ {
+  "id": "flannery-gen6",
+  "name": "Flannery",
+  "era": "gen6",
+  "key": "trainers/flannery-gen6.png",
+  "art": false
+ },
+ {
+  "id": "flaregrunt",
+  "name": "Flare Grunt",
+  "era": "current",
+  "key": "trainers/flaregrunt.png",
+  "art": false
+ },
+ {
+  "id": "flaregruntf",
+  "name": "Flare Grunt ♀",
+  "era": "current",
+  "key": "trainers/flaregruntf.png",
+  "art": false
+ },
+ {
+  "id": "flint",
+  "name": "Flint",
+  "era": "current",
+  "key": "trainers/flint.png",
+  "art": false
+ },
+ {
+  "id": "florian-bb",
+  "name": "Florian (Bb)",
+  "era": "current",
+  "key": "trainers/florian-bb.png",
+  "art": false
+ },
+ {
+  "id": "florian-festival",
+  "name": "Florian (Festival)",
+  "era": "current",
+  "key": "trainers/florian-festival.png",
+  "art": false
+ },
+ {
+  "id": "florian-s",
+  "name": "Florian (S)",
+  "era": "current",
+  "key": "trainers/florian-s.png",
+  "art": false
+ },
+ {
+  "id": "freediver",
+  "name": "Freediver",
+  "era": "current",
+  "key": "trainers/freediver.png",
+  "art": false
+ },
+ {
+  "id": "furisodegirl-black",
+  "name": "Furisode Girl (Black)",
+  "era": "current",
+  "key": "trainers/furisodegirl-black.png",
+  "art": false
+ },
+ {
+  "id": "furisodegirl-blue",
+  "name": "Furisode Girl (Blue)",
+  "era": "current",
+  "key": "trainers/furisodegirl-blue.png",
+  "art": false
+ },
+ {
+  "id": "furisodegirl-pink",
+  "name": "Furisode Girl (Pink)",
+  "era": "current",
+  "key": "trainers/furisodegirl-pink.png",
+  "art": false
+ },
+ {
+  "id": "furisodegirl-white",
+  "name": "Furisode Girl (White)",
+  "era": "current",
+  "key": "trainers/furisodegirl-white.png",
+  "art": false
+ },
+ {
+  "id": "gaeric",
+  "name": "Gaeric",
+  "era": "current",
+  "key": "trainers/gaeric.png",
+  "art": false
+ },
+ {
+  "id": "galacticgrunt",
+  "name": "Galactic Grunt",
+  "era": "current",
+  "key": "trainers/galacticgrunt.png",
+  "art": false
+ },
+ {
+  "id": "galacticgruntf",
+  "name": "Galactic Grunt ♀",
+  "era": "current",
+  "key": "trainers/galacticgruntf.png",
+  "art": false
+ },
+ {
+  "id": "gambler",
+  "name": "Gambler",
+  "era": "current",
+  "key": "trainers/gambler.png",
+  "art": false
+ },
+ {
+  "id": "gambler-gen1",
+  "name": "Gambler",
+  "era": "gen1",
+  "key": "trainers/gambler-gen1.png",
+  "art": false
+ },
+ {
+  "id": "gambler-gen1rb",
+  "name": "Gambler (R/B)",
+  "era": "gen1",
+  "key": "trainers/gambler-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "gamer-gen3",
+  "name": "Gamer",
+  "era": "gen3",
+  "key": "trainers/gamer-gen3.png",
+  "art": false
+ },
+ {
+  "id": "garcon",
+  "name": "Garcon",
+  "era": "current",
+  "key": "trainers/garcon.png",
+  "art": false
+ },
+ {
+  "id": "gardener",
+  "name": "Gardener",
+  "era": "current",
+  "key": "trainers/gardener.png",
+  "art": false
+ },
+ {
+  "id": "gardenia",
+  "name": "Gardenia",
+  "era": "current",
+  "key": "trainers/gardenia.png",
+  "art": false
+ },
+ {
+  "id": "geeta",
+  "name": "Geeta",
+  "era": "current",
+  "key": "trainers/geeta.png",
+  "art": false
+ },
+ {
+  "id": "gentleman",
+  "name": "Gentleman",
+  "era": "current",
+  "key": "trainers/gentleman.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen1",
+  "name": "Gentleman",
+  "era": "gen1",
+  "key": "trainers/gentleman-gen1.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen2",
+  "name": "Gentleman",
+  "era": "gen2",
+  "key": "trainers/gentleman-gen2.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen3",
+  "name": "Gentleman",
+  "era": "gen3",
+  "key": "trainers/gentleman-gen3.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen4",
+  "name": "Gentleman",
+  "era": "gen4",
+  "key": "trainers/gentleman-gen4.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen6",
+  "name": "Gentleman",
+  "era": "gen6",
+  "key": "trainers/gentleman-gen6.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen7",
+  "name": "Gentleman",
+  "era": "gen7",
+  "key": "trainers/gentleman-gen7.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen8",
+  "name": "Gentleman",
+  "era": "gen8",
+  "key": "trainers/gentleman-gen8.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen4dp",
+  "name": "Gentleman (D/P)",
+  "era": "gen4",
+  "key": "trainers/gentleman-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-lgpe",
+  "name": "Gentleman (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/gentleman-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen1rb",
+  "name": "Gentleman (R/B)",
+  "era": "gen1",
+  "key": "trainers/gentleman-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen3rs",
+  "name": "Gentleman (R/S)",
+  "era": "gen3",
+  "key": "trainers/gentleman-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "gentleman-gen6xy",
+  "name": "Gentleman (X/Y)",
+  "era": "gen6",
+  "key": "trainers/gentleman-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "ghetsis",
+  "name": "Ghetsis",
+  "era": "current",
+  "key": "trainers/ghetsis.png",
+  "art": false
+ },
+ {
+  "id": "ghetsis-gen5bw",
+  "name": "Ghetsis (B/W)",
+  "era": "gen5",
+  "key": "trainers/ghetsis-gen5bw.png",
+  "art": false
+ },
+ {
+  "id": "giacomo",
+  "name": "Giacomo",
+  "era": "current",
+  "key": "trainers/giacomo.png",
+  "art": false
+ },
+ {
+  "id": "ginchiyo-conquest",
+  "name": "Ginchiyo (Conquest)",
+  "era": "current",
+  "key": "trainers/ginchiyo-conquest.png",
+  "art": false
+ },
+ {
+  "id": "ginter",
+  "name": "Ginter",
+  "era": "current",
+  "key": "trainers/ginter.png",
+  "art": false
+ },
+ {
+  "id": "giovanni",
+  "name": "Giovanni",
+  "era": "current",
+  "key": "trainers/giovanni.png",
+  "art": false
+ },
+ {
+  "id": "giovanni-gen1",
+  "name": "Giovanni",
+  "era": "gen1",
+  "key": "trainers/giovanni-gen1.png",
+  "art": false
+ },
+ {
+  "id": "giovanni-gen3",
+  "name": "Giovanni",
+  "era": "gen3",
+  "key": "trainers/giovanni-gen3.png",
+  "art": false
+ },
+ {
+  "id": "giovanni-lgpe",
+  "name": "Giovanni (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/giovanni-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "giovanni-gen1rb",
+  "name": "Giovanni (R/B)",
+  "era": "gen1",
+  "key": "trainers/giovanni-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "glacia",
+  "name": "Glacia",
+  "era": "current",
+  "key": "trainers/glacia.png",
+  "art": false
+ },
+ {
+  "id": "glacia-gen3",
+  "name": "Glacia",
+  "era": "gen3",
+  "key": "trainers/glacia-gen3.png",
+  "art": false
+ },
+ {
+  "id": "gladion",
+  "name": "Gladion",
+  "era": "current",
+  "key": "trainers/gladion.png",
+  "art": false
+ },
+ {
+  "id": "gladion-stance",
+  "name": "Gladion (Stance)",
+  "era": "current",
+  "key": "trainers/gladion-stance.png",
+  "art": false
+ },
+ {
+  "id": "gloria",
+  "name": "Gloria",
+  "era": "current",
+  "key": "trainers/gloria.png",
+  "art": false
+ },
+ {
+  "id": "gloria-dojo",
+  "name": "Gloria (Dojo)",
+  "era": "current",
+  "key": "trainers/gloria-dojo.png",
+  "art": false
+ },
+ {
+  "id": "gloria-league",
+  "name": "Gloria (League)",
+  "era": "current",
+  "key": "trainers/gloria-league.png",
+  "art": false
+ },
+ {
+  "id": "gloria-tundra",
+  "name": "Gloria (Tundra)",
+  "era": "current",
+  "key": "trainers/gloria-tundra.png",
+  "art": false
+ },
+ {
+  "id": "golfer",
+  "name": "Golfer",
+  "era": "current",
+  "key": "trainers/golfer.png",
+  "art": false
+ },
+ {
+  "id": "gordie",
+  "name": "Gordie",
+  "era": "current",
+  "key": "trainers/gordie.png",
+  "art": false
+ },
+ {
+  "id": "grace",
+  "name": "Grace",
+  "era": "current",
+  "key": "trainers/grace.png",
+  "art": false
+ },
+ {
+  "id": "grant",
+  "name": "Grant",
+  "era": "current",
+  "key": "trainers/grant.png",
+  "art": false
+ },
+ {
+  "id": "green",
+  "name": "Green",
+  "era": "gen3",
+  "key": "account/avatars/green.png",
+  "art": false
+ },
+ {
+  "id": "green-current",
+  "name": "Green",
+  "era": "current",
+  "key": "trainers/green.png",
+  "art": false
+ },
+ {
+  "id": "greta",
+  "name": "Greta",
+  "era": "current",
+  "key": "trainers/greta.png",
+  "art": false
+ },
+ {
+  "id": "greta-gen3",
+  "name": "Greta",
+  "era": "gen3",
+  "key": "trainers/greta-gen3.png",
+  "art": false
+ },
+ {
+  "id": "grimsley",
+  "name": "Grimsley",
+  "era": "current",
+  "key": "trainers/grimsley.png",
+  "art": false
+ },
+ {
+  "id": "grimsley-gen7",
+  "name": "Grimsley",
+  "era": "gen7",
+  "key": "trainers/grimsley-gen7.png",
+  "art": false
+ },
+ {
+  "id": "grisham",
+  "name": "Grisham",
+  "era": "current",
+  "key": "trainers/grisham.png",
+  "art": false
+ },
+ {
+  "id": "grusha",
+  "name": "Grusha",
+  "era": "current",
+  "key": "trainers/grusha.png",
+  "art": false
+ },
+ {
+  "id": "guitarist",
+  "name": "Guitarist",
+  "era": "current",
+  "key": "trainers/guitarist.png",
+  "art": false
+ },
+ {
+  "id": "guitarist-gen2",
+  "name": "Guitarist",
+  "era": "gen2",
+  "key": "trainers/guitarist-gen2.png",
+  "art": false
+ },
+ {
+  "id": "guitarist-gen3",
+  "name": "Guitarist",
+  "era": "gen3",
+  "key": "trainers/guitarist-gen3.png",
+  "art": false
+ },
+ {
+  "id": "guitarist-gen4",
+  "name": "Guitarist",
+  "era": "gen4",
+  "key": "trainers/guitarist-gen4.png",
+  "art": false
+ },
+ {
+  "id": "guitarist-gen6",
+  "name": "Guitarist",
+  "era": "gen6",
+  "key": "trainers/guitarist-gen6.png",
+  "art": false
+ },
+ {
+  "id": "gurkinn",
+  "name": "Gurkinn",
+  "era": "current",
+  "key": "trainers/gurkinn.png",
+  "art": false
+ },
+ {
+  "id": "guzma",
+  "name": "Guzma",
+  "era": "current",
+  "key": "trainers/guzma.png",
+  "art": false
+ },
+ {
+  "id": "gwynn",
+  "name": "Gwynn",
+  "era": "current",
+  "key": "trainers/gwynn.png",
+  "art": false
+ },
+ {
+  "id": "hala",
+  "name": "Hala",
+  "era": "current",
+  "key": "trainers/hala.png",
+  "art": false
+ },
+ {
+  "id": "hanbei-conquest",
+  "name": "Hanbei (Conquest)",
+  "era": "current",
+  "key": "trainers/hanbei-conquest.png",
+  "art": false
+ },
+ {
+  "id": "hapu",
+  "name": "Hapu",
+  "era": "current",
+  "key": "trainers/hapu.png",
+  "art": false
+ },
+ {
+  "id": "harlequin",
+  "name": "Harlequin",
+  "era": "current",
+  "key": "trainers/harlequin.png",
+  "art": false
+ },
+ {
+  "id": "harmony",
+  "name": "Harmony",
+  "era": "current",
+  "key": "trainers/harmony.png",
+  "art": false
+ },
+ {
+  "id": "hassel",
+  "name": "Hassel",
+  "era": "current",
+  "key": "trainers/hassel.png",
+  "art": false
+ },
+ {
+  "id": "hau",
+  "name": "Hau",
+  "era": "current",
+  "key": "trainers/hau.png",
+  "art": false
+ },
+ {
+  "id": "hau-stance",
+  "name": "Hau (Stance)",
+  "era": "current",
+  "key": "trainers/hau-stance.png",
+  "art": false
+ },
+ {
+  "id": "hayley",
+  "name": "Hayley",
+  "era": "current",
+  "key": "trainers/hayley.png",
+  "art": false
+ },
+ {
+  "id": "heath",
+  "name": "Heath",
+  "era": "current",
+  "key": "trainers/heath.png",
+  "art": false
+ },
+ {
+  "id": "hero-conquest",
+  "name": "Hero (Conquest)",
+  "era": "current",
+  "key": "trainers/hero-conquest.png",
+  "art": false
+ },
+ {
+  "id": "hero2-conquest",
+  "name": "Hero2 (Conquest)",
+  "era": "current",
+  "key": "trainers/hero2-conquest.png",
+  "art": false
+ },
+ {
+  "id": "heroine-conquest",
+  "name": "Heroine (Conquest)",
+  "era": "current",
+  "key": "trainers/heroine-conquest.png",
+  "art": false
+ },
+ {
+  "id": "heroine2-conquest",
+  "name": "Heroine2 (Conquest)",
+  "era": "current",
+  "key": "trainers/heroine2-conquest.png",
+  "art": false
+ },
+ {
+  "id": "hexmaniac-gen3",
+  "name": "Hex Maniac",
+  "era": "gen3",
+  "key": "trainers/hexmaniac-gen3.png",
+  "art": false
+ },
+ {
+  "id": "hexmaniac-gen6",
+  "name": "Hex Maniac",
+  "era": "gen6",
+  "key": "trainers/hexmaniac-gen6.png",
+  "art": false
+ },
+ {
+  "id": "hexmaniac-gen3jp",
+  "name": "Hex Maniac (JP)",
+  "era": "gen3",
+  "key": "trainers/hexmaniac-gen3jp.png",
+  "art": false
+ },
+ {
+  "id": "hiker",
+  "name": "Hiker",
+  "era": "current",
+  "key": "trainers/hiker.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen1",
+  "name": "Hiker",
+  "era": "gen1",
+  "key": "trainers/hiker-gen1.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen2",
+  "name": "Hiker",
+  "era": "gen2",
+  "key": "trainers/hiker-gen2.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen3",
+  "name": "Hiker",
+  "era": "gen3",
+  "key": "trainers/hiker-gen3.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen4",
+  "name": "Hiker",
+  "era": "gen4",
+  "key": "trainers/hiker-gen4.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen6",
+  "name": "Hiker",
+  "era": "gen6",
+  "key": "trainers/hiker-gen6.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen7",
+  "name": "Hiker",
+  "era": "gen7",
+  "key": "trainers/hiker-gen7.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen8",
+  "name": "Hiker",
+  "era": "gen8",
+  "key": "trainers/hiker-gen8.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen9",
+  "name": "Hiker",
+  "era": "gen9",
+  "key": "trainers/hiker-gen9.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen1rb",
+  "name": "Hiker (R/B)",
+  "era": "gen1",
+  "key": "trainers/hiker-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "hiker-gen3rs",
+  "name": "Hiker (R/S)",
+  "era": "gen3",
+  "key": "trainers/hiker-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "hilbert",
+  "name": "Hilbert",
+  "era": "current",
+  "key": "trainers/hilbert.png",
+  "art": false
+ },
+ {
+  "id": "hilbert-wonderlauncher",
+  "name": "Hilbert (Wonderlauncher)",
+  "era": "current",
+  "key": "trainers/hilbert-wonderlauncher.png",
+  "art": false
+ },
+ {
+  "id": "hilda",
+  "name": "Hilda",
+  "era": "current",
+  "key": "trainers/hilda.png",
+  "art": false
+ },
+ {
+  "id": "hilda-wonderlauncher",
+  "name": "Hilda (Wonderlauncher)",
+  "era": "current",
+  "key": "trainers/hilda-wonderlauncher.png",
+  "art": false
+ },
+ {
+  "id": "hooligans",
+  "name": "Hooligans",
+  "era": "current",
+  "key": "trainers/hooligans.png",
+  "art": false
+ },
+ {
+  "id": "hoopster",
+  "name": "Hoopster",
+  "era": "current",
+  "key": "trainers/hoopster.png",
+  "art": false
+ },
+ {
+  "id": "hop",
+  "name": "Hop",
+  "era": "current",
+  "key": "trainers/hop.png",
+  "art": false
+ },
+ {
+  "id": "hugh",
+  "name": "Hugh",
+  "era": "current",
+  "key": "trainers/hugh.png",
+  "art": false
+ },
+ {
+  "id": "hyde",
+  "name": "Hyde",
+  "era": "current",
+  "key": "trainers/hyde.png",
+  "art": false
+ },
+ {
+  "id": "idol",
+  "name": "Idol",
+  "era": "current",
+  "key": "trainers/idol.png",
+  "art": false
+ },
+ {
+  "id": "ilima",
+  "name": "Ilima",
+  "era": "current",
+  "key": "trainers/ilima.png",
+  "art": false
+ },
+ {
+  "id": "infielder",
+  "name": "Infielder",
+  "era": "current",
+  "key": "trainers/infielder.png",
+  "art": false
+ },
+ {
+  "id": "ingo",
+  "name": "Ingo",
+  "era": "current",
+  "key": "trainers/ingo.png",
+  "art": false
+ },
+ {
+  "id": "ingo-hisui",
+  "name": "Ingo (Hisui)",
+  "era": "current",
+  "key": "trainers/ingo-hisui.png",
+  "art": false
+ },
+ {
+  "id": "interviewers",
+  "name": "Interviewers",
+  "era": "current",
+  "key": "trainers/interviewers.png",
+  "art": false
+ },
+ {
+  "id": "interviewers-gen3",
+  "name": "Interviewers",
+  "era": "gen3",
+  "key": "trainers/interviewers-gen3.png",
+  "art": false
+ },
+ {
+  "id": "interviewers-gen6",
+  "name": "Interviewers",
+  "era": "gen6",
+  "key": "trainers/interviewers-gen6.png",
+  "art": false
+ },
+ {
+  "id": "iono",
+  "name": "Iono",
+  "era": "current",
+  "key": "trainers/iono.png",
+  "art": false
+ },
+ {
+  "id": "irida",
+  "name": "Irida",
+  "era": "current",
+  "key": "trainers/irida.png",
+  "art": false
+ },
+ {
+  "id": "iris",
+  "name": "Iris",
+  "era": "current",
+  "key": "trainers/iris.png",
+  "art": false
+ },
+ {
+  "id": "iris-gen5bw2",
+  "name": "Iris (B/W 2)",
+  "era": "gen5",
+  "key": "trainers/iris-gen5bw2.png",
+  "art": false
+ },
+ {
+  "id": "iscan",
+  "name": "Iscan",
+  "era": "current",
+  "key": "trainers/iscan.png",
+  "art": false
+ },
+ {
+  "id": "ivor",
+  "name": "Ivor",
+  "era": "current",
+  "key": "trainers/ivor.png",
+  "art": false
+ },
+ {
+  "id": "jacinthe",
+  "name": "Jacinthe",
+  "era": "current",
+  "key": "trainers/jacinthe.png",
+  "art": false
+ },
+ {
+  "id": "jacq",
+  "name": "Jacq",
+  "era": "current",
+  "key": "trainers/jacq.png",
+  "art": false
+ },
+ {
+  "id": "jamie",
+  "name": "Jamie",
+  "era": "current",
+  "key": "trainers/jamie.png",
+  "art": false
+ },
+ {
+  "id": "janine",
+  "name": "Janine",
+  "era": "current",
+  "key": "trainers/janine.png",
+  "art": false
+ },
+ {
+  "id": "janine-gen2",
+  "name": "Janine",
+  "era": "gen2",
+  "key": "trainers/janine-gen2.png",
+  "art": false
+ },
+ {
+  "id": "janitor",
+  "name": "Janitor",
+  "era": "current",
+  "key": "trainers/janitor.png",
+  "art": false
+ },
+ {
+  "id": "janitor-gen7",
+  "name": "Janitor",
+  "era": "gen7",
+  "key": "trainers/janitor-gen7.png",
+  "art": false
+ },
+ {
+  "id": "janitor-gen9",
+  "name": "Janitor",
+  "era": "gen9",
+  "key": "trainers/janitor-gen9.png",
+  "art": false
+ },
+ {
+  "id": "jasmine",
+  "name": "Jasmine",
+  "era": "current",
+  "key": "trainers/jasmine.png",
+  "art": false
+ },
+ {
+  "id": "jasmine-gen2",
+  "name": "Jasmine",
+  "era": "gen2",
+  "key": "trainers/jasmine-gen2.png",
+  "art": false
+ },
+ {
+  "id": "jasmine-contest",
+  "name": "Jasmine (Contest)",
+  "era": "current",
+  "key": "trainers/jasmine-contest.png",
+  "art": false
+ },
+ {
+  "id": "jessiejames-gen1",
+  "name": "Jessie & James",
+  "era": "gen1",
+  "key": "trainers/jessiejames-gen1.png",
+  "art": false
+ },
+ {
+  "id": "jogger",
+  "name": "Jogger",
+  "era": "current",
+  "key": "trainers/jogger.png",
+  "art": false
+ },
+ {
+  "id": "johanna",
+  "name": "Johanna",
+  "era": "current",
+  "key": "trainers/johanna.png",
+  "art": false
+ },
+ {
+  "id": "johanna-contest",
+  "name": "Johanna (Contest)",
+  "era": "current",
+  "key": "trainers/johanna-contest.png",
+  "art": false
+ },
+ {
+  "id": "jrtrainer-gen1",
+  "name": "Jr. Trainer",
+  "era": "gen1",
+  "key": "trainers/jrtrainer-gen1.png",
+  "art": false
+ },
+ {
+  "id": "jrtrainer-gen1rb",
+  "name": "Jr. Trainer (R/B)",
+  "era": "gen1",
+  "key": "trainers/jrtrainer-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "jrtrainerf-gen1",
+  "name": "Jr. Trainer ♀",
+  "era": "gen1",
+  "key": "trainers/jrtrainerf-gen1.png",
+  "art": false
+ },
+ {
+  "id": "jrtrainerf-gen1rb",
+  "name": "Jr. Trainer ♀ (R/B)",
+  "era": "gen1",
+  "key": "trainers/jrtrainerf-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "juan",
+  "name": "Juan",
+  "era": "current",
+  "key": "trainers/juan.png",
+  "art": false
+ },
+ {
+  "id": "juan-gen3",
+  "name": "Juan",
+  "era": "gen3",
+  "key": "trainers/juan-gen3.png",
+  "art": false
+ },
+ {
+  "id": "juggler",
+  "name": "Juggler",
+  "era": "current",
+  "key": "trainers/juggler.png",
+  "art": false
+ },
+ {
+  "id": "juggler-gen1",
+  "name": "Juggler",
+  "era": "gen1",
+  "key": "trainers/juggler-gen1.png",
+  "art": false
+ },
+ {
+  "id": "juggler-gen2",
+  "name": "Juggler",
+  "era": "gen2",
+  "key": "trainers/juggler-gen2.png",
+  "art": false
+ },
+ {
+  "id": "juggler-gen3",
+  "name": "Juggler",
+  "era": "gen3",
+  "key": "trainers/juggler-gen3.png",
+  "art": false
+ },
+ {
+  "id": "juggler-gen1rb",
+  "name": "Juggler (R/B)",
+  "era": "gen1",
+  "key": "trainers/juggler-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "juliana-bb",
+  "name": "Juliana (Bb)",
+  "era": "current",
+  "key": "trainers/juliana-bb.png",
+  "art": false
+ },
+ {
+  "id": "juliana-festival",
+  "name": "Juliana (Festival)",
+  "era": "current",
+  "key": "trainers/juliana-festival.png",
+  "art": false
+ },
+ {
+  "id": "juliana-s",
+  "name": "Juliana (S)",
+  "era": "current",
+  "key": "trainers/juliana-s.png",
+  "art": false
+ },
+ {
+  "id": "juniper",
+  "name": "Juniper",
+  "era": "current",
+  "key": "trainers/juniper.png",
+  "art": false
+ },
+ {
+  "id": "jupiter",
+  "name": "Jupiter",
+  "era": "current",
+  "key": "trainers/jupiter.png",
+  "art": false
+ },
+ {
+  "id": "kabu",
+  "name": "Kabu",
+  "era": "current",
+  "key": "trainers/kabu.png",
+  "art": false
+ },
+ {
+  "id": "kahili",
+  "name": "Kahili",
+  "era": "current",
+  "key": "trainers/kahili.png",
+  "art": false
+ },
+ {
+  "id": "kamado",
+  "name": "Kamado",
+  "era": "current",
+  "key": "trainers/kamado.png",
+  "art": false
+ },
+ {
+  "id": "kamado-armor",
+  "name": "Kamado (Armor)",
+  "era": "current",
+  "key": "trainers/kamado-armor.png",
+  "art": false
+ },
+ {
+  "id": "karen",
+  "name": "Karen",
+  "era": "current",
+  "key": "trainers/karen.png",
+  "art": false
+ },
+ {
+  "id": "karen-gen2",
+  "name": "Karen",
+  "era": "gen2",
+  "key": "trainers/karen-gen2.png",
+  "art": false
+ },
+ {
+  "id": "katy",
+  "name": "Katy",
+  "era": "current",
+  "key": "trainers/katy.png",
+  "art": false
+ },
+ {
+  "id": "kiawe",
+  "name": "Kiawe",
+  "era": "current",
+  "key": "trainers/kiawe.png",
+  "art": false
+ },
+ {
+  "id": "kieran",
+  "name": "Kieran",
+  "era": "current",
+  "key": "trainers/kieran.png",
+  "art": false
+ },
+ {
+  "id": "kieran-champion",
+  "name": "Kieran (Champion)",
+  "era": "current",
+  "key": "trainers/kieran-champion.png",
+  "art": false
+ },
+ {
+  "id": "kieran-festival",
+  "name": "Kieran (Festival)",
+  "era": "current",
+  "key": "trainers/kieran-festival.png",
+  "art": false
+ },
+ {
+  "id": "kimonogirl",
+  "name": "Kimono Girl",
+  "era": "current",
+  "key": "trainers/kimonogirl.png",
+  "art": false
+ },
+ {
+  "id": "kimonogirl-gen2",
+  "name": "Kimono Girl",
+  "era": "gen2",
+  "key": "trainers/kimonogirl-gen2.png",
+  "art": false
+ },
+ {
+  "id": "kindler-gen3",
+  "name": "Kindler",
+  "era": "gen3",
+  "key": "trainers/kindler-gen3.png",
+  "art": false
+ },
+ {
+  "id": "kindler-gen6",
+  "name": "Kindler",
+  "era": "gen6",
+  "key": "trainers/kindler-gen6.png",
+  "art": false
+ },
+ {
+  "id": "klara",
+  "name": "Klara",
+  "era": "current",
+  "key": "trainers/klara.png",
+  "art": false
+ },
+ {
+  "id": "kofu",
+  "name": "Kofu",
+  "era": "current",
+  "key": "trainers/kofu.png",
+  "art": false
+ },
+ {
+  "id": "koga",
+  "name": "Koga",
+  "era": "current",
+  "key": "trainers/koga.png",
+  "art": false
+ },
+ {
+  "id": "koga-gen1",
+  "name": "Koga",
+  "era": "gen1",
+  "key": "trainers/koga-gen1.png",
+  "art": false
+ },
+ {
+  "id": "koga-gen2",
+  "name": "Koga",
+  "era": "gen2",
+  "key": "trainers/koga-gen2.png",
+  "art": false
+ },
+ {
+  "id": "koga-gen3",
+  "name": "Koga",
+  "era": "gen3",
+  "key": "trainers/koga-gen3.png",
+  "art": false
+ },
+ {
+  "id": "koga-lgpe",
+  "name": "Koga (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/koga-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "koga-gen1rb",
+  "name": "Koga (R/B)",
+  "era": "gen1",
+  "key": "trainers/koga-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "korrina",
+  "name": "Korrina",
+  "era": "current",
+  "key": "trainers/korrina.png",
+  "art": false
+ },
+ {
+  "id": "kris",
+  "name": "Kris",
+  "era": "current",
+  "key": "trainers/kris.png",
+  "art": false
+ },
+ {
+  "id": "kris-gen2",
+  "name": "Kris",
+  "era": "gen2",
+  "key": "trainers/kris-gen2.png",
+  "art": false
+ },
+ {
+  "id": "kukui",
+  "name": "Kukui",
+  "era": "current",
+  "key": "trainers/kukui.png",
+  "art": false
+ },
+ {
+  "id": "kukui-stand",
+  "name": "Kukui (Stand)",
+  "era": "current",
+  "key": "trainers/kukui-stand.png",
+  "art": false
+ },
+ {
+  "id": "kunoichi-conquest",
+  "name": "Kunoichi (Conquest)",
+  "era": "current",
+  "key": "trainers/kunoichi-conquest.png",
+  "art": false
+ },
+ {
+  "id": "kunoichi2-conquest",
+  "name": "Kunoichi2 (Conquest)",
+  "era": "current",
+  "key": "trainers/kunoichi2-conquest.png",
+  "art": false
+ },
+ {
+  "id": "kurt",
+  "name": "Kurt",
+  "era": "current",
+  "key": "trainers/kurt.png",
+  "art": false
+ },
+ {
+  "id": "lacey",
+  "name": "Lacey",
+  "era": "current",
+  "key": "trainers/lacey.png",
+  "art": false
+ },
+ {
+  "id": "lady",
+  "name": "Lady",
+  "era": "current",
+  "key": "trainers/lady.png",
+  "art": false
+ },
+ {
+  "id": "lady-gen3",
+  "name": "Lady",
+  "era": "gen3",
+  "key": "trainers/lady-gen3.png",
+  "art": false
+ },
+ {
+  "id": "lady-gen4",
+  "name": "Lady",
+  "era": "gen4",
+  "key": "trainers/lady-gen4.png",
+  "art": false
+ },
+ {
+  "id": "lady-gen6",
+  "name": "Lady",
+  "era": "gen6",
+  "key": "trainers/lady-gen6.png",
+  "art": false
+ },
+ {
+  "id": "lady-gen6oras",
+  "name": "Lady (OR/AS)",
+  "era": "gen6",
+  "key": "trainers/lady-gen6oras.png",
+  "art": false
+ },
+ {
+  "id": "lady-gen3rs",
+  "name": "Lady (R/S)",
+  "era": "gen3",
+  "key": "trainers/lady-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "lana",
+  "name": "Lana",
+  "era": "current",
+  "key": "trainers/lana.png",
+  "art": false
+ },
+ {
+  "id": "lance",
+  "name": "Lance",
+  "era": "current",
+  "key": "trainers/lance.png",
+  "art": false
+ },
+ {
+  "id": "lance-art",
+  "name": "Lance",
+  "era": "art",
+  "key": "walkthrough/art/lance-art.png",
+  "art": true
+ },
+ {
+  "id": "lance-gen1",
+  "name": "Lance",
+  "era": "gen1",
+  "key": "trainers/lance-gen1.png",
+  "art": false
+ },
+ {
+  "id": "lance-gen2",
+  "name": "Lance",
+  "era": "gen2",
+  "key": "trainers/lance-gen2.png",
+  "art": false
+ },
+ {
+  "id": "lance-gen3",
+  "name": "Lance",
+  "era": "gen3",
+  "key": "trainers/lance-gen3.png",
+  "art": false
+ },
+ {
+  "id": "lance-lgpe",
+  "name": "Lance (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/lance-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "lance-gen1rb",
+  "name": "Lance (R/B)",
+  "era": "gen1",
+  "key": "trainers/lance-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "lanette",
+  "name": "Lanette",
+  "era": "current",
+  "key": "trainers/lanette.png",
+  "art": false
+ },
+ {
+  "id": "larry",
+  "name": "Larry",
+  "era": "current",
+  "key": "trainers/larry.png",
+  "art": false
+ },
+ {
+  "id": "lass",
+  "name": "Lass",
+  "era": "current",
+  "key": "trainers/lass.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen1",
+  "name": "Lass",
+  "era": "gen1",
+  "key": "trainers/lass-gen1.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen2",
+  "name": "Lass",
+  "era": "gen2",
+  "key": "trainers/lass-gen2.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen3",
+  "name": "Lass",
+  "era": "gen3",
+  "key": "trainers/lass-gen3.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen4",
+  "name": "Lass",
+  "era": "gen4",
+  "key": "trainers/lass-gen4.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen6",
+  "name": "Lass",
+  "era": "gen6",
+  "key": "trainers/lass-gen6.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen7",
+  "name": "Lass",
+  "era": "gen7",
+  "key": "trainers/lass-gen7.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen8",
+  "name": "Lass",
+  "era": "gen8",
+  "key": "trainers/lass-gen8.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen4dp",
+  "name": "Lass (D/P)",
+  "era": "gen4",
+  "key": "trainers/lass-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen6oras",
+  "name": "Lass (OR/AS)",
+  "era": "gen6",
+  "key": "trainers/lass-gen6oras.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen1rb",
+  "name": "Lass (R/B)",
+  "era": "gen1",
+  "key": "trainers/lass-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "lass-gen3rs",
+  "name": "Lass (R/S)",
+  "era": "gen3",
+  "key": "trainers/lass-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "laventon",
+  "name": "Laventon",
+  "era": "current",
+  "key": "trainers/laventon.png",
+  "art": false
+ },
+ {
+  "id": "laventon2",
+  "name": "Laventon2",
+  "era": "current",
+  "key": "trainers/laventon2.png",
+  "art": false
+ },
+ {
+  "id": "leaguestaff",
+  "name": "Leaguestaff",
+  "era": "current",
+  "key": "trainers/leaguestaff.png",
+  "art": false
+ },
+ {
+  "id": "leaguestafff",
+  "name": "Leaguestaff ♀",
+  "era": "current",
+  "key": "trainers/leaguestafff.png",
+  "art": false
+ },
+ {
+  "id": "lebanne",
+  "name": "Lebanne",
+  "era": "current",
+  "key": "trainers/lebanne.png",
+  "art": false
+ },
+ {
+  "id": "lenora",
+  "name": "Lenora",
+  "era": "current",
+  "key": "trainers/lenora.png",
+  "art": false
+ },
+ {
+  "id": "leon",
+  "name": "Leon",
+  "era": "current",
+  "key": "trainers/leon.png",
+  "art": false
+ },
+ {
+  "id": "leon-tower",
+  "name": "Leon (Tower)",
+  "era": "current",
+  "key": "trainers/leon-tower.png",
+  "art": false
+ },
+ {
+  "id": "li",
+  "name": "Li",
+  "era": "current",
+  "key": "trainers/li.png",
+  "art": false
+ },
+ {
+  "id": "lian",
+  "name": "Lian",
+  "era": "current",
+  "key": "trainers/lian.png",
+  "art": false
+ },
+ {
+  "id": "lida",
+  "name": "Lida",
+  "era": "current",
+  "key": "trainers/lida.png",
+  "art": false
+ },
+ {
+  "id": "liko",
+  "name": "Liko",
+  "era": "current",
+  "key": "trainers/liko.png",
+  "art": false
+ },
+ {
+  "id": "lillie",
+  "name": "Lillie",
+  "era": "current",
+  "key": "trainers/lillie.png",
+  "art": false
+ },
+ {
+  "id": "lillie-z",
+  "name": "Lillie (Z)",
+  "era": "current",
+  "key": "trainers/lillie-z.png",
+  "art": false
+ },
+ {
+  "id": "linebacker",
+  "name": "Linebacker",
+  "era": "current",
+  "key": "trainers/linebacker.png",
+  "art": false
+ },
+ {
+  "id": "lisia",
+  "name": "Lisia",
+  "era": "current",
+  "key": "trainers/lisia.png",
+  "art": false
+ },
+ {
+  "id": "liza",
+  "name": "Liza",
+  "era": "current",
+  "key": "trainers/liza.png",
+  "art": false
+ },
+ {
+  "id": "liza-gen6",
+  "name": "Liza",
+  "era": "gen6",
+  "key": "trainers/liza-gen6.png",
+  "art": false
+ },
+ {
+  "id": "lorelei-art",
+  "name": "Lorelei",
+  "era": "art",
+  "key": "walkthrough/art/lorelei-art.png",
+  "art": true
+ },
+ {
+  "id": "lorelei-gen1",
+  "name": "Lorelei",
+  "era": "gen1",
+  "key": "trainers/lorelei-gen1.png",
+  "art": false
+ },
+ {
+  "id": "lorelei-gen3",
+  "name": "Lorelei",
+  "era": "gen3",
+  "key": "trainers/lorelei-gen3.png",
+  "art": false
+ },
+ {
+  "id": "lorelei-lgpe",
+  "name": "Lorelei (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/lorelei-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "lorelei-gen1rb",
+  "name": "Lorelei (R/B)",
+  "era": "gen1",
+  "key": "trainers/lorelei-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "ltsurge",
+  "name": "Lt. Surge",
+  "era": "current",
+  "key": "trainers/ltsurge.png",
+  "art": false
+ },
+ {
+  "id": "ltsurge-gen1",
+  "name": "Lt. Surge",
+  "era": "gen1",
+  "key": "trainers/ltsurge-gen1.png",
+  "art": false
+ },
+ {
+  "id": "ltsurge-gen2",
+  "name": "Lt. Surge",
+  "era": "gen2",
+  "key": "trainers/ltsurge-gen2.png",
+  "art": false
+ },
+ {
+  "id": "ltsurge-gen3",
+  "name": "Lt. Surge",
+  "era": "gen3",
+  "key": "trainers/ltsurge-gen3.png",
+  "art": false
+ },
+ {
+  "id": "ltsurge-gen1rb",
+  "name": "Lt. Surge (R/B)",
+  "era": "gen1",
+  "key": "trainers/ltsurge-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "lucas",
+  "name": "Lucas",
+  "era": "current",
+  "key": "trainers/lucas.png",
+  "art": false
+ },
+ {
+  "id": "lucas-contest",
+  "name": "Lucas (Contest)",
+  "era": "current",
+  "key": "trainers/lucas-contest.png",
+  "art": false
+ },
+ {
+  "id": "lucas-gen4pt",
+  "name": "Lucas (Platinum)",
+  "era": "gen4",
+  "key": "trainers/lucas-gen4pt.png",
+  "art": false
+ },
+ {
+  "id": "lucian",
+  "name": "Lucian",
+  "era": "current",
+  "key": "trainers/lucian.png",
+  "art": false
+ },
+ {
+  "id": "lucy",
+  "name": "Lucy",
+  "era": "current",
+  "key": "trainers/lucy.png",
+  "art": false
+ },
+ {
+  "id": "lucy-gen3",
+  "name": "Lucy",
+  "era": "gen3",
+  "key": "trainers/lucy-gen3.png",
+  "art": false
+ },
+ {
+  "id": "lusamine",
+  "name": "Lusamine",
+  "era": "current",
+  "key": "trainers/lusamine.png",
+  "art": false
+ },
+ {
+  "id": "lusamine-nihilego",
+  "name": "Lusamine (Nihilego)",
+  "era": "current",
+  "key": "trainers/lusamine-nihilego.png",
+  "art": false
+ },
+ {
+  "id": "lyra",
+  "name": "Lyra",
+  "era": "current",
+  "key": "trainers/lyra.png",
+  "art": false
+ },
+ {
+  "id": "lyra-pokeathlon",
+  "name": "Lyra (Pokeathlon)",
+  "era": "current",
+  "key": "trainers/lyra-pokeathlon.png",
+  "art": false
+ },
+ {
+  "id": "lysandre",
+  "name": "Lys & Re",
+  "era": "current",
+  "key": "trainers/lysandre.png",
+  "art": false
+ },
+ {
+  "id": "mable",
+  "name": "Mable",
+  "era": "current",
+  "key": "trainers/mable.png",
+  "art": false
+ },
+ {
+  "id": "madame",
+  "name": "Madame",
+  "era": "current",
+  "key": "trainers/madame.png",
+  "art": false
+ },
+ {
+  "id": "madame-gen4",
+  "name": "Madame",
+  "era": "gen4",
+  "key": "trainers/madame-gen4.png",
+  "art": false
+ },
+ {
+  "id": "madame-gen6",
+  "name": "Madame",
+  "era": "gen6",
+  "key": "trainers/madame-gen6.png",
+  "art": false
+ },
+ {
+  "id": "madame-gen7",
+  "name": "Madame",
+  "era": "gen7",
+  "key": "trainers/madame-gen7.png",
+  "art": false
+ },
+ {
+  "id": "madame-gen8",
+  "name": "Madame",
+  "era": "gen8",
+  "key": "trainers/madame-gen8.png",
+  "art": false
+ },
+ {
+  "id": "madame-gen4dp",
+  "name": "Madame (D/P)",
+  "era": "gen4",
+  "key": "trainers/madame-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "magmagrunt",
+  "name": "Magma Grunt",
+  "era": "current",
+  "key": "trainers/magmagrunt.png",
+  "art": false
+ },
+ {
+  "id": "magmagrunt-rse",
+  "name": "Magma Grunt (Rse)",
+  "era": "current",
+  "key": "trainers/magmagrunt-rse.png",
+  "art": false
+ },
+ {
+  "id": "magmagruntf",
+  "name": "Magma Grunt ♀",
+  "era": "current",
+  "key": "trainers/magmagruntf.png",
+  "art": false
+ },
+ {
+  "id": "magmagruntf-rse",
+  "name": "Magma Grunt ♀ (Rse)",
+  "era": "current",
+  "key": "trainers/magmagruntf-rse.png",
+  "art": false
+ },
+ {
+  "id": "magmasuit",
+  "name": "Magmasuit",
+  "era": "current",
+  "key": "trainers/magmasuit.png",
+  "art": false
+ },
+ {
+  "id": "magnolia",
+  "name": "Magnolia",
+  "era": "current",
+  "key": "trainers/magnolia.png",
+  "art": false
+ },
+ {
+  "id": "magnus",
+  "name": "Magnus",
+  "era": "current",
+  "key": "trainers/magnus.png",
+  "art": false
+ },
+ {
+  "id": "mai",
+  "name": "Mai",
+  "era": "current",
+  "key": "trainers/mai.png",
+  "art": false
+ },
+ {
+  "id": "maid",
+  "name": "Maid",
+  "era": "current",
+  "key": "trainers/maid.png",
+  "art": false
+ },
+ {
+  "id": "maid-gen4",
+  "name": "Maid",
+  "era": "gen4",
+  "key": "trainers/maid-gen4.png",
+  "art": false
+ },
+ {
+  "id": "maid-gen6",
+  "name": "Maid",
+  "era": "gen6",
+  "key": "trainers/maid-gen6.png",
+  "art": false
+ },
+ {
+  "id": "mallow",
+  "name": "Mallow",
+  "era": "current",
+  "key": "trainers/mallow.png",
+  "art": false
+ },
+ {
+  "id": "malva",
+  "name": "Malva",
+  "era": "current",
+  "key": "trainers/malva.png",
+  "art": false
+ },
+ {
+  "id": "marley",
+  "name": "Marley",
+  "era": "current",
+  "key": "trainers/marley.png",
+  "art": false
+ },
+ {
+  "id": "marlon",
+  "name": "Marlon",
+  "era": "current",
+  "key": "trainers/marlon.png",
+  "art": false
+ },
+ {
+  "id": "marnie",
+  "name": "Marnie",
+  "era": "current",
+  "key": "trainers/marnie.png",
+  "art": false
+ },
+ {
+  "id": "marnie-league",
+  "name": "Marnie (League)",
+  "era": "current",
+  "key": "trainers/marnie-league.png",
+  "art": false
+ },
+ {
+  "id": "mars",
+  "name": "Mars",
+  "era": "current",
+  "key": "trainers/mars.png",
+  "art": false
+ },
+ {
+  "id": "marshal",
+  "name": "Marshal",
+  "era": "current",
+  "key": "trainers/marshal.png",
+  "art": false
+ },
+ {
+  "id": "masamune-conquest",
+  "name": "Masamune (Conquest)",
+  "era": "current",
+  "key": "trainers/masamune-conquest.png",
+  "art": false
+ },
+ {
+  "id": "mateo",
+  "name": "Mateo",
+  "era": "current",
+  "key": "trainers/mateo.png",
+  "art": false
+ },
+ {
+  "id": "matt",
+  "name": "Matt",
+  "era": "current",
+  "key": "trainers/matt.png",
+  "art": false
+ },
+ {
+  "id": "matt-gen3",
+  "name": "Matt",
+  "era": "gen3",
+  "key": "trainers/matt-gen3.png",
+  "art": false
+ },
+ {
+  "id": "maxie-gen3",
+  "name": "Maxie",
+  "era": "gen3",
+  "key": "trainers/maxie-gen3.png",
+  "art": false
+ },
+ {
+  "id": "maxie-gen6",
+  "name": "Maxie",
+  "era": "gen6",
+  "key": "trainers/maxie-gen6.png",
+  "art": false
+ },
+ {
+  "id": "may",
+  "name": "May",
+  "era": "current",
+  "key": "trainers/may.png",
+  "art": false
+ },
+ {
+  "id": "may-gen3",
+  "name": "May",
+  "era": "gen3",
+  "key": "trainers/may-gen3.png",
+  "art": false
+ },
+ {
+  "id": "may-contest",
+  "name": "May (Contest)",
+  "era": "current",
+  "key": "trainers/may-contest.png",
+  "art": false
+ },
+ {
+  "id": "may-e",
+  "name": "May (Emerald)",
+  "era": "gen3",
+  "key": "trainers/may-e.png",
+  "art": false
+ },
+ {
+  "id": "may-gen3rs",
+  "name": "May (R/S)",
+  "era": "gen3",
+  "key": "trainers/may-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "may-rs",
+  "name": "May (R/S)",
+  "era": "gen3",
+  "key": "trainers/may-rs.png",
+  "art": false
+ },
+ {
+  "id": "maylene",
+  "name": "Maylene",
+  "era": "current",
+  "key": "trainers/maylene.png",
+  "art": false
+ },
+ {
+  "id": "medium",
+  "name": "Medium",
+  "era": "current",
+  "key": "trainers/medium.png",
+  "art": false
+ },
+ {
+  "id": "medium-gen2jp",
+  "name": "Medium (JP)",
+  "era": "gen2",
+  "key": "trainers/medium-gen2jp.png",
+  "art": false
+ },
+ {
+  "id": "mela",
+  "name": "Mela",
+  "era": "current",
+  "key": "trainers/mela.png",
+  "art": false
+ },
+ {
+  "id": "melli",
+  "name": "Melli",
+  "era": "current",
+  "key": "trainers/melli.png",
+  "art": false
+ },
+ {
+  "id": "melony",
+  "name": "Melony",
+  "era": "current",
+  "key": "trainers/melony.png",
+  "art": false
+ },
+ {
+  "id": "miku-fairy",
+  "name": "Miku (Fairy)",
+  "era": "current",
+  "key": "trainers/miku-fairy.png",
+  "art": false
+ },
+ {
+  "id": "miku-fire",
+  "name": "Miku (Fire)",
+  "era": "current",
+  "key": "trainers/miku-fire.png",
+  "art": false
+ },
+ {
+  "id": "miku-flying",
+  "name": "Miku (Flying)",
+  "era": "current",
+  "key": "trainers/miku-flying.png",
+  "art": false
+ },
+ {
+  "id": "miku-ghost",
+  "name": "Miku (Ghost)",
+  "era": "current",
+  "key": "trainers/miku-ghost.png",
+  "art": false
+ },
+ {
+  "id": "miku-grass",
+  "name": "Miku (Grass)",
+  "era": "current",
+  "key": "trainers/miku-grass.png",
+  "art": false
+ },
+ {
+  "id": "miku-ground",
+  "name": "Miku (Ground)",
+  "era": "current",
+  "key": "trainers/miku-ground.png",
+  "art": false
+ },
+ {
+  "id": "miku-ice",
+  "name": "Miku (Ice)",
+  "era": "current",
+  "key": "trainers/miku-ice.png",
+  "art": false
+ },
+ {
+  "id": "miku-psychic",
+  "name": "Miku (Psychic)",
+  "era": "current",
+  "key": "trainers/miku-psychic.png",
+  "art": false
+ },
+ {
+  "id": "miku-water",
+  "name": "Miku (Water)",
+  "era": "current",
+  "key": "trainers/miku-water.png",
+  "art": false
+ },
+ {
+  "id": "milo",
+  "name": "Milo",
+  "era": "current",
+  "key": "trainers/milo.png",
+  "art": false
+ },
+ {
+  "id": "mina",
+  "name": "Mina",
+  "era": "current",
+  "key": "trainers/mina.png",
+  "art": false
+ },
+ {
+  "id": "mina-lgpe",
+  "name": "Mina (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/mina-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "mira",
+  "name": "Mira",
+  "era": "current",
+  "key": "trainers/mira.png",
+  "art": false
+ },
+ {
+  "id": "miriam",
+  "name": "Miriam",
+  "era": "current",
+  "key": "trainers/miriam.png",
+  "art": false
+ },
+ {
+  "id": "mirror",
+  "name": "Mirror",
+  "era": "current",
+  "key": "trainers/mirror.png",
+  "art": false
+ },
+ {
+  "id": "misty",
+  "name": "Misty",
+  "era": "current",
+  "key": "trainers/misty.png",
+  "art": false
+ },
+ {
+  "id": "misty-gen1",
+  "name": "Misty",
+  "era": "gen1",
+  "key": "trainers/misty-gen1.png",
+  "art": false
+ },
+ {
+  "id": "misty-gen2",
+  "name": "Misty",
+  "era": "gen2",
+  "key": "trainers/misty-gen2.png",
+  "art": false
+ },
+ {
+  "id": "misty-gen3",
+  "name": "Misty",
+  "era": "gen3",
+  "key": "trainers/misty-gen3.png",
+  "art": false
+ },
+ {
+  "id": "misty-lgpe",
+  "name": "Misty (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/misty-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "misty-gen1rb",
+  "name": "Misty (R/B)",
+  "era": "gen1",
+  "key": "trainers/misty-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "model-gen8",
+  "name": "Model",
+  "era": "gen8",
+  "key": "trainers/model-gen8.png",
+  "art": false
+ },
+ {
+  "id": "mohn",
+  "name": "Mohn",
+  "era": "current",
+  "key": "trainers/mohn.png",
+  "art": false
+ },
+ {
+  "id": "molayne",
+  "name": "Molayne",
+  "era": "current",
+  "key": "trainers/molayne.png",
+  "art": false
+ },
+ {
+  "id": "mom-alola",
+  "name": "Mom (Alola)",
+  "era": "current",
+  "key": "trainers/mom-alola.png",
+  "art": false
+ },
+ {
+  "id": "mom-hoenn",
+  "name": "Mom (Hoenn)",
+  "era": "current",
+  "key": "trainers/mom-hoenn.png",
+  "art": false
+ },
+ {
+  "id": "mom-johto",
+  "name": "Mom (Johto)",
+  "era": "current",
+  "key": "trainers/mom-johto.png",
+  "art": false
+ },
+ {
+  "id": "mom-paldea",
+  "name": "Mom (Paldea)",
+  "era": "current",
+  "key": "trainers/mom-paldea.png",
+  "art": false
+ },
+ {
+  "id": "mom-unova",
+  "name": "Mom (Unova)",
+  "era": "current",
+  "key": "trainers/mom-unova.png",
+  "art": false
+ },
+ {
+  "id": "mom-unova2",
+  "name": "Mom (Unova2)",
+  "era": "current",
+  "key": "trainers/mom-unova2.png",
+  "art": false
+ },
+ {
+  "id": "morgan",
+  "name": "Morgan",
+  "era": "current",
+  "key": "trainers/morgan.png",
+  "art": false
+ },
+ {
+  "id": "morty",
+  "name": "Morty",
+  "era": "current",
+  "key": "trainers/morty.png",
+  "art": false
+ },
+ {
+  "id": "morty-gen2",
+  "name": "Morty",
+  "era": "gen2",
+  "key": "trainers/morty-gen2.png",
+  "art": false
+ },
+ {
+  "id": "mrbriney",
+  "name": "Mrbriney",
+  "era": "current",
+  "key": "trainers/mrbriney.png",
+  "art": false
+ },
+ {
+  "id": "mrfuji-gen3",
+  "name": "Mrfuji",
+  "era": "gen3",
+  "key": "trainers/mrfuji-gen3.png",
+  "art": false
+ },
+ {
+  "id": "mrstone",
+  "name": "Mrstone",
+  "era": "current",
+  "key": "trainers/mrstone.png",
+  "art": false
+ },
+ {
+  "id": "musician",
+  "name": "Musician",
+  "era": "current",
+  "key": "trainers/musician.png",
+  "art": false
+ },
+ {
+  "id": "musician-gen8",
+  "name": "Musician",
+  "era": "gen8",
+  "key": "trainers/musician-gen8.png",
+  "art": false
+ },
+ {
+  "id": "musician-gen9",
+  "name": "Musician",
+  "era": "gen9",
+  "key": "trainers/musician-gen9.png",
+  "art": false
+ },
+ {
+  "id": "mustard",
+  "name": "Mustard",
+  "era": "current",
+  "key": "trainers/mustard.png",
+  "art": false
+ },
+ {
+  "id": "mustard-champion",
+  "name": "Mustard (Champion)",
+  "era": "current",
+  "key": "trainers/mustard-champion.png",
+  "art": false
+ },
+ {
+  "id": "mustard-master",
+  "name": "Mustard (Master)",
+  "era": "current",
+  "key": "trainers/mustard-master.png",
+  "art": false
+ },
+ {
+  "id": "n",
+  "name": "N",
+  "era": "current",
+  "key": "trainers/n.png",
+  "art": false
+ },
+ {
+  "id": "nancy",
+  "name": "Nancy",
+  "era": "current",
+  "key": "trainers/nancy.png",
+  "art": false
+ },
+ {
+  "id": "nanu",
+  "name": "Nanu",
+  "era": "current",
+  "key": "trainers/nanu.png",
+  "art": false
+ },
+ {
+  "id": "nate",
+  "name": "Nate",
+  "era": "current",
+  "key": "trainers/nate.png",
+  "art": false
+ },
+ {
+  "id": "nate-pokestar",
+  "name": "Nate (Pokestar)",
+  "era": "current",
+  "key": "trainers/nate-pokestar.png",
+  "art": false
+ },
+ {
+  "id": "nate-pokestar3",
+  "name": "Nate (Pokestar3)",
+  "era": "current",
+  "key": "trainers/nate-pokestar3.png",
+  "art": false
+ },
+ {
+  "id": "nate-wonderlauncher",
+  "name": "Nate (Wonderlauncher)",
+  "era": "current",
+  "key": "trainers/nate-wonderlauncher.png",
+  "art": false
+ },
+ {
+  "id": "naveen",
+  "name": "Naveen",
+  "era": "current",
+  "key": "trainers/naveen.png",
+  "art": false
+ },
+ {
+  "id": "nemona-s",
+  "name": "Nemona (S)",
+  "era": "current",
+  "key": "trainers/nemona-s.png",
+  "art": false
+ },
+ {
+  "id": "nemona-v",
+  "name": "Nemona (V)",
+  "era": "current",
+  "key": "trainers/nemona-v.png",
+  "art": false
+ },
+ {
+  "id": "neroli",
+  "name": "Neroli",
+  "era": "current",
+  "key": "trainers/neroli.png",
+  "art": false
+ },
+ {
+  "id": "nessa",
+  "name": "Nessa",
+  "era": "current",
+  "key": "trainers/nessa.png",
+  "art": false
+ },
+ {
+  "id": "ninjaboy",
+  "name": "Ninja Boy",
+  "era": "current",
+  "key": "trainers/ninjaboy.png",
+  "art": false
+ },
+ {
+  "id": "ninjaboy-gen3",
+  "name": "Ninja Boy",
+  "era": "gen3",
+  "key": "trainers/ninjaboy-gen3.png",
+  "art": false
+ },
+ {
+  "id": "ninjaboy-gen6",
+  "name": "Ninja Boy",
+  "era": "gen6",
+  "key": "trainers/ninjaboy-gen6.png",
+  "art": false
+ },
+ {
+  "id": "nita",
+  "name": "Nita",
+  "era": "current",
+  "key": "trainers/nita.png",
+  "art": false
+ },
+ {
+  "id": "nobunaga-conquest",
+  "name": "Nobunaga (Conquest)",
+  "era": "current",
+  "key": "trainers/nobunaga-conquest.png",
+  "art": false
+ },
+ {
+  "id": "noland",
+  "name": "Noland",
+  "era": "current",
+  "key": "trainers/noland.png",
+  "art": false
+ },
+ {
+  "id": "noland-gen3",
+  "name": "Noland",
+  "era": "gen3",
+  "key": "trainers/noland-gen3.png",
+  "art": false
+ },
+ {
+  "id": "norman",
+  "name": "Norman",
+  "era": "current",
+  "key": "trainers/norman.png",
+  "art": false
+ },
+ {
+  "id": "norman-gen3",
+  "name": "Norman",
+  "era": "gen3",
+  "key": "trainers/norman-gen3.png",
+  "art": false
+ },
+ {
+  "id": "norman-gen6",
+  "name": "Norman",
+  "era": "gen6",
+  "key": "trainers/norman-gen6.png",
+  "art": false
+ },
+ {
+  "id": "nurse",
+  "name": "Nurse",
+  "era": "current",
+  "key": "trainers/nurse.png",
+  "art": false
+ },
+ {
+  "id": "nurseryaide",
+  "name": "Nurseryaide",
+  "era": "current",
+  "key": "trainers/nurseryaide.png",
+  "art": false
+ },
+ {
+  "id": "officeworker",
+  "name": "Office Worker",
+  "era": "current",
+  "key": "trainers/officeworker.png",
+  "art": false
+ },
+ {
+  "id": "officeworker-gen9",
+  "name": "Office Worker",
+  "era": "gen9",
+  "key": "trainers/officeworker-gen9.png",
+  "art": false
+ },
+ {
+  "id": "officeworkerf",
+  "name": "Office Worker ♀",
+  "era": "current",
+  "key": "trainers/officeworkerf.png",
+  "art": false
+ },
+ {
+  "id": "officeworkerf-gen9",
+  "name": "Office Worker ♀",
+  "era": "gen9",
+  "key": "trainers/officeworkerf-gen9.png",
+  "art": false
+ },
+ {
+  "id": "officer-gen2",
+  "name": "Officer",
+  "era": "gen2",
+  "key": "trainers/officer-gen2.png",
+  "art": false
+ },
+ {
+  "id": "ogreclan",
+  "name": "Ogreclan",
+  "era": "current",
+  "key": "trainers/ogreclan.png",
+  "art": false
+ },
+ {
+  "id": "oichi-conquest",
+  "name": "Oichi (Conquest)",
+  "era": "current",
+  "key": "trainers/oichi-conquest.png",
+  "art": false
+ },
+ {
+  "id": "oldcouple-gen3",
+  "name": "Old Couple",
+  "era": "gen3",
+  "key": "trainers/oldcouple-gen3.png",
+  "art": false
+ },
+ {
+  "id": "oleana",
+  "name": "Oleana",
+  "era": "current",
+  "key": "trainers/oleana.png",
+  "art": false
+ },
+ {
+  "id": "olivia",
+  "name": "Olivia",
+  "era": "current",
+  "key": "trainers/olivia.png",
+  "art": false
+ },
+ {
+  "id": "olympia",
+  "name": "Olympia",
+  "era": "current",
+  "key": "trainers/olympia.png",
+  "art": false
+ },
+ {
+  "id": "opal",
+  "name": "Opal",
+  "era": "current",
+  "key": "trainers/opal.png",
+  "art": false
+ },
+ {
+  "id": "ortega",
+  "name": "Ortega",
+  "era": "current",
+  "key": "trainers/ortega.png",
+  "art": false
+ },
+ {
+  "id": "owner",
+  "name": "Owner",
+  "era": "current",
+  "key": "trainers/owner.png",
+  "art": false
+ },
+ {
+  "id": "painter-gen3",
+  "name": "Painter",
+  "era": "gen3",
+  "key": "trainers/painter-gen3.png",
+  "art": false
+ },
+ {
+  "id": "palina",
+  "name": "Palina",
+  "era": "current",
+  "key": "trainers/palina.png",
+  "art": false
+ },
+ {
+  "id": "palmer",
+  "name": "Palmer",
+  "era": "current",
+  "key": "trainers/palmer.png",
+  "art": false
+ },
+ {
+  "id": "parasollady",
+  "name": "Parasol Lady",
+  "era": "current",
+  "key": "trainers/parasollady.png",
+  "art": false
+ },
+ {
+  "id": "parasollady-gen3",
+  "name": "Parasol Lady",
+  "era": "gen3",
+  "key": "trainers/parasollady-gen3.png",
+  "art": false
+ },
+ {
+  "id": "parasollady-gen4",
+  "name": "Parasol Lady",
+  "era": "gen4",
+  "key": "trainers/parasollady-gen4.png",
+  "art": false
+ },
+ {
+  "id": "parasollady-gen6",
+  "name": "Parasol Lady",
+  "era": "gen6",
+  "key": "trainers/parasollady-gen6.png",
+  "art": false
+ },
+ {
+  "id": "paxton",
+  "name": "Paxton",
+  "era": "current",
+  "key": "trainers/paxton.png",
+  "art": false
+ },
+ {
+  "id": "pearlclanmember",
+  "name": "Pearl Clan Member",
+  "era": "current",
+  "key": "trainers/pearlclanmember.png",
+  "art": false
+ },
+ {
+  "id": "penny",
+  "name": "Penny",
+  "era": "current",
+  "key": "trainers/penny.png",
+  "art": false
+ },
+ {
+  "id": "peonia",
+  "name": "Peonia",
+  "era": "current",
+  "key": "trainers/peonia.png",
+  "art": false
+ },
+ {
+  "id": "peony",
+  "name": "Peony",
+  "era": "current",
+  "key": "trainers/peony.png",
+  "art": false
+ },
+ {
+  "id": "peony-league",
+  "name": "Peony (League)",
+  "era": "current",
+  "key": "trainers/peony-league.png",
+  "art": false
+ },
+ {
+  "id": "perrin",
+  "name": "Perrin",
+  "era": "current",
+  "key": "trainers/perrin.png",
+  "art": false
+ },
+ {
+  "id": "pesselle",
+  "name": "Pesselle",
+  "era": "current",
+  "key": "trainers/pesselle.png",
+  "art": false
+ },
+ {
+  "id": "petrel",
+  "name": "Petrel",
+  "era": "current",
+  "key": "trainers/petrel.png",
+  "art": false
+ },
+ {
+  "id": "phil",
+  "name": "Phil",
+  "era": "current",
+  "key": "trainers/phil.png",
+  "art": false
+ },
+ {
+  "id": "phillipe",
+  "name": "Phillipe",
+  "era": "current",
+  "key": "trainers/phillipe.png",
+  "art": false
+ },
+ {
+  "id": "phoebe-gen3",
+  "name": "Phoebe",
+  "era": "gen3",
+  "key": "trainers/phoebe-gen3.png",
+  "art": false
+ },
+ {
+  "id": "phoebe-gen6",
+  "name": "Phoebe",
+  "era": "gen6",
+  "key": "trainers/phoebe-gen6.png",
+  "art": false
+ },
+ {
+  "id": "phorus-unite",
+  "name": "Phorus (Unite)",
+  "era": "current",
+  "key": "trainers/phorus-unite.png",
+  "art": false
+ },
+ {
+  "id": "phyco",
+  "name": "Phyco",
+  "era": "current",
+  "key": "trainers/phyco.png",
+  "art": false
+ },
+ {
+  "id": "picnicker",
+  "name": "Picnicker",
+  "era": "current",
+  "key": "trainers/picnicker.png",
+  "art": false
+ },
+ {
+  "id": "picnicker-gen2",
+  "name": "Picnicker",
+  "era": "gen2",
+  "key": "trainers/picnicker-gen2.png",
+  "art": false
+ },
+ {
+  "id": "picnicker-gen3",
+  "name": "Picnicker",
+  "era": "gen3",
+  "key": "trainers/picnicker-gen3.png",
+  "art": false
+ },
+ {
+  "id": "picnicker-gen6",
+  "name": "Picnicker",
+  "era": "gen6",
+  "key": "trainers/picnicker-gen6.png",
+  "art": false
+ },
+ {
+  "id": "picnicker-gen3rs",
+  "name": "Picnicker (R/S)",
+  "era": "gen3",
+  "key": "trainers/picnicker-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "piers",
+  "name": "Piers",
+  "era": "current",
+  "key": "trainers/piers.png",
+  "art": false
+ },
+ {
+  "id": "piers-league",
+  "name": "Piers (League)",
+  "era": "current",
+  "key": "trainers/piers-league.png",
+  "art": false
+ },
+ {
+  "id": "pilot",
+  "name": "Pilot",
+  "era": "current",
+  "key": "trainers/pilot.png",
+  "art": false
+ },
+ {
+  "id": "plasmagrunt",
+  "name": "Plasma Grunt",
+  "era": "current",
+  "key": "trainers/plasmagrunt.png",
+  "art": false
+ },
+ {
+  "id": "plasmagrunt-gen5bw",
+  "name": "Plasma Grunt (B/W)",
+  "era": "gen5",
+  "key": "trainers/plasmagrunt-gen5bw.png",
+  "art": false
+ },
+ {
+  "id": "plasmagruntf",
+  "name": "Plasma Grunt ♀",
+  "era": "current",
+  "key": "trainers/plasmagruntf.png",
+  "art": false
+ },
+ {
+  "id": "plasmagruntf-gen5bw",
+  "name": "Plasma Grunt ♀ (B/W)",
+  "era": "gen5",
+  "key": "trainers/plasmagruntf-gen5bw.png",
+  "art": false
+ },
+ {
+  "id": "player-go",
+  "name": "Player (Go)",
+  "era": "current",
+  "key": "trainers/player-go.png",
+  "art": false
+ },
+ {
+  "id": "playerf-go",
+  "name": "Playerf (Go)",
+  "era": "current",
+  "key": "trainers/playerf-go.png",
+  "art": false
+ },
+ {
+  "id": "plumeria",
+  "name": "Plumeria",
+  "era": "current",
+  "key": "trainers/plumeria.png",
+  "art": false
+ },
+ {
+  "id": "plumeria-league",
+  "name": "Plumeria (League)",
+  "era": "current",
+  "key": "trainers/plumeria-league.png",
+  "art": false
+ },
+ {
+  "id": "pokemoncenterlady",
+  "name": "Pokemon Center Lady",
+  "era": "current",
+  "key": "trainers/pokemoncenterlady.png",
+  "art": false
+ },
+ {
+  "id": "pokefan",
+  "name": "Poké Fan",
+  "era": "current",
+  "key": "trainers/pokefan.png",
+  "art": false
+ },
+ {
+  "id": "pokefan-gen2",
+  "name": "Poké Fan",
+  "era": "gen2",
+  "key": "trainers/pokefan-gen2.png",
+  "art": false
+ },
+ {
+  "id": "pokefan-gen3",
+  "name": "Poké Fan",
+  "era": "gen3",
+  "key": "trainers/pokefan-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokefan-gen4",
+  "name": "Poké Fan",
+  "era": "gen4",
+  "key": "trainers/pokefan-gen4.png",
+  "art": false
+ },
+ {
+  "id": "pokefan-gen6",
+  "name": "Poké Fan",
+  "era": "gen6",
+  "key": "trainers/pokefan-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokefan-gen6xy",
+  "name": "Poké Fan (X/Y)",
+  "era": "gen6",
+  "key": "trainers/pokefan-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "pokefanf",
+  "name": "Poké Fan ♀",
+  "era": "current",
+  "key": "trainers/pokefanf.png",
+  "art": false
+ },
+ {
+  "id": "pokefanf-gen2",
+  "name": "Poké Fan ♀",
+  "era": "gen2",
+  "key": "trainers/pokefanf-gen2.png",
+  "art": false
+ },
+ {
+  "id": "pokefanf-gen3",
+  "name": "Poké Fan ♀",
+  "era": "gen3",
+  "key": "trainers/pokefanf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokefanf-gen4",
+  "name": "Poké Fan ♀",
+  "era": "gen4",
+  "key": "trainers/pokefanf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "pokefanf-gen6",
+  "name": "Poké Fan ♀",
+  "era": "gen6",
+  "key": "trainers/pokefanf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokefanf-gen6xy",
+  "name": "Poké Fan ♀ (X/Y)",
+  "era": "gen6",
+  "key": "trainers/pokefanf-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "pokekid",
+  "name": "Poké Kid",
+  "era": "current",
+  "key": "trainers/pokekid.png",
+  "art": false
+ },
+ {
+  "id": "pokekid-gen8",
+  "name": "Poké Kid",
+  "era": "gen8",
+  "key": "trainers/pokekid-gen8.png",
+  "art": false
+ },
+ {
+  "id": "pokekidf-gen8",
+  "name": "Poké Kid ♀",
+  "era": "gen8",
+  "key": "trainers/pokekidf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac",
+  "name": "Pokémaniac",
+  "era": "current",
+  "key": "trainers/pokemaniac.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen1",
+  "name": "Pokémaniac",
+  "era": "gen1",
+  "key": "trainers/pokemaniac-gen1.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen2",
+  "name": "Pokémaniac",
+  "era": "gen2",
+  "key": "trainers/pokemaniac-gen2.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen3",
+  "name": "Pokémaniac",
+  "era": "gen3",
+  "key": "trainers/pokemaniac-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen6",
+  "name": "Pokémaniac",
+  "era": "gen6",
+  "key": "trainers/pokemaniac-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen9",
+  "name": "Pokémaniac",
+  "era": "gen9",
+  "key": "trainers/pokemaniac-gen9.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen1rb",
+  "name": "Pokémaniac (R/B)",
+  "era": "gen1",
+  "key": "trainers/pokemaniac-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "pokemaniac-gen3rs",
+  "name": "Pokémaniac (R/S)",
+  "era": "gen3",
+  "key": "trainers/pokemaniac-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder",
+  "name": "Pokémon Breeder",
+  "era": "current",
+  "key": "trainers/pokemonbreeder.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder-gen3",
+  "name": "Pokémon Breeder",
+  "era": "gen3",
+  "key": "trainers/pokemonbreeder-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder-gen4",
+  "name": "Pokémon Breeder",
+  "era": "gen4",
+  "key": "trainers/pokemonbreeder-gen4.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder-gen6",
+  "name": "Pokémon Breeder",
+  "era": "gen6",
+  "key": "trainers/pokemonbreeder-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder-gen7",
+  "name": "Pokémon Breeder",
+  "era": "gen7",
+  "key": "trainers/pokemonbreeder-gen7.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder-gen8",
+  "name": "Pokémon Breeder",
+  "era": "gen8",
+  "key": "trainers/pokemonbreeder-gen8.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreeder-gen6xy",
+  "name": "Pokémon Breeder (X/Y)",
+  "era": "gen6",
+  "key": "trainers/pokemonbreeder-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf",
+  "name": "Pokémon Breeder ♀",
+  "era": "current",
+  "key": "trainers/pokemonbreederf.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen3",
+  "name": "Pokémon Breeder ♀",
+  "era": "gen3",
+  "key": "trainers/pokemonbreederf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen4",
+  "name": "Pokémon Breeder ♀",
+  "era": "gen4",
+  "key": "trainers/pokemonbreederf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen6",
+  "name": "Pokémon Breeder ♀",
+  "era": "gen6",
+  "key": "trainers/pokemonbreederf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen7",
+  "name": "Pokémon Breeder ♀",
+  "era": "gen7",
+  "key": "trainers/pokemonbreederf-gen7.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen8",
+  "name": "Pokémon Breeder ♀",
+  "era": "gen8",
+  "key": "trainers/pokemonbreederf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen3frlg",
+  "name": "Pokémon Breeder ♀ (FR/LG)",
+  "era": "gen3",
+  "key": "trainers/pokemonbreederf-gen3frlg.png",
+  "art": false
+ },
+ {
+  "id": "pokemonbreederf-gen6xy",
+  "name": "Pokémon Breeder ♀ (X/Y)",
+  "era": "gen6",
+  "key": "trainers/pokemonbreederf-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "pokemonranger",
+  "name": "Pokémon Ranger",
+  "era": "current",
+  "key": "trainers/pokemonranger.png",
+  "art": false
+ },
+ {
+  "id": "pokemonranger-gen3",
+  "name": "Pokémon Ranger",
+  "era": "gen3",
+  "key": "trainers/pokemonranger-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokemonranger-gen4",
+  "name": "Pokémon Ranger",
+  "era": "gen4",
+  "key": "trainers/pokemonranger-gen4.png",
+  "art": false
+ },
+ {
+  "id": "pokemonranger-gen6",
+  "name": "Pokémon Ranger",
+  "era": "gen6",
+  "key": "trainers/pokemonranger-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokemonranger-gen3rs",
+  "name": "Pokémon Ranger (R/S)",
+  "era": "gen3",
+  "key": "trainers/pokemonranger-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "pokemonranger-gen6xy",
+  "name": "Pokémon Ranger (X/Y)",
+  "era": "gen6",
+  "key": "trainers/pokemonranger-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "pokemonrangerf",
+  "name": "Pokémon Ranger ♀",
+  "era": "current",
+  "key": "trainers/pokemonrangerf.png",
+  "art": false
+ },
+ {
+  "id": "pokemonrangerf-gen3",
+  "name": "Pokémon Ranger ♀",
+  "era": "gen3",
+  "key": "trainers/pokemonrangerf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "pokemonrangerf-gen4",
+  "name": "Pokémon Ranger ♀",
+  "era": "gen4",
+  "key": "trainers/pokemonrangerf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "pokemonrangerf-gen6",
+  "name": "Pokémon Ranger ♀",
+  "era": "gen6",
+  "key": "trainers/pokemonrangerf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "pokemonrangerf-gen3rs",
+  "name": "Pokémon Ranger ♀ (R/S)",
+  "era": "gen3",
+  "key": "trainers/pokemonrangerf-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "pokemonrangerf-gen6xy",
+  "name": "Pokémon Ranger ♀ (X/Y)",
+  "era": "gen6",
+  "key": "trainers/pokemonrangerf-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "policeman",
+  "name": "Policeman",
+  "era": "current",
+  "key": "trainers/policeman.png",
+  "art": false
+ },
+ {
+  "id": "policeman-gen4",
+  "name": "Policeman",
+  "era": "gen4",
+  "key": "trainers/policeman-gen4.png",
+  "art": false
+ },
+ {
+  "id": "policeman-gen7",
+  "name": "Policeman",
+  "era": "gen7",
+  "key": "trainers/policeman-gen7.png",
+  "art": false
+ },
+ {
+  "id": "policeman-gen8",
+  "name": "Policeman",
+  "era": "gen8",
+  "key": "trainers/policeman-gen8.png",
+  "art": false
+ },
+ {
+  "id": "poppy",
+  "name": "Poppy",
+  "era": "current",
+  "key": "trainers/poppy.png",
+  "art": false
+ },
+ {
+  "id": "postman",
+  "name": "Postman",
+  "era": "current",
+  "key": "trainers/postman.png",
+  "art": false
+ },
+ {
+  "id": "preschooler",
+  "name": "Preschooler",
+  "era": "current",
+  "key": "trainers/preschooler.png",
+  "art": false
+ },
+ {
+  "id": "preschooler-gen6",
+  "name": "Preschooler",
+  "era": "gen6",
+  "key": "trainers/preschooler-gen6.png",
+  "art": false
+ },
+ {
+  "id": "preschooler-gen7",
+  "name": "Preschooler",
+  "era": "gen7",
+  "key": "trainers/preschooler-gen7.png",
+  "art": false
+ },
+ {
+  "id": "preschoolerf",
+  "name": "Preschooler ♀",
+  "era": "current",
+  "key": "trainers/preschoolerf.png",
+  "art": false
+ },
+ {
+  "id": "preschoolerf-gen6",
+  "name": "Preschooler ♀",
+  "era": "gen6",
+  "key": "trainers/preschoolerf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "preschoolerf-gen7",
+  "name": "Preschooler ♀",
+  "era": "gen7",
+  "key": "trainers/preschoolerf-gen7.png",
+  "art": false
+ },
+ {
+  "id": "preschoolers",
+  "name": "Preschoolers",
+  "era": "current",
+  "key": "trainers/preschoolers.png",
+  "art": false
+ },
+ {
+  "id": "oak",
+  "name": "Prof. Oak",
+  "era": "current",
+  "key": "trainers/oak.png",
+  "art": false
+ },
+ {
+  "id": "oak-gen1",
+  "name": "Prof. Oak",
+  "era": "gen1",
+  "key": "trainers/oak-gen1.png",
+  "art": false
+ },
+ {
+  "id": "oak-gen2",
+  "name": "Prof. Oak",
+  "era": "gen2",
+  "key": "trainers/oak-gen2.png",
+  "art": false
+ },
+ {
+  "id": "oak-gen3",
+  "name": "Prof. Oak",
+  "era": "gen3",
+  "key": "trainers/oak-gen3.png",
+  "art": false
+ },
+ {
+  "id": "oak-gen1rb",
+  "name": "Prof. Oak (R/B)",
+  "era": "gen1",
+  "key": "trainers/oak-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "proton",
+  "name": "Proton",
+  "era": "current",
+  "key": "trainers/proton.png",
+  "art": false
+ },
+ {
+  "id": "pryce",
+  "name": "Pryce",
+  "era": "current",
+  "key": "trainers/pryce.png",
+  "art": false
+ },
+ {
+  "id": "pryce-gen2",
+  "name": "Pryce",
+  "era": "gen2",
+  "key": "trainers/pryce-gen2.png",
+  "art": false
+ },
+ {
+  "id": "psychic",
+  "name": "Psychic",
+  "era": "current",
+  "key": "trainers/psychic.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen1",
+  "name": "Psychic",
+  "era": "gen1",
+  "key": "trainers/psychic-gen1.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen2",
+  "name": "Psychic",
+  "era": "gen2",
+  "key": "trainers/psychic-gen2.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen3",
+  "name": "Psychic",
+  "era": "gen3",
+  "key": "trainers/psychic-gen3.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen4",
+  "name": "Psychic",
+  "era": "gen4",
+  "key": "trainers/psychic-gen4.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen6",
+  "name": "Psychic",
+  "era": "gen6",
+  "key": "trainers/psychic-gen6.png",
+  "art": false
+ },
+ {
+  "id": "psychic-lgpe",
+  "name": "Psychic (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/psychic-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen1rb",
+  "name": "Psychic (R/B)",
+  "era": "gen1",
+  "key": "trainers/psychic-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "psychic-gen3rs",
+  "name": "Psychic (R/S)",
+  "era": "gen3",
+  "key": "trainers/psychic-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "psychicf",
+  "name": "Psychic ♀",
+  "era": "current",
+  "key": "trainers/psychicf.png",
+  "art": false
+ },
+ {
+  "id": "psychicf-gen3",
+  "name": "Psychic ♀",
+  "era": "gen3",
+  "key": "trainers/psychicf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "psychicf-gen4",
+  "name": "Psychic ♀",
+  "era": "gen4",
+  "key": "trainers/psychicf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "psychicf-gen3rs",
+  "name": "Psychic ♀ (R/S)",
+  "era": "gen3",
+  "key": "trainers/psychicf-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "psychicfjp-gen3",
+  "name": "Psychicfjp",
+  "era": "gen3",
+  "key": "trainers/psychicfjp-gen3.png",
+  "art": false
+ },
+ {
+  "id": "punkgirl",
+  "name": "Punk Girl",
+  "era": "current",
+  "key": "trainers/punkgirl.png",
+  "art": false
+ },
+ {
+  "id": "punkgirl-gen7",
+  "name": "Punk Girl",
+  "era": "gen7",
+  "key": "trainers/punkgirl-gen7.png",
+  "art": false
+ },
+ {
+  "id": "punkguy",
+  "name": "Punk Guy",
+  "era": "current",
+  "key": "trainers/punkguy.png",
+  "art": false
+ },
+ {
+  "id": "punkguy-gen7",
+  "name": "Punk Guy",
+  "era": "gen7",
+  "key": "trainers/punkguy-gen7.png",
+  "art": false
+ },
+ {
+  "id": "raifort",
+  "name": "Raifort",
+  "era": "current",
+  "key": "trainers/raifort.png",
+  "art": false
+ },
+ {
+  "id": "raihan",
+  "name": "Raihan",
+  "era": "current",
+  "key": "trainers/raihan.png",
+  "art": false
+ },
+ {
+  "id": "railstaff",
+  "name": "Railstaff",
+  "era": "current",
+  "key": "trainers/railstaff.png",
+  "art": false
+ },
+ {
+  "id": "rainbowrocketgrunt",
+  "name": "Rainbow Rocket Grunt",
+  "era": "current",
+  "key": "trainers/rainbowrocketgrunt.png",
+  "art": false
+ },
+ {
+  "id": "rainbowrocketgruntf",
+  "name": "Rainbow Rocket Grunt ♀",
+  "era": "current",
+  "key": "trainers/rainbowrocketgruntf.png",
+  "art": false
+ },
+ {
+  "id": "ramos",
+  "name": "Ramos",
+  "era": "current",
+  "key": "trainers/ramos.png",
+  "art": false
+ },
+ {
+  "id": "rancher",
+  "name": "Rancher",
+  "era": "current",
+  "key": "trainers/rancher.png",
+  "art": false
+ },
+ {
+  "id": "ranmaru-conquest",
+  "name": "Ranmaru (Conquest)",
+  "era": "current",
+  "key": "trainers/ranmaru-conquest.png",
+  "art": false
+ },
+ {
+  "id": "red",
+  "name": "Red",
+  "era": "gen3",
+  "key": "account/avatars/red.png",
+  "art": false
+ },
+ {
+  "id": "red-current",
+  "name": "Red",
+  "era": "current",
+  "key": "trainers/red.png",
+  "art": false
+ },
+ {
+  "id": "red-gen1",
+  "name": "Red",
+  "era": "gen1",
+  "key": "trainers/red-gen1.png",
+  "art": false
+ },
+ {
+  "id": "red-gen2",
+  "name": "Red",
+  "era": "gen2",
+  "key": "trainers/red-gen2.png",
+  "art": false
+ },
+ {
+  "id": "red-gen7",
+  "name": "Red",
+  "era": "gen7",
+  "key": "trainers/red-gen7.png",
+  "art": false
+ },
+ {
+  "id": "red-lgpe",
+  "name": "Red (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/red-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "red-gen1main",
+  "name": "Red (Main)",
+  "era": "gen1",
+  "key": "trainers/red-gen1main.png",
+  "art": false
+ },
+ {
+  "id": "red-gen1rb",
+  "name": "Red (R/B)",
+  "era": "gen1",
+  "key": "trainers/red-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "red-gen1title",
+  "name": "Red (Title)",
+  "era": "gen1",
+  "key": "trainers/red-gen1title.png",
+  "art": false
+ },
+ {
+  "id": "rei",
+  "name": "Rei",
+  "era": "current",
+  "key": "trainers/rei.png",
+  "art": false
+ },
+ {
+  "id": "rei-isekai",
+  "name": "Rei (Isekai)",
+  "era": "current",
+  "key": "trainers/rei-isekai.png",
+  "art": false
+ },
+ {
+  "id": "reporter",
+  "name": "Reporter",
+  "era": "current",
+  "key": "trainers/reporter.png",
+  "art": false
+ },
+ {
+  "id": "reporter-gen6",
+  "name": "Reporter",
+  "era": "gen6",
+  "key": "trainers/reporter-gen6.png",
+  "art": false
+ },
+ {
+  "id": "reporter-gen8",
+  "name": "Reporter",
+  "era": "gen8",
+  "key": "trainers/reporter-gen8.png",
+  "art": false
+ },
+ {
+  "id": "rhi",
+  "name": "Rhi",
+  "era": "current",
+  "key": "trainers/rhi.png",
+  "art": false
+ },
+ {
+  "id": "richboy",
+  "name": "Rich Boy",
+  "era": "current",
+  "key": "trainers/richboy.png",
+  "art": false
+ },
+ {
+  "id": "richboy-gen3",
+  "name": "Rich Boy",
+  "era": "gen3",
+  "key": "trainers/richboy-gen3.png",
+  "art": false
+ },
+ {
+  "id": "richboy-gen4",
+  "name": "Rich Boy",
+  "era": "gen4",
+  "key": "trainers/richboy-gen4.png",
+  "art": false
+ },
+ {
+  "id": "richboy-gen6",
+  "name": "Rich Boy",
+  "era": "gen6",
+  "key": "trainers/richboy-gen6.png",
+  "art": false
+ },
+ {
+  "id": "richboy-gen6xy",
+  "name": "Rich Boy (X/Y)",
+  "era": "gen6",
+  "key": "trainers/richboy-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "rika",
+  "name": "Rika",
+  "era": "current",
+  "key": "trainers/rika.png",
+  "art": false
+ },
+ {
+  "id": "riley",
+  "name": "Riley",
+  "era": "current",
+  "key": "trainers/riley.png",
+  "art": false
+ },
+ {
+  "id": "risingstar",
+  "name": "Risingstar",
+  "era": "current",
+  "key": "trainers/risingstar.png",
+  "art": false
+ },
+ {
+  "id": "risingstar-gen6",
+  "name": "Risingstar",
+  "era": "gen6",
+  "key": "trainers/risingstar-gen6.png",
+  "art": false
+ },
+ {
+  "id": "risingstarf",
+  "name": "Risingstarf",
+  "era": "current",
+  "key": "trainers/risingstarf.png",
+  "art": false
+ },
+ {
+  "id": "risingstarf-gen6",
+  "name": "Risingstarf",
+  "era": "gen6",
+  "key": "trainers/risingstarf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "rita",
+  "name": "Rita",
+  "era": "current",
+  "key": "trainers/rita.png",
+  "art": false
+ },
+ {
+  "id": "river",
+  "name": "River",
+  "era": "current",
+  "key": "trainers/river.png",
+  "art": false
+ },
+ {
+  "id": "roark",
+  "name": "Roark",
+  "era": "current",
+  "key": "trainers/roark.png",
+  "art": false
+ },
+ {
+  "id": "rocker-gen1",
+  "name": "Rocker",
+  "era": "gen1",
+  "key": "trainers/rocker-gen1.png",
+  "art": false
+ },
+ {
+  "id": "rocker-gen3",
+  "name": "Rocker",
+  "era": "gen3",
+  "key": "trainers/rocker-gen3.png",
+  "art": false
+ },
+ {
+  "id": "rocker-gen1rb",
+  "name": "Rocker (R/B)",
+  "era": "gen1",
+  "key": "trainers/rocker-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "rocket-gen1",
+  "name": "Rocket",
+  "era": "gen1",
+  "key": "trainers/rocket-gen1.png",
+  "art": false
+ },
+ {
+  "id": "rocket-gen1rb",
+  "name": "Rocket (R/B)",
+  "era": "gen1",
+  "key": "trainers/rocket-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "rocketexecutive-gen2",
+  "name": "Rocket Executive",
+  "era": "gen2",
+  "key": "trainers/rocketexecutive-gen2.png",
+  "art": false
+ },
+ {
+  "id": "rocketexecutivef-gen2",
+  "name": "Rocket Executive ♀",
+  "era": "gen2",
+  "key": "trainers/rocketexecutivef-gen2.png",
+  "art": false
+ },
+ {
+  "id": "rocketgrunt",
+  "name": "Rocket Grunt",
+  "era": "current",
+  "key": "trainers/rocketgrunt.png",
+  "art": false
+ },
+ {
+  "id": "rocketgrunt-gen2",
+  "name": "Rocket Grunt",
+  "era": "gen2",
+  "key": "trainers/rocketgrunt-gen2.png",
+  "art": false
+ },
+ {
+  "id": "rocketgruntf",
+  "name": "Rocket Grunt ♀",
+  "era": "current",
+  "key": "trainers/rocketgruntf.png",
+  "art": false
+ },
+ {
+  "id": "rocketgruntf-gen2",
+  "name": "Rocket Grunt ♀",
+  "era": "gen2",
+  "key": "trainers/rocketgruntf-gen2.png",
+  "art": false
+ },
+ {
+  "id": "rollerskater",
+  "name": "Roller Skater",
+  "era": "current",
+  "key": "trainers/rollerskater.png",
+  "art": false
+ },
+ {
+  "id": "rollerskaterf",
+  "name": "Roller Skater ♀",
+  "era": "current",
+  "key": "trainers/rollerskaterf.png",
+  "art": false
+ },
+ {
+  "id": "rood",
+  "name": "Rood",
+  "era": "current",
+  "key": "trainers/rood.png",
+  "art": false
+ },
+ {
+  "id": "rosa",
+  "name": "Rosa",
+  "era": "current",
+  "key": "trainers/rosa.png",
+  "art": false
+ },
+ {
+  "id": "rosa-pokestar",
+  "name": "Rosa (Pokestar)",
+  "era": "current",
+  "key": "trainers/rosa-pokestar.png",
+  "art": false
+ },
+ {
+  "id": "rosa-pokestar2",
+  "name": "Rosa (Pokestar2)",
+  "era": "current",
+  "key": "trainers/rosa-pokestar2.png",
+  "art": false
+ },
+ {
+  "id": "rosa-pokestar3",
+  "name": "Rosa (Pokestar3)",
+  "era": "current",
+  "key": "trainers/rosa-pokestar3.png",
+  "art": false
+ },
+ {
+  "id": "rosa-wonderlauncher",
+  "name": "Rosa (Wonderlauncher)",
+  "era": "current",
+  "key": "trainers/rosa-wonderlauncher.png",
+  "art": false
+ },
+ {
+  "id": "rose",
+  "name": "Rose",
+  "era": "current",
+  "key": "trainers/rose.png",
+  "art": false
+ },
+ {
+  "id": "rose-zerosuit",
+  "name": "Rose (Zerosuit)",
+  "era": "current",
+  "key": "trainers/rose-zerosuit.png",
+  "art": false
+ },
+ {
+  "id": "roughneck",
+  "name": "Roughneck",
+  "era": "current",
+  "key": "trainers/roughneck.png",
+  "art": false
+ },
+ {
+  "id": "roughneck-gen4",
+  "name": "Roughneck",
+  "era": "gen4",
+  "key": "trainers/roughneck-gen4.png",
+  "art": false
+ },
+ {
+  "id": "rowan",
+  "name": "Rowan",
+  "era": "current",
+  "key": "trainers/rowan.png",
+  "art": false
+ },
+ {
+  "id": "roxanne",
+  "name": "Roxanne",
+  "era": "current",
+  "key": "trainers/roxanne.png",
+  "art": false
+ },
+ {
+  "id": "roxanne-gen3",
+  "name": "Roxanne",
+  "era": "gen3",
+  "key": "trainers/roxanne-gen3.png",
+  "art": false
+ },
+ {
+  "id": "roxanne-gen6",
+  "name": "Roxanne",
+  "era": "gen6",
+  "key": "trainers/roxanne-gen6.png",
+  "art": false
+ },
+ {
+  "id": "roxie",
+  "name": "Roxie",
+  "era": "current",
+  "key": "trainers/roxie.png",
+  "art": false
+ },
+ {
+  "id": "roy",
+  "name": "Roy",
+  "era": "current",
+  "key": "trainers/roy.png",
+  "art": false
+ },
+ {
+  "id": "ruffian",
+  "name": "Ruffian",
+  "era": "current",
+  "key": "trainers/ruffian.png",
+  "art": false
+ },
+ {
+  "id": "ruinmaniac",
+  "name": "Ruin Maniac",
+  "era": "current",
+  "key": "trainers/ruinmaniac.png",
+  "art": false
+ },
+ {
+  "id": "ruinmaniac-gen3",
+  "name": "Ruin Maniac",
+  "era": "gen3",
+  "key": "trainers/ruinmaniac-gen3.png",
+  "art": false
+ },
+ {
+  "id": "ruinmaniac-gen6",
+  "name": "Ruin Maniac",
+  "era": "gen6",
+  "key": "trainers/ruinmaniac-gen6.png",
+  "art": false
+ },
+ {
+  "id": "ruinmaniac-gen3rs",
+  "name": "Ruin Maniac (R/S)",
+  "era": "gen3",
+  "key": "trainers/ruinmaniac-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "rye",
+  "name": "Rye",
+  "era": "current",
+  "key": "trainers/rye.png",
+  "art": false
+ },
+ {
+  "id": "ryme",
+  "name": "Ryme",
+  "era": "current",
+  "key": "trainers/ryme.png",
+  "art": false
+ },
+ {
+  "id": "ryuki",
+  "name": "Ryuki",
+  "era": "current",
+  "key": "trainers/ryuki.png",
+  "art": false
+ },
+ {
+  "id": "sabi",
+  "name": "Sabi",
+  "era": "current",
+  "key": "trainers/sabi.png",
+  "art": false
+ },
+ {
+  "id": "sabrina",
+  "name": "Sabrina",
+  "era": "current",
+  "key": "trainers/sabrina.png",
+  "art": false
+ },
+ {
+  "id": "sabrina-gen1",
+  "name": "Sabrina",
+  "era": "gen1",
+  "key": "trainers/sabrina-gen1.png",
+  "art": false
+ },
+ {
+  "id": "sabrina-gen2",
+  "name": "Sabrina",
+  "era": "gen2",
+  "key": "trainers/sabrina-gen2.png",
+  "art": false
+ },
+ {
+  "id": "sabrina-gen3",
+  "name": "Sabrina",
+  "era": "gen3",
+  "key": "trainers/sabrina-gen3.png",
+  "art": false
+ },
+ {
+  "id": "sabrina-frlg",
+  "name": "Sabrina (FR/LG)",
+  "era": "gen3",
+  "key": "trainers/sabrina-frlg.png",
+  "art": false
+ },
+ {
+  "id": "sabrina-lgpe",
+  "name": "Sabrina (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/sabrina-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "sabrina-gen1rb",
+  "name": "Sabrina (R/B)",
+  "era": "gen1",
+  "key": "trainers/sabrina-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "sada",
+  "name": "Sada",
+  "era": "current",
+  "key": "trainers/sada.png",
+  "art": false
+ },
+ {
+  "id": "sada-ai",
+  "name": "Sada (Ai)",
+  "era": "current",
+  "key": "trainers/sada-ai.png",
+  "art": false
+ },
+ {
+  "id": "sage",
+  "name": "Sage",
+  "era": "current",
+  "key": "trainers/sage.png",
+  "art": false
+ },
+ {
+  "id": "sage-gen2",
+  "name": "Sage",
+  "era": "gen2",
+  "key": "trainers/sage-gen2.png",
+  "art": false
+ },
+ {
+  "id": "sage-gen2jp",
+  "name": "Sage (JP)",
+  "era": "gen2",
+  "key": "trainers/sage-gen2jp.png",
+  "art": false
+ },
+ {
+  "id": "saguaro",
+  "name": "Saguaro",
+  "era": "current",
+  "key": "trainers/saguaro.png",
+  "art": false
+ },
+ {
+  "id": "sailor",
+  "name": "Sailor",
+  "era": "current",
+  "key": "trainers/sailor.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen1",
+  "name": "Sailor",
+  "era": "gen1",
+  "key": "trainers/sailor-gen1.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen2",
+  "name": "Sailor",
+  "era": "gen2",
+  "key": "trainers/sailor-gen2.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen3",
+  "name": "Sailor",
+  "era": "gen3",
+  "key": "trainers/sailor-gen3.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen6",
+  "name": "Sailor",
+  "era": "gen6",
+  "key": "trainers/sailor-gen6.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen3jp",
+  "name": "Sailor (JP)",
+  "era": "gen3",
+  "key": "trainers/sailor-gen3jp.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen1rb",
+  "name": "Sailor (R/B)",
+  "era": "gen1",
+  "key": "trainers/sailor-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "sailor-gen3rs",
+  "name": "Sailor (R/S)",
+  "era": "gen3",
+  "key": "trainers/sailor-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "salvatore",
+  "name": "Salvatore",
+  "era": "current",
+  "key": "trainers/salvatore.png",
+  "art": false
+ },
+ {
+  "id": "samsonoak",
+  "name": "Samsonoak",
+  "era": "current",
+  "key": "trainers/samsonoak.png",
+  "art": false
+ },
+ {
+  "id": "sanqua",
+  "name": "Sanqua",
+  "era": "current",
+  "key": "trainers/sanqua.png",
+  "art": false
+ },
+ {
+  "id": "saturn",
+  "name": "Saturn",
+  "era": "current",
+  "key": "trainers/saturn.png",
+  "art": false
+ },
+ {
+  "id": "sbcmember",
+  "name": "Sbcmember",
+  "era": "current",
+  "key": "trainers/sbcmember.png",
+  "art": false
+ },
+ {
+  "id": "schoolboy",
+  "name": "School Boy",
+  "era": "current",
+  "key": "trainers/schoolboy.png",
+  "art": false
+ },
+ {
+  "id": "schoolboy-gen2",
+  "name": "School Boy",
+  "era": "gen2",
+  "key": "trainers/schoolboy-gen2.png",
+  "art": false
+ },
+ {
+  "id": "schoolgirl",
+  "name": "School Girl",
+  "era": "current",
+  "key": "trainers/schoolgirl.png",
+  "art": false
+ },
+ {
+  "id": "schoolkid",
+  "name": "School Kid",
+  "era": "current",
+  "key": "trainers/schoolkid.png",
+  "art": false
+ },
+ {
+  "id": "schoolkid-gen3",
+  "name": "School Kid",
+  "era": "gen3",
+  "key": "trainers/schoolkid-gen3.png",
+  "art": false
+ },
+ {
+  "id": "schoolkid-gen4",
+  "name": "School Kid",
+  "era": "gen4",
+  "key": "trainers/schoolkid-gen4.png",
+  "art": false
+ },
+ {
+  "id": "schoolkid-gen6",
+  "name": "School Kid",
+  "era": "gen6",
+  "key": "trainers/schoolkid-gen6.png",
+  "art": false
+ },
+ {
+  "id": "schoolkid-gen8",
+  "name": "School Kid",
+  "era": "gen8",
+  "key": "trainers/schoolkid-gen8.png",
+  "art": false
+ },
+ {
+  "id": "schoolkid-gen4dp",
+  "name": "School Kid (D/P)",
+  "era": "gen4",
+  "key": "trainers/schoolkid-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "schoolkidf",
+  "name": "School Kid ♀",
+  "era": "current",
+  "key": "trainers/schoolkidf.png",
+  "art": false
+ },
+ {
+  "id": "schoolkidf-gen3",
+  "name": "School Kid ♀",
+  "era": "gen3",
+  "key": "trainers/schoolkidf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "schoolkidf-gen4",
+  "name": "School Kid ♀",
+  "era": "gen4",
+  "key": "trainers/schoolkidf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "schoolkidf-gen6",
+  "name": "School Kid ♀",
+  "era": "gen6",
+  "key": "trainers/schoolkidf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "schoolkidf-gen8",
+  "name": "School Kid ♀",
+  "era": "gen8",
+  "key": "trainers/schoolkidf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "scientist",
+  "name": "Scientist",
+  "era": "current",
+  "key": "trainers/scientist.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen1",
+  "name": "Scientist",
+  "era": "gen1",
+  "key": "trainers/scientist-gen1.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen2",
+  "name": "Scientist",
+  "era": "gen2",
+  "key": "trainers/scientist-gen2.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen3",
+  "name": "Scientist",
+  "era": "gen3",
+  "key": "trainers/scientist-gen3.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen4",
+  "name": "Scientist",
+  "era": "gen4",
+  "key": "trainers/scientist-gen4.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen6",
+  "name": "Scientist",
+  "era": "gen6",
+  "key": "trainers/scientist-gen6.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen7",
+  "name": "Scientist",
+  "era": "gen7",
+  "key": "trainers/scientist-gen7.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen9",
+  "name": "Scientist",
+  "era": "gen9",
+  "key": "trainers/scientist-gen9.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen4dp",
+  "name": "Scientist (D/P)",
+  "era": "gen4",
+  "key": "trainers/scientist-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "scientist-gen1rb",
+  "name": "Scientist (R/B)",
+  "era": "gen1",
+  "key": "trainers/scientist-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "scientistf",
+  "name": "Scientist ♀",
+  "era": "current",
+  "key": "trainers/scientistf.png",
+  "art": false
+ },
+ {
+  "id": "scientistf-gen6",
+  "name": "Scientist ♀",
+  "era": "gen6",
+  "key": "trainers/scientistf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "scott",
+  "name": "Scott",
+  "era": "current",
+  "key": "trainers/scott.png",
+  "art": false
+ },
+ {
+  "id": "scubadiver",
+  "name": "Scubadiver",
+  "era": "current",
+  "key": "trainers/scubadiver.png",
+  "art": false
+ },
+ {
+  "id": "securitycorps",
+  "name": "Security Corps",
+  "era": "current",
+  "key": "trainers/securitycorps.png",
+  "art": false
+ },
+ {
+  "id": "securitycorpsf",
+  "name": "Security Corps ♀",
+  "era": "current",
+  "key": "trainers/securitycorpsf.png",
+  "art": false
+ },
+ {
+  "id": "selene",
+  "name": "Selene",
+  "era": "current",
+  "key": "trainers/selene.png",
+  "art": false
+ },
+ {
+  "id": "selene-usum",
+  "name": "Selene (US/UM)",
+  "era": "gen7",
+  "key": "trainers/selene-usum.png",
+  "art": false
+ },
+ {
+  "id": "serena",
+  "name": "Serena",
+  "era": "current",
+  "key": "trainers/serena.png",
+  "art": false
+ },
+ {
+  "id": "shadowtriad",
+  "name": "Shadowtriad",
+  "era": "current",
+  "key": "trainers/shadowtriad.png",
+  "art": false
+ },
+ {
+  "id": "shauna",
+  "name": "Shauna",
+  "era": "current",
+  "key": "trainers/shauna.png",
+  "art": false
+ },
+ {
+  "id": "shauntal",
+  "name": "Shauntal",
+  "era": "current",
+  "key": "trainers/shauntal.png",
+  "art": false
+ },
+ {
+  "id": "shelly",
+  "name": "Shelly",
+  "era": "current",
+  "key": "trainers/shelly.png",
+  "art": false
+ },
+ {
+  "id": "shelly-gen3",
+  "name": "Shelly",
+  "era": "gen3",
+  "key": "trainers/shelly-gen3.png",
+  "art": false
+ },
+ {
+  "id": "shielbert",
+  "name": "Shielbert",
+  "era": "current",
+  "key": "trainers/shielbert.png",
+  "art": false
+ },
+ {
+  "id": "sidney",
+  "name": "Sidney",
+  "era": "current",
+  "key": "trainers/sidney.png",
+  "art": false
+ },
+ {
+  "id": "sidney-gen3",
+  "name": "Sidney",
+  "era": "gen3",
+  "key": "trainers/sidney-gen3.png",
+  "art": false
+ },
+ {
+  "id": "siebold",
+  "name": "Siebold",
+  "era": "current",
+  "key": "trainers/siebold.png",
+  "art": false
+ },
+ {
+  "id": "sierra",
+  "name": "Sierra",
+  "era": "current",
+  "key": "trainers/sierra.png",
+  "art": false
+ },
+ {
+  "id": "sightseer",
+  "name": "Sightseer",
+  "era": "current",
+  "key": "trainers/sightseer.png",
+  "art": false
+ },
+ {
+  "id": "sightseerf",
+  "name": "Sightseer ♀",
+  "era": "current",
+  "key": "trainers/sightseerf.png",
+  "art": false
+ },
+ {
+  "id": "silver",
+  "name": "Silver",
+  "era": "current",
+  "key": "trainers/silver.png",
+  "art": false
+ },
+ {
+  "id": "silver-gen2",
+  "name": "Silver",
+  "era": "gen2",
+  "key": "trainers/silver-gen2.png",
+  "art": false
+ },
+ {
+  "id": "silver-gen2kanto",
+  "name": "Silver (Kanto)",
+  "era": "gen2",
+  "key": "trainers/silver-gen2kanto.png",
+  "art": false
+ },
+ {
+  "id": "sina",
+  "name": "Sina",
+  "era": "current",
+  "key": "trainers/sina.png",
+  "art": false
+ },
+ {
+  "id": "sina-gen6",
+  "name": "Sina",
+  "era": "gen6",
+  "key": "trainers/sina-gen6.png",
+  "art": false
+ },
+ {
+  "id": "sisandbro",
+  "name": "Sis & Bro",
+  "era": "current",
+  "key": "trainers/sisandbro.png",
+  "art": false
+ },
+ {
+  "id": "sisandbro-gen3",
+  "name": "Sis & Bro",
+  "era": "gen3",
+  "key": "trainers/sisandbro-gen3.png",
+  "art": false
+ },
+ {
+  "id": "sisandbro-gen3rs",
+  "name": "Sis & Bro (R/S)",
+  "era": "gen3",
+  "key": "trainers/sisandbro-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "skier",
+  "name": "Skier",
+  "era": "current",
+  "key": "trainers/skier.png",
+  "art": false
+ },
+ {
+  "id": "skier-gen2",
+  "name": "Skier",
+  "era": "gen2",
+  "key": "trainers/skier-gen2.png",
+  "art": false
+ },
+ {
+  "id": "skierf",
+  "name": "Skierf",
+  "era": "current",
+  "key": "trainers/skierf.png",
+  "art": false
+ },
+ {
+  "id": "skierf-gen4dp",
+  "name": "Skierf (D/P)",
+  "era": "gen4",
+  "key": "trainers/skierf-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "skullgrunt",
+  "name": "Skull Grunt",
+  "era": "current",
+  "key": "trainers/skullgrunt.png",
+  "art": false
+ },
+ {
+  "id": "skullgruntf",
+  "name": "Skull Grunt ♀",
+  "era": "current",
+  "key": "trainers/skullgruntf.png",
+  "art": false
+ },
+ {
+  "id": "skyla",
+  "name": "Skyla",
+  "era": "current",
+  "key": "trainers/skyla.png",
+  "art": false
+ },
+ {
+  "id": "skytrainer",
+  "name": "Skytrainer",
+  "era": "current",
+  "key": "trainers/skytrainer.png",
+  "art": false
+ },
+ {
+  "id": "skytrainerf",
+  "name": "Skytrainerf",
+  "era": "current",
+  "key": "trainers/skytrainerf.png",
+  "art": false
+ },
+ {
+  "id": "smasher",
+  "name": "Smasher",
+  "era": "current",
+  "key": "trainers/smasher.png",
+  "art": false
+ },
+ {
+  "id": "soliera",
+  "name": "Soliera",
+  "era": "current",
+  "key": "trainers/soliera.png",
+  "art": false
+ },
+ {
+  "id": "sonia",
+  "name": "Sonia",
+  "era": "current",
+  "key": "trainers/sonia.png",
+  "art": false
+ },
+ {
+  "id": "sonia-professor",
+  "name": "Sonia (Professor)",
+  "era": "current",
+  "key": "trainers/sonia-professor.png",
+  "art": false
+ },
+ {
+  "id": "sophocles",
+  "name": "Sophocles",
+  "era": "current",
+  "key": "trainers/sophocles.png",
+  "art": false
+ },
+ {
+  "id": "sordward",
+  "name": "Sordward",
+  "era": "current",
+  "key": "trainers/sordward.png",
+  "art": false
+ },
+ {
+  "id": "sordward-shielbert",
+  "name": "Sordward (Shielbert)",
+  "era": "current",
+  "key": "trainers/sordward-shielbert.png",
+  "art": false
+ },
+ {
+  "id": "spark",
+  "name": "Spark",
+  "era": "current",
+  "key": "trainers/spark.png",
+  "art": false
+ },
+ {
+  "id": "spark-casual",
+  "name": "Spark (Casual)",
+  "era": "current",
+  "key": "trainers/spark-casual.png",
+  "art": false
+ },
+ {
+  "id": "spenser",
+  "name": "Spenser",
+  "era": "current",
+  "key": "trainers/spenser.png",
+  "art": false
+ },
+ {
+  "id": "spenser-gen3",
+  "name": "Spenser",
+  "era": "gen3",
+  "key": "trainers/spenser-gen3.png",
+  "art": false
+ },
+ {
+  "id": "srandjr-gen3",
+  "name": "Sr & Jr",
+  "era": "gen3",
+  "key": "trainers/srandjr-gen3.png",
+  "art": false
+ },
+ {
+  "id": "stargrunt-s",
+  "name": "Star Grunt (S)",
+  "era": "current",
+  "key": "trainers/stargrunt-s.png",
+  "art": false
+ },
+ {
+  "id": "stargrunt-v",
+  "name": "Star Grunt (V)",
+  "era": "current",
+  "key": "trainers/stargrunt-v.png",
+  "art": false
+ },
+ {
+  "id": "stargruntf-s",
+  "name": "Star Grunt ♀ (S)",
+  "era": "current",
+  "key": "trainers/stargruntf-s.png",
+  "art": false
+ },
+ {
+  "id": "stargruntf-v",
+  "name": "Star Grunt ♀ (V)",
+  "era": "current",
+  "key": "trainers/stargruntf-v.png",
+  "art": false
+ },
+ {
+  "id": "steven",
+  "name": "Steven",
+  "era": "current",
+  "key": "trainers/steven.png",
+  "art": false
+ },
+ {
+  "id": "steven-gen3",
+  "name": "Steven",
+  "era": "gen3",
+  "key": "trainers/steven-gen3.png",
+  "art": false
+ },
+ {
+  "id": "steven-gen6",
+  "name": "Steven",
+  "era": "gen6",
+  "key": "trainers/steven-gen6.png",
+  "art": false
+ },
+ {
+  "id": "streetthug",
+  "name": "Streetthug",
+  "era": "current",
+  "key": "trainers/streetthug.png",
+  "art": false
+ },
+ {
+  "id": "striker",
+  "name": "Striker",
+  "era": "current",
+  "key": "trainers/striker.png",
+  "art": false
+ },
+ {
+  "id": "supernerd",
+  "name": "Super Nerd",
+  "era": "current",
+  "key": "trainers/supernerd.png",
+  "art": false
+ },
+ {
+  "id": "supernerd-gen1",
+  "name": "Super Nerd",
+  "era": "gen1",
+  "key": "trainers/supernerd-gen1.png",
+  "art": false
+ },
+ {
+  "id": "supernerd-gen2",
+  "name": "Super Nerd",
+  "era": "gen2",
+  "key": "trainers/supernerd-gen2.png",
+  "art": false
+ },
+ {
+  "id": "supernerd-gen3",
+  "name": "Super Nerd",
+  "era": "gen3",
+  "key": "trainers/supernerd-gen3.png",
+  "art": false
+ },
+ {
+  "id": "supernerd-gen1rb",
+  "name": "Super Nerd (R/B)",
+  "era": "gen1",
+  "key": "trainers/supernerd-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "surfer",
+  "name": "Surfer",
+  "era": "current",
+  "key": "trainers/surfer.png",
+  "art": false
+ },
+ {
+  "id": "swimmer",
+  "name": "Swimmer",
+  "era": "current",
+  "key": "trainers/swimmer.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen1",
+  "name": "Swimmer",
+  "era": "gen1",
+  "key": "trainers/swimmer-gen1.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen4",
+  "name": "Swimmer",
+  "era": "gen4",
+  "key": "trainers/swimmer-gen4.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen6",
+  "name": "Swimmer",
+  "era": "gen6",
+  "key": "trainers/swimmer-gen6.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen7",
+  "name": "Swimmer",
+  "era": "gen7",
+  "key": "trainers/swimmer-gen7.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen8",
+  "name": "Swimmer",
+  "era": "gen8",
+  "key": "trainers/swimmer-gen8.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen4dp",
+  "name": "Swimmer (D/P)",
+  "era": "gen4",
+  "key": "trainers/swimmer-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen4jp",
+  "name": "Swimmer (JP)",
+  "era": "gen4",
+  "key": "trainers/swimmer-gen4jp.png",
+  "art": false
+ },
+ {
+  "id": "swimmer-gen1rb",
+  "name": "Swimmer (R/B)",
+  "era": "gen1",
+  "key": "trainers/swimmer-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf",
+  "name": "Swimmer ♀",
+  "era": "current",
+  "key": "trainers/swimmerf.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen2",
+  "name": "Swimmer ♀",
+  "era": "gen2",
+  "key": "trainers/swimmerf-gen2.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen3",
+  "name": "Swimmer ♀",
+  "era": "gen3",
+  "key": "trainers/swimmerf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen4",
+  "name": "Swimmer ♀",
+  "era": "gen4",
+  "key": "trainers/swimmerf-gen4.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen6",
+  "name": "Swimmer ♀",
+  "era": "gen6",
+  "key": "trainers/swimmerf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen7",
+  "name": "Swimmer ♀",
+  "era": "gen7",
+  "key": "trainers/swimmerf-gen7.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen8",
+  "name": "Swimmer ♀",
+  "era": "gen8",
+  "key": "trainers/swimmerf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen4dp",
+  "name": "Swimmer ♀ (D/P)",
+  "era": "gen4",
+  "key": "trainers/swimmerf-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf-gen3rs",
+  "name": "Swimmer ♀ (R/S)",
+  "era": "gen3",
+  "key": "trainers/swimmerf-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "swimmerm-gen2",
+  "name": "Swimmer ♂",
+  "era": "gen2",
+  "key": "trainers/swimmerm-gen2.png",
+  "art": false
+ },
+ {
+  "id": "swimmerm-gen3",
+  "name": "Swimmer ♂",
+  "era": "gen3",
+  "key": "trainers/swimmerm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "swimmerm-gen3rs",
+  "name": "Swimmer ♂ (R/S)",
+  "era": "gen3",
+  "key": "trainers/swimmerm-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf2-gen6",
+  "name": "Swimmerf2",
+  "era": "gen6",
+  "key": "trainers/swimmerf2-gen6.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf2-gen7",
+  "name": "Swimmerf2",
+  "era": "gen7",
+  "key": "trainers/swimmerf2-gen7.png",
+  "art": false
+ },
+ {
+  "id": "swimmerfjp-gen2",
+  "name": "Swimmerfjp",
+  "era": "gen2",
+  "key": "trainers/swimmerfjp-gen2.png",
+  "art": false
+ },
+ {
+  "id": "sycamore",
+  "name": "Sycamore",
+  "era": "current",
+  "key": "trainers/sycamore.png",
+  "art": false
+ },
+ {
+  "id": "tabitha",
+  "name": "Tabitha",
+  "era": "current",
+  "key": "trainers/tabitha.png",
+  "art": false
+ },
+ {
+  "id": "tabitha-gen3",
+  "name": "Tabitha",
+  "era": "gen3",
+  "key": "trainers/tabitha-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tamer-gen1",
+  "name": "Tamer",
+  "era": "gen1",
+  "key": "trainers/tamer-gen1.png",
+  "art": false
+ },
+ {
+  "id": "tamer-gen3",
+  "name": "Tamer",
+  "era": "gen3",
+  "key": "trainers/tamer-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tamer-gen1rb",
+  "name": "Tamer (R/B)",
+  "era": "gen1",
+  "key": "trainers/tamer-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "taohua",
+  "name": "Taohua",
+  "era": "current",
+  "key": "trainers/taohua.png",
+  "art": false
+ },
+ {
+  "id": "tarragon",
+  "name": "Tarragon",
+  "era": "current",
+  "key": "trainers/tarragon.png",
+  "art": false
+ },
+ {
+  "id": "tate",
+  "name": "Tate",
+  "era": "current",
+  "key": "trainers/tate.png",
+  "art": false
+ },
+ {
+  "id": "tate-gen6",
+  "name": "Tate",
+  "era": "gen6",
+  "key": "trainers/tate-gen6.png",
+  "art": false
+ },
+ {
+  "id": "tateandliza-gen3",
+  "name": "Tate & Liza",
+  "era": "gen3",
+  "key": "trainers/tateandliza-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tateandliza-gen6",
+  "name": "Tate & Liza",
+  "era": "gen6",
+  "key": "trainers/tateandliza-gen6.png",
+  "art": false
+ },
+ {
+  "id": "taunie",
+  "name": "Taunie",
+  "era": "current",
+  "key": "trainers/taunie.png",
+  "art": false
+ },
+ {
+  "id": "teacher",
+  "name": "Teacher",
+  "era": "current",
+  "key": "trainers/teacher.png",
+  "art": false
+ },
+ {
+  "id": "teacher-gen2",
+  "name": "Teacher",
+  "era": "gen2",
+  "key": "trainers/teacher-gen2.png",
+  "art": false
+ },
+ {
+  "id": "teacher-gen7",
+  "name": "Teacher",
+  "era": "gen7",
+  "key": "trainers/teacher-gen7.png",
+  "art": false
+ },
+ {
+  "id": "teamaquabeta-gen3",
+  "name": "Team Aqua (Beta)",
+  "era": "gen3",
+  "key": "trainers/teamaquabeta-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teamaquagruntf-gen3",
+  "name": "Team Aqua Grunt ♀",
+  "era": "gen3",
+  "key": "trainers/teamaquagruntf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teamaquagruntm-gen3",
+  "name": "Team Aqua Grunt ♂",
+  "era": "gen3",
+  "key": "trainers/teamaquagruntm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teammagmagruntf-gen3",
+  "name": "Team Magma Grunt ♀",
+  "era": "gen3",
+  "key": "trainers/teammagmagruntf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teammagmagruntm-gen3",
+  "name": "Team Magma Grunt ♂",
+  "era": "gen3",
+  "key": "trainers/teammagmagruntm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teamrocket",
+  "name": "Team Rocket",
+  "era": "current",
+  "key": "trainers/teamrocket.png",
+  "art": false
+ },
+ {
+  "id": "teamrocketgruntf-gen3",
+  "name": "Team Rocket Grunt ♀",
+  "era": "gen3",
+  "key": "trainers/teamrocketgruntf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teamrocketgruntm-gen3",
+  "name": "Team Rocket Grunt ♂",
+  "era": "gen3",
+  "key": "trainers/teamrocketgruntm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "teammates",
+  "name": "Teammates",
+  "era": "current",
+  "key": "trainers/teammates.png",
+  "art": false
+ },
+ {
+  "id": "theroyal",
+  "name": "Theroyal",
+  "era": "current",
+  "key": "trainers/theroyal.png",
+  "art": false
+ },
+ {
+  "id": "thorton",
+  "name": "Thorton",
+  "era": "current",
+  "key": "trainers/thorton.png",
+  "art": false
+ },
+ {
+  "id": "tierno",
+  "name": "Tierno",
+  "era": "current",
+  "key": "trainers/tierno.png",
+  "art": false
+ },
+ {
+  "id": "toddsnap",
+  "name": "Toddsnap",
+  "era": "current",
+  "key": "trainers/toddsnap.png",
+  "art": false
+ },
+ {
+  "id": "toddsnap2",
+  "name": "Toddsnap2",
+  "era": "current",
+  "key": "trainers/toddsnap2.png",
+  "art": false
+ },
+ {
+  "id": "tourist",
+  "name": "Tourist",
+  "era": "current",
+  "key": "trainers/tourist.png",
+  "art": false
+ },
+ {
+  "id": "touristf",
+  "name": "Touristf",
+  "era": "current",
+  "key": "trainers/touristf.png",
+  "art": false
+ },
+ {
+  "id": "touristf2",
+  "name": "Touristf2",
+  "era": "current",
+  "key": "trainers/touristf2.png",
+  "art": false
+ },
+ {
+  "id": "trace",
+  "name": "Trace",
+  "era": "current",
+  "key": "trainers/trace.png",
+  "art": false
+ },
+ {
+  "id": "trevor",
+  "name": "Trevor",
+  "era": "current",
+  "key": "trainers/trevor.png",
+  "art": false
+ },
+ {
+  "id": "trialguide",
+  "name": "Trialguide",
+  "era": "current",
+  "key": "trainers/trialguide.png",
+  "art": false
+ },
+ {
+  "id": "trialguidef",
+  "name": "Trialguidef",
+  "era": "current",
+  "key": "trainers/trialguidef.png",
+  "art": false
+ },
+ {
+  "id": "triathletebiker-gen6",
+  "name": "Triathlete Biker",
+  "era": "gen6",
+  "key": "trainers/triathletebiker-gen6.png",
+  "art": false
+ },
+ {
+  "id": "triathletebikerf-gen3",
+  "name": "Triathlete Biker ♀",
+  "era": "gen3",
+  "key": "trainers/triathletebikerf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "triathletebikerm-gen3",
+  "name": "Triathlete Biker ♂",
+  "era": "gen3",
+  "key": "trainers/triathletebikerm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "triathleterunner-gen6",
+  "name": "Triathlete Runner",
+  "era": "gen6",
+  "key": "trainers/triathleterunner-gen6.png",
+  "art": false
+ },
+ {
+  "id": "triathleterunnerf-gen3",
+  "name": "Triathlete Runner ♀",
+  "era": "gen3",
+  "key": "trainers/triathleterunnerf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "triathleterunnerm-gen3",
+  "name": "Triathlete Runner ♂",
+  "era": "gen3",
+  "key": "trainers/triathleterunnerm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "triathleteswimmer-gen6",
+  "name": "Triathlete Swimmer",
+  "era": "gen6",
+  "key": "trainers/triathleteswimmer-gen6.png",
+  "art": false
+ },
+ {
+  "id": "triathleteswimmerf-gen3",
+  "name": "Triathlete Swimmer ♀",
+  "era": "gen3",
+  "key": "trainers/triathleteswimmerf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "triathleteswimmerm-gen3",
+  "name": "Triathlete Swimmer ♂",
+  "era": "gen3",
+  "key": "trainers/triathleteswimmerm-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tuber",
+  "name": "Tuber",
+  "era": "current",
+  "key": "trainers/tuber.png",
+  "art": false
+ },
+ {
+  "id": "tuber-gen3",
+  "name": "Tuber",
+  "era": "gen3",
+  "key": "trainers/tuber-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tuber-gen6",
+  "name": "Tuber",
+  "era": "gen6",
+  "key": "trainers/tuber-gen6.png",
+  "art": false
+ },
+ {
+  "id": "tuberf",
+  "name": "Tuber ♀",
+  "era": "current",
+  "key": "trainers/tuberf.png",
+  "art": false
+ },
+ {
+  "id": "tuberf-gen3",
+  "name": "Tuber ♀",
+  "era": "gen3",
+  "key": "trainers/tuberf-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tuberf-gen6",
+  "name": "Tuber ♀",
+  "era": "gen6",
+  "key": "trainers/tuberf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "tuberf-gen3rs",
+  "name": "Tuber ♀ (R/S)",
+  "era": "gen3",
+  "key": "trainers/tuberf-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "tucker",
+  "name": "Tucker",
+  "era": "current",
+  "key": "trainers/tucker.png",
+  "art": false
+ },
+ {
+  "id": "tucker-gen3",
+  "name": "Tucker",
+  "era": "gen3",
+  "key": "trainers/tucker-gen3.png",
+  "art": false
+ },
+ {
+  "id": "tuli",
+  "name": "Tuli",
+  "era": "current",
+  "key": "trainers/tuli.png",
+  "art": false
+ },
+ {
+  "id": "tulip",
+  "name": "Tulip",
+  "era": "current",
+  "key": "trainers/tulip.png",
+  "art": false
+ },
+ {
+  "id": "turo",
+  "name": "Turo",
+  "era": "current",
+  "key": "trainers/turo.png",
+  "art": false
+ },
+ {
+  "id": "turo-ai",
+  "name": "Turo (Ai)",
+  "era": "current",
+  "key": "trainers/turo-ai.png",
+  "art": false
+ },
+ {
+  "id": "twins",
+  "name": "Twins",
+  "era": "current",
+  "key": "trainers/twins.png",
+  "art": false
+ },
+ {
+  "id": "twins-gen2",
+  "name": "Twins",
+  "era": "gen2",
+  "key": "trainers/twins-gen2.png",
+  "art": false
+ },
+ {
+  "id": "twins-gen3",
+  "name": "Twins",
+  "era": "gen3",
+  "key": "trainers/twins-gen3.png",
+  "art": false
+ },
+ {
+  "id": "twins-gen4",
+  "name": "Twins",
+  "era": "gen4",
+  "key": "trainers/twins-gen4.png",
+  "art": false
+ },
+ {
+  "id": "twins-gen6",
+  "name": "Twins",
+  "era": "gen6",
+  "key": "trainers/twins-gen6.png",
+  "art": false
+ },
+ {
+  "id": "twins-gen4dp",
+  "name": "Twins (D/P)",
+  "era": "gen4",
+  "key": "trainers/twins-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "twins-gen3rs",
+  "name": "Twins (R/S)",
+  "era": "gen3",
+  "key": "trainers/twins-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "tyme",
+  "name": "Tyme",
+  "era": "current",
+  "key": "trainers/tyme.png",
+  "art": false
+ },
+ {
+  "id": "ultraforestkartenvoy",
+  "name": "Ultra Forest Kartenvoy",
+  "era": "current",
+  "key": "trainers/ultraforestkartenvoy.png",
+  "art": false
+ },
+ {
+  "id": "unknown",
+  "name": "Unknown",
+  "era": "current",
+  "key": "trainers/unknown.png",
+  "art": false
+ },
+ {
+  "id": "unknown-flipped",
+  "name": "Unknown (Flipped)",
+  "era": "current",
+  "key": "trainers/unknown-flipped.png",
+  "art": false
+ },
+ {
+  "id": "unknownf",
+  "name": "Unknownf",
+  "era": "current",
+  "key": "trainers/unknownf.png",
+  "art": false
+ },
+ {
+  "id": "unknownf-flipped",
+  "name": "Unknownf (Flipped)",
+  "era": "current",
+  "key": "trainers/unknownf-flipped.png",
+  "art": false
+ },
+ {
+  "id": "urbain",
+  "name": "Urbain",
+  "era": "current",
+  "key": "trainers/urbain.png",
+  "art": false
+ },
+ {
+  "id": "valerie",
+  "name": "Valerie",
+  "era": "current",
+  "key": "trainers/valerie.png",
+  "art": false
+ },
+ {
+  "id": "vessa",
+  "name": "Vessa",
+  "era": "current",
+  "key": "trainers/vessa.png",
+  "art": false
+ },
+ {
+  "id": "veteran",
+  "name": "Veteran",
+  "era": "current",
+  "key": "trainers/veteran.png",
+  "art": false
+ },
+ {
+  "id": "veteran-gen4",
+  "name": "Veteran",
+  "era": "gen4",
+  "key": "trainers/veteran-gen4.png",
+  "art": false
+ },
+ {
+  "id": "veteran-gen6",
+  "name": "Veteran",
+  "era": "gen6",
+  "key": "trainers/veteran-gen6.png",
+  "art": false
+ },
+ {
+  "id": "veteran-gen7",
+  "name": "Veteran",
+  "era": "gen7",
+  "key": "trainers/veteran-gen7.png",
+  "art": false
+ },
+ {
+  "id": "veteranf",
+  "name": "Veteran ♀",
+  "era": "current",
+  "key": "trainers/veteranf.png",
+  "art": false
+ },
+ {
+  "id": "veteranf-gen6",
+  "name": "Veteran ♀",
+  "era": "gen6",
+  "key": "trainers/veteranf-gen6.png",
+  "art": false
+ },
+ {
+  "id": "veteranf-gen7",
+  "name": "Veteran ♀",
+  "era": "gen7",
+  "key": "trainers/veteranf-gen7.png",
+  "art": false
+ },
+ {
+  "id": "victor",
+  "name": "Victor",
+  "era": "current",
+  "key": "trainers/victor.png",
+  "art": false
+ },
+ {
+  "id": "victor-dojo",
+  "name": "Victor (Dojo)",
+  "era": "current",
+  "key": "trainers/victor-dojo.png",
+  "art": false
+ },
+ {
+  "id": "victor-league",
+  "name": "Victor (League)",
+  "era": "current",
+  "key": "trainers/victor-league.png",
+  "art": false
+ },
+ {
+  "id": "victor-tundra",
+  "name": "Victor (Tundra)",
+  "era": "current",
+  "key": "trainers/victor-tundra.png",
+  "art": false
+ },
+ {
+  "id": "vince",
+  "name": "Vince",
+  "era": "current",
+  "key": "trainers/vince.png",
+  "art": false
+ },
+ {
+  "id": "viola",
+  "name": "Viola",
+  "era": "current",
+  "key": "trainers/viola.png",
+  "art": false
+ },
+ {
+  "id": "volkner",
+  "name": "Volkner",
+  "era": "current",
+  "key": "trainers/volkner.png",
+  "art": false
+ },
+ {
+  "id": "volo",
+  "name": "Volo",
+  "era": "current",
+  "key": "trainers/volo.png",
+  "art": false
+ },
+ {
+  "id": "volo-ginkgo",
+  "name": "Volo (Ginkgo)",
+  "era": "current",
+  "key": "trainers/volo-ginkgo.png",
+  "art": false
+ },
+ {
+  "id": "waiter",
+  "name": "Waiter",
+  "era": "current",
+  "key": "trainers/waiter.png",
+  "art": false
+ },
+ {
+  "id": "waiter-gen4",
+  "name": "Waiter",
+  "era": "gen4",
+  "key": "trainers/waiter-gen4.png",
+  "art": false
+ },
+ {
+  "id": "waiter-gen9",
+  "name": "Waiter",
+  "era": "gen9",
+  "key": "trainers/waiter-gen9.png",
+  "art": false
+ },
+ {
+  "id": "waiter-gen4dp",
+  "name": "Waiter (D/P)",
+  "era": "gen4",
+  "key": "trainers/waiter-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "waitress",
+  "name": "Waitress",
+  "era": "current",
+  "key": "trainers/waitress.png",
+  "art": false
+ },
+ {
+  "id": "waitress-gen4",
+  "name": "Waitress",
+  "era": "gen4",
+  "key": "trainers/waitress-gen4.png",
+  "art": false
+ },
+ {
+  "id": "waitress-gen6",
+  "name": "Waitress",
+  "era": "gen6",
+  "key": "trainers/waitress-gen6.png",
+  "art": false
+ },
+ {
+  "id": "waitress-gen9",
+  "name": "Waitress",
+  "era": "gen9",
+  "key": "trainers/waitress-gen9.png",
+  "art": false
+ },
+ {
+  "id": "wallace",
+  "name": "Wallace",
+  "era": "current",
+  "key": "trainers/wallace.png",
+  "art": false
+ },
+ {
+  "id": "wallace-gen3",
+  "name": "Wallace",
+  "era": "gen3",
+  "key": "trainers/wallace-gen3.png",
+  "art": false
+ },
+ {
+  "id": "wallace-gen6",
+  "name": "Wallace",
+  "era": "gen6",
+  "key": "trainers/wallace-gen6.png",
+  "art": false
+ },
+ {
+  "id": "wallace-gen3rs",
+  "name": "Wallace (R/S)",
+  "era": "gen3",
+  "key": "trainers/wallace-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "wally",
+  "name": "Wally",
+  "era": "current",
+  "key": "trainers/wally.png",
+  "art": false
+ },
+ {
+  "id": "wally-gen3",
+  "name": "Wally",
+  "era": "gen3",
+  "key": "trainers/wally-gen3.png",
+  "art": false
+ },
+ {
+  "id": "wally-rse",
+  "name": "Wally (Rse)",
+  "era": "current",
+  "key": "trainers/wally-rse.png",
+  "art": false
+ },
+ {
+  "id": "wattson",
+  "name": "Wattson",
+  "era": "current",
+  "key": "trainers/wattson.png",
+  "art": false
+ },
+ {
+  "id": "wattson-gen3",
+  "name": "Wattson",
+  "era": "gen3",
+  "key": "trainers/wattson-gen3.png",
+  "art": false
+ },
+ {
+  "id": "whitney",
+  "name": "Whitney",
+  "era": "current",
+  "key": "trainers/whitney.png",
+  "art": false
+ },
+ {
+  "id": "whitney-gen2",
+  "name": "Whitney",
+  "era": "gen2",
+  "key": "trainers/whitney-gen2.png",
+  "art": false
+ },
+ {
+  "id": "wicke",
+  "name": "Wicke",
+  "era": "current",
+  "key": "trainers/wicke.png",
+  "art": false
+ },
+ {
+  "id": "wikstrom",
+  "name": "Wikstrom",
+  "era": "current",
+  "key": "trainers/wikstrom.png",
+  "art": false
+ },
+ {
+  "id": "will",
+  "name": "Will",
+  "era": "current",
+  "key": "trainers/will.png",
+  "art": false
+ },
+ {
+  "id": "will-gen2",
+  "name": "Will",
+  "era": "gen2",
+  "key": "trainers/will-gen2.png",
+  "art": false
+ },
+ {
+  "id": "willem",
+  "name": "Willem",
+  "era": "current",
+  "key": "trainers/willem.png",
+  "art": false
+ },
+ {
+  "id": "willow",
+  "name": "Willow",
+  "era": "current",
+  "key": "trainers/willow.png",
+  "art": false
+ },
+ {
+  "id": "willow-casual",
+  "name": "Willow (Casual)",
+  "era": "current",
+  "key": "trainers/willow-casual.png",
+  "art": false
+ },
+ {
+  "id": "winona",
+  "name": "Winona",
+  "era": "current",
+  "key": "trainers/winona.png",
+  "art": false
+ },
+ {
+  "id": "winona-gen3",
+  "name": "Winona",
+  "era": "gen3",
+  "key": "trainers/winona-gen3.png",
+  "art": false
+ },
+ {
+  "id": "winona-gen6",
+  "name": "Winona",
+  "era": "gen6",
+  "key": "trainers/winona-gen6.png",
+  "art": false
+ },
+ {
+  "id": "worker",
+  "name": "Worker",
+  "era": "current",
+  "key": "trainers/worker.png",
+  "art": false
+ },
+ {
+  "id": "worker-gen4",
+  "name": "Worker",
+  "era": "gen4",
+  "key": "trainers/worker-gen4.png",
+  "art": false
+ },
+ {
+  "id": "worker-gen6",
+  "name": "Worker",
+  "era": "gen6",
+  "key": "trainers/worker-gen6.png",
+  "art": false
+ },
+ {
+  "id": "worker-gen7",
+  "name": "Worker",
+  "era": "gen7",
+  "key": "trainers/worker-gen7.png",
+  "art": false
+ },
+ {
+  "id": "worker-gen8",
+  "name": "Worker",
+  "era": "gen8",
+  "key": "trainers/worker-gen8.png",
+  "art": false
+ },
+ {
+  "id": "worker-gen9",
+  "name": "Worker",
+  "era": "gen9",
+  "key": "trainers/worker-gen9.png",
+  "art": false
+ },
+ {
+  "id": "worker-lgpe",
+  "name": "Worker (Let's Go)",
+  "era": "gen7",
+  "key": "trainers/worker-lgpe.png",
+  "art": false
+ },
+ {
+  "id": "workerf-gen8",
+  "name": "Worker ♀",
+  "era": "gen8",
+  "key": "trainers/workerf-gen8.png",
+  "art": false
+ },
+ {
+  "id": "worker2-gen6",
+  "name": "Worker2",
+  "era": "gen6",
+  "key": "trainers/worker2-gen6.png",
+  "art": false
+ },
+ {
+  "id": "workerice",
+  "name": "Workerice",
+  "era": "current",
+  "key": "trainers/workerice.png",
+  "art": false
+ },
+ {
+  "id": "wulfric",
+  "name": "Wulfric",
+  "era": "current",
+  "key": "trainers/wulfric.png",
+  "art": false
+ },
+ {
+  "id": "xerosic",
+  "name": "Xerosic",
+  "era": "current",
+  "key": "trainers/xerosic.png",
+  "art": false
+ },
+ {
+  "id": "yancy",
+  "name": "Yancy",
+  "era": "current",
+  "key": "trainers/yancy.png",
+  "art": false
+ },
+ {
+  "id": "yellgrunt",
+  "name": "Yellgrunt",
+  "era": "current",
+  "key": "trainers/yellgrunt.png",
+  "art": false
+ },
+ {
+  "id": "yellgruntf",
+  "name": "Yellgruntf",
+  "era": "current",
+  "key": "trainers/yellgruntf.png",
+  "art": false
+ },
+ {
+  "id": "yellow",
+  "name": "Yellow",
+  "era": "current",
+  "key": "trainers/yellow.png",
+  "art": false
+ },
+ {
+  "id": "youngathlete",
+  "name": "Young Athlete",
+  "era": "current",
+  "key": "trainers/youngathlete.png",
+  "art": false
+ },
+ {
+  "id": "youngathletef",
+  "name": "Young Athlete ♀",
+  "era": "current",
+  "key": "trainers/youngathletef.png",
+  "art": false
+ },
+ {
+  "id": "youngcouple",
+  "name": "Young Couple",
+  "era": "current",
+  "key": "trainers/youngcouple.png",
+  "art": false
+ },
+ {
+  "id": "youngcouple-gen3",
+  "name": "Young Couple",
+  "era": "gen3",
+  "key": "trainers/youngcouple-gen3.png",
+  "art": false
+ },
+ {
+  "id": "youngcouple-gen6",
+  "name": "Young Couple",
+  "era": "gen6",
+  "key": "trainers/youngcouple-gen6.png",
+  "art": false
+ },
+ {
+  "id": "youngcouple-gen4dp",
+  "name": "Young Couple (D/P)",
+  "era": "gen4",
+  "key": "trainers/youngcouple-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "youngcouple-gen3rs",
+  "name": "Young Couple (R/S)",
+  "era": "gen3",
+  "key": "trainers/youngcouple-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "youngn",
+  "name": "Youngn",
+  "era": "current",
+  "key": "trainers/youngn.png",
+  "art": false
+ },
+ {
+  "id": "youngster",
+  "name": "Youngster",
+  "era": "current",
+  "key": "trainers/youngster.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen1",
+  "name": "Youngster",
+  "era": "gen1",
+  "key": "trainers/youngster-gen1.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen2",
+  "name": "Youngster",
+  "era": "gen2",
+  "key": "trainers/youngster-gen2.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen3",
+  "name": "Youngster",
+  "era": "gen3",
+  "key": "trainers/youngster-gen3.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen4",
+  "name": "Youngster",
+  "era": "gen4",
+  "key": "trainers/youngster-gen4.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen6",
+  "name": "Youngster",
+  "era": "gen6",
+  "key": "trainers/youngster-gen6.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen7",
+  "name": "Youngster",
+  "era": "gen7",
+  "key": "trainers/youngster-gen7.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen8",
+  "name": "Youngster",
+  "era": "gen8",
+  "key": "trainers/youngster-gen8.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen9",
+  "name": "Youngster",
+  "era": "gen9",
+  "key": "trainers/youngster-gen9.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen4dp",
+  "name": "Youngster (D/P)",
+  "era": "gen4",
+  "key": "trainers/youngster-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen1rb",
+  "name": "Youngster (R/B)",
+  "era": "gen1",
+  "key": "trainers/youngster-gen1rb.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen3rs",
+  "name": "Youngster (R/S)",
+  "era": "gen3",
+  "key": "trainers/youngster-gen3rs.png",
+  "art": false
+ },
+ {
+  "id": "youngster-gen6xy",
+  "name": "Youngster (X/Y)",
+  "era": "gen6",
+  "key": "trainers/youngster-gen6xy.png",
+  "art": false
+ },
+ {
+  "id": "yukito-hideko",
+  "name": "Yukito (Hideko)",
+  "era": "current",
+  "key": "trainers/yukito-hideko.png",
+  "art": false
+ },
+ {
+  "id": "zinnia",
+  "name": "Zinnia",
+  "era": "current",
+  "key": "trainers/zinnia.png",
+  "art": false
+ },
+ {
+  "id": "zinzolin",
+  "name": "Zinzolin",
+  "era": "current",
+  "key": "trainers/zinzolin.png",
+  "art": false
+ },
+ {
+  "id": "zirco-unite",
+  "name": "Zirco (Unite)",
+  "era": "current",
+  "key": "trainers/zirco-unite.png",
+  "art": false
+ },
+ {
+  "id": "zisu",
+  "name": "Zisu",
+  "era": "current",
+  "key": "trainers/zisu.png",
+  "art": false
+ },
+ {
+  "id": "zossie",
+  "name": "Zossie",
+  "era": "current",
+  "key": "trainers/zossie.png",
+  "art": false
+ }
+]

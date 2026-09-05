@@ -27,6 +27,15 @@ module ApplicationHelper
 
   def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
 
+  def account_game(save)
+    Walkthrough::Versions::CATALOGUE.find { |entry| entry[:slug] == save.slug }
+  end
+
+  def account_dex_line(save = AccountData.save_for(nil))
+    t("account.chip.dex_line", registered: save.registered, total: AccountData::DEX_TOTAL,
+      game: account_game(save)[:name])
+  end
+
   def avatar_image_tag(id, **options)
     avatar = AccountData.avatar(id)
     classes = class_names(options.delete(:class), "pn-art" => avatar.art?)

@@ -43,10 +43,23 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `AccountData::SAVES`, a placeholder table keyed by the same slugs as
   `Walkthrough::Versions::CATALOGUE`, which the game picker itself walks. Controls that would
   change a record render `disabled` with a SOON badge, the way unbuilt OAuth already does; the two
-  query params that do work (`?game=` on the card, `?group=` on the picker) only pick which
+  query params that do work (`?game=` on the card, `?era=` / `?q=` / `?page=` on the picker) only pick which
   placeholder rows to draw. `AccountData::AVATARS` is the roster the picker offers and the list
   `User::AVATARS` validates against; `avatar_image_tag` maps an id to its R2 key and marks the
   painted portraits `pn-art` so they escape the global `image-rendering: pixelated`.
+  The roster is **1,315 trainers**, so the picker is a search box, a row of era chips and a
+  60-card page, all server-side off `?q=`, `?era=` and `?page=` (no Stimulus, no client filtering);
+  cards lazy-load their images and name their era rather than carrying a hand-written line.
+- **One menu, not a bar of links.** The header carries the brand, the page's own controls (the
+  walkthrough breadcrumb and the Living Dex / Oak switches) and the language toggle. Everything
+  else lives in a single dropdown behind the account button: the site links under a `SITE` heading,
+  then the save file with the trainer's name, the dex line and the account links, or the guest line
+  with log in and register. One `disclosure` controller drives it (`nav_menu_controller` is gone),
+  and `#pn-nav-menu` is the id every test hangs off. Below 1240px the breadcrumb and the mode
+  switches drop out of the bar and reappear inside the menu, which is why `_mode_switches` and
+  `_mode_rows` both exist; below 560px the `HELLO, NAME` text goes too, leaving the avatar and the
+  glyph. The language toggle deliberately stays in the bar: the design mock is English-only so it
+  never had one to place, and the Porygon language hint points at that button.
 - **i18n.** English is default at `/`, Português at `/pt`, via `scope "(:locale)"` + `switch_locale` / `default_url_options` in `ApplicationController`; `<html lang>` is dynamic. All UI copy lives in `config/locales/{en,pt}.yml` under `pages.home.*` — never hardcode strings in views. Non-translatable structure (city / region / Pokémon names, counts, feature keys) lives in `app/models/landing_data.rb`. `test/i18n_parity_test.rb` fails if the en/pt key sets drift, and `raise_on_missing_translations` is on in dev/test so a missing key fails loudly.
 - **Images are served from Cloudflare R2**, not Propshaft. Reference them with the `r2_image_tag` / `r2_asset_url` helpers (`app/helpers/application_helper.rb`), which prefix `config.x.r2_public_host`; the object key is the path relative to `app/assets/images/` (e.g. `r2_image_tag "pokemon/yellow/025.png"`). The source PNGs under `app/assets/images/` are **gitignored** (kept locally for uploads, re-derivable from `vendor/pokeapi-sprites/`) and pushed to the bucket with `deploy/upload-images.sh` (`Assets::R2Uploader`). The upload is **incremental**: a gitignored fingerprint cache (`app/assets/images/.r2-upload-cache.json`) records each image's content digest, so a re-run sends only the images whose bytes changed (regenerating an unchanged, deterministic map is a no-op). Pass `deploy/upload-images.sh --force` to re-send everything (fresh/prod bucket), and `Assets::R2Uploader#prime_cache` to mark the current files as already uploaded without sending (seed the cache when the bucket is known to match). Per-env host: dev + test use the dev bucket `porynet-dev` (`pub-...r2.dev`); prod injects `R2_PUBLIC_HOST` (not wired to a prod bucket yet, so set it and upload before the next prod deploy). R2 write keys live in the default Rails credentials (`bin/rails credentials:edit`, keys `r2.access_key_id` / `r2.secret_access_key`), which dev reads automatically; prod will use env-scoped `config/credentials/production.yml.enc`. Serving public objects needs no keys. Favicons in `public/` (`icon.png`, `icon.svg`) stay same-origin.
 - **Sprite sources** (where the source PNGs come from before they go to R2):
@@ -59,11 +72,21 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     under his Japanese name), each cropped to its content and re-padded to a 3px margin.
     `oauth/{google,discord,github,facebook}.png` are the provider marks from the design handoff
     bundle, downscaled to 108px. Then `deploy/upload-images.sh`.
-    The other fifteen avatars are **not** copied in here: `AccountData::AVATARS` points at pictures
-    the bucket already holds, the Elite Four portraits under `walkthrough/art/*-art.png` and the
-    Gen 1 classes under `walkthrough/yellow/trainers/*-gen1.png`, so the roster grew without a
-    single new object. Blue's painted portrait is left out because the pixel `blue` is the same
-    trainer.
+    These three keep their own objects because the ids `red`, `blue` and `green` are what signup
+    writes and what a stored avatar points at; Showdown's own current-art Red, Blue and Green sit
+    in the roster under `-current` ids rather than overwriting them.
+  - **Trainer avatars** (`app/assets/images/trainers/*.png`, R2 prefix `trainers/`): every
+    main-series sprite in Showdown's trainer directory (browse it with `?view=dir`), 1,307 files,
+    Masters EX art and anime stills left out. Showdown pads them to 80x80, so each is cropped to
+    its content and re-padded to a 3px margin, the same recipe the walkthrough VS portraits use.
+    The roster manifest `app/models/account_data/avatars.json` is **generated** from that listing,
+    not hand-written: the id is the filename stem, the era comes from its `-genN` suffix, and the
+    display name is derived from the stem (a word list splits `bugcatcher` into "Bug Catcher" and
+    a table of exceptions covers what it cannot know). Those names are **data, not copy** (the
+    rule that names live in models), so they read the same in both locales and only the era labels
+    are translated. A local folder holding fewer files than the bucket means nothing: the PNGs are
+    gitignored, so a clone mirrors only what it has touched. **Probe the bucket, not the folder**,
+    before deciding a sprite is missing.
   - **Kanto badges** (`app/assets/images/badges/{boulder,cascade,thunder,rainbow,soul,marsh,volcano,earth}.png`):
     `vendor/pokeapi-sprites/sprites/badges/{1..8}.png` in gym order, renamed. Painted icons, so they
     draw with `image-rendering: auto`.

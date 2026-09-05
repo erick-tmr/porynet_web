@@ -1,5 +1,7 @@
 <%= link_to t("pages.home.nav.home"), root_path,
-            class: class_names("pn-nav__#{variant}", "is-active" => controller_name == "pages") %>
+            class: class_names("pn-nav__menu-link", "is-active" => controller_name == "pages") %>
 <%= link_to t("pages.home.nav.walkthroughs"), walkthroughs_path,
-            class: class_names("pn-nav__#{variant}", "is-active" => controller_name == "walkthroughs") %>
-<%= link_to t("pages.home.nav.tracker"), root_path(anchor: "tracker"), class: "pn-nav__#{variant}" %>
+            class: class_names("pn-nav__menu-link",
+                               "is-active" => controller_name == "walkthroughs") %>
+<%= link_to t("pages.home.nav.tracker"), root_path(anchor: "tracker"),
+            class: "pn-nav__menu-link" %>

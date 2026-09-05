@@ -59,8 +59,9 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "the shared nav shows the cross-page menu with Home active on the landing page" do
     get root_path
 
-    assert_select "a.pn-nav__link.is-active", text: "Home"
-    assert_select "a.pn-nav__link[href=?]", walkthroughs_path, text: "Walkthroughs"
+    assert_select "#pn-nav-menu a.pn-nav__menu-link.is-active", text: "Home"
+    assert_select "#pn-nav-menu a.pn-nav__menu-link[href=?]", walkthroughs_path,
+                  text: "Walkthroughs"
     assert_select ".pn-footer__link", text: "Walkthroughs"
   end
 

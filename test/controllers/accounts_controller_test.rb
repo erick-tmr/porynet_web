@@ -39,7 +39,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "the card draws the avatar art of a trainer who picked a painted portrait" do
-    users(:rival).update!(avatar: "lance")
+    users(:rival).update!(avatar: "lance-art")
     sign_in users(:rival)
     get account_path
 
@@ -72,26 +72,50 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-account__game.is-open .pn-account__game-name", text: "Pokémon Yellow"
   end
 
-  test "the avatar picker offers the whole roster and marks the one in use" do
+  test "the avatar picker pages the roster and marks the one in use" do
     sign_in users(:confirmed)
     get account_avatar_path
 
-    assert_select ".pn-auth__avatar", count: AccountData::AVATARS.size
+    assert_select ".pn-auth__avatar", count: AccountData::PAGE_SIZE
+    assert_select ".pn-account__pager a", count: 1
+
+    get account_avatar_path(q: AccountData.avatar(users(:confirmed).avatar).name)
+
     assert_select ".pn-account__avatar-inuse", count: 1
     assert_select "input[name=?][checked=checked]", "account_avatar[avatar]"
   end
 
-  test "a filter narrows the roster to its group, and an unknown one shows everybody" do
+  test "an era chip narrows the roster, and an unknown era shows everybody" do
     sign_in users(:confirmed)
-    get account_avatar_path(group: "elite")
+    get account_avatar_path(era: "gen1")
 
-    assert_select ".pn-auth__avatar", count: AccountData.avatars_in("elite").size
-    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.groups.elite")
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.eras.gen1")
+    assert_select ".pn-auth__avatar", count: AccountData::PAGE_SIZE
 
-    get account_avatar_path(group: "champions")
+    get account_avatar_path(era: "gen12")
 
-    assert_select ".pn-auth__avatar", count: AccountData::AVATARS.size
-    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.groups.all")
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.eras.all")
+  end
+
+  test "searching keeps the era, and an empty result says so instead of drawing a grid" do
+    sign_in users(:confirmed)
+    get account_avatar_path(era: "gen1", q: "brock")
+
+    assert_select ".pn-auth__avatar", count: 2
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.eras.gen1")
+
+    get account_avatar_path(q: "nobody-here")
+
+    assert_select ".pn-auth__avatar", count: 0
+    assert_select ".pn-account__badges-empty"
+  end
+
+  test "a page past the end lands on the last page rather than an empty grid" do
+    sign_in users(:confirmed)
+    get account_avatar_path(page: 99_999)
+
+    assert_response :success
+    assert_select ".pn-auth__avatar", minimum: 1
   end
 
   test "the security page draws the email, password and linked-login panels" do

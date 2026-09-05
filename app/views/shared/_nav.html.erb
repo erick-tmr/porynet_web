@@ -1,4 +1,5 @@
-<header class="pn-nav" data-controller="nav-menu" data-action="keydown.esc@window->nav-menu#close">
+<header class="pn-nav" data-controller="disclosure"
+        data-action="keydown.esc@window->disclosure#close">
   <div class="pn-nav__bar">
     <%= link_to root_path, class: "pn-nav__brand" do %>
       <span class="pn-logo-tile">
@@ -7,55 +8,70 @@
       </span>
       <span class="pn-wordmark">PORYNET</span>
     <% end %>
-    <nav class="pn-nav__links">
-      <span class="pn-nav__menu">
-        <%= render "shared/nav_links", variant: "link" %>
-      </span>
-      <span class="pn-nav__actions">
-        <%= render "shared/account_chip" %>
-        <% if content_for?(:nav_crumb) %>
-          <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
-        <% end %>
-        <% if @game %>
-          <%= render "shared/mode_switches" %>
-        <% end %>
-        <span class="pn-nav__lang-wrap">
-          <%= link_to t("pages.home.nav.lang_toggle"),
-                      url_for(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
-                      class: "pn-nav__lang", title: t("pages.home.nav.lang_title") %>
-          <% if controller_name == "pages" %>
-            <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
-              <span class="pn-lang-hint__pory">
-                <span class="pn-lang-hint__grid"></span>
-                <%= r2_image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
-              </span>
-              <span class="pn-lang-hint__bubble">
-                <span class="pn-lang-hint__tail"></span>
-                <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
-                <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
-              </span>
+
+    <div class="pn-nav__actions">
+      <% if content_for?(:nav_crumb) %>
+        <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
+      <% end %>
+      <% if @game %>
+        <%= render "shared/mode_switches" %>
+      <% end %>
+
+      <span class="pn-nav__lang-wrap">
+        <%= link_to t("pages.home.nav.lang_toggle"),
+                    url_for(locale: (I18n.locale == I18n.default_locale ? :pt : nil)),
+                    class: "pn-nav__lang", title: t("pages.home.nav.lang_title") %>
+        <% if controller_name == "pages" %>
+          <span class="pn-lang-hint" data-controller="language-hint" aria-hidden="true">
+            <span class="pn-lang-hint__pory">
+              <span class="pn-lang-hint__grid"></span>
+              <%= r2_image_tag "porygon-pixel.png", alt: "", class: "pn-lang-hint__img" %>
             </span>
+            <span class="pn-lang-hint__bubble">
+              <span class="pn-lang-hint__tail"></span>
+              <span class="pn-lang-hint__title"><%= t("pages.home.hint.title_html") %></span>
+              <span class="pn-lang-hint__cta"><%= t("pages.home.hint.cta") %></span>
+            </span>
+          </span>
+        <% end %>
+      </span>
+
+      <button type="button" class="pn-nav__account-toggle" aria-expanded="false"
+              aria-controls="pn-nav-menu" aria-label="<%= t("pages.home.nav.menu") %>"
+              data-disclosure-target="toggle" data-action="disclosure#toggle">
+        <span class="pn-nav__account-mark">
+          <% if user_signed_in? %>
+            <%= avatar_image_tag current_user.avatar, alt: "" %>
+          <% else %>
+            <span aria-hidden="true">?</span>
           <% end %>
         </span>
-        <button type="button" class="pn-nav__burger" aria-label="<%= t("pages.home.nav.menu") %>"
-                aria-expanded="false" aria-controls="pn-nav-panel"
-                data-nav-menu-target="button" data-action="nav-menu#toggle">
-          <span class="pn-nav__burger-glyph pn-nav__burger-glyph--open" aria-hidden="true">☰</span>
-          <span class="pn-nav__burger-glyph pn-nav__burger-glyph--close" aria-hidden="true">✕</span>
-        </button>
-      </span>
-    </nav>
+        <span class="pn-nav__account-hello">
+          <%= t("account.chip.hello") %>
+          <% if user_signed_in? %>
+            <span class="pn-nav__account-name"><%= current_user.trainer_name.upcase %></span>
+          <% else %>
+            <span class="pn-nav__account-guest"><%= t("account.chip.guest") %></span>
+          <% end %>
+        </span>
+        <span class="pn-nav__account-glyph pn-nav__account-glyph--open" aria-hidden="true">☰</span>
+        <span class="pn-nav__account-glyph pn-nav__account-glyph--close" aria-hidden="true">✕</span>
+      </button>
+
+      <nav class="pn-nav__menu" id="pn-nav-menu" data-disclosure-target="body" hidden>
+        <span class="pn-nav__menu-head"><%= t("pages.home.nav.site") %></span>
+        <%= render "shared/nav_links" %>
+        <% if content_for?(:nav_crumb) %>
+          <span class="pn-nav__menu-crumb"><%= yield :nav_crumb %></span>
+        <% end %>
+        <% if @game %>
+          <%= render "shared/mode_rows" %>
+        <% end %>
+        <%= render "shared/account_menu" %>
+      </nav>
+    </div>
   </div>
-  <nav class="pn-nav__panel" id="pn-nav-panel">
-    <%= render "shared/nav_links", variant: "panel-link" %>
-    <%= render "shared/account_row" %>
-    <% if content_for?(:nav_crumb) %>
-      <span class="pn-nav__panel-crumb"><%= yield :nav_crumb %></span>
-    <% end %>
-    <% if @game %>
-      <%= render "shared/mode_rows" %>
-    <% end %>
-  </nav>
+
   <% if content_for?(:nav_marquee) %>
     <div class="pn-marquee">
       <div class="pn-marquee__track"><%= yield :nav_marquee %></div>

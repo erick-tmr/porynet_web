@@ -1,4 +1,6 @@
-<% group = AccountData.avatar_group(params[:group]) %>
+<% era = AccountData.era(params[:era]) %>
+<% query = params[:q].to_s.strip %>
+<% page = AccountData.page(AccountData.search(era: era, query: query), params[:page]) %>
 
 <%= render layout: "accounts/shell", locals: { section: "avatar" } do %>
   <%= render layout: "accounts/panel",
@@ -7,28 +9,64 @@
                                count: AccountData::AVATARS.size) } do %>
     <p class="pn-account__lead"><%= t("account.avatar.lead") %></p>
 
+    <%= form_with url: account_avatar_path, method: :get, class: "pn-account__search" do |f| %>
+      <%= f.hidden_field :era, value: era %>
+      <%= f.search_field :q, value: query, class: "pn-field__input",
+                         placeholder: t("account.avatar.search_placeholder"),
+                         "aria-label": t("account.avatar.search_label") %>
+      <%= f.submit t("account.avatar.search_submit"), class: "pn-btn pn-btn--sky pn-btn--sm" %>
+      <% if query.present? %>
+        <%= link_to t("account.avatar.search_clear"), account_avatar_path(era: era),
+                    class: "pn-account__foot-link" %>
+      <% end %>
+    <% end %>
+
     <div class="pn-account__filters">
-      <% AccountData::AVATAR_GROUPS.each do |name| %>
-        <%= link_to t("account.avatar.groups.#{name}"), account_avatar_path(group: name),
-                    class: class_names("pn-account__filter", "is-active" => name == group) %>
+      <% AccountData::ERAS.each do |name| %>
+        <%= link_to t("account.avatar.eras.#{name}"),
+                    account_avatar_path(era: name, q: query.presence),
+                    class: class_names("pn-account__filter", "is-active" => name == era) %>
       <% end %>
     </div>
 
-    <%= form_with model: current_user, scope: :account_avatar, url: account_avatar_path,
-                  method: :patch do |f| %>
-      <div class="pn-auth__avatars pn-account__avatars">
-        <% AccountData.avatars_in(group).each do |avatar| %>
-          <%= render "accounts/avatar_card", f: f, avatar: avatar,
-                     in_use: avatar.id == current_user.avatar %>
-        <% end %>
-      </div>
+    <% if page.rows.empty? %>
+      <p class="pn-account__badges-empty"><%= t("account.avatar.empty", query: query) %></p>
+    <% else %>
+      <%= form_with model: current_user, scope: :account_avatar, url: account_avatar_path,
+                    method: :patch do |f| %>
+        <div class="pn-auth__avatars pn-account__avatars">
+          <% page.rows.each do |avatar| %>
+            <%= render "accounts/avatar_card", f: f, avatar: avatar,
+                       in_use: avatar.id == current_user.avatar %>
+          <% end %>
+        </div>
 
-      <div class="pn-account__foot">
-        <span class="pn-account__soon-wrap">
-          <%= f.submit t("account.avatar.submit"), disabled: true, class: "pn-btn pn-btn--accent" %>
-          <span class="pn-account__soon"><%= t("account.soon") %></span>
+        <div class="pn-account__foot">
+          <span class="pn-account__soon-wrap">
+            <%= f.submit t("account.avatar.submit"), disabled: true,
+                         class: "pn-btn pn-btn--accent" %>
+            <span class="pn-account__soon"><%= t("account.soon") %></span>
+          </span>
+          <%= link_to t("account.avatar.cancel"), account_path, class: "pn-btn pn-btn--muted" %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if page.many? %>
+      <div class="pn-account__pager">
+        <% unless page.first? %>
+          <%= link_to t("account.avatar.prev"),
+                      account_avatar_path(era: era, q: query.presence, page: page.number - 1),
+                      class: "pn-btn pn-btn--white pn-btn--sm" %>
+        <% end %>
+        <span class="pn-account__pager-count">
+          <%= t("account.avatar.page", page: page.number, total: page.total) %>
         </span>
-        <%= link_to t("account.avatar.cancel"), account_path, class: "pn-btn pn-btn--muted" %>
+        <% unless page.last? %>
+          <%= link_to t("account.avatar.next"),
+                      account_avatar_path(era: era, q: query.presence, page: page.number + 1),
+                      class: "pn-btn pn-btn--white pn-btn--sm" %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

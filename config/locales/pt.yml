@@ -97,61 +97,6 @@ pt:
       submit_new: "ENVIAR O LINK ▶"
       submit_edit: "SALVAR A SENHA ▶"
       back: "Voltar para a entrada"
-    avatars:
-      red:
-        name: "Red"
-        role: "O garoto de Pallet"
-      blue:
-        name: "Blue"
-        role: "Seu rival, depois líder de ginásio"
-      green:
-        name: "Green"
-        role: "A heroína de Kanto"
-      lance:
-        name: "Lance"
-        role: "Campeão, mestre dos dragões"
-      lorelei:
-        name: "Lorelei"
-        role: "Elite dos Quatro, gelo"
-      bruno:
-        name: "Bruno"
-        role: "Elite dos Quatro, luta"
-      agatha:
-        name: "Agatha"
-        role: "Elite dos Quatro, fantasma"
-      biker:
-        name: "Motoqueiro"
-        role: "Frequentador da Cycling Road"
-      birdkeeper:
-        name: "Criador de Aves"
-        role: "Torres e rotas do litoral"
-      cueball:
-        name: "Cue Ball"
-        role: "Celadon e o esconderijo"
-      engineer:
-        name: "Engenheiro"
-        role: "Equipe da Usina"
-      fisherman:
-        name: "Pescador"
-        role: "Píeres, pontes e margens"
-      gambler:
-        name: "Apostador"
-        role: "Frequentador do Game Corner"
-      hiker:
-        name: "Montanhista"
-        role: "Estradas de montanha e cavernas"
-      pokemaniac:
-        name: "Pokémaníaco"
-        role: "Colecionador, Rock Tunnel"
-      rocket:
-        name: "Recruta Rocket"
-        role: "Equipe Rocket, tropa comum"
-      scientist:
-        name: "Cientista"
-        role: "Silph Co e a Mansão"
-      youngster:
-        name: "Garotinho"
-        role: "Rota comum, suas primeiras batalhas"
     card:
       title: "CARTÃO DE TREINADOR"
       meta: "ID %{id} · %{game}"
@@ -190,12 +135,28 @@ pt:
     avatar:
       title: "AVATAR"
       count: "%{count} treinadores"
-      lead: "Escolha qualquer treinador do elenco da primeira geração. Seu avatar aparece no cartão de treinador, no topo do site e ao lado de cada nota de rota que você postar."
-      groups:
+      lead: "Cada sprite de treinador que a série já desenhou, do primeiro pixel de Kanto aos jogos mais novos. Sua escolha aparece no cartão de treinador, no topo do site e ao lado de cada nota de rota que você postar."
+      search_label: "Procurar treinadores pelo nome"
+      search_placeholder: "brock"
+      search_submit: "PROCURAR"
+      search_clear: "Limpar"
+      empty: "Nenhum treinador aqui combina com \"%{query}\"."
+      page: "Página %{page} de %{total}"
+      prev: "◀ VOLTAR"
+      next: "AVANÇAR ▶"
+      eras:
         all: "TODOS"
-        heroes: "HERÓIS"
-        elite: "ELITE DOS QUATRO"
-        trainers: "TREINADORES"
+        current: "ATUAIS"
+        gen1: "GER 1"
+        gen2: "GER 2"
+        gen3: "GER 3"
+        gen4: "GER 4"
+        gen5: "GER 5"
+        gen6: "GER 6"
+        gen7: "GER 7"
+        gen8: "GER 8"
+        gen9: "GER 9"
+        art: "ARTE"
       picked: "ESCOLHIDO"
       in_use: "EM USO"
       submit: "SALVAR AVATAR ▶"
@@ -270,13 +231,14 @@ pt:
     chip:
       guest: "VISITANTE"
       hello: "OLÁ,"
-      login: "ENTRAR"
-      logout: "SAIR"
-      menu: "Menu da conta"
+      login: "Entrar"
+      register: "Criar um treinador"
+      guest_line: "O progresso fica neste navegador até você entrar."
+      dex_line: "%{registered} / %{total} em %{game}"
       save_file: "SAVE"
       trainer_card: "Cartão de treinador"
       tracker: "Tracker da coleção"
-      settings: "Ajustes"
+      settings: "Ajustes da conta"
       sign_out: "Sair"
     errors:
       heading: "Não deu para salvar. Ajuste isto e tente de novo:"
@@ -375,6 +337,7 @@ pt:
         walkthroughs: "Guias"
         tracker: "Rastreador"
         menu: "Menu"
+        site: "SITE"
         lang_toggle: "EN"
         lang_title: "Português / English"
       hint:

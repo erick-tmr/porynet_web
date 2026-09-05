@@ -5,13 +5,11 @@ class AccountDataTest < ActiveSupport::TestCase
     AccountData::OAUTH_PROVIDERS.each { |key| assert I18n.t("account.oauth.#{key}") }
     AccountData::UNLOCKS.each { |key| assert I18n.t("account.aside.items.#{key}.title") }
     AccountData::CONFIRMATION_STEPS.each { |key| assert I18n.t("account.confirmation.steps.#{key}") }
-    AccountData::MENU_LINKS.each { |key| assert I18n.t("account.chip.#{key}") }
     AccountData::SECTIONS.each { |key| assert I18n.t("account.sections.#{key}") }
     AccountData::PASSWORD_RULES.each { |key| assert I18n.t("account.security.rules.#{key}") }
     AccountData::STRENGTH_LEVELS.each { |key| assert I18n.t("account.security.strength_levels.#{key}") }
     AccountData::BADGES.each { |key| assert I18n.t("account.card.badge_names.#{key}") }
-    AccountData::AVATAR_GROUPS.each { |key| assert I18n.t("account.avatar.groups.#{key}") }
-    AccountData::AVATARS.each { |avatar| assert I18n.t("account.avatars.#{avatar.id}.role") }
+    AccountData::ERAS.each { |key| assert I18n.t("account.avatar.eras.#{key}") }
     AccountData::SAVES.each_key { |slug| assert I18n.t("account.card.spots.#{slug}") }
   end
 
@@ -27,21 +25,54 @@ class AccountDataTest < ActiveSupport::TestCase
   end
 
   test "an avatar is looked up by id, and an unknown one falls back to the first" do
-    assert_equal "lance", AccountData.avatar("lance").id
-    assert_predicate AccountData.avatar("lance"), :art?
+    assert_equal "Brock", AccountData.avatar("brock-gen1").name
+    assert_predicate AccountData.avatar("lance-art"), :art?
     assert_equal AccountData::AVATARS.first, AccountData.avatar("porygon")
-    assert_not_predicate AccountData.avatar("red"), :art?
+    assert_not_predicate AccountData.avatar("brock-gen1"), :art?
   end
 
-  test "a group narrows the roster and all keeps the whole of it" do
-    assert_equal AccountData::AVATARS, AccountData.avatars_in("all")
-    assert_equal %w[red blue green], AccountData.avatars_in("heroes").map(&:id)
+  test "every avatar in the manifest is unique, named and filed under a real era" do
+    ids = AccountData.avatar_ids
+
+    assert_equal ids.size, ids.uniq.size
+    assert_empty AccountData::AVATARS.reject { |avatar| avatar.name.present? }
+    assert_empty AccountData::AVATARS.map(&:era).uniq - AccountData::ERAS
   end
 
-  test "only a group the picker draws is honoured, anything else means all" do
-    assert_equal "elite", AccountData.avatar_group("elite")
-    assert_equal "all", AccountData.avatar_group("champions")
-    assert_equal "all", AccountData.avatar_group(nil)
+  test "an era narrows the roster and all keeps the whole of it" do
+    assert_equal AccountData::AVATARS, AccountData.search(era: "all", query: "")
+    assert_empty AccountData.search(era: "gen1", query: "").reject { |a| a.era == "gen1" }
+  end
+
+  test "only an era the picker draws is honoured, anything else means all" do
+    assert_equal "gen3", AccountData.era("gen3")
+    assert_equal "all", AccountData.era("gen12")
+    assert_equal "all", AccountData.era(nil)
+  end
+
+  test "search matches a name inside the chosen era and ignores case" do
+    assert_equal %w[brock-gen1 brock-gen1rb], AccountData.search(era: "gen1", query: "BRO").map(&:id)
+    assert_empty AccountData.search(era: "gen1", query: "nobody-here")
+  end
+
+  test "a page clamps to the roster it is given" do
+    rows = AccountData::AVATARS
+    first = AccountData.page(rows, nil)
+
+    assert_predicate first, :first?
+    assert_equal 1, first.number
+    assert_equal AccountData::PAGE_SIZE, first.rows.size
+
+    last = AccountData.page(rows, 99_999)
+
+    assert_predicate last, :last?
+    assert_predicate last, :many?
+
+    only = AccountData.page(rows.first(3), 2)
+
+    assert_equal 1, only.total
+    assert_equal 3, only.rows.size
+    assert_not_predicate only, :many?
   end
 
   test "an unknown game reads the first save rather than none at all" do

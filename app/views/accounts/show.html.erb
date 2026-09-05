@@ -1,5 +1,5 @@
 <% save = AccountData.save_for(params[:game]) %>
-<% game = Walkthrough::Versions::CATALOGUE.find { |entry| entry[:slug] == save.slug } %>
+<% game = account_game(save) %>
 
 <%= render layout: "accounts/shell", locals: { section: "card" } do %>
   <%= render layout: "accounts/panel",
@@ -33,7 +33,7 @@
         </span>
         <span class="pn-account__avatar-cap"><%= t("account.card.avatar") %></span>
         <span class="pn-account__avatar-name">
-          <%= t("account.avatars.#{current_user.avatar}.name") %>
+          <%= AccountData.avatar(current_user.avatar).name %>
         </span>
       </div>
 

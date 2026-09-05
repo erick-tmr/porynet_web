@@ -12,13 +12,14 @@ class WalkthroughTest < ApplicationSystemTestCase
   test "the shared menu moves between the landing page and the walkthrough" do
     visit root_path
 
+    find(".pn-nav__account-toggle").click
     within ".pn-nav__menu" do
       click_link "Walkthroughs"
     end
 
     assert_current_path walkthroughs_path
     assert_selector ".pn-wt-index__h1", text: "Select a version"
-    assert_selector "a.pn-nav__link.is-active", text: "Walkthroughs"
+    assert_selector "a.pn-nav__menu-link.is-active", text: "Walkthroughs", visible: :all
 
     within ".pn-ver--live" do
       click_link "OPEN ▶"
@@ -26,8 +27,9 @@ class WalkthroughTest < ApplicationSystemTestCase
 
     assert_current_path walkthrough_path(game: "yellow")
     assert_selector ".pn-wt-hero__title", text: "Yellow"
-    assert_selector "a.pn-nav__link.is-active", text: "Walkthroughs"
+    assert_selector "a.pn-nav__menu-link.is-active", text: "Walkthroughs", visible: :all
 
+    find(".pn-nav__account-toggle").click
     within ".pn-nav__menu" do
       click_link "Home"
     end
@@ -81,16 +83,16 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-modeid__cta--oak[aria-pressed='false']"
   end
 
-  test "on a narrow window the burger panel is where the modes live" do
+  test "on a narrow window the one menu is where the modes live" do
     resize_to(430, 900)
 
     visit walkthrough_path(game: "yellow")
 
     assert_no_selector ".pn-nav__modes", visible: true
-    find(".pn-nav__burger").click
+    find(".pn-nav__account-toggle").click
 
-    assert_selector ".pn-nav__burger[aria-expanded='true']"
-    within "#pn-nav-panel" do
+    assert_selector ".pn-nav__account-toggle[aria-expanded='true']"
+    within "#pn-nav-menu" do
       click_button I18n.t("walkthrough.ui.mode_oak_title")
     end
 

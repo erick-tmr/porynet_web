@@ -97,61 +97,6 @@ en:
       submit_new: "SEND THE LINK ▶"
       submit_edit: "SAVE THE PASSWORD ▶"
       back: "Back to the login"
-    avatars:
-      red:
-        name: "Red"
-        role: "The kid from Pallet Town"
-      blue:
-        name: "Blue"
-        role: "Your rival, later a Gym Leader"
-      green:
-        name: "Green"
-        role: "Kanto's heroine"
-      lance:
-        name: "Lance"
-        role: "Champion, dragon master"
-      lorelei:
-        name: "Lorelei"
-        role: "Elite Four, ice"
-      bruno:
-        name: "Bruno"
-        role: "Elite Four, fighting"
-      agatha:
-        name: "Agatha"
-        role: "Elite Four, ghost"
-      biker:
-        name: "Biker"
-        role: "Cycling Road regular"
-      birdkeeper:
-        name: "Bird Keeper"
-        role: "Towers and coastal routes"
-      cueball:
-        name: "Cue Ball"
-        role: "Celadon and the hideout"
-      engineer:
-        name: "Engineer"
-        role: "Power Plant crew"
-      fisherman:
-        name: "Fisherman"
-        role: "Piers, bridges and riverbanks"
-      gambler:
-        name: "Gambler"
-        role: "Game Corner regular"
-      hiker:
-        name: "Hiker"
-        role: "Mountain roads and caves"
-      pokemaniac:
-        name: "Pokémaniac"
-        role: "Collector, Rock Tunnel"
-      rocket:
-        name: "Rocket Grunt"
-        role: "Team Rocket, rank and file"
-      scientist:
-        name: "Scientist"
-        role: "Silph Co and the Mansion"
-      youngster:
-        name: "Youngster"
-        role: "Route regular, your first battles"
     card:
       title: "TRAINER CARD"
       meta: "ID %{id} · %{game}"
@@ -190,12 +135,28 @@ en:
     avatar:
       title: "AVATAR"
       count: "%{count} trainers"
-      lead: "Pick any trainer from the Gen 1 cast. Your avatar shows on your trainer card, in the header and next to any route note you post."
-      groups:
+      lead: "Every trainer sprite the series has drawn, from Kanto's first pixel art to the latest games. Your pick shows on your trainer card, in the header and next to any route note you post."
+      search_label: "Search trainers by name"
+      search_placeholder: "brock"
+      search_submit: "SEARCH"
+      search_clear: "Clear"
+      empty: "No trainer here matches \"%{query}\"."
+      page: "Page %{page} of %{total}"
+      prev: "◀ BACK"
+      next: "NEXT ▶"
+      eras:
         all: "ALL"
-        heroes: "HEROES"
-        elite: "ELITE FOUR"
-        trainers: "TRAINERS"
+        current: "CURRENT"
+        gen1: "GEN 1"
+        gen2: "GEN 2"
+        gen3: "GEN 3"
+        gen4: "GEN 4"
+        gen5: "GEN 5"
+        gen6: "GEN 6"
+        gen7: "GEN 7"
+        gen8: "GEN 8"
+        gen9: "GEN 9"
+        art: "ARTWORK"
       picked: "PICKED"
       in_use: "IN USE"
       submit: "SAVE AVATAR ▶"
@@ -270,13 +231,14 @@ en:
     chip:
       guest: "GUEST"
       hello: "HELLO,"
-      login: "LOG IN"
-      logout: "LOG OUT"
-      menu: "Account menu"
+      login: "Log in"
+      register: "Register a trainer"
+      guest_line: "Progress lives in this browser until you log in."
+      dex_line: "%{registered} / %{total} in %{game}"
       save_file: "SAVE FILE"
       trainer_card: "Trainer card"
       tracker: "Collection tracker"
-      settings: "Settings"
+      settings: "Account settings"
       sign_out: "Log out"
     errors:
       heading: "That did not go through. Fix these and try again:"
@@ -375,6 +337,7 @@ en:
         walkthroughs: "Walkthroughs"
         tracker: "Collection Tracker"
         menu: "Menu"
+        site: "SITE"
         lang_toggle: "PT"
         lang_title: "Português / English"
       hint:

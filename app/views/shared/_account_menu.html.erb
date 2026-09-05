@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+  <span class="pn-nav__menu-head">
+    <%= t("account.chip.save_file") %>
+    <span class="pn-nav__account-trainer"><%= current_user.trainer_name.upcase %></span>
+  </span>
+  <span class="pn-nav__menu-sub"><%= account_dex_line %></span>
+  <%= link_to t("account.chip.trainer_card"), account_path, class: "pn-nav__menu-link" %>
+  <%= link_to t("account.chip.settings"), account_security_path, class: "pn-nav__menu-link" %>
+  <%= button_to t("account.chip.sign_out"), destroy_user_session_path, method: :delete,
+                class: "pn-nav__menu-out", form_class: "pn-nav__menu-form" %>
+<% else %>
+  <span class="pn-nav__menu-head"><%= t("account.chip.save_file") %></span>
+  <span class="pn-nav__menu-sub"><%= t("account.chip.guest_line") %></span>
+  <%= link_to t("account.chip.login"), new_user_session_path, class: "pn-nav__menu-link" %>
+  <%= link_to t("account.chip.register"), new_user_registration_path,
+              class: "pn-nav__menu-link" %>
+<% end %>

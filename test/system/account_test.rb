@@ -47,25 +47,40 @@ class AccountTest < ApplicationSystemTestCase
     assert_selector ".pn-account__name", text: "ASH"
   end
 
-  test "the account menu opens on the chip, shuts on Escape, and logs the trainer out" do
+  test "the one menu opens on the chip, shuts on Escape, and logs the trainer out" do
     login_as_user(users(:confirmed))
     visit account_path
 
-    assert_selector ".pn-nav__account-menu", visible: :hidden
+    assert_selector ".pn-nav__menu", visible: :hidden
 
     find(".pn-nav__account-toggle").click
 
-    assert_selector ".pn-nav__account-menu", visible: :visible
-    assert_selector ".pn-nav__account-item--soon", count: 2
+    assert_selector ".pn-nav__menu", visible: :visible
+    within ".pn-nav__menu" do
+      assert_selector ".pn-nav__menu-link", text: "Walkthroughs"
+      assert_selector ".pn-nav__menu-link", text: "Trainer card"
+    end
 
     find("body").send_keys :escape
 
-    assert_selector ".pn-nav__account-menu", visible: :hidden
+    assert_selector ".pn-nav__menu", visible: :hidden
 
     find(".pn-nav__account-toggle").click
     click_on "Log out"
 
     assert_selector ".pn-nav__account-guest", text: "GUEST"
+  end
+
+  test "a guest reaches the login through the same menu" do
+    visit root_path
+
+    find(".pn-nav__account-toggle").click
+
+    within ".pn-nav__menu" do
+      click_link I18n.t("account.chip.login")
+    end
+
+    assert_current_path new_user_session_path
   end
 
   test "the rail walks the four sections of the account" do
@@ -75,7 +90,7 @@ class AccountTest < ApplicationSystemTestCase
     within(".pn-account__rail") { click_on "Avatar" }
 
     assert_current_path account_avatar_path
-    assert_selector ".pn-account__avatar-inuse", count: 1
+    assert_selector ".pn-auth__avatar", count: AccountData::PAGE_SIZE
 
     within(".pn-account__rail") { click_on "Login and security" }
 
