@@ -50,20 +50,8 @@
         <div>
           <span class="pn-auth__avatars-label"><%= t("account.register.avatar_heading") %></span>
           <div class="pn-auth__avatars">
-            <% User::AVATARS.each do |avatar| %>
-              <label class="pn-auth__avatar">
-                <%= f.radio_button :avatar, avatar, class: "pn-auth__avatar-input" %>
-                <span class="pn-auth__avatar-art">
-                  <%= r2_image_tag "account/avatars/#{avatar}.png", alt: "" %>
-                </span>
-                <span class="pn-auth__avatar-name">
-                  <%= t("account.register.avatars.#{avatar}.name") %>
-                </span>
-                <span class="pn-auth__avatar-games">
-                  <%= t("account.register.avatars.#{avatar}.games") %>
-                </span>
-                <span class="pn-auth__avatar-picked"><%= t("account.register.picked") %></span>
-              </label>
+            <% AccountData::SIGNUP_AVATARS.each do |id| %>
+              <%= render "accounts/avatar_card", f: f, avatar: AccountData.avatar(id) %>
             <% end %>
           </div>
         </div>

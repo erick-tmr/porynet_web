@@ -5,7 +5,7 @@
             aria-controls="pn-account-menu" aria-label="<%= t("account.chip.menu") %>"
             data-disclosure-target="toggle" data-action="disclosure#toggle">
       <span class="pn-nav__account-mark">
-        <%= r2_image_tag "account/avatars/#{current_user.avatar}.png", alt: "" %>
+        <%= avatar_image_tag current_user.avatar, alt: "" %>
       </span>
       <span class="pn-nav__account-hello">
         <%= t("account.chip.hello") %>
@@ -26,7 +26,7 @@
         <% next if item == "tracker" %>
         <span class="pn-nav__account-item pn-nav__account-item--soon">
           <span><%= t("account.chip.#{item}") %></span>
-          <span class="pn-nav__account-soon"><%= t("account.chip.soon") %></span>
+          <span class="pn-nav__account-soon"><%= t("account.soon") %></span>
         </span>
       <% end %>
       <%= button_to t("account.chip.sign_out"), destroy_user_session_path, method: :delete,

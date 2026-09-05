@@ -1,0 +1,17 @@
+<section class="pn-auth-hero">
+  <span class="pn-auth-hero__fade" aria-hidden="true"></span>
+  <span class="pn-auth-hero__scan" aria-hidden="true"></span>
+  <div class="pn-auth-hero__inner pn-auth-hero__inner--plain">
+    <div class="pn-auth-hero__copy">
+      <div class="pn-account-crumb">
+        <%= link_to t("account.crumb.home"), root_path, class: "pn-account-crumb__link" %>
+        <span class="pn-account-crumb__sep" aria-hidden="true">/</span>
+        <span class="pn-account-crumb__here"><%= t("account.crumb.here") %></span>
+      </div>
+      <div class="pn-auth-hero__eyebrow"><%= t("account.eyebrow") %></div>
+      <h1 class="pn-auth-hero__title"><%= t("account.hero.#{section}_title") %><span
+        class="pn-auth-hero__caret" aria-hidden="true">_</span></h1>
+      <p class="pn-auth-hero__blurb"><%= t("account.hero.#{section}_blurb") %></p>
+    </div>
+  </div>
+</section>

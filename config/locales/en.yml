@@ -6,7 +6,21 @@ en:
       password_new: "Lost password · PORYNET"
       password_edit: "New password · PORYNET"
       confirmation: "Confirm your email · PORYNET"
-      show: "Your trainer account · PORYNET"
+      card: "Trainer card · PORYNET"
+      avatar: "Avatar · PORYNET"
+      security: "Login and security · PORYNET"
+      save_file: "Save file · PORYNET"
+    soon: "SOON"
+    crumb:
+      home: "HOME"
+      here: "ACCOUNT"
+    rail:
+      heading: "ACCOUNT MENU"
+    sections:
+      card: "Trainer card"
+      avatar: "Avatar"
+      security: "Login and security"
+      save_file: "Save file"
     marquee:
       - "SYNC YOUR DEX"
       - "HIDDEN ITEM CHECKS"
@@ -18,8 +32,14 @@ en:
       login_blurb: "Log in to bring back your caught marks, hidden-item checks and the step you left off on."
       register_title: "New save file"
       register_blurb: "Pick a trainer name, pick an avatar, and your dex progress starts syncing. It takes about twenty seconds."
-      show_title: "Save file loaded"
-      show_blurb: "You are logged in on this browser. Caught marks, hidden-item checks and your walkthrough position now follow you between devices."
+      card_title: "Trainer card"
+      card_blurb: "Your avatar, your name and where each save file stands. Changes follow you to every device you sign in on."
+      avatar_title: "Avatar"
+      avatar_blurb: "Pick the trainer who shows on your card, in the header and beside any route note you post."
+      security_title: "Login and security"
+      security_blurb: "The address we mail, the password you type, and the accounts you can sign in through."
+      save_file_title: "Save file"
+      save_file_blurb: "Log out of this browser, or delete the trainer and everything on it."
       password_new_title: "Lost password"
       password_new_blurb: "Give us the address on your save file. We send a link that lets you set a new password."
       password_edit_title: "New password"
@@ -32,7 +52,6 @@ en:
     oauth:
       login_heading: "CONTINUE WITH"
       register_heading: "REGISTER WITH"
-      soon: "SOON"
       hint: "Signing in through another account is on the way. Use a trainer name for now."
       google: "Google"
       discord: "Discord"
@@ -60,17 +79,6 @@ en:
       no_account_link: "Register a trainer"
     register:
       avatar_heading: "PICK YOUR TRAINER AVATAR"
-      picked: "PICKED"
-      avatars:
-        red:
-          name: "Red"
-          games: "Red / Blue / Yellow"
-        blue:
-          name: "Blue"
-          games: "Rival, Red / Blue"
-        green:
-          name: "Green"
-          games: "FireRed / LeafGreen"
       terms: "I get that this is a fan project and my dex data lives here, not with Nintendo."
       submit: "CREATE SAVE FILE ▶"
       has_account_html: "Already have a save file? %{link}."
@@ -89,14 +97,160 @@ en:
       submit_new: "SEND THE LINK ▶"
       submit_edit: "SAVE THE PASSWORD ▶"
       back: "Back to the login"
-    show:
-      badge: "LOGGED IN"
-      greeting: "Hello, %{name}"
-      lead: "Caught marks, hidden-item checks and your walkthrough position now save to this account, not just this browser."
-      continue: "OPEN THE WALKTHROUGHS ▶"
-      tracker: "OPEN TRACKER"
+    avatars:
+      red:
+        name: "Red"
+        role: "The kid from Pallet Town"
+      blue:
+        name: "Blue"
+        role: "Your rival, later a Gym Leader"
+      green:
+        name: "Green"
+        role: "Kanto's heroine"
+      lance:
+        name: "Lance"
+        role: "Champion, dragon master"
+      lorelei:
+        name: "Lorelei"
+        role: "Elite Four, ice"
+      bruno:
+        name: "Bruno"
+        role: "Elite Four, fighting"
+      agatha:
+        name: "Agatha"
+        role: "Elite Four, ghost"
+      biker:
+        name: "Biker"
+        role: "Cycling Road regular"
+      birdkeeper:
+        name: "Bird Keeper"
+        role: "Towers and coastal routes"
+      cueball:
+        name: "Cue Ball"
+        role: "Celadon and the hideout"
+      engineer:
+        name: "Engineer"
+        role: "Power Plant crew"
+      fisherman:
+        name: "Fisherman"
+        role: "Piers, bridges and riverbanks"
+      gambler:
+        name: "Gambler"
+        role: "Game Corner regular"
+      hiker:
+        name: "Hiker"
+        role: "Mountain roads and caves"
+      pokemaniac:
+        name: "Pokémaniac"
+        role: "Collector, Rock Tunnel"
+      rocket:
+        name: "Rocket Grunt"
+        role: "Team Rocket, rank and file"
+      scientist:
+        name: "Scientist"
+        role: "Silph Co and the Mansion"
+      youngster:
+        name: "Youngster"
+        role: "Route regular, your first battles"
+    card:
+      title: "TRAINER CARD"
+      meta: "ID %{id} · %{game}"
+      pick_game: "PICK A GAME"
+      open: "OPEN"
+      dex: "%{registered} / %{total}"
+      avatar: "AVATAR"
+      trainer_name: "TRAINER NAME"
+      joined: "%{email} · joined %{date}"
+      spot: "Stopped at %{place}"
+      spots:
+        yellow: "Vermilion City docks"
+        red: "Rock Tunnel, first floor"
+        blue: "Hall of Fame"
+        green: "Viridian Forest"
+        yellow-legacy: "Celadon Dept Store"
+      badge_tally: "%{have} / %{total}"
+      stats:
+        registered: "REGISTERED"
+        badges: "BADGES"
+        oak: "OAK NEEDED"
+        playtime: "PLAYTIME"
+      change_avatar: "CHANGE AVATAR"
+      to_security: "LOGIN AND SECURITY"
+      badges: "Badges in %{game}"
+      badge_names:
+        boulder: "Boulder"
+        cascade: "Cascade"
+        thunder: "Thunder"
+        rainbow: "Rainbow"
+        soul: "Soul"
+        marsh: "Marsh"
+        volcano: "Volcano"
+        earth: "Earth"
+      no_badges: "No badges on this save yet. Pewter Gym is the first stop."
+    avatar:
+      title: "AVATAR"
+      count: "%{count} trainers"
+      lead: "Pick any trainer from the Gen 1 cast. Your avatar shows on your trainer card, in the header and next to any route note you post."
+      groups:
+        all: "ALL"
+        heroes: "HEROES"
+        elite: "ELITE FOUR"
+        trainers: "TRAINERS"
+      picked: "PICKED"
+      in_use: "IN USE"
+      submit: "SAVE AVATAR ▶"
+      cancel: "CANCEL"
+    security:
+      email_title: "EMAIL"
+      email_meta: "used for resets and sync alerts"
+      current_email: "CURRENT ADDRESS"
+      verified: "VERIFIED"
+      new_email: "NEW EMAIL"
+      confirm_email: "CONFIRM NEW EMAIL"
+      current_password: "CURRENT PASSWORD"
+      current_password_hint: "Asked once, so nobody can move your save file to their own inbox."
+      email_submit: "SEND CONFIRMATION ▶"
+      email_note: "The link expires after one hour."
+      password_title: "PASSWORD"
+      password_meta: "eight characters or more"
+      new_password: "NEW PASSWORD"
+      confirm_password: "CONFIRM NEW PASSWORD"
+      strength: "STRENGTH"
+      strength_levels:
+        none: "Type something"
+        weak: "Weak"
+        fair: "Getting there"
+        good: "Good"
+        elite: "Elite Four"
+      rules:
+        length: "At least 8 characters"
+        mix: "Mixes letters and numbers"
+        unique: "Not the one you use on other sites"
+      sign_out_others: "Log out my other devices when this saves"
+      password_submit: "UPDATE PASSWORD ▶"
+      forgot: "Forgot the current one?"
+      linked_title: "LINKED LOGINS"
+      linked_meta: "none connected yet"
+      linked_lead: "Link an account and you can sign in with one tap. Your dex data stays on PORYNET either way, and we never post anything."
+      providers:
+        google: "One tap sign in with your Google account"
+        discord: "Sign in and pick up your server role automatically"
+        github: "For contributors who file dex data fixes"
+        facebook: "One tap sign in with your Facebook account"
+      not_linked: "not linked"
+      connect: "CONNECT"
+      linked_note: "You need at least one way in. If you unlink everything, keep your email and password set so you are not locked out of your own dex."
+    save_file:
+      title: "SAVE FILE"
+      meta: "log out, delete"
+      logout_title: "Log out"
+      logout_desc: "Ends this session on this browser. Logging out everywhere comes with the sync work."
       logout: "LOG OUT"
-      note: "The header chip flipped from HELLO, GUEST to your trainer name. Log out to see the guest state again."
+      delete_title: "DELETE ACCOUNT"
+      delete_copy: "This wipes the trainer, the dex progress and every linked login. There is no revive here."
+      delete_arm: "DELETE MY ACCOUNT"
+      delete_confirm: "YES, DELETE IT"
+      delete_cancel: "KEEP MY SAVE"
     aside:
       heading: "WHAT AN ACCOUNT UNLOCKS"
       items:
@@ -123,10 +277,26 @@ en:
       trainer_card: "Trainer card"
       tracker: "Collection tracker"
       settings: "Settings"
-      soon: "SOON"
       sign_out: "Log out"
     errors:
       heading: "That did not go through. Fix these and try again:"
+  date:
+    abbr_month_names:
+      -
+      - "Jan"
+      - "Feb"
+      - "Mar"
+      - "Apr"
+      - "May"
+      - "Jun"
+      - "Jul"
+      - "Aug"
+      - "Sep"
+      - "Oct"
+      - "Nov"
+      - "Dec"
+    formats:
+      joined: "%b %Y"
   activerecord:
     attributes:
       user:

@@ -3,28 +3,128 @@ require "test_helper"
 class AccountsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  test "the account page is not readable as a guest" do
-    get account_path
+  SECTIONS = { card: "/account", avatar: "/account/avatar",
+               security: "/account/security", save_file: "/account/save" }.freeze
 
-    assert_redirected_to new_user_session_path
+  test "no section of the account is readable as a guest" do
+    SECTIONS.each_value do |path|
+      get path
+
+      assert_redirected_to new_user_session_path
+    end
   end
 
-  test "a logged-in trainer sees the save file and the way back out" do
+  test "the rail marks the section being read and links to the other three" do
+    sign_in users(:confirmed)
+
+    SECTIONS.each do |section, path|
+      get path
+
+      assert_response :success
+      assert_select ".pn-account__rail-item.is-active .pn-account__rail-label", count: 1,
+                    text: I18n.t("account.sections.#{section}")
+      assert_select ".pn-account__rail-item", count: AccountData::SECTIONS.size
+    end
+  end
+
+  test "the trainer card carries the name, the address and the avatar the trainer picked" do
     sign_in users(:confirmed)
     get account_path
 
-    assert_response :success
-    assert_select ".pn-auth__loaded-name", text: I18n.t("account.show.greeting", name: "ASH")
-    assert_select ".pn-auth__loaded-mark img[src*=?]", "account/avatars/red.png"
-    assert_select "a[href=?]", walkthroughs_path
-    assert_select "form[action=?][method=post]", destroy_user_session_path
+    assert_select ".pn-account__name", text: "ASH"
+    assert_select ".pn-account__meta", /ash@pallet\.town/
+    assert_select ".pn-account__avatar-frame img[src*=?]", "account/avatars/red.png"
+    assert_select "a[href=?]", account_avatar_path
+    assert_select "a[href=?]", account_security_path
   end
 
-  test "the avatar on the page is the one the trainer picked" do
+  test "the card draws the avatar art of a trainer who picked a painted portrait" do
+    users(:rival).update!(avatar: "lance")
     sign_in users(:rival)
     get account_path
 
-    assert_select ".pn-auth__loaded-mark img[src*=?]", "account/avatars/blue.png"
+    assert_select ".pn-account__avatar-frame img.pn-art[src*=?]", "walkthrough/art/lance-art.png"
     assert_select ".pn-nav__account-name", text: "GARY"
+  end
+
+  test "picking a game swaps the save file the card reports" do
+    sign_in users(:confirmed)
+    get account_path(game: "blue")
+
+    assert_select ".pn-account__game.is-open .pn-account__game-name", text: "Pokémon Blue"
+    assert_select ".pn-account__stat-value", text: "151 / 151"
+    assert_select ".pn-account__badge", count: AccountData::BADGES.size
+  end
+
+  test "a save with no badges yet says so instead of drawing an empty row" do
+    sign_in users(:confirmed)
+    get account_path(game: "green")
+
+    assert_select ".pn-account__badges", count: 0
+    assert_select ".pn-account__badges-empty", text: I18n.t("account.card.no_badges")
+  end
+
+  test "an unknown game falls back to the first save rather than blowing up" do
+    sign_in users(:confirmed)
+    get account_path(game: "crystal")
+
+    assert_response :success
+    assert_select ".pn-account__game.is-open .pn-account__game-name", text: "Pokémon Yellow"
+  end
+
+  test "the avatar picker offers the whole roster and marks the one in use" do
+    sign_in users(:confirmed)
+    get account_avatar_path
+
+    assert_select ".pn-auth__avatar", count: AccountData::AVATARS.size
+    assert_select ".pn-account__avatar-inuse", count: 1
+    assert_select "input[name=?][checked=checked]", "account_avatar[avatar]"
+  end
+
+  test "a filter narrows the roster to its group, and an unknown one shows everybody" do
+    sign_in users(:confirmed)
+    get account_avatar_path(group: "elite")
+
+    assert_select ".pn-auth__avatar", count: AccountData.avatars_in("elite").size
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.groups.elite")
+
+    get account_avatar_path(group: "champions")
+
+    assert_select ".pn-auth__avatar", count: AccountData::AVATARS.size
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.groups.all")
+  end
+
+  test "the security page draws the email, password and linked-login panels" do
+    sign_in users(:confirmed)
+    get account_security_path
+
+    assert_select ".pn-account__current-value", text: "ash@pallet.town"
+    assert_select "input[name=?]", "account_email[email_confirmation]"
+    assert_select "[data-controller=?]", "password-strength"
+    assert_select ".pn-account__rule", count: AccountData::PASSWORD_RULES.size
+    assert_select ".pn-account__strength-label", count: AccountData::STRENGTH_LEVELS.size
+    assert_select ".pn-account__social", count: AccountData::OAUTH_PROVIDERS.size
+    assert_select "a[href=?]", new_user_password_path
+  end
+
+  test "the save file page offers the logout and arms the delete behind a disclosure" do
+    sign_in users(:confirmed)
+    get account_save_file_path
+
+    assert_select "form[action=?][method=post]", destroy_user_session_path
+    assert_select ".pn-account__danger[data-controller=?]", "disclosure"
+    assert_select ".pn-account__danger-actions[hidden]"
+    assert_select ".pn-account__danger-go[disabled]"
+  end
+
+  test "the Portuguese twin of every section renders" do
+    sign_in users(:confirmed)
+
+    SECTIONS.each_value do |path|
+      get "/pt#{path}"
+
+      assert_response :success
+      assert_select "html[lang=?]", "pt"
+    end
   end
 end

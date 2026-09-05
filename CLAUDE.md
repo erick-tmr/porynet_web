@@ -33,6 +33,20 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `config/locales/{en,pt}.yml` under `devise:` and `account:` (never a `devise.en.yml`, which would
   break `test/i18n_parity_test.rb`). Mail is **development only** so far: `letter_opener_web` at
   `/letters`, with production SMTP still a TODO in `config/environments/production.rb`.
+- **The logged-in area is four pages, not four tabs.** `/account` (trainer card), `/account/avatar`,
+  `/account/security` and `/account/save` are separate `AccountsController` actions, each with its
+  `/pt` twin, and the left rail is `link_to` with `.is-active` rather than a Stimulus tab switcher:
+  every section deep-links, and each one is where its future `PATCH` will land. They share
+  `app/views/accounts/_shell.html.erb` (hero, rail, main column) and `_panel.html.erb` (the ink
+  header bar), both rendered with `render layout:`. **Nothing on them writes yet.** Save-file
+  numbers (dex counts, badges, Oak, playtime, the stop the trainer left off on) come from
+  `AccountData::SAVES`, a placeholder table keyed by the same slugs as
+  `Walkthrough::Versions::CATALOGUE`, which the game picker itself walks. Controls that would
+  change a record render `disabled` with a SOON badge, the way unbuilt OAuth already does; the two
+  query params that do work (`?game=` on the card, `?group=` on the picker) only pick which
+  placeholder rows to draw. `AccountData::AVATARS` is the roster the picker offers and the list
+  `User::AVATARS` validates against; `avatar_image_tag` maps an id to its R2 key and marks the
+  painted portraits `pn-art` so they escape the global `image-rendering: pixelated`.
 - **i18n.** English is default at `/`, Português at `/pt`, via `scope "(:locale)"` + `switch_locale` / `default_url_options` in `ApplicationController`; `<html lang>` is dynamic. All UI copy lives in `config/locales/{en,pt}.yml` under `pages.home.*` — never hardcode strings in views. Non-translatable structure (city / region / Pokémon names, counts, feature keys) lives in `app/models/landing_data.rb`. `test/i18n_parity_test.rb` fails if the en/pt key sets drift, and `raise_on_missing_translations` is on in dev/test so a missing key fails loudly.
 - **Images are served from Cloudflare R2**, not Propshaft. Reference them with the `r2_image_tag` / `r2_asset_url` helpers (`app/helpers/application_helper.rb`), which prefix `config.x.r2_public_host`; the object key is the path relative to `app/assets/images/` (e.g. `r2_image_tag "pokemon/yellow/025.png"`). The source PNGs under `app/assets/images/` are **gitignored** (kept locally for uploads, re-derivable from `vendor/pokeapi-sprites/`) and pushed to the bucket with `deploy/upload-images.sh` (`Assets::R2Uploader`). The upload is **incremental**: a gitignored fingerprint cache (`app/assets/images/.r2-upload-cache.json`) records each image's content digest, so a re-run sends only the images whose bytes changed (regenerating an unchanged, deterministic map is a no-op). Pass `deploy/upload-images.sh --force` to re-send everything (fresh/prod bucket), and `Assets::R2Uploader#prime_cache` to mark the current files as already uploaded without sending (seed the cache when the bucket is known to match). Per-env host: dev + test use the dev bucket `porynet-dev` (`pub-...r2.dev`); prod injects `R2_PUBLIC_HOST` (not wired to a prod bucket yet, so set it and upload before the next prod deploy). R2 write keys live in the default Rails credentials (`bin/rails credentials:edit`, keys `r2.access_key_id` / `r2.secret_access_key`), which dev reads automatically; prod will use env-scoped `config/credentials/production.yml.enc`. Serving public objects needs no keys. Favicons in `public/` (`icon.png`, `icon.svg`) stay same-origin.
 - **Sprite sources** (where the source PNGs come from before they go to R2):
@@ -45,6 +59,14 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     under his Japanese name), each cropped to its content and re-padded to a 3px margin.
     `oauth/{google,discord,github,facebook}.png` are the provider marks from the design handoff
     bundle, downscaled to 108px. Then `deploy/upload-images.sh`.
+    The other fifteen avatars are **not** copied in here: `AccountData::AVATARS` points at pictures
+    the bucket already holds, the Elite Four portraits under `walkthrough/art/*-art.png` and the
+    Gen 1 classes under `walkthrough/yellow/trainers/*-gen1.png`, so the roster grew without a
+    single new object. Blue's painted portrait is left out because the pixel `blue` is the same
+    trainer.
+  - **Kanto badges** (`app/assets/images/badges/{boulder,cascade,thunder,rainbow,soul,marsh,volcano,earth}.png`):
+    `vendor/pokeapi-sprites/sprites/badges/{1..8}.png` in gym order, renamed. Painted icons, so they
+    draw with `image-rendering: auto`.
   - **Artwork** (`app/assets/images/walkthrough/art/*.png`, e.g. the Dugtrio beside the Diglett's Cave trivia): the one exception to "images are gitignored because vendor/ re-derives them". Nothing in `vendor/pokeapi-sprites` reproduces a hand-prepared piece, so these are committed (`.gitignore` carves them out) and a fresh clone can still `--force` a whole bucket. They are painted art, not game rips, so they render with `image-rendering: auto` against the global `pixelated`.
   - Flow to add a sprite: copy the source PNG into the matching `app/assets/images/...` path (the object key), then upload with `deploy/upload-images.sh`. A referenced image that isn't in the bucket 404s at render (not a test failure), so upload before wiring a new sprite into a view.
 

@@ -6,7 +6,21 @@ pt:
       password_new: "Senha perdida · PORYNET"
       password_edit: "Nova senha · PORYNET"
       confirmation: "Confirme seu email · PORYNET"
-      show: "Sua conta de treinador · PORYNET"
+      card: "Cartão de treinador · PORYNET"
+      avatar: "Avatar · PORYNET"
+      security: "Entrada e segurança · PORYNET"
+      save_file: "Save · PORYNET"
+    soon: "EM BREVE"
+    crumb:
+      home: "INÍCIO"
+      here: "CONTA"
+    rail:
+      heading: "MENU DA CONTA"
+    sections:
+      card: "Cartão de treinador"
+      avatar: "Avatar"
+      security: "Entrada e segurança"
+      save_file: "Save"
     marquee:
       - "SINCRONIZE SUA DEX"
       - "ITENS ESCONDIDOS"
@@ -18,8 +32,14 @@ pt:
       login_blurb: "Entre para trazer de volta suas capturas, os itens escondidos que já achou e o passo onde parou."
       register_title: "Save novo"
       register_blurb: "Escolha um nome de treinador, escolha um avatar, e sua dex começa a sincronizar. Leva uns vinte segundos."
-      show_title: "Save carregado"
-      show_blurb: "Você está conectado neste navegador. Capturas, itens escondidos e sua posição no walkthrough agora seguem você entre aparelhos."
+      card_title: "Cartão de treinador"
+      card_blurb: "Seu avatar, seu nome e como está cada save. As mudanças seguem você em todo aparelho onde você entrar."
+      avatar_title: "Avatar"
+      avatar_blurb: "Escolha o treinador que aparece no seu cartão, no topo do site e ao lado de cada nota de rota que você postar."
+      security_title: "Entrada e segurança"
+      security_blurb: "O email para onde escrevemos, a senha que você digita e as contas por onde dá para entrar."
+      save_file_title: "Save"
+      save_file_blurb: "Saia deste navegador, ou apague o treinador e tudo o que está nele."
       password_new_title: "Senha perdida"
       password_new_blurb: "Diga o email do seu save. Enviamos um link para você definir uma senha nova."
       password_edit_title: "Nova senha"
@@ -32,7 +52,6 @@ pt:
     oauth:
       login_heading: "CONTINUE COM"
       register_heading: "CADASTRE-SE COM"
-      soon: "EM BREVE"
       hint: "Entrar por outra conta está a caminho. Por enquanto, use um nome de treinador."
       google: "Google"
       discord: "Discord"
@@ -60,17 +79,6 @@ pt:
       no_account_link: "Crie um treinador"
     register:
       avatar_heading: "ESCOLHA SEU AVATAR"
-      picked: "ESCOLHIDO"
-      avatars:
-        red:
-          name: "Red"
-          games: "Red / Blue / Yellow"
-        blue:
-          name: "Blue"
-          games: "Rival, Red / Blue"
-        green:
-          name: "Green"
-          games: "FireRed / LeafGreen"
       terms: "Entendo que este é um projeto de fã e que meus dados de dex ficam aqui, não com a Nintendo."
       submit: "CRIAR O SAVE ▶"
       has_account_html: "Já tem um save? %{link}."
@@ -89,14 +97,160 @@ pt:
       submit_new: "ENVIAR O LINK ▶"
       submit_edit: "SALVAR A SENHA ▶"
       back: "Voltar para a entrada"
-    show:
-      badge: "CONECTADO"
-      greeting: "Olá, %{name}"
-      lead: "Capturas, itens escondidos e sua posição no walkthrough agora ficam salvos nesta conta, não só neste navegador."
-      continue: "ABRIR OS WALKTHROUGHS ▶"
-      tracker: "ABRIR O TRACKER"
+    avatars:
+      red:
+        name: "Red"
+        role: "O garoto de Pallet"
+      blue:
+        name: "Blue"
+        role: "Seu rival, depois líder de ginásio"
+      green:
+        name: "Green"
+        role: "A heroína de Kanto"
+      lance:
+        name: "Lance"
+        role: "Campeão, mestre dos dragões"
+      lorelei:
+        name: "Lorelei"
+        role: "Elite dos Quatro, gelo"
+      bruno:
+        name: "Bruno"
+        role: "Elite dos Quatro, luta"
+      agatha:
+        name: "Agatha"
+        role: "Elite dos Quatro, fantasma"
+      biker:
+        name: "Motoqueiro"
+        role: "Frequentador da Cycling Road"
+      birdkeeper:
+        name: "Criador de Aves"
+        role: "Torres e rotas do litoral"
+      cueball:
+        name: "Cue Ball"
+        role: "Celadon e o esconderijo"
+      engineer:
+        name: "Engenheiro"
+        role: "Equipe da Usina"
+      fisherman:
+        name: "Pescador"
+        role: "Píeres, pontes e margens"
+      gambler:
+        name: "Apostador"
+        role: "Frequentador do Game Corner"
+      hiker:
+        name: "Montanhista"
+        role: "Estradas de montanha e cavernas"
+      pokemaniac:
+        name: "Pokémaníaco"
+        role: "Colecionador, Rock Tunnel"
+      rocket:
+        name: "Recruta Rocket"
+        role: "Equipe Rocket, tropa comum"
+      scientist:
+        name: "Cientista"
+        role: "Silph Co e a Mansão"
+      youngster:
+        name: "Garotinho"
+        role: "Rota comum, suas primeiras batalhas"
+    card:
+      title: "CARTÃO DE TREINADOR"
+      meta: "ID %{id} · %{game}"
+      pick_game: "ESCOLHA UM JOGO"
+      open: "ABERTO"
+      dex: "%{registered} / %{total}"
+      avatar: "AVATAR"
+      trainer_name: "NOME DE TREINADOR"
+      joined: "%{email} · entrou em %{date}"
+      spot: "Parou %{place}"
+      spots:
+        yellow: "nas docas de Vermilion City"
+        red: "em Rock Tunnel, primeiro andar"
+        blue: "no Hall da Fama"
+        green: "na Floresta de Viridian"
+        yellow-legacy: "na Loja de Departamentos de Celadon"
+      badge_tally: "%{have} / %{total}"
+      stats:
+        registered: "REGISTRADOS"
+        badges: "INSÍGNIAS"
+        oak: "FALTAM AO CARVALHO"
+        playtime: "TEMPO DE JOGO"
+      change_avatar: "TROCAR AVATAR"
+      to_security: "ENTRADA E SEGURANÇA"
+      badges: "Insígnias em %{game}"
+      badge_names:
+        boulder: "Pedra"
+        cascade: "Cascata"
+        thunder: "Trovão"
+        rainbow: "Arco-Íris"
+        soul: "Alma"
+        marsh: "Pântano"
+        volcano: "Vulcão"
+        earth: "Terra"
+      no_badges: "Nenhuma insígnia neste save ainda. O Ginásio de Pewter é a primeira parada."
+    avatar:
+      title: "AVATAR"
+      count: "%{count} treinadores"
+      lead: "Escolha qualquer treinador do elenco da primeira geração. Seu avatar aparece no cartão de treinador, no topo do site e ao lado de cada nota de rota que você postar."
+      groups:
+        all: "TODOS"
+        heroes: "HERÓIS"
+        elite: "ELITE DOS QUATRO"
+        trainers: "TREINADORES"
+      picked: "ESCOLHIDO"
+      in_use: "EM USO"
+      submit: "SALVAR AVATAR ▶"
+      cancel: "CANCELAR"
+    security:
+      email_title: "EMAIL"
+      email_meta: "usado para recuperar senha e avisar sobre a sincronia"
+      current_email: "EMAIL ATUAL"
+      verified: "VERIFICADO"
+      new_email: "NOVO EMAIL"
+      confirm_email: "CONFIRME O NOVO EMAIL"
+      current_password: "SENHA ATUAL"
+      current_password_hint: "Pedimos uma vez, para ninguém levar seu save para a própria caixa de entrada."
+      email_submit: "ENVIAR CONFIRMAÇÃO ▶"
+      email_note: "O link vale por uma hora."
+      password_title: "SENHA"
+      password_meta: "oito caracteres ou mais"
+      new_password: "NOVA SENHA"
+      confirm_password: "CONFIRME A NOVA SENHA"
+      strength: "FORÇA"
+      strength_levels:
+        none: "Digite alguma coisa"
+        weak: "Fraca"
+        fair: "Quase lá"
+        good: "Boa"
+        elite: "Elite dos Quatro"
+      rules:
+        length: "Pelo menos 8 caracteres"
+        mix: "Mistura letras e números"
+        unique: "Não é a que você usa em outros sites"
+      sign_out_others: "Desconectar meus outros aparelhos ao salvar"
+      password_submit: "ATUALIZAR SENHA ▶"
+      forgot: "Esqueceu a senha atual?"
+      linked_title: "CONTAS LIGADAS"
+      linked_meta: "nenhuma ligada ainda"
+      linked_lead: "Ligue uma conta e dá para entrar com um toque. Seus dados de dex ficam na PORYNET de qualquer jeito, e nunca postamos nada."
+      providers:
+        google: "Entre com um toque pela sua conta Google"
+        discord: "Entre e receba seu cargo no servidor automaticamente"
+        github: "Para quem contribui com correções nos dados da dex"
+        facebook: "Entre com um toque pela sua conta Facebook"
+      not_linked: "não ligada"
+      connect: "LIGAR"
+      linked_note: "Você precisa de pelo menos um jeito de entrar. Se desligar tudo, mantenha email e senha definidos para não ficar trancado fora da sua própria dex."
+    save_file:
+      title: "SAVE"
+      meta: "sair, apagar"
+      logout_title: "Sair"
+      logout_desc: "Encerra esta sessão neste navegador. Sair de todos os aparelhos vem junto com a sincronia."
       logout: "SAIR"
-      note: "O chip do topo trocou OLÁ, VISITANTE pelo seu nome de treinador. Saia para ver o estado de visitante de novo."
+      delete_title: "APAGAR A CONTA"
+      delete_copy: "Isto apaga o treinador, o progresso da dex e cada conta ligada. Aqui não tem revive."
+      delete_arm: "APAGAR MINHA CONTA"
+      delete_confirm: "SIM, APAGUE"
+      delete_cancel: "GUARDAR MEU SAVE"
     aside:
       heading: "O QUE UMA CONTA LIBERA"
       items:
@@ -123,10 +277,26 @@ pt:
       trainer_card: "Cartão de treinador"
       tracker: "Tracker da coleção"
       settings: "Ajustes"
-      soon: "EM BREVE"
       sign_out: "Sair"
     errors:
       heading: "Não deu para salvar. Ajuste isto e tente de novo:"
+  date:
+    abbr_month_names:
+      -
+      - "jan"
+      - "fev"
+      - "mar"
+      - "abr"
+      - "mai"
+      - "jun"
+      - "jul"
+      - "ago"
+      - "set"
+      - "out"
+      - "nov"
+      - "dez"
+    formats:
+      joined: "%b %Y"
   activerecord:
     attributes:
       user:

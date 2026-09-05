@@ -21,6 +21,18 @@ module ApplicationHelper
     image_tag(r2_asset_url(path), **options)
   end
 
+  ACCOUNT_SECTION_PATHS = { "card" => :account_path, "avatar" => :account_avatar_path,
+                            "security" => :account_security_path,
+                            "save_file" => :account_save_file_path }.freeze
+
+  def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
+
+  def avatar_image_tag(id, **options)
+    avatar = AccountData.avatar(id)
+    classes = class_names(options.delete(:class), "pn-art" => avatar.art?)
+    r2_image_tag(avatar.key, class: classes.presence, **options)
+  end
+
   # A mart item's blurb: its own localized description, or for a plain sold TM the type of move
   # it teaches (the game gives Gen 1 TMs no description of their own).
   def mart_item_desc(item)

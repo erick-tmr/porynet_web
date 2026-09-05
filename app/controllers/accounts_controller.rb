@@ -3,4 +3,13 @@ class AccountsController < ApplicationController
 
   def show
   end
+
+  def avatar
+  end
+
+  def security
+  end
+
+  def save_file
+  end
 end

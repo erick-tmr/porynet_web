@@ -1,0 +1,13 @@
+<nav class="pn-account__rail" aria-label="<%= t("account.rail.heading") %>">
+  <div class="pn-account__rail-head"><%= t("account.rail.heading") %></div>
+  <div class="pn-account__rail-list">
+    <% AccountData::SECTIONS.each do |name| %>
+      <%= link_to account_section_path(name),
+                  class: class_names("pn-account__rail-item", "is-active" => name == section),
+                  aria: { current: (name == section ? "page" : nil) } do %>
+        <span class="pn-account__rail-glyph" aria-hidden="true">▶</span>
+        <span class="pn-account__rail-label"><%= t("account.sections.#{name}") %></span>
+      <% end %>
+    <% end %>
+  </div>
+</nav>

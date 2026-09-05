@@ -25,6 +25,11 @@ Rails.application.routes.draw do
     end
 
     resource :account, only: :show
+    scope :account, as: :account do
+      get "avatar",   to: "accounts#avatar",    as: :avatar
+      get "security", to: "accounts#security",  as: :security
+      get "save",     to: "accounts#save_file", as: :save_file
+    end
 
     get "walkthroughs", to: "walkthroughs#index", as: :walkthroughs
     get "walkthroughs/:game", to: "walkthroughs#show", as: :walkthrough

@@ -44,7 +44,7 @@ class AccountTest < ApplicationSystemTestCase
 
     assert_current_path account_path
     assert_selector ".pn-nav__account-name", text: "ASH"
-    assert_selector ".pn-auth__loaded-name", text: "Hello, ASH"
+    assert_selector ".pn-account__name", text: "ASH"
   end
 
   test "the account menu opens on the chip, shuts on Escape, and logs the trainer out" do
@@ -66,6 +66,54 @@ class AccountTest < ApplicationSystemTestCase
     click_on "Log out"
 
     assert_selector ".pn-nav__account-guest", text: "GUEST"
+  end
+
+  test "the rail walks the four sections of the account" do
+    login_as_user(users(:confirmed))
+    visit account_path
+
+    within(".pn-account__rail") { click_on "Avatar" }
+
+    assert_current_path account_avatar_path
+    assert_selector ".pn-account__avatar-inuse", count: 1
+
+    within(".pn-account__rail") { click_on "Login and security" }
+
+    assert_current_path account_security_path
+    assert_selector ".pn-account__pill", text: "VERIFIED"
+
+    within(".pn-account__rail") { click_on "Save file" }
+
+    assert_current_path account_save_file_path
+    assert_selector ".pn-account__rail-item.is-active", text: "Save file"
+  end
+
+  test "the strength meter fills as a password is typed" do
+    login_as_user(users(:confirmed))
+    visit account_security_path
+
+    assert_selector ".pn-account__rule.is-ok", count: 0
+
+    fill_in "account_password[password]", with: "pikachu12345!"
+
+    assert_selector ".pn-account__rule.is-ok", count: 3
+    assert_selector ".pn-account__strength-label--4", visible: :visible
+  end
+
+  test "deleting the account has to be armed first, and can be waved off" do
+    login_as_user(users(:confirmed))
+    visit account_save_file_path
+
+    assert_selector ".pn-account__danger-actions", visible: :hidden
+
+    click_on "DELETE MY ACCOUNT"
+
+    assert_selector ".pn-account__danger-actions", visible: :visible
+
+    click_on "KEEP MY SAVE"
+
+    assert_selector ".pn-account__danger-actions", visible: :hidden
+    assert_selector ".pn-account__danger-arm", visible: :visible
   end
 
   test "the tabs walk between the two forms" do

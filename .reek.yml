@@ -36,6 +36,14 @@ detectors:
                            # Data structs below read (map categories, method unlock stops,
                            # the encounter-section order). Each belongs to the module rather
                            # than to any one struct, so there is nowhere better to put them.
+      - AccountData       # same shape as LandingData: the single source of truth for the
+                          # account pages' structure. The roster, its groups, the placeholder
+                          # saves, the badge and password-rule lists are each a distinct
+                          # cohesive table the views walk, not a god object.
+      - ApplicationHelper # five of its six are small lookup tables belonging to the one
+                          # helper that reads them (badge order, grid tones, heading levels,
+                          # marker statuses, the bar step). Scattering them into modules
+                          # nobody else imports would cost more than it saves.
   Attribute:
     exclude:
       - User            # `login` and `terms` are Devise's virtual form fields, not model state.
@@ -147,6 +155,9 @@ detectors:
       - Walkthrough::Challenge   # `dex` in the encounter finders is the value being looked up,
                                  # not a flag steering a branch; every one of them is a query
                                  # over the game's tables.
+      - AccountData#self.avatar  # `id` is the avatar being looked up, not a flag steering a
+                                 # branch. The method is a find over the roster with a fallback
+                                 # for an id that is no longer offered.
       - Assets::R2Uploader#call   # `force` is a caller-facing switch on the upload API (re-send
                                   # every image vs only the changed ones), an intended option, not
                                   # a hidden flag threaded through to pick a private branch.

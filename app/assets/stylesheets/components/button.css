@@ -25,3 +25,23 @@
 .pn-btn--cream:hover {
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
 }
+
+.pn-btn--amber { background: var(--amber); }
+.pn-btn--muted {
+  color: #3a3850;
+  background: #eae7dc;
+  border-color: #8f8ba8;
+  box-shadow: none;
+}
+.pn-btn--muted:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: none;
+  transform: none;
+}
+.pn-btn--sm {
+  font-size: 10px;
+  padding: 12px 14px;
+  box-shadow: 3px 3px 0 #171622;
+}
+.pn-btn--sm:hover { box-shadow: 1px 1px 0 #171622; }
