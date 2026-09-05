@@ -7,11 +7,12 @@ module AccountData
   STRENGTH_LEVELS = %w[none weak fair good elite].freeze
   BADGES = %w[boulder cascade thunder rainbow soul marsh volcano earth].freeze
   DEX_TOTAL = 151
-  ERAS = %w[all current gen1 gen2 gen3 gen4 gen5 gen6 gen7 gen8 gen9 art].freeze
+  GENERATIONS = %w[all gen1 gen2 gen3 gen4 gen5 gen6 gen7 gen8 gen9 spinoff other].freeze
+  VINTAGES = %w[current gen1 gen2 gen3 gen4 gen5 gen6 gen7 gen8 gen9 art].freeze
   PAGE_SIZE = 60
   SIGNUP_AVATARS = %w[red blue green].freeze
 
-  Avatar = Data.define(:id, :name, :era, :key, :art) do
+  Avatar = Data.define(:id, :name, :generation, :vintage, :key, :art) do
     def art? = art
   end
 
@@ -45,10 +46,14 @@ module AccountData
 
   def self.avatar_ids = AVATARS.map(&:id)
 
-  def self.era(name) = ERAS.include?(name) ? name : "all"
+  def self.generation(name) = GENERATIONS.include?(name) ? name : "all"
 
-  def self.search(era:, query:)
-    rows = era == "all" ? AVATARS : AVATARS.select { |avatar| avatar.era == era }
+  def self.search(generation:, query:)
+    rows = if generation == "all"
+      AVATARS
+    else
+      AVATARS.select { |avatar| avatar.generation == generation }
+    end
     return rows if query.blank?
 
     needle = query.to_s.downcase

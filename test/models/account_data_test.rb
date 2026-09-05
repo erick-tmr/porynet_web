@@ -9,7 +9,8 @@ class AccountDataTest < ActiveSupport::TestCase
     AccountData::PASSWORD_RULES.each { |key| assert I18n.t("account.security.rules.#{key}") }
     AccountData::STRENGTH_LEVELS.each { |key| assert I18n.t("account.security.strength_levels.#{key}") }
     AccountData::BADGES.each { |key| assert I18n.t("account.card.badge_names.#{key}") }
-    AccountData::ERAS.each { |key| assert I18n.t("account.avatar.eras.#{key}") }
+    AccountData::GENERATIONS.each { |k| assert I18n.t("account.avatar.generations.#{k}") }
+    AccountData::VINTAGES.each { |k| assert I18n.t("account.avatar.vintages.#{k}") }
     AccountData::SAVES.each_key { |slug| assert I18n.t("account.card.spots.#{slug}") }
   end
 
@@ -31,28 +32,32 @@ class AccountDataTest < ActiveSupport::TestCase
     assert_not_predicate AccountData.avatar("brock-gen1"), :art?
   end
 
-  test "every avatar in the manifest is unique, named and filed under a real era" do
+  test "every avatar in the manifest is unique, named and filed under a real generation" do
     ids = AccountData.avatar_ids
 
     assert_equal ids.size, ids.uniq.size
     assert_empty AccountData::AVATARS.reject { |avatar| avatar.name.present? }
-    assert_empty AccountData::AVATARS.map(&:era).uniq - AccountData::ERAS
+    assert_empty AccountData::AVATARS.map(&:generation).uniq - AccountData::GENERATIONS
   end
 
-  test "an era narrows the roster and all keeps the whole of it" do
-    assert_equal AccountData::AVATARS, AccountData.search(era: "all", query: "")
-    assert_empty AccountData.search(era: "gen1", query: "").reject { |a| a.era == "gen1" }
+  test "a generation narrows the roster and all keeps the whole of it" do
+    assert_equal AccountData::AVATARS, AccountData.search(generation: "all", query: "")
+    assert_empty AccountData.search(generation: "gen1", query: "").reject { |a| a.generation == "gen1" }
   end
 
-  test "only an era the picker draws is honoured, anything else means all" do
-    assert_equal "gen3", AccountData.era("gen3")
-    assert_equal "all", AccountData.era("gen12")
-    assert_equal "all", AccountData.era(nil)
+  test "only a generation the picker draws is honoured, anything else means all" do
+    assert_equal "gen3", AccountData.generation("gen3")
+    assert_equal "all", AccountData.generation("gen12")
+    assert_equal "all", AccountData.generation(nil)
   end
 
-  test "search matches a name inside the chosen era and ignores case" do
-    assert_equal %w[brock-gen1 brock-gen1rb], AccountData.search(era: "gen1", query: "BRO").map(&:id)
-    assert_empty AccountData.search(era: "gen1", query: "nobody-here")
+  test "search matches a name inside the chosen generation and ignores case" do
+    brocks = AccountData.search(generation: "gen1", query: "BRO")
+
+    assert_equal 6, brocks.size
+    assert_empty brocks.reject { |avatar| avatar.name.start_with?("Brock") }
+    assert_includes brocks.map(&:vintage), "current"
+    assert_empty AccountData.search(generation: "gen1", query: "nobody-here")
   end
 
   test "a page clamps to the roster it is given" do
@@ -89,6 +94,13 @@ class AccountDataTest < ActiveSupport::TestCase
 
   test "the trainer id is the record id padded to five digits" do
     assert_equal "00151", AccountData.trainer_id(User.new(id: 151))
+  end
+
+  test "every sprite of one trainer files under the same generation" do
+    brocks = AccountData::AVATARS.select { |avatar| avatar.name.start_with?("Brock") }
+
+    assert_operator brocks.size, :>, 1
+    assert_equal [ "gen1" ], brocks.map(&:generation).uniq
   end
 
   test "the signup picker offers a subset of the roster" do

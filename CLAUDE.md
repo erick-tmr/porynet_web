@@ -43,13 +43,17 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `AccountData::SAVES`, a placeholder table keyed by the same slugs as
   `Walkthrough::Versions::CATALOGUE`, which the game picker itself walks. Controls that would
   change a record render `disabled` with a SOON badge, the way unbuilt OAuth already does; the two
-  query params that do work (`?game=` on the card, `?era=` / `?q=` / `?page=` on the picker) only pick which
+  query params that do work (`?game=` on the card, `?gen=` / `?q=` / `?page=` on the picker) only pick which
   placeholder rows to draw. `AccountData::AVATARS` is the roster the picker offers and the list
   `User::AVATARS` validates against; `avatar_image_tag` maps an id to its R2 key and marks the
   painted portraits `pn-art` so they escape the global `image-rendering: pixelated`.
-  The roster is **1,315 trainers**, so the picker is a search box, a row of era chips and a
-  60-card page, all server-side off `?q=`, `?era=` and `?page=` (no Stimulus, no client filtering);
-  cards lazy-load their images and name their era rather than carrying a hand-written line.
+  The roster is **1,315 trainers**, so the picker is a search box, a row of generation chips and a
+  60-card page, all server-side off `?q=`, `?gen=` and `?page=` (no Stimulus, no client filtering);
+  cards lazy-load their images. An avatar carries **two** era fields and they mean different
+  things: `generation` is which game's cast the trainer belongs to (all six Brocks are `gen1`) and
+  drives the chips, while `vintage` is which game drew that particular sprite and is what the card
+  prints, so a Gen 1 filter shows the six Brocks told apart by "Gen 1 art", "Gen 3 art", "Latest
+  art".
 - **One menu, not a bar of links.** The header carries the brand, the page's own controls (the
   walkthrough breadcrumb and the Living Dex / Oak switches) and the language toggle. Everything
   else lives in a single dropdown behind the account button: the site links under a `SITE` heading,
@@ -83,8 +87,14 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     not hand-written: the id is the filename stem, the era comes from its `-genN` suffix, and the
     display name is derived from the stem (a word list splits `bugcatcher` into "Bug Catcher" and
     a table of exceptions covers what it cannot know). Those names are **data, not copy** (the
-    rule that names live in models), so they read the same in both locales and only the era labels
-    are translated. A local folder holding fewer files than the bucket means nothing: the PNGs are
+    rule that names live in models), so they read the same in both locales and only the chip and
+    vintage labels are translated. A trainer's **generation is not in the filename**, so it is
+    resolved in three passes: a game tag (`-rse`, `-lgpe`, `-s`/`-v`) places a sprite on its own,
+    otherwise a trainer who has any `-genN` sprite belongs to the oldest generation that drew them
+    (Brock has a `-gen1`, so every Brock is Gen 1), otherwise a curated table names them. What none
+    of that reaches is filed under `other` rather than guessed at: 104 today, almost all trainer
+    classes that Showdown only ever drew once. Spin-off and collab casts (GO, Conquest, Unite,
+    Masters, the anime) get their own `spinoff` chip. A local folder holding fewer files than the bucket means nothing: the PNGs are
     gitignored, so a clone mirrors only what it has touched. **Probe the bucket, not the folder**,
     before deciding a sprite is missing.
   - **Kanto badges** (`app/assets/images/badges/{boulder,cascade,thunder,rainbow,soul,marsh,volcano,earth}.png`):

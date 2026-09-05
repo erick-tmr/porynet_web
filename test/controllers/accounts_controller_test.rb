@@ -85,24 +85,24 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name=?][checked=checked]", "account_avatar[avatar]"
   end
 
-  test "an era chip narrows the roster, and an unknown era shows everybody" do
+  test "a generation chip narrows the roster, and an unknown generation shows everybody" do
     sign_in users(:confirmed)
-    get account_avatar_path(era: "gen1")
+    get account_avatar_path(gen: "gen1")
 
-    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.eras.gen1")
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.generations.gen1")
     assert_select ".pn-auth__avatar", count: AccountData::PAGE_SIZE
 
-    get account_avatar_path(era: "gen12")
+    get account_avatar_path(gen: "gen12")
 
-    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.eras.all")
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.generations.all")
   end
 
-  test "searching keeps the era, and an empty result says so instead of drawing a grid" do
+  test "searching keeps the generation, and an empty result says so instead of drawing a grid" do
     sign_in users(:confirmed)
-    get account_avatar_path(era: "gen1", q: "brock")
+    get account_avatar_path(gen: "gen1", q: "brock")
 
-    assert_select ".pn-auth__avatar", count: 2
-    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.eras.gen1")
+    assert_select ".pn-auth__avatar", count: 6
+    assert_select ".pn-account__filter.is-active", text: I18n.t("account.avatar.generations.gen1")
 
     get account_avatar_path(q: "nobody-here")
 
