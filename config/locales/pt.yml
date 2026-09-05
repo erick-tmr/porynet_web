@@ -437,10 +437,10 @@ pt:
         status_soon: "EM BREVE"
       footer:
         legal: "Open source · MIT · Um projeto de fã, sem afiliação com Nintendo, Game Freak ou The Pokémon Company. Todas as marcas pertencem aos seus donos."
-        credits_html: "Sprites de treinadores do %{showdown}, desenhados e mantidos pela comunidade de lá. Sprites de Pokémon, itens e insígnias do %{pokeapi}. Mapas e capturas gerados a partir da desmontagem %{pokeyellow}."
+        credits_html: "Sprites de treinadores do %{showdown}, desenhados e mantidos pela comunidade de lá. Sprites de Pokémon, itens e insígnias do %{pokeapi}. Mapas e capturas gerados a partir das desmontagens do %{pret}."
         credits_showdown: "Pokémon Showdown"
         credits_pokeapi: "PokeAPI"
-        credits_pokeyellow: "pret/pokeyellow"
+        credits_pret: "pret"
   walkthrough:
     index:
       meta_title: "Guias · PORYNET"

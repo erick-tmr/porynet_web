@@ -30,7 +30,7 @@ module ApplicationHelper
   SOURCE_URLS = {
     showdown: "https://play.pokemonshowdown.com/sprites/trainers/",
     pokeapi: "https://github.com/PokeAPI/sprites",
-    pokeyellow: "https://github.com/pret/pokeyellow"
+    pret: "https://github.com/pret"
   }.freeze
 
   def source_link(name, css)
