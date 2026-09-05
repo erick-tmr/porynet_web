@@ -142,14 +142,14 @@ pt:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      accepted: "precisa ser aceito"
+      accepted: "precisam ser aceitos"
       blank: "não pode ficar em branco"
       confirmation: "não confere com %{attribute}"
       inclusion: "não está entre as opções"
-      invalid: "não é válido"
+      invalid: "não está em um formato válido"
       taken: "já está em uso"
-      too_long: "é longo demais (máximo de %{count} caracteres)"
-      too_short: "é curto demais (mínimo de %{count} caracteres)"
+      too_long: "tem mais de %{count} caracteres"
+      too_short: "tem menos de %{count} caracteres"
   devise:
     failure:
       already_authenticated: "Você já está conectado."
