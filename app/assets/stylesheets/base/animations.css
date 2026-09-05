@@ -66,3 +66,10 @@
 @media (prefers-reduced-motion: reduce) {
   .porynet { --play: paused; }
 }
+
+@keyframes flashout {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}

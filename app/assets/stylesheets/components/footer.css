@@ -40,12 +40,11 @@
 }
 
 .pn-footer__credits {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 28px 26px;
+  padding: 0 28px 16px;
+  text-align: center;
   font-family: "VT323", monospace;
   font-size: 17px;
-  line-height: 1.4;
+  line-height: 1.45;
   color: #6b6880;
   text-wrap: pretty;
 }
