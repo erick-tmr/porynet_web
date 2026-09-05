@@ -86,7 +86,10 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     The roster manifest `app/models/account_data/avatars.json` is **generated** from that listing,
     not hand-written: the id is the filename stem, the era comes from its `-genN` suffix, and the
     display name is derived from the stem (a word list splits `bugcatcher` into "Bug Catcher" and
-    a table of exceptions covers what it cannot know). Those names are **data, not copy** (the
+    a table of exceptions covers what it cannot know). **Read the derived names before shipping a
+    batch**: the word list quietly runs two words together when it does not know one of them, and
+    a name like "Youngn" for Young N looks like a trainer rather than a bug. Anything with no
+    space and more than six letters is worth a look. Those names are **data, not copy** (the
     rule that names live in models), so they read the same in both locales and only the chip and
     chip labels are translated. A sprite's **generation is the game that drew it**, resolved in
     four passes. A `-genN` suffix or a game tag (`-rse`, `-lgpe`, `-s`/`-v`) dates it outright,

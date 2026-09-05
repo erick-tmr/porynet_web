@@ -428,7 +428,7 @@
  },
  {
   "id": "aquasuit",
-  "name": "Aquasuit",
+  "name": "Aqua Suit",
   "generation": "gen6",
   "key": "trainers/aquasuit.png",
   "art": false
@@ -1548,7 +1548,7 @@
  },
  {
   "id": "brycenman",
-  "name": "Brycenman",
+  "name": "Brycen-Man",
   "generation": "gen5",
   "key": "trainers/brycenman.png",
   "art": false
@@ -1765,7 +1765,7 @@
  },
  {
   "id": "cafemaster",
-  "name": "Cafemaster",
+  "name": "Café Master",
   "generation": "gen8",
   "key": "trainers/cafemaster.png",
   "art": false
@@ -2255,7 +2255,7 @@
  },
  {
   "id": "crasherwake",
-  "name": "Crasherwake",
+  "name": "Crasher Wake",
   "generation": "gen4",
   "key": "trainers/crasherwake.png",
   "art": false
@@ -2276,14 +2276,14 @@
  },
  {
   "id": "crushgirl-gen3",
-  "name": "Crushgirl",
+  "name": "Crush Girl",
   "generation": "gen3",
   "key": "trainers/crushgirl-gen3.png",
   "art": false
  },
  {
   "id": "crushkin-gen3",
-  "name": "Crushkin",
+  "name": "Crush Kin",
   "generation": "gen3",
   "key": "trainers/crushkin-gen3.png",
   "art": false
@@ -2492,17 +2492,17 @@
   "art": false
  },
  {
+  "id": "delinquentf-gen9",
+  "name": "Delinquent ♀",
+  "generation": "gen9",
+  "key": "trainers/delinquentf-gen9.png",
+  "art": false
+ },
+ {
   "id": "delinquentf2-gen9",
   "name": "Delinquent ♀ (2)",
   "generation": "gen9",
   "key": "trainers/delinquentf2-gen9.png",
-  "art": false
- },
- {
-  "id": "delinquentf-gen9",
-  "name": "Delinquentf",
-  "generation": "gen9",
-  "key": "trainers/delinquentf-gen9.png",
   "art": false
  },
  {
@@ -2570,7 +2570,7 @@
  },
  {
   "id": "doubleteam",
-  "name": "Doubleteam",
+  "name": "Double Team",
   "generation": "other",
   "key": "trainers/doubleteam.png",
   "art": false
@@ -3067,7 +3067,7 @@
  },
  {
   "id": "freediver",
-  "name": "Freediver",
+  "name": "Free Diver",
   "generation": "other",
   "key": "trainers/freediver.png",
   "art": false
@@ -4529,29 +4529,15 @@
   "art": false
  },
  {
-  "id": "laventon",
-  "name": "Laventon",
-  "generation": "gen8",
-  "key": "trainers/laventon.png",
-  "art": false
- },
- {
-  "id": "laventon2",
-  "name": "Laventon2",
-  "generation": "gen8",
-  "key": "trainers/laventon2.png",
-  "art": false
- },
- {
   "id": "leaguestaff",
-  "name": "Leaguestaff",
+  "name": "League Staff",
   "generation": "other",
   "key": "trainers/leaguestaff.png",
   "art": false
  },
  {
   "id": "leaguestafff",
-  "name": "Leaguestaff ♀",
+  "name": "League Staff ♀",
   "generation": "other",
   "key": "trainers/leaguestafff.png",
   "art": false
@@ -4880,7 +4866,7 @@
  },
  {
   "id": "magmasuit",
-  "name": "Magmasuit",
+  "name": "Magma Suit",
   "generation": "gen6",
   "key": "trainers/magmasuit.png",
   "art": false
@@ -5342,9 +5328,16 @@
  },
  {
   "id": "mrbriney",
-  "name": "Mrbriney",
+  "name": "Mr. Briney",
   "generation": "gen6",
   "key": "trainers/mrbriney.png",
+  "art": false
+ },
+ {
+  "id": "mrstone",
+  "name": "Mr. Stone",
+  "generation": "gen6",
+  "key": "trainers/mrstone.png",
   "art": false
  },
  {
@@ -5352,13 +5345,6 @@
   "name": "Mrfuji",
   "generation": "gen3",
   "key": "trainers/mrfuji-gen3.png",
-  "art": false
- },
- {
-  "id": "mrstone",
-  "name": "Mrstone",
-  "generation": "gen6",
-  "key": "trainers/mrstone.png",
   "art": false
  },
  {
@@ -5566,7 +5552,7 @@
  },
  {
   "id": "nurseryaide",
-  "name": "Nurseryaide",
+  "name": "Nursery Aide",
   "generation": "other",
   "key": "trainers/nurseryaide.png",
   "art": false
@@ -5608,8 +5594,8 @@
  },
  {
   "id": "ogreclan",
-  "name": "Ogreclan",
-  "generation": "other",
+  "name": "Ogre Clan",
+  "generation": "gen9",
   "key": "trainers/ogreclan.png",
   "art": false
  },
@@ -5790,7 +5776,7 @@
  },
  {
   "id": "phillipe",
-  "name": "Phillipe",
+  "name": "Philippe",
   "generation": "gen9",
   "key": "trainers/phillipe.png",
   "art": false
@@ -5933,13 +5919,6 @@
   "name": "Plumeria (League)",
   "generation": "latest",
   "key": "trainers/plumeria-league.png",
-  "art": false
- },
- {
-  "id": "pokemoncenterlady",
-  "name": "Pokemon Center Lady",
-  "generation": "other",
-  "key": "trainers/pokemoncenterlady.png",
   "art": false
  },
  {
@@ -6209,6 +6188,13 @@
   "art": false
  },
  {
+  "id": "pokemoncenterlady",
+  "name": "Pokémon Center Lady",
+  "generation": "other",
+  "key": "trainers/pokemoncenterlady.png",
+  "art": false
+ },
+ {
   "id": "pokemonranger",
   "name": "Pokémon Ranger",
   "generation": "latest",
@@ -6384,6 +6370,20 @@
   "art": false
  },
  {
+  "id": "laventon",
+  "name": "Prof. Laventon",
+  "generation": "gen8",
+  "key": "trainers/laventon.png",
+  "art": false
+ },
+ {
+  "id": "laventon2",
+  "name": "Prof. Laventon (2)",
+  "generation": "gen8",
+  "key": "trainers/laventon2.png",
+  "art": false
+ },
+ {
   "id": "oak",
   "name": "Prof. Oak",
   "generation": "latest",
@@ -6524,17 +6524,17 @@
   "art": false
  },
  {
+  "id": "psychicfjp-gen3",
+  "name": "Psychic ♀ (JP)",
+  "generation": "gen3",
+  "key": "trainers/psychicfjp-gen3.png",
+  "art": false
+ },
+ {
   "id": "psychicf-gen3rs",
   "name": "Psychic ♀ (R/S)",
   "generation": "gen3",
   "key": "trainers/psychicf-gen3rs.png",
-  "art": false
- },
- {
-  "id": "psychicfjp-gen3",
-  "name": "Psychicfjp",
-  "generation": "gen3",
-  "key": "trainers/psychicfjp-gen3.png",
   "art": false
  },
  {
@@ -6581,7 +6581,7 @@
  },
  {
   "id": "railstaff",
-  "name": "Railstaff",
+  "name": "Rail Staff",
   "generation": "gen8",
   "key": "trainers/railstaff.png",
   "art": false
@@ -6777,28 +6777,28 @@
  },
  {
   "id": "risingstar",
-  "name": "Risingstar",
+  "name": "Rising Star",
   "generation": "latest",
   "key": "trainers/risingstar.png",
   "art": false
  },
  {
   "id": "risingstar-gen6",
-  "name": "Risingstar",
+  "name": "Rising Star",
   "generation": "gen6",
   "key": "trainers/risingstar-gen6.png",
   "art": false
  },
  {
   "id": "risingstarf",
-  "name": "Risingstarf",
+  "name": "Rising Star ♀",
   "generation": "latest",
   "key": "trainers/risingstarf.png",
   "art": false
  },
  {
   "id": "risingstarf-gen6",
-  "name": "Risingstarf",
+  "name": "Rising Star ♀",
   "generation": "gen6",
   "key": "trainers/risingstarf-gen6.png",
   "art": false
@@ -7246,7 +7246,7 @@
  },
  {
   "id": "samsonoak",
-  "name": "Samsonoak",
+  "name": "Samson Oak",
   "generation": "gen7",
   "key": "trainers/samsonoak.png",
   "art": false
@@ -7267,7 +7267,7 @@
  },
  {
   "id": "sbcmember",
-  "name": "Sbcmember",
+  "name": "SBC Member",
   "generation": "other",
   "key": "trainers/sbcmember.png",
   "art": false
@@ -7463,7 +7463,7 @@
  },
  {
   "id": "scubadiver",
-  "name": "Scubadiver",
+  "name": "Scuba Diver",
   "generation": "other",
   "key": "trainers/scubadiver.png",
   "art": false
@@ -7505,7 +7505,7 @@
  },
  {
   "id": "shadowtriad",
-  "name": "Shadowtriad",
+  "name": "Shadow Triad",
   "generation": "gen5",
   "key": "trainers/shadowtriad.png",
   "art": false
@@ -7686,24 +7686,24 @@
   "art": false
  },
  {
-  "id": "skyla",
-  "name": "Skyla",
-  "generation": "gen5",
-  "key": "trainers/skyla.png",
-  "art": false
- },
- {
   "id": "skytrainer",
-  "name": "Skytrainer",
+  "name": "Sky Trainer",
   "generation": "gen6",
   "key": "trainers/skytrainer.png",
   "art": false
  },
  {
   "id": "skytrainerf",
-  "name": "Skytrainerf",
+  "name": "Sky Trainer ♀",
   "generation": "gen6",
   "key": "trainers/skytrainerf.png",
+  "art": false
+ },
+ {
+  "id": "skyla",
+  "name": "Skyla",
+  "generation": "gen5",
+  "key": "trainers/skyla.png",
   "art": false
  },
  {
@@ -7841,7 +7841,7 @@
  },
  {
   "id": "streetthug",
-  "name": "Streetthug",
+  "name": "Street Thug",
   "generation": "other",
   "key": "trainers/streetthug.png",
   "art": false
@@ -8008,10 +8008,31 @@
   "art": false
  },
  {
+  "id": "swimmerf2-gen6",
+  "name": "Swimmer ♀ (2)",
+  "generation": "gen6",
+  "key": "trainers/swimmerf2-gen6.png",
+  "art": false
+ },
+ {
+  "id": "swimmerf2-gen7",
+  "name": "Swimmer ♀ (2)",
+  "generation": "gen7",
+  "key": "trainers/swimmerf2-gen7.png",
+  "art": false
+ },
+ {
   "id": "swimmerf-gen4dp",
   "name": "Swimmer ♀ (D/P)",
   "generation": "gen4",
   "key": "trainers/swimmerf-gen4dp.png",
+  "art": false
+ },
+ {
+  "id": "swimmerfjp-gen2",
+  "name": "Swimmer ♀ (JP)",
+  "generation": "gen2",
+  "key": "trainers/swimmerfjp-gen2.png",
   "art": false
  },
  {
@@ -8040,27 +8061,6 @@
   "name": "Swimmer ♂ (R/S)",
   "generation": "gen3",
   "key": "trainers/swimmerm-gen3rs.png",
-  "art": false
- },
- {
-  "id": "swimmerf2-gen6",
-  "name": "Swimmerf2",
-  "generation": "gen6",
-  "key": "trainers/swimmerf2-gen6.png",
-  "art": false
- },
- {
-  "id": "swimmerf2-gen7",
-  "name": "Swimmerf2",
-  "generation": "gen7",
-  "key": "trainers/swimmerf2-gen7.png",
-  "art": false
- },
- {
-  "id": "swimmerfjp-gen2",
-  "name": "Swimmerfjp",
-  "generation": "gen2",
-  "key": "trainers/swimmerfjp-gen2.png",
   "art": false
  },
  {
@@ -8240,8 +8240,8 @@
  },
  {
   "id": "theroyal",
-  "name": "Theroyal",
-  "generation": "other",
+  "name": "The Royal",
+  "generation": "gen7",
   "key": "trainers/theroyal.png",
   "art": false
  },
@@ -8261,14 +8261,14 @@
  },
  {
   "id": "toddsnap",
-  "name": "Toddsnap",
+  "name": "Todd Snap",
   "generation": "spinoff",
   "key": "trainers/toddsnap.png",
   "art": false
  },
  {
   "id": "toddsnap2",
-  "name": "Toddsnap2",
+  "name": "Todd Snap (2)",
   "generation": "spinoff",
   "key": "trainers/toddsnap2.png",
   "art": false
@@ -8282,14 +8282,14 @@
  },
  {
   "id": "touristf",
-  "name": "Touristf",
+  "name": "Tourist ♀",
   "generation": "other",
   "key": "trainers/touristf.png",
   "art": false
  },
  {
   "id": "touristf2",
-  "name": "Touristf2",
+  "name": "Tourist ♀ (2)",
   "generation": "other",
   "key": "trainers/touristf2.png",
   "art": false
@@ -8310,14 +8310,14 @@
  },
  {
   "id": "trialguide",
-  "name": "Trialguide",
+  "name": "Trial Guide",
   "generation": "gen7",
   "key": "trainers/trialguide.png",
   "art": false
  },
  {
   "id": "trialguidef",
-  "name": "Trialguidef",
+  "name": "Trial Guide ♀",
   "generation": "gen7",
   "key": "trainers/trialguidef.png",
   "art": false
@@ -8555,14 +8555,14 @@
  },
  {
   "id": "unknownf",
-  "name": "Unknownf",
+  "name": "Unknown ♀",
   "generation": "latest",
   "key": "trainers/unknownf.png",
   "art": false
  },
  {
   "id": "unknownf-flipped",
-  "name": "Unknownf (Flipped)",
+  "name": "Unknown ♀ (Flipped)",
   "generation": "latest",
   "key": "trainers/unknownf-flipped.png",
   "art": false
@@ -8946,6 +8946,20 @@
   "art": false
  },
  {
+  "id": "worker2-gen6",
+  "name": "Worker (2)",
+  "generation": "gen6",
+  "key": "trainers/worker2-gen6.png",
+  "art": false
+ },
+ {
+  "id": "workerice",
+  "name": "Worker (Ice)",
+  "generation": "other",
+  "key": "trainers/workerice.png",
+  "art": false
+ },
+ {
   "id": "worker-lgpe",
   "name": "Worker (Let's Go)",
   "generation": "gen7",
@@ -8957,20 +8971,6 @@
   "name": "Worker ♀",
   "generation": "gen8",
   "key": "trainers/workerf-gen8.png",
-  "art": false
- },
- {
-  "id": "worker2-gen6",
-  "name": "Worker2",
-  "generation": "gen6",
-  "key": "trainers/worker2-gen6.png",
-  "art": false
- },
- {
-  "id": "workerice",
-  "name": "Workerice",
-  "generation": "other",
-  "key": "trainers/workerice.png",
   "art": false
  },
  {
@@ -8996,14 +8996,14 @@
  },
  {
   "id": "yellgrunt",
-  "name": "Yellgrunt",
+  "name": "Yell Grunt",
   "generation": "gen8",
   "key": "trainers/yellgrunt.png",
   "art": false
  },
  {
   "id": "yellgruntf",
-  "name": "Yellgruntf",
+  "name": "Yell Grunt ♀",
   "generation": "gen8",
   "key": "trainers/yellgruntf.png",
   "art": false
@@ -9066,8 +9066,8 @@
  },
  {
   "id": "youngn",
-  "name": "Youngn",
-  "generation": "other",
+  "name": "Young N",
+  "generation": "gen5",
   "key": "trainers/youngn.png",
   "art": false
  },
