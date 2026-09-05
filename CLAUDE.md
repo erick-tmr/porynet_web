@@ -135,11 +135,14 @@ One workflow (`.github/workflows/ci.yml`). **Blocking**: RuboCop (omakase), Brak
   the password were wrong. `config/initializers/load_routes_before_warden.rb` exists only to head
   that off. Do not remove it.
 - **The login form and both resend endpoints are throttled** with Rails 8's `rate_limit`, keyed by
-  IP. It takes its store when the class body runs, and the test environment's `:null_store` answers
-  `nil` to every `increment`, which would leave the limiter permanently inert and untestable, so the
-  three controllers pass `store: RateLimitStore`, an eight-line forwarder that reads `Rails.cache`
-  per call. Production still lands on Solid Cache; `test/integration/rate_limit_test.rb` swaps in a
-  real store and proves the throttle engages.
+  IP: 10 sign-ins per 3 minutes, 5 resends per hour each. They count into `RATE_LIMIT_STORE`
+  (`config/initializers/rate_limit_store.rb`), a dedicated `MemoryStore` rather than `Rails.cache`,
+  so the throttle behaves the same in every environment (the test env's `:null_store` answers `nil`
+  to every `increment`, which would leave the limiter silently inert). It is per **process**, which
+  is app-wide here because Puma runs one: setting `WEB_CONCURRENCY` above 1, or adding a second web
+  server, would divide the limit by that number, and the store would have to move to Solid Cache.
+  Because the count is by IP and every request in the suite comes from 127.0.0.1, `test_helper.rb`
+  clears the store between tests.
 - **The password pepper is in Rails credentials** (`devise.pepper`). Without the master key it
   decrypts to nothing and every password hashes pepper-less, so the initializer refuses to boot
   outside development and test rather than lock the site out later. CI runs without the key on

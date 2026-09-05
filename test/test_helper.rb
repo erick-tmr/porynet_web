@@ -44,6 +44,10 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
+    # The throttles count by IP, and every request in the suite comes from 127.0.0.1, so without
+    # this one spec's attempts spend the next spec's budget.
+    setup { RATE_LIMIT_STORE.clear }
+
     # Add more helper methods to be used by all tests here...
   end
 end

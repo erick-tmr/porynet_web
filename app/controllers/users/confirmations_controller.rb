@@ -2,7 +2,7 @@ module Users
   class ConfirmationsController < Devise::ConfirmationsController
     include LandsOnAccount
 
-    rate_limit to: 5, within: 1.hour, only: :create, store: RateLimitStore
+    rate_limit to: 5, within: 1.hour, only: :create, store: RATE_LIMIT_STORE
 
     def new
       super
