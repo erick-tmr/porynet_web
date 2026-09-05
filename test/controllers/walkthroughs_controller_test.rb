@@ -7,7 +7,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "title", "Walkthroughs · PORYNET"
     assert_select ".pn-nav__crumb-here", text: "SELECT A VERSION"
-    assert_select "a.pn-nav__link.is-active", text: "Walkthroughs"
+    assert_select "#pn-nav-menu a.pn-nav__menu-link.is-active", text: "Walkthroughs"
     assert_select ".pn-ver", count: 5
     assert_select ".pn-ver__name", text: "Pokémon Yellow"
     assert_select ".pn-ver--live .pn-ver__open[href=?]", walkthrough_path(game: "yellow"), text: "OPEN ▶"
@@ -47,7 +47,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "title", /Pokémon Yellow Walkthrough/
-    assert_select "a.pn-nav__link.is-active", text: "Walkthroughs"
+    assert_select "#pn-nav-menu a.pn-nav__menu-link.is-active", text: "Walkthroughs"
     assert_select ".pn-wt-route__name", text: "Pallet Town → Route 1"
     assert_select ".pn-wt-route__special"
     assert_select ".pn-wt-route__stat--gym"
@@ -1178,21 +1178,20 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-nav__modes", count: 0
   end
 
-  test "the burger panel carries the links everywhere and the mode rows only in a walkthrough" do
+  test "the one menu carries the links everywhere and the mode rows only in a walkthrough" do
     get walkthrough_path(game: "yellow")
 
     assert_response :success
-    assert_select ".pn-nav[data-controller='nav-menu']"
-    assert_select ".pn-nav__burger[aria-expanded='false'][aria-controls='pn-nav-panel']"
-    assert_select "#pn-nav-panel .pn-nav__panel-link", count: 3
-    assert_select "#pn-nav-panel .pn-nav__panel-link.is-active", text: "Walkthroughs"
-    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='living'][aria-pressed='false']"
-    assert_select "#pn-nav-panel .pn-nav__panel-mode[data-mode='oak'][aria-pressed='false']"
+    assert_select ".pn-nav[data-controller='disclosure']"
+    assert_select ".pn-nav__account-toggle[aria-expanded='false'][aria-controls='pn-nav-menu']"
+    assert_select "#pn-nav-menu[hidden]"
+    assert_select "#pn-nav-menu .pn-nav__menu-link.is-active", text: "Walkthroughs"
+    assert_select "#pn-nav-menu .pn-nav__menu-mode[data-mode='living'][aria-pressed='false']"
+    assert_select "#pn-nav-menu .pn-nav__menu-mode[data-mode='oak'][aria-pressed='false']"
 
     get root_path
-    assert_select "#pn-nav-panel .pn-nav__panel-link", count: 3
-    assert_select "#pn-nav-panel .pn-nav__panel-link.is-active", text: "Home"
-    assert_select "#pn-nav-panel .pn-nav__panel-mode", count: 0
+    assert_select "#pn-nav-menu .pn-nav__menu-link.is-active", text: "Home"
+    assert_select "#pn-nav-menu .pn-nav__menu-mode", count: 0
   end
 
   test "the Mew glitch route is recognized and 404s for an unknown game" do

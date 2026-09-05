@@ -33,8 +33,53 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `config/locales/{en,pt}.yml` under `devise:` and `account:` (never a `devise.en.yml`, which would
   break `test/i18n_parity_test.rb`). Mail is **development only** so far: `letter_opener_web` at
   `/letters`, with production SMTP still a TODO in `config/environments/production.rb`.
+- **The logged-in area is four pages, not four tabs.** `/account` (trainer card), `/account/avatar`,
+  `/account/security` and `/account/save` are separate `AccountsController` actions, each with its
+  `/pt` twin, and the left rail is `link_to` with `.is-active` rather than a Stimulus tab switcher:
+  every section deep-links, and each one is where its future `PATCH` will land. They share
+  `app/views/accounts/_shell.html.erb` (hero, rail, main column) and `_panel.html.erb` (the ink
+  header bar), both rendered with `render layout:`. **The avatar picker is the one section that
+  writes**: it PATCHes `account/avatar`, `User#avatar` validates against the roster, and the
+  filters ride along as hidden fields so a save lands back on the page it was made from. Save-file
+  numbers (dex counts, badges, Oak, playtime, the stop the trainer left off on) come from
+  `AccountData::SAVES`, a placeholder table keyed by the same slugs as
+  `Walkthrough::Versions::CATALOGUE`, which the game picker itself walks. Controls that would
+  change a record still render `disabled` with a SOON badge, the way unbuilt OAuth already does; the two
+  query params that do work (`?game=` on the card, `?gen=` / `?q=` / `?page=` on the picker) only pick which
+  placeholder rows to draw. `AccountData::AVATARS` is the roster the picker offers and the list
+  `User::AVATARS` validates against; `avatar_image_tag` maps an id to its R2 key and marks the
+  painted portraits `pn-art` so they escape the global `image-rendering: pixelated`.
+  The roster is **1,315 trainers**, so the picker is a search box, a row of generation chips and a
+  60-card page, all server-side off `?q=`, `?gen=` and `?page=` (no Stimulus, no client filtering);
+  cards lazy-load their images. An avatar carries one era field and it means one
+  thing: `generation` is **which game drew that sprite**, not which cast the trainer belongs to.
+  A class the series kept redrawing spreads across the gens that redrew it, so Ace Trainer sits in
+  Gen 1 through Gen 8 rather than piling into Gen 1, and Brock's Gen 3 sprite files under Gen 3.
+  The card prints the same label the chip does.
+- **One menu, not a bar of links.** The header carries the brand, the page's own controls (the
+  walkthrough breadcrumb and the Living Dex / Oak switches) and the language toggle. Everything
+  else lives in a single dropdown behind the account button: the site links under a `SITE` heading,
+  then the save file with the trainer's name, the dex line and the account links, or the guest line
+  with log in and register. One `disclosure` controller drives it (`nav_menu_controller` is gone),
+  and `#pn-nav-menu` is the id every test hangs off. Below 1240px the breadcrumb and the mode
+  switches drop out of the bar and reappear inside the menu, which is why `_mode_switches` and
+  `_mode_rows` both exist; below 560px the `HELLO, NAME` text goes too, leaving the avatar and the
+  glyph. The language toggle deliberately stays in the bar: the design mock is English-only so it
+  never had one to place, and the Porygon language hint points at that button.
 - **i18n.** English is default at `/`, Português at `/pt`, via `scope "(:locale)"` + `switch_locale` / `default_url_options` in `ApplicationController`; `<html lang>` is dynamic. All UI copy lives in `config/locales/{en,pt}.yml` under `pages.home.*` — never hardcode strings in views. Non-translatable structure (city / region / Pokémon names, counts, feature keys) lives in `app/models/landing_data.rb`. `test/i18n_parity_test.rb` fails if the en/pt key sets drift, and `raise_on_missing_translations` is on in dev/test so a missing key fails loudly.
 - **Images are served from Cloudflare R2**, not Propshaft. Reference them with the `r2_image_tag` / `r2_asset_url` helpers (`app/helpers/application_helper.rb`), which prefix `config.x.r2_public_host`; the object key is the path relative to `app/assets/images/` (e.g. `r2_image_tag "pokemon/yellow/025.png"`). The source PNGs under `app/assets/images/` are **gitignored** (kept locally for uploads, re-derivable from `vendor/pokeapi-sprites/`) and pushed to the bucket with `deploy/upload-images.sh` (`Assets::R2Uploader`). The upload is **incremental**: a gitignored fingerprint cache (`app/assets/images/.r2-upload-cache.json`) records each image's content digest, so a re-run sends only the images whose bytes changed (regenerating an unchanged, deterministic map is a no-op). Pass `deploy/upload-images.sh --force` to re-send everything (fresh/prod bucket), and `Assets::R2Uploader#prime_cache` to mark the current files as already uploaded without sending (seed the cache when the bucket is known to match). Per-env host: dev + test use the dev bucket `porynet-dev` (`pub-...r2.dev`); prod injects `R2_PUBLIC_HOST` (not wired to a prod bucket yet, so set it and upload before the next prod deploy). R2 write keys live in the default Rails credentials (`bin/rails credentials:edit`, keys `r2.access_key_id` / `r2.secret_access_key`), which dev reads automatically; prod will use env-scoped `config/credentials/production.yml.enc`. Serving public objects needs no keys. Favicons in `public/` (`icon.png`, `icon.svg`) stay same-origin.
+- **A flash clears itself.** `shared/_flash` hangs a `flash` controller on each message: it fades
+  out after six seconds and then goes `hidden` so it stops holding a gap open, and a click closes
+  it sooner. Nothing else should render a message that outlives the page it belongs to.
+- **Credit the projects the art comes from.** None of this artwork is ours: the trainer sprites are
+  drawn and maintained by the Pokémon Showdown community, the Pokémon, item and badge sprites come
+  from PokeAPI, and every map and screenshot is generated from a pret disassembly. The
+  footer carries that on every page (`pages.home.footer.credits_html`) and the avatar picker names
+  Showdown again where its sprites fill the screen (`account.avatar.credit_html`). pret is
+  credited as the whole organisation, not just the one repo this app happens to read today. URLs live in one
+  place, `ApplicationHelper::SOURCE_URLS`, rendered through `source_link`. Two controller tests
+  assert the links are present so a redesign cannot quietly drop them. **Add a credit here before
+  adding a source**, not after.
 - **Sprite sources** (where the source PNGs come from before they go to R2):
   - **Pokémon, item, badge, and type sprites**: the cloned [PokeAPI/sprites](https://github.com/PokeAPI/sprites) repo at `vendor/pokeapi-sprites/sprites/{pokemon,items,badges,types}/`. Item sprites live in [`sprites/items/`](https://github.com/PokeAPI/sprites/tree/master/sprites/items) (~900 kebab-case PNGs: `nugget.png`, `moon-stone.png`, `hm01.png`, `card-key.png`, `poke-flute.png`, ...). This is the source for walkthrough item cards (`app/assets/images/walkthrough/items/*.png`, keyed by `Walkthrough::Yellow.item_sprite`).
   - **Trainer sprites**: [Pokémon Showdown](https://play.pokemonshowdown.com/sprites/trainers/) (browse with `?view=dir`). Showdown ships them on a padded 80x80 canvas; **trim each one to a 3px transparent margin** before uploading, or the VS portrait draws a small figure adrift in a tall box.
@@ -45,6 +90,49 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     under his Japanese name), each cropped to its content and re-padded to a 3px margin.
     `oauth/{google,discord,github,facebook}.png` are the provider marks from the design handoff
     bundle, downscaled to 108px. Then `deploy/upload-images.sh`.
+    These three keep their own objects because the ids `red`, `blue` and `green` are what signup
+    writes and what a stored avatar points at; Showdown's own current-art Red, Blue and Green sit
+    in the roster under `-current` ids rather than overwriting them.
+  - **Trainer avatars** (`app/assets/images/trainers/*.png`, R2 prefix `trainers/`): every
+    main-series sprite in Showdown's trainer directory (browse it with `?view=dir`), 1,307 files,
+    Masters EX art and anime stills left out. Showdown pads them to 80x80, so each is cropped to
+    its content and re-padded to a 3px margin, the same recipe the walkthrough VS portraits use.
+    The roster manifest `app/models/account_data/avatars.json` is **generated** from that listing,
+    not hand-written: the id is the filename stem, the era comes from its `-genN` suffix, and the
+    display name is derived from the stem (a word list splits `bugcatcher` into "Bug Catcher" and
+    a table of exceptions covers what it cannot know). **Read the derived names before shipping a
+    batch**: the word list quietly runs two words together when it does not know one of them, and
+    a name like "Youngn" for Young N looks like a trainer rather than a bug. Anything with no
+    space and more than six letters is worth a look. Those names are **data, not copy** (the
+    rule that names live in models), so they read the same in both locales and only the chip and
+    chip labels are translated. A sprite's **generation is the game that drew it**, resolved in
+    four passes. A `-genN` suffix or a game tag (`-rse`, `-lgpe`, `-s`/`-v`) dates it outright,
+    which covers 615 of them. An untagged sprite is Showdown's newest design for that trainer, so
+    if they have retro sprites too the game behind it is not in the filename and it goes to
+    `latest` (271); every untagged sprite was checked against its newest tagged sibling and **not
+    one is the same image**, so the untagged one is always later art, never a duplicate. An
+    untagged sprite of a trainer drawn only once is the only art Showdown has of them, so a curated
+    table names the game that made it. Beware **remakes** when adding to that table: it asks which
+    game drew the sprite, not which region the trainer walks around in. Celio is FireRed, so
+    generation 3, not Kanto's 1; the Johto sprites are HeartGold art, so generation 4, and the
+    Rocket executives in them never existed before it; Hoenn's are Omega Ruby art, so generation 6,
+    Zinnia and Lisia included. What none of that reaches is `other` rather than guessed at: 66 today,
+    mostly trainer classes Showdown drew once. Bulbapedia's per-game character categories settle a
+    name in one read and are how the Legends: Z-A, Hisui, Paldea, Masters EX and Champions casts
+    were placed; note that **Legends: Z-A is Generation 9**, not Kalos. A name that no category
+    claims usually belongs to a game off the main line (Sleep, GO, Champions) and goes to
+    `spinoff`; Showdown's own credits page will not help, it names the artist and never a source.
+    A suffix that names a **mode inside a game is not a spin-off**: Pokéstar Studios, the Wonder
+    Launcher and the World Tournament are all Black 2 features and belong to generation 5, the
+    Pokéathlon is HeartGold's, and `-lza` is Legends: Z-A, which is main series. A suffix naming a
+    costume or a pose (`-champion`, `-dojo`, `-league`, `-zerosuit`) names no game at all, so those
+    inherit the generation of the trainer they dress up.
+    A local folder holding fewer files than the bucket means nothing: the PNGs are
+    gitignored, so a clone mirrors only what it has touched. **Probe the bucket, not the folder**,
+    before deciding a sprite is missing.
+  - **Kanto badges** (`app/assets/images/badges/{boulder,cascade,thunder,rainbow,soul,marsh,volcano,earth}.png`):
+    `vendor/pokeapi-sprites/sprites/badges/{1..8}.png` in gym order, renamed. Painted icons, so they
+    draw with `image-rendering: auto`.
   - **Artwork** (`app/assets/images/walkthrough/art/*.png`, e.g. the Dugtrio beside the Diglett's Cave trivia): the one exception to "images are gitignored because vendor/ re-derives them". Nothing in `vendor/pokeapi-sprites` reproduces a hand-prepared piece, so these are committed (`.gitignore` carves them out) and a fresh clone can still `--force` a whole bucket. They are painted art, not game rips, so they render with `image-rendering: auto` against the global `pixelated`.
   - Flow to add a sprite: copy the source PNG into the matching `app/assets/images/...` path (the object key), then upload with `deploy/upload-images.sh`. A referenced image that isn't in the bucket 404s at render (not a test failure), so upload before wiring a new sprite into a view.
 

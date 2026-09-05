@@ -21,6 +21,38 @@ module ApplicationHelper
     image_tag(r2_asset_url(path), **options)
   end
 
+  ACCOUNT_SECTION_PATHS = { "card" => :account_path, "avatar" => :account_avatar_path,
+                            "security" => :account_security_path,
+                            "save_file" => :account_save_file_path }.freeze
+
+  def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
+
+  SOURCE_URLS = {
+    showdown: "https://play.pokemonshowdown.com/sprites/trainers/",
+    pokeapi: "https://github.com/PokeAPI/sprites",
+    pret: "https://github.com/pret"
+  }.freeze
+
+  def source_link(name, css)
+    link_to t("pages.home.footer.credits_#{name}"), SOURCE_URLS.fetch(name),
+            class: css, rel: "noopener", target: "_blank"
+  end
+
+  def account_game(save)
+    Walkthrough::Versions::CATALOGUE.find { |entry| entry[:slug] == save.slug }
+  end
+
+  def account_dex_line(save = AccountData.save_for(nil))
+    t("account.chip.dex_line", registered: save.registered, total: AccountData::DEX_TOTAL,
+      game: account_game(save)[:name])
+  end
+
+  def avatar_image_tag(id, **options)
+    avatar = AccountData.avatar(id)
+    classes = class_names(options.delete(:class), "pn-art" => avatar.art?)
+    r2_image_tag(avatar.key, class: classes.presence, **options)
+  end
+
   # A mart item's blurb: its own localized description, or for a plain sold TM the type of move
   # it teaches (the game gives Gen 1 TMs no description of their own).
   def mart_item_desc(item)

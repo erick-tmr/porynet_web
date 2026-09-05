@@ -1,0 +1,37 @@
+<%= render layout: "accounts/shell", locals: { section: "save_file" } do %>
+  <%= render layout: "accounts/panel",
+             locals: { title: t("account.save_file.title"),
+                       meta: t("account.save_file.meta") } do %>
+    <div class="pn-account__row">
+      <div>
+        <div class="pn-account__row-title"><%= t("account.save_file.logout_title") %></div>
+        <div class="pn-account__row-desc"><%= t("account.save_file.logout_desc") %></div>
+      </div>
+      <%= button_to t("account.save_file.logout"), destroy_user_session_path, method: :delete,
+                    class: "pn-btn pn-btn--amber pn-btn--sm",
+                    form_class: "pn-account__row-form" %>
+    </div>
+
+    <div class="pn-account__danger" data-controller="disclosure">
+      <div class="pn-account__danger-label"><%= t("account.save_file.delete_title") %></div>
+      <p class="pn-account__danger-copy"><%= t("account.save_file.delete_copy") %></p>
+      <button type="button" class="pn-account__danger-arm" aria-expanded="false"
+              aria-controls="pn-account-delete" data-disclosure-target="toggle"
+              data-action="disclosure#toggle">
+        <%= t("account.save_file.delete_arm") %>
+      </button>
+      <div class="pn-account__danger-actions" id="pn-account-delete"
+           data-disclosure-target="body" hidden>
+        <span class="pn-account__soon-wrap">
+          <button type="button" class="pn-account__danger-go" disabled>
+            <%= t("account.save_file.delete_confirm") %>
+          </button>
+          <span class="pn-account__soon"><%= t("account.soon") %></span>
+        </span>
+        <button type="button" class="pn-account__danger-keep" data-action="disclosure#close">
+          <%= t("account.save_file.delete_cancel") %>
+        </button>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -98,7 +98,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     follow_redirect!
 
     assert_select ".pn-nav__account-guest", text: I18n.t("account.chip.guest")
-    assert_select "a.pn-nav__account-login[href=?]", new_user_session_path
+    assert_select "#pn-nav-menu a.pn-nav__menu-link[href=?]", new_user_session_path
   end
 
   test "a trainer bounced off the account page lands back on it once logged in" do

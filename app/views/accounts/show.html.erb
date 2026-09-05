@@ -1,41 +1,100 @@
-<% content_for :title, t("account.meta.show") %>
-<% content_for :head do %>
-  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
-<% end %>
-<% content_for :nav_marquee do %>
-  <%= render "shared/marquee_row", items: t("account.marquee") %>
-  <%= render "shared/marquee_row", items: t("account.marquee") %>
-<% end %>
+<% save = AccountData.save_for(params[:game]) %>
+<% game = account_game(save) %>
 
-<%= render "shared/auth_hero", key: "show" %>
+<%= render layout: "accounts/shell", locals: { section: "card" } do %>
+  <%= render layout: "accounts/panel",
+             locals: { title: t("account.card.title"),
+                       meta: t("account.card.meta", id: AccountData.trainer_id(current_user),
+                                                    game: game[:name]) } do %>
+    <div class="pn-account__label"><%= t("account.card.pick_game") %></div>
+    <div class="pn-account__games">
+      <% Walkthrough::Versions::CATALOGUE.each do |entry| %>
+        <%= link_to account_path(game: entry[:slug]),
+                    class: class_names("pn-account__game",
+                                       "is-open" => entry[:slug] == save.slug) do %>
+          <span class="pn-account__game-cover">
+            <%= r2_image_tag "covers/#{entry[:cover]}.png", alt: "",
+                             class: "pn-account__game-art pn-account__game-art--#{entry[:fit]}" %>
+          </span>
+          <span class="pn-account__game-name"><%= entry[:name] %></span>
+          <span class="pn-account__game-dex">
+            <%= t("account.card.dex", registered: AccountData.save_for(entry[:slug]).registered,
+                                      total: AccountData::DEX_TOTAL) %>
+          </span>
+          <span class="pn-account__game-open"><%= t("account.card.open") %></span>
+        <% end %>
+      <% end %>
+    </div>
 
-<section class="pn-auth">
-  <div class="pn-auth__panel">
-    <div class="pn-auth__body">
-      <div class="pn-auth__loaded">
-        <span class="pn-auth__loaded-mark">
-          <%= r2_image_tag "account/avatars/#{current_user.avatar}.png", alt: "" %>
+    <div class="pn-account__cardtop">
+      <div class="pn-account__avatar-tile">
+        <span class="pn-account__avatar-frame">
+          <%= avatar_image_tag current_user.avatar, alt: "" %>
         </span>
-        <div>
-          <div class="pn-auth__loaded-badge"><%= t("account.show.badge") %></div>
-          <div class="pn-auth__loaded-name">
-            <%= t("account.show.greeting", name: current_user.trainer_name) %>
-          </div>
-          <div class="pn-auth__loaded-lead"><%= t("account.show.lead") %></div>
+        <span class="pn-account__avatar-cap"><%= t("account.card.avatar") %></span>
+        <span class="pn-account__avatar-name">
+          <%= AccountData.avatar(current_user.avatar).name %>
+        </span>
+      </div>
+
+      <div class="pn-account__ident">
+        <div class="pn-account__label pn-account__label--accent">
+          <%= t("account.card.trainer_name") %>
+        </div>
+        <div class="pn-account__name"><%= current_user.trainer_name %></div>
+        <div class="pn-account__meta">
+          <%= t("account.card.joined", email: current_user.email,
+                date: l(current_user.created_at.to_date, format: :joined)) %>
+        </div>
+
+        <div class="pn-account__chips">
+          <span class="pn-account__game-chip"><%= game[:name] %></span>
+          <span class="pn-account__spot">
+            <%= t("account.card.spot", place: t("account.card.spots.#{save.slug}")) %>
+          </span>
+        </div>
+
+        <% stats = { "registered" => t("account.card.dex", registered: save.registered,
+                                                           total: AccountData::DEX_TOTAL),
+                     "badges" => t("account.card.badge_tally", have: save.badge_count,
+                                                               total: AccountData::BADGES.size),
+                     "oak" => save.oak,
+                     "playtime" => save.playtime } %>
+        <div class="pn-account__stats">
+          <% stats.each do |key, value| %>
+            <div class="pn-account__stat">
+              <div class="pn-account__stat-label"><%= t("account.card.stats.#{key}") %></div>
+              <div class="pn-account__stat-value"><%= value %></div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="pn-account__actions">
+          <%= link_to t("account.card.change_avatar"), account_avatar_path,
+                      class: "pn-btn pn-btn--accent" %>
+          <%= link_to t("account.card.to_security"), account_security_path,
+                      class: "pn-btn pn-btn--white" %>
         </div>
       </div>
-
-      <div class="pn-auth__actions">
-        <%= link_to t("account.show.continue"), walkthroughs_path, class: "pn-btn pn-btn--accent" %>
-        <%= link_to t("account.show.tracker"), root_path(anchor: "tracker"),
-                    class: "pn-btn pn-btn--white" %>
-        <%= button_to t("account.show.logout"), destroy_user_session_path, method: :delete,
-                      class: "pn-btn pn-btn--white" %>
-      </div>
-
-      <p class="pn-auth__note"><%= t("account.show.note") %></p>
     </div>
-  </div>
 
-  <%= render "shared/auth_aside" %>
-</section>
+    <div class="pn-account__badges-block">
+      <div class="pn-account__label"><%= t("account.card.badges", game: game[:name]) %></div>
+      <% if save.badges? %>
+        <div class="pn-account__badges">
+          <% save.badges.each do |badge| %>
+            <span class="pn-account__badge">
+              <%= r2_image_tag "badges/#{badge}.png", alt: "",
+                               class: "pn-account__badge-img pn-art" %>
+              <span class="pn-account__badge-name">
+                <%= t("account.card.badge_names.#{badge}") %>
+              </span>
+            </span>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="pn-account__badges-empty"><%= t("account.card.no_badges") %></p>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

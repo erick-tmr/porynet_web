@@ -59,9 +59,18 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "the shared nav shows the cross-page menu with Home active on the landing page" do
     get root_path
 
-    assert_select "a.pn-nav__link.is-active", text: "Home"
-    assert_select "a.pn-nav__link[href=?]", walkthroughs_path, text: "Walkthroughs"
+    assert_select "#pn-nav-menu a.pn-nav__menu-link.is-active", text: "Home"
+    assert_select "#pn-nav-menu a.pn-nav__menu-link[href=?]", walkthroughs_path,
+                  text: "Walkthroughs"
     assert_select ".pn-footer__link", text: "Walkthroughs"
+  end
+
+  test "the footer credits the projects the artwork comes from" do
+    get root_path
+
+    ApplicationHelper::SOURCE_URLS.each_value do |url|
+      assert_select ".pn-footer__credits a[href=?][rel=noopener]", url
+    end
   end
 
   test "the default locale keeps a clean URL and offers the Portuguese toggle" do

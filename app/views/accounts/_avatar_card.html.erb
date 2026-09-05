@@ -1,0 +1,12 @@
+<label class="pn-auth__avatar">
+  <%= f.radio_button :avatar, avatar.id, class: "pn-auth__avatar-input" %>
+  <span class="pn-auth__avatar-art">
+    <%= avatar_image_tag avatar.id, alt: "", loading: "lazy" %>
+  </span>
+  <span class="pn-auth__avatar-name"><%= avatar.name %></span>
+  <span class="pn-auth__avatar-games"><%= t("account.avatar.generations.#{avatar.generation}") %></span>
+  <span class="pn-auth__avatar-picked"><%= t("account.avatar.picked") %></span>
+  <% if local_assigns[:in_use] %>
+    <span class="pn-account__avatar-inuse"><%= t("account.avatar.in_use") %></span>
+  <% end %>
+</label>

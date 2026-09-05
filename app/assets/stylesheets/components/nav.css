@@ -27,37 +27,18 @@
   color: #ffffff;
   text-shadow: 0 0 6px #ff3dae, 0 0 15px #ff3dae, 0 0 26px #ff2e97cc;
 }
-.pn-nav__links {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-}
-.pn-nav__link {
-  color: #cfe1f5;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-}
-.pn-nav__link:hover {
-  color: #2af0ff;
-  text-shadow: 0 0 8px #2af0ff;
-}
-.pn-nav__link.is-active {
-  color: #2af0ff;
-  text-shadow: 0 0 8px #2af0ff;
-}
 .pn-nav__star {
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   color: #2af0ff;
   text-shadow: 0 0 6px #2af0ff;
 }
-.pn-nav__menu,
-.pn-nav__actions { display: contents; }
+.pn-nav__actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
 .pn-nav__lang-wrap {
   position: relative;
@@ -183,92 +164,8 @@
 }
 
 /* ---- narrow screens: burger + stacked panel ---- */
-.pn-nav__burger {
-  display: none;
-  align-items: center;
-  cursor: pointer;
-  font-family: "Press Start 2P", monospace;
-  font-size: 14px;
-  color: #2af0ff;
-  background: #080a16;
-  border: 2px solid #2af0ff;
-  box-shadow: 0 0 13px #2af0ff66;
-  padding: 11px 13px;
-}
-.pn-nav__burger-glyph--close,
-.pn-nav.is-open .pn-nav__burger-glyph--open { display: none; }
-.pn-nav.is-open .pn-nav__burger-glyph--close { display: inline; }
 
-.pn-nav__panel {
-  display: none;
-  flex-direction: column;
-  border-top: 2px solid #2af0ff;
-  background: #080a16;
-  box-shadow: 0 0 16px #2af0ff44;
-}
-.pn-nav__panel-link {
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  color: #cfe1f5;
-  padding: 15px 28px;
-  border-bottom: 1px solid #1a2740;
-}
-.pn-nav__panel-link:hover {
-  color: #2af0ff;
-  background: #0c1226;
-}
-.pn-nav__panel-link.is-active { color: #2af0ff; text-shadow: 0 0 8px #2af0ff; }
 
-/* the crumb the wide bar shows, kept in the panel once the bar collapses */
-.pn-nav__panel-crumb {
-  font-family: "VT323", monospace;
-  font-size: 17px;
-  letter-spacing: 1px;
-  color: #8fa6c8;
-  padding: 13px 28px;
-  border-bottom: 1px solid #1a2740;
-}
-.pn-nav__panel-crumb a { color: #2af0ff; }
-
-.pn-nav__panel-mode {
-  cursor: pointer;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  background: #080a16;
-  border: none;
-  border-bottom: 1px solid #1a2740;
-  padding: 15px 28px;
-}
-.pn-nav__panel-mode--living { color: var(--neon-cyan); }
-.pn-nav__panel-mode--oak { color: var(--amber); }
-.pn-nav__panel-mode-state {
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  color: #8fa6c8;
-}
-.pn-nav__panel-mode-on { display: none; }
-.pn-nav__panel-mode-off { display: inline; }
-.pn-mode-living-on .pn-nav__panel-mode--living .pn-nav__panel-mode-on,
-.pn-mode-oak-on .pn-nav__panel-mode--oak .pn-nav__panel-mode-on { display: inline; }
-.pn-mode-living-on .pn-nav__panel-mode--living .pn-nav__panel-mode-off,
-.pn-mode-oak-on .pn-nav__panel-mode--oak .pn-nav__panel-mode-off { display: none; }
-.pn-mode-living-on .pn-nav__panel-mode--living .pn-nav__panel-mode-state { color: var(--neon-cyan); }
-.pn-mode-oak-on .pn-nav__panel-mode--oak .pn-nav__panel-mode-state { color: var(--amber); }
-
-/* ---- account chip: guest on the left of the burger, trainer + menu once signed in ---- */
-.pn-nav__account {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
 .pn-nav__account-hello {
   font-family: "VT323", monospace;
   font-size: 20px;
@@ -303,22 +200,6 @@
   height: 32px;
   object-fit: contain;
 }
-.pn-nav__account-login {
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  color: var(--ui-dark);
-  background: var(--neon-cyan);
-  border: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 13px #2af0ff88;
-  padding: 9px 11px;
-  white-space: nowrap;
-}
-.pn-nav__account-login:hover {
-  color: var(--ui-dark);
-  background: var(--neon-magenta);
-  border-color: var(--neon-magenta);
-  box-shadow: 0 0 13px #ff3dae88;
-}
 
 .pn-nav__account-toggle {
   cursor: pointer;
@@ -349,121 +230,153 @@
 .pn-nav__account.is-open .pn-nav__account-caret--open { display: none; }
 .pn-nav__account.is-open .pn-nav__account-caret--close { display: inline; }
 
-.pn-nav__account-menu {
+
+
+
+
+.pn-nav__account-glyph {
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  color: var(--neon-cyan);
+}
+.pn-nav__account-glyph--close { display: none; }
+.pn-nav.is-open .pn-nav__account-glyph--open { display: none; }
+.pn-nav.is-open .pn-nav__account-glyph--close { display: inline; }
+
+.pn-nav__menu {
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
-  min-width: 240px;
   z-index: 70;
+  min-width: 268px;
+  max-width: calc(100vw - 36px);
   display: flex;
   flex-direction: column;
   background: var(--ui-dark);
   border: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 18px #2af0ff55;
+  box-shadow: 0 0 18px #2af0ff66;
 }
-.pn-nav__account-menu[hidden] { display: none; }
-.pn-nav__account-head {
-  padding: 12px 16px;
-  border-bottom: 1px solid #1a2740;
-}
-.pn-nav__account-eyebrow {
-  display: block;
+.pn-nav__menu[hidden] { display: none; }
+.pn-nav__menu-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
   font-family: "Press Start 2P", monospace;
   font-size: 8px;
+  line-height: 1.6;
   letter-spacing: 1px;
   color: #8fa6c8;
+  padding: 13px 16px 8px;
 }
 .pn-nav__account-trainer {
-  display: block;
-  font-family: "Pixelify Sans", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  color: #fff;
-  margin-top: 5px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
 }
-.pn-nav__account-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+.pn-nav__menu-sub {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  line-height: 1.3;
+  color: #8fa6c8;
+  padding: 0 16px 11px;
+}
+.pn-nav__menu-link {
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 18px;
   color: #cfe1f5;
   padding: 12px 16px;
-  border-bottom: 1px solid #1a2740;
+  border-top: 1px solid #1a2740;
 }
-.pn-nav__account-item:hover {
+.pn-nav__menu-link:hover {
   color: var(--neon-cyan);
   background: #0c1226;
 }
-.pn-nav__account-item--soon {
-  color: #6c7c99;
-  cursor: not-allowed;
+.pn-nav__menu-link.is-active {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
 }
-.pn-nav__account-item--soon:hover {
-  color: #6c7c99;
-  background: none;
+.pn-nav__menu-crumb {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  color: #8fa6c8;
+  padding: 12px 16px;
+  border-top: 1px solid #1a2740;
 }
-.pn-nav__account-soon {
-  font-family: "Press Start 2P", monospace;
-  font-size: 7px;
-  letter-spacing: 1px;
-  color: var(--amber);
-  border: 1px solid var(--amber);
-  padding: 4px 5px;
+.pn-nav__menu-crumb a { color: var(--neon-cyan); }
+.pn-nav__menu-form {
+  margin: 0;
+  border-top: 1px solid #1a2740;
 }
-.pn-nav__account-out {
+.pn-nav__menu-out {
   cursor: pointer;
+  width: 100%;
   text-align: left;
   font-family: "Pixelify Sans", system-ui, sans-serif;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--neon-magenta);
   background: none;
   border: 0;
   padding: 12px 16px;
-  width: 100%;
 }
-.pn-nav__account-out:hover { background: #0c1226; }
+.pn-nav__menu-out:hover { background: #0c1226; }
 
-.pn-nav__panel-account {
+.pn-nav__menu-mode {
+  cursor: pointer;
+  text-align: left;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 14px 28px;
-  border-bottom: 1px solid #1a2740;
+  gap: 12px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  background: none;
+  border: 0;
+  border-top: 1px solid #1a2740;
+  padding: 12px 16px;
+}
+.pn-nav__menu-mode--living { color: var(--neon-cyan); }
+.pn-nav__menu-mode--oak { color: var(--amber); }
+.pn-nav__menu-mode-state {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #8fa6c8;
+}
+.pn-nav__menu-mode-on { display: none; }
+.pn-nav__menu-mode-off { display: inline; }
+.pn-mode-living-on .pn-nav__menu-mode--living .pn-nav__menu-mode-on,
+.pn-mode-oak-on .pn-nav__menu-mode--oak .pn-nav__menu-mode-on { display: inline; }
+.pn-mode-living-on .pn-nav__menu-mode--living .pn-nav__menu-mode-off,
+.pn-mode-oak-on .pn-nav__menu-mode--oak .pn-nav__menu-mode-off { display: none; }
+.pn-mode-living-on .pn-nav__menu-mode--living .pn-nav__menu-mode-state { color: var(--neon-cyan); }
+.pn-mode-oak-on .pn-nav__menu-mode--oak .pn-nav__menu-mode-state { color: var(--amber); }
+
+@media (min-width: 1241px) {
+  .pn-nav__menu-crumb,
+  .pn-nav__menu-mode { display: none; }
 }
 
 @media (max-width: 1240px) {
-  .pn-nav__menu,
   .pn-nav__crumb,
-  .pn-nav__account { display: none; }
-  .pn-nav__burger { display: inline-flex; }
-  .pn-nav.is-open .pn-nav__panel { display: flex; }
+  .pn-nav__modes { display: none; }
 }
 
 @media (max-width: 620px) {
   .pn-wordmark { font-size: 15px; }
   .pn-nav__bar { padding: 12px 18px; }
-  .pn-nav__panel-link,
-  .pn-nav__panel-crumb,
-  .pn-nav__panel-mode,
-  .pn-nav__panel-account { padding: 15px 18px; }
 }
 
-/* Below about 370px the brand and the actions stop fitting on one row. Nothing in that row can
-   shrink (a pixel wordmark does not reflow, the lang and burger are bordered boxes), so the row
-   overflows and the burger is what falls off the right edge. Buy the width back from the logo
-   tile, one more wordmark step and the gaps. */
+@media (max-width: 560px) {
+  .pn-nav__account-hello { display: none; }
+}
+
 @media (max-width: 400px) {
   .pn-nav__bar { padding: 10px 14px; gap: 12px; }
   .pn-nav__brand { gap: 10px; }
   .pn-nav__brand .pn-logo-tile { width: 44px; height: 44px; }
   .pn-nav__brand .pn-logo-tile__img { width: 36px; height: 36px; }
   .pn-wordmark { font-size: 13px; }
-  .pn-nav__links { gap: 12px; }
   .pn-nav__lang { padding: 10px; }
-  .pn-nav__burger { padding: 10px 11px; }
 }

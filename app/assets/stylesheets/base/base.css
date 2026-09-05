@@ -7,9 +7,11 @@ body {
   color: #171622;
   font-family: "Pixelify Sans", system-ui, sans-serif;
   -webkit-font-smoothing: none;
+  font-variant-ligatures: none;
 }
 
 img { image-rendering: pixelated; }
+.pn-art { image-rendering: auto; }
 
 a { color: #FF5D8F; text-decoration: none; }
 a:hover { color: #171622; }

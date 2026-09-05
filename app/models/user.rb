@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  AVATARS = %w[red blue green].freeze
+  AVATARS = AccountData.avatar_ids
   TRAINER_NAME_FORMAT = /\A[A-Za-z0-9_.-]{2,12}\z/
 
   devise :database_authenticatable, :registerable, :confirmable,
@@ -7,7 +7,7 @@ class User < ApplicationRecord
          authentication_keys: [ :login ]
 
   attr_writer :login
-  attr_accessor :terms
+  attr_accessor :terms, :email_confirmation
 
   normalizes :trainer_name, with: ->(name) { name.strip }
 

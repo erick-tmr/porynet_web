@@ -1,0 +1,149 @@
+<%= render layout: "accounts/shell", locals: { section: "security" } do %>
+
+  <%= render layout: "accounts/panel",
+             locals: { title: t("account.security.email_title"),
+                       meta: t("account.security.email_meta") } do %>
+    <div class="pn-account__current">
+      <div>
+        <div class="pn-account__stat-label"><%= t("account.security.current_email") %></div>
+        <div class="pn-account__current-value"><%= current_user.email %></div>
+      </div>
+      <span class="pn-account__pill"><%= t("account.security.verified") %></span>
+    </div>
+
+    <%= form_with model: current_user, scope: :account_email, url: account_security_path,
+                  method: :patch, class: "pn-account__form" do |f| %>
+      <div class="pn-account__grid2">
+        <%= render "shared/field", f: f, name: :email, kind: :email_field, tone: :sky,
+                   label: t("account.security.new_email"),
+                   placeholder: t("account.fields.email_placeholder"),
+                   options: { value: "", autocomplete: "email" } %>
+        <%= render "shared/field", f: f, name: :email_confirmation, kind: :email_field, tone: :sky,
+                   label: t("account.security.confirm_email"),
+                   placeholder: t("account.fields.email_placeholder"),
+                   options: { autocomplete: "email" } %>
+      </div>
+      <%= render "shared/field", f: f, name: :current_password, kind: :password_field, tone: :sky,
+                 label: t("account.security.current_password"),
+                 placeholder: t("account.fields.password_placeholder"),
+                 hint: t("account.security.current_password_hint"),
+                 options: { autocomplete: "current-password" } %>
+
+      <div class="pn-account__foot">
+        <span class="pn-account__soon-wrap">
+          <%= f.submit t("account.security.email_submit"), disabled: true,
+                       class: "pn-btn pn-btn--sky" %>
+          <span class="pn-account__soon"><%= t("account.soon") %></span>
+        </span>
+        <span class="pn-account__foot-note"><%= t("account.security.email_note") %></span>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render layout: "accounts/panel",
+             locals: { title: t("account.security.password_title"),
+                       meta: t("account.security.password_meta") } do %>
+    <%= form_with model: current_user, scope: :account_password, url: account_security_path,
+                  method: :patch, class: "pn-account__form",
+                  data: { controller: "password-strength", score: 0 } do |f| %>
+      <%= render "shared/field", f: f, name: :current_password, kind: :password_field,
+                 label: t("account.security.current_password"),
+                 placeholder: t("account.fields.password_placeholder"),
+                 options: { autocomplete: "current-password" } %>
+
+      <div class="pn-account__grid2">
+        <%= render "shared/field", f: f, name: :password, kind: :password_field,
+                   label: t("account.security.new_password"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   options: { autocomplete: "new-password",
+                              data: { password_strength_target: "input",
+                                      action: "input->password-strength#check" } } %>
+        <%= render "shared/field", f: f, name: :password_confirmation, kind: :password_field,
+                   label: t("account.security.confirm_password"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   options: { autocomplete: "new-password" } %>
+      </div>
+
+      <div class="pn-account__strength">
+        <span class="pn-account__stat-label"><%= t("account.security.strength") %></span>
+        <span class="pn-account__bars" aria-hidden="true">
+          <% (AccountData::STRENGTH_LEVELS.size - 1).times do %>
+            <span class="pn-account__bar"></span>
+          <% end %>
+        </span>
+        <span class="pn-account__strength-labels" aria-live="polite">
+          <% AccountData::STRENGTH_LEVELS.each_with_index do |level, step| %>
+            <span class="pn-account__strength-label pn-account__strength-label--<%= step %>">
+              <%= t("account.security.strength_levels.#{level}") %>
+            </span>
+          <% end %>
+        </span>
+      </div>
+
+      <div class="pn-account__rules">
+        <% AccountData::PASSWORD_RULES.each do |rule| %>
+          <div class="pn-account__rule" data-password-strength-target="rule"
+               data-rule="<%= rule %>">
+            <span class="pn-account__rule-mark" aria-hidden="true">✔</span>
+            <span class="pn-account__rule-text"><%= t("account.security.rules.#{rule}") %></span>
+          </div>
+        <% end %>
+      </div>
+
+      <label class="pn-check">
+        <span class="pn-check__box">
+          <%= check_box_tag "account_password[sign_out_everywhere]", "1", true,
+                            class: "pn-check__input" %>
+          <span class="pn-check__tick" aria-hidden="true">✔</span>
+        </span>
+        <span><%= t("account.security.sign_out_others") %></span>
+      </label>
+
+      <div class="pn-account__foot">
+        <span class="pn-account__soon-wrap">
+          <%= f.submit t("account.security.password_submit"), disabled: true,
+                       class: "pn-btn pn-btn--accent" %>
+          <span class="pn-account__soon"><%= t("account.soon") %></span>
+        </span>
+        <%= link_to t("account.security.forgot"), new_user_password_path,
+                    class: "pn-account__foot-link" %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render layout: "accounts/panel",
+             locals: { title: t("account.security.linked_title"),
+                       meta: t("account.security.linked_meta",
+                               total: AccountData::OAUTH_PROVIDERS.size) } do %>
+    <p class="pn-account__lead"><%= t("account.security.linked_lead") %></p>
+
+    <div class="pn-account__socials">
+      <% AccountData::OAUTH_PROVIDERS.each do |provider| %>
+        <div class="pn-account__social">
+          <div class="pn-account__social-id">
+            <span class="pn-account__social-mark">
+              <%= r2_image_tag "account/oauth/#{provider}.png", alt: "" %>
+            </span>
+            <div>
+              <div class="pn-account__social-name"><%= t("account.oauth.#{provider}") %></div>
+              <div class="pn-account__social-detail">
+                <%= t("account.security.providers.#{provider}") %>
+              </div>
+            </div>
+          </div>
+          <div class="pn-account__social-actions">
+            <span class="pn-account__social-state"><%= t("account.security.not_linked") %></span>
+            <span class="pn-account__soon-wrap">
+              <button type="button" class="pn-btn pn-btn--white pn-btn--sm" disabled>
+                <%= t("account.security.connect") %>
+              </button>
+              <span class="pn-account__soon"><%= t("account.soon") %></span>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="pn-account__note"><%= t("account.security.linked_note") %></div>
+  <% end %>
+<% end %>

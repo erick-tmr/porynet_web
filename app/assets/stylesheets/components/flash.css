@@ -20,6 +20,11 @@
   box-shadow: 4px 4px 0 var(--ink);
   padding: 13px 16px;
 }
+.pn-flash__msg.is-gone {
+  animation: flashout 0.24s ease-in forwards;
+  pointer-events: none;
+}
+.pn-flash__msg[hidden] { display: none; }
 .pn-flash__msg--notice { background: var(--done-green); }
 .pn-flash__msg--alert { background: var(--toast-error); }
 .pn-flash__glyph {

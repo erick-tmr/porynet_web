@@ -29,9 +29,9 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "ASH2", build(trainer_name: "  ASH2  ").tap(&:valid?).trainer_name
   end
 
-  test "the avatar is one of the three starters on the register form" do
+  test "the avatar is one of the trainers the roster offers" do
     User::AVATARS.each { |avatar| assert_predicate build(avatar: avatar), :valid? }
-    assert_not build(avatar: "lance").valid?
+    assert_not build(avatar: "porygon").valid?
   end
 
   test "accepting the terms stamps when they were accepted" do
