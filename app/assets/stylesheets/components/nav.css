@@ -262,9 +262,185 @@
 .pn-mode-living-on .pn-nav__panel-mode--living .pn-nav__panel-mode-state { color: var(--neon-cyan); }
 .pn-mode-oak-on .pn-nav__panel-mode--oak .pn-nav__panel-mode-state { color: var(--amber); }
 
+/* ---- account chip: guest on the left of the burger, trainer + menu once signed in ---- */
+.pn-nav__account {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.pn-nav__account-hello {
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #8fa6c8;
+  white-space: nowrap;
+}
+.pn-nav__account-guest {
+  color: var(--amber);
+  text-shadow: 0 0 8px #FFC23D88;
+}
+.pn-nav__account-name {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+}
+.pn-nav__account-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  border: 2px solid #3d4c6b;
+  background: #0c1226;
+  font-family: "Press Start 2P", monospace;
+  font-size: 14px;
+  color: #8fa6c8;
+  overflow: hidden;
+}
+.pn-nav__account-mark img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+.pn-nav__account-login {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: var(--ui-dark);
+  background: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 13px #2af0ff88;
+  padding: 9px 11px;
+  white-space: nowrap;
+}
+.pn-nav__account-login:hover {
+  color: var(--ui-dark);
+  background: var(--neon-magenta);
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 13px #ff3dae88;
+}
+
+.pn-nav__account-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #0c1226;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 13px #2af0ff55;
+  padding: 5px 12px 5px 5px;
+}
+.pn-nav__account-toggle:hover {
+  border-color: var(--neon-magenta);
+  box-shadow: 0 0 13px #ff3dae66;
+}
+.pn-nav__account-toggle .pn-nav__account-mark {
+  width: 36px;
+  height: 36px;
+  border-color: var(--neon-cyan);
+  background: var(--ui-dark);
+}
+.pn-nav__account-caret {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: var(--neon-cyan);
+}
+.pn-nav__account-caret--close { display: none; }
+.pn-nav__account.is-open .pn-nav__account-caret--open { display: none; }
+.pn-nav__account.is-open .pn-nav__account-caret--close { display: inline; }
+
+.pn-nav__account-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  min-width: 240px;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  background: var(--ui-dark);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 18px #2af0ff55;
+}
+/* the controller closes the menu with the hidden attribute, which display:flex would override */
+.pn-nav__account-menu[hidden] { display: none; }
+.pn-nav__account-head {
+  padding: 12px 16px;
+  border-bottom: 1px solid #1a2740;
+}
+.pn-nav__account-eyebrow {
+  display: block;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #8fa6c8;
+}
+.pn-nav__account-trainer {
+  display: block;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  margin-top: 5px;
+}
+.pn-nav__account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #cfe1f5;
+  padding: 12px 16px;
+  border-bottom: 1px solid #1a2740;
+}
+.pn-nav__account-item:hover {
+  color: var(--neon-cyan);
+  background: #0c1226;
+}
+.pn-nav__account-item--soon {
+  color: #6c7c99;
+  cursor: not-allowed;
+}
+.pn-nav__account-item--soon:hover {
+  color: #6c7c99;
+  background: none;
+}
+.pn-nav__account-soon {
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  padding: 4px 5px;
+}
+.pn-nav__account-out {
+  cursor: pointer;
+  text-align: left;
+  font-family: "Pixelify Sans", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--neon-magenta);
+  background: none;
+  border: 0;
+  padding: 12px 16px;
+  width: 100%;
+}
+.pn-nav__account-out:hover { background: #0c1226; }
+
+.pn-nav__panel-account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 28px;
+  border-bottom: 1px solid #1a2740;
+}
+
 @media (max-width: 1240px) {
   .pn-nav__menu,
-  .pn-nav__crumb { display: none; }
+  .pn-nav__crumb,
+  .pn-nav__account { display: none; }
   .pn-nav__burger { display: inline-flex; }
   .pn-nav.is-open .pn-nav__panel { display: flex; }
 }
@@ -274,7 +450,8 @@
   .pn-nav__bar { padding: 12px 18px; }
   .pn-nav__panel-link,
   .pn-nav__panel-crumb,
-  .pn-nav__panel-mode { padding: 15px 18px; }
+  .pn-nav__panel-mode,
+  .pn-nav__panel-account { padding: 15px 18px; }
 }
 
 /* Below about 370px the brand and the actions stop fitting on one row. Nothing in that row can

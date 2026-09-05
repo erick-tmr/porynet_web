@@ -36,6 +36,12 @@ detectors:
                            # Data structs below read (map categories, method unlock stops,
                            # the encounter-section order). Each belongs to the module rather
                            # than to any one struct, so there is nowhere better to put them.
+  Attribute:
+    exclude:
+      - User            # `login` and `terms` are Devise's virtual form fields, not model state.
+                        # The sign-in form writes `login` for find_for_database_authentication to
+                        # read, and `terms` carries the fan-project tick from the register form to
+                        # the acceptance validation. There is nothing here to encapsulate.
   UncommunicativeVariableName:
     accept:
       - i                 # plain loop index in the grid/box builders

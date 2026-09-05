@@ -12,6 +12,7 @@
         <%= render "shared/nav_links", variant: "link" %>
       </span>
       <span class="pn-nav__actions">
+        <%= render "shared/account_chip" %>
         <% if content_for?(:nav_crumb) %>
           <span class="pn-nav__crumb"><%= yield :nav_crumb %></span>
         <% end %>
@@ -47,6 +48,7 @@
   </div>
   <nav class="pn-nav__panel" id="pn-nav-panel">
     <%= render "shared/nav_links", variant: "panel-link" %>
+    <%= render "shared/account_row" %>
     <% if content_for?(:nav_crumb) %>
       <span class="pn-nav__panel-crumb"><%= yield :nav_crumb %></span>
     <% end %>

@@ -1,0 +1,17 @@
+<section class="pn-auth-hero">
+  <span class="pn-auth-hero__fade" aria-hidden="true"></span>
+  <span class="pn-auth-hero__scan" aria-hidden="true"></span>
+  <div class="pn-auth-hero__inner">
+    <div class="pn-auth-hero__copy">
+      <div class="pn-auth-hero__eyebrow"><%= t("account.eyebrow") %></div>
+      <h1 class="pn-auth-hero__title">
+        <%= t("account.hero.#{key}_title") %><span class="pn-auth-hero__caret" aria-hidden="true">_</span>
+      </h1>
+      <p class="pn-auth-hero__blurb"><%= t("account.hero.#{key}_blurb") %></p>
+    </div>
+    <div class="pn-auth-hero__art">
+      <span class="pn-auth-hero__aura" aria-hidden="true"></span>
+      <%= r2_image_tag "porygon-art.png", alt: "Porygon" %>
+    </div>
+  </div>
+</section>

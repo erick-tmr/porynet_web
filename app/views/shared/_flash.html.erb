@@ -1,0 +1,16 @@
+<% if flash[:notice].present? || flash[:alert].present? %>
+  <div class="pn-flash">
+    <% if flash[:notice].present? %>
+      <div class="pn-flash__msg pn-flash__msg--notice" role="status">
+        <span class="pn-flash__glyph" aria-hidden="true">✔</span>
+        <span><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+    <% if flash[:alert].present? %>
+      <div class="pn-flash__msg pn-flash__msg--alert" role="alert">
+        <span class="pn-flash__glyph" aria-hidden="true">✖</span>
+        <span><%= flash[:alert] %></span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

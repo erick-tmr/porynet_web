@@ -60,6 +60,10 @@
 # scans and painted art, with nothing in vendor/ that reproduces either.
 !/app/assets/images/covers/*.png
 !/app/assets/images/porygon-art.png
+# Same for the account art: provider marks for the sign-in buttons, and the three trainer avatars
+# trimmed from Pokemon Showdown. Neither has a source in vendor/ to re-derive it from.
+!/app/assets/images/account/oauth/*.png
+!/app/assets/images/account/avatars/*.png
 # fingerprint cache for the incremental R2 upload (deploy/upload-images.sh)
 /app/assets/images/.r2-upload-cache.json
 

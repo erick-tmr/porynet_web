@@ -1,4 +1,201 @@
 en:
+  account:
+    meta:
+      login: "Log in · PORYNET"
+      register: "Register · PORYNET"
+      password_new: "Lost password · PORYNET"
+      password_edit: "New password · PORYNET"
+      confirmation: "Confirm your email · PORYNET"
+      show: "Your trainer account · PORYNET"
+    marquee:
+      - "SYNC YOUR DEX"
+      - "HIDDEN ITEM CHECKS"
+      - "OAK CHALLENGE"
+      - "LIVING DEX"
+    eyebrow: "TRAINER ACCOUNT"
+    hero:
+      login_title: "Load your save"
+      login_blurb: "Log in to bring back your caught marks, hidden-item checks and the step you left off on."
+      register_title: "New save file"
+      register_blurb: "Pick a trainer name, pick an avatar, and your dex progress starts syncing. It takes about twenty seconds."
+      show_title: "Save file loaded"
+      show_blurb: "You are logged in on this browser. Caught marks, hidden-item checks and your walkthrough position now follow you between devices."
+      password_new_title: "Lost password"
+      password_new_blurb: "Give us the address on your save file. We send a link that lets you set a new password."
+      password_edit_title: "New password"
+      password_edit_blurb: "Pick a new password and you are back in. The link you followed works once."
+      confirmation_title: "Check your mail"
+      confirmation_blurb: "Your save file is made. Follow the link we just sent and it is ready to log into."
+    tabs:
+      login: "LOG IN"
+      register: "REGISTER"
+    oauth:
+      login_heading: "CONTINUE WITH"
+      register_heading: "REGISTER WITH"
+      soon: "SOON"
+      hint: "Signing in through another account is on the way. Use a trainer name for now."
+      google: "Google"
+      discord: "Discord"
+      github: "GitHub"
+      facebook: "Facebook"
+    divider: "OR"
+    fields:
+      login: "TRAINER NAME OR EMAIL"
+      login_placeholder: "ASH"
+      trainer_name: "TRAINER NAME"
+      trainer_name_placeholder: "ASH"
+      trainer_name_hint: "Up to 12 characters, like the name box in game."
+      email: "EMAIL"
+      email_placeholder: "ash@pallet.town"
+      email_hint: "Only used for password resets."
+      password: "PASSWORD"
+      password_placeholder: "••••••••"
+      password_hint: "At least %{count} characters."
+      password_confirmation: "CONFIRM PASSWORD"
+      remember_me: "Keep me logged in"
+    login:
+      submit: "PRESS START ▶"
+      forgot: "Forgot password?"
+      no_account_html: "No save file yet? %{link}."
+      no_account_link: "Register a trainer"
+    register:
+      avatar_heading: "PICK YOUR TRAINER AVATAR"
+      picked: "PICKED"
+      avatars:
+        red:
+          name: "Red"
+          games: "Red / Blue / Yellow"
+        blue:
+          name: "Blue"
+          games: "Rival, Red / Blue"
+        green:
+          name: "Green"
+          games: "Green, JP release"
+      terms: "I get that this is a fan project and my dex data lives here, not with Nintendo."
+      submit: "CREATE SAVE FILE ▶"
+      has_account_html: "Already have a save file? %{link}."
+      has_account_link: "Log in"
+    confirmation:
+      sent_to: "WE SENT IT TO"
+      steps:
+        inbox: "Open your inbox and look for the mail from PORYNET."
+        link: "Follow the confirmation link. It turns the account on straight away."
+        login: "Come back and log in with your trainer name or your address."
+      email_label: "EMAIL ON THE SAVE FILE"
+      resend_hint: "Nothing after a few minutes? Check the spam folder, then send it again."
+      resend: "SEND IT AGAIN ▶"
+      to_login: "Go to the login"
+    passwords:
+      submit_new: "SEND THE LINK ▶"
+      submit_edit: "SAVE THE PASSWORD ▶"
+      back: "Back to the login"
+    show:
+      badge: "LOGGED IN"
+      greeting: "Hello, %{name}"
+      lead: "Caught marks, hidden-item checks and your walkthrough position now save to this account, not just this browser."
+      continue: "OPEN THE WALKTHROUGHS ▶"
+      tracker: "OPEN TRACKER"
+      logout: "LOG OUT"
+      note: "The header chip flipped from HELLO, GUEST to your trainer name. Log out to see the guest state again."
+    aside:
+      heading: "WHAT AN ACCOUNT UNLOCKS"
+      items:
+        collection:
+          title: "One collection, every game"
+          desc: "Boxes, party and shiny status for every game you play, in Living Dex or Oak mode, all under one trainer."
+        porypc:
+          title: "Sync with PoryPC"
+          desc: "The desktop app keeps your collection file on your own computer. Sign in and it syncs both ways with the site."
+        parser:
+          title: "Save-file reader results"
+          desc: "Drop a save into PoryPC and everything it reads lands in your account, not just on that one machine."
+        progress:
+          title: "Walkthrough and Oak progress"
+          desc: "Caught marks, hidden-item checks, your Oak counters and the step you stopped on, kept per game."
+      guest: "Prefer to stay a guest? Everything is readable without an account. Progress just lives in this browser and clears when you wipe it."
+    chip:
+      guest: "GUEST"
+      hello: "HELLO,"
+      login: "LOG IN"
+      logout: "LOG OUT"
+      menu: "Account menu"
+      save_file: "SAVE FILE"
+      trainer_card: "Trainer card"
+      tracker: "Collection tracker"
+      settings: "Settings"
+      soon: "SOON"
+      sign_out: "Log out"
+    errors:
+      heading: "That did not go through. Fix these and try again:"
+  activerecord:
+    attributes:
+      user:
+        trainer_name: "Trainer name"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        avatar: "Avatar"
+        terms: "Terms"
+        login: "Trainer name or email"
+    models:
+      user: "Trainer"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: "must be accepted"
+      blank: "can't be blank"
+      confirmation: "does not match %{attribute}"
+      inclusion: "is not one of the choices"
+      invalid: "is invalid"
+      taken: "has already been taken"
+      too_long: "is too long (maximum is %{count} characters)"
+      too_short: "is too short (minimum is %{count} characters)"
+  devise:
+    failure:
+      already_authenticated: "You are already logged in."
+      invalid: "That trainer name or password is not right."
+      not_found_in_database: "That trainer name or password is not right."
+      unauthenticated: "Log in to open this page."
+      unconfirmed: "Confirm your email address first. The link is in the mail we sent you."
+    sessions:
+      signed_in: "Save file loaded."
+      signed_out: "Logged out. Progress on this browser is yours alone again."
+      already_signed_out: "Logged out. Progress on this browser is yours alone again."
+    registrations:
+      signed_up_but_unconfirmed: "Your save file is made. Follow the link we sent to turn it on."
+    confirmations:
+      confirmed: "Email confirmed. Log in and your progress starts syncing."
+      send_instructions: "The confirmation link is on its way. Give it a few minutes."
+      send_paranoid_instructions: "If that address is on a save file, the confirmation link is on its way."
+    passwords:
+      send_instructions: "The reset link is on its way. Give it a few minutes."
+      send_paranoid_instructions: "If that address is on a save file, the reset link is on its way."
+      updated: "New password saved. You are logged in."
+      updated_not_active: "New password saved."
+      no_token: "Open this page from the reset link in your mail, using the whole address it gives you."
+    mailer:
+      confirmation_instructions:
+        subject: "Confirm your PORYNET trainer account"
+        greeting: "Welcome, %{recipient}."
+        instruction: "One link and your save file is live. Caught marks and walkthrough progress start following you between devices."
+        action: "Confirm my trainer account"
+        instruction_2: "If you did not register on PORYNET, ignore this mail and nothing happens."
+      reset_password_instructions:
+        subject: "Set a new PORYNET password"
+        greeting: "Hello, %{recipient}."
+        instruction: "Someone asked for a new password on your trainer account. Follow the link to set one."
+        action: "Set a new password"
+        instruction_2: "If that was not you, ignore this mail."
+        instruction_3: "Your password stays as it is until you open the link and pick a new one."
+      email_changed:
+        subject: "The email on your PORYNET account changed"
+        greeting: "Hello, %{recipient}."
+        message: "The address on your trainer account is now %{email}."
+        message_unconfirmed: "The address on your trainer account is being changed to %{email}."
+      password_change:
+        subject: "Your PORYNET password changed"
+        greeting: "Hello, %{recipient}."
+        message: "The password on your trainer account was just changed. If that was not you, reset it now."
   pages:
     home:
       meta:

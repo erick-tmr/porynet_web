@@ -1,0 +1,17 @@
+<%
+  errors = f.object.errors.full_messages_for(name)
+  input_options = (local_assigns[:options] || {}).merge(
+    class: class_names("pn-field__input", "is-invalid" => errors.any?),
+    placeholder: local_assigns[:placeholder]
+  )
+%>
+<label class="<%= class_names("pn-field", "pn-field--sky" => local_assigns[:tone] == :sky) %>">
+  <span class="pn-field__label"><%= label %></span>
+  <%= f.public_send(kind, name, **input_options) %>
+  <% if local_assigns[:hint].present? %>
+    <span class="pn-field__hint"><%= hint %></span>
+  <% end %>
+  <% errors.each do |message| %>
+    <span class="pn-field__error"><%= message %></span>
+  <% end %>
+</label>

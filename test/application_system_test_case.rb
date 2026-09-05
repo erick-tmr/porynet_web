@@ -6,7 +6,28 @@ Capybara.disable_animation     = true
 Capybara.save_path             = Rails.root.join("tmp/screenshots")
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  include Warden::Test::Helpers
+
   parallelize(workers: 1)
+
+  # The test environment turns forgery protection off wholesale, which would let an auth spec pass
+  # against a form whose authenticity token was never rendered. These are the specs that drive the
+  # real forms, so they run with the real check.
+  setup do
+    Warden.test_mode!
+    @forgery_protection = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+  end
+
+  teardown do
+    ActionController::Base.allow_forgery_protection = @forgery_protection
+    Warden.test_reset!
+  end
+
+  # A spec that only needs a session, rather than one testing the login itself, takes the shortcut.
+  def login_as_user(user)
+    login_as(user, scope: :user)
+  end
 
   # Modes and progress live in localStorage, which Capybara does not reset between examples. Left
   # alone, a test that flips a switch decides what the next one starts from, and the pair passes or

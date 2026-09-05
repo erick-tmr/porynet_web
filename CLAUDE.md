@@ -21,11 +21,28 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
 - **No Tailwind, no CSS framework, no CDN for CSS/JS/fonts.** The look is a hand-authored design system under `app/assets/stylesheets/{base,components,pages}` (tokens, `@font-face`, `pn-*` components, page layouts), served by **Propshaft**. Fonts are **self-hosted** woff2 in `app/assets/fonts` (Press Start 2P, Pixelify Sans, VT323) — no Google Fonts `<link>` / `preconnect`. Do not add CDN tags or reintroduce Tailwind. (Images are the deliberate exception: served from Cloudflare R2, see the Images bullet below.)
 - **Strict Content-Security-Policy** (`config/initializers/content_security_policy.rb`): `default/script/style/font/connect-src 'self'`, `object-src 'none'`. `img-src` is `'self' data:` plus the R2 public host (`config.x.r2_public_host`, added via the initializer). **No inline `style=` attributes or `on*=` handlers** (they're blocked); every style is a CSS class. `script-src` and `style-src` each carry a per-request nonce, for exactly two things: the importmap JSON block, and the stylesheet Turbo injects at boot for its progress bar (it reads the `csp-nonce` meta tag itself). A nonce matches *elements*, never *attributes*, so `style="..."` stays blocked regardless. Do not use the style nonce as licence to hand-write a `<style>` block in a view. Locale strings that need markup use `_html` keys that reference existing CSS classes, never inline styles.
 - **Hotwire is live** (unlike a storefront where it may be inert). Turbo + Stimulus boot; interactive widgets are Stimulus controllers in `app/javascript/controllers/*_controller.js` (oak toggle, city selector, language hint), auto-registered via `eagerLoadControllersFrom` + `pin_all_from`. A new widget is a new controller **with a Vitest spec at 100% coverage** (see **CI gates**). Read config from `data-*` values; keep motion in CSS and honor `prefers-reduced-motion`.
+- **Accounts are Devise** (`~> 5.0` + `devise-i18n`), the app's only database-backed feature.
+  `devise_for` sits inside the locale scope, so the pages are `/login`, `/register`, `/logout`,
+  `/password/*`, `/confirmation/*` and `/account`, each with a `/pt` twin. Registrations are drawn
+  by hand in a `devise_scope` because the resourceful pair Devise would draw puts create and destroy
+  on `/` itself. **Confirmation is strict**: nobody signs in before following the mailed link, and
+  a trainer signs in with either their trainer name or their email (`authentication_keys: [:login]`,
+  `User.find_for_database_authentication`). Devise's own controllers are subclassed under
+  `app/controllers/users/`; `ApplicationController` stays free of Devise, and strong params for
+  signup are a `sign_up_params` override, not `configure_permitted_parameters`. Devise copy lives in
+  `config/locales/{en,pt}.yml` under `devise:` and `account:` (never a `devise.en.yml`, which would
+  break `test/i18n_parity_test.rb`). Mail is **development only** so far: `letter_opener_web` at
+  `/letters`, with production SMTP still a TODO in `config/environments/production.rb`.
 - **i18n.** English is default at `/`, Português at `/pt`, via `scope "(:locale)"` + `switch_locale` / `default_url_options` in `ApplicationController`; `<html lang>` is dynamic. All UI copy lives in `config/locales/{en,pt}.yml` under `pages.home.*` — never hardcode strings in views. Non-translatable structure (city / region / Pokémon names, counts, feature keys) lives in `app/models/landing_data.rb`. `test/i18n_parity_test.rb` fails if the en/pt key sets drift, and `raise_on_missing_translations` is on in dev/test so a missing key fails loudly.
 - **Images are served from Cloudflare R2**, not Propshaft. Reference them with the `r2_image_tag` / `r2_asset_url` helpers (`app/helpers/application_helper.rb`), which prefix `config.x.r2_public_host`; the object key is the path relative to `app/assets/images/` (e.g. `r2_image_tag "pokemon/yellow/025.png"`). The source PNGs under `app/assets/images/` are **gitignored** (kept locally for uploads, re-derivable from `vendor/pokeapi-sprites/`) and pushed to the bucket with `deploy/upload-images.sh` (`Assets::R2Uploader`). The upload is **incremental**: a gitignored fingerprint cache (`app/assets/images/.r2-upload-cache.json`) records each image's content digest, so a re-run sends only the images whose bytes changed (regenerating an unchanged, deterministic map is a no-op). Pass `deploy/upload-images.sh --force` to re-send everything (fresh/prod bucket), and `Assets::R2Uploader#prime_cache` to mark the current files as already uploaded without sending (seed the cache when the bucket is known to match). Per-env host: dev + test use the dev bucket `porynet-dev` (`pub-...r2.dev`); prod injects `R2_PUBLIC_HOST` (not wired to a prod bucket yet, so set it and upload before the next prod deploy). R2 write keys live in the default Rails credentials (`bin/rails credentials:edit`, keys `r2.access_key_id` / `r2.secret_access_key`), which dev reads automatically; prod will use env-scoped `config/credentials/production.yml.enc`. Serving public objects needs no keys. Favicons in `public/` (`icon.png`, `icon.svg`) stay same-origin.
 - **Sprite sources** (where the source PNGs come from before they go to R2):
   - **Pokémon, item, badge, and type sprites**: the cloned [PokeAPI/sprites](https://github.com/PokeAPI/sprites) repo at `vendor/pokeapi-sprites/sprites/{pokemon,items,badges,types}/`. Item sprites live in [`sprites/items/`](https://github.com/PokeAPI/sprites/tree/master/sprites/items) (~900 kebab-case PNGs: `nugget.png`, `moon-stone.png`, `hm01.png`, `card-key.png`, `poke-flute.png`, ...). This is the source for walkthrough item cards (`app/assets/images/walkthrough/items/*.png`, keyed by `Walkthrough::Yellow.item_sprite`).
   - **Trainer sprites**: [Pokémon Showdown](https://play.pokemonshowdown.com/sprites/trainers/) (browse with `?view=dir`). Showdown ships them on a padded 80x80 canvas; **trim each one to a 3px transparent margin** before uploading, or the VS portrait draws a small figure adrift in a tall box.
+  - **Account art** (`app/assets/images/account/`): the four provider marks on the sign-in buttons
+    (`oauth/*.png`, taken from the design handoff) and the three trainer avatars
+    (`avatars/{red,blue,green}.png`, trimmed from Showdown's `red-gen1rb`, `blue-gen1rb` and
+    `blue-gen1`). Nothing in `vendor/` reproduces either set, so like the walkthrough artwork they
+    are committed (`.gitignore` carves them out).
   - **Artwork** (`app/assets/images/walkthrough/art/*.png`, e.g. the Dugtrio beside the Diglett's Cave trivia): the one exception to "images are gitignored because vendor/ re-derives them". Nothing in `vendor/pokeapi-sprites` reproduces a hand-prepared piece, so these are committed (`.gitignore` carves them out) and a fresh clone can still `--force` a whole bucket. They are painted art, not game rips, so they render with `image-rendering: auto` against the global `pixelated`.
   - Flow to add a sprite: copy the source PNG into the matching `app/assets/images/...` path (the object key), then upload with `deploy/upload-images.sh`. A referenced image that isn't in the bucket 404s at render (not a test failure), so upload before wiring a new sprite into a view.
 
@@ -112,4 +129,15 @@ One workflow (`.github/workflows/ci.yml`). **Blocking**: RuboCop (omakase), Brak
 - Postgres is bound to `127.0.0.1` in `compose.yaml` (so a LAN-shared `bin/dev` doesn't expose the DB). Do not switch to `0.0.0.0`.
 - **Never use em-dashes (the `—` character) anywhere.** Not in authored prose (commit messages, PR bodies, chat replies) and not in UI or locale copy. They read as AI-generated. Use commas, periods, parentheses, or colons instead. En-dashes in numeric ranges (e.g. `2–5` levels) are fine; this rule is about the `—` em-dash only.
 - Cuprite system tests need Chrome / Chromium installed locally.
+- **Devise's Warden strategies are installed when the routes finalize**, and Rails 8 does not load
+  routes at boot unless it is eager loading (only CI is). Warden dups its config per request, so the
+  request that happens to load the routes signs nobody in: the first login of a process fails as if
+  the password were wrong. `config/initializers/devise.rb` loads the routes in an `after_initialize`
+  to head that off. Do not remove it.
+- **The password pepper is in Rails credentials** (`devise.pepper`). Without the master key it
+  decrypts to nothing and every password hashes pepper-less, so the initializer refuses to boot
+  outside development and test rather than lock the site out later. CI runs without the key on
+  purpose; a deploy must have it.
+- `bin/rails db:migrate` re-dumps **every** configured database, so it rewrites `db/queue_schema.rb`
+  too. Check that back out before committing.
 - `.env.example` is the only `.env*` that ships (`.gitignore` carves it out).

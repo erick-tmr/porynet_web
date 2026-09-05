@@ -15,8 +15,13 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+# Authentication: Devise, plus the upstream en/pt translations for everything the gem
+# raises on. The app's own auth copy lives in config/locales/{en,pt}.yml.
+gem "devise", "~> 5.0"
+gem "devise-i18n", "~> 1.16"
+
+# Password hashing (pulled in by Devise, pinned here for lockfile visibility)
+gem "bcrypt", "~> 3.1"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -65,6 +70,10 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Read the confirmation / password-reset mails in a browser inbox at /letters. The plain
+  # letter_opener gem hands the file to Launchy, which hijacks whichever tab has focus.
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do

@@ -1,0 +1,54 @@
+<% content_for :title, t("account.meta.confirmation") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
+<% end %>
+
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+<% end %>
+
+<%= render "shared/auth_hero", key: "confirmation" %>
+
+<section class="pn-auth">
+  <div class="pn-auth__panel">
+    <%= render "shared/auth_tabs", active: :register %>
+    <div class="pn-auth__body">
+      <% if @email %>
+        <div class="pn-auth__heading"><%= t("account.confirmation.sent_to") %></div>
+        <div class="pn-auth__pill" data-confirmation-email><%= @email %></div>
+      <% end %>
+
+      <div class="pn-auth__steps">
+        <% AccountData::CONFIRMATION_STEPS.each_with_index do |step, index| %>
+          <div class="pn-auth__step">
+            <span class="pn-auth__step-num"><%= AccountData.unlock_number(index) %></span>
+            <span class="pn-auth__step-text"><%= t("account.confirmation.steps.#{step}") %></span>
+          </div>
+        <% end %>
+      </div>
+
+      <p class="pn-auth__oauth-hint"><%= t("account.confirmation.resend_hint") %></p>
+
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name),
+                   html: { method: :post, class: "pn-auth__form", novalidate: true }) do |f| %>
+        <% if @email %>
+          <%= f.hidden_field :email, value: @email %>
+        <% else %>
+          <%= render "shared/field", f: f, name: :email, kind: :email_field,
+                     label: t("account.confirmation.email_label"),
+                     placeholder: t("account.fields.email_placeholder"),
+                     options: { autofocus: true, autocomplete: "email", required: true } %>
+        <% end %>
+        <%= f.submit t("account.confirmation.resend"),
+                     class: "pn-btn pn-btn--sky pn-btn--block pn-auth__submit" %>
+      <% end %>
+
+      <div class="pn-auth__foot">
+        <%= link_to t("account.confirmation.to_login"), new_user_session_path %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "shared/auth_aside" %>
+</section>

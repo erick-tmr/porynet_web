@@ -1,0 +1,41 @@
+<% content_for :title, t("account.meta.show") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+<% end %>
+
+<%= render "shared/auth_hero", key: "show" %>
+
+<section class="pn-auth">
+  <div class="pn-auth__panel">
+    <div class="pn-auth__body">
+      <div class="pn-auth__loaded">
+        <span class="pn-auth__loaded-mark">
+          <%= r2_image_tag "account/avatars/#{current_user.avatar}.png", alt: "" %>
+        </span>
+        <div>
+          <div class="pn-auth__loaded-badge"><%= t("account.show.badge") %></div>
+          <div class="pn-auth__loaded-name">
+            <%= t("account.show.greeting", name: current_user.trainer_name) %>
+          </div>
+          <div class="pn-auth__loaded-lead"><%= t("account.show.lead") %></div>
+        </div>
+      </div>
+
+      <div class="pn-auth__actions">
+        <%= link_to t("account.show.continue"), walkthroughs_path, class: "pn-btn pn-btn--accent" %>
+        <%= link_to t("account.show.tracker"), root_path(anchor: "tracker"),
+                    class: "pn-btn pn-btn--white" %>
+        <%= button_to t("account.show.logout"), destroy_user_session_path, method: :delete,
+                      class: "pn-btn pn-btn--white" %>
+      </div>
+
+      <p class="pn-auth__note"><%= t("account.show.note") %></p>
+    </div>
+  </div>
+
+  <%= render "shared/auth_aside" %>
+</section>
