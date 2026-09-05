@@ -10,9 +10,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   parallelize(workers: 1)
 
-  # The test environment turns forgery protection off wholesale, which would let an auth spec pass
-  # against a form whose authenticity token was never rendered. These are the specs that drive the
-  # real forms, so they run with the real check.
   setup do
     Warden.test_mode!
     @forgery_protection = ActionController::Base.allow_forgery_protection
@@ -24,7 +21,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Warden.test_reset!
   end
 
-  # A spec that only needs a session, rather than one testing the login itself, takes the shortcut.
   def login_as_user(user)
     login_as(user, scope: :user)
   end

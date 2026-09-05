@@ -132,8 +132,14 @@ One workflow (`.github/workflows/ci.yml`). **Blocking**: RuboCop (omakase), Brak
 - **Devise's Warden strategies are installed when the routes finalize**, and Rails 8 does not load
   routes at boot unless it is eager loading (only CI is). Warden dups its config per request, so the
   request that happens to load the routes signs nobody in: the first login of a process fails as if
-  the password were wrong. `config/initializers/devise.rb` loads the routes in an `after_initialize`
-  to head that off. Do not remove it.
+  the password were wrong. `config/initializers/load_routes_before_warden.rb` exists only to head
+  that off. Do not remove it.
+- **The login form and both resend endpoints are throttled** with Rails 8's `rate_limit`, keyed by
+  IP. It takes its store when the class body runs, and the test environment's `:null_store` answers
+  `nil` to every `increment`, which would leave the limiter permanently inert and untestable, so the
+  three controllers pass `store: RateLimitStore`, an eight-line forwarder that reads `Rails.cache`
+  per call. Production still lands on Solid Cache; `test/integration/rate_limit_test.rb` swaps in a
+  real store and proves the throttle engages.
 - **The password pepper is in Rails credentials** (`devise.pepper`). Without the master key it
   decrypts to nothing and every password hashes pepper-less, so the initializer refuses to boot
   outside development and test rather than lock the site out later. CI runs without the key on

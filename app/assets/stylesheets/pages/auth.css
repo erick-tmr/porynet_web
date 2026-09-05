@@ -240,6 +240,7 @@
 }
 .pn-auth__submit { margin-top: 4px; }
 .pn-auth__foot {
+  margin-top: 16px;
   font-family: "VT323", monospace;
   font-size: 19px;
   color: var(--muted);
@@ -294,8 +295,6 @@
   background: #fff;
   overflow: hidden;
 }
-/* the trimmed sprites are around 40x60, so max-* alone would leave them at natural size in a
-   165px box. Drive the height and let the width follow. */
 .pn-auth__avatar-art img {
   height: 80%;
   width: auto;

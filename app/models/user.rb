@@ -15,8 +15,6 @@ class User < ApplicationRecord
                            format: { with: TRAINER_NAME_FORMAT },
                            uniqueness: { case_sensitive: false }
   validates :avatar, inclusion: { in: AVATARS }
-  # allow_nil is on by default in AcceptanceValidator, so a POST that simply leaves the field out
-  # would pass and still get its terms_accepted_at stamped.
   validates :terms, acceptance: { allow_nil: false }, on: :create
 
   before_validation :stamp_terms_accepted, on: :create

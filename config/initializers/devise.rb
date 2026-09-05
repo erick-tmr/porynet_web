@@ -8,25 +8,7 @@
 #
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
-# Devise installs its Warden strategies from a hook on route finalization. With eager loading off
-# (development, and `bin/rails test` outside CI) nothing finalizes the routes until the first
-# request, so `Devise.warden_config.default_strategies(scope: :user)` is still empty while that
-# request runs and the very first sign-in of the process fails as if the password were wrong.
-# Loading the routes at boot puts the strategies in place before anything can ask for them.
-# Devise installs its Warden strategies from a hook on route finalization, and Rails 8 does not load
-# the routes at boot unless it is eager loading (config/environments/test.rb only eager loads on CI,
-# development never does). Warden's proxy dups the manager config at the start of every request, so
-# the request that happens to load the routes carries an empty strategy list and its sign-in fails
-# as though the password were wrong. Loading the routes here puts the strategies in place first.
-Rails.application.config.after_initialize do
-  Rails.application.routes_reloader.execute_unless_loaded
-end
-
 Devise.setup do |config|
-  # Devise derives its tokens from Rails.application.secret_key_base by default, so there is
-  # nothing to set here. Setting config.secret_key would only be for rotating away from
-  # secret_key_base, which invalidates every outstanding confirmation and reset token.
-
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -38,8 +20,6 @@ Devise.setup do |config|
   config.mailer_sender = "PORYNET <no-reply@porynet.com>"
 
   # Configure the class responsible to send e-mails.
-  # Subclassed only to give the mailer views a locale for the links they build; the message bodies
-  # stay Devise's own.
   config.mailer = "Users::Mailer"
 
   # Configure the parent class responsible to send e-mails.
@@ -103,8 +83,6 @@ Devise.setup do |config|
   # It will change confirmation, password recovery and other workflows
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
-  # On so the password-reset and resend-confirmation forms cannot be used to find out which
-  # addresses are registered: the response reads the same either way. OWASP ASVS V3.7.1.
   config.paranoid = true
 
   # By default Devise will store the user in session. You can skip storage for
@@ -140,21 +118,16 @@ Devise.setup do |config|
   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
   config.stretches = Rails.env.test? ? 1 : 12
 
-  # Pepper mixed into every password before bcrypt. It lives in Rails credentials rather than
-  # this file so a leaked database dump cannot be cracked without also leaking the master key.
-  # A missing master key makes `credentials` decrypt to empty and this read return nil without
-  # raising, which would hash every password pepper-less and lock the whole site out the day the
-  # key came back. Dev and CI are allowed to run without it; a real deploy is not.
+  # Set up a pepper to generate the hashed password.
   config.pepper = Rails.application.credentials.dig(:devise, :pepper)
   if config.pepper.blank? && !Rails.env.local?
     raise "Devise pepper missing: set credentials devise.pepper (needs RAILS_MASTER_KEY)"
   end
 
-  # Send a notification to the original email when the user's email is changed. On, so a stolen
-  # account that swaps the address still warns the trainer who owns it.
+  # Send a notification to the original email when the user's email is changed.
   config.send_email_changed_notification = true
 
-  # Same reasoning as send_email_changed_notification.
+  # Send a notification email when the user's password is changed.
   config.send_password_change_notification = true
 
   # ==> Configuration for :confirmable
@@ -166,9 +139,6 @@ Devise.setup do |config|
   # without confirming their account.
   # Default is 0.days, meaning the user cannot access the website without
   # confirming their account.
-  # Left at the 0.days default on purpose: confirmation is strict, so a new trainer cannot sign in
-  # at all until they follow the link. Beware that nil here does not mean "no grace period", it
-  # switches the check off entirely and lets unconfirmed accounts in forever.
   # config.allow_unconfirmed_access_for = 2.days
 
   # A period that the user is allowed to confirm their account before their
@@ -207,8 +177,6 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  # An 8 character floor follows NIST SP 800-63B: real entropy over Devise's 6, without the forced
-  # complexity rules that push people back to "Password1!".
   config.password_length = 8..128
 
   # Email regex used to validate email formats. It simply asserts that
@@ -308,9 +276,6 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # The failure app is named on `devise_for` in config/routes.rb rather than here: Devise resolves
-  # a String mapping per request, where a class assigned in this block would be memoized once and
-  # go stale across a reload.
   # config.warden do |warden_config|
   #   warden_config.default_strategies(scope: :user).unshift :some_external_strategy
   # end

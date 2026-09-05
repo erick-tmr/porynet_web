@@ -1,6 +1,3 @@
-# The first fixtures in this repo. Passwords are hashed the way Devise would, so a test can sign in
-# with "pikachu123"; the confirmation and reset tokens are digests of known raw tokens, so a test
-# can follow the link the mailer would have sent.
 confirmed:
   trainer_name: ASH
   email: ash@pallet.town

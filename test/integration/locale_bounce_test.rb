@@ -1,8 +1,5 @@
 require "test_helper"
 
-# Warden's failure app runs outside the controller, so ApplicationController's locale handling does
-# not reach it. Left alone it sends a Portuguese reader to the English login and tells them so in
-# English.
 class LocaleBounceTest < ActionDispatch::IntegrationTest
   test "an English reader kept off the account page lands on the English login" do
     get account_path

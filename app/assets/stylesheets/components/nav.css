@@ -361,7 +361,6 @@
   border: 2px solid var(--neon-cyan);
   box-shadow: 0 0 18px #2af0ff55;
 }
-/* the controller closes the menu with the hidden attribute, which display:flex would override */
 .pn-nav__account-menu[hidden] { display: none; }
 .pn-nav__account-head {
   padding: 12px 16px;

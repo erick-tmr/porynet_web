@@ -27,8 +27,6 @@ class RateLimitTest < ActionDispatch::IntegrationTest
 
   private
 
-  # The test environment runs a null store, where increment always answers nil and every limiter
-  # waves the request through.
   def with_real_cache
     previous = Rails.cache
     Rails.cache = ActiveSupport::Cache::MemoryStore.new
