@@ -94,8 +94,12 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     if they have retro sprites too the game behind it is not in the filename and it goes to
     `latest` (271); every untagged sprite was checked against its newest tagged sibling and **not
     one is the same image**, so the untagged one is always later art, never a duplicate. An
-    untagged sprite of a trainer drawn only once is that trainer's only appearance, so a curated
-    table names the game. What none of that reaches is `other` rather than guessed at: 66 today,
+    untagged sprite of a trainer drawn only once is the only art Showdown has of them, so a curated
+    table names the game that made it. Beware **remakes** when adding to that table: it asks which
+    game drew the sprite, not which region the trainer walks around in. Celio is FireRed, so
+    generation 3, not Kanto's 1; the Johto sprites are HeartGold art, so generation 4, and the
+    Rocket executives in them never existed before it; Hoenn's are Omega Ruby art, so generation 6,
+    Zinnia and Lisia included. What none of that reaches is `other` rather than guessed at: 66 today,
     mostly trainer classes Showdown drew once. Bulbapedia's per-game character categories settle a
     name in one read and are how the Legends: Z-A, Hisui, Paldea, Masters EX and Champions casts
     were placed; note that **Legends: Z-A is Generation 9**, not Kalos. A name that no category

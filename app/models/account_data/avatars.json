@@ -429,14 +429,14 @@
  {
   "id": "aquasuit",
   "name": "Aquasuit",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/aquasuit.png",
   "art": false
  },
  {
   "id": "archer",
   "name": "Archer",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/archer.png",
   "art": false
  },
@@ -478,7 +478,7 @@
  {
   "id": "ariana",
   "name": "Ariana",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/ariana.png",
   "art": false
  },
@@ -723,7 +723,7 @@
  {
   "id": "baoba",
   "name": "Baoba",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/baoba.png",
   "art": false
  },
@@ -1899,7 +1899,7 @@
  {
   "id": "celio",
   "name": "Celio",
-  "generation": "gen1",
+  "generation": "gen3",
   "key": "trainers/celio.png",
   "art": false
  },
@@ -2676,7 +2676,7 @@
  {
   "id": "elm",
   "name": "Elm",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/elm.png",
   "art": false
  },
@@ -3432,7 +3432,7 @@
  {
   "id": "green-current",
   "name": "Green",
-  "generation": "gen1",
+  "generation": "gen3",
   "key": "trainers/green.png",
   "art": false
  },
@@ -4321,7 +4321,7 @@
  {
   "id": "kurt",
   "name": "Kurt",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/kurt.png",
   "art": false
  },
@@ -4433,7 +4433,7 @@
  {
   "id": "lanette",
   "name": "Lanette",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/lanette.png",
   "art": false
  },
@@ -4636,7 +4636,7 @@
  {
   "id": "lisia",
   "name": "Lisia",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/lisia.png",
   "art": false
  },
@@ -4881,7 +4881,7 @@
  {
   "id": "magmasuit",
   "name": "Magmasuit",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/magmasuit.png",
   "art": false
  },
@@ -5343,7 +5343,7 @@
  {
   "id": "mrbriney",
   "name": "Mrbriney",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/mrbriney.png",
   "art": false
  },
@@ -5357,7 +5357,7 @@
  {
   "id": "mrstone",
   "name": "Mrstone",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/mrstone.png",
   "art": false
  },
@@ -5777,7 +5777,7 @@
  {
   "id": "petrel",
   "name": "Petrel",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/petrel.png",
   "art": false
  },
@@ -6421,7 +6421,7 @@
  {
   "id": "proton",
   "name": "Proton",
-  "generation": "gen2",
+  "generation": "gen4",
   "key": "trainers/proton.png",
   "art": false
  },
@@ -7457,7 +7457,7 @@
  {
   "id": "scott",
   "name": "Scott",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/scott.png",
   "art": false
  },
@@ -8213,7 +8213,7 @@
  {
   "id": "teamrocket",
   "name": "Team Rocket",
-  "generation": "gen1",
+  "generation": "other",
   "key": "trainers/teamrocket.png",
   "art": false
  },
@@ -9172,7 +9172,7 @@
  {
   "id": "zinnia",
   "name": "Zinnia",
-  "generation": "gen3",
+  "generation": "gen6",
   "key": "trainers/zinnia.png",
   "art": false
  },
