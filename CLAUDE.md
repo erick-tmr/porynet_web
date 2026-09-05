@@ -38,11 +38,13 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
 - **Sprite sources** (where the source PNGs come from before they go to R2):
   - **Pokémon, item, badge, and type sprites**: the cloned [PokeAPI/sprites](https://github.com/PokeAPI/sprites) repo at `vendor/pokeapi-sprites/sprites/{pokemon,items,badges,types}/`. Item sprites live in [`sprites/items/`](https://github.com/PokeAPI/sprites/tree/master/sprites/items) (~900 kebab-case PNGs: `nugget.png`, `moon-stone.png`, `hm01.png`, `card-key.png`, `poke-flute.png`, ...). This is the source for walkthrough item cards (`app/assets/images/walkthrough/items/*.png`, keyed by `Walkthrough::Yellow.item_sprite`).
   - **Trainer sprites**: [Pokémon Showdown](https://play.pokemonshowdown.com/sprites/trainers/) (browse with `?view=dir`). Showdown ships them on a padded 80x80 canvas; **trim each one to a 3px transparent margin** before uploading, or the VS portrait draws a small figure adrift in a tall box.
-  - **Account art** (`app/assets/images/account/`): the four provider marks on the sign-in buttons
-    (`oauth/*.png`, taken from the design handoff) and the three trainer avatars
-    (`avatars/{red,blue,green}.png`, trimmed from Showdown's `red-gen3`, `blue-gen3` and
-    `leaf-gen3`, all FireRed/LeafGreen so the three cards read as one set). Nothing in `vendor/` reproduces either set, so like the walkthrough artwork they
-    are committed (`.gitignore` carves them out).
+  - **Account art** (`app/assets/images/account/`): gitignored and served from R2 like every other
+    image, so a fresh clone rebuilds it rather than checking it out.
+    `avatars/{red,blue,green}.png` are Showdown's `red-gen3`, `blue-gen3` and `leaf-gen3`, all
+    FireRed/LeafGreen so the three cards read as one set (Green is the Kanto heroine, not the rival
+    under his Japanese name), each cropped to its content and re-padded to a 3px margin.
+    `oauth/{google,discord,github,facebook}.png` are the provider marks from the design handoff
+    bundle, downscaled to 108px. Then `deploy/upload-images.sh`.
   - **Artwork** (`app/assets/images/walkthrough/art/*.png`, e.g. the Dugtrio beside the Diglett's Cave trivia): the one exception to "images are gitignored because vendor/ re-derives them". Nothing in `vendor/pokeapi-sprites` reproduces a hand-prepared piece, so these are committed (`.gitignore` carves them out) and a fresh clone can still `--force` a whole bucket. They are painted art, not game rips, so they render with `image-rendering: auto` against the global `pixelated`.
   - Flow to add a sprite: copy the source PNG into the matching `app/assets/images/...` path (the object key), then upload with `deploy/upload-images.sh`. A referenced image that isn't in the bucket 404s at render (not a test failure), so upload before wiring a new sprite into a view.
 
@@ -138,9 +140,13 @@ One workflow (`.github/workflows/ci.yml`). **Blocking**: RuboCop (omakase), Brak
   IP: 10 sign-ins per 3 minutes, 5 resends per hour each. They count into `RATE_LIMIT_STORE`
   (`config/initializers/rate_limit_store.rb`), a dedicated `MemoryStore` rather than `Rails.cache`,
   so the throttle behaves the same in every environment (the test env's `:null_store` answers `nil`
-  to every `increment`, which would leave the limiter silently inert). It is per **process**, which
-  is app-wide here because Puma runs one: setting `WEB_CONCURRENCY` above 1, or adding a second web
-  server, would divide the limit by that number, and the store would have to move to Solid Cache.
+  to every `increment`, which would leave the limiter silently inert). Two limits to know. It is per
+  **process**, which is app-wide here because Puma runs one: setting `WEB_CONCURRENCY` above 1, or
+  adding a second web server, would divide the limit by that number, and the store would have to
+  move to Solid Cache. And it is **sized**: an entry costs about 280 bytes, so 8 MB holds roughly
+  9,000 addresses across the three limiters. Past that `MemoryStore` prunes by least-recently-used,
+  which for a throttle means forgetting somebody's count and handing them a fresh allowance, so
+  raise the size rather than let it run full.
   Because the count is by IP and every request in the suite comes from 127.0.0.1, `test_helper.rb`
   clears the store between tests.
 - **The password pepper is in Rails credentials** (`devise.pepper`). Without the master key it
