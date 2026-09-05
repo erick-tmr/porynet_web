@@ -289,7 +289,7 @@
  {
   "id": "akari",
   "name": "Akari",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/akari.png",
   "art": false
  },
@@ -317,14 +317,14 @@
  {
   "id": "allister",
   "name": "Allister",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/allister.png",
   "art": false
  },
  {
   "id": "allister-unmasked",
   "name": "Allister (Unmasked)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/allister-unmasked.png",
   "art": false
  },
@@ -366,14 +366,14 @@
  {
   "id": "ansha",
   "name": "Ansha",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/ansha.png",
   "art": false
  },
  {
   "id": "ansha-cook",
   "name": "Ansha (Cook)",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/ansha-cook.png",
   "art": false
  },
@@ -401,13 +401,13 @@
  {
   "id": "aquagrunt",
   "name": "Aqua Grunt",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/aquagrunt.png",
   "art": false
  },
  {
   "id": "aquagrunt-rse",
-  "name": "Aqua Grunt (Rse)",
+  "name": "Aqua Grunt (R/S/E)",
   "generation": "gen3",
   "key": "trainers/aquagrunt-rse.png",
   "art": false
@@ -415,13 +415,13 @@
  {
   "id": "aquagruntf",
   "name": "Aqua Grunt ♀",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/aquagruntf.png",
   "art": false
  },
  {
   "id": "aquagruntf-rse",
-  "name": "Aqua Grunt ♀ (Rse)",
+  "name": "Aqua Grunt ♀ (R/S/E)",
   "generation": "gen3",
   "key": "trainers/aquagruntf-rse.png",
   "art": false
@@ -561,14 +561,14 @@
  },
  {
   "id": "arven-s",
-  "name": "Arven (S)",
+  "name": "Arven (Scarlet)",
   "generation": "gen9",
   "key": "trainers/arven-s.png",
   "art": false
  },
  {
   "id": "arven-v",
-  "name": "Arven (V)",
+  "name": "Arven (Violet)",
   "generation": "gen9",
   "key": "trainers/arven-v.png",
   "art": false
@@ -589,7 +589,7 @@
  },
  {
   "id": "ash-capbackward",
-  "name": "Ash (Capbackward)",
+  "name": "Ash (Cap Backward)",
   "generation": "spinoff",
   "key": "trainers/ash-capbackward.png",
   "art": false
@@ -646,14 +646,14 @@
  {
   "id": "az",
   "name": "AZ",
-  "generation": "latest",
+  "generation": "gen6",
   "key": "trainers/az.png",
   "art": false
  },
  {
   "id": "az-lza",
-  "name": "AZ (Lza)",
-  "generation": "latest",
+  "name": "AZ (Z-A)",
+  "generation": "gen9",
   "key": "trainers/az-lza.png",
   "art": false
  },
@@ -884,14 +884,14 @@
  {
   "id": "bede",
   "name": "Bede",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/bede.png",
   "art": false
  },
  {
   "id": "bede-leader",
   "name": "Bede (Leader)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/bede-leader.png",
   "art": false
  },
@@ -933,14 +933,14 @@
  {
   "id": "beni",
   "name": "Beni",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/beni.png",
   "art": false
  },
  {
   "id": "beni-ninja",
   "name": "Beni (Ninja)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/beni-ninja.png",
   "art": false
  },
@@ -954,14 +954,14 @@
  {
   "id": "bianca",
   "name": "Bianca",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/bianca.png",
   "art": false
  },
  {
   "id": "bianca-pwt",
-  "name": "Bianca (Pwt)",
-  "generation": "spinoff",
+  "name": "Bianca (World Tournament)",
+  "generation": "gen5",
   "key": "trainers/bianca-pwt.png",
   "art": false
  },
@@ -1416,7 +1416,7 @@
  {
   "id": "brendan-contest",
   "name": "Brendan (Contest)",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/brendan-contest.png",
   "art": false
  },
@@ -1703,14 +1703,14 @@
  {
   "id": "burnet",
   "name": "Burnet",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/burnet.png",
   "art": false
  },
  {
   "id": "burnet-radar",
   "name": "Burnet (Radar)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/burnet-radar.png",
   "art": false
  },
@@ -1878,7 +1878,7 @@
  {
   "id": "carmine",
   "name": "Carmine",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/carmine.png",
   "art": false
  },
@@ -1962,7 +1962,7 @@
  {
   "id": "cheren",
   "name": "Cheren",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/cheren.png",
   "art": false
  },
@@ -2038,7 +2038,7 @@
  },
  {
   "id": "clavell-s",
-  "name": "Clavell (S)",
+  "name": "Clavell (Scarlet)",
   "generation": "gen9",
   "key": "trainers/clavell-s.png",
   "art": false
@@ -2108,7 +2108,7 @@
  },
  {
   "id": "clive-v",
-  "name": "Clive (V)",
+  "name": "Clive (Violet)",
   "generation": "gen9",
   "key": "trainers/clive-v.png",
   "art": false
@@ -2445,28 +2445,28 @@
  {
   "id": "darach",
   "name": "Darach",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/darach.png",
   "art": false
  },
  {
   "id": "darach-caitlin",
-  "name": "Darach (Caitlin)",
-  "generation": "latest",
+  "name": "Darach (& Caitlin)",
+  "generation": "gen4",
   "key": "trainers/darach-caitlin.png",
   "art": false
  },
  {
   "id": "dawn",
   "name": "Dawn",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/dawn.png",
   "art": false
  },
  {
   "id": "dawn-contest",
   "name": "Dawn (Contest)",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/dawn-contest.png",
   "art": false
  },
@@ -2662,7 +2662,7 @@
  {
   "id": "elio",
   "name": "Elio",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/elio.png",
   "art": false
  },
@@ -2683,14 +2683,14 @@
  {
   "id": "emma",
   "name": "Emma",
-  "generation": "latest",
+  "generation": "gen6",
   "key": "trainers/emma.png",
   "art": false
  },
  {
   "id": "emma-lza",
-  "name": "Emma (Lza)",
-  "generation": "latest",
+  "name": "Emma (Z-A)",
+  "generation": "gen9",
   "key": "trainers/emma-lza.png",
   "art": false
  },
@@ -2808,8 +2808,8 @@
  },
  {
   "id": "ethan-pokeathlon",
-  "name": "Ethan (Pokeathlon)",
-  "generation": "latest",
+  "name": "Ethan (Pokéathlon)",
+  "generation": "gen4",
   "key": "trainers/ethan-pokeathlon.png",
   "art": false
  },
@@ -3046,7 +3046,7 @@
  },
  {
   "id": "florian-bb",
-  "name": "Florian (Bb)",
+  "name": "Florian (Blueberry)",
   "generation": "gen9",
   "key": "trainers/florian-bb.png",
   "art": false
@@ -3060,7 +3060,7 @@
  },
  {
   "id": "florian-s",
-  "name": "Florian (S)",
+  "name": "Florian (Scarlet)",
   "generation": "gen9",
   "key": "trainers/florian-s.png",
   "art": false
@@ -3075,28 +3075,28 @@
  {
   "id": "furisodegirl-black",
   "name": "Furisode Girl (Black)",
-  "generation": "latest",
+  "generation": "gen6",
   "key": "trainers/furisodegirl-black.png",
   "art": false
  },
  {
   "id": "furisodegirl-blue",
   "name": "Furisode Girl (Blue)",
-  "generation": "latest",
+  "generation": "gen6",
   "key": "trainers/furisodegirl-blue.png",
   "art": false
  },
  {
   "id": "furisodegirl-pink",
   "name": "Furisode Girl (Pink)",
-  "generation": "latest",
+  "generation": "gen6",
   "key": "trainers/furisodegirl-pink.png",
   "art": false
  },
  {
   "id": "furisodegirl-white",
   "name": "Furisode Girl (White)",
-  "generation": "latest",
+  "generation": "gen6",
   "key": "trainers/furisodegirl-white.png",
   "art": false
  },
@@ -3355,21 +3355,21 @@
  {
   "id": "gladion",
   "name": "Gladion",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/gladion.png",
   "art": false
  },
  {
   "id": "gladion-stance",
   "name": "Gladion (Stance)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/gladion-stance.png",
   "art": false
  },
  {
   "id": "gloria",
   "name": "Gloria",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/gloria.png",
   "art": false
  },
@@ -3383,7 +3383,7 @@
  {
   "id": "gloria-league",
   "name": "Gloria (League)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/gloria-league.png",
   "art": false
  },
@@ -3579,14 +3579,14 @@
  {
   "id": "hau",
   "name": "Hau",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/hau.png",
   "art": false
  },
  {
   "id": "hau-stance",
   "name": "Hau (Stance)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/hau-stance.png",
   "art": false
  },
@@ -3733,28 +3733,28 @@
  {
   "id": "hilbert",
   "name": "Hilbert",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/hilbert.png",
   "art": false
  },
  {
   "id": "hilbert-wonderlauncher",
-  "name": "Hilbert (Wonderlauncher)",
-  "generation": "spinoff",
+  "name": "Hilbert (Wonder Launcher)",
+  "generation": "gen5",
   "key": "trainers/hilbert-wonderlauncher.png",
   "art": false
  },
  {
   "id": "hilda",
   "name": "Hilda",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/hilda.png",
   "art": false
  },
  {
   "id": "hilda-wonderlauncher",
-  "name": "Hilda (Wonderlauncher)",
-  "generation": "spinoff",
+  "name": "Hilda (Wonder Launcher)",
+  "generation": "gen5",
   "key": "trainers/hilda-wonderlauncher.png",
   "art": false
  },
@@ -3817,14 +3817,14 @@
  {
   "id": "ingo",
   "name": "Ingo",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/ingo.png",
   "art": false
  },
  {
   "id": "ingo-hisui",
   "name": "Ingo (Hisui)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/ingo-hisui.png",
   "art": false
  },
@@ -3985,14 +3985,14 @@
  {
   "id": "johanna",
   "name": "Johanna",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/johanna.png",
   "art": false
  },
  {
   "id": "johanna-contest",
   "name": "Johanna (Contest)",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/johanna-contest.png",
   "art": false
  },
@@ -4075,7 +4075,7 @@
  },
  {
   "id": "juliana-bb",
-  "name": "Juliana (Bb)",
+  "name": "Juliana (Blueberry)",
   "generation": "gen9",
   "key": "trainers/juliana-bb.png",
   "art": false
@@ -4089,7 +4089,7 @@
  },
  {
   "id": "juliana-s",
-  "name": "Juliana (S)",
+  "name": "Juliana (Scarlet)",
   "generation": "gen9",
   "key": "trainers/juliana-s.png",
   "art": false
@@ -4125,14 +4125,14 @@
  {
   "id": "kamado",
   "name": "Kamado",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/kamado.png",
   "art": false
  },
  {
   "id": "kamado-armor",
   "name": "Kamado (Armor)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/kamado-armor.png",
   "art": false
  },
@@ -4167,14 +4167,14 @@
  {
   "id": "kieran",
   "name": "Kieran",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/kieran.png",
   "art": false
  },
  {
   "id": "kieran-champion",
   "name": "Kieran (Champion)",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/kieran-champion.png",
   "art": false
  },
@@ -4293,14 +4293,14 @@
  {
   "id": "kukui",
   "name": "Kukui",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/kukui.png",
   "art": false
  },
  {
   "id": "kukui-stand",
   "name": "Kukui (Stand)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/kukui-stand.png",
   "art": false
  },
@@ -4559,14 +4559,14 @@
  {
   "id": "leon",
   "name": "Leon",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/leon.png",
   "art": false
  },
  {
   "id": "leon-tower",
   "name": "Leon (Tower)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/leon-tower.png",
   "art": false
  },
@@ -4601,14 +4601,14 @@
  {
   "id": "lillie",
   "name": "Lillie",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/lillie.png",
   "art": false
  },
  {
   "id": "lillie-z",
-  "name": "Lillie (Z)",
-  "generation": "latest",
+  "name": "Lillie (Z-Move)",
+  "generation": "gen7",
   "key": "trainers/lillie-z.png",
   "art": false
  },
@@ -4713,14 +4713,14 @@
  {
   "id": "lucas",
   "name": "Lucas",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/lucas.png",
   "art": false
  },
  {
   "id": "lucas-contest",
   "name": "Lucas (Contest)",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/lucas-contest.png",
   "art": false
  },
@@ -4755,28 +4755,28 @@
  {
   "id": "lusamine",
   "name": "Lusamine",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/lusamine.png",
   "art": false
  },
  {
   "id": "lusamine-nihilego",
   "name": "Lusamine (Nihilego)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/lusamine-nihilego.png",
   "art": false
  },
  {
   "id": "lyra",
   "name": "Lyra",
-  "generation": "latest",
+  "generation": "gen4",
   "key": "trainers/lyra.png",
   "art": false
  },
  {
   "id": "lyra-pokeathlon",
-  "name": "Lyra (Pokeathlon)",
-  "generation": "latest",
+  "name": "Lyra (Pokéathlon)",
+  "generation": "gen4",
   "key": "trainers/lyra-pokeathlon.png",
   "art": false
  },
@@ -4839,13 +4839,13 @@
  {
   "id": "magmagrunt",
   "name": "Magma Grunt",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/magmagrunt.png",
   "art": false
  },
  {
   "id": "magmagrunt-rse",
-  "name": "Magma Grunt (Rse)",
+  "name": "Magma Grunt (R/S/E)",
   "generation": "gen3",
   "key": "trainers/magmagrunt-rse.png",
   "art": false
@@ -4853,13 +4853,13 @@
  {
   "id": "magmagruntf",
   "name": "Magma Grunt ♀",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/magmagruntf.png",
   "art": false
  },
  {
   "id": "magmagruntf-rse",
-  "name": "Magma Grunt ♀ (Rse)",
+  "name": "Magma Grunt ♀ (R/S/E)",
   "generation": "gen3",
   "key": "trainers/magmagruntf-rse.png",
   "art": false
@@ -4944,14 +4944,14 @@
  {
   "id": "marnie",
   "name": "Marnie",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/marnie.png",
   "art": false
  },
  {
   "id": "marnie-league",
   "name": "Marnie (League)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/marnie-league.png",
   "art": false
  },
@@ -5028,7 +5028,7 @@
  {
   "id": "may-contest",
   "name": "May (Contest)",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/may-contest.png",
   "art": false
  },
@@ -5168,7 +5168,7 @@
  {
   "id": "mina",
   "name": "Mina",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/mina.png",
   "art": false
  },
@@ -5266,42 +5266,42 @@
  {
   "id": "mom-alola",
   "name": "Mom (Alola)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/mom-alola.png",
   "art": false
  },
  {
   "id": "mom-hoenn",
   "name": "Mom (Hoenn)",
-  "generation": "latest",
+  "generation": "gen3",
   "key": "trainers/mom-hoenn.png",
   "art": false
  },
  {
   "id": "mom-johto",
   "name": "Mom (Johto)",
-  "generation": "latest",
+  "generation": "gen2",
   "key": "trainers/mom-johto.png",
   "art": false
  },
  {
   "id": "mom-paldea",
   "name": "Mom (Paldea)",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/mom-paldea.png",
   "art": false
  },
  {
   "id": "mom-unova",
   "name": "Mom (Unova)",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/mom-unova.png",
   "art": false
  },
  {
   "id": "mom-unova2",
   "name": "Mom (Unova2)",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/mom-unova2.png",
   "art": false
  },
@@ -5371,21 +5371,21 @@
  {
   "id": "mustard",
   "name": "Mustard",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/mustard.png",
   "art": false
  },
  {
   "id": "mustard-champion",
   "name": "Mustard (Champion)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/mustard-champion.png",
   "art": false
  },
  {
   "id": "mustard-master",
   "name": "Mustard (Master)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/mustard-master.png",
   "art": false
  },
@@ -5413,28 +5413,28 @@
  {
   "id": "nate",
   "name": "Nate",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/nate.png",
   "art": false
  },
  {
-  "id": "nate-pokestar",
-  "name": "Nate (Pokestar)",
-  "generation": "spinoff",
-  "key": "trainers/nate-pokestar.png",
-  "art": false
- },
- {
   "id": "nate-pokestar3",
-  "name": "Nate (Pokestar3)",
-  "generation": "latest",
+  "name": "Nate (Pokéstar 3)",
+  "generation": "gen5",
   "key": "trainers/nate-pokestar3.png",
   "art": false
  },
  {
+  "id": "nate-pokestar",
+  "name": "Nate (Pokéstar)",
+  "generation": "gen5",
+  "key": "trainers/nate-pokestar.png",
+  "art": false
+ },
+ {
   "id": "nate-wonderlauncher",
-  "name": "Nate (Wonderlauncher)",
-  "generation": "spinoff",
+  "name": "Nate (Wonder Launcher)",
+  "generation": "gen5",
   "key": "trainers/nate-wonderlauncher.png",
   "art": false
  },
@@ -5447,14 +5447,14 @@
  },
  {
   "id": "nemona-s",
-  "name": "Nemona (S)",
+  "name": "Nemona (Scarlet)",
   "generation": "gen9",
   "key": "trainers/nemona-s.png",
   "art": false
  },
  {
   "id": "nemona-v",
-  "name": "Nemona (V)",
+  "name": "Nemona (Violet)",
   "generation": "gen9",
   "key": "trainers/nemona-v.png",
   "art": false
@@ -5735,14 +5735,14 @@
  {
   "id": "peony",
   "name": "Peony",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/peony.png",
   "art": false
  },
  {
   "id": "peony-league",
   "name": "Peony (League)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/peony-league.png",
   "art": false
  },
@@ -5847,14 +5847,14 @@
  {
   "id": "piers",
   "name": "Piers",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/piers.png",
   "art": false
  },
  {
   "id": "piers-league",
   "name": "Piers (League)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/piers-league.png",
   "art": false
  },
@@ -5868,7 +5868,7 @@
  {
   "id": "plasmagrunt",
   "name": "Plasma Grunt",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/plasmagrunt.png",
   "art": false
  },
@@ -5882,7 +5882,7 @@
  {
   "id": "plasmagruntf",
   "name": "Plasma Grunt ♀",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/plasmagruntf.png",
   "art": false
  },
@@ -5895,14 +5895,14 @@
  },
  {
   "id": "player-go",
-  "name": "Player (Go)",
+  "name": "Player (GO)",
   "generation": "spinoff",
   "key": "trainers/player-go.png",
   "art": false
  },
  {
   "id": "playerf-go",
-  "name": "Playerf (Go)",
+  "name": "Playerf (GO)",
   "generation": "spinoff",
   "key": "trainers/playerf-go.png",
   "art": false
@@ -5910,14 +5910,14 @@
  {
   "id": "plumeria",
   "name": "Plumeria",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/plumeria.png",
   "art": false
  },
  {
   "id": "plumeria-league",
   "name": "Plumeria (League)",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/plumeria-league.png",
   "art": false
  },
@@ -6687,7 +6687,7 @@
  {
   "id": "rei",
   "name": "Rei",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/rei.png",
   "art": false
  },
@@ -6925,49 +6925,49 @@
  {
   "id": "rosa",
   "name": "Rosa",
-  "generation": "latest",
+  "generation": "gen5",
   "key": "trainers/rosa.png",
   "art": false
  },
  {
-  "id": "rosa-pokestar",
-  "name": "Rosa (Pokestar)",
-  "generation": "spinoff",
-  "key": "trainers/rosa-pokestar.png",
-  "art": false
- },
- {
   "id": "rosa-pokestar2",
-  "name": "Rosa (Pokestar2)",
-  "generation": "latest",
+  "name": "Rosa (Pokéstar 2)",
+  "generation": "gen5",
   "key": "trainers/rosa-pokestar2.png",
   "art": false
  },
  {
   "id": "rosa-pokestar3",
-  "name": "Rosa (Pokestar3)",
-  "generation": "latest",
+  "name": "Rosa (Pokéstar 3)",
+  "generation": "gen5",
   "key": "trainers/rosa-pokestar3.png",
   "art": false
  },
  {
+  "id": "rosa-pokestar",
+  "name": "Rosa (Pokéstar)",
+  "generation": "gen5",
+  "key": "trainers/rosa-pokestar.png",
+  "art": false
+ },
+ {
   "id": "rosa-wonderlauncher",
-  "name": "Rosa (Wonderlauncher)",
-  "generation": "spinoff",
+  "name": "Rosa (Wonder Launcher)",
+  "generation": "gen5",
   "key": "trainers/rosa-wonderlauncher.png",
   "art": false
  },
  {
   "id": "rose",
   "name": "Rose",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/rose.png",
   "art": false
  },
  {
   "id": "rose-zerosuit",
-  "name": "Rose (Zerosuit)",
-  "generation": "latest",
+  "name": "Rose (Zero Suit)",
+  "generation": "gen8",
   "key": "trainers/rose-zerosuit.png",
   "art": false
  },
@@ -7142,14 +7142,14 @@
  {
   "id": "sada",
   "name": "Sada",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/sada.png",
   "art": false
  },
  {
   "id": "sada-ai",
-  "name": "Sada (Ai)",
-  "generation": "latest",
+  "name": "Sada (AI)",
+  "generation": "gen9",
   "key": "trainers/sada-ai.png",
   "art": false
  },
@@ -7485,7 +7485,7 @@
  {
   "id": "selene",
   "name": "Selene",
-  "generation": "latest",
+  "generation": "gen7",
   "key": "trainers/selene.png",
   "art": false
  },
@@ -7590,7 +7590,7 @@
  {
   "id": "silver",
   "name": "Silver",
-  "generation": "latest",
+  "generation": "gen2",
   "key": "trainers/silver.png",
   "art": false
  },
@@ -7723,14 +7723,14 @@
  {
   "id": "sonia",
   "name": "Sonia",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/sonia.png",
   "art": false
  },
  {
   "id": "sonia-professor",
   "name": "Sonia (Professor)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/sonia-professor.png",
   "art": false
  },
@@ -7744,14 +7744,14 @@
  {
   "id": "sordward",
   "name": "Sordward",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/sordward.png",
   "art": false
  },
  {
   "id": "sordward-shielbert",
-  "name": "Sordward (Shielbert)",
-  "generation": "latest",
+  "name": "Sordward (& Shielbert)",
+  "generation": "gen8",
   "key": "trainers/sordward-shielbert.png",
   "art": false
  },
@@ -7792,28 +7792,28 @@
  },
  {
   "id": "stargrunt-s",
-  "name": "Star Grunt (S)",
+  "name": "Star Grunt (Scarlet)",
   "generation": "gen9",
   "key": "trainers/stargrunt-s.png",
   "art": false
  },
  {
   "id": "stargrunt-v",
-  "name": "Star Grunt (V)",
+  "name": "Star Grunt (Violet)",
   "generation": "gen9",
   "key": "trainers/stargrunt-v.png",
   "art": false
  },
  {
   "id": "stargruntf-s",
-  "name": "Star Grunt ♀ (S)",
+  "name": "Star Grunt ♀ (Scarlet)",
   "generation": "gen9",
   "key": "trainers/stargruntf-s.png",
   "art": false
  },
  {
   "id": "stargruntf-v",
-  "name": "Star Grunt ♀ (V)",
+  "name": "Star Grunt ♀ (Violet)",
   "generation": "gen9",
   "key": "trainers/stargruntf-v.png",
   "art": false
@@ -8465,14 +8465,14 @@
  {
   "id": "turo",
   "name": "Turo",
-  "generation": "latest",
+  "generation": "gen9",
   "key": "trainers/turo.png",
   "art": false
  },
  {
   "id": "turo-ai",
-  "name": "Turo (Ai)",
-  "generation": "latest",
+  "name": "Turo (AI)",
+  "generation": "gen9",
   "key": "trainers/turo-ai.png",
   "art": false
  },
@@ -8640,7 +8640,7 @@
  {
   "id": "victor",
   "name": "Victor",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/victor.png",
   "art": false
  },
@@ -8654,7 +8654,7 @@
  {
   "id": "victor-league",
   "name": "Victor (League)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/victor-league.png",
   "art": false
  },
@@ -8689,14 +8689,14 @@
  {
   "id": "volo",
   "name": "Volo",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/volo.png",
   "art": false
  },
  {
   "id": "volo-ginkgo",
   "name": "Volo (Ginkgo)",
-  "generation": "latest",
+  "generation": "gen8",
   "key": "trainers/volo-ginkgo.png",
   "art": false
  },
@@ -8800,7 +8800,7 @@
  },
  {
   "id": "wally-rse",
-  "name": "Wally (Rse)",
+  "name": "Wally (R/S/E)",
   "generation": "gen3",
   "key": "trainers/wally-rse.png",
   "art": false
@@ -9164,7 +9164,7 @@
  },
  {
   "id": "yukito-hideko",
-  "name": "Yukito (Hideko)",
+  "name": "Yukito (& Hideko)",
   "generation": "gen9",
   "key": "trainers/yukito-hideko.png",
   "art": false

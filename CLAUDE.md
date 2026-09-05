@@ -108,6 +108,11 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     were placed; note that **Legends: Z-A is Generation 9**, not Kalos. A name that no category
     claims usually belongs to a game off the main line (Sleep, GO, Champions) and goes to
     `spinoff`; Showdown's own credits page will not help, it names the artist and never a source.
+    A suffix that names a **mode inside a game is not a spin-off**: Pokéstar Studios, the Wonder
+    Launcher and the World Tournament are all Black 2 features and belong to generation 5, the
+    Pokéathlon is HeartGold's, and `-lza` is Legends: Z-A, which is main series. A suffix naming a
+    costume or a pose (`-champion`, `-dojo`, `-league`, `-zerosuit`) names no game at all, so those
+    inherit the generation of the trainer they dress up.
     A local folder holding fewer files than the bucket means nothing: the PNGs are
     gitignored, so a clone mirrors only what it has touched. **Probe the bucket, not the folder**,
     before deciding a sprite is missing.
