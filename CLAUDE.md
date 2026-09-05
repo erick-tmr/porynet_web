@@ -92,8 +92,12 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
     resolved in three passes: a game tag (`-rse`, `-lgpe`, `-s`/`-v`) places a sprite on its own,
     otherwise a trainer who has any `-genN` sprite belongs to the oldest generation that drew them
     (Brock has a `-gen1`, so every Brock is Gen 1), otherwise a curated table names them. What none
-    of that reaches is filed under `other` rather than guessed at: 104 today, almost all trainer
-    classes that Showdown only ever drew once. Spin-off and collab casts (GO, Conquest, Unite,
+    of that reaches is filed under `other` rather than guessed at: 81 today, most of them trainer
+    classes Showdown drew once, the rest sprites with no game behind them (its credits page names
+    the artist, never a source, and a good few are community originals). Bulbapedia's per-game
+    character categories are the way to settle a name; that is how the Legends: Z-A and Paldea
+    casts were placed, and Legends: Z-A counts as **Generation 9**, not Kalos, because the chip
+    asks which game's cast a trainer belongs to. Spin-off and collab casts (GO, Conquest, Unite,
     Masters, the anime) get their own `spinoff` chip. A local folder holding fewer files than the bucket means nothing: the PNGs are
     gitignored, so a clone mirrors only what it has touched. **Probe the bucket, not the folder**,
     before deciding a sprite is missing.

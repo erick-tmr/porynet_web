@@ -418,7 +418,7 @@
  {
   "id": "ansha",
   "name": "Ansha",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/ansha.png",
   "art": false
@@ -426,7 +426,7 @@
  {
   "id": "ansha-cook",
   "name": "Ansha (Cook)",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/ansha-cook.png",
   "art": false
@@ -1026,7 +1026,7 @@
  {
   "id": "bellelba",
   "name": "Bellelba",
-  "generation": "other",
+  "generation": "gen5",
   "vintage": "current",
   "key": "trainers/bellelba.png",
   "art": false
@@ -2122,7 +2122,7 @@
  {
   "id": "canari",
   "name": "Canari",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/canari.png",
   "art": false
@@ -2138,7 +2138,7 @@
  {
   "id": "caretaker",
   "name": "Caretaker",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/caretaker.png",
   "art": false
@@ -2418,7 +2418,7 @@
  {
   "id": "clover",
   "name": "Clover",
-  "generation": "other",
+  "generation": "gen8",
   "vintage": "current",
   "key": "trainers/clover.png",
   "art": false
@@ -2442,7 +2442,7 @@
  {
   "id": "coin",
   "name": "Coin",
-  "generation": "other",
+  "generation": "gen8",
   "vintage": "current",
   "key": "trainers/coin.png",
   "art": false
@@ -2538,7 +2538,7 @@
  {
   "id": "corbeau",
   "name": "Corbeau",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/corbeau.png",
   "art": false
@@ -2714,7 +2714,7 @@
  {
   "id": "cyrano",
   "name": "Cyrano",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/cyrano.png",
   "art": false
@@ -2730,7 +2730,7 @@
  {
   "id": "dagero",
   "name": "Dagero",
-  "generation": "gen8",
+  "generation": "other",
   "vintage": "current",
   "key": "trainers/dagero.png",
   "art": false
@@ -3770,7 +3770,7 @@
  {
   "id": "ginter",
   "name": "Ginter",
-  "generation": "other",
+  "generation": "gen8",
   "vintage": "current",
   "key": "trainers/ginter.png",
   "art": false
@@ -3962,7 +3962,7 @@
  {
   "id": "grisham",
   "name": "Grisham",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/grisham.png",
   "art": false
@@ -4034,7 +4034,7 @@
  {
   "id": "gwynn",
   "name": "Gwynn",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/gwynn.png",
   "art": false
@@ -4074,7 +4074,7 @@
  {
   "id": "harmony",
   "name": "Harmony",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/harmony.png",
   "art": false
@@ -4114,7 +4114,7 @@
  {
   "id": "heath",
   "name": "Heath",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/heath.png",
   "art": false
@@ -4442,7 +4442,7 @@
  {
   "id": "ivor",
   "name": "Ivor",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/ivor.png",
   "art": false
@@ -4450,7 +4450,7 @@
  {
   "id": "jacinthe",
   "name": "Jacinthe",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/jacinthe.png",
   "art": false
@@ -5210,7 +5210,7 @@
  {
   "id": "lebanne",
   "name": "Lebanne",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/lebanne.png",
   "art": false
@@ -5258,7 +5258,7 @@
  {
   "id": "lida",
   "name": "Lida",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/lida.png",
   "art": false
@@ -6234,7 +6234,7 @@
  {
   "id": "naveen",
   "name": "Naveen",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/naveen.png",
   "art": false
@@ -6538,7 +6538,7 @@
  {
   "id": "paxton",
   "name": "Paxton",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/paxton.png",
   "art": false
@@ -6618,7 +6618,7 @@
  {
   "id": "phillipe",
   "name": "Phillipe",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/phillipe.png",
   "art": false
@@ -9266,7 +9266,7 @@
  {
   "id": "taohua",
   "name": "Taohua",
-  "generation": "other",
+  "generation": "gen8",
   "vintage": "current",
   "key": "trainers/taohua.png",
   "art": false
@@ -9274,7 +9274,7 @@
  {
   "id": "tarragon",
   "name": "Tarragon",
-  "generation": "gen8",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/tarragon.png",
   "art": false
@@ -9314,7 +9314,7 @@
  {
   "id": "taunie",
   "name": "Taunie",
-  "generation": "gen8",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/taunie.png",
   "art": false
@@ -9794,7 +9794,7 @@
  {
   "id": "urbain",
   "name": "Urbain",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/urbain.png",
   "art": false
@@ -10474,7 +10474,7 @@
  {
   "id": "yukito-hideko",
   "name": "Yukito (Hideko)",
-  "generation": "other",
+  "generation": "gen9",
   "vintage": "current",
   "key": "trainers/yukito-hideko.png",
   "art": false
