@@ -1002,7 +1002,7 @@
  {
   "id": "becca",
   "name": "Becca",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/becca.png",
   "art": false
@@ -1050,7 +1050,7 @@
  {
   "id": "bellis",
   "name": "Bellis",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/bellis.png",
   "art": false
@@ -2130,7 +2130,7 @@
  {
   "id": "caraliss",
   "name": "Caraliss",
-  "generation": "other",
+  "generation": "gen8",
   "vintage": "current",
   "key": "trainers/caraliss.png",
   "art": false
@@ -2762,7 +2762,7 @@
  {
   "id": "dana",
   "name": "Dana",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/dana.png",
   "art": false
@@ -3234,7 +3234,7 @@
  {
   "id": "evelyn",
   "name": "Evelyn",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/evelyn.png",
   "art": false
@@ -5706,7 +5706,7 @@
  {
   "id": "mateo",
   "name": "Mateo",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/mateo.png",
   "art": false
@@ -6082,7 +6082,7 @@
  {
   "id": "morgan",
   "name": "Morgan",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/morgan.png",
   "art": false
@@ -6258,7 +6258,7 @@
  {
   "id": "neroli",
   "name": "Neroli",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/neroli.png",
   "art": false
@@ -6298,7 +6298,7 @@
  {
   "id": "nita",
   "name": "Nita",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/nita.png",
   "art": false
@@ -7682,7 +7682,7 @@
  {
   "id": "rhi",
   "name": "Rhi",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/rhi.png",
   "art": false
@@ -10130,7 +10130,7 @@
  {
   "id": "willem",
   "name": "Willem",
-  "generation": "other",
+  "generation": "spinoff",
   "vintage": "current",
   "key": "trainers/willem.png",
   "art": false
