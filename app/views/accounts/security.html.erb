@@ -11,13 +11,31 @@
       <span class="pn-account__pill"><%= t("account.security.verified") %></span>
     </div>
 
-    <%= form_with model: current_user, scope: :account_email, url: account_security_path,
+    <% if current_user.pending_reconfirmation? %>
+      <div class="pn-account__current pn-account__current--pending">
+        <div class="pn-account__current-text">
+          <div class="pn-account__stat-label"><%= t("account.security.pending_email") %></div>
+          <div class="pn-account__current-value"><%= current_user.unconfirmed_email %></div>
+          <div class="pn-account__current-note">
+            <%= t("account.security.pending_note") %>
+            <%= link_to t("account.security.pending_resend"),
+                        new_user_confirmation_path(email: current_user.email),
+                        class: "pn-account__foot-link" %>
+          </div>
+        </div>
+        <span class="pn-account__pill pn-account__pill--pending">
+          <%= t("account.security.pending") %>
+        </span>
+      </div>
+    <% end %>
+
+    <%= form_with model: @email_form, scope: :account_email, url: account_security_email_path,
                   method: :patch, class: "pn-account__form" do |f| %>
       <div class="pn-account__grid2">
         <%= render "shared/field", f: f, name: :email, kind: :email_field, tone: :sky,
                    label: t("account.security.new_email"),
                    placeholder: t("account.fields.email_placeholder"),
-                   options: { value: "", autocomplete: "email" } %>
+                   options: { autocomplete: "email" } %>
         <%= render "shared/field", f: f, name: :email_confirmation, kind: :email_field, tone: :sky,
                    label: t("account.security.confirm_email"),
                    placeholder: t("account.fields.email_placeholder"),
@@ -30,12 +48,10 @@
                  options: { autocomplete: "current-password" } %>
 
       <div class="pn-account__foot">
-        <span class="pn-account__soon-wrap">
-          <%= f.submit t("account.security.email_submit"), disabled: true,
-                       class: "pn-btn pn-btn--sky" %>
-          <span class="pn-account__soon"><%= t("account.soon") %></span>
+        <%= f.submit t("account.security.email_submit"), class: "pn-btn pn-btn--sky" %>
+        <span class="pn-account__foot-note">
+          <%= t("account.security.email_note", days: Devise.confirm_within.in_days.to_i) %>
         </span>
-        <span class="pn-account__foot-note"><%= t("account.security.email_note") %></span>
       </div>
     <% end %>
   <% end %>
@@ -43,7 +59,8 @@
   <%= render layout: "accounts/panel",
              locals: { title: t("account.security.password_title"),
                        meta: t("account.security.password_meta") } do %>
-    <%= form_with model: current_user, scope: :account_password, url: account_security_path,
+    <%= form_with model: @password_form, scope: :account_password,
+                  url: account_security_password_path,
                   method: :patch, class: "pn-account__form",
                   data: { controller: "password-strength", score: 0 } do |f| %>
       <%= render "shared/field", f: f, name: :current_password, kind: :password_field,
@@ -90,23 +107,11 @@
         <% end %>
       </div>
 
-      <label class="pn-check">
-        <span class="pn-check__box">
-          <%= check_box_tag "account_password[sign_out_everywhere]", "1", true,
-                            class: "pn-check__input" %>
-          <span class="pn-check__tick" aria-hidden="true">✔</span>
-        </span>
-        <span><%= t("account.security.sign_out_others") %></span>
-      </label>
-
       <div class="pn-account__foot">
-        <span class="pn-account__soon-wrap">
-          <%= f.submit t("account.security.password_submit"), disabled: true,
-                       class: "pn-btn pn-btn--accent" %>
-          <span class="pn-account__soon"><%= t("account.soon") %></span>
-        </span>
+        <%= f.submit t("account.security.password_submit"), class: "pn-btn pn-btn--accent" %>
         <%= link_to t("account.security.forgot"), new_user_password_path,
                     class: "pn-account__foot-link" %>
+        <span class="pn-account__foot-note"><%= t("account.security.sign_out_others") %></span>
       </div>
     <% end %>
   <% end %>

@@ -28,7 +28,9 @@ Rails.application.routes.draw do
     scope :account, as: :account do
       get   "avatar", to: "accounts#avatar",        as: :avatar
       patch "avatar", to: "accounts#update_avatar"
-      get "security", to: "accounts#security",  as: :security
+      get   "security", to: "accounts#security", as: :security
+      patch "security/email",    to: "accounts#update_email",    as: :security_email
+      patch "security/password", to: "accounts#update_password", as: :security_password
       get "save",     to: "accounts#save_file", as: :save_file
     end
 

@@ -1,6 +1,8 @@
 require "test_helper"
 
 class RateLimitTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   test "the login form stops an unattended run of guesses" do
     10.times do
       post user_session_path, params: { user: { login: "ASH", password: "wrong-one" } }
@@ -25,6 +27,18 @@ class RateLimitTest < ActionDispatch::IntegrationTest
     5.times { post user_confirmation_path, params: { user: { email: "misty@cerulean.gym" } } }
 
     post user_confirmation_path, params: { user: { email: "misty@cerulean.gym" } }
+
+    assert_response :too_many_requests
+  end
+
+  test "changing the address over and over stops too" do
+    sign_in users(:confirmed)
+    change = { account_email: { email: "ash@viridian.city",
+                                email_confirmation: "ash@viridian.city",
+                                current_password: "pikachu123" } }
+    5.times { patch account_security_email_path, params: change }
+
+    patch account_security_email_path, params: change
 
     assert_response :too_many_requests
   end

@@ -164,7 +164,10 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     get account_security_path
 
     assert_select ".pn-account__current-value", text: "ash@pallet.town"
+    assert_select "form[action=?]", account_security_email_path
+    assert_select "form[action=?]", account_security_password_path
     assert_select "input[name=?]", "account_email[email_confirmation]"
+    assert_select "input[type=submit][disabled]", count: 0
     assert_select "[data-controller=?]", "password-strength"
     assert_select ".pn-account__rule", count: AccountData::PASSWORD_RULES.size
     assert_select ".pn-account__strength-label", count: AccountData::STRENGTH_LEVELS.size

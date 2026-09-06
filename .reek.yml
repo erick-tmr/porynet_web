@@ -16,6 +16,13 @@ detectors:
       - Walkthrough::Yellow   # iterating locations -> encounters, and transform_values
                               # -> map over the manifest, are inherent 2-deep passes in a
                               # data source, not a control-flow smell.
+  TooManyMethods:
+    exclude:
+      - AccountsController  # the logged-in area is four pages inside one controller, and two of
+                            # them write (the avatar picker, and the security page's email and
+                            # password forms). That is seven actions plus a strong-params reader
+                            # and one small helper each. Splitting it would scatter the shell,
+                            # panel and hero partials the same four pages share.
   TooManyInstanceVariables:
     max_instance_variables: 7
     exclude:

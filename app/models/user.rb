@@ -7,7 +7,7 @@ class User < ApplicationRecord
          authentication_keys: [ :login ]
 
   attr_writer :login
-  attr_accessor :terms, :email_confirmation
+  attr_accessor :terms
 
   normalizes :trainer_name, with: ->(name) { name.strip }
 
@@ -15,6 +15,7 @@ class User < ApplicationRecord
                            format: { with: TRAINER_NAME_FORMAT },
                            uniqueness: { case_sensitive: false }
   validates :avatar, inclusion: { in: AVATARS }
+  validates :email, confirmation: true
   validates :terms, acceptance: { allow_nil: false }, on: :create
 
   before_validation :stamp_terms_accepted, on: :create
