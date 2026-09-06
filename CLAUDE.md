@@ -38,9 +38,18 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `/pt` twin, and the left rail is `link_to` with `.is-active` rather than a Stimulus tab switcher:
   every section deep-links, and each one is where its future `PATCH` will land. They share
   `app/views/accounts/_shell.html.erb` (hero, rail, main column) and `_panel.html.erb` (the ink
-  header bar), both rendered with `render layout:`. **The avatar picker is the one section that
-  writes**: it PATCHes `account/avatar`, `User#avatar` validates against the roster, and the
-  filters ride along as hidden fields so a save lands back on the page it was made from. Save-file
+  header bar), both rendered with `render layout:`. **Two sections write.** The avatar picker
+  PATCHes `account/avatar`, `User#avatar` validates against the roster, and the filters ride along
+  as hidden fields so a save lands back on the page it was made from. The security page carries two
+  forms with an endpoint each, `account/security/email` and `account/security/password`, both
+  driven by Devise's `update_with_password` on a record re-read from the row so a rejected change
+  never leaks into the header or the current-address line. Each panel renders its own error
+  carrier (`@email_form` / `@password_form`), so a wrong password on one does not light up the
+  other. An address change is **reconfirmed, not applied**: it lands in `unconfirmed_email` and the
+  page grows a PENDING row until the mailed link is followed, which is also where a signed-in
+  trainer is returned to. A password change signs the current browser back in with `bypass_sign_in`
+  and, since Devise keys a session off the password hash, logs every other device out; the copy
+  says so rather than offering a toggle that cannot be honoured. Save-file
   numbers (dex counts, badges, Oak, playtime, the stop the trainer left off on) come from
   `AccountData::SAVES`, a placeholder table keyed by the same slugs as
   `Walkthrough::Versions::CATALOGUE`, which the game picker itself walks. Controls that would
@@ -224,15 +233,16 @@ One workflow (`.github/workflows/ci.yml`). **Blocking**: RuboCop (omakase), Brak
   request that happens to load the routes signs nobody in: the first login of a process fails as if
   the password were wrong. `config/initializers/load_routes_before_warden.rb` exists only to head
   that off. Do not remove it.
-- **The login form and both resend endpoints are throttled** with Rails 8's `rate_limit`, keyed by
-  IP: 10 sign-ins per 3 minutes, 5 resends per hour each. They count into `RATE_LIMIT_STORE`
+- **The login form, both resend endpoints and the email change are throttled** with Rails 8's
+  `rate_limit`, keyed by IP: 10 sign-ins per 3 minutes, 5 resends per hour each, 5 address changes
+  per hour. They count into `RATE_LIMIT_STORE`
   (`config/initializers/rate_limit_store.rb`), a dedicated `MemoryStore` rather than `Rails.cache`,
   so the throttle behaves the same in every environment (the test env's `:null_store` answers `nil`
   to every `increment`, which would leave the limiter silently inert). Two limits to know. It is per
   **process**, which is app-wide here because Puma runs one: setting `WEB_CONCURRENCY` above 1, or
   adding a second web server, would divide the limit by that number, and the store would have to
   move to Solid Cache. And it is **sized**: an entry costs about 280 bytes, so 8 MB holds roughly
-  9,000 addresses across the three limiters. Past that `MemoryStore` prunes by least-recently-used,
+  9,000 addresses across the four limiters. Past that `MemoryStore` prunes by least-recently-used,
   which for a throttle means forgetting somebody's count and handing them a fresh allowance, so
   raise the size rather than let it run full.
   Because the count is by IP and every request in the suite comes from 127.0.0.1, `test_helper.rb`
