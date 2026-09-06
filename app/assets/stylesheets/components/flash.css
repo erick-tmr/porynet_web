@@ -1,13 +1,19 @@
 .pn-flash {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 45;
   max-width: 1200px;
   margin: 22px auto 0;
   padding: 0 28px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  pointer-events: none;
 }
 .pn-flash:empty { display: none; }
 .pn-flash__msg {
+  pointer-events: auto;
   display: flex;
   align-items: center;
   gap: 12px;
