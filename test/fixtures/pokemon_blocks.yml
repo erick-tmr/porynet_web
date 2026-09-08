@@ -6,5 +6,11 @@ sparky_gen1:
     level: 5
     exp: 125
     moves: [ 84, 45 ]
-    ot_name: ASH
-    tid16: 12345
+    stat_exp:
+      hp: 0
+      atk: 0
+      def: 0
+      spe: 0
+      spc: 0
+    type1: ELECTRIC
+    catch_rate: 190

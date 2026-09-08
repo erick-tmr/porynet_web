@@ -45,6 +45,27 @@ class PokemonTest < ActiveSupport::TestCase
     assert_includes save_files(:ash_yellow).pokemon.newest_first.to_a, oldest
   end
 
+  test "a Pokemon the trainer caught answers with their own name" do
+    save_files(:ash_yellow).update!(ot_name: "ASH", ot_id32: 12_345)
+
+    assert_equal "ASH", pokemon(:spare_pikachu).reload.original_trainer
+    assert_not_predicate pokemon(:spare_pikachu), :traded?
+  end
+
+  test "a Pokemon that arrived from somebody else keeps their name and reads as traded" do
+    save_files(:ash_yellow).update!(ot_name: "ASH")
+    miles = build(nickname: "MILES", ot_name: "TRAINER").tap(&:save!)
+
+    assert_equal "TRAINER", miles.original_trainer
+    assert_predicate miles, :traded?
+  end
+
+  test "an OT id is a sixteen or thirty-two bit number, whichever the format wrote" do
+    assert_nothing_raised { build(ot_id32: 4_294_967_295).save! }
+    assert_raises(ActiveRecord::StatementInvalid) { build(ot_id32: 4_294_967_296).save! }
+    assert_raises(ActiveRecord::StatementInvalid) { build(ot_id32: -1).save! }
+  end
+
   private
 
   def build(**overrides)

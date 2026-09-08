@@ -444,8 +444,8 @@ module Walkthrough
   # { dex:, name: }; house/inside are Shots (the building on the overworld, the NPC inside). A
   # trade shown on two stops (the one that flags it, the one that walks to it) carries the tick id
   # of the first, so trading once ticks it on both.
-  Trade = Data.define(:give, :receive, :nick, :npc_key, :title_key, :where_key, :note_key, :house,
-    :inside, :tick, :at_map) do
+  Trade = Data.define(:give, :receive, :nick, :ot_name, :npc_key, :title_key, :where_key, :note_key,
+    :house, :inside, :tick, :at_map) do
     def initialize(tick: nil, **rest) = super
   end
 

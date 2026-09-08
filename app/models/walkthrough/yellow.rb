@@ -347,12 +347,15 @@ module Walkthrough
       OakEntry.new(dex: dex, name: NAMES.fetch(dex), qty: qty, why_key: "#{base(slug)}.oak.#{mon_key(dex)}")
     end
 
+    IN_GAME_TRADE_OT = "TRAINER"
+
     def self.trade(slug, key, give, receive, nick, house:, inside:)
       b = base(slug)
       Trade.new(
         give: { dex: give, name: NAMES.fetch(give) },
         receive: { dex: receive, name: NAMES.fetch(receive) },
-        nick: nick, npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
+        nick: nick, ot_name: IN_GAME_TRADE_OT,
+        npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
         where_key: "#{b}.trades.#{key}.where", note_key: "#{b}.trades.#{key}.note",
         house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL),
         tick: authored_tick(b, "trade", key), at_map: slug

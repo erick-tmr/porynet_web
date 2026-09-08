@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_08_194555) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_08_201816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,6 +20,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_194555) do
     t.string "nickname"
     t.string "origin_context", null: false
     t.string "origin_game_slug"
+    t.bigint "ot_id32"
+    t.string "ot_name", limit: 12
     t.bigint "save_file_id", null: false
     t.uuid "tracker", default: -> { "gen_random_uuid()" }, null: false
     t.datetime "updated_at", null: false
@@ -27,6 +29,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_194555) do
     t.index ["save_file_id"], name: "index_pokemon_on_save_file_id"
     t.index ["tracker"], name: "index_pokemon_on_tracker", unique: true
     t.check_constraint "national_dex::text ~ '^[0-9]{3}$'::text", name: "pokemon_national_dex"
+    t.check_constraint "ot_id32 >= 0 AND ot_id32 <= '4294967295'::bigint", name: "pokemon_ot_id32"
   end
 
   create_table "pokemon_blocks", force: :cascade do |t|
@@ -42,10 +45,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_194555) do
   create_table "save_files", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "game_slug", null: false
+    t.bigint "ot_id32"
+    t.string "ot_name", limit: 12
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id", "game_slug"], name: "index_save_files_on_user_id_and_game_slug", unique: true
     t.index ["user_id"], name: "index_save_files_on_user_id"
+    t.check_constraint "ot_id32 >= 0 AND ot_id32 <= '4294967295'::bigint", name: "save_files_ot_id32"
   end
 
   create_table "users", force: :cascade do |t|

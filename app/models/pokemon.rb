@@ -14,4 +14,11 @@ class Pokemon < ApplicationRecord
   # Nothing but a body: the walkthrough was ticked, and no save file has filled it in yet. Derived
   # rather than stored, so a block or a nickname arriving cannot leave a stale flag behind.
   def placeholder? = nickname.nil? && blocks.none?
+
+  # A Pokemon the trainer caught themselves carries no OT of its own and answers with the save
+  # file's, which stays right when the save file learns its name later. One that arrived from
+  # somebody else carries theirs, and that is what makes it a traded Pokemon.
+  def original_trainer = ot_name || save_file.ot_name
+
+  def traded? = ot_name.present? && ot_name != save_file.ot_name
 end

@@ -635,8 +635,21 @@ class WalkthroughTest < ActiveSupport::TestCase
 
     assert_equal "route-2/trade-mr-mime", flagged.tick
     assert_equal flagged.tick, walked.tick
+    assert_equal "MILES", flagged.nick
+    assert_equal "TRAINER", flagged.ot_name
     assert_equal flagged.title_key, walked.title_key
     assert_equal "MILES", walked.nick
+  end
+
+  # Every in-game trade hands over a Pokemon whose OT is the same fixed name: the game copies
+  # InGameTrade_TrainerString, which prints as TRAINER, onto all of them. Its id is rolled at the
+  # counter, so nothing here can predict that.
+  test "every in-game trade hands over a Pokemon under the same trainer name" do
+    trades = game.locations.flat_map(&:trades)
+
+    assert_equal 8, trades.size
+    assert_equal [ "TRAINER" ], trades.map(&:ot_name).uniq
+    assert_equal %w[MILES RICKY GURIO SPIKE STICKY BUFFY CEZANNE], trades.map(&:nick).uniq
   end
 
   test "scene_shot returns a placeholder for an unknown scene key" do

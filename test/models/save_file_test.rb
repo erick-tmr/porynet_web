@@ -41,6 +41,18 @@ class SaveFileTest < ActiveSupport::TestCase
     end
   end
 
+  test "a save file carries the name and id the trainer plays under" do
+    save = save_files(:ash_yellow)
+    save.update!(ot_name: "ASH", ot_id32: 12_345)
+
+    assert_equal "ASH", save.reload.ot_name
+    assert_equal 12_345, save.ot_id32
+  end
+
+  test "a save file started by a tick has no trainer name until the game says so" do
+    assert_nil SaveFile.for(users(:rival), "blue").ot_name
+  end
+
   private
 
   def build(**overrides)
