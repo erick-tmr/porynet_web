@@ -66,8 +66,7 @@
       <div class="pn-wt-gym__label"><%= t("walkthrough.ui.dojo_students", count: dojo.trainers.size) %></div>
       <div class="pn-wt-trainers pn-wt-trainers--gym">
         <% dojo.trainers.each do |trainer| %>
-          <%= render "trainer", trainer: trainer, id: trainer.tick,
-                     role: t("walkthrough.ui.dojo_student") %>
+          <%= render "trainer", trainer: trainer, role: t("walkthrough.ui.dojo_student") %>
         <% end %>
       </div>
 

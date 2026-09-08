@@ -234,7 +234,7 @@ module Walkthrough
 
   # A Celadon rooftop drink the thirsty girl swaps for a TM.
   MartTrade = Data.define(:drink, :drink_sprite, :price, :tm_short, :tm_sprite, :move, :mtype,
-    :note_key)
+    :note_key, :tick)
 
   # One prize on a Game Corner counter: a species with the level it comes at, or a TM.
   Prize = Data.define(:name, :sprite, :level, :mtype, :coins, :note_key) do
@@ -599,7 +599,7 @@ module Walkthrough
   # the two illustrations that lean into the left of their frame.
   LeagueMember = Data.define(:key, :tone, :numeral, :numeral_right, :trainer) do
     def initialize(numeral_right: false, **rest) = super
-    def tick = "indigo-plateau/#{key}"
+    def tick = trainer.tick
     def ace?(index) = index == trainer.team.size - 1
   end
 
@@ -610,7 +610,7 @@ module Walkthrough
   end
 
   LeagueChampion = Data.define(:trainer, :teams) do
-    def tick = "indigo-plateau/blue"
+    def tick = trainer.tick
   end
 
   # `copy_key` is the locale prefix the whole page hangs off; the plates and the throne each read

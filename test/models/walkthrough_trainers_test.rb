@@ -150,11 +150,12 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_equal "route-3/#{pin.id}", card.tick
   end
 
-  test "an authored card with no map object ticks under its own key" do
+  test "an authored card with no map object ticks under its own name" do
     rival = location("pallet-town").trainers.first
 
     assert_nil rival.opp
-    assert_nil rival.tick, "nothing generated claims it, so the view falls back to its position"
+    assert_equal "pallet-town/trainer-blue", rival.tick,
+      "nothing generated claims it, so the stop and the name it is drawn under are the id"
   end
 
   test "dense_trainers? turns on past a handful" do

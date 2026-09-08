@@ -347,15 +347,15 @@ module Walkthrough
       OakEntry.new(dex: dex, name: NAMES.fetch(dex), qty: qty, why_key: "#{base(slug)}.oak.#{mon_key(dex)}")
     end
 
-    def self.trade(slug, key, give, receive, nick, house:, inside:, tick: nil)
+    def self.trade(slug, key, give, receive, nick, house:, inside:)
       b = base(slug)
       Trade.new(
         give: { dex: give, name: NAMES.fetch(give) },
         receive: { dex: receive, name: NAMES.fetch(receive) },
         nick: nick, npc_key: "#{b}.trades.#{key}.npc", title_key: "#{b}.trades.#{key}.title",
         where_key: "#{b}.trades.#{key}.where", note_key: "#{b}.trades.#{key}.note",
-        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL), tick: tick,
-        at_map: slug
+        house: scene_shot(house, WHERE_LABEL), inside: scene_shot(inside, INSIDE_LABEL),
+        tick: authored_tick(b, "trade", key), at_map: slug
       )
     end
 
@@ -658,7 +658,7 @@ module Walkthrough
         route_21, pallet_town_return, viridian_city_return, viridian_gym,
         route_22_return, route_23, victory_road,
         indigo_plateau, route_4_return, cerulean_cave
-      ].map { |loc| attach_mart(attach_maps(loc, maps_for(loc.slug, data))) }
+      ].map { |loc| fill_trainer_ticks(attach_mart(attach_maps(loc, maps_for(loc.slug, data)))) }
       show_mt_moon_approach(locs)
     end
 
@@ -773,6 +773,14 @@ module Walkthrough
       hall = loc.public_send(field)
       loc.with(field => hall.with(area: room,
         shot: Shot.new(image: room.image, label: hall.shot.label)))
+    end
+
+    def self.fill_trainer_ticks(loc)
+      loc.with(trainers: loc.trainers.map { |t| t.tick ? t : t.with(tick: trainer_tick(loc.slug, t)) })
+    end
+
+    def self.trainer_tick(slug, trainer)
+      "#{slug}/trainer-#{(trainer.name || trainer.cls).downcase.gsub(/[^a-z0-9]+/, '-')}"
     end
 
     def self.merge_trainers(loc)
@@ -1885,8 +1893,7 @@ module Walkthrough
           *digletts_cave_encounters
         ],
         trades: [ trade("route-2", "mr_mime", "035", "122", "MILES",
-          house: "route-2-trade-house", inside: "route-2-trade-house-inside",
-          tick: "route-2/trade-0") ],
+          house: "route-2-trade-house", inside: "route-2-trade-house-inside") ],
         oak_queue: [ oak("digletts-cave", "050", 1) ],
         grind: grind_spot(base("digletts-cave"), anchor: "diglett-grinding",
           after_map: "digletts-cave", art: "walkthrough/art/dugtrio.png",
@@ -3481,7 +3488,8 @@ module Walkthrough
           price: item_catalog.fetch(drink)["price"],
           tm_short: "TM#{format('%02d', facts['tm'])}", tm_sprite: "tm-#{facts['type']}",
           move: facts["move"], mtype: facts["type"],
-          note_key: "#{b}.store.trades.#{item_key(tm)}")
+          note_key: "#{b}.store.trades.#{item_key(tm)}",
+          tick: authored_tick(b, "roof-trade", item_key(tm)))
       end
     end
 
@@ -3537,7 +3545,7 @@ module Walkthrough
 
     def self.item(base, n, name, key, at: nil, tick: nil)
       Item.new(name: name, where_key: "#{base}.steps.#{n}.items.#{key}",
-        sprite: item_sprite(name), at: at, tick: tick)
+        sprite: item_sprite(name), at: at, tick: tick || authored_tick(base, "item", key))
     end
 
     # An NPC hands this one over, so no ball on the map holds it and there is no pin to tick
@@ -3545,6 +3553,10 @@ module Walkthrough
     # flags it as locked and the stop that walks back for it both name, so collecting it once
     # reads as collected on both pages.
     def self.gift_tick(slug, key) = "#{slug}/gift-#{key}"
+
+    def self.slug_of(base) = base.split(".").last.tr("_", "-")
+
+    def self.authored_tick(base, cat, key) = "#{slug_of(base)}/#{cat}-#{key.tr('_', '-')}"
 
     def self.hidden(base, n, name, key, scene, pin, at: nil)
       HiddenItem.new(name: name, where_key: "#{base}.steps.#{n}.hidden.#{key}",

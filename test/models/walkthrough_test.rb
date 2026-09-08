@@ -633,8 +633,8 @@ class WalkthroughTest < ActiveSupport::TestCase
     flagged = loc("route-2").trades.sole
     walked = loc("digletts-cave").trades.sole
 
-    assert_nil flagged.tick, "the stop that owns the trade keeps its positional id"
-    assert_equal "route-2/trade-0", walked.tick
+    assert_equal "route-2/trade-mr-mime", flagged.tick
+    assert_equal flagged.tick, walked.tick
     assert_equal flagged.title_key, walked.title_key
     assert_equal "MILES", walked.nick
   end
@@ -1035,12 +1035,15 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty both, "the unread key silently goes stale while the step renders the other one"
   end
 
-  # Renumbering steps is routine here, and `pin_tick` only binds an item to a stable key when
-  # exactly one map pin carries its name. Everything else falls back to a positional
-  # "slug/step-N/item-i", so a reorder quietly resets a player's saved ticks. This pins the set that
-  # is allowed to be positional: NPC gifts, which have no pin by design.
-  test "only pinless NPC gifts fall back to a positional progress key" do
-    loose = game.locations.flat_map { |l| l.steps.flat_map(&:items) }.select { |i| i.tick.nil? }
+  # Renumbering steps is routine here, and `join_pin` only binds an item to a map pin when exactly
+  # one carries its name. Everything else is handed over by an NPC, and it takes the key it is
+  # written under, so a reorder cannot move a player's saved tick onto a different item.
+  test "an item with no pin ticks under the key it is written under" do
+    items = game.locations.flat_map { |l| l.steps.flat_map(&:items) }
+
+    assert_empty items.select { |i| i.tick.nil? }, "an item with no id is a card nobody can tick"
+
+    loose = items.reject { |i| i.tick.match?(%r{/\w+-\d+-\d+\z}) || i.tick.include?("/gift-") }
 
     assert_equal 24, loose.size
     assert_equal [ "Bicycle", "Bike Voucher", "Coin Case", "Exp. All", "Fossil", "Good Rod",
@@ -1049,9 +1052,9 @@ class WalkthroughTest < ActiveSupport::TestCase
                    "S.S. Ticket", "Super Rod", "TM Metronome", "TM36 Selfdestruct", "TM39 Swift",
                    "Town Map" ], loose.map(&:name).uniq.sort,
       "the Itemfinder left this set the moment a second page claimed it: two cards for one gift " \
-      "need a stable id between them, not a slot number on each page"
-    assert(loose.none? { |item| game.locations.any? { |l| l.later.any? { |x| x.name == item.name } } },
-      "a gift another stop also lists is keyed to that stop (gift_tick), never positionally")
+      "share the giving stop's id (gift_tick) instead"
+    assert_equal "viridian-city/item-oaks-parcel",
+      loose.find { |i| i.name == "Oak's Parcel" }.tick
   end
 
   test "a step that names a staircase renders the key the map wears on both its floors" do

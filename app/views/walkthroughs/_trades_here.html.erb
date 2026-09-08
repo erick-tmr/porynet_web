@@ -4,7 +4,7 @@
   <div class="pn-wt-catch__hint"><%= t("walkthrough.ui.trades_hint") %></div>
   <div class="pn-wt-trades">
     <% trades.each do |trade| %>
-      <%= render "trade", trade: trade, id: trade.tick || "#{loc.slug}/trade-#{loc.trades.index(trade)}" %>
+      <%= render "trade", trade: trade %>
     <% end %>
   </div>
 </section>

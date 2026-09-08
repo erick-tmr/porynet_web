@@ -1,7 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import DojoPickController from "../../app/javascript/controllers/dojo_pick_controller.js";
-import { STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
+import { SCHEMA_VERSION, STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -139,7 +139,7 @@ describe("reading state back", () => {
   it("restores a pick made in an earlier visit", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "107": true } }, bodies: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "107": true } }, bodies: {} })
     );
     await mount();
 
@@ -153,7 +153,7 @@ describe("reading state back", () => {
   it("leaves both standing when both are already caught", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "106": true, "107": true } }, bodies: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "106": true, "107": true } }, bodies: {} })
     );
     await mount();
 
@@ -166,7 +166,7 @@ describe("reading state back", () => {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "106": true } }, bodies: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "106": true } }, bodies: {} })
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();
