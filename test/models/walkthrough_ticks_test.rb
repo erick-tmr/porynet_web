@@ -1,16 +1,10 @@
 require "test_helper"
 
-# Every tick id is a durable key: it is what a player's saved progress points at, so a content
-# edit that moves one silently re-points somebody's collection. These are the rules that keep
-# them stable, and they are checked over the whole game rather than over a sample.
 class WalkthroughTicksTest < ActiveSupport::TestCase
   GRAMMAR = %r{\A[a-z0-9][a-z0-9-]*/[a-z0-9][a-z0-9-]*\z}
 
   def game = Walkthrough.find!("yellow")
 
-  # [kind, tick] for everything on a stop's page a player can tick off. Kind matters because the
-  # same id is shared on purpose across kinds and pages (a come-back-later card and the step that
-  # finally collects it are one item seen twice); two of the same kind at one stop are not.
   def tickables(loc)
     rows = loc.steps.flat_map { |step| step.items.map { |i| [ :item, i ] } + step.hidden.map { |h| [ :hidden, h ] } }
     rows += loc.later.map { |l| [ :later, l ] }
@@ -48,8 +42,6 @@ class WalkthroughTicksTest < ActiveSupport::TestCase
     end
   end
 
-  # The four shapes an id comes in. A pin-derived one ends in the grid cell the marker sits on and
-  # comes from the map data; the rest are authored, and read as what they are.
   test "an id says where the thing is and what it is" do
     assert_equal "route-2/item-13-54", loc("route-2").later.first.tick
     assert_equal "viridian-city/item-oaks-parcel",

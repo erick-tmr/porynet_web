@@ -641,9 +641,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "MILES", walked.nick
   end
 
-  # Every in-game trade hands over a Pokemon whose OT is the same fixed name: the game copies
-  # InGameTrade_TrainerString, which prints as TRAINER, onto all of them. Its id is rolled at the
-  # counter, so nothing here can predict that.
   test "every in-game trade hands over a Pokemon under the same trainer name" do
     trades = game.locations.flat_map(&:trades)
 
@@ -1048,9 +1045,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty both, "the unread key silently goes stale while the step renders the other one"
   end
 
-  # Renumbering steps is routine here, and `join_pin` only binds an item to a map pin when exactly
-  # one carries its name. Everything else is handed over by an NPC, and it takes the key it is
-  # written under, so a reorder cannot move a player's saved tick onto a different item.
   test "an item with no pin ticks under the key it is written under" do
     items = game.locations.flat_map { |l| l.steps.flat_map(&:items) }
 
