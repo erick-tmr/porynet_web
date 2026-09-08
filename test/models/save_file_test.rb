@@ -1,0 +1,49 @@
+require "test_helper"
+
+class SaveFileTest < ActiveSupport::TestCase
+  test "a save file belongs to one of the games the walkthrough index lists" do
+    assert_predicate build(game_slug: "red"), :valid?
+    assert_not build(game_slug: "crystal").valid?
+    assert_not build(game_slug: nil).valid?
+  end
+
+  test "the games it offers are the ones the version picker offers" do
+    assert_equal Walkthrough::Versions::CATALOGUE.map { |entry| entry[:slug] }, SaveFile::GAMES
+  end
+
+  test "a trainer keeps one save file per game" do
+    assert_raises(ActiveRecord::RecordNotUnique) do
+      build(user: users(:confirmed), game_slug: "yellow").save!
+    end
+    assert_difference("SaveFile.count", 1) { build(user: users(:rival), game_slug: "yellow").save! }
+  end
+
+  test "opening a game hands back the save file already on it" do
+    assert_equal save_files(:ash_yellow), SaveFile.for(users(:confirmed), "yellow")
+  end
+
+  test "opening a game nobody has played yet starts the save file" do
+    started = assert_difference("SaveFile.count", 1) { SaveFile.for(users(:rival), "blue") }
+
+    assert_equal "blue", started.game_slug
+    assert_equal users(:rival), started.user
+  end
+
+  test "a game the guide has never heard of is not a save file to start" do
+    assert_raises(ActiveRecord::RecordNotFound) { SaveFile.for(users(:rival), "crystal") }
+  end
+
+  test "closing a save file takes its marks and its Pokemon with it" do
+    save = save_files(:ash_yellow)
+
+    assert_difference("WalkthroughMark.count", -1) do
+      assert_difference("Pokemon.count", -2) { save.destroy }
+    end
+  end
+
+  private
+
+  def build(**overrides)
+    SaveFile.new({ user: users(:rival), game_slug: "yellow" }.merge(overrides))
+  end
+end

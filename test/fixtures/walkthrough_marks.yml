@@ -1,0 +1,4 @@
+moon_stone:
+  save_file: ash_yellow
+  mark_id: route-2/item-13-54
+  created_at: <%= 1.day.ago.to_fs(:db) %>

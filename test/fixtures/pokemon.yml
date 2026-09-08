@@ -1,0 +1,12 @@
+spare_pikachu:
+  save_file: ash_yellow
+  national_dex: "025"
+  origin_context: gen1
+  origin_game_slug: yellow
+
+named_pikachu:
+  save_file: ash_yellow
+  national_dex: "025"
+  origin_context: gen1
+  origin_game_slug: yellow
+  nickname: SPARKY

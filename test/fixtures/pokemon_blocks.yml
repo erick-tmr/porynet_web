@@ -1,0 +1,10 @@
+sparky_gen1:
+  pokemon: named_pikachu
+  context: gen1
+  payload:
+    dv16: 43690
+    level: 5
+    exp: 125
+    moves: [ 84, 45 ]
+    ot_name: ASH
+    tid16: 12345

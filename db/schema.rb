@@ -10,9 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_05_123540) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_08_194555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "pokemon", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "national_dex", limit: 3, null: false
+    t.string "nickname"
+    t.string "origin_context", null: false
+    t.string "origin_game_slug"
+    t.bigint "save_file_id", null: false
+    t.uuid "tracker", default: -> { "gen_random_uuid()" }, null: false
+    t.datetime "updated_at", null: false
+    t.index ["save_file_id", "national_dex"], name: "index_pokemon_on_save_file_id_and_national_dex"
+    t.index ["save_file_id"], name: "index_pokemon_on_save_file_id"
+    t.index ["tracker"], name: "index_pokemon_on_tracker", unique: true
+    t.check_constraint "national_dex::text ~ '^[0-9]{3}$'::text", name: "pokemon_national_dex"
+  end
+
+  create_table "pokemon_blocks", force: :cascade do |t|
+    t.string "context", null: false
+    t.datetime "created_at", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.bigint "pokemon_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pokemon_id", "context"], name: "index_pokemon_blocks_on_pokemon_id_and_context", unique: true
+    t.index ["pokemon_id"], name: "index_pokemon_blocks_on_pokemon_id"
+  end
+
+  create_table "save_files", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "game_slug", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "game_slug"], name: "index_save_files_on_user_id_and_game_slug", unique: true
+    t.index ["user_id"], name: "index_save_files_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "avatar", default: "red", null: false
@@ -34,4 +68,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_05_123540) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  create_table "walkthrough_marks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "mark_id", limit: 96, null: false
+    t.bigint "save_file_id", null: false
+    t.index ["save_file_id", "mark_id"], name: "index_walkthrough_marks_on_save_file_id_and_mark_id", unique: true
+    t.index ["save_file_id"], name: "index_walkthrough_marks_on_save_file_id"
+  end
+
+  add_foreign_key "pokemon", "save_files", on_delete: :cascade
+  add_foreign_key "pokemon_blocks", "pokemon", on_delete: :cascade
+  add_foreign_key "save_files", "users", on_delete: :cascade
+  add_foreign_key "walkthrough_marks", "save_files", on_delete: :cascade
 end

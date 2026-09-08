@@ -14,3 +14,9 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym "RESTful"
 # end
+
+# A Pokemon is a Pokemon, however many of them you are holding, so the table and the association
+# read the way the domain does rather than as "pokemons".
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.uncountable "pokemon"
+end
