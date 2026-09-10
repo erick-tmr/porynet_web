@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_08_201816) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_10_193248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_201816) do
   create_table "save_files", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "game_slug", null: false
+    t.datetime "imported_at"
     t.bigint "ot_id32"
     t.string "ot_name", limit: 12
     t.datetime "updated_at", null: false

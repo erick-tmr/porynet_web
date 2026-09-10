@@ -2,7 +2,8 @@
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("#{mg}.meta_title", game: @game.name) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "pages/mew-glitch", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "components/sync-banner", "pages/walkthrough", "pages/mew-glitch",
+                          "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <%= link_to @game.name.upcase, walkthrough_path(game: @game.slug) %>
@@ -11,6 +12,8 @@
   <span class="pn-nav__crumb-sep">/</span>
   <span class="pn-nav__crumb-here pn-nav__crumb-here--glitch"><%= t("#{mg}.crumb_here") %></span>
 <% end %>
+
+<%= render "walkthroughs/sync_banner", game: @game %>
 
 <%# ---- HERO ---- %>
 <section class="pn-mew-hero">

@@ -1,0 +1,95 @@
+<% if @sync_pending %>
+  <% k = "walkthrough.sync" %>
+  <div class="pn-sync" hidden role="status" aria-label="<%= t("#{k}.region") %>"
+       data-controller="sync-banner"
+       data-sync-banner-game-value="<%= game.slug %>"
+       data-sync-banner-url-value="<%= walkthrough_sync_path(game: game.slug) %>"
+       data-sync-banner-attempts-value="<%= ApplicationHelper::SYNC_ATTEMPTS %>">
+
+    <div class="pn-sync__state pn-sync__state--syncing">
+      <div class="pn-sync__row">
+        <div class="pn-sync__lead">
+          <span class="pn-sync__glyph pn-sync__glyph--bars" aria-hidden="true">
+            <span class="pn-sync__bar"></span>
+            <span class="pn-sync__bar"></span>
+            <span class="pn-sync__bar"></span>
+          </span>
+          <div class="pn-sync__text">
+            <div class="pn-sync__eyebrow"><%= t("#{k}.eyebrow_syncing") %></div>
+            <div class="pn-sync__title"><%= t("#{k}.syncing_title") %></div>
+            <div class="pn-sync__note"><%= t("#{k}.syncing_note", email: current_user.email) %></div>
+          </div>
+        </div>
+        <div class="pn-sync__meter">
+          <div class="pn-sync__chips">
+            <span class="pn-sync__chip pn-sync__chip--marks">
+              <%= t("#{k}.chip_marks_html", marks: sync_slot("marks")) %>
+            </span>
+            <span class="pn-sync__chip pn-sync__chip--species">
+              <%= t("#{k}.chip_species_html", species: sync_slot("species")) %>
+            </span>
+            <span class="pn-sync__chip pn-sync__chip--pokemon">
+              <%= t("#{k}.chip_pokemon_html", pokemon: sync_slot("pokemon")) %>
+            </span>
+          </div>
+          <div class="pn-sync__track"><span class="pn-sync__fill"></span></div>
+          <div class="pn-sync__footline">
+            <span class="pn-sync__records">
+              <%= t("#{k}.records_html", sent: sync_slot("sent"), total: sync_slot("total")) %>
+            </span>
+            <span class="pn-sync__pct"><%= sync_slot("pct") %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pn-sync__state pn-sync__state--done">
+      <div class="pn-sync__row">
+        <div class="pn-sync__lead">
+          <span class="pn-sync__glyph pn-sync__glyph--tick" aria-hidden="true">✔</span>
+          <div class="pn-sync__text">
+            <div class="pn-sync__eyebrow"><%= t("#{k}.eyebrow_done") %></div>
+            <div class="pn-sync__title"><%= t("#{k}.done_title") %></div>
+            <div class="pn-sync__note">
+              <%= t("#{k}.done_note_html", total: sync_slot("total"), email: current_user.email) %>
+            </div>
+          </div>
+        </div>
+        <div class="pn-sync__meter">
+          <div class="pn-sync__footline">
+            <span class="pn-sync__cooldown">
+              <%= t("#{k}.cooldown_html", seconds: sync_slot("seconds")) %>
+            </span>
+            <button type="button" class="pn-sync__btn pn-sync__btn--clear"
+                    data-action="sync-banner#dismiss"><%= t("#{k}.clear") %></button>
+          </div>
+          <div class="pn-sync__track pn-sync__track--drain"><span class="pn-sync__fill"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pn-sync__state pn-sync__state--failed">
+      <div class="pn-sync__row">
+        <div class="pn-sync__lead">
+          <span class="pn-sync__glyph pn-sync__glyph--bang" aria-hidden="true">!</span>
+          <div class="pn-sync__text">
+            <div class="pn-sync__eyebrow"><%= t("#{k}.eyebrow_failed") %></div>
+            <div class="pn-sync__title"><%= t("#{k}.failed_title") %></div>
+            <div class="pn-sync__note">
+              <%= t("#{k}.failed_note_html", attempt: sync_slot("attempt"),
+                    attempts: ApplicationHelper::SYNC_ATTEMPTS,
+                    sent: sync_slot("sent"), total: sync_slot("total")) %>
+            </div>
+          </div>
+        </div>
+        <div class="pn-sync__meter pn-sync__meter--actions">
+          <button type="button" class="pn-sync__btn pn-sync__btn--retry"
+                  data-action="sync-banner#retry"><%= t("#{k}.retry") %></button>
+          <button type="button" class="pn-sync__btn pn-sync__btn--keep"
+                  data-action="sync-banner#dismiss"><%= t("#{k}.keep") %></button>
+          <span class="pn-sync__hint"><%= t("#{k}.failed_hint") %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

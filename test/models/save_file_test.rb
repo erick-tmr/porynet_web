@@ -53,6 +53,22 @@ class SaveFileTest < ActiveSupport::TestCase
     assert_nil SaveFile.for(users(:rival), "blue").ot_name
   end
 
+  test "a game whose guest progress has never been taken up is still pending" do
+    assert SaveFile.pending_import?(users(:confirmed), "yellow"),
+      "a save file with no import stamp has not taken up the browser's copy yet"
+    assert SaveFile.pending_import?(users(:rival), "yellow"), "and neither has a game never opened"
+  end
+
+  test "a game the trainer has already synced is done asking" do
+    save_files(:ash_yellow).update!(imported_at: Time.current)
+
+    assert_not SaveFile.pending_import?(users(:confirmed), "yellow")
+  end
+
+  test "a game the picker does not offer is never pending" do
+    assert_not SaveFile.pending_import?(users(:confirmed), "crystal")
+  end
+
   private
 
   def build(**overrides)

@@ -117,6 +117,12 @@ module ApplicationHelper
       data: { action: "click->map-jump#go", mark_key: key, mark_map: at&.split("/")&.first })
   end
 
+  SYNC_ATTEMPTS = 3
+
+  def sync_slot(role)
+    tag.span(0, class: "pn-sync__num", data: { sync_banner_target: role })
+  end
+
   def walkthrough_page_controller(game)
     tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump",
                            progress_toggle_game_value: game.slug,

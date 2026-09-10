@@ -1,4 +1,6 @@
 class WalkthroughsController < ApplicationController
+  before_action :check_sync, only: %i[show leg mew_glitch]
+
   def index
     @versions = Walkthrough::Versions.all
   end
@@ -21,5 +23,11 @@ class WalkthroughsController < ApplicationController
   def mew_glitch
     @game = Walkthrough.find!(params[:game])
     @guide = Walkthrough::Yellow.mew_glitch
+  end
+
+  private
+
+  def check_sync
+    @sync_pending = user_signed_in? && SaveFile.pending_import?(current_user, params[:game])
   end
 end
