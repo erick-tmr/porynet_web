@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
+import { token } from "lib/csrf"
 import { load } from "lib/progress_store"
-import { KEYS_PER_BATCH, batches, tally } from "lib/sync_payload"
+import { KEYS_PER_BATCH, SYNCED_EVENT, batches, tally } from "lib/sync_payload"
 
 const PHASES = [ "syncing", "done", "failed" ]
 
@@ -20,7 +21,7 @@ export default class extends Controller {
   connect() {
     const state = load()
     this.queue = batches(state, this.gameValue, this.batchSizeValue)
-    if (this.queue.length === 0) return
+    if (this.queue.length === 0) return this.#cleared()
 
     this.at = 0
     this.sent = 0
@@ -73,7 +74,7 @@ export default class extends Controller {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-CSRF-Token": this.#token(),
+          "X-CSRF-Token": token(),
         },
         body: JSON.stringify(body),
         signal: signal,
@@ -84,17 +85,18 @@ export default class extends Controller {
     }
   }
 
-  #token() {
-    return document.querySelector("meta[name='csrf-token']")?.content || ""
-  }
-
   #fail() {
     this.#phase("failed")
     this.attemptTargets.forEach((slot) => { slot.textContent = String(this.attempt) })
   }
 
+  #cleared() {
+    window.dispatchEvent(new CustomEvent(SYNCED_EVENT))
+  }
+
   #finish() {
     this.#phase("done")
+    this.#cleared()
     const span = this.dismissMsValue
     const started = Date.now()
     this.#drain(span, span)

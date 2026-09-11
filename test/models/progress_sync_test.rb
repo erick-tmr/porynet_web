@@ -81,6 +81,17 @@ class ProgressSyncTest < ActiveSupport::TestCase
     assert_difference("WalkthroughMark.count", Progress::Sync::MAX_KEYS) { apply(marks: wanted) }
   end
 
+
+  test "an id it cannot store is dropped rather than written" do
+    assert_no_difference("WalkthroughMark.count") do
+      apply(marks: { "not a mark" => true, "025" => true })
+    end
+  end
+
+  test "a species that is not a species is dropped too" do
+    assert_no_difference("Pokemon.count") { apply(bodies: { "abc" => 3, "10" => 3 }) }
+  end
+
   private
 
   def apply(**args) = Progress::Sync.apply(save_file, **args)

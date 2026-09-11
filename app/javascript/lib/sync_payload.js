@@ -1,4 +1,5 @@
 export const KEYS_PER_BATCH = 64
+export const SYNCED_EVENT = "porynet:synced"
 
 function forGame(state, kind, game) {
   const games = state[kind] || {}
@@ -45,10 +46,10 @@ export function batches(state, game, size = KEYS_PER_BATCH) {
   const counts = bodyCounts(state, game)
   return [
     ...chunk(markIds(state, game), size).map((ids) => (
-      { collected: ticked(ids), bodies: {}, records: ids.length }
+      { collected: { [game]: ticked(ids) }, bodies: {}, records: ids.length }
     )),
     ...chunk(Object.keys(counts), size).map((ids) => (
-      { collected: {}, bodies: held(counts, ids), records: ids.length }
+      { collected: {}, bodies: { [game]: held(counts, ids) }, records: ids.length }
     )),
   ]
 }

@@ -5,12 +5,23 @@ module Progress
 
     def self.apply(save_file, marks: {}, bodies: {})
       save_file.with_lock do
-        marks.first(MAX_KEYS).each do |mark_id, on|
+        storable(marks) { |mark_id| valid_mark?(mark_id) }.each do |mark_id, on|
           on ? add_mark(save_file, mark_id) : drop_mark(save_file, mark_id)
         end
-        bodies.first(MAX_KEYS).to_h { |dex, count| [ dex, hold(save_file, dex, count) ] }
+        storable(bodies) { |dex| valid_dex?(dex) }
+          .to_h { |dex, count| [ dex, hold(save_file, dex, count) ] }
       end
     end
+
+    def self.storable(offered, &check)
+      offered.filter_map { |key, wanted| [ key, wanted ] if check.call(key) }.first(MAX_KEYS)
+    end
+
+    def self.valid_mark?(mark_id)
+      mark_id.to_s.length <= 96 && mark_id.to_s.match?(WalkthroughMark::MARK_ID)
+    end
+
+    def self.valid_dex?(dex) = dex.to_s.match?(/\A\d{3}\z/)
 
     def self.add_mark(save_file, mark_id)
       WalkthroughMark.insert_all(

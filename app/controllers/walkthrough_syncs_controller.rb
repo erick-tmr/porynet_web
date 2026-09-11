@@ -6,21 +6,30 @@ class WalkthroughSyncsController < ApplicationController
   def create
     return head :unprocessable_content if oversized?
 
-    save_file = SaveFile.for(current_user, params[:game])
-    landed = Progress::Import.batch(save_file, collected: collected, bodies: bodies)
-    save_file.update!(imported_at: Time.current) if final?
-    render json: { marks: landed.marks, bodies: landed.bodies, done: final? }
+    landed = Progress::Import.call(current_user, guest_state)
+    stamp if final?
+    render json: { marks: landed.values.sum(&:marks), bodies: landed.values.sum(&:bodies),
+                   done: final? }
   end
 
   private
 
-  def oversized?
-    [ collected, bodies ].any? { |offered| offered.size > Progress::Sync::MAX_KEYS }
+  def stamp
+    SaveFile.for(current_user, params[:game]).update!(imported_at: Time.current)
   end
 
-  def collected = offered(:collected)
+  def guest_state
+    { "collected" => games(:collected), "bodies" => games(:bodies) }
+  end
 
-  def bodies = offered(:bodies)
+  def games(key)
+    offered(key).filter_map { |slug, ids| [ slug, ids ] if ids.is_a?(Hash) }.to_h
+  end
+
+  def oversized?
+    guest_state.values.map { |games| games.values.sum(&:size) }
+      .any? { |size| size > Progress::Sync::MAX_KEYS }
+  end
 
   def offered(key)
     value = params[key]

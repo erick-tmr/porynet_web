@@ -124,9 +124,17 @@ module ApplicationHelper
   end
 
   def walkthrough_page_controller(game)
-    tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump",
+    tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump progress-sync",
                            progress_toggle_game_value: game.slug,
-                           mode_toggle_game_value: game.slug })
+                           mode_toggle_game_value: game.slug,
+                           progress_sync_game_value: game.slug,
+                           **write_through })
+  end
+
+  def write_through
+    return {} if @progress_url.blank?
+
+    { progress_sync_url_value: @progress_url, progress_sync_ready_value: !@sync_pending }
   end
 
   # Attributes that make an element a tick target for progress_toggle_controller. Ids are built

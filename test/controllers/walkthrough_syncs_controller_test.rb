@@ -41,14 +41,14 @@ class WalkthroughSyncsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:confirmed)
 
     post walkthrough_sync_path(game: "yellow"),
-      params: { collected: { "route-3/item-11-9" => true } }, as: :json
+      params: { collected: { yellow: { "route-3/item-11-9" => true } } }, as: :json
 
     assert_equal({ "marks" => 1, "bodies" => 0, "done" => false }, response.parsed_body)
   end
 
   test "a batch carrying more keys than one write may hold is refused, not trimmed" do
     sign_in users(:confirmed)
-    crowd = (0..Progress::Sync::MAX_KEYS).to_h { |n| [ "route-3/item-#{n}", true ] }
+    crowd = { yellow: (0..Progress::Sync::MAX_KEYS).to_h { |n| [ "route-3/item-#{n}", true ] } }
 
     assert_no_difference("WalkthroughMark.count") do
       post walkthrough_sync_path(game: "yellow"), params: batch(collected: crowd), as: :json
@@ -58,17 +58,38 @@ class WalkthroughSyncsControllerTest < ActionDispatch::IntegrationTest
 
   test "too many counts in one batch is refused the same way" do
     sign_in users(:confirmed)
-    crowd = (0..Progress::Sync::MAX_KEYS).to_h { |n| [ format("%03d", n), 1 ] }
+    crowd = { yellow: (0..Progress::Sync::MAX_KEYS).to_h { |n| [ format("%03d", n), 1 ] } }
 
     post walkthrough_sync_path(game: "yellow"), params: batch(bodies: crowd), as: :json
 
     assert_response :unprocessable_content
   end
 
-  test "a game the guide has never heard of has nowhere to sync to" do
+  test "a game the picker does not offer is skipped rather than refused" do
     sign_in users(:confirmed)
 
-    post walkthrough_sync_path(game: "crystal"), params: batch, as: :json
+    post walkthrough_sync_path(game: "yellow"),
+      params: batch(collected: { crystal: { "route-3/item-11-9" => true },
+                                 yellow: { "route-3/item-11-9" => true } }), as: :json
+
+    assert_response :success
+    assert_equal 1, response.parsed_body["marks"]
+  end
+
+  test "a malformed game is dropped, since a guest document is not a contract" do
+    sign_in users(:confirmed)
+
+    post walkthrough_sync_path(game: "yellow"),
+      params: batch(collected: { yellow: "nope" }), as: :json
+
+    assert_response :success
+    assert_equal 0, response.parsed_body["marks"]
+  end
+
+  test "a game the guide has never heard of has nowhere to stamp" do
+    sign_in users(:confirmed)
+
+    post walkthrough_sync_path(game: "crystal"), params: batch(final: true), as: :json
 
     assert_response :not_found
   end
@@ -85,6 +106,7 @@ class WalkthroughSyncsControllerTest < ActionDispatch::IntegrationTest
   private
 
   def batch(**overrides)
-    { collected: { "route-3/item-11-9" => true }, bodies: { "010" => 2 } }.merge(overrides)
+    { collected: { yellow: { "route-3/item-11-9" => true } },
+      bodies: { yellow: { "010" => 2 } } }.merge(overrides)
   end
 end

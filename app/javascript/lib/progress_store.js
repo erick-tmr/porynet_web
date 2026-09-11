@@ -65,14 +65,48 @@ export function load() {
 
 export const CHANGE_EVENT = "porynet:progress"
 
+function idsOf(state, kind, game) {
+  const games = state[kind] || {}
+  return games[game] || {}
+}
+
+function markDelta(before, after) {
+  const delta = {}
+  Object.keys(after).forEach((id) => { if (!before[id]) delta[id] = true })
+  Object.keys(before).forEach((id) => { if (!after[id]) delta[id] = false })
+  return delta
+}
+
+function bodyDelta(before, after) {
+  const delta = {}
+  Object.keys({ ...before, ...after }).forEach((dex) => {
+    const now = after[dex] || 0
+    if (now !== (before[dex] || 0)) delta[dex] = now
+  })
+  return delta
+}
+
+export function diff(before, after) {
+  const games = new Set(KINDS.flatMap((kind) => Object.keys(before[kind] || {})
+    .concat(Object.keys(after[kind] || {}))))
+  const changed = {}
+  games.forEach((game) => {
+    const marks = markDelta(idsOf(before, "collected", game), idsOf(after, "collected", game))
+    const bodies = bodyDelta(idsOf(before, "bodies", game), idsOf(after, "bodies", game))
+    if (Object.keys(marks).length || Object.keys(bodies).length) changed[game] = { marks, bodies }
+  })
+  return changed
+}
+
 export function save(state) {
+  const before = load()
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-    window.dispatchEvent(new CustomEvent(CHANGE_EVENT))
-    return true
   } catch {
     return false
   }
+  window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { changed: diff(before, state) } }))
+  return true
 }
 
 export function isSet(state, kind, game, id) {

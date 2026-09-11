@@ -5,6 +5,7 @@ import {
   bump,
   countOf,
   countSet,
+  diff,
   exportJson,
   importJson,
   isSet,
@@ -310,5 +311,60 @@ describe("one species, two views", () => {
 
     expect(isSet(state, "collected", "yellow", "route-1/step-1/item-0")).toBe(true);
     expect(state.bodies.yellow).toBeUndefined();
+  });
+});
+
+describe("diff", () => {
+  const state = (collected = {}, bodies = {}) => ({ collected, caught: {}, bodies });
+
+  it("reports a tick as the id going on", () => {
+    expect(diff(state({ yellow: {} }), state({ yellow: { "route-1/item-a": true } })))
+      .toEqual({ yellow: { marks: { "route-1/item-a": true }, bodies: {} } });
+  });
+
+  it("reports an untick as the id going off, which a bare snapshot could not say", () => {
+    expect(diff(state({ yellow: { "route-1/item-a": true } }), state({ yellow: {} })))
+      .toEqual({ yellow: { marks: { "route-1/item-a": false }, bodies: {} } });
+  });
+
+  it("reports a body count as the number it should be held at", () => {
+    expect(diff(state({}, { yellow: { "025": 1 } }), state({}, { yellow: { "025": 3 } })))
+      .toEqual({ yellow: { marks: {}, bodies: { "025": 3 } } });
+  });
+
+  it("reports a released species as zero rather than dropping it", () => {
+    expect(diff(state({}, { yellow: { "025": 2 } }), state({}, { yellow: {} })))
+      .toEqual({ yellow: { marks: {}, bodies: { "025": 0 } } });
+  });
+
+  it("reads a document that is missing a kind rather than throwing on it", () => {
+    expect(diff({}, { collected: { yellow: { a: true } } }))
+      .toEqual({ yellow: { marks: { a: true }, bodies: {} } });
+  });
+
+  it("says nothing about a game that did not move", () => {
+    const held = state({ yellow: { a: true } }, { red: { "001": 1 } });
+
+    expect(diff(held, held)).toEqual({});
+  });
+
+  it("keeps one game's ticks out of another's", () => {
+    const changed = diff(state({ yellow: { a: true } }), state({ yellow: { a: true }, red: { b: true } }));
+
+    expect(changed).toEqual({ red: { marks: { b: true }, bodies: {} } });
+  });
+});
+
+describe("save", () => {
+  it("carries what changed on the event, so a listener need not diff again", () => {
+    seed(JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { a: true } }, caught: {} }));
+    let detail;
+    const listener = (event) => { detail = event.detail; };
+    window.addEventListener("porynet:progress", listener);
+
+    save({ v: SCHEMA_VERSION, collected: { yellow: { a: true, b: true } }, caught: {}, bodies: {} });
+    window.removeEventListener("porynet:progress", listener);
+
+    expect(detail.changed).toEqual({ yellow: { marks: { b: true }, bodies: {} } });
   });
 });

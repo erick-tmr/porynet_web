@@ -99,9 +99,29 @@ class ApplicationHelperTest < ActionView::TestCase
   test "the page root carries the walkthrough controllers, each scoped to the same game" do
     attrs = walkthrough_page_controller(Walkthrough.find!("yellow"))
 
-    assert_includes attrs, 'data-controller="progress-toggle mode-toggle map-jump"'
+    assert_includes attrs, 'data-controller="progress-toggle mode-toggle map-jump progress-sync"'
     assert_includes attrs, 'data-progress-toggle-game-value="yellow"'
     assert_includes attrs, 'data-mode-toggle-game-value="yellow"'
+    assert_not_includes attrs, "progress-sync-url-value",
+      "a guest ticks into their own browser and has nowhere to write through to"
+  end
+
+  test "a trainer's page carries where to write a tick through to" do
+    @progress_url = "/walkthroughs/yellow/progress"
+    @sync_pending = false
+
+    attrs = walkthrough_page_controller(Walkthrough.find!("yellow"))
+
+    assert_includes attrs, 'data-progress-sync-url-value="/walkthroughs/yellow/progress"'
+    assert_includes attrs, 'data-progress-sync-ready-value="true"'
+  end
+
+  test "write-through waits while the guest run is still being taken up" do
+    @progress_url = "/walkthroughs/yellow/progress"
+    @sync_pending = true
+
+    assert_includes walkthrough_page_controller(Walkthrough.find!("yellow")),
+      'data-progress-sync-ready-value="false"'
   end
 
   # The chip is what a reader clicks to be taken to the pin, so it carries the letter to hunt for

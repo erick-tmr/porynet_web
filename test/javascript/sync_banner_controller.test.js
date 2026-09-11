@@ -2,6 +2,7 @@ import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import SyncBannerController from "../../app/javascript/controllers/sync_banner_controller.js";
 import { SCHEMA_VERSION, STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
+import { SYNCED_EVENT } from "../../app/javascript/lib/sync_payload.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 const after = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -76,6 +77,32 @@ describe("sync_banner_controller", () => {
 
     expect(banner().hidden).toBe(true);
     expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it("clears the way for write-through even with nothing to adopt", async () => {
+    replies(true);
+    let synced = false;
+    const listener = () => { synced = true; };
+    window.addEventListener(SYNCED_EVENT, listener);
+
+    await mount();
+    window.removeEventListener(SYNCED_EVENT, listener);
+
+    expect(synced).toBe(true);
+  });
+
+  it("clears the way for write-through once the run is in", async () => {
+    store();
+    replies(true);
+    let synced = false;
+    const listener = () => { synced = true; };
+    window.addEventListener(SYNCED_EVENT, listener);
+
+    await mount();
+    await after(20);
+    window.removeEventListener(SYNCED_EVENT, listener);
+
+    expect(synced).toBe(true);
   });
 
   it("counts the payload up front, then uploads it a batch at a time", async () => {

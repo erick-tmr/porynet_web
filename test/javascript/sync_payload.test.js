@@ -19,11 +19,12 @@ describe("sync_payload", () => {
     expect(tally({}, "yellow")).toEqual({ marks: 0, species: 0, pokemon: 0, records: 0 });
   });
 
-  it("sends the marks first, then the counts, and never mixes a batch", () => {
+  it("slices a guest document, marks first and then the counts", () => {
     expect(batches(STATE, "yellow", 2)).toEqual([
-      { collected: { "route-2/item-a": true, "route-2/item-b": true }, bodies: {}, records: 2 },
-      { collected: { "route-3/item-c": true }, bodies: {}, records: 1 },
-      { collected: {}, bodies: { "025": 2, "016": 1 }, records: 2 },
+      { collected: { yellow: { "route-2/item-a": true, "route-2/item-b": true } },
+        bodies: {}, records: 2 },
+      { collected: { yellow: { "route-3/item-c": true } }, bodies: {}, records: 1 },
+      { collected: {}, bodies: { yellow: { "025": 2, "016": 1 } }, records: 2 },
     ]);
   });
 
