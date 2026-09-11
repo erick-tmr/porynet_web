@@ -106,9 +106,13 @@ class ApplicationHelperTest < ActionView::TestCase
       "a guest ticks into their own browser and has nowhere to write through to"
   end
 
+  def handover(pending:)
+    Progress::Handover.new(pending: pending, url: "/walkthroughs/yellow/progress",
+      state: Progress::Snapshot.state(nil, "yellow"))
+  end
+
   test "a trainer's page carries where to write a tick through to" do
-    @progress_url = "/walkthroughs/yellow/progress"
-    @sync_pending = false
+    @sync = handover(pending: false)
 
     attrs = walkthrough_page_controller(Walkthrough.find!("yellow"))
 
@@ -117,8 +121,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test "write-through waits while the guest run is still being taken up" do
-    @progress_url = "/walkthroughs/yellow/progress"
-    @sync_pending = true
+    @sync = handover(pending: true)
 
     assert_includes walkthrough_page_controller(Walkthrough.find!("yellow")),
       'data-progress-sync-ready-value="false"'

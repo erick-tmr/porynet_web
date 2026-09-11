@@ -10,6 +10,7 @@ const after = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 let application;
 
 const FIXTURE = `
+  <div class="porynet" data-progress-adopted="false" data-progress-state='{}'>
   <div id="sync" class="pn-sync" hidden
        data-controller="sync-banner"
        data-sync-banner-url-value="/walkthroughs/yellow/sync"
@@ -27,6 +28,7 @@ const FIXTURE = `
     <span data-sync-banner-target="attempt">0</span>
     <button id="retry" data-action="sync-banner#retry">retry</button>
     <button id="keep" data-action="sync-banner#dismiss">keep</button>
+  </div>
   </div>
 `;
 

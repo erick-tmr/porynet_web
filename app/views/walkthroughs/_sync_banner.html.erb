@@ -1,4 +1,4 @@
-<% if @sync_pending %>
+<% if @sync&.pending? %>
   <% k = "walkthrough.sync" %>
   <div class="pn-sync" hidden role="status" aria-label="<%= t("#{k}.region") %>"
        data-controller="sync-banner"

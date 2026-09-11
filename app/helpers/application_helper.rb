@@ -132,9 +132,10 @@ module ApplicationHelper
   end
 
   def write_through
-    return {} if @progress_url.blank?
+    return {} if @sync.nil?
 
-    { progress_sync_url_value: @progress_url, progress_sync_ready_value: !@sync_pending }
+    { progress_sync_url_value: @sync.url, progress_sync_ready_value: @sync.adopted?,
+      progress_state: @sync.state.to_json, progress_adopted: @sync.adopted? }
   end
 
   # Attributes that make an element a tick target for progress_toggle_controller. Ids are built

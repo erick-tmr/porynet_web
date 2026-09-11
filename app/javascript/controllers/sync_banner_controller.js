@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { token } from "lib/csrf"
-import { load } from "lib/progress_store"
+import { adopt, forget, load } from "lib/progress_store"
 import { KEYS_PER_BATCH, SYNCED_EVENT, batches, tally } from "lib/sync_payload"
 
 const PHASES = [ "syncing", "done", "failed" ]
@@ -91,6 +91,8 @@ export default class extends Controller {
   }
 
   #cleared() {
+    adopt(load())
+    forget()
     window.dispatchEvent(new CustomEvent(SYNCED_EVENT))
   }
 

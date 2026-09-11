@@ -55,7 +55,50 @@ function normalize(raw) {
   return backfill(state)
 }
 
+let account = null
+let source
+
+function pageState() {
+  return document.querySelector("[data-progress-state]")
+}
+
+function fromPage() {
+  const page = pageState()
+  if (page === source) return
+
+  source = page
+  account = null
+  if (!page || page.dataset.progressAdopted !== "true") return
+
+  try {
+    account = normalize({ v: SCHEMA_VERSION, ...JSON.parse(page.dataset.progressState) })
+  } catch {
+    account = null
+  }
+}
+
+export function adopt(state) {
+  fromPage()
+  account = normalize(state)
+}
+
+export function forget() {
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    return false
+  }
+  return true
+}
+
+export function onAccount() {
+  fromPage()
+  return Boolean(account)
+}
+
 export function load() {
+  if (onAccount()) return account
+
   try {
     return normalize(JSON.parse(localStorage.getItem(STORAGE_KEY)))
   } catch {
@@ -100,12 +143,19 @@ export function diff(before, after) {
 
 export function save(state) {
   const before = load()
+  if (onAccount()) account = normalize(state)
+  else if (!keep(state)) return false
+
+  window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { changed: diff(before, state) } }))
+  return true
+}
+
+function keep(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   } catch {
     return false
   }
-  window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { changed: diff(before, state) } }))
   return true
 }
 

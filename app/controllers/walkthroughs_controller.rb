@@ -30,7 +30,9 @@ class WalkthroughsController < ApplicationController
   def check_sync
     return unless user_signed_in?
 
-    @sync_pending = SaveFile.pending_import?(current_user, params[:game])
-    @progress_url = walkthrough_progress_path(game: params[:game])
+    save_file = SaveFile.find_by(user: current_user, game_slug: params[:game])
+    @sync = Progress::Handover.new(pending: save_file&.imported_at.nil?,
+      url: walkthrough_progress_path(game: params[:game]),
+      state: Progress::Snapshot.state(save_file, params[:game]))
   end
 end

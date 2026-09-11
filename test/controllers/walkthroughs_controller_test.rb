@@ -1309,6 +1309,43 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-sync", count: 0
   end
 
+  test "a synced trainer's page renders from the save file, not the browser" do
+    sign_in users(:confirmed)
+    save_files(:ash_yellow).update!(imported_at: Time.current)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-adopted=?]", "true"
+    state = JSON.parse(css_select(".porynet").first["data-progress-state"])
+    assert_equal({ walkthrough_marks(:moon_stone).mark_id => true }, state["collected"]["yellow"])
+    assert_equal({ "025" => 2 }, state["bodies"]["yellow"])
+    assert_equal({ "025" => true }, state["caught"]["yellow"])
+  end
+
+  test "a trainer still holding a guest run keeps rendering from the browser until it lands" do
+    sign_in users(:confirmed)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-adopted=?]", "false"
+  end
+
+  test "a trainer who has never opened this game reads back an empty save file" do
+    sign_in users(:rival)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-adopted=?]", "false"
+    state = JSON.parse(css_select(".porynet").first["data-progress-state"])
+    assert_equal({ "yellow" => {} }, state["collected"])
+  end
+
+  test "a guest's page names no save file to render from" do
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-state]", count: 0
+  end
+
   test "a game already taken up stops asking" do
     sign_in users(:confirmed)
     save_files(:ash_yellow).update!(imported_at: Time.current)

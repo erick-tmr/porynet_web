@@ -34,7 +34,6 @@ class WalkthroughSyncsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal({ "marks" => 1, "bodies" => 2, "done" => true }, response.parsed_body)
     assert_not_nil save_files(:ash_yellow).reload.imported_at
-    assert_not SaveFile.pending_import?(users(:confirmed), "yellow")
   end
 
   test "a batch that skips the counts still lands its marks" do

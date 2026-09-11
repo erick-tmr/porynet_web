@@ -2,6 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   SCHEMA_VERSION,
   STORAGE_KEY,
+  adopt,
+  forget,
+  onAccount,
   bump,
   countOf,
   countSet,
@@ -366,5 +369,90 @@ describe("save", () => {
     window.removeEventListener("porynet:progress", listener);
 
     expect(detail.changed).toEqual({ yellow: { marks: { b: true }, bodies: {} } });
+  });
+});
+
+describe("the account backend", () => {
+  const page = (state, adopted = "true") => {
+    document.body.innerHTML = `<div class="porynet"
+      data-progress-adopted="${adopted}"
+      data-progress-state='${JSON.stringify(state)}'></div>`;
+  };
+
+  const HELD = { collected: { yellow: { "route-2/item-a": true } }, caught: {},
+    bodies: { yellow: { "025": 2 } } };
+
+  beforeEach(() => {
+    page({}, "false");
+    onAccount();
+  });
+
+  it("renders a synced trainer from the save file the page carries", () => {
+    page(HELD);
+
+    expect(onAccount()).toBe(true);
+    expect(load().collected.yellow).toEqual({ "route-2/item-a": true });
+    expect(load().bodies.yellow).toEqual({ "025": 2 });
+  });
+
+  it("ignores the browser's copy entirely once the save file is in charge", () => {
+    seed(JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { stale: true } }, caught: {} }));
+    page(HELD);
+
+    expect(load().collected.yellow).toEqual({ "route-2/item-a": true });
+  });
+
+  it("stops marking the browser, writing the tick to the account instead", () => {
+    page(HELD);
+    const next = toggle(load(), "collected", "yellow", "route-2/item-b");
+
+    expect(save(next)).toBe(true);
+    expect(load().collected.yellow["route-2/item-b"]).toBe(true);
+    expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
+  });
+
+  it("still reports what changed, so the tick reaches the server", () => {
+    page(HELD);
+    let detail;
+    const listener = (event) => { detail = event.detail; };
+    window.addEventListener("porynet:progress", listener);
+
+    save(toggle(load(), "collected", "yellow", "route-2/item-b"));
+    window.removeEventListener("porynet:progress", listener);
+
+    expect(detail.changed).toEqual({ yellow: { marks: { "route-2/item-b": true }, bodies: {} } });
+  });
+
+  it("leaves a guest on their own browser", () => {
+    page(HELD, "false");
+    seed(JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { mine: true } }, caught: {} }));
+
+    expect(onAccount()).toBe(false);
+    expect(load().collected.yellow).toEqual({ mine: true });
+  });
+
+  it("falls back to the browser when the page carries a state it cannot read", () => {
+    document.body.innerHTML = `<div data-progress-adopted="true" data-progress-state="{nope"></div>`;
+
+    expect(onAccount()).toBe(false);
+  });
+
+  it("hands over at the moment the run lands, and drops the browser's copy", () => {
+    seed(JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { mine: true } }, caught: {} }));
+
+    expect(onAccount()).toBe(false);
+
+    adopt(load());
+    forget();
+
+    expect(onAccount()).toBe(true);
+    expect(load().collected.yellow).toEqual({ mine: true });
+    expect(localStorage.getItem(STORAGE_KEY)).toBeNull();
+  });
+
+  it("says so rather than throwing when the browser refuses to drop its copy", () => {
+    vi.spyOn(Storage.prototype, "removeItem").mockImplementation(() => { throw new Error("nope"); });
+
+    expect(forget()).toBe(false);
   });
 });
