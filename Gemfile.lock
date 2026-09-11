@@ -190,7 +190,7 @@ GEM
       activesupport (>= 6.1)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    image_processing (2.0.3)
+    image_processing (2.1.0)
     imagen (0.2.0)
       parser (>= 2.5, != 2.5.1.1)
     importmap-rails (2.2.3)
@@ -477,7 +477,7 @@ DEPENDENCIES
   devise (~> 5.0)
   devise-i18n (~> 1.16)
   dotenv (~> 3.1)
-  image_processing (~> 2.0)
+  image_processing (~> 2.1)
   importmap-rails
   kamal
   letter_opener_web (~> 3.0)
