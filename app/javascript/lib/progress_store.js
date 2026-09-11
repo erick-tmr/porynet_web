@@ -12,6 +12,7 @@ export const STORAGE_KEY = "porynet.progress"
 export const SCHEMA_VERSION = 2
 
 const KINDS = ["collected", "caught", "bodies"]
+const OLDEST_READABLE = 1
 
 function emptyState() {
   return { v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} }
@@ -26,11 +27,29 @@ function backfill(state) {
   return state
 }
 
+function mergeGames(into, extra) {
+  const merged = { ...into }
+  Object.entries(extra).forEach(([game, ids]) => {
+    merged[game] = { ...(merged[game] || {}), ...ids }
+  })
+  return merged
+}
+
+function upgraded(raw) {
+  if (raw.v === SCHEMA_VERSION) return raw
+  if (raw.v !== OLDEST_READABLE) return null
+
+  return { ...raw, v: SCHEMA_VERSION,
+    collected: mergeGames(raw.collected || {}, raw.traded || {}) }
+}
+
 function normalize(raw) {
-  if (!raw || raw.v !== SCHEMA_VERSION) return emptyState()
+  const source = raw && upgraded(raw)
+  if (!source) return emptyState()
+
   const state = emptyState()
   KINDS.forEach((kind) => {
-    const games = raw[kind]
+    const games = source[kind]
     if (games && typeof games === "object") state[kind] = { ...games }
   })
   return backfill(state)
@@ -109,7 +128,7 @@ export function exportJson(state) {
 export function importJson(raw) {
   try {
     const parsed = JSON.parse(raw)
-    if (!parsed || parsed.v !== SCHEMA_VERSION) return null
+    if (!parsed || !upgraded(parsed)) return null
     return normalize(parsed)
   } catch {
     return null

@@ -37,6 +37,41 @@ describe("load", () => {
     expect(load().collected.yellow).toEqual({ a: true });
   });
 
+  it("takes up a run ticked before the ids were named", () => {
+    seed(JSON.stringify({
+      v: 1,
+      collected: { yellow: { "route-2/item-13-54": true } },
+      caught: { yellow: { "025": true } },
+      bodies: { yellow: { "025": 2 } },
+    }));
+
+    expect(load()).toEqual({
+      v: SCHEMA_VERSION,
+      collected: { yellow: { "route-2/item-13-54": true } },
+      caught: { yellow: { "025": true } },
+      bodies: { yellow: { "025": 2 } },
+    });
+  });
+
+  it("folds the rooftop swaps a v1 run filed under their own kind back into collected", () => {
+    seed(JSON.stringify({
+      v: 1,
+      collected: { yellow: { "route-2/item-13-54": true } },
+      traded: { yellow: { "celadon-city/roof-trade-tm18": true }, red: { "a/b": true } },
+    }));
+
+    expect(load().collected).toEqual({
+      yellow: { "route-2/item-13-54": true, "celadon-city/roof-trade-tm18": true },
+      red: { "a/b": true },
+    });
+  });
+
+  it("reads a v1 run that never ticked anything", () => {
+    seed(JSON.stringify({ v: 1 }));
+
+    expect(load()).toEqual({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} });
+  });
+
   it("discards a payload written by a future schema rather than half-reading it", () => {
     seed(JSON.stringify({ v: 99, collected: { yellow: { a: true } } }));
 
