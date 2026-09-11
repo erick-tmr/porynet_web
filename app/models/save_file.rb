@@ -10,7 +10,8 @@ class SaveFile < ApplicationRecord
   def self.for(user, game_slug)
     raise ActiveRecord::RecordNotFound unless GAMES.include?(game_slug)
 
-    create_or_find_by!(user: user, game_slug: game_slug)
+    find_by(user: user, game_slug: game_slug) ||
+      create_or_find_by!(user: user, game_slug: game_slug)
   end
 
   def self.pending_import?(user, game_slug)
