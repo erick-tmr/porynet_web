@@ -9,7 +9,7 @@
 // cannot persist still gets a working page for the session.
 
 export const STORAGE_KEY = "porynet.progress"
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 const KINDS = ["collected", "caught", "bodies"]
 

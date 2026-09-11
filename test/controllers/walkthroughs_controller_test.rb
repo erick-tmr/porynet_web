@@ -828,7 +828,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-roof__side-price .pn-money-value__n", text: "200"
     assert_select ".pn-wt-roof__total .pn-money-value__n", text: "1,050"
     assert_select ".pn-wt-roof__shot-img[src*=?]", "scenes/celadon-roof-girl"
-    assert_select ".pn-wt-roof__row[data-progress-id='celadon-city/trade/TM13']"
+    assert_select ".pn-wt-roof__row[data-progress-id='celadon-city/roof-trade-ice-beam']"
   end
 
   # The other mart shape, on the leg that now ends at Route 7: a town counter with no floors and
@@ -1223,15 +1223,15 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-plate__art[src*=?]", "walkthrough/art/lorelei-art.png"
     assert_select ".pn-e4-brief__tile", count: 4
     assert_select "[data-progress-ids=?]",
-      "indigo-plateau/lorelei indigo-plateau/bruno indigo-plateau/agatha " \
-      "indigo-plateau/lance indigo-plateau/blue"
+      "indigo-plateau/trainer-lorelei indigo-plateau/trainer-bruno " \
+      "indigo-plateau/trainer-agatha indigo-plateau/trainer-lance indigo-plateau/trainer-blue"
   end
 
   test "the Champion ships all three rosters and opens on the Jolteon one" do
     get walkthrough_leg_path(game: "yellow", leg: "indigo-plateau")
 
     assert_response :success
-    assert_select ".pn-throne[data-progress-id=?]", "indigo-plateau/blue"
+    assert_select ".pn-throne[data-progress-id=?]", "indigo-plateau/trainer-blue"
     assert_select ".pn-gbscreen__img[src*=?]", "battles/battle-champion.png"
     assert_select ".pn-throne__tab", count: 3
     assert_select ".pn-throne__tab.is-active", text: /JOLTEON/

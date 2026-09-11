@@ -29,13 +29,13 @@
         <span class="pn-wt-roof__bar-title"><%= t("walkthrough.ui.roof_bar") %></span>
         <span class="pn-wt-roof__bar-right">
           <span class="pn-wt-roof__bar-hint"><%= t("walkthrough.ui.roof_tap") %></span>
-          <span class="pn-wt-roof__bar-count"><%= progress_count(roof.trades.map { |t| "celadon-city/trade/#{t.tm_short}" }, kind: "traded") %>/<%= roof.trades.size %></span>
+          <span class="pn-wt-roof__bar-count"><%= progress_count(roof.trades.map(&:tick), kind: "collected") %>/<%= roof.trades.size %></span>
         </span>
       </div>
 
       <div class="pn-wt-roof__rows">
         <% roof.trades.each do |trade| %>
-          <div class="pn-wt-roof__row" <%= tag.attributes(tickable("traded", "celadon-city/trade/#{trade.tm_short}")) %>>
+          <div class="pn-wt-roof__row" <%= tag.attributes(tickable("collected", trade.tick)) %>>
             <%= progress_toast("trade", name: trade.tm_short) %>
             <span class="pn-wt-roof__tag"><%= t("walkthrough.ui.roof_tag") %></span>
             <span class="pn-wt-roof__tag pn-wt-roof__tag--done"><%= t("walkthrough.ui.roof_tag_done") %></span>

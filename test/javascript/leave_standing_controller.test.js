@@ -1,7 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import LeaveStandingController from "../../app/javascript/controllers/leave_standing_controller.js";
-import { STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
+import { SCHEMA_VERSION, STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -62,7 +62,7 @@ describe("initial render", () => {
   it("restores a Trainer beaten in an earlier visit and drops the count", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: { yellow: { [GRASS]: true } }, caught: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { [GRASS]: true } }, caught: {} })
     );
     await mount();
 
@@ -105,7 +105,7 @@ describe("staying in sync with the maps", () => {
     // What map_markers_controller does when its trainer pin is clicked: writes the same key.
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: { yellow: { [MISTY]: true } }, caught: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { [MISTY]: true } }, caught: {} })
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();
@@ -123,7 +123,7 @@ describe("staying in sync with the maps", () => {
     // A late external change must not throw or touch the detached card.
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: { yellow: { [GRASS]: true } }, caught: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { [GRASS]: true } }, caught: {} })
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();

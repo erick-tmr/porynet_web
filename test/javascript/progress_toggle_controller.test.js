@@ -1,7 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ProgressToggleController from "../../app/javascript/controllers/progress_toggle_controller.js";
-import { STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
+import { SCHEMA_VERSION, STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -113,7 +113,7 @@ describe("ticking", () => {
   it("restores what was ticked in an earlier visit", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "010": true } } })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "010": true } } })
     );
     await mount();
 
@@ -126,7 +126,7 @@ describe("ticking", () => {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "011": true } } })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "011": true } } })
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();
@@ -246,7 +246,7 @@ describe("teardown", () => {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "010": true } } })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "010": true } } })
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();
@@ -275,7 +275,7 @@ describe("the window meter", () => {
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({
-        v: 1,
+        v: SCHEMA_VERSION,
         collected: {},
         caught: { yellow: { "010": true, "011": true, "016": true } },
         bodies: {},

@@ -1,0 +1,16 @@
+sparky_gen1:
+  pokemon: named_pikachu
+  context: gen1
+  payload:
+    dv16: 43690
+    level: 5
+    exp: 125
+    moves: [ 84, 45 ]
+    stat_exp:
+      hp: 0
+      atk: 0
+      def: 0
+      spe: 0
+      spc: 0
+    type1: ELECTRIC
+    catch_rate: 190

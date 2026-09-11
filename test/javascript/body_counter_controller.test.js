@@ -1,7 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import BodyCounterController from "../../app/javascript/controllers/body_counter_controller.js";
-import { STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
+import { SCHEMA_VERSION, STORAGE_KEY } from "../../app/javascript/lib/progress_store.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -90,7 +90,7 @@ describe("counting bodies", () => {
   it("restores a count saved earlier", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: {}, bodies: { yellow: { "010": 2 } } }),
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: { yellow: { "010": 2 } } }),
     );
 
     await mount();
@@ -192,7 +192,7 @@ describe("staying in sync", () => {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: {}, bodies: { yellow: { "010": 2 } } }),
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: { yellow: { "010": 2 } } }),
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();
@@ -210,7 +210,7 @@ describe("staying in sync", () => {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: {}, bodies: { yellow: { "010": 2 } } }),
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: { yellow: { "010": 2 } } }),
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();
@@ -223,7 +223,7 @@ describe("crediting stages you already own", () => {
   it("drops the quota when a covered evolution is already registered", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: {}, caught: { yellow: { "020": true } }, bodies: {} }),
+      JSON.stringify({ v: SCHEMA_VERSION, collected: {}, caught: { yellow: { "020": true } }, bodies: {} }),
     );
 
     await mount();

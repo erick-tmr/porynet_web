@@ -1,4 +1,4 @@
-<div class="pn-wt-hidden" <%= tag.attributes(tickable("collected", id)) %>>
+<div class="pn-wt-hidden" <%= tag.attributes(tickable("collected", hidden.tick)) %>>
   <%= progress_toast("item", name: hidden.name) %>
   <div class="pn-wt-hidden__head">
     <span class="pn-wt-hidden__badge pn-wt-hidden__badge--todo"><%= t("walkthrough.ui.hidden_item") %></span>

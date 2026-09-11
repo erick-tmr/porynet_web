@@ -1,7 +1,7 @@
 import { Application } from "@hotwired/stimulus";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import MapMarkersController from "../../app/javascript/controllers/map_markers_controller.js";
-import { STORAGE_KEY, load, save, toggle } from "../../app/javascript/lib/progress_store.js";
+import { SCHEMA_VERSION, STORAGE_KEY, load, save, toggle } from "../../app/javascript/lib/progress_store.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -186,7 +186,7 @@ describe("ticking", () => {
   it("restores what was ticked in an earlier visit", async () => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: { yellow: { "viridian-forest/trainer-30-33": true } }, caught: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { "viridian-forest/trainer-30-33": true } }, caught: {} })
     );
     await mount();
 
@@ -199,7 +199,7 @@ describe("ticking", () => {
 
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ v: 1, collected: { yellow: { "viridian-forest/hidden-16-42": true } }, caught: {} })
+      JSON.stringify({ v: SCHEMA_VERSION, collected: { yellow: { "viridian-forest/hidden-16-42": true } }, caught: {} })
     );
     window.dispatchEvent(new StorageEvent("storage", { key: STORAGE_KEY }));
     await flush();

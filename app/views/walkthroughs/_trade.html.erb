@@ -1,4 +1,4 @@
-<div class="pn-wt-trade" <%= tag.attributes(tickable("collected", id)) %>>
+<div class="pn-wt-trade" <%= tag.attributes(tickable("collected", trade.tick)) %>>
   <span class="pn-wt-trade__done"><%= t("walkthrough.ui.trade_traded_badge") %></span>
   <%= progress_toast("trade", name: t(trade.title_key)) %>
   <div class="pn-wt-trade__head">

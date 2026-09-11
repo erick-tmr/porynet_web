@@ -15,8 +15,11 @@ class WalkthroughLeagueTest < ActiveSupport::TestCase
   end
 
   test "every room ticks under its own name, and the brief counts all five" do
-    assert_equal %w[indigo-plateau/lorelei indigo-plateau/bruno indigo-plateau/agatha
-                    indigo-plateau/lance indigo-plateau/blue], league.ticks
+    assert_equal %w[indigo-plateau/trainer-lorelei indigo-plateau/trainer-bruno
+                    indigo-plateau/trainer-agatha indigo-plateau/trainer-lance
+                    indigo-plateau/trainer-blue], league.ticks
+    assert_equal league.members.map { |m| m.trainer.tick }, league.ticks.first(4),
+      "a plate and the card it is built from are one fight, so they cannot hold two ids"
   end
 
   test "the ace is the last slot of a roster, wherever it is drawn" do

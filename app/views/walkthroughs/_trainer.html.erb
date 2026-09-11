@@ -3,7 +3,7 @@
 <% role = local_assigns[:role] %>
 <% floor = trainer.floor if local_assigns[:show_floor] %>
 <div class="<%= class_names("pn-wt-trainer", "pn-wt-trainer--compact" => compact, "pn-wt-trainer--feature" => feature) %>"
-     <%= tag.attributes(tickable("collected", trainer.tick || id)) %>>
+     <%= tag.attributes(tickable("collected", trainer.tick)) %>>
   <span class="pn-wt-trainer__beaten"><%= t("walkthrough.ui.map_status_trainer_done") %></span>
   <%= progress_toast("trainer", name: trainer.name || trainer.cls) %>
   <div class="pn-wt-trainer__card">
