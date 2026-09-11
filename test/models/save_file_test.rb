@@ -22,6 +22,12 @@ class SaveFileTest < ActiveSupport::TestCase
     assert_equal save_files(:ash_yellow), SaveFile.for(users(:confirmed), "yellow")
   end
 
+  test "reopening a save file costs a read, not an insert that rolls back" do
+    trainer = users(:confirmed)
+
+    assert_queries_count(1) { SaveFile.for(trainer, "yellow") }
+  end
+
   test "opening a game nobody has played yet starts the save file" do
     started = assert_difference("SaveFile.count", 1) { SaveFile.for(users(:rival), "blue") }
 

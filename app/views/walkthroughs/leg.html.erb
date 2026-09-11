@@ -3,7 +3,8 @@
 <% plan = @game.plan_for(@leg) %>
 <% content_for :title, t("walkthrough.ui.title_leg", name: leg_title(@leg), game: @game.name) %>
 <% content_for :head do %>
-  <% sheets = %w[components/leg-switch pages/walkthrough pages/walkthrough-map pages/walkthrough-challenge] %>
+  <% sheets = %w[components/leg-switch components/sync-banner pages/walkthrough
+                 pages/walkthrough-map pages/walkthrough-challenge] %>
   <% sheets << "pages/mew-glitch" if @leg.locations.any? { |loc| %w[cerulean-city route-24].include?(loc.slug) } %>
   <%= stylesheet_link_tag(*sheets, "data-turbo-track": "reload") %>
 <% end %>
@@ -12,6 +13,8 @@
   <span class="pn-nav__crumb-sep">/</span>
   <span class="pn-nav__crumb-here"><%= leg_label %></span>
 <% end %>
+
+<%= render "walkthroughs/sync_banner", game: @game %>
 
 <section class="pn-wt-section pn-wt-loc">
   <div class="pn-wt-loc__tags">

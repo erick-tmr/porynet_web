@@ -117,10 +117,25 @@ module ApplicationHelper
       data: { action: "click->map-jump#go", mark_key: key, mark_map: at&.split("/")&.first })
   end
 
+  SYNC_ATTEMPTS = 3
+
+  def sync_slot(role)
+    tag.span(0, class: "pn-sync__num", data: { sync_banner_target: role })
+  end
+
   def walkthrough_page_controller(game)
-    tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump",
+    tag.attributes(data: { controller: "progress-toggle mode-toggle map-jump progress-sync",
                            progress_toggle_game_value: game.slug,
-                           mode_toggle_game_value: game.slug })
+                           mode_toggle_game_value: game.slug,
+                           progress_sync_game_value: game.slug,
+                           **write_through })
+  end
+
+  def write_through
+    return {} if @sync.nil?
+
+    { progress_sync_url_value: @sync.url, progress_sync_ready_value: @sync.adopted?,
+      progress_state: @sync.state.to_json, progress_adopted: @sync.adopted? }
   end
 
   # Attributes that make an element a tick target for progress_toggle_controller. Ids are built

@@ -9,6 +9,8 @@ class User < ApplicationRecord
   attr_writer :login
   attr_accessor :terms
 
+  has_many :save_files
+
   normalizes :trainer_name, with: ->(name) { name.strip }
 
   validates :trainer_name, presence: true,

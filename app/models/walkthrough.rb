@@ -947,6 +947,11 @@ module Walkthrough
 
   def self.find(slug) = games[slug]
 
+  def self.trades_for(slug)
+    @trades_for ||= {}
+    @trades_for[slug] ||= find!(slug).locations.flat_map(&:trades).index_by(&:tick).freeze
+  end
+
   def self.find!(slug)
     find(slug) || raise(ActiveRecord::RecordNotFound, "No walkthrough for game: #{slug}")
   end

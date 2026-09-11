@@ -1,7 +1,8 @@
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("walkthrough.ui.title_index", name: @game.name) %>
 <% content_for :head do %>
-  <%= stylesheet_link_tag "pages/walkthrough", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "components/sync-banner", "pages/walkthrough",
+                          "data-turbo-track": "reload" %>
 <% end %>
 <% content_for :nav_crumb do %>
   <span class="pn-nav__crumb-here"><%= @game.name.upcase %></span>
@@ -10,6 +11,8 @@
   <%= render "shared/marquee_row", items: t("#{Walkthrough::Yellow::K}.marquee") %>
   <%= render "shared/marquee_row", items: t("#{Walkthrough::Yellow::K}.marquee") %>
 <% end %>
+
+<%= render "walkthroughs/sync_banner", game: @game %>
 
 <section class="pn-wt-hero">
   <div class="pn-wt-hero__chips">

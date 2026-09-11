@@ -1,6 +1,8 @@
 require "test_helper"
 
 class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   test "the version index offers every Gen 1 cartridge, Yellow first and open" do
     get walkthroughs_path
 
@@ -1261,6 +1263,96 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     get "/walkthroughs/yellow/route-1"
     assert_response :not_found
+  end
+
+  test "a trainer who has been playing as a guest is offered the sync on every page of a game" do
+    sign_in users(:confirmed)
+
+    [ walkthrough_path(game: "yellow"),
+      walkthrough_leg_path(game: "yellow", leg: "leg-01"),
+      walkthrough_leg_path(game: "yellow", leg: "indigo-plateau"),
+      walkthrough_mew_glitch_path(game: "yellow") ].each do |page|
+      get page
+
+      assert_select ".pn-sync[data-sync-banner-url-value=?]",
+        walkthrough_sync_path(game: "yellow"), count: 1, message: "no sync banner on #{page}"
+    end
+  end
+
+  test "the sync banner draws all three of its states up front, so no wording lives in JS" do
+    sign_in users(:confirmed)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".pn-sync[hidden]"
+    assert_select ".pn-sync__state", count: 3
+    assert_select ".pn-sync__state--syncing .pn-sync__title", text: "Uploading your local dex to Porynet"
+    assert_select ".pn-sync__state--done .pn-sync__title", text: "Your progress is on your account now"
+    assert_select ".pn-sync__state--failed .pn-sync__title", text: "We could not reach the Porynet server"
+    assert_select ".pn-sync__note", text: /ash@pallet\.town/
+    assert_select ".pn-sync__num[data-sync-banner-target=?]", "sent"
+  end
+
+  test "the sync banner speaks Portuguese too" do
+    sign_in users(:confirmed)
+
+    get walkthrough_path(game: "yellow", locale: :pt)
+
+    assert_select ".pn-sync__state--syncing .pn-sync__title", text: "Enviando sua dex local para a Porynet"
+    assert_select ".pn-sync[data-sync-banner-url-value=?]",
+      walkthrough_sync_path(game: "yellow", locale: :pt)
+  end
+
+  test "a guest keeps their progress in the browser and is never offered the sync" do
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".pn-sync", count: 0
+  end
+
+  test "a synced trainer's page renders from the save file, not the browser" do
+    sign_in users(:confirmed)
+    save_files(:ash_yellow).update!(imported_at: Time.current)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-adopted=?]", "true"
+    state = JSON.parse(css_select(".porynet").first["data-progress-state"])
+    assert_equal({ walkthrough_marks(:moon_stone).mark_id => true }, state["collected"]["yellow"])
+    assert_equal({ "025" => 2 }, state["bodies"]["yellow"])
+    assert_equal({ "025" => true }, state["caught"]["yellow"])
+  end
+
+  test "a trainer still holding a guest run keeps rendering from the browser until it lands" do
+    sign_in users(:confirmed)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-adopted=?]", "false"
+  end
+
+  test "a trainer who has never opened this game reads back an empty save file" do
+    sign_in users(:rival)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-adopted=?]", "false"
+    state = JSON.parse(css_select(".porynet").first["data-progress-state"])
+    assert_equal({ "yellow" => {} }, state["collected"])
+  end
+
+  test "a guest's page names no save file to render from" do
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".porynet[data-progress-state]", count: 0
+  end
+
+  test "a game already taken up stops asking" do
+    sign_in users(:confirmed)
+    save_files(:ash_yellow).update!(imported_at: Time.current)
+
+    get walkthrough_path(game: "yellow")
+
+    assert_select ".pn-sync", count: 0
   end
 
   test "the walkthrough routes are recognized" do

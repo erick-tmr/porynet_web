@@ -12,6 +12,7 @@ export const STORAGE_KEY = "porynet.progress"
 export const SCHEMA_VERSION = 2
 
 const KINDS = ["collected", "caught", "bodies"]
+const OLDEST_READABLE = 1
 
 function emptyState() {
   return { v: SCHEMA_VERSION, collected: {}, caught: {}, bodies: {} }
@@ -26,17 +27,78 @@ function backfill(state) {
   return state
 }
 
+function mergeGames(into, extra) {
+  const merged = { ...into }
+  Object.entries(extra).forEach(([game, ids]) => {
+    merged[game] = { ...(merged[game] || {}), ...ids }
+  })
+  return merged
+}
+
+function upgraded(raw) {
+  if (raw.v === SCHEMA_VERSION) return raw
+  if (raw.v !== OLDEST_READABLE) return null
+
+  return { ...raw, v: SCHEMA_VERSION,
+    collected: mergeGames(raw.collected || {}, raw.traded || {}) }
+}
+
 function normalize(raw) {
-  if (!raw || raw.v !== SCHEMA_VERSION) return emptyState()
+  const source = raw && upgraded(raw)
+  if (!source) return emptyState()
+
   const state = emptyState()
   KINDS.forEach((kind) => {
-    const games = raw[kind]
+    const games = source[kind]
     if (games && typeof games === "object") state[kind] = { ...games }
   })
   return backfill(state)
 }
 
+let account = null
+let source
+
+function pageState() {
+  return document.querySelector("[data-progress-state]")
+}
+
+function fromPage() {
+  const page = pageState()
+  if (page === source) return
+
+  source = page
+  account = null
+  if (!page || page.dataset.progressAdopted !== "true") return
+
+  try {
+    account = normalize({ v: SCHEMA_VERSION, ...JSON.parse(page.dataset.progressState) })
+  } catch {
+    account = null
+  }
+}
+
+export function adopt(state) {
+  fromPage()
+  account = normalize(state)
+}
+
+export function forget() {
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+  } catch {
+    return false
+  }
+  return true
+}
+
+export function onAccount() {
+  fromPage()
+  return Boolean(account)
+}
+
 export function load() {
+  if (onAccount()) return account
+
   try {
     return normalize(JSON.parse(localStorage.getItem(STORAGE_KEY)))
   } catch {
@@ -46,14 +108,55 @@ export function load() {
 
 export const CHANGE_EVENT = "porynet:progress"
 
+function idsOf(state, kind, game) {
+  const games = state[kind] || {}
+  return games[game] || {}
+}
+
+function markDelta(before, after) {
+  const delta = {}
+  Object.keys(after).forEach((id) => { if (!before[id]) delta[id] = true })
+  Object.keys(before).forEach((id) => { if (!after[id]) delta[id] = false })
+  return delta
+}
+
+function bodyDelta(before, after) {
+  const delta = {}
+  Object.keys({ ...before, ...after }).forEach((dex) => {
+    const now = after[dex] || 0
+    if (now !== (before[dex] || 0)) delta[dex] = now
+  })
+  return delta
+}
+
+export function diff(before, after) {
+  const games = new Set(KINDS.flatMap((kind) => Object.keys(before[kind] || {})
+    .concat(Object.keys(after[kind] || {}))))
+  const changed = {}
+  games.forEach((game) => {
+    const marks = markDelta(idsOf(before, "collected", game), idsOf(after, "collected", game))
+    const bodies = bodyDelta(idsOf(before, "bodies", game), idsOf(after, "bodies", game))
+    if (Object.keys(marks).length || Object.keys(bodies).length) changed[game] = { marks, bodies }
+  })
+  return changed
+}
+
 export function save(state) {
+  const before = load()
+  if (onAccount()) account = normalize(state)
+  else if (!keep(state)) return false
+
+  window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { changed: diff(before, state) } }))
+  return true
+}
+
+function keep(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-    window.dispatchEvent(new CustomEvent(CHANGE_EVENT))
-    return true
   } catch {
     return false
   }
+  return true
 }
 
 export function isSet(state, kind, game, id) {
@@ -109,7 +212,7 @@ export function exportJson(state) {
 export function importJson(raw) {
   try {
     const parsed = JSON.parse(raw)
-    if (!parsed || parsed.v !== SCHEMA_VERSION) return null
+    if (!parsed || !upgraded(parsed)) return null
     return normalize(parsed)
   } catch {
     return null

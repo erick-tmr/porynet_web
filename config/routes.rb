@@ -34,6 +34,10 @@ Rails.application.routes.draw do
       get "save",     to: "accounts#save_file", as: :save_file
     end
 
+    post  "walkthroughs/:game/sync", to: "walkthrough_syncs#create", as: :walkthrough_sync
+    patch "walkthroughs/:game/progress", to: "walkthrough_progress#update",
+          as: :walkthrough_progress
+
     get "walkthroughs", to: "walkthroughs#index", as: :walkthroughs
     get "walkthroughs/:game", to: "walkthroughs#show", as: :walkthrough
     get "walkthroughs/:game/mew-glitch", to: "walkthroughs#mew_glitch", as: :walkthrough_mew_glitch
