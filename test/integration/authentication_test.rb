@@ -5,7 +5,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
   PASSWORD = "pikachu123".freeze
 
-  test "the login page offers both tabs, the four providers and no wired provider button" do
+  test "the login page offers both tabs, a live Google button and three still to come" do
     get new_user_session_path
 
     assert_response :success
@@ -13,7 +13,8 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     assert_select "a.pn-auth__tab--register[href=?]", new_user_registration_path
     assert_select "input[name='user[login]']"
     assert_select "input[name='user[password]']"
-    assert_select "button.pn-auth__provider[disabled]", count: 4
+    assert_select "form[action=?][method=post]", user_google_oauth2_omniauth_authorize_path
+    assert_select "button.pn-auth__provider[disabled]", count: 3
     assert_select "a[href=?]", new_user_password_path
   end
 

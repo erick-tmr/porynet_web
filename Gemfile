@@ -23,6 +23,12 @@ gem "devise-i18n", "~> 1.16"
 # Password hashing (pulled in by Devise, pinned here for lockfile visibility)
 gem "bcrypt", "~> 3.1"
 
+# Sign in with Google. omniauth-rails_csrf_protection is not optional: OmniAuth 2's own
+# request validation reads the token the Rack way, which never matches a Rails form.
+gem "omniauth", "~> 2.1"
+gem "omniauth-google-oauth2", "~> 1.2", ">= 1.2.3"
+gem "omniauth-rails_csrf_protection", "~> 2.0"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

@@ -65,6 +65,46 @@ class UserTest < ActiveSupport::TestCase
     assert_nil User.find_for_database_authentication(login: nil)
   end
 
+  test "a trainer arriving through a provider needs no password" do
+    user = build(password: nil, password_confirmation: nil)
+    user.identities.build(provider: "google", uid: "1")
+
+    assert user.valid?
+    assert_not user.password_set?
+  end
+
+  test "a trainer arriving with no provider still needs a password" do
+    user = build(password: nil, password_confirmation: nil)
+
+    assert_not user.valid?
+    assert_includes user.errors.attribute_names, :password
+  end
+
+  test "a password set later is still held to the length rule" do
+    daisy = users(:linked)
+
+    assert_not daisy.update(password: "short", password_confirmation: "short")
+    assert_includes daisy.errors.attribute_names, :password
+    assert daisy.update(password: "pikachu123", password_confirmation: "pikachu123")
+    assert daisy.reload.password_set?
+  end
+
+  test "a linked trainer can change what is not their password" do
+    assert users(:linked).update(avatar: "blue")
+  end
+
+  test "an empty password never authenticates" do
+    daisy = users(:linked)
+
+    assert_not daisy.valid_password?("")
+    assert_not daisy.valid_password?("pikachu123")
+  end
+
+  test "a provider login is the sole way in only while no password is set" do
+    assert users(:linked).sole_way_in?
+    assert_not users(:rival).sole_way_in?, "GARY has a password as well as Google"
+  end
+
   private
 
   def build(**overrides)

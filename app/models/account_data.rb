@@ -1,5 +1,6 @@
 module AccountData
   OAUTH_PROVIDERS = %w[google discord github facebook].freeze
+  OAUTH_STRATEGIES = { "google" => :google_oauth2 }.freeze
   UNLOCKS = %w[collection porypc parser progress].freeze
   CONFIRMATION_STEPS = %w[inbox link login].freeze
   SECTIONS = %w[card avatar security save_file].freeze
@@ -69,4 +70,8 @@ module AccountData
   def self.save_for(slug) = SAVES.fetch(slug, SAVES.values.first)
 
   def self.trainer_id(user) = format("%05d", user.id)
+
+  def self.oauth_strategy(provider) = OAUTH_STRATEGIES[provider]
+
+  def self.oauth_provider(strategy) = OAUTH_STRATEGIES.key(strategy.to_sym)
 end

@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_193248) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_12_150630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "identities", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
+    t.index ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
 
   create_table "pokemon", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -84,6 +96,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_193248) do
     t.index ["save_file_id"], name: "index_walkthrough_marks_on_save_file_id"
   end
 
+  add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "pokemon", "save_files", on_delete: :cascade
   add_foreign_key "pokemon_blocks", "pokemon", on_delete: :cascade
   add_foreign_key "save_files", "users", on_delete: :cascade

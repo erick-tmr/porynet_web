@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
   def update_email
     @email_form = reloaded_user
-    if @email_form.update_with_password(email_params)
+    if save_email(@email_form)
       redirect_to account_security_path, **email_flash(@email_form)
     else
       render_security
@@ -36,12 +36,17 @@ class AccountsController < ApplicationController
     if password_params[:password].blank?
       @password_form.errors.add(:password, :blank)
       render_security
-    elsif @password_form.update_with_password(password_params)
+    elsif save_password(@password_form)
       bypass_sign_in(@password_form)
       redirect_to account_security_path, notice: t("account.security.password_saved")
     else
       render_security
     end
+  end
+
+  def disconnect_identity
+    identity = current_user.identities.find_by!(provider: params[:provider])
+    redirect_to account_security_path, **disconnect(identity)
   end
 
   def save_file
@@ -71,6 +76,27 @@ class AccountsController < ApplicationController
   end
 
   def reloaded_user = User.find(current_user.id)
+
+  def disconnect(identity)
+    return { alert: t("account.security.sole_way_in") } if current_user.sole_way_in?
+
+    identity.destroy
+    { notice: t("account.security.disconnected",
+                provider: t("account.oauth.#{identity.provider}")) }
+  end
+
+  # An account that signed up through a provider has no password to be asked for, on either form.
+  def save_email(user)
+    return user.update_with_password(email_params) if user.password_set?
+
+    user.update(email_params.except(:current_password))
+  end
+
+  def save_password(user)
+    return user.update_with_password(password_params) if user.password_set?
+
+    user.update(password_params.except(:current_password))
+  end
 
   def blank_forms
     @email_form ||= User.new

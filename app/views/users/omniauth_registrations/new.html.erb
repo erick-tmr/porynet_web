@@ -1,0 +1,61 @@
+<% content_for :title, t("account.meta.finish") %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "pages/auth", "data-turbo-track": "reload" %>
+<% end %>
+<% content_for :nav_marquee do %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+  <%= render "shared/marquee_row", items: t("account.marquee") %>
+<% end %>
+
+<%= render "shared/auth_hero", key: "finish" %>
+
+<section class="pn-auth">
+  <div class="pn-auth__panel">
+    <div class="pn-auth__body">
+      <div class="pn-auth__heading"><%= t("account.finish.heading") %></div>
+      <div class="pn-auth__identity">
+        <%= r2_image_tag "account/oauth/#{@pending["provider"]}.png", alt: "" %>
+        <div>
+          <div class="pn-auth__identity-name"><%= @user.email %></div>
+          <div class="pn-auth__identity-note">
+            <%= t("account.finish.from", provider: t("account.oauth.#{@pending["provider"]}")) %>
+          </div>
+        </div>
+      </div>
+
+      <%= form_for(@user, as: :user, url: user_omniauth_registration_path,
+                   html: { class: "pn-auth__form", novalidate: true }) do |f| %>
+        <%= render "shared/form_errors", record: @user %>
+
+        <%= render "shared/field", f: f, name: :trainer_name, kind: :text_field, tone: :sky,
+                   label: t("account.fields.trainer_name"),
+                   placeholder: t("account.fields.trainer_name_placeholder"),
+                   hint: t("account.fields.trainer_name_hint"),
+                   options: { autofocus: true, autocomplete: "username", maxlength: 12,
+                              required: true } %>
+
+        <div>
+          <span class="pn-auth__avatars-label"><%= t("account.register.avatar_heading") %></span>
+          <div class="pn-auth__avatars">
+            <% AccountData::SIGNUP_AVATARS.each do |id| %>
+              <%= render "accounts/avatar_card", f: f, avatar: AccountData.avatar(id) %>
+            <% end %>
+          </div>
+        </div>
+
+        <label class="pn-check pn-check--sky">
+          <span class="pn-check__box">
+            <%= f.check_box :terms, class: "pn-check__input" %>
+            <span class="pn-check__tick" aria-hidden="true">✔</span>
+          </span>
+          <span><%= t("account.register.terms") %></span>
+        </label>
+
+        <%= f.submit t("account.finish.submit"),
+                     class: "pn-btn pn-btn--sky pn-btn--block pn-auth__submit" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render "shared/auth_aside" %>
+</section>

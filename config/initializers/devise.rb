@@ -268,9 +268,17 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # Sign-in only, so `online` access: no refresh token is issued and none is stored.
+  # `openid` is what makes Google mint an id_token, which is where the verified
+  # email claim can be read from a signature the strategy checks against Google's JWKS.
+  google = Rails.application.credentials.google
+  config.omniauth :google_oauth2, google&.dig(:client_id), google&.dig(:client_secret),
+                  scope: "email,profile,openid",
+                  access_type: "online",
+                  prompt: "select_account"
+  if google&.dig(:client_id).blank? && !Rails.env.local?
+    raise "Google OAuth credentials missing: set credentials google.client_id / google.client_secret"
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

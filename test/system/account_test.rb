@@ -5,7 +5,8 @@ class AccountTest < ApplicationSystemTestCase
     visit new_user_registration_path
 
     assert_selector ".pn-auth__tab--register.is-active"
-    assert_selector "button.pn-auth__provider[disabled]", count: 4
+    assert_selector "button.pn-auth__provider[disabled]", count: 3
+    assert_selector "form[action='#{user_google_oauth2_omniauth_authorize_path}'] button"
 
     fill_in "user[trainer_name]", with: "OAK"
     fill_in "user[email]", with: "oak@pallet.town"
