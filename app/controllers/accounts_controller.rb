@@ -46,7 +46,13 @@ class AccountsController < ApplicationController
 
   def disconnect_identity
     identity = current_user.identities.find_by!(provider: params[:provider])
-    redirect_to account_security_path, **disconnect(identity)
+
+    if current_user.sole_way_in?
+      redirect_to account_security_path, alert: t("account.security.sole_way_in")
+    else
+      identity.destroy
+      redirect_to account_security_path, notice: disconnected_notice(identity)
+    end
   end
 
   def save_file
@@ -77,12 +83,8 @@ class AccountsController < ApplicationController
 
   def reloaded_user = User.find(current_user.id)
 
-  def disconnect(identity)
-    return { alert: t("account.security.sole_way_in") } if current_user.sole_way_in?
-
-    identity.destroy
-    { notice: t("account.security.disconnected",
-                provider: t("account.oauth.#{identity.provider}")) }
+  def disconnected_notice(identity)
+    t("account.security.disconnected", provider: t("account.oauth.#{identity.provider}"))
   end
 
   # An account that signed up through a provider has no password to be asked for, on either form.
