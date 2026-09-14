@@ -48,11 +48,12 @@ class AccountsController < ApplicationController
     identity = current_user.identities.find_by!(provider: params[:provider])
 
     if current_user.sole_way_in?
-      redirect_to account_security_path, alert: t("account.security.sole_way_in")
+      flash[:alert] = t("account.security.sole_way_in")
     else
       identity.destroy
-      redirect_to account_security_path, notice: disconnected_notice(identity)
+      flash[:notice] = disconnected_notice(identity)
     end
+    redirect_to account_security_path
   end
 
   def save_file
