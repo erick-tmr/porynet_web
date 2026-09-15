@@ -3,13 +3,15 @@ class User < ApplicationRecord
   TRAINER_NAME_FORMAT = /\A[A-Za-z0-9_.-]{2,12}\z/
 
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable,
-         authentication_keys: [ :login ]
+         :recoverable, :rememberable, :validatable, :omniauthable,
+         authentication_keys: [ :login ],
+         omniauth_providers: AccountData::OAUTH_STRATEGIES.values
 
   attr_writer :login
   attr_accessor :terms
 
   has_many :save_files
+  has_many :identities, dependent: :destroy
 
   normalizes :trainer_name, with: ->(name) { name.strip }
 
@@ -26,6 +28,10 @@ class User < ApplicationRecord
     @login || trainer_name
   end
 
+  def password_set? = encrypted_password.present?
+
+  def sole_way_in? = !password_set? && identities.count == 1
+
   def self.find_for_database_authentication(conditions)
     login = conditions[:login].to_s.strip.downcase
     return if login.blank?
@@ -34,6 +40,12 @@ class User < ApplicationRecord
   end
 
   private
+
+  def password_required?
+    return super unless identities.any?
+
+    password.present? || password_confirmation.present?
+  end
 
   def stamp_terms_accepted
     self.terms_accepted_at ||= Time.current

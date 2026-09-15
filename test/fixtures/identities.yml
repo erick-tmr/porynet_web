@@ -1,0 +1,15 @@
+gary_google:
+  user: rival
+  provider: google
+  uid: "108461937264518290374"
+  email: gary@pallet.town
+  created_at: <%= 3.days.ago.to_fs(:db) %>
+  updated_at: <%= 3.days.ago.to_fs(:db) %>
+
+daisy_google:
+  user: linked
+  provider: google
+  uid: "117392048571630294851"
+  email: daisy@pallet.town
+  created_at: <%= 2.hours.ago.to_fs(:db) %>
+  updated_at: <%= 2.hours.ago.to_fs(:db) %>

@@ -27,6 +27,13 @@ module ApplicationHelper
 
   def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
 
+  # The authorize route sits outside the locale scope, so the locale rides in the query
+  # string instead: OmniAuth hands that back to the callback as omniauth.params.
+  def oauth_authorize_path(strategy)
+    omniauth_authorize_path(:user, strategy,
+                            locale: (I18n.locale unless I18n.locale == I18n.default_locale))
+  end
+
   SOURCE_URLS = {
     showdown: "https://play.pokemonshowdown.com/sprites/trainers/",
     pokeapi: "https://github.com/PokeAPI/sprites",

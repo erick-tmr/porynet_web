@@ -171,6 +171,9 @@ detectors:
   UncommunicativeMethodName:
     exclude:
       - Walkthrough::Yellow
+      - Users::OmniauthCallbacksController   # the action name is the OmniAuth strategy name.
+                                             # Devise draws /auth/google_oauth2/callback straight
+                                             # to #google_oauth2, so renaming it breaks the route.
   UncommunicativeParameterName:
     exclude:
       - Walkthrough::Yellow

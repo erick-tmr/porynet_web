@@ -1,11 +1,20 @@
 <div class="pn-auth__heading"><%= t("account.oauth.#{mode}_heading") %></div>
 <div class="pn-auth__oauth">
   <% AccountData::OAUTH_PROVIDERS.each do |provider| %>
-    <button type="button" class="pn-auth__provider" disabled>
-      <%= r2_image_tag "account/oauth/#{provider}.png", alt: "" %>
-      <span class="pn-auth__provider-name"><%= t("account.oauth.#{provider}") %></span>
-      <span class="pn-auth__provider-soon"><%= t("account.soon") %></span>
-    </button>
+    <% if (strategy = AccountData.oauth_strategy(provider)) %>
+      <%= button_to oauth_authorize_path(strategy),
+                    class: "pn-auth__provider pn-auth__provider--live",
+                    form: { data: { turbo: false }, class: "pn-auth__provider-form" } do %>
+        <%= r2_image_tag "account/oauth/#{provider}.png", alt: "" %>
+        <span class="pn-auth__provider-name"><%= t("account.oauth.#{provider}") %></span>
+      <% end %>
+    <% else %>
+      <button type="button" class="pn-auth__provider" disabled>
+        <%= r2_image_tag "account/oauth/#{provider}.png", alt: "" %>
+        <span class="pn-auth__provider-name"><%= t("account.oauth.#{provider}") %></span>
+        <span class="pn-auth__provider-soon"><%= t("account.soon") %></span>
+      </button>
+    <% end %>
   <% end %>
 </div>
 <p class="pn-auth__oauth-hint"><%= t("account.oauth.hint") %></p>

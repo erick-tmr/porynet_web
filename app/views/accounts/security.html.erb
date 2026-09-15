@@ -41,11 +41,13 @@
                    placeholder: t("account.fields.email_placeholder"),
                    options: { autocomplete: "email" } %>
       </div>
-      <%= render "shared/field", f: f, name: :current_password, kind: :password_field, tone: :sky,
-                 label: t("account.security.current_password"),
-                 placeholder: t("account.fields.password_placeholder"),
-                 hint: t("account.security.current_password_hint"),
-                 options: { autocomplete: "current-password" } %>
+      <% if current_user.password_set? %>
+        <%= render "shared/field", f: f, name: :current_password, kind: :password_field, tone: :sky,
+                   label: t("account.security.current_password"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   hint: t("account.security.current_password_hint"),
+                   options: { autocomplete: "current-password" } %>
+      <% end %>
 
       <div class="pn-account__foot">
         <%= f.submit t("account.security.email_submit"), class: "pn-btn pn-btn--sky" %>
@@ -56,17 +58,20 @@
     <% end %>
   <% end %>
 
+  <% set_password = !current_user.password_set? %>
   <%= render layout: "accounts/panel",
-             locals: { title: t("account.security.password_title"),
-                       meta: t("account.security.password_meta") } do %>
+             locals: { title: t("account.security.password_title#{"_new" if set_password}"),
+                       meta: t("account.security.password_meta#{"_new" if set_password}") } do %>
     <%= form_with model: @password_form, scope: :account_password,
                   url: account_security_password_path,
                   method: :patch, class: "pn-account__form",
                   data: { controller: "password-strength", score: 0 } do |f| %>
-      <%= render "shared/field", f: f, name: :current_password, kind: :password_field,
-                 label: t("account.security.current_password"),
-                 placeholder: t("account.fields.password_placeholder"),
-                 options: { autocomplete: "current-password" } %>
+      <% unless set_password %>
+        <%= render "shared/field", f: f, name: :current_password, kind: :password_field,
+                   label: t("account.security.current_password"),
+                   placeholder: t("account.fields.password_placeholder"),
+                   options: { autocomplete: "current-password" } %>
+      <% end %>
 
       <div class="pn-account__grid2">
         <%= render "shared/field", f: f, name: :password, kind: :password_field,
@@ -116,14 +121,15 @@
     <% end %>
   <% end %>
 
+  <% linked = current_user.identities.index_by(&:provider) %>
   <%= render layout: "accounts/panel",
              locals: { title: t("account.security.linked_title"),
-                       meta: t("account.security.linked_meta",
-                               total: AccountData::OAUTH_PROVIDERS.size) } do %>
+                       meta: t("account.security.linked_meta", count: linked.size) } do %>
     <p class="pn-account__lead"><%= t("account.security.linked_lead") %></p>
 
     <div class="pn-account__socials">
       <% AccountData::OAUTH_PROVIDERS.each do |provider| %>
+        <% identity = linked[provider] %>
         <div class="pn-account__social">
           <div class="pn-account__social-id">
             <span class="pn-account__social-mark">
@@ -132,19 +138,11 @@
             <div>
               <div class="pn-account__social-name"><%= t("account.oauth.#{provider}") %></div>
               <div class="pn-account__social-detail">
-                <%= t("account.security.providers.#{provider}") %>
+                <%= identity&.email || t("account.security.providers.#{provider}") %>
               </div>
             </div>
           </div>
-          <div class="pn-account__social-actions">
-            <span class="pn-account__social-state"><%= t("account.security.not_linked") %></span>
-            <span class="pn-account__soon-wrap">
-              <button type="button" class="pn-btn pn-btn--white pn-btn--sm" disabled>
-                <%= t("account.security.connect") %>
-              </button>
-              <span class="pn-account__soon"><%= t("account.soon") %></span>
-            </span>
-          </div>
+          <%= render "accounts/social_actions", provider: provider, identity: identity %>
         </div>
       <% end %>
     </div>
