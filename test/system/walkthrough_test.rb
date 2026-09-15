@@ -21,9 +21,9 @@ class WalkthroughTest < ApplicationSystemTestCase
     assert_selector ".pn-wt-index__h1", text: "Select a version"
     assert_selector "a.pn-nav__menu-link.is-active", text: "Walkthroughs", visible: :all
 
-    within ".pn-ver--live" do
-      click_link "OPEN ▶"
-    end
+    assert_selector ".pn-ver--live", count: Walkthrough.games.size
+
+    find(".pn-ver--live .pn-ver__open[href='#{walkthrough_path(game: "yellow")}']").click
 
     assert_current_path walkthrough_path(game: "yellow")
     assert_selector ".pn-wt-hero__title", text: "Yellow"
