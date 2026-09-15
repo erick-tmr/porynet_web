@@ -179,6 +179,34 @@
   font-size: 16px;
   flex: 1;
 }
+.pn-auth__provider-form {
+  display: contents;
+}
+.pn-auth__provider--live {
+  cursor: pointer;
+  color: var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.pn-auth__provider--live img {
+  opacity: 1;
+}
+.pn-auth__provider--live:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.pn-auth__provider--live:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pn-auth__provider--live {
+    transition: none;
+  }
+  .pn-auth__provider--live:hover,
+  .pn-auth__provider--live:active {
+    transform: none;
+  }
+}
 .pn-auth__provider-soon {
   font-family: "Press Start 2P", monospace;
   font-size: 7px;

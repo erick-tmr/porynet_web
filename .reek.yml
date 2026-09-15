@@ -171,9 +171,10 @@ detectors:
   UncommunicativeMethodName:
     exclude:
       - Walkthrough::Gen1Guide
-      - Walkthrough::YellowLegacy   # same data-entry DSL: a stop the hack changes is overridden
-                                    # under the game's own name for it (route_4), matching the
-                                    # builder it replaces.
+      - Walkthrough::YellowLegacy
+      - Users::OmniauthCallbacksController   # the action name is the OmniAuth strategy name.
+                                             # Devise draws /auth/google_oauth2/callback straight
+                                             # to #google_oauth2, so renaming it breaks the route.
   UncommunicativeParameterName:
     exclude:
       - Walkthrough::Gen1Guide

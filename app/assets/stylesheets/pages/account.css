@@ -671,6 +671,15 @@
   font-size: 18px;
   color: #6b6880;
 }
+.pn-account__social-state.is-linked {
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  background: var(--term-green);
+  border: 2px solid var(--ink);
+  padding: 4px 5px;
+}
 .pn-account__note {
   border: 3px solid #8f8ba8;
   background: #eae7dc;

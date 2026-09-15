@@ -1,0 +1,21 @@
+<div class="pn-account__social-actions">
+  <% if identity %>
+    <span class="pn-account__social-state is-linked"><%= t("account.security.linked") %></span>
+    <%= button_to t("account.security.disconnect"),
+                  account_security_identity_path(provider: provider),
+                  method: :delete, class: "pn-btn pn-btn--white pn-btn--sm" %>
+  <% elsif (strategy = AccountData.oauth_strategy(provider)) %>
+    <span class="pn-account__social-state"><%= t("account.security.not_linked") %></span>
+    <%= button_to t("account.security.connect"), oauth_authorize_path(strategy),
+                  class: "pn-btn pn-btn--white pn-btn--sm",
+                  form: { data: { turbo: false } } %>
+  <% else %>
+    <span class="pn-account__social-state"><%= t("account.security.not_linked") %></span>
+    <span class="pn-account__soon-wrap">
+      <button type="button" class="pn-btn pn-btn--white pn-btn--sm" disabled>
+        <%= t("account.security.connect") %>
+      </button>
+      <span class="pn-account__soon"><%= t("account.soon") %></span>
+    </span>
+  <% end %>
+</div>

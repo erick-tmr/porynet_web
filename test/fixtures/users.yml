@@ -40,3 +40,14 @@ pending_reset:
   terms_accepted_at: <%= 4.days.ago.to_fs(:db) %>
   created_at: <%= 4.days.ago.to_fs(:db) %>
   updated_at: <%= 4.days.ago.to_fs(:db) %>
+
+# Signed up through Google, so no password was ever set: encrypted_password stays "".
+linked:
+  trainer_name: DAISY
+  email: daisy@pallet.town
+  encrypted_password: ""
+  confirmed_at: <%= 2.hours.ago.to_fs(:db) %>
+  avatar: red
+  terms_accepted_at: <%= 2.hours.ago.to_fs(:db) %>
+  created_at: <%= 2.hours.ago.to_fs(:db) %>
+  updated_at: <%= 2.hours.ago.to_fs(:db) %>
