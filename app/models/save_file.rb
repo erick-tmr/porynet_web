@@ -10,7 +10,10 @@ class SaveFile < ApplicationRecord
   def self.for(user, game_slug)
     raise ActiveRecord::RecordNotFound unless GAMES.include?(game_slug)
 
-    find_by(user: user, game_slug: game_slug) ||
-      create_or_find_by!(user: user, game_slug: game_slug)
+    find_by(user: user, game_slug: game_slug) || start_fresh(user, game_slug)
+  end
+
+  def self.start_fresh(user, game_slug)
+    create_or_find_by!(user: user, game_slug: game_slug) { |file| file.imported_at = Time.current }
   end
 end

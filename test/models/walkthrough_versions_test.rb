@@ -13,9 +13,10 @@ class WalkthroughVersionsTest < ActiveSupport::TestCase
   test "a version is live exactly when a walkthrough exists under its slug" do
     live, planned = versions.partition(&:live?)
 
-    assert_equal %w[yellow], live.map(&:slug)
-    assert_equal %w[red blue green yellow-legacy], planned.map(&:slug)
+    assert_equal %w[yellow yellow-legacy], live.map(&:slug)
+    assert_equal %w[red blue green], planned.map(&:slug)
     assert_equal Walkthrough.find!("yellow").legs.size, find("yellow").pages
+    assert_equal Walkthrough.find!("yellow-legacy").legs.size, find("yellow-legacy").pages
     assert_predicate find("red").pages, :zero?
   end
 

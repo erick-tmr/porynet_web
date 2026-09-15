@@ -15,22 +15,21 @@ import markers
 import paths
 import sources
 
+IMAGE_PREFIX = "walkthrough/yellow"
+
 PLAYER_CELLS = 2
 
 FACINGS = {"DOWN": (0, 1), "UP": (0, -1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
 DEFAULT_FACING = "DOWN"
 OPPOSITE = {"DOWN": "UP", "UP": "DOWN", "LEFT": "RIGHT", "RIGHT": "LEFT"}
 
-
 def facing_of(obj):
     return obj["direction"] if obj["direction"] in FACINGS else DEFAULT_FACING
-
 
 def scene_name(area, obj):
     """Stable and unique: the area's image name plus the trainer's own cell, which is game data
     and matches the marker id the page already uses."""
     return f"{area}-trainer-{obj['grid'][0]}-{obj['grid'][1]}"
-
 
 def hero_cell(root_str, map_label, grid, step):
     """Where the hero stands to face the trainer: never a tile it could not actually stand on.
@@ -79,7 +78,6 @@ def hero_cell(root_str, map_label, grid, step):
 
     return [grid[0] + step[0] * PLAYER_CELLS, grid[1] + step[1] * PLAYER_CELLS]
 
-
 def talk_cell(root_str, map_label, grid, step):
     """Where the hero stands to start a fight by talking: one tile away, because you cannot hold a
     conversation from further off. The trainer's own facing is tried first so a trainer with a clear
@@ -100,13 +98,11 @@ def talk_cell(root_str, map_label, grid, step):
                 return list(cell)
     return None
 
-
 def direction_toward(grid, cell):
     dx, dy = cell[0] - grid[0], cell[1] - grid[1]
     if abs(dx) >= abs(dy):
         return "RIGHT" if dx > 0 else "LEFT"
     return "DOWN" if dy > 0 else "UP"
-
 
 def spots_player(root_str, map_label, obj):
     """Whether this trainer engages on sight, from its own engage distance in the game.
@@ -115,7 +111,6 @@ def spots_player(root_str, map_label, obj):
     the two Route 6 Jr. Trainers face each other across one tile, a gym leader waits for you, and
     Cinnabar's quiz gym has no headers to spot you with."""
     return sources.parse_trainer_sight(root_str, map_label).get(obj["text_const"], 0) > 0
-
 
 def where_spec(root_str, map_label, parent, obj, name):
     """The 'where' shot, drawn at the moment the fight starts. A trainer that engages on sight
@@ -150,12 +145,10 @@ def where_spec(root_str, map_label, parent, obj, name):
         spec["parent"] = parent
     return spec
 
-
 def team_of(root_str, obj):
     dex = sources.parse_dex_numbers(root_str)
     party = sources.trainer_party(root_str, obj["opp_class"], obj["party"])
     return [{"dex": f"{dex[species]:03d}", "lvl": level} for level, species in party]
-
 
 def entry_for(root_str, area, floor, obj, key, scene):
     party = sources.trainer_party(root_str, obj["opp_class"], obj["party"])
@@ -164,14 +157,12 @@ def entry_for(root_str, area, floor, obj, key, scene):
         "key": key, "opp": f"{obj['opp_class']}:{obj['party']}", "cls": obj["opp_class"],
         "reward": sources.trainer_reward(root_str, obj["opp_class"], party),
         "team": team_of(root_str, obj),
-        "where": f"walkthrough/yellow/scenes/{scene}.png",
+        "where": f"{IMAGE_PREFIX}/scenes/{scene}.png",
     }
-
 
 def _map_trainers(root_str, map_label):
     return [o for o in sources.parse_object_events(root_str, map_label, include_battlers=True)
             if o["kind"] == "trainer"]
-
 
 def _floor_trainers(root_str, label, floor):
     """Every trainer pinned on one drawn floor, in the order its pins are numbered, as (source map,
@@ -191,7 +182,6 @@ def _floor_trainers(root_str, label, floor):
         out += [(place.label, place.floor, obj) for obj in (order(here) if order else here)]
     return out
 
-
 def _keyed_trainers(root_str, label, floor):
     """One floor's carded trainers as (key, source map, home floor, trainer), in walking order.
 
@@ -206,7 +196,6 @@ def _keyed_trainers(root_str, label, floor):
         trainers = paths.walked(root_str, label, trainers, lambda entry: entry[2]["grid"])
     return [(markers.marker_key("trainer", index), source, home, obj)
             for index, (source, home, obj) in enumerate(trainers)]
-
 
 def build_roster(root_str):
     """Return ({slug: [entry]}, [where-scene spec]).

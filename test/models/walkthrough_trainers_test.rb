@@ -7,7 +7,6 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
   def game = Walkthrough.find!("yellow")
   def location(slug) = game.locations.find { |l| l.slug == slug }
   def all_cards = game.locations.flat_map { |l| l.trainers + gym_cards(l) }
-  # A gym and the Fighting Dojo both hold their fights behind one door, so both count as cards.
   def gym_cards(loc) = halls(loc).flat_map { |hall| hall.trainers + [ hall.leader ] }
   def halls(loc) = [ loc.gym, loc.dojo ].compact
 
@@ -18,13 +17,11 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_predicate first, :frozen?
   end
 
-  # A stop the guide walks twice (Route 4 around Mt. Moon, Vermilion around the S.S. Anne) splits
-  # one map's roster across its two passes, so the cards are counted over both.
   test "every trainer the game fields has a card" do
     counts = Walkthrough::Yellow.roster.fetch("trainers").transform_values(&:size)
 
     counts.each do |slug, wanted|
-      passes = game.locations.select { |loc| loc.slug == slug || Walkthrough::Yellow::MAP_SOURCE[loc.slug] == slug }
+      passes = game.locations.select { |loc| loc.slug == slug || Walkthrough::Gen1Guide::MAP_SOURCE[loc.slug] == slug }
       cards = passes.sum { |loc| loc.trainers.size + gym_cards(loc).size }
       assert_operator cards, :>=, wanted, slug
     end
@@ -40,8 +37,6 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     end
   end
 
-  # Both the letters and the card order come off the walk (tools/maps/paths.py measures it), so a
-  # route entered at one end runs T1 to T10 straight down the page.
   test "a route that authored nothing is filled from the game" do
     route = location("route-11")
 
@@ -50,18 +45,11 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert(route.trainers.all? { |card| card.where.map? })
   end
 
-  # Route 10 is one map split down the middle by Rock Tunnel and walked as two pages, so each half
-  # is walked from its own mouth: the north pair from Route 9, the four below from the tunnel's
-  # south mouth. Both pages draw that one map, and a pin can only wear one letter, so the lettering
-  # runs over the whole route once and the second page picks up where the first left off.
   test "a stop walked twice letters each pass from the door it comes in by" do
     assert_equal %w[T1 T2], location("route-10").trainers.map(&:marker_key)
     assert_equal %w[T3 T4 T5 T6], location("route-10-south").trainers.map(&:marker_key)
   end
 
-  # A gym is one room off one door, so it letters from the door inwards and always ends on the
-  # leader: the Jr. Trainer is T1 and Brock, at the back of the room, is T2. The map file declares
-  # Brock first.
   test "a gym letters its trainers from the door inwards" do
     gym = location("pewter-city").gym
 
@@ -104,8 +92,6 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     assert_empty location("route-1").trainers
   end
 
-  # Erika takes T5 rather than the last letter: Celadon's gym keeps beating you to her with three
-  # more trainers deeper in the room, and the lettering follows the walk, not the billing.
   test "gym trainers come from the gym floor and claim its pin keys" do
     gym = location("celadon-city-return").gym
 

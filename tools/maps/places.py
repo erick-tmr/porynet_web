@@ -25,7 +25,6 @@ from functools import cache
 
 import sources
 
-# map const word -> the kind of place the walkthrough copy talks about, first match wins
 KIND_BY_WORD = (
     ("HALL_OF_FAME", "league"), ("CHAMPIONS_ROOM", "league"), ("LORELEIS_ROOM", "league"),
     ("BRUNOS_ROOM", "league"), ("AGATHAS_ROOM", "league"), ("LANCES_ROOM", "league"),
@@ -45,12 +44,9 @@ KIND_BY_TILESET = {
 }
 DEFAULT_KIND = "facility"
 
-# names.asm spells the leaders the way the game's text does
 LEADER_FIXUPS = {"LT.SURGE": "Lt. Surge"}
 
-# the move behind the const, where the const carries a disambiguating suffix
 TM_MOVE_FIXUPS = {"TM_PSYCHIC_M": "Psychic"}
-
 
 def place_kind(const, tileset):
     for word, kind in KIND_BY_WORD:
@@ -71,28 +67,22 @@ _PRICE = re.compile(r"^\s*bcd3\s+(\d+)\s*;\s*(\w+)", re.M)
 _TM_PRICE = re.compile(r"^\s*nybble\s+(\d+)\s*;\s*TM(\d+)", re.M)
 _MOVE = re.compile(r"^\s*move\s+(\w+),\s*\w+,\s*\d+,\s*(\w+),", re.M)
 
-# Vending drinks are never in a clerk's `script_mart`, but the Celadon rooftop sells them, so
-# the catalog carries them alongside the mart stock (their prices are in the same prices.asm).
 _EXTRA_ITEMS = ("FRESH_WATER", "SODA_POP", "LEMONADE")
-
 
 @cache
 def _consts_by_label(root_str):
     return {label: const for label, (const, _tileset) in sources.parse_headers(root_str).items()}
-
 
 def _map_const(root_str, file_stem):
     """A script/text file maps to one map const. Yellow's `_2` files hold the second half of a
     map's scripts (BillsHouse_2.asm), so they answer to the same const."""
     return _consts_by_label(root_str).get(re.sub(r"_\d+$", "", file_stem))
 
-
 @cache
 def parse_tm_numbers(root_str):
     """Return {TM_<MOVE>: number}. item_constants.asm lists the TMs in order from TM01."""
     moves = _ADD_TM.findall(sources._read(root_str, "constants/item_constants.asm"))
     return {f"TM_{move}": number for number, move in enumerate(moves, start=1)}
-
 
 def tm_display_name(root_str, const):
     """TM_MEGA_DRAIN -> 'TM21 Mega Drain'; anything else keeps its plain item name."""
@@ -102,13 +92,11 @@ def tm_display_name(root_str, const):
     move = TM_MOVE_FIXUPS.get(const, const[len("TM_"):].replace("_", " ").title())
     return f"TM{number:02d} {move}"
 
-
 @cache
 def parse_prices(root_str):
     """Return {item const: price} from data/items/prices.asm (`bcd3 <price> ; <CONST>`)."""
     return {const: int(price)
             for price, const in _PRICE.findall(sources._read(root_str, "data/items/prices.asm"))}
-
 
 @cache
 def parse_tm_prices(root_str):
@@ -116,13 +104,11 @@ def parse_tm_prices(root_str):
     return {int(number): int(nybble) * 1000
             for nybble, number in _TM_PRICE.findall(sources._read(root_str, "data/items/tm_prices.asm"))}
 
-
 @cache
 def parse_move_types(root_str):
     """Return {move const: type slug}. PSYCHIC_TYPE -> 'psychic', so it names the TM's sprite."""
     return {move: kind.removesuffix("_TYPE").lower()
             for move, kind in _MOVE.findall(sources._read(root_str, "data/moves/moves.asm"))}
-
 
 def item_price(root_str, const):
     """The shop price of an item, 0 when it cannot be bought. TMs are priced by their number."""
@@ -131,11 +117,9 @@ def item_price(root_str, const):
         return parse_tm_prices(root_str).get(number, 0)
     return parse_prices(root_str).get(const, 0)
 
-
 _PRIZE_ENTRIES = re.compile(r"^PrizeMenu(\w+)Entries:\n((?:\s*db .+\n)+)", re.M)
 _PRIZE_COSTS = re.compile(r"^PrizeMenu(\w+)Cost:\n((?:\s*bcd2 .+\n)+)", re.M)
 _PRIZE_LEVEL = re.compile(r"^\s*db (\w+),\s*(\d+)", re.M)
-
 
 def build_prizes(root_str):
     """Return the Game Corner's three prize windows, in the order the counters stand in.
@@ -165,14 +149,12 @@ def build_prizes(root_str):
         windows.append({"window": name.lower(), "prizes": prizes})
     return {"windows": windows, "coin_piles": count_coin_piles(root_str)}
 
-
 def count_coin_piles(root_str):
     """How many hidden coin piles lie on the Game Corner floor, from data/events/hidden_coins.asm.
     Every entry in the table is on GAME_CORNER; the count is what a reader sweeping the room
     wants, not the coordinates, which the map markers already carry."""
     text = sources._read(root_str, "data/events/hidden_coins.asm")
     return len(re.findall(r"^\s*hidden_coin GAME_CORNER,", text, re.M))
-
 
 def build_item_catalog(root_str):
     """Return {display name: facts} for every item a mart, gift or vending machine offers, so the
@@ -204,15 +186,10 @@ def build_item_catalog(root_str):
             add(const, tm_display_name(root_str, const))
     for const in _EXTRA_ITEMS:
         add(const, sources.item_display_name(const))
-    # Every TM, not just the sold/gifted ones, so a TM picked up off the ground can still name its
-    # type-badge sprite. Under both display strings, because the two things that name a TM
-    # disagree: a map's item marker calls it "TM Dragon Rage" and a gift or a Game Corner prize
-    # calls it "TM23 Dragon Rage", and either has to find the same entry.
     for const in parse_tm_numbers(root_str):
         add(const, sources.item_display_name(const))
         add(const, tm_display_name(root_str, const))
     return dict(sorted(catalog.items()))
-
 
 @cache
 def parse_marts(root_str):
@@ -232,7 +209,6 @@ def parse_marts(root_str):
                 out[const] += items
     return out
 
-
 @cache
 def parse_gifts(root_str):
     """Return {map_const: {"mon": ((species, level), ...), "item": (item const, ...)}}."""
@@ -249,7 +225,6 @@ def parse_gifts(root_str):
             entry["item"] += tuple((item, int(qty)) for item, qty in _GIVE_ITEM.findall(text))
     return {const: entry for const, entry in out.items() if entry["mon"] or entry["item"]}
 
-
 def _gift_mons(text, species):
     """Every Pokémon the map hands over, as (species, level, sold). The Mt. Moon Magikarp goes
     through the same GivePokemon call as a free Eevee, but its script weighs your wallet first
@@ -262,10 +237,8 @@ def _gift_mons(text, species):
         found.append((name, int(level), _is_sold(text, match.start())))
     return tuple(dict.fromkeys(f for f in found if f[0] in species))
 
-
 def _is_sold(text, offset):
     return "HasEnoughMoney" in text[max(0, offset - _WALLET_LOOKBACK):offset]
-
 
 @cache
 def parse_pokemon_types(root_str):
@@ -277,27 +250,18 @@ def parse_pokemon_types(root_str):
             out[path.stem.upper()] = tuple(dict.fromkeys(match.groups()))
     return out
 
-
-# Each of Cinnabar's locked doors is a hidden event whose argument packs the correct answer above
-# the door's own number: `(answer << 4) | index` in data/events/hidden_events.asm. Read the bytes
-# and nothing else and you get the questions' truth values, which are not the answers: the game
-# compares that nibble against `wCurrentMenuItem`, and a yes/no menu answers YES with 0. So a door
-# whose statement is FALSE is opened by saying yes, and every one of the six comes out inverted
-# from what its constant is called.
-QUIZ_GATE = re.compile(r"hidden_event\s+\d+,\s*\d+,\s*PrintCinnabarQuiz,\s*\((TRUE|FALSE)")
+QUIZ_GATE = re.compile(r"PrintCinnabarQuiz,\s*\((TRUE|FALSE)"
+                       r"|\((TRUE|FALSE)\s*<<\s*4\)\s*\|\s*\d+,\s*PrintCinnabarQuiz")
 QUIZ_MENU = {"FALSE": "yes", "TRUE": "no"}
-
 
 def quiz_answers(root_str, map_const):
     """How to answer a gym's quiz doors, in the order the doors are numbered, or None for a gym
     that asks nothing. Only Cinnabar has them."""
-    body = sources.read_data(root_str, "data/events/hidden_events.asm")
-    block = re.search(rf"hidden_events_for {map_const}\n(.*?)\n\tdb -1", body, re.S)
+    block = sources.hidden_block(root_str, map_const)
     if block is None:
         return None
-    answers = [QUIZ_MENU[truth] for truth in QUIZ_GATE.findall(block.group(1))]
+    answers = [QUIZ_MENU[before or after] for before, after in QUIZ_GATE.findall(block)]
     return answers or None
-
 
 def gym_facts(root_str, label, objects):
     """Badge, TM, leader and team types for a gym map, or None unless the map states all four.
@@ -317,7 +281,6 @@ def gym_facts(root_str, label, objects):
         facts["quiz"] = quiz
     return facts
 
-
 def _party_types(root_str, leader):
     """The types a leader's whole team shares: Brock fields nothing but Rock/Ground, Koga in
     Yellow nothing but Bug/Poison. A team with no type in common falls back to its commonest,
@@ -333,12 +296,10 @@ def _party_types(root_str, leader):
         shared = [counts.most_common(1)[0][0]]
     return [kind.removesuffix("_TYPE").title() for kind in shared]
 
-
 def _script_text(root_str, label):
     paths = sorted((sources._root(root_str) / "scripts").glob(f"{label}.asm")) + \
         sorted((sources._root(root_str) / "scripts").glob(f"{label}_[0-9].asm"))
     return "\n".join(path.read_text() for path in paths)
-
 
 def build_places(root_str):
     """Return {map const: facts} for every map the game defines, skipping the ones with nothing
@@ -363,7 +324,6 @@ def build_places(root_str):
         if kind != "gym" and gift.get("item"):
             facts["gift_item"] = [{"name": tm_display_name(root_str, item), "qty": qty}
                                   for item, qty in gift["item"]]
-        # a gym's leader is a trainer object too, but the copy counts them apart
         trainers = sum(o["kind"] == "trainer" for o in objects) - bool(facts.get("gym"))
         counts = {"trainers": trainers, "items": sum(o["kind"] == "item" for o in objects)}
         facts.update({k: v for k, v in counts.items() if v > 0})

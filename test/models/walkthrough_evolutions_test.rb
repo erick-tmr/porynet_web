@@ -11,8 +11,8 @@ class WalkthroughEvolutionsTest < ActiveSupport::TestCase
     evolutions::ALL.each do |evo|
       assert_match(/\A\d{3}\z/, evo.from)
       assert_match(/\A\d{3}\z/, evo.to)
-      assert Walkthrough::Yellow::NAMES.key?(evo.from), "unknown dex #{evo.from}"
-      assert Walkthrough::Yellow::NAMES.key?(evo.to), "unknown dex #{evo.to}"
+      assert Walkthrough::Gen1Guide::NAMES.key?(evo.from), "unknown dex #{evo.from}"
+      assert Walkthrough::Gen1Guide::NAMES.key?(evo.to), "unknown dex #{evo.to}"
     end
   end
 

@@ -1,5 +1,5 @@
-<% b = "#{Walkthrough::Yellow::MEW_GLITCH_K}.spares" %>
-<% spares = Walkthrough::Yellow.mew_spares %>
+<% b = "#{@game.guide.mew_glitch_key}.spares" %>
+<% spares = @game.guide.mew_spares %>
 <section class="pn-wt-section" id="leave-standing"
          data-controller="leave-standing" data-leave-standing-game-value="<%= @game.slug %>">
   <div class="pn-ls" data-controller="disclosure">

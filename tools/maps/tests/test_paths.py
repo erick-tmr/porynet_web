@@ -652,3 +652,25 @@ def test_cerulean_cave_letters_each_floor_the_way_its_visits_run(root):
         "Max Elixir", "Ultra Ball", "Max Revive", "Ultra Ball"]
     assert [m["grid"] for m in pins(root, "CeruleanCaveB1F", "B1F", cat="item").values()] == [
         [15, 3], [2, 13], [3, 13], [26, 1]]
+
+
+def test_a_second_game_inherits_every_walk_it_does_not_name(monkeypatch):
+    """The walk is written once. Another game in the family holds the same maps and is walked
+    the same way, so its overlay carries only the floors where what is on them moved."""
+    monkeypatch.setattr(paths, "GAME", "yellow-legacy")
+    inherited = paths.routes()
+    assert inherited["ViridianForest"] == paths.ROUTES["ViridianForest"]
+    assert set(inherited) == set(paths.ROUTES)
+
+
+def test_the_overlay_replaces_a_walk_rather_than_adding_to_it(monkeypatch):
+    monkeypatch.setattr(paths, "GAME", "yellow-legacy")
+    assert "item-28-3" in paths.ROUTES["PowerPlant"], "the ball the base game walks to"
+    assert "item-28-3" not in paths.routes()["PowerPlant"], "and that Legacy comments out"
+
+
+def test_an_overlay_only_ever_names_maps_the_base_walk_already_has():
+    """An overlay is a correction to a walk, not a way to smuggle in a new one: a typo'd map
+    name would otherwise sit there doing nothing and never be noticed."""
+    for game, floors in paths.ROUTE_OVERLAYS.items():
+        assert set(floors) <= set(paths.ROUTES), game

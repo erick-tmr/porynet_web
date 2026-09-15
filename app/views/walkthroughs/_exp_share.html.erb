@@ -1,5 +1,5 @@
-<% xa = Walkthrough::Yellow.exp_share %>
-<% mg = "#{Walkthrough::Yellow::K}.exp_share" %>
+<% xa = @game.guide.exp_share %>
+<% mg = "#{@game.key}.exp_share" %>
 <section id="<%= xa.anchor %>" class="pn-wt-section">
   <div class="pn-eyebrow-label pn-eyebrow-label--cyan"><%= t("#{mg}.eyebrow") %></div>
   <div class="pn-xa__lead">

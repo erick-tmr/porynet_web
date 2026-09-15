@@ -1,14 +1,12 @@
 import decks
 import follower
+import games
 import generators
 import locations
 import markers
 import roster
 import sources
 
-# Lettered and dealt out in the order that clears them with the least walking back, which Route 3
-# names outright in paths.ROUTES: neither the map file's order nor plain distance from the Pewter
-# gate puts the Lass on the entrance row ahead of the Bug Catcher up the bank.
 ROUTE_3 = [
     ("T1", "LASS:1", 135, [("016", 9), ("016", 9)]),
     ("T2", "BUG_CATCHER:4", 100, [("010", 10), ("013", 10), ("010", 10)]),
@@ -20,12 +18,10 @@ ROUTE_3 = [
     ("T8", "LASS:3", 210, [("039", 14)]),
 ]
 
-
 def built(root):
     if not hasattr(built, "cache"):
         built.cache = roster.build_roster(root)
     return built.cache
-
 
 def test_route_3_reproduces_the_hand_authored_cards(root):
     """The load-bearing test: this one assertion pins the reward formula, both party formats,
@@ -36,7 +32,6 @@ def test_route_3_reproduces_the_hand_authored_cards(root):
 
     assert got == ROUTE_3
 
-
 def test_roster_covers_every_trainer_on_every_map(root):
     entries, specs = built(root)
     total = sum(len(v) for v in entries.values())
@@ -44,21 +39,18 @@ def test_roster_covers_every_trainer_on_every_map(root):
     assert total == 323
     assert len(specs) == total
 
-
 def test_scene_names_are_unique(root):
     _, specs = built(root)
     names = [s["name"] for s in specs]
 
     assert len(set(names)) == len(names)
 
-
 def test_scene_names_do_not_collide_with_hand_authored_ones(root):
     import build
     _, specs = built(root)
     generated = {s["name"] for s in specs}
 
-    assert not generated & {s["name"] for s in build.load_specs()}
-
+    assert not generated & {s["name"] for s in build.load_specs(games.find('yellow'))}
 
 def test_letters_agree_with_the_pins_on_the_same_map(root):
     """A card and its pin must show the same letter; they are lettered by separate code."""
@@ -82,11 +74,7 @@ def test_letters_agree_with_the_pins_on_the_same_map(root):
                     assert pin["key"] == entry["key"]
                 checked += 1
 
-    # +2: the bow's Sailors joined the cabin trainers on drawn maps
-    # +1: the Game Corner's Rocket, now that the arcade is drawn with the hideout he guards
-    # +5: the Fighting Dojo's four students and their Karate Master, now that Saffron draws it
     assert checked == 323
-
 
 def test_gym_floors_are_keyed_like_any_other_map(root):
     """A gym map draws keyed trainer pins, so its cards claim the same keys: the pin is how you
@@ -100,7 +88,6 @@ def test_gym_floors_are_keyed_like_any_other_map(root):
 
     assert [(e["key"], e["opp"]) for e in gym] == [("T1", "JR_TRAINER_M:1"), ("T2", "BROCK:1")]
 
-
 def test_every_trainer_on_the_ship_is_pinned_on_the_deck_it_is_fought_on(root):
     """The SS Anne's sixteen trainers used to be cards with no pin, because the cabin maps were
     never rendered. They are now, and folded into the four decks: a cabin trainer files under the
@@ -113,7 +100,6 @@ def test_every_trainer_on_the_ship_is_pinned_on_the_deck_it_is_fought_on(root):
     assert {e["map"] for e in ship} == {
         "ss-anne-1f", "ss-anne-2f", "ss-anne-3f", "ss-anne-b1f"}
 
-
 def test_where_geometry_puts_the_player_in_front_facing_back(root):
     _, specs = built(root)
     spec = next(s for s in specs if s["name"] == "route-3-trainer-10-6")
@@ -123,7 +109,6 @@ def test_where_geometry_puts_the_player_in_front_facing_back(root):
     assert sprite["emote"] == "shock"
     assert spec["player"] == [12, 6] and spec["player_dir"] == "LEFT"
     assert spec["focus"] == [11, 6]
-
 
 def test_a_directionless_trainer_faces_down(root):
     """Viridian Forest's Lass has no facing; the hand-authored scene she replaces chose DOWN.
@@ -135,7 +120,6 @@ def test_a_directionless_trainer_faces_down(root):
     assert spec["sprites"][0]["dir"] == "DOWN"
     assert spec["player"] == [2, 42] and spec["player_dir"] == "UP"
 
-
 def test_every_player_cell_lands_inside_its_map(root):
     _, specs = built(root)
     headers = sources.parse_headers(root)
@@ -146,7 +130,6 @@ def test_every_player_cell_lands_inside_its_map(root):
         x, y = spec["player"]
         assert 0 <= x < blocks_w * 2, spec["name"]
         assert 0 <= y < blocks_h * 2, spec["name"]
-
 
 def test_no_where_scene_stands_the_hero_on_a_solid_tile(root):
     """The invariant the Viridian Forest Bug Catcher shot broke: a where-scene never draws the
@@ -161,7 +144,6 @@ def test_no_where_scene_stands_the_hero_on_a_solid_tile(root):
         assert markers.cell_is_walkable(root, spec["map"], tileset, blocks_w, spec["player"]), \
             f"{spec['name']} stands the hero on a solid tile at {spec['player']}"
 
-
 def test_the_hero_steps_off_a_tree_into_the_trainers_line(root):
     """Regression: the Bug Catcher by the north-exit Potion faces a tree, so two cells in front is
     unstandable; the hero falls back one cell to the grass it can actually reach, not [0, 18]."""
@@ -169,7 +151,6 @@ def test_the_hero_steps_off_a_tree_into_the_trainers_line(root):
     spec = next(s for s in specs if s["name"] == "viridian-forest-trainer-2-18")
 
     assert spec["player"] == [1, 18]
-
 
 def test_no_where_scene_straddles_the_hero_across_a_hedge(root):
     """The Route 3 Bug Catcher (D) used to stand the hero at [19, 7], a cell open above but with
@@ -190,7 +171,6 @@ def test_no_where_scene_straddles_the_hero_across_a_hedge(root):
         assert footing or generators.afloat(root, spec["map"], spec["player"]), \
             f"{spec['name']} straddles the hero at {spec['player']}"
 
-
 def test_a_swimmer_is_met_from_the_water_rather_than_the_nearest_shore(root, monkeypatch):
     """Route 20's first swimmer floats twenty-six cells from the nearest dry land. Ranking footing
     first and searching outward within each rank put the hero on that island, and the camera midway
@@ -205,7 +185,6 @@ def test_a_swimmer_is_met_from_the_water_rather_than_the_nearest_shore(root, mon
     assert spec["focus"] == [87, 7], "and the camera lands between the two rather than out at sea"
     assert generators.hero_sprite(root, spec) == generators.PIKACHU_SURF_SPRITE
 
-
 def test_no_where_scene_stands_the_hero_on_another_object(root):
     """A person or an item ball holds its cell against you, and the render draws the hero over
     whoever is there, so the shot silently loses them."""
@@ -217,7 +196,6 @@ def test_no_where_scene_stands_the_hero_on_another_object(root):
         assert tuple(spec["player"]) not in taken, \
             f"{spec['name']} stands the hero on {taken.get(tuple(spec['player']))}"
 
-
 def test_the_dojo_hero_stands_between_the_master_and_the_black_belt(root):
     """Regression: the Karate Master's card stood the hero two cells ahead on [5, 5], the cell
     Black Belt 3 occupies, so the shot showed four Black Belts instead of five."""
@@ -225,7 +203,6 @@ def test_the_dojo_hero_stands_between_the_master_and_the_black_belt(root):
     spec = next(s for s in specs if s["name"] == "saffron-city-dojo-trainer-5-3")
 
     assert spec["player"] == [5, 4]
-
 
 def test_the_bug_catcher_hero_steps_off_the_hedge_row(root):
     """Regression for the impossible-tile card: the Route 3 Bug Catcher hero moved off [19, 7]
@@ -235,14 +212,12 @@ def test_the_bug_catcher_hero_steps_off_the_hedge_row(root):
 
     assert spec["player"] == [19, 6]
 
-
 def test_a_boxed_in_trainer_gets_a_hero_on_the_nearest_floor(root):
     """The Game Corner Rocket faces the wall behind its poster; nothing in its sightline is
     walkable, so the hero stands on the nearest floor tile beside it, not inside the wall."""
     hero = roster.hero_cell(root, "GameCorner", [9, 5], roster.FACINGS["UP"])
 
     assert hero == [8, 5]
-
 
 def test_every_entry_is_complete(root):
     entries, _ = built(root)
@@ -254,7 +229,6 @@ def test_every_entry_is_complete(root):
             assert all(len(m["dex"]) == 3 and m["lvl"] > 0 for m in card["team"])
             assert card["where"].endswith(".png")
 
-
 def test_a_facing_pair_never_flashes_the_spotted_bubble(root):
     """Route 6's two Jr. Trainers stand on adjacent tiles facing each other, and the game gives
     both an engage distance of 0: they only fight when talked to, so no '!' belongs on either."""
@@ -265,14 +239,12 @@ def test_a_facing_pair_never_flashes_the_spotted_bubble(root):
     for spec in pair:
         assert "emote" not in spec["sprites"][0], spec["name"]
 
-
 def test_a_trainer_who_watches_the_road_still_flashes_it(root):
     """The same route's Bug Catcher sees four tiles down the path, so its shot keeps the '!'."""
     _, specs = built(root)
     spec = next(s for s in specs if s["name"] == "route-6-trainer-0-15")
 
     assert spec["sprites"][0]["emote"] == "shock"
-
 
 def test_a_gym_leader_waits_to_be_talked_to(root):
     """A leader is a trainer object with no header at all, so it must not be read as sight 0 by
@@ -282,7 +254,6 @@ def test_a_gym_leader_waits_to_be_talked_to(root):
 
     assert "emote" not in spec["sprites"][0]
 
-
 def test_sight_ranges_come_from_the_map_script(root):
     sight = sources.parse_trainer_sight(root, "Route6")
 
@@ -290,12 +261,10 @@ def test_sight_ranges_come_from_the_map_script(root):
     assert sight["TEXT_ROUTE6_COOLTRAINER_F1"] == 0
     assert sight["TEXT_ROUTE6_YOUNGSTER1"] == 4
 
-
 def test_a_map_with_no_trainer_headers_reads_as_nobody_spotting(root):
     """Cinnabar's quiz gym has no trainer headers: its fights start at the question machines."""
     assert sources.parse_trainer_sight(root, "CinnabarGym") == {}
     assert sources.parse_trainer_sight(root, "PalletTown") == {}
-
 
 def test_a_talked_to_trainer_is_met_face_to_face(root):
     """You cannot start a conversation two tiles off, and a hero placed down either sightline of a
@@ -309,7 +278,6 @@ def test_a_talked_to_trainer_is_met_face_to_face(root):
     assert right["player"] == [11, 22] and right["sprites"][0]["dir"] == "DOWN"
     assert left["player_dir"] == "UP" and right["player_dir"] == "UP"
 
-
 def test_a_spotting_trainer_keeps_its_own_facing_and_distance(root):
     """The ones that engage on sight are untouched: the game stops you where they see you."""
     _, specs = built(root)
@@ -319,7 +287,6 @@ def test_a_spotting_trainer_keeps_its_own_facing_and_distance(root):
     assert spec["sprites"][0]["dir"] == "RIGHT"
     assert spec["sprites"][0]["emote"] == "shock"
 
-
 def test_a_leader_turns_to_the_challenger(root):
     _, specs = built(root)
     spec = next(s for s in specs if s["name"] == "pewter-city-gym-trainer-4-1")
@@ -327,14 +294,12 @@ def test_a_leader_turns_to_the_challenger(root):
     assert spec["player"] == [4, 2]
     assert spec["sprites"][0]["dir"] == "DOWN"
 
-
 def test_direction_toward_picks_the_dominant_axis():
     assert roster.direction_toward((5, 5), [5, 6]) == "DOWN"
     assert roster.direction_toward((5, 5), [5, 4]) == "UP"
     assert roster.direction_toward((5, 5), [6, 5]) == "RIGHT"
     assert roster.direction_toward((5, 5), [4, 5]) == "LEFT"
     assert roster.direction_toward((5, 5), [7, 6]) == "RIGHT"
-
 
 def test_talk_cell_prefers_the_tile_the_trainer_already_faces(root):
     """A trainer with a clear front is still met head-on rather than from a side."""

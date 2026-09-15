@@ -1,6 +1,14 @@
 require "test_helper"
 
 class WalkthroughTest < ActiveSupport::TestCase
+  test "reconciling the authored game against its own tables changes nothing" do
+    moved = Walkthrough.find!("yellow").locations.reject do |loc|
+      Walkthrough::Yellow.reconcile_encounters(loc).encounters == loc.encounters
+    end
+
+    assert_empty moved.map(&:slug)
+  end
+
   def game = Walkthrough.find!("yellow")
   def loc(slug) = game.locations.find { |location| location.slug == slug }
 
@@ -15,22 +23,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "pallet-town", g.locations.first.slug
     assert_equal "cerulean-cave", g.locations.last.slug
     assert_equal 151, g.dex_goal
-    # 53 numbered stops (1..53), eleven of them walked twice: Pallet (stop 1) is where the run
-    # starts and where Route 21 lands it again, Viridian (stop 3) is walked for Oak's parcel and
-    # come back to for the gym only the other seven badges open, Route 22 (stop 4) is crossed for
-    # Mankey and walked again for Blue's last fight before the Champion, Route 4 (stop 10) wraps
-    # Mt. Moon,
-    # Vermilion (stop 17) is split around the S.S. Anne, which is what hands over the Cut its gym
-    # needs, Route 10 (stop 22) is cut in half by Rock Tunnel, Celadon (stop 28) is left and come
-    # back to so the Rocket Hideout is cleared before Erika, Fuchsia (stop 35) is left and come
-    # back to so the Safari Zone hands over the Gold Teeth before Koga, Route 16 (stop 37) is
-    # dipped into early for Fly and walked properly at Cycling Road, Saffron (stop 41) is arrived
-    # at and come back to because its gym stays Rocket-held until Silph is cleared, and Route 20
-    # (stop 43) is split by the rock wall the Seafoam cave runs under, and Cinnabar (stop 45) is
-    # left and come back to because its gym door needs the Secret Key from the Pokémon Mansion
-    # across the street. Each pass is its own section, so 67 sections share 53 numbers: the two odd
-    # ones own no stop of their own and borrow the maps they walk onto, the Surf sweep (Saffron's
-    # 41) and the swim to the Cerulean Cave door (the cave's own 53).
     assert_equal 67, g.locations.size
     assert_equal (1..53).to_a, g.locations.map(&:order).uniq.sort
     assert_equal %w[pallet-town pallet-town-return], g.locations.select { |loc| loc.order == 1 }.map(&:slug)
@@ -70,10 +62,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal covered.size, covered.uniq.size
   end
 
-  # Both birds are taken where the walk already goes. The Surf sweep ends on the plant's own
-  # doorstep, and the Seafoam cave runs under the islands that split Route 20, so walking in at the
-  # east mouth and out at the west one is the way to Cinnabar rather than a detour off it. The stop
-  # numbers run with the walk, so moving either renumbers everything between.
   test "Seafoam is walked in passing on Route 20, and the Power Plant off the sweep that reaches it" do
     tail = game.legs.map(&:slug).drop_while { |slug| slug != "leg-14" }
 
@@ -108,7 +96,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     refute leg1.single?
     assert game.leg!("ss-anne").single?
 
-    # leg 04 doubles back: the routes north are the middle, the Cerulean gym is the destination
     leg4 = game.leg!("leg-04")
     assert_equal "Route 4", leg4.from
     assert_equal "Cerulean City", leg4.to
@@ -187,10 +174,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil game.leg!("leg-03").finale
   end
 
-  # The park is the one stop the guide cannot finish in one go: its clock turns you out, and the
-  # Nugget out on the Center Area's island needs a Surf that Koga's badge unlocks two stops later.
-  # So the page runs one numbered sequence across two headings rather than filing the leftovers as
-  # a footnote, and the return trip carries the three things the first trip could not take.
   test "the Safari Zone splits its steps across the visit that has Surf and the one that does not" do
     park = loc("safari-zone")
 
@@ -216,9 +199,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty game.legs.select { |leg| leg.single? && leg.locations.any?(&:gym_finale?) }
   end
 
-  # The Safari Zone stands between the two passes: it is a page of its own, so Koga cannot close
-  # the leg he used to close. The badge moves onto the second pass with the Warden's trade, the
-  # way Erika's does after the Rocket Hideout.
   test "Fuchsia is walked twice, with Koga on the pass that follows the Safari Zone" do
     first, back = loc("fuchsia-city"), loc("fuchsia-city-return")
 
@@ -234,9 +214,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "HM04 Strength", back.steps.first.items.sole.name
   end
 
-  # Saffron's gym is Rocket-held until Silph is cleared, so the city is arrived at, left, and come
-  # back to, the way Fuchsia is around the Safari Zone. The badge travels with the second pass,
-  # which is what puts the Marsh deadline on the page before the gym rather than the page after it.
   test "Saffron is walked twice, with Sabrina on the pass that follows Silph Co." do
     first, back = loc("saffron-city"), loc("saffron-city-return")
 
@@ -251,12 +228,10 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_operator game.legs.index(game.leg!("silph-co")), :<, game.legs.index(game.leg!("leg-13"))
   end
 
-  # The dojo is a gym in all but the badge, so it lands on the first pass with its own five fights
-  # and the prize the Karate Master hands over in place of one.
   test "the Fighting Dojo carries its own room, and the second Saffron pass carries none of it" do
     dojo = loc("saffron-city").dojo
 
-    assert_equal Walkthrough::Yellow::DOJO_MAP, dojo.map
+    assert_equal Walkthrough::Gen1Guide::DOJO_MAP, dojo.map
     assert_equal 4, dojo.trainers.size
     assert_equal "BLACKBELT:1", dojo.leader.opp
     assert_equal 4_175, dojo.purse
@@ -266,8 +241,6 @@ class WalkthroughTest < ActiveSupport::TestCase
       "the dojo's five come off Saffron's one roster; only the pass that owns the dojo shows them"
   end
 
-  # The dojo's floor is drawn and pinned like a gym's, so it leaves the stop's header maps and the
-  # cards read their letters off it. The pass that borrows Saffron's maps but owns no dojo drops it.
   test "the dojo's floor is a map of its own, not one of the city's" do
     dojo = loc("saffron-city").dojo
 
@@ -280,8 +253,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[saffron-city], loc("saffron-city-return").area_maps.map(&:name)
   end
 
-  # You leave with one of the pair and the other ball stays shut, so the choice is drawn from the
-  # game's own numbers: the bar lights up on the stat each one actually wins, and Special ties.
   test "the dojo choice compares the two the Karate Master leaves behind" do
     lee, chan = loc("saffron-city").dojo.choice.picks
 
@@ -294,8 +265,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal 100, lee.stats.first.fill, "the best number on either card fills its bar"
   end
 
-  # Both halves are listed the way Cinnabar lists all three fossils: a living dex owes the other
-  # even though one cartridge only ever opens one ball.
   test "both dojo Pokemon are obtainable at Saffron and owed by Oak's deadline" do
     saffron = loc("saffron-city")
 
@@ -368,10 +337,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty stranded
   end
 
-  # Route 6's water is the only Psyduck in the game and the guide crosses it twenty stops before
-  # HM03 exists, so for a long time nothing crowned it: a stop may not claim a catch you cannot
-  # make standing on it. The Surf sweep is the stop that finally can, which is what `armed_only`
-  # says on the card, and it is the difference between "nowhere" and "here, once you are equipped".
   test "a species locked on every pass is crowned at the stop that comes back armed" do
     g = game
     route6 = loc("route-6")
@@ -385,10 +350,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "surf-cleanups", g.best_catches["055"].slug
   end
 
-  # The guard behind all of the above: a species whose every stop is one you reach without the tool
-  # for it is crowned nowhere at all. No species is in that position any more, now the Surf sweep
-  # goes back for the last of them, so it is exercised on the one stop rather than on the game:
-  # Route 6 alone, walked twenty stops before HM03, can crown nothing.
   test "a species nobody is armed for at any stop is crowned nowhere" do
     route6 = loc("route-6")
     psyduck = route6.encounters.find { |enc| enc.dex == "054" }
@@ -537,8 +498,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_empty plain
   end
 
-  # Rock Tunnel numbers its pins per map, so two trainers wear T6 on one page. The floor is what
-  # tells them apart, and it comes off the roster rather than being read back out of a pin id.
   test "a trainer carries the floor the roster puts it on" do
     tunnel = loc("rock-tunnel")
     upper, lower = tunnel.trainers.partition { |t| t.floor == "1F" }
@@ -561,9 +520,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_nil rival.floor, "the generated roster has no entry for a scripted fight"
   end
 
-  # A stop that walks well past its own map is titled for the whole walk, but the place it is
-  # anchored to keeps its own name, so the map titlebar, the catch cards and the planner's "do at"
-  # badge still say where Diglett actually lives.
   test "a stop titled for its whole walk keeps the plain place name underneath" do
     detour = loc("digletts-cave")
 
@@ -573,8 +529,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal detour.title, game.leg!("digletts-cave").from, "the index card and nav read the title"
   end
 
-  # The detour walks four maps and draws them one at a time, so what lives on a map has to hang
-  # off it rather than pile up at the foot of a page that ends three maps later.
   test "what lives on a borrowed map is pinned to that map" do
     detour = loc("digletts-cave")
     drawn = detour.step_groups.filter_map(&:first).map(&:name)
@@ -626,9 +580,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     dexes.each { |dex| assert_match(/\A\d{3}\z/, dex) }
   end
 
-  # A trade the guide flags long before you can make it (Route 2 tells you to keep a Mt. Moon
-  # Clefairy) shows again on the stop that finally walks there. Two cards, one trade: the second
-  # carries the first's tick id so trading once reads as traded on both pages.
   test "a trade flagged early and walked to later is one tick shown twice" do
     flagged = loc("route-2").trades.sole
     walked = loc("digletts-cave").trades.sole
@@ -720,8 +671,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "walkthrough.yellow.badge_guide.rules.stacking.title", guide.rules.second.title_key
   end
 
-  # The three fossil cards print the game's own dex line, so the metric half has to come out of
-  # yellow_dex.json rather than being retyped into the copy.
   test "the fossil wait names its three specimens with the dex's own measurements" do
     fw = Walkthrough::Yellow.fossil_wait
 
@@ -742,9 +691,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal "walkthrough.yellow.fossil_wait.facts.flag", fw.facts.first.key
   end
 
-  # Mew's line under the card prints the game's own dex measurements, so the metric half has to
-  # come out of yellow_dex.json rather than being retyped into the copy, the way the fossil cards
-  # already do. The species string is the cartridge's, typo and all.
   test "the mansion diary prints Mew with the dex's own measurements" do
     md = Walkthrough::Yellow.mansion_diary
 
@@ -757,8 +703,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal [ "0.4 m", "4.1 kg" ], [ md.mon.height, md.mon.weight ]
   end
 
-  # The four pages are dealt out in the order the maze walks you past them, and the date's colour
-  # is which half of the story it belongs to: the expedition that found Mew, then Mewtwo.
   test "the diary lists its four pages in walking order, split at the birth" do
     pages = Walkthrough::Yellow.mansion_diary.pages
 
@@ -768,8 +712,6 @@ class WalkthroughTest < ActiveSupport::TestCase
       pages.map { |page| I18n.t("#{page.key}.date") }
   end
 
-  # Every page the section quotes is a map object the guide already pins, so the two cannot drift
-  # into disagreeing about how many pages the mansion holds or which floors they are on.
   test "the diary quotes exactly the pages the mansion's maps pin" do
     pinned = %w[pokemon-mansion-1f pokemon-mansion-2f pokemon-mansion-3f pokemon-mansion-b1f]
       .flat_map { |name| Walkthrough::Yellow.npc_overlay.fetch(name, []) }
@@ -780,8 +722,6 @@ class WalkthroughTest < ActiveSupport::TestCase
       Walkthrough::Yellow.mansion_diary.pages.map { |page| page.key.split(".").last }
   end
 
-  # The section is about a wait the cartridge does not keep, so the three fossils it shows have to
-  # be exactly the three the island's own gift rows hand back.
   test "the fossil wait shows every fossil Cinnabar revives" do
     revived = loc("cinnabar-island").encounters.select { |enc| enc.how == "FOSSIL" }
 
@@ -934,9 +874,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_includes tentacool.places.map(&:kind), "super_rod", "still listed as another way in"
   end
 
-  # Every screenshot lookup in this app degrades silently: `scene_shot` and `map_shot` fall back to
-  # a placeholder, and `hidden`/`later` hand a nil image straight to `r2_image_tag`, which renders a
-  # broken <img> with no error. A typo'd scene name is therefore invisible without these.
   UNRENDERED_GYM_SHOTS = "the gym card and gym puzzle frames are not drawn yet"
 
   def declared_shots
@@ -958,8 +895,6 @@ class WalkthroughTest < ActiveSupport::TestCase
       "a name that misses the manifest renders a placeholder, never an error, so it can only be caught here"
   end
 
-  # Walks the whole page graph rather than a hand-listed set of call sites, so a new kind of shot
-  # carrier is covered the day it is added.
   def every_referenced_image(node, out = [])
     case node
     when Array then node.each { |n| every_referenced_image(n, out) }
@@ -977,12 +912,6 @@ class WalkthroughTest < ActiveSupport::TestCase
       .map { |i| File.basename(i, ".png") }.to_set
     orphans = (Walkthrough::Yellow.manifest.fetch("scenes").keys.to_set - referenced).to_a.sort
 
-    # Frames the generator renders that nothing points at yet. This list may only shrink: a step
-    # that stops referencing its frame silently loses the picture, and that is what this catches.
-    # The three that remain are superseded duplicates, not losses: each one's step now carries a
-    # per-item frame generated later (mt-moon-item-moon-stone, viridian-forest-item-pok-ball,
-    # viridian-forest-item-potion-*), so pointing a step back at the old frame would show the
-    # worse picture. Everything else is referenced.
     assert_equal [ "mt-moon-moon-stone", "viridian-forest-poke-ball", "viridian-forest-potion" ],
       orphans
   end
@@ -1022,8 +951,6 @@ class WalkthroughTest < ActiveSupport::TestCase
 
   test "every pin a step names is a real marker on that location's own maps" do
     stray = game.locations.flat_map do |loc|
-      # The gym's floor counts: a stop that is itself a gym (Viridian) draws its one map in the
-      # gym section rather than the header, and its steps name the pins on it.
       rooms = loc.area_maps + [ loc.gym&.area, loc.dojo&.area ].compact
       ids = rooms.flat_map { |m| m.markers.map { |k| "#{m.name}/#{k.id}" } }.to_set
       loc.steps.flat_map { |s| s.pins.values }.uniq.reject { |id| ids.include?(id) }
@@ -1102,14 +1029,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     assert_equal %w[E1 E2], forest.map(&:key)
   end
 
-  # Cerulean Cave is the guide's longest chain of doorways: seven ladders in a fixed order, each
-  # landing in a pocket of the far floor that no other ladder reaches, so a reader who takes the
-  # wrong one is stranded with no way to tell. A letter alone cannot say which rung of the cave
-  # wall it is, which is why every step that sends you up or down one carries a picture of it.
-  #
-  # The token is what says the step is a move rather than a mention: a ladder is `up`, `down` or
-  # `lower`, and anything else naming an exit is a landmark the directions steer by (the hidden
-  # PP Up is found from the row its ladder stands on, which is a ladder already climbed).
   CLIMBED = %i[up down lower].freeze
 
   test "every ladder the cave walk takes is named in walk order and drawn" do
@@ -1138,8 +1057,6 @@ class WalkthroughTest < ActiveSupport::TestCase
     text = I18n.t(last.text_key)
     assert_includes text, "Escape Rope"
     assert_includes text, "Dig"
-    # CAVERN is in EscapeRopeTilesets, but Teleport's gate (CheckIfInOutsideMap) passes only for
-    # the OVERWORLD and PLATEAU tilesets, so the game refuses it anywhere in this cave.
     assert_includes text, "Teleport is refused inside the cave"
   end
 

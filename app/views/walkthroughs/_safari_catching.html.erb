@@ -1,5 +1,5 @@
-<% sc = Walkthrough::Yellow.safari_catching %>
-<% k = "#{Walkthrough::Yellow::K}.safari_catching" %>
+<% sc = @game.guide.safari_catching %>
+<% k = "#{@game.key}.safari_catching" %>
 <section id="<%= sc.anchor %>" class="pn-wt-section pn-sc">
   <div class="pn-eyebrow-label pn-eyebrow-label--catching"><%= t("#{k}.eyebrow") %></div>
   <h2 class="pn-h2"><%= t("#{k}.h2") %></h2>

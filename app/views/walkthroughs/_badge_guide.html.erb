@@ -1,5 +1,5 @@
-<% bg = Walkthrough::Yellow.badge_guide %>
-<% k = "#{Walkthrough::Yellow::K}.badge_guide" %>
+<% bg = @game.guide.badge_guide %>
+<% k = "#{@game.key}.badge_guide" %>
 <section class="pn-wt-section" id="<%= bg.anchor %>">
   <div class="pn-eyebrow-label"><%= t("#{k}.eyebrow") %></div>
   <h3 class="pn-wt-band__h3"><%= t("#{k}.title") %></h3>

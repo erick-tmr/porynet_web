@@ -35,6 +35,20 @@ class SaveFileTest < ActiveSupport::TestCase
     assert_equal users(:rival), started.user
   end
 
+  test "a save file started from scratch has no guest progress left to take over" do
+    started = SaveFile.for(users(:rival), "blue")
+
+    assert_not_nil started.imported_at,
+      "an unstamped file reads local storage instead of the account, so its own marks stay hidden"
+  end
+
+  test "opening a game leaves a file still waiting on its handover waiting" do
+    assert_nil save_files(:ash_yellow).imported_at, "the fixture is mid-handover"
+
+    assert_nil SaveFile.for(users(:confirmed), "yellow").imported_at,
+      "stamping it here would close a handover that has not happened, stranding guest progress"
+  end
+
   test "a game the guide has never heard of is not a save file to start" do
     assert_raises(ActiveRecord::RecordNotFound) { SaveFile.for(users(:rival), "crystal") }
   end

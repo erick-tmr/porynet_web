@@ -1,12 +1,8 @@
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("walkthrough.ui.title_location", name: @location.title, game: @game.name) %>
 <% plan = @game.plan_for(@leg) %>
-<%# The League is the one stop whose trainers are the page: five rooms in a row, each its own
-    plate, so the standard trainer grid stands down in favour of them. %>
-<% league = Walkthrough::Yellow.elite_four(@location) if @location.slug == "indigo-plateau" %>
-<%# The last page of the guide signs off under its last stop, so the cave carries a section no
-    other stop has. %>
-<% ending = Walkthrough::Yellow.true_ending(@location) if @location.slug == "cerulean-cave" %>
+<% league = @game.guide.elite_four(@location) if @location.slug == "indigo-plateau" %>
+<% ending = @game.guide.true_ending(@location) if @location.slug == "cerulean-cave" %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "components/leg-switch", "components/sync-banner",
                           "pages/walkthrough", "pages/walkthrough-map",
@@ -40,7 +36,7 @@
 <%= render "shared/stop_bar", stops: [ [ @location, plan.queue_at(@location.slug).sum(&:qty) ] ] %>
 
 <% if @location.slug == "rocket-hideout" %>
-  <%= render "prize_room", room: Walkthrough::Yellow.game_corner_prizes %>
+  <%= render "prize_room", room: @game.guide.game_corner_prizes %>
 <% end %>
 
 <% groups = @location.step_groups %>
@@ -63,9 +59,6 @@
   <% end %>
 <% else %>
   <% if @location.area_maps? %><%= render "area_map", loc: @location %><% end %>
-  <%# The diary is what the mansion is remembered for, and its four pages are scattered over the
-      floors the steps cross, so it is read once between the maps and the walk rather than four
-      times in passing. %>
   <% if @location.slug == "pokemon-mansion" %><%= render "mansion_diary" %><% end %>
   <%= render "steps_section", loc: @location, steps: @location.lead_steps, heading: true %>
 <% end %>
@@ -93,8 +86,6 @@
   </section>
 <% end %>
 
-<%# The steps held back behind the page's hall, which on the League page is the five rooms: where
-    the file goes once the credits have rolled belongs under them, not above the fight it follows. %>
 <% if @location.after_steps.any? %>
   <section class="pn-wt-section">
     <div class="pn-eyebrow-label"><%= t("walkthrough.ui.steps_next_eyebrow") %></div>

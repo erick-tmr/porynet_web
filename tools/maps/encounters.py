@@ -25,28 +25,28 @@ import sources
 
 SLOT_TOTAL = 256
 
-# GenerateRandomFishingEncounter (engine/items/super_rod.asm) walks four slots, taking one when a
-# random byte falls under $66 / $b2 / $e5 and the fourth otherwise. Those cut points are 102, 76,
-# 51 and 27 of 256, so the Super Rod is not a flat quarter each.
 SUPER_ROD_SLOTS = (102, 76, 51, 27)
 
-# ItemUseOldRod hands over a fixed Magikarp; ItemUseGoodRod rerolls until it bites and then picks
-# evenly between the two GoodRodMons. Neither reads a per-map table, so both are the same
-# everywhere there is water to cast into.
 OLD_ROD_MON = ("MAGIKARP", 5)
 
 ROD_KINDS = ("old_rod", "good_rod", "super_rod")
 
-
 @cache
 def slot_weights(root_str):
-    """The chance of each of the ten wild slots, straight from WildMonEncounterSlotChances."""
+    """The chance of each of the ten wild slots, straight from WildMonEncounterSlotChances.
+
+    The table is a ladder of cumulative cut points the game compares one random byte against.
+    A disassembly forked before the `wild_chance` macro writes those cut points raw
+    (`db 50, $00`), so a slot's own share is the gap to the one below it, and the first slot
+    covers everything at or under its byte."""
     text = sources.read_data(root_str, "data/wild/probabilities.asm")
     weights = [int(n) for n in re.findall(r"^\s*wild_chance\s+(\d+)", text, re.M)]
+    if not weights:
+        cuts = [int(n) for n in re.findall(r"^\s*db\s+(\d+),\s*\$[0-9A-Fa-f]+", text, re.M)]
+        weights = [high - low for high, low in zip(cuts, [-1, *cuts[:-1]], strict=True)]
     if sum(weights) != SLOT_TOTAL:
         raise ValueError(f"wild slot chances sum to {sum(weights)}, not {SLOT_TOTAL}")
     return weights
-
 
 def _slots(text, kind):
     """The ten (level, species) slots of one table, or [] when the map has none of that kind."""
@@ -54,7 +54,6 @@ def _slots(text, kind):
     if not block or int(block.group(1)) == 0:
         return 0, []
     return int(block.group(1)), re.findall(r"db\s+(\d+),\s*(\w+)", block.group(2))
-
 
 def table_for(root_str, map_label, kind):
     """One map's encounter table for `grass` or `water`, aggregated per species.
@@ -76,6 +75,17 @@ def table_for(root_str, map_label, kind):
         entry["levels"].append(int(level))
     return {"step_rate": step_rate, "mons": found}
 
+@cache
+def old_rod_mons(root_str):
+    """What the Old Rod pulls up, from its own table when the game has one.
+
+    Vanilla hands over a fixed Magikarp with no table to read; a game that rebalances early
+    fishing gives it a table like the Good Rod's, and then the answer is in the file."""
+    text = sources.read_data(root_str, "data/wild/old_rod.asm", missing_ok=True)
+    if text is None:
+        return [OLD_ROD_MON]
+    return [(species, int(level))
+            for level, species in re.findall(r"db\s+(\d+),\s*(\w+)", text)]
 
 @cache
 def good_rod_mons(root_str):
@@ -84,17 +94,15 @@ def good_rod_mons(root_str):
     return [(species, int(level))
             for level, species in re.findall(r"db\s+(\d+),\s*(\w+)", text)]
 
-
 @cache
 def super_rod_slots(root_str):
     """map const -> its four ordered (species, level) Super Rod slots."""
-    text = sources.read_data(root_str, "data/wild/super_rod.asm")
+    text = sources.read_data(root_str, "data/wild/super_rod.asm").split("db -1")[0]
     out = {}
     for line in re.findall(r"^\s*db\s+([A-Z0-9_]+(?:,\s*\w+,\s*\d+){4})\s*$", text, re.M):
         parts = [p.strip() for p in line.split(",")]
         out[parts[0]] = [(parts[i], int(parts[i + 1])) for i in range(1, len(parts), 2)]
     return out
-
 
 def _weighted(pairs, weights):
     """Fold (species, level) slots into per-species weight and level band."""
@@ -105,7 +113,6 @@ def _weighted(pairs, weights):
         entry["levels"].append(level)
     return found
 
-
 def rod_table(root_str, map_const, kind):
     """One map's table for a rod, or None when that rod finds nothing there.
 
@@ -115,10 +122,11 @@ def rod_table(root_str, map_const, kind):
         slots = super_rod_slots(root_str).get(map_const)
         return None if slots is None else _weighted(slots, SUPER_ROD_SLOTS)
     if kind == "old_rod":
-        return _weighted([OLD_ROD_MON], [SLOT_TOTAL])
+        mons = old_rod_mons(root_str)
+        even = SLOT_TOTAL // len(mons)
+        return _weighted(mons, [even] * len(mons))
     even = SLOT_TOTAL // len(good_rod_mons(root_str))
     return _weighted(good_rod_mons(root_str), [even] * len(good_rod_mons(root_str)))
-
 
 def _mon_rows(root_str, table):
     """Species rows carry the dex number the Rails side keys on, zero-padded the way the
@@ -134,7 +142,6 @@ def _mon_rows(root_str, table):
                      "slots": len(entry["levels"])})
     return sorted(rows, key=lambda row: (-row["rate"], row["species"]))
 
-
 def fishable(root_str, map_label, map_const):
     """Whether a rod has anywhere to cast on this map.
 
@@ -144,7 +151,6 @@ def fishable(root_str, map_label, map_const):
     would not list slots for a map you cannot fish)."""
     return (table_for(root_str, map_label, "water") is not None
             or map_const in super_rod_slots(root_str))
-
 
 def build_encounters(root_str):
     """slug -> ordered list of one entry per map and method that finds anything.

@@ -1,10 +1,10 @@
-# Asset generation report
+# Asset generation report: yellow-legacy
 
 - location maps: **102** across 53 locations
-- markers: **1001** (323 trainer, 107 item, 64 hidden, 484 exit)
+- markers: **1008** (330 trainer, 106 item, 64 hidden, 484 exit)
 - step shots: **50** (map/scene in a step slot)
 - standalone scenes: **316** (dialog / battle / NPC, not step-bound)
-- trainers: **323** across 36 locations
+- trainers: **330** across 39 locations
 - missing map labels: **0**
 
 ## Markers per map
@@ -13,7 +13,7 @@
 - `celadon-city-gym`: 8 trainer, 1 exit
 - `cerulean-cave-1f`: 4 item, 1 hidden, 8 exit
 - `cerulean-cave-2f`: 4 item, 1 hidden, 6 exit
-- `cerulean-cave-b1f`: 4 item, 1 pokemon, 1 hidden, 1 exit
+- `cerulean-cave-b1f`: 1 trainer, 4 item, 1 pokemon, 1 hidden, 1 exit
 - `cerulean-city`: 1 trainer, 1 hidden, 14 exit
 - `cerulean-city-gym`: 3 trainer, 1 exit
 - `cinnabar-island`: 7 exit
@@ -32,7 +32,7 @@
 - `pokemon-mansion-1f`: 1 trainer, 2 item, 1 hidden, 4 exit
 - `pokemon-mansion-2f`: 1 trainer, 1 item, 4 exit
 - `pokemon-mansion-3f`: 2 trainer, 2 item, 1 hidden, 3 exit
-- `pokemon-mansion-b1f`: 2 trainer, 5 item, 1 hidden, 1 exit
+- `pokemon-mansion-b1f`: 2 trainer, 5 item, 1 pokemon, 1 hidden, 1 exit
 - `pokemon-tower-1f`: 2 exit
 - `pokemon-tower-2f`: 2 exit
 - `pokemon-tower-3f`: 3 trainer, 1 item, 2 exit
@@ -40,7 +40,7 @@
 - `pokemon-tower-5f`: 4 trainer, 1 item, 1 hidden, 2 exit
 - `pokemon-tower-6f`: 3 trainer, 2 item, 2 exit
 - `pokemon-tower-7f`: 1 exit
-- `power-plant`: 5 item, 9 pokemon, 2 hidden, 2 exit
+- `power-plant`: 1 trainer, 4 item, 9 pokemon, 2 hidden, 2 exit
 - `rock-tunnel-1f`: 7 trainer, 6 exit
 - `rock-tunnel-b1f`: 8 trainer, 4 exit
 - `rocket-hideout-game-corner`: 1 trainer, 12 hidden, 2 exit
@@ -84,7 +84,7 @@
 - `seafoam-islands-b1f`: 7 exit
 - `seafoam-islands-b2f`: 1 hidden, 7 exit
 - `seafoam-islands-b3f`: 1 hidden, 6 exit
-- `seafoam-islands-b4f`: 1 pokemon, 1 hidden, 3 exit
+- `seafoam-islands-b4f`: 1 trainer, 1 pokemon, 1 hidden, 3 exit
 - `silph-co-1f`: 4 exit
 - `silph-co-2f`: 4 trainer, 7 exit
 - `silph-co-3f`: 2 trainer, 1 item, 10 exit
@@ -105,7 +105,7 @@
 - `vermilion-city`: 1 hidden, 10 exit
 - `vermilion-city-gym`: 4 trainer, 1 exit
 - `vermilion-city-dock`: 2 exit
-- `victory-road-1f`: 2 trainer, 2 item, 2 exit
+- `victory-road-1f`: 6 trainer, 2 item, 2 exit
 - `victory-road-2f`: 5 trainer, 4 item, 1 pokemon, 2 hidden, 6 exit
 - `victory-road-3f`: 4 trainer, 2 item, 4 exit
 - `viridian-city`: 1 hidden, 8 exit
@@ -120,7 +120,7 @@
 - `cerulean-city` step 3: walkthrough/yellow/scenes/cerulean-north-nugget.png
 - `cerulean-city` step 4: walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `cinnabar-island` step 1: walkthrough/yellow/scenes/cinnabar-lab-trades.png
-- `cinnabar-island` step 3: walkthrough/yellow/scenes/cinnabar-lab-aerodactyl.png
+- `cinnabar-island` step 3: walkthrough/yellow-legacy/scenes/cinnabar-lab-aerodactyl.png
 - `digletts-cave` step 11: walkthrough/yellow/scenes/route-2-pewter-cut.png
 - `digletts-cave` step 12: walkthrough/yellow/scenes/pewter-museum-cut.png
 - `digletts-cave` step 13: walkthrough/yellow/scenes/museum-old-amber.png
@@ -141,7 +141,7 @@
 - `route-12` step 4: walkthrough/yellow/scenes/route-12-super-rod-gift.png
 - `route-15` step 3: walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-16` step 2: walkthrough/yellow/scenes/route-16-snorlax.png
-- `route-16-fly` step 2: walkthrough/yellow/scenes/route-16-fly-gift.png
+- `route-16-fly` step 2: walkthrough/yellow-legacy/scenes/route-16-fly-gift.png
 - `route-2` step 2: walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `route-22` step 1: walkthrough/yellow/scenes/viridian-to-route-22.png
 - `route-22` step 3: walkthrough/yellow/scenes/oaks-lab-poke-balls.png
@@ -159,7 +159,7 @@
 - `ss-anne` step 14: walkthrough/yellow/scenes/ss-anne-cut.png
 - `vermilion-city` step 2: walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png
-- `viridian-city` step 1: walkthrough/yellow/scenes/viridian-mart-parcel.png
+- `viridian-city` step 1: walkthrough/yellow-legacy/scenes/viridian-mart-parcel.png
 - `viridian-city` step 3: walkthrough/yellow/scenes/blues-house-town-map.png
 - `viridian-forest` step 1: walkthrough/yellow/scenes/viridian-forest-poke-ball.png
 - `viridian-forest` step 3: walkthrough/yellow/scenes/viridian-forest-potion.png
@@ -167,32 +167,32 @@
 
 ## Scenes
 
-- `battle-agatha` (battle): walkthrough/yellow/battles/battle-agatha.png
-- `battle-blaine` (battle): walkthrough/yellow/battles/battle-blaine.png
-- `battle-brock` (battle): walkthrough/yellow/battles/battle-brock.png
-- `battle-bruno` (battle): walkthrough/yellow/battles/battle-bruno.png
-- `battle-champion` (battle): walkthrough/yellow/battles/battle-champion.png
-- `battle-erika` (battle): walkthrough/yellow/battles/battle-erika.png
-- `battle-giovanni-viridian` (battle): walkthrough/yellow/battles/battle-giovanni-viridian.png
-- `battle-koga` (battle): walkthrough/yellow/battles/battle-koga.png
-- `battle-lance` (battle): walkthrough/yellow/battles/battle-lance.png
-- `battle-lorelei` (battle): walkthrough/yellow/battles/battle-lorelei.png
-- `battle-lt-surge` (battle): walkthrough/yellow/battles/battle-lt-surge.png
-- `battle-misty` (battle): walkthrough/yellow/battles/battle-misty.png
-- `battle-mt-moon-jessie-james` (battle): walkthrough/yellow/battles/battle-mt-moon-jessie-james.png
-- `battle-pokemon-tower-jessie-james` (battle): walkthrough/yellow/battles/battle-pokemon-tower-jessie-james.png
-- `battle-pokemon-tower-rival` (battle): walkthrough/yellow/battles/battle-pokemon-tower-rival.png
-- `battle-rival-cerulean` (battle): walkthrough/yellow/battles/battle-rival-cerulean.png
-- `battle-rival-oaks-lab` (battle): walkthrough/yellow/battles/battle-rival-oaks-lab.png
-- `battle-rival-route-22` (battle): walkthrough/yellow/battles/battle-rival-route-22.png
-- `battle-rival-route-22-return` (battle): walkthrough/yellow/battles/battle-rival-route-22-return.png
-- `battle-rival-ss-anne` (battle): walkthrough/yellow/battles/battle-rival-ss-anne.png
-- `battle-rocket-hideout-giovanni` (battle): walkthrough/yellow/battles/battle-rocket-hideout-giovanni.png
-- `battle-rocket-hideout-jessie-james` (battle): walkthrough/yellow/battles/battle-rocket-hideout-jessie-james.png
-- `battle-sabrina` (battle): walkthrough/yellow/battles/battle-sabrina.png
-- `battle-silph-giovanni` (battle): walkthrough/yellow/battles/battle-silph-giovanni.png
-- `battle-silph-jessie-james` (battle): walkthrough/yellow/battles/battle-silph-jessie-james.png
-- `battle-silph-rival` (battle): walkthrough/yellow/battles/battle-silph-rival.png
+- `battle-agatha` (battle): walkthrough/yellow-legacy/battles/battle-agatha.png
+- `battle-blaine` (battle): walkthrough/yellow-legacy/battles/battle-blaine.png
+- `battle-brock` (battle): walkthrough/yellow-legacy/battles/battle-brock.png
+- `battle-bruno` (battle): walkthrough/yellow-legacy/battles/battle-bruno.png
+- `battle-champion` (battle): walkthrough/yellow-legacy/battles/battle-champion.png
+- `battle-erika` (battle): walkthrough/yellow-legacy/battles/battle-erika.png
+- `battle-giovanni-viridian` (battle): walkthrough/yellow-legacy/battles/battle-giovanni-viridian.png
+- `battle-koga` (battle): walkthrough/yellow-legacy/battles/battle-koga.png
+- `battle-lance` (battle): walkthrough/yellow-legacy/battles/battle-lance.png
+- `battle-lorelei` (battle): walkthrough/yellow-legacy/battles/battle-lorelei.png
+- `battle-lt-surge` (battle): walkthrough/yellow-legacy/battles/battle-lt-surge.png
+- `battle-misty` (battle): walkthrough/yellow-legacy/battles/battle-misty.png
+- `battle-mt-moon-jessie-james` (battle): walkthrough/yellow-legacy/battles/battle-mt-moon-jessie-james.png
+- `battle-pokemon-tower-jessie-james` (battle): walkthrough/yellow-legacy/battles/battle-pokemon-tower-jessie-james.png
+- `battle-pokemon-tower-rival` (battle): walkthrough/yellow-legacy/battles/battle-pokemon-tower-rival.png
+- `battle-rival-cerulean` (battle): walkthrough/yellow-legacy/battles/battle-rival-cerulean.png
+- `battle-rival-oaks-lab` (battle): walkthrough/yellow-legacy/battles/battle-rival-oaks-lab.png
+- `battle-rival-route-22` (battle): walkthrough/yellow-legacy/battles/battle-rival-route-22.png
+- `battle-rival-route-22-return` (battle): walkthrough/yellow-legacy/battles/battle-rival-route-22-return.png
+- `battle-rival-ss-anne` (battle): walkthrough/yellow-legacy/battles/battle-rival-ss-anne.png
+- `battle-rocket-hideout-giovanni` (battle): walkthrough/yellow-legacy/battles/battle-rocket-hideout-giovanni.png
+- `battle-rocket-hideout-jessie-james` (battle): walkthrough/yellow-legacy/battles/battle-rocket-hideout-jessie-james.png
+- `battle-sabrina` (battle): walkthrough/yellow-legacy/battles/battle-sabrina.png
+- `battle-silph-giovanni` (battle): walkthrough/yellow-legacy/battles/battle-silph-giovanni.png
+- `battle-silph-jessie-james` (battle): walkthrough/yellow-legacy/battles/battle-silph-jessie-james.png
+- `battle-silph-rival` (battle): walkthrough/yellow-legacy/battles/battle-silph-rival.png
 - `blues-house-town-map` (screen): walkthrough/yellow/scenes/blues-house-town-map.png
 - `celadon-city-hidden-pp-up` (dialog): walkthrough/yellow/scenes/celadon-city-hidden-pp-up.png
 - `celadon-city-tm41` (dialog): walkthrough/yellow/scenes/celadon-city-tm41.png
@@ -226,20 +226,20 @@
 - `cerulean-cave-item-ultra-ball-16-7` (screen): walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-16-7.png
 - `cerulean-cave-item-ultra-ball-18-3` (screen): walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-18-3.png
 - `cerulean-cave-item-ultra-ball-2-13` (screen): walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-2-13.png
-- `cerulean-cave-item-ultra-ball-26-1` (screen): walkthrough/yellow/scenes/cerulean-cave-item-ultra-ball-26-1.png
+- `cerulean-cave-item-ultra-ball-26-1` (screen): walkthrough/yellow-legacy/scenes/cerulean-cave-item-ultra-ball-26-1.png
 - `cerulean-cave-mewtwo` (screen): walkthrough/yellow/scenes/cerulean-cave-mewtwo.png
 - `cerulean-city-hidden-rare-candy` (dialog): walkthrough/yellow/scenes/cerulean-city-hidden-rare-candy.png
 - `cerulean-gym-entrance` (screen): walkthrough/yellow/scenes/cerulean-gym-entrance.png
 - `cerulean-north-nugget` (screen): walkthrough/yellow/scenes/cerulean-north-nugget.png
-- `cinnabar-gym-blaine` (screen): walkthrough/yellow/scenes/cinnabar-gym-blaine.png
+- `cinnabar-gym-blaine` (screen): walkthrough/yellow-legacy/scenes/cinnabar-gym-blaine.png
 - `cinnabar-lab` (screen): walkthrough/yellow/scenes/cinnabar-lab.png
-- `cinnabar-lab-aerodactyl` (screen): walkthrough/yellow/scenes/cinnabar-lab-aerodactyl.png
-- `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow/scenes/cinnabar-lab-fossil-inside.png
+- `cinnabar-lab-aerodactyl` (screen): walkthrough/yellow-legacy/scenes/cinnabar-lab-aerodactyl.png
+- `cinnabar-lab-fossil-inside` (screen): walkthrough/yellow-legacy/scenes/cinnabar-lab-fossil-inside.png
 - `cinnabar-lab-item-tm-metronome` (dialog): walkthrough/yellow/scenes/cinnabar-lab-item-tm-metronome.png
 - `cinnabar-lab-trade-buffy` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-buffy.png
 - `cinnabar-lab-trade-cezanne` (screen): walkthrough/yellow/scenes/cinnabar-lab-trade-cezanne.png
 - `cinnabar-lab-trades` (screen): walkthrough/yellow/scenes/cinnabar-lab-trades.png
-- `indigo-agatha` (screen): walkthrough/yellow/scenes/indigo-agatha.png
+- `indigo-agatha` (screen): walkthrough/yellow-legacy/scenes/indigo-agatha.png
 - `indigo-bruno` (screen): walkthrough/yellow/scenes/indigo-bruno.png
 - `indigo-champion` (screen): walkthrough/yellow/scenes/indigo-champion.png
 - `indigo-lance` (screen): walkthrough/yellow/scenes/indigo-lance.png
@@ -252,7 +252,7 @@
 - `mew-glitch-return` (screen): walkthrough/yellow/scenes/mew-glitch-return.png
 - `mew-glitch-route24` (screen): walkthrough/yellow/scenes/mew-glitch-route24.png
 - `mew-glitch-start` (screen): walkthrough/yellow/scenes/mew-glitch-start.png
-- `mew-glitch-swimmer` (battle): walkthrough/yellow/battles/mew-glitch-swimmer.png
+- `mew-glitch-swimmer` (battle): walkthrough/yellow-legacy/battles/mew-glitch-swimmer.png
 - `mew-glitch-teleport` (screen): walkthrough/yellow/scenes/mew-glitch-teleport.png
 - `mt-moon-fossils` (screen): walkthrough/yellow/scenes/mt-moon-fossils.png
 - `mt-moon-hidden-ether` (dialog): walkthrough/yellow/scenes/mt-moon-hidden-ether.png
@@ -294,20 +294,20 @@
 - `pokemon-mansion-switch-3f` (dialog): walkthrough/yellow/scenes/pokemon-mansion-switch-3f.png
 - `pokemon-mansion-switch-beds` (dialog): walkthrough/yellow/scenes/pokemon-mansion-switch-beds.png
 - `pokemon-mansion-switch-tm` (dialog): walkthrough/yellow/scenes/pokemon-mansion-switch-tm.png
-- `pokemon-tower-hidden-elixir` (dialog): walkthrough/yellow/scenes/pokemon-tower-hidden-elixir.png
-- `pokemon-tower-item-awakening` (screen): walkthrough/yellow/scenes/pokemon-tower-item-awakening.png
-- `pokemon-tower-item-elixir` (screen): walkthrough/yellow/scenes/pokemon-tower-item-elixir.png
-- `pokemon-tower-item-escape-rope` (screen): walkthrough/yellow/scenes/pokemon-tower-item-escape-rope.png
-- `pokemon-tower-item-hp-up` (screen): walkthrough/yellow/scenes/pokemon-tower-item-hp-up.png
-- `pokemon-tower-item-nugget` (screen): walkthrough/yellow/scenes/pokemon-tower-item-nugget.png
-- `pokemon-tower-item-rare-candy` (screen): walkthrough/yellow/scenes/pokemon-tower-item-rare-candy.png
-- `pokemon-tower-item-x-accuracy` (screen): walkthrough/yellow/scenes/pokemon-tower-item-x-accuracy.png
-- `pokemon-tower-jessie-james` (screen): walkthrough/yellow/scenes/pokemon-tower-jessie-james.png
-- `pokemon-tower-rival` (screen): walkthrough/yellow/scenes/pokemon-tower-rival.png
+- `pokemon-tower-hidden-elixir` (dialog): walkthrough/yellow-legacy/scenes/pokemon-tower-hidden-elixir.png
+- `pokemon-tower-item-awakening` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-awakening.png
+- `pokemon-tower-item-elixir` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-elixir.png
+- `pokemon-tower-item-escape-rope` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-escape-rope.png
+- `pokemon-tower-item-hp-up` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-hp-up.png
+- `pokemon-tower-item-nugget` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-nugget.png
+- `pokemon-tower-item-rare-candy` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-rare-candy.png
+- `pokemon-tower-item-x-accuracy` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-item-x-accuracy.png
+- `pokemon-tower-jessie-james` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-jessie-james.png
+- `pokemon-tower-rival` (screen): walkthrough/yellow-legacy/scenes/pokemon-tower-rival.png
 - `power-plant-hidden-max-elixir` (dialog): walkthrough/yellow/scenes/power-plant-hidden-max-elixir.png
 - `power-plant-hidden-pp-up` (dialog): walkthrough/yellow/scenes/power-plant-hidden-pp-up.png
 - `power-plant-item-carbos` (screen): walkthrough/yellow/scenes/power-plant-item-carbos.png
-- `power-plant-item-hp-up` (screen): walkthrough/yellow/scenes/power-plant-item-hp-up.png
+- `power-plant-item-hp-up` (screen): walkthrough/yellow-legacy/scenes/power-plant-item-hp-up.png
 - `power-plant-item-rare-candy` (screen): walkthrough/yellow/scenes/power-plant-item-rare-candy.png
 - `power-plant-item-tm-reflect` (screen): walkthrough/yellow/scenes/power-plant-item-tm-reflect.png
 - `power-plant-item-tm-thunder` (screen): walkthrough/yellow/scenes/power-plant-item-tm-thunder.png
@@ -350,7 +350,7 @@
 - `route-13-hidden-pp-up` (dialog): walkthrough/yellow/scenes/route-13-hidden-pp-up.png
 - `route-15-gate-exp-all` (dialog): walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-15-item-tm-rage` (screen): walkthrough/yellow/scenes/route-15-item-tm-rage.png
-- `route-16-fly-gift` (dialog): walkthrough/yellow/scenes/route-16-fly-gift.png
+- `route-16-fly-gift` (dialog): walkthrough/yellow-legacy/scenes/route-16-fly-gift.png
 - `route-16-snorlax` (screen): walkthrough/yellow/scenes/route-16-snorlax.png
 - `route-17-hidden-full-restore` (dialog): walkthrough/yellow/scenes/route-17-hidden-full-restore.png
 - `route-17-hidden-max-elixir` (dialog): walkthrough/yellow/scenes/route-17-hidden-max-elixir.png
@@ -435,7 +435,7 @@
 - `ss-anne-hidden-hyper-potion` (dialog): walkthrough/yellow/scenes/ss-anne-hidden-hyper-potion.png
 - `ss-anne-item-ether` (screen): walkthrough/yellow/scenes/ss-anne-item-ether.png
 - `ss-anne-item-max-ether` (screen): walkthrough/yellow/scenes/ss-anne-item-max-ether.png
-- `ss-anne-item-max-potion` (screen): walkthrough/yellow/scenes/ss-anne-item-max-potion.png
+- `ss-anne-item-max-potion` (screen): walkthrough/yellow-legacy/scenes/ss-anne-item-max-potion.png
 - `ss-anne-item-rare-candy` (screen): walkthrough/yellow/scenes/ss-anne-item-rare-candy.png
 - `ss-anne-item-tm-body-slam` (screen): walkthrough/yellow/scenes/ss-anne-item-tm-body-slam.png
 - `ss-anne-item-tm-rest` (screen): walkthrough/yellow/scenes/ss-anne-item-tm-rest.png
@@ -450,22 +450,22 @@
 - `vermilion-ss-anne-dock` (screen): walkthrough/yellow/scenes/vermilion-ss-anne-dock.png
 - `victory-road-1f-ladder` (screen): walkthrough/yellow/scenes/victory-road-1f-ladder.png
 - `victory-road-2f-east-mouth` (screen): walkthrough/yellow/scenes/victory-road-2f-east-mouth.png
-- `victory-road-2f-ladder-3f` (screen): walkthrough/yellow/scenes/victory-road-2f-ladder-3f.png
-- `victory-road-2f-ladder-east` (screen): walkthrough/yellow/scenes/victory-road-2f-ladder-east.png
+- `victory-road-2f-ladder-3f` (screen): walkthrough/yellow-legacy/scenes/victory-road-2f-ladder-3f.png
+- `victory-road-2f-ladder-east` (screen): walkthrough/yellow-legacy/scenes/victory-road-2f-ladder-east.png
 - `victory-road-2f-ladder-nw` (screen): walkthrough/yellow/scenes/victory-road-2f-ladder-nw.png
 - `victory-road-3f-hole` (screen): walkthrough/yellow/scenes/victory-road-3f-hole.png
 - `victory-road-3f-ladder-2f` (screen): walkthrough/yellow/scenes/victory-road-3f-ladder-2f.png
 - `victory-road-3f-ladder-down` (screen): walkthrough/yellow/scenes/victory-road-3f-ladder-down.png
-- `victory-road-hidden-full-restore` (dialog): walkthrough/yellow/scenes/victory-road-hidden-full-restore.png
+- `victory-road-hidden-full-restore` (dialog): walkthrough/yellow-legacy/scenes/victory-road-hidden-full-restore.png
 - `victory-road-hidden-ultra-ball` (dialog): walkthrough/yellow/scenes/victory-road-hidden-ultra-ball.png
-- `victory-road-item-full-heal` (screen): walkthrough/yellow/scenes/victory-road-item-full-heal.png
-- `victory-road-item-guard-spec` (screen): walkthrough/yellow/scenes/victory-road-item-guard-spec.png
+- `victory-road-item-full-heal` (screen): walkthrough/yellow-legacy/scenes/victory-road-item-full-heal.png
+- `victory-road-item-guard-spec` (screen): walkthrough/yellow-legacy/scenes/victory-road-item-guard-spec.png
 - `victory-road-item-max-revive` (screen): walkthrough/yellow/scenes/victory-road-item-max-revive.png
 - `victory-road-item-rare-candy` (screen): walkthrough/yellow/scenes/victory-road-item-rare-candy.png
 - `victory-road-item-tm-explosion` (screen): walkthrough/yellow/scenes/victory-road-item-tm-explosion.png
 - `victory-road-item-tm-mega-kick` (screen): walkthrough/yellow/scenes/victory-road-item-tm-mega-kick.png
-- `victory-road-item-tm-sky-attack` (screen): walkthrough/yellow/scenes/victory-road-item-tm-sky-attack.png
-- `victory-road-item-tm-submission` (screen): walkthrough/yellow/scenes/victory-road-item-tm-submission.png
+- `victory-road-item-tm-sky-attack` (screen): walkthrough/yellow-legacy/scenes/victory-road-item-tm-sky-attack.png
+- `victory-road-item-tm-submission` (screen): walkthrough/yellow-legacy/scenes/victory-road-item-tm-submission.png
 - `victory-road-moltres` (screen): walkthrough/yellow/scenes/victory-road-moltres.png
 - `viridian-city-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-city-hidden-potion.png
 - `viridian-city-tm42` (screen): walkthrough/yellow/scenes/viridian-city-tm42.png
@@ -480,6 +480,6 @@
 - `viridian-forest-potion` (screen): walkthrough/yellow/scenes/viridian-forest-potion.png
 - `viridian-forest-south-gate` (screen): walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `viridian-gym-item-revive` (screen): walkthrough/yellow/scenes/viridian-gym-item-revive.png
-- `viridian-mart-parcel` (screen): walkthrough/yellow/scenes/viridian-mart-parcel.png
+- `viridian-mart-parcel` (screen): walkthrough/yellow-legacy/scenes/viridian-mart-parcel.png
 - `viridian-to-route-2` (screen): walkthrough/yellow/scenes/viridian-to-route-2.png
 - `viridian-to-route-22` (screen): walkthrough/yellow/scenes/viridian-to-route-22.png

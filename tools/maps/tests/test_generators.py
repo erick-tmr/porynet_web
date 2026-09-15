@@ -6,14 +6,14 @@ import pytest
 
 import compositor
 import follower
+import games
 import generators
 import markers
 import roster
 import sources
 import spinners
 
-SPECS = pathlib.Path(__file__).resolve().parents[1] / "specs"
-
+SPECS = games.find("yellow").specs_dir
 
 @pytest.fixture
 def pikachu_follower():
@@ -26,41 +26,33 @@ def pikachu_follower():
     finally:
         follower.FOLLOWER_SPRITE = saved
 
-
 def _trade_spec(name):
     entries = json.loads((SPECS / "trades.json").read_text())
     return next(s for s in entries if s["name"] == name)
-
 
 def _trainer_spec(name):
     entries = json.loads((SPECS / "trainers.json").read_text())
     return next(s for s in entries if s["name"] == name)
 
-
 def _step_shot(name):
     entries = json.loads((SPECS / "step_shots.json").read_text())
     return next(s for s in entries if s["name"] == name)
-
 
 def _mew_spec(name):
     entries = json.loads((SPECS / "mew_glitch.json").read_text())
     return next(s for s in entries if s["name"] == name)
 
-
 def _trivia_spec(name):
     entries = json.loads((SPECS / "trivia.json").read_text())
     return next(s for s in entries if s["name"] == name)
-
 
 def _item_spec(name):
     entries = json.loads((SPECS / "overworld_items.json").read_text())
     return next(s for s in entries if s["name"] == name)
 
-
 def _gym_spec(name):
     entries = json.loads((SPECS / "gyms.json").read_text())
     return next(s for s in entries if s["name"] == name)
-
 
 def _trash_can_cells(root):
     """The Vermilion Gym trash cans, read from the map's own hidden events rather than retyped:
@@ -69,7 +61,6 @@ def _trash_can_cells(root):
     block = re.search(r"hidden_events_for VERMILION_GYM(.*?)db -1", text, re.S).group(1)
     return {(int(x), int(y)) for x, y in
             re.findall(r"hidden_event\s+(\d+),\s*(\d+),\s*GymTrashScript", block)}
-
 
 def _route24_grass_trigger(root):
     """The Jr. Trainer the Mew glitch triggers on: the OPP_JR_TRAINER_M standing in Route 24's tall
@@ -80,12 +71,10 @@ def _route24_grass_trigger(root):
     assert len(trainers) == 1, "exactly one Jr. Trainer stands in the grass"
     return trainers[0]["grid"]
 
-
 def _cell_walkable(root, map_label, cell):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
     return markers.cell_is_walkable(root, map_label, tileset, width_blocks, cell)
-
 
 def _reachable(root, map_label, start, goal, cut=()):
     """Whether `goal` is walkable-connected to `start` on this map, in the state `cut` describes.
@@ -104,54 +93,44 @@ def _reachable(root, map_label, start, goal, cut=()):
                 queue.append(cell)
     return goal in seen
 
-
 def _cell_standable(root, map_label, cell, cut=()):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
     blueprint = compositor.cut_trees(root, sources.load_blueprint(root, map_label), width_blocks, cut)
     return markers.cell_is_standable(root, map_label, tileset, width_blocks, cell, blueprint)
 
-
 def _cell_land(root, map_label, cell):
     const, tileset = sources.parse_headers(root)[map_label]
     width_blocks = sources.parse_map_constants(root)[0][const][1]
     return markers.cell_is_land(root, map_label, tileset, width_blocks, cell)
 
-
 def test_resolve_sprite_const_and_dir(root):
     spr = generators._resolve_sprite(root, {"sprite": "SPRITE_RED", "grid": [1, 2], "dir": "RIGHT"})
     assert spr == {"file": "red", "frame": 2, "grid": [1, 2], "flip": True}
-
 
 def test_resolve_sprite_explicit_frame(root):
     spr = generators._resolve_sprite(root, {"sprite": "red", "grid": [0, 0], "frame": 1})
     assert spr["file"] == "red" and spr["frame"] == 1 and spr["flip"] is False
 
-
 def test_auto_npcs(root):
     npcs = generators.auto_npcs(root, "PalletTown")
     assert {n["file"] for n in npcs} == {"girl", "fisher"}
 
-
 def test_dialog_lines_found_item():
     assert generators._dialog_lines({"found_item": "ANTIDOTE"}) == ["PORYNET found", "ANTIDOTE!"]
 
-
 def test_dialog_lines_substitutes_names():
     assert generators._dialog_lines({"lines": ["<PLAYER> vs <RIVAL>"]}) == ["PORYNET vs BLUE"]
-
 
 def test_gen_battle_rival_name(root):
     image, name, meta = generators.generate(
         root, {"type": "battle", "name": "b", "opponent": "RIVAL1", "rival_name": "BLUE"})
     assert image.size == (160, 144) and name == "b" and meta == {}
 
-
 def test_gen_map_scene_dims(root):
     image, _, _ = generators.generate(
         root, {"type": "npc", "name": "p", "map": "PalletTown", "auto_npcs": True})
     assert image.size == (320, 288)
-
 
 def test_gen_screen_scene_dims(root):
     image, _, _ = generators.generate(
@@ -159,12 +138,10 @@ def test_gen_screen_scene_dims(root):
                "dialog": {"found_item": "ANTIDOTE"}})
     assert image.size == (160, 144)
 
-
 def test_auto_npcs_includes_trainers_when_asked(root):
     plain = generators.auto_npcs(root, "ViridianForest")
     withtrainers = generators.auto_npcs(root, "ViridianForest", battlers=True)
     assert len(withtrainers) > len(plain), "battlers=True adds the map's trainers"
-
 
 def test_a_scene_draws_the_trainer_its_caption_points_at(root):
     """Regression: the hidden-Potion shot reads 'one square west of the Bug Catcher', so the Bug
@@ -176,7 +153,6 @@ def test_a_scene_draws_the_trainer_its_caption_points_at(root):
     assert [1, 19] in grids, "the hero is drawn"
     assert [2, 18] in grids, "the Bug Catcher landmark is drawn"
 
-
 def test_a_hand_composed_scene_keeps_only_its_own_cast(root):
     """A rival face-off places its rival by hand; the map's other people must not crowd in."""
     hero, rival = [7, 5], [7, 3]
@@ -185,7 +161,6 @@ def test_a_hand_composed_scene_keeps_only_its_own_cast(root):
     grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
 
     assert sorted(grids) == sorted([hero, rival]), "only the hero and the placed rival"
-
 
 def test_pewter_jigglypuff_scene_draws_the_whole_room(root):
     """Regression: restating the Poke Center's people as `sprites` lost the Cooltrainer F standing
@@ -200,7 +175,6 @@ def test_pewter_jigglypuff_scene_draws_the_whole_room(root):
     assert [1, 3] in grids and [3, 3] in grids, "the Jigglypuff and sleeping Pikachu are kept"
     assert [s["sprite"] for s in spec["sprites"]] == ["SPRITE_PIKACHU"], "only the staged Pikachu"
 
-
 def test_a_scene_never_double_draws_an_npc_under_a_placed_sprite(root):
     """Opting a hand-composed scene into auto NPCs must still not stack a second sprite on a cell
     the scene already placed one on."""
@@ -211,33 +185,20 @@ def test_a_scene_never_double_draws_an_npc_under_a_placed_sprite(root):
 
     assert grids.count(fisher) == 1, "the placed sprite wins its cell; the auto one is dropped"
 
-
 def test_trade_inside_scene_draws_its_trade_npc(root):
-    # The Route 2 trade-house interior must show the SCIENTIST who runs the Mr. Mime trade
-    # (object_event 2, 4 in data/maps/objects/Route2TradeHouse.asm) beside the hero.
     spec = _trade_spec("route-2-trade-house-inside")
     grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
     assert spec["player"] in grids, "the hero is drawn"
     assert [2, 4] in grids, "the trade SCIENTIST is drawn as the scene's subject"
 
-
 def test_route_2_trade_hero_stands_below_the_scientist_not_across_the_table(root):
-    # Regression: the hero used to sit on the far chair at [5, 4] and talk to the SCIENTIST
-    # (object_event 2, 4) across the counter table, which no one can walk through. The trade is
-    # face-to-face from the plain floor tile directly below the scientist (the one adjacent side
-    # this room leaves open), facing up. [2, 4] and [5, 4] are both chair tiles anyway.
     spec = _trade_spec("route-2-trade-house-inside")
     hero, scientist = tuple(spec["player"]), (2, 4)
     assert _cell_walkable(root, spec["map"], hero), "the hero stands on real floor"
     assert (hero[0] - scientist[0], hero[1] - scientist[1]) == (0, 1), "one tile below the scientist"
     assert spec["player_dir"] == "UP", "facing up to talk to the scientist, no table between them"
 
-
 def test_leave_mt_moon_frames_the_cerulean_side_exit(root):
-    # Regression: the "Leave Mt. Moon" shot used to sit the hero below the west entrance
-    # (MT_MOON_1F, the door you walk in through) instead of the Cerulean-side exit you come out of.
-    # Both are cave mouths a few tiles apart on Route 4, so it is an easy shot to aim at the wrong
-    # one. Derive the two warps from the game data so the shot stays pinned to the real exit tile.
     warps = sources.parse_warp_events(root, "Route4")
     exit_x, exit_y = next((x, y) for x, y, dest, _ in warps if dest == "MT_MOON_B1F")
     entrance_x = next(x for x, _, dest, _ in warps if dest == "MT_MOON_1F")
@@ -250,41 +211,22 @@ def test_leave_mt_moon_frames_the_cerulean_side_exit(root):
     assert hero[0] != entrance_x, "never framed on the west entrance"
     assert spec["player_dir"] == "DOWN", "facing the ledges you drop east toward Cerulean"
 
-
 def test_viridian_hidden_potion_hero_approaches_from_the_open_exit_side(root):
-    # Regression: an auto-placement pass flipped this shot's hero to [13, 4], west of the item,
-    # into the dead-end nook the lone tree walls off. Both sides read as walkable to the collision
-    # check (the west nook connects back to town by a long detour), so only a curated pin catches
-    # it: the reviewed approach is from the open north-exit path to the east, standing one tile
-    # right of the item and facing left into it.
     spec = _item_spec("viridian-city-hidden-potion")
     hero, item = tuple(spec["player"]), tuple(spec["marker"])
     assert _cell_walkable(root, spec["map"], hero), "the hero stands on real path floor"
     assert (hero[0] - item[0], hero[1] - item[1]) == (1, 0), "one tile east of the item, not the west nook"
     assert spec["player_dir"] == "LEFT", "facing west into the tree, from the open exit path"
 
-
 def test_trade_house_scene_places_the_hero_at_the_door(root):
-    # The overworld "where" shot for the trade house stands the hero at its door on Route 2
-    # (warp_event 15, 19 in data/maps/objects/Route2.asm). The route's own people ride along
-    # as landmarks, so we only pin the hero's cell here.
     spec = _trade_spec("route-2-trade-house")
     grids = [s["grid"] for s in generators._screen_sprites(root, spec)]
     assert spec["player"] in grids, "the hero stands one tile below the trade-house door"
 
-
-# Scenes where the hero stands on a specific tile to interact with something: a trade counter, an
-# item, a trainer it faces. A render draws the hero on a counter, boulder or desk all the same, so
-# these are guarded to keep it on real floor. Directional step shots frame a landmark rather than
-# an interaction and are out of scope.
 INTERACTION_SPEC_FILES = ["trades.json", "hidden_items.json", "trainers.json", "overworld_items.json",
                           "gyms.json"]
 
-
 def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
-    # Regressions this catches: the Dewgong hero on the Cinnabar lab counter, the Mr. Mime hero on
-    # the Route 2 trade-house counter, the Moon Stone hero on a boulder, the Giovanni hero on his
-    # desk. The hero is placed via `player`, or as a SPRITE_RED sprite in a hand-composed scene.
     for fname in INTERACTION_SPEC_FILES:
         for spec in json.loads((SPECS / fname).read_text()):
             cells = [tuple(spec["player"])] if "player" in spec else []
@@ -292,7 +234,6 @@ def test_interaction_scenes_stand_the_hero_on_a_walkable_tile(root):
             for cell in cells:
                 assert _cell_walkable(root, spec["map"], cell), \
                     f"{spec['name']} ({fname}): hero cell {cell} on {spec['map']} is not walkable floor"
-
 
 def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
     """The strict version of the walkable check, over every spec file rather than the interaction
@@ -317,7 +258,6 @@ def test_every_scene_stands_the_hero_on_a_tile_the_game_would_allow(root):
                 assert _cell_standable(root, spec["map"], cell, spec.get("cut", ())), \
                     f"{spec['name']} ({path.name}): hero cell {cell} on {spec['map']} is not standable"
 
-
 def test_no_scene_stands_the_hero_on_an_arrow_tile(root):
     """The one cell an arrow floor never lets you occupy, and the one the collision map has no
     opinion about: an arrow tile is open ground, so both walkability tests above pass on it, but
@@ -339,7 +279,6 @@ def test_no_scene_stands_the_hero_on_an_arrow_tile(root):
 
     assert standing == []
 
-
 def test_the_revive_is_taken_from_above_because_below_it_is_a_ride_home(root):
     """Viridian Gym's one ball sits in an alcove off the middle chamber's top wall, with an arrow
     directly beneath it. You come down the column onto the ball and walk back up; step below it and
@@ -351,7 +290,6 @@ def test_the_revive_is_taken_from_above_because_below_it_is_a_ride_home(root):
     assert tuple(spec["player"]) == (16, 8) and spec["player_dir"] == "DOWN"
     assert (16, 10) in spinners.arrow_tiles(root, "ViridianGym"), "the tile below the ball"
     assert spinners.slide_from(root, "ViridianGym", (16, 10))[-1] == (16, 12), "rides you out"
-
 
 def test_route_10_super_potion_is_taken_from_the_stump_of_the_cut_tree(root):
     """The item sits in the cliff at (9, 17), and the only cell that can face it is (9, 18), a
@@ -366,7 +304,6 @@ def test_route_10_super_potion_is_taken_from_the_stump_of_the_cut_tree(root):
     assert _cell_standable(root, "Route10", tree, spec["cut"]), "and open ground once you have"
     assert (8, 17) in {(x, y) for x, y, _dest, _to in sources.parse_warp_events(root, "Route10")}, \
         "the other cell that faces the item is the tunnel mouth, not somewhere to stand"
-
 
 def test_the_tm42_gift_shot_is_set_after_the_tree_the_step_tells_you_to_cut(root):
     """The Fisher is walled into the plot by one cuttable tree, so the frame of him handing TM42
@@ -384,7 +321,6 @@ def test_the_tm42_gift_shot_is_set_after_the_tree_the_step_tells_you_to_cut(root
     assert _cell_standable(root, "ViridianCity", tuple(spec["player"]), spec["cut"]), \
         "and the hero stands on open ground inside the plot"
 
-
 def test_the_old_amber_shot_faces_the_scientist_who_actually_hands_it_over(root):
     """Four people stand in Museum 1F and only MUSEUM1F_SCIENTIST2 runs GiveItem OLD_AMBER, so the
     frame has to face that one. The amber itself is switched off, because the script that gives it
@@ -400,7 +336,6 @@ def test_the_old_amber_shot_faces_the_scientist_who_actually_hands_it_over(root)
     drawn = {tuple(s["grid"]) for s in generators._screen_sprites(root, spec)}
     assert (16, 2) not in drawn, "the amber is gone from its case"
 
-
 def test_the_museum_back_door_is_the_only_way_to_the_old_amber(root):
     """Museum 1F is two rooms with no door between them: the front entrance reaches the west half
     only, and the scientist with the amber stands in the east half. That is why the step spends a
@@ -410,7 +345,6 @@ def test_the_museum_back_door_is_the_only_way_to_the_old_amber(root):
 
     assert _reachable(root, "Museum1F", back, (15, 3)), "the back door reaches him"
     assert not _reachable(root, "Museum1F", front, (15, 3)), "the front door does not"
-
 
 def test_interaction_scenes_never_stand_the_hero_on_another_object(root):
     """The other half of a legal hero tile: open floor is not enough if somebody already holds it.
@@ -426,7 +360,6 @@ def test_interaction_scenes_never_stand_the_hero_on_another_object(root):
                 assert cell not in taken, \
                     f"{spec['name']} ({fname}): hero cell {cell} is held by {taken.get(cell)}"
 
-
 def test_an_object_the_game_starts_switched_off_stays_out_of_a_scene(root):
     """The default `show` opts out of, and the rule that correctly keeps Oak out of the Pallet Town
     exit shot: an object switched off at map load is not drawn."""
@@ -434,7 +367,6 @@ def test_an_object_the_game_starts_switched_off_stays_out_of_a_scene(root):
 
     assert (10, 2) not in balls, "the Lift Key ball is switched off at map load"
     assert (10, 12) in balls, "the HP Up ball on the same floor ships switched on"
-
 
 def test_show_puts_a_switched_off_object_back_at_its_real_cell(root):
     """`show` pulls the object out of the game rather than restating it, so its cell, sprite and
@@ -444,7 +376,6 @@ def test_show_puts_a_switched_off_object_back_at_its_real_cell(root):
 
     assert drawn.get((10, 2)) == "poke_ball", "the shot telling you to grab the Lift Key shows it"
     assert (11, 2) in drawn, "the Rocket who dropped it is still standing there"
-
 
 def test_show_and_hide_only_name_objects_that_move(root):
     """An entry matching nothing does nothing, and would read as a fix that quietly stopped
@@ -463,7 +394,6 @@ def test_show_and_hide_only_name_objects_that_move(root):
                 assert name in on_map - off, \
                     f"{spec['name']} ({fname}): hide {name} is not switched on on {spec['map']}"
 
-
 def test_beating_giovanni_takes_him_off_the_floor_it_reveals_the_scope_on(root):
     """One script beat does both (HideObject GIOVANNI then ShowObject ITEM_4 in
     RocketHideoutB4F.asm), so no shot may claim the Silph Scope is there and Giovanni still is."""
@@ -476,7 +406,6 @@ def test_beating_giovanni_takes_him_off_the_floor_it_reveals_the_scope_on(root):
 
     assert {tuple(s["grid"]): s["file"] for s in scope}.get((25, 2)) == "poke_ball", \
         "the shot telling you to grab the Silph Scope shows it"
-
 
 def test_a_handover_shot_stands_the_hero_face_to_face_with_the_giver(root):
     """An NPC hands something over across one tile, so a shot captioned with the pickup has to put
@@ -499,7 +428,6 @@ def test_a_handover_shot_stands_the_hero_face_to_face_with_the_giver(root):
     assert len(drawn) == 2, "the hero and the Captain, nobody drawn twice"
     assert _cell_standable(root, "SSAnneCaptainsRoom", (px, py)), "on a tile of the cabin floor"
 
-
 def test_the_ship_rival_meets_you_where_the_script_stops_him(root):
     """SSAnne2F triggers on the player standing at [36, 8] or [37, 8], then walks the rival down
     from his spawn: three steps for the left tile, four for the right. So from [36, 8] he ends one
@@ -509,7 +437,6 @@ def test_the_ship_rival_meets_you_where_the_script_stops_him(root):
     still parked on his spawn cell three tiles further up, with a spotted-trainer '!' that this
     scene never shows (nothing here calls the emote; the rival is walked in by script)."""
     spec = _trainer_spec("ss-anne-rival")
-    # raw objects: the rival ships switched off and is only ShowObject'd once you trip the trigger
     rival = next(o for o in sources._object_events(root, "SSAnne2F")
                  if o["const"] == "SSANNE2F_RIVAL")
     hero, blue = tuple(spec["player"]), tuple(spec["sprites"][0]["grid"])
@@ -519,7 +446,6 @@ def test_the_ship_rival_meets_you_where_the_script_stops_him(root):
     assert spec["player_dir"] == "UP" and spec["sprites"][0]["dir"] == "DOWN", "facing each other"
     assert not any(s.get("emote") for s in spec["sprites"]), "no '!' in a scripted walk-up"
     assert _cell_standable(root, "SSAnne2F", hero) and _cell_standable(root, "SSAnne2F", blue)
-
 
 def test_the_ship_cabin_item_shots_frame_a_ball_in_the_right_cabin(root):
     """The ship's six item balls live in cabins that share three composite `Rooms` maps, laid out
@@ -539,7 +465,6 @@ def test_the_ship_cabin_item_shots_frame_a_ball_in_the_right_cabin(root):
         assert abs(px - focus[0]) + abs(py - focus[1]) == 1, \
             f"{spec['name']}: hero at {spec['player']} is not beside the ball at {focus}"
 
-
 def test_a_found_item_shot_marks_a_cell_the_game_really_hides_that_item_on(root):
     """The other half of a found-item frame: the box names an item, so the marked cell has to be a
     HiddenItems event on that map handing over exactly that item. Catches a shot pointed at the
@@ -555,7 +480,6 @@ def test_a_found_item_shot_marks_a_cell_the_game_really_hides_that_item_on(root)
             assert item, f"{spec['name']} ({fname}): {spec['map']} hides nothing at {spec['marker']}"
             assert sources.item_display_name(item).upper() == spec["dialog"]["found_item"], \
                 f"{spec['name']} ({fname}): {spec['map']} hides {item} at {spec['marker']}"
-
 
 def test_a_hero_out_on_the_water_is_drawn_on_the_surf_sprite(root, pikachu_follower):
     """Gen 1 swaps the player's own sprite the moment they step off dry land, so a scene whose
@@ -580,7 +504,6 @@ def test_a_hero_out_on_the_water_is_drawn_on_the_surf_sprite(root, pikachu_follo
     assert drawn[tuple(ether["player"])] == "surfing_pikachu"
     assert not _cell_land(root, "VermilionCity", tuple(ether["player"])), "the hero is afloat"
 
-
 def test_the_surf_sprite_is_the_one_the_build_configures_a_follower_for(root):
     """Yellow rides its starter Pikachu across the water and Red/Blue ride the Seel-shaped blob,
     which is the one decision `LoadSurfingPlayerSpriteGraphics2` makes: SurfingPikachuSprite when
@@ -600,7 +523,6 @@ def test_the_surf_sprite_is_the_one_the_build_configures_a_follower_for(root):
     assert sources.sprite_file(root, generators.PIKACHU_SURF_SPRITE) == "surfing_pikachu", \
         "the sheet has no SPRITE_* id, so it resolves by the gfx label the engine loads"
 
-
 def test_a_hero_on_dry_land_keeps_walking(root, pikachu_follower):
     """The other half of the rule: only water moves the hero off their own sprite, so the Iron
     further down the same bridge, four rows in from the water the Pay Day ball sits on, is still
@@ -609,7 +531,6 @@ def test_a_hero_on_dry_land_keeps_walking(root, pikachu_follower):
 
     assert _cell_land(root, iron["map"], tuple(iron["player"])), "the Iron is taken from dry boards"
     assert generators.hero_sprite(root, iron) == generators.HERO_SPRITE
-
 
 def test_a_found_item_shot_stands_the_hero_within_reach_of_what_it_marks(root):
     """A "<PLAYER> found X!" frame claims the pickup just happened, so the hero has to be on a tile
@@ -629,7 +550,6 @@ def test_a_found_item_shot_stands_the_hero_within_reach_of_what_it_marks(root):
 
             assert abs(px - mx) + abs(py - my) == 1, \
                 f"{spec['name']} ({fname}): hero at {spec['player']} cannot press A on {marker}"
-
 
 def test_route_25_tm_guard_stands_where_the_walkthrough_leaves_him(root):
     """Route 25's Jr. Trainer spawns on the one gap into the TM19 pocket, and the step tells you to
@@ -654,7 +574,6 @@ def test_route_25_tm_guard_stands_where_the_walkthrough_leaves_him(root):
         sources.parse_sprite_table(root)[guard["sprite_const"]], \
         "the guard is not standing where triggering him from the far end of his sight leaves him"
 
-
 def test_a_later_scene_on_the_same_floor_leaves_a_collected_ball_taken(root):
     """The judgement no field expresses: the walkthrough sends you past these two after the Lift Key
     and Silph Scope steps, and the Super Potion shot stands the hero on the Scope's own cell."""
@@ -665,7 +584,6 @@ def test_a_later_scene_on_the_same_floor_leaves_a_collected_ball_taken(root):
         assert not spec.get("show"), f"{name} is set after those balls are picked up"
         assert "poke_ball" not in (drawn.get((10, 2)), drawn.get((25, 2))), \
             f"{name} draws a ball the walkthrough already had you collect"
-
 
 def test_viridian_forest_antidote_hero_stands_beside_the_youngster(root):
     """Regression: this shot stood the hero on [16, 43], the Youngster's own cell, so the NPC
@@ -681,72 +599,50 @@ def test_viridian_forest_antidote_hero_stands_beside_the_youngster(root):
     assert youngster["grid"] in [tuple(s["grid"]) for s in generators._screen_sprites(root, spec)], \
         "the shot still draws the Youngster the game puts there"
 
-
 def test_collision_flags_the_counter_the_dewgong_hero_once_sat_on(root):
-    # Locks the collision check: the Beauty stands on open floor, but the counter tile the hero
-    # was mistakenly placed on ([5, 4] in CinnabarLabTradeRoom) reads as blocked.
     assert _cell_walkable(root, "CinnabarLabTradeRoom", (5, 5)), "the Beauty stands on floor"
     assert not _cell_walkable(root, "CinnabarLabTradeRoom", (5, 4)), "[5, 4] is the counter"
 
-
 def test_every_trade_scene_is_a_uniquely_named_screen():
     entries = json.loads((SPECS / "trades.json").read_text())
-    # The rooftop girl is a trade in the walkthrough's sense (a drink for a TM) rather than a
-    # Pokemon swap, so she rides in this file with the rest of them.
     assert len(entries) == 13, "5 overworld + 7 interior trade scenes, plus the Celadon roof"
     assert all(s["type"] == "screen" for s in entries)
     names = [s["name"] for s in entries]
     assert len(names) == len(set(names)), "scene names are unique keys in the manifest"
 
-
 def test_screen_scene_gets_the_configured_follower_behind_the_hero(root, pikachu_follower):
-    # With Yellow's Pikachu configured, a plain overworld screen trails it one tile behind the
-    # hero (the hero at [13, 24] faces up -> Pikachu on [13, 25]).
     spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "player_dir": "UP"}
     trailing = generators._follower(root, spec, spec["player"], "UP",
                                     generators._screen_sprites(root, spec))
     assert trailing == {"file": "pikachu", "frame": 1, "grid": [13, 25], "flip": False}
 
-
 def test_oaks_lab_poke_balls_scene_trails_pikachu(root, pikachu_follower):
-    # Returning to Oak for the five free Poke Balls happens after Pikachu is caught, so it walks
-    # behind the hero. The hero stands at [5, 3] facing up, so Pikachu trails one tile south.
     spec = _step_shot("oaks-lab-poke-balls")
     trailing = generators._follower(root, spec, spec["player"], spec.get("player_dir", "DOWN"),
                                     generators._screen_sprites(root, spec))
     assert trailing is not None, "the scene must not opt out of the Pikachu follower"
     assert trailing["file"] == "pikachu" and trailing["grid"] == [5, 4]
 
-
 def test_no_follower_when_the_game_configures_none(root):
-    # The default is no follower (Red/Blue), so the same hero scene draws nobody trailing.
     spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "player_dir": "UP"}
     assert follower.FOLLOWER_SPRITE is None
     assert generators._follower(root, spec, spec["player"], "UP", []) is None
-
 
 def test_a_scene_can_opt_out_of_the_follower(root, pikachu_follower):
     spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "follower": False}
     assert generators._follower(root, spec, spec["player"], "UP", []) is None
 
-
 def test_a_scene_can_name_its_own_follower(root):
-    # `follower` as a sprite id overrides the game default (even when it is None), so a scene can
-    # trail any Gen 1 overworld sprite it likes.
     spec = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24],
             "follower": "SPRITE_OAK"}
     trailing = generators._follower(root, spec, spec["player"], "UP", [])
     assert trailing["file"] == "oak"
 
-
 def test_a_scene_that_stages_the_follower_itself_gets_no_second_one(root, pikachu_follower):
-    # The Jigglypuff trivia hand-places a sleeping Pikachu, so the auto-follower must stand down
-    # rather than trail a duplicate behind the hero.
     spec = {"type": "screen", "name": "t", "map": "PewterPokecenter", "player": [2, 3],
             "player_dir": "LEFT",
             "sprites": [{"sprite": "SPRITE_PIKACHU", "grid": [3, 3], "dir": "DOWN"}]}
     assert generators._follower(root, spec, spec["player"], "LEFT", []) is None
-
 
 def test_the_follower_changes_what_a_screen_scene_draws(root, pikachu_follower):
     base = {"type": "screen", "name": "t", "map": "Route1", "player": [13, 24], "player_dir": "UP"}
@@ -754,32 +650,24 @@ def test_the_follower_changes_what_a_screen_scene_draws(root, pikachu_follower):
     without_pika, _, _ = generators.generate(root, {**base, "follower": False})
     assert list(with_pika.getdata()) != list(without_pika.getdata()), "the follower is composited"
 
-
 def test_a_map_scene_trails_the_follower_behind_the_hero_sprite(root, pikachu_follower):
-    # A full-map scene that places the hero as a SPRITE_RED sprite trails the follower behind it too.
     base = {"type": "map", "name": "m", "map": "PalletTown",
             "sprites": [{"sprite": "SPRITE_RED", "grid": [10, 3], "dir": "UP"}]}
     with_pika, _, _ = generators.generate(root, base)
     without_pika, _, _ = generators.generate(root, {**base, "follower": False})
     assert list(with_pika.getdata()) != list(without_pika.getdata())
 
-
 def test_a_map_scene_without_a_hero_draws_no_follower(root, pikachu_follower):
-    # No SPRITE_RED on the map means no hero to follow, so nothing changes with the flag off.
     base = {"type": "npc", "name": "m", "map": "PalletTown", "auto_npcs": True}
     with_flag, _, _ = generators.generate(root, base)
     without_flag, _, _ = generators.generate(root, {**base, "follower": False})
     assert list(with_flag.getdata()) == list(without_flag.getdata())
 
-
 def test_unknown_type_raises(root):
     with pytest.raises(ValueError):
         generators.generate(root, {"type": "bogus", "name": "x"})
 
-
 def test_mew_start_shows_the_trigger_trainer_with_the_bang(root):
-    # The GLITCH 3 caption is about the "!" the grass Jr. Trainer throws when he spots you, so he
-    # and his shock emote are the whole composed cast: no bridge crowd, no other Route 24 people.
     spec = _mew_spec("mew-glitch-start")
     trigger = _route24_grass_trigger(root)
     placed = spec["sprites"]
@@ -788,11 +676,7 @@ def test_mew_start_shows_the_trigger_trainer_with_the_bang(root):
     grids = [tuple(s["grid"]) for s in generators._screen_sprites(root, spec)]
     assert grids == [tuple(spec["player"]), trigger], "hand-composed: only the hero and the trigger"
 
-
 def test_mew_lineup_keeps_the_trigger_trainer_offscreen(root):
-    # GLITCH 2 lines the hero up in the trigger's column but far enough north that the grass Jr.
-    # Trainer sits just off the bottom edge: the glitch needs him offscreen (on screen he just
-    # walks over and battles you). Regression against an earlier framing that left him visible.
     spec = _mew_spec("mew-glitch-lineup")
     tx, ty = _route24_grass_trigger(root)
     px, py = spec["player"]
@@ -802,20 +686,13 @@ def test_mew_lineup_keeps_the_trigger_trainer_offscreen(root):
     offy = compositor._camera(focus_y * compositor.UNIT_PX, compositor.PLAYER_SCREEN[1])
     assert ty * compositor.UNIT_PX - offy >= compositor.SCREEN[1], "the trigger sits off the bottom edge"
 
-
 def test_mew_grass_scenes_stand_the_hero_in_tall_grass(root):
-    # Regression: the Abra shot first stood the hero below Route 5's grass patch. These grass scenes
-    # (catch an Abra, get spotted) each have to put the hero on real tall grass. The line-up shot is
-    # deliberately not here: it stands the hero on the path north of the patch, trainer offscreen.
     for name in ("mew-glitch-abra", "mew-glitch-start"):
         spec = _mew_spec(name)
         assert tuple(spec["player"]) in compositor.grass_cells(root, spec["map"]), \
             f"{name}: hero stands in tall grass"
 
-
 def test_mew_bridge_arrow_points_at_the_trigger_trainer(root):
-    # The Nugget Bridge shot has to flag WHICH Jr. Trainer to leave alone, so a down arrow sits
-    # above the grass one (the trigger), not the identically-classed trainers out on the planks.
     spec = _mew_spec("mew-glitch-bridge")
     tx, ty = _route24_grass_trigger(root)
     arrows = spec["arrows"]
@@ -823,10 +700,7 @@ def test_mew_bridge_arrow_points_at_the_trigger_trainer(root):
     ax, ay = arrows[0]["grid"]
     assert ax == tx and ay < ty and arrows[0]["dir"] == "down", "a down arrow above the grass trainer"
 
-
 def test_mew_center_wears_ceruleans_blue_palette(root):
-    # The Cerulean Poke Center interior should inherit Cerulean's blue palette, not the default
-    # green, so the heal shot reads as the same city the teleport and return shots do.
     spec = _mew_spec("mew-glitch-center")
     assert spec.get("parent") == "CERULEAN_CITY", "the interior inherits Cerulean's palette"
     const, tileset = sources.parse_headers(root)["CeruleanPokecenter"]
@@ -834,13 +708,11 @@ def test_mew_center_wears_ceruleans_blue_palette(root):
     cerulean_pal = sources.resolve_palette_id(root, const, tileset, "CERULEAN_CITY")
     assert cerulean_pal != default_pal, "the parent override actually changes the palette"
 
-
 def _dot_screen_y(root, spec):
     """Where a scene's baked locator dot lands on the 160x144 screen, centre of the cell."""
     offy = compositor._camera(spec.get("focus", spec["player"])[1] * compositor.UNIT_PX,
                               compositor.PLAYER_SCREEN[1])
     return spec["marker"][1] * compositor.UNIT_PX + compositor.UNIT_PX // 2 - offy
-
 
 def _reachable_cells(root, label, start):
     """Every cell the player can walk to from `start`. `_reachable` above answers whether one cell
@@ -864,7 +736,6 @@ def _reachable_cells(root, label, start):
                 queue.append(cell)
     return seen
 
-
 def test_the_master_ball_shot_stands_where_the_player_can_reach(root):
     """The row east of the Silph president is standable floor nobody can ever stand on: the
     conference table plugs the cell below it and the Beauty fills the one gap along the row, so
@@ -879,7 +750,6 @@ def test_the_master_ball_shot_stands_where_the_player_can_reach(root):
     assert (8, 5) not in room, "and the far side of him, which looks open, is the sealed strip"
     assert spec["player"][0] == president["grid"][0] - 1, "so he is talked to from the west"
     assert spec["player_dir"] == "RIGHT" and president["dir"] == "LEFT", "the two face each other"
-
 
 def test_the_camera_holds_the_anchor_at_every_edge_of_every_map(root):
     """Gen 1 scrolls the map under a hero who never moves on screen, edges included: the block
@@ -900,19 +770,17 @@ def test_the_camera_holds_the_anchor_at_every_edge_of_every_map(root):
     assert compositor.PLAYER_SCREEN[1] + compositor.UNIT_PX <= \
         compositor.SCREEN[1] - compositor.DIALOG_PX, "so the anchor always clears the text box"
 
-
 def test_every_marker_scene_shows_its_dot_clear_of_the_text_box(root):
     """A locator dot the box paints over is a shot hiding the one thing it exists to point at, and
     four shipped scenes did exactly that. The dot is baked in before the box is drawn, so nothing
     ever errors: the page just serves a screen with no dot on it."""
     import build
 
-    buried = [spec["name"] for spec in build.load_specs() if "marker" in spec
+    buried = [spec["name"] for spec in build.load_specs(games.find('yellow')) if "marker" in spec
               and spec.get("dialog")
               and _dot_screen_y(root, spec) > compositor.SCREEN[1] - compositor.DIALOG_PX]
 
     assert buried == [], "these scenes bake a dot the text box covers"
-
 
 def test_every_silph_scene_wears_the_saffron_palette_its_maps_are_drawn_in(root):
     """locations.py draws all eleven Silph floors under SAFFRON_CITY, so a scene set inside the
@@ -920,13 +788,12 @@ def test_every_silph_scene_wears_the_saffron_palette_its_maps_are_drawn_in(root)
     every other shot on the page are yellow. The rival and Giovanni face-offs did exactly that."""
     import build
 
-    silph = [s for s in build.load_specs() if s.get("map", "").startswith("SilphCo")]
+    silph = [s for s in build.load_specs(games.find('yellow')) if s.get("map", "").startswith("SilphCo")]
     assert len(silph) > 15, "the page's scenes are what this is guarding"
     assert [s["name"] for s in silph if s.get("parent") != "SAFFRON_CITY"] == []
     const, tileset = sources.parse_headers(root)["SilphCo11F"]
     assert sources.resolve_palette_id(root, const, tileset, "SAFFRON_CITY") != \
         sources.resolve_palette_id(root, const, tileset, None), "the override changes the palette"
-
 
 def test_the_silph_ambush_flashes_over_the_hero_not_over_jessie(root):
     """Jessie and James are never in a trainer header, so nothing gives them a sightline: they are
@@ -940,10 +807,7 @@ def test_the_silph_ambush_flashes_over_the_hero_not_over_jessie(root):
     assert [tuple(sprite["grid"]) for sprite in spec["sprites"]] == \
         [board["SILPHCO11F_JESSIE"], board["SILPHCO11F_JAMES"]]
 
-
 def test_mew_scenes_stand_the_hero_on_walkable_floor(root):
-    # Regression: the Poke Center heal shot stood the hero on the service counter (3, 2) instead of
-    # the floor in front of it. Every Mew scene that places a hero must put them on walkable floor.
     for spec in json.loads((SPECS / "mew_glitch.json").read_text()):
         if "player" not in spec:
             continue
@@ -951,14 +815,11 @@ def test_mew_scenes_stand_the_hero_on_walkable_floor(root):
         assert _cell_walkable(root, spec["map"], cell), \
             f"{spec['name']}: hero cell {cell} on {spec['map']} is not walkable floor"
 
-
 def test_mew_swimmer_battle_is_the_gym_swimmer(root):
-    # GLITCH 5 is the face-off with the Cerulean Gym Swimmer (OPP_SWIMMER in CeruleanGym).
     spec = _mew_spec("mew-glitch-swimmer")
     assert spec["type"] == "battle" and spec["opponent"] == "SWIMMER"
     gym = sources.parse_object_events(root, "CeruleanGym", include_battlers=True)
     assert any(o["opp_class"] == "SWIMMER" for o in gym), "the gym really has a Swimmer to fight"
-
 
 def test_the_gym_puzzle_shot_stands_at_a_real_trash_can(root):
     """The Vermilion switch shot has to face a can the game actually scripts. The gym floor is
@@ -973,7 +834,6 @@ def test_the_gym_puzzle_shot_stands_at_a_real_trash_can(root):
     assert len(cans) == 15, "the puzzle is 15 cans"
     assert faced in cans, f"the hero faces {faced}, which is not one of the gym's trash cans"
 
-
 def test_the_gym_puzzle_shot_quotes_the_games_own_second_switch_line(root):
     """The caption is the game's text, not ours: `_VermilionGymTrashSuccessText3` is what prints
     when the second switch is the right one, which is the beat the shot illustrates."""
@@ -985,19 +845,12 @@ def test_the_gym_puzzle_shot_quotes_the_games_own_second_switch_line(root):
     for line in spec["dialog"]["lines"]:
         assert line in quoted, f"{line!r} is not a line of _VermilionGymTrashSuccessText3"
 
-
-# Whoever the game hangs the '!' on. A trainer flashes it on spotting you, which is a fact in the
-# game's own sight table (`data/trainers/...`, read by parse_trainer_sight): an engage distance of
-# zero, or no trainer header at all, means the fight only ever starts when you press A. Giovanni
-# under the Game Corner has no header, so the '!' the hideout's WHERE shot used to draw was
-# claiming a battle the player would never trigger by walking up the corridor.
 def _emote_sprites(root, spec):
     objs = {tuple(o["grid"]): o for o
             in sources.parse_object_events(root, spec["map"], include_battlers=True)}
     sight = sources.parse_trainer_sight(root, spec["map"])
     return [(sprite, sight.get((objs.get(tuple(sprite["grid"])) or {}).get("text_const"), 0))
             for sprite in spec.get("sprites", []) if sprite.get("emote")]
-
 
 def test_only_a_trainer_who_engages_on_sight_flashes_the_bubble(root):
     """Every authored scene, not just the ones that had it wrong: a '!' over a sprite has to be
@@ -1010,7 +863,6 @@ def test_only_a_trainer_who_engages_on_sight_flashes_the_bubble(root):
                     f"{spec['name']} ({fname}): {sprite['sprite']} at {sprite['grid']} flashes a "
                     f"'!' but the game gives it no sightline, so it is talked to, not spotted")
 
-
 def test_a_scripted_ambush_hangs_the_bubble_over_the_hero(root):
     """Jessie & James are not spotted, they jump you: the cutscene sets wEmotionBubbleSpriteIndex
     to 0, the player, in MtMoonB2F, RocketHideoutB4F and PokemonTower7F alike. So the bubble is
@@ -1022,7 +874,6 @@ def test_a_scripted_ambush_hangs_the_bubble_over_the_hero(root):
     assert all(_trainer_spec(name).get("player_emote") == "shock" for name in
                ("mt-moon-jessie-james", "pokemon-tower-jessie-james")), "the other two ambushes too"
 
-
 def test_giovanni_is_talked_into_a_fight_so_his_shot_shows_no_bubble(root):
     """The case that started this. RocketHideoutB4F's trainer header table holds one entry, the
     Rocket with the Lift Key; Giovanni's battle is started by RocketHideoutB4FGiovanniText, which
@@ -1032,11 +883,6 @@ def test_giovanni_is_talked_into_a_fight_so_his_shot_shows_no_bubble(root):
     assert set(sight) == {"TEXT_ROCKETHIDEOUTB4F_ROCKET"}, "Giovanni has no sightline to spot with"
     assert generators._emotes(_trainer_spec("rocket-hideout-giovanni")) == []
 
-
-# What a WHERE shot promises. The hero is drawn facing the trainer, which reads as "stand here and
-# press A", so the tiles between them have to be ones the player can walk. Giovanni under the Game
-# Corner was drawn three tiles below his desk with two tables in between: you cannot talk through a
-# table, and the way to him is round one side.
 def _facing_run(root, spec):
     """The cells from the hero up to the first placed sprite they are looking at, or None."""
     step = roster.FACINGS[spec.get("player_dir", "DOWN")]
@@ -1048,7 +894,6 @@ def _facing_run(root, spec):
             return run
         run.append(cell)
     return None
-
 
 def test_a_where_shot_stands_the_hero_where_they_could_really_talk(root):
     """Every authored trainer shot, walked: the hero faces the trainer down a clear line, so the
@@ -1065,14 +910,6 @@ def test_a_where_shot_stands_the_hero_where_they_could_really_talk(root):
             assert markers.cell_is_walkable(root, spec["map"], tileset, width_blocks, cell), \
                 f"{spec['name']}: {cell} is between the hero and the trainer, and is solid"
 
-
-# --- talking to an NPC -------------------------------------------------------
-#
-# A Gen 1 conversation has a fixed shape and a scene of one has to draw it: you can only talk to
-# someone you are facing, and the moment you do they turn to face you (MakeNPCFacePlayer in
-# engine/overworld/movement.asm). These hold the build to it, because the mistake is invisible in
-# a spec and obvious in the PNG: a shopkeeper handing you a rod while looking at the wall.
-
 def _talking_spec(**over):
     spec = {"type": "dialog", "name": "test-scene", "map": "Route12SuperRodHouse",
             "player": [2, 5], "player_dir": "UP",
@@ -1080,14 +917,11 @@ def _talking_spec(**over):
             "dialog": {"lines": ["<PLAYER> received", "a SUPER ROD!"]}}
     return {**spec, **over}
 
-
 def _check(root, spec):
     generators._check_talking(root, spec, generators._screen_sprites(root, spec))
 
-
 def test_a_spoken_to_npc_faces_the_player(root):
     _check(root, _talking_spec())
-
 
 def test_an_npc_left_looking_away_fails_the_build(root):
     spec = _talking_spec(sprites=[{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "RIGHT"}])
@@ -1095,14 +929,12 @@ def test_an_npc_left_looking_away_fails_the_build(root):
     with pytest.raises(ValueError, match="drawn facing RIGHT"):
         _check(root, spec)
 
-
 def test_a_hero_stood_beside_rather_than_facing_the_npc_fails_the_build(root):
     """You cannot talk to someone you are not facing, so this frame cannot happen in the game."""
     spec = _talking_spec(player=[1, 4], player_dir="UP")
 
     with pytest.raises(ValueError, match="nobody there"):
         _check(root, spec)
-
 
 def test_a_text_box_that_is_not_a_conversation_opts_out(root):
     """Playing the Poké Flute at the sleeping Snorlax prints a line without anyone being spoken
@@ -1112,13 +944,11 @@ def test_a_text_box_that_is_not_a_conversation_opts_out(root):
 
     _check(root, spec)
 
-
 def test_a_scene_with_no_dialog_box_is_not_a_conversation(root):
     spec = _talking_spec(sprites=[{"sprite": "SPRITE_FISHING_GURU", "grid": [2, 4], "dir": "RIGHT"}])
     del spec["dialog"]
 
     _check(root, spec)
-
 
 def test_a_mart_clerk_is_talked_to_over_his_counter(root):
     """The one thing the game lets you talk across. The Viridian clerk stands at (0,5) behind the
@@ -1131,7 +961,6 @@ def test_a_mart_clerk_is_talked_to_over_his_counter(root):
     partner = generators._talked_to(root, spec, "LEFT", generators._screen_sprites(root, spec))
     assert partner["file"] == "clerk", "the counter is not a wall between them"
 
-
 def test_nothing_reaches_across_two_plain_floor_tiles(root):
     """The two-cell reach is the counter's, not a general rule: an NPC one tile further away over
     open floor is not being talked to."""
@@ -1140,15 +969,13 @@ def test_nothing_reaches_across_two_plain_floor_tiles(root):
     assert generators._talked_to(root, spec, "UP",
                                  generators._screen_sprites(root, spec)) is None
 
-
 def test_every_shipped_scene_draws_a_conversation_the_game_could_show(root):
     """The whole spec library, so a new scene cannot land facing the wrong way."""
     import build
 
-    for spec in build.load_specs():
+    for spec in build.load_specs(games.find('yellow')):
         if spec["type"] in generators.SCREEN_TYPES:
             _check(root, spec)
-
 
 def test_a_found_item_box_is_never_a_conversation(root):
     """Pressing A at a tile prints _FoundItemText with nobody on the other end. Whoever happens to
@@ -1157,7 +984,6 @@ def test_a_found_item_box_is_never_a_conversation(root):
             "player": [16, 42], "player_dir": "DOWN", "dialog": {"found_item": "ANTIDOTE"}}
 
     _check(root, spec)
-
 
 def test_an_arrow_never_lands_on_the_doorway_it_points_at(root):
     """A doorway is drawn, and an arrow is opaque. A ladder, a staircase and a cave mouth each have
@@ -1179,14 +1005,12 @@ def test_an_arrow_never_lands_on_the_doorway_it_points_at(root):
 
     assert covered == []
 
-
 def _standing_tile(root, label, cell):
     """The tile the game keys collision off for a cell: its lower-left (engine/overworld/movement)."""
     const, tileset = sources.parse_headers(root)[label]
     _index, blocks_w, _blocks_h = sources.parse_map_constants(root)[0][const]
     file = sources.tileset_basename(root, tileset)
     return sources.cell_tiles(root, label, file, blocks_w, *cell)[2], tileset
-
 
 def _crossable(root, label, here, there):
     """True when the game lets you step between two cells: the pair table, not just collision.
@@ -1199,11 +1023,9 @@ def _crossable(root, label, here, there):
     b, _ = _standing_tile(root, label, there)
     return frozenset((a, b)) not in sources.parse_pair_collisions(root, tileset)
 
-
 def _neighbours(cell):
     x, y = cell
     return [(x, y - 1), (x, y + 1), (x - 1, y), (x + 1, y)]
-
 
 def test_a_ball_shot_stands_where_the_ball_can_actually_be_picked_up(root):
     """You collect a Poké Ball by walking onto it, so a shot of one has to be taken from a cell the
@@ -1229,7 +1051,6 @@ def test_a_ball_shot_stands_where_the_ball_can_actually_be_picked_up(root):
                 unreachable.append(f"{spec['name']} ({path.name}): {spec['player']} -> {list(focus)}")
 
     assert unreachable == []
-
 
 def test_a_hidden_item_is_faced_from_the_floor_its_rock_belongs_to(root):
     """A hidden item is usually buried in something solid, and a solid cell in a cave is the wall

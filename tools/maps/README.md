@@ -61,7 +61,7 @@ This writes:
   instead of "a door inside the map". Nothing here is authored: every field is parsed from the
   disassembly (map headers, `data/items/marts.asm`, `GivePokemon` / `GiveItem` in the map's
   script or text, the gym script's badge bit and TM, the map's own object events).
-- `tools/maps/REPORT.md` — counts + anything to review.
+- `tools/maps/REPORT-<game>.md` — counts + anything to review.
 
 `--force` re-renders PNGs that already exist (default: skip existing).
 

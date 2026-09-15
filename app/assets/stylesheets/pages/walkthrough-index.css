@@ -201,6 +201,7 @@
   color: var(--muted);
   margin-top: 6px;
 }
+.pn-ver--dark .pn-ver__pages { color: #9fb6d6; }
 .pn-ver__status {
   display: inline-block;
   font-family: "Press Start 2P", monospace;

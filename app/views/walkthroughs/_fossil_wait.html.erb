@@ -1,5 +1,5 @@
-<% fw = Walkthrough::Yellow.fossil_wait %>
-<% k = "#{Walkthrough::Yellow::K}.fossil_wait" %>
+<% fw = @game.guide.fossil_wait %>
+<% k = "#{@game.key}.fossil_wait" %>
 <section id="<%= fw.anchor %>" class="pn-wt-section">
   <div class="pn-eyebrow-label">
     <%= t("walkthrough.ui.trivia_eyebrow_tagged", tag: t("#{k}.tag")) %>

@@ -1,0 +1,1858 @@
+[
+  {
+    "type": "map",
+    "slug": "pallet-town",
+    "step": 1,
+    "name": "reds-house-2f",
+    "map": "RedsHouse2F",
+    "parent": "PALLET_TOWN",
+    "follower": false,
+    "sprites": [
+      {
+        "sprite": "SPRITE_RED",
+        "grid": [
+          0,
+          2
+        ],
+        "dir": "UP"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "pallet-town",
+    "step": 4,
+    "name": "pallet-town-exit",
+    "map": "PalletTown",
+    "player": [
+      10,
+      3
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          10,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-1",
+    "step": 1,
+    "name": "route-1-north",
+    "map": "Route1",
+    "player": [
+      7,
+      29
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          7,
+          27
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "viridian-city",
+    "step": 1,
+    "name": "viridian-mart-parcel",
+    "map": "ViridianMart",
+    "player": [
+      2,
+      5
+    ],
+    "player_dir": "LEFT",
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "OAK's PARCEL!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "viridian-city",
+    "step": 3,
+    "name": "blues-house-town-map",
+    "map": "BluesHouse",
+    "player": [
+      2,
+      4
+    ],
+    "player_dir": "UP",
+    "sprites": [
+      {
+        "sprite": "SPRITE_DAISY",
+        "grid": [
+          2,
+          3
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got a",
+        "TOWN MAP!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "route-22",
+    "step": 1,
+    "name": "viridian-to-route-22",
+    "map": "ViridianCity",
+    "player": [
+      5,
+      17
+    ],
+    "player_dir": "LEFT",
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          3,
+          17
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-22",
+    "step": 4,
+    "name": "viridian-to-route-2",
+    "map": "ViridianCity",
+    "player": [
+      18,
+      3
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          18,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-2",
+    "step": 2,
+    "name": "viridian-forest-south-gate",
+    "map": "ViridianForestSouthGate",
+    "player": [
+      4,
+      4
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          4,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "viridian-forest",
+    "step": 1,
+    "name": "viridian-forest-poke-ball",
+    "map": "ViridianForest",
+    "player": [
+      2,
+      31
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      31
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_POKE_BALL",
+        "grid": [
+          1,
+          31
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "viridian-forest",
+    "step": 3,
+    "name": "viridian-forest-potion",
+    "map": "ViridianForest",
+    "player": [
+      12,
+      28
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      12,
+      29
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_POKE_BALL",
+        "grid": [
+          12,
+          29
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "viridian-forest",
+    "step": 5,
+    "name": "viridian-forest-north",
+    "map": "ViridianForest",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "pewter-city",
+    "step": 1,
+    "name": "pewter-heal-prep",
+    "map": "PewterCity",
+    "player": [
+      16,
+      18
+    ],
+    "player_dir": "UP",
+    "focus": [
+      16,
+      17
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-mt-moon",
+    "step": 2,
+    "name": "route-4-mt-moon-enter",
+    "map": "Route4",
+    "player": [
+      18,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      14,
+      6
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          18,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "mt-moon",
+    "step": 3,
+    "name": "mt-moon-moon-stone",
+    "map": "MtMoon1F",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      2,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_POKE_BALL",
+        "grid": [
+          2,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "mt-moon",
+    "step": 4,
+    "name": "mt-moon-fossils",
+    "map": "MtMoonB2F",
+    "player": [
+      13,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      12,
+      7
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_FOSSIL",
+        "grid": [
+          12,
+          6
+        ],
+        "dir": "DOWN"
+      },
+      {
+        "sprite": "SPRITE_FOSSIL",
+        "grid": [
+          13,
+          6
+        ],
+        "dir": "DOWN"
+      },
+      {
+        "sprite": "SPRITE_SUPER_NERD",
+        "grid": [
+          12,
+          8
+        ],
+        "dir": "RIGHT"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4",
+    "step": 1,
+    "name": "route-4-exit",
+    "map": "Route4",
+    "player": [
+      24,
+      6
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      25,
+      7
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          24,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "cerulean-city",
+    "step": 4,
+    "name": "cerulean-gym-entrance",
+    "map": "CeruleanCity",
+    "player": [
+      30,
+      20
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          30,
+          18
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "cerulean-city",
+    "step": 3,
+    "name": "cerulean-north-nugget",
+    "map": "CeruleanCity",
+    "player": [
+      20,
+      6
+    ],
+    "player_dir": "UP",
+    "focus": [
+      20,
+      7
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          20,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-24",
+    "step": 3,
+    "name": "route-24-charmander",
+    "map": "Route24",
+    "player": [
+      6,
+      6
+    ],
+    "player_dir": "UP",
+    "focus": [
+      6,
+      6
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "CHARMANDER!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "route-25",
+    "step": 5,
+    "name": "route-25-bill",
+    "map": "BillsHouse",
+    "player": [
+      6,
+      6
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      5
+    ],
+    "auto_npcs": false,
+    "sprites": [
+      {
+        "sprite": "SPRITE_MONSTER",
+        "grid": [
+          6,
+          5
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-5",
+    "step": 2,
+    "name": "route-5-underground",
+    "map": "Route5",
+    "player": [
+      17,
+      28
+    ],
+    "player_dir": "UP",
+    "focus": [
+      17,
+      27
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          17,
+          26
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "vermilion-city",
+    "step": 2,
+    "name": "vermilion-ss-anne-dock",
+    "map": "VermilionCity",
+    "player": [
+      18,
+      30
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      18,
+      28
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          18,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "vermilion-city",
+    "step": 3,
+    "name": "vermilion-squirtle",
+    "map": "VermilionCity",
+    "player": [
+      19,
+      16
+    ],
+    "player_dir": "UP",
+    "focus": [
+      19,
+      16
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "SQUIRTLE!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "ss-anne",
+    "step": 14,
+    "name": "ss-anne-cut",
+    "map": "SSAnneCaptainsRoom",
+    "player": [
+      4,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      4,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_CAPTAIN",
+        "grid": [
+          4,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got",
+        "HM01 CUT!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 3,
+    "name": "route-2-digletts-exit",
+    "map": "Route2",
+    "player": [
+      12,
+      12
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      12,
+      12
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 11,
+    "name": "route-2-pewter-cut",
+    "map": "Route2",
+    "player": [
+      5,
+      11
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      10
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 12,
+    "name": "pewter-museum-cut",
+    "map": "PewterCity",
+    "player": [
+      27,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      23,
+      4
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          19,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "slug": "digletts-cave",
+    "step": 13,
+    "name": "museum-old-amber",
+    "map": "Museum1F",
+    "parent": "PEWTER_CITY",
+    "player": [
+      15,
+      3
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "sprites": [
+      {
+        "sprite": "SPRITE_SCIENTIST",
+        "grid": [
+          15,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "hide": [
+      "MUSEUM1F_OLD_AMBER"
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "OLD AMBER!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 5,
+    "name": "route-2-cut-tree",
+    "map": "Route2",
+    "player": [
+      15,
+      21
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      15,
+      22
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "digletts-cave",
+    "step": 9,
+    "name": "route-2-viridian-cut",
+    "map": "Route2",
+    "player": [
+      13,
+      52
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      12,
+      52
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "route-10",
+    "step": 1,
+    "name": "route-10-rock-tunnel",
+    "map": "Route10",
+    "player": [
+      11,
+      21
+    ],
+    "player_dir": "UP",
+    "focus": [
+      11,
+      20
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          11,
+          20
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "rock-tunnel",
+    "step": 1,
+    "name": "rock-tunnel-flash",
+    "map": "RockTunnel1F",
+    "player": [
+      15,
+      4
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      15,
+      5
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          15,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "seafoam-islands",
+    "step": 11,
+    "name": "seafoam-articuno",
+    "map": "SeafoamIslandsB4F",
+    "player": [
+      6,
+      2
+    ],
+    "player_dir": "UP",
+    "focus": [
+      6,
+      1
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BIRD",
+        "grid": [
+          6,
+          1
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "power-plant",
+    "step": 3,
+    "name": "power-plant-zapdos",
+    "map": "PowerPlant",
+    "player": [
+      4,
+      7
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      4,
+      8
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BIRD",
+        "grid": [
+          4,
+          9
+        ],
+        "dir": "UP"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "route-23-victory-road",
+    "map": "Route23",
+    "player": [
+      4,
+      33
+    ],
+    "player_dir": "UP",
+    "focus": [
+      4,
+      32
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          4,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-1f-ladder",
+    "map": "VictoryRoad1F",
+    "player": [
+      2,
+      3
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-ladder-3f",
+    "map": "VictoryRoad2F",
+    "player": [
+      21,
+      7
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      22,
+      7
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          22,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-3f-ladder-2f",
+    "map": "VictoryRoad3F",
+    "player": [
+      2,
+      2
+    ],
+    "player_dir": "UP",
+    "focus": [
+      2,
+      1
+    ],
+    "hide": [
+      "VICTORYROAD3F_BOULDER1"
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BOULDER",
+        "grid": [
+          3,
+          5
+        ]
+      }
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-ladder-nw",
+    "map": "VictoryRoad2F",
+    "player": [
+      3,
+      1
+    ],
+    "player_dir": "LEFT",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-3f-hole",
+    "map": "VictoryRoad3F",
+    "player": [
+      23,
+      13
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      23,
+      14
+    ],
+    "hide": [
+      "VICTORYROAD3F_BOULDER4"
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          23,
+          14
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-ladder-east",
+    "map": "VictoryRoad2F",
+    "player": [
+      25,
+      12
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      25,
+      13
+    ],
+    "hide": [
+      "VICTORYROAD2F_BOULDER3"
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          25,
+          13
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-3f-ladder-down",
+    "map": "VictoryRoad3F",
+    "player": [
+      27,
+      9
+    ],
+    "player_dir": "UP",
+    "focus": [
+      26,
+      8
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          27,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-2f-east-mouth",
+    "map": "VictoryRoad2F",
+    "player": [
+      27,
+      8
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      28,
+      8
+    ],
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          28,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "victory-road-moltres",
+    "map": "VictoryRoad2F",
+    "player": [
+      11,
+      3
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      11,
+      4
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BIRD",
+        "grid": [
+          11,
+          5
+        ],
+        "dir": "UP"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-pool",
+    "map": "CeruleanCave1F",
+    "player": [
+      21,
+      15
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      21,
+      16
+    ],
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          21,
+          16
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-north-path",
+    "map": "CeruleanCave1F",
+    "player": [
+      11,
+      16
+    ],
+    "player_dir": "UP",
+    "focus": [
+      11,
+      14
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          11,
+          15
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-west",
+    "map": "CeruleanCave1F",
+    "player": [
+      1,
+      11
+    ],
+    "player_dir": "RIGHT",
+    "hide": [
+      "CERULEANCAVE1F_MAX_ELIXER"
+    ],
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          2,
+          11
+        ]
+      }
+    ],
+    "focus": [
+      2,
+      11
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-2f-ladder-east",
+    "map": "CeruleanCave2F",
+    "player": [
+      23,
+      7
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      22,
+      7
+    ],
+    "hide": [
+      "CERULEANCAVE2F_MAX_REVIVE"
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          22,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-center",
+    "map": "CeruleanCave1F",
+    "player": [
+      17,
+      10
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          17,
+          9
+        ]
+      }
+    ],
+    "focus": [
+      17,
+      9
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-2f-ladder-northeast",
+    "map": "CeruleanCave2F",
+    "player": [
+      29,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      29,
+      2
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          29,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-north",
+    "map": "CeruleanCave1F",
+    "player": [
+      7,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      7,
+      2
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          7,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-2f-ladder-northwest",
+    "map": "CeruleanCave2F",
+    "player": [
+      0,
+      4
+    ],
+    "player_dir": "UP",
+    "arrows": [
+      {
+        "dir": "right",
+        "grid": [
+          0,
+          3
+        ]
+      }
+    ],
+    "focus": [
+      0,
+      3
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-1f-ladder-b1f",
+    "map": "CeruleanCave1F",
+    "player": [
+      1,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      1,
+      6
+    ],
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          1,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "cerulean-cave-b1f-shore",
+    "map": "CeruleanCaveB1F",
+    "player": [
+      4,
+      16
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      14
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          3,
+          16
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "cerulean-cave",
+    "step": 4,
+    "name": "cerulean-cave-mewtwo",
+    "map": "CeruleanCaveB1F",
+    "player": [
+      27,
+      15
+    ],
+    "player_dir": "UP",
+    "focus": [
+      27,
+      14
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_MONSTER",
+        "grid": [
+          27,
+          13
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-16",
+    "step": 2,
+    "name": "route-16-snorlax",
+    "map": "Route16",
+    "player": [
+      25,
+      10
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      26,
+      10
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_SNORLAX",
+        "grid": [
+          26,
+          10
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "slug": "route-12",
+    "step": 2,
+    "name": "route-12-snorlax",
+    "map": "Route12",
+    "player": [
+      10,
+      61
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      10,
+      62
+    ],
+    "talking": false,
+    "sprites": [
+      {
+        "sprite": "SPRITE_SNORLAX",
+        "grid": [
+          10,
+          62
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> played the",
+        "POKé FLUTE."
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "route-22",
+    "step": 3,
+    "name": "oaks-lab-poke-balls",
+    "map": "OaksLab",
+    "parent": "PALLET_TOWN",
+    "player": [
+      5,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_OAK",
+        "grid": [
+          5,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got 5",
+        "POKé BALLs!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "celadon-city",
+    "step": 5,
+    "name": "celadon-mart-3f-tm18",
+    "map": "CeladonMart3F",
+    "parent": "CELADON_CITY",
+    "player": [
+      16,
+      3
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      16,
+      4
+    ],
+    "auto_npcs": true,
+    "sprites": [
+      {
+        "sprite": "SPRITE_CLERK",
+        "grid": [
+          16,
+          5
+        ],
+        "dir": "UP"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "TM18!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "celadon-city",
+    "step": 3,
+    "name": "celadon-diner-coin-case",
+    "map": "CeladonDiner",
+    "parent": "CELADON_CITY",
+    "player": [
+      1,
+      1
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      1,
+      4
+    ],
+    "auto_npcs": true,
+    "sprites": [
+      {
+        "sprite": "SPRITE_GYM_GUIDE",
+        "grid": [
+          0,
+          1
+        ],
+        "dir": "RIGHT"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "COIN CASE!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "slug": "route-16-fly",
+    "step": 2,
+    "name": "route-16-fly-gift",
+    "map": "Route16FlyHouse",
+    "player": [
+      2,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      3,
+      4
+    ],
+    "auto_npcs": true,
+    "sprites": [
+      {
+        "sprite": "SPRITE_BRUNETTE_GIRL",
+        "grid": [
+          2,
+          3
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "HM02!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "slug": "route-12",
+    "step": 1,
+    "name": "route-12-gate-tm39",
+    "map": "Route12Gate2F",
+    "player": [
+      3,
+      5
+    ],
+    "player_dir": "UP",
+    "sprites": [
+      {
+        "sprite": "SPRITE_BRUNETTE_GIRL",
+        "grid": [
+          3,
+          4
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "TM39!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "slug": "route-12",
+    "step": 4,
+    "name": "route-12-super-rod-gift",
+    "map": "Route12SuperRodHouse",
+    "player": [
+      2,
+      5
+    ],
+    "player_dir": "UP",
+    "sprites": [
+      {
+        "sprite": "SPRITE_FISHING_GURU",
+        "grid": [
+          2,
+          4
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "a SUPER ROD!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "slug": "route-15",
+    "step": 3,
+    "name": "route-15-gate-exp-all",
+    "map": "Route15Gate2F",
+    "player": [
+      4,
+      3
+    ],
+    "player_dir": "UP",
+    "sprites": [
+      {
+        "sprite": "SPRITE_SCIENTIST",
+        "grid": [
+          4,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "<PLAYER> got the",
+        "EXP.ALL!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "cinnabar-island",
+    "step": 1,
+    "name": "cinnabar-lab-trades",
+    "map": "CinnabarLabTradeRoom",
+    "parent": "CINNABAR_ISLAND",
+    "player": [
+      2,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      3,
+      4
+    ],
+    "auto_npcs": true
+  },
+  {
+    "type": "screen",
+    "slug": "cinnabar-island",
+    "step": 3,
+    "name": "cinnabar-lab-aerodactyl",
+    "map": "CinnabarLabFossilRoom",
+    "parent": "CINNABAR_ISLAND",
+    "player": [
+      5,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "It was AERODACTYL",
+        "like I think!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-mansion-1f-stairs",
+    "map": "PokemonMansion1F",
+    "player": [
+      5,
+      13
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          5,
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-mansion-2f-stairs",
+    "map": "PokemonMansion2F",
+    "player": [
+      6,
+      12
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          7,
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-mansion-hole",
+    "map": "PokemonMansion3F",
+    "player": [
+      16,
+      13
+    ],
+    "player_dir": "DOWN",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          16,
+          14
+        ]
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "name": "pokemon-mansion-switch-3f",
+    "map": "PokemonMansion3F",
+    "player": [
+      10,
+      6
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "dialog": {
+      "lines": [
+        "A secret switch!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "pokemon-mansion-switch-tm",
+    "map": "PokemonMansionB1F",
+    "player": [
+      18,
+      26
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "dialog": {
+      "lines": [
+        "A secret switch!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "pokemon-mansion-switch-beds",
+    "map": "PokemonMansionB1F",
+    "player": [
+      20,
+      4
+    ],
+    "player_dir": "UP",
+    "auto_npcs": true,
+    "parent": "CINNABAR_ISLAND",
+    "dialog": {
+      "lines": [
+        "A secret switch!"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 1,
+    "name": "route-24-surf-south",
+    "map": "Route24",
+    "player": [
+      4,
+      31
+    ],
+    "player_dir": "DOWN",
+    "auto_npcs": true,
+    "arrows": [
+      {
+        "dir": "down",
+        "grid": [
+          4,
+          33
+        ]
+      }
+    ],
+    "focus": [
+      5,
+      32
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 2,
+    "name": "cerulean-cave-beach",
+    "map": "CeruleanCity",
+    "player": [
+      3,
+      15
+    ],
+    "player_dir": "UP",
+    "focus": [
+      3,
+      13
+    ],
+    "follower": false,
+    "hide": [
+      "CERULEANCITY_SUPER_NERD3"
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          3,
+          13
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 3,
+    "name": "cerulean-beach-west",
+    "map": "CeruleanCity",
+    "player": [
+      2,
+      12
+    ],
+    "player_dir": "LEFT",
+    "hide": [
+      "CERULEANCITY_SUPER_NERD3"
+    ],
+    "arrows": [
+      {
+        "dir": "left",
+        "grid": [
+          0,
+          12
+        ]
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "slug": "route-4-return",
+    "step": 4,
+    "name": "cerulean-cave-entrance",
+    "map": "CeruleanCity",
+    "player": [
+      4,
+      13
+    ],
+    "player_dir": "UP",
+    "hide": [
+      "CERULEANCITY_SUPER_NERD3"
+    ],
+    "arrows": [
+      {
+        "dir": "up",
+        "grid": [
+          4,
+          12
+        ]
+      }
+    ]
+  }
+]
