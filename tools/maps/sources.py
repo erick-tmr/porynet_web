@@ -20,21 +20,17 @@ BLOCK_TILES = 4                    # tiles per block side
 BLOCK_PX = BLOCK_TILES * TILE_PX   # 32
 UNIT_PX = 16                       # one overworld movement-grid cell
 
-# PAL_* ids (constants/palette_constants.asm)
 PAL_ROUTE = 0
 PAL_GRAYMON = 0x19
 PAL_CAVE = 0x23
 PAL_YELLOWMON = 0x18   # the Pikachu-yellow palette; our default battle tint
 
-
 @cache
 def _root(root_str):
     return pathlib.Path(root_str)
 
-
 def _read(root_str, rel):
     return (_root(root_str) / rel).read_text()
-
 
 def read_data(root_str, rel, missing_ok=False):
     """A disassembly file's text. `missing_ok` returns None instead of raising, for the tables
@@ -44,16 +40,11 @@ def read_data(root_str, rel, missing_ok=False):
         return None
     return path.read_text()
 
-
 def _rgb5_to_8(v):
     return (v << 3) | (v >> 2)
 
-
 def _snake_to_camel(name):
     return "".join(part.capitalize() for part in name.split("_"))
-
-
-# --- maps -------------------------------------------------------------------
 
 @cache
 def parse_map_constants(root_str):
@@ -72,7 +63,6 @@ def parse_map_constants(root_str):
             first_indoor = idx
     return dims, num_city, first_indoor
 
-
 @cache
 def parse_headers(root_str):
     """Return {label: (const, tileset)} for every map header."""
@@ -83,7 +73,6 @@ def parse_headers(root_str):
             if m:
                 out[m.group(1)] = (m.group(2), m.group(3))
     return out
-
 
 @cache
 def parse_tileset_files(root_str):
@@ -102,10 +91,8 @@ def parse_tileset_files(root_str):
             pending = []
     return mapping
 
-
 def tileset_basename(root_str, tileset_const):
     return parse_tileset_files(root_str).get(_snake_to_camel(tileset_const), tileset_const.lower())
-
 
 def _parse_rgb_palette_table(root_str, label):
     """Return [ [ (r,g,b)*4 ], ... ] from an `RGB c,c,c, ...` table in sgb_palettes.asm,
@@ -127,12 +114,10 @@ def _parse_rgb_palette_table(root_str, label):
                              for i in range(0, 12, 3)])
     return pals
 
-
 @cache
 def parse_super_palettes(root_str):
     """The Super Game Boy palettes (paler), indexed by PAL_* id."""
     return _parse_rgb_palette_table(root_str, "SuperPalettes")
-
 
 @cache
 def parse_cgb_palettes(root_str):
@@ -147,7 +132,6 @@ def parse_cgb_palettes(root_str):
             return pals
     raise ValueError("no GBC base palette table in data/sgb/sgb_palettes.asm")
 
-
 @cache
 def load_tiles(root_str, tileset_file):
     """Return a list of 8x8 'L'-mode tiles from gfx/tilesets/<file>.png (row-major)."""
@@ -156,18 +140,15 @@ def load_tiles(root_str, tileset_file):
     return [png.crop((tx * TILE_PX, ty * TILE_PX, tx * TILE_PX + TILE_PX, ty * TILE_PX + TILE_PX))
             for ty in range(rows) for tx in range(cols)]
 
-
 @cache
 def load_blockset(root_str, tileset_file):
     """Return a list of blocks; each block is 16 tile indices (4x4 row-major)."""
     data = (_root(root_str) / f"gfx/blocksets/{tileset_file}.bst").read_bytes()
     return [list(data[i:i + 16]) for i in range(0, len(data), 16)]
 
-
 def load_blueprint(root_str, label):
     """Return the raw block-index bytes for maps/<label>.blk."""
     return (_root(root_str) / f"maps/{label}.blk").read_bytes()
-
 
 @cache
 def load_sprite_sheet(root_str, name):
@@ -177,12 +158,10 @@ def load_sprite_sheet(root_str, name):
     Callers must only crop/transpose it, which return new images and leave the cache intact."""
     return Image.open(_root(root_str) / f"gfx/sprites/{name}.png").convert("L")
 
-
 @cache
 def load_emote_sheet(root_str, name):
     """The 'L'-mode emotion-bubble sheet gfx/emotes/<name>.png. Cached like load_sprite_sheet."""
     return Image.open(_root(root_str) / f"gfx/emotes/{name}.png").convert("L")
-
 
 def resolve_palette_id(root_str, const, tileset, parent_const):
     """Mirror SetPal_Overworld: pick the map's super-palette id."""
@@ -198,9 +177,6 @@ def resolve_palette_id(root_str, const, tileset, parent_const):
         return idx + 1                        # a town's palette id is its map id + 1
     return PAL_ROUTE
 
-
-# --- overworld sprites + NPCs ----------------------------------------------
-
 @cache
 def _sprite_label_files(root_str):
     """Map an overworld sprite label (e.g. RedSprite) -> gfx/sprites basename (red)."""
@@ -210,7 +186,6 @@ def _sprite_label_files(root_str):
         if m:
             out[m.group(1)] = m.group(2)
     return out
-
 
 def sprite_file(root_str, ref):
     """The gfx/sprites basename a spec's sprite reference names.
@@ -222,7 +197,6 @@ def sprite_file(root_str, ref):
     if ref.startswith("SPRITE_"):
         return parse_sprite_table(root_str).get(ref, ref.lower())
     return _sprite_label_files(root_str).get(ref, ref.lower())
-
 
 @cache
 def parse_sprite_table(root_str):
@@ -238,7 +212,6 @@ def parse_sprite_table(root_str):
         if m and m.group(1) in labels:
             out[m.group(2)] = labels[m.group(1)]
     return out
-
 
 @cache
 def _map_object_lines(root_str, map_label):
@@ -259,7 +232,6 @@ def _map_object_lines(root_str, map_label):
             out.append(line)
     return tuple(out)
 
-
 @cache
 def parse_border_block(root_str, map_label):
     """The map's border block id (`db $X ; border block` in its object file); None if absent.
@@ -271,7 +243,6 @@ def parse_border_block(root_str, map_label):
         if m:
             return int(m.group(1), 16)
     return None
-
 
 @cache
 def parse_cut_tree_blocks(root_str):
@@ -285,7 +256,6 @@ def parse_cut_tree_blocks(root_str):
         if m:
             out[int(m.group(1), 16)] = int(m.group(2), 16)
     return out
-
 
 @cache
 @cache
@@ -316,7 +286,6 @@ def _toggle_lists(root_str):
                        r"\ttoggleable_objects_for (\w+)", r"\ttoggle_object_state (\w+),\s*(ON|OFF)")
     return handles, objects
 
-
 @cache
 def _hide_show_rows(root_str):
     """The older hide/show table, or None when this disassembly uses the newer toggle one.
@@ -339,14 +308,12 @@ def _hide_show_rows(root_str):
             rows.append(found.groups())
     return tuple(rows)
 
-
 @cache
 def _hs_handles(root_str):
     """HS_* handle -> its index in the flat hide/show table."""
     names = re.findall(r"^\tconst (HS_\w+)",
                        _read(root_str, "constants/hide_show_constants.asm"), re.M)
     return {name: index for index, name in enumerate(names)}
-
 
 def resolve_toggle(root_str, map_const, toggle_const):
     """Which object_event const a TOGGLE_* / HS_* handle really names on its map, or None."""
@@ -364,7 +331,6 @@ def resolve_toggle(root_str, map_const, toggle_const):
     entries = objects.get(map_const, ())
     at = names.index(toggle_const)
     return entries[at][0] if at < len(entries) else None
-
 
 def parse_hidden_objects(root_str):
     """Return {map_const: {object_const, ...}} for objects the game starts with switched off.
@@ -391,13 +357,11 @@ def parse_hidden_objects(root_str):
             out.setdefault(current, set()).add(state.group(1))
     return out
 
-
 @cache
 def _object_consts(root_str, map_label):
     """The map's object constants in declaration order, which is the order of its object_events."""
     return tuple(m.group(1) for line in _map_object_lines(root_str, map_label)
                  if (m := re.match(r"\s*const_export\s+(\w+)", line)))
-
 
 @cache
 def _object_events(root_str, map_label):
@@ -431,7 +395,6 @@ def _object_events(root_str, map_label):
         out.append(obj)
     return tuple(out)
 
-
 def parse_object_events(root_str, map_label, include_battlers=False, show=(), hide=()):
     """Return the map's objects as [{grid:(x,y), sprite_const, movement, direction, kind, ...}].
 
@@ -448,7 +411,6 @@ def parse_object_events(root_str, map_label, include_battlers=False, show=(), hi
     if include_battlers:
         return objects
     return tuple(o for o in objects if o["kind"] == "person")
-
 
 @cache
 def parse_trainer_sight(root_str, map_label):
@@ -487,10 +449,8 @@ def parse_trainer_sight(root_str, map_label):
             for label, text in routine_by_text.items()
             if label in header_by_routine and header_by_routine[label] in sight_by_header}
 
-
 WATER_TILES = frozenset({0x14})
 SHORE_TILES = frozenset({0x48, 0x32})
-
 
 @cache
 def parse_grass_tiles(root_str):
@@ -505,10 +465,8 @@ def parse_grass_tiles(root_str):
             out[m.group(1)] = int(m.group(2).lstrip("$"), 16)
     return out
 
-
 def grass_tile(root_str, tileset_const):
     return parse_grass_tiles(root_str).get(_snake_to_camel(tileset_const))
-
 
 @cache
 def parse_counter_tiles(root_str):
@@ -527,10 +485,8 @@ def parse_counter_tiles(root_str):
             out[m.group(1)] = frozenset(int(g.lstrip("$"), 16) for g in ids)
     return out
 
-
 def counter_tiles(root_str, tileset_const):
     return parse_counter_tiles(root_str).get(_snake_to_camel(tileset_const), frozenset())
-
 
 @cache
 def parse_collision_tiles(root_str, tileset_const):
@@ -545,7 +501,6 @@ def parse_collision_tiles(root_str, tileset_const):
     if not match:
         return frozenset()
     return frozenset(int(t.strip().lstrip("$"), 16) for t in match.group(1).split(","))
-
 
 @cache
 def parse_pair_collisions(root_str, tileset_const):
@@ -565,7 +520,6 @@ def parse_pair_collisions(root_str, tileset_const):
                      for tileset, a, b in re.findall(r"db (\w+), (\$[0-9A-Fa-f]+), (\$[0-9A-Fa-f]+)", land)
                      if tileset == tileset_const)
 
-
 def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y, blueprint=None):
     """The four 8px tiles making up one 16px movement cell.
 
@@ -576,7 +530,6 @@ def cell_tiles(root_str, map_label, tileset_file, width_blocks, cell_x, cell_y, 
     block = blocks[blueprint[(cell_y // 2) * width_blocks + (cell_x // 2)]]
     top, left = (cell_y % 2) * 2, (cell_x % 2) * 2
     return [block[(top + dy) * BLOCK_TILES + left + dx] for dy in range(2) for dx in range(2)]
-
 
 @cache
 def parse_connections(root_str, map_label):
@@ -593,7 +546,6 @@ def parse_connections(root_str, map_label):
     return tuple((m.group(1), m.group(3), int(m.group(4))) for line in path.read_text().splitlines()
                  if (m := re.match(r"\s*connection\s+(\w+)\s*,\s*(\w+)\s*,\s*(\w+)\s*,\s*(-?\d+)", line)))
 
-
 @cache
 def parse_warp_events(root_str, map_label):
     """Return the map's warps as ((x, y, dest_map_const, dest_warp_id), ...).
@@ -607,9 +559,6 @@ def parse_warp_events(root_str, map_label):
             out.append((int(m.group(1)), int(m.group(2)), m.group(3), int(m.group(4))))
     return tuple(out)
 
-
-# --- text / charmap ---------------------------------------------------------
-
 @cache
 def parse_charmap(root_str):
     """Return {token: byte} from constants/charmap.asm (e.g. 'A'->0x80, ' '->0x7f, '<PLAYER>'->0x52)."""
@@ -620,15 +569,11 @@ def parse_charmap(root_str):
             out[m.group(1)] = int(m.group(2), 16)
     return out
 
-
-# --- trainers / battle ------------------------------------------------------
-
 @cache
 def _trainer_const_order(root_str):
     """Ordered trainer class consts from constants/trainer_constants.asm (NOBODY first)."""
     return tuple(m.group(1) for line in _read(root_str, "constants/trainer_constants.asm").splitlines()
                  if (m := re.match(r"\s*trainer_const\s+(\w+)", line)))
-
 
 @cache
 def parse_trainer_classes(root_str):
@@ -644,13 +589,11 @@ def parse_trainer_classes(root_str):
             out[const] = (i, name)
     return out
 
-
 @cache
 def _trainer_pic_labels(root_str):
     """Ordered pic labels from pic_pointers_money.asm, aligned to consts minus NOBODY."""
     return tuple(m.group(1) for line in _read(root_str, "data/trainers/pic_pointers_money.asm").splitlines()
                  if (m := re.match(r"\s*pic_money\s+(\w+)", line)))
-
 
 @cache
 def _trainer_pic_files(root_str):
@@ -661,7 +604,6 @@ def _trainer_pic_files(root_str):
         if m:
             out[m.group(1)] = m.group(2)
     return out
-
 
 @cache
 def _trainer_data_labels(root_str):
@@ -676,7 +618,6 @@ def _trainer_data_labels(root_str):
     if len(labels) != len(consts):
         raise ValueError(f"{len(labels)} party pointers for {len(consts)} trainer classes")
     return dict(zip(consts, labels, strict=True))
-
 
 @cache
 def parse_trainer_parties(root_str):
@@ -703,7 +644,6 @@ def parse_trainer_parties(root_str):
         raise ValueError(f"party pointers with no block: {sorted(missing)}")
     return {const: tuple(blocks[label]) for const, label in labels.items()}
 
-
 def _party(fields):
     """One party line -> ((level, species), ...). The trailing 0 terminates the list."""
     parts = [p.strip() for p in fields.split(",") if p.strip() and p.strip() != "0"]
@@ -712,7 +652,6 @@ def _party(fields):
         return tuple((int(pairs[i]), pairs[i + 1]) for i in range(0, len(pairs), 2))
     level = int(parts[0])
     return tuple((level, species) for species in parts[1:])
-
 
 @cache
 def parse_trainer_money(root_str):
@@ -725,18 +664,15 @@ def parse_trainer_money(root_str):
         raise ValueError(f"{len(amounts)} money rows for {len(consts)} trainer classes")
     return {const: int(amount) for const, amount in zip(consts, amounts, strict=True)}
 
-
 def trainer_reward(root_str, trainer_const, party):
     """Prize money for beating this party: the class's base times the last mon's level."""
     return parse_trainer_money(root_str)[trainer_const] // 100 * party[-1][0]
-
 
 def trainer_party(root_str, trainer_const, party_no):
     parties = parse_trainer_parties(root_str)[trainer_const]
     if not 1 <= party_no <= len(parties):
         raise KeyError(f"{trainer_const} has {len(parties)} parties, asked for {party_no}")
     return parties[party_no - 1]
-
 
 @cache
 def parse_dex_numbers(root_str):
@@ -745,7 +681,6 @@ def parse_dex_numbers(root_str):
     names = re.findall(r"^\s*const\s+DEX_(\w+)",
                        _read(root_str, "constants/pokedex_constants.asm"), re.M)
     return {name: i for i, name in enumerate(names, start=1)}
-
 
 def parse_trainer_pic_file(root_str, trainer_const):
     """Return the gfx/trainers basename for a trainer class const (e.g. RIVAL1 -> rival1)."""
@@ -758,10 +693,6 @@ def parse_trainer_pic_file(root_str, trainer_const):
         raise KeyError(f"no trainer pic file for {trainer_const} ({label})")
     return files[label]
 
-
-# --- hidden items / coins ---------------------------------------------------
-
-# item constants pokeyellow spells differently from the display name
 _ITEM_FIXUPS = {"ELIXER": "Elixir", "MAX_ELIXER": "Max Elixir", "HP_UP": "HP Up",
                 "PP_UP": "PP Up", "TM": "TM", "POKE_BALL": "Poké Ball",
                 "GREAT_BALL": "Great Ball", "ULTRA_BALL": "Ultra Ball",
@@ -770,10 +701,8 @@ _ITEM_FIXUPS = {"ELIXER": "Elixir", "MAX_ELIXER": "Max Elixir", "HP_UP": "HP Up"
                 "S_S_TICKET": "S.S. Ticket", "OAKS_PARCEL": "Oak's Parcel",
                 "EXP_ALL": "Exp. All", "ITEMFINDER": "Itemfinder"}
 
-# map constants whose title-cased name reads wrong
 _PLACE_FIXUPS = {"LAST_MAP": "Back outside"}
 _PLACE_PREFIXES = (("SS_ANNE", "S.S. Anne"), ("MT_MOON", "Mt. Moon"))
-
 
 def item_display_name(const):
     if const in _ITEM_FIXUPS:
@@ -782,7 +711,6 @@ def item_display_name(const):
         kind, _, move = const.partition("_")
         return f"{kind} {move.replace('_', ' ').title()}"
     return const.replace("_", " ").title()
-
 
 def place_display_name(const):
     """A warp destination map const as a readable place name (VIRIDIAN_FOREST_NORTH_GATE ->
@@ -794,15 +722,12 @@ def place_display_name(const):
             return " ".join([label, *(w.title() for w in const[len(prefix):].split("_") if w)]).strip()
     return " ".join(_place_word(w) for w in const.split("_") if w)
 
-
 def _place_word(word):
     """Floor labels (1F, B2F, 5F) are already correctly cased; everything else title-cases."""
     return word if re.fullmatch(r"B?\d+F", word) else word.title()
 
-
 def _cell_px(x, y):
     return [x * UNIT_PX + UNIT_PX // 2, y * UNIT_PX + UNIT_PX // 2]
-
 
 @cache
 def _hidden_object_rows(root_str):
@@ -834,7 +759,6 @@ def _hidden_object_rows(root_str):
                         found.group(3), found.group(4)))
     return tuple(out)
 
-
 def hidden_block(root_str, map_const):
     """The raw text of one map's hidden-object rows, in whichever layout this game uses.
 
@@ -851,7 +775,6 @@ def hidden_block(root_str, map_const):
         return None
     block = re.search(rf"^{label.group(1)}:\n(.*?)\n\tdb -1", text, re.S | re.M)
     return block.group(1) if block else None
-
 
 @cache
 def parse_hidden_events(root_str):
@@ -871,15 +794,9 @@ def parse_hidden_events(root_str):
             out.append((cur, int(m.group(1)), int(m.group(2)), m.group(4)))
     return out
 
-
-# What a pile actually pays. hidden_events.asm declares the amount as COIN+<n>, but the routine
-# that reads it (engine/events/hidden_items.asm) tests 10, then 20, then 40, and answers the 40
-# case with .bcd20 under a comment admitting it: "should be bcd40". Anything it does not
-# recognise falls through to 100. So the one pile marked 40 hands over 20, and the guide says 20.
 COIN_PAYOUT = {10: 10, 20: 20, 40: 20}
 
 _COIN_EVENT = re.compile(r"^\s*hidden_event\s+(\d+),\s*(\d+), HiddenCoins, COIN\+(\d+)", re.M)
-
 
 @cache
 def parse_coins(root_str):
@@ -901,7 +818,6 @@ def parse_coins(root_str):
             x, y = int(m.group(2)), int(m.group(3))
             out.append((m.group(1), x, y, amounts[(x, y)]))
     return out
-
 
 @cache
 def markers_by_map(root_str):

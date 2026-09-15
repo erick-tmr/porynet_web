@@ -41,17 +41,14 @@ import roster
 import sources
 import spinners
 
-# spec type -> output subdirectory (and R2 key suffix) under the game's image prefix
 DIR_BY_TYPE = {"map": "maps", "arrows": "maps", "npc": "maps",
                "dialog": "scenes", "screen": "scenes", "battle": "battles"}
-
 
 def load_specs(game):
     specs = []
     for path in sorted(game.specs_dir.glob("*.json")):
         specs.extend(json.loads(path.read_text()))
     return specs
-
 
 def file_frame(scenes, step_shots, spec, name, entry):
     """Index one rendered frame into the manifest.
@@ -65,14 +62,12 @@ def file_frame(scenes, step_shots, spec, name, entry):
     if spec.get("slug") and spec.get("step") is not None:
         step_shots.setdefault(spec["slug"], {})[str(spec["step"])] = entry
 
-
 def draw_map(root, label, parent):
     """One source map, with its people and its item balls exactly where the game puts them."""
     image, colors = compositor.render_map(root, label, parent)
     return compositor.overlay_sprites(image, root,
                                       generators.auto_npcs(root, label, battlers=True), colors,
                                       compositor.grass_cells(root, label))
-
 
 def draw_area(root, label, floor, parent):
     """The image the page shows for one floor, and its markers.
@@ -87,7 +82,6 @@ def draw_area(root, label, floor, parent):
         deck = decks.plan(root, label, floor, rooms)
         image = decks.render(root, deck, parent, lambda name: draw_map(root, name, parent))
     return image, decks.area_markers(root, label, floor, image.width, image.height)
-
 
 def save_png(game, image, subdir, name, force):
     """Write one rendered frame and return the key the app should ask for.
@@ -114,7 +108,6 @@ def save_png(game, image, subdir, name, force):
     if force or not png.exists():
         png.write_bytes(data)
     return f"{game.image_prefix}/{subdir}/{name}.png"
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -156,10 +149,6 @@ def main():
             line = ride or boulders.drawn_pushes(root, label)
             if line:
                 entry["route"] = line
-                # What the line is a picture of: the way the arrows carry the hero, or the way a
-                # boulder goes when it is shoved. The app captions and labels them apart, and for a
-                # push it also draws the boulder at the head of each leg, since the floor itself
-                # does not carry one until the one above it falls.
                 entry["route_kind"] = "ride" if ride else "push"
                 if not ride:
                     entry["boulders"] = boulders.boulder_cells(root, label)
@@ -172,9 +161,6 @@ def main():
             areas[slug] = entries
 
     trainers, where_specs = roster.build_roster(root)
-    # A trainer card points at the shot of where they stand, and that shot is deduplicated like
-    # every other: most of them come out identical to the base game's. So the card has to take
-    # the key saving the frame actually returned, not the one its own prefix would spell.
     where_keys = {}
     for spec in where_specs:
         image, name, _extra = generators.generate(root, spec)
@@ -227,11 +213,9 @@ def main():
     if missing:
         print("MISSING:", ", ".join(missing))
 
-
 def _marker_total(areas, cat=None):
     return sum(len([m for m in e["markers"] if cat is None or m["cat"] == cat])
                for maps in areas.values() for e in maps)
-
 
 def _write_report(game, areas, step_shots, scenes, trainers, missing):
     lines = [f"# Asset generation report: {game.slug}", "",
@@ -260,7 +244,6 @@ def _write_report(game, areas, step_shots, scenes, trainers, missing):
     for name, s in sorted(scenes.items()):
         lines.append(f"- `{name}` ({s['type']}): {s['image']}")
     game.report.write_text("\n".join(lines) + "\n")
-
 
 if __name__ == "__main__":
     main()

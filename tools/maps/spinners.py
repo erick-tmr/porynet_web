@@ -24,13 +24,9 @@ import markers
 import paths
 import sources
 
-# Which way each PAD_* button walks the hero, in grid cells.
 STEPS = {"LEFT": (-1, 0), "RIGHT": (1, 0), "UP": (0, -1), "DOWN": (0, 1)}
 
-# A slide that chains through more tiles than this is a loop the parser has misread, not a maze:
-# the longest real chain in Gen 1 is a handful of hops.
 MAX_CHAIN = 32
-
 
 @cache
 def arrow_tiles(root_str, map_label):
@@ -50,7 +46,6 @@ def arrow_tiles(root_str, map_label):
     return {(int(x), int(y)): runs[label] for x, y, label
             in re.findall(r"map_coord_movement\s+(\d+),\s*(\d+),\s*(\w+)", body)}
 
-
 def push_path(cell, pushes):
     """The cells one arrow tile's run walks through, from `cell` to where it stops.
 
@@ -62,7 +57,6 @@ def push_path(cell, pushes):
             x, y = path[-1]
             path.append((x + dx, y + dy))
     return path
-
 
 def slide_from(root_str, map_label, cell):
     """Every cell the hero crosses after stepping onto `cell`, until the arrows let go.
@@ -79,7 +73,6 @@ def slide_from(root_str, map_label, cell):
         path += push_path(path[-1], pushes)[1:]
     raise ValueError(f"{map_label}: the arrows never let go of {tuple(cell)}")
 
-
 @cache
 def _standing(root_str, map_label):
     """The cells the hero can stand on and still have the controller.
@@ -94,7 +87,6 @@ def _standing(root_str, map_label):
         (x, y) for x in range(width) for y in range(height)
         if (x, y) not in tiles
         and markers.cell_is_walkable(root_str, map_label, tileset, width_blocks, (x, y)))
-
 
 @cache
 def _moves(root_str, map_label):
@@ -115,7 +107,6 @@ def _moves(root_str, map_label):
                 ride = slide_from(root_str, map_label, neighbour)
                 out[cell].append((ride[-1], (cell, *ride)))
     return {cell: tuple(moves) for cell, moves in out.items()}
-
 
 def leg(root_str, map_label, start, end, avoid=frozenset()):
     """The cells of the shortest way from one cell to another across an arrow floor.
@@ -144,16 +135,7 @@ def leg(root_str, map_label, start, end, avoid=frozenset()):
                 heapq.heappush(queue, (cost + len(crossed) - 1, landing, path + crossed[1:]))
     raise ValueError(f"{map_label}: no way from {start} to {end}")
 
-
-# Where a trainer ends up once they have walked up to the player, for the one floor where it
-# changes the shape of the room. A Gen 1 trainer who spots you comes down their line of sight and
-# stops beside you, and there they stay. Viridian's Blackbelt stands in the doorway at the head of
-# the only column into the gym's top-left corner: step into his line and he walks down it, which
-# shuts the column behind him and opens the doorway he was standing in. Every leg after that is
-# walked on the floor he leaves, so that is the floor the whole line is solved on: it can never
-# want the column above him (it is behind him now), and it does want the doorway (it is empty).
 WALKS_UP = {"ViridianGym": {(10, 1): (10, 4)}}
-
 
 def people(root_str, map_label):
     """The cells a floor's people stand on, which the hero can never occupy.
@@ -165,7 +147,6 @@ def people(root_str, map_label):
     return frozenset(moved.get(obj["grid"], obj["grid"]) for obj in
                      sources.parse_object_events(root_str, map_label, include_battlers=True)
                      if obj["kind"] != "item")
-
 
 def route(root_str, map_label, stops):
     """The whole way round a floor, as one list of cells per leg between the stops it names.
@@ -181,33 +162,11 @@ def route(root_str, map_label, stops):
     return [leg(root_str, map_label, start, end, solid - {tuple(start), tuple(end)})
             for start, end in zip(stops, stops[1:], strict=False)]
 
-
-# Floors whose line names its own stops rather than taking them from the pins, because the pins
-# are not the walk. Two reasons, one per floor.
-#
-# Fuchsia's gym is one open pink room to look at and a maze to cross: the barriers are real
-# collision in the shipped map, so the solver has the answer the player is denied. Its walk ends on
-# the leader, who has to letter last however early the door reaches him, so naming him a lettering
-# waypoint would deal T5 to Koga.
-#
-# Viridian's is the reverse: its pins are lettered along this same walk (`paths.ROUTES`), but a
-# trainer's own cell is not a cell you stand on, and being *seen* is what starts the fight. So the
-# line runs to the tile in front of each one, in their facing direction, and only Giovanni is
-# stepped on, at the end. The rest of it is the maze: in at the door and west along the bottom row
-# onto the arrow that throws you into the Tamer's strip; down to the row below, west, and up the
-# arrow that lands you inside the Blackbelt's line of sight; out along the row above him onto the
-# arrow down the west column and the one that fires you east; then the middle chamber taken right
-# to left, so the three columns of sight are crossed one after another; up for the Revive, back out
-# past the Cooltrainer; and west along the top floor, taking the Blackbelt's column, the last
-# Cooltrainer from behind, and Giovanni.
-#
-# A stop is a marker id where one will do and a raw cell where none exists.
 STOPS = {
     "FuchsiaGym": ("exit-4-17", (9, 16), (9, 1), (1, 1), (2, 5), "trainer-4-10"),
     "ViridianGym": ("exit-16-17", (3, 16), (0, 7), (12, 11), (11, 10), (10, 10), (14, 5), (10, 5),
                     "item-16-9", (6, 4), "trainer-2-1"),
 }
-
 
 def route_stops(root_str, map_label):
     """The cells a floor's drawn line runs between, or () for a floor that gets no line.
@@ -226,20 +185,6 @@ def route_stops(root_str, map_label):
         return ()
     return paths.route_cells(root_str, map_label)
 
-
-# A floor crossed by warp pads, as one hop per room: the cell you arrive on and the cell you leave
-# by. A pad is a jump and not a walk, so each room gets a line of its own and the hops between them
-# are drawn by nothing, because a polyline through the wall to the room a pad throws you into would
-# be a picture of something the player never does. What joins the rooms is the pads themselves, and
-# each wears a pin saying where it lands (markers.landing_name).
-#
-# The trainer in a room is not a stop on the line. There is exactly one per room and they take you
-# on sight, so routing the line through them says nothing the room does not already say, and the
-# detour is what turns a straight hop across a room into a dog-leg.
-#
-# Saffron's gym is nine sealed rooms and thirty pads, and the order below is the one that meets all
-# seven trainers and comes out in Sabrina's room, which only the northwest room reaches: in at the
-# door, then SE, NE, E, N, SW, W, NW and through.
 WARPED = {"SaffronGym": (
     ((8, 17), (11, 15)),      # in the door, straight onto the entrance room's pad
     ((19, 17), (15, 15)),     # SE
@@ -251,7 +196,6 @@ WARPED = {"SaffronGym": (
     ((5, 5), (1, 5)),         # NW, and its pad is the only way to Sabrina
     ((11, 11), (9, 8)),       # her room, which has one pad in and no way on
 )}
-
 
 def warped_route(root_str, map_label):
     """One leg per room for a floor whose rooms are joined by warp pads, or [] for any other.
@@ -266,7 +210,6 @@ def warped_route(root_str, map_label):
     blocked = frozenset(paths.warp_pads(root_str, map_label)) | people(root_str, map_label)
     return [leg(root_str, map_label, start, end, blocked - {tuple(start), tuple(end)})
             for start, end in runs]
-
 
 def drawn_route(root_str, map_label):
     """The way round one floor as legs of pixel points, or [] for a floor that gets no line.

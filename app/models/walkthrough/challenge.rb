@@ -1,7 +1,5 @@
 module Walkthrough
   module Challenge
-    # A wild spawn at this rate or better is an easier body than levelling one up from the stage
-    # below, so anything that clears the bar is caught on its own rather than evolved into.
     WORTH_CATCHING_RATE = 4
     CROWDED_PAGE = 6
 
@@ -31,10 +29,6 @@ module Walkthrough
       grow(seen.flat_map { |loc| loc.dex_list_after(badges) }.uniq, seen.map(&:slug))
     end
 
-    # The badges you hold walking into the stop you have reached, which is every badge but the one
-    # that stop is about to award. Oak's deadline is what stands registered *before* a gym, so a
-    # gift that gym unlocks cannot count against it: Officer Jenny hands the Squirtle over only
-    # once Lt. Surge is beaten, so the line is owed at the next gym, not his.
     def self.badges_before(seen) = seen[0...-1].filter_map(&:badge)
 
     def self.grow(roster, reached)
@@ -59,13 +53,6 @@ module Walkthrough
       Evolutions.into(dex).any? { |evo| performable?(evo, Evolutions::STONE_SOURCES.values) }
     end
 
-    # Whether a box slot for `dex` can be filled by growing something into it, which is a wider
-    # question than whether Oak will register it. A trade evolution is not performable on one
-    # cartridge, so it can never stand registered by the deadline, but a living dex still holds an
-    # Alakazam: you hand a Kadabra over and your partner hands it back. What that costs is a spare
-    # body of the stage below, which is exactly what a filled slot is measured in here. Alakazam,
-    # Machamp, Golem and Gengar are the four, and left out of this they fell off the plan entirely
-    # rather than asking anyone for the second Kadabra they need.
     def self.fillable?(dex)
       Evolutions.into(dex).any? do |evo|
         !Evolutions.refused?(evo.to) &&
@@ -87,29 +74,16 @@ module Walkthrough
       game.locations.flat_map(&:encounters).select { |enc| enc.dex == dex && enc.wild? }
     end
 
-    # The best odds the run really offers, read off the stops the guide can work rather than every
-    # table the species appears in: a 6% Slowbro on water you cross long before HM03 is not odds
-    # you can take, so it cannot be the reason a quota drops.
     def self.top_rate(game, dex)
       stops_with(game, dex).filter_map { |loc| stop_rate(loc, dex) }.max
     end
 
     def self.repeatable?(game, dex) = wild_encounters(game, dex).any?
 
-    # A prize counter is not a spawn: it never runs out and it never rolls against you, so a body
-    # off it is as good as the coins and better than any odds. It carries a price where a wild
-    # card carries a percentage, which reads as no rate at all, and left at that the only Vulpix
-    # in the game could not source anything: Ninetales, whose one route into the box is a Fire
-    # Stone on a spare Vulpix, dropped off the plan with nothing owing it.
     def self.purchasable?(game, dex)
       game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.purchased? }
     end
 
-    # A static encounter is not a spawn either: the sprite stands on the map and waits, so a body
-    # off one is certain where a percentage is a roll. Electrode is the stage this decides. It has
-    # no wild table anywhere in Yellow, but two of the Power Plant's disguised balls are one, and
-    # without this the line still owed a spare Voltorb walked up to Lv 30 for a slot the plant
-    # hands over.
     def self.standing?(game, dex)
       game.locations.flat_map(&:encounters).any? { |enc| enc.dex == dex && enc.static? }
     end
@@ -121,25 +95,14 @@ module Walkthrough
       !rate.nil? && rate >= WORTH_CATCHING_RATE
     end
 
-    # The rungs a body for `dex` could be caught as, nearest first: the species itself, then back
-    # down its ancestry.
     def self.rungs(dex) = [ dex ] + ancestors_of(dex).reverse
 
-    # The stage you catch to fill `dex`'s box slot. The nearest rung that spawns at
-    # WORTH_CATCHING_RATE or better takes it, because a ball is cheaper than the levels: Pidgeot
-    # comes off a second Pidgeotto, 15% of the grass on Route 13, never off a Pidgey walked the
-    # whole line. A stage nothing grows into is caught or not had at all, and nil means no body in
-    # the line can fill this slot.
     def self.body_source(game, dex)
       return dex unless fillable?(dex)
 
       rungs(dex).find { |stage| worth_catching?(game, stage) } || best_odds(game, ancestors_of(dex))
     end
 
-    # Where a stage under the bar has to come from: the ancestor with the best odds, and only an
-    # ancestor, because a spawn too rare to be worth hunting is no better hunted one stage up. It
-    # is what still owes Clefable a body off a 1% Clefairy. A "-" rate is a one-off like a revived
-    # fossil, so only a percentage counts as a spare body.
     def self.best_odds(game, stages)
       stages.select { |stage| top_rate(game, stage) }.max_by { |stage| top_rate(game, stage) }
     end
@@ -204,9 +167,6 @@ module Walkthrough
         why_key: why.first, why_args: why.last }
     end
 
-    # The stage directly above this one, told the way the plan means to fill it. A branching line
-    # (Eevee's three stones) has no single stage above, so it takes the branch this body is owed
-    # for, and says nothing at all when the line grows from neither this stage nor its own odds.
     def self.later_for(game, dex)
       steps = Evolutions.out_of(dex)
       step = steps.find { |evo| body_source(game, evo.to) == dex } || steps.first
@@ -231,16 +191,12 @@ module Walkthrough
       nil
     end
 
-    # A stage you catch for yourself either has odds to quote or stands there waiting: a static
-    # carries no percentage at all, so the line names the stop instead of a rate it does not have.
     def self.caught_kind(game, dex)
       return [ :catch, spawn_args(game, dex) ] if top_rate(game, dex)
 
       [ :static, { stop: home_stop(game, dex).name } ]
     end
 
-    # A stage you grow from a spare body either has odds too long to be worth a ball, or no wild
-    # spawn at all, in which case the line prints the evolution the spare body owes instead.
     def self.grown_kind(game, later, step)
       return [ :rare, spawn_args(game, later) ] if top_rate(game, later)
       return [ :level, { level: step.arg } ] if step.level?
@@ -360,9 +316,6 @@ module Walkthrough
         tiles: dexes.map { |dex| tile_for(game, dex, reached, here) })
     end
 
-    # Several stone evolutions off one base the game only ever hands over once. Eevee is the whole
-    # of it in Yellow: it has no wild source anywhere, so the Water, Thunder and Fire Stones are
-    # three species but one choice, and asking for all three asks for two trades.
     def self.one_specimen_line?(game, dex, grown)
       base = Evolutions.into(dex).first&.from
       return false if base.nil? || game.best_catches[base]
@@ -374,10 +327,6 @@ module Walkthrough
       (due - registerable_before(game, leg_order(leg).first.slug)).sort
     end
 
-    # A tile almost always sits on the page you take it from, so it only has to say how. The one
-    # exception is a gift a badge unlocks: the Squirtle is Lt. Surge's own reward, so it falls due
-    # in Erika's window while staying back in Vermilion, and `away` names the stop it waits at
-    # rather than letting "CATCH HERE" point at a page it is not on.
     def self.catch_tile(entry, away = nil)
       return OakTile.new(dex: entry.dex, name: entry.name, via_key: "walkthrough.ui.via_away",
         via_args: { how: entry.how, stop: away }) if away

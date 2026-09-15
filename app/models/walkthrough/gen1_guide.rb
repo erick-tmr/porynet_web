@@ -1,11 +1,4 @@
 module Walkthrough
-  # The engine every Gen 1 guide is drawn by. A game extends it and supplies the handful of
-  # constants that say which game it is (K, DATA_PREFIX, SLUG, NAME), so `self` inside these
-  # methods is the game, not this module; that is why the locale root and the data files are
-  # reached as `self::K` and `self::DATA_PREFIX` rather than named directly.
-  #
-  # `extend self` on top of that is for the pure helpers (parse_rate, the Gen 1 name table) that
-  # callers outside any one game need.
   module Gen1Guide
     extend self
 
@@ -60,46 +53,21 @@ module Walkthrough
 
     RIVAL_EEVEE_ANCHOR = "rival-eevee"
 
-    # `from: true` adds the gift-source badge; `unlock:` is the icon (an R2 path) a gift's unlock
-    # condition shows, or nil for an unconditional gift.
-    # `off_table` is for a sprite the map places rather than a table that rolls it: the Power
-    # Plant's balls hold six Voltorb outright, and the species also spawns on the same floors, so
-    # left to itself the card would headline the 20% floor rate under a STATIC tag and print the
-    # floor breakdown beneath a Pokémon that is standing there waiting.
-    # The tag a derived wild card wears, when the stop has no authored card of that kind to
-    # borrow a word from. The authored ones say CAVE on a cave floor and SAFARI inside the
-    # Safari Zone, which no table records, so an existing label is always preferred.
     WILD_METHODS = { "grass" => "GRASS", "water" => "SURF", "old_rod" => "OLD ROD",
                      "good_rod" => "GOOD ROD", "super_rod" => "SUPER ROD" }.freeze
 
-    # A Pokemon the map stands on the floor, a fossil revived at the lab, a prize off the Game
-    # Corner counter. No wild table mentions any of them, so a card wearing one of these words is
-    # not something to look up: reconciling it against a table would simply delete it.
     OFF_TABLE_METHODS = [ "STATIC", "FOSSIL", "GAME CORNER" ].freeze
 
     def from_table?(card) = card.wild? && !OFF_TABLE_METHODS.include?(card.how)
 
-    # The corpus states a share as whole percent, settling an exact half onto the even number:
-    # the Super Rod's two slots are 89.5 and 10.5, and the pages say 90% and 10%, which is the
-    # only rounding that keeps a pair like that adding up to a hundred.
     def whole_percent(rate) = "#{rate.round(half: :even)}%"
 
-    # The bands the authored cards already sort themselves into.
     def rarity_word(rate)
       return "COMMON" if rate >= 30
 
       rate >= 10 ? "UNCOMMON" : "RARE"
     end
 
-    # Reconcile a stop's wild cards against the table this game actually ships.
-    #
-    # The authored list is an editorial one: which species a page puts on a card, in what order,
-    # under which word. It is written against one game, and a game that moves its spawns around
-    # invalidates it species by species. Rather than retype sixty-seven lists, this keeps every
-    # authored card the table still agrees with, drops the ones it does not, and adds a card for
-    # anything the table holds that nobody wrote down. A kept card still has its odds and levels
-    # read back off the table, because the species staying put does not mean its share did.
-    # Gifts, statics, trades and prize-counter Pokemon are in no table and pass through whole.
     def reconcile_encounters(loc)
       tables = wild_tables.fetch(loc.slug, [])
       return loc if tables.empty?
@@ -118,7 +86,6 @@ module Walkthrough
       loc.with(encounters: kept + missing_cards(loc, tables, seen))
     end
 
-    # The [kind, row] this card names in the table, or nil when the game no longer spawns it here.
     def table_row(tables, card)
       tables.each do |place|
         kind = place.fetch("kind")
@@ -130,17 +97,12 @@ module Walkthrough
       nil
     end
 
-    # An authored card may wear a word of its own (CAVE, FLOORS, SAFARI) for what the table calls
-    # grass, or SURF for what it calls water. A rod names itself.
     def same_method?(kind, card)
       return WILD_METHODS[kind] == card.how if card.how.end_with?("ROD")
 
       kind == "grass" ? !card.how.include?("SURF") : card.how.include?("SURF")
     end
 
-    # The pair a card headlines, settled the one way every card settles it: a species spread over
-    # several floors of the same stop leads with its best floor and the whole level span, and one
-    # that is only in a single table states that row, rounded the way the pages are written.
     def restated(slug, dex, how, mon)
       headline(encounter_places(slug, dex), how) ||
         [ whole_percent(mon.fetch("rate")), level_span(mon) ]
@@ -151,8 +113,6 @@ module Walkthrough
       card.with(rate: rate, level: level, rarity: rarity_word(rate.to_f))
     end
 
-    # A species this game spawns here that the authored list never mentions. It takes the word
-    # the stop's own cards use for that kind where there is one, so a cave stays a CAVE.
     def missing_cards(loc, tables, seen)
       tables.flat_map do |place|
         kind = place.fetch("kind")
@@ -188,16 +148,6 @@ module Walkthrough
         needs_badge: badge, places: places, at_map: slug)
     end
 
-    # A species spread over several floors has no single hand-typed rate that is true; the card
-    # would otherwise headline one floor's number above a breakdown that contradicts it. So the
-    # headline is the best floor you can reach, rounded to the whole percent `parse_rate` reads,
-    # over the level band across every floor it lives on.
-    #
-    # Only the places matching the card's own method count. Which method a stop expects you to
-    # use is an editorial call (the guide sends you Surfing at Seafoam, not fishing off the same
-    # tile), so the tag stays put and the number is made true for it; the breakdown below the
-    # headline still lists every other way the species turns up there. Returns nil when the
-    # method has no table at all (gifts, fossils, the Game Corner), leaving the hand-typed pair.
     def headline(places, how)
       matching = places.select { |place| place.method?(how) }
       return nil if matching.size < 2
@@ -207,8 +157,6 @@ module Walkthrough
       [ "#{matching.map(&:rate).max.round}%", lo == hi ? lo.to_s : "#{lo}–#{hi}" ]
     end
 
-    # Verbatim from HappinessChangeTable in engine/events/pikachu_happiness.asm: each action's
-    # friendship change at current value bands 0-99 / 100-199 / 200-255.
     FRIENDSHIP_TABLE = [
       [ "levelup", [ 5, 3, 2 ] ], [ "hp_item", [ 5, 3, 2 ] ], [ "x_item", [ 1, 1, 0 ] ],
       [ "gym_leader", [ 3, 2, 1 ] ], [ "tm_hm", [ 1, 1, 0 ] ], [ "walking", [ 2, 1, 1 ] ],
@@ -222,14 +170,6 @@ module Walkthrough
         rows: FRIENDSHIP_TABLE.map { |key, values| FriendshipRow.new("#{b}.rows.#{key}", values) })
     end
 
-    # Why the Safari Zone's own items make things worse. Every number is the game's: the ball
-    # ranges and BallFactor from ItemUseBall, the status bonuses from its ailment table, the
-    # halve/double and the 1-5 timers from ItemUseBait / ItemUseRock, and the flee roll from
-    # engine/battle/core.asm. The per-encounter odds are simulated over those same routines,
-    # 200k encounters a strategy, because a turn loop with a flee roll in it has no closed form.
-    #
-    # The example targets are the two the park is walked for and the two the reader will burn the
-    # most balls on. Both are catch rate 45, which is what makes the arithmetic transferable.
     CATCH_BALLS = [ [ "poke", "0–255" ], [ "great", "0–200" ], [ "ultra", "0–150" ],
                     [ "safari", "0–150" ] ].freeze
     CATCH_STATUS = [ [ "none", "0" ], [ "minor", "12" ], [ "major", "25" ] ].freeze
@@ -276,9 +216,6 @@ module Walkthrough
           code_key: (n > 2 ? "#{k}.steps.#{n}.code" : nil)) })
     end
 
-    # Steps 1 and 2 tabulate a lookup the game does, so they carry rows of values. Steps 3 to 5
-    # quote the arithmetic itself, which is a listing rather than a table and reads the same in
-    # every language, so those carry a `code_key` and no rows.
     def catch_step_rows(k, step)
       case step
       when 1 then CATCH_BALLS.map { |key, value| CatchRow.new(label_key: "#{k}.balls.#{key}",
@@ -316,15 +253,6 @@ module Walkthrough
             text_key: "#{k}.cards.#{key}.text") })
     end
 
-    # Gen 1 pays the Exp. All out in two passes and feeds the second one the first one's leftovers.
-    # In engine/battle/core.asm the enemy's base exp is halved, that half goes to the Pokémon that
-    # fought (DivideExpDataByNumMonsGainingExp divides it by the number of them, in place), then
-    # every party member's gain flag is set and the same routine runs again over the value it has
-    # already divided. So the party pass shares 50/fighters rather than the other 50, and with more
-    # than one Pokémon sent out the difference is paid to nobody at all.
-    #
-    # One verdict per tone and both texts of each two-way legend row are rendered, and the
-    # controller picks; that keeps every string in the locale files.
     EXP_TONES = %w[solo switch crowd].freeze
     EXP_LEGEND = [ [ "fighters", %w[any] ], [ "bench", %w[some none] ],
                    [ "lost", %w[some none] ] ].freeze
@@ -343,12 +271,6 @@ module Walkthrough
           title_key: "#{b}.trivia.#{key}.title", text_key: "#{b}.trivia.#{key}.text") })
     end
 
-    # Pikachu's Beach, behind the Route 19 beach house door. The Surfin' Dude tests
-    # BIT_PIKACHU_SPAWN_SURFING (scripts/SummerBeachHouse.asm), and the `vc_patch` there swaps it
-    # for BIT_PIKACHU_SPAWN_STARTER, which is why the 3DS release takes the partner Pikachu
-    # instead. The two shots are the same water tile twice: LoadSurfingPlayerSpriteGraphics2 loads
-    # the board only when the Pokémon carrying you is that starter Pikachu, and the Seel sheet for
-    # every other surfer, so the pair is the whole visible payoff side by side.
     SURF_CHIPS = %w[house stadium reward].freeze
     SURF_SHOTS = [ [ "board", "route-19-surf-pikachu", "on" ],
                    [ "other", "route-19-surf-plain", "off" ] ].freeze
@@ -372,11 +294,8 @@ module Walkthrough
           SurfStadiumStep.new(key: key, glyph: glyph, tone: tone) })
     end
 
-    # Helix, Dome and Old Amber in dex order: the item you hand over, and the Fossil-set card the
-    # section prints beside the sprite. Everything else on a card is the game's own dex line.
     FOSSILS = [ [ "138", "Helix Fossil" ], [ "140", "Dome Fossil" ], [ "142", "Old Amber" ] ].freeze
 
-    # The four rows under the panel, in reading order, each with the mark it wears.
     FOSSIL_FACTS = { "flag" => "yes", "box" => "yes", "standing" => "no", "detour" => "na" }.freeze
 
     FOSSIL_STEPS = 2
@@ -400,11 +319,8 @@ module Walkthrough
         height: dex_metric(entry.fetch("height")), weight: dex_metric(entry.fetch("weight")))
     end
 
-    # The dex prints both units ("1'04\" (0.4 m)"); the line under a card has room for one.
     def dex_metric(fact) = fact[/\(([^)]+)\)/, 1]
 
-    # The four diary pages in the order the mansion walks you past them, with the half of the story
-    # each belongs to: the expedition that found Mew, then the thing they made from it.
     DIARY_PAGES = { "jul_5" => "mew", "jul_10" => "mew",
                     "feb_6" => "mewtwo", "sep_1" => "mewtwo" }.freeze
 
@@ -422,10 +338,6 @@ module Walkthrough
         pages: DIARY_PAGES.map { |key, tone| DiaryPage.new(key: "#{b}.pages.#{key}", tone: tone) })
     end
 
-    # The eight badges in case order, with what each one switches on: `boost` names the stat every
-    # Pokémon you send out gains about 12.5% of, `obey` the level a traded Pokémon obeys up to, and
-    # `field` the HM the badge licenses outside battle. Leaders and cities repeat what the gym
-    # definitions below already say; a model test holds the two in step.
     BADGES = [
       { name: "Boulder", leader: "Brock",     city: "Pewter City",     boost: "attack",  field: "Flash" },
       { name: "Cascade", leader: "Misty",     city: "Cerulean City",   obey: 30,         field: "Cut" },
@@ -498,49 +410,20 @@ module Walkthrough
       { slug: "pokemon-tower", special: true, locs: %w[pokemon-tower] },
       { slug: "leg-11", special: false, locs: %w[route-12 route-13 route-14 route-15 fuchsia-city] },
       { slug: "safari-zone", special: true, locs: %w[safari-zone] },
-      # Walked north out of Fuchsia, so the routes come in the order they are met rather than the
-      # order they are numbered: west onto 18, up Cycling Road, out of 16's north gate.
       { slug: "leg-12", special: false,
         locs: %w[fuchsia-city-return route-18 route-17 route-16 saffron-city] },
       { slug: "silph-co", special: true, locs: %w[silph-co] },
       { slug: "leg-13", special: false, locs: %w[saffron-city-return surf-cleanups] },
-      # The Surf sweep ends on Route 10 at the plant's own door, so the plant is the next page
-      # rather than a detour held back to the end: you are standing there with Ultra Balls in the
-      # bag. Seafoam stays held back, being a boulder puzzle on the way to nowhere you need yet.
       { slug: "power-plant", special: true, locs: %w[power-plant] },
       { slug: "leg-14", special: false, locs: %w[route-19 route-20] },
-      # The islands sit in the middle of Route 20 and the cave runs under them, so walking the
-      # cave is the way west rather than a detour off it: you arrive holding both HMs it asks for,
-      # and a bird you get one shot at is not worth passing twice. The way in is the mouth on the
-      # island itself (E1), reached by landing on its south-west corner; the other mouth sits on a
-      # detached patch and opens onto a chamber walled off from the rest of 1F.
       { slug: "seafoam-islands", special: true, locs: %w[seafoam-islands] },
-      # The cave comes out on the far side of the rock wall that splits Route 20 down the middle,
-      # so the water west of the islands is a second pass over the same map rather than more of
-      # the first: you leave by a different mouth than you came in by, and the six swimmers between
-      # there and Cinnabar are ones the eastern half never reaches.
       { slug: "leg-15", special: false, locs: %w[route-20-west cinnabar-island] },
-      # A burnt-out four-floor maze of switches, walked once for the Secret Key: its own page, the
-      # way every other dungeon on the route gets one. It splits the island's two passes, which is
-      # the shape the island already has.
       { slug: "pokemon-mansion", special: true, locs: %w[pokemon-mansion] },
       { slug: "leg-16", special: false, locs: %w[cinnabar-island-return route-21] },
-      # Route 21 lands at Pallet, which is where the badge run began, so the last leg of it is the
-      # road back up: the town you started in, the city whose gym has been shut all game, and the
-      # gym itself. Both stops are one step long because there is nothing left to do in either.
       { slug: "leg-17", special: false, locs: %w[pallet-town-return viridian-city-return viridian-gym] },
-      # The road to the League is one page: west out of Viridian onto Route 22 for the last Blue
-      # fight before the Champion, through the badge gate at its end, and up Route 23 to the cave
-      # mouth. Splitting them would put a page break in the middle of a walk with nothing on it
-      # but a gate, and the gate is the only thing joining them.
       { slug: "leg-18", special: false, locs: %w[route-22-return route-23] },
       { slug: "victory-road", special: true, locs: %w[victory-road] },
       { slug: "indigo-plateau", special: true, locs: %w[indigo-plateau] },
-      # The cave door has no road to it: it sits on a strip of sand at Cerulean's west edge, walled
-      # off from the city, and the only way onto that sand is the river. So the last page before
-      # the dungeon is the swim in, and it passes the one trainer in Kanto the first lap could not
-      # reach: the sand runs straight on west into Route 4's top shelf, which its ledges only ever
-      # let you leave.
       { slug: "leg-19", special: false, locs: %w[route-4-return] },
       { slug: "cerulean-cave", special: true, locs: %w[cerulean-cave] }
     ].freeze
@@ -578,10 +461,6 @@ module Walkthrough
 
     def mew_glitch_key = "#{self::K}.mew_glitch"
 
-    # The Cerulean Mew-glitch guide. Trainer identities and the level formula here are verified
-    # against the pokeyellow disassembly (Swimmer #1 = Lv16 Horsea/Shellder, the trigger is the
-    # Jr. Trainer in the grass west of Nugget Bridge, the second-Mew setter is the lone-Slowpoke
-    # Youngster on Route 25, and an untouched opponent's neutral Attack stage 7 gives a Lv 7 Mew).
     def mew_glitch
       MewGlitch.new(
         facts: mew_facts, tldr: mew_tldr, untouched: mew_untouched, packlist: mew_packlist,
@@ -664,8 +543,6 @@ module Walkthrough
         shot: mew_step_shot(step))
     end
 
-    # A step frames its shot either from a generated scene (by manifest key) or, for the
-    # second-Mew heads-up, by reusing a Trainer WHERE frame already in R2 (the Route 25 Youngster).
     def mew_step_shot(step)
       return Shot.new(image: step[:image], label: step[:shot]) if step[:image]
 
@@ -676,10 +553,6 @@ module Walkthrough
       (1..6).map { |n| MewSecondStep.new(n, "#{mew_glitch_key}.second.#{n}.title", "#{mew_glitch_key}.second.#{n}.text") }
     end
 
-    # The four Trainers to leave standing for the Mew glitch. Each `map`/`marker` is the game's own
-    # tickable pin (verified against the manifest), so a card here and its map pin flip together;
-    # `key` mirrors that pin's letter so the section and the annotated map read the same. Its WHERE
-    # frame is the generator's per-Trainer scene, whose name is `<map>-<marker>` by construction.
     MEW_SPARE_DEFS = [
       { id: "grass-jr", cls: "JR. TRAINER♂", tag: "RT 24", map: "route-24", marker: "trainer-5-20", key: "B" },
       { id: "swimmer", cls: "SWIMMER", tag: "GYM", map: "cerulean-city-gym", marker: "trainer-8-7", key: "C" },
@@ -782,8 +655,6 @@ module Walkthrough
       show_mt_moon_approach(locs)
     end
 
-    # A stop the guide walks twice has map data under one slug only. The second pass reads the
-    # first pass's maps, so the same interactive map (markers, tick state) shows on both.
     MAP_SOURCE = { "pallet-town-return" => "pallet-town",
                    "viridian-city-return" => "viridian-city",
                    "route-22-return" => "route-22",
@@ -797,33 +668,17 @@ module Walkthrough
                    "cinnabar-island-return" => "cinnabar-island",
                    "route-4-return" => "route-4" }.freeze
 
-    # A stop that walks off its own map borrows the maps it steps onto, keyed by the name to draw
-    # over them. Diglett's Cave surfaces on Route 2, carries on into Viridian City and doubles back
-    # up to Pewter, so every page has to hand the reader the same markers and the same ticks.
     MAP_EXTRA = {
       "digletts-cave" => { "route-2" => "Route 2", "viridian-city" => "Viridian City",
                            "pewter-city" => "Pewter City" },
-      # The Surf sweep owns no map of its own: it is three errands in three towns, so it borrows
-      # all three and each step pins the one it is standing on.
       "surf-cleanups" => { "vermilion-city" => "Vermilion City", "route-6" => "Route 6",
                            "celadon-city" => "Celadon City", "route-12" => "Route 12",
                            "cerulean-city" => "Cerulean City", "route-10" => "Route 10" },
-      # The swim to the cave door starts on Route 24 and lands in Cerulean, and Route 4's shelf is
-      # only the last few steps of it, so the page borrows both maps it crosses to get there.
       "route-4-return" => { "route-24" => "Route 24", "cerulean-city" => "Cerulean City" }
     }.freeze
 
-    # A stop that borrows another stop's map takes the whole map's people with it, and some of them
-    # cannot be reached on this visit. Route 16's six Bikers sit past the sleeping Snorlax, and the
-    # Fly detour has no Poké Flute: the cut tree opens onto the upper half of the route, which
-    # holds the Fly house and nothing else, so the road with the Bikers on it is sealed until leg
-    # 12 comes back with the Flute. Neither their pins nor their cards belong on this page. One
-    # table decides both, so a pin and a card cannot disagree about who is standing there.
     OUT_OF_REACH = { "route-16-fly" => %w[trainer] }.freeze
 
-    # A borrowed location whose maps are not all wanted. The Surf sweep goes to Vermilion for one
-    # tile of water between two houses; the dock, with the S.S. Anne drawn at it, is a different
-    # errand on a different page and only asks the reader which map they are looking at.
     MAP_EXTRA_SKIP = { "surf-cleanups" => %w[vermilion-city-dock] }.freeze
 
     def maps_for(slug, data)
@@ -841,10 +696,6 @@ module Walkthrough
       maps.map { |map| map.with(markers: map.markers.reject { |pin| cats.include?(pin.cat) }) }
     end
 
-    # The leg-3 approach section has no map data of its own; it borrows Route 4's map so the same
-    # interactive map (markers, tick state) shows on both the approach (leg 3) and the east half
-    # (leg 4). Its steps resolve their pin letters here, since until now it had no map to read them
-    # from.
     def show_mt_moon_approach(locs)
       route_4_maps = locs.find { |loc| loc.slug == "route-4" }.area_maps
       locs.map do |loc|
@@ -854,15 +705,8 @@ module Walkthrough
       end
     end
 
-    # A gym's own floor and the Fighting Dojo's belong to their sections, not to the stop's header:
-    # the room is what the section is about, and a page that draws it twice says nothing twice. A
-    # pass that borrows the maps but owns neither hall (Saffron walked the second time) drops both.
     HALL_FLOORS = { gym: "Gym", dojo: "Dojo" }.freeze
 
-    # Every map the stop reads, hall floors included, is what a step resolves its pin letters, its
-    # item ticks and its cropped route frames against; only the header is choosy about which of
-    # them it draws. Viridian is why the two parted company: its page is the gym and nothing else,
-    # so the floor the section draws is also the floor its steps walk.
     def attach_maps(loc, maps)
       loc = apply_trainer_notes(map_steps(mark_steps(tick_items(merge_trainers(loc), maps), maps),
         maps))
@@ -871,11 +715,6 @@ module Walkthrough
       loc.with(area_maps: rooms.reject { |m| HALL_FLOORS.value?(m.floor) } - halls_taken(loc, rooms))
     end
 
-    # The floor a hall section draws: the one the manifest files under that floor name, or, for a
-    # stop that owns a hall and files no floor for it, the map the stop owns. That second case is a
-    # page that *is* the hall (Viridian Gym has a page to itself, so its floor is the stop's own
-    # map rather than a room off a city), and the header is left with no map rather than with a
-    # second copy of the room the section is about.
     def hall_room(loc, field, rooms, floor)
       return nil if loc.public_send(field).nil?
 
@@ -913,13 +752,7 @@ module Walkthrough
       place_trainers(loc, fresh, claimed)
     end
 
-    # A pin and the step that picks it up are one instruction seen twice, so the pin carries that
-    # step's number home: tapping a marker on the map offers the step that explains it. Reuses the
-    # tick target the cards already resolved, which is the same map-and-pin pair.
-    # Turn each step's authored pin ids into the letters those pins wear right now, so the prose
-    # can say "exit K" without anyone having to keep a letter written down anywhere.
     def mark_steps(loc, maps)
-      # The Mt. Moon approach owns no map, so it resolves later, once it has borrowed Route 4's.
       return loc if maps.empty?
 
       letters = maps.flat_map { |m| m.markers.map { |k| [ "#{m.name}/#{k.id}", k.key ] } }.to_h
@@ -927,24 +760,15 @@ module Walkthrough
         trivia: loc.trivia && marked(loc.trivia, letters))
     end
 
-    # A step and a trivia section both point at map pins the same way, so they are marked the same
-    # way: whatever the prose named, swapped for the letter that pin is wearing right now.
     def marked(block, letters)
       return block if block.pins.empty?
 
       block.with(marks: block.pins.transform_values { |id| letters.fetch(id) })
     end
 
-    # How much floor a step's own map shows around the stretch it walks, in map pixels. Tight
-    # enough that a short hop fills the frame, wide enough that the reader can see which part of
-    # the floor they are looking at rather than a patch of green with a line on it.
     STEP_MAP_PAD = 40
     STEP_MAP_MIN = 240
 
-    # A step that walks a stretch of a drawn route gets its own copy of the floor, cropped to it.
-    # Authored as ["map name", first leg, last leg]: the legs are the route's own, so a step and
-    # the overview cannot disagree about which way round the maze goes, and a step that owns two
-    # in a row (walk to the ball, then out of the room) draws them both.
     def map_steps(loc, maps)
       by_name = maps.to_h { |map| [ map.name, map ] }
       loc.with(steps: loc.steps.map do |step|
@@ -960,31 +784,16 @@ module Walkthrough
         box: crop_box(legs, floor_bounds(area)), legs: legs, kind: area.route_kind)
     end
 
-    # The part of the picture worth cropping into, as [x0, y0, x1, y1]. A map's image is the whole
-    # grid and a floor rarely fills it: B2F leaves six rows of black above its own top wall, and a
-    # frame centred near the top would spend a quarter of itself on that. Every pin and every point
-    # of a drawn line is somewhere the player can be, so the box they span, opened out by a margin
-    # and kept inside the image, is a fair read on where the floor is.
-    #
-    # The pins are what make it a read on the floor rather than on the line. A maze route wanders
-    # over its whole floor, so the line alone bounded it well enough; a boulder push is two cells
-    # long, and bounding by that squeezed the window down to the shove itself, which is a picture of
-    # a boulder and no room at all. The pins are spread over the floor either way.
     def floor_bounds(area)
       xs, ys = (area.route.flatten(1) + area.markers.map { |pin| pin_px(pin, area) }).transpose
       [ [ xs.min - STEP_MAP_PAD, 0 ].max, [ ys.min - STEP_MAP_PAD, 0 ].max,
         [ xs.max + STEP_MAP_PAD, area.width ].min, [ ys.max + STEP_MAP_PAD, area.height ].min ]
     end
 
-    # A pin's percent back into the map's own pixels, rounded: the box is only ever a hint at where
-    # the floor is, and a viewBox reading "14.000000000000007" is float noise in the markup.
     def pin_px(pin, area)
       [ (pin.x * area.width / 100).round, (pin.y * area.height / 100).round ]
     end
 
-    # The crop, as the SVG viewBox [x, y, w, h]: a window the size of the leg plus a margin,
-    # centred on it and slid back inside the picture so a leg against the wall does not crop to
-    # empty space beyond the map's edge.
     def crop_box(legs, bounds)
       left, top, right, bottom = bounds
       xs, ys = legs.flat_map(&:points).transpose
@@ -993,9 +802,6 @@ module Walkthrough
         top + slide(ys.min + ys.max - top * 2, box_h, bottom - top), box_w, box_h ]
     end
 
-    # How big a window to cut. Always 4:3, whichever way the leg runs: a leg that goes straight
-    # down a corridor would otherwise crop to a tall slot, and a page of frames all different
-    # shapes reads as a mess next to one where each is the same window onto a different place.
     def window(span_x, span_y, width, height)
       wide = [ span_x + STEP_MAP_PAD * 2, STEP_MAP_MIN ].max
       tall = [ span_y + STEP_MAP_PAD * 2, STEP_MAP_MIN * 3 / 4 ].max
@@ -1003,9 +809,6 @@ module Walkthrough
       [ box_w, box_w * 3 / 4 ]
     end
 
-    # Where one axis of that window starts: centred on the leg, then slid back inside the floor.
-    # `window` never returns a span wider than the floor, so the far clamp only ever guards
-    # against a zero-width one.
     def slide(span_ends, span, limit)
       ((span_ends - span) / 2).clamp(0, [ limit - span, 0 ].max)
     end
@@ -1029,9 +832,6 @@ module Walkthrough
         end)
     end
 
-    # A card and its pin are the same thing seen twice, so the card carries the pin's tick target
-    # (so ticking either flips both) and the pin's letter (so a reader can find it on the map).
-    # An ambiguous match leaves both nil rather than pointing at the wrong ball.
     def join_pin(pins, cat, item)
       map_name, pin = find_pin(pins, cat, item.name, item.at)
       return item if pin.nil?
@@ -1039,17 +839,11 @@ module Walkthrough
       item.with(tick: "#{map_name}/#{pin.id}", key: pin.key)
     end
 
-    # A later item still sits on the map, so its card has to say which letter to look for, and it
-    # ticks off against that pin: the stop that finally walks to it lists the same thing, and one
-    # item collected once should read as collected on both pages.
     def key_later(pins, item)
       map_name, pin = later_pin(pins, item.name)
       pin ? item.with(key: pin.key, tick: "#{map_name}/#{pin.id}") : item
     end
 
-    # A locked item is a ball on the ground or a stash you press A for, and the map draws both, so
-    # look in either category. Only an NPC gift is on no map at all; that one keeps the id it was
-    # built with (gift_tick), since there is no pin to take one from.
     def later_pin(pins, name)
       ball = find_pin(pins, "item", name, nil)
       ball.last ? ball : find_pin(pins, "hidden", name, nil)
@@ -1065,15 +859,10 @@ module Walkthrough
       loc.trainers + halls(loc).flat_map { |hall| hall.trainers + [ hall.leader ] }
     end
 
-    # A gym and the dojo are the same shape to everything that deals trainers out: a room of
-    # students behind one door with one fight at the back of it.
     HALLS = %i[gym dojo].freeze
 
     def halls(loc) = HALLS.filter_map { |field| loc.public_send(field) }
 
-    # Curated captions stamped onto specific trainers by their OPP_CLASS:party id, keyed by
-    # location. Cerulean's Swimmer and Misty carry the Mew-glitch warnings; Route 4's east-plateau
-    # Lass and Route 10's Power Plant Pokémaniac carry "you cannot reach this one yet" heads-ups.
     def trainer_notes(slug)
       b = base(slug)
       case slug
@@ -1113,9 +902,6 @@ module Walkthrough
 
     def gym_entry?(loc, entry) = entry["floor"] == "Gym" || loc.kind == "GYM"
 
-    # The dojo's five sit on their own map inside Saffron's roster, and Saffron is walked twice off
-    # that one roster. Taking them out before the rest is dealt lands them in the dojo on the page
-    # that has one, and nowhere on the page that does not.
     def place_trainers(loc, fresh, claimed)
       dojo_fresh, rest = fresh.partition { |entry| entry["map"] == DOJO_MAP }
       gym_fresh, loc_fresh = rest.partition { |entry| gym_entry?(loc, entry) }
@@ -1151,22 +937,10 @@ module Walkthrough
         floor: floor_of(entry))
     end
 
-    # A one-floor map leaves the field empty, and every trainer inside a gym reads "Gym", neither
-    # of which tells a reader anything a card does not already say.
     def floor_of(entry) = entry["floor"].presence
 
     def tick_for(entry) = "#{entry['map']}/#{entry['marker']}"
 
-    # Route 10 is one map walked twice, so its six trainers have to be dealt out between the two
-    # passes. Three pockets, not two: the Jr Trainer below the Poké Center is on the north half,
-    # the Hikers, a Pokémaniac and the second Jr Trainer are past the tunnel, and the Pokémaniac
-    # guarding the Power Plant's door stands on a middle strip walled off by water. That one is
-    # listed on the north half, where the walkthrough tells you to come back for it with Surf.
-    #
-    # Route 20 splits the same way and for a plainer reason: a rock wall runs the height of the map
-    # between the two halves, so the three swimmers east of it and the Beauty on the island the
-    # cave is entered from are the first pass, and the six between the far mouth and Cinnabar are
-    # the second. Nothing is reachable from both.
     ROSTER_SPLIT = {
       "route-10" => %w[JR_TRAINER_F:7 POKEMANIAC:1],
       "route-10-south" => %w[POKEMANIAC:2 HIKER:7 HIKER:8 JR_TRAINER_F:8],
@@ -1196,10 +970,6 @@ module Walkthrough
         .fetch("encounters").freeze
     end
 
-    # Where one species really spawns inside a location, floor by floor. Gen 1 gives every map its
-    # own table, so a cave's floors disagree on both who is there and how often: Sandshrew is on
-    # Mt. Moon 1F alone, and Clefairy climbs from 1.2% there to 10.5% on B2F. A single headline
-    # rate cannot say that, so the card lists the places and lets the player pick the best one.
     def encounter_places(slug, dex)
       wild_tables.fetch(slug, []).filter_map do |place|
         row = place.fetch("mons").find { |mon| mon["dex"] == dex }
@@ -1211,10 +981,6 @@ module Walkthrough
       end
     end
 
-    # Item-givers and easter-egg NPCs are curated, not derivable from the map data the way
-    # trainers and item balls are, so they live in a hand-authored overlay keyed by map name
-    # and join onto the generated markers at load. Positions are the game's own object
-    # coordinates, turned into percentages here the same way the generator does.
     def npc_overlay
       @npc_overlay ||= JSON.parse(File.read(File.join(__dir__, "#{self::DATA_PREFIX}_npcs.json"))).freeze
     end
@@ -1223,7 +989,6 @@ module Walkthrough
       manifest.fetch("locations").transform_values do |maps|
         maps.map do |m|
           base = m.fetch("markers", []).map { |k| map_marker(k) }
-          # NPCs are their own category, so they number from N1 like every other kind does.
           npcs = npc_overlay.fetch(m["name"], []).each_with_index.map do |n, i|
             npc_marker(n, m["width"], m["height"], key_letter(i))
           end
@@ -1234,21 +999,15 @@ module Walkthrough
       end
     end
 
-    # A few places do something the map data cannot state (the Name Rater renames a Pokémon but
-    # gives nothing; the Viridian house is pure flavor), so a hand-authored overlay keyed by map
-    # const pins a locale key onto them, the same curated-overlay pattern as the NPC markers.
     def place_notes
       @place_notes ||= JSON.parse(File.read(File.join(__dir__, "#{self::DATA_PREFIX}_place_notes.json"))).freeze
     end
 
-    # What is behind each door, generated from the disassembly next to the map manifest.
     def place_facts
       @place_facts ||= JSON.parse(File.read(File.join(__dir__, "#{self::DATA_PREFIX}_places.json")))
         .fetch("places").to_h { |const, facts| [ const, place(const, facts) ] }.freeze
     end
 
-    # Price + sprite-picking facts for every shop item, generated alongside the place facts and
-    # keyed by the display name a mart's stock uses, so a stock line joins straight onto it.
     def item_catalog
       @item_catalog ||= JSON.parse(File.read(File.join(__dir__, "#{self::DATA_PREFIX}_places.json")))
         .fetch("items").freeze
@@ -1292,7 +1051,6 @@ module Walkthrough
         note: data["note"], ref: data["ref"])
     end
 
-    # An NPC pin's key: the same N1, N2 ... shape the generator gives every other category.
     def key_letter(index) = "N#{index + 1}"
 
     def step_shots = manifest.fetch("step_shots", {})
@@ -1526,14 +1284,6 @@ module Walkthrough
       )
     end
 
-    # Declarative per-item steps: each def is a narrative beat ({}), a visible overworld item
-    # ({ item: [name, key], scene:, at: }) whose GB-screen shot names the ball, one or more key
-    # items handed over together ({ items: [[name, key], ...] }), or a hidden item
-    # ({ hidden: [name, key, scene, pin], at: }) whose found-frame panel carries its own shot.
-    #
-    # `gift: [slug, key]` claims an NPC gift another stop already flags as locked, naming that
-    # stop's `later` entry. A ball resolves its tick from the map pin it shares, but a gift has no
-    # pin, so this is what stops the two cards drifting onto separate progress ids.
     def build_steps(base, defs, pins = {})
       defs.each_with_index.map do |d, i|
         n = i + 1
@@ -1544,14 +1294,6 @@ module Walkthrough
       end
     end
 
-    # A step's GB screens. `scene:` is usually one frame name, labelled with the step it belongs
-    # to; a step that shows two things (the staircase you climb and the one you land beside) gives
-    # [name, label] pairs instead, so each frame wears the floor it is taken on rather than a
-    # number both would share.
-    #
-    # Several frames also earn a caption apiece, keyed by their place in the strip: the step's own
-    # text describes the whole move, and what the reader needs beside each picture is the one thing
-    # that picture proves. Frames run in walk order, so the key is the move, not the floor.
     def step_scenes(base, scene, n)
       return [] if scene.nil?
       return [ scene_shot(scene, "STEP #{n}") ] if scene.is_a?(String)
@@ -1603,20 +1345,14 @@ module Walkthrough
     WHERE_LABEL = "WHERE".freeze
     INSIDE_LABEL = "INSIDE".freeze
 
-    # As with the sprites, a game that adds trainer classes spells out any whose display name is
-    # not just its constant with the underscores taken out.
     def class_labels = @class_labels ||= CLASS_LABELS.merge(self::EXTRA_CLASS_LABELS).freeze
 
     def class_label(const) = class_labels.fetch(const) { const.tr("_", " ") }
 
-    # A game that adds trainer classes of its own says so in EXTRA_CLASS_SPRITES; the base set
-    # is every class Gen 1 shipped with.
     def class_sprites = @class_sprites ||= CLASS_SPRITES.merge(self::EXTRA_CLASS_SPRITES).freeze
 
     def trainer_sprite(cls, name) = (name && NAME_SPRITES[name]) || class_sprites.fetch(cls)
 
-    # `opp` is the map object's [OPP_CLASS, party] pair; it resolves the marker letter in
-    # attach_maps so the card and its pin agree. Omit it and the card just carries no letter.
     def tr(cls, name, reward, *team, sprite: nil, where: nil, battle: nil, opp: nil, tick: nil,
                 note: nil, note_link: nil)
       Trainer.new(cls: cls, name: name, reward: reward, team: team,
@@ -1646,7 +1382,6 @@ module Walkthrough
         shot: scene && scene_shot(scene, "STEP #{n}"), answers: quiz ? quiz_answers(quiz) : [])
     end
 
-    # The answer key for a gym's quiz doors, straight from the generated place facts.
     def quiz_answers(map_const) = place_facts.fetch(map_const).gym.quiz
 
     def route_3
@@ -1666,10 +1401,6 @@ module Walkthrough
       )
     end
 
-    # Route 4 wraps around Mt. Moon: its west sliver (the Mt. Moon Poke Center and cave mouth) is
-    # walked at the end of leg 3, and its east half (items, then Cerulean) after the cave in leg 4.
-    # This is the leg-3 approach section, sharing Route 4's map; the Magikarp salesman trivia lives
-    # here because the Poke Center is on this side.
     def route_4_mt_moon
       loc("route-4-mt-moon", "ROUTE", "Route 4", 10, steps: 2, shots: [ 2 ],
         pins: { 1 => { center: "route-4/exit-11-5" }, 2 => { cave: "route-4/exit-18-5" } },
@@ -1743,10 +1474,6 @@ module Walkthrough
         key_items: { 3 => [ [ "Bicycle", "bicycle" ] ] },
         encounters: [
           enc("cerulean-city", "001", "GIFT", "-", "10", "GIFT", "001", "002", "003", tip: true, from: true, unlock: "pokemon/yellow/025.png"),
-          # #151 sits in no encounter table in the cartridge. The only body a Yellow file can
-          # produce is the Trainer-Fly glitch, and Cerulean is where it is earliest and cleanest,
-          # so it stands with the city's catches as the certain thing a static is: Lv 7, one
-          # sprite, no roll against you.
           enc("cerulean-city", "151", "STATIC", "-", "7", "STATIC", "151", tip: true),
           enc("cerulean-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
           enc("cerulean-city", "060", "GOOD ROD", "50%", "10", "COMMON", "060", "061", "062"),
@@ -1856,8 +1583,6 @@ module Walkthrough
         ])
     end
 
-    # One shore, listed the same on both passes: the water does not change while you are on the
-    # ship, and the Old Rod the first pass hands you only becomes castable on the return.
     def vermilion_water
       [
         enc("vermilion-city", "129", "OLD ROD", "100%", "5", "COMMON", "129", "130"),
@@ -1865,16 +1590,11 @@ module Walkthrough
         enc("vermilion-city", "118", "GOOD ROD", "50%", "10", "COMMON", "118", "119"),
         enc("vermilion-city", "072", "SUPER ROD", "90%", "10–20", "COMMON", "072", "073"),
         enc("vermilion-city", "116", "SUPER ROD", "10%", "5", "UNCOMMON", "116", "117"),
-        # The dock is its own map with its own Super Rod slots; these two live only out there.
         enc("vermilion-city", "120", "SUPER ROD", "20%", "15", "UNCOMMON", "120", "121"),
         enc("vermilion-city", "090", "SUPER ROD", "10%", "10", "UNCOMMON", "090", "091")
       ]
     end
 
-    # Vermilion is walked twice, the way Route 4 is walked twice around Mt. Moon. The gym plaza is
-    # sealed off by cuttable trees and the Max Ether sits on water, so the first pass can only take
-    # the two gifts and board the ship; Surge, the Squirtle he unlocks and the road east all belong
-    # to the return trip, once the S.S. Anne has handed over Cut.
     def vermilion_city
       b = base("vermilion-city")
       Location.new(
@@ -1917,9 +1637,6 @@ module Walkthrough
     end
 
     def ss_anne
-      # Straight below to the crew deck, back up through 1F stern to bow, then over 2F to the
-      # bow deck and down again, so each floor is swept once and the ship is crossed twice
-      # instead of four times.
       loc("ss-anne", "SHIP", "S.S. Anne", 18, steps: [
           { pins: { down: "ss-anne-1f/exit-37-15", cabin: "ss-anne-b1f/exit-23-3" } },
           { item: [ "Max Potion", "max-potion" ], scene: "ss-anne-item-max-potion" },
@@ -1980,13 +1697,6 @@ module Walkthrough
         oak_queue: [ oak("route-11", "096", 1) ])
     end
 
-    # The tunnel is two screens of Diglett, but its north door is the back way into the half of
-    # Route 2 that Cut walled off on the first pass. So the stop is the whole loop: out at the top,
-    # down the east side for Flash, the Mr. Mime trade, the Moon Stone and the HP Up, on into
-    # Viridian for the Dream Eater TM, then back through the tunnel for Cerulean. Route 2 and
-    # Viridian City lend their maps (MAP_EXTRA) so every pin the detour names is on this page.
-    # Shared by the encounter cards and the grind spot, which reads the same rates and level bands
-    # rather than repeating them.
     def digletts_cave_encounters
       @digletts_cave_encounters ||= [
         enc("digletts-cave", "050", "CAVE", "94%", "15–22", "COMMON", "050", "051"),
@@ -2184,10 +1894,6 @@ module Walkthrough
         oak_queue: [ oak("fuchsia-city", "130", 1) ])
     end
 
-    # Koga is the one gym the guide cannot take on the way in: the Safari Zone next door holds the
-    # Gold Teeth the Warden trades for HM04 Strength, and the park's own gate turns you out the
-    # moment your steps run down. So the city is walked twice, and the badge belongs to the second
-    # pass, the way Celadon's does after the hideout.
     def fuchsia_city_return
       b = base("fuchsia-city-return")
       Location.new(
@@ -2258,9 +1964,6 @@ module Walkthrough
         ])
     end
 
-    # Route 16's one grass table, listed by both passes: the strip the Fly detour cuts into is the
-    # same patch leg 12 walks past on the way to Cycling Road, so the same five turn up on both
-    # pages and one catch ticks off on either.
     def route_16_grass
       [
         enc("route-16", "084", "GRASS", "40%", "22–26", "COMMON", "084", "085"),
@@ -2324,9 +2027,6 @@ module Walkthrough
           house: "route-18-gate", inside: "route-18-gate-inside") ])
     end
 
-    # Both halves of the dojo's prize are listed, the way Cinnabar lists all three fossils: one
-    # cartridge only ever revives one of a pair, but a living dex still owes the other, and the
-    # card that says so is the one that tells you the choice is permanent.
     def saffron_city
       loc("saffron-city", "CITY", "Saffron City", 41, steps: 2,
         pins: { 1 => { dojo: "saffron-city/exit-26-3" },
@@ -2339,19 +2039,11 @@ module Walkthrough
         oak_queue: [ oak("saffron-city", "106", 1), oak("saffron-city", "107", 1) ])
     end
 
-    # The Fighting Dojo, read out of the game. The Karate Master is the BLACKBELT party 1 of
-    # data/maps/objects/FightingDojo.asm, his four students are parties 2 to 5, and the two gift
-    # balls sit against the top wall with Hitmonlee on the left. Both are handed over at `ld c, 30`
-    # in scripts/FightingDojo.asm, after the Pokédex page and a yes/no; open one and the other only
-    # answers "Better not get greedy...".
     DOJO_MAP = "saffron-city-dojo".freeze
     DOJO_LEVEL = 30
     DOJO_STEPS = 2
     MASTER_OPP = [ "BLACKBELT", 1 ].freeze
 
-    # Level-1 learnsets from data/pokemon/base_stats/, the rest from data/pokemon/evos_moves.asm.
-    # Yellow's lists are its own: Hitmonlee gets Hi Jump Kick at 48 here, not the 53 later
-    # generations moved it to, and neither of them learns anything at all before 33.
     DOJO_PICKS = [
       [ "left", "106", [ "DOUBLE KICK", "MEDITATE" ],
         [ [ "ROLLING KICK", 33 ], [ "JUMP KICK", 38 ], [ "FOCUS ENERGY", 43 ],
@@ -2361,8 +2053,6 @@ module Walkthrough
           [ "MEGA PUNCH", 48 ], [ "COUNTER", 53 ] ] ]
     ].freeze
 
-    # The four the choice actually turns on. Both have 50 HP and the same 35 Special, so a full
-    # stat block would spend two rows saying the pair are identical where it matters least.
     DOJO_STATS = %w[attack speed defense special].freeze
 
     def fighting_dojo
@@ -2392,9 +2082,6 @@ module Walkthrough
         note_key: "#{b}.choice.#{mon_key(dex)}")
     end
 
-    # `lead` is the head-to-head: the bar lights up on the stat this one of the pair actually wins,
-    # so the two cards read as one comparison rather than two stat blocks. Special is a tie at 35,
-    # which lights neither and says the true thing about both.
     def dojo_stats(dex, other, best)
       mine, theirs = dex_facts.fetch(dex), dex_facts.fetch(other)
       DOJO_STATS.map do |key|
@@ -2404,10 +2091,6 @@ module Walkthrough
       end
     end
 
-    # Saffron is walked twice for the reason the city itself gives: the gym's doors are Rocket-held
-    # until Silph is cleared, so arriving and challenging Sabrina are two visits with a dungeon
-    # between them. Splitting the page splits the badge off with the second, which is what puts
-    # Oak's deadline for the Marsh Badge in front of the gym that closes it rather than behind.
     def saffron_city_return
       b = base("saffron-city-return")
       Location.new(
@@ -2417,29 +2100,12 @@ module Walkthrough
         encounters: [], trainers: [], oak_queue: [],
         gym: gym("saffron-city", "Saffron Gym", "PSYCHIC", "MARSH", "TM46 · PSYWAVE",
           leader("Sabrina", 4950, mon("063", 50), mon("064", 50), mon("065", 50), battle: scene_shot("battle-sabrina", "BATTLE"), opp: [ "SABRINA", 1 ]),
-          # One step and no shot of its own: the floor drawn above it, with the line on, is the
-          # whole instruction, and anything else here is a second telling of the same thing.
           puzzle: [ gstep("saffron-city", 1) ])
       )
     end
 
-    # Eleven floors taken in the one order that costs the least walking, which is not floor by
-    # floor: the lift goes straight to 5F for the Card Key, and only then does the climb start at
-    # 2F, so every barrier above it opens on the first pass instead of needing a second trip. The
-    # three floors the story sits on (3F, 7F, 11F) are reached by warp pad at the end, once the
-    # optional Rockets are cleared and the 9F nurse can still heal, because beating Giovanni empties
-    # the building. `tools/maps/paths.py` letters the pins along this same walk.
-    # Everything in the game that Surf unlocks and nothing else reaches, on one page. By the time
-    # HM03 is in the bag these are the only three things left behind anywhere, so they are swept in
-    # the order the guide first walked past them rather than in the order Fly would take you. Each
-    # is already flagged where the reader met it (a `later` card, needing Surf); this is the stop
-    # that goes back, and both cards carry the same tick so collecting it here reads as collected
-    # there. The page owns no map: it borrows the three it walks onto (MAP_EXTRA).
     def surf_cleanups
       loc("surf-cleanups", "CLEANUP", "Surf Cleanups", 41, steps: [
-          # Route 10 carries a hidden Max Ether of its own, so the Vermilion one names its cell:
-          # a card takes its tick from the one pin that matches its name, and two would leave it
-          # with none.
           { map: "vermilion-city",
             hidden: [ "Max Ether", "max-ether", "vermilion-city-hidden-max-ether",
                       "vermilion-city-max-ether" ], at: [ 14, 11 ] },
@@ -2452,8 +2118,6 @@ module Walkthrough
           { map: "celadon-city" },
           { map: "route-12", item: [ "TM Pay Day", "tm-pay-day" ],
             scene: "route-12-item-tm-pay-day" },
-          # The same gift the Route 11 page offers, claimed here for the reader who walked past it
-          # thirty species short. One id between them, so it ticks on both.
           { map: "route-12", items: [ [ "Itemfinder", "itemfinder" ] ],
             gift: [ "route-11", "itemfinder" ], scene: "route-11-gate-itemfinder",
             pins: { west: "route-12/exit-west" } },
@@ -2462,10 +2126,6 @@ module Walkthrough
           { map: "route-10",
             pins: { trainer: "route-10/trainer-10-44", door: "route-10/exit-6-39" } }
         ],
-        # The whole table of both routes it stops on, not only the water: the page draws each map
-        # with what lives on it, and a reader looking at Route 6 wants to know what is in the grass
-        # as well. The Route 12 Snorlax is the one thing left out, because the guide woke it with
-        # the Poke Flute pages ago and a STATIC card here would offer a catch that is gone.
         encounters: [
           enc("route-6", "016", "GRASS", "40%", "15–17", "COMMON", "016", "017", "018"),
           enc("route-6", "019", "GRASS", "30%", "14–16", "COMMON", "019", "020"),
@@ -2493,15 +2153,7 @@ module Walkthrough
           enc("route-12", "116", "SUPER ROD", "70%", "20–25", "COMMON", "116", "117"),
           enc("route-12", "117", "SUPER ROD", "30%", "25–35", "COMMON", "116", "117")
         ],
-        # The one trainer the sweep really fights. Route 10's other five are on the road either side
-        # of Rock Tunnel and were cleared on the way through; this Pokemaniac stands on a bank the
-        # road never touches, so he waits for Surf. Built from Route 10's own roster entry, so the
-        # card carries the same letter, the same prize and the same tick as it does over there.
         trainers: [ roster_trainer(roster_for("route-10").find { |e| e["marker"] == "trainer-10-44" }) ],
-        # Four species the dex could never own before this page, so the queue explains itself
-        # rather than falling back on the generic lines: "you are walking through here anyway" is
-        # false of a stop you Fly to on purpose, and "take the rest of the line there" would point
-        # a reader at the page they are already reading.
         oak_queue: [ oak("surf-cleanups", "054", 1), oak("surf-cleanups", "055", 1),
                      oak("surf-cleanups", "079", 1), oak("surf-cleanups", "080", 1) ])
     end
@@ -2611,9 +2263,6 @@ module Walkthrough
         ])
     end
 
-    # The same map again, west of the rock wall. It carries no encounter tables of its own: they
-    # belong to Route 20 and the first pass already prints them, so a second copy would tell the
-    # reader the water holds twice what it holds.
     def route_20_west
       loc("route-20-west", "ROUTE", "Route 20", 43, steps: 2,
         pins: { 1 => { mouth: "route-20/exit-58-9" }, 2 => { west: "route-20/exit-west" } })
@@ -2672,13 +2321,8 @@ module Walkthrough
         oak_queue: [ oak("seafoam-islands", "086", 1), oak("seafoam-islands", "144", 1) ])
     end
 
-    # Two passes, because the gym's own door is what the island cannot open on arrival: the Secret
-    # Key is in the Mansion across the street. So the first pass is the lab, which takes the
-    # fossils in and needs time to revive them anyway, and the badge waits for the page after.
     def cinnabar_island
       loc("cinnabar-island", "TOWN", "Cinnabar Island", 45,
-        # The lab's three doors, left to right along its back wall, named by the game's own signs:
-        # Meeting Room, R-and-D Room, Testing Room.
         steps: [
           { scene: "cinnabar-lab-trades", pins: { lab: "cinnabar-island/exit-6-9" } },
           { item: [ "TM Metronome", "tm-metronome" ], scene: "cinnabar-lab-item-tm-metronome" },
@@ -2707,8 +2351,6 @@ module Walkthrough
         oak_queue: [ oak("cinnabar-island", "138", 1), oak("cinnabar-island", "140", 1), oak("cinnabar-island", "142", 1) ])
     end
 
-    # The island again, Secret Key in hand. The gym copy stays under the first pass's own keys, the
-    # way Fuchsia's does: it is the same gym, described once, shown on the page that walks it.
     def cinnabar_island_return
       b = base("cinnabar-island-return")
       Location.new(
@@ -2781,9 +2423,6 @@ module Walkthrough
         oak_queue: [ oak("pokemon-mansion", "037", 1), oak("pokemon-mansion", "058", 1), oak("pokemon-mansion", "126", 1) ])
     end
 
-    # The town the run started in, walked once more on the way out of the water. Nothing here has
-    # changed and nothing is left to take, so it is one step: the road north, or the Fly that skips
-    # it. It reads the first pass's map, the way every other second visit does.
     def pallet_town_return
       b = base("pallet-town-return")
       Location.new(
@@ -2794,9 +2433,6 @@ module Walkthrough
       )
     end
 
-    # The city whose gym has been locked since leg 2, with the seven badges that open it now in the
-    # case. One step, because the town's own errands were all done on the first pass; the mart is
-    # here because it is the last counter before Victory Road, not because it stocks anything new.
     def viridian_city_return
       b = base("viridian-city-return")
       Location.new(
@@ -2810,12 +2446,6 @@ module Walkthrough
 
     GYM_FLOOR = "viridian-gym".freeze
 
-    # The eighth badge, on the one gym floor the hero is shoved across rather than walked. The map
-    # carries the line `spinners.STOPS` solves, its pins are lettered along that same line
-    # (`paths.ROUTES`), and the steps below walk it leg by leg, so a reader following the arrows
-    # meets T1 first and picks up I1 where the line runs over it. The rides are the legs worth a
-    # picture of their own: a step that says "step on the arrow and be thrown six tiles west" is
-    # exactly the kind of thing prose cannot draw.
     def viridian_gym
       loc("viridian-gym", "GYM", "Viridian Gym", 48, steps: [
           { pins: { tamer: "viridian-gym/trainer-2-16" }, line: [ GYM_FLOOR, 1 ] },
@@ -2824,30 +2454,17 @@ module Walkthrough
           { pins: { blackbelt: "viridian-gym/trainer-11-11", tamer: "viridian-gym/trainer-10-7" },
             line: [ GYM_FLOOR, 4, 5 ] },
           { pins: { cooltrainer: "viridian-gym/trainer-13-5" }, line: [ GYM_FLOOR, 6 ] },
-          # The step the whole back half of the floor turns on: he walks down the column at you and
-          # stays there, which shuts it and opens the doorway at its head. `spinners.WALKS_UP` is
-          # the same fact, so the drawn line comes back in through that doorway rather than up the
-          # column it can no longer use.
           { pins: { blackbelt: "viridian-gym/trainer-10-1" }, line: [ GYM_FLOOR, 7 ] },
-          # No cropped leg of its own: the ball sits in a one-tile alcove off the chamber's top
-          # wall, and the GB screen of the ball in it says where it is better than a line would.
           { item: [ "Revive", "revive" ], scene: "viridian-gym-item-revive" },
           { line: [ GYM_FLOOR, 9 ] },
           { pins: { cooltrainer: "viridian-gym/trainer-6-5" } },
           { pins: { giovanni: "viridian-gym/trainer-2-1" }, line: [ GYM_FLOOR, 10 ] },
           {}
         ], gym_after: 10, badge: "EARTH",
-        # No puzzle block of its own: the walk below the floor is the solution, drawn on the floor
-        # and written out a ride at a time, and a second list of rules above it would be the same
-        # instruction told twice.
         gym: gym("viridian-gym", "Viridian Gym", "GROUND", "EARTH", "TM27 · FISSURE",
           leader("Giovanni", 5445, mon("051", 50), mon("053", 53), mon("031", 53), mon("034", 55), mon("112", 55), battle: scene_shot("battle-giovanni-viridian", "BATTLE"), opp: [ "GIOVANNI", 3 ])))
     end
 
-    # Route 22 again, walked west out of Viridian with all eight badges. Nothing on it has changed
-    # but the person standing on it: Blue is waiting at the same spot he picked the first fight,
-    # and this time he brings six at Lv 45-53. The road's own copy, its grass and the first fight
-    # stay under the first pass's keys, the way every other second visit does.
     def route_22_return
       b = base("route-22-return")
       Location.new(
@@ -2859,11 +2476,6 @@ module Walkthrough
           step(b, 3, pins: { gate: "route-22/exit-8-5", north: "route-22/exit-north" })
         ],
         encounters: [], oak_queue: [],
-        # The last of the six Blue fights before the Champion, and the one the Eevee recipe has
-        # been building to: the Eevee is long since evolved, and which of the three it became also
-        # decides the two slots below it (two of Ninetales, Cloyster and Magneton). The card shows
-        # the Jolteon line-up and carries a note back to the recipe on leg 1 rather than drawing an
-        # Eevee nobody fights.
         trainers: [ rival(3445, mon("028", 47), mon("102", 45), mon("038", 45), mon("091", 47),
           mon("064", 50), mon("135", 53),
           where: scene_shot("route-22-rival", "WHERE"),
@@ -2877,13 +2489,6 @@ module Walkthrough
     VR_2F = "victory-road-2f".freeze
     VR_3F = "victory-road-3f".freeze
 
-    # Three floors climbed in six passes, because each switch opens a barrier somewhere you have
-    # already walked past, and the four ladders between 2F and 3F drop you in four different
-    # corners. Every push is drawn (`tools/maps/boulders.py`), which is the only honest way to give
-    # a shove: "one left, two down and two left" is four sentences of counting squares against a
-    # picture that shows neither the square the boulder starts on nor the one it ends in. The steps
-    # walk the floors in the order `paths.ROUTES` letters their pins, so the trainer you meet first
-    # is T1 and the ball you reach first is I1 on every one of them.
     def victory_road
       loc("victory-road", "CAVE", "Victory Road", 51,
         steps: [
@@ -2963,17 +2568,11 @@ module Walkthrough
         ])
     end
 
-    # Four plates, then the throne. The rooms are dressed here (accent, roman numeral, which side
-    # of the stage that numeral sits on); everything a plate says about a team it reads off the
-    # stop's own trainer card, so the page and the card cannot disagree about a level.
     LEAGUE_ROOMS = [
       [ "lorelei", "cyan", "I", false ], [ "bruno", "amber", "II", true ],
       [ "agatha", "magenta", "III", false ], [ "lance", "cyan", "IV", true ]
     ].freeze
 
-    # Blue's Champion team comes in three (Rival3Data, picked by wRivalStarter). The first three
-    # slots never move; the last three swap around whichever Eeveelution his Eevee became, so the
-    # page carries the head of the card the stop already holds and deals the tails itself.
     CHAMPION_TAILS = [
       [ "jolteon", "135", [ [ "091", 61 ], [ "038", 63 ], [ "135", 65 ] ] ],
       [ "flareon", "136", [ [ "082", 61 ], [ "091", 63 ], [ "136", 65 ] ] ],
@@ -3003,10 +2602,6 @@ module Walkthrough
       LeagueChampion.new(trainer: card, teams: teams)
     end
 
-    # The League panel is this page's hall, the way a gym is anywhere else, so `gym_after` splits
-    # the walk around it: the one step in is read before the five rooms, and the step out (where
-    # the file goes once the credits have rolled) below them, where a reader who has just beaten
-    # Blue is looking.
     def indigo_plateau
       loc("indigo-plateau", "BUILDING", "Indigo Plateau", 52, gym_after: 1,
         steps: [
@@ -3032,13 +2627,6 @@ module Walkthrough
         ])
     end
 
-    # The way to the cave door, which is not a road: the door opens onto a strip of sand at
-    # Cerulean's west edge that nothing on land reaches, so the approach is Route 24's river,
-    # south past the bridge and down the city's west side. That sand runs on west into Route 4's
-    # top shelf, fenced off from the rest of the route by ledges that only ever hop west, which is
-    # why the Lass standing on it is the one trainer the first lap had to walk away from. It shares
-    # the cave's stop number, the way the Surf sweep shares Saffron's: the swim is the last stretch
-    # of the walk into stop 53, not a stop of its own.
     def route_4_return
       loc("route-4-return", "ROUTE", "Route 4", 53, title: "Route 4 → Cerulean Cave",
         steps: [
@@ -3053,13 +2641,6 @@ module Walkthrough
         ])
     end
 
-    # Three floors, seven ladders and not one of them optional. Each floor is sealed into pockets
-    # that share no wall, so a ladder only ever reaches the quarter of the far floor it opens onto
-    # and the way down is 1F, 2F, 1F, 2F, 1F, 2F, 1F, B1F: eight legs, each one a ladder, a couple
-    # of prizes and the next ladder. The steps run in that order, and so do the pin letters
-    # (tools/maps/paths.py names every one of them), so a reader climbing the eighth ladder has
-    # picked up I1 through I4 on the floor they are leaving rather than hunting a letter two
-    # visits back.
     def cerulean_cave
       loc("cerulean-cave", "CAVE", "Cerulean Cave", 53,
         steps: [
@@ -3116,11 +2697,8 @@ module Walkthrough
         oak_queue: [ oak("cerulean-cave", "150", 1), oak("cerulean-cave", "113", 1) ])
     end
 
-    # What a finished file still has in front of it, in the order it is worth doing.
     TRUE_ENDING_TILES = %w[dex cable league mew].freeze
 
-    # The sign-off under the last stop of the last page. Both legendaries hang off it: the one you
-    # have just caught, and the one Yellow ships no encounter for.
     def true_ending(loc)
       TrueEnding.new(anchor: "true-ending", copy_key: "#{base(loc.slug)}.ending",
         tiles: TRUE_ENDING_TILES, league_leg: "indigo-plateau",
@@ -3174,10 +2752,6 @@ module Walkthrough
         oak_queue: [ oak("route-10", "081", 1) ])
     end
 
-    # Rock Tunnel splits Route 10 in two, so the guide walks it twice: the Poké Center and the
-    # north mouth on the way in, the road to Lavender once you surface at the south mouth. The
-    # south half borrows the north half's map (MAP_SOURCE), so both pages hand the reader the same
-    # markers and the same ticks.
     def route_10_south
       loc("route-10-south", "ROUTE", "Route 10", 22, steps: [
           { hidden: [ "Max Ether", "max-ether", "route-10-hidden-max-ether", "route-10-max-ether" ],
@@ -3187,10 +2761,6 @@ module Walkthrough
     end
 
     def rock_tunnel
-      # 1F is three regions with no path between them: the north mouth reaches only ladder 1, and
-      # the south mouth only the ladder you come back up. B1F is the one floor that joins them, so
-      # the crossing is forced rather than chosen, and the middle pair of 1F ladders leads to a
-      # trainer pocket holding nothing.
       loc("rock-tunnel", "CAVE", "Rock Tunnel", 23,
         pins: { 2 => { down: "rock-tunnel-1f/exit-37-3" }, 3 => { up: "rock-tunnel-b1f/exit-3-3" } },
         steps: [
@@ -3236,9 +2806,6 @@ module Walkthrough
         ])
     end
 
-    # The second of Saffron's two tunnels, and the one the guide takes: Route 8 down, Route 7 up,
-    # under the guards who want a drink. Nothing lives down here and nobody walks it, but two
-    # hidden items sit on the floor and neither shows on-screen.
     def underground_path_west_east
       loc("underground-path-west-east", "TUNNEL", "Underground Path", 26, steps: [
           { pins: { in: "underground-path-west-east/exit-47-2" },
@@ -3287,8 +2854,6 @@ module Walkthrough
         oak_queue: [ oak("celadon-city", "133", 1) ])
     end
 
-    # The walkthrough clears the Rocket Hideout before it takes the badge, so Celadon is walked
-    # twice and the gym rides on the second visit, the way Vermilion's does after the S.S. Anne.
     def celadon_city_return
       b = base("celadon-city-return")
       Location.new(
@@ -3306,11 +2871,6 @@ module Walkthrough
       )
     end
 
-    # Fly sits one route west of Celadon, and the walkthrough picks it up the moment Erika is beaten
-    # rather than at Cycling Road, where the route is properly walked: the badge run turns round for
-    # Lavender here, so a ride back to every town already visited is worth more now than it will be
-    # eight stops later. The stop borrows Route 16's map and leaves the Snorlax, the road and the
-    # grass to leg 12, which shares that map's pins and its ticks.
     def route_16_fly
       loc("route-16-fly", "ROUTE", "Route 16", 37, title: "Route 16 Fly Detour",
         steps: [
@@ -3322,12 +2882,6 @@ module Walkthrough
         encounters: route_16_grass, trainers: [], oak_queue: [ oak("route-16", "084", 1) ])
     end
 
-    # The two arrow-tile floors, named once so the step defs below can point at the legs of their
-    # drawn routes without repeating the map name. A step carries a `line:`, and so a map of its
-    # own, when its walk goes into the maze: not only the rides, since threading between the
-    # arrows to follow a wall out is just as hard to read off prose as the ride in. The rest are
-    # plain corridor walks (in at the door, round to the Rocket, out to the stairs), and a picture
-    # of a corridor is a picture of nothing. `test_spinners.py` pins which legs those are.
     B2F = "rocket-hideout-b2f".freeze
     B3F = "rocket-hideout-b3f".freeze
 
@@ -3418,9 +2972,6 @@ module Walkthrough
           enc("power-plant", "100", "FLOORS", "20%", "33–37", "UNCOMMON", "100", "101"),
           enc("power-plant", "088", "FLOORS", "15%", "33–37", "UNCOMMON", "088", "089"),
           enc("power-plant", "089", "FLOORS", "6%", "33–37", "RARE", "088", "089"),
-          # The disguised balls are catches, not just ambushes: six hold a Voltorb and two an
-          # Electrode, which has no wild table anywhere in Yellow and is otherwise only had by
-          # levelling a spare Voltorb to 30.
           enc("power-plant", "100", "STATIC", "-", "40", "STATIC", "100", "101", off_table: true),
           enc("power-plant", "101", "STATIC", "-", "43", "STATIC", "100", "101", tip: true),
           enc("power-plant", "145", "STATIC", "-", "50", "STATIC", "145", tip: true)
@@ -3454,9 +3005,6 @@ module Walkthrough
         dex_seen: dex_seen && dex_seen(base, n, *dex_seen))
     end
 
-    # The dex screen for a species a step shows you but does not let you catch. The numbers, the
-    # species line and the entry text all come out of the game; only the "catch it later" line is
-    # ours, so only that one is a locale key.
     def dex_seen(base, n, num)
       entry = dex_facts.fetch(num)
       DexSeen.new(num: num, name: entry.fetch("name"), species: entry.fetch("species"),
@@ -3469,8 +3017,6 @@ module Walkthrough
       @dex_facts ||= JSON.parse(File.read(File.join(__dir__, "#{self::DATA_PREFIX}_dex.json"))).fetch("dex").freeze
     end
 
-    # The game spells a few items differently from their PokeAPI sprite file, so pin those here;
-    # every other name kebab-cases straight onto its sprite.
     ITEM_SPRITES = {
       "TM34 Bide" => "tm-normal", "Oak's Parcel" => "oaks-parcel", "TM42 Dream Eater" => "tm-psychic",
       "HM05 Flash" => "tm-normal", "HM01 Cut" => "tm-normal", "HM02 Fly" => "tm-flying",
@@ -3482,26 +3028,18 @@ module Walkthrough
       ITEM_SPRITES.fetch(name) { tm_sprite(name) || name.downcase.gsub("é", "e").gsub(/[^a-z0-9]+/, "-") }
     end
 
-    # A ground TM ball wears its move's type badge (tm-<type>), the same sprite the Mart uses, rather
-    # than a per-move icon that does not exist.
     def tm_sprite(name)
       name.start_with?("TM") ? "tm-#{item_catalog.fetch(name)['type']}" : nil
     end
 
-    # Cities (and Lavender Town) with a Poké Mart, mapped to the map const whose generated stock
-    # the section lists. Celadon is the Dept. Store, built floor by floor below.
     MART_CONSTS = {
       "viridian-city" => "VIRIDIAN_MART", "pewter-city" => "PEWTER_MART",
       "cerulean-city" => "CERULEAN_MART", "vermilion-city" => "VERMILION_MART",
       "lavender-town" => "LAVENDER_MART", "fuchsia-city" => "FUCHSIA_MART",
       "saffron-city" => "SAFFRON_MART", "cinnabar-island" => "CINNABAR_MART",
-      # The one counter a stop shows twice, because the two visits are forty stops apart and the
-      # shelf never restocked: the same five items that outfitted Route 1 are the last shop before
-      # Victory Road, so the second pass is worth listing if only to say what is not on it.
       "viridian-city-return" => "VIRIDIAN_MART"
     }.freeze
 
-    # The items each mart flags as worth stocking up on (the ★ rows), by display name.
     MART_RECS = {
       "viridian-city" => [ "Poké Ball", "Antidote" ], "pewter-city" => [ "Poké Ball", "Escape Rope" ],
       "cerulean-city" => [ "Poké Ball", "Repel" ], "vermilion-city" => [ "Super Potion", "Repel" ],
@@ -3510,8 +3048,6 @@ module Walkthrough
       "viridian-city-return" => [ "Antidote", "Parlyz Heal" ]
     }.freeze
 
-    # The Celadon floors whose stock the game states; the rest (services, the rooftop drinks) are
-    # arranged by hand in celadon_dept_store.
     CELADON_FLOOR_CONSTS = {
       "2F" => "CELADON_MART_2F", "4F" => "CELADON_MART_4F", "5F" => "CELADON_MART_5F"
     }.freeze
@@ -3534,8 +3070,6 @@ module Walkthrough
         rec: (rec || !rec_key.nil?), rec_key: rec_key, tick: tick)
     end
 
-    # A TM's own description would be a lie (Gen 1 gives them none), so a sold TM shows the type of
-    # move it teaches instead; the free TM18 gift passes its own written blurb.
     def mart_desc_key(name, tm, given)
       return given if given
       return nil if tm
@@ -3626,7 +3160,6 @@ module Walkthrough
         .fetch("prizes").freeze
     end
 
-    # The Game Corner's three counters, straight off the tables the prize menus read.
     def game_corner_prizes
       b = base("rocket-hideout")
       windows = prize_facts.fetch("windows").map do |window|
@@ -3652,7 +3185,6 @@ module Walkthrough
       end
     end
 
-    # Only the prizes worth a paragraph carry one; the rest state their price and stop.
     PRIZE_NOTES = [ "Vulpix", "Porygon", "Hyper Beam" ].freeze
 
     def prize_note_key(base_key, name)
@@ -3661,7 +3193,6 @@ module Walkthrough
       "#{base_key}.prizes.note_#{name.downcase.tr(' ', '_')}"
     end
 
-    # Four drinks, because the girl takes three and a Saffron gate guard wants the fourth.
     def celadon_roof_trades
       buys = [ [ 2, "Fresh Water" ], [ 1, "Soda Pop" ], [ 1, "Lemonade" ] ].map do |qty, name|
         DrinkBuy.new(qty: qty, name: name, sprite: item_sprite(name),
@@ -3676,10 +3207,6 @@ module Walkthrough
         sprite: item_sprite(name), at: at, tick: tick || authored_tick(base, "item", key))
     end
 
-    # An NPC hands this one over, so no ball on the map holds it and there is no pin to tick
-    # against. It takes an id built from the place that gives it instead, which the stop that
-    # flags it as locked and the stop that walks back for it both name, so collecting it once
-    # reads as collected on both pages.
     def gift_tick(slug, key) = "#{slug}/gift-#{key}"
 
     def slug_of(base) = base.split(".").last.tr("_", "-")
@@ -3708,8 +3235,6 @@ module Walkthrough
         tag_key: (tagged ? "#{base}.trivia.tag" : nil), warning: warning, pins: pins)
     end
 
-    # `name` is the nickname the cartridge ships, so it lives here rather than in the copy: MILES
-    # is what the Route 2 scientist calls his Mr. Mime whichever language you read the guide in.
     def trivia_warning(base, dex, name)
       TriviaWarning.new(
         title_key: "#{base}.trivia.warning.title", body_key: "#{base}.trivia.warning.body",
@@ -3718,10 +3243,6 @@ module Walkthrough
       )
     end
 
-    # The grinding spot card: two species side by side with what each knockout pays, and the Repel
-    # trick that leaves only the better one. `mons` are (dex, tone, sample level) triples; every
-    # number on the card is worked out from the game's own base stats and the location's own
-    # encounter rows, so nothing here can drift from what the cartridge does.
     GRIND_EXP_DIVISOR = 7
     GRIND_STEPS = 3
 
@@ -3739,9 +3260,6 @@ module Walkthrough
         end)
     end
 
-    # A bar's length, as a percentage of the best on offer, in fives. A width has to be a class
-    # rather than an inline style (the CSP blocks those), so it lands on one of twenty-one steps;
-    # a bar comparing two numbers reads the same at that granularity.
     FILL_STEP = 5
 
     def fill_step(value, best)

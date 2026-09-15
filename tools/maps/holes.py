@@ -23,16 +23,11 @@ from functools import cache
 
 import sources
 
-# The dungeon-warp check, and the label holding the cells handed to it. Seafoam and Victory Road
-# call the shared routine; Pokemon Mansion 3F keeps a copy of it under a local label, which is why
-# the match is on what the routine is called rather than on a single name.
 CHECK = re.compile(r"ld hl, ([\w.]+)\n\s*(?:call|jp) [\w.]*(?:DungeonWarp|FallingDownHole)")
-
 
 @cache
 def _script(root_str, map_label):
     return sources.read_data(root_str, f"scripts/{map_label}.asm", missing_ok=True)
-
 
 @cache
 def hole_cells(root_str, map_label):
@@ -52,7 +47,6 @@ def hole_cells(root_str, map_label):
     return tuple((int(x), int(y))
                  for x, y in re.findall(r"dbmapcoord\s+(\d+),\s*(\d+)", block.group(1)))
 
-
 @cache
 def landings(root_str):
     """{(destination map, position in the source floor's hole list): the cell it drops you on}.
@@ -68,7 +62,6 @@ def landings(root_str):
              for _map, x, y in re.findall(r"fly_warp (\w+),\s*(\d+),\s*(\d+)", data)]
     return dict(zip(keys, cells, strict=True))
 
-
 def _destination(root_str, map_label, slot):
     """Which map this floor's hole number `slot` drops into, or None when it is not a hole.
 
@@ -82,10 +75,8 @@ def _destination(root_str, map_label, slot):
         raise ValueError(f"{map_label}: hole {slot} names {len(found)} destinations")
     return found[0] if found else None
 
-
 def _adjacent(cell, group):
     return any(abs(cell[0] - x) + abs(cell[1] - y) == 1 for x, y in group["cells"])
-
 
 def _group(groups, cell, slot, dest, landing):
     """Fold one cell into the hole it belongs to, or open a new one for it."""
@@ -94,7 +85,6 @@ def _group(groups, cell, slot, dest, landing):
             group["cells"].append(cell)
             return
     groups.append({"cells": [cell], "slot": slot, "dest": dest, "landing": landing})
-
 
 def floor_holes(root_str, map_label):
     """One floor's holes: where you fall through, and the floor and cell you land on.
@@ -114,7 +104,6 @@ def floor_holes(root_str, map_label):
         group["center"] = (sum(xs) / len(xs), sum(ys) / len(ys))
     return groups
 
-
 @cache
 def by_map(root_str):
     """Every floor's holes, keyed by the map label they are cut into.
@@ -124,7 +113,6 @@ def by_map(root_str):
     return {label: floor_holes(root_str, label)
             for label in sources.parse_headers(root_str)
             if hole_cells(root_str, label)}
-
 
 def dropped_boulders(root_str, map_label):
     """Where the boulder each of this floor's holes drops ends up, as (destination map, cell).
@@ -147,7 +135,6 @@ def dropped_boulders(root_str, map_label):
                      if o["const"] == const), None)
         out.append((group["dest"], cell))
     return out
-
 
 def _dest_objects(root_str, map_const):
     label = next(name for name, (const, _tileset) in sources.parse_headers(root_str).items()

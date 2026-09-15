@@ -17,16 +17,13 @@ import pathlib
 REPO = pathlib.Path(__file__).resolve().parents[2]
 TOOLS = pathlib.Path(__file__).resolve().parent
 
-
 @dataclasses.dataclass(frozen=True)
 class Game:
     slug: str
     source: str
     follower: str | None
-    # Where this game's checkout lives: the variable that names it, and where to look otherwise.
     root_env: str
     default_root: str
-    # The game whose images this one falls back to, when a picture comes out the same in both.
     shares_images_with: str | None = None
 
     @property
@@ -63,7 +60,6 @@ class Game:
         """One of the JSON artefacts the Rails side reads, e.g. data("maps")."""
         return REPO / "app/models/walkthrough" / f"{self.slug.replace('-', '_')}_{name}.json"
 
-
 CATALOGUE = {
     "yellow": Game(slug="yellow", source="pret/pokeyellow", follower="SPRITE_PIKACHU",
                    root_env="POKEYELLOW", default_root="~/Code/pokeyellow"),
@@ -74,7 +70,6 @@ CATALOGUE = {
                           default_root="~/Code/Pokemon_Yellow_Legacy",
                           shares_images_with="yellow"),
 }
-
 
 def find(slug):
     try:

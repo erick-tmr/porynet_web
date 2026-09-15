@@ -25,19 +25,11 @@ import sources
 
 SLOT_TOTAL = 256
 
-# GenerateRandomFishingEncounter (engine/items/super_rod.asm) walks four slots, taking one when a
-# random byte falls under $66 / $b2 / $e5 and the fourth otherwise. Those cut points are 102, 76,
-# 51 and 27 of 256, so the Super Rod is not a flat quarter each.
 SUPER_ROD_SLOTS = (102, 76, 51, 27)
 
-# ItemUseOldRod hands over a fixed Magikarp; ItemUseGoodRod rerolls until it bites and then picks
-# evenly between the two GoodRodMons. Neither reads a per-map table, so both are the same
-# everywhere there is water to cast into. A game that gives the Old Rod a real table of its own
-# ships data/wild/old_rod.asm, and then this fallback is not consulted.
 OLD_ROD_MON = ("MAGIKARP", 5)
 
 ROD_KINDS = ("old_rod", "good_rod", "super_rod")
-
 
 @cache
 def slot_weights(root_str):
@@ -56,14 +48,12 @@ def slot_weights(root_str):
         raise ValueError(f"wild slot chances sum to {sum(weights)}, not {SLOT_TOTAL}")
     return weights
 
-
 def _slots(text, kind):
     """The ten (level, species) slots of one table, or [] when the map has none of that kind."""
     block = re.search(rf"def_{kind}_wildmons\s+(\d+)(.*?)end_{kind}_wildmons", text, re.S)
     if not block or int(block.group(1)) == 0:
         return 0, []
     return int(block.group(1)), re.findall(r"db\s+(\d+),\s*(\w+)", block.group(2))
-
 
 def table_for(root_str, map_label, kind):
     """One map's encounter table for `grass` or `water`, aggregated per species.
@@ -85,7 +75,6 @@ def table_for(root_str, map_label, kind):
         entry["levels"].append(int(level))
     return {"step_rate": step_rate, "mons": found}
 
-
 @cache
 def old_rod_mons(root_str):
     """What the Old Rod pulls up, from its own table when the game has one.
@@ -98,14 +87,12 @@ def old_rod_mons(root_str):
     return [(species, int(level))
             for level, species in re.findall(r"db\s+(\d+),\s*(\w+)", text)]
 
-
 @cache
 def good_rod_mons(root_str):
     """The two species the Good Rod alternates between, read rather than assumed."""
     text = sources.read_data(root_str, "data/wild/good_rod.asm")
     return [(species, int(level))
             for level, species in re.findall(r"db\s+(\d+),\s*(\w+)", text)]
-
 
 @cache
 def super_rod_slots(root_str):
@@ -117,7 +104,6 @@ def super_rod_slots(root_str):
         out[parts[0]] = [(parts[i], int(parts[i + 1])) for i in range(1, len(parts), 2)]
     return out
 
-
 def _weighted(pairs, weights):
     """Fold (species, level) slots into per-species weight and level band."""
     found = {}
@@ -126,7 +112,6 @@ def _weighted(pairs, weights):
         entry["weight"] += weight
         entry["levels"].append(level)
     return found
-
 
 def rod_table(root_str, map_const, kind):
     """One map's table for a rod, or None when that rod finds nothing there.
@@ -143,7 +128,6 @@ def rod_table(root_str, map_const, kind):
     even = SLOT_TOTAL // len(good_rod_mons(root_str))
     return _weighted(good_rod_mons(root_str), [even] * len(good_rod_mons(root_str)))
 
-
 def _mon_rows(root_str, table):
     """Species rows carry the dex number the Rails side keys on, zero-padded the way the
     walkthrough writes it ("041"), so no lookup table is duplicated there."""
@@ -158,7 +142,6 @@ def _mon_rows(root_str, table):
                      "slots": len(entry["levels"])})
     return sorted(rows, key=lambda row: (-row["rate"], row["species"]))
 
-
 def fishable(root_str, map_label, map_const):
     """Whether a rod has anywhere to cast on this map.
 
@@ -168,7 +151,6 @@ def fishable(root_str, map_label, map_const):
     would not list slots for a map you cannot fish)."""
     return (table_for(root_str, map_label, "water") is not None
             or map_const in super_rod_slots(root_str))
-
 
 def build_encounters(root_str):
     """slug -> ordered list of one entry per map and method that finds anything.

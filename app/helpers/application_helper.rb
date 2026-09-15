@@ -27,8 +27,6 @@ module ApplicationHelper
 
   def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
 
-  # The authorize route sits outside the locale scope, so the locale rides in the query
-  # string instead: OmniAuth hands that back to the callback as omniauth.params.
   def oauth_authorize_path(strategy)
     omniauth_authorize_path(:user, strategy,
                             locale: (I18n.locale unless I18n.locale == I18n.default_locale))
@@ -60,9 +58,6 @@ module ApplicationHelper
     r2_image_tag(avatar.key, class: classes.presence, **options)
   end
 
-  # Gen 1 has an unused fifteenth type, and a game that wants a move never to draw STAB can park
-  # it there. Legacy does exactly that with its status moves, so a TM typed this way is a status
-  # move rather than a move of some "bird" type no player has ever seen.
   STATUS_MOVE_TYPE = "bird".freeze
 
   def tm_type_desc(mtype)
@@ -71,8 +66,6 @@ module ApplicationHelper
     t("walkthrough.ui.tm_type_desc", type: t("walkthrough.ui.types.#{mtype}"))
   end
 
-  # A mart item's blurb: its own localized description, or for a plain sold TM the type of move
-  # it teaches (the game gives Gen 1 TMs no description of their own).
   def mart_item_desc(item)
     return t(item.desc_key) if item.desc?
 
@@ -96,21 +89,12 @@ module ApplicationHelper
       href: walkthrough_leg_path(game: @game.slug, leg: step.link.leg, anchor: step.link.anchor))
   end
 
-  # The pins a step's copy points at, as { token => the chip that pin wears today }. Shared by the
-  # directions and by the captions on a multi-shot strip, so a letter in one is the letter in the
-  # other.
   def step_marks(step)
     step.marks.map { |token, key| [ token, map_mark(key, at: step.pins[token]) ] }.to_h
   end
 
-  # A strip frame's caption names its pins as tokens, never as letters, for the same reason the
-  # directions do: a letter is a marker's place in its map's run, so one new item ball would shift
-  # it and silently re-point the caption at the wrong ladder.
   def shot_caption(step, shot) = t(shot.caption_key, **step_marks(step))
 
-  # A trainer card's heads-up line. Most are plain sentences off the roster; one points somewhere
-  # else in the guide (Blue's last team ends on whichever Eeveelution his Eevee became, and the
-  # recipe is a trivia block back on leg 1), so it takes the same href a step link would.
   def trainer_note(trainer)
     return t(trainer.note_key) unless trainer.note_link?
 
@@ -118,17 +102,11 @@ module ApplicationHelper
       anchor: trainer.note_link.anchor))
   end
 
-  # A trivia section points at a pin the way a step does: it names the door it is talking about and
-  # the letter that door is wearing goes in.
   def trivia_intro(trivia)
     t(trivia.intro_key,
       **trivia.marks.map { |token, key| [ token, map_mark(key, at: trivia.pins[token]) ] }.to_h)
   end
 
-  # The letter a step's prose or a card points at, wearing the chip the map pin and legend row
-  # give it. A button rather than a label, because clicking it scrolls the page to the map that
-  # draws that pin (map_jump_controller). `at` is the "map/marker" pair the card already carries,
-  # and is what settles which map to jump to when a letter is drawn on more than one of them.
   def map_mark(key, at: nil)
     tag.button(key, type: "button", class: "pn-wt-mark",
       title: t("walkthrough.ui.map_marker_hint"),
@@ -156,8 +134,6 @@ module ApplicationHelper
       progress_state: @sync.state.to_json, progress_adopted: @sync.adopted? }
   end
 
-  # Attributes that make an element a tick target for progress_toggle_controller. Ids are built
-  # from where a thing sits in the walkthrough, so they survive copy edits to its description.
   def tickable(kind, id)
     { role: "button", tabindex: 0, "aria-pressed": "false",
       data: { progress_toggle_target: "item", kind: kind, progress_id: id,
@@ -166,9 +142,6 @@ module ApplicationHelper
                       "keydown.space->progress-toggle#toggle" } }
   end
 
-  # Every caption renders up front and CSS picks one, so no user-visible string lives in JS and
-  # the toast cannot get stuck showing the wrong state. The done/todo pair is personalized with
-  # the subject name; the error caption and RETRY only surface when a localStorage save fails.
   def progress_toast(flavor, name:)
     tag.span(class: "pn-wt-toast", aria: { live: "polite" },
              data: { action: "click->progress-toggle#stop" }) do
@@ -182,8 +155,6 @@ module ApplicationHelper
     end
   end
 
-  # Every tally on a walkthrough page counts catches, bar the rooftop trades, which count the
-  # drinks the girl has taken. The slot has to name the kind it reads or it counts the wrong set.
   def progress_slot(role, ids, kind: "caught", **options)
     options.deep_merge(data: { progress_toggle_target: role, kind: kind,
                                progress_ids: ids.join(" ") })
@@ -221,13 +192,6 @@ module ApplicationHelper
 
   def owned_line = t("walkthrough.ui.ld_owned_html", caught: body_count_slot, evolved: 0)
 
-  # A species you cannot reach yet at this stop (a rod card before the rod) has no ledger entry, so
-  # it is nobody's tick target here. The card still renders, because the species does live here.
-  # Registration and the bodies you are holding are both facts about the collection, not about the
-  # stop you happen to be reading: catching a Magikarp off Vermilion's dock has to read as caught,
-  # and counted, on Viridian's Old Rod card too, four legs before you own the rod. So every card
-  # wires up both, taking its cover list from the page's plan entry when there is one and from the
-  # game itself when there is not.
   def catch_card_attributes(dex, entry)
     covers = entry ? entry.covers : @game.covers(dex)
     tickable("caught", dex).deep_merge(
@@ -236,18 +200,10 @@ module ApplicationHelper
     )
   end
 
-  # A floor row wears the card's own method tag when it reads the same table the card does, so a
-  # cave floor says CAVE like the pill above it instead of GRASS, which is only the name of the
-  # table underneath. A row on a different table (a Surf spot listed under a grass card) keeps its
-  # own label, because there the difference is the whole point of the row.
   def encounter_method_label(place, how = nil)
     place.method?(how) ? how : t("walkthrough.ui.method_#{place.kind}")
   end
 
-  # The ladder's bar runs proportional to the best floor on the card, and a strict CSP blocks the
-  # inline width the design mock uses. So the width is bucketed to the nearest 5% and carried as a
-  # class: static CSS, no controller, and the exact figure is printed beside the bar anyway. The
-  # floor of 5 keeps a 1.2% spawn visible rather than rendering nothing at all.
   FLOOR_BAR_STEP = 5
 
   def floor_bar_class(place, best)
@@ -263,8 +219,6 @@ module ApplicationHelper
     t(key, rate: entry.rate)
   end
 
-  # A section inside a band sits under that stop's own h2, so it leads with an h3; a page built
-  # around a single stop leads with the h2 itself.
   SECTION_HEADING = { band: [ :h3, "pn-wt-band__h3" ], page: [ :h2, "pn-h2" ] }.freeze
 
   def wt_heading(text, level)
@@ -272,8 +226,6 @@ module ApplicationHelper
     content_tag(name, text, class: css)
   end
 
-  # Which floor a trainer stands on, drawn only where a stop has more than one to tell apart. A
-  # boss met in a scripted scene has no floor in the game's roster, so that card goes without.
   def trainer_floor_chip(floor)
     return if floor.nil?
 
@@ -284,8 +236,6 @@ module ApplicationHelper
     t("walkthrough.ui.catch_tally_html", total: ids.size, done: progress_count(ids))
   end
 
-  # A group whose run can only register some of what it shows counts against that, not the tiles:
-  # three Eevee stones on one Eevee is one registration, however many cards are on screen.
   def oak_tally(ids, pick: ids.size)
     t("walkthrough.ui.oak_tally_html", total: pick, done: progress_count(ids))
   end
@@ -326,16 +276,12 @@ module ApplicationHelper
     t("walkthrough.ui.modes_off_body", leader: window.leader)
   end
 
-  # A trainer is beaten, a Pokémon on the floor is fought and everything else is collected, so the
-  # tick categories read three ways.
   MARKER_STATUS = { "trainer" => "trainer", "pokemon" => "pokemon" }.freeze
 
   def marker_status_key(marker, state)
     "walkthrough.ui.map_status_#{MARKER_STATUS.fetch(marker.cat, 'item')}_#{state}"
   end
 
-  # Each gym's background grid takes one of the three identity neon colours, cycling in badge order
-  # (Brock magenta, Misty cyan, Lt. Surge amber, then repeat).
   GYM_BADGE_ORDER = %w[BOULDER CASCADE THUNDER RAINBOW SOUL MARSH VOLCANO EARTH].freeze
   GYM_GRID_TONES = %w[magenta cyan amber].freeze
 
@@ -343,7 +289,6 @@ module ApplicationHelper
     GYM_GRID_TONES[GYM_BADGE_ORDER.index(badge).to_i % GYM_GRID_TONES.size]
   end
 
-  # A signed friendship-change cell: "+5", "0", or "−5" (a real minus sign, not a hyphen).
   def friendship_delta(value)
     return "0" if value.zero?
 
@@ -376,8 +321,6 @@ module ApplicationHelper
     t("walkthrough.ui.best_reason_only_rate", name: encounter.name, rate: best.rate)
   end
 
-  # A prize counter prints a price where a wild card prints odds, and it restocks, so neither the
-  # label nor the plain number a rate would carry is right for it.
   def catch_stat_label(encounter)
     t(encounter.purchased? ? "walkthrough.ui.coins" : "walkthrough.ui.rate")
   end

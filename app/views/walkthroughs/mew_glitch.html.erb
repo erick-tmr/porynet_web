@@ -15,7 +15,6 @@
 
 <%= render "walkthroughs/sync_banner", game: @game %>
 
-<%# ---- HERO ---- %>
 <section class="pn-mew-hero">
   <div class="pn-mew-scan" aria-hidden="true"></div>
   <div class="pn-mew-tear" aria-hidden="true"></div>
@@ -60,7 +59,6 @@
   </div>
 </section>
 
-<%# ---- IN SHORT ---- %>
 <section class="pn-wt-section">
   <div class="pn-eyebrow-label"><%= t("#{mg}.short.eyebrow") %></div>
   <h2 class="pn-h2"><%= t("#{mg}.short.h2") %></h2>
@@ -78,7 +76,6 @@
   </div>
 </section>
 
-<%# ---- WARNING ---- %>
 <section class="pn-wt-section">
   <div class="pn-mew-warn">
     <div class="pn-mew-warn__head">
@@ -104,7 +101,6 @@
   </div>
 </section>
 
-<%# ---- PREREQS ---- %>
 <section class="pn-wt-section">
   <div class="pn-eyebrow-label"><%= t("#{mg}.prereq.eyebrow") %></div>
   <h2 class="pn-h2"><%= t("#{mg}.prereq.h2") %></h2>
@@ -162,7 +158,6 @@
     </div>
 </section>
 
-<%# ---- STEPS ---- %>
 <section class="pn-wt-section">
   <div class="pn-eyebrow-label"><%= t("#{mg}.steps.eyebrow") %></div>
   <h2 class="pn-h2"><%= t("#{mg}.steps.h2") %></h2>
@@ -172,7 +167,6 @@
   <% end %>
 </section>
 
-<%# ---- LEVEL CALCULATOR ---- %>
 <section class="pn-mew-calc-sec">
   <div class="pn-mew-calc-sec__inner">
     <div class="pn-eyebrow-label pn-eyebrow-label--cyan"><%= t("#{mg}.calc.eyebrow") %></div>
@@ -225,7 +219,6 @@
   </div>
 </section>
 
-<%# ---- SECOND MEW ---- %>
 <section class="pn-wt-section">
   <div class="pn-mew-second__head">
     <div>
@@ -248,15 +241,11 @@
   </div>
 </section>
 
-<%# ---- AFTERWORD ---- %>
 <section class="pn-wt-section">
   <div class="pn-mew-after">
     <div class="pn-mew-after__art">
       <div class="pn-mew-after__grid" aria-hidden="true"></div>
       <%= r2_image_tag "walkthrough/yellow/art/red-and-mew.png", alt: t("#{mg}.after.art_alt"), class: "pn-mew-after__img" %>
-      <%# The one tick on this page. Mew has no encounter to catch it in, so the glitch's own
-          afterword is where a Yellow file registers #151, and it ticks the same handle every
-          catch card does. %>
       <span class="pn-mew-after__tag" <%= tag.attributes(tickable("caught", @guide.dex)) %>>
         <span class="pn-mew-after__tag-todo"><%= t("#{mg}.after.art_tag_todo") %></span>
         <span class="pn-mew-after__tag-done"><%= t("#{mg}.after.art_tag_done") %></span>

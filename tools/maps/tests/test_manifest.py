@@ -38,16 +38,12 @@ def built_as(monkeypatch):
         return root_for(game)
     return use
 
-# Every game that has a committed manifest is held to it. Both games draw the same map set, so
-# a case is a (game, map) pair rather than a map name that would collide between them.
 MANIFESTS = {slug: json.loads(game.data("maps").read_text())
              for slug, game in games.CATALOGUE.items() if game.data("maps").exists()}
 
-# (game, name) -> the manifest entry for that map in that game.
 MAP_ENTRIES = {(slug, m["name"]): m
                for slug, manifest in MANIFESTS.items()
                for maps in manifest["locations"].values() for m in maps}
-
 
 def _registry(root):
     headers = sources.parse_headers(root)
@@ -58,12 +54,8 @@ def _registry(root):
                 out[locations.image_name(slug, floor)] = (label, headers[label][0])
     return out
 
-
 CASES = sorted(MAP_ENTRIES)
 
-
-# Exit keys are settled per location, not per map, because a staircase's two ends share one key.
-# So the golden test rebuilds a whole location and then reads back the map it is checking.
 def _rebuild_location(root, game, slug):
     headers = sources.parse_headers(root)
     entries, labels, warps, consts = [], [], {}, {}
@@ -80,11 +72,9 @@ def _rebuild_location(root, game, slug):
     markers.link_exit_keys(entries, labels, warps, consts)
     return {e["name"]: e["markers"] for e in entries}
 
-
 MAP_SLUGS = {locations.image_name(slug, floor): slug
              for slug, maps in locations.location_maps().items()
              for _label, floor, _parent in maps}
-
 
 @pytest.mark.parametrize(("game", "name"), CASES)
 def test_map_markers_match_the_committed_manifest(built_as, game, name):
@@ -94,7 +84,6 @@ def test_map_markers_match_the_committed_manifest(built_as, game, name):
     assert built == MAP_ENTRIES[(game, name)]["markers"], (
         f"{game} {name}: generator output drifted from the committed manifest; "
         f"rerun tools/maps/build.py and review the diff")
-
 
 @pytest.mark.parametrize(("game", "name"), CASES)
 def test_connection_exit_sits_inside_its_strip(built_as, game, name):
