@@ -22,7 +22,7 @@ class WalkthroughsController < ApplicationController
 
   def mew_glitch
     @game = Walkthrough.find!(params[:game])
-    @guide = Walkthrough::Yellow.mew_glitch
+    @guide = @game.guide.mew_glitch
   end
 
   private

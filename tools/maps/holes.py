@@ -138,7 +138,7 @@ def dropped_boulders(root_str, map_label):
     In hole order, so it lines up with `floor_holes`. A hole whose script beat cannot be read
     yields None rather than a guess."""
     body = _script(root_str, map_label) or ""
-    shown = re.findall(r"ld a, (TOGGLE_\w+)\s*\n\s*ld \[wObjectToShow\], a", body)
+    shown = re.findall(r"ld a, ((?:TOGGLE|HS)_\w+)\s*\n\s*ld \[wObjectToShow\], a", body)
     out = []
     for slot, group in enumerate(floor_holes(root_str, map_label)):
         handle = shown[slot] if slot < len(shown) else None

@@ -1,0 +1,7 @@
+[
+  {
+    "type": "dialog", "name": "cerulean-city-hidden-rare-candy",
+    "map": "CeruleanCity", "player": [15, 9], "player_dir": "UP", "focus": [15, 8],
+    "marker": [15, 8], "dialog": {"found_item": "RARE CANDY"}
+  }
+]

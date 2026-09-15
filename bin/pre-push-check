@@ -112,11 +112,15 @@ else
     printf '  (skipped — npm not installed)\n'
   fi
 
-  # Mirrors CI's "Python tool (map generator)" job. The suite reads the pokeyellow disassembly
-  # and silently skips itself when that is absent, so this reports the skip rather than passing
-  # quietly. CI clones the pinned tools/maps/.pokeyellow-ref, so green here matches green there.
+  # Mirrors CI's "Python tool (map generator)" job. The suite reads a disassembly per game and
+  # silently skips itself when one is absent, so this reports the skip rather than passing
+  # quietly. CI clones each pinned tools/maps/.<game>-ref, so green here matches green there.
   step "python map generator (ruff + pytest)"
   PY_ROOT="${POKEYELLOW:-$HOME/Code/pokeyellow}"
+  PY_ROOT_LEGACY="${YELLOW_LEGACY:-$HOME/Code/Pokemon_Yellow_Legacy}"
+  if [ ! -f "$PY_ROOT_LEGACY/constants/map_constants.asm" ]; then
+    printf '  (no Yellow Legacy checkout at %s; its manifest tests will skip — `git clone --depth 1 https://github.com/cRz-Shadows/Pokemon_Yellow_Legacy ~/Code/Pokemon_Yellow_Legacy`)\n' "$PY_ROOT_LEGACY"
+  fi
   if ! command -v python3 >/dev/null 2>&1; then
     printf '  (skipped: python3 not installed)\n'
   elif ! python3 -c 'import pytest' >/dev/null 2>&1; then
@@ -133,7 +137,8 @@ else
     if python3 -c 'import pytest_cov' >/dev/null 2>&1; then
       PY_COV="--cov --cov-report=term --cov-fail-under=87"
     fi
-    (cd tools/maps && POKEYELLOW="$PY_ROOT" python3 -m pytest -q -rs $PY_COV)
+    (cd tools/maps && POKEYELLOW="$PY_ROOT" YELLOW_LEGACY="$PY_ROOT_LEGACY" \
+       python3 -m pytest -q -rs $PY_COV)
     ok "python map generator"
   fi
 fi
@@ -142,20 +147,26 @@ fi
 # the moment you regenerate, however many maps moved. This says *which* maps moved and holds them
 # to the `Manifest-drift:` trailer on this branch, so collateral damage cannot ride along.
 step "generator regression (declared drift vs origin/main)"
-MANIFEST="app/models/walkthrough/yellow_maps.json"
-CHANGED_PY="$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps "$MANIFEST" | tr '\n' ' ')"
+MANIFESTS="app/models/walkthrough/yellow_maps.json app/models/walkthrough/yellow_legacy_maps.json"
+CHANGED_PY="$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps $MANIFESTS | tr '\n' ' ')"
 if [ -z "$CHANGED_PY" ]; then
   printf '  (no generator or manifest changes vs origin/main)\n'
 else
   printf '  changed: %s\n\n' "$CHANGED_PY"
   mkdir -p tmp
-  git show "origin/main:$MANIFEST" > tmp/base-manifest.json
   git log origin/main..HEAD --format=%B > tmp/branch-commits.txt
-  if ! python3 tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
-       --expect-commits tmp/branch-commits.txt; then
-    printf '\n\033[1;31m✗ manifest drift does not match the `Manifest-drift:` trailer on this branch\033[0m\n'
-    exit 1
-  fi
+  for MANIFEST in $MANIFESTS; do
+    if ! git show "origin/main:$MANIFEST" > tmp/base-manifest.json 2>/dev/null; then
+      printf '  %s is new on this branch; every map in it is new.\n' "$(basename "$MANIFEST")"
+      continue
+    fi
+    printf '  %s\n' "$(basename "$MANIFEST")"
+    if ! python3 tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
+         --expect-commits tmp/branch-commits.txt; then
+      printf '\n\033[1;31m✗ manifest drift does not match the `Manifest-drift:` trailer on this branch\033[0m\n'
+      exit 1
+    fi
+  done
 fi
 ok "generator regression"
 

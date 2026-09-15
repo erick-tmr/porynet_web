@@ -136,8 +136,16 @@ def parse_super_palettes(root_str):
 
 @cache
 def parse_cgb_palettes(root_str):
-    """The Game Boy Color base palettes (more saturated, the GBC look), indexed by PAL_* id."""
-    return _parse_rgb_palette_table(root_str, "CGBBasePalettes")
+    """The Game Boy Color base palettes (more saturated, the GBC look), indexed by PAL_* id.
+
+    Upstream renamed this table; a disassembly forked before that spells it GBCBasePalettes.
+    An empty result is a parse failure rather than a game with no colors, so say so here: the
+    caller only finds out several frames later, as an index error deep in the compositor."""
+    for label in ("CGBBasePalettes", "GBCBasePalettes"):
+        pals = _parse_rgb_palette_table(root_str, label)
+        if pals:
+            return pals
+    raise ValueError("no GBC base palette table in data/sgb/sgb_palettes.asm")
 
 
 @cache
@@ -309,8 +317,46 @@ def _toggle_lists(root_str):
     return handles, objects
 
 
+@cache
+def _hide_show_rows(root_str):
+    """The older hide/show table, or None when this disassembly uses the newer toggle one.
+
+    Before upstream split it in two, the table was one flat list in data/maps/hide_show_data.asm
+    and every row named its own map and object (`db PALLET_TOWN, PALLETTOWN_OAK, HIDE`). Nothing
+    has to be paired up by position within a map, because the row says which map it is on. The
+    rows are still positional against the HS_* constants that index them, which is what
+    `_hs_handles` joins, so every indexed row has to be counted even when it names an object by
+    raw number rather than by constant. Only the terminator is dropped, on the strength of its
+    map being `$FF` rather than a name."""
+    text = read_data(root_str, "data/maps/hide_show_data.asm", missing_ok=True)
+    if text is None:
+        return None
+    rows = []
+    for line in text.splitlines():
+        body = line.split(";", 1)[0]
+        found = re.match(r"\s*db\s+([A-Za-z]\w*)\s*,\s*(\$?\w+)\s*,\s*(HIDE|SHOW)\s*$", body)
+        if found:
+            rows.append(found.groups())
+    return tuple(rows)
+
+
+@cache
+def _hs_handles(root_str):
+    """HS_* handle -> its index in the flat hide/show table."""
+    names = re.findall(r"^\tconst (HS_\w+)",
+                       _read(root_str, "constants/hide_show_constants.asm"), re.M)
+    return {name: index for index, name in enumerate(names)}
+
+
 def resolve_toggle(root_str, map_const, toggle_const):
-    """Which object_event const a TOGGLE_* handle really names on its map, or None."""
+    """Which object_event const a TOGGLE_* / HS_* handle really names on its map, or None."""
+    rows = _hide_show_rows(root_str)
+    if rows is not None:
+        at = _hs_handles(root_str).get(toggle_const)
+        if at is None or at >= len(rows):
+            return None
+        on_map, obj_const, _state = rows[at]
+        return obj_const if on_map == map_const else None
     handles, objects = _toggle_lists(root_str)
     names = [h[0] for h in handles.get(map_const, ())]
     if toggle_const not in names:
@@ -327,6 +373,13 @@ def parse_hidden_objects(root_str):
     long enough to stop you walking into the grass, and the rival waits on Route 22 only when
     he is due to challenge you. The game ships them switched off and a script shows them, so a
     map drawn from the object list alone would leave them standing there forever."""
+    rows = _hide_show_rows(root_str)
+    if rows is not None:
+        flat = {}
+        for on_map, obj_const, state in rows:
+            if state == "HIDE":
+                flat.setdefault(on_map, set()).add(obj_const)
+        return flat
     out, current = {}, None
     for line in _read(root_str, "data/maps/toggleable_objects.asm").splitlines():
         head = re.match(r"\s*toggleable_objects_for\s+(\w+)", line)
@@ -752,8 +805,61 @@ def _cell_px(x, y):
 
 
 @cache
+def _hidden_object_rows(root_str):
+    """The older hidden-object table, or None when this disassembly uses the newer event one.
+
+    Two differences, and the second is the one that bites: the blocks are reached through a
+    `HiddenObjectMaps` index of `dbw <MAP>, <Label>` rather than being headed by their map, and
+    the macro takes the item before the routine (`hidden_object x, y, POTION, HiddenItems`)
+    where the newer one takes the routine before the item. Read the wrong way round, every
+    hidden item in the game comes out named after the routine that hands it over."""
+    text = read_data(root_str, "data/events/hidden_objects.asm", missing_ok=True)
+    if text is None:
+        return None
+    by_label = {}
+    for line in text.splitlines():
+        found = re.match(r"\s*dbw\s+(\w+)\s*,\s*(\w+)", line)
+        if found:
+            by_label[found.group(2)] = found.group(1)
+    out, const = [], None
+    for line in text.splitlines():
+        head = re.match(r"^(\w+):", line)
+        if head:
+            const = by_label.get(head.group(1))
+            continue
+        found = re.match(
+            r"\s*hidden_object\s+(\d+)\s*,\s*(\d+)\s*,\s*([\w+]+)\s*,\s*(\w+)", line)
+        if found and const:
+            out.append((const, int(found.group(1)), int(found.group(2)),
+                        found.group(3), found.group(4)))
+    return tuple(out)
+
+
+def hidden_block(root_str, map_const):
+    """The raw text of one map's hidden-object rows, in whichever layout this game uses.
+
+    Callers that want the items should use `parse_hidden_events`; this is for the handful of
+    rows that are not items at all, like the Cinnabar quiz doors, which pack their answer into
+    an argument nobody else reads."""
+    text = read_data(root_str, "data/events/hidden_objects.asm", missing_ok=True)
+    if text is None:
+        body = _read(root_str, "data/events/hidden_events.asm")
+        block = re.search(rf"hidden_events_for {map_const}\n(.*?)\n\tdb -1", body, re.S)
+        return block.group(1) if block else None
+    label = re.search(rf"dbw\s+{map_const}\s*,\s*(\w+)", text)
+    if label is None:
+        return None
+    block = re.search(rf"^{label.group(1)}:\n(.*?)\n\tdb -1", text, re.S | re.M)
+    return block.group(1) if block else None
+
+
+@cache
 def parse_hidden_events(root_str):
     """Return [(map_const, x, y, item_const)] for FUNC == HiddenItems only."""
+    rows = _hidden_object_rows(root_str)
+    if rows is not None:
+        return [(const, x, y, item) for const, x, y, item, func in rows
+                if func == "HiddenItems"]
     out, cur = [], None
     for line in _read(root_str, "data/events/hidden_events.asm").splitlines():
         m = re.match(r"\s*hidden_events_for\s+(\w+)", line)
@@ -781,8 +887,13 @@ def parse_coins(root_str):
 
     The coordinates come from hidden_coins.asm, the table the pickup walks to find its index, and
     the amount from the matching hidden_event, which is where COIN+<n> is written."""
-    events = _COIN_EVENT.findall(_read(root_str, "data/events/hidden_events.asm"))
-    amounts = {(int(x), int(y)): COIN_PAYOUT.get(int(n), 100) for x, y, n in events}
+    rows = _hidden_object_rows(root_str)
+    if rows is not None:
+        amounts = {(x, y): COIN_PAYOUT.get(int(item.removeprefix("COIN+")), 100)
+                   for _const, x, y, item, func in rows if func == "HiddenCoins"}
+    else:
+        events = _COIN_EVENT.findall(_read(root_str, "data/events/hidden_events.asm"))
+        amounts = {(int(x), int(y)): COIN_PAYOUT.get(int(n), 100) for x, y, n in events}
     out = []
     for line in _read(root_str, "data/events/hidden_coins.asm").splitlines():
         m = re.match(r"\s*hidden_coin\s+(\w+)\s*,\s*(\d+)\s*,\s*(\d+)", line)

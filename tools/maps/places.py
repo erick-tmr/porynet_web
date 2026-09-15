@@ -284,18 +284,19 @@ def parse_pokemon_types(root_str):
 # compares that nibble against `wCurrentMenuItem`, and a yes/no menu answers YES with 0. So a door
 # whose statement is FALSE is opened by saying yes, and every one of the six comes out inverted
 # from what its constant is called.
-QUIZ_GATE = re.compile(r"hidden_event\s+\d+,\s*\d+,\s*PrintCinnabarQuiz,\s*\((TRUE|FALSE)")
+# The two spellings differ only in which side of the comma the routine sits on.
+QUIZ_GATE = re.compile(r"PrintCinnabarQuiz,\s*\((TRUE|FALSE)"
+                       r"|\((TRUE|FALSE)\s*<<\s*4\)\s*\|\s*\d+,\s*PrintCinnabarQuiz")
 QUIZ_MENU = {"FALSE": "yes", "TRUE": "no"}
 
 
 def quiz_answers(root_str, map_const):
     """How to answer a gym's quiz doors, in the order the doors are numbered, or None for a gym
     that asks nothing. Only Cinnabar has them."""
-    body = sources.read_data(root_str, "data/events/hidden_events.asm")
-    block = re.search(rf"hidden_events_for {map_const}\n(.*?)\n\tdb -1", body, re.S)
+    block = sources.hidden_block(root_str, map_const)
     if block is None:
         return None
-    answers = [QUIZ_MENU[truth] for truth in QUIZ_GATE.findall(block.group(1))]
+    answers = [QUIZ_MENU[before or after] for before, after in QUIZ_GATE.findall(block)]
     return answers or None
 
 

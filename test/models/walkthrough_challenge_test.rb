@@ -49,7 +49,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   end
 
   test "the roster reachable before Brock is exactly the index's hand-written Oak example" do
-    assert_equal Walkthrough::Yellow::OAK_EXAMPLE.map(&:first).sort,
+    assert_equal Walkthrough::Gen1Guide::OAK_EXAMPLE.map(&:first).sort,
       challenge.registerable(game, "pewter-city").sort
   end
 
@@ -98,7 +98,7 @@ class WalkthroughChallengeTest < ActiveSupport::TestCase
   test "a stage behind a trade still costs a spare body of the stage below" do
     { "064" => "065", "067" => "068", "075" => "076", "093" => "094" }.each do |below, traded|
       assert_equal below, challenge.body_source(game, traded),
-        "#{Walkthrough::Yellow::NAMES.fetch(traded)} comes off a spare #{Walkthrough::Yellow::NAMES.fetch(below)}"
+        "#{Walkthrough::Gen1Guide::NAMES.fetch(traded)} comes off a spare #{Walkthrough::Gen1Guide::NAMES.fetch(below)}"
       assert_equal 2, challenge.bodies_for(game, below),
         "one stays put, one goes out to be traded back"
     end

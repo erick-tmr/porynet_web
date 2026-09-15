@@ -1,4 +1,4 @@
-<% mg = "#{Walkthrough::Yellow::K}.mew_glitch" %>
+<% mg = "#{@game.key}.mew_glitch" %>
 <% content_for :page_controller do %><%= walkthrough_page_controller(@game) %><% end %>
 <% content_for :title, t("#{mg}.meta_title", game: @game.name) %>
 <% content_for :head do %>

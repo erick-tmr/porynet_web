@@ -163,7 +163,7 @@ module Walkthrough
     end
 
     def self.stop_rate(loc, dex)
-      loc.encounters.select { |enc| enc.dex == dex }.filter_map { |enc| Yellow.parse_rate(enc.rate) }.max
+      loc.encounters.select { |enc| enc.dex == dex }.filter_map { |enc| Gen1Guide.parse_rate(enc.rate) }.max
     end
 
     def self.encounter_at(loc, dex) = loc.encounters.find { |enc| enc.dex == dex }
@@ -190,7 +190,7 @@ module Walkthrough
       covers = covered_by(game, dex)
       here = home.slug == shown.slug
       later = covers.any? ? later_for(game, dex) : nil
-      PlanEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), at: shown.slug,
+      PlanEntry.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex), at: shown.slug,
         stop_name: shown.name, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
         boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,
         later: later, **catch_facts(game, shown, dex, covers, later))
@@ -217,8 +217,8 @@ module Walkthrough
       kind, extra = later_kind(game, dex, step)
       return nil if kind.nil?
 
-      LaterStage.new(dex: step.to, name: Yellow::NAMES.fetch(step.to), kind: kind,
-        args: { name: Yellow::NAMES.fetch(step.to), base: Yellow::NAMES.fetch(dex) }.merge(extra))
+      LaterStage.new(dex: step.to, name: Gen1Guide::NAMES.fetch(step.to), kind: kind,
+        args: { name: Gen1Guide::NAMES.fetch(step.to), base: Gen1Guide::NAMES.fetch(dex) }.merge(extra))
     end
 
     def self.later_kind(game, dex, step)
@@ -254,7 +254,7 @@ module Walkthrough
     end
 
     def self.best_encounter_at(loc, dex)
-      loc.encounters.select { |enc| enc.dex == dex }.max_by { |enc| Yellow.parse_rate(enc.rate) || 0 }
+      loc.encounters.select { |enc| enc.dex == dex }.max_by { |enc| Gen1Guide.parse_rate(enc.rate) || 0 }
     end
 
     def self.why_for(loc, found, qty, best, later)
@@ -320,7 +320,7 @@ module Walkthrough
     end
 
     def self.family_for(game, entry)
-      Family.new(name: Yellow::NAMES.fetch(entry.chain.first),
+      Family.new(name: Gen1Guide::NAMES.fetch(entry.chain.first),
         stages: entry.chain.map { |dex| stage_for(game, dex) })
     end
 
@@ -329,7 +329,7 @@ module Walkthrough
     def self.stage_for(game, dex)
       step = Evolutions.into(dex).first
       traded = unreachable?(game, dex)
-      FamilyStage.new(dex: dex, name: Yellow::NAMES.fetch(dex),
+      FamilyStage.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex),
         step_key: traded ? "walkthrough.ui.step_trade" : step_key(step),
         step_args: traded ? {} : step_args(step),
         owed: traded || body_source(game, dex).nil?)
@@ -382,7 +382,7 @@ module Walkthrough
       return OakTile.new(dex: entry.dex, name: entry.name, via_key: "walkthrough.ui.via_away",
         via_args: { how: entry.how, stop: away }) if away
 
-      rated = Yellow.parse_rate(entry.rate)
+      rated = Gen1Guide.parse_rate(entry.rate)
       OakTile.new(dex: entry.dex, name: entry.name,
         via_key: rated ? "walkthrough.ui.via_catch" : "walkthrough.ui.via_gift",
         via_args: rated ? { how: entry.how, rate: entry.rate } : { how: entry.how })
@@ -393,7 +393,7 @@ module Walkthrough
       return catch_tile(entry_for(game, [ stop ], dex), off_page(stop, here)) if stop
 
       step = Evolutions.into(dex).first
-      OakTile.new(dex: dex, name: Yellow::NAMES.fetch(dex), via_key: step_key(step),
+      OakTile.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex), via_key: step_key(step),
         via_args: step_args(step))
     end
 
@@ -441,9 +441,9 @@ module Walkthrough
 
     def self.locked_entry(dex)
       step = Evolutions.into(dex).find { |evo| !evo.trade? } || Evolutions.into(dex).first
-      LockedEntry.new(dex: dex, name: Yellow::NAMES.fetch(dex), gate_key: gate_key(dex, step),
+      LockedEntry.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex), gate_key: gate_key(dex, step),
         gate_args: step_args(step), where_key: locked_where_key(dex, step),
-        where_args: { stone: step.arg, name: Yellow::NAMES.fetch(step.from) })
+        where_args: { stone: step.arg, name: Gen1Guide::NAMES.fetch(step.from) })
     end
 
     def self.gate_key(dex, step)

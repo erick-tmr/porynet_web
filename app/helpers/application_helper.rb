@@ -27,6 +27,13 @@ module ApplicationHelper
 
   def account_section_path(section) = public_send(ACCOUNT_SECTION_PATHS.fetch(section))
 
+  # The authorize route sits outside the locale scope, so the locale rides in the query
+  # string instead: OmniAuth hands that back to the callback as omniauth.params.
+  def oauth_authorize_path(strategy)
+    omniauth_authorize_path(:user, strategy,
+                            locale: (I18n.locale unless I18n.locale == I18n.default_locale))
+  end
+
   SOURCE_URLS = {
     showdown: "https://play.pokemonshowdown.com/sprites/trainers/",
     pokeapi: "https://github.com/PokeAPI/sprites",
@@ -53,12 +60,23 @@ module ApplicationHelper
     r2_image_tag(avatar.key, class: classes.presence, **options)
   end
 
+  # Gen 1 has an unused fifteenth type, and a game that wants a move never to draw STAB can park
+  # it there. Legacy does exactly that with its status moves, so a TM typed this way is a status
+  # move rather than a move of some "bird" type no player has ever seen.
+  STATUS_MOVE_TYPE = "bird".freeze
+
+  def tm_type_desc(mtype)
+    return t("walkthrough.ui.tm_status_desc") if mtype == STATUS_MOVE_TYPE
+
+    t("walkthrough.ui.tm_type_desc", type: t("walkthrough.ui.types.#{mtype}"))
+  end
+
   # A mart item's blurb: its own localized description, or for a plain sold TM the type of move
   # it teaches (the game gives Gen 1 TMs no description of their own).
   def mart_item_desc(item)
     return t(item.desc_key) if item.desc?
 
-    t("walkthrough.ui.tm_type_desc", type: t("walkthrough.ui.types.#{item.mtype}"))
+    tm_type_desc(item.mtype)
   end
 
   def poke_dollar(amount)

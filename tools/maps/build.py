@@ -9,16 +9,18 @@ Two input sources:
     the spec schema; positions are grid coordinates.
 
 Usage:
-  python tools/maps/build.py --pokeyellow ~/Code/pokeyellow [--force]
+  python tools/maps/build.py --game yellow --root ~/Code/pokeyellow [--force]
 
-Outputs (relative to the porynet_web repo root):
-  app/assets/images/walkthrough/yellow/{maps,scenes,battles,icons}/<name>.png  (gitignored -> R2)
-  app/models/walkthrough/yellow_maps.json                                 manifest (committed)
-  app/models/walkthrough/yellow_places.json                               place facts (committed)
-  app/models/walkthrough/yellow_encounters.json                           wild tables (committed)
-  tools/maps/REPORT.md                                                     counts + review notes
+Which game is being built decides where everything lands (see games.py); the root is only where
+that disassembly happens to be checked out. Outputs, relative to the porynet_web repo root:
+  app/assets/images/walkthrough/<game>/{maps,scenes,battles,icons}/<name>.png (gitignored -> R2)
+  app/models/walkthrough/<game>_maps.json                                 manifest (committed)
+  app/models/walkthrough/<game>_places.json                               place facts (committed)
+  app/models/walkthrough/<game>_encounters.json                           wild tables (committed)
+  tools/maps/REPORT-<game>.md                                              counts + review notes
 """
 import argparse
+import io
 import json
 import pathlib
 
@@ -28,32 +30,25 @@ import decks
 import dex
 import encounters
 import follower
+import games
 import generators
 import icons
 import locations
 import markers
+import paths
 import places
 import roster
 import sources
 import spinners
 
-REPO = pathlib.Path(__file__).resolve().parents[2]
-IMG_ROOT = REPO / "app/assets/images/walkthrough/yellow"
-SPECS_DIR = pathlib.Path(__file__).resolve().parent / "specs"
-MANIFEST = REPO / "app/models/walkthrough/yellow_maps.json"
-PLACES = REPO / "app/models/walkthrough/yellow_places.json"
-ROSTER = REPO / "app/models/walkthrough/yellow_trainers.json"
-DEX = REPO / "app/models/walkthrough/yellow_dex.json"
-ENCOUNTERS = REPO / "app/models/walkthrough/yellow_encounters.json"
-REPORT = pathlib.Path(__file__).resolve().parent / "REPORT.md"
-
-# spec type -> output subdirectory (and R2 key prefix) under walkthrough/yellow/
+# spec type -> output subdirectory (and R2 key suffix) under the game's image prefix
 DIR_BY_TYPE = {"map": "maps", "arrows": "maps", "npc": "maps",
                "dialog": "scenes", "screen": "scenes", "battle": "battles"}
 
-def load_specs():
+
+def load_specs(game):
     specs = []
-    for path in sorted(SPECS_DIR.glob("*.json")):
+    for path in sorted(game.specs_dir.glob("*.json")):
         specs.extend(json.loads(path.read_text()))
     return specs
 
@@ -94,29 +89,54 @@ def draw_area(root, label, floor, parent):
     return image, decks.area_markers(root, label, floor, image.width, image.height)
 
 
-def save_png(image, subdir, name, force):
-    out_dir = IMG_ROOT / subdir
+def save_png(game, image, subdir, name, force):
+    """Write one rendered frame and return the key the app should ask for.
+
+    A game built on another one draws most of its world identically: a town the hack never
+    touched renders the same pixels twice. Where that happens the frame is not written at all
+    and the base game's key is returned, so the two guides share one object rather than filling
+    the bucket with 600 duplicates. The comparison is on the encoded bytes, which is the whole
+    test: change what a map holds and it stops matching, and this game gets its own picture
+    back without anyone maintaining a list of which ones differ."""
+    blob = io.BytesIO()
+    image.save(blob, format="PNG")
+    data = blob.getvalue()
+
+    if game.shares_images_with:
+        base = games.find(game.shares_images_with)
+        shared = base.image_root / subdir / f"{name}.png"
+        if shared.exists() and shared.read_bytes() == data:
+            return f"{base.image_prefix}/{subdir}/{name}.png"
+
+    out_dir = game.image_root / subdir
     out_dir.mkdir(parents=True, exist_ok=True)
     png = out_dir / f"{name}.png"
     if force or not png.exists():
-        image.save(png)
-    return f"walkthrough/yellow/{subdir}/{name}.png"
+        png.write_bytes(data)
+    return f"{game.image_prefix}/{subdir}/{name}.png"
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pokeyellow", required=True)
+    ap.add_argument("--game", default="yellow", choices=sorted(games.CATALOGUE),
+                    help="which game to build (decides where the output lands)")
+    ap.add_argument("--root", "--pokeyellow", dest="root", required=True,
+                    help="path to that game's disassembly checkout")
     ap.add_argument("--force", action="store_true", help="re-render PNGs that already exist")
     ap.add_argument("--palette", choices=["gbc", "sgb", "dmg"], default="gbc",
                     help="hardware color palette: gbc (Game Boy Color, default), "
                          "sgb (Super Game Boy), dmg (original Game Boy greens)")
-    ap.add_argument("--follower", default="SPRITE_PIKACHU",
-                    help="overworld sprite that trails the hero (Yellow's Pikachu by default); "
-                         "pass 'none' for a game with no follower (Red/Blue)")
+    ap.add_argument("--follower", default=None,
+                    help="overworld sprite that trails the hero; defaults to the game's own "
+                         "(Yellow's Pikachu), and 'none' builds a game without one (Red/Blue)")
     args = ap.parse_args()
-    root = str(pathlib.Path(args.pokeyellow).expanduser())
+    game = games.find(args.game)
+    root = str(pathlib.Path(args.root).expanduser())
     compositor.PALETTE_MODE = args.palette
-    follower.FOLLOWER_SPRITE = None if args.follower.lower() == "none" else args.follower
+    wanted = args.follower if args.follower is not None else game.follower
+    follower.FOLLOWER_SPRITE = None if str(wanted).lower() == "none" else wanted
+    roster.IMAGE_PREFIX = game.image_prefix
+    paths.GAME = game.slug
 
     headers = sources.parse_headers(root)
     areas, missing = {}, []
@@ -129,7 +149,7 @@ def main():
                 continue
             name = locations.image_name(slug, floor)
             image, pins = draw_area(root, label, floor, parent)
-            key = save_png(image, "maps", name, args.force)
+            key = save_png(game, image, "maps", name, args.force)
             entry = {"image": key, "width": image.width, "height": image.height,
                      "floor": floor, "name": name, "markers": pins}
             ride = spinners.drawn_route(root, label)
@@ -152,43 +172,51 @@ def main():
             areas[slug] = entries
 
     trainers, where_specs = roster.build_roster(root)
+    # A trainer card points at the shot of where they stand, and that shot is deduplicated like
+    # every other: most of them come out identical to the base game's. So the card has to take
+    # the key saving the frame actually returned, not the one its own prefix would spell.
+    where_keys = {}
     for spec in where_specs:
         image, name, _extra = generators.generate(root, spec)
-        save_png(image, "scenes", name, args.force)
+        where_keys[name] = save_png(game, image, "scenes", name, args.force)
+    for entries in trainers.values():
+        for entry in entries:
+            scene = entry["where"].rsplit("/", 1)[-1].removesuffix(".png")
+            entry["where"] = where_keys.get(scene, entry["where"])
 
     for name, image in icons.render_icons(root).items():
-        save_png(image, "icons", name, args.force)
+        save_png(game, image, "icons", name, args.force)
 
     step_shots, scenes = {}, {}
-    for spec in load_specs():
+    for spec in load_specs(game):
         label = spec.get("map")
         if label and label not in headers:
             missing.append(f"{spec['name']}: {label}")
             continue
         image, name, extra = generators.generate(root, spec)
-        key = save_png(image, DIR_BY_TYPE[spec["type"]], name, args.force)
+        key = save_png(game, image, DIR_BY_TYPE[spec["type"]], name, args.force)
         entry = {"image": key, "width": image.width, "height": image.height, **extra}
         file_frame(scenes, step_shots, spec, name, entry)
 
-    MANIFEST.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "locations": areas,
+    game.data("maps").write_text(json.dumps(
+        {"source": game.source, "locations": areas,
          "step_shots": step_shots, "scenes": scenes}, indent=2))
     place_facts = places.build_places(root)
-    PLACES.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "places": place_facts,
+    game.data("places").write_text(json.dumps(
+        {"source": game.source, "places": place_facts,
          "items": places.build_item_catalog(root),
          "prizes": places.build_prizes(root)}, indent=2) + "\n")
-    ROSTER.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "count": sum(len(v) for v in trainers.values()),
+    game.data("trainers").write_text(json.dumps(
+        {"source": game.source, "count": sum(len(v) for v in trainers.values()),
          "trainers": trainers}, indent=2))
-    DEX.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "dex": dex.build_dex(root)},
+    game.data("dex").write_text(json.dumps(
+        {"source": game.source, "dex": dex.build_dex(root)},
         indent=2, ensure_ascii=False) + "\n")
     wild = encounters.build_encounters(root)
-    ENCOUNTERS.write_text(json.dumps(
-        {"source": "pret/pokeyellow", "encounters": wild}, indent=2) + "\n")
-    _write_report(areas, step_shots, scenes, trainers, missing)
-    print(f"palette: {args.palette}  "
+    game.data("encounters").write_text(json.dumps(
+        {"source": game.source, "encounters": wild}, indent=2) + "\n")
+    _write_report(game, areas, step_shots, scenes, trainers, missing)
+    print(f"game: {game.slug}  palette: {args.palette}  "
           f"location maps: {sum(len(v) for v in areas.values())}  "
           f"markers: {_marker_total(areas)}  "
           f"step shots: {sum(len(v) for v in step_shots.values())}  "
@@ -205,8 +233,8 @@ def _marker_total(areas, cat=None):
                for maps in areas.values() for e in maps)
 
 
-def _write_report(areas, step_shots, scenes, trainers, missing):
-    lines = ["# Asset generation report", "",
+def _write_report(game, areas, step_shots, scenes, trainers, missing):
+    lines = [f"# Asset generation report: {game.slug}", "",
              f"- location maps: **{sum(len(v) for v in areas.values())}** across {len(areas)} locations",
              f"- markers: **{_marker_total(areas)}** "
              f"({_marker_total(areas, 'trainer')} trainer, {_marker_total(areas, 'item')} item, "
@@ -231,7 +259,7 @@ def _write_report(areas, step_shots, scenes, trainers, missing):
     lines += ["", "## Scenes", ""]
     for name, s in sorted(scenes.items()):
         lines.append(f"- `{name}` ({s['type']}): {s['image']}")
-    REPORT.write_text("\n".join(lines) + "\n")
+    game.report.write_text("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":

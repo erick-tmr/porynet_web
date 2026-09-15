@@ -68,7 +68,7 @@
                     <% if prize.mon? %>
                       <%= t("walkthrough.ui.lv", n: prize.level) %>
                     <% else %>
-                      <%= t("walkthrough.ui.tm_type_desc", type: t("walkthrough.ui.types.#{prize.mtype}")) %>
+                      <%= tm_type_desc(prize.mtype) %>
                     <% end %>
                   </span>
                   <% if prize.note? %>

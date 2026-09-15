@@ -24,7 +24,7 @@ class WalkthroughTrainersTest < ActiveSupport::TestCase
     counts = Walkthrough::Yellow.roster.fetch("trainers").transform_values(&:size)
 
     counts.each do |slug, wanted|
-      passes = game.locations.select { |loc| loc.slug == slug || Walkthrough::Yellow::MAP_SOURCE[loc.slug] == slug }
+      passes = game.locations.select { |loc| loc.slug == slug || Walkthrough::Gen1Guide::MAP_SOURCE[loc.slug] == slug }
       cards = passes.sum { |loc| loc.trainers.size + gym_cards(loc).size }
       assert_operator cards, :>=, wanted, slug
     end

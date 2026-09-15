@@ -32,7 +32,8 @@ SUPER_ROD_SLOTS = (102, 76, 51, 27)
 
 # ItemUseOldRod hands over a fixed Magikarp; ItemUseGoodRod rerolls until it bites and then picks
 # evenly between the two GoodRodMons. Neither reads a per-map table, so both are the same
-# everywhere there is water to cast into.
+# everywhere there is water to cast into. A game that gives the Old Rod a real table of its own
+# ships data/wild/old_rod.asm, and then this fallback is not consulted.
 OLD_ROD_MON = ("MAGIKARP", 5)
 
 ROD_KINDS = ("old_rod", "good_rod", "super_rod")
@@ -40,9 +41,17 @@ ROD_KINDS = ("old_rod", "good_rod", "super_rod")
 
 @cache
 def slot_weights(root_str):
-    """The chance of each of the ten wild slots, straight from WildMonEncounterSlotChances."""
+    """The chance of each of the ten wild slots, straight from WildMonEncounterSlotChances.
+
+    The table is a ladder of cumulative cut points the game compares one random byte against.
+    A disassembly forked before the `wild_chance` macro writes those cut points raw
+    (`db 50, $00`), so a slot's own share is the gap to the one below it, and the first slot
+    covers everything at or under its byte."""
     text = sources.read_data(root_str, "data/wild/probabilities.asm")
     weights = [int(n) for n in re.findall(r"^\s*wild_chance\s+(\d+)", text, re.M)]
+    if not weights:
+        cuts = [int(n) for n in re.findall(r"^\s*db\s+(\d+),\s*\$[0-9A-Fa-f]+", text, re.M)]
+        weights = [high - low for high, low in zip(cuts, [-1, *cuts[:-1]], strict=True)]
     if sum(weights) != SLOT_TOTAL:
         raise ValueError(f"wild slot chances sum to {sum(weights)}, not {SLOT_TOTAL}")
     return weights
@@ -78,6 +87,19 @@ def table_for(root_str, map_label, kind):
 
 
 @cache
+def old_rod_mons(root_str):
+    """What the Old Rod pulls up, from its own table when the game has one.
+
+    Vanilla hands over a fixed Magikarp with no table to read; a game that rebalances early
+    fishing gives it a table like the Good Rod's, and then the answer is in the file."""
+    text = sources.read_data(root_str, "data/wild/old_rod.asm", missing_ok=True)
+    if text is None:
+        return [OLD_ROD_MON]
+    return [(species, int(level))
+            for level, species in re.findall(r"db\s+(\d+),\s*(\w+)", text)]
+
+
+@cache
 def good_rod_mons(root_str):
     """The two species the Good Rod alternates between, read rather than assumed."""
     text = sources.read_data(root_str, "data/wild/good_rod.asm")
@@ -88,7 +110,7 @@ def good_rod_mons(root_str):
 @cache
 def super_rod_slots(root_str):
     """map const -> its four ordered (species, level) Super Rod slots."""
-    text = sources.read_data(root_str, "data/wild/super_rod.asm")
+    text = sources.read_data(root_str, "data/wild/super_rod.asm").split("db -1")[0]
     out = {}
     for line in re.findall(r"^\s*db\s+([A-Z0-9_]+(?:,\s*\w+,\s*\d+){4})\s*$", text, re.M):
         parts = [p.strip() for p in line.split(",")]
@@ -115,7 +137,9 @@ def rod_table(root_str, map_const, kind):
         slots = super_rod_slots(root_str).get(map_const)
         return None if slots is None else _weighted(slots, SUPER_ROD_SLOTS)
     if kind == "old_rod":
-        return _weighted([OLD_ROD_MON], [SLOT_TOTAL])
+        mons = old_rod_mons(root_str)
+        even = SLOT_TOTAL // len(mons)
+        return _weighted(mons, [even] * len(mons))
     even = SLOT_TOTAL // len(good_rod_mons(root_str))
     return _weighted(good_rod_mons(root_str), [even] * len(good_rod_mons(root_str)))
 

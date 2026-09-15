@@ -1,5 +1,6 @@
 import decks
 import follower
+import games
 import generators
 import locations
 import markers
@@ -57,7 +58,7 @@ def test_scene_names_do_not_collide_with_hand_authored_ones(root):
     _, specs = built(root)
     generated = {s["name"] for s in specs}
 
-    assert not generated & {s["name"] for s in build.load_specs()}
+    assert not generated & {s["name"] for s in build.load_specs(games.find('yellow'))}
 
 
 def test_letters_agree_with_the_pins_on_the_same_map(root):

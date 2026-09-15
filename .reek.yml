@@ -9,11 +9,11 @@ detectors:
   TooManyStatements:
     max_statements: 8     # controller actions run a few lines; reek's default is 5
     exclude:
-      - Walkthrough::Yellow   # data builders (e.g. compute_best_catches) assemble one
+      - Walkthrough::Gen1Guide   # data builders (e.g. compute_best_catches) assemble one
                               # cohesive result in a linear pass; see the data-source note.
   NestedIterators:
     exclude:
-      - Walkthrough::Yellow   # iterating locations -> encounters, and transform_values
+      - Walkthrough::Gen1Guide   # iterating locations -> encounters, and transform_values
                               # -> map over the manifest, are inherent 2-deep passes in a
                               # data source, not a control-flow smell.
   TooManyMethods:
@@ -34,7 +34,7 @@ detectors:
       - LandingData       # single source of truth for the page's demo content;
                           # each constant is a distinct cohesive section, not a
                           # god object.
-      - Walkthrough::Yellow   # data source: dex names, leg defs, sprite maps —
+      - Walkthrough::Gen1Guide   # data source: dex names, leg defs, sprite maps —
                               # each a distinct lookup table, not a god object.
       - Walkthrough::Evolutions   # the five stone names, the row table transcribed
                                   # from evos_moves.asm, and the three indexes built
@@ -64,13 +64,13 @@ detectors:
       - x                 # a map point is (x, y); anything longer reads worse
       - y
     exclude:
-      - Walkthrough::Yellow   # see the data-builder note below
-  # Walkthrough::Yellow is a pure data source (like LandingData): terse builders
+      - Walkthrough::Gen1Guide   # see the data-builder note below
+  # Walkthrough::Gen1Guide is a pure data source (like LandingData): terse builders
   # whose positional args map 1:1 to Data struct fields, named for the game's own
   # routes (route_1/2/22) and steps (n). Not real smells in a data-entry DSL.
   LongParameterList:
     exclude:
-      - Walkthrough::Yellow
+      - Walkthrough::Gen1Guide
       - Walkthrough::Challenge  # every builder derives one slice of a page's plan from the
                                 # same four facts (the game, the leg, the species already on
                                 # the page, the roster owed by now). Collapsing them into a
@@ -129,7 +129,7 @@ detectors:
                                 # one so far has a rule loud enough to warn about.
   BooleanParameter:
     exclude:
-      - Walkthrough::Yellow   # `tip:` is an optional flag in the encounter builder
+      - Walkthrough::Gen1Guide   # `tip:` is an optional flag in the encounter builder
       - Walkthrough::BestCatch   # `tie:` / `only:` describe the record, they steer nothing;
                                  # same defaults shim as Walkthrough::Location below.
       - Walkthrough::MartItem    # `rec:` describes the item (is it a flagged pick), it steers
@@ -153,7 +153,7 @@ detectors:
                       # argument list crying out to be an object.
   ControlParameter:
     exclude:
-      - Walkthrough::Yellow
+      - Walkthrough::Gen1Guide
       - Walkthrough::Location#initialize   # `title` steers no branch: it is the struct's own
                                            # optional member, defaulting to the stop's `name`
                                            # when a caller states no separate page title. Same
@@ -170,10 +170,13 @@ detectors:
                                   # a hidden flag threaded through to pick a private branch.
   UncommunicativeMethodName:
     exclude:
-      - Walkthrough::Yellow
+      - Walkthrough::Gen1Guide
+      - Walkthrough::YellowLegacy   # same data-entry DSL: a stop the hack changes is overridden
+                                    # under the game's own name for it (route_4), matching the
+                                    # builder it replaces.
   UncommunicativeParameterName:
     exclude:
-      - Walkthrough::Yellow
+      - Walkthrough::Gen1Guide
   UtilityFunction:
     enabled: false        # stateless helpers/mappers are normal in Rails
   FeatureEnvy:

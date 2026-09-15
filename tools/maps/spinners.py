@@ -5,7 +5,8 @@ A floor like Rocket Hideout B2F is not crossed a step at a time. Stand on an arr
 game takes the controller off you and plays a fixed run of moves, and which run is not something
 to work out from the picture: the disassembly states it outright. Every such floor's script
 carries a `map_coord_movement` table (`RocketHideout2ArrowTilePlayerMovement` and its cousins),
-one entry per arrow tile, naming an RLE list of pushes, `db PAD_<DIR>, <count>`, read backwards
+one entry per arrow tile, naming an RLE list of pushes, `db PAD_<DIR>, <count>` (spelled
+`D_<DIR>` in a disassembly forked before that rename), read backwards
 from the terminating `$FF`. The comment above the table says so and `DecodeRLEList` reads it so.
 
 That makes a maze a graph the game hands us, and the way through it something to solve rather than
@@ -44,7 +45,7 @@ def arrow_tiles(root_str, map_label):
         return {}
 
     runs = {label: tuple((direction, int(count)) for direction, count
-                         in reversed(re.findall(r"db PAD_(\w+), (\d+)", block)))
+                         in reversed(re.findall(r"db (?:PAD|D)_(\w+), (\d+)", block)))
             for label, block in re.findall(r"^(\w+ArrowMovement\d+):\n((?:\tdb .*\n)+)", body, re.M)}
     return {(int(x), int(y)): runs[label] for x, y, label
             in re.findall(r"map_coord_movement\s+(\d+),\s*(\d+),\s*(\w+)", body)}

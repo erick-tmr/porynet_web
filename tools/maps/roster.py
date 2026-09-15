@@ -15,6 +15,10 @@ import markers
 import paths
 import sources
 
+# Which game's images these cards point at. The build sets it; the default keeps a bare
+# `build_roster(root)` (as the tests call it) pointing at the game it was written against.
+IMAGE_PREFIX = "walkthrough/yellow"
+
 PLAYER_CELLS = 2
 
 FACINGS = {"DOWN": (0, 1), "UP": (0, -1), "LEFT": (-1, 0), "RIGHT": (1, 0)}
@@ -164,7 +168,7 @@ def entry_for(root_str, area, floor, obj, key, scene):
         "key": key, "opp": f"{obj['opp_class']}:{obj['party']}", "cls": obj["opp_class"],
         "reward": sources.trainer_reward(root_str, obj["opp_class"], party),
         "team": team_of(root_str, obj),
-        "where": f"walkthrough/yellow/scenes/{scene}.png",
+        "where": f"{IMAGE_PREFIX}/scenes/{scene}.png",
     }
 
 

@@ -401,6 +401,26 @@ ROUTES = {
 # own. Everywhere else they are left out on purpose: Silph Co is laced with one-way warp tiles the
 # guide tells you to avoid, and letting the flood ride them would rank a trainer across the floor
 # as if they were next door.
+# The walk is written for the game the guide was first built on. Another game in the family holds
+# the same map set and is walked the same way, so it inherits every entry above and names only the
+# floors where what is on them moved. Keyed by game slug; the build sets GAME.
+ROUTE_OVERLAYS = {
+    "yellow-legacy": {
+        # The HP Up against the north wall is commented out of the map, so the walk ends at the
+        # pair by the south generators.
+        "PowerPlant": ("exit-4-35", "pokemon-9-20", "pokemon-32-18", "hidden-17-16",
+                       "pokemon-21-25", "item-20-32", "item-26-32"),
+    },
+}
+
+GAME = "yellow"
+
+
+def routes():
+    """The waypoints for the game being built."""
+    return {**ROUTES, **ROUTE_OVERLAYS.get(GAME, {})}
+
+
 WARP_MAZES = frozenset({"SaffronGym"})
 
 # Decks cleared by sweeping across the picture rather than by walking the corridor, and the side
@@ -437,7 +457,7 @@ def marker_cells(root_str, label, ids):
 
 def route_cells(root_str, label):
     """The cells the map's authored route runs through, in order."""
-    ids = ROUTES.get(label)
+    ids = routes().get(label)
     return marker_cells(root_str, label, ids) if ids else ()
 
 
@@ -526,7 +546,7 @@ def walked(root_str, label, entries, grid_of):
 
     Sorting is stable, so trainers that tie (a pair standing shoulder to shoulder) stay in the
     order the map file declares them."""
-    if label not in ROUTES:
+    if label not in routes():
         return entries
     return sorted(entries, key=lambda entry: walk_rank(root_str, label, grid_of(entry)))
 
@@ -548,7 +568,7 @@ def sort_markers(entries, order):
 
 def walked_markers(root_str, label, entries):
     """One floor's markers with each walked category put in walking order, ready to be numbered."""
-    if label not in ROUTES:
+    if label not in routes():
         return entries
     return sort_markers(entries, lambda group: walked(root_str, label, group,
                                                      lambda entry: entry["grid"]))

@@ -1,0 +1,407 @@
+[
+  {
+    "type": "screen",
+    "name": "mt-moon-jessie-james",
+    "map": "MtMoonB2F",
+    "player": [
+      7,
+      4
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      8,
+      4
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_JESSIE",
+        "grid": [
+          9,
+          3
+        ],
+        "dir": "LEFT"
+      },
+      {
+        "sprite": "SPRITE_JAMES",
+        "grid": [
+          9,
+          4
+        ],
+        "dir": "LEFT"
+      }
+    ],
+    "player_emote": "shock"
+  },
+  {
+    "type": "screen",
+    "name": "route-24-rival",
+    "map": "CeruleanCity",
+    "player": [
+      20,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      20,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BLUE",
+        "grid": [
+          20,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "ss-anne-rival",
+    "map": "SSAnne2F",
+    "player": [
+      36,
+      8
+    ],
+    "player_dir": "UP",
+    "focus": [
+      36,
+      7
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BLUE",
+        "grid": [
+          36,
+          7
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "dialog",
+    "name": "rocket-hideout-giovanni",
+    "map": "RocketHideoutB4F",
+    "player": [
+      24,
+      3
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      25,
+      4
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_GIOVANNI",
+        "grid": [
+          25,
+          3
+        ],
+        "dir": "LEFT"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "So! I must say, I",
+        "am impressed you"
+      ]
+    }
+  },
+  {
+    "type": "screen",
+    "name": "rocket-hideout-jessie-james",
+    "map": "RocketHideoutB4F",
+    "player": [
+      24,
+      12
+    ],
+    "player_dir": "UP",
+    "focus": [
+      24,
+      11
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_JESSIE",
+        "grid": [
+          24,
+          10
+        ],
+        "dir": "DOWN"
+      },
+      {
+        "sprite": "SPRITE_JAMES",
+        "grid": [
+          25,
+          10
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "player_emote": "shock"
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-tower-rival",
+    "map": "PokemonTower2F",
+    "player": [
+      14,
+      7
+    ],
+    "player_dir": "UP",
+    "focus": [
+      14,
+      6
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BLUE",
+        "grid": [
+          14,
+          5
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "pokemon-tower-jessie-james",
+    "map": "PokemonTower7F",
+    "player": [
+      10,
+      10
+    ],
+    "player_dir": "UP",
+    "focus": [
+      10,
+      9
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_JESSIE",
+        "grid": [
+          10,
+          8
+        ],
+        "dir": "DOWN"
+      },
+      {
+        "sprite": "SPRITE_JAMES",
+        "grid": [
+          11,
+          8
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "player_emote": "shock"
+  },
+  {
+    "type": "screen",
+    "name": "silph-co-rival",
+    "map": "SilphCo7F",
+    "player": [
+      3,
+      5
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      3,
+      6
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BLUE",
+        "grid": [
+          3,
+          7
+        ],
+        "dir": "UP"
+      }
+    ],
+    "parent": "SAFFRON_CITY"
+  },
+  {
+    "type": "screen",
+    "name": "silph-co-giovanni",
+    "map": "SilphCo11F",
+    "player": [
+      6,
+      11
+    ],
+    "player_dir": "UP",
+    "focus": [
+      6,
+      10
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_GIOVANNI",
+        "grid": [
+          6,
+          9
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "parent": "SAFFRON_CITY"
+  },
+  {
+    "type": "screen",
+    "name": "indigo-lorelei",
+    "map": "LoreleisRoom",
+    "player": [
+      5,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_LORELEI",
+        "grid": [
+          5,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "indigo-bruno",
+    "map": "BrunosRoom",
+    "player": [
+      5,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BRUNO",
+        "grid": [
+          5,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "indigo-agatha",
+    "map": "AgathasRoom",
+    "player": [
+      5,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_AGATHA",
+        "grid": [
+          5,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "indigo-lance",
+    "map": "LancesRoom",
+    "player": [
+      6,
+      3
+    ],
+    "player_dir": "UP",
+    "focus": [
+      6,
+      2
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_LANCE",
+        "grid": [
+          6,
+          1
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "indigo-champion",
+    "map": "ChampionsRoom",
+    "player": [
+      4,
+      4
+    ],
+    "player_dir": "UP",
+    "focus": [
+      4,
+      3
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_BLUE",
+        "grid": [
+          4,
+          2
+        ],
+        "dir": "DOWN"
+      }
+    ]
+  },
+  {
+    "type": "screen",
+    "name": "silph-co-jessie-james",
+    "map": "SilphCo11F",
+    "player": [
+      3,
+      6
+    ],
+    "player_dir": "DOWN",
+    "focus": [
+      3,
+      7
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_JESSIE",
+        "grid": [
+          3,
+          8
+        ],
+        "dir": "UP"
+      },
+      {
+        "sprite": "SPRITE_JAMES",
+        "grid": [
+          2,
+          8
+        ],
+        "dir": "UP"
+      }
+    ],
+    "player_emote": "shock",
+    "parent": "SAFFRON_CITY"
+  }
+]

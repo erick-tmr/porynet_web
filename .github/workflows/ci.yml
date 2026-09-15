@@ -289,6 +289,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       POKEYELLOW: ${{ github.workspace }}/tmp/pokeyellow
+      YELLOW_LEGACY: ${{ github.workspace }}/tmp/yellow-legacy
       PY_COVERAGE_FLOOR: "87"
     steps:
       - name: Checkout code
@@ -306,13 +307,20 @@ jobs:
       - name: Install Python deps
         run: pip install -r tools/maps/requirements-dev.txt
 
-      - name: Clone the pinned pokeyellow disassembly
+      # One clone per game the generator builds, each at the commit tools/maps/.<game>-ref pins.
+      # The suite reads them by the variables above, and skips any game whose checkout is missing,
+      # which the skip guard below turns into a failure.
+      - name: Clone the pinned disassemblies
         run: |
-          REF=$(cat tools/maps/.pokeyellow-ref)
-          git clone --filter=blob:none --no-checkout https://github.com/pret/pokeyellow "$POKEYELLOW"
-          git -C "$POKEYELLOW" checkout --detach "$REF"
-          test -f "$POKEYELLOW/constants/map_constants.asm"
-          echo "pokeyellow @ $REF"
+          clone() {
+            REF=$(cat "tools/maps/.$1-ref")
+            git clone --filter=blob:none --no-checkout "$2" "$3"
+            git -C "$3" checkout --detach "$REF"
+            test -f "$3/constants/map_constants.asm"
+            echo "$1 @ $REF"
+          }
+          clone yellow https://github.com/pret/pokeyellow "$POKEYELLOW"
+          clone yellow-legacy https://github.com/cRz-Shadows/Pokemon_Yellow_Legacy "$YELLOW_LEGACY"
 
       - name: Lint (ruff)
         run: |
@@ -376,18 +384,24 @@ jobs:
         if: ${{ !cancelled() && github.event_name == 'pull_request' }}
         run: |
           mkdir -p tmp
-          MANIFEST=app/models/walkthrough/yellow_maps.json
+          MANIFESTS="app/models/walkthrough/yellow_maps.json app/models/walkthrough/yellow_legacy_maps.json"
           git fetch --no-tags origin main:refs/remotes/origin/main || true
-          CHANGED=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps "$MANIFEST")
+          CHANGED=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- tools/maps $MANIFESTS)
           STATUS=0
           if [ -z "$CHANGED" ]; then
-            echo "The map generator and its manifest are untouched on this branch." > tmp/python-regression.md
+            echo "The map generator and its manifests are untouched on this branch." > tmp/python-regression.md
           else
-            git show "origin/main:$MANIFEST" > tmp/base-manifest.json
             git log origin/main..HEAD --format=%B > tmp/branch-commits.txt
             printf 'Changed: %s\n\n' "$(echo "$CHANGED" | tr '\n' ' ')" > tmp/python-regression.md
-            python tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
-              --expect-commits tmp/branch-commits.txt >> tmp/python-regression.md || STATUS=$?
+            for MANIFEST in $MANIFESTS; do
+              printf '### %s\n\n' "$(basename "$MANIFEST")" >> tmp/python-regression.md
+              if ! git show "origin/main:$MANIFEST" > tmp/base-manifest.json 2>/dev/null; then
+                echo "New on this branch, so every map in it is new; nothing to declare." >> tmp/python-regression.md
+                continue
+              fi
+              python tools/maps/manifest_diff.py tmp/base-manifest.json "$MANIFEST" \
+                --expect-commits tmp/branch-commits.txt >> tmp/python-regression.md || STATUS=$?
+            done
           fi
           {
             echo "## Generator regression (tools/maps)"

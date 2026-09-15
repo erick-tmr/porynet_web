@@ -6,13 +6,14 @@ import pytest
 
 import compositor
 import follower
+import games
 import generators
 import markers
 import roster
 import sources
 import spinners
 
-SPECS = pathlib.Path(__file__).resolve().parents[1] / "specs"
+SPECS = games.find("yellow").specs_dir
 
 
 @pytest.fixture
@@ -907,7 +908,7 @@ def test_every_marker_scene_shows_its_dot_clear_of_the_text_box(root):
     ever errors: the page just serves a screen with no dot on it."""
     import build
 
-    buried = [spec["name"] for spec in build.load_specs() if "marker" in spec
+    buried = [spec["name"] for spec in build.load_specs(games.find('yellow')) if "marker" in spec
               and spec.get("dialog")
               and _dot_screen_y(root, spec) > compositor.SCREEN[1] - compositor.DIALOG_PX]
 
@@ -920,7 +921,7 @@ def test_every_silph_scene_wears_the_saffron_palette_its_maps_are_drawn_in(root)
     every other shot on the page are yellow. The rival and Giovanni face-offs did exactly that."""
     import build
 
-    silph = [s for s in build.load_specs() if s.get("map", "").startswith("SilphCo")]
+    silph = [s for s in build.load_specs(games.find('yellow')) if s.get("map", "").startswith("SilphCo")]
     assert len(silph) > 15, "the page's scenes are what this is guarding"
     assert [s["name"] for s in silph if s.get("parent") != "SAFFRON_CITY"] == []
     const, tileset = sources.parse_headers(root)["SilphCo11F"]
@@ -1145,7 +1146,7 @@ def test_every_shipped_scene_draws_a_conversation_the_game_could_show(root):
     """The whole spec library, so a new scene cannot land facing the wrong way."""
     import build
 
-    for spec in build.load_specs():
+    for spec in build.load_specs(games.find('yellow')):
         if spec["type"] in generators.SCREEN_TYPES:
             _check(root, spec)
 

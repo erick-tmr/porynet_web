@@ -482,7 +482,7 @@ module Walkthrough
     def fresh? = fresh
     def boxed? = boxed
     def best? = !best.nil?
-    def rated? = !Yellow.parse_rate(rate).nil?
+    def rated? = !Gen1Guide.parse_rate(rate).nil?
     def queued? = fresh && qty.positive?
     def skipped? = fresh && qty.zero?
   end
@@ -749,7 +749,12 @@ module Walkthrough
   end
 
   Game = Data.define(:slug, :name, :region, :dex_goal, :oak_example, :locations, :legs,
-    :best_catches, :windows) do
+    :best_catches, :windows, :guide) do
+    # Where this game's copy lives, and where its images do. A view that draws a game reaches
+    # them through the game rather than through whichever module happens to be first.
+    def key = guide::K
+
+    def image_prefix = "walkthrough/#{slug}"
     def leg(slug) = legs.find { |l| l.slug == slug }
 
     def leg!(slug)
@@ -943,7 +948,13 @@ module Walkthrough
   # lit.
   EndingTag = Data.define(:dex, :key, :tone)
 
-  def self.games = { "yellow" => Yellow.game }
+  GUIDES = [ Yellow, YellowLegacy ].freeze
+
+  # Built once: a game is a whole graph (every stop, its maps, its trainers, the catch plan), so
+  # rebuilding it per call was already wasteful with one game and is twice that with two.
+  def self.games
+    @games ||= GUIDES.to_h { |guide| [ guide::SLUG, guide.game ] }.freeze
+  end
 
   def self.find(slug) = games[slug]
 

@@ -15,8 +15,31 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-ver--live .pn-ver__open[href=?]", walkthrough_path(game: "yellow"), text: "OPEN ▶"
     assert_select ".pn-ver--live .pn-ver__pages",
       text: "#{Walkthrough.find!('yellow').legs.size} pages live"
-    assert_select ".pn-ver__status", count: 4, text: "ROUTING · NEXT UP"
+    assert_select ".pn-ver__status", count: 3, text: "ROUTING · NEXT UP"
+  end
+
+  # Missing copy raises in test, so walking every page of every live game is how a half-written
+  # guide is caught: a stop whose tree was never filled in fails here rather than in front of a
+  # reader. It also catches a shot or a pin that one game has and the other does not.
+  test "every page of every live game renders, in both locales" do
+    Walkthrough.games.each_value do |game|
+      game.legs.each do |leg|
+        %w[en pt].each do |locale|
+          get walkthrough_leg_path(game: game.slug, leg: leg.slug, locale: locale)
+          assert_response :success, "#{game.slug} #{leg.slug} (#{locale})"
+        end
+      end
+    end
+  end
+
+  test "the ROM hack opens too, on its own slug" do
+    get walkthroughs_path
+
     assert_select ".pn-ver--dark .pn-ver__name", text: "Pokémon Yellow Legacy"
+    assert_select ".pn-ver--dark .pn-ver__open[href=?]",
+      walkthrough_path(game: "yellow-legacy"), text: "OPEN ▶"
+    assert_select ".pn-ver--dark .pn-ver__pages",
+      text: "#{Walkthrough.find!('yellow-legacy').legs.size} pages live"
   end
 
   test "the version index dates the cartridges and marks the ROM hack instead" do

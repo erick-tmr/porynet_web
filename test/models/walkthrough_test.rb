@@ -1,6 +1,20 @@
 require "test_helper"
 
 class WalkthroughTest < ActiveSupport::TestCase
+  # The guide reconciles a game's encounter cards against the wild tables that game ships, which
+  # is how a second game gets its own catch lists without anyone retyping sixty-seven of them.
+  # The proof that it reads the tables the way a person does is that it reproduces the hand
+  # written corpus exactly: run it over the game those cards were authored for and nothing moves,
+  # down to the rounding. So any card it writes differently for another game is a real difference
+  # between the games, not a quirk of the algorithm.
+  test "reconciling the authored game against its own tables changes nothing" do
+    moved = Walkthrough.find!("yellow").locations.reject do |loc|
+      Walkthrough::Yellow.reconcile_encounters(loc).encounters == loc.encounters
+    end
+
+    assert_empty moved.map(&:slug)
+  end
+
   def game = Walkthrough.find!("yellow")
   def loc(slug) = game.locations.find { |location| location.slug == slug }
 
@@ -256,7 +270,7 @@ class WalkthroughTest < ActiveSupport::TestCase
   test "the Fighting Dojo carries its own room, and the second Saffron pass carries none of it" do
     dojo = loc("saffron-city").dojo
 
-    assert_equal Walkthrough::Yellow::DOJO_MAP, dojo.map
+    assert_equal Walkthrough::Gen1Guide::DOJO_MAP, dojo.map
     assert_equal 4, dojo.trainers.size
     assert_equal "BLACKBELT:1", dojo.leader.opp
     assert_equal 4_175, dojo.purse

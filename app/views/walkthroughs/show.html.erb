@@ -8,15 +8,15 @@
   <span class="pn-nav__crumb-here"><%= @game.name.upcase %></span>
 <% end %>
 <% content_for :nav_marquee do %>
-  <%= render "shared/marquee_row", items: t("#{Walkthrough::Yellow::K}.marquee") %>
-  <%= render "shared/marquee_row", items: t("#{Walkthrough::Yellow::K}.marquee") %>
+  <%= render "shared/marquee_row", items: t("#{@game.key}.marquee") %>
+  <%= render "shared/marquee_row", items: t("#{@game.key}.marquee") %>
 <% end %>
 
 <%= render "walkthroughs/sync_banner", game: @game %>
 
 <section class="pn-wt-hero">
   <div class="pn-wt-hero__chips">
-    <div class="pn-wt-badge"><%= t("#{Walkthrough::Yellow::K}.hero.badge") %></div>
+    <div class="pn-wt-badge"><%= t("#{@game.key}.hero.badge") %></div>
     <% %w[living oak].each do |mode| %>
       <button type="button" class="pn-wt-modechip pn-wt-modechip--<%= mode %>" aria-pressed="false"
               data-mode-toggle-target="switch" data-mode="<%= mode %>"
@@ -31,15 +31,15 @@
   </div>
 
   <h1 class="pn-wt-hero__title"><%= accent_last(@game.name) %></h1>
-  <p class="pn-wt-hero__lead"><%= t("#{Walkthrough::Yellow::K}.hero.lead") %></p>
+  <p class="pn-wt-hero__lead"><%= t("#{@game.key}.hero.lead") %></p>
 </section>
 
 <%= render "modes", game: @game %>
 
 <section class="pn-wt-section">
   <div class="pn-eyebrow-label"><%= t("walkthrough.ui.route_eyebrow", count: @game.legs.size) %></div>
-  <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.route.h2") %></h2>
-  <p class="pn-wt-lead"><%= t("#{Walkthrough::Yellow::K}.route.lead") %></p>
+  <h2 class="pn-h2"><%= t("#{@game.key}.route.h2") %></h2>
+  <p class="pn-wt-lead"><%= t("#{@game.key}.route.lead") %></p>
 
   <div class="pn-wt-steps">
     <% @game.legs.each do |leg| %>
@@ -49,9 +49,9 @@
 </section>
 
 <section class="pn-wt-section">
-  <div class="pn-eyebrow-label pn-eyebrow-label--magenta"><%= t("#{Walkthrough::Yellow::K}.specials.eyebrow") %></div>
-  <h2 class="pn-h2"><%= t("#{Walkthrough::Yellow::K}.specials.h2") %></h2>
-  <p class="pn-wt-lead"><%= t("#{Walkthrough::Yellow::K}.specials.lead") %></p>
+  <div class="pn-eyebrow-label pn-eyebrow-label--magenta"><%= t("#{@game.key}.specials.eyebrow") %></div>
+  <h2 class="pn-h2"><%= t("#{@game.key}.specials.h2") %></h2>
+  <p class="pn-wt-lead"><%= t("#{@game.key}.specials.lead") %></p>
 
   <div class="pn-wt-specials">
     <%= render "mew_special_card", game: @game %>

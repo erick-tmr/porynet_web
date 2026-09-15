@@ -1,4 +1,4 @@
-<% k = "#{Walkthrough::Yellow::K}.modes.#{mode}" %>
+<% k = "#{@game.key}.modes.#{mode}" %>
 <div class="pn-wt-moderow__ident">
   <div class="pn-wt-moderow__sticky">
     <div class="pn-wt-modeid__head">
@@ -18,7 +18,7 @@
     </button>
     <div class="pn-wt-modeid__source">
       <%= t("walkthrough.ui.mode_source") %><br>
-      <%= link_to t("#{k}.source_name"), Walkthrough::Yellow::MODE_SOURCES.fetch(mode),
+      <%= link_to t("#{k}.source_name"), Walkthrough::Gen1Guide::MODE_SOURCES.fetch(mode),
                   target: "_blank", rel: "noreferrer" %>
     </div>
   </div>
