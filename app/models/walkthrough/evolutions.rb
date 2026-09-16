@@ -55,33 +55,52 @@ module Walkthrough
       [ "147", "148", :level, 30 ], [ "148", "149", :level, 55 ]
     ].freeze
 
-    ALL = ROWS.map { |from, to, kind, arg| Evolution.new(from: from, to: to, kind: kind, arg: arg) }
-      .freeze
-    OUT_OF = ALL.group_by(&:from).freeze
-    INTO = ALL.group_by(&:to).freeze
+    LEGACY_ROWS = [
+      [ "064", "065", :level, 42 ], [ "067", "068", :level, 38 ],
+      [ "075", "076", :level, 38 ], [ "093", "094", :level, 42 ]
+    ].freeze
 
-    def self.out_of(dex) = OUT_OF.fetch(dex, [])
+    class Table
+      attr_reader :all
 
-    def self.into(dex) = INTO.fetch(dex, [])
+      def initialize(rows)
+        @all = rows.map { |from, to, kind, arg| Evolution.new(from: from, to: to, kind: kind, arg: arg) }
+          .freeze
+        @out_of = @all.group_by(&:from).freeze
+        @into = @all.group_by(&:to).freeze
+      end
+
+      def out_of(dex) = @out_of.fetch(dex, [])
+
+      def into(dex) = @into.fetch(dex, [])
+
+      def root(dex)
+        stage = dex
+        stage = into(stage).first.from while into(stage).any?
+        stage
+      end
+
+      def chain_for(dex)
+        chain = [ root(dex) ]
+        index = 0
+        while index < chain.size
+          chain.concat(out_of(chain[index]).map(&:to))
+          index += 1
+        end
+        chain
+      end
+    end
+
+    def self.replacing(rows, swaps)
+      by_pair = swaps.to_h { |row| [ row.first(2), row ] }
+      rows.map { |row| by_pair.fetch(row.first(2), row) }
+    end
+
+    GEN1 = Table.new(ROWS)
+    LEGACY = Table.new(replacing(ROWS, LEGACY_ROWS))
 
     def self.refused?(dex) = REFUSED.include?(dex)
 
     def self.stone_source(stone) = STONE_SOURCES.fetch(stone)
-
-    def self.root(dex)
-      stage = dex
-      stage = into(stage).first.from while into(stage).any?
-      stage
-    end
-
-    def self.chain_for(dex)
-      chain = [ root(dex) ]
-      index = 0
-      while index < chain.size
-        chain.concat(out_of(chain[index]).map(&:to))
-        index += 1
-      end
-      chain
-    end
   end
 end

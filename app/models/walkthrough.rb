@@ -53,14 +53,13 @@ module Walkthrough
   end
 
   Encounter = Data.define(:dex, :name, :how, :rate, :level, :rarity, :tip_key, :evo_line,
-    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map) do
-    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], **rest) = super
+    :from_key, :unlock_key, :unlock_icon, :needs_badge, :places, :at_map, :unlocked_from) do
+    def initialize(from_key: nil, unlock_key: nil, unlock_icon: nil, needs_badge: nil, places: [], unlocked_from: 0, **rest) = super
     def gift? = %w[GIFT STARTER TRADE].include?(how)
     def purchased? = how == GAME_CORNER_METHOD
     def static? = how == STATIC_METHOD
     def wild? = !gift?
     def section = gift? ? GIFT_SECTION : how
-    def unlocked_from = METHOD_UNLOCK.fetch(how, 0)
     def badge_locked? = !needs_badge.nil?
     def open_after?(badges) = needs_badge.nil? || badges.include?(needs_badge)
     def from? = !from_key.nil?
@@ -94,9 +93,10 @@ module Walkthrough
     def key? = !key.nil?
   end
   TriviaCard = Data.define(:dex, :name, :tone, :rows)
-  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :shot, :art, :note_icon,
-    :tag_key, :warning, :pins, :marks) do
-    def initialize(art: nil, note_icon: nil, tag_key: nil, warning: nil, pins: {}, marks: {}, **rest) = super
+  MarkedFact = Data.define(:key, :state, :mark)
+  Trivia = Data.define(:anchor, :title_key, :intro_key, :note_key, :cards, :facts, :shot, :art,
+    :note_icon, :tag_key, :warning, :pins, :marks) do
+    def initialize(facts: [], art: nil, note_icon: nil, tag_key: nil, warning: nil, pins: {}, marks: {}, **rest) = super
     def art? = !art.nil?
     def note_icon? = !note_icon.nil?
     def tag? = !tag_key.nil?
@@ -324,7 +324,7 @@ module Walkthrough
   end
 
   PlanEntry = Data.define(:dex, :name, :at, :stop_name, :qty, :covers, :chain, :fresh, :boxed,
-    :done_at, :how, :rate, :best, :why_key, :why_args, :later) do
+    :done_at, :done_how, :how, :rate, :best, :why_key, :why_args, :later) do
     def catch_at = done_at || stop_name
     def later? = !later.nil?
     def fresh? = fresh
@@ -366,8 +366,9 @@ module Walkthrough
 
   OakEntry = Data.define(:dex, :name, :qty, :why_key)
   OakExample = Data.define(:dex, :name, :how)
-  BestCatch = Data.define(:dex, :slug, :rate, :tie, :alt_name, :alt_rate, :only, :armed_only) do
-    def initialize(tie: false, alt_name: nil, alt_rate: nil, only: false, armed_only: false, **rest) = super
+  BestCatch = Data.define(:dex, :slug, :place, :how, :rate, :tie, :alt_name, :alt_rate, :only,
+    :armed_only) do
+    def initialize(place: nil, how: nil, tie: false, alt_name: nil, alt_rate: nil, only: false, armed_only: false, **rest) = super
     def rate? = !rate.nil?
   end
 
@@ -437,7 +438,7 @@ module Walkthrough
       second_visit: nil, dojo: nil, **rest)
       super(name: name, title: title || name, gym: gym, gym_after: gym_after,
         gym_finale: gym_finale, area_maps: area_maps,
-        later: later, trivia: trivia, missable: missable, trades: trades, mart: mart,
+        later: later, trivia: Array(trivia).compact, missable: missable, trades: trades, mart: mart,
         grind: grind, second_visit: second_visit, dojo: dojo, **rest)
     end
 
@@ -445,7 +446,7 @@ module Walkthrough
     def mart? = !mart.nil?
     def area_maps? = area_maps.any?
     def later? = later.any?
-    def trivia? = !trivia.nil?
+    def trivia? = trivia.any?
     def grind? = !grind.nil?
     def missable_after?(step_n) = !missable.nil? && missable.after_step == step_n
 
@@ -526,6 +527,7 @@ module Walkthrough
   Game = Data.define(:slug, :name, :region, :dex_goal, :oak_example, :locations, :legs,
     :best_catches, :windows, :guide) do
     def key = guide::K
+    def evolutions = guide.evolutions
 
     def image_prefix = "walkthrough/#{slug}"
     def leg(slug) = legs.find { |l| l.slug == slug }
@@ -657,7 +659,6 @@ module Walkthrough
   FossilWait = Data.define(:anchor, :count, :steps, :fossils, :facts)
   FossilStep = Data.define(:n, :title_key, :text_key)
   FossilCard = Data.define(:dex, :name, :item, :art, :sprite, :height, :weight)
-  FossilFact = Data.define(:key, :state, :mark)
 
   TrueEnding = Data.define(:anchor, :copy_key, :tiles, :tags, :art, :mew, :shot, :league_leg)
   EndingTag = Data.define(:dex, :key, :tone)

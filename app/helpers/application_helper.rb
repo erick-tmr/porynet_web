@@ -306,6 +306,17 @@ module ApplicationHelper
     t("walkthrough.ui.map_cat_#{marker.cat}")
   end
 
+  BADGE_METHODS = { "GRASS" => "grass", "SURF" => "surf", "OLD ROD" => "old_rod",
+                    "GOOD ROD" => "good_rod", "SUPER ROD" => "super_rod" }.freeze
+
+  def catch_elsewhere_badge(entry)
+    stop = entry.catch_at.upcase
+    key = BADGE_METHODS[entry.done_how]
+    return t("walkthrough.ui.badge_do_at", stop: stop) if key.nil?
+
+    t("walkthrough.ui.badge_do_at_how", how: t("walkthrough.ui.badge_how_#{key}"), stop: stop)
+  end
+
   def best_catch_reason(best, encounter)
     return sole_catch_reason(best, encounter) if best.only
     if best.armed_only

@@ -209,6 +209,48 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Technology is incredible"
   end
 
+  test "Legacy's Pallet page briefs the rules its neighbours changed, pinned to where they stand" do
+    get walkthrough_leg_path(game: "yellow-legacy", leg: "leg-01")
+
+    assert_response :success
+    assert_select "#pallet-town-what-changed .pn-eyebrow-label", text: "TRIVIA · WHAT CHANGED"
+    assert_select "#pallet-town-what-changed .pn-wt-trivia__facts .pn-wt-trivia-row", 4
+    assert_select "#pallet-town-what-changed .pn-wt-trivia-mark--no", 1, "only Bug lost a matchup"
+    assert_select "#pallet-town-what-changed .pn-wt-trivia__intro .pn-wt-mark[data-mark-key=?]", "N1"
+    assert_select "#pallet-town-what-changed .pn-wt-shot img[src*=?]", "pallet-running-shoes.png"
+    assert_select "#rival-eevee", 1, "the Eevee trivia still has the page to itself above it"
+  end
+
+  test "an Old Rod catch whose best odds lie elsewhere says so on the card" do
+    get walkthrough_leg_path(game: "yellow-legacy", leg: "leg-02")
+
+    assert_response :success
+    assert_select "#catchsec-viridian-city-old-rod .pn-wt-catchbadge--elsewhere", 2
+    assert_select "#catchsec-viridian-city-old-rod .pn-wt-catchbadge--elsewhere",
+      text: "SUPER ROD ON ROUTE 6", count: 1
+    assert_select "#catchsec-viridian-city-old-rod .pn-wt-catchbadge--elsewhere",
+      text: "SUPER ROD ON ROUTE 23", count: 1
+    assert_select "#catchsec-viridian-city-old-rod .pn-wt-best", 0,
+      "neither is the best place, so neither wears the star"
+  end
+
+  test "a briefed stop shows its What Changed section, pinned to the NPC that says it" do
+    get walkthrough_leg_path(game: "yellow-legacy", leg: "leg-02")
+
+    assert_response :success
+    assert_select "#viridian-city-what-changed .pn-eyebrow-label", text: "TRIVIA · WHAT CHANGED"
+    assert_select "#viridian-city-what-changed .pn-wt-trivia__facts .pn-wt-trivia-row", 5
+    assert_select "#viridian-city-what-changed .pn-wt-trivia-mark--na", 1, "only the PP board is a Gen 1 rule"
+    assert_select "#viridian-city-what-changed .pn-wt-trivia__intro .pn-wt-mark[data-mark-key=?]", "N3"
+  end
+
+  test "vanilla Yellow's Viridian page carries no rule-change section" do
+    get walkthrough_leg_path(game: "yellow", leg: "leg-02")
+
+    assert_response :success
+    assert_select "[id$=what-changed]", 0
+  end
+
   test "a pin's hint links to the step that collects it, and that step is there to land on" do
     get walkthrough_leg_path(game: "yellow", leg: "viridian-forest")
 
@@ -409,7 +451,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".pn-wt-ldrow", count: 0
     assert_select ".pn-wt-ldq__none"
     assert_select ".pn-wt-ld__ledger-head", count: 0
-    assert_select ".pn-wt-catchbadge--elsewhere", text: "DO IT AT ROUTE 17"
+    assert_select ".pn-wt-catchbadge--elsewhere", text: "IN THE GRASS ON ROUTE 17"
     assert_select ".pn-wt-catchbadge--elsewhere", text: "DO IT AT POKÉMON MANSION"
     assert_select ".pn-wt-ldnote__text", text: /Doduo has better odds at Route 17/
   end

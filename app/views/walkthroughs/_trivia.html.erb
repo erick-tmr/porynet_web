@@ -34,6 +34,16 @@
     <% end %>
   </div>
   <% end %>
+  <% if trivia.facts.any? %>
+    <div class="pn-wt-trivia__facts">
+      <% trivia.facts.each do |fact| %>
+        <div class="pn-wt-trivia-row">
+          <span class="pn-wt-trivia-mark pn-wt-trivia-mark--<%= fact.state %>"><%= fact.mark %></span>
+          <span class="pn-wt-trivia-row__text"><%= t(fact.key) %></span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <% if trivia.warning? %>
     <%= render "trivia_warning", warning: trivia.warning %>
   <% end %>

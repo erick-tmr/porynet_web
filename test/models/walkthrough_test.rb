@@ -883,7 +883,7 @@ class WalkthroughTest < ActiveSupport::TestCase
         loc.later.map { |l| [ "#{loc.slug} later #{l.name}", l ] } +
         loc.trainers.flat_map { |t| [ [ "#{loc.slug} where #{t.name}", t.where ],
                                       [ "#{loc.slug} battle #{t.name}", t.battle ] ] } +
-        [ [ "#{loc.slug} trivia", loc.trivia&.shot ] ]
+        loc.trivia.map { |block| [ "#{loc.slug} trivia #{block.anchor}", block.shot ] }
     end.reject { |_label, node| node.nil? } +
       Walkthrough::Yellow.surf_pikachu.shots.map { |s| [ "surfing pikachu #{s.key}", s ] }
   end

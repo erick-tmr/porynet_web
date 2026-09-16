@@ -74,7 +74,7 @@
   <%= render "catch_here", loc: @location, encounters: elsewhere, plan: plan, level: :page %>
 <% end %>
 
-<% if @location.trivia? %><%= render "trivia", trivia: @location.trivia %><% end %>
+<% @location.trivia.each do |block| %><%= render "trivia", trivia: block %><% end %>
 
 <% if league %>
   <%= render "elite_four", league: league %>

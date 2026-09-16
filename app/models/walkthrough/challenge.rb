@@ -26,16 +26,16 @@ module Walkthrough
     def self.registerable(game, slug)
       seen = reached_upto(game, slug)
       badges = badges_before(seen)
-      grow(seen.flat_map { |loc| loc.dex_list_after(badges) }.uniq, seen.map(&:slug))
+      grow(game.evolutions, seen.flat_map { |loc| loc.dex_list_after(badges) }.uniq, seen.map(&:slug))
     end
 
     def self.badges_before(seen) = seen[0...-1].filter_map(&:badge)
 
-    def self.grow(roster, reached)
+    def self.grow(table, roster, reached)
       grown = roster.dup
       index = 0
       while index < grown.size
-        Evolutions.out_of(grown[index]).each do |evo|
+        table.out_of(grown[index]).each do |evo|
           grown << evo.to if performable?(evo, reached) && !grown.include?(evo.to)
         end
         index += 1
@@ -49,21 +49,21 @@ module Walkthrough
       evo.level? || reached.include?(Evolutions.stone_source(evo.arg))
     end
 
-    def self.evolvable?(dex)
-      Evolutions.into(dex).any? { |evo| performable?(evo, Evolutions::STONE_SOURCES.values) }
+    def self.evolvable?(table, dex)
+      table.into(dex).any? { |evo| performable?(evo, Evolutions::STONE_SOURCES.values) }
     end
 
-    def self.fillable?(dex)
-      Evolutions.into(dex).any? do |evo|
+    def self.fillable?(table, dex)
+      table.into(dex).any? do |evo|
         !Evolutions.refused?(evo.to) &&
           (evo.trade? || performable?(evo, Evolutions::STONE_SOURCES.values))
       end
     end
 
-    def self.ancestors_of(dex)
+    def self.ancestors_of(table, dex)
       line = []
       stage = dex
-      while (step = Evolutions.into(stage).first)
+      while (step = table.into(stage).first)
         line.unshift(step.from)
         stage = step.from
       end
@@ -95,12 +95,13 @@ module Walkthrough
       !rate.nil? && rate >= WORTH_CATCHING_RATE
     end
 
-    def self.rungs(dex) = [ dex ] + ancestors_of(dex).reverse
+    def self.rungs(table, dex) = [ dex ] + ancestors_of(table, dex).reverse
 
     def self.body_source(game, dex)
-      return dex unless fillable?(dex)
+      return dex unless fillable?(game.evolutions, dex)
 
-      rungs(dex).find { |stage| worth_catching?(game, stage) } || best_odds(game, ancestors_of(dex))
+      rungs(game.evolutions, dex).find { |stage| worth_catching?(game, stage) } ||
+        best_odds(game, ancestors_of(game.evolutions, dex))
     end
 
     def self.best_odds(game, stages)
@@ -110,7 +111,7 @@ module Walkthrough
     def self.self_sourced?(game, dex) = body_source(game, dex) == dex
 
     def self.covered_by(game, dex)
-      Evolutions.chain_for(dex).select { |stage| body_source(game, stage) == dex }
+      game.evolutions.chain_for(dex).select { |stage| body_source(game, stage) == dex }
     end
 
     def self.bodies_for(game, dex) = covered_by(game, dex).size
@@ -126,7 +127,8 @@ module Walkthrough
     end
 
     def self.stop_rate(loc, dex)
-      loc.encounters.select { |enc| enc.dex == dex }.filter_map { |enc| Gen1Guide.parse_rate(enc.rate) }.max
+      loc.encounters.select { |enc| enc.dex == dex && enc.unlocked_from <= loc.order }
+        .filter_map { |enc| Gen1Guide.parse_rate(enc.rate) }.max
     end
 
     def self.encounter_at(loc, dex) = loc.encounters.find { |enc| enc.dex == dex }
@@ -138,7 +140,7 @@ module Walkthrough
       PagePlan.new(window: window_for(game, leg), entries: entries, due: due,
         notes: notes_for(game, leg, entries), families: families_for(game, entries),
         groups: groups_for(game, leg, due), earlier: earlier_for(game, leg),
-        locked: locked_for(due))
+        locked: locked_for(game, due))
     end
 
     def self.window_for(game, leg) = game.windows.find { |win| win.covers?(leg_order(leg).last.slug) }
@@ -153,14 +155,15 @@ module Walkthrough
       covers = covered_by(game, dex)
       here = home.slug == shown.slug
       later = covers.any? ? later_for(game, dex) : nil
+      best = game.best_catches[dex]
       PlanEntry.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex), at: shown.slug,
-        stop_name: shown.name, covers: covers, chain: Evolutions.chain_for(dex), fresh: here,
-        boxed: !here && boxed_before?(game, span, dex), done_at: here ? nil : home.name,
-        later: later, **catch_facts(game, shown, dex, covers, later))
+        stop_name: shown.name, covers: covers, chain: game.evolutions.chain_for(dex), fresh: here,
+        boxed: !here && boxed_before?(game, span, dex),
+        done_at: (best&.place || home.name unless here), done_how: (best&.how unless here),
+        later: later, **catch_facts(shown, dex, covers, later, best))
     end
 
-    def self.catch_facts(game, shown, dex, covers, later)
-      best = game.best_catches[dex]
+    def self.catch_facts(shown, dex, covers, later, best)
       found = encounter_at(shown, dex)
       why = why_for(shown, found, covers.size, best, later)
       { qty: covers.size, how: found.how, rate: found.rate, best: best,
@@ -168,7 +171,7 @@ module Walkthrough
     end
 
     def self.later_for(game, dex)
-      steps = Evolutions.out_of(dex)
+      steps = game.evolutions.out_of(dex)
       step = steps.find { |evo| body_source(game, evo.to) == dex } || steps.first
       step && later_stage(game, dex, step)
     end
@@ -280,10 +283,10 @@ module Walkthrough
         stages: entry.chain.map { |dex| stage_for(game, dex) })
     end
 
-    def self.unreachable?(game, dex) = stops_with(game, dex).empty? && !evolvable?(dex)
+    def self.unreachable?(game, dex) = stops_with(game, dex).empty? && !evolvable?(game.evolutions, dex)
 
     def self.stage_for(game, dex)
-      step = Evolutions.into(dex).first
+      step = game.evolutions.into(dex).first
       traded = unreachable?(game, dex)
       FamilyStage.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex),
         step_key: traded ? "walkthrough.ui.step_trade" : step_key(step),
@@ -317,10 +320,10 @@ module Walkthrough
     end
 
     def self.one_specimen_line?(game, dex, grown)
-      base = Evolutions.into(dex).first&.from
+      base = game.evolutions.into(dex).first&.from
       return false if base.nil? || game.best_catches[base]
 
-      grown.count { |other| Evolutions.into(other).first&.from == base } > 1
+      grown.count { |other| game.evolutions.into(other).first&.from == base } > 1
     end
 
     def self.owed_here(game, leg, due)
@@ -341,7 +344,7 @@ module Walkthrough
       stop = catchable_stop(game, dex, reached)
       return catch_tile(entry_for(game, [ stop ], dex), off_page(stop, here)) if stop
 
-      step = Evolutions.into(dex).first
+      step = game.evolutions.into(dex).first
       OakTile.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex), via_key: step_key(step),
         via_args: step_args(step))
     end
@@ -356,7 +359,7 @@ module Walkthrough
       return nil if best.nil?
 
       rate = stop_rate(best, dex)
-      best if rate.nil? || rate >= WORTH_CATCHING_RATE || Evolutions.into(dex).empty?
+      best if rate.nil? || rate >= WORTH_CATCHING_RATE || game.evolutions.into(dex).empty?
     end
 
     def self.registerable_before(game, slug)
@@ -383,13 +386,14 @@ module Walkthrough
       earlier_dex(game, leg).map { |dex| tile_for(game, dex, reached) }
     end
 
-    def self.locked_for(due)
-      candidates = (due.flat_map { |dex| Evolutions.out_of(dex) }.map(&:to).uniq - due).sort
-      candidates.map { |dex| locked_entry(dex) }
+    def self.locked_for(game, due)
+      candidates = (due.flat_map { |dex| game.evolutions.out_of(dex) }.map(&:to).uniq - due).sort
+      candidates.map { |dex| locked_entry(game, dex) }
     end
 
-    def self.locked_entry(dex)
-      step = Evolutions.into(dex).find { |evo| !evo.trade? } || Evolutions.into(dex).first
+    def self.locked_entry(game, dex)
+      table = game.evolutions
+      step = table.into(dex).find { |evo| !evo.trade? } || table.into(dex).first
       LockedEntry.new(dex: dex, name: Gen1Guide::NAMES.fetch(dex), gate_key: gate_key(dex, step),
         gate_args: step_args(step), where_key: locked_where_key(dex, step),
         where_args: { stone: step.arg, name: Gen1Guide::NAMES.fetch(step.from) })

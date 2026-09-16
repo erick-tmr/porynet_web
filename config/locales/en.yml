@@ -836,6 +836,24 @@ en:
       map_npc_game_corner_man_20: "Down on his luck and giving up: 20 coins, once, and only with the Coin Case on you."
       map_npc_game_corner_guru_20: "Another 20 coins for the asking, once. Coin Case required, like the rest of them."
       map_npc_pallet_technology: "\"Technology is incredible!\" The fisher who talks up PC item storage, a classic Kanto one-liner."
+      map_npc_pallet_running_shoes: "\"Like my new RUNNING SHOES?\" She is Legacy's tutorial for them: hold B and you walk at bike speed."
+      map_npc_pallet_bigger_bag: "\"My new backpack can store triple the items!\" The fisher counts the bag's 59 slots, and the START button that sorts them."
+      map_npc_route1_stat_exp: "\"Do you know about STAT experience?\" A Gen 1 rule the original never spelled out: battling raises stats past the level curve, so your team outgrows same-level opponents."
+      map_npc_viridian_habitats: "A Trainer Tips board, rewritten for Legacy: the wild tables moved. Treat every route as new ground, whatever you remember from Yellow."
+      map_npc_viridian_dvs: "\"That's called Diversity Value, or DV.\" He covers the whole thing: 0 to 15 per stat, worth 30 points by Lv 100, and how to read them on the STATS page."
+      map_npc_viridian_enemy_pp: "A Trainer Tips board on PP, with a new tail claiming enemy trainers are not limited by it. Their Pokémon do spend PP; they just start every battle full."
+      map_npc_pewter_dv_menu: "A Trainer Tips board carrying Legacy's own addition: the STATS page prints a Pokémon's DVs if you hold START before you press A."
+      map_npc_cerulean_crit_speed: "A Trainer Tips board explaining a Gen 1 rule rather than a new one: critical hits scale off base Speed, and the fastest Pokémon land one throw in five."
+      map_npc_celadon_special: "A Trainer Tips board. SPECIAL is one stat doing two jobs in Gen 1, so a high-SPECIAL Pokémon hits hard and shrugs off special damage in the same breath."
+      map_npc_celadon_guard_spec: "A Trainer Tips board, corrected: Guard Spec. blocks stat drops. It does nothing about fire or water, whatever the original board claimed."
+      map_npc_tower_ghost_damage: "The Channeler who only talks. Ghost moves bill their damage to SPECIAL and never to Attack, which is why a bulky attacker still folds to them."
+      map_npc_guide_brock: "The gym guide scouts for you now: Geodude leads and throws accurate rock moves, Onix is a wall with Bind, and Pikachu is dead weight against both."
+      map_npc_guide_misty: "The gym guide's scouting report: Misty plays offence, her lead and her ace both carry Psychic moves, and Electric is the cleanest way through all three."
+      map_npc_guide_surge: "The gym guide's scouting report: Surge fields one Pokémon and it is enormous, with a strong Water move taught to punish the Ground type you bring for it."
+      map_npc_guide_koga: "The gym guide traded his wall directions for type advice: Koga covers his Ground weakness, so Psychic is the way through. The invisible walls are still there."
+      map_npc_guide_sabrina: "The gym guide's scouting report: her Psychics hit hard and take special damage well, so bring a Ghost, a Bug, or something with raw Attack."
+      map_npc_guide_blaine: "The gym guide's scouting report: Water still answers Blaine, but he carries coverage moves aimed at whatever you bring to douse him."
+      map_npc_guide_giovanni: "The gym guide knows nothing about the leader, only a rumour that he is rich. Expect a team taught a wall of TM moves."
       map_npc_route1_potion: "A Viridian Mart employee. Talk to him for a free sample Potion."
       map_npc_route24_charmander: "On the grassy hilltop above the bridge, this boy hands you a free Charmander (Lv 10). Take it."
       map_npc_viridian_tm42: "A Fisher dozing on a fenced plot, walled in by a cuttable tree. Wake him and he gives you TM42, Dream Eater."
@@ -884,7 +902,7 @@ en:
       catchsec_surf_label: "Surfing"
       catchsec_surf_hint: "Out on the water. Needs Surf."
       catchsec_old_rod_label: "Old Rod"
-      catchsec_old_rod_hint: "One slot only, so expect the same fish forever."
+      catchsec_old_rod_hint: "One table for all of Kanto, so the shore never matters."
       catchsec_good_rod_label: "Good Rod"
       catchsec_good_rod_hint: "Two shared slots on any shore tile."
       catchsec_super_rod_label: "Super Rod"
@@ -1005,6 +1023,12 @@ en:
       badge_needs: "NEEDS %{tool}"
       badge_boxed: "ALREADY BOXED"
       badge_do_at: "DO IT AT %{stop}"
+      badge_do_at_how: "%{how} ON %{stop}"
+      badge_how_grass: "IN THE GRASS"
+      badge_how_surf: "SURFING"
+      badge_how_old_rod: "OLD ROD"
+      badge_how_good_rod: "GOOD ROD"
+      badge_how_super_rod: "SUPER ROD"
       pill_box_html: "BOX %{have}/%{want}"
       pill_box_done: "BOX ✓"
       pill_registered: "REGISTERED ✓"
@@ -4416,6 +4440,101 @@ en:
           stop_pages_html: "<b>On the stop pages:</b> each location lists what still owes a registration in this window, and which families are locked until a later badge."
           queue_tag: "EXAMPLE · EVERYTHING OWED BEFORE BROCK"
           queue_note: "Your starter, seven catches across Routes 1, 2 and 22 and the forest, and the evolutions they feed, including the infamous Pidgeot grind. Metapod and Pidgeotto go either way: catch them wild in the forest, or evolve into them. Nidoking and Nidoqueen wait for the Moon Stone in Mt. Moon. Raichu never comes: Yellow has no wild Pikachu and your starter refuses the Thunder Stone, so it's trade-only, and we only track what a single cartridge can do."
+      what_changed:
+        meta_title: "What Legacy changed · %{game} Walkthrough"
+        crumb: "What changed"
+        eyebrow: "SPECIAL · RULE CHANGES"
+        title: "What Yellow Legacy changed, and what it finally explains"
+        lead: "Legacy rewrote the small talk. Half of Kanto's bystanders now brief you on a rule, and they fall into two piles: things this game altered, and Gen 1 rules the original never spelled out. Every one below is pinned on the stop page it stands on."
+        note: "Read straight from the disassembly, not from the dialogue: every entry here was checked against the game's own tables before it was written down."
+        index:
+          kind: "RULES"
+          where: "WHOLE GAME"
+          name: "What Legacy changed"
+          note: "The rules that differ from vanilla Yellow, and the Gen 1 quirks the locals finally explain."
+        rewritten:
+          eyebrow: "CHANGED · LEGACY ALTERED THIS"
+          h2: "Rules this game rewrote"
+          intro: "None of these hold in vanilla Yellow. If you are playing from memory, these are the ones that will catch you out."
+          running:
+            title: "Running shoes"
+            text: "Hold B and you walk at bike speed anywhere on foot. Surfing runs at that speed on its own, with nothing held."
+            where: "Pallet Town, the girl by the garden"
+          bag:
+            title: "A bag that holds three times as much"
+            text: "59 item slots instead of 20, and pressing START inside the bag sorts it."
+            where: "Pallet Town, the fisher below the lab"
+          types:
+            title: "Two corrections to the type chart"
+            text: "Ghost hits Psychic for double damage, where Gen 1 had it do nothing at all. Bug no longer hits Poison hard, though Poison still doubles against Bug."
+            where: "Pallet Town, inside Oak's lab"
+          dvs:
+            title: "You can read a Pokémon's DVs"
+            text: "Hold START, then press A on STATS, and the page prints the hidden 0 to 15 values behind each stat."
+            where: "Viridian City, the youngster by the Mart"
+          habitats:
+            title: "The wild tables moved"
+            text: "Species were shuffled across Kanto to spread the roster out. Every route is new ground, whatever you remember catching there."
+            where: "Viridian City, the Trainer Tips board"
+          trade_evos:
+            title: "No trade evolutions"
+            text: "All four level up instead: Machoke at 38, Graveler at 38, Kadabra at 42 and Haunter at 42. One cartridge can finish the dex."
+            where: "Viridian City, the school house notebook"
+          rods:
+            title: "The rods moved one giver forward"
+            text: "The Old Rod is handed over in the Viridian Mart, and the Good Rod in the Vermilion house that used to hold the Old Rod. Fuchsia's guru gives a fossil Pokémon instead."
+            where: "Viridian City, the Fishing Guru in the Mart"
+          box_call:
+            title: "Your box tells you when it is full"
+            text: "A call comes through instead of a caught Pokémon quietly going nowhere."
+            where: "Route 3, the youngster on the ridge"
+          move_shop:
+            title: "A Move Deleter and a Move Relearner"
+            text: "Two scientists in the Cinnabar lab's fossil room. One takes a move back, HMs included, and the other returns a move the Pokémon has outgrown."
+            where: "Cinnabar Island, the lab's fossil room"
+          coins:
+            title: "Game Corner coins in bulk"
+            text: "A clerk in the prize room sells 500 coins for ¥11,000, so the prize Pokémon no longer mean an afternoon at the slots."
+            where: "Celadon City, the prize room"
+          tm_names:
+            title: "A TM names its move"
+            text: "Picking one up says TM28 DIG rather than TM28, so you no longer need a table to know what you just found."
+        spelled_out:
+          eyebrow: "EXPLAINED · GEN 1 ALREADY WORKED THIS WAY"
+          h2: "Rules the original never told you"
+          intro: "Legacy changed nothing here. It rewrote the bystanders who used to talk about nothing into ones who explain how Gen 1 has always worked, including two signs the original got wrong."
+          stat_exp:
+            title: "Stat experience"
+            text: "Every battle feeds hidden stat points on top of the level curve, so a Pokémon you raised outgrows a trainer's Pokémon at the same level."
+            where: "Route 1, the youngster in the grass"
+          crits:
+            title: "Critical hits come from Speed"
+            text: "The rate is read off base Speed, not off luck or the move. The fastest Pokémon in the game crit about one throw in five."
+            where: "Cerulean City, the Trainer Tips board"
+          special:
+            title: "SPECIAL is one stat doing two jobs"
+            text: "It is both the special attack and the special defence, so a high-SPECIAL Pokémon hits hard and absorbs hits in the same breath."
+            where: "Celadon City, the Trainer Tips board"
+          guard_spec:
+            title: "Guard Spec. blocks stat drops"
+            text: "It does nothing about fire or water damage, whatever the original's own board told you. It stops your stats being lowered."
+            where: "Celadon City, the second Trainer Tips board"
+          ghost_damage:
+            title: "Ghost moves are special damage"
+            text: "In Gen 1 the category follows the type, so a Ghost move bills its damage to SPECIAL and never to Attack."
+            where: "Pokémon Tower, the Channeler on the ground floor"
+          badges:
+            title: "Two badges boost the stat the original misnamed"
+            text: "The Thunder Badge raises Defence and the Soul Badge raises Speed. Vanilla's leaders say the opposite; the game has always done it this way."
+            where: "Vermilion City, Lt. Surge"
+          hyper_beam:
+            title: "Hyper Beam skips its recharge on a knockout"
+            text: "Faint the target and the turn ends clean. The recharge only bites when the target survives."
+            where: "Celadon City, the gambler in the prize room"
+          gym_guides:
+            title: "The gym guides scout the real team"
+            text: "Every guide swapped his stock line for a briefing on the leader he stands outside, which matters more now the teams hit harder."
+            where: "Pewter City Gym, the guide inside the door"
       route:
         h2: "Pallet Town → Indigo Plateau"
         lead: "Follow it in order. Each stop opens its own page with catch lists, trainers, items and hidden-item maps."
@@ -5062,6 +5181,16 @@ en:
         aside: "Turn up without one and the Dude only tells you the dogs and burgers are on special. Bring one and he says he is not alone any more, though the Pikachu pacing his floor never gets on a board."
       locations:
         pallet_town:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Pallet's neighbours brief you on the new rules"
+            intro_html: "Yellow Legacy rewrote the town's small talk into a briefing. The girl by the garden %{shoes} and the fisher below the lab %{bag} each name a comfort the original never had, and inside the lab %{lab} Oak's staff have two corrections to the type chart."
+            facts:
+              running: "Hold B to walk at bike speed. Surfing moves that fast on its own."
+              bag: "The bag holds 59 items instead of 20, and START sorts it."
+              ghost: "Ghost hits Psychic for double, where Gen 1 had it do nothing."
+              bug: "Bug no longer hits Poison hard. Poison still hits Bug for double."
+            note: "Both type fixes decide fights later: Ghost moves finally bite Sabrina's team, and a Bug move stops being the shortcut through Koga."
           note: "Get Pikachu from Prof. Oak. No wild grass here."
           intro: "A one-street town of two houses and Oak's lab, with no grass anywhere inside it. Every trainer in Kanto starts from this doorstep."
           trivia:
@@ -5078,6 +5207,16 @@ en:
               flareon:
                 this: "Win this battle"
                 rt22: "Skip the Route 22 battle"
+          changed_rules:
+            tag: "WHAT CHANGED"
+            title: "Pallet's neighbours brief you on the new rules"
+            intro_html: "Yellow Legacy rewrote the town's small talk into a briefing. The girl by the garden %{shoes} and the fisher below the lab %{bag} each name a comfort the original never had, and inside the lab %{lab} Oak's staff have two corrections to the type chart."
+            facts:
+              running: "Hold B to walk at bike speed. Surfing moves that fast on its own."
+              bag: "The bag holds 59 items instead of 20, and START sorts it."
+              ghost: "Ghost hits Psychic for double, where Gen 1 had it do nothing."
+              bug: "Bug no longer hits Poison hard. Poison still hits Bug for double."
+            note: "Both type fixes decide fights later: Ghost moves finally bite Sabrina's team, and a Bug move stops being the shortcut through Koga."
           steps:
             "1":
               title: "Withdraw the free Potion"
@@ -5096,6 +5235,13 @@ en:
           tips:
             pikachu: "Your forced partner and the only Pikachu in the game. It refuses the Thunder Stone, so it stays Pikachu."
         route_1:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "The youngster in the grass explains stat experience"
+            intro_html: "He used to point at the ledges. Now he %{youngster} covers the hidden half of levelling, and Legacy changed nothing to make it true: Gen 1 always worked this way."
+            facts:
+              stat_exp: "Battling feeds hidden stat points on top of the level curve, so a Pokémon you raised beats a trainer's at the same level."
+            note: "It is why grinding a favourite pays off twice, and why a Lv 50 of yours can read like a Lv 60 of theirs."
           note: "First grass patch. Pidgey and Rattata."
           intro: "A short hop north to Viridian, all ledges and low grass. Pidgey and Rattata are the only two things living on it."
           steps:
@@ -5114,6 +5260,17 @@ en:
             pidgey: "Everywhere on Route 1. A reliable Normal/Flying that evolves all the way to Pidgeot."
             rattata: "Fast and common. Evolves into Raticate, a solid early attacker."
         viridian_city:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Viridian is where Legacy explains itself"
+            intro_html: "Four of the rules this hack rewrote are spelled out within a block of each other: the youngster by the Mart %{dvs}, the Trainer Tips board on the north road %{habitats}, the school house %{school} and the Fishing Guru inside the Mart %{mart}."
+            facts:
+              dvs: "Hold START, then press A on STATS, and the page prints a Pokémon's hidden 0 to 15 DVs."
+              habitats: "The wild tables moved. Every route is new ground, whatever you caught there in Yellow."
+              trade_evos: "No trade evolutions left: Machoke and Graveler at Lv 38, Kadabra and Haunter at Lv 42."
+              rods: "The Old Rod is handed over here, in the Mart, instead of waiting for Vermilion."
+              enemy_pp: "A board claims enemy trainers ignore PP. Their Pokémon spend it; they just start every battle full."
+            note: "The DV readout, the moved habitats and the level-up evolutions are Legacy's own. The PP board is the original's claim, repeated."
           mart:
             blurb: "The first Mart in the game. It only starts selling once you deliver Oak's Parcel from Pallet Town."
             buy: "Buy a handful of Poké Balls for Route 1–2 and Viridian Forest. Antidote covers the Weedle line's Poison Sting."
@@ -5147,14 +5304,19 @@ en:
               title: "Stock up at the Mart"
               text: "Head back up to Viridian and stock the Mart: Poke Balls, plus Potions and Antidotes for Route 22, Route 2 and the Forest. To claim Oak's five free balls instead, buy yours after the Route 22 rival."
             "5":
+              title: "Take the Old Rod"
+              text_html: "The Fishing Guru waits at the back of the Mart %{mart}, beside the rod displays. Say yes when he asks and he hands the Old Rod over. The pond outside holds Goldeen and Poliwag."
+              items:
+                old_rod: "From the Fishing Guru at the back of the Viridian Mart. Reels in Lv 5 Goldeen and Poliwag from any shore in Kanto."
+            "6":
               title: "Watch the catching demo"
               text: "The old man on the north road is awake now. Talk to him and sit through his catching demonstration; when it ends he steps aside and the path north finally opens."
-            "6":
+            "7":
               title: "Grab the hidden Potion by the north exit"
               text_html: "With the road open, head up to the north exit %{north} at the top of town. A lone tree beside the exit path hides a Potion. Press A next to it; nothing shows on-screen."
               hidden:
                 potion: "The lone tree beside the north exit path, at the top of town. Press A; nothing shows on-screen."
-            "7":
+            "8":
               title: "Skip the Gym, head west to Route 22"
               text_html: "The Gym %{gym} in the northeast stays locked until you hold the other seven badges, so leave it. Take the west exit %{west} to Route 22 for the best Brock-ready catches and the next rival battle."
         route_22:
@@ -5261,6 +5423,13 @@ en:
           oak:
             caterpie: "The forest's new family. Evolves to Butterfree. Log the base once."
         pewter_city:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "The Trainer Tips board learned a new trick"
+            intro_html: "The board by the Poké Center %{board} used to explain that battling earns EXP. Legacy gave it something you cannot work out on your own."
+            facts:
+              dv_menu: "The STATS page prints a Pokémon's DVs if you hold START before pressing A."
+            note: "Worth a look before you commit to raising something: DVs never change, and the gap is 30 stat points by Lv 100."
           mart:
             blurb: "Right beside the Pokémon Center. Restock here before Mt. Moon, a long cave with no shops inside."
             buy: "Poké Balls for Mt. Moon's Clefairy and a few Potions. An Escape Rope bails you out if you get lost."
@@ -5377,7 +5546,7 @@ en:
             clefairy: "Only 1% on 1F, but 10.5% down on B2F. Take two: a Moon Stone turns one into Clefable."
           oak:
             clefairy: "Rare Moon-cave catch. Evolve it with a Moon Stone into Clefable."
-            geodude: "Everywhere in the rock. Evolves to Graveler, then Golem by trade."
+            geodude: "Everywhere in the rock. Evolves to Graveler, then Golem at Lv 38. No cable needed here."
         route_4:
           note: "Short drop to Cerulean. The only wild Farfetch'd in the game."
           intro: "The long ledge east of Mt. Moon, dropping toward Cerulean in one-way steps. Once you jump down, the only way back up is through the cave."
@@ -5402,6 +5571,13 @@ en:
             lass:
               note: "You cannot reach this Lass on the way through. She stands on the east end of Route 4's upper plateau, and the one-way ledges drop you into Cerulean before you get to her. Note her for a later return."
         cerulean_city:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Where critical hits actually come from"
+            intro_html: "The Trainer Tips board south of the bridge %{board} dropped its note about cancelling an evolution for the rule behind every lucky hit you have ever taken."
+            facts:
+              crits: "The crit rate reads off base Speed, not off the move. The fastest Pokémon land one throw in five."
+            note: "Legacy changed nothing here: Gen 1 always did it this way, and the hack says so rather than rebalancing it."
           mart:
             blurb: "Cerulean's Mart adds Repel to the shelf, handy for the trainer-packed routes north to Bill."
             buy: "Poké Balls for Route 24–25 plus a Repel or two to walk the tall grass in peace."
@@ -5515,7 +5691,7 @@ en:
               title: "Take the Underground Path"
               text_html: "Saffron's gates are blocked, so duck into the Underground Path house %{path} at the south end of the route. The stairs inside drop you into the tunnel to Route 6."
           oak:
-            abra: "Catch one fast (it only Teleports). Evolves to Kadabra, then Alakazam by trade."
+            abra: "Catch one fast (it only Teleports). Evolves to Kadabra, then Alakazam at Lv 42."
         underground_path:
           note: "The tunnel under Saffron. Two hidden items, nothing wild."
           intro: "One straight corridor beneath Saffron City, four tiles wide, with no trainers and no wild Pokémon. Two hidden items sit on its floor, and neither of them shows on-screen."
@@ -5550,15 +5726,15 @@ en:
               "1": "Check the trash cans along the walls to find the first switch. Its position is random on every visit."
               "2": "The second switch is always in a can directly next to the first, up, down, left or right. Pick wrong and both reset, so search the neighbors."
               "3": "With both switches flipped, the door to Lt. Surge opens. Bring a Ground type to shut his Electric team down."
-          note: "Bike Voucher and Old Rod. The gym waits on Cut."
+          note: "Bike Voucher and Good Rod. The gym waits on Cut."
           intro: "A working port on Kanto's south coast, its harbour taken up by the S.S. Anne. Cuttable trees fence the gym plaza off from the rest of town."
           steps:
             "1":
               title: "Grab the goodies"
-              text_html: "Heal at the Poke Center %{center}, then collect the Bike Voucher from the Pokémon Fan Club %{club} and the Old Rod from the Fishing Guru %{guru} on the west side of town."
+              text_html: "Heal at the Poke Center %{center}, then collect the Bike Voucher from the Pokémon Fan Club %{club} and the Good Rod from the Fishing Guru %{guru} on the west side of town."
               items:
                 bike_voucher: "From the chairman of the Pokémon Fan Club, west side of town. Trade it for a Bicycle at the Cerulean Bike Shop."
-                old_rod: "From the Fishing Guru in the house on the west side of town. Fishes up Magikarp anywhere."
+                good_rod: "From the first Guru's older brother, in the house on the west side of town. His rod reaches the Lv 20 fish the Old Rod never sees."
             "2":
               title: "Board the S.S. Anne for Cut"
               text_html: "Cuttable trees wall off the gym plaza %{gym}, so Surge waits. Board the ship at the south dock %{dock} and <a href=\"%{href}\">clear the S.S. Anne</a>: the seasick Captain hands over HM01 Cut."
@@ -5575,6 +5751,13 @@ en:
               from: "FROM OFFICER JENNY"
               unlock: "Beat Lt. Surge for the Thunder Badge"
         vermilion_city_return:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Lt. Surge finally names the right stat"
+            intro_html: "The badge he hands over at the gym %{gym} raises Defence, not Speed. Vanilla's Surge says Speed, and has been wrong about it since 1998."
+            facts:
+              badges: "Thunder Badge raises Defence and Soul Badge raises Speed. The code has always done it that way round."
+            note: "Legacy corrected the line, not the effect. Both badges boost what they always boosted."
           note: "Lt. Surge. Thunder Badge. Free Squirtle after."
           intro: "The same port with the trees gone. Lt. Surge keeps his door shut behind two switches hidden in the gym's trash cans, and his Raichu answers Ground types with Mega Kick."
           steps:
@@ -5829,7 +6012,7 @@ en:
               title: "Leave for Lavender Town"
               text: "You surface on the east side of 1F, in the stretch that owns the south mouth. Head down and west to it, out onto lower Route 10, and straight on into Lavender Town."
           oak:
-            machop: "Cave-common → Machoke, then Machamp by trade. A strong Fighter."
+            machop: "Cave-common → Machoke, then Machamp at Lv 38. A strong Fighter, and no trade to arrange."
             onix: "Only appears on B1F. A bulky Rock/Ground catch worth the hunt."
         lavender_town:
           mart:
@@ -5885,6 +6068,15 @@ en:
               title: "Cross to Celadon"
               text_html: "Tall grass fills the top of the strip: step in if you still want a Pidgey, Abra or Jigglypuff. Otherwise head straight west %{west} into Celadon, the biggest city in Kanto."
         celadon_city:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Two boards corrected, and a shortcut through the slots"
+            intro_html: "Celadon's Trainer Tips boards %{special} %{guard} were both rewritten, one to explain a stat and one because the original was simply wrong, and the prize room %{prizes} gained a clerk worth knowing about."
+            facts:
+              special: "SPECIAL is one stat doing two jobs: the special attack and the special defence at once."
+              guard_spec: "Guard Spec. blocks stat drops. It does nothing about fire or water, whatever the old board said."
+              coins: "A prize room clerk sells 500 Game Corner coins for ¥11,000, so the prize Pokémon need no afternoon at the slots."
+            note: "Only the coin clerk is new. The two boards describe Gen 1 as it always ran, which is more than the originals managed."
           store:
             trades:
               ice_beam: "The best Ice attack in the game and it can freeze. Give it to a Water type and it covers Grass, Ground, Flying and Dragon."
@@ -6132,6 +6324,13 @@ en:
               title: "Head for the Gym"
               text_html: "North through the shutter, west along the corridor and up the left staircase to the arcade, then out %{out}. Heal, buy status cures, and bring a Cut user to the Gym."
         pokemon_tower:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Why a bulky attacker still folds in here"
+            intro_html: "The Channeler on the ground floor %{channeler} is the one in the tower who only talks, and she now explains the rule the whole climb runs on."
+            facts:
+              ghost_damage: "In Gen 1 the category follows the type, so a Ghost move bills its damage to SPECIAL and never to Attack."
+            note: "Bring special bulk, not physical. A high-Defence wall reads as paper to everything in this building."
           note: "Lavender's haunted tower. Ghosts and the Poké Flute."
           intro: "Seven floors of graves above Lavender Town, most landings held by a Channeler. Gastly haunts this tower and nowhere else in Kanto."
           steps:
@@ -6199,10 +6398,10 @@ en:
               title: "Head south for Route 12"
               text: "Leave Lavender by the south road onto Route 12. The Poké Flute wakes the Snorlax sleeping across the pier there, and the fishing routes run all the way down to Fuchsia."
           tips:
-            gastly: "The only Gengar line in the game. Evolve Gastly to Haunter, then Gengar by trade."
+            gastly: "The only Gengar line in the game. Evolve Gastly to Haunter, then Gengar at Lv 42."
             cubone: "5F and 6F only, and the tower is its one home in Kanto. Catch a spare: Ricky, in the Route 5 Underground Path house, trades a Machoke for one."
           oak:
-            gastly: "Ghost-heavy floors → Haunter, then Gengar by trade. The only line in-game."
+            gastly: "Ghost-heavy floors → Haunter, then Gengar at Lv 42. The only line in-game."
             cubone: "A rare Tower catch → Marowak, a strong Ground type."
         route_12:
           note: "Silence Bridge. Oddish, Bellsprout, and a Snorlax."
@@ -6309,10 +6508,8 @@ en:
               title: "Heal and stock up"
               text_html: "Arrive from Route 15, heal at the Center %{center} and stock the Mart %{mart}. Leave the Gym %{gym} alone for now: the Safari Zone next door comes before Koga."
             "2":
-              title: "Take the Good Rod and fish the pond"
-              text_html: "The house on the east edge %{rod} holds the Fishing Guru's older brother: answer YES and the Good Rod is yours. His back door %{back} opens into the fenced pond, so Super Rod it there for a wild Gyarados."
-              items:
-                good_rod: "From the Fishing Guru's older brother, in the house on Fuchsia's east edge. Reels in better catches than the Old Rod."
+              title: "Claim the spare fossil and fish the pond"
+              text_html: "The house on the east edge %{rod} holds a Guru who hands over the fossil Pokémon you passed up in Mt. Moon, at Lv 10: Omanyte if you took the Dome Fossil, Kabuto if you took the Helix. His back door %{back} opens into the fenced pond, so Super Rod it there for a wild Gyarados."
             "3":
               title: "Raid the Safari Zone"
               text_html: "Head north into the Safari Zone %{safari}. Its prize room holds HM03 Surf, and the Gold Teeth you find inside buy HM04 Strength from the Warden."
@@ -6921,6 +7118,13 @@ en:
             zapdos: "The Electric bird of the Power Plant. One shot only. Catch it while you are here."
             voltorb: "All over the floors (and disguised as items) → Electrode. Grab one for the dex."
         cinnabar_island:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "The lab took on two more scientists"
+            intro_html: "Past the fossil counter in the lab %{lab}, Legacy added a pair the original never had, which is the answer to every HM you regret teaching."
+            facts:
+              move_shop: "A Move Deleter takes a move back, HMs included, and a Move Relearner returns one the Pokémon levelled past."
+            note: "Worth the trip the moment a Cut or Flash user has something better to hold in that slot."
           mart:
             blurb: "The island Mart carries the full late-game shelf: Ultra Balls, Hyper Potions and Full Heals."
             buy: "Ultra Balls for the Mansion's rare spawns, plus Hyper Potions and Revives for Blaine's fire types."
@@ -7448,7 +7652,7 @@ en:
                   value: "The League resets every time you fly back, at the same levels. It is the best money and experience in the game."
                 missing:
                   label: "STILL MISSING"
-                  value: "Trade-only evolutions and the version exclusives. Check the tracker for what your file still owes Oak."
+                  value: "The version exclusives, and the stone evolutions you have not fed yet. Check the tracker for what your file still owes Oak."
         route_4_return:
           note: "The swim to the cave door, and Kanto's last trainer."
           intro: "The cave door opens onto a strip of sand with no road to it, so the way in is the river off Nugget Bridge. That sand runs on west into the one shelf of Route 4 the ledges never let you climb."
@@ -7609,7 +7813,7 @@ en:
                 value_html: "The only real goal left. The grass, water and fishing spots you skipped, the fossil you left in the Mansion, the two Game Corner prizes. The <a href=\"%{href}\">tracker</a> lists exactly what your file still owes Oak."
               cable:
                 label: "CABLE CLUB"
-                value: "Upstairs in any Poké Center. Trade and battle with a second file or a friend. Machoke, Graveler, Kadabra and Haunter only evolve by trade, so the dex cannot close without it."
+                value: "Upstairs in any Poké Center. Trade and battle with a second file or a friend. Legacy never needs it for the dex: every trade evolution levels up instead."
               league:
                 label: "LEAGUE ON REPEAT"
                 value_html: "Fly to <a href=\"%{href}\">Indigo Plateau</a> and the five of them fight you again at the same levels, as many times as you want. Best experience and money in the game, all the way to Lv 100."
