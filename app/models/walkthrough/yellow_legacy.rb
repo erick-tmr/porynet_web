@@ -48,7 +48,8 @@ module Walkthrough
     # says which is which. `pins` name the markers the sentence points at.
     WHAT_CHANGED = {
       "pallet-town" => {
-        facts: { "running" => "yes", "bag" => "yes", "ghost" => "yes", "bug" => "no" },
+        facts: { "running" => "yes", "bag" => "yes", "pikachu" => "yes", "ghost" => "yes",
+                 "bug" => "no" },
         pins: { shoes: "pallet-town/npc-running-shoes", bag: "pallet-town/npc-bigger-bag",
                 lab: "pallet-town/exit-12-11" },
         shot: "pallet-running-shoes"
@@ -63,6 +64,20 @@ module Walkthrough
         pins: { dvs: "viridian-city/npc-dvs", habitats: "viridian-city/npc-habitats",
                 school: "viridian-city/exit-21-15", mart: "viridian-city/exit-29-19" },
         shot: "viridian-dvs"
+      },
+      "route-3" => {
+        facts: { "box_call" => "yes" },
+        pins: { youngster: "route-3/trainer-14-4" },
+        shot: "route-3-box-call"
+      },
+      "route-14" => {
+        facts: { "hm_forget" => "yes" },
+        pins: { cooltrainer: "route-14/trainer-4-4" },
+        shot: "route-14-hm-forget"
+      },
+      "fuchsia-city" => {
+        facts: { "fossil_gift" => "yes" },
+        pins: { house: "fuchsia-city/exit-31-27" }
       },
       "pewter-city" => {
         facts: { "dv_menu" => "yes" },

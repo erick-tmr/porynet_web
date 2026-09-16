@@ -214,7 +214,7 @@ class WalkthroughsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "#pallet-town-what-changed .pn-eyebrow-label", text: "TRIVIA · WHAT CHANGED"
-    assert_select "#pallet-town-what-changed .pn-wt-trivia__facts .pn-wt-trivia-row", 4
+    assert_select "#pallet-town-what-changed .pn-wt-trivia__facts .pn-wt-trivia-row", 5
     assert_select "#pallet-town-what-changed .pn-wt-trivia-mark--no", 1, "only Bug lost a matchup"
     assert_select "#pallet-town-what-changed .pn-wt-trivia__intro .pn-wt-mark[data-mark-key=?]", "N1"
     assert_select "#pallet-town-what-changed .pn-wt-shot img[src*=?]", "pallet-running-shoes.png"

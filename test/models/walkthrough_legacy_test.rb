@@ -76,7 +76,7 @@ class WalkthroughLegacyTest < ActiveSupport::TestCase
   test "each briefed stop grows a What Changed section whose marks resolve to real pins" do
     stops = Walkthrough::YellowLegacy::WHAT_CHANGED.keys
 
-    assert_equal 9, stops.size
+    assert_equal 12, stops.size
 
     stops.each do |slug|
       block = what_changed(slug)
@@ -114,6 +114,24 @@ class WalkthroughLegacyTest < ActiveSupport::TestCase
       "so the star belongs to Route 23, and this page points at it instead"
   end
 
+  # Route 3 and Route 14 say their piece as an after-battle line, so the section cites the trainer
+  # already pinned there rather than dropping a second marker on the same tile.
+  test "a rule a trainer tells you cites that trainer's pin, not a new one" do
+    assert_equal({ youngster: "T3" }, what_changed("route-3").marks)
+    assert_equal({ cooltrainer: "T2" }, what_changed("route-14").marks)
+
+    %w[route-3 route-14].each do |slug|
+      assert_empty location(slug).area_maps.flat_map(&:markers).select { |m| m.cat == "npc" },
+        "#{slug} should gain no NPC pin: the speaker is already a trainer on the map"
+    end
+  end
+
+  test "Fuchsia's rod house is recorded as the fossil giver it became" do
+    assert_equal({ house: "E8" }, what_changed("fuchsia-city").marks)
+    refute_includes location("fuchsia-city").encounters.map(&:dex), "140",
+      "the gift is written up but not yet tracked as a catch, which the note says out loud"
+  end
+
   test "every gym with a guide standing in it pins him on the gym floor" do
     guides = game.locations.filter_map { |loc| loc.gym&.area }
       .filter_map { |area| area.markers.find { |m| m.id == "npc-gym-guide" } }
@@ -124,7 +142,7 @@ class WalkthroughLegacyTest < ActiveSupport::TestCase
   end
 
   test "the briefing rows separate what Legacy added from what it took away" do
-    assert_equal %w[yes yes yes no], changed_rules.facts.map(&:state)
+    assert_equal %w[yes yes yes yes no], changed_rules.facts.map(&:state)
     assert_equal "✕", changed_rules.facts.last.mark, "Bug lost its edge over Poison"
     assert_equal "walkthrough/yellow-legacy/scenes/pallet-running-shoes.png",
       changed_rules.shot.image

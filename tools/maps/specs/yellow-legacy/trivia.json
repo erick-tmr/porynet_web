@@ -61,6 +61,68 @@
     }
   },
   {
+    "type": "dialog",
+    "name": "route-3-box-call",
+    "map": "Route3",
+    "player": [
+      15,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      16,
+      4
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_YOUNGSTER",
+        "grid": [
+          14,
+          4
+        ],
+        "dir": "RIGHT"
+      }
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "You'll get a call",
+        "when BOX is full!"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "route-14-hm-forget",
+    "map": "Route14",
+    "player": [
+      5,
+      4
+    ],
+    "player_dir": "LEFT",
+    "focus": [
+      6,
+      5
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_COOLTRAINER_M",
+        "grid": [
+          4,
+          4
+        ],
+        "dir": "RIGHT"
+      }
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "HM moves can be",
+        "forgotten!"
+      ]
+    }
+  },
+  {
     "type": "screen",
     "name": "pewter-jigglypuff",
     "map": "PewterPokecenter",

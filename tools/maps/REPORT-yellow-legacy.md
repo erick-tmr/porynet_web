@@ -3,7 +3,7 @@
 - location maps: **102** across 53 locations
 - markers: **1008** (330 trainer, 106 item, 64 hidden, 484 exit)
 - step shots: **51** (map/scene in a step slot)
-- standalone scenes: **319** (dialog / battle / NPC, not step-bound)
+- standalone scenes: **321** (dialog / battle / NPC, not step-bound)
 - trainers: **330** across 39 locations
 - missing map labels: **0**
 
@@ -350,6 +350,7 @@
 - `route-12-super-rod-gift` (dialog): walkthrough/yellow/scenes/route-12-super-rod-gift.png
 - `route-13-hidden-calcium` (dialog): walkthrough/yellow/scenes/route-13-hidden-calcium.png
 - `route-13-hidden-pp-up` (dialog): walkthrough/yellow/scenes/route-13-hidden-pp-up.png
+- `route-14-hm-forget` (dialog): walkthrough/yellow-legacy/scenes/route-14-hm-forget.png
 - `route-15-gate-exp-all` (dialog): walkthrough/yellow/scenes/route-15-gate-exp-all.png
 - `route-15-item-tm-rage` (screen): walkthrough/yellow/scenes/route-15-item-tm-rage.png
 - `route-16-fly-gift` (dialog): walkthrough/yellow-legacy/scenes/route-16-fly-gift.png
@@ -385,6 +386,7 @@
 - `route-25-hidden-elixir` (dialog): walkthrough/yellow/scenes/route-25-hidden-elixir.png
 - `route-25-hidden-ether` (dialog): walkthrough/yellow/scenes/route-25-hidden-ether.png
 - `route-25-item-tm-seismic-toss` (screen): walkthrough/yellow/scenes/route-25-item-tm-seismic-toss.png
+- `route-3-box-call` (dialog): walkthrough/yellow-legacy/scenes/route-3-box-call.png
 - `route-4-exit` (screen): walkthrough/yellow/scenes/route-4-exit.png
 - `route-4-hidden-great-ball` (dialog): walkthrough/yellow/scenes/route-4-hidden-great-ball.png
 - `route-4-item-tm-whirlwind` (screen): walkthrough/yellow/scenes/route-4-item-tm-whirlwind.png

@@ -22659,6 +22659,18 @@
       "height": 144,
       "type": "dialog"
     },
+    "route-3-box-call": {
+      "image": "walkthrough/yellow-legacy/scenes/route-3-box-call.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "route-14-hm-forget": {
+      "image": "walkthrough/yellow-legacy/scenes/route-14-hm-forget.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
     "pewter-jigglypuff": {
       "image": "walkthrough/yellow/scenes/pewter-jigglypuff.png",
       "width": 160,
