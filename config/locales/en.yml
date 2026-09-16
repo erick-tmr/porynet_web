@@ -5751,11 +5751,12 @@ en:
         vermilion_city_return:
           what_changed:
             tag: "WHAT CHANGED"
-            title: "Lt. Surge finally names the right stat"
-            intro_html: "The badge he hands over at the gym %{gym} raises Defence, not Speed. Vanilla's Surge says Speed, and has been wrong about it since 1998."
+            title: "Badges are worth double, and Surge finally names the right stat"
+            intro_html: "Legacy doubled what a badge does for the team you send out, and the one he hands over at the gym %{gym} raises Defence, not Speed. Vanilla's Surge says Speed, and has been wrong about it since 1998."
             facts:
+              boost: "A badge is worth 25% of the stat it lifts, up from 12.5%. Pikachu is the one exception and still gets 12.5%."
               badges: "Thunder Badge raises Defence and Soul Badge raises Speed. The code has always done it that way round."
-            note: "Legacy corrected the line, not the effect. Both badges boost what they always boosted."
+            note: "Pikachu is left out because Legacy paid it up front instead: it starts on 60 HP, 50 Defence and 70 Special against vanilla's 35, 30 and 50."
           note: "Lt. Surge. Thunder Badge. Free Squirtle after."
           intro: "The same port with the trees gone. Lt. Surge keeps his door shut behind two switches hidden in the gym's trash cans, and his Raichu answers Ground types with Mega Kick."
           steps:
@@ -6968,6 +6969,13 @@ en:
             slowpoke: "Silence Bridge is the first Slowpoke water you cross carrying Surf. One is enough, with Slowbro on the same tiles."
             slowbro: "6% off the pier. Every other Slowbro sits on water the guide crossed before HM03, so this is the first one you can take."
         route_19:
+          what_changed:
+            tag: "WHAT CHANGED"
+            title: "Legacy's Pikachu can learn Surf"
+            intro_html: "Vanilla's Pikachu has no way to learn Surf on a cartridge, which is why the beach house %{beach} normally stays shut. Legacy added Surf to its HM list, along with Cut, Fly and Strength."
+            facts:
+              pikachu_surf: "Teach your partner HM03 Surf and the minigame behind that door opens with no Stadium and no second console."
+            note: "The Pikachu's Beach write-up below still explains vanilla's rules, where the move only arrives through Pokémon Stadium. It needs rewriting for this game."
           note: "Water route south of Fuchsia. Needs Surf."
           intro: "Open sea south of Fuchsia, nothing but water once you leave the beach. Ten Swimmers float in the way, and Tentacool is almost all that bites."
           steps:

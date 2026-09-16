@@ -5751,11 +5751,12 @@ pt:
         vermilion_city_return:
           what_changed:
             tag: "O QUE MUDOU"
-            title: "O Lt. Surge enfim diz o status certo"
-            intro_html: "A insígnia que ele entrega no ginásio %{gym} aumenta a Defesa, não a Velocidade. O Surge original fala em Velocidade, e erra isso desde 1998."
+            title: "Insígnia vale o dobro, e o Surge enfim diz o status certo"
+            intro_html: "O Legacy dobrou o que uma insígnia faz pelo time que você manda para a batalha, e a que ele entrega no ginásio %{gym} aumenta a Defesa, não a Velocidade. O Surge original fala em Velocidade, e erra isso desde 1998."
             facts:
+              boost: "Uma insígnia vale 25% do status que ela levanta, contra 12,5% antes. O Pikachu é a única exceção e continua com 12,5%."
               badges: "A Thunder Badge aumenta a Defesa e a Soul Badge aumenta a Velocidade. O código sempre fez nessa ordem."
-            note: "O Legacy corrigiu a fala, não o efeito. As duas insígnias aumentam o que sempre aumentaram."
+            note: "O Pikachu fica de fora porque o Legacy já pagou adiantado: ele começa com 60 de HP, 50 de Defesa e 70 de Special, contra 35, 30 e 50 do original."
           note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
           intro: "O mesmo porto, agora sem as árvores. O Lt. Surge mantém a porta trancada atrás de dois interruptores escondidos nas latas de lixo, e o Raichu dele responde a tipos Terra com Mega Kick."
           steps:
@@ -6968,6 +6969,13 @@ pt:
             slowpoke: "A Silence Bridge é a primeira água com Slowpoke que você atravessa com o Surf. Um basta, com Slowbro nos mesmos tiles."
             slowbro: "6% no píer. Todo outro Slowbro fica em água que o guia atravessou antes do HM03, então este é o primeiro que dá para pegar."
         route_19:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O Pikachu do Legacy aprende Surf"
+            intro_html: "O Pikachu original não tem como aprender Surf no cartucho, e é por isso que a casa da praia %{beach} costuma ficar fechada. O Legacy colocou Surf na lista de HMs dele, junto com Cut, Fly e Strength."
+            facts:
+              pikachu_surf: "Ensine HM03 Surf ao seu parceiro e o minijogo atrás daquela porta abre, sem Stadium e sem um segundo console."
+            note: "O texto da Praia do Pikachu abaixo ainda explica as regras do original, onde o golpe só chega pelo Pokémon Stadium. Ele precisa ser reescrito para este jogo."
           note: "Rota aquática ao sul de Fuchsia. Precisa de Surf."
           intro: "Mar aberto ao sul de Fuchsia, só água depois que você deixa a praia. Dez Swimmers boiam no caminho, e Tentacool é quase tudo o que morde."
           steps:

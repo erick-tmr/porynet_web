@@ -96,12 +96,16 @@ module Walkthrough
         facts: { "ghost_damage" => "na" },
         pins: { channeler: "pokemon-tower-1f/npc-ghost-damage" }
       },
+      "route-19" => {
+        facts: { "pikachu_surf" => "yes" },
+        pins: { beach: "route-19/exit-5-9" }
+      },
       "cinnabar-island" => {
         facts: { "move_shop" => "yes" },
         pins: { lab: "cinnabar-island/exit-6-9" }
       },
       "vermilion-city-return" => {
-        facts: { "badges" => "na" },
+        facts: { "boost" => "yes", "badges" => "na" },
         pins: { gym: "vermilion-city/exit-12-19" }
       }
     }.freeze

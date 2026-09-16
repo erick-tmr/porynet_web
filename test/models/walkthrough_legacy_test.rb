@@ -76,7 +76,7 @@ class WalkthroughLegacyTest < ActiveSupport::TestCase
   test "each briefed stop grows a What Changed section whose marks resolve to real pins" do
     stops = Walkthrough::YellowLegacy::WHAT_CHANGED.keys
 
-    assert_equal 12, stops.size
+    assert_equal 13, stops.size
 
     stops.each do |slug|
       block = what_changed(slug)
@@ -130,6 +130,22 @@ class WalkthroughLegacyTest < ActiveSupport::TestCase
     assert_equal({ house: "E8" }, what_changed("fuchsia-city").marks)
     refute_includes location("fuchsia-city").encounters.map(&:dex), "140",
       "the gift is written up but not yet tracked as a catch, which the note says out loud"
+  end
+
+  # Two gaps the guide is honest about rather than hiding: Fuchsia's fossil gift is not a tracked
+  # catch, and the Pikachu's Beach write-up still describes vanilla, where Surf never reaches a
+  # Pikachu on cartridge. Both sections say so, and these hold them to it until they are closed.
+  test "the sections that flag unfinished work keep flagging it" do
+    assert_equal({ beach: "E1" }, what_changed("route-19").marks)
+    assert_not_nil game.guide.surf_pikachu, "the vanilla-only beach page still renders for Legacy"
+    refute_includes location("fuchsia-city").encounters.map(&:dex), "140"
+  end
+
+  test "the badge section carries both the size of the boost and the stat it lifts" do
+    facts = what_changed("vermilion-city-return").facts
+
+    assert_equal %w[yes na], facts.map(&:state),
+      "the bigger boost is Legacy's, the stat it lifts is Gen 1's all along"
   end
 
   test "every gym with a guide standing in it pins him on the gym floor" do
