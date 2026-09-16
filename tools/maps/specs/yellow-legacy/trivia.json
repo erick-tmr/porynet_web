@@ -1,5 +1,66 @@
 [
   {
+    "type": "dialog",
+    "name": "pallet-running-shoes",
+    "map": "PalletTown",
+    "player": [
+      3,
+      9
+    ],
+    "player_dir": "UP",
+    "focus": [
+      5,
+      9
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_GIRL",
+        "grid": [
+          3,
+          8
+        ],
+        "dir": "DOWN"
+      }
+    ],
+    "dialog": {
+      "lines": [
+        "Like my new",
+        "RUNNING SHOES?"
+      ]
+    }
+  },
+  {
+    "type": "dialog",
+    "name": "viridian-dvs",
+    "map": "ViridianCity",
+    "player": [
+      29,
+      25
+    ],
+    "player_dir": "RIGHT",
+    "focus": [
+      30,
+      25
+    ],
+    "sprites": [
+      {
+        "sprite": "SPRITE_YOUNGSTER",
+        "grid": [
+          30,
+          25
+        ],
+        "dir": "LEFT"
+      }
+    ],
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "That's called",
+        "Diversity Value!"
+      ]
+    }
+  },
+  {
     "type": "screen",
     "name": "pewter-jigglypuff",
     "map": "PewterPokecenter",

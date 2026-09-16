@@ -109,6 +109,29 @@
   },
   {
     "type": "screen",
+    "slug": "viridian-city",
+    "step": 5,
+    "name": "viridian-mart-old-rod",
+    "map": "ViridianMart",
+    "player": [
+      6,
+      2
+    ],
+    "player_dir": "RIGHT",
+    "auto_npcs": true,
+    "dialog": {
+      "lines": [
+        "<PLAYER> received",
+        "an OLD ROD!"
+      ]
+    },
+    "focus": [
+      4,
+      3
+    ]
+  },
+  {
+    "type": "screen",
     "slug": "route-22",
     "step": 1,
     "name": "viridian-to-route-22",

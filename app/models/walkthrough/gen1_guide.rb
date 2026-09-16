@@ -120,7 +120,7 @@ module Walkthrough
         place.fetch("mons").reject { |mon| seen.include?([ mon["dex"], kind ]) }.map do |mon|
           rate, level = restated(loc.slug, mon.fetch("dex"), how, mon)
           enc(loc.slug, mon.fetch("dex"), how, rate, level, rarity_word(rate.to_f),
-            *Evolutions.chain_for(mon.fetch("dex")))
+            *evolutions.chain_for(mon.fetch("dex")))
         end
       end
     end
@@ -145,8 +145,13 @@ module Walkthrough
         rarity: rarity, tip_key: (tip ? "#{b}.tips.#{key}" : nil), evo_line: line(*chain),
         from_key: (from ? "#{b}.gifts.#{key}.from" : nil),
         unlock_key: (unlock ? "#{b}.gifts.#{key}.unlock" : nil), unlock_icon: unlock,
-        needs_badge: badge, places: places, at_map: slug)
+        needs_badge: badge, places: places, at_map: slug,
+        unlocked_from: method_unlock.fetch(how, 0))
     end
+
+    def method_unlock = METHOD_UNLOCK
+
+    def evolutions = Evolutions::GEN1
 
     def headline(places, how)
       matching = places.select { |place| place.method?(how) }
@@ -307,9 +312,7 @@ module Walkthrough
           FossilStep.new(n: n, title_key: "#{b}.steps.#{n}.title", text_key: "#{b}.steps.#{n}.text")
         },
         fossils: FOSSILS.map { |dex, item| fossil_card(dex, item) },
-        facts: FOSSIL_FACTS.map { |key, state|
-          FossilFact.new(key: "#{b}.facts.#{key}", state: state, mark: TRIVIA_MARKS.fetch(state))
-        })
+        facts: marked_facts("#{b}.facts", FOSSIL_FACTS))
     end
 
     def fossil_card(dex, item)
@@ -594,9 +597,13 @@ module Walkthrough
 
     def compute_best_catches(locations)
       by_dex = Hash.new { |hash, dex| hash[dex] = [] }
+      names = locations.to_h { |loc| [ loc.slug, loc.name ] }
       locations.each do |loc|
         loc.encounters.each do |enc|
-          by_dex[enc.dex] << { loc: loc, enc: enc, pct: parse_rate(enc.rate) } if enc.wild?
+          next unless enc.wild?
+
+          by_dex[enc.dex] << { loc: loc, enc: enc, pct: parse_rate(enc.rate),
+                               place: names.fetch(enc.at_map, loc.name) }
         end
       end
       by_dex.each_with_object({}) do |(dex, entries), best|
@@ -615,7 +622,8 @@ module Walkthrough
 
     def sole_catch(dex, entry, anywhere = true)
       BestCatch.new(
-        dex: dex, slug: entry[:loc].slug, only: anywhere, armed_only: !anywhere,
+        dex: dex, slug: entry[:loc].slug, place: entry[:place], how: entry[:enc].how,
+        only: anywhere, armed_only: !anywhere,
         rate: entry[:pct] ? entry[:enc].rate : nil
       )
     end
@@ -628,9 +636,10 @@ module Walkthrough
       return nil unless runner
 
       BestCatch.new(
-        dex: dex, slug: winner[:loc].slug, rate: winner[:enc].rate,
+        dex: dex, slug: winner[:loc].slug, place: winner[:place], how: winner[:enc].how,
+        rate: winner[:enc].rate,
         tie: rated.count { |e| e[:pct] == top } > 1,
-        alt_name: runner[:loc].name, alt_rate: runner[:enc].rate
+        alt_name: runner[:place], alt_rate: runner[:enc].rate
       )
     end
 
@@ -757,7 +766,7 @@ module Walkthrough
 
       letters = maps.flat_map { |m| m.markers.map { |k| [ "#{m.name}/#{k.id}", k.key ] } }.to_h
       loc.with(steps: loc.steps.map { |step| marked(step, letters) },
-        trivia: loc.trivia && marked(loc.trivia, letters))
+        trivia: loc.trivia.map { |block| marked(block, letters) })
     end
 
     def marked(block, letters)
@@ -3227,12 +3236,20 @@ module Walkthrough
 
     TRIVIA_MARKS = { "yes" => "✓", "no" => "✕", "na" => "–" }.freeze
 
-    def trivia(base, anchor:, cards: [], shot: nil, art: nil, note_icon: nil, tagged: false,
-      warning: nil, pins: {})
-      Trivia.new(anchor: anchor, title_key: "#{base}.trivia.title",
-        intro_key: "#{base}.trivia.#{pins.any? ? 'intro_html' : 'intro'}",
-        note_key: "#{base}.trivia.note", cards: cards, shot: shot, art: art, note_icon: note_icon,
-        tag_key: (tagged ? "#{base}.trivia.tag" : nil), warning: warning, pins: pins)
+    def trivia(base, anchor:, key: "trivia", cards: [], facts: {}, shot: nil, art: nil,
+      note_icon: nil, tagged: false, warning: nil, pins: {})
+      k = "#{base}.#{key}"
+      Trivia.new(anchor: anchor, title_key: "#{k}.title",
+        intro_key: "#{k}.#{pins.any? ? 'intro_html' : 'intro'}",
+        note_key: "#{k}.note", cards: cards, facts: marked_facts("#{k}.facts", facts),
+        shot: shot, art: art, note_icon: note_icon,
+        tag_key: (tagged ? "#{k}.tag" : nil), warning: warning, pins: pins)
+    end
+
+    def marked_facts(base, states)
+      states.map do |key, state|
+        MarkedFact.new(key: "#{base}.#{key}", state: state, mark: TRIVIA_MARKS.fetch(state))
+      end
     end
 
     def trivia_warning(base, dex, name)

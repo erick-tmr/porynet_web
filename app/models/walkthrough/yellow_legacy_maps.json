@@ -20489,6 +20489,11 @@
         "image": "walkthrough/yellow/scenes/blues-house-town-map.png",
         "width": 160,
         "height": 144
+      },
+      "5": {
+        "image": "walkthrough/yellow-legacy/scenes/viridian-mart-old-rod.png",
+        "width": 160,
+        "height": 144
       }
     },
     "route-22": {
@@ -22042,6 +22047,12 @@
       "height": 144,
       "type": "screen"
     },
+    "viridian-mart-old-rod": {
+      "image": "walkthrough/yellow-legacy/scenes/viridian-mart-old-rod.png",
+      "width": 160,
+      "height": 144,
+      "type": "screen"
+    },
     "viridian-to-route-22": {
       "image": "walkthrough/yellow/scenes/viridian-to-route-22.png",
       "width": 160,
@@ -22635,6 +22646,18 @@
       "width": 160,
       "height": 144,
       "type": "screen"
+    },
+    "pallet-running-shoes": {
+      "image": "walkthrough/yellow-legacy/scenes/pallet-running-shoes.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
+    },
+    "viridian-dvs": {
+      "image": "walkthrough/yellow-legacy/scenes/viridian-dvs.png",
+      "width": 160,
+      "height": 144,
+      "type": "dialog"
     },
     "pewter-jigglypuff": {
       "image": "walkthrough/yellow/scenes/pewter-jigglypuff.png",

@@ -75,7 +75,7 @@
   <% if loc.slug == "cerulean-city" %><%= render "pikachu_friendship" %><% end %>
 <% end %>
 
-<% if loc.trivia? %><%= render "trivia", trivia: loc.trivia %><% end %>
+<% loc.trivia.each do |block| %><%= render "trivia", trivia: block %><% end %>
 <% if loc.grind? %><%= render "grind_spot", grind: loc.grind %><% end %>
 
 <% if loc.trainers.any? %>

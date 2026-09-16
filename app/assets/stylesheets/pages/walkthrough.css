@@ -1544,6 +1544,15 @@ a.pn-wt-route__card:hover {
   font-size: 15px;
   color: #3a3850;
 }
+.pn-wt-trivia__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 28px;
+  margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .pn-wt-trivia__facts { grid-template-columns: 1fr; }
+}
 .pn-wt-trivia__note {
   font-family: "VT323", monospace;
   font-size: 17px;

@@ -2,8 +2,8 @@
 
 - location maps: **102** across 53 locations
 - markers: **1008** (330 trainer, 106 item, 64 hidden, 484 exit)
-- step shots: **50** (map/scene in a step slot)
-- standalone scenes: **316** (dialog / battle / NPC, not step-bound)
+- step shots: **51** (map/scene in a step slot)
+- standalone scenes: **319** (dialog / battle / NPC, not step-bound)
 - trainers: **330** across 39 locations
 - missing map labels: **0**
 
@@ -161,6 +161,7 @@
 - `vermilion-city` step 3: walkthrough/yellow/scenes/vermilion-squirtle.png
 - `viridian-city` step 1: walkthrough/yellow-legacy/scenes/viridian-mart-parcel.png
 - `viridian-city` step 3: walkthrough/yellow/scenes/blues-house-town-map.png
+- `viridian-city` step 5: walkthrough/yellow-legacy/scenes/viridian-mart-old-rod.png
 - `viridian-forest` step 1: walkthrough/yellow/scenes/viridian-forest-poke-ball.png
 - `viridian-forest` step 3: walkthrough/yellow/scenes/viridian-forest-potion.png
 - `viridian-forest` step 5: walkthrough/yellow/scenes/viridian-forest-north.png
@@ -271,6 +272,7 @@
 - `museum-old-amber` (dialog): walkthrough/yellow/scenes/museum-old-amber.png
 - `oaks-lab-poke-balls` (screen): walkthrough/yellow/scenes/oaks-lab-poke-balls.png
 - `oaks-lab-rival` (screen): walkthrough/yellow/scenes/oaks-lab-rival.png
+- `pallet-running-shoes` (dialog): walkthrough/yellow-legacy/scenes/pallet-running-shoes.png
 - `pallet-town-exit` (screen): walkthrough/yellow/scenes/pallet-town-exit.png
 - `pewter-heal-prep` (screen): walkthrough/yellow/scenes/pewter-heal-prep.png
 - `pewter-jigglypuff` (screen): walkthrough/yellow/scenes/pewter-jigglypuff.png
@@ -470,6 +472,7 @@
 - `viridian-city-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-city-hidden-potion.png
 - `viridian-city-tm42` (screen): walkthrough/yellow/scenes/viridian-city-tm42.png
 - `viridian-city-tm42-gift` (dialog): walkthrough/yellow/scenes/viridian-city-tm42-gift.png
+- `viridian-dvs` (dialog): walkthrough/yellow-legacy/scenes/viridian-dvs.png
 - `viridian-forest-hidden-antidote` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-antidote.png
 - `viridian-forest-hidden-potion` (dialog): walkthrough/yellow/scenes/viridian-forest-hidden-potion.png
 - `viridian-forest-item-pok-ball` (screen): walkthrough/yellow/scenes/viridian-forest-item-pok-ball.png
@@ -480,6 +483,7 @@
 - `viridian-forest-potion` (screen): walkthrough/yellow/scenes/viridian-forest-potion.png
 - `viridian-forest-south-gate` (screen): walkthrough/yellow/scenes/viridian-forest-south-gate.png
 - `viridian-gym-item-revive` (screen): walkthrough/yellow/scenes/viridian-gym-item-revive.png
+- `viridian-mart-old-rod` (screen): walkthrough/yellow-legacy/scenes/viridian-mart-old-rod.png
 - `viridian-mart-parcel` (screen): walkthrough/yellow-legacy/scenes/viridian-mart-parcel.png
 - `viridian-to-route-2` (screen): walkthrough/yellow/scenes/viridian-to-route-2.png
 - `viridian-to-route-22` (screen): walkthrough/yellow/scenes/viridian-to-route-22.png

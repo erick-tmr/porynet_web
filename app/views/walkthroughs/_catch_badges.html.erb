@@ -7,7 +7,7 @@
     <span class="pn-wt-catchbadge pn-wt-catchbadge--boxed"><%= t("walkthrough.ui.badge_boxed") %></span>
   <% elsif !entry.fresh? || entry.at != slug %>
     <span class="pn-wt-catchbadge pn-wt-catchbadge--elsewhere">
-      <%= t("walkthrough.ui.badge_do_at", stop: entry.catch_at.upcase) %>
+      <%= catch_elsewhere_badge(entry) %>
     </span>
   <% else %>
     <% if entry.qty.positive? %>

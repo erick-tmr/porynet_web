@@ -1,17 +1,37 @@
 {
   "pallet-town": [
     {
-      "id": "npc-technology",
-      "name": "Technology!",
+      "id": "npc-running-shoes",
+      "name": "Running Shoes",
+      "grid": [
+        3,
+        8
+      ],
+      "note": "map_npc_pallet_running_shoes",
+      "ref": "SPRITE_GIRL"
+    },
+    {
+      "id": "npc-bigger-bag",
+      "name": "Bigger Bag",
       "grid": [
         11,
         14
       ],
-      "note": "map_npc_pallet_technology",
+      "note": "map_npc_pallet_bigger_bag",
       "ref": "SPRITE_FISHER"
     }
   ],
   "route-1": [
+    {
+      "id": "npc-stat-exp",
+      "name": "Stat experience",
+      "grid": [
+        15,
+        13
+      ],
+      "note": "map_npc_route1_stat_exp",
+      "ref": "SPRITE_YOUNGSTER"
+    },
     {
       "id": "npc-potion-sample",
       "name": "Free Potion",
@@ -25,6 +45,16 @@
   ],
   "viridian-city": [
     {
+      "id": "npc-habitats",
+      "name": "Habitats moved",
+      "grid": [
+        19,
+        1
+      ],
+      "note": "map_npc_viridian_habitats",
+      "ref": "SIGN"
+    },
+    {
       "id": "npc-tm42",
       "name": "TM42 Dream Eater",
       "grid": [
@@ -33,6 +63,26 @@
       ],
       "note": "map_npc_viridian_tm42",
       "ref": "TM_DREAM_EATER"
+    },
+    {
+      "id": "npc-dvs",
+      "name": "DVs explained",
+      "grid": [
+        30,
+        25
+      ],
+      "note": "map_npc_viridian_dvs",
+      "ref": "SPRITE_YOUNGSTER"
+    },
+    {
+      "id": "npc-enemy-pp",
+      "name": "Enemy PP",
+      "grid": [
+        21,
+        29
+      ],
+      "note": "map_npc_viridian_enemy_pp",
+      "ref": "SIGN"
     }
   ],
   "route-24": [
@@ -166,6 +216,16 @@
   ],
   "celadon-city": [
     {
+      "id": "npc-special-stat",
+      "name": "The SPECIAL stat",
+      "grid": [
+        27,
+        15
+      ],
+      "note": "map_npc_celadon_special",
+      "ref": "SIGN"
+    },
+    {
       "id": "npc-tm41",
       "name": "TM41 Softboiled",
       "grid": [
@@ -174,6 +234,16 @@
       ],
       "note": "map_npc_celadon_tm41",
       "ref": "TM_SOFTBOILED"
+    },
+    {
+      "id": "npc-guard-spec",
+      "name": "Guard Spec.",
+      "grid": [
+        39,
+        21
+      ],
+      "note": "map_npc_celadon_guard_spec",
+      "ref": "SIGN"
     }
   ],
   "pokemon-mansion-1f": [
@@ -277,6 +347,126 @@
       "lane": 2,
       "note": "map_npc_mansion_switch_beds",
       "ref": "EVENT_MANSION_SWITCH_ON"
+    }
+  ],
+  "pewter-city": [
+    {
+      "id": "npc-dv-menu",
+      "name": "Reading DVs",
+      "grid": [
+        19,
+        29
+      ],
+      "note": "map_npc_pewter_dv_menu",
+      "ref": "SIGN"
+    }
+  ],
+  "cerulean-city": [
+    {
+      "id": "npc-crit-speed",
+      "name": "Crits and Speed",
+      "grid": [
+        17,
+        29
+      ],
+      "note": "map_npc_cerulean_crit_speed",
+      "ref": "SIGN"
+    }
+  ],
+  "pokemon-tower-1f": [
+    {
+      "id": "npc-ghost-damage",
+      "name": "Ghost damage",
+      "grid": [
+        17,
+        7
+      ],
+      "note": "map_npc_tower_ghost_damage",
+      "ref": "SPRITE_CHANNELER"
+    }
+  ],
+  "pewter-city-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Brock briefing",
+      "grid": [
+        7,
+        10
+      ],
+      "note": "map_npc_guide_brock",
+      "ref": "SPRITE_GYM_GUIDE"
+    }
+  ],
+  "cerulean-city-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Misty briefing",
+      "grid": [
+        7,
+        10
+      ],
+      "note": "map_npc_guide_misty",
+      "ref": "SPRITE_GYM_GUIDE"
+    }
+  ],
+  "vermilion-city-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Surge briefing",
+      "grid": [
+        4,
+        14
+      ],
+      "note": "map_npc_guide_surge",
+      "ref": "SPRITE_GYM_GUIDE"
+    }
+  ],
+  "fuchsia-city-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Koga briefing",
+      "grid": [
+        7,
+        15
+      ],
+      "note": "map_npc_guide_koga",
+      "ref": "SPRITE_GYM_GUIDE"
+    }
+  ],
+  "saffron-city-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Sabrina briefing",
+      "grid": [
+        10,
+        15
+      ],
+      "note": "map_npc_guide_sabrina",
+      "ref": "SPRITE_GYM_GUIDE"
+    }
+  ],
+  "cinnabar-island-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Blaine briefing",
+      "grid": [
+        16,
+        13
+      ],
+      "note": "map_npc_guide_blaine",
+      "ref": "SPRITE_GYM_GUIDE"
+    }
+  ],
+  "viridian-gym": [
+    {
+      "id": "npc-gym-guide",
+      "name": "Giovanni briefing",
+      "grid": [
+        16,
+        15
+      ],
+      "note": "map_npc_guide_giovanni",
+      "ref": "SPRITE_GYM_GUIDE"
     }
   ]
 }

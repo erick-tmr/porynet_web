@@ -836,6 +836,24 @@ pt:
       map_npc_game_corner_man_20: "Sem sorte e desistindo: 20 fichas, uma vez só, e só com a Coin Case com você."
       map_npc_game_corner_guru_20: "Mais 20 fichas só de pedir, uma vez. Precisa da Coin Case, como os outros."
       map_npc_pallet_technology: "\"A tecnologia é incrível!\" O pescador que explica o armazenamento de itens no PC, um clássico de Kanto."
+      map_npc_pallet_running_shoes: "\"Gostou dos meus TÊNIS NOVOS?\" Ela é o tutorial deles no Legacy: segure B e você anda na velocidade da bicicleta."
+      map_npc_pallet_bigger_bag: "\"Minha mochila nova guarda o triplo de itens!\" O pescador conta os 59 espaços da mochila, e o botão START que organiza tudo."
+      map_npc_route1_stat_exp: "\"Você conhece a experiência de STATUS?\" Uma regra da Gen 1 que o original nunca explicou: batalhar aumenta os status além da curva de nível, então seu time cresce mais que adversários do mesmo nível."
+      map_npc_viridian_habitats: "Um quadro de dicas reescrito para o Legacy: as tabelas selvagens mudaram. Trate cada rota como terreno novo, não importa o que você lembra do Yellow."
+      map_npc_viridian_dvs: "\"Isso se chama Diversity Value, ou DV.\" Ele explica tudo: de 0 a 15 por status, valendo 30 pontos no Lv 100, e como ler na página de STATS."
+      map_npc_viridian_enemy_pp: "Um quadro de dicas sobre PP, com um final novo dizendo que treinadores inimigos não têm esse limite. Os Pokémon deles gastam PP sim; só começam toda batalha cheios."
+      map_npc_pewter_dv_menu: "Um quadro de dicas com uma adição do próprio Legacy: a página de STATS mostra os DVs se você segurar START antes de apertar A."
+      map_npc_cerulean_crit_speed: "Um quadro de dicas explicando uma regra da Gen 1, não uma nova: acertos críticos dependem da Velocidade base, e os mais rápidos acertam um em cada cinco golpes."
+      map_npc_celadon_special: "Um quadro de dicas. SPECIAL é um status só fazendo dois trabalhos na Gen 1, então um Pokémon com SPECIAL alto bate forte e aguenta dano especial ao mesmo tempo."
+      map_npc_celadon_guard_spec: "Um quadro de dicas, corrigido: o Guard Spec. bloqueia quedas de status. Ele não faz nada contra fogo ou água, ao contrário do que o quadro original dizia."
+      map_npc_tower_ghost_damage: "A Channeler que só conversa. Golpes fantasma cobram o dano do SPECIAL e nunca do Ataque, e é por isso que um atacante resistente ainda cai para eles."
+      map_npc_guide_brock: "O guia do ginásio agora faz o reconhecimento: Geodude lidera e joga pedras com boa precisão, Onix é uma parede com Bind, e o Pikachu não serve contra nenhum dos dois."
+      map_npc_guide_misty: "O relatório do guia do ginásio: a Misty joga no ataque, a líder e a ace dela têm golpes psíquicos, e elétrico é o caminho mais limpo contra as três."
+      map_npc_guide_surge: "O relatório do guia do ginásio: o Surge usa um Pokémon só e ele é enorme, com um golpe de água forte ensinado para punir o tipo terrestre que você traria."
+      map_npc_guide_koga: "O guia do ginásio trocou as instruções das paredes por dicas de tipo: o Koga cobre a fraqueza a terrestre, então psíquico é o caminho. As paredes invisíveis continuam lá."
+      map_npc_guide_sabrina: "O relatório do guia do ginásio: os psíquicos dela batem forte e aguentam dano especial, então traga um fantasma, um inseto, ou algo com Ataque bruto."
+      map_npc_guide_blaine: "O relatório do guia do ginásio: água ainda responde ao Blaine, mas ele tem golpes de cobertura mirando justamente o que você trouxer para apagá-lo."
+      map_npc_guide_giovanni: "O guia do ginásio não sabe nada sobre o líder, só um boato de que ele é rico. Espere um time com um monte de golpes de TM."
       map_npc_route1_potion: "Funcionário do Poké Mart de Viridian. Fale com ele por uma Potion de amostra grátis."
       map_npc_route24_charmander: "Na colina de grama acima da ponte, este garoto te dá um Charmander grátis (Nv 10). Pegue."
       map_npc_viridian_tm42: "Um Pescador cochilando num terreno cercado, fechado por uma árvore cortável. Acorde-o e ele te dá o TM42, Dream Eater."
@@ -884,7 +902,7 @@ pt:
       catchsec_surf_label: "Surfando"
       catchsec_surf_hint: "Em cima da água. Precisa de Surf."
       catchsec_old_rod_label: "Vara Velha"
-      catchsec_old_rod_hint: "Um slot só, então espere sempre o mesmo peixe."
+      catchsec_old_rod_hint: "Uma tabela só para toda Kanto, então a margem não muda nada."
       catchsec_good_rod_label: "Vara Boa"
       catchsec_good_rod_hint: "Dois slots compartilhados em qualquer margem."
       catchsec_super_rod_label: "Super Vara"
@@ -1005,6 +1023,12 @@ pt:
       badge_needs: "PRECISA DE %{tool}"
       badge_boxed: "JÁ NA CAIXA"
       badge_do_at: "FAÇA EM %{stop}"
+      badge_do_at_how: "%{how} EM %{stop}"
+      badge_how_grass: "NA GRAMA"
+      badge_how_surf: "SURFANDO"
+      badge_how_old_rod: "OLD ROD"
+      badge_how_good_rod: "GOOD ROD"
+      badge_how_super_rod: "SUPER ROD"
       pill_box_html: "CAIXA %{have}/%{want}"
       pill_box_done: "CAIXA ✓"
       pill_registered: "REGISTRADO ✓"
@@ -4416,6 +4440,101 @@ pt:
           stop_pages_html: "<b>Nas páginas de parada:</b> cada local lista o que ainda deve registro nessa janela, e quais famílias ficam travadas até uma insígnia posterior."
           queue_tag: "EXEMPLO · TUDO QUE SE DEVE ANTES DO BROCK"
           queue_note: "Seu inicial, sete capturas entre as Rotas 1, 2 e 22 e a floresta, e as evoluções que elas alimentam, incluindo a famosa maratona do Pidgeot. Metapod e Pidgeotto valem dos dois jeitos: capture selvagens na floresta, ou evolua até eles. Nidoking e Nidoqueen esperam a Moon Stone no Mt. Moon. Raichu nunca vem: Yellow não tem Pikachu selvagem e seu inicial recusa a Thunder Stone, então ele é só por troca, e a gente só acompanha o que um cartucho sozinho consegue."
+      what_changed:
+        meta_title: "O que o Legacy mudou · Walkthrough de %{game}"
+        crumb: "O que mudou"
+        eyebrow: "ESPECIAL · MUDANÇAS DE REGRA"
+        title: "O que o Yellow Legacy mudou, e o que ele enfim explica"
+        lead: "O Legacy reescreveu a conversa fiada. Metade dos moradores de Kanto agora explica alguma regra, e elas se dividem em dois grupos: o que este jogo alterou, e regras da Gen 1 que o original nunca contou. Cada uma abaixo está marcada na página da parada onde o NPC fica."
+        note: "Tudo lido direto da desmontagem, não do diálogo: cada item aqui foi conferido nas tabelas do próprio jogo antes de ser escrito."
+        index:
+          kind: "REGRAS"
+          where: "JOGO INTEIRO"
+          name: "O que o Legacy mudou"
+          note: "As regras que diferem do Yellow original, e as manias da Gen 1 que os moradores enfim explicam."
+        rewritten:
+          eyebrow: "MUDOU · O LEGACY ALTEROU ISTO"
+          h2: "Regras que este jogo reescreveu"
+          intro: "Nada disto vale no Yellow original. Se você está jogando de memória, são estas que vão te pegar."
+          running:
+            title: "Tênis de corrida"
+            text: "Segure B e você anda na velocidade da bicicleta em qualquer lugar a pé. Surfar já corre nessa velocidade sozinho, sem segurar nada."
+            where: "Pallet Town, a garota ao lado da horta"
+          bag:
+            title: "Uma mochila que guarda o triplo"
+            text: "59 espaços de item em vez de 20, e apertar START dentro da mochila organiza tudo."
+            where: "Pallet Town, o pescador abaixo do laboratório"
+          types:
+            title: "Duas correções na tabela de tipos"
+            text: "Fantasma causa dano dobrado em psíquico, onde na Gen 1 não fazia nada. Inseto não é mais forte contra veneno, mas veneno continua dobrando contra inseto."
+            where: "Pallet Town, dentro do laboratório do Carvalho"
+          dvs:
+            title: "Dá para ler os DVs de um Pokémon"
+            text: "Segure START, depois aperte A em STATS, e a página mostra os valores escondidos de 0 a 15 por trás de cada status."
+            where: "Viridian City, o garoto perto do Mart"
+          habitats:
+            title: "As tabelas selvagens mudaram"
+            text: "As espécies foram redistribuídas por Kanto para espalhar o elenco. Toda rota é terreno novo, não importa o que você lembra de capturar lá."
+            where: "Viridian City, o quadro de dicas"
+          trade_evos:
+            title: "Nenhuma evolução por troca"
+            text: "Todas as quatro evoluem por nível: Machoke no 38, Graveler no 38, Kadabra no 42 e Haunter no 42. Um cartucho só fecha a dex."
+            where: "Viridian City, o caderno da escola"
+          rods:
+            title: "As varas andaram um doador para a frente"
+            text: "O Old Rod é entregue no Viridian Mart, e o Good Rod na casa de Vermilion que antes tinha o Old Rod. O guru de Fuchsia dá um Pokémon fóssil no lugar."
+            where: "Viridian City, o Fishing Guru dentro do Mart"
+          box_call:
+            title: "A sua box avisa quando enche"
+            text: "Chega uma ligação em vez de um Pokémon capturado sumir em silêncio."
+            where: "Rota 3, o garoto na crista"
+          move_shop:
+            title: "Um Move Deleter e um Move Relearner"
+            text: "Dois cientistas na sala dos fósseis do laboratório de Cinnabar. Um tira um golpe de volta, HMs inclusive, e o outro devolve um golpe que o Pokémon deixou passar."
+            where: "Cinnabar Island, a sala dos fósseis do laboratório"
+          coins:
+            title: "Fichas do Game Corner no atacado"
+            text: "Um atendente na sala de prêmios vende 500 fichas por ¥11.000, então os Pokémon de prêmio não custam mais uma tarde nos caça-níqueis."
+            where: "Celadon City, a sala de prêmios"
+          tm_names:
+            title: "A TM diz qual é o golpe"
+            text: "Ao pegar uma, aparece TM28 DIG em vez de só TM28, então não precisa mais de tabela para saber o que você achou."
+        spelled_out:
+          eyebrow: "EXPLICADO · A GEN 1 JÁ FUNCIONAVA ASSIM"
+          h2: "Regras que o original nunca contou"
+          intro: "O Legacy não mudou nada aqui. Ele reescreveu os moradores que falavam de nada em gente que explica como a Gen 1 sempre funcionou, incluindo dois quadros que o original errava."
+          stat_exp:
+            title: "Experiência de status"
+            text: "Toda batalha alimenta pontos de status escondidos além da curva de nível, então um Pokémon que você criou fica maior que o de um treinador no mesmo nível."
+            where: "Rota 1, o garoto na grama"
+          crits:
+            title: "Acertos críticos vêm da Velocidade"
+            text: "A taxa sai da Velocidade base, não da sorte nem do golpe. Os Pokémon mais rápidos do jogo acertam crítico em um golpe a cada cinco."
+            where: "Cerulean City, o quadro de dicas"
+          special:
+            title: "SPECIAL é um status fazendo dois trabalhos"
+            text: "É o ataque especial e a defesa especial ao mesmo tempo, então um Pokémon com SPECIAL alto bate forte e absorve golpes na mesma medida."
+            where: "Celadon City, o quadro de dicas"
+          guard_spec:
+            title: "Guard Spec. bloqueia quedas de status"
+            text: "Ele não faz nada contra dano de fogo ou água, ao contrário do que o quadro do próprio original dizia. Ele impede que seus status caiam."
+            where: "Celadon City, o segundo quadro de dicas"
+          ghost_damage:
+            title: "Golpes fantasma são dano especial"
+            text: "Na Gen 1 a categoria segue o tipo, então um golpe fantasma cobra o dano do SPECIAL e nunca do Ataque."
+            where: "Pokémon Tower, a Channeler no térreo"
+          badges:
+            title: "Duas insígnias aumentam o status que o original trocou"
+            text: "A Thunder Badge aumenta a Defesa e a Soul Badge aumenta a Velocidade. Os líderes do original dizem o contrário; o jogo sempre fez assim."
+            where: "Vermilion City, o Lt. Surge"
+          hyper_beam:
+            title: "Hyper Beam pula a recarga se nocautear"
+            text: "Derrube o alvo e o turno acaba limpo. A recarga só pesa quando o alvo sobrevive."
+            where: "Celadon City, o apostador na sala de prêmios"
+          gym_guides:
+            title: "Os guias de ginásio contam o time real"
+            text: "Cada guia trocou a frase padrão por um relatório sobre o líder na porta de quem ele fica, o que importa mais agora que os times batem mais forte."
+            where: "Ginásio de Pewter City, o guia logo na entrada"
       route:
         h2: "Pallet Town → Indigo Plateau"
         lead: "Siga na ordem. Cada parada abre sua própria página com listas de captura, treinadores, itens e mapas de itens ocultos."
@@ -5062,6 +5181,16 @@ pt:
         aside: "Chegue sem um e o Dude só avisa que os cachorros-quentes e hambúrgueres estão em promoção. Chegue com um e ele diz que não está mais sozinho, embora o Pikachu que anda pela sala nunca suba numa prancha."
       locations:
         pallet_town:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "Os vizinhos de Pallet explicam as regras novas"
+            intro_html: "O Yellow Legacy transformou a conversa fiada da vila em briefing. A garota ao lado da horta %{shoes} e o pescador abaixo do laboratório %{bag} contam cada um um conforto que o original não tinha, e dentro do laboratório %{lab} a equipe do Carvalho traz duas correções na tabela de tipos."
+            facts:
+              running: "Segure B para andar na velocidade da bicicleta. Surfar já é rápido assim."
+              bag: "A mochila guarda 59 itens em vez de 20, e START organiza tudo."
+              ghost: "Fantasma causa dano dobrado em psíquico, onde na Gen 1 não fazia nada."
+              bug: "Inseto não é mais forte contra veneno. Veneno continua dobrando contra inseto."
+            note: "As duas correções decidem lutas mais para a frente: golpes fantasma finalmente mordem o time da Sabrina, e um golpe inseto deixa de ser o atalho contra o Koga."
           note: "Pegue o Pikachu com o Prof. Oak. Sem grama selvagem aqui."
           intro: "Uma vila de uma rua só, com duas casas e o laboratório do Carvalho, sem nenhuma grama dentro dela. Todo treinador de Kanto começa nesta porta."
           trivia:
@@ -5078,6 +5207,16 @@ pt:
               flareon:
                 this: "Vença esta batalha"
                 rt22: "Pule a batalha da Rota 22"
+          changed_rules:
+            tag: "O QUE MUDOU"
+            title: "Os vizinhos de Pallet explicam as regras novas"
+            intro_html: "O Yellow Legacy transformou a conversa fiada da vila em briefing. A garota ao lado da horta %{shoes} e o pescador abaixo do laboratório %{bag} contam cada um um conforto que o original não tinha, e dentro do laboratório %{lab} a equipe do Carvalho traz duas correções na tabela de tipos."
+            facts:
+              running: "Segure B para andar na velocidade da bicicleta. Surfar já é rápido assim."
+              bag: "A mochila guarda 59 itens em vez de 20, e START organiza tudo."
+              ghost: "Fantasma causa dano dobrado em psíquico, onde na Gen 1 não fazia nada."
+              bug: "Inseto não é mais forte contra veneno. Veneno continua dobrando contra inseto."
+            note: "As duas correções decidem lutas mais para a frente: golpes fantasma finalmente mordem o time da Sabrina, e um golpe inseto deixa de ser o atalho contra o Koga."
           steps:
             "1":
               title: "Retire a Potion grátis"
@@ -5096,6 +5235,13 @@ pt:
           tips:
             pikachu: "Seu parceiro obrigatório e o único Pikachu do jogo. Ele recusa a Thunder Stone, então continua Pikachu."
         route_1:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O garoto na grama explica a experiência de status"
+            intro_html: "Antes ele apontava para as beiradas. Agora ele %{youngster} explica a metade escondida do nível, e o Legacy não mudou nada para isso ser verdade: a Gen 1 sempre funcionou assim."
+            facts:
+              stat_exp: "Batalhar alimenta pontos de status escondidos além da curva de nível, então um Pokémon que você criou vence o de um treinador no mesmo nível."
+            note: "É por isso que treinar um favorito compensa duas vezes, e por que um Lv 50 seu parece um Lv 60 deles."
           note: "Primeiro trecho de grama. Pidgey e Rattata."
           intro: "Um pulo curto ao norte até Viridian, só desníveis e grama baixa. Pidgey e Rattata são as duas únicas coisas que vivem nela."
           steps:
@@ -5114,6 +5260,17 @@ pt:
             pidgey: "Por toda a Rota 1. Um Normal/Voador confiável que evolui até Pidgeot."
             rattata: "Rápido e comum. Evolui para Raticate, um bom atacante inicial."
         viridian_city:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "Viridian é onde o Legacy se explica"
+            intro_html: "Quatro das regras que este hack reescreveu ficam a um quarteirão umas das outras: o garoto perto do Mart %{dvs}, o quadro de dicas na estrada norte %{habitats}, a escola %{school} e o Fishing Guru dentro do Mart %{mart}."
+            facts:
+              dvs: "Segure START, depois aperte A em STATS, e a página mostra os DVs escondidos de 0 a 15."
+              habitats: "As tabelas selvagens mudaram. Toda rota é terreno novo, não importa o que você pegou lá no Yellow."
+              trade_evos: "Nenhuma evolução por troca sobrou: Machoke e Graveler no Lv 38, Kadabra e Haunter no Lv 42."
+              rods: "O Old Rod é entregue aqui, no Mart, em vez de esperar até Vermilion."
+              enemy_pp: "Um quadro diz que treinadores inimigos ignoram PP. Os Pokémon deles gastam; só começam toda batalha cheios."
+            note: "A leitura de DV, os habitats trocados e as evoluções por nível são coisa do Legacy. O quadro do PP é a alegação do original, repetida."
           mart:
             blurb: "O primeiro Mart do jogo. Só começa a vender depois que você entrega o Oak's Parcel vindo de Pallet Town."
             buy: "Compre um punhado de Poké Balls para as Rotas 1–2 e a Viridian Forest. Antidote cobre o Poison Sting da linha do Weedle."
@@ -5147,14 +5304,19 @@ pt:
               title: "Abasteca na loja"
               text: "Volte a Viridian e abasteça na loja: Poke Balls, Potions e Antidotes para a Rota 22, a Rota 2 e a Floresta. Para pegar as cinco grátis do Oak, compre depois do rival da Rota 22."
             "5":
+              title: "Pegue o Old Rod"
+              text_html: "O Fishing Guru espera no fundo do Mart %{mart}, ao lado das prateleiras de varas. Diga sim quando ele perguntar e o Old Rod é seu. O lago logo ali tem Goldeen e Poliwag."
+              items:
+                old_rod: "Com o Fishing Guru no fundo do Viridian Mart. Pesca Goldeen e Poliwag Lv 5 em qualquer margem de Kanto."
+            "6":
               title: "Veja a demonstracao de captura"
               text: "O velho na estrada ao norte ja acordou. Fale com ele e assista a demonstracao de captura; quando ela termina, ele sai do caminho e a passagem ao norte enfim abre."
-            "6":
+            "7":
               title: "Pegue a Potion escondida perto da saida norte"
               text_html: "Com o caminho aberto, suba até a saída norte %{north}, no topo da cidade. Uma árvore solitária ao lado do caminho de saída esconde uma Potion. Aperte A ao lado dela; nada aparece na tela."
               hidden:
                 potion: "A árvore solitária ao lado do caminho da saída norte, no topo da cidade. Aperte A; nada aparece na tela."
-            "7":
+            "8":
               title: "Pule o Ginasio e siga a oeste para a Rota 22"
               text_html: "O Ginásio %{gym} no nordeste fica trancado até você ter as outras sete insígnias, então deixe para depois. Pegue a saída oeste %{west} para a Rota 22, pelas melhores capturas contra o Brock e o próximo rival."
         route_22:
@@ -5261,6 +5423,13 @@ pt:
           oak:
             caterpie: "A nova família da floresta. Evolui para Butterfree. Registre a base uma vez."
         pewter_city:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O quadro de dicas aprendeu um truque novo"
+            intro_html: "O quadro ao lado do Centro Pokémon %{board} antes explicava que batalhar dá EXP. O Legacy deu a ele algo que você não descobre sozinho."
+            facts:
+              dv_menu: "A página de STATS mostra os DVs de um Pokémon se você segurar START antes de apertar A."
+            note: "Vale olhar antes de se comprometer a criar algo: DVs nunca mudam, e a diferença chega a 30 pontos de status no Lv 100."
           mart:
             blurb: "Logo ao lado do Centro Pokémon. Reabasteça aqui antes do Mt. Moon, uma caverna longa e sem lojas."
             buy: "Poké Balls para os Clefairy do Mt. Moon e algumas Potions. Um Escape Rope te tira de lá se você se perder."
@@ -5377,7 +5546,7 @@ pt:
             clefairy: "Só 1% no 1F, mas 10,5% lá no B2F. Pegue dois: uma Moon Stone transforma um em Clefable."
           oak:
             clefairy: "Captura rara da caverna. Evolua com uma Moon Stone em Clefable."
-            geodude: "Por toda a rocha. Evolui para Graveler, depois Golem por troca."
+            geodude: "Por toda a rocha. Evolui para Graveler, depois Golem no Lv 38. Sem cabo aqui."
         route_4:
           note: "Descida curta até Cerulean. O único Farfetch'd selvagem do jogo."
           intro: "O longo desnível a leste do Mt. Moon, descendo até Cerulean em degraus de mão única. Depois de pular, o único jeito de voltar é pela caverna."
@@ -5402,6 +5571,13 @@ pt:
             lass:
               note: "Você não consegue alcançar esta Lass na passagem. Ela fica na ponta leste do platô superior da Rota 4, e os desníveis de mão única te jogam em Cerulean antes de chegar até ela. Anote para uma volta mais tarde."
         cerulean_city:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "De onde vêm os acertos críticos"
+            intro_html: "O quadro de dicas ao sul da ponte %{board} trocou o aviso sobre cancelar evolução pela regra por trás de todo golpe de sorte que você já levou."
+            facts:
+              crits: "A taxa de crítico sai da Velocidade base, não do golpe. Os mais rápidos acertam um golpe a cada cinco."
+            note: "O Legacy não mudou nada aqui: a Gen 1 sempre fez assim, e o hack diz isso em vez de rebalancear."
           mart:
             blurb: "O Mart de Cerulean acrescenta Repel à prateleira, útil nas rotas cheias de treinadores até o Bill."
             buy: "Poké Balls para as Rotas 24–25 e um Repel ou dois para andar pelo mato em paz."
@@ -5515,7 +5691,7 @@ pt:
               title: "Pegue o Underground Path"
               text_html: "Os portões de Saffron estão bloqueados, então entre na casa do Underground Path %{path} no sul da rota. A escada lá dentro te joga no túnel para a Rota 6."
           oak:
-            abra: "Capture rápido (ele só usa Teleport). Evolui para Kadabra, depois Alakazam por troca."
+            abra: "Capture rápido (ele só usa Teleport). Evolui para Kadabra, depois Alakazam no Lv 42."
         underground_path:
           note: "O túnel sob Saffron. Dois itens ocultos, nada selvagem."
           intro: "Um corredor reto sob Saffron City, de quatro tiles de largura, sem treinadores e sem Pokémon selvagens. Dois itens ocultos ficam no chão, e nenhum dos dois aparece na tela."
@@ -5550,15 +5726,15 @@ pt:
               "1": "Revise as latas de lixo ao longo das paredes para achar o primeiro interruptor. A posicao dele e aleatoria a cada visita."
               "2": "O segundo interruptor fica sempre numa lata vizinha a primeira, acima, abaixo, a esquerda ou a direita. Se errar, os dois reiniciam, entao cheque as vizinhas."
               "3": "Com os dois interruptores ativados, a porta ate Lt. Surge abre. Leve um tipo Terra para anular a equipe Eletrica dele."
-          note: "Bike Voucher e Old Rod. O ginásio depende do Cut."
+          note: "Bike Voucher e Good Rod. O ginásio depende do Cut."
           intro: "Um porto de trabalho na costa sul de Kanto, com o cais tomado pelo S.S. Anne. Árvores cortáveis separam a praça do ginásio do resto da cidade."
           steps:
             "1":
               title: "Pegue os itens"
-              text_html: "Cure no Centro Pokémon %{center}, depois pegue o Bike Voucher no Pokémon Fan Club %{club} e o Old Rod com o Fishing Guru %{guru} no lado oeste da cidade."
+              text_html: "Cure no Centro Pokémon %{center}, depois pegue o Bike Voucher no Pokémon Fan Club %{club} e o Good Rod com o Fishing Guru %{guru} no lado oeste da cidade."
               items:
                 bike_voucher: "Com o presidente do Pokémon Fan Club, no lado oeste da cidade. Troque por uma Bicycle na Bike Shop de Cerulean."
-                old_rod: "Com o Fishing Guru na casa do lado oeste da cidade. Pesca Magikarp em qualquer lugar."
+                good_rod: "Com o irmão mais velho do primeiro Guru, na casa do lado oeste da cidade. A vara dele alcança os peixes Lv 20 que o Old Rod nunca vê."
             "2":
               title: "Entre no S.S. Anne pelo Cut"
               text_html: "Árvores cortáveis fecham a praça do ginásio %{gym}, então o Surge espera. Suba no navio na doca sul %{dock} e <a href=\"%{href}\">limpe o S.S. Anne</a>: o Capitão enjoado entrega o HM01 Cut."
@@ -5575,6 +5751,13 @@ pt:
               from: "DA OFFICER JENNY"
               unlock: "Vença o Lt. Surge pela Thunder Badge"
         vermilion_city_return:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O Lt. Surge enfim diz o status certo"
+            intro_html: "A insígnia que ele entrega no ginásio %{gym} aumenta a Defesa, não a Velocidade. O Surge original fala em Velocidade, e erra isso desde 1998."
+            facts:
+              badges: "A Thunder Badge aumenta a Defesa e a Soul Badge aumenta a Velocidade. O código sempre fez nessa ordem."
+            note: "O Legacy corrigiu a fala, não o efeito. As duas insígnias aumentam o que sempre aumentaram."
           note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
           intro: "O mesmo porto, agora sem as árvores. O Lt. Surge mantém a porta trancada atrás de dois interruptores escondidos nas latas de lixo, e o Raichu dele responde a tipos Terra com Mega Kick."
           steps:
@@ -5829,7 +6012,7 @@ pt:
               title: "Saia para Lavender Town"
               text: "Você emerge no lado leste do 1F, no trecho que tem a boca sul. Desça e siga a oeste até ela, saindo na parte baixa da Rota 10 e direto para Lavender Town."
           oak:
-            machop: "Comum na caverna → Machoke, depois Machamp por troca. Um Lutador forte."
+            machop: "Comum na caverna → Machoke, depois Machamp no Lv 38. Um Lutador forte, e sem troca para combinar."
             onix: "Só aparece no B1F. Uma captura Rocha/Terra robusta que vale a caçada."
         lavender_town:
           mart:
@@ -5885,6 +6068,15 @@ pt:
               title: "Cruze até Celadon"
               text_html: "O mato alto ocupa a parte de cima da faixa: entre nele se ainda quiser um Pidgey, Abra ou Jigglypuff. Senão, siga direto a oeste %{west} até Celadon, a maior cidade de Kanto."
         celadon_city:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "Dois quadros corrigidos, e um atalho nos caça-níqueis"
+            intro_html: "Os quadros de dicas de Celadon %{special} %{guard} foram reescritos, um para explicar um status e outro porque o original estava simplesmente errado, e a sala de prêmios %{prizes} ganhou um atendente que vale conhecer."
+            facts:
+              special: "SPECIAL é um status fazendo dois trabalhos: o ataque especial e a defesa especial ao mesmo tempo."
+              guard_spec: "Guard Spec. bloqueia quedas de status. Não faz nada contra fogo ou água, ao contrário do quadro antigo."
+              coins: "Um atendente da sala de prêmios vende 500 fichas por ¥11.000, então os Pokémon de prêmio não custam uma tarde nos caça-níqueis."
+            note: "Só o atendente de fichas é novo. Os dois quadros descrevem a Gen 1 como ela sempre rodou, o que é mais do que os originais conseguiam."
           store:
             trades:
               ice_beam: "O melhor golpe de Gelo do jogo, e pode congelar. Dê a um tipo Água e ele cobre Grama, Terra, Voador e Dragão."
@@ -6132,6 +6324,13 @@ pt:
               title: "Siga para o Ginásio"
               text_html: "Ao norte pela porta, a oeste pelo corredor e suba a escada da esquerda até o salão, depois saia %{out}. Cure, compre curas de status e leve alguém com Cut ao Ginásio."
         pokemon_tower:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "Por que um atacante resistente ainda cai aqui"
+            intro_html: "A Channeler do térreo %{channeler} é a única da torre que só conversa, e agora ela explica a regra que rege toda a subida."
+            facts:
+              ghost_damage: "Na Gen 1 a categoria segue o tipo, então um golpe fantasma cobra o dano do SPECIAL e nunca do Ataque."
+            note: "Traga resistência especial, não física. Uma parede de Defesa alta vira papel contra tudo neste prédio."
           note: "A torre assombrada de Lavender. Fantasmas e o Poké Flute."
           intro: "Sete andares de túmulos sobre Lavender Town, quase todos guardados por uma Channeler. Gastly assombra esta torre e nenhum outro lugar de Kanto."
           steps:
@@ -6199,10 +6398,10 @@ pt:
               title: "Siga ao sul para a Rota 12"
               text: "Saia de Lavender pela estrada ao sul até a Rota 12. O Poké Flute acorda o Snorlax deitado no meio do píer, e as rotas de pesca descem até Fuchsia."
           tips:
-            gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar por troca."
+            gastly: "A única linha de Gengar do jogo. Evolua Gastly para Haunter, depois Gengar no Lv 42."
             cubone: "Só no 5F e no 6F, e a torre é a única casa dele em Kanto. Pegue um extra: o Ricky, na casa do Underground Path da Rota 5, troca um Machoke por ele."
           oak:
-            gastly: "Andares cheios de fantasmas → Haunter, depois Gengar por troca. A única linha do jogo."
+            gastly: "Andares cheios de fantasmas → Haunter, depois Gengar no Lv 42. A única linha do jogo."
             cubone: "Uma captura rara da Torre → Marowak, um tipo Terra forte."
         route_12:
           note: "Silence Bridge. Oddish, Bellsprout e um Snorlax."
@@ -6309,10 +6508,8 @@ pt:
               title: "Cure e reabasteça"
               text_html: "Chegue pela Rota 15, cure no Centro %{center} e abasteça no Mart %{mart}. Deixe o Ginásio %{gym} para depois: a Safari Zone ao lado vem antes do Koga."
             "2":
-              title: "Pegue o Good Rod e pesque no lago"
-              text_html: "A casa da borda leste %{rod} guarda o irmão mais velho do Fishing Guru: responda SIM e o Good Rod é seu. A porta dos fundos %{back} dá no lago cercado, então use o Super Rod ali por um Gyarados selvagem."
-              items:
-                good_rod: "Com o irmão mais velho do Fishing Guru, na casa da borda leste de Fuchsia. Pesca melhor que o Old Rod."
+              title: "Pegue o fóssil que sobrou e pesque no lago"
+              text_html: "A casa da borda leste %{rod} guarda um Guru que entrega o Pokémon fóssil que você deixou no Mt. Moon, no Lv 10: Omanyte se você pegou o Dome Fossil, Kabuto se pegou o Helix. A porta dos fundos %{back} dá no lago cercado, então use o Super Rod ali por um Gyarados selvagem."
             "3":
               title: "Explore a Safari Zone"
               text_html: "Siga ao norte para a Safari Zone %{safari}. A sala de prêmios guarda o HM03 Surf, e os Gold Teeth que você acha lá dentro compram o HM04 Strength com o Warden."
@@ -6921,6 +7118,13 @@ pt:
             zapdos: "A ave Elétrica da Power Plant. Só uma chance. Capture enquanto está aqui."
             voltorb: "Por todos os andares (e disfarçado de itens) → Electrode. Pegue um para a dex."
         cinnabar_island:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O laboratório contratou mais dois cientistas"
+            intro_html: "Depois do balcão dos fósseis no laboratório %{lab}, o Legacy colocou uma dupla que o original nunca teve, e é a resposta para todo HM que você se arrependeu de ensinar."
+            facts:
+              move_shop: "Um Move Deleter tira um golpe de volta, HMs inclusive, e um Move Relearner devolve um golpe que o Pokémon passou de nível."
+            note: "Vale a viagem assim que quem usa Cut ou Flash tiver algo melhor para aquele espaço."
           mart:
             blurb: "O Mart da ilha traz a prateleira completa do fim de jogo: Ultra Balls, Hyper Potions e Full Heals."
             buy: "Ultra Balls para os spawns raros da Mansion, além de Hyper Potions e Revives para os tipos fogo do Blaine."
@@ -7448,7 +7652,7 @@ pt:
                   value: "A Liga reinicia toda vez que você volta voando, nos mesmos níveis. É o melhor dinheiro e a melhor experiência do jogo."
                 missing:
                   label: "AINDA FALTA"
-                  value: "As evoluções por troca e os exclusivos de versão. Veja no tracker o que o seu arquivo ainda deve ao Oak."
+                  value: "Os exclusivos de versão, e as evoluções por pedra que você ainda não alimentou. Veja no tracker o que o seu arquivo ainda deve ao Oak."
         route_4_return:
           note: "A travessia até a porta da caverna, e o último treinador de Kanto."
           intro: "A porta da caverna dá para uma faixa de areia sem nenhuma estrada até ela, então o caminho de entrada é o rio da Nugget Bridge. Essa areia segue a oeste até o único platô da Rota 4 que os desníveis nunca deixam você subir."
@@ -7609,7 +7813,7 @@ pt:
                 value_html: "O único objetivo que sobrou. O mato, a água e os pontos de pesca que você pulou, o fóssil que ficou na Mansão, os dois prêmios do Game Corner. O <a href=\"%{href}\">tracker</a> lista exatamente o que o seu arquivo ainda deve ao Oak."
               cable:
                 label: "CABLE CLUB"
-                value: "No andar de cima de qualquer Centro Pokémon. Troque e batalhe com um segundo arquivo ou com um amigo. Machoke, Graveler, Kadabra e Haunter só evoluem por troca, então a dex não fecha sem isso."
+                value: "No andar de cima de qualquer Centro Pokémon. Troque e batalhe com um segundo arquivo ou com um amigo. O Legacy nunca precisa disso para a dex: toda evolução por troca virou por nível."
               league:
                 label: "LIGA EM LOOP"
                 value_html: "Voe até <a href=\"%{href}\">Indigo Plateau</a> e os cinco encaram você de novo nos mesmos níveis, quantas vezes você quiser. A melhor experiência e o melhor dinheiro do jogo, até o Nv 100."
