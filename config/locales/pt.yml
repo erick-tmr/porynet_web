@@ -5188,6 +5188,7 @@ pt:
             facts:
               running: "Segure B para andar na velocidade da bicicleta. Surfar já é rápido assim."
               bag: "A mochila guarda 59 itens em vez de 20, e START organiza tudo."
+              pikachu: "Seu parceiro começa mais resistente: 60 de HP, 50 de Defesa e 70 de Special, e aprende todos os HMs."
               ghost: "Fantasma causa dano dobrado em psíquico, onde na Gen 1 não fazia nada."
               bug: "Inseto não é mais forte contra veneno. Veneno continua dobrando contra inseto."
             note: "As duas correções decidem lutas mais para a frente: golpes fantasma finalmente mordem o time da Sabrina, e um golpe inseto deixa de ser o atalho contra o Koga."
@@ -5207,16 +5208,6 @@ pt:
               flareon:
                 this: "Vença esta batalha"
                 rt22: "Pule a batalha da Rota 22"
-          changed_rules:
-            tag: "O QUE MUDOU"
-            title: "Os vizinhos de Pallet explicam as regras novas"
-            intro_html: "O Yellow Legacy transformou a conversa fiada da vila em briefing. A garota ao lado da horta %{shoes} e o pescador abaixo do laboratório %{bag} contam cada um um conforto que o original não tinha, e dentro do laboratório %{lab} a equipe do Carvalho traz duas correções na tabela de tipos."
-            facts:
-              running: "Segure B para andar na velocidade da bicicleta. Surfar já é rápido assim."
-              bag: "A mochila guarda 59 itens em vez de 20, e START organiza tudo."
-              ghost: "Fantasma causa dano dobrado em psíquico, onde na Gen 1 não fazia nada."
-              bug: "Inseto não é mais forte contra veneno. Veneno continua dobrando contra inseto."
-            note: "As duas correções decidem lutas mais para a frente: golpes fantasma finalmente mordem o time da Sabrina, e um golpe inseto deixa de ser o atalho contra o Koga."
           steps:
             "1":
               title: "Retire a Potion grátis"
@@ -5449,6 +5440,13 @@ pt:
             intro: "Um Jigglypuff fica encostado na parede dentro do Centro Pokémon de Pewter City. Fale com ele e ele solta a cantiga \"Puu pupuu!\": se o seu Pikachu estiver andando atrás de você, a canção apaga ele na hora e ele para de te seguir, igualzinho a ser posto para dormir numa batalha."
             note: "Só acontece quando o Pikachu é seu parceiro te seguindo e está sem nenhuma condição de status. Fora isso, o Jigglypuff apenas canta. Uma piscadela para como o golpe Sing dele funciona numa batalha de verdade."
         route_3:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O Youngster da crista tem novidade sobre a sua PC"
+            intro_html: "Vença ele e vem junto uma fala que o original não tinha %{youngster}. É o único aviso que você recebe, então vale ouvir antes que as boxes comecem a encher."
+            facts:
+              box_call: "Chega uma ligação quando uma box enche, em vez de a próxima captura sumir em silêncio."
+            note: "Ele fala isso depois da batalha, não antes, então não passe direto esperando uma placa."
           note: "A subida até o Mt. Moon. Spearow, Sandshrew e Mankey."
           intro: "Uma subida estreita a leste de Pewter com oito treinadores, mais que qualquer estrada até aqui. Termina no Centro Pokémon na entrada do Mt. Moon."
           steps:
@@ -5753,11 +5751,12 @@ pt:
         vermilion_city_return:
           what_changed:
             tag: "O QUE MUDOU"
-            title: "O Lt. Surge enfim diz o status certo"
-            intro_html: "A insígnia que ele entrega no ginásio %{gym} aumenta a Defesa, não a Velocidade. O Surge original fala em Velocidade, e erra isso desde 1998."
+            title: "Insígnia vale o dobro, e o Surge enfim diz o status certo"
+            intro_html: "O Legacy dobrou o que uma insígnia faz pelo time que você manda para a batalha, e a que ele entrega no ginásio %{gym} aumenta a Defesa, não a Velocidade. O Surge original fala em Velocidade, e erra isso desde 1998."
             facts:
+              boost: "Uma insígnia vale 25% do status que ela levanta, contra 12,5% antes. O Pikachu é a única exceção e continua com 12,5%."
               badges: "A Thunder Badge aumenta a Defesa e a Soul Badge aumenta a Velocidade. O código sempre fez nessa ordem."
-            note: "O Legacy corrigiu a fala, não o efeito. As duas insígnias aumentam o que sempre aumentaram."
+            note: "O Pikachu fica de fora porque o Legacy já pagou adiantado: ele começa com 60 de HP, 50 de Defesa e 70 de Special, contra 35, 30 e 50 do original."
           note: "Lt. Surge. Thunder Badge. Squirtle grátis depois."
           intro: "O mesmo porto, agora sem as árvores. O Lt. Surge mantém a porta trancada atrás de dois interruptores escondidos nas latas de lixo, e o Raichu dele responde a tipos Terra com Mega Kick."
           steps:
@@ -6467,6 +6466,13 @@ pt:
           oak:
             ditto: "Capture a bolha que Transforma aqui. Divertida e útil para breeding em gerações futuras."
         route_14:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "Um Bird Keeper deixa escapar que HM não é para sempre"
+            intro_html: "A fala de despedida dele %{cooltrainer} corrige a regra mais antiga do jogo: dá para tirar um golpe de HM de um Pokémon. O cientista que faz isso trabalha no laboratório de Cinnabar."
+            facts:
+              hm_forget: "Golpes de HM podem ser esquecidos, então quem carrega Cut ou Flash recupera o quarto espaço."
+            note: "Outra fala de pós-batalha. Vale o desvio assim que alguém do time estiver carregando um golpe que só o mapa quer."
           note: "Fileira de bikers e aves. Oddish, Bellsprout, Venonat."
           intro: "Uma longa diagonal de alamedas cercadas por arbustos, trabalhada por Bird Keepers e Bikers. Venomoth voa por aqui, raro o bastante para valer um Repel."
           steps:
@@ -6494,6 +6500,13 @@ pt:
               items:
                 exp_all: "Com o Assistente do Oak no 2F da cancela, depois de capturar 50 espécies. Divide o EXP das lutas com todo o time."
         fuchsia_city:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "A casa da vara agora dá um Pokémon, não uma vara"
+            intro_html: "O Guru da borda leste %{house} não tem vara sobrando: o Good Rod voltou para Vermilion. No lugar ele entrega o Pokémon fóssil que você deixou no Mt. Moon, e é assim que um cartucho só fica com as duas linhas."
+            facts:
+              fossil_gift: "Omanyte no Lv 10 se você pegou o Dome Fossil, Kabuto no Lv 10 se pegou o Helix."
+            note: "O tracker de capturas ainda não conta este, então marque a linha que ele fecha na mão até contar."
           mart:
             blurb: "Fuchsia vende Ultra Balls e Hyper Potions, o kit para a Safari Zone e o ginásio do Koga."
             buy: "Ultra Balls aumentam suas chances nas capturas raras. Hyper Potions e um Revive te levam contra o Koga."
@@ -6956,6 +6969,13 @@ pt:
             slowpoke: "A Silence Bridge é a primeira água com Slowpoke que você atravessa com o Surf. Um basta, com Slowbro nos mesmos tiles."
             slowbro: "6% no píer. Todo outro Slowbro fica em água que o guia atravessou antes do HM03, então este é o primeiro que dá para pegar."
         route_19:
+          what_changed:
+            tag: "O QUE MUDOU"
+            title: "O Pikachu do Legacy aprende Surf"
+            intro_html: "O Pikachu original não tem como aprender Surf no cartucho, e é por isso que a casa da praia %{beach} costuma ficar fechada. O Legacy colocou Surf na lista de HMs dele, junto com Cut, Fly e Strength."
+            facts:
+              pikachu_surf: "Ensine HM03 Surf ao seu parceiro e o minijogo atrás daquela porta abre, sem Stadium e sem um segundo console."
+            note: "O texto da Praia do Pikachu abaixo ainda explica as regras do original, onde o golpe só chega pelo Pokémon Stadium. Ele precisa ser reescrito para este jogo."
           note: "Rota aquática ao sul de Fuchsia. Precisa de Surf."
           intro: "Mar aberto ao sul de Fuchsia, só água depois que você deixa a praia. Dez Swimmers boiam no caminho, e Tentacool é quase tudo o que morde."
           steps:
