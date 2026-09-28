@@ -31,8 +31,13 @@ Hotwire, a hand-authored pixel-art CSS design system, bilingual (EN default, PT)
   `app/controllers/users/`; `ApplicationController` stays free of Devise, and strong params for
   signup are a `sign_up_params` override, not `configure_permitted_parameters`. Devise copy lives in
   `config/locales/{en,pt}.yml` under `devise:` and `account:` (never a `devise.en.yml`, which would
-  break `test/i18n_parity_test.rb`). Mail is **development only** so far: `letter_opener_web` at
-  `/letters`, with production SMTP still a TODO in `config/environments/production.rb`.
+  break `test/i18n_parity_test.rb`). Development mail lands in `letter_opener_web` at `/letters`;
+  production sends through **Brevo's SMTP relay** (`smtp-relay.brevo.com:587`), the same setup as
+  prisma_engine, with the login and key as `brevo.smtp_login` / `brevo.smtp_key` in
+  `config/credentials/production.yml.enc` (`bin/rails credentials:edit --environment production`).
+  Production reads **only** that file, so it also carries `secret_key_base`, `devise.pepper` and
+  `google.*`, and Kamal ships `config/credentials/production.key` as `RAILS_MASTER_KEY`. The sender is Devise's `mailer_sender`, `no-reply@porynet.com`, so porynet.com
+  must stay authenticated in Brevo (its DKIM / DMARC records in Cloudflare DNS) or mail gets binned.
 - **The logged-in area is four pages, not four tabs.** `/account` (trainer card), `/account/avatar`,
   `/account/security` and `/account/save` are separate `AccountsController` actions, each with its
   `/pt` twin, and the left rail is `link_to` with `.is-active` rather than a Stimulus tab switcher:
