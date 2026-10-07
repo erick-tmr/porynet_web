@@ -65,7 +65,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Code-smell detector; runs advisory on changed files in CI [https://github.com/troessner/reek]
-  gem "reek", "~> 6.5", require: false
+  gem "reek", "~> 6.6", require: false
 
   # S3-compatible client for uploading static images to the Cloudflare R2 bucket
   # (deploy/upload-images.sh). Serving R2 public URLs needs no SDK; only uploads do, so
