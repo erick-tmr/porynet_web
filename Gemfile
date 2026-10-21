@@ -86,7 +86,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   # Headless Chrome over CDP for system tests (replaces Selenium/WebDriver)
-  gem "cuprite", "~> 0.18"
+  gem "cuprite", "~> 0.19"
 
   # Test coverage reporting [https://github.com/simplecov-ruby/simplecov]
   gem "simplecov", require: false
