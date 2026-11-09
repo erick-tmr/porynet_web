@@ -25,7 +25,7 @@ gem "bcrypt", "~> 3.1"
 
 # Sign in with Google. omniauth-rails_csrf_protection is not optional: OmniAuth 2's own
 # request validation reads the token the Rack way, which never matches a Rails form.
-gem "omniauth", "~> 2.1"
+gem "omniauth", "~> 2.2"
 gem "omniauth-google-oauth2", "~> 1.2", ">= 1.2.3"
 gem "omniauth-rails_csrf_protection", "~> 2.0"
 
